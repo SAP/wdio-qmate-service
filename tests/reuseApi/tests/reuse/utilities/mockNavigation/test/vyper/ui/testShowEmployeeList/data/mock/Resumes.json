@@ -1,0 +1,114 @@
+{
+    "d": {
+        "results": [
+            {
+                "ResumeID": 1,
+                "Information": "Information of Nancy Davolio",
+                "Projects": "Projects of Nancy Davolio",
+                "Hobbies": "Hobbies of Nancy Davolio",
+                "Notes": "Notes of Nancy Davolio",
+                "__metadata": {
+                    "id": "/here/goes/your/serviceUrl/Resumes(1)",
+                    "type": "NavigationModel.Resume",
+                    "uri": "/here/goes/your/serviceUrl/Resumes(1)"
+                }
+            },
+            {
+                "ResumeID": 2,
+                "Information": "Information of Andrew Fuller",
+                "Projects": "Projects of Andrew Fuller",
+                "Hobbies": "Hobbies of Andrew Fuller",
+                "Notes": "Notes of Andrew Fuller",
+                "__metadata": {
+                    "id": "/here/goes/your/serviceUrl/Resumes(2)",
+                    "type": "NavigationModel.Resume",
+                    "uri": "/here/goes/your/serviceUrl/Resumes(2)"
+                }
+            },
+            {
+                "ResumeID": 3,
+                "Information": "Information of Janet Leverling",
+                "Projects": "Projects of Janet Leverling",
+                "Hobbies": "Hobbies of Janet Leverling",
+                "Notes": "Notes of Janet Leverling",
+                "__metadata": {
+                    "id": "/here/goes/your/serviceUrl/Resumes(3)",
+                    "type": "NavigationModel.Resume",
+                    "uri": "/here/goes/your/serviceUrl/Resumes(3)"
+                }
+            },
+            {
+                "ResumeID": 4,
+                "Information": "Information of Margaret Peacock",
+                "Projects": "Projects of Margaret Peacock",
+                "Hobbies": "Hobbies of Margaret Peacock",
+                "Notes": "Notes of Margaret Peacock",
+                "__metadata": {
+                    "id": "/here/goes/your/serviceUrl/Resumes(4)",
+                    "type": "NavigationModel.Resume",
+                    "uri": "/here/goes/your/serviceUrl/Resumes(4)"
+                }
+            },
+            {
+                "ResumeID": 5,
+                "Information": "Information of Steven Buchanan",
+                "Projects": "Projects of Steven Buchanan",
+                "Hobbies": "Hobbies of Steven Buchanan",
+                "Notes": "Notes of Steven Buchanan",
+                "__metadata": {
+                    "id": "/here/goes/your/serviceUrl/Resumes(5)",
+                    "type": "NavigationModel.Resume",
+                    "uri": "/here/goes/your/serviceUrl/Resumes(5)"
+                }
+            },
+            {
+                "ResumeID": 6,
+                "Information": "Information of Michael Suyama",
+                "Projects": "Projects of Michael Suyama",
+                "Hobbies": "Hobbies of Michael Suyama",
+                "Notes": "Notes of Michael Suyama",
+                "__metadata": {
+                    "id": "/here/goes/your/serviceUrl/Resumes(6)",
+                    "type": "NavigationModel.Resume",
+                    "uri": "/here/goes/your/serviceUrl/Resumes(6)"
+                }
+            },
+            {
+                "ResumeID": 7,
+                "Information": "Information of Robert King",
+                "Projects": "Projects of Robert King",
+                "Hobbies": "Hobbies of Robert King",
+                "Notes": "Notes of Robert King",
+                "__metadata": {
+                    "id": "/here/goes/your/serviceUrl/Resumes(7)",
+                    "type": "NavigationModel.Resume",
+                    "uri": "/here/goes/your/serviceUrl/Resumes(7)"
+                }
+            },
+            {
+                "ResumeID": 8,
+                "Information": "Information of Laura Callahan",
+                "Projects": "Projects of Laura Callahan",
+                "Hobbies": "Hobbies of Laura Callahan",
+                "Notes": "Notes of Laura Callahan",
+                "__metadata": {
+                    "id": "/here/goes/your/serviceUrl/Resumes(8)",
+                    "type": "NavigationModel.Resume",
+                    "uri": "/here/goes/your/serviceUrl/Resumes(8)"
+                }
+            },
+            {
+                "ResumeID": 9,
+                "Information": "Information of Anne Dodsworth",
+                "Projects": "Projects of Anne Dodsworth",
+                "Hobbies": "Hobbies of Anne Dodsworth",
+                "Notes": "Notes of Anne Dodsworth",
+                "__metadata": {
+                    "id": "/here/goes/your/serviceUrl/Resumes(9)",
+                    "type": "NavigationModel.Resume",
+                    "uri": "/here/goes/your/serviceUrl/Resumes(9)"
+                }
+            }
+        ]
+    }
+}

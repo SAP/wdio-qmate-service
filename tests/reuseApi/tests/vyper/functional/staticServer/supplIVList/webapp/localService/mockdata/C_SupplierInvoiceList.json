@@ -1,0 +1,167 @@
+[
+  {
+    "SupplierInvoice": "",
+    "FiscalYear": "",
+    "SupplierInvoiceUUID": "00a4c48c-0dfc-4507-abc6-9b54a431b788",
+    "SupplierInvoiceWthnFiscalYear": "",
+    "InvoicingParty": "1000001",
+    "InvoicingPartyName": "LIEFER_LA",
+    "CompanyCode": "0001",
+    "DocumentDate": "/Date(1568160000000)/",
+    "PostingDate": "/Date(1568160000000)/",
+    "SupplierInvoiceOrigin": "ARIBA",
+    "SupplierInvoiceOriginDesc": "ARIBA",
+    "DueCalculationBaseDate": "/Date(1568152800000)/",
+    "CashDiscount1Days": 9.85,
+    "CashDiscount1Percent": 416.31,
+    "CashDiscount1DueDate": "/Date(1694383200000)/",
+    "SupplierInvoiceIDByInvcgParty": "",
+    "CreatedByUser": "Georg",
+    "CreatedByUserFullName": "Georggggg",
+    "DocumentHeaderText": "Test Header 1",
+    "InvoiceGrossAmount": 6671.92,
+    "DocumentCurrency": "EUR",
+    "SupplierInvoiceProcessingMode": "Open",
+    "SupplierInvoiceStatus": "Draft",
+    "InvoiceStatusAndOrigin": "Draft",
+    "InvoiceStatusAndOrigin_Text": "Draft",
+    "ApprovalStatusName": "Approved",
+    "ApproverName": "Georg",
+    "IsActiveEntity": "Yes",
+    "IsBlocked": false,
+    "__metadata": {
+      "uri": "C_SupplierInvoiceList(SupplierInvoice='SupplierInvoice%201',FiscalYear='FiscalYear%201',SupplierInvoiceUUID=guid'00a4c48c-0dfc-4507-abc6-9b54a431b788')",
+      "type": "MM_SUPPLIER_INVOICE_LIST_ENH_SRV.C_SupplierInvoiceListType"
+    },
+    "to_CompanyCodeValueHelp": {
+      "__deferred": {
+        "uri": "C_SupplierInvoiceList(SupplierInvoice='SupplierInvoice%201',FiscalYear='FiscalYear%201',SupplierInvoiceUUID=guid'00a4c48c-0dfc-4507-abc6-9b54a431b788')/to_CompanyCodeValueHelp"
+      }
+    },
+    "to_SupplierInvoiceOriginValHelp": {
+      "__deferred": {
+        "uri": "C_SupplierInvoiceList(SupplierInvoice='SupplierInvoice%201',FiscalYear='FiscalYear%201',SupplierInvoiceUUID=guid'00a4c48c-0dfc-4507-abc6-9b54a431b788')/to_SupplierInvoiceOriginValHelp"
+      }
+    },
+    "to_SupplierInvoiceStatusValHelp": {
+      "__deferred": {
+        "uri": "C_SupplierInvoiceList(SupplierInvoice='SupplierInvoice%201',FiscalYear='FiscalYear%201',SupplierInvoiceUUID=guid'00a4c48c-0dfc-4507-abc6-9b54a431b788')/to_SupplierInvoiceStatusValHelp"
+      }
+    },
+    "to_SupplierValueHelp": {
+      "__deferred": {
+        "uri": "C_SupplierInvoiceList(SupplierInvoice='SupplierInvoice%201',FiscalYear='FiscalYear%201',SupplierInvoiceUUID=guid'00a4c48c-0dfc-4507-abc6-9b54a431b788')/to_SupplierValueHelp"
+      }
+    }
+  },
+  {
+    "SupplierInvoice": "5105602884",
+    "FiscalYear": "2018",
+    "SupplierInvoiceUUID": "f3e90896-0a5e-4c86-86ea-cf9424f75486",
+    "SupplierInvoiceWthnFiscalYear": "5105602884/2018",
+    "InvoicingParty": "1000002",
+    "InvoicingPartyName": "GEORG_LA",
+    "CompanyCode": "1710",
+    "DocumentDate": "/Date(1568160000000)/",
+    "PostingDate": "/Date(1568160000000)/",
+    "SupplierInvoiceOrigin": "FIELDGLASS",
+    "SupplierInvoiceOriginDesc": "FIELDGLASS",
+    "DueCalculationBaseDate": "/Date(1568239200000)/",
+    "CashDiscount1Days": 2613.6,
+    "CashDiscount1Percent": 7960.43,
+    "CashDiscount1DueDate": "/Date(1694383200000)/",
+    "SupplierInvoiceIDByInvcgParty": "5105602884",
+    "CreatedByUser": "Okan",
+    "CreatedByUserFullName": "Oookan",
+    "DocumentHeaderText": "Test Header 2",
+    "InvoiceGrossAmount": 2584.86,
+    "DocumentCurrency": "JPA",
+    "SupplierInvoiceProcessingMode": "Process",
+    "SupplierInvoiceStatus": "Posted",
+    "InvoiceStatusAndOrigin": "Posted",
+    "InvoiceStatusAndOrigin_Text": "Posted",
+    "ApprovalStatusName": "Not Approved",
+    "ApproverName": "Okan",
+    "IsActiveEntity": "Yes",
+    "IsBlocked": false,
+    "__metadata": {
+      "uri": "C_SupplierInvoiceList(SupplierInvoice='SupplierInvoice%202',FiscalYear='FiscalYear%202',SupplierInvoiceUUID=guid'f3e90896-0a5e-4c86-86ea-cf9424f75486')",
+      "type": "MM_SUPPLIER_INVOICE_LIST_ENH_SRV.C_SupplierInvoiceListType"
+    },
+    "to_CompanyCodeValueHelp": {
+      "__deferred": {
+        "uri": "C_SupplierInvoiceList(SupplierInvoice='SupplierInvoice%202',FiscalYear='FiscalYear%202',SupplierInvoiceUUID=guid'f3e90896-0a5e-4c86-86ea-cf9424f75486')/to_CompanyCodeValueHelp"
+      }
+    },
+    "to_SupplierInvoiceOriginValHelp": {
+      "__deferred": {
+        "uri": "C_SupplierInvoiceList(SupplierInvoice='SupplierInvoice%202',FiscalYear='FiscalYear%202',SupplierInvoiceUUID=guid'f3e90896-0a5e-4c86-86ea-cf9424f75486')/to_SupplierInvoiceOriginValHelp"
+      }
+    },
+    "to_SupplierInvoiceStatusValHelp": {
+      "__deferred": {
+        "uri": "C_SupplierInvoiceList(SupplierInvoice='SupplierInvoice%202',FiscalYear='FiscalYear%202',SupplierInvoiceUUID=guid'f3e90896-0a5e-4c86-86ea-cf9424f75486')/to_SupplierInvoiceStatusValHelp"
+      }
+    },
+    "to_SupplierValueHelp": {
+      "__deferred": {
+        "uri": "C_SupplierInvoiceList(SupplierInvoice='SupplierInvoice%202',FiscalYear='FiscalYear%202',SupplierInvoiceUUID=guid'f3e90896-0a5e-4c86-86ea-cf9424f75486')/to_SupplierValueHelp"
+      }
+    }
+  },
+  {
+    "SupplierInvoice": "5105602883",
+    "FiscalYear": "2019",
+    "SupplierInvoiceUUID": "3de340d6-7800-412b-9f0c-22f5003d8c86",
+    "SupplierInvoiceWthnFiscalYear": "5105602883/2019",
+    "InvoicingParty": "1000003",
+    "InvoicingPartyName": "OKAN_LA",
+    "CompanyCode": "1010",
+    "DocumentDate": "/Date(1568160000000)/",
+    "PostingDate": "/Date(1568160000000)/",
+    "SupplierInvoiceOrigin": "TEST",
+    "SupplierInvoiceOriginDesc": "TEST",
+    "DueCalculationBaseDate": "/Date(1568325600000)/",
+    "CashDiscount1Days": 5101.49,
+    "CashDiscount1Percent": 7638.68,
+    "CashDiscount1DueDate": "/Date(1694383200000)/",
+    "SupplierInvoiceIDByInvcgParty": "5105602883",
+    "CreatedByUser": "Thomas",
+    "CreatedByUserFullName": "Thoommmas",
+    "DocumentHeaderText": "Test Header 3",
+    "InvoiceGrossAmount": 100.85,
+    "DocumentCurrency": "USD",
+    "SupplierInvoiceProcessingMode": "Done",
+    "SupplierInvoiceStatus": "Parked",
+    "InvoiceStatusAndOrigin": "Parked",
+    "InvoiceStatusAndOrigin_Text": "Parked",
+    "ApprovalStatusName": "Not Approved",
+    "ApproverName": "Thomas",
+    "IsActiveEntity": "Yes",
+    "IsBlocked": false,
+    "__metadata": {
+      "uri": "C_SupplierInvoiceList(SupplierInvoice='SupplierInvoice%203',FiscalYear='FiscalYear%203',SupplierInvoiceUUID=guid'3de340d6-7800-412b-9f0c-22f5003d8c86')",
+      "type": "MM_SUPPLIER_INVOICE_LIST_ENH_SRV.C_SupplierInvoiceListType"
+    },
+    "to_CompanyCodeValueHelp": {
+      "__deferred": {
+        "uri": "C_SupplierInvoiceList(SupplierInvoice='SupplierInvoice%203',FiscalYear='FiscalYear%203',SupplierInvoiceUUID=guid'3de340d6-7800-412b-9f0c-22f5003d8c86')/to_CompanyCodeValueHelp"
+      }
+    },
+    "to_SupplierInvoiceOriginValHelp": {
+      "__deferred": {
+        "uri": "C_SupplierInvoiceList(SupplierInvoice='SupplierInvoice%203',FiscalYear='FiscalYear%203',SupplierInvoiceUUID=guid'3de340d6-7800-412b-9f0c-22f5003d8c86')/to_SupplierInvoiceOriginValHelp"
+      }
+    },
+    "to_SupplierInvoiceStatusValHelp": {
+      "__deferred": {
+        "uri": "C_SupplierInvoiceList(SupplierInvoice='SupplierInvoice%203',FiscalYear='FiscalYear%203',SupplierInvoiceUUID=guid'3de340d6-7800-412b-9f0c-22f5003d8c86')/to_SupplierInvoiceStatusValHelp"
+      }
+    },
+    "to_SupplierValueHelp": {
+      "__deferred": {
+        "uri": "C_SupplierInvoiceList(SupplierInvoice='SupplierInvoice%203',FiscalYear='FiscalYear%203',SupplierInvoiceUUID=guid'3de340d6-7800-412b-9f0c-22f5003d8c86')/to_SupplierValueHelp"
+      }
+    }
+  }
+]

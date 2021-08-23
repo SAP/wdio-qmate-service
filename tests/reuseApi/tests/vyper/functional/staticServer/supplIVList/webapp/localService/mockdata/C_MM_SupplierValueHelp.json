@@ -1,0 +1,68 @@
+[
+  {
+    "Supplier": "1000001",
+    "CompanyCode": "0001",
+    "SupplierName": "LIEFER_LA",
+    "Country": "Germany",
+    "CityName": "Heidelberg",
+    "PostalCode": "69124",
+    "Region": "Region 1",
+    "SortField": "SortField 1",
+    "FirstName": "Liefer",
+    "LastName": "LA",
+    "OrganizationBPName1": "OrganizationBPName1 1",
+    "OrganizationBPName2": "OrganizationBPName2 1",
+    "OrganizationBPName3": "OrganizationBPName3 1",
+    "OrganizationBPName4": "OrganizationBPName4 1",
+    "AuthorizationGroup": "AuthorizationGroup 1",
+    "SupplierAccountGroup": "SupplierAccountGroup 1",
+    "__metadata": {
+      "uri": "C_MM_SupplierValueHelp(Supplier='Supplier%201',CompanyCode='CompanyCode%201')",
+      "type": "MM_SUPPLIER_INVOICE_LIST_ENH_SRV.C_MM_SupplierValueHelpType"
+    }
+  },
+  {
+    "Supplier": "1000002",
+    "CompanyCode": "1710",
+    "SupplierName": "GEORG_LA",
+    "Country": "Japan",
+    "CityName": "Tokyo",
+    "PostalCode": "12344",
+    "Region": "Region 2",
+    "SortField": "SortField 2",
+    "FirstName": "Georg",
+    "LastName": "What",
+    "OrganizationBPName1": "OrganizationBPName1 2",
+    "OrganizationBPName2": "OrganizationBPName2 2",
+    "OrganizationBPName3": "OrganizationBPName3 2",
+    "OrganizationBPName4": "OrganizationBPName4 2",
+    "AuthorizationGroup": "AuthorizationGroup 2",
+    "SupplierAccountGroup": "SupplierAccountGroup 2",
+    "__metadata": {
+      "uri": "C_MM_SupplierValueHelp(Supplier='Supplier%202',CompanyCode='CompanyCode%202')",
+      "type": "MM_SUPPLIER_INVOICE_LIST_ENH_SRV.C_MM_SupplierValueHelpType"
+    }
+  },
+  {
+    "Supplier": "1000003",
+    "CompanyCode": "1010",
+    "SupplierName": "OKAN_LA",
+    "Country": "USA",
+    "CityName": "Texas",
+    "PostalCode": "34566",
+    "Region": "Region 3",
+    "SortField": "SortField 3",
+    "FirstName": "Okan",
+    "LastName": "Test",
+    "OrganizationBPName1": "OrganizationBPName1 3",
+    "OrganizationBPName2": "OrganizationBPName2 3",
+    "OrganizationBPName3": "OrganizationBPName3 3",
+    "OrganizationBPName4": "OrganizationBPName4 3",
+    "AuthorizationGroup": "AuthorizationGroup 3",
+    "SupplierAccountGroup": "SupplierAccountGroup 3",
+    "__metadata": {
+      "uri": "C_MM_SupplierValueHelp(Supplier='Supplier%203',CompanyCode='CompanyCode%203')",
+      "type": "MM_SUPPLIER_INVOICE_LIST_ENH_SRV.C_MM_SupplierValueHelpType"
+    }
+  }
+]

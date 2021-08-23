@@ -1,0 +1,17 @@
+[
+  {
+    "SupplierInvoiceOrigin": "ARIBA",
+    "Language": "EN",
+    "SupplierInvoiceOriginDesc": "ARIBA"
+  },
+  {
+    "SupplierInvoiceOrigin": "FIELDGLASS",
+    "Language": "EN",
+    "SupplierInvoiceOriginDesc": "FIELDGLASS"
+  },
+  {
+    "SupplierInvoiceOrigin": "TEST",
+    "Language": "EN",
+    "SupplierInvoiceOriginDesc": "TEST"
+  }
+]

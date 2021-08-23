@@ -1,0 +1,46 @@
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# git
+.git/
+
+# node modules
+node_modules/
+
+# results
+# skipped
+
+# logs
+*.log
+logs
+results/
+ 
+#desktop services store
+*DS_Store
+
+debug.log
+
+# Unix-based specific files
+Cache/
+CachedData/
+CachedExtensions/
+CachedExtensionVSIXs/
+Code Cache/
+Crash Reports/
+Dictionaries/
+GPUCache/
+exthost Crash Reports/
+Local Storage/
+User/
+blob_storage/
+Backups/
+Network Persistent State
+rapid_render.json
+storage.json
+TransportSecurity
+
+
+coverage
+.nyc_output

@@ -1,0 +1,59 @@
+{
+  "name": "@wdio/vyper-service",
+  "version": "1.1.5",
+  "author": {
+    "name": "Georgios Treska",
+    "email": "georgios.treska@sap.com"
+  },
+  "types": "./@types/vyper-service/index.d.ts",
+  "maintainers": [
+    {
+      "name": "Georgios Treska",
+      "email": "georgios.treska@sap.com"
+    },
+    {
+      "name": "Marvin Grüssinger",
+      "email": "marvin.gruessinger@sap.com"
+    },
+    {
+      "name": "Benjamin Warth",
+      "email": "benjamin.warth@sap.com"
+    },
+    {
+      "name": "Asif Navalur",
+      "email": "asif.iqbal.navalur@sap.com"
+    }
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "generate-docs": "node scripts/reuse/jsDocGen"
+  },
+  "homepage": "https://github.wdf.sap.corp/sProcurement/wdio-vyper-service",
+  "repository": {
+    "type": "git",
+    "url": "git@github.wdf.sap.corp:sProcurement/wdio-vyper-service.git"
+  },
+  "keywords": [
+    "wdio",
+    "webdriver.io",
+    "ui5 testing",
+    "non-ui5 testing",
+    "vyper ui automation",
+    "wdio-plugin",
+    "wdio-service"
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "@wdio/cli": "^7.9.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-wdio": "^6.0.12"
+  },
+  "dependencies": {
+    "@sap_oss/odata-library": "^0.10.1",
+    "curl": "^0.1.4",
+    "fs-extra": "^10.0.0",
+    "jsdoc-to-markdown": "^5.0.3",
+    "yargs": "^17.0.1"
+  }
+}
