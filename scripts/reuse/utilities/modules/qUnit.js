@@ -8,7 +8,7 @@ const QUnit = function () {
   /**
  * @function executeTests
  * @memberOf utilities.qUnit
- * @description Executes QUnit & OPA5 tests [Vyper acts like a runner]
+ * @description Executes QUnit & OPA5 tests [Qmate  acts like a runner]
  * @param {String} relativePathToQUnitHTML - Relative path to the QUnit/OPA5 html file
  * @example await utilities.qUnit.executeTests("path/to/qunit.html");
  */

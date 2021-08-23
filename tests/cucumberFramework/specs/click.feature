@@ -1,4 +1,4 @@
-Feature: Vyper WDIO Reuse API (click)
+Feature: Qmate WDIO Reuse API (click)
 
   Scenario Outline: Confirmation dialog
 

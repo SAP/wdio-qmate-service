@@ -7,7 +7,7 @@ describe("script", function () {
     for (var i = 0; i < files.length; i++)
       // For example if your file structure is this :
       /*C:.
-    └───VyperScripts
+    └───Qmate Scripts
         │   FileUpload.spec.js
         │   FileUploadConfig.js
         │

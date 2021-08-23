@@ -1,4 +1,4 @@
-Feature: Vyper WDIO Reuse API (scrolling)
+Feature: Qmate WDIO Reuse API (scrolling)
 
   Scenario Outline: Navigate to SAP demo app page and scroll
 

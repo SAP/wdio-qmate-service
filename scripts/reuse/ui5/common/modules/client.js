@@ -29,7 +29,7 @@ const Client = function () {
   * @function getControlProperty
   * @memberOf ui5.common.client
   * @description Get UI control property
-  * @param {object} elem - The vyper element (result of calling getDisplayElement) 
+  * @param {object} elem - The qmate element (result of calling getDisplayElement) 
   * @param {String} propertyName - The property name to retrieve from the control
   * @example let ui5ControlProperties = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};
     let elem = await ui5.common.locator.getDisplayedElement(ui5ControlProperties);
@@ -44,7 +44,7 @@ const Client = function () {
   * @function getControlAggregationProperty
   * @memberOf ui5.common.client
   * @description Get UI control aggregation property
-  * @param {object} elem - The vyper element (result of calling getDisplayElement) 
+  * @param {object} elem - The qmate element (result of calling getDisplayElement) 
   * @param {String} propertyName - The property name to retrieve from the control
   * @example let ui5ControlProperties = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "items":[{"path":"/Categories"}] }};
     let elem = await ui5.common.locator.getDisplayedElement(ui5ControlProperties);
@@ -59,7 +59,7 @@ const Client = function () {
   * @function getControlAssociationProperty
   * @memberOf ui5.common.client
   * @description Get UI control property
-  * @param {object} elem - The vyper element (result of calling getDisplayElement) 
+  * @param {object} elem - The qmate element (result of calling getDisplayElement) 
   * @param {String} propertyName - The property name to retrieve from the control
   * @example let ui5ControlProperties = { "elementProperties":{"metadata":"sap.m.MultiComboBox","mProperties":{}};
     let elem = await ui5.common.locator.getDisplayedElement(ui5ControlProperties);
@@ -74,7 +74,7 @@ const Client = function () {
   * @function getControlBindingContextPathProperty
   * @memberOf ui5.common.client
   * @description Get UI control binding context path
-  * @param {object} elem - The vyper element (result of calling getDisplayElement) 
+  * @param {object} elem - The qmate element (result of calling getDisplayElement) 
   * @example let ui5ControlProperties = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{"title":[{"path":"CategoryName"}] }};
     let elem = await ui5.common.locator.getDisplayedElement(ui5ControlProperties);
     let sContext = await ui5.common.client.getControlBindingContextPathProperty(elem);
@@ -88,7 +88,7 @@ const Client = function () {
   * @function getControlPropertyBinding
   * @memberOf ui5.common.client
   * @description Get UI control property
-  * @param {object} elem - The vyper element (result of calling getDisplayElement) 
+  * @param {object} elem - The qmate element (result of calling getDisplayElement) 
   * @param {String} propertyName - The property name to retrieve from the control binding
   * @returns {Array} Array of bindings for the specific property
   * @example let ui5ControlProperties = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};

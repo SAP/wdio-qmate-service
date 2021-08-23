@@ -15,11 +15,11 @@
     "@wdio/cli": "^7.2.3",
     "@wdio/local-runner": "^7.2.3",
     "@wdio/mocha-framework": "^7.2.1",
+    "@wdio/qmate-service": "file:../..",
     "@wdio/spec-reporter": "^7.2.1",
     "@wdio/static-server-service": "^7.2.1",
-    "@wdio/vyper-service": "file:../..",
     "chai": "^4.3.4",
-    "chromedriver": "^90.0.0",
+    "chromedriver": "^90.0.1",
     "wdio-chromedriver-service": "^7.0.0"
   }
 }

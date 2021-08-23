@@ -1,6 +1,6 @@
 const path = require("path");
-const WdioVyperService = require("@wdio/vyper-service");
-const WdioVyperCoverageService = require("@wdio/vyper-code-coverage-service");
+const WdioQmateService = require("@wdio/qmate-service");
+const WdioQmateCoverageService = require("@wdio/qmate-code-coverage-service");
 exports.config = {
   runner: "local",
 
@@ -67,7 +67,7 @@ exports.config = {
 
   logLevel: "error",
   bail: 0,
-  services: [["selenium-standalone"], [WdioVyperService], [WdioVyperCoverageService]],
+  services: [["selenium-standalone"], [WdioQmateService], [WdioQmateCoverageService]],
 
   params: {
     // clientInterval: 50,

@@ -133,7 +133,7 @@ describe("userInteraction - fillActive input", function () {
         "metadata": "sap.m.Input"
       }
     };
-    value = "Vyper Test";
+    value = "Qmate Test";
     const index = 0;
     const timeout = 30000;
     const attribute = "value";
@@ -166,7 +166,7 @@ describe("userInteraction - fillActive textarea", function () {
         "metadata": "sap.m.TextArea"
       }
     };
-    value = "Vyper Test";
+    value = "Qmate Test";
     const index = 0;
     const timeout = 30000;
     const attribute = "value";

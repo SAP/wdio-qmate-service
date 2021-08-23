@@ -1,11 +1,11 @@
-#### Jasmine Framework usage with `wdio-vyper-service`
+#### Jasmine Framework usage with `wdio-qmate-service`
 
-This package include tests to use `wdio-vyper-service` with parameters:
+This package include tests to use `wdio-qmate-service` with parameters:
 - automation backend located on local machine (`runner: 'local'`)
 - [jasmine](https://jasmine.github.io/) as a [wdio framework](https://webdriver.io/docs/frameworks.html#using-jasmine)
 - WebdriverIO commands will be used asynchronously
 - without a compiler (pure `Javascript`)
-- test setup services: `chromedriver` and `wdio-vyper-service` (as `WdioVyperService`)
+- test setup services: `chromedriver` and `wdio-qmate-service` (as `WdioQmateService`)
 
 ```shell script
 npm i @wdio/cli
