@@ -32,7 +32,7 @@ providing an access to [Reuse API](https://github.wdf.sap.corp/sProcurement/vype
 Templates |
 Samples |
 Exercises |
-[Spotlight - Chrome Extension](https://github.wdf.sap.corp/sProcurement/qmate-spotlight)
+[Spotlight - Chrome Extension](https://github.wdf.sap.corp/sProcurement/vyper-spotlight)
 
 
 
