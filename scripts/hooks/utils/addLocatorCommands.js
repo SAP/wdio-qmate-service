@@ -1,4 +1,4 @@
-var vyperLocator = require("../../locators/vyperLocator");
+var qmateLocator = require("../../locators/qmateLocator");
 var uiveri5Locator = require("../../locators/uiveri5Locator");
 var lib = require("./lib");
 const { ui5ControlLocator, ui5ControlsLocators, getUI5Property,
@@ -9,8 +9,8 @@ const { ui5ControlLocator, ui5ControlsLocators, getUI5Property,
 
 var AddLocatorCommands = function () {
   this.addControlCommands = async function () {
-    // Add Vyper locator strategy
-    await browser.addLocatorStrategy("ui5All", vyperLocator.ui5All);
+    // Add Qmate locator strategy
+    await browser.addLocatorStrategy("ui5All", qmateLocator.ui5All);
     await browser.addLocatorStrategy("ui5Veri5", uiveri5Locator.ui5Veri5);
     // Register global names
     //global.uiControl = ui5ControlLocator;

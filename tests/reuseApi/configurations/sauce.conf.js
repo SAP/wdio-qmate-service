@@ -6,7 +6,7 @@ exports.config = merge(baseConfig.config, {
   key: "2c8f2780-cd1e-4a2c-b139-f0872051b14b",//process.env.SAUCE_ACCESS_KEY	
   region: "eu",
   build: "build-sauce-wdio-1",
-  name: "multi-browsers-vyper-wdio",
+  name: "multi-browsers-qmate-wdio",
   maxInstances: 5,
 
   // Capabilities to be passed to the webdriver instance.

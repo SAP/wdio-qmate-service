@@ -1,11 +1,11 @@
-#### Selenium standalone usage with `wdio-vyper-service`
+#### Selenium standalone usage with `wdio-qmate-service`
 
-This package include tests to use `wdio-vyper-service` with parameters:
+This package include tests to use `wdio-qmate-service` with parameters:
 - automation backend located on local machine (`runner: 'local'`)
 - [mocha](https://mochajs.org/) as a [wdio framework](https://webdriver.io/docs/frameworks.html#using-mocha)
 - WebdriverIO commands will be used asynchronously
 - without a compiler (pure `Javascript`)
-- test setup services: `selenium-standalone` and `wdio-vyper-service` (as `WdioVyperService`)
+- test setup services: `selenium-standalone` and `wdio-qmate-service` (as `WdioQmateService`)
 
 
 ```shell script

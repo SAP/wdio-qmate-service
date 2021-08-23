@@ -3,8 +3,8 @@
     "initialIntent": "home-view",
     "queryParams": "?mockKey=testDisplayNotFound"
   },
-  "pathToMockData": "../test/vyper/ui/testDisplayNotFound/data/mock",
-  "pathToMockDataRel": "test/vyper/ui/testDisplayNotFound/data/mock",
+  "pathToMockData": "../test/qmate/ui/testDisplayNotFound/data/mock",
+  "pathToMockDataRel": "test/qmate/ui/testDisplayNotFound/data/mock",
   "entitiesToload": [
     ""
   ]

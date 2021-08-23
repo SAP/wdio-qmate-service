@@ -1,7 +1,7 @@
 const path = require("path");
 const merge = require("deepmerge");
-const vyperConfigure = require("../../../../../configurations/chrome.headless.conf.js");
-exports.config = merge(vyperConfigure.config, {
+const qmateConfigure = require("../../../../../configurations/chrome.headless.conf.js");
+exports.config = merge(qmateConfigure.config, {
   maxInstances: 6,
   bail: 1,
   //

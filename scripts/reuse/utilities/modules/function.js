@@ -78,20 +78,20 @@ var Function = function () {
   };
 
   /**
-   * @function mapWdioErrorToVyperErrorMessage
+   * @function mapWdioErrorToQmateErrorMessage
    * @memberOf utilities.function
    * @private
-   * @description Maps Wdio Error to Vyper Error Message
+   * @description Maps Wdio Error to Qmate Error Message
    * @param {Error} wdioError - The wdio error
    * @param {string} action - An action performed upon the element ("click", "fill")
-   * @example await utilities.function.mapWdioErrorToVyperErrorMessage(error, "click");
+   * @example await utilities.function.mapWdioErrorToQmateErrorMessage(error, "click");
    */
-  this.mapWdioErrorToVyperErrorMessage = async function (wdioError, action) {
+  this.mapWdioErrorToQmateErrorMessage = async function (wdioError, action) {
     const errorMessage = wdioError.message;
-    let vyperMessage = "";
+    let qmateMessage = "";
     if (action === "fill") {
       if (errorMessage.match(new RegExp(/(invalid element state|element not interactable)/))) {
-        vyperMessage = `Function fill failed. Element can not be filled - make sure that the selector matches input \n\n` + wdioError.stack;
+        qmateMessage = `Function fill failed. Element can not be filled - make sure that the selector matches input \n\n` + wdioError.stack;
       }
     } else if (action === "click") {
       if (errorMessage.match(new RegExp(/is not clickable at point/))) {
@@ -106,13 +106,13 @@ var Function = function () {
           }
         }
         if (wdioError && wdioError.stack && elementAttributes) {
-          vyperMessage = `Element with attribute(s) ${elementAttributes[0]} is hidden by another element \n\n` + wdioError.stack;
+          qmateMessage = `Element with attribute(s) ${elementAttributes[0]} is hidden by another element \n\n` + wdioError.stack;
         } else {
-          vyperMessage = "Error clicking element \n\n" + wdioError;
+          qmateMessage = "Error clicking element \n\n" + wdioError;
         }
       }
     }
-    return vyperMessage;
+    return qmateMessage;
   };
 };
 module.exports = new Function();

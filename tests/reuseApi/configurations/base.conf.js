@@ -1,4 +1,4 @@
-const WdioVyperService = require("@wdio/vyper-service");
+const WdioQmateService = require("@wdio/qmate-service");
 exports.config = {
   //
   // ====================
@@ -48,7 +48,7 @@ exports.config = {
   //     '@wdio/applitools-service': 'info'
   // },
 
-  services: [[WdioVyperService]],
+  services: [[WdioQmateService]],
 
   //
   // Legacy flag
