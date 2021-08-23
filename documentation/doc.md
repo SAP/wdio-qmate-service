@@ -83,6 +83,8 @@ Namespace for utilities modules.
 
 * [utilities](#utilities) : <code>object</code>
     * [.browser](#utilities.browser)
+        * [.getBaseUrl()](#utilities.browser.getBaseUrl) ⇒ <code>String</code>
+        * [.setBaseUrl(baseUrl:)](#utilities.browser.setBaseUrl)
         * [.clearBrowser(clearLocal, clearSession, clearCookies)](#utilities.browser.clearBrowser)
         * [.sleep(duration)](#utilities.browser.sleep)
         * [.refresh()](#utilities.browser.refresh)
@@ -133,6 +135,8 @@ Namespace for utilities modules.
 **Kind**: static class of [<code>utilities</code>](#utilities)  
 
 * [.browser](#utilities.browser)
+    * [.getBaseUrl()](#utilities.browser.getBaseUrl) ⇒ <code>String</code>
+    * [.setBaseUrl(baseUrl:)](#utilities.browser.setBaseUrl)
     * [.clearBrowser(clearLocal, clearSession, clearCookies)](#utilities.browser.clearBrowser)
     * [.sleep(duration)](#utilities.browser.sleep)
     * [.refresh()](#utilities.browser.refresh)
@@ -142,6 +146,31 @@ Namespace for utilities modules.
     * [.getUI5Version()](#utilities.browser.getUI5Version)
     * [.sendKeys(keys)](#utilities.browser.sendKeys)
 
+<a name="utilities.browser.getBaseUrl"></a>
+
+#### browser.getBaseUrl() ⇒ <code>String</code>
+Get baseUrl from the configuration file for the current test spec
+
+**Kind**: static method of [<code>browser</code>](#utilities.browser)  
+**Example**  
+```js
+const baseUrl = await utilities.browser.getBaseUrl();
+```
+<a name="utilities.browser.setBaseUrl"></a>
+
+#### browser.setBaseUrl(baseUrl:)
+Get baseUrl from the configuration file for the current test spec
+
+**Kind**: static method of [<code>browser</code>](#utilities.browser)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| baseUrl: | <code>String</code> | base URL to set |
+
+**Example**  
+```js
+await utilities.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+```
 <a name="utilities.browser.clearBrowser"></a>
 
 #### browser.clearBrowser(clearLocal, clearSession, clearCookies)
@@ -187,8 +216,7 @@ await utilities.browser.refresh();
 <a name="utilities.browser.sleepAndCollectCoverage"></a>
 
 #### browser.sleepAndCollectCoverage(sleep)
-Collects and stores the coverage information before a hard browser event (logout, clear history),
-also useful when parallelizing multiple specs and need to aggregate the coverage information
+Collects and stores the coverage information before a hard browser event (logout, clear history),also useful when parallelizing multiple specs and need to aggregate the coverage information
 
 **Kind**: static method of [<code>browser</code>](#utilities.browser)  
 
@@ -366,8 +394,7 @@ Slices a input string beginning at specific substring.
 
 **Example**  
 ```js
-let sliced = utilities.formatter.sliceStringAt("prefixNR12345postfix", "NR", 7);
-// this will return "NR12345"
+let sliced = utilities.formatter.sliceStringAt("prefixNR12345postfix", "NR", 7);// this will return "NR12345"
 ```
 <a name="utilities.formatter.sliceStringAfter"></a>
 
@@ -385,8 +412,7 @@ Slices a input string beginning after a specific substring.
 
 **Example**  
 ```js
-let sliced = utilities.formatter.sliceStringAfter("prefixNR12345postfix", "NR", 5);
-// this will return "12345"
+let sliced = utilities.formatter.sliceStringAfter("prefixNR12345postfix", "NR", 5);// this will return "12345"
 ```
 <a name="utilities.formatter.trimString"></a>
 
@@ -401,8 +427,7 @@ Removes whitespace from both sides of a string.
 
 **Example**  
 ```js
-let trimmed = utilities.formatter.trimString("   value ");
-// this will return "value"
+let trimmed = utilities.formatter.trimString("   value ");// this will return "value"
 ```
 <a name="utilities.formatter.extractNumberFromString"></a>
 
@@ -419,13 +444,11 @@ Extracts all numbers from a string.
 
 **Example**  
 ```js
-let extracted = utilities.formatter.extractNumberFromString("prefixNR12345postfix");
-// this will return "12345"
+let extracted = utilities.formatter.extractNumberFromString("prefixNR12345postfix");// this will return "12345"
 ```
 **Example**  
 ```js
-let extracted = utilities.formatter.extractNumberFromString("first12345 someText second 20 abc", 1);
-// this will return "20"
+let extracted = utilities.formatter.extractNumberFromString("first12345 someText second 20 abc", 1);// this will return "20"
 ```
 <a name="utilities.formatter.stringifyJSON"></a>
 
@@ -462,9 +485,7 @@ formats date.
 
 **Example**  
 ```js
-const date = new Date(2020, 0, 17);
-const formattedDate = utilities.formatDate(date, "mm/dd/yyyy");
-// this will return "01/17/2020"
+const date = new Date(2020, 0, 17);const formattedDate = utilities.formatDate(date, "mm/dd/yyyy");// this will return "01/17/2020"
 ```
 <a name="utilities.function"></a>
 
@@ -492,10 +513,7 @@ Retries the passed function n times with an specific intervall until it executed
 
 **Example**  
 ```js
-async function sayHello(firstName, lastName) {
-console.log("Hello " + firstName + " " + lastName + "!");
-}
-await utilities.function.retry(sayHello, ["John", "Doe"], 3, 5000);
+async function sayHello(firstName, lastName) {console.log("Hello " + firstName + " " + lastName + "!");}await utilities.function.retry(sayHello, ["John", "Doe"], 3, 5000);
 ```
 <a name="utilities.function.executeOptional"></a>
 
@@ -511,10 +529,7 @@ Executes the passed function optionally. If it fails, a promise will be returned
 
 **Example**  
 ```js
-function sayHello(firstName, lastName) {
-console.log("Hello " + firstName + " " + lastName + "!");
-}
-await utilities.function.executeOptional(sayHello, ["John", "Doe"]);
+function sayHello(firstName, lastName) {console.log("Hello " + firstName + " " + lastName + "!");}await utilities.function.executeOptional(sayHello, ["John", "Doe"]);
 ```
 <a name="utilities.mockserver"></a>
 
@@ -789,7 +804,7 @@ await utilities.mockserver.setEntitySetData("path/to/project/localService/main/m
 <a name="utilities.qUnit.executeTests"></a>
 
 #### qUnit.executeTests(relativePathToQUnitHTML)
-Executes QUnit & OPA5 tests [Vyper acts like a runner]
+Executes QUnit & OPA5 tests [Qmate  acts like a runner]
 
 **Kind**: static method of [<code>qUnit</code>](#utilities.qUnit)  
 
@@ -1432,8 +1447,7 @@ await ui5.common.assertion.expectShellHeader();
 <a name="ui5.common.assertion.expectLogoutText"></a>
 
 ##### assertion.expectLogoutText() ⇒ <code>Promise</code>
-Expects the logout text after logout to be "You have been logged off.
-            This is essential for chaining scripts, therefore there is no hard browser sleep required anymore in the spec itself".
+Expects the logout text after logout to be "You have been logged off.            This is essential for chaining scripts, therefore there is no hard browser sleep required anymore in the spec itself".
 
 **Kind**: static method of [<code>assertion</code>](#ui5.common.assertion)  
 **Returns**: <code>Promise</code> - The promise to be resolved.  
@@ -1444,9 +1458,7 @@ await ui5.common.assertion.expectLogoutText();
 <a name="ui5.common.assertion.expectUnsupportedNavigationPopup"></a>
 
 ##### assertion.expectUnsupportedNavigationPopup(navigationTarget) ⇒ <code>Promise</code>
-Expects navigation to an app that is not supported.
-             This can be the case for Mocked tests when the application does not exist
-             or when the app is not included in a role.
+Expects navigation to an app that is not supported.             This can be the case for Mocked tests when the application does not exist             or when the app is not included in a role.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.common.assertion)  
 **Returns**: <code>Promise</code> - The promise to be resolved.  
@@ -1595,8 +1607,7 @@ ui5.common.assertion.expectUndefined(value);
 <a name="ui5.common.client.executeControlInBrowser"></a>
 
 ##### client.executeControlInBrowser(callbackFunction, selectorOrElement, parameters)
-Executes the passed callback function in browser client ui5 context, retrieving the passed element ui5 control in the native browser context
-providing you the possibility to work directly with a ui5 control and do any action and retrieve any property as you would do in the browser client.
+Executes the passed callback function in browser client ui5 context, retrieving the passed element ui5 control in the native browser contextproviding you the possibility to work directly with a ui5 control and do any action and retrieve any property as you would do in the browser client.
 
 **Kind**: static method of [<code>client</code>](#ui5.common.client)  
 
@@ -1608,9 +1619,7 @@ providing you the possibility to work directly with a ui5 control and do any act
 
 **Example**  
 ```js
-let ui5ControlProperties = {"elementProperties":{"metadata":"sap.m.StandardListItem", "id": "*categoryList-7"}};
-let parameters = {"property": "text"};
-var title = await ui5.common.client.executeControlInBrowser(function(control, parameters, done){
+let ui5ControlProperties = {"elementProperties":{"metadata":"sap.m.StandardListItem", "id": "*categoryList-7"}};let parameters = {"property": "text"};var title = await ui5.common.client.executeControlInBrowser(function(control, parameters, done){
       done(control.getProperty(parameters.property));
     }, ui5ControlProperties, parameters);
 ```
@@ -1623,7 +1632,7 @@ Get UI control property
 
 | Param | Type | Description |
 | --- | --- | --- |
-| elem | <code>object</code> | The vyper element (result of calling getDisplayElement) |
+| elem | <code>object</code> | The qmate element (result of calling getDisplayElement) |
 | propertyName | <code>String</code> | The property name to retrieve from the control |
 
 **Example**  
@@ -1642,7 +1651,7 @@ Get UI control aggregation property
 
 | Param | Type | Description |
 | --- | --- | --- |
-| elem | <code>object</code> | The vyper element (result of calling getDisplayElement) |
+| elem | <code>object</code> | The qmate element (result of calling getDisplayElement) |
 | propertyName | <code>String</code> | The property name to retrieve from the control |
 
 **Example**  
@@ -1661,7 +1670,7 @@ Get UI control property
 
 | Param | Type | Description |
 | --- | --- | --- |
-| elem | <code>object</code> | The vyper element (result of calling getDisplayElement) |
+| elem | <code>object</code> | The qmate element (result of calling getDisplayElement) |
 | propertyName | <code>String</code> | The property name to retrieve from the control |
 
 **Example**  
@@ -1680,7 +1689,7 @@ Get UI control binding context path
 
 | Param | Type | Description |
 | --- | --- | --- |
-| elem | <code>object</code> | The vyper element (result of calling getDisplayElement) |
+| elem | <code>object</code> | The qmate element (result of calling getDisplayElement) |
 
 **Example**  
 ```js
@@ -1698,7 +1707,7 @@ Get UI control property
 
 | Param | Type | Description |
 | --- | --- | --- |
-| elem | <code>object</code> | The vyper element (result of calling getDisplayElement) |
+| elem | <code>object</code> | The qmate element (result of calling getDisplayElement) |
 | propertyName | <code>String</code> | The property name to retrieve from the control binding |
 
 **Example**  
@@ -1854,14 +1863,12 @@ Picks the passed date with the DatePicker.
 
 **Example**  
 ```js
-const today = await ui5.common.date.calculateDate("today");
-await ui5.common.date.pickDate(selector, date);
+const today = await ui5.common.date.calculateDate("today");await ui5.common.date.pickDate(selector, date);
 ```
 <a name="ui5.common.date.pickDateRange"></a>
 
 ##### date.pickDateRange(selector, range)
-Picks the passed date range with the DatePicker.
-Note that this will only work within the current month!
+Picks the passed date range with the DatePicker.Note that this will only work within the current month!
 
 **Kind**: static method of [<code>date</code>](#ui5.common.date)  
 
@@ -1872,10 +1879,7 @@ Note that this will only work within the current month!
 
 **Example**  
 ```js
-const start = await ui5.common.date.calculateDate("2020, 9, 20");
-const end = await ui5.common.date.calculateDate("2021, 1, 3");
-const range = [start, end];
-await ui5.common.date.pickDateRange(selector, range);
+const start = await ui5.common.date.calculateDate("2020, 9, 20");const end = await ui5.common.date.calculateDate("2021, 1, 3");const range = [start, end];await ui5.common.date.pickDateRange(selector, range);
 ```
 <a name="ui5.common.date.fillDateRange"></a>
 
@@ -1891,10 +1895,7 @@ Fills the passed date range by passing the start- and end date.
 
 **Example**  
 ```js
-const start = await ui5.common.date.calculateDate("2020, 9, 20", "dd.mm.yyyy");
-const end = await ui5.common.date.calculateDate("2021, 1, 3", "dd.mm.yyyy");
-const range = [start, end];
-await ui5.common.date.fillDateRange(selector, range);
+const start = await ui5.common.date.calculateDate("2020, 9, 20", "dd.mm.yyyy");const end = await ui5.common.date.calculateDate("2021, 1, 3", "dd.mm.yyyy");const range = [start, end];await ui5.common.date.fillDateRange(selector, range);
 ```
 <a name="ui5.common.date.getToday"></a>
 
@@ -2466,8 +2467,7 @@ await ui5.common.navigation.navigateToApplication("PurchaseOrder-manage", false)
 ```
 **Example**  
 ```js
-let intent = ui5.common.appIntents.managePurchaseOrders;
-await ui5.common.navigation.navigateToApplication(intent);
+let intent = ui5.common.appIntents.managePurchaseOrders;await ui5.common.navigation.navigateToApplication(intent);
 ```
 <a name="ui5.common.navigation.navigateToApplicationAndRetry"></a>
 
@@ -2490,8 +2490,7 @@ await ui5.common.navigation.navigateToApplicationAndRetry("PurchaseOrder-manage"
 ```
 **Example**  
 ```js
-let intent = ui5.common.appIntents.managePurchaseOrders;
-await ui5.common.navigation.navigateToApplicationAndRetry(intent);
+let intent = ui5.common.appIntents.managePurchaseOrders;await ui5.common.navigation.navigateToApplicationAndRetry(intent);
 ```
 <a name="ui5.common.navigation.navigateToApplicationWithQueryParams"></a>
 
@@ -2509,9 +2508,7 @@ Navigates to the application via the passed intent.
 
 **Example**  
 ```js
-let intent = ui5.common.appIntents.managePurchaseOrders;
-let queryParams = "?sap-language=EN&responderOn=true";
-await ui5.common.navigation.navigateToApplicationWithQueryParams(intent, queryParam);
+let intent = ui5.common.appIntents.managePurchaseOrders;let queryParams = "?sap-language=EN&responderOn=true";await ui5.common.navigation.navigateToApplicationWithQueryParams(intent, queryParam);
 ```
 <a name="ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry"></a>
 
@@ -2535,9 +2532,7 @@ await ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry("Purcha
 ```
 **Example**  
 ```js
-let intent = ui5.common.appIntents.managePurchaseOrders;
-let queryParams = "?sap-language=EN&responderOn=true";
-await ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
+let intent = ui5.common.appIntents.managePurchaseOrders;let queryParams = "?sap-language=EN&responderOn=true";await ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
 ```
 <a name="ui5.common.navigation.navigateToApplicationAndRetryRefresh"></a>
 
@@ -2560,8 +2555,7 @@ await ui5.common.navigation.navigateToApplicationAndRetryRefresh("PurchaseOrder-
 ```
 **Example**  
 ```js
-let intent = ui5.common.appIntents.managePurchaseOrders;
-await ui5.common.navigation.navigateToApplicationAndRetryRefresh(intent);
+let intent = ui5.common.appIntents.managePurchaseOrders;await ui5.common.navigation.navigateToApplicationAndRetryRefresh(intent);
 ```
 <a name="ui5.common.navigation.navigateToSystemAndApplication"></a>
 
@@ -2579,8 +2573,7 @@ Navigates within the passed system to the application via the passed intent.
 
 **Example**  
 ```js
-let intent = ui5.common.appIntents.managePurchaseOrders;
-await ui5.common.navigation.navigateToSystemAndApplication("super-sensitive.domain.name", intent);
+let intent = ui5.common.appIntents.managePurchaseOrders;await ui5.common.navigation.navigateToSystemAndApplication("super-sensitive.domain.name", intent);
 ```
 <a name="ui5.common.navigation.navigateToSystemAndApplicationAndRetry"></a>
 
@@ -2600,8 +2593,7 @@ Navigates within the passed system to the application via the passed intent, and
 
 **Example**  
 ```js
-let intent = ui5.common.appIntents.managePurchaseOrders;
-await ui5.common.navigation.navigateToSystemAndApplicationAndRetry("super-sensitive.domain.name", intent);
+let intent = ui5.common.appIntents.managePurchaseOrders;await ui5.common.navigation.navigateToSystemAndApplicationAndRetry("super-sensitive.domain.name", intent);
 ```
 <a name="ui5.common.navigation.navigateToUrl"></a>
 
@@ -2773,30 +2765,22 @@ Login with specific username and password. The selectors will be taken from the 
 
 **Example**  
 ```js
-// config - SAMPLE 1
-auth: {
+// config - SAMPLE 1auth: {
       formType: 'plain',
       usernameFieldSelector: "#USERNAME_BLOCK input",
       passwordFieldSelector: "#PASSWORD_BLOCK input",
       logonButtonSelector: "#LOGIN_LINK"
-  },
-
-// spec
-await ui5.common.session.loginCustomViaConfig("john", "abc123!");
+  },// specawait ui5.common.session.loginCustomViaConfig("john", "abc123!");
 
 
-   // config - SAMPLE 2
-auth: {
+   // config - SAMPLE 2auth: {
       username: "PURCH_EXT",
       password: "super-duper-sensitive-pw",
       formType: "plain",
       usernameFieldSelector: "#USERNAME_BLOCK input",
       passwordFieldSelector: "#PASSWORD_BLOCK input",
       logonButtonSelector: "#LOGIN_LINK"
-  },
-
-// spec
-await ui5.common.session.loginCustomViaConfig();
+  },// specawait ui5.common.session.loginCustomViaConfig();
 ```
 <a name="ui5.common.session.logout"></a>
 
@@ -2909,9 +2893,7 @@ await ui5.common.userInteraction.clickAndRetry(selector, 0, 30000, 2, 1000);
 <a name="ui5.common.userInteraction.clickTab"></a>
 
 ##### userInteraction.clickTab(selector, index, timeout)
-Clicks on the passed tab and checks if the tab got selected successfully.
-The function retries the click if the selection of the tab (blue underline) was not successful.
-The maximum amount of retries is set to 3 per default.
+Clicks on the passed tab and checks if the tab got selected successfully.The function retries the click if the selection of the tab (blue underline) was not successful.The maximum amount of retries is set to 3 per default.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.common.userInteraction)  
 
@@ -2928,9 +2910,7 @@ await ui5.common.userInteraction.clickTab(selector);
 <a name="ui5.common.userInteraction.clickListItem"></a>
 
 ##### userInteraction.clickListItem(selector, index, timeout)
-Clicks on a specific item of a list (e.g. ColumnListItem, StandardListItem, etc.).
-In some cases the default click function is not working correctly (clicks an element within the list item).
-Therefore we recommend to use this function to open a specific list item.
+Clicks on a specific item of a list (e.g. ColumnListItem, StandardListItem, etc.).In some cases the default click function is not working correctly (clicks an element within the list item).Therefore we recommend to use this function to open a specific list item.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.common.userInteraction)  
 
@@ -3274,8 +3254,7 @@ await ui5.common.userInteraction.openF4Help(selector, 0, 30000, false);
 <a name="ui5.common.userInteraction.searchFor"></a>
 
 ##### userInteraction.searchFor(selector, value, index, timeout, useEnter)
-Searchs for the passed value and executes the search.
-In case that the search is already filled, it will reset the field first.
+Searchs for the passed value and executes the search.In case that the search is already filled, it will reset the field first.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.common.userInteraction)  
 
@@ -3294,8 +3273,7 @@ await ui5.common.userInteraction.searchFor(selector, "My Value", 0, 30000, false
 <a name="ui5.common.userInteraction.resetSearch"></a>
 
 ##### userInteraction.resetSearch(selector, index, timeout)
-Resets the search field if it is filled.
-In case that the search is not filled, it will raise an error.
+Resets the search field if it is filled.In case that the search is not filled, it will raise an error.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.common.userInteraction)  
 
@@ -3312,9 +3290,7 @@ await ui5.common.userInteraction.resetSearch(selector);
 <a name="ui5.common.userInteraction.selectComboBox"></a>
 
 ##### userInteraction.selectComboBox(selector, value, index)
-Selects the passed value from the ComboBox.
-Please note that the function will only work for the default ComboBox.
-In special cases, please use the clickSelectArrow function.
+Selects the passed value from the ComboBox.Please note that the function will only work for the default ComboBox.In special cases, please use the clickSelectArrow function.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.common.userInteraction)  
 
@@ -3331,9 +3307,7 @@ await ui5.common.userInteraction.selectComboBox(selector, "Germany");
 <a name="ui5.common.userInteraction.selectMultiComboBox"></a>
 
 ##### userInteraction.selectMultiComboBox(selector, values, index)
-Selects the passed values of the MultiComboBox.
-Please note that the function will only work for the default MultiComboBox.
-In special cases, please use the clickSelectArrow function.
+Selects the passed values of the MultiComboBox.Please note that the function will only work for the default MultiComboBox.In special cases, please use the clickSelectArrow function.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.common.userInteraction)  
 
@@ -3350,9 +3324,7 @@ await ui5.common.userInteraction.selectMultiComboBox(selector, ["Item1", "Item2"
 <a name="ui5.common.userInteraction.selectBox"></a>
 
 ##### userInteraction.selectBox(selector, value, index)
-Selects the passed value of the Select box.
-Please note that the function will only work for the default select Box.
-In special cases, please use the clickSelectArrow function.
+Selects the passed value of the Select box.Please note that the function will only work for the default select Box.In special cases, please use the clickSelectArrow function.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.common.userInteraction)  
 
@@ -3413,7 +3385,7 @@ Namespace for non ui5 modules.
             * [.expectToBeVisible(element)](#non_ui5.common.assertion.expectToBeVisible) ⇒ <code>Promise</code>
             * [.expectValueToBe(elem, compareValue, attribute)](#non_ui5.common.assertion.expectValueToBe) ⇒ <code>Promise</code>
             * [.isVisible(element)](#non_ui5.common.assertion.isVisible) ⇒ <code>Boolean</code>
-            * [.isPresent(elem)](#non_ui5.common.assertion.isPresent) ⇒ <code>Boolean</code>
+            * [.isElementPresent(elem)](#non_ui5.common.assertion.isElementPresent) ⇒ <code>Boolean</code>
             * [.isPresentByCss(css, index, timeout)](#non_ui5.common.assertion.isPresentByCss) ⇒ <code>boolean</code>
             * [.isPresentByXPath(xpath, index, timeout)](#non_ui5.common.assertion.isPresentByXPath) ⇒ <code>boolean</code>
             * [.expectEqual(value1, value2)](#non_ui5.common.assertion.expectEqual)
@@ -3481,7 +3453,7 @@ Namespace for common modules.
         * [.expectToBeVisible(element)](#non_ui5.common.assertion.expectToBeVisible) ⇒ <code>Promise</code>
         * [.expectValueToBe(elem, compareValue, attribute)](#non_ui5.common.assertion.expectValueToBe) ⇒ <code>Promise</code>
         * [.isVisible(element)](#non_ui5.common.assertion.isVisible) ⇒ <code>Boolean</code>
-        * [.isPresent(elem)](#non_ui5.common.assertion.isPresent) ⇒ <code>Boolean</code>
+        * [.isElementPresent(elem)](#non_ui5.common.assertion.isElementPresent) ⇒ <code>Boolean</code>
         * [.isPresentByCss(css, index, timeout)](#non_ui5.common.assertion.isPresentByCss) ⇒ <code>boolean</code>
         * [.isPresentByXPath(xpath, index, timeout)](#non_ui5.common.assertion.isPresentByXPath) ⇒ <code>boolean</code>
         * [.expectEqual(value1, value2)](#non_ui5.common.assertion.expectEqual)
@@ -3546,7 +3518,7 @@ Namespace for common modules.
     * [.expectToBeVisible(element)](#non_ui5.common.assertion.expectToBeVisible) ⇒ <code>Promise</code>
     * [.expectValueToBe(elem, compareValue, attribute)](#non_ui5.common.assertion.expectValueToBe) ⇒ <code>Promise</code>
     * [.isVisible(element)](#non_ui5.common.assertion.isVisible) ⇒ <code>Boolean</code>
-    * [.isPresent(elem)](#non_ui5.common.assertion.isPresent) ⇒ <code>Boolean</code>
+    * [.isElementPresent(elem)](#non_ui5.common.assertion.isElementPresent) ⇒ <code>Boolean</code>
     * [.isPresentByCss(css, index, timeout)](#non_ui5.common.assertion.isPresentByCss) ⇒ <code>boolean</code>
     * [.isPresentByXPath(xpath, index, timeout)](#non_ui5.common.assertion.isPresentByXPath) ⇒ <code>boolean</code>
     * [.expectEqual(value1, value2)](#non_ui5.common.assertion.expectEqual)
@@ -3570,8 +3542,7 @@ Expects that the element is visible to the user. Will fail if it is not visible.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("button01");
-await non_ui5.common.assertion.expectToBeVisible(elem);
+let elem = await non_ui5.common.locator.getElementById("button01");await non_ui5.common.assertion.expectToBeVisible(elem);
 ```
 <a name="non_ui5.common.assertion.expectValueToBe"></a>
 
@@ -3589,13 +3560,11 @@ Expects the attributes value of the passed element to be the compare value.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("button01");
-await non_ui5.common.assertion.expectValueToBe(elem, "Save");
+let elem = await non_ui5.common.locator.getElementById("button01");await non_ui5.common.assertion.expectValueToBe(elem, "Save");
 ```
 **Example**  
 ```js
-let element = await non_ui5.common.locator.getElementById("button01");
-await non_ui5.common.assertion.expectValueToBe(element, "Save", "title");
+let element = await non_ui5.common.locator.getElementById("button01");await non_ui5.common.assertion.expectValueToBe(element, "Save", "title");
 ```
 <a name="non_ui5.common.assertion.isVisible"></a>
 
@@ -3611,12 +3580,11 @@ returns a boolean if the element is visible to the user.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("button01");
-await non_ui5.common.assertion.isVisible(elem);
+let elem = await non_ui5.common.locator.getElementById("button01");await non_ui5.common.assertion.isVisible(elem);
 ```
-<a name="non_ui5.common.assertion.isPresent"></a>
+<a name="non_ui5.common.assertion.isElementPresent"></a>
 
-##### assertion.isPresent(elem) ⇒ <code>Boolean</code>
+##### assertion.isElementPresent(elem) ⇒ <code>Boolean</code>
 returns a boolean if the element is present at the DOM or not.
 
 **Kind**: static method of [<code>assertion</code>](#non_ui5.common.assertion)  
@@ -3628,7 +3596,7 @@ returns a boolean if the element is present at the DOM or not.
 
 **Example**  
 ```js
-await non_ui5.common.assertion.isPresent(elem);
+await non_ui5.common.assertion.isElementPresent(elem);
 ```
 <a name="non_ui5.common.assertion.isPresentByCss"></a>
 
@@ -4079,13 +4047,11 @@ Returns the attributes value of the passed element.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("elem01");
-let text = await non_ui5.common.locator.getValue(elem, "text");
+let elem = await non_ui5.common.locator.getElementById("elem01");let text = await non_ui5.common.locator.getValue(elem, "text");
 ```
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("elem02");
-let innerHTML = await non_ui5.common.locator.getValue(elem, "value");
+let elem = await non_ui5.common.locator.getElementById("elem02");let innerHTML = await non_ui5.common.locator.getValue(elem, "value");
 ```
 <a name="non_ui5.common.locator.scrollToElement"></a>
 
@@ -4101,8 +4067,7 @@ Scrolls to the passed element to get it into view.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("footer01");
-await non_ui5.common.locator.scrollToElement(elem);
+let elem = await non_ui5.common.locator.getElementById("footer01");await non_ui5.common.locator.scrollToElement(elem);
 ```
 <a name="non_ui5.common.locator.highlightElement"></a>
 
@@ -4119,13 +4084,11 @@ Highlights the element with the passed selector.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("text01");
-await non_ui5.common.locator.highlightElement(elem);
+let elem = await non_ui5.common.locator.getElementById("text01");await non_ui5.common.locator.highlightElement(elem);
 ```
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("text01");
-await non_ui5.common.locator.highlightElement(elem, 3000, "green");
+let elem = await non_ui5.common.locator.getElementById("text01");await non_ui5.common.locator.highlightElement(elem, 3000, "green");
 ```
 <a name="non_ui5.common.locator.switchToIframe"></a>
 
@@ -4282,8 +4245,7 @@ Clicks on the passed element.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("button01", 10000);
-await non_ui5.common.userInteraction.click(elem);
+let elem = await non_ui5.common.locator.getElementById("button01", 10000);await non_ui5.common.userInteraction.click(elem);
 ```
 <a name="non_ui5.common.userInteraction.clickAndRetry"></a>
 
@@ -4301,8 +4263,7 @@ Clicks on the passed element, retries in case it fails.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("button01", 10000);
-await non_ui5.common.userInteraction.clickAndRetry(elem);
+let elem = await non_ui5.common.locator.getElementById("button01", 10000);await non_ui5.common.userInteraction.clickAndRetry(elem);
 ```
 <a name="non_ui5.common.userInteraction.fill"></a>
 
@@ -4318,8 +4279,7 @@ Fills the passed input.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("input01", 10000);
-await non_ui5.common.userInteraction.fill(elem, "Service 01");
+let elem = await non_ui5.common.locator.getElementById("input01", 10000);await non_ui5.common.userInteraction.fill(elem, "Service 01");
 ```
 <a name="non_ui5.common.userInteraction.fillAndRetry"></a>
 
@@ -4337,8 +4297,7 @@ Fills the passed input, retries in case it fails.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("input01", 10000);
-await non_ui5.common.userInteraction.fillAndRetry(elem, "Service 01");
+let elem = await non_ui5.common.locator.getElementById("input01", 10000);await non_ui5.common.userInteraction.fillAndRetry(elem, "Service 01");
 ```
 <a name="non_ui5.common.userInteraction.fillActive"></a>
 
@@ -4385,8 +4344,7 @@ Clears the passed input.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("input01", 10000);
-await non_ui5.common.userInteraction.clear(elem);
+let elem = await non_ui5.common.locator.getElementById("input01", 10000);await non_ui5.common.userInteraction.clear(elem);
 ```
 <a name="non_ui5.common.userInteraction.clearAndRetry"></a>
 
@@ -4403,8 +4361,7 @@ Clears the passed input, retries in case it fails.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("input01", 10000);
-await non_ui5.common.userInteraction.clearAndRetry(elem);
+let elem = await non_ui5.common.locator.getElementById("input01", 10000);await non_ui5.common.userInteraction.clearAndRetry(elem);
 ```
 <a name="non_ui5.common.userInteraction.clearAndFill"></a>
 
@@ -4420,8 +4377,7 @@ Clears and fills the passed input.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("input01", 10000);
-await non_ui5.common.userInteraction.clearAndFill(elem, "Service 01");
+let elem = await non_ui5.common.locator.getElementById("input01", 10000);await non_ui5.common.userInteraction.clearAndFill(elem, "Service 01");
 ```
 <a name="non_ui5.common.userInteraction.clearAndFillAndRetry"></a>
 
@@ -4440,8 +4396,7 @@ Clears and fills the passed input, retries in case it fails.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("input01", 10000);
-await non_ui5.common.userInteraction.clearAndFillAndRetry(elem, "Service 01");
+let elem = await non_ui5.common.locator.getElementById("input01", 10000);await non_ui5.common.userInteraction.clearAndFillAndRetry(elem, "Service 01");
 ```
 <a name="non_ui5.common.userInteraction.dragAndDrop"></a>
 
@@ -4461,8 +4416,7 @@ let elem = await non_ui5.common.locator.getElementById("drag01");
 ```
 **Example**  
 ```js
-let target = await non_ui5.common.locator.getElementById("drop02");
-await non_ui5.common.userInteraction.dragAndDrop(elem, target);
+let target = await non_ui5.common.locator.getElementById("drop02");await non_ui5.common.userInteraction.dragAndDrop(elem, target);
 ```
 <a name="non_ui5.common.userInteraction.clickChartPart"></a>
 
@@ -4477,8 +4431,7 @@ Clicks on a target element inside a chart area.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("chartPartToCLick");
-await non_ui5.common.userInteraction.clickChartPart(elem);
+let elem = await non_ui5.common.locator.getElementById("chartPartToCLick");await non_ui5.common.userInteraction.clickChartPart(elem);
 ```
 <a name="non_ui5.common.userInteraction.pressEnter"></a>
 
