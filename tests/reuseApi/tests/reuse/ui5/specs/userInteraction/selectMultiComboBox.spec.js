@@ -45,7 +45,7 @@ describe("userInteraction - selectMultiComboBox (outside of a Viewport)", functi
       }
     };
     const value1 = "Beam Breaker B-2";
-    const value2 = "Flat XL"; // wdio-vyper-service scrolls down to "Flat XL"
+    const value2 = "Flat XL"; // wdio-qmate-service scrolls down to "Flat XL"
     await ui5.common.userInteraction.selectMultiComboBox(selector, [value1, value2]);
   });
 

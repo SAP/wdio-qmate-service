@@ -1,6 +1,6 @@
 # Migration guide
 
-We try to keep vyper API as stable as possible during protractor->WDIO migration.
+We try to keep qmate API as stable as possible during protractor->WDIO migration.
 
 But some changes need to be added to the code, especially if you use protractor native functions:
 
@@ -8,7 +8,9 @@ But some changes need to be added to the code, especially if you use protractor 
 ## Changes in resue API
 ### Browser actions
 
-|  native protractor function, used in vyperForAll |  native WDIO function | vyper-wdio reuse API function  |
+[TODO: need to change vyperForAll name after migration]
+
+|  native protractor function, used in vyperForAll |  native WDIO function | qmate reuse API function  |
 |---|---|---|
 | browser.sleep(time)  | await browser.pause(time)  | await utilities.browser.sleep(time)  |
 | browser..driver.navigate().refresh()  | await browser.refresh() | await utilities.browser.refresh()  |
@@ -20,7 +22,7 @@ But some changes need to be added to the code, especially if you use protractor 
 
 ### [Navigation](../../scripts/reuse/ui5/common/modules/navigation.js)
 
-|  native protractor function, used in vyperForAll |  native WDIO function | vyper-wdio reuse API function  |
+|  native protractor function, used in vyperForAll |  native WDIO function | qmate reuse API function  |
 |---|---|---|
 | browser.getCurrentUrl()  | browser.getUrl()  | utilities.browser.getCurrentUrl()  |
 | browser.baseUrl (to read property) | browser.config.baseUrl  | await utilities.browser.getBaseUrl()  |
@@ -30,7 +32,7 @@ But some changes need to be added to the code, especially if you use protractor 
 
 
 ### Browser configs access
-|  vyperForAll | vyper-wdio |
+|  vyperForAll | qmate |
 |---|---|
 | browser.params  | browser.config.params |
 | browser.params.coverage.status   | browser.config.params.coverage.status |
@@ -47,12 +49,12 @@ All examples of configuration files are [here](../../tests/reuseApi/configuratio
 
 ### Specs
 
-In `wdio-vyper-service` path to specs should be defined in another way:
+In `wdio-qmate-service` path to specs should be defined in another way:
 
 ```js
 const path = require("path");
-const vyperConfig = require(path.resolve(process.env.CONFIG_TEMPLATES, "chrome.headless.conf.js"));
-exports.config = merge(vyperConfig.config, {
+const qmateConfig = require(path.resolve(process.env.CONFIG_TEMPLATES, "chrome.headless.conf.js"));
+exports.config = merge(qmateConfig.config, {
 ...
   specs: [
     path.resolve(__dirname, "../scripts/advancedNavigation/specs/advancedNavigation.spec.js"),
@@ -64,7 +66,7 @@ exports.config = merge(vyperConfig.config, {
 ```
 
 ### Jasmin options
-|  vyperForAll | vyper-wdio |
+|  vyperForAll | qmate |
 |---|---|
 |`framework: jasmine2`| not required |
 |`jasmineNodeOpts: {`<br>`showColors: false,`<br>`silent: true,`<br>`defaultTimeoutInterval: 600000`<br>`}`|`jasmineOpts: {`<br>`defaultTimeoutInterval: 600000`<br>`}` |
@@ -74,7 +76,7 @@ exports.config = merge(vyperConfig.config, {
 
 `VyperForAll` by default runs specs sequentially, in the same browser window and shares state between specs (e.g. cookies etc.).
 
-`wdio-vyper-service` by default runs specs independently, but can be configured to run specs sequentially
+`wdio-qmate-service` by default runs specs independently, but can be configured to run specs sequentially
 
 Please have a look at [WDIO documentation](https://webdriver.io/docs/organizingsuites/#grouping-test-specs-to-run-sequentially)
 

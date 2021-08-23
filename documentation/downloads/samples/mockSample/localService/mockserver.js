@@ -97,7 +97,7 @@ sap.ui.define([
 
           // set requests and start the server
           oMockServer.setRequests(aRequests);
-          // Starting from vyper
+          // Starting from qmate
           oMockServer.start();
 
           Log.info("Running the app with mock data");

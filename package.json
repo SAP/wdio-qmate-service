@@ -1,11 +1,11 @@
 {
-  "name": "@wdio/vyper-service",
+  "name": "@wdio/qmate-service",
   "version": "1.1.5",
   "author": {
     "name": "Georgios Treska",
     "email": "georgios.treska@sap.com"
   },
-  "types": "./@types/vyper-service/index.d.ts",
+  "types": "./@types/qmate-service/index.d.ts",
   "maintainers": [
     {
       "name": "Georgios Treska",
@@ -29,17 +29,17 @@
     "lint:fix": "eslint . --fix",
     "generate-docs": "node scripts/reuse/jsDocGen"
   },
-  "homepage": "https://github.wdf.sap.corp/sProcurement/wdio-vyper-service",
+  "homepage": "https://github.tools.sap/sProcurement/wdio-qmate-service",
   "repository": {
     "type": "git",
-    "url": "git@github.wdf.sap.corp:sProcurement/wdio-vyper-service.git"
+    "url": "https://github.tools.sap/sProcurement/wdio-qmate-service.git"
   },
   "keywords": [
     "wdio",
     "webdriver.io",
     "ui5 testing",
     "non-ui5 testing",
-    "vyper ui automation",
+    "qmate ui automation",
     "wdio-plugin",
     "wdio-service"
   ],

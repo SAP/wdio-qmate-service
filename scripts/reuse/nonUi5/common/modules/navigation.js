@@ -34,6 +34,6 @@ var Navigation = function () {
     return await utilities.function.retry(this.navigateToUrl, [url], retries, interval, this);
   };
 
-  // Note: missed methods getVyperPath and navigateToVyperPath were skipped
+  // Note: missed methods getQmatePath and navigateToQmatePath were skipped
 };
 module.exports = new Navigation();

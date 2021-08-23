@@ -1,17 +1,17 @@
-#### Synchronous WebdriverIO commands usage with `wdio-vyper-service`
+#### Synchronous WebdriverIO commands usage with `wdio-qmate-service`
 
 NOTE: 
 
-**`wdio-vyper-service` does not support _sync_ mode.** 
+**`wdio-qmate-service` does not support _sync_ mode.** 
 
-**All `wdio-vyper-service` commands and assertions can be used only with `await` inside `async` functions** 
+**All `wdio-qmate-service` commands and assertions can be used only with `await` inside `async` functions** 
 
-This package include tests to use `wdio-vyper-service` with parameters:
+This package include tests to use `wdio-qmate-service` with parameters:
 - automation backend located on local machine (`runner: 'local'`)
 - [mocha](https://mochajs.org/) as a [wdio framework](https://webdriver.io/docs/frameworks.html#using-mocha)
 - WebdriverIO commands will be used synchronously
 - without a compiler (pure `Javascript`)
-- test setup services: `chromedriver` and `wdio-vyper-service` (as `WdioVyperService`)
+- test setup services: `chromedriver` and `wdio-qmate-service` (as `WdioQmateService`)
 
 ```shell script
 npm i @wdio/cli

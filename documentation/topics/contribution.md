@@ -1,42 +1,38 @@
 # Contribution
-If you want to contribute to the `wdio-vyper-service` project, follow the steps below.
+If you want to contribute to the `wdio-qmate-service` project, follow the steps below.
 
 ## Prerequisites
 - Make sure to read the guide [Understanding the GitHub flow](https://guides.github.com/introduction/flow), if you are not aware of working with GitHub.
 - Have a look at [WDIO custom services](https://webdriver.io/docs/customservices/)
 
 ## Contributors Setup
-- **Step 1:** Navigate to the location where you want Vyper Service to be installed.
-> 🛈 Don't use any path referring to a cloud location. Otherwise Vyper wont be able to run correctly.
+- **Step 1:** Navigate to the location where you want Qmate Service to be installed.
+> 🛈 Don't use any path referring to a cloud location. Otherwise Qmate wont be able to run correctly.
 
 - **Step 2:** Open the command prompt inside this folder and clone the repository by executing the following command.
 
   Please use one of the following methods. Fore more information visit section [GitHub Authentication](./troubleshooting.md/#GitHub_Authentification).
-    - Via SSH:
-    ```bash
-    git clone git@github.wdf.sap.corp:sProcurement/wdio-vyper-service.git
-    ```
     - Via HTTPS:
      ```bash
-    git clone https://github.wdf.sap.corp/sProcurement/wdio-vyper-service.git
+    git clone https://github.tools.sap/sProcurement/wdio-qmate-service.git
     ```
 
 - **Step 3:** Navigate into the repository:
 ```bash
-cd wdio-vyper-service
+cd wdio-qmate-service
 ```
 
-- **Step 4:** Install local dependencies (Note: `wdio-vyper-service` has only devDependencies)
+- **Step 4:** Install local dependencies (Note: `wdio-qmate-service` has only devDependencies)
 ```bash
 npm i
 ```
 
-- **Step 5.** Navigate to tests inner folder where you want to run tests
+- **Step 5.** Navigate to `tests` inner folder where you want to run tests
 ```bash
 cd tests/<folder name>
 ```
 
-- **Step 6:** Install local dependencies (Note: `wdio-vyper-service` can be install as a local dependendy too)
+- **Step 6:** Install local dependencies (Note: `wdio-qmate-service` can be installed as a local dependency too)
 ```bash
 npm i
 ```
@@ -63,8 +59,8 @@ npx wdio <path/to/configuration file>
 
 
 **Note 1:** Order of hooks call: 
-- hooks from config file with imported `wdio-vyper-service` will be called first 
-- wdio-vyper-service hooks will be called after user's specs.
+- hooks from config file with imported `wdio-qmate-service` will be called first 
+- wdio-qmate-service hooks will be called after user's specs.
 
 ---
 **Note 2:** Errors in WDIO hooks are suppressed by default. 
