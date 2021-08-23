@@ -1,0 +1,14 @@
+{
+  "odata_po": "",
+  "odata_po_header_attachments": "",
+  "odata_po_om": "",
+  "odata_po_wf": "",
+  "odata_po_delRes": "",
+  "purchaseOrderForSES": "",
+  "odata_po_for_attachments": "",
+  "serviceEntrySheet": "",
+  "purchaseOrder": "",
+  "serviceEntrySheetName": "",
+  "isFeatureToggleActive": null,
+  "featureToggleForBatches": "MM_PUR_PO_BATCHES_IN_MANAGE_PO"
+}

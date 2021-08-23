@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "types": [
+      "node",
+      "webdriverio",
+      "mocha",
+      "@wdio/mocha-framework",
+      "@wdio/vyper-service"
+    ]
+  },
+  "include": [
+    "./test/specs/example.ts"
+  ]
+}

@@ -1,0 +1,4 @@
+globals:
+  common: readonly
+  oData: readonly
+  co: readonly
