@@ -88,12 +88,12 @@ exports.config = {
 
 2) with `require` statement (explicit import)
 ```js
-const WdioVyperService = require("@wdio/qmate-service");
+const WdioQmateService = require("@wdio/qmate-service");
 ...
 exports.config = {
   ...
     services: [
-      [WdioVyperService],
+      [WdioQmateService],
       // all other services
     ]
 ...
