@@ -6,8 +6,8 @@ If you want to contribute to the `wdio-qmate-service` project, follow the steps 
 - Have a look at [WDIO custom services](https://webdriver.io/docs/customservices/)
 
 ## Contributors Setup
-- **Step 1:** Navigate to the location where you want Vyper Service to be installed.
-> 🛈 Don't use any path referring to a cloud location. Otherwise Vyper wont be able to run correctly.
+- **Step 1:** Navigate to the location where you want Qmate Service to be installed.
+> 🛈 Don't use any path referring to a cloud location. Otherwise Qmate wont be able to run correctly.
 
 - **Step 2:** Open the command prompt inside this folder and clone the repository by executing the following command.
 
