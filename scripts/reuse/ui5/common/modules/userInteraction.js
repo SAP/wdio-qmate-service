@@ -26,7 +26,7 @@ const UserInteraction = function () {
       await elem.click();
     } catch (error) {
       if (error.message && error.message.match(new RegExp(/is not clickable at point/))) {
-        const errorMessage = await utilities.function.mapWdioErrorToVyperErrorMessage(error, "click");
+        const errorMessage = await utilities.function.mapWdioErrorToQmateErrorMessage(error, "click");
         throw new Error(errorMessage);
       } 
     }
@@ -164,7 +164,7 @@ const UserInteraction = function () {
     await non_ui5.common.userInteraction.pressEscape();
   };
 
-  // Note: need to skip check from vyperForAll, because it is now required - vyper-wdio works with.
+  // Note: need to skip check from vyperForAll, because it is now required - qmate works with.
   /**
    * if (isChrome && isMac) {
       throw new Error("Select All is not supported in chrome Mac edition");

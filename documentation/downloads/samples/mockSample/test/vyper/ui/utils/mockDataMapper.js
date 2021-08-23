@@ -16,7 +16,7 @@ module.exports = {
         entitiesToload: mockDataPath.entitiesToload,
         delay: delay
       };
-      // Call mockserver initMockServer vyper utility method
+      // Call mockserver initMockServer qmate utility method
       await utilities.mockserver.initMockServer(constants.pathToMockServer, oMockServerOptions);
     }
   }

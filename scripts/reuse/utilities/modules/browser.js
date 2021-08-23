@@ -80,7 +80,7 @@ const BrowserUtil = function () {
    */
   this.sleepAndCollectCoverage = function (sleep = 5000) {
     if (browser.params.coverage.status && browser.params.coverage.status !== "false") {
-      // Coverage will be collected via @wdio/vyper-code-coverage-service
+      // Coverage will be collected via @wdio/qmate-code-coverage-service
     } else {
       console.warn("Coverage is disabled. Please enabled the coverage in the config file.");
     }

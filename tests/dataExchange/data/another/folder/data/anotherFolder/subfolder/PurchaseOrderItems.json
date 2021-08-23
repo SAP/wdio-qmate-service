@@ -1,7 +1,7 @@
 [
   {
     "PurchaseOrderItem": "0010",
-    "PurchaseOrderItemText": "Vyper SES",
+    "PurchaseOrderItemText": "Qmate SES",
     "Plant": "1010",
     "OrderQuantity": "7",
     "NetPriceAmount": "10.00",
@@ -29,7 +29,7 @@
   },
   {
     "PurchaseOrderItem": "0020",
-    "PurchaseOrderItemText": "Vyper SES",
+    "PurchaseOrderItemText": "Qmate SES",
     "Plant": "1010",
     "OrderQuantity": "7",
     "NetPriceAmount": "10.00",

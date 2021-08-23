@@ -31,7 +31,7 @@ const UserInteraction = function () {
     try {
       await element.click();
     } catch (error) {
-      const errorMessage = await utilities.function.mapWdioErrorToVyperErrorMessage(error, "click");
+      const errorMessage = await utilities.function.mapWdioErrorToQmateErrorMessage(error, "click");
       throw new Error(errorMessage);
     }
   };
@@ -70,7 +70,7 @@ const UserInteraction = function () {
       await element.setValue(value);
     } catch (error) {
       if (error.message && error.message.match(new RegExp(/(invalid element state|element not interactable)/))) {
-        const errorMessage = await utilities.function.mapWdioErrorToVyperErrorMessage(error, "fill");
+        const errorMessage = await utilities.function.mapWdioErrorToQmateErrorMessage(error, "fill");
         throw new Error(errorMessage);
       } else {
         if (value === undefined) {

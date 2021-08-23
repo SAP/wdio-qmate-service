@@ -214,7 +214,7 @@ module.exports = {
    * Take coverage snapshot, use in teardown
    */
   takeCoverageSnapshot: async function () {
-    // In vyper-wdio browser parameters can be accessed only via `browser.config.params`.
+    // In qmate browser parameters can be accessed only via `browser.config.params`.
     // Please have a look at migration guide (documentation/topics/migration.md)
     if (browser.config.params && browser.config.params.coverage.status && browser.config.params.coverage.status !== "false") {
       await utilities.browser.sleepAndCollectCoverage(2000);

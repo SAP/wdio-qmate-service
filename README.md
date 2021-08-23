@@ -1,4 +1,4 @@
-# Vyper WDIO service
+# Qmate WDIO service
 
 Is an easy-to-use UI and E2E test automation [custom service](https://webdriver.io/docs/customservices/) based on [Webdriver.io](https://webdriver.io/).
 It provides helpful reuse methods for any web application to write scripts more easily.
@@ -7,12 +7,12 @@ It provides helpful reuse methods for any web application to write scripts more 
 [Documentation is in process]
 
 
-## Why wdio-vyper-service?
+## Why wdio-qmate-service?
 
-`wdio-vyper-service` allows you to use all the native webdriver.io commands and features, 
+`wdio-qmate-service` allows you to use all the native webdriver.io commands and features, 
 providing an access to [Reuse API](https://github.wdf.sap.corp/sProcurement/vyperForAll/blob/master/reuse/doc.md).
 
-`wdio-vyper-service` provides you more flexibility than [vyper-wdio](https://github.wdf.sap.corp/sProcurement/vyper-wdio).
+`wdio-qmate-service` provides you more flexibility than [qmate](https://github.tools.sap/sProcurement/qmate).
 
 
 #### It allows you to choose WDIO features you prefer :
@@ -32,7 +32,7 @@ providing an access to [Reuse API](https://github.wdf.sap.corp/sProcurement/vype
 Templates |
 Samples |
 Exercises |
-[Spotlight - Chrome Extension](https://github.wdf.sap.corp/sProcurement/vyper-spotlight)
+[Spotlight - Chrome Extension](https://github.wdf.sap.corp/sProcurement/qmate-spotlight)
 
 
 
@@ -53,7 +53,7 @@ Exercises |
 
 ## Getting started
 
-To use `wdio-vyper-service` in your project:
+To use `wdio-qmate-service` in your project:
 
 **Step 1:** Install WDIO and initialize project (if your repo is empty and you want to create tests from scratch):
 
@@ -64,14 +64,14 @@ npm i @wdio/cli
 npx wdio config
 ```
 
-**Step 2:** Add `wdio-vyper-service` as a devDependency:
+**Step 2:** Add `wdio-qmate-service` as a devDependency:
 
 ```shell script
-npm install <@wdio/vyper-service> --save-dev
+npm install <@wdio/qmate-service> --save-dev
 ```
 
 
-**Step 3:** Add `wdio-vyper-service` as a service to your configuration file:
+**Step 3:** Add `wdio-qmate-service` as a service to your configuration file:
 
 1) without `require` statement  (implicit import)
 
@@ -88,7 +88,7 @@ exports.config = {
 
 2) with `require` statement (explicit import)
 ```js
-const WdioVyperService = require("@wdio/vyper-service");
+const WdioVyperService = require("@wdio/qmate-service");
 ...
 exports.config = {
   ...
@@ -139,4 +139,4 @@ operable program or batch file.
 it means you try to use `wdio` as a command to execute tests suite.
 
 
-3. It is not required to run `npm i` in root package, if you want to run tests ß there is no dependencies in wdio-vyper-service (only devDependencie)
+3. It is not required to run `npm i` in root package, if you want to run tests ß there is no dependencies in wdio-qmate-service (only devDependencie)

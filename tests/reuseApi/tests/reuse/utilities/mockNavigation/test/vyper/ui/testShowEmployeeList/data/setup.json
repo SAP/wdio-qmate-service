@@ -3,8 +3,8 @@
         "initialIntent": "home-view",
         "queryParams": "?mockKey=testShowEmployeeList"
     },
-    "pathToMockData": "../test/vyper/ui/testShowEmployeeList/data/mock",
-    "pathToMockDataRel": "test/vyper/ui/testShowEmployeeList/data/mock",
+    "pathToMockData": "../test/qmate/ui/testShowEmployeeList/data/mock",
+    "pathToMockDataRel": "test/qmate/ui/testShowEmployeeList/data/mock",
     "entitiesToload": [
         ""
     ]

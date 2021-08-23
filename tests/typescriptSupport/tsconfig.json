@@ -5,7 +5,7 @@
       "webdriverio",
       "mocha",
       "@wdio/mocha-framework",
-      "@wdio/vyper-service"
+      "@wdio/qmate-service"
     ]
   },
   "include": [

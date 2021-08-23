@@ -1,4 +1,4 @@
-const WdioVyperService = require("@wdio/vyper-service");
+const WdioQmateService = require("@wdio/qmate-service");
 exports.config = {
     //
     // ====================
@@ -46,7 +46,7 @@ exports.config = {
     //     webdriver: 'info',
     //     '@wdio/applitools-service': 'info'
     // },
-  services: [[WdioVyperService], ["chromedriver"]],
+  services: [[WdioQmateService], ["chromedriver"]],
 
   baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html",
 

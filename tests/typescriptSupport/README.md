@@ -1,11 +1,11 @@
-#### Typescript with `wdio-vyper-service`
+#### Typescript with `wdio-qmate-service`
 
-This package include tests to use `wdio-vyper-service` with parameters:
+This package include tests to use `wdio-qmate-service` with parameters:
 - automation backend located on local machine (`runner: 'local'`)
 - [mocha](https://mochajs.org/) as a [wdio framework](https://webdriver.io/docs/frameworks.html#using-mocha)
 - WebdriverIO commands will be used asynchronously
 - [Typescript](https://www.typescriptlang.org/) compiler (project language - `typescript`) ([more](https://webdriver.io/docs/typescript/)  about how to use typescript)
-- test setup services: `chromedriver` and `wdio-vyper-service` (as `WdioVyperService`)
+- test setup services: `chromedriver` and `wdio-qmate-service` (as `WdioQmateService`)
 
 ```shell script
 npm i @wdio/cli
