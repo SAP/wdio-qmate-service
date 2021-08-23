@@ -79,7 +79,7 @@ npm install <@wdio/qmate-service> --save-dev
 exports.config = {
 ...
     services: [
-                ["vyper"], 
+                ["qmate"], 
                 // all other services
     ]
 ...
