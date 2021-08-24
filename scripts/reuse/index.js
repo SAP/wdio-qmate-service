@@ -1,8 +1,5 @@
 "use strict";
 
-const path = require("path");
-const fs = require("fs-extra");
-
 // Note: need to merge (not to overwrite!) all global variables to keep users' global scope
 const ReuseLibrary = function () {
   this.load = function () {
@@ -18,9 +15,13 @@ const ReuseLibrary = function () {
       mockserver: require("./utilities/modules/mockserver"),
       browser: require("./utilities/modules/browser.js"),
       execute: require("./utilities/modules/execute.js"),
-      os: require("./utilities/modules/os.js")
+      os: require("./utilities/modules/os.js"),
+      console: require("./utilities/modules/console.js"),
     };
-    global.utilities = { ...global.utilities, ...utilities };
+    global.utilities = {
+      ...global.utilities,
+      ...utilities
+    };
     /**
      * @namespace ui5
      * @description Namespace for ui5 modules.
@@ -52,7 +53,10 @@ const ReuseLibrary = function () {
         errorDialog: require("./ui5/common/modules/errorDialog.js")
       }
     };
-    global.ui5 = { ...ui5, ...global.ui5 };
+    global.ui5 = {
+      ...ui5,
+      ...global.ui5
+    };
 
     /**
      * @namespace non_ui5
@@ -60,10 +64,10 @@ const ReuseLibrary = function () {
      */
     const nonUi5 = {
       /**
-      * @namespace common
-      * @description Namespace for common modules.
-      * @memberof non_ui5
-      */
+       * @namespace common
+       * @description Namespace for common modules.
+       * @memberof non_ui5
+       */
       common: {
         assertion: require("./nonUi5/common/modules/assertion.js"),
         navigation: require("./nonUi5/common/modules/navigation.js"),
@@ -71,7 +75,10 @@ const ReuseLibrary = function () {
         userInteraction: require("./nonUi5/common/modules/userInteraction.js")
       }
     };
-    global.non_ui5 = { ...global.non_ui5, ...nonUi5 }; //merge
+    global.non_ui5 = {
+      ...global.non_ui5,
+      ...nonUi5
+    }; //merge
 
     // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ obsolete: use ui5 namespace instead ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
     const common = {

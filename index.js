@@ -19,8 +19,7 @@ module.exports = class CustomWorkerService {
    *
    * the `serviceOptions` parameter will be: `{ foo: 'bar' }`
    */
-  constructor(serviceOptions, capabilities, config, browser) {
-  }
+  constructor(serviceOptions, capabilities, config, browser) {}
 
   /**
    * Gets executed once before all workers get launched.
@@ -94,7 +93,13 @@ module.exports = class CustomWorkerService {
   /**
    * Function to be executed after a test (in Mocha/Jasmine)
    */
-  async afterTest(test, context, {error, result, duration, passed, retries}) {
+  async afterTest(test, context, {
+    error,
+    result,
+    duration,
+    passed,
+    retries
+  }) {
     // test.title - for mocha framework
     // test.description - for jasmine framework
     const testName = test.title || test.description;
@@ -111,7 +116,7 @@ module.exports = class CustomWorkerService {
    * @param {Object} suite suite details
    */
   async beforeSuite(suite) {
-    console.log(suite.fullTitle);
+    console.log("\x1b[36m\x1b[1m", suite.fullTitle, "\x1b[0m");
   }
 
   /**
