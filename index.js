@@ -47,9 +47,9 @@ module.exports = class CustomWorkerService {
     } catch (e) {
       if (specs && specs[0]) {
         // `specs` variable is an array, but includes only one current spec
-        console.error(`qmateLoader() in 'before' hook failed for spec '${specs[0]}'. ${e}`);
+        console.error(`qmateLoader() in 'beforeSession' hook failed for spec '${specs[0]}'. ${e}`);
       } else {
-        console.error(`qmateLoader() in 'before' hook failed. ${e}`);
+        console.error(`qmateLoader() in 'beforeSession' hook failed. ${e}`);
       }
     }
   }
@@ -76,18 +76,13 @@ module.exports = class CustomWorkerService {
   }
 
   /**
-   * Gets executed after all tests are done. You still have access to all global variables from
-   * the test.
-   * @param {Number} result 0 - test pass, 1 - test fail
-   * @param {Array.<Object>} capabilities list of capabilities details
-   * @param {Array.<String>} specs List of spec file paths that ran
+   * Gets executed before the suite starts.
+   * @param {Object} suite suite details
    */
-  async after(result, capabilities, specs) {
-    try {
-      afterHook(result, capabilities, specs);
-    } catch (e) {
-      console.error(`after hook failed: ${e}`);
-    }
+  async beforeSuite(suite) {
+    console.log("\n----------------------------------------------");
+    console.log(`\x1b[36m\x1b[1m${suite.fullTitle}\x1b[0m`);
+    console.log("----------------------------------------------");
   }
 
   /**
@@ -105,18 +100,26 @@ module.exports = class CustomWorkerService {
     const testName = test.title || test.description;
     // Print test titles as in vyperForAll during test run
     if (!error && passed === true) {
-      console.info(`    ✓ ${testName}`);
+      console.info(`\x1b[32m\t✓ ${testName}\x1b[0m \t${Math.round(duration/1000)}s`);
     } else if (error || passed !== true) {
-      console.error(`F    ✗ ${testName}`);
+      console.error(`\x1b[31m\t✗ ${testName}\x1b[0m \t${Math.round(duration/1000)}s`);
     }
   }
 
   /**
-   * Gets executed before the suite starts.
-   * @param {Object} suite suite details
+   * Gets executed after all tests are done. You still have access to all global variables from
+   * the test.
+   * @param {Number} result 0 - test pass, 1 - test fail
+   * @param {Array.<Object>} capabilities list of capabilities details
+   * @param {Array.<String>} specs List of spec file paths that ran
    */
-  async beforeSuite(suite) {
-    console.log("\x1b[36m\x1b[1m", suite.fullTitle, "\x1b[0m");
+  async after(result, capabilities, specs) {
+    try {
+      afterHook(result, capabilities, specs);
+    } catch (e) {
+      console.error(`after hook failed: ${e}`);
+    }
+    console.log("----------------------------------------------\n");
   }
 
   /**
