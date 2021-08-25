@@ -19,8 +19,7 @@ module.exports = class CustomWorkerService {
    *
    * the `serviceOptions` parameter will be: `{ foo: 'bar' }`
    */
-  constructor(serviceOptions, capabilities, config, browser) {
-  }
+  constructor(serviceOptions, capabilities, config, browser) {}
 
   /**
    * Gets executed once before all workers get launched.
@@ -48,9 +47,9 @@ module.exports = class CustomWorkerService {
     } catch (e) {
       if (specs && specs[0]) {
         // `specs` variable is an array, but includes only one current spec
-        console.error(`qmateLoader() in 'before' hook failed for spec '${specs[0]}'. ${e}`);
+        console.error(`qmateLoader() in 'beforeSession' hook failed for spec '${specs[0]}'. ${e}`);
       } else {
-        console.error(`qmateLoader() in 'before' hook failed. ${e}`);
+        console.error(`qmateLoader() in 'beforeSession' hook failed. ${e}`);
       }
     }
   }
@@ -77,6 +76,37 @@ module.exports = class CustomWorkerService {
   }
 
   /**
+   * Gets executed before the suite starts.
+   * @param {Object} suite suite details
+   */
+  async beforeSuite(suite) {
+    console.log("\n----------------------------------------------");
+    console.log(`\x1b[36m\x1b[1m${suite.fullTitle}\x1b[0m`);
+    console.log("----------------------------------------------");
+  }
+
+  /**
+   * Function to be executed after a test (in Mocha/Jasmine)
+   */
+  async afterTest(test, context, {
+    error,
+    result,
+    duration,
+    passed,
+    retries
+  }) {
+    // test.title - for mocha framework
+    // test.description - for jasmine framework
+    const testName = test.title || test.description;
+    // Print test titles as in vyperForAll during test run
+    if (!error && passed === true) {
+      console.info(`\x1b[32m\t✓ ${testName}\x1b[0m \t${Math.round(duration/1000)}s`);
+    } else if (error || passed !== true) {
+      console.error(`\x1b[31m\t✗ ${testName}\x1b[0m \t${Math.round(duration/1000)}s`);
+    }
+  }
+
+  /**
    * Gets executed after all tests are done. You still have access to all global variables from
    * the test.
    * @param {Number} result 0 - test pass, 1 - test fail
@@ -89,29 +119,7 @@ module.exports = class CustomWorkerService {
     } catch (e) {
       console.error(`after hook failed: ${e}`);
     }
-  }
-
-  /**
-   * Function to be executed after a test (in Mocha/Jasmine)
-   */
-  async afterTest(test, context, {error, result, duration, passed, retries}) {
-    // test.title - for mocha framework
-    // test.description - for jasmine framework
-    const testName = test.title || test.description;
-    // Print test titles as in vyperForAll during test run
-    if (!error && passed === true) {
-      console.info(`    ✓ ${testName}`);
-    } else if (error || passed !== true) {
-      console.error(`F    ✗ ${testName}`);
-    }
-  }
-
-  /**
-   * Gets executed before the suite starts.
-   * @param {Object} suite suite details
-   */
-  async beforeSuite(suite) {
-    console.log(suite.fullTitle);
+    console.log("----------------------------------------------\n");
   }
 
   /**
