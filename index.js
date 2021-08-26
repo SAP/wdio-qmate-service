@@ -27,6 +27,14 @@ module.exports = class CustomWorkerService {
    * @param {Array.<Object>} capabilities list of capabilities details
    */
   async onPrepare(config, capabilities) {
+    const logo = `                         __     
+  ____ _____ ___  ____ _/ /____ 
+ / __ \`/ __ \`__ \\/ __ \`/ __/ _ \\
+/ /_/ / / / / / / /_/ / /_/  __/
+\\__, /_/ /_/ /_/\__,_/\\__/\\___/ 
+  /_/   \x1b[3m test automation \x1b[0m                              
+      `;
+    console.log(logo);
     try {
       await onPrepareHook(config, capabilities);
     } catch (e) {
@@ -47,9 +55,9 @@ module.exports = class CustomWorkerService {
     } catch (e) {
       if (specs && specs[0]) {
         // `specs` variable is an array, but includes only one current spec
-        console.error(`qmateLoader() in 'beforeSession' hook failed for spec '${specs[0]}'. ${e}`);
+        utilities.console.error(`qmateLoader() in 'beforeSession' hook failed for spec '${specs[0]}'. ${e}`);
       } else {
-        console.error(`qmateLoader() in 'beforeSession' hook failed. ${e}`);
+        utilities.console.error(`qmateLoader() in 'beforeSession' hook failed. ${e}`);
       }
     }
   }
@@ -68,9 +76,9 @@ module.exports = class CustomWorkerService {
     } catch (e) {
       if (specs && specs[0]) {
         // `specs` variable is an array, but includes only one current spec
-        console.error(`qmateLoader() in 'before' hook failed for spec '${specs[0]}'. ${e}`);
+        utilities.console.error(`qmateLoader() in 'before' hook failed for spec '${specs[0]}'. ${e}`);
       } else {
-        console.error(`qmateLoader() in 'before' hook failed. ${e}`);
+        utilities.console.error(`qmateLoader() in 'before' hook failed. ${e}`);
       }
     }
   }
@@ -80,9 +88,7 @@ module.exports = class CustomWorkerService {
    * @param {Object} suite suite details
    */
   async beforeSuite(suite) {
-    console.log("\n----------------------------------------------");
-    console.log(`\x1b[36m\x1b[1m${suite.fullTitle}\x1b[0m`);
-    console.log("----------------------------------------------");
+    utilities.console.log(` ${suite.fullTitle}  `, "black", "white");
   }
 
   /**
@@ -100,9 +106,9 @@ module.exports = class CustomWorkerService {
     const testName = test.title || test.description;
     // Print test titles as in vyperForAll during test run
     if (!error && passed === true) {
-      console.info(`\x1b[32m\t✓ ${testName}\x1b[0m \t${Math.round(duration/1000)}s`);
+      utilities.console.info(`\x1b[32m\t✓ ${testName}\x1b[0m \t${Math.round(duration/1000)}s`);
     } else if (error || passed !== true) {
-      console.error(`\x1b[31m\t✗ ${testName}\x1b[0m \t${Math.round(duration/1000)}s`);
+      utilities.console.error(`\x1b[31m\t✗ ${testName}\x1b[0m \t${Math.round(duration/1000)}s`);
     }
   }
 
@@ -117,9 +123,8 @@ module.exports = class CustomWorkerService {
     try {
       afterHook(result, capabilities, specs);
     } catch (e) {
-      console.error(`after hook failed: ${e}`);
+      utilities.console.error(`after hook failed: ${e}`);
     }
-    console.log("----------------------------------------------\n");
   }
 
   /**
@@ -134,7 +139,7 @@ module.exports = class CustomWorkerService {
     try {
       await onCompleteHook(exitCode, config, capabilities, results);
     } catch (e) {
-      console.error(`onComplete hook failed: ${e}`);
+      utilities.console.error(`onComplete hook failed: ${e}`);
     }
   }
 };

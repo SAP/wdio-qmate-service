@@ -1,7 +1,7 @@
 /**
-* @class session
-* @memberof ui5.common
-*/
+ * @class session
+ * @memberof ui5.common
+ */
 const Session = function () {
 
   //----------------------------------- LOGIN ----------------------------------
@@ -11,12 +11,16 @@ const Session = function () {
    * @description Login with specific username and password. This function works for both fiori and sap-cloud login.
    * @param {String} username - The username.
    * @param {String} password - The password.
-   * @param {Boolean} verify - [OPTIONAL] Specifies if the function will check the shell header after logging in. Default is 'false'.
+   * @param {Boolean} [verify=false] - [OPTIONAL] Specifies if the function will check the shell header after logging in. Default is 'false'.
    * @param {Integer} timeout - The timeout to wait (default value: 30 sec).
    * @example await ui5.common.session.login("PURCHASER");
    * @example await ui5.common.session.login("john", "abc123!");
    */
   this.login = async function (username, password, verify, timeout = 30000) {
+    if (!username) {
+      throw new Error("Please provide a valid username.");
+    }
+
     let authenticator;
     try {
       await browser.waitUntil(async function () {
@@ -45,7 +49,7 @@ const Session = function () {
     }
   };
 
-  // use only as internal function
+  // DEPRECATED
   this.loginWithGenericUser = async function (user, authenticator) {
     console.warn("Deprecation Warning! This function will be removed in the future. Please use one of the following functions: loginFiori, loginSapCloud, login");
     return this.loginWithUsernameAndPassword(user.username, user.password, authenticator);
@@ -53,30 +57,36 @@ const Session = function () {
 
   // use only as internal function
   this.loginWithUsernameAndPassword = async function (username, password = "Welcome1!", authenticator = ui5.common.authenticators.fioriForm, verify = false) {
-    let userNameField = null;
+    let usernameField = null;
     let passwordField = null;
     let logonField = null;
 
     try {
       await browser.waitUntil(async function () {
-        userNameField = await $(authenticator.usernameFieldSelector);
+        usernameField = await $(authenticator.usernameFieldSelector);
         passwordField = await $(authenticator.passwordFieldSelector);
         logonField = await $(authenticator.logonButtonSelector);
-        return await userNameField.isDisplayedInViewport() &&
+        return await usernameField.isDisplayedInViewport() &&
           await passwordField.isDisplayedInViewport() &&
           await logonField.isDisplayedInViewport();
-      }, { timeout: 60000, timeoutMsg: "expected user name field to be present after 60s" });
+      }, {
+        timeout: 60000,
+        timeoutMsg: "expected user name field to be present after 60s"
+      });
 
-      await userNameField.setValue(username);
+      await usernameField.setValue(username);
       await passwordField.setValue(password);
       await logonField.click();
     } catch (error) {
       throw new Error("An exception was caught during the login. " +
         "Possible reasons are: a previous script failed, the system is down, wrong config file. \n" + error);
     }
+
     if (verify) {
       await ui5.common.assertion.expectShellHeader();
     }
+
+    await logUI5Version();
   };
 
   /**
@@ -89,6 +99,10 @@ const Session = function () {
    * @example await ui5.common.session.loginFiori("john", "abc123!");
    */
   this.loginFiori = async function (username, password, verify = false) {
+    if (!username) {
+      throw new Error("Please provide a valid username.");
+    }
+
     try {
       const authenticator = await ui5.common.authenticators.fioriForm;
       return await this.loginWithUsernameAndPassword(username, password, authenticator, verify);
@@ -107,6 +121,10 @@ const Session = function () {
    * @example await ui5.common.session.loginSapCloud("john", "abc123!");
    */
   this.loginSapCloud = async function (username, password, verify = false) {
+    if (!username) {
+      throw new Error("Please provide a valid username.");
+    }
+
     try {
       const authenticator = await ui5.common.authenticators.sapCloudForm;
       return await this.loginWithUsernameAndPassword(username, password, authenticator, verify);
@@ -128,6 +146,10 @@ const Session = function () {
    * @example await ui5.common.session.loginCustom("john", "abc123!", "#j_username", #j_password, "#logOnFormSubmit");
    */
   this.loginCustom = async function (username, password, usernameFieldSelector, passwordFieldSelector, logonButtonSelector, verify = false) {
+    if (!username) {
+      throw new Error("Please provide a valid username.");
+    }
+
     try {
       const authenticator = {
         "usernameFieldSelector": usernameFieldSelector,
@@ -205,7 +227,12 @@ const Session = function () {
   //---------------------------------- LOGOUT ----------------------------------
   async function clickSignOut() {
     const ui5ControlProperties = {
-      "elementProperties": { "metadata": "sap.m.StandardListItem", "mProperties": { "id": "*logoutBtn" } }
+      "elementProperties": {
+        "metadata": "sap.m.StandardListItem",
+        "mProperties": {
+          "id": "*logoutBtn"
+        }
+      }
     };
     await ui5.common.locator.scrollToElement(ui5ControlProperties);
     return ui5.common.userInteraction.click(ui5ControlProperties);
@@ -223,6 +250,7 @@ const Session = function () {
     await ui5.common.navigationBar.clickUserIcon();
     await clickSignOut();
     await ui5.common.confirmationDialog.clickOk();
+
     if (verify) {
       await ui5.common.assertion.expectLogoutText();
     }
@@ -231,19 +259,34 @@ const Session = function () {
   /**
    * @function switchUser
    * @memberOf ui5.common.session
-   * @description switchs the user according to the passed username and password.
+   * @description switches the user according to the passed username and password.
    * @param {String} username - The username.
-   * @param {String} password - The password.
-   * @param {Object} authenticator - The login form type.
-   * @param {Number} timeout=8000 - The timeout to wait (default value: 8 sec).
+   * @param {String} [password] - The password.
+   * @param {Object} [authenticator] - The login form type.
+   * @param {Number} [wait=8000] - The waiting time between logout and login (default value: 8 sec).
    * @example await ui5.common.session.switchUser("Buyer");
    */
-  this.switchUser = async function (username, password, authenticator, timeout = 8000) {
+  this.switchUser = async function (username, password, authenticator, wait = 8000) {
     await this.logout();
-    await utilities.browser.sleep(timeout);
+    await utilities.browser.sleep(wait);
     await browser.navigateTo(browser.config.baseUrl);
     return this.loginWithUsernameAndPassword(username, password, authenticator);
   };
+
+  async function logUI5Version() {
+    const logUI5Version = browser.params.logUI5Version;
+    if (logUI5Version !== false && !process.env.UI5_VERSION_LOGGED) {
+      const ui5Version = await utilities.browser.getUI5Version();
+      utilities.console.log("");
+      utilities.console.info(`UI5 Version:\t${ui5Version.version}`);
+      utilities.console.info(`UI5 Timestamp:\t${ui5Version.timestamp}`);
+      utilities.console.log("");
+
+      if (logUI5Version !== "always") {
+        process.env.UI5_VERSION_LOGGED = true;
+      }
+    }
+  }
 
 };
 module.exports = new Session();
