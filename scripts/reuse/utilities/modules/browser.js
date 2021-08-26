@@ -1,7 +1,7 @@
 /**
-* @class browser
-* @memberof utilities
-*/
+ * @class browser
+ * @memberof utilities
+ */
 const BrowserUtil = function () {
 
   /**
@@ -135,23 +135,23 @@ const BrowserUtil = function () {
 
     return utilities.browser.executeScript(function () {
       /* eslint-disable no-undef */
-      if (sap &&
-          sap.ui &&
-          sap.ui.getVersionInfo &&
-          sap.ui.getVersionInfo()) {
-        var sVersion = sap.ui.getVersionInfo().version;
-        var sDateTime = sap.ui.getVersionInfo().buildTimestamp;
-        var resStr = "UI5 Version: " + sVersion;
-        if (sDateTime) {
-          var sCreationYear = sDateTime.substring(0, 4);
-          var sCreationMonth = sDateTime.substring(4, 6);
-          var sCreationDay = sDateTime.substring(6, 8);
-          sDateTime = sCreationDay + "/" + sCreationMonth + "/" + sCreationYear;
-          resStr += "\nUI5 Build Timestamp: " + sDateTime;
+      if (sap && sap.ui && sap.ui.getVersionInfo && sap.ui.getVersionInfo()) {
+        const version = sap.ui.getVersionInfo().version;
+
+        let timestamp = sap.ui.getVersionInfo().buildTimestamp;
+        if (timestamp) {
+          const creationYear = timestamp.substring(0, 4);
+          const creationMonth = timestamp.substring(4, 6);
+          const creationDay = timestamp.substring(6, 8);
+          timestamp = creationDay + "/" + creationMonth + "/" + creationYear;
         }
-        return resStr;
+
+        return {
+          "version": version,
+          "timestamp": timestamp
+        };
       } else {
-        console.warn("UI5 version information could not be retrieved");
+        utilities.console.warn("UI5 version information could not be retrieved.");
         return null;
       }
     });
