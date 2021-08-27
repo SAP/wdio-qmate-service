@@ -6,9 +6,6 @@ describe("navigation - navigateToApplicationWithQueryParams with query param in 
   const intent = "PurchaseOrder-manage";
 
   it("Preparation", async function () {
-    browser.config.baseUrl = "https://qs9-715.wdf.sap.corp/ui"; // Rewrite config baseUrl
-    await non_ui5.common.navigation.navigateToUrl(browser.config.baseUrl);
-    await ui5.common.session.loginFiori("AP_ACCOUNTANT");
     await ui5.common.navigation.navigateToApplication("Shell-home", true);
   });
 
@@ -23,12 +20,6 @@ describe("navigation - navigateToApplicationWithQueryParams with query param in 
     expect(currentUrl).toContain(query);
     expect(currentUrl).toContain(browser.config.baseUrl);
   });
-
-  it("Clean Up", async function () {
-    // Need to set English language to allow 'logout()" function to find logout button
-    await ui5.common.navigation.navigateToApplicationWithQueryParams(intent, `?sap-language=EN&${queryToAvoidPopups}`, true);
-    await ui5.common.session.logout();
-  });
 });
 
 describe("navigation - navigateToApplicationWithQueryParams with non-existing param in url", function () {
@@ -36,9 +27,6 @@ describe("navigation - navigateToApplicationWithQueryParams with non-existing pa
   const intent = "PurchaseOrder-manage";
 
   it("Preparation", async function () {
-    browser.config.baseUrl = "https://qs9-715.wdf.sap.corp/ui"; // Rewrite config baseUrl
-    await non_ui5.common.navigation.navigateToUrl(browser.config.baseUrl);
-    await ui5.common.session.loginFiori("PURCHASER");
     await ui5.common.navigation.navigateToApplication(intent, true);
   });
 
@@ -56,25 +44,18 @@ describe("navigation - navigateToApplicationWithQueryParams with non-existing pa
     expect(currentUrl).toContain(intent);
     expect(currentUrl).toContain(browser.config.baseUrl);
   });
-
-  it("Clean Up", async function () {
-    await ui5.common.session.logout();
-  });
 });
 
 describe("navigation - navigateToApplicationWithQueryParams with empty param in url", function () {
   const intent = "PurchaseOrder-manage";
 
   it("Preparation", async function () {
-    browser.config.baseUrl = "https://qs9-715.wdf.sap.corp/ui"; // Rewrite config baseUrl
     await ui5.common.navigation.navigateToApplication("Shell-home");
-    await ui5.common.session.loginFiori("PURCHASER");
   });
 
   it("Execution", async function () {
     await ui5.common.navigation.navigateToApplicationWithQueryParams(intent);
   });
-
 
   it("Verification", async function () {
     // Note: currentUrl can contain system specific query params

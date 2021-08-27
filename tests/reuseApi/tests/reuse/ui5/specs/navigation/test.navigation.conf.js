@@ -20,8 +20,9 @@ exports.config = merge(qmateConfig.config, {
     path.resolve(__dirname, "navigateToApplication.spec.js"),
     path.resolve(__dirname, "navigateToApplicationAndRetry.spec.js"),
 
+    // TODO: improve performance
+    path.resolve(__dirname, "navigateToApplicationWithQueryParams.spec.js"),
     // TODO: to be reworked
-    // path.resolve(__dirname, "navigateToApplicationWithQueryParams.spec.js"),
     // path.resolve(__dirname, "navigateToApplicationWithQueryParamsAndRetry.spec.js"),
     // path.resolve(__dirname, "navigateToApplicationAndRetryRefresh.spec.js"),
     // path.resolve(__dirname, "navigateToSystemAndApplication.spec.js"),
