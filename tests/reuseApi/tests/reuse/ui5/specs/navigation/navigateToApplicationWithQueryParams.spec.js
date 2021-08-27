@@ -6,7 +6,7 @@ describe("navigation - navigateToApplicationWithQueryParams with query param in 
   const intent = "PurchaseOrder-manage";
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToApplication("Shell-home", true);
+    await ui5.common.navigation.navigateToApplication("Shell-home", false);
   });
 
   it("Execution", async function () {
@@ -27,7 +27,7 @@ describe("navigation - navigateToApplicationWithQueryParams with non-existing pa
   const intent = "PurchaseOrder-manage";
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToApplication(intent, true);
+    await ui5.common.navigation.navigateToApplication(intent, false);
   });
 
   it("Execution", async function () {
