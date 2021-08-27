@@ -10,7 +10,7 @@ describe("navigation - navigateToApplicationWithQueryParams with query param in 
   });
 
   it("Execution", async function () {
-    await ui5.common.navigation.navigateToApplicationWithQueryParams(intent, `${query}&${queryToAvoidPopups}`, true);
+    await ui5.common.navigation.navigateToApplicationWithQueryParams(intent, `${query}&${queryToAvoidPopups}`, false);
   });
 
   it("Verification", async function () {
@@ -31,8 +31,7 @@ describe("navigation - navigateToApplicationWithQueryParams with non-existing pa
   });
 
   it("Execution", async function () {
-    await ui5.common.navigation.navigateToApplicationWithQueryParams(intent, `${query}&${queryToAvoidPopups}`, true);
-    await ui5.common.navigation.closePopups();
+    await ui5.common.navigation.navigateToApplicationWithQueryParams(intent, `${query}&${queryToAvoidPopups}`, false);
   });
 
 
@@ -54,7 +53,7 @@ describe("navigation - navigateToApplicationWithQueryParams with empty param in 
   });
 
   it("Execution", async function () {
-    await ui5.common.navigation.navigateToApplicationWithQueryParams(intent);
+    await ui5.common.navigation.navigateToApplicationWithQueryParams(intent, "", false);
   });
 
   it("Verification", async function () {
@@ -62,9 +61,5 @@ describe("navigation - navigateToApplicationWithQueryParams with empty param in 
     const currentUrl = await browser.getUrl();
     expect(currentUrl).toContain(intent);
     expect(currentUrl).toContain(browser.config.baseUrl);
-  });
-
-  it("Clean Up", async function () {
-    await ui5.common.session.logout();
   });
 });
