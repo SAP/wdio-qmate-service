@@ -6,14 +6,11 @@ describe("navigation - navigateToApplicationWithQueryParamsAndRetry with query p
   const intent = "PurchaseOrder-manage";
 
   it("Preparation", async function () {
-    browser.config.baseUrl = "https://qs9-715.wdf.sap.corp/ui"; // Rewrite config baseUrl
-    await non_ui5.common.navigation.navigateToUrl(browser.config.baseUrl);
-    await ui5.common.session.loginFiori("AP_ACCOUNTANT");
-    await ui5.common.navigation.navigateToApplication("Shell-home", true);
+    await ui5.common.navigation.navigateToApplication("Shell-home", false);
   });
 
   it("Execution", async function () {
-    await ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, `${query}&${queryToAvoidPopups}`, true);
+    await ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, `${query}&${queryToAvoidPopups}`, false);
   });
 
   it("Verification", async function () {
@@ -23,12 +20,6 @@ describe("navigation - navigateToApplicationWithQueryParamsAndRetry with query p
     expect(currentUrl).toContain(query);
     expect(currentUrl).toContain(browser.config.baseUrl);
   });
-
-  it("Clean Up", async function () {
-    // Need to set English language to allow 'logout()" function to find logout button
-    await ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, `?sap-language=EN&${queryToAvoidPopups}`, true);
-    await ui5.common.session.logout();
-  });
 });
 
 describe("navigation - navigateToApplicationWithQueryParamsAndRetry with non-existing param in url", function () {
@@ -36,15 +27,11 @@ describe("navigation - navigateToApplicationWithQueryParamsAndRetry with non-exi
   const intent = "PurchaseOrder-manage";
 
   it("Preparation", async function () {
-    browser.config.baseUrl = "https://qs9-715.wdf.sap.corp/ui"; // Rewrite config baseUrl
-    await non_ui5.common.navigation.navigateToUrl(browser.config.baseUrl);
-    await ui5.common.session.loginFiori("PURCHASER");
-    await ui5.common.navigation.navigateToApplication(intent, true);
+    await ui5.common.navigation.navigateToApplication(intent, false);
   });
 
   it("Execution", async function () {
-    await ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, `${query}&${queryToAvoidPopups}`, true);
-    await ui5.common.navigation.closePopups();
+    await ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, `${query}&${queryToAvoidPopups}`, false);
   });
 
 
@@ -57,23 +44,17 @@ describe("navigation - navigateToApplicationWithQueryParamsAndRetry with non-exi
     expect(currentUrl).toContain(intent);
     expect(currentUrl).toContain(browser.config.baseUrl);
   });
-
-  it("Clean Up", async function () {
-    await ui5.common.session.logout();
-  });
 });
 
 describe("navigation - navigateToApplicationWithQueryParamsAndRetry with empty param in url", function () {
   const intent = "PurchaseOrder-manage";
 
   it("Preparation", async function () {
-    browser.config.baseUrl = "https://qs9-715.wdf.sap.corp/ui"; // Rewrite config baseUrl
-    await ui5.common.navigation.navigateToApplication("Shell-home", true);
-    await ui5.common.session.loginFiori("PURCHASER");
+    await ui5.common.navigation.navigateToApplication("Shell-home", false);
   });
 
   it("Execution", async function () {
-    await ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry(intent);
+    await ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, "", false);
   });
 
 
@@ -82,9 +63,5 @@ describe("navigation - navigateToApplicationWithQueryParamsAndRetry with empty p
     const currentUrl = await browser.getUrl();
     expect(currentUrl).toContain(intent);
     expect(currentUrl).toContain(browser.config.baseUrl);
-  });
-
-  it("Clean Up", async function () {
-    await ui5.common.session.logout();
   });
 });
