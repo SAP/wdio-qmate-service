@@ -1,6 +1,9 @@
 ## Constants
 
 <dl>
+<dt><a href="#common">common</a></dt>
+<dd><p>Global namespace for common modules.</p>
+</dd>
 <dt><a href="#ui5">ui5</a></dt>
 <dd><p>Global namespace for UI5 modules.</p>
 </dd>
@@ -9,6 +12,305 @@
 </dd>
 </dl>
 
+<a name="common"></a>
+
+## common
+Global namespace for common modules.
+
+**Kind**: global constant  
+
+* [common](#common)
+    * [.assertion](#common.assertion)
+        * [.expectEqual(value1, value2)](#common.assertion.expectEqual)
+        * [.expectUnequal(value1, value2)](#common.assertion.expectUnequal)
+        * [.expectTrue(value)](#common.assertion.expectTrue)
+        * [.expectFalse(value)](#common.assertion.expectFalse) ⇒ <code>Promise</code>
+        * [.expectDefined(value)](#common.assertion.expectDefined)
+        * [.expectUndefined(value)](#common.assertion.expectUndefined)
+        * [.expectUrlToBe()](#common.assertion.expectUrlToBe) ⇒ <code>Promise</code>
+    * [.userInteraction](#common.userInteraction)
+        * [.pressEnter()](#common.userInteraction.pressEnter)
+        * [.pressTab()](#common.userInteraction.pressTab)
+        * [.pressF4()](#common.userInteraction.pressF4)
+        * [.pressBackspace()](#common.userInteraction.pressBackspace)
+        * [.pressEscape()](#common.userInteraction.pressEscape)
+        * [.pressArrowLeft()](#common.userInteraction.pressArrowLeft)
+        * [.pressArrowRight()](#common.userInteraction.pressArrowRight)
+        * [.fillActive(value)](#common.userInteraction.fillActive)
+        * [.fillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.fillActiveAndRetry)
+        * [.clearAndFillActive(value)](#common.userInteraction.clearAndFillActive)
+        * [.clearFillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.clearFillActiveAndRetry)
+
+<a name="common.assertion"></a>
+
+### common.assertion
+**Kind**: static class of [<code>common</code>](#common)  
+
+* [.assertion](#common.assertion)
+    * [.expectEqual(value1, value2)](#common.assertion.expectEqual)
+    * [.expectUnequal(value1, value2)](#common.assertion.expectUnequal)
+    * [.expectTrue(value)](#common.assertion.expectTrue)
+    * [.expectFalse(value)](#common.assertion.expectFalse) ⇒ <code>Promise</code>
+    * [.expectDefined(value)](#common.assertion.expectDefined)
+    * [.expectUndefined(value)](#common.assertion.expectUndefined)
+    * [.expectUrlToBe()](#common.assertion.expectUrlToBe) ⇒ <code>Promise</code>
+
+<a name="common.assertion.expectEqual"></a>
+
+#### assertion.expectEqual(value1, value2)
+Expects the passed values to be equal.
+
+**Kind**: static method of [<code>assertion</code>](#common.assertion)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value1 | <code>Any</code> | Value (1) to be equal to value (2) |
+| value2 | <code>Any</code> | Value (2) to be equal to value (1) |
+
+**Example**  
+```js
+common.assertion.expectEqual(value1, value2);
+```
+<a name="common.assertion.expectUnequal"></a>
+
+#### assertion.expectUnequal(value1, value2)
+Expects the passed values to be unequal.
+
+**Kind**: static method of [<code>assertion</code>](#common.assertion)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value1 | <code>Any</code> | Value (1) to be unequal to value (2) |
+| value2 | <code>Any</code> | Value (2) to be unequal to value (1) |
+
+**Example**  
+```js
+common.assertion.expectUnequal(value1, value2);
+```
+<a name="common.assertion.expectTrue"></a>
+
+#### assertion.expectTrue(value)
+Expects the passed value to be true.
+
+**Kind**: static method of [<code>assertion</code>](#common.assertion)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value | <code>Any</code> | Value to be equal to true |
+
+**Example**  
+```js
+common.assertion.expectTrue(value);
+```
+<a name="common.assertion.expectFalse"></a>
+
+#### assertion.expectFalse(value) ⇒ <code>Promise</code>
+Expects the passed value to be false.
+
+**Kind**: static method of [<code>assertion</code>](#common.assertion)  
+**Returns**: <code>Promise</code> - The promise to be resolved.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value | <code>Boolean</code> | The value to be false. |
+
+**Example**  
+```js
+await common.assertion.expectFalse(false);
+```
+<a name="common.assertion.expectDefined"></a>
+
+#### assertion.expectDefined(value)
+Expects the passed values is defined.
+
+**Kind**: static method of [<code>assertion</code>](#common.assertion)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value | <code>Any</code> | Value to be defined (not undefined) |
+
+**Example**  
+```js
+common.assertion.expectDefined(value);
+```
+<a name="common.assertion.expectUndefined"></a>
+
+#### assertion.expectUndefined(value)
+Expects the passed values is undefined.
+
+**Kind**: static method of [<code>assertion</code>](#common.assertion)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value | <code>Any</code> | Value to be undefined |
+
+**Example**  
+```js
+common.assertion.expectUndefined(value);
+```
+<a name="common.assertion.expectUrlToBe"></a>
+
+#### assertion.expectUrlToBe() ⇒ <code>Promise</code>
+Expects the url to be the passed value.
+
+**Kind**: static method of [<code>assertion</code>](#common.assertion)  
+**Returns**: <code>Promise</code> - The promise to be resolved.  
+**Example**  
+```js
+await common.assertion.expectUrlToBe("www.sap.com");
+```
+<a name="common.userInteraction"></a>
+
+### common.userInteraction
+**Kind**: static class of [<code>common</code>](#common)  
+
+* [.userInteraction](#common.userInteraction)
+    * [.pressEnter()](#common.userInteraction.pressEnter)
+    * [.pressTab()](#common.userInteraction.pressTab)
+    * [.pressF4()](#common.userInteraction.pressF4)
+    * [.pressBackspace()](#common.userInteraction.pressBackspace)
+    * [.pressEscape()](#common.userInteraction.pressEscape)
+    * [.pressArrowLeft()](#common.userInteraction.pressArrowLeft)
+    * [.pressArrowRight()](#common.userInteraction.pressArrowRight)
+    * [.fillActive(value)](#common.userInteraction.fillActive)
+    * [.fillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.fillActiveAndRetry)
+    * [.clearAndFillActive(value)](#common.userInteraction.clearAndFillActive)
+    * [.clearFillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.clearFillActiveAndRetry)
+
+<a name="common.userInteraction.pressEnter"></a>
+
+#### userInteraction.pressEnter()
+Performs the Enter keypress.
+
+**Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
+**Example**  
+```js
+await common.userInteraction.pressEnter();
+```
+<a name="common.userInteraction.pressTab"></a>
+
+#### userInteraction.pressTab()
+Performs the Tab keypress.
+
+**Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
+**Example**  
+```js
+await common.userInteraction.pressTab();
+```
+<a name="common.userInteraction.pressF4"></a>
+
+#### userInteraction.pressF4()
+Performs the F4 keypress.
+
+**Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
+**Example**  
+```js
+await common.userInteraction.pressF4();
+```
+<a name="common.userInteraction.pressBackspace"></a>
+
+#### userInteraction.pressBackspace()
+Performs the Backspace keypress.
+
+**Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
+**Example**  
+```js
+await common.userInteraction.pressBackspace();
+```
+<a name="common.userInteraction.pressEscape"></a>
+
+#### userInteraction.pressEscape()
+Performs the Escape keypress.
+
+**Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
+**Example**  
+```js
+await common.userInteraction.pressEscape();
+```
+<a name="common.userInteraction.pressArrowLeft"></a>
+
+#### userInteraction.pressArrowLeft()
+Performs the Arrow Left keypress.
+
+**Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
+**Example**  
+```js
+await common.userInteraction.pressArrowLeft();
+```
+<a name="common.userInteraction.pressArrowRight"></a>
+
+#### userInteraction.pressArrowRight()
+Performs the Arrow Right keypress.
+
+**Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
+**Example**  
+```js
+await common.userInteraction.pressArrowRight();
+```
+<a name="common.userInteraction.fillActive"></a>
+
+#### userInteraction.fillActive(value)
+Enters the given value to the active input field.
+
+**Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value | <code>String</code> | The value to enter. |
+
+**Example**  
+```js
+await common.userInteraction.fillActive("My Value");
+```
+<a name="common.userInteraction.fillActiveAndRetry"></a>
+
+#### userInteraction.fillActiveAndRetry(value, [retries], [interval])
+Enters the given value to the active input field and retries the action in case it fails.
+
+**Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| value | <code>String</code> |  | The value with witch the input should be filled. |
+| [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
+| [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
+
+**Example**  
+```js
+await common.userInteraction.fillActiveAndRetry("My Value");
+```
+<a name="common.userInteraction.clearAndFillActive"></a>
+
+#### userInteraction.clearAndFillActive(value)
+Clears and fills the active input.
+
+**Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value | <code>String</code> | The value to enter. |
+
+**Example**  
+```js
+await common.userInteraction.clearAndFillActive("My Value");
+```
+<a name="common.userInteraction.clearFillActiveAndRetry"></a>
+
+#### userInteraction.clearFillActiveAndRetry(value, [retries], [interval])
+CClears and fills the active input. Retries the action in case of a failure.
+
+**Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| value | <code>String</code> |  | The value to enter. |
+| [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
+| [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
+
+**Example**  
+```js
+await common.userInteraction.clearFillActiveAndRetry("My Value");
+```
 <a name="ui5"></a>
 
 ## ui5
@@ -56,6 +358,7 @@ Global namespace for UI5 modules.
         * [.selectMultiComboBox(selector, values, [index])](#ui5.userInteraction.selectMultiComboBox)
         * [.clickSelectArrow(selector, [index])](#ui5.userInteraction.clickSelectArrow)
         * [.clickSelectArrowAndRetry(selector, [index], [retries], [interval])](#ui5.userInteraction.clickSelectArrowAndRetry)
+        * [.selectAll([selector], [index], [timeout])](#ui5.userInteraction.selectAll)
         * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
         * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
         * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
@@ -455,6 +758,7 @@ await ui5.assertion.expectMessageToastText(text);
     * [.selectMultiComboBox(selector, values, [index])](#ui5.userInteraction.selectMultiComboBox)
     * [.clickSelectArrow(selector, [index])](#ui5.userInteraction.clickSelectArrow)
     * [.clickSelectArrowAndRetry(selector, [index], [retries], [interval])](#ui5.userInteraction.clickSelectArrowAndRetry)
+    * [.selectAll([selector], [index], [timeout])](#ui5.userInteraction.selectAll)
     * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
     * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
     * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
@@ -782,6 +1086,23 @@ Clicks the arrow icon at the passed selector (select box), and retries in case i
 ```js
 await ui5.userInteraction.clickSelectArrowAndRetry(selector);
 ```
+<a name="ui5.userInteraction.selectAll"></a>
+
+#### userInteraction.selectAll([selector], [index], [timeout])
+Performs "select all" (ctrl + a) at the element with the given selector.
+
+**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [selector] | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector, in case there are more than one elements visible at the same time. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.userInteraction.selectAll(selector);
+```
 <a name="ui5.userInteraction.openF4Help"></a>
 
 #### userInteraction.openF4Help(selector, [index], [timeout], useF4Key)
@@ -841,189 +1162,7 @@ await ui5.userInteraction.resetSearch(selector);
 Global namespace for non UI5 modules.
 
 **Kind**: global constant  
-
-* [nonUi5](#nonUi5)
-    * [.userInteraction](#nonUi5.userInteraction)
-        * [.pressEnter()](#nonUi5.userInteraction.pressEnter)
-        * [.pressTab()](#nonUi5.userInteraction.pressTab)
-        * [.pressF4()](#nonUi5.userInteraction.pressF4)
-        * [.pressBackspace()](#nonUi5.userInteraction.pressBackspace)
-        * [.pressEscape()](#nonUi5.userInteraction.pressEscape)
-        * [.pressArrowLeft()](#nonUi5.userInteraction.pressArrowLeft)
-        * [.pressArrowRight()](#nonUi5.userInteraction.pressArrowRight)
-        * [.selectAll([selector], [index], [timeout])](#nonUi5.userInteraction.selectAll)
-        * [.fillActive(value)](#nonUi5.userInteraction.fillActive)
-        * [.fillActiveAndRetry(value, retries, interval)](#nonUi5.userInteraction.fillActiveAndRetry)
-        * [.clearAndFillActive(value)](#nonUi5.userInteraction.clearAndFillActive)
-        * [.clearFillActiveAndRetry(value, [retries], [interval])](#nonUi5.userInteraction.clearFillActiveAndRetry)
-
 <a name="nonUi5.userInteraction"></a>
 
 ### nonUi5.userInteraction
 **Kind**: static class of [<code>nonUi5</code>](#nonUi5)  
-
-* [.userInteraction](#nonUi5.userInteraction)
-    * [.pressEnter()](#nonUi5.userInteraction.pressEnter)
-    * [.pressTab()](#nonUi5.userInteraction.pressTab)
-    * [.pressF4()](#nonUi5.userInteraction.pressF4)
-    * [.pressBackspace()](#nonUi5.userInteraction.pressBackspace)
-    * [.pressEscape()](#nonUi5.userInteraction.pressEscape)
-    * [.pressArrowLeft()](#nonUi5.userInteraction.pressArrowLeft)
-    * [.pressArrowRight()](#nonUi5.userInteraction.pressArrowRight)
-    * [.selectAll([selector], [index], [timeout])](#nonUi5.userInteraction.selectAll)
-    * [.fillActive(value)](#nonUi5.userInteraction.fillActive)
-    * [.fillActiveAndRetry(value, retries, interval)](#nonUi5.userInteraction.fillActiveAndRetry)
-    * [.clearAndFillActive(value)](#nonUi5.userInteraction.clearAndFillActive)
-    * [.clearFillActiveAndRetry(value, [retries], [interval])](#nonUi5.userInteraction.clearFillActiveAndRetry)
-
-<a name="nonUi5.userInteraction.pressEnter"></a>
-
-#### userInteraction.pressEnter()
-Performs the Enter keypress.
-
-**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
-**Example**  
-```js
-await ui5.userInteraction.pressEnter();
-```
-<a name="nonUi5.userInteraction.pressTab"></a>
-
-#### userInteraction.pressTab()
-Performs the Tab keypress.
-
-**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
-**Example**  
-```js
-await ui5.userInteraction.pressTab();
-```
-<a name="nonUi5.userInteraction.pressF4"></a>
-
-#### userInteraction.pressF4()
-Performs the F4 keypress.
-
-**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
-**Example**  
-```js
-await ui5.userInteraction.pressF4();
-```
-<a name="nonUi5.userInteraction.pressBackspace"></a>
-
-#### userInteraction.pressBackspace()
-Performs the Backspace keypress.
-
-**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
-**Example**  
-```js
-await ui5.userInteraction.pressBackspace();
-```
-<a name="nonUi5.userInteraction.pressEscape"></a>
-
-#### userInteraction.pressEscape()
-Performs the Escape keypress.
-
-**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
-**Example**  
-```js
-await ui5.userInteraction.pressEscape();
-```
-<a name="nonUi5.userInteraction.pressArrowLeft"></a>
-
-#### userInteraction.pressArrowLeft()
-Performs the Arrow Left keypress.
-
-**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
-**Example**  
-```js
-await ui5.userInteraction.pressArrowLeft();
-```
-<a name="nonUi5.userInteraction.pressArrowRight"></a>
-
-#### userInteraction.pressArrowRight()
-Performs the Arrow Right keypress.
-
-**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
-**Example**  
-```js
-await ui5.userInteraction.pressArrowRight();
-```
-<a name="nonUi5.userInteraction.selectAll"></a>
-
-#### userInteraction.selectAll([selector], [index], [timeout])
-Performs "select all" (ctrl + a) at the element with the given selector.
-
-**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [selector] | <code>Object</code> |  | The selector describing the element. |
-| [index] | <code>Number</code> | <code>0</code> | The index of the selector, in case there are more than one elements visible at the same time. |
-| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-
-**Example**  
-```js
-await ui5.userInteraction.selectAll(selector);
-```
-<a name="nonUi5.userInteraction.fillActive"></a>
-
-#### userInteraction.fillActive(value)
-Enters the given value to the active input field.
-
-**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| value | <code>String</code> | The value to enter. |
-
-**Example**  
-```js
-await ui5.userInteraction.fillActive("My Value");
-```
-<a name="nonUi5.userInteraction.fillActiveAndRetry"></a>
-
-#### userInteraction.fillActiveAndRetry(value, retries, interval)
-Enters the given value to the active input field and retries the action in case it fails.
-
-**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| value | <code>String</code> | The value with witch the input should be filled. |
-| retries | <code>Number</code> | The number of retries, can be set in config for all functions under params stepsRetries. Default is 3 times. |
-| interval | <code>Number</code> | The interval of the retries, can be set in config for all functions under params stepRetriesIntervals. Default is 5 secs. |
-
-**Example**  
-```js
-await ui5.userInteraction.fillActiveAndRetry("My Value");
-```
-<a name="nonUi5.userInteraction.clearAndFillActive"></a>
-
-#### userInteraction.clearAndFillActive(value)
-Clears and fills the active input.
-
-**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| value | <code>String</code> | The value to enter. |
-
-**Example**  
-```js
-await ui5.userInteraction.clearAndFillActive("My Value");
-```
-<a name="nonUi5.userInteraction.clearFillActiveAndRetry"></a>
-
-#### userInteraction.clearFillActiveAndRetry(value, [retries], [interval])
-CClears and fills the active input. Retries the action in case of a failure.
-
-**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| value | <code>String</code> |  | The value to enter. |
-| [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
-| [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
-
-**Example**  
-```js
-await ui5.userInteraction.clearFillActiveAndRetry("My Value");
-```
