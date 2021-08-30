@@ -2,5 +2,9 @@
   {
     "old": "ui5.common.userInteraction",
     "new": "ui5.userInteraction"
+  },
+  {
+    "old": "ui5.common.assertion",
+    "new": "ui5.assertion"
   }
 ]
