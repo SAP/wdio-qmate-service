@@ -28,6 +28,9 @@ Global namespace for common modules.
         * [.expectDefined(value)](#common.assertion.expectDefined)
         * [.expectUndefined(value)](#common.assertion.expectUndefined)
         * [.expectUrlToBe()](#common.assertion.expectUrlToBe) ⇒ <code>Promise</code>
+    * [.navigation](#common.navigation)
+        * [.navigateToUrl(url)](#common.navigation.navigateToUrl)
+        * [.printCurrentUrl()](#common.navigation.printCurrentUrl)
     * [.userInteraction](#common.userInteraction)
         * [.pressEnter()](#common.userInteraction.pressEnter)
         * [.pressTab()](#common.userInteraction.pressTab)
@@ -158,6 +161,40 @@ Expects the url to be the passed value.
 **Example**  
 ```js
 await common.assertion.expectUrlToBe("www.sap.com");
+```
+<a name="common.navigation"></a>
+
+### common.navigation
+**Kind**: static class of [<code>common</code>](#common)  
+
+* [.navigation](#common.navigation)
+    * [.navigateToUrl(url)](#common.navigation.navigateToUrl)
+    * [.printCurrentUrl()](#common.navigation.printCurrentUrl)
+
+<a name="common.navigation.navigateToUrl"></a>
+
+#### navigation.navigateToUrl(url)
+Navigates to the passed url.
+
+**Kind**: static method of [<code>navigation</code>](#common.navigation)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| url | <code>String</code> | The url. |
+
+**Example**  
+```js
+await common.navigation.navigateToUrl("www.sap.com");
+```
+<a name="common.navigation.printCurrentUrl"></a>
+
+#### navigation.printCurrentUrl()
+Displays the current URL in the console.
+
+**Kind**: static method of [<code>navigation</code>](#common.navigation)  
+**Example**  
+```js
+await common.navigation.printCurrentUrl();
 ```
 <a name="common.userInteraction"></a>
 
@@ -339,6 +376,14 @@ Global namespace for UI5 modules.
         * [.expectLogoutText()](#ui5.assertion.expectLogoutText) ⇒ <code>Promise</code>
         * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.assertion.expectUnsupportedNavigationPopup) ⇒ <code>Promise</code>
         * [.expectMessageToastText(text, [timeout])](#ui5.assertion.expectMessageToastText) ⇒ <code>Promise</code>
+    * [.navigation](#ui5.navigation)
+        * [.navigateToApplication(intent, [preventPopups], [verify])](#ui5.navigation.navigateToApplication)
+        * [.navigateToApplicationAndRetry(intent, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationAndRetry)
+        * [.navigateToSystemAndApplication(system, intent, [closePopups], [verify])](#ui5.navigation.navigateToSystemAndApplication)
+        * [.navigateToSystemAndApplicationAndRetry(system, intent, [closePopups], [verify], [retries], [interval])](#ui5.navigation.navigateToSystemAndApplicationAndRetry)
+        * [.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])](#ui5.navigation.navigateToApplicationWithQueryParams)
+        * [.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationWithQueryParamsAndRetry)
+        * [.closePopups([timeout])](#ui5.navigation.closePopups)
     * [.userInteraction](#ui5.userInteraction)
         * [.click(selector, [index], [timeout])](#ui5.userInteraction.click)
         * [.clickAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clickAndRetry)
@@ -733,6 +778,147 @@ Expects the message toast with the passed text.
 **Example**  
 ```js
 await ui5.assertion.expectMessageToastText(text);
+```
+<a name="ui5.navigation"></a>
+
+### ui5.navigation
+**Kind**: static class of [<code>ui5</code>](#ui5)  
+
+* [.navigation](#ui5.navigation)
+    * [.navigateToApplication(intent, [preventPopups], [verify])](#ui5.navigation.navigateToApplication)
+    * [.navigateToApplicationAndRetry(intent, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationAndRetry)
+    * [.navigateToSystemAndApplication(system, intent, [closePopups], [verify])](#ui5.navigation.navigateToSystemAndApplication)
+    * [.navigateToSystemAndApplicationAndRetry(system, intent, [closePopups], [verify], [retries], [interval])](#ui5.navigation.navigateToSystemAndApplicationAndRetry)
+    * [.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])](#ui5.navigation.navigateToApplicationWithQueryParams)
+    * [.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationWithQueryParamsAndRetry)
+    * [.closePopups([timeout])](#ui5.navigation.closePopups)
+
+<a name="ui5.navigation.navigateToApplication"></a>
+
+#### navigation.navigateToApplication(intent, [preventPopups], [verify])
+Navigates to the application via the passed intent. The intent will be added to the baseUrl maintained in the config.
+
+**Kind**: static method of [<code>navigation</code>](#ui5.navigation)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| intent | <code>String</code> |  | The intent of the application. |
+| [preventPopups] | <code>Boolean</code> | <code>false</code> | Specifies if random popup appearance should be prevented. |
+| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the url should be asserted after the navigation. |
+
+**Example**  
+```js
+await ui5.navigation.navigateToApplication("PurchaseOrder-manage");
+```
+<a name="ui5.navigation.navigateToApplicationAndRetry"></a>
+
+#### navigation.navigateToApplicationAndRetry(intent, [preventPopups], [verify], [retries], [interval])
+Navigates to the application via the passed intent, and retries in case it fails.
+
+**Kind**: static method of [<code>navigation</code>](#ui5.navigation)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| intent | <code>String</code> |  | The intent of the app. |
+| [preventPopups] | <code>Boolean</code> | <code>false</code> | Specifies if random popup appearance should be prevented. Might not work for specific popups. |
+| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the url should be asserted after the navigation. |
+| [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
+| [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
+
+**Example**  
+```js
+await ui5.navigation.navigateToApplicationAndRetry("PurchaseOrder-manage");
+```
+<a name="ui5.navigation.navigateToSystemAndApplication"></a>
+
+#### navigation.navigateToSystemAndApplication(system, intent, [closePopups], [verify])
+Navigates within the passed system to the application via the passed intent.
+
+**Kind**: static method of [<code>navigation</code>](#ui5.navigation)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| system | <code>String</code> |  | The system url. |
+| intent | <code>String</code> |  | The intent of the application. |
+| [closePopups] | <code>Boolean</code> | <code>false</code> | Specifies if random popups should be closed after the navigation. |
+| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the url should be asserted after the navigation. |
+
+**Example**  
+```js
+await ui5.navigation.navigateToSystemAndApplication("cc2-715.wdf.sap.corp", "PurchaseOrder-manage");
+```
+<a name="ui5.navigation.navigateToSystemAndApplicationAndRetry"></a>
+
+#### navigation.navigateToSystemAndApplicationAndRetry(system, intent, [closePopups], [verify], [retries], [interval])
+Navigates within the passed system to the application via the passed intent, and retries in case it fails.
+
+**Kind**: static method of [<code>navigation</code>](#ui5.navigation)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| system | <code>String</code> |  | The system url. |
+| intent | <code>String</code> |  | The intent of the application. |
+| [closePopups] | <code>Boolean</code> | <code>false</code> | Specifies if random popups should be closed after the navigation. |
+| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the url should be asserted after the navigation. |
+| [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
+| [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
+
+**Example**  
+```js
+await ui5.navigation.navigateToSystemAndApplicationAndRetry("cc2-715.wdf.sap.corp", "PurchaseOrder-manage");
+```
+<a name="ui5.navigation.navigateToApplicationWithQueryParams"></a>
+
+#### navigation.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])
+Navigates to the application with the passed queryParams via the passed intent.
+
+**Kind**: static method of [<code>navigation</code>](#ui5.navigation)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| intent | <code>String</code> |  | The intent of the app. |
+| queryParams | <code>String</code> |  | [OPTIONAL] Add url query params. |
+| [preventPopups] | <code>Boolean</code> | <code>false</code> | Specifies if random popup appearance should be prevented. |
+| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the url should be asserted after the navigation. |
+
+**Example**  
+```js
+const intent = ui5.appIntents.managePurchaseOrders;const queryParams = "?sap-language=EN&responderOn=true";await ui5.navigation.navigateToApplicationWithQueryParams(intent, queryParams);
+```
+<a name="ui5.navigation.navigateToApplicationWithQueryParamsAndRetry"></a>
+
+#### navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])
+Navigates to the application via the passed intent, and retries in case it fails.
+
+**Kind**: static method of [<code>navigation</code>](#ui5.navigation)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| intent | <code>String</code> |  | The intent of the app. |
+| queryParams | <code>String</code> |  | [OPTIONAL] Add url query params. |
+| [preventPopups] | <code>Boolean</code> | <code>false</code> | Specifies if random popup appearance should be prevented. |
+| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the url should be asserted after the navigation. |
+| [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
+| [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
+
+**Example**  
+```js
+const intent = ui5.appIntents.managePurchaseOrders;const queryParams = "?sap-language=EN&responderOn=true";await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
+```
+<a name="ui5.navigation.closePopups"></a>
+
+#### navigation.closePopups([timeout])
+Closes all popups if they occur after navigating to a specific page.
+
+**Kind**: static method of [<code>navigation</code>](#ui5.navigation)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [timeout] | <code>Integer</code> | <code>15000</code> | The timeout to wait. |
+
+**Example**  
+```js
+await ui5.navigation.closePopups();
 ```
 <a name="ui5.userInteraction"></a>
 
