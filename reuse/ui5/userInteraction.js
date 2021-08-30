@@ -1,4 +1,3 @@
-const BaseModule = require("../base/userInteraction.js");
 /**
  * @class userInteraction
  * @memberof ui5 
@@ -377,6 +376,24 @@ const UserInteraction = function () {
 
   // =================================== OTHERS ===================================
   /**
+   * @function selectAll
+   * @memberOf ui5.userInteraction
+   * @description Performs "select all" (ctrl + a) at the element with the given selector.
+   * @param {Object} [selector] - The selector describing the element.
+   * @param {Number} [index=0] - The index of the selector, in case there are more than one elements visible at the same time. 
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example await ui5.userInteraction.selectAll(selector);
+   */
+  this.selectAll = async function (selector, index = 0, timeout = 30000) {
+    if (selector !== undefined) {
+      await this.click(selector, index, timeout);
+    } else {
+      utilities.console.info("Selector properties are undefined. Action will be performed on current element.");
+    }
+    await browser.keys(["\uE051", "a"]);
+  };
+
+  /**
    * @function openF4Help
    * @memberOf ui5.userInteraction
    * @description Opens the F4-help of the element with the given selector.
@@ -473,5 +490,4 @@ const UserInteraction = function () {
   }
 
 };
-UserInteraction.prototype = BaseModule;
 module.exports = new UserInteraction();

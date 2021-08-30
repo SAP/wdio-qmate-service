@@ -4,6 +4,19 @@ const ReuseLibrary = function () {
   this.load = function () {
 
     /**
+     * @global common
+     * @description Global namespace for common modules.
+     */
+    const common = {
+      userInteraction: require("./common/userInteraction.js"),
+      assertion: require("./common/assertion.js")
+    };
+    global.common = {
+      ...common,
+      ...global.common
+    };
+
+    /**
      * @global ui5
      * @description Global namespace for UI5 modules.
      */
@@ -21,7 +34,7 @@ const ReuseLibrary = function () {
      * @description Global namespace for non UI5 modules.
      */
     const nonUi5 = {
-      userInteraction: require("./nonUi5/userInteraction.js"),
+
     };
     global.nonUi5 = {
       ...global.nonUi5,
