@@ -1,0 +1,6 @@
+[
+  {
+    "old": "ui5.common.userInteraction",
+    "new": "ui5.userInteraction"
+  }
+]
