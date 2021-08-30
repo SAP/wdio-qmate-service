@@ -15,6 +15,7 @@ const UserInteraction = function () {
   /**
    * @function pressTab
    * @memberOf ui5.userInteraction
+   * @memberOf nonUi5.userInteraction
    * @description Performs the Tab keypress.
    * @example await ui5.userInteraction.pressTab();
    */
@@ -25,6 +26,7 @@ const UserInteraction = function () {
   /**
    * @function pressF4
    * @memberOf ui5.userInteraction
+   * @memberOf nonUi5.userInteraction
    * @description Performs the F4 keypress.
    * @example await ui5.userInteraction.pressF4();
    */
@@ -35,6 +37,7 @@ const UserInteraction = function () {
   /**
    * @function pressBackspace
    * @memberOf ui5.userInteraction
+   * @memberOf nonUi5.userInteraction
    * @description Performs the Backspace keypress.
    * @example await ui5.userInteraction.pressBackspace();
    */
@@ -45,6 +48,7 @@ const UserInteraction = function () {
   /**
    * @function pressEscape
    * @memberOf ui5.userInteraction
+   * @memberOf nonUi5.userInteraction
    * @description Performs the Escape keypress.
    * @example await ui5.userInteraction.pressEscape();
    */
@@ -55,6 +59,7 @@ const UserInteraction = function () {
   /**
    * @function pressArrowLeft
    * @memberOf ui5.userInteraction
+   * @memberOf nonUi5.userInteraction
    * @description Performs the Arrow Left keypress.
    * @example await ui5.userInteraction.pressArrowLeft();
    */
@@ -65,6 +70,7 @@ const UserInteraction = function () {
   /**
    * @function pressArrowRight
    * @memberOf ui5.userInteraction
+   * @memberOf nonUi5.userInteraction
    * @description Performs the Arrow Right keypress.
    * @example await ui5.userInteraction.pressArrowRight();
    */
@@ -75,6 +81,7 @@ const UserInteraction = function () {
   /**
    * @function selectAll
    * @memberOf ui5.common.userInteraction
+   * @memberOf nonUi5.userInteraction
    * @description Performs "select all" (ctrl + a) at the element with the given selector.
    * @param {Object} [selector] - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector, in case there are more than
@@ -96,6 +103,7 @@ const UserInteraction = function () {
   /**
    * @function fillActive
    * @memberOf ui5.userInteraction
+   * @memberOf nonUi5.userInteraction
    * @description Enters the given value to the active input field.
    * @param {String} value - The value to enter.
    * @example await ui5.userInteraction.fillActive("My Value");
@@ -113,6 +121,7 @@ const UserInteraction = function () {
   /**
    * @function fillActiveAndRetry
    * @memberOf ui5.userInteraction
+   * @memberOf nonUi5.userInteraction
    * @description Enters the given value to the active input field and retries the action in case it fails.
    * @param {String} value - The value with witch the input should be filled.
    * @param {Number} retries - The number of retries, can be set in config for all functions under params stepsRetries. Default is 3 times.
@@ -126,6 +135,7 @@ const UserInteraction = function () {
   /**
    * @function clearAndFillActive
    * @memberOf ui5.userInteraction
+   * @memberOf nonUi5.userInteraction
    * @description Clears and fills the active input.
    * @param {String} value - The value to enter.
    * @example await ui5.userInteraction.clearAndFillActive("My Value");
@@ -143,6 +153,7 @@ const UserInteraction = function () {
   /**
    * @function clearFillActiveAndRetry
    * @memberOf ui5.userInteraction
+   * @memberOf nonUi5.userInteraction
    * @description CClears and fills the active input. Retries the action in case of a failure.
    * @param {String} value - The value to enter.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
