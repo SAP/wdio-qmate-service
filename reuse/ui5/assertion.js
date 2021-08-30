@@ -40,7 +40,7 @@ const Assertion = function () {
         try {
           value = value.trim();
         } catch (e) {
-          utilities.console.info("Removing trailing spaces didn't work for 'text' property.");
+          common.console.info("Removing trailing spaces didn't work for 'text' property.");
         }
       }
       return value;
@@ -76,7 +76,7 @@ const Assertion = function () {
       try {
         value = value.trim();
       } catch (e) {
-        utilities.console.info("Removing trailing spaces didn't work for 'text' property.");
+        common.console.info("Removing trailing spaces didn't work for 'text' property.");
       }
     }
     return await expect(value).toContain(compareValue);
@@ -346,7 +346,7 @@ const Assertion = function () {
     try {
       elem = await browser.uiControl(selector, index, timeout, true);
     } catch (e) {
-      // utilities.console.log("Cannot get element in expectToBeNotVisible with the selector ", selector); // TODO: should we log this as it is expected?
+      // common.console.log("Cannot get element in expectToBeNotVisible with the selector ", selector); // TODO: should we log this as it is expected?
       return;
     }
 

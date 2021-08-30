@@ -104,7 +104,7 @@ const UserInteraction = function () {
    * @example await common.userInteraction.fillActiveAndRetry("My Value");
    */
   this.fillActiveAndRetry = async function (value, retries = 3, interval = 5000) {
-    await utilities.function.retry(this.fillActive, [value], retries, interval, this);
+    await common.function.retry(this.fillActive, [value], retries, interval, this);
   };
 
   /**
@@ -134,7 +134,7 @@ const UserInteraction = function () {
    * @example await common.userInteraction.clearFillActiveAndRetry("My Value");
    */
   this.clearFillActiveAndRetry = async function (value, retries = 3, interval = 5000) {
-    await utilities.function.retry(this.clearAndFillActive, [value], retries, interval, this);
+    await common.function.retry(this.clearAndFillActive, [value], retries, interval, this);
   };
 
 };
