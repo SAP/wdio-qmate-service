@@ -1,18 +1,10 @@
 [
   {
-    "old": "ui5.common.userInteraction",
-    "new": "ui5.userInteraction"
+    "old": "utilities.console",
+    "new": "common.console"
   },
   {
-    "old": "ui5.common.assertion",
-    "new": "ui5.assertion"
-  },
-  {
-    "old": "ui5.common.navigation",
-    "new": "ui5.navigation"
-  },
-  {
-    "old": "ui5.common.locator",
-    "new": "ui5.element"
+    "old": "utilities.console.log",
+    "new": "common.console.log"
   }
 ]
