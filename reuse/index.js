@@ -12,7 +12,8 @@ const ReuseLibrary = function () {
     const common = {
       userInteraction: require("./common/userInteraction.js"),
       assertion: require("./common/assertion.js"),
-      navigation: require("./common/navigation.js")
+      navigation: require("./common/navigation.js"),
+      console: require("./common/console.js")
     };
     global.common = {
       ...common,
@@ -51,7 +52,8 @@ const ReuseLibrary = function () {
 };
 module.exports = new ReuseLibrary();
 
-function mapOldNamespacesToNewNamespaces () {
+
+function mapOldNamespacesToNewNamespaces() {
   let legacyMappingFile;
   try {
     legacyMappingFile = fs.readFileSync(__dirname + "/legacyMapping.json");
@@ -64,42 +66,40 @@ function mapOldNamespacesToNewNamespaces () {
     const currentObject = legacyMappingObjects[i];
     const oldNamespace = currentObject.old;
     const newNamespace = currentObject.new;
-    setGlobalValue(oldNamespace, getGlobalValue(newNamespace));
+    setGlobalValue(oldNamespace, getGlobalValue(newNamespace), newNamespace);
   }
 }
 
 function getGlobalValue(namespace) {
-  // split namespace into parts by dot
   const namespaceParts = namespace.split(".");
-  // create a variable for navigating through global's values
   let currentGlobalValue = global;
-  // loop through namespace parts
   for (let i = 0; i < namespaceParts.length; i++) {
-    // get current global value for the namespace part
     const value = currentGlobalValue[namespaceParts[i]];
-    // assign it to the current global value
     currentGlobalValue = value;
   }
   return currentGlobalValue;
 }
 
-function setGlobalValue(namespace, value) {
-  // split namespace into parts by dot
-  const namespaceParts = namespace.split(".");
-  // create a variable for navigating through global's values
+function setGlobalValue(oldNamespace, value, newNamespace) {
+  const namespaceParts = oldNamespace.split(".");
   let currentGlobalValue = global;
-  // loop through namespace parts
   for (let i = 0; i < namespaceParts.length; i++) {
-    // if this is the last namespace part
     if (i === namespaceParts.length - 1) {
-      // assign value to the namespace
-      currentGlobalValue[namespaceParts[i]] = value;
+
+      const newValue = {};
+      for (const f in value) {
+        const currentFct = value[f];
+        newValue[f] = function () {
+          common.console.warn(`Namespace "${oldNamespace}" is deprecated. Please use "${newNamespace}" instead.`);
+          currentFct(arguments[0], arguments[1], arguments[2], arguments[3]);
+        };
+      }
+      currentGlobalValue[namespaceParts[i]] = newValue;
+
     } else {
-      // in case current global value for the namespace is undefined
       if (!currentGlobalValue[namespaceParts[i]]) {
         currentGlobalValue[namespaceParts[i]] = {};
       }
-      // use value for the namespace part as a currentGlobalValue in further steps
       currentGlobalValue = currentGlobalValue[namespaceParts[i]];
     }
   }
