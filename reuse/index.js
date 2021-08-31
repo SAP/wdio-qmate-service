@@ -1,6 +1,6 @@
 "use strict";
 
-const fs = require("fs");
+const legacyMapper = require("./helper/legacyMapper.js");
 
 const ReuseLibrary = function () {
   this.load = function () {
@@ -10,10 +10,10 @@ const ReuseLibrary = function () {
      * @description Global namespace for common modules.
      */
     const common = {
-      userInteraction: require("./common/userInteraction.js"),
-      assertion: require("./common/assertion.js"),
-      navigation: require("./common/navigation.js"),
-      console: require("./common/console.js")
+      userInteraction: require("./modules/common/userInteraction.js"),
+      assertion: require("./modules/common/assertion.js"),
+      navigation: require("./modules/common/navigation.js"),
+      console: require("./modules/common/console.js")
     };
     global.common = {
       ...common,
@@ -25,10 +25,10 @@ const ReuseLibrary = function () {
      * @description Global namespace for UI5 modules.
      */
     const ui5 = {
-      userInteraction: require("./ui5/userInteraction.js"),
-      assertion: require("./ui5/assertion.js"),
-      navigation: require("./ui5/navigation.js"),
-      element: require("./ui5/element.js")
+      userInteraction: require("./modules/ui5/userInteraction.js"),
+      assertion: require("./modules/ui5/assertion.js"),
+      navigation: require("./modules/ui5/navigation.js"),
+      element: require("./modules/ui5/element.js")
     };
     global.ui5 = {
       ...ui5,
@@ -47,67 +47,7 @@ const ReuseLibrary = function () {
       ...nonUi5
     };
 
-    mapOldNamespacesToNewNamespaces();
+    legacyMapper();
   };
 };
 module.exports = new ReuseLibrary();
-
-
-function mapOldNamespacesToNewNamespaces() {
-  let legacyMappingFile;
-  try {
-    legacyMappingFile = fs.readFileSync(__dirname + "/legacyMapping.json");
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error("Unable to read from legacyMapping file. Error: ", e);
-  }
-  const legacyMappingObjects = JSON.parse(legacyMappingFile);
-  for (let i = 0; i < legacyMappingObjects.length; i++) {
-    const currentObject = legacyMappingObjects[i];
-    const oldNamespace = currentObject.old;
-    const newNamespace = currentObject.new;
-    setGlobalValue(oldNamespace, getGlobalValue(newNamespace), newNamespace);
-  }
-}
-
-function getGlobalValue(namespace) {
-  const namespaceParts = namespace.split(".");
-  let currentGlobalValue = global;
-  for (let i = 0; i < namespaceParts.length; i++) {
-    const value = currentGlobalValue[namespaceParts[i]];
-    currentGlobalValue = value;
-  }
-  return currentGlobalValue;
-}
-
-function setGlobalValue(oldNamespace, value, newNamespace) {
-  const namespaceParts = oldNamespace.split(".");
-  let currentGlobalValue = global;
-  for (let i = 0; i < namespaceParts.length; i++) {
-    if (i === namespaceParts.length - 1) {
-
-      if (typeof value === "object") {
-        const newValue = {};
-        for (const f in value) {
-          const currentFct = value[f];
-          newValue[f] = function () {
-            common.console.warn(`Namespace "${oldNamespace}" is deprecated. Please use "${newNamespace}" instead.`);
-            currentFct(arguments[0], arguments[1], arguments[2], arguments[3]);
-          };
-        }
-        currentGlobalValue[namespaceParts[i]] = newValue;
-      } else if (typeof value === "function") {
-        currentGlobalValue[namespaceParts[i]] = function () {
-          common.console.warn(`Function "${oldNamespace}" is deprecated. Please use "${newNamespace}" instead.`);
-          value(arguments[0], arguments[1], arguments[2], arguments[3]);
-        };
-      }
-
-    } else {
-      if (!currentGlobalValue[namespaceParts[i]]) {
-        currentGlobalValue[namespaceParts[i]] = {};
-      }
-      currentGlobalValue = currentGlobalValue[namespaceParts[i]];
-    }
-  }
-}
