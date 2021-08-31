@@ -376,6 +376,7 @@ Global namespace for UI5 modules.
         * [.expectLogoutText()](#ui5.assertion.expectLogoutText) ⇒ <code>Promise</code>
         * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.assertion.expectUnsupportedNavigationPopup) ⇒ <code>Promise</code>
         * [.expectMessageToastText(text, [timeout])](#ui5.assertion.expectMessageToastText) ⇒ <code>Promise</code>
+    * [.element](#ui5.element)
     * [.navigation](#ui5.navigation)
         * [.navigateToApplication(intent, [preventPopups], [verify])](#ui5.navigation.navigateToApplication)
         * [.navigateToApplicationAndRetry(intent, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationAndRetry)
@@ -779,6 +780,10 @@ Expects the message toast with the passed text.
 ```js
 await ui5.assertion.expectMessageToastText(text);
 ```
+<a name="ui5.element"></a>
+
+### ui5.element
+**Kind**: static class of [<code>ui5</code>](#ui5)  
 <a name="ui5.navigation"></a>
 
 ### ui5.navigation

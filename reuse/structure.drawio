@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="JSFB8S6SOebOoloYSi39" name="Structure">
-        <mxGraphModel dx="2778" dy="917" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#DAD2D8" math="0" shadow="0">
+        <mxGraphModel dx="1140" dy="917" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#DAD2D8" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -40,8 +40,8 @@
                 <mxCell id="20" value="util" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fontColor=#143642;" parent="1" vertex="1">
                     <mxGeometry x="538" y="425" width="30" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="21" value="control" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fontColor=#143642;" parent="1" vertex="1">
-                    <mxGeometry x="595" y="370" width="50" height="20" as="geometry"/>
+                <mxCell id="21" value="locator / element / control" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fontColor=#143642;" parent="1" vertex="1">
+                    <mxGeometry x="598" y="364" width="145" height="17" as="geometry"/>
                 </mxCell>
                 <mxCell id="22" value="element" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fontColor=#143642;" parent="1" vertex="1">
                     <mxGeometry x="380" y="150" width="60" height="20" as="geometry"/>
