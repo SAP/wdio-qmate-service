@@ -1,4 +1,4 @@
-const reuseLibrary = require("../reuse/index");
+const reuseLibrary = require("../../reuse/index");
 const dataExchangeCommands = require("./utils/dataExchangeCommands");
 /**
  * Gets executed just before initializing the webdriver session and test framework. It allows you

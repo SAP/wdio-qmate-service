@@ -1,5 +1,7 @@
 "use strict";
 
+const legacyMapper = require("./helper/legacyMapper.js");
+
 const ReuseLibrary = function () {
   this.load = function () {
 
@@ -8,9 +10,10 @@ const ReuseLibrary = function () {
      * @description Global namespace for common modules.
      */
     const common = {
-      userInteraction: require("./common/userInteraction.js"),
-      assertion: require("./common/assertion.js"),
-      navigation: require("./common/navigation.js")
+      userInteraction: require("./modules/common/userInteraction.js"),
+      assertion: require("./modules/common/assertion.js"),
+      navigation: require("./modules/common/navigation.js"),
+      console: require("./modules/common/console.js")
     };
     global.common = {
       ...common,
@@ -22,10 +25,10 @@ const ReuseLibrary = function () {
      * @description Global namespace for UI5 modules.
      */
     const ui5 = {
-      userInteraction: require("./ui5/userInteraction.js"),
-      assertion: require("./ui5/assertion.js"),
-      navigation: require("./ui5/navigation.js"),
-      element: require("./ui5/element.js")
+      userInteraction: require("./modules/ui5/userInteraction.js"),
+      assertion: require("./modules/ui5/assertion.js"),
+      navigation: require("./modules/ui5/navigation.js"),
+      element: require("./modules/ui5/element.js")
     };
     global.ui5 = {
       ...ui5,
@@ -44,6 +47,7 @@ const ReuseLibrary = function () {
       ...nonUi5
     };
 
+    legacyMapper();
   };
 };
 module.exports = new ReuseLibrary();
