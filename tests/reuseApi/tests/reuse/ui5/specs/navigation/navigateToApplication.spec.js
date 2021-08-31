@@ -37,7 +37,7 @@ describe("navigation - navigateToApplication with preventPopups=true", function 
   it("Execution and Verification", async function () {
     // First navigation - to #Shell-home
     // "http://localhost:34099/ui?help-readCatalog=false&help-stateUACP=PRODUCTION#Shell-home" - as preventPopups=true
-    const queryToClosePopups = "help-readCatalog=false&help-stateUACP=PRODUCTION";
+    const queryToClosePopups = "help-readCatalog=false&help-stateUACP=PRODUCTION"; // from private function 'generateUrlParams'
     let urlExpected = `${await utilities.browser.getBaseUrl()}?${queryToClosePopups}#Shell-home`;
 
     await ui5.common.navigation.navigateToApplication("Shell-home", true); // preventPopups=true
