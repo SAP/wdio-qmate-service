@@ -377,6 +377,17 @@ Global namespace for UI5 modules.
         * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.assertion.expectUnsupportedNavigationPopup) ⇒ <code>Promise</code>
         * [.expectMessageToastText(text, [timeout])](#ui5.assertion.expectMessageToastText) ⇒ <code>Promise</code>
     * [.element](#ui5.element)
+        * [.waitForAllElements(selector, [timeout])](#ui5.element.waitForAllElements)
+        * [.getDisplayedElements(selector, [timeout])](#ui5.element.getDisplayedElements) ⇒ <code>Array.&lt;Object&gt;</code>
+        * [.getDisplayedElement(selector, [index], [timeout])](#ui5.element.getDisplayedElement) ⇒ <code>Object</code>
+        * [.getDisplayedChildElement(parentSelector, childSelector, [parentIndex], [childIndex], [timeout])](#ui5.element.getDisplayedChildElement) ⇒ <code>Object</code>
+        * [.getElementByText(selector, value, [index], [timeout])](#ui5.element.getElementByText) ⇒ <code>Object</code>
+        * [.getElementId(selector, [index], [timeout])](#ui5.element.getElementId) ⇒ <code>String</code>
+        * [.getValue(selector, attribute, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
+        * [.getBindingValue(selector, attribute, [index], [timeout])](#ui5.element.getBindingValue) ⇒ <code>String</code>
+        * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
+        * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.element.scrollToElement)
+        * [.highlightElement(selector, [duration], [color])](#ui5.element.highlightElement)
     * [.navigation](#ui5.navigation)
         * [.navigateToApplication(intent, [preventPopups], [verify])](#ui5.navigation.navigateToApplication)
         * [.navigateToApplicationAndRetry(intent, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationAndRetry)
@@ -784,6 +795,219 @@ await ui5.assertion.expectMessageToastText(text);
 
 ### ui5.element
 **Kind**: static class of [<code>ui5</code>](#ui5)  
+
+* [.element](#ui5.element)
+    * [.waitForAllElements(selector, [timeout])](#ui5.element.waitForAllElements)
+    * [.getDisplayedElements(selector, [timeout])](#ui5.element.getDisplayedElements) ⇒ <code>Array.&lt;Object&gt;</code>
+    * [.getDisplayedElement(selector, [index], [timeout])](#ui5.element.getDisplayedElement) ⇒ <code>Object</code>
+    * [.getDisplayedChildElement(parentSelector, childSelector, [parentIndex], [childIndex], [timeout])](#ui5.element.getDisplayedChildElement) ⇒ <code>Object</code>
+    * [.getElementByText(selector, value, [index], [timeout])](#ui5.element.getElementByText) ⇒ <code>Object</code>
+    * [.getElementId(selector, [index], [timeout])](#ui5.element.getElementId) ⇒ <code>String</code>
+    * [.getValue(selector, attribute, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
+    * [.getBindingValue(selector, attribute, [index], [timeout])](#ui5.element.getBindingValue) ⇒ <code>String</code>
+    * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
+    * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.element.scrollToElement)
+    * [.highlightElement(selector, [duration], [color])](#ui5.element.highlightElement)
+
+<a name="ui5.element.waitForAllElements"></a>
+
+#### element.waitForAllElements(selector, [timeout])
+Waits for all elements matching the given selector.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the elements. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.element.waitForAllElements(selector);
+```
+<a name="ui5.element.getDisplayedElements"></a>
+
+#### element.getDisplayedElements(selector, [timeout]) ⇒ <code>Array.&lt;Object&gt;</code>
+Returns the visible elements with the given selector.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+**Returns**: <code>Array.&lt;Object&gt;</code> - - The found elements.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the elements. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await ui5.element.getDisplayedElements(selector);
+```
+<a name="ui5.element.getDisplayedElement"></a>
+
+#### element.getDisplayedElement(selector, [index], [timeout]) ⇒ <code>Object</code>
+Returns the visible element.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+**Returns**: <code>Object</code> - The found element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await ui5.element.getDisplayedElement(selector);
+```
+<a name="ui5.element.getDisplayedChildElement"></a>
+
+#### element.getDisplayedChildElement(parentSelector, childSelector, [parentIndex], [childIndex], [timeout]) ⇒ <code>Object</code>
+Returns the element with the given selector that is a child element of a given parent.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+**Returns**: <code>Object</code> - The found child element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| parentSelector | <code>Object</code> |  | The selector describing the parent element. |
+| childSelector | <code>Object</code> |  | The selector describing the child element. |
+| [parentIndex] | <code>Number</code> | <code>0</code> | The index of the parent selector (in case there are more than one elements visible at the same time). |
+| [childIndex] | <code>Number</code> | <code>0</code> | The index of the child selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await ui5.element.getDisplayedChildElement(parentSelector, childSelector);
+```
+<a name="ui5.element.getElementByText"></a>
+
+#### element.getElementByText(selector, value, [index], [timeout]) ⇒ <code>Object</code>
+Returns the element with the given selector and text value.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+**Returns**: <code>Object</code> - The found element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| value | <code>String</code> |  | The text value of the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await ui5.element.getElementByText(selector, "Home");
+```
+<a name="ui5.element.getElementId"></a>
+
+#### element.getElementId(selector, [index], [timeout]) ⇒ <code>String</code>
+Returns the id of the element with the given selector.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+**Returns**: <code>String</code> - The id of the element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elemId = await ui5.element.getElementId(selector);
+```
+<a name="ui5.element.getValue"></a>
+
+#### element.getValue(selector, attribute, [index], [timeout]) ⇒ <code>String</code>
+Returns the attribute value of the passed element.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+**Returns**: <code>String</code> - The attribute value of the element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| attribute | <code>String</code> |  | The attribute of the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elemValue = await ui5.element.getValue(selector, "text");
+```
+<a name="ui5.element.getBindingValue"></a>
+
+#### element.getBindingValue(selector, attribute, [index], [timeout]) ⇒ <code>String</code>
+Returns the value of the given attribute of the bindingContext for a specific element.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+**Returns**: <code>String</code> - The attribute value.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| attribute | <code>String</code> |  | The attribute of the bindingContext. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elemBindingValue = await ui5.element.getBindingValue(selector, "InvoiceGrossAmount");
+```
+<a name="ui5.element.isVisible"></a>
+
+#### element.isVisible(selector, [index], [timeout]) ⇒ <code>Boolean</code>
+Determines if the element is visible.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+**Returns**: <code>Boolean</code> - The bool value 'true' or 'false' if the element is visible or not.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const isVisible = await ui5.element.isVisible(selector);
+```
+<a name="ui5.element.scrollToElement"></a>
+
+#### element.scrollToElement(selector, [index], [alignment], [timeout])
+Scrolls to the element with the given selector to get it into view.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [alignment] | <code>String</code> | <code>&quot;center&quot;</code> | Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest". Affects the alignToTop parameter of scrollIntoView function. By default, it takes 'up' |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.element.scrollToElement(selector, 0, "start", 5000);
+```
+<a name="ui5.element.highlightElement"></a>
+
+#### element.highlightElement(selector, [duration], [color])
+Highlights the element with the given selector.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [duration] | <code>Number</code> | <code>2000</code> | The duration of the highlighting (ms). |
+| [color] | <code>String</code> | <code>&quot;red&quot;</code> | The color of the highlighting (CSS color). |
+
+**Example**  
+```js
+await ui5.element.highlightElement(selector, 3000, "green");
+```
 <a name="ui5.navigation"></a>
 
 ### ui5.navigation
