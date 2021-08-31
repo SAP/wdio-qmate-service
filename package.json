@@ -27,7 +27,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "generate-docs": "node reuse/jsDocGen"
+    "generate-docs": "node reuse/helper/jsDocGen"
   },
   "homepage": "https://github.tools.sap/sProcurement/wdio-qmate-service",
   "repository": {
