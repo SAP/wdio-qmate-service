@@ -24,7 +24,8 @@ const ReuseLibrary = function () {
     const ui5 = {
       userInteraction: require("./ui5/userInteraction.js"),
       assertion: require("./ui5/assertion.js"),
-      navigation: require("./ui5/navigation.js")
+      navigation: require("./ui5/navigation.js"),
+      element: require("./ui5/element.js")
     };
     global.ui5 = {
       ...ui5,
