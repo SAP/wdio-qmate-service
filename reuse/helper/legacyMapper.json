@@ -1,0 +1,10 @@
+[
+  {
+    "old": "utilities.console",
+    "new": "common.console"
+  },
+  {
+    "old": "utilities.console.log",
+    "new": "common.console.log"
+  }
+]
