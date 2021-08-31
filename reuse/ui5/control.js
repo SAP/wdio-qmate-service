@@ -7,11 +7,11 @@ const Element = function () {
   // =================================== WAIT ===================================
   /**
    * @function waitForAllElements
-   * @memberOf ui5.locator
+   * @memberOf ui5.element
    * @description Waits for all elements matching the given selector.
    * @param {Object} selector - The selector describing the elements.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await ui5.locator.waitForAllElements(selector);
+   * @example await ui5.element.waitForAllElements(selector);
    */
   this.waitForAllElements = async function (selector, timeout = 30000) {
     return browser.uiControls(selector, timeout); //TODO: is returned required?
@@ -21,12 +21,12 @@ const Element = function () {
   // =================================== GET ELEMENTS ===================================
   /**
    * @function getDisplayedElements
-   * @memberOf ui5.locator
+   * @memberOf ui5.element
    * @description Returns the visible elements with the given selector.
    * @param {Object} selector - The selector describing the elements.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object[]} - The found elements.
-   * @example const elem = await ui5.locator.getDisplayedElements(selector);
+   * @example const elem = await ui5.element.getDisplayedElements(selector);
    */
   this.getDisplayedElements = async function (selector, timeout = 30000) {
     return browser.uiControls(selector, timeout);
@@ -34,13 +34,13 @@ const Element = function () {
 
   /**
    * @function getDisplayedElement
-   * @memberOf ui5.locator
+   * @memberOf ui5.element
    * @description Returns the visible element.
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
-   * @example const elem = await ui5.locator.getDisplayedElement(selector);
+   * @example const elem = await ui5.element.getDisplayedElement(selector);
    */
   this.getDisplayedElement = async function (selector, index = 0, timeout = 30000) {
     const elems = await browser.uiControls(selector, timeout);
@@ -53,7 +53,7 @@ const Element = function () {
 
   /**
    * @function getDisplayedChildElement
-   * @memberOf ui5.locator
+   * @memberOf ui5.element
    * @description Returns the element with the given selector that is a child element of a given parent.
    * @param {Object} parentSelector - The selector describing the parent element.
    * @param {Object} childSelector - The selector describing the child element.
@@ -61,7 +61,7 @@ const Element = function () {
    * @param {Number} [childIndex=0] - The index of the child selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found child element.
-   * @example const elem = await ui5.locator.getDisplayedChildElement(parentSelector, childSelector);
+   * @example const elem = await ui5.element.getDisplayedChildElement(parentSelector, childSelector);
    */
   this.getDisplayedChildElement = async function (parentSelector, childSelector, parentIndex = 0, childIndex = 0, timeout = 30000) {
     const elems = await browser.uiControls(parentSelector, timeout);
@@ -72,14 +72,14 @@ const Element = function () {
 
   /**
    * @function getElementByText
-   * @memberOf ui5.locator
+   * @memberOf ui5.element
    * @description Returns the element with the given selector and text value.
    * @param {Object} selector - The selector describing the element.
    * @param {String} value - The text value of the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
-   * @example const elem = await ui5.locator.getElementByText(selector, "Home");
+   * @example const elem = await ui5.element.getElementByText(selector, "Home");
    */
   this.getElementByText = async function (selector, value, index = 0, timeout = 30000) {
     const elements = await this.getDisplayedElements(selector, timeout);
@@ -109,13 +109,13 @@ const Element = function () {
   // =================================== GET VALUES ===================================
   /**
    * @function getElementId
-   * @memberOf ui5.locator
+   * @memberOf ui5.element
    * @description Returns the id of the element with the given selector.
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {String} The id of the element.
-   * @example const elemId = await ui5.locator.getElementId(selector);
+   * @example const elemId = await ui5.element.getElementId(selector);
    */
   this.getElementId = async function (selector, index = 0, timeout = 30000) {
     const elem = await this.getDisplayedElement(selector, index, timeout);
@@ -124,14 +124,14 @@ const Element = function () {
 
   /**
    * @function getValue
-   * @memberOf ui5.locator
+   * @memberOf ui5.element
    * @description Returns the attribute value of the passed element.
    * @param {Object} selector - The selector describing the element.
    * @param {String} attribute - The attribute of the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {String} The attribute value of the element.
-   * @example const elemValue = await ui5.locator.getValue(selector, "text");
+   * @example const elemValue = await ui5.element.getValue(selector, "text");
    */
   this.getValue = async function (selector, attribute, index = 0, timeout = 30000) {
     try {
@@ -144,14 +144,14 @@ const Element = function () {
 
   /**
    * @function getBindingValue
-   * @memberOf ui5.locator
+   * @memberOf ui5.element
    * @description Returns the value of the given attribute of the bindingContext for a specific element.
    * @param {Object} selector - The selector describing the element.
    * @param {String} attribute - The attribute of the bindingContext.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {String} The attribute value.
-   * @example const elemBindingValue = await ui5.locator.getBindingValue(selector, "InvoiceGrossAmount");
+   * @example const elemBindingValue = await ui5.element.getBindingValue(selector, "InvoiceGrossAmount");
    */
   this.getBindingValue = async function (selector, attribute, index = 0, timeout = 30000) {
     const elem = await this.getDisplayedElement(selector, index, timeout);
@@ -162,13 +162,13 @@ const Element = function () {
 
   /**
    * @function isVisible
-   * @memberOf ui5.locator
+   * @memberOf ui5.element
    * @description Determines if the element is visible.
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Boolean} The bool value 'true' or 'false' if the element is visible or not.
-   * @example const isVisible = await ui5.locator.isVisible(selector);
+   * @example const isVisible = await ui5.element.isVisible(selector);
    */
   this.isVisible = async function (selector, index = 0, timeout = 30000) {
     try {
@@ -184,14 +184,14 @@ const Element = function () {
   // =================================== ACTIONS ===================================
   /**
    * @function scrollToElement
-   * @memberOf ui5.locator
+   * @memberOf ui5.element
    * @description Scrolls to the element with the given selector to get it into view.
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {String} [alignment="center"] - Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest".
    * Affects the alignToTop parameter of scrollIntoView function. By default, it takes 'up'
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await ui5.locator.scrollToElement(selector, 0, "start", 5000);
+   * @example await ui5.element.scrollToElement(selector, 0, "start", 5000);
    */
   this.scrollToElement = async function (selector, index = 0, alignment = "center", timeout = 30000) {
     const elem = await this.getDisplayedElement(selector, index, timeout);
@@ -206,12 +206,12 @@ const Element = function () {
 
   /**
    * @function highlightElement
-   * @memberOf ui5.locator
+   * @memberOf ui5.element
    * @description Highlights the element with the given selector.
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [duration=2000] - The duration of the highlighting (ms).
    * @param {String} [color="red"] - The color of the highlighting (CSS color).
-   * @example await ui5.locator.highlightElement(selector, 3000, "green");
+   * @example await ui5.element.highlightElement(selector, 3000, "green");
    */
   this.highlightElement = async function (selector, duration = 2000, color = "red") {
     const elem = await this.getDisplayedElement(selector);
