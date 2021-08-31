@@ -1,4 +1,3 @@
-const BaseModule = require("../base/userInteraction.js");
 /**
  * @class userInteraction
  * @memberof ui5 
@@ -29,7 +28,7 @@ const UserInteraction = function () {
       await elem.click();
     } catch (error) {
       if (error.message && error.message.match(new RegExp(/is not clickable at point/))) {
-        const errorMessage = await utilities.function.mapWdioErrorToQmateErrorMessage(error, "click");
+        const errorMessage = await common.function.mapWdioErrorToQmateErrorMessage(error, "click");
         throw new Error(errorMessage);
       }
     }
@@ -47,7 +46,7 @@ const UserInteraction = function () {
    * @example await ui5.userInteraction.clickAndRetry(selector);
    */
   this.clickAndRetry = async function (selector, index = 0, timeout = 30000, retries = 3, interval = 5000) {
-    await utilities.function.retry(this.click, [selector, index, timeout], retries, interval, this);
+    await common.function.retry(this.click, [selector, index, timeout], retries, interval, this);
   };
 
   /**
@@ -61,7 +60,7 @@ const UserInteraction = function () {
    * @example await ui5.userInteraction.clickTab(selector);
    */
   this.clickTab = async function (selector, index = 0, timeout = 30000) {
-    await utilities.function.retry(async function (selector, index, timeout) {
+    await common.function.retry(async function (selector, index, timeout) {
       await ui5.userInteraction.click(selector);
       const tab = await ui5.locator.getDisplayedElement(selector, index, timeout);
       const classList = await tab.getAttribute("class");
@@ -130,7 +129,7 @@ const UserInteraction = function () {
    * @example await ui5.userInteraction.fillAndRetry(selector, "My Value");
    */
   this.fillAndRetry = async function (selector, value, index = 0, timeout = 30000, retries = 3, interval = 5000) {
-    await utilities.function.retry(this.fill, [selector, value, index, timeout], retries, interval, this);
+    await common.function.retry(this.fill, [selector, value, index, timeout], retries, interval, this);
   };
 
   /**
@@ -158,7 +157,7 @@ const UserInteraction = function () {
    * @example await ui5.userInteraction.clearAndRetry(selector);
    */
   this.clearAndRetry = async function (selector, index = 0, timeout = 30000, retries = 3, interval = 5000) {
-    await utilities.function.retry(this.clear, [selector, index, timeout], retries, interval, this);
+    await common.function.retry(this.clear, [selector, index, timeout], retries, interval, this);
   };
 
   /**
@@ -194,7 +193,7 @@ const UserInteraction = function () {
    * @example await ui5.userInteraction.clearFillAndRetry(selector, "My Value");
    */
   this.clearFillAndRetry = async function (selector, value, index = 0, timeout = 30000, retries = 3, interval = 5000, verify = true) {
-    await utilities.function.retry(async (selector, value, index, timeout) => {
+    await common.function.retry(async (selector, value, index, timeout) => {
       const elem = await this.clearAndFill(selector, value, index, timeout);
       if (verify) {
         const elemValue = await elem.getValue();
@@ -249,7 +248,7 @@ const UserInteraction = function () {
    * @example await ui5.userInteraction.clearAndFillSmartFieldInputAndRetry(selector, "My Value");
    */
   this.clearAndFillSmartFieldInputAndRetry = async function (selector, value, index = 0, timeout = 30000, retries = 3, interval = 5000) {
-    await utilities.function.retry(this.clearAndFillSmartFieldInput, [selector, value, index, timeout], retries, interval, this);
+    await common.function.retry(this.clearAndFillSmartFieldInput, [selector, value, index, timeout], retries, interval, this);
   };
 
 
@@ -371,11 +370,29 @@ const UserInteraction = function () {
    * @example await ui5.userInteraction.clickSelectArrowAndRetry(selector);
    */
   this.clickSelectArrowAndRetry = async function (selector, index = 0, retries = 3, interval = 5000) {
-    await utilities.function.retry(this.clickSelectArrow, [selector, index], retries, interval, this);
+    await common.function.retry(this.clickSelectArrow, [selector, index], retries, interval, this);
   };
 
 
   // =================================== OTHERS ===================================
+  /**
+   * @function selectAll
+   * @memberOf ui5.userInteraction
+   * @description Performs "select all" (ctrl + a) at the element with the given selector.
+   * @param {Object} [selector] - The selector describing the element.
+   * @param {Number} [index=0] - The index of the selector, in case there are more than one elements visible at the same time. 
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example await ui5.userInteraction.selectAll(selector);
+   */
+  this.selectAll = async function (selector, index = 0, timeout = 30000) {
+    if (selector !== undefined) {
+      await this.click(selector, index, timeout);
+    } else {
+      common.console.info("Selector properties are undefined. Action will be performed on current element.");
+    }
+    await browser.keys(["\uE051", "a"]);
+  };
+
   /**
    * @function openF4Help
    * @memberOf ui5.userInteraction
@@ -447,7 +464,7 @@ const UserInteraction = function () {
     } else {
       elem = await browser.getActiveElement();
       await elem.click();
-      id = await utilities.function.getAttribute(elem, "id");
+      id = await common.function.getAttribute(elem, "id");
     }
 
     const tokenizers = await browser.execute(function (id) {
@@ -473,5 +490,4 @@ const UserInteraction = function () {
   }
 
 };
-UserInteraction.prototype = BaseModule;
 module.exports = new UserInteraction();
