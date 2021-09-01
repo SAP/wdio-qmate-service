@@ -6,15 +6,19 @@ const options = yargs
   .option("f", { alias: "fileOrFolder", describe: "File or folder with old specs", type: "string", demandOption: true })
   .argv;
 
-const legacyMappingObjects = getLegacyMappingObjects();
 const fileOrFolderPath = `${process.cwd()}/${options.fileOrFolder}`;
-const fileOrFolderLstat = fs.lstatSync(fileOrFolderPath);
-if (fileOrFolderLstat.isFile()) {
-  mapLegacyNamespacesToNewOnesInFile(fileOrFolderPath, legacyMappingObjects);
-} else if (fileOrFolderLstat.isDirectory()) {
-  fs.readdirSync(fileOrFolderPath).forEach(file => {
-    mapLegacyNamespacesToNewOnesInFile(`${fileOrFolderPath}/${file}`, legacyMappingObjects);
-  });
+const legacyMappingObjects = getLegacyMappingObjects();
+mapLegacyNamespacesToNewNamespaces(fileOrFolderPath, legacyMappingObjects);
+
+function mapLegacyNamespacesToNewNamespaces (fileOrFolderPath, legacyMappingObjects) {
+  const fileOrFolderLstat = fs.lstatSync(fileOrFolderPath);
+  if (fileOrFolderLstat.isFile()) {
+    mapLegacyNamespacesToNewOnesInFile(fileOrFolderPath, legacyMappingObjects);
+  } else if (fileOrFolderLstat.isDirectory()) {
+    fs.readdirSync(fileOrFolderPath).forEach(file => {
+      mapLegacyNamespacesToNewNamespaces(`${fileOrFolderPath}/${file}`, legacyMappingObjects);
+    });
+  }
 }
 
 function mapLegacyNamespacesToNewOnesInFile (filePath, legacyMappingObjects) {
