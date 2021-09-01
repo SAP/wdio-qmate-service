@@ -21,7 +21,7 @@ describe("Test show employee list", function () {
   const resumesData = require("../data/mock/Resumes.json");
 
   it("Step 01: Navigate to Application", async function () {
-    // Use the mockey that depicts the test case name to be able to map it directly to path, and corresponding data
+    // Use the mock key that depicts the test case name to be able to map it directly to path, and corresponding data
     //http://localhost:34005/webapp/test/flpSandboxMockServer.html?mockKey=myTestCase
     await ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry(setup.urlParams.initialIntent, setup.urlParams.queryParams, false);
   });
