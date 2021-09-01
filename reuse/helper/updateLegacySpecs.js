@@ -9,20 +9,20 @@ const options = yargs
 
 const fileOrFolderPath = `${process.cwd()}/${options.fileOrFolder}`;
 const legacyMappingObjects = utils.getLegacyMappingObjects(__dirname + "/legacyMapper.json");
-mapLegacyNamespacesToNewNamespaces(fileOrFolderPath, legacyMappingObjects);
+replaceOldNamespacesWithNewNamespacesInFolderOrFile(fileOrFolderPath, legacyMappingObjects);
 
-function mapLegacyNamespacesToNewNamespaces (fileOrFolderPath, legacyMappingObjects) {
+function replaceOldNamespacesWithNewNamespacesInFolderOrFile (fileOrFolderPath, legacyMappingObjects) {
   const fileOrFolderLstat = fs.lstatSync(fileOrFolderPath);
   if (fileOrFolderLstat.isFile()) {
-    mapLegacyNamespacesToNewOnesInFile(fileOrFolderPath, legacyMappingObjects);
+    replaceOldNamespacesWithNewNamespacesInFile(fileOrFolderPath, legacyMappingObjects);
   } else if (fileOrFolderLstat.isDirectory()) {
     fs.readdirSync(fileOrFolderPath).forEach(file => {
-      mapLegacyNamespacesToNewNamespaces(`${fileOrFolderPath}/${file}`, legacyMappingObjects);
+      replaceOldNamespacesWithNewNamespacesInFolderOrFile(`${fileOrFolderPath}/${file}`, legacyMappingObjects);
     });
   }
 }
 
-function mapLegacyNamespacesToNewOnesInFile (filePath, legacyMappingObjects) {
+function replaceOldNamespacesWithNewNamespacesInFile (filePath, legacyMappingObjects) {
   let fileContent = fs.readFileSync(filePath, { encoding: "utf8" });
   for (let i = 0; i < legacyMappingObjects.length; i++) {
     const oldNamespace = legacyMappingObjects[i].old;
