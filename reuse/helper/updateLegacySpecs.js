@@ -1,13 +1,7 @@
-const yargs = require("yargs");
 const fs = require("fs");
 const utils = require("./utils");
 
-const options = yargs
-  .usage("Usage: -f <file_or_folder>")
-  .option("f", { alias: "fileOrFolder", describe: "File or folder with old specs", type: "string", demandOption: true })
-  .argv;
-
-const fileOrFolderPath = `${process.cwd()}/${options.fileOrFolder}`;
+const fileOrFolderPath = `${process.cwd()}/${process.argv[2]}`;
 const legacyMappingObjects = utils.getLegacyMappingObjects(__dirname + "/legacyMapper.json");
 replaceOldNamespacesWithNewNamespacesInFolderOrFile(fileOrFolderPath, legacyMappingObjects);
 
