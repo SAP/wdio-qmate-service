@@ -13,7 +13,6 @@ if (fileOrFolderLstat.isFile()) {
   mapLegacyNamespacesToNewOnesInFile(fileOrFolderPath, legacyMappingObjects);
 } else if (fileOrFolderLstat.isDirectory()) {
   fs.readdirSync(fileOrFolderPath).forEach(file => {
-    // TODO: check if this works correctly (it's possible that file path is invalid)
     mapLegacyNamespacesToNewOnesInFile(`${fileOrFolderPath}/${file}`, legacyMappingObjects);
   });
 }
@@ -32,7 +31,7 @@ function mapLegacyNamespacesToNewOnesInFile (filePath, legacyMappingObjects) {
 function getLegacyMappingObjects () {
   let legacyMappingFile;
   try {
-    legacyMappingFile = fs.readFileSync(__dirname + "/legacyMapping.json");
+    legacyMappingFile = fs.readFileSync(__dirname + "/legacyMapper.json");
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error("Unable to read from legacyMapping file. Error: ", e);
