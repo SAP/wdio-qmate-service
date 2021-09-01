@@ -39,7 +39,7 @@ describe("navigation - navigateToApplicationWithQueryParamsAndRetry with wrong p
     const urlExpected = `${await utilities.browser.getBaseUrl()}${query}#${intent}`;
     await ui5.common.assertion.expectUrlToBe(urlExpected);
 
-    // if 'query' includes no "?", url will be interpreted as an another (unsupported) mount
+    // if 'query' includes no "?", url will be interpreted as another (unsupported) mount
     await expect(non_ui5.common.locator.getElementById("parseUrl"))
       .rejects.toThrow(/Element with id "parseUrl" not found/);
   });
