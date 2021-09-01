@@ -1,5 +1,6 @@
 const yargs = require("yargs");
 const fs = require("fs");
+const utils = require("./utils");
 
 const options = yargs
   .usage("Usage: -f <file_or_folder>")
@@ -7,7 +8,7 @@ const options = yargs
   .argv;
 
 const fileOrFolderPath = `${process.cwd()}/${options.fileOrFolder}`;
-const legacyMappingObjects = getLegacyMappingObjects();
+const legacyMappingObjects = utils.getLegacyMappingObjects(__dirname + "/legacyMapper.json");
 mapLegacyNamespacesToNewNamespaces(fileOrFolderPath, legacyMappingObjects);
 
 function mapLegacyNamespacesToNewNamespaces (fileOrFolderPath, legacyMappingObjects) {
@@ -30,15 +31,4 @@ function mapLegacyNamespacesToNewOnesInFile (filePath, legacyMappingObjects) {
     fileContent = fileContent.replace(oldNamespaceRegexp, newNamespace);
   }
   fs.writeFileSync(filePath, fileContent);  
-}
-
-function getLegacyMappingObjects () {
-  let legacyMappingFile;
-  try {
-    legacyMappingFile = fs.readFileSync(__dirname + "/legacyMapper.json");
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error("Unable to read from legacyMapping file. Error: ", e);
-  }
-  return JSON.parse(legacyMappingFile);
 }

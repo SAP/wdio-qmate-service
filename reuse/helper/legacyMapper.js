@@ -1,14 +1,8 @@
 const fs = require("fs");
+const utils = require("./utils");
 
 module.exports = function mapOldNamespacesToNewNamespaces() {
-  let legacyMappingFile;
-  try {
-    legacyMappingFile = fs.readFileSync(__dirname + "/legacyMapper.json");
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error("Unable to read from legacyMapping file. Error: ", e);
-  }
-  const legacyMappingObjects = JSON.parse(legacyMappingFile);
+  const legacyMappingObjects = utils.getLegacyMappingObjects(__dirname + "/legacyMapper.json");
   for (let i = 0; i < legacyMappingObjects.length; i++) {
     const currentObject = legacyMappingObjects[i];
     const oldNamespace = currentObject.old;
