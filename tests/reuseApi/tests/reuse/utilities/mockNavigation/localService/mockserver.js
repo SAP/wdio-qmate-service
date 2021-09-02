@@ -30,7 +30,7 @@ sap.ui.define([
 		 * @returns{Promise} a promise that is resolved when the mock server has been started
 		 */
     init : function (oOptionsParameter) {
-      // Assign options comming from the setup json file
+      // Assign options coming from the setup json file
       var oOptions = oOptionsParameter || {};
       var sJsonFilesPath = oOptions.appPath + oOptions.mockDataPath;
       // Return a promise 
