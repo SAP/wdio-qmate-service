@@ -7,14 +7,6 @@ describe("navigation - navigateToUrl", function () {
 
   it("Verification", async function () {
     await ui5.common.assertion.expectUrlToBe(browser.config.baseUrl);
-    const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/ProductCategories*'AC')"
-      }
-    };
-    await ui5.common.assertion.expectToBeVisible(selector);
   });
 });
 

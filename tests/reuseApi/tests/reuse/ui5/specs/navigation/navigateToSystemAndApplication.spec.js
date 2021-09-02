@@ -8,20 +8,15 @@ describe("navigation - navigateToSystemAndApplication (s4)", function () {
     await ui5.common.navigation.navigateToSystemAndApplication(system, "Shell-home", false);
     await ui5.common.session.loginFiori("PURCHASER");
 
-    await ui5.common.navigation.navigateToSystemAndApplication(system, application, true);
+    await ui5.common.navigation.navigateToSystemAndApplication(system, application, false);
   });
 
   it("Verification", async function () {
-    // Note: currentUrl can contain system specific query params
-    const currentUrl = await browser.getUrl();
-    expect(currentUrl).toContain(application);
-    expect(currentUrl).toContain(system);
+    await ui5.common.assertion.expectPageTitle("Manage Purchase Orders");
   });
 
 
   it("Clean Up", async function () {
-    // To be sure that we closed all popups and logout button is visible
-    await ui5.common.navigation.closePopups();
     await ui5.common.session.logout();
   });
 });
