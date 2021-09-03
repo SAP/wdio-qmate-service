@@ -10,10 +10,10 @@ const ReuseLibrary = function () {
      * @description Global namespace for common modules.
      */
     const common = {
-      userInteraction: require("./modules/common/userInteraction.js"),
       assertion: require("./modules/common/assertion.js"),
-      navigation: require("./modules/common/navigation.js"),
       console: require("./modules/common/console.js"),
+      navigation: require("./modules/common/navigation.js"),
+      userInteraction: require("./modules/common/userInteraction.js"),
       /**
        * @namespace util
        * @memberof common
@@ -32,11 +32,11 @@ const ReuseLibrary = function () {
      * @description Global namespace for UI5 modules.
      */
     const ui5 = {
-      userInteraction: require("./modules/ui5/userInteraction/userInteraction.js"),
       assertion: require("./modules/ui5/assertion.js"),
-      navigation: require("./modules/ui5/navigation.js"),
       element: require("./modules/ui5/element.js"),
-      session: require("./modules/ui5/session.js")
+      navigation: require("./modules/ui5/navigation.js"),
+      session: require("./modules/ui5/session.js"),
+      userInteraction: require("./modules/ui5/userInteraction/userInteraction.js"),
     };
     global.ui5 = {
       ...ui5,
