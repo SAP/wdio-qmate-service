@@ -24,7 +24,7 @@ const Navigation = function () {
    */
   this.printCurrentUrl = async function () {
     const url = await browser.getUrl();
-    common.console.message("Current URL: " + url);
+    common.console.info("Current URL: " + url);
   };
 
 };

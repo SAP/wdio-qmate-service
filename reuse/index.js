@@ -19,7 +19,7 @@ const ReuseLibrary = function () {
        * @memberof common
        */
       util: {
-        console: require("./modules/common/util/date.js")
+        date: require("./modules/common/util/date.js")
       }
     };
     global.common = {
@@ -32,7 +32,7 @@ const ReuseLibrary = function () {
      * @description Global namespace for UI5 modules.
      */
     const ui5 = {
-      userInteraction: require("./modules/ui5/userInteraction.js"),
+      userInteraction: require("./modules/ui5/userInteraction/userInteraction.js"),
       assertion: require("./modules/ui5/assertion.js"),
       navigation: require("./modules/ui5/navigation.js"),
       element: require("./modules/ui5/element.js")

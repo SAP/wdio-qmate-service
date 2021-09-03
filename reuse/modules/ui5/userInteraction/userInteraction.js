@@ -4,6 +4,9 @@
  */
 const UserInteraction = function () {
 
+  // =================================== SUBMODULES ===================================
+  require("./date.js");
+
   // =================================== CLICK ===================================
   /**
    * @function click
@@ -454,7 +457,7 @@ const UserInteraction = function () {
   };
 
 
-  // =================================== PRIVATE ===================================
+  // =================================== HELPER ===================================
   async function clearHelper(selector, index = 0, timeout = 30000) {
     let id, elem;
     if (selector) {
