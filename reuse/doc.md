@@ -664,6 +664,10 @@ Global namespace for UI5 modules.
         * [.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationWithQueryParamsAndRetry)
         * [.closePopups([timeout])](#ui5.navigation.closePopups)
     * [.userInteraction](#ui5.userInteraction)
+        * [.date](#ui5.userInteraction.date)
+        * [.pickDate(selector, date)](#ui5.userInteraction.pickDate)
+        * [.pickDateRange(selector, range)](#ui5.userInteraction.pickDateRange)
+        * [.fillDateRange(selector, range)](#ui5.userInteraction.fillDateRange)
         * [.click(selector, [index], [timeout])](#ui5.userInteraction.click)
         * [.clickAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clickAndRetry)
         * [.clickTab(selector, [index], [timeout])](#ui5.userInteraction.clickTab)
@@ -1422,6 +1426,10 @@ await ui5.navigation.closePopups();
 **Kind**: static class of [<code>ui5</code>](#ui5)  
 
 * [.userInteraction](#ui5.userInteraction)
+    * [.date](#ui5.userInteraction.date)
+    * [.pickDate(selector, date)](#ui5.userInteraction.pickDate)
+    * [.pickDateRange(selector, range)](#ui5.userInteraction.pickDateRange)
+    * [.fillDateRange(selector, range)](#ui5.userInteraction.fillDateRange)
     * [.click(selector, [index], [timeout])](#ui5.userInteraction.click)
     * [.clickAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clickAndRetry)
     * [.clickTab(selector, [index], [timeout])](#ui5.userInteraction.clickTab)
@@ -1445,6 +1453,58 @@ await ui5.navigation.closePopups();
     * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
     * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
 
+<a name="ui5.userInteraction.date"></a>
+
+#### userInteraction.date
+**Kind**: static class of [<code>userInteraction</code>](#ui5.userInteraction)  
+<a name="ui5.userInteraction.pickDate"></a>
+
+#### userInteraction.pickDate(selector, date)
+Picks the passed date using the "DatePicker" with the given selector.
+
+**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>Selector</code> | The selector describing the element. |
+| date | <code>Date</code> | The date object. |
+
+**Example**  
+```js
+const today = await common.util.date.calculateDate("today");await ui5.userInteraction.pickDate(selector, date);
+```
+<a name="ui5.userInteraction.pickDateRange"></a>
+
+#### userInteraction.pickDateRange(selector, range)
+Picks the passed date range using the "DatePicker" with the given selector.Note that this will only work within the current month!
+
+**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>Selector</code> | The selector describing the element. |
+| range | <code>Array.&lt;Object&gt;</code> | The array of date objects containing start- and end date. |
+
+**Example**  
+```js
+const start = await common.util.date.calculateDate("2020, 9, 20");const end = await common.util.date.calculateDate("2021, 1, 3");const range = [start, end];await ui5.userInteraction.pickDateRange(selector, range);
+```
+<a name="ui5.userInteraction.fillDateRange"></a>
+
+#### userInteraction.fillDateRange(selector, range)
+Enters the passed date range to the date input with the given selector by providing the start- and end date.
+
+**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>Selector</code> | The selector describing the element. |
+| range | <code>Array.&lt;Object&gt;</code> | The array of date objects containing start- and end date. |
+
+**Example**  
+```js
+const start = await common.util.date.calculateDate("2020, 9, 20", "dd.mm.yyyy");const end = await common.util.date.calculateDate("2021, 1, 3", "dd.mm.yyyy");const range = [start, end];await ui5.userInteraction.fillDateRange(selector, range);
+```
 <a name="ui5.userInteraction.click"></a>
 
 #### userInteraction.click(selector, [index], [timeout])
