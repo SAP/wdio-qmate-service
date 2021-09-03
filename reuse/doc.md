@@ -663,6 +663,13 @@ Global namespace for UI5 modules.
         * [.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])](#ui5.navigation.navigateToApplicationWithQueryParams)
         * [.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationWithQueryParamsAndRetry)
         * [.closePopups([timeout])](#ui5.navigation.closePopups)
+    * [.session](#ui5.session)
+        * [.login(username, [password], [verify], [timeout])](#ui5.session.login)
+        * [.loginFiori(username, [password], [verify])](#ui5.session.loginFiori)
+        * [.loginSapCloud(username, [password], [verify])](#ui5.session.loginSapCloud)
+        * [.loginCustom(username, [password], usernameFieldSelector, passwordFieldSelector, logonButtonSelector, [verify])](#ui5.session.loginCustom)
+        * [.loginCustomViaConfig(username, password, [verify])](#ui5.session.loginCustomViaConfig)
+        * [.logout([verify])](#ui5.session.logout)
     * [.userInteraction](#ui5.userInteraction)
         * [.date](#ui5.userInteraction.date)
         * [.pickDate(selector, date)](#ui5.userInteraction.pickDate)
@@ -1419,6 +1426,148 @@ Closes all popups if they occur after navigating to a specific page.
 **Example**  
 ```js
 await ui5.navigation.closePopups();
+```
+<a name="ui5.session"></a>
+
+### ui5.session
+**Kind**: static class of [<code>ui5</code>](#ui5)  
+
+* [.session](#ui5.session)
+    * [.login(username, [password], [verify], [timeout])](#ui5.session.login)
+    * [.loginFiori(username, [password], [verify])](#ui5.session.loginFiori)
+    * [.loginSapCloud(username, [password], [verify])](#ui5.session.loginSapCloud)
+    * [.loginCustom(username, [password], usernameFieldSelector, passwordFieldSelector, logonButtonSelector, [verify])](#ui5.session.loginCustom)
+    * [.loginCustomViaConfig(username, password, [verify])](#ui5.session.loginCustomViaConfig)
+    * [.logout([verify])](#ui5.session.logout)
+
+<a name="ui5.session.login"></a>
+
+#### session.login(username, [password], [verify], [timeout])
+Login with specific username and password. This function works for both fiori and sap-cloud login.
+
+**Kind**: static method of [<code>session</code>](#ui5.session)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| username | <code>String</code> |  | The username. |
+| [password] | <code>String</code> | <code>&quot;Welcome1!&quot;</code> | The password. |
+| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the function will check the shell header after logging in. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.session.login("PURCHASER");
+```
+**Example**  
+```js
+await ui5.session.login("JOHN_DOE", "abc123!", true);
+```
+<a name="ui5.session.loginFiori"></a>
+
+#### session.loginFiori(username, [password], [verify])
+Login with fioriForm and specific username and password.
+
+**Kind**: static method of [<code>session</code>](#ui5.session)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| username | <code>String</code> |  | The username. |
+| [password] | <code>String</code> | <code>&quot;Welcome1!&quot;</code> | The password. |
+| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the function will check the shell header after logging in. |
+
+**Example**  
+```js
+await ui5.session.loginFiori("john", "abc123!");
+```
+<a name="ui5.session.loginSapCloud"></a>
+
+#### session.loginSapCloud(username, [password], [verify])
+Login with sapCloud form and specific username and password.
+
+**Kind**: static method of [<code>session</code>](#ui5.session)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| username | <code>String</code> |  | The username. |
+| [password] | <code>String</code> | <code>&quot;Welcome1!&quot;</code> | The password. |
+| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the function will check the shell header after logging in. |
+
+**Example**  
+```js
+await ui5.session.loginSapCloud("john", "abc123!");
+```
+<a name="ui5.session.loginCustom"></a>
+
+#### session.loginCustom(username, [password], usernameFieldSelector, passwordFieldSelector, logonButtonSelector, [verify])
+Login with custom form and specific username and password.
+
+**Kind**: static method of [<code>session</code>](#ui5.session)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| username | <code>String</code> |  | The username. |
+| [password] | <code>String</code> | <code>&quot;Welcome1!&quot;</code> | The password. |
+| usernameFieldSelector | <code>String</code> |  | The CSS selector of the username field. |
+| passwordFieldSelector | <code>String</code> |  | The CSS selector of the password field. |
+| logonButtonSelector | <code>String</code> |  | The CSS selector of the login button. |
+| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the function will check the shell header after logging in. |
+
+**Example**  
+```js
+await ui5.session.loginCustom("JOHN_DOE", "abc123!", "#username", #password, "#logon");
+```
+<a name="ui5.session.loginCustomViaConfig"></a>
+
+#### session.loginCustomViaConfig(username, password, [verify])
+Login with specific username and password. The selectors will be taken from the config.
+
+**Kind**: static method of [<code>session</code>](#ui5.session)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| username | <code>String</code> |  | The username. Can be specified in spec or config. If specified in both credentials will be taken from config. |
+| password | <code>String</code> | <code>&quot;Welcome1!&quot;</code> | The password. Can be specified in spec or config. If specified in both credentials will be taken from config. |
+| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the function will check the shell header after logging in. |
+
+**Example**  
+```js
+// config - SAMPLE 1
+    auth: {
+      formType: 'plain',
+      usernameFieldSelector: "#USERNAME_BLOCK input",
+      passwordFieldSelector: "#PASSWORD_BLOCK input",
+      logonButtonSelector: "#LOGIN_LINK"
+    },
+    // spec
+    await ui5.session.loginCustomViaConfig("JOHN_DOE", "abc123!");
+
+
+    // config - SAMPLE 2
+    auth: {
+      formType: "plain",
+      username: "PURCH_EXT",
+      password: "Welcome1!",
+      usernameFieldSelector: "#USERNAME_BLOCK input",
+      passwordFieldSelector: "#PASSWORD_BLOCK input",
+      logonButtonSelector: "#LOGIN_LINK"
+    },
+    // spec
+    await ui5.session.loginCustomViaConfig();
+```
+<a name="ui5.session.logout"></a>
+
+#### session.logout([verify])
+Logs the user out.
+
+**Kind**: static method of [<code>session</code>](#ui5.session)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [verify] | <code>Boolean</code> | <code>&quot;true&quot;</code> | Specifies if the function will check the logout text after logging out. Set this to false if the system does not show the text after logging out. |
+
+**Example**  
+```js
+await ui5.session.logout();
 ```
 <a name="ui5.userInteraction"></a>
 

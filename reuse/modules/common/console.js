@@ -125,6 +125,8 @@ const Console = function () {
     }
   ];
 
+
+  // =================================== HELPER ===================================
   function getColorValue(key) {
     const object = colors.filter(obj => {
       return obj.key === key;
