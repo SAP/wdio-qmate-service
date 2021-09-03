@@ -6,11 +6,11 @@ const fs = require("fs");
 const path = require("path");
 const jsdoc2md = require("jsdoc-to-markdown");
 
-const basePath = path.resolve(__dirname);
-const filesToInclude = `${basePath}\\**\\*.js`;
+const basePath = path.join(__dirname, "../");
+const filesToInclude = `{index.js,modules/**/*.js}`;
 
 function generateDoc() {
-  glob(filesToInclude, async (err, files) => {
+  glob(basePath + filesToInclude, async (err, files) => {
 
     if (err) {
       throw err;
@@ -32,6 +32,7 @@ function generateDoc() {
       if (err) {
         throw err;
       }
+      console.log("The files has been saved.");
     });
 
   });

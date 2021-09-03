@@ -28,6 +28,12 @@ Global namespace for common modules.
         * [.expectDefined(value)](#common.assertion.expectDefined)
         * [.expectUndefined(value)](#common.assertion.expectUndefined)
         * [.expectUrlToBe()](#common.assertion.expectUrlToBe) ⇒ <code>Promise</code>
+    * [.console](#common.console)
+        * [.log(message, [textColor], [backgroundColor], [brightness])](#common.console.log)
+        * [.error(message)](#common.console.error)
+        * [.warn(message)](#common.console.warn)
+        * [.success(message)](#common.console.success)
+        * [.info(message)](#common.console.info)
     * [.navigation](#common.navigation)
         * [.navigateToUrl(url)](#common.navigation.navigateToUrl)
         * [.printCurrentUrl()](#common.navigation.printCurrentUrl)
@@ -43,6 +49,16 @@ Global namespace for common modules.
         * [.fillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.fillActiveAndRetry)
         * [.clearAndFillActive(value)](#common.userInteraction.clearAndFillActive)
         * [.clearFillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.clearFillActiveAndRetry)
+    * [.util](#common.util) : <code>object</code>
+        * [.date](#common.util.date)
+            * [.getToday([format])](#common.util.date.getToday) ⇒ <code>String</code>
+            * [.getTomorrow([format])](#common.util.date.getTomorrow) ⇒ <code>String</code>
+            * [.getNextMonth([format])](#common.util.date.getNextMonth) ⇒ <code>String</code>
+            * [.getPreviousMonth([format])](#common.util.date.getPreviousMonth) ⇒ <code>String</code>
+            * [.getNextYear([format])](#common.util.date.getNextYear) ⇒ <code>String</code>
+            * [.getPreviousYear([format])](#common.util.date.getPreviousYear) ⇒ <code>String</code>
+            * [.getSpecificDate(date, [format])](#common.util.date.getSpecificDate) ⇒ <code>String</code>
+            * [.calculateDate([date], [format])](#common.util.date.calculateDate) ⇒ <code>String</code>
 
 <a name="common.assertion"></a>
 
@@ -161,6 +177,96 @@ Expects the url to be the passed value.
 **Example**  
 ```js
 await common.assertion.expectUrlToBe("www.sap.com");
+```
+<a name="common.console"></a>
+
+### common.console
+**Kind**: static class of [<code>common</code>](#common)  
+
+* [.console](#common.console)
+    * [.log(message, [textColor], [backgroundColor], [brightness])](#common.console.log)
+    * [.error(message)](#common.console.error)
+    * [.warn(message)](#common.console.warn)
+    * [.success(message)](#common.console.success)
+    * [.info(message)](#common.console.info)
+
+<a name="common.console.log"></a>
+
+#### console.log(message, [textColor], [backgroundColor], [brightness])
+Logs a message to the console in the given color.
+
+**Kind**: static method of [<code>console</code>](#common.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+| [textColor] | <code>String</code> | The color of the text: "black, white", "red", "yellow", "green", "blue", "cyan", "magenta". |
+| [backgroundColor] | <code>String</code> | The color of the background: "black, white", "red", "yellow", "green", "blue", "cyan", "magenta". |
+| [brightness] | <code>String</code> | Adjusts the brightness of the color: "bright", "dim". Leave empty for default. |
+
+**Example**  
+```js
+common.console.log("The document has been saved.", "green");
+```
+<a name="common.console.error"></a>
+
+#### console.error(message)
+Logs a error message to the console in red.
+
+**Kind**: static method of [<code>console</code>](#common.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+
+**Example**  
+```js
+common.console.error("Error: Please investigate.");
+```
+<a name="common.console.warn"></a>
+
+#### console.warn(message)
+Logs a warning message to the console in yellow.
+
+**Kind**: static method of [<code>console</code>](#common.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+
+**Example**  
+```js
+common.console.warn("Optional step not executed.");
+```
+<a name="common.console.success"></a>
+
+#### console.success(message)
+Logs a success message to the console in green.
+
+**Kind**: static method of [<code>console</code>](#common.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+
+**Example**  
+```js
+common.console.success("The document has been saved.");
+```
+<a name="common.console.info"></a>
+
+#### console.info(message)
+Logs a info message to the console in cyan.
+
+**Kind**: static method of [<code>console</code>](#common.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+
+**Example**  
+```js
+common.console.success("The document has been saved.");
 ```
 <a name="common.navigation"></a>
 
@@ -347,6 +453,167 @@ CClears and fills the active input. Retries the action in case of a failure.
 **Example**  
 ```js
 await common.userInteraction.clearFillActiveAndRetry("My Value");
+```
+<a name="common.util"></a>
+
+### common.util : <code>object</code>
+**Kind**: static namespace of [<code>common</code>](#common)  
+
+* [.util](#common.util) : <code>object</code>
+    * [.date](#common.util.date)
+        * [.getToday([format])](#common.util.date.getToday) ⇒ <code>String</code>
+        * [.getTomorrow([format])](#common.util.date.getTomorrow) ⇒ <code>String</code>
+        * [.getNextMonth([format])](#common.util.date.getNextMonth) ⇒ <code>String</code>
+        * [.getPreviousMonth([format])](#common.util.date.getPreviousMonth) ⇒ <code>String</code>
+        * [.getNextYear([format])](#common.util.date.getNextYear) ⇒ <code>String</code>
+        * [.getPreviousYear([format])](#common.util.date.getPreviousYear) ⇒ <code>String</code>
+        * [.getSpecificDate(date, [format])](#common.util.date.getSpecificDate) ⇒ <code>String</code>
+        * [.calculateDate([date], [format])](#common.util.date.calculateDate) ⇒ <code>String</code>
+
+<a name="common.util.date"></a>
+
+#### util.date
+**Kind**: static class of [<code>util</code>](#common.util)  
+
+* [.date](#common.util.date)
+    * [.getToday([format])](#common.util.date.getToday) ⇒ <code>String</code>
+    * [.getTomorrow([format])](#common.util.date.getTomorrow) ⇒ <code>String</code>
+    * [.getNextMonth([format])](#common.util.date.getNextMonth) ⇒ <code>String</code>
+    * [.getPreviousMonth([format])](#common.util.date.getPreviousMonth) ⇒ <code>String</code>
+    * [.getNextYear([format])](#common.util.date.getNextYear) ⇒ <code>String</code>
+    * [.getPreviousYear([format])](#common.util.date.getPreviousYear) ⇒ <code>String</code>
+    * [.getSpecificDate(date, [format])](#common.util.date.getSpecificDate) ⇒ <code>String</code>
+    * [.calculateDate([date], [format])](#common.util.date.calculateDate) ⇒ <code>String</code>
+
+<a name="common.util.date.getToday"></a>
+
+##### date.getToday([format]) ⇒ <code>String</code>
+Returns the current day in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.util.date)  
+**Returns**: <code>String</code> - The date in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+
+**Example**  
+```js
+const date = await common.util.date.getToday("mm/dd/yyyy");
+```
+<a name="common.util.date.getTomorrow"></a>
+
+##### date.getTomorrow([format]) ⇒ <code>String</code>
+Returns tomorrows date in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.util.date)  
+**Returns**: <code>String</code> - The date in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+
+**Example**  
+```js
+const date = await common.util.date.getTomorrow("mm/dd/yyyy");
+```
+<a name="common.util.date.getNextMonth"></a>
+
+##### date.getNextMonth([format]) ⇒ <code>String</code>
+Returns the current day one month later in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.util.date)  
+**Returns**: <code>String</code> - The date in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+
+**Example**  
+```js
+const date = await common.util.date.getNextMonth("mm/dd/yyyy");
+```
+<a name="common.util.date.getPreviousMonth"></a>
+
+##### date.getPreviousMonth([format]) ⇒ <code>String</code>
+Returns the current day one month before in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.util.date)  
+**Returns**: <code>String</code> - The date in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+
+**Example**  
+```js
+const date = await common.util.date.getPreviousMonth("mm/dd/yyyy");
+```
+<a name="common.util.date.getNextYear"></a>
+
+##### date.getNextYear([format]) ⇒ <code>String</code>
+Returns the current day one year later in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.util.date)  
+**Returns**: <code>String</code> - The date in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+
+**Example**  
+```js
+const date = await common.util.date.getNextYear("mm/dd/yyyy");
+```
+<a name="common.util.date.getPreviousYear"></a>
+
+##### date.getPreviousYear([format]) ⇒ <code>String</code>
+Returns the current day one year before in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.util.date)  
+**Returns**: <code>String</code> - The date in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+
+**Example**  
+```js
+const date = await common.util.date.getPreviousYear("mm/dd/yyyy");
+```
+<a name="common.util.date.getSpecificDate"></a>
+
+##### date.getSpecificDate(date, [format]) ⇒ <code>String</code>
+Returns a specific date in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.util.date)  
+**Returns**: <code>String</code> - The date in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| date | <code>String</code> |  | A specific date string. |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+
+**Example**  
+```js
+const date = await common.util.date.getSpecificDate("2020, 0, 17", "mm/dd/yyyy");
+```
+<a name="common.util.date.calculateDate"></a>
+
+##### date.calculateDate([date], [format]) ⇒ <code>String</code>
+Calculates the date based on the input parameter and returns it in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.util.date)  
+**Returns**: <code>String</code> - The calculated date in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [date] | <code>String</code> | <code>&quot;today&quot;</code> | Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, lastYear |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object"). |
+
+**Example**  
+```js
+const date = await common.util.date.calculateDate("today", "mm/dd/yyy");
 ```
 <a name="ui5"></a>
 
