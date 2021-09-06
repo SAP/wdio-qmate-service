@@ -2053,6 +2053,143 @@ await ui5.userInteraction.resetSearch(selector);
 Global namespace for non UI5 modules.
 
 **Kind**: global constant  
+
+* [nonUi5](#nonUi5)
+    * [.assertion](#nonUi5.assertion)
+        * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible) ⇒ <code>Promise</code>
+        * [.expectValueToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectValueToBe) ⇒ <code>Promise</code>
+    * [.element](#nonUi5.element)
+        * [.isVisible(element)](#nonUi5.element.isVisible) ⇒ <code>Boolean</code>
+        * [.isElementPresent(elem)](#nonUi5.element.isElementPresent) ⇒ <code>Boolean</code>
+        * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
+        * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
+    * [.userInteraction](#nonUi5.userInteraction)
+
+<a name="nonUi5.assertion"></a>
+
+### nonUi5.assertion
+**Kind**: static class of [<code>nonUi5</code>](#nonUi5)  
+
+* [.assertion](#nonUi5.assertion)
+    * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible) ⇒ <code>Promise</code>
+    * [.expectValueToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectValueToBe) ⇒ <code>Promise</code>
+
+<a name="nonUi5.assertion.expectToBeVisible"></a>
+
+#### assertion.expectToBeVisible(element) ⇒ <code>Promise</code>
+Expects that the element is visible to the user.
+
+**Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
+**Returns**: <code>Promise</code> - The promise to be resolved.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| element | <code>Object</code> | The element. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.assertion.expectToBeVisible(elem);
+```
+<a name="nonUi5.assertion.expectValueToBe"></a>
+
+#### assertion.expectValueToBe(elem, compareValue, [attribute]) ⇒ <code>Promise</code>
+Expects the attributes value of the passed element to be the compare value.
+
+**Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
+**Returns**: <code>Promise</code> - The promise to be resolved.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+| compareValue | <code>String</code> | The compare value. |
+| [attribute] | <code>String</code> | The attribute to compare. If not passed, it will compare the inner HTML content of the element. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.assertion.expectValueToBe(elem, "Save");
+```
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.assertion.expectValueToBe(element, "Save", "title");
+```
+<a name="nonUi5.element"></a>
+
+### nonUi5.element
+**Kind**: static class of [<code>nonUi5</code>](#nonUi5)  
+
+* [.element](#nonUi5.element)
+    * [.isVisible(element)](#nonUi5.element.isVisible) ⇒ <code>Boolean</code>
+    * [.isElementPresent(elem)](#nonUi5.element.isElementPresent) ⇒ <code>Boolean</code>
+    * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
+    * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
+
+<a name="nonUi5.element.isVisible"></a>
+
+#### element.isVisible(element) ⇒ <code>Boolean</code>
+Returns a boolean if the element is visible to the user.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>Boolean</code> - Returns true or false.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| element | <code>Object</code> | The element. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.element.isVisible(elem);
+```
+<a name="nonUi5.element.isElementPresent"></a>
+
+#### element.isElementPresent(elem) ⇒ <code>Boolean</code>
+Returns a boolean if the element is present at the DOM or not.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>Boolean</code> - Returns true or false.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.element.isElementPresent(elem);
+```
+<a name="nonUi5.element.isPresentByCss"></a>
+
+#### element.isPresentByCss(css, [index], [timeout]) ⇒ <code>boolean</code>
+Returns a boolean if the element is present at the DOM or not.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>boolean</code> - Returns true or false.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| css | <code>String</code> |  | The CSS selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await nonUi5.element.isPresentByCss(".button01");
+```
+<a name="nonUi5.element.isPresentByXPath"></a>
+
+#### element.isPresentByXPath(xpath, [index], [timeout]) ⇒ <code>boolean</code>
+returns a boolean if the element is present at the DOM or not.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| xpath | <code>String</code> |  | The XPath describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await nonUi5.element.isPresentByXPath(".//*[text()='Create']");
+```
 <a name="nonUi5.userInteraction"></a>
 
 ### nonUi5.userInteraction

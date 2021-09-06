@@ -184,6 +184,26 @@
     "new": "common.assertion.expectUrlToBe"
   },
   {
+    "old": "non_ui5.common.assertion.isVisible",
+    "new": "common.element.isVisible"
+  },
+  {
+    "old": "non_ui5.common.assertion.isElementPresent",
+    "new": "common.element.isElementPresent"
+  },
+  {
+    "old": "non_ui5.common.assertion.isPresentByCss",
+    "new": "common.element.isPresentByCss"
+  },
+  {
+    "old": "non_ui5.common.assertion.isPresent",
+    "new": "common.element.isPresentByCss"
+  },
+  {
+    "old": "non_ui5.common.assertion.isPresentByXPath",
+    "new": "common.element.isPresentByXPath"
+  },
+  {
     "old": "non_ui5.common.navigation.navigateToUrl",
     "new": "common.navigation.navigateToUrl"
   },
