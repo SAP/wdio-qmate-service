@@ -212,6 +212,22 @@
     "new": "nonUi5.element"
   },
   {
+    "old": "non_ui5.common.locator.getCurrentWindow",
+    "new": "common.browser.getCurrentWindow"
+  },
+  {
+    "old": "non_ui5.common.locator.waitForWindows",
+    "new": "common.browser.waitForWindows"
+  },
+  {
+    "old": "non_ui5.common.locator.switchToNewWindow",
+    "new": "common.browser.switchToNewWindow"
+  },
+  {
+    "old": "non_ui5.common.locator.switchToWindow",
+    "new": "common.browser.switchToWindow"
+  },
+  {
     "old": "non_ui5.common.navigation.navigateToUrl",
     "new": "common.navigation.navigateToUrl"
   },
