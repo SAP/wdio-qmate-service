@@ -96,6 +96,10 @@
     "new": "TODO"
   },
   {
+    "old": "ui5.common.locator",
+    "new": "ui5.element"
+  },
+  {
     "old": "ui5.common.messageBox",
     "new": "TODO"
   },
@@ -202,6 +206,10 @@
   {
     "old": "non_ui5.common.assertion.isPresentByXPath",
     "new": "common.element.isPresentByXPath"
+  },
+  {
+    "old": "non_ui5.common.locator",
+    "new": "nonUi5.element"
   },
   {
     "old": "non_ui5.common.navigation.navigateToUrl",

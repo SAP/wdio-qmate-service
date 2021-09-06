@@ -2056,13 +2056,31 @@ Global namespace for non UI5 modules.
 
 * [nonUi5](#nonUi5)
     * [.assertion](#nonUi5.assertion)
-        * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible) ⇒ <code>Promise</code>
         * [.expectValueToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectValueToBe) ⇒ <code>Promise</code>
+        * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible) ⇒ <code>Promise</code>
     * [.element](#nonUi5.element)
+        * [.waitForAllElements(selector, [timeout])](#nonUi5.element.waitForAllElements) ⇒ <code>Array.&lt;Object&gt;</code>
+        * [.waitForElementIsPresent(selector, [timeout])](#nonUi5.element.waitForElementIsPresent)
+        * [.waitForElementIsVisible(selector, [timeout])](#nonUi5.element.waitForElementIsVisible)
+        * [.waitForElementIsClickable(selector, [timeout])](#nonUi5.element.waitForElementIsClickable)
+        * [.getDisplayedElements(selector, [timeout])](#nonUi5.element.getDisplayedElements) ⇒ <code>Array.&lt;Object&gt;</code>
+        * [.getElementByCss(selector, [index], [timeout])](#nonUi5.element.getElementByCss) ⇒ <code>Object</code>
+        * [.getElementByCssContainingText(selector, [text], [index], [timeout])](#nonUi5.element.getElementByCssContainingText) ⇒ <code>Object</code>
+        * [.getElementById(id, [timeout])](#nonUi5.element.getElementById) ⇒ <code>Object</code>
+        * [.getElementByClass(elemClass, [index], [timeout])](#nonUi5.element.getElementByClass) ⇒ <code>Object</code>
+        * [.getElementByName(name, [index], [timeout])](#nonUi5.element.getElementByName) ⇒ <code>Object</code>
+        * [.getElementByXPath(xpath, [index], [timeout])](#nonUi5.element.getElementByXPath) ⇒ <code>Object</code>
+        * [.getElementByChild(elementSelector, childSelector)](#nonUi5.element.getElementByChild) ⇒ <code>Object</code>
+        * [.getChildNode(elementSelector, childSelector, [elementIndex], [childIndex], [timeout])](#nonUi5.element.getChildNode) ⇒ <code>Object</code>
         * [.isVisible(element)](#nonUi5.element.isVisible) ⇒ <code>Boolean</code>
         * [.isElementPresent(elem)](#nonUi5.element.isElementPresent) ⇒ <code>Boolean</code>
         * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
         * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
+        * [.getValue(elem, [attribute])](#nonUi5.element.getValue) ⇒ <code>String</code>
+        * [.scrollToElement(elem, alignment)](#nonUi5.element.scrollToElement)
+        * [.highlightElement(elem, [duration], [color])](#nonUi5.element.highlightElement)
+        * [.switchToIframe(selector)](#nonUi5.element.switchToIframe)
+        * [.switchToDefaultContent()](#nonUi5.element.switchToDefaultContent)
     * [.userInteraction](#nonUi5.userInteraction)
 
 <a name="nonUi5.assertion"></a>
@@ -2071,25 +2089,9 @@ Global namespace for non UI5 modules.
 **Kind**: static class of [<code>nonUi5</code>](#nonUi5)  
 
 * [.assertion](#nonUi5.assertion)
-    * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible) ⇒ <code>Promise</code>
     * [.expectValueToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectValueToBe) ⇒ <code>Promise</code>
+    * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible) ⇒ <code>Promise</code>
 
-<a name="nonUi5.assertion.expectToBeVisible"></a>
-
-#### assertion.expectToBeVisible(element) ⇒ <code>Promise</code>
-Expects that the element is visible to the user.
-
-**Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| element | <code>Object</code> | The element. |
-
-**Example**  
-```js
-const elem = await nonUi5.element.getElementById("button01");await nonUi5.assertion.expectToBeVisible(elem);
-```
 <a name="nonUi5.assertion.expectValueToBe"></a>
 
 #### assertion.expectValueToBe(elem, compareValue, [attribute]) ⇒ <code>Promise</code>
@@ -2112,17 +2114,302 @@ const elem = await nonUi5.element.getElementById("button01");await nonUi5.asser
 ```js
 const elem = await nonUi5.element.getElementById("button01");await nonUi5.assertion.expectValueToBe(element, "Save", "title");
 ```
+<a name="nonUi5.assertion.expectToBeVisible"></a>
+
+#### assertion.expectToBeVisible(element) ⇒ <code>Promise</code>
+Expects that the element is visible to the user.
+
+**Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
+**Returns**: <code>Promise</code> - The promise to be resolved.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| element | <code>Object</code> | The element. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.assertion.expectToBeVisible(elem);
+```
 <a name="nonUi5.element"></a>
 
 ### nonUi5.element
 **Kind**: static class of [<code>nonUi5</code>](#nonUi5)  
 
 * [.element](#nonUi5.element)
+    * [.waitForAllElements(selector, [timeout])](#nonUi5.element.waitForAllElements) ⇒ <code>Array.&lt;Object&gt;</code>
+    * [.waitForElementIsPresent(selector, [timeout])](#nonUi5.element.waitForElementIsPresent)
+    * [.waitForElementIsVisible(selector, [timeout])](#nonUi5.element.waitForElementIsVisible)
+    * [.waitForElementIsClickable(selector, [timeout])](#nonUi5.element.waitForElementIsClickable)
+    * [.getDisplayedElements(selector, [timeout])](#nonUi5.element.getDisplayedElements) ⇒ <code>Array.&lt;Object&gt;</code>
+    * [.getElementByCss(selector, [index], [timeout])](#nonUi5.element.getElementByCss) ⇒ <code>Object</code>
+    * [.getElementByCssContainingText(selector, [text], [index], [timeout])](#nonUi5.element.getElementByCssContainingText) ⇒ <code>Object</code>
+    * [.getElementById(id, [timeout])](#nonUi5.element.getElementById) ⇒ <code>Object</code>
+    * [.getElementByClass(elemClass, [index], [timeout])](#nonUi5.element.getElementByClass) ⇒ <code>Object</code>
+    * [.getElementByName(name, [index], [timeout])](#nonUi5.element.getElementByName) ⇒ <code>Object</code>
+    * [.getElementByXPath(xpath, [index], [timeout])](#nonUi5.element.getElementByXPath) ⇒ <code>Object</code>
+    * [.getElementByChild(elementSelector, childSelector)](#nonUi5.element.getElementByChild) ⇒ <code>Object</code>
+    * [.getChildNode(elementSelector, childSelector, [elementIndex], [childIndex], [timeout])](#nonUi5.element.getChildNode) ⇒ <code>Object</code>
     * [.isVisible(element)](#nonUi5.element.isVisible) ⇒ <code>Boolean</code>
     * [.isElementPresent(elem)](#nonUi5.element.isElementPresent) ⇒ <code>Boolean</code>
     * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
     * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
+    * [.getValue(elem, [attribute])](#nonUi5.element.getValue) ⇒ <code>String</code>
+    * [.scrollToElement(elem, alignment)](#nonUi5.element.scrollToElement)
+    * [.highlightElement(elem, [duration], [color])](#nonUi5.element.highlightElement)
+    * [.switchToIframe(selector)](#nonUi5.element.switchToIframe)
+    * [.switchToDefaultContent()](#nonUi5.element.switchToDefaultContent)
 
+<a name="nonUi5.element.waitForAllElements"></a>
+
+#### element.waitForAllElements(selector, [timeout]) ⇒ <code>Array.&lt;Object&gt;</code>
+Waits until all elements with the given selector are rendered.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>Array.&lt;Object&gt;</code> - The array of elements. //TODO  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The CSS selector describing the element. |
+| [timeout] | <code>Number</code> | <code>60000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await nonUi5.element.waitForAllElements(".inputField");
+```
+<a name="nonUi5.element.waitForElementIsPresent"></a>
+
+#### element.waitForElementIsPresent(selector, [timeout])
+Waits until the element with the given selector is present.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The CSS selector describing the element. |
+| [timeout] | <code>Number</code> | <code>60000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await nonUi5.element.waitForElementIsPresent(".input01");
+```
+**Example**  
+```js
+await nonUi5.element.waitForElementIsPresent("#button12");
+```
+**Example**  
+```js
+await nonUi5.element.waitForElementIsPresent("p:first-child");
+```
+<a name="nonUi5.element.waitForElementIsVisible"></a>
+
+#### element.waitForElementIsVisible(selector, [timeout])
+Waits until the element with the given selector is visible.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The CSS selector describing the element. |
+| [timeout] | <code>Number</code> | <code>60000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await nonUi5.element.waitForElementIsVisible(".input01");
+```
+**Example**  
+```js
+await nonUi5.element.waitForElementIsVisible("#button12");
+```
+**Example**  
+```js
+await nonUi5.element.waitForElementIsVisible("p:first-child");
+```
+<a name="nonUi5.element.waitForElementIsClickable"></a>
+
+#### element.waitForElementIsClickable(selector, [timeout])
+Waits until the element with the given selector is clickable.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The CSS selector describing the element. |
+| [timeout] | <code>Number</code> | <code>60000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await nonUi5.element.waitForElementIsClickable(".input01");
+```
+**Example**  
+```js
+await nonUi5.element.waitForElementIsClickable("#button12");
+```
+**Example**  
+```js
+await nonUi5.element.waitForElementIsClickable("p:first-child");
+```
+<a name="nonUi5.element.getDisplayedElements"></a>
+
+#### element.getDisplayedElements(selector, [timeout]) ⇒ <code>Array.&lt;Object&gt;</code>
+Gets all visible elements with the passed selector.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>Array.&lt;Object&gt;</code> - The array of elements.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The CSS selector describing the element. |
+| [timeout] | <code>Number</code> | <code>60000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await nonUi5.element.getDisplayedElements(".inputField");
+```
+<a name="nonUi5.element.getElementByCss"></a>
+
+#### element.getElementByCss(selector, [index], [timeout]) ⇒ <code>Object</code>
+Gets the element with the given CSS selector.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>Object</code> - The found element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The CSS selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>60000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementByCss(".button01");
+```
+<a name="nonUi5.element.getElementByCssContainingText"></a>
+
+#### element.getElementByCssContainingText(selector, [text], [index], [timeout]) ⇒ <code>Object</code>
+Gets the element with the given CSS selector containing the given text value.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>Object</code> - The found element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The CSS selector describing the element. |
+| [text] | <code>String</code> | <code>&quot;&quot;</code> | The containing text value of the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>60000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementByCssContainingText(".input01", "Jack Jackson");
+```
+<a name="nonUi5.element.getElementById"></a>
+
+#### element.getElementById(id, [timeout]) ⇒ <code>Object</code>
+Gets the element with the given ID.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>Object</code> - The found element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| id | <code>String</code> |  | The id of the element. |
+| [timeout] | <code>Number</code> | <code>60000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("button01");
+```
+<a name="nonUi5.element.getElementByClass"></a>
+
+#### element.getElementByClass(elemClass, [index], [timeout]) ⇒ <code>Object</code>
+Gets the element with the given class.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>Object</code> - The found element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| elemClass | <code>String</code> |  | The class describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>60000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementByClass("button01");
+```
+<a name="nonUi5.element.getElementByName"></a>
+
+#### element.getElementByName(name, [index], [timeout]) ⇒ <code>Object</code>
+Gets the element with the given name.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>Object</code> - The found element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| name | <code>String</code> |  | The name attribute of the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>60000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementByName(".button01");
+```
+<a name="nonUi5.element.getElementByXPath"></a>
+
+#### element.getElementByXPath(xpath, [index], [timeout]) ⇒ <code>Object</code>
+Gets the element with the given XPath.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>Object</code> - The found element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| xpath | <code>String</code> |  | The XPath describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>60000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementByXPath("//ul/li/a");
+```
+<a name="nonUi5.element.getElementByChild"></a>
+
+#### element.getElementByChild(elementSelector, childSelector) ⇒ <code>Object</code>
+Gets an element with the given CSS selector and child selector. Can be used when multiple elements have the same properties.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>Object</code> - The found element.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elementSelector | <code>String</code> | The CSS selector describing the element. |
+| childSelector | <code>String</code> | The CSS selector describing the elements child. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementByChild(".form01", ".input01");
+```
+<a name="nonUi5.element.getChildNode"></a>
+
+#### element.getChildNode(elementSelector, childSelector, [elementIndex], [childIndex], [timeout]) ⇒ <code>Object</code>
+Gets an child element of a specific element by CSS.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>Object</code> - The found element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| elementSelector | <code>String</code> |  | The CSS of the parent element (can be a class for example). |
+| childSelector | <code>String</code> |  | The CSS of the child element (can be a class for example). |
+| [elementIndex] | <code>Integer</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
+| [childIndex] | <code>Integer</code> | <code>0</code> | The index of the child element (in case there are more than one child elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>60000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getChildNode("ul[class='list']", "li[class='firstItem']");
+```
 <a name="nonUi5.element.isVisible"></a>
 
 #### element.isVisible(element) ⇒ <code>Boolean</code>
@@ -2166,7 +2453,7 @@ Returns a boolean if the element is present at the DOM or not.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | css | <code>String</code> |  | The CSS selector describing the element. |
-| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
@@ -2183,12 +2470,95 @@ returns a boolean if the element is present at the DOM or not.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | xpath | <code>String</code> |  | The XPath describing the element. |
-| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
 ```js
 await nonUi5.element.isPresentByXPath(".//*[text()='Create']");
+```
+<a name="nonUi5.element.getValue"></a>
+
+#### element.getValue(elem, [attribute]) ⇒ <code>String</code>
+Returns the attributes value of the passed element.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>String</code> - The attributes value of the element.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+| [attribute] | <code>String</code> | The attribute of the element. Leave empty to return the inner HTML value of the element. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("elem01");const text = await nonUi5.element.getValue(elem, "text");
+```
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("elem02");const innerHTML = await nonUi5.element.getValue(elem);
+```
+<a name="nonUi5.element.scrollToElement"></a>
+
+#### element.scrollToElement(elem, alignment)
+Scrolls to the passed element to get it into view.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| elem | <code>Object</code> |  | The element. |
+| alignment | <code>String</code> | <code>&quot;center&quot;</code> | Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest". Affects the alignToTop parameter of scrollIntoView function. By default, it takes 'up' |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("footer01");await nonUi5.element.scrollToElement(elem);
+```
+<a name="nonUi5.element.highlightElement"></a>
+
+#### element.highlightElement(elem, [duration], [color])
+Highlights the passed element.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| elem | <code>Object</code> |  | The element. |
+| [duration] | <code>Integer</code> | <code>2000</code> | The duration of the highlighting (ms). |
+| [color] | <code>String</code> | <code>&quot;red&quot;</code> | The color of the highlighting (CSS value). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("text01");await nonUi5.element.highlightElement(elem);
+```
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("text01");await nonUi5.element.highlightElement(elem, 3000, "green");
+```
+<a name="nonUi5.element.switchToIframe"></a>
+
+#### element.switchToIframe(selector)
+Switches to the passed iframe.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>String</code> | The CSS selector describing the iframe element. |
+
+**Example**  
+```js
+await nonUi5.element.switchToIframe("iframe[id='frame01']");
+```
+<a name="nonUi5.element.switchToDefaultContent"></a>
+
+#### element.switchToDefaultContent()
+Switches to the default content of the HTML page.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Example**  
+```js
+await nonUi5.element.switchToDefaultContent();
 ```
 <a name="nonUi5.userInteraction"></a>
 
