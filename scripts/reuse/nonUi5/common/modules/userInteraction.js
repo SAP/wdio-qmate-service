@@ -5,19 +5,6 @@
  */
 const UserInteraction = function () {
 
-  
-
-
-
-  //---------------------------------- INPUTS ----------------------------------
- 
-
- 
-
-  
-
-
-
   /**
    * @function clearAndRetry
    * @memberOf nonUi5.userInteraction
