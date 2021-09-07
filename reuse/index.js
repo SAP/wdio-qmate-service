@@ -43,7 +43,9 @@ const ReuseLibrary = function () {
      * @description Global namespace for non UI5 modules.
      */
     const nonUi5 = {
-
+      assertion: require("./modules/nonUi5/assertion.js"),
+      element: require("./modules/nonUi5/element.js"),
+      userInteraction: require("./modules/nonUi5/userInteraction.js"),
     };
     global.nonUi5 = {
       ...global.nonUi5,

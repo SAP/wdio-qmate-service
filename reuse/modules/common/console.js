@@ -43,7 +43,7 @@ const Console = function () {
    * @example common.console.error("Error: Please investigate.");
    */
   this.error = function (message) {
-    let colorValue = getColorValue("red");
+    const colorValue = getColorValue("red");
     console.error(colorValue, message + "\x1b[0m");
   };
 
@@ -55,7 +55,7 @@ const Console = function () {
    * @example common.console.warn("Optional step not executed.");
    */
   this.warn = function (message) {
-    let colorValue = getColorValue("yellow");
+    const colorValue = getColorValue("yellow");
     console.warn(colorValue, message + "\x1b[0m");
   };
 
@@ -67,7 +67,7 @@ const Console = function () {
    * @example common.console.success("The document has been saved.");
    */
   this.success = function (message) {
-    let colorValue = getColorValue("green");
+    const colorValue = getColorValue("green");
     console.log(colorValue, message + "\x1b[0m");
   };
 
@@ -79,7 +79,7 @@ const Console = function () {
    * @example common.console.success("The document has been saved.");
    */
   this.info = function (message) {
-    let colorValue = getColorValue("cyan");
+    const colorValue = getColorValue("cyan");
     console.log(colorValue, message + "\x1b[0m");
   };
 
