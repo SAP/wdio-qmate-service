@@ -33,10 +33,11 @@ const ReuseLibrary = function () {
      */
     const ui5 = {
       assertion: require("./modules/ui5/assertion.js"),
+      date: require("./modules/ui5/date.js"),
       element: require("./modules/ui5/element.js"),
       navigation: require("./modules/ui5/navigation.js"),
       session: require("./modules/ui5/session.js"),
-      userInteraction: require("./modules/ui5/userInteraction/userInteraction.js"),
+      userInteraction: require("./modules/ui5/userInteraction.js"),
     };
     global.ui5 = {
       ...ui5,

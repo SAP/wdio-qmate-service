@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="JSFB8S6SOebOoloYSi39" name="Structure">
-        <mxGraphModel dx="1918" dy="917" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="620" dy="516" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -70,8 +70,8 @@
                 <mxCell id="35" value="session" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fontColor=#EEEEEE;" parent="1" vertex="1">
                     <mxGeometry x="533" y="435" width="60" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="36" value="userInteraction (main, date, etc.)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fontColor=#EEEEEE;" parent="1" vertex="1">
-                    <mxGeometry x="462" y="318" width="183" height="17" as="geometry"/>
+                <mxCell id="36" value="userInteraction" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fontColor=#EEEEEE;" parent="1" vertex="1">
+                    <mxGeometry x="509" y="318" width="89" height="18" as="geometry"/>
                 </mxCell>
                 <mxCell id="37" value="userInteraction" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fontColor=#EEEEEE;" parent="1" vertex="1">
                     <mxGeometry x="440" y="170" width="90" height="20" as="geometry"/>
@@ -108,6 +108,9 @@
                 </mxCell>
                 <mxCell id="54" value="userInteraction" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fontColor=#EEEEEE;" vertex="1" parent="1">
                     <mxGeometry x="458" y="560" width="90" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="date" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="596" y="336" width="33" height="18" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
