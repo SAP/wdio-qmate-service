@@ -1,8 +1,6 @@
-/* eslint-disable no-console */
-/* eslint-disable indent */
 /**
  * @class console
- * @memberof common
+ * @memberof util
  */
 const Console = function () {
 

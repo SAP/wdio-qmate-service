@@ -56,10 +56,6 @@ Global namespace for common modules.
         * [.pressEscape()](#common.userInteraction.pressEscape)
         * [.pressArrowLeft()](#common.userInteraction.pressArrowLeft)
         * [.pressArrowRight()](#common.userInteraction.pressArrowRight)
-    * [.browser](#common.browser)
-    * [.console](#common.console)
-    * [.formatter](#common.formatter)
-    * [.system](#common.system)
 
 <a name="common.assertion"></a>
 
@@ -528,28 +524,478 @@ Performs the Arrow Right keypress.
 ```js
 await common.userInteraction.pressArrowRight();
 ```
-<a name="common.browser"></a>
-
-### common.browser
-**Kind**: static class of [<code>common</code>](#common)  
-<a name="common.console"></a>
-
-### common.console
-**Kind**: static class of [<code>common</code>](#common)  
-<a name="common.formatter"></a>
-
-### common.formatter
-**Kind**: static class of [<code>common</code>](#common)  
-<a name="common.system"></a>
-
-### common.system
-**Kind**: static class of [<code>common</code>](#common)  
 <a name="util"></a>
 
 ## util
 Global namespace for util modules.
 
 **Kind**: global constant  
+
+* [util](#util)
+    * [.browser](#util.browser)
+        * [.getBaseUrl()](#util.browser.getBaseUrl) ⇒ <code>String</code>
+        * [.setBaseUrl(baseUrl:)](#util.browser.setBaseUrl)
+        * [.sleep([duration])](#util.browser.sleep)
+        * [.sleepAndCollectCoverage([sleep])](#util.browser.sleepAndCollectCoverage)
+        * [.refresh()](#util.browser.refresh)
+        * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#util.browser.clearBrowser)
+        * [.sendKeys(keys)](#util.browser.sendKeys)
+        * [.getBrowserName()](#util.browser.getBrowserName) ⇒ <code>String</code>
+        * [.getUI5Version()](#util.browser.getUI5Version)
+        * [.executeScript(command)](#util.browser.executeScript)
+        * [.waitForWindows()](#util.browser.waitForWindows)
+        * [.switchToNewWindow(originalHandle, windowTitle)](#util.browser.switchToNewWindow)
+        * [.switchToWindow(handle)](#util.browser.switchToWindow)
+        * [.getCurrentWindow()](#util.browser.getCurrentWindow) ⇒ <code>Object</code>
+    * [.console](#util.console)
+        * [.log(message, [textColor], [backgroundColor], [brightness])](#util.console.log)
+        * [.error(message)](#util.console.error)
+        * [.warn(message)](#util.console.warn)
+        * [.success(message)](#util.console.success)
+        * [.info(message)](#util.console.info)
+    * [.formatter](#util.formatter)
+        * [.sliceStringAt(input, slicePoint, length)](#util.formatter.sliceStringAt) ⇒ <code>String</code>
+        * [.sliceStringAfter(input, slicePoint, length)](#util.formatter.sliceStringAfter) ⇒ <code>String</code>
+        * [.trimString(input)](#util.formatter.trimString)
+        * [.extractNumberFromString(input, [index])](#util.formatter.extractNumberFromString) ⇒ <code>String</code>
+        * [.stringifyJSON(object)](#util.formatter.stringifyJSON) ⇒ <code>String</code>
+        * [.formatDate(date, format)](#util.formatter.formatDate) ⇒ <code>String</code>
+    * [.function](#util.function)
+    * [.system](#util.system)
+        * [.getOS()](#util.system.getOS) ⇒ <code>String</code>
+
+<a name="util.browser"></a>
+
+### util.browser
+**Kind**: static class of [<code>util</code>](#util)  
+
+* [.browser](#util.browser)
+    * [.getBaseUrl()](#util.browser.getBaseUrl) ⇒ <code>String</code>
+    * [.setBaseUrl(baseUrl:)](#util.browser.setBaseUrl)
+    * [.sleep([duration])](#util.browser.sleep)
+    * [.sleepAndCollectCoverage([sleep])](#util.browser.sleepAndCollectCoverage)
+    * [.refresh()](#util.browser.refresh)
+    * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#util.browser.clearBrowser)
+    * [.sendKeys(keys)](#util.browser.sendKeys)
+    * [.getBrowserName()](#util.browser.getBrowserName) ⇒ <code>String</code>
+    * [.getUI5Version()](#util.browser.getUI5Version)
+    * [.executeScript(command)](#util.browser.executeScript)
+    * [.waitForWindows()](#util.browser.waitForWindows)
+    * [.switchToNewWindow(originalHandle, windowTitle)](#util.browser.switchToNewWindow)
+    * [.switchToWindow(handle)](#util.browser.switchToWindow)
+    * [.getCurrentWindow()](#util.browser.getCurrentWindow) ⇒ <code>Object</code>
+
+<a name="util.browser.getBaseUrl"></a>
+
+#### browser.getBaseUrl() ⇒ <code>String</code>
+Retrieves the baseUrl from the configuration file.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Returns**: <code>String</code> - The baseUrl.  
+**Example**  
+```js
+const baseUrl = await util.browser.getBaseUrl();
+```
+<a name="util.browser.setBaseUrl"></a>
+
+#### browser.setBaseUrl(baseUrl:)
+Sets or overwrites the baseUrl in the configuration file.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| baseUrl: | <code>String</code> | base URL to set |
+
+**Example**  
+```js
+await util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+```
+<a name="util.browser.sleep"></a>
+
+#### browser.sleep([duration])
+Sleeps (pauses execution) for the passed duration.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [duration] | <code>Number</code> | <code>1000</code> | The time to pause (ms). |
+
+**Example**  
+```js
+await util.browser.sleep(30000);
+```
+<a name="util.browser.sleepAndCollectCoverage"></a>
+
+#### browser.sleepAndCollectCoverage([sleep])
+Collects and stores the coverage information before a hard browser event (logout, clear history),also useful when parallelizing multiple specs and need to aggregate the coverage information
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [sleep] | <code>Integer</code> | <code>5000</code> | The time to pause (ms). |
+
+**Example**  
+```js
+await util.browser.sleepAndCollectCoverage(5000);
+```
+<a name="util.browser.refresh"></a>
+
+#### browser.refresh()
+Refreshes the page.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Example**  
+```js
+await util.browser.refresh();
+```
+<a name="util.browser.clearBrowser"></a>
+
+#### browser.clearBrowser([clearLocal], [clearSession], [clearCookies])
+Clears the local and session cache and deletes all browser cookies.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [clearLocal] | <code>Boolean</code> | <code>true</code> | Specifies if the local cache will be cleared. |
+| [clearSession] | <code>Boolean</code> | <code>true</code> | Specifies if the session cache will be cleared. |
+| [clearCookies] | <code>Boolean</code> | <code>true</code> | Specifies if the cookies will be cleared. |
+
+**Example**  
+```js
+await util.browser.clearBrowser();
+```
+<a name="util.browser.sendKeys"></a>
+
+#### browser.sendKeys(keys)
+Executes the set of keystrokes.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| keys | <code>String</code> | The combination of keys to execute. |
+
+**Example**  
+```js
+await util.browser.sendKeys(protractor.Key.CONTROL, protractor.Key.ALT, "d");
+```
+<a name="util.browser.getBrowserName"></a>
+
+#### browser.getBrowserName() ⇒ <code>String</code>
+Retrieves the name of the current browser.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Returns**: <code>String</code> - The browser name.  
+**Example**  
+```js
+const browserName = await util.browser.getBrowserName();
+```
+<a name="util.browser.getUI5Version"></a>
+
+#### browser.getUI5Version()
+Gets the UI5 version and creation date for UI5 based applications.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Example**  
+```js
+await util.browser.getUI5Version();
+```
+<a name="util.browser.executeScript"></a>
+
+#### browser.executeScript(command)
+Executes the specified JavaScript command.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| command | <code>String</code> | The command to execute. |
+
+**Example**  
+```js
+await util.browser.executeScript(command);
+```
+<a name="util.browser.waitForWindows"></a>
+
+#### browser.waitForWindows()
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Example**  
+```js
+await util.browser.waitForWindows();
+```
+<a name="util.browser.switchToNewWindow"></a>
+
+#### browser.switchToNewWindow(originalHandle, windowTitle)
+Switches the window.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| originalHandle | <code>String</code> | The main window handle. |
+| windowTitle | <code>String</code> | Window Title to be expected |
+
+**Example**  
+```js
+await util.browser.switchToNewWindow(originalHandle,);
+```
+<a name="util.browser.switchToWindow"></a>
+
+#### browser.switchToWindow(handle)
+Switches to the passed window.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| handle | <code>Object</code> | The window handle. |
+
+**Example**  
+```js
+await util.browser.switchToWindow(originalWindowHandle);
+```
+<a name="util.browser.getCurrentWindow"></a>
+
+#### browser.getCurrentWindow() ⇒ <code>Object</code>
+Returns the current window handle.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Returns**: <code>Object</code> - The window handle.  
+**Example**  
+```js
+await util.browser.getCurrentWindow();
+```
+<a name="util.console"></a>
+
+### util.console
+**Kind**: static class of [<code>util</code>](#util)  
+
+* [.console](#util.console)
+    * [.log(message, [textColor], [backgroundColor], [brightness])](#util.console.log)
+    * [.error(message)](#util.console.error)
+    * [.warn(message)](#util.console.warn)
+    * [.success(message)](#util.console.success)
+    * [.info(message)](#util.console.info)
+
+<a name="util.console.log"></a>
+
+#### console.log(message, [textColor], [backgroundColor], [brightness])
+Logs a message to the console in the given color.
+
+**Kind**: static method of [<code>console</code>](#util.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+| [textColor] | <code>String</code> | The color of the text: "black, white", "red", "yellow", "green", "blue", "cyan", "magenta". |
+| [backgroundColor] | <code>String</code> | The color of the background: "black, white", "red", "yellow", "green", "blue", "cyan", "magenta". |
+| [brightness] | <code>String</code> | Adjusts the brightness of the color: "bright", "dim". Leave empty for default. |
+
+**Example**  
+```js
+util.console.log("The document has been saved.", "green");
+```
+<a name="util.console.error"></a>
+
+#### console.error(message)
+Logs a error message to the console in red.
+
+**Kind**: static method of [<code>console</code>](#util.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+
+**Example**  
+```js
+util.console.error("Error: Please investigate.");
+```
+<a name="util.console.warn"></a>
+
+#### console.warn(message)
+Logs a warning message to the console in yellow.
+
+**Kind**: static method of [<code>console</code>](#util.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+
+**Example**  
+```js
+util.console.warn("Optional step not executed.");
+```
+<a name="util.console.success"></a>
+
+#### console.success(message)
+Logs a success message to the console in green.
+
+**Kind**: static method of [<code>console</code>](#util.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+
+**Example**  
+```js
+util.console.success("The document has been saved.");
+```
+<a name="util.console.info"></a>
+
+#### console.info(message)
+Logs a info message to the console in cyan.
+
+**Kind**: static method of [<code>console</code>](#util.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+
+**Example**  
+```js
+util.console.success("The document has been saved.");
+```
+<a name="util.formatter"></a>
+
+### util.formatter
+**Kind**: static class of [<code>util</code>](#util)  
+
+* [.formatter](#util.formatter)
+    * [.sliceStringAt(input, slicePoint, length)](#util.formatter.sliceStringAt) ⇒ <code>String</code>
+    * [.sliceStringAfter(input, slicePoint, length)](#util.formatter.sliceStringAfter) ⇒ <code>String</code>
+    * [.trimString(input)](#util.formatter.trimString)
+    * [.extractNumberFromString(input, [index])](#util.formatter.extractNumberFromString) ⇒ <code>String</code>
+    * [.stringifyJSON(object)](#util.formatter.stringifyJSON) ⇒ <code>String</code>
+    * [.formatDate(date, format)](#util.formatter.formatDate) ⇒ <code>String</code>
+
+<a name="util.formatter.sliceStringAt"></a>
+
+#### formatter.sliceStringAt(input, slicePoint, length) ⇒ <code>String</code>
+Slices the given string beginning at a specific substring.
+
+**Kind**: static method of [<code>formatter</code>](#util.formatter)  
+**Returns**: <code>String</code> - The sliced string.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| input | <code>String</code> | The input string to slice. |
+| slicePoint | <code>String</code> | The substring at which the input string is being sliced. |
+| length | <code>Integer</code> | The required length of the returning string (starting at the index of the passed slice point). |
+
+**Example**  
+```js
+const sliced = util.formatter.sliceStringAt("prefixNR12345postfix", "NR", 7);// returns "NR12345"
+```
+<a name="util.formatter.sliceStringAfter"></a>
+
+#### formatter.sliceStringAfter(input, slicePoint, length) ⇒ <code>String</code>
+Slices the given string after a specific substring.
+
+**Kind**: static method of [<code>formatter</code>](#util.formatter)  
+**Returns**: <code>String</code> - The sliced string.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| input | <code>String</code> | The input string to slice. |
+| slicePoint | <code>String</code> | The substring after which the input string is being sliced. |
+| length | <code>Integer</code> | The required length of the returning string (starting at the index after the passed slice point). |
+
+**Example**  
+```js
+const sliced = util.formatter.sliceStringAfter("prefixNR12345postfix", "NR", 5);// returns "12345"
+```
+<a name="util.formatter.trimString"></a>
+
+#### formatter.trimString(input)
+Removes whitespace from both sides of the given string.
+
+**Kind**: static method of [<code>formatter</code>](#util.formatter)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| input | <code>String</code> | The input string to trim. |
+
+**Example**  
+```js
+const trimmed = util.formatter.trimString("   value ");// returns "value"
+```
+<a name="util.formatter.extractNumberFromString"></a>
+
+#### formatter.extractNumberFromString(input, [index]) ⇒ <code>String</code>
+Extracts all numbers from a string.
+
+**Kind**: static method of [<code>formatter</code>](#util.formatter)  
+**Returns**: <code>String</code> - The extracted number.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| input | <code>String</code> |  | The input string to extract the number. |
+| [index] | <code>Integer</code> | <code>0</code> | If there are multiple numbers in the string you can pass an index to return a specific number. |
+
+**Example**  
+```js
+const extracted = util.formatter.extractNumberFromString("prefixNR12345postfix");// returns "12345"
+```
+**Example**  
+```js
+const extracted = util.formatter.extractNumberFromString("first12345 someText second 20 abc", 1);// returns "20"
+```
+<a name="util.formatter.stringifyJSON"></a>
+
+#### formatter.stringifyJSON(object) ⇒ <code>String</code>
+Converts a JSON object to string.
+
+**Kind**: static method of [<code>formatter</code>](#util.formatter)  
+**Returns**: <code>String</code> - The converted JSON object.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| object | <code>Object</code> | The JSON to be converted. |
+
+**Example**  
+```js
+console.log(`Printing the current selector: ${util.formatter.stringifyJSON(selector)}`);
+```
+<a name="util.formatter.formatDate"></a>
+
+#### formatter.formatDate(date, format) ⇒ <code>String</code>
+formats date.
+
+**Kind**: static method of [<code>formatter</code>](#util.formatter)  
+**Returns**: <code>String</code> - The formatted date as string.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| date | <code>Date</code> | The date object to be formatted. |
+| format | <code>String</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object"). |
+
+**Example**  
+```js
+const date = new Date(2020, 0, 17);const formattedDate = utilities.formatDate(date, "mm/dd/yyyy");// returns "01/17/2020"
+```
+<a name="util.function"></a>
+
+### util.function
+**Kind**: static class of [<code>util</code>](#util)  
+<a name="util.system"></a>
+
+### util.system
+**Kind**: static class of [<code>util</code>](#util)  
+<a name="util.system.getOS"></a>
+
+#### system.getOS() ⇒ <code>String</code>
+Returns the current operating system.
+
+**Kind**: static method of [<code>system</code>](#util.system)  
+**Returns**: <code>String</code> - AIX | Android | MacOS | FreeBSD | Linux | OpenBSD | Windows | SunOS  
+**Example**  
+```js
+const os = await util.system.getOS();
+```
 <a name="ui5"></a>
 
 ## ui5

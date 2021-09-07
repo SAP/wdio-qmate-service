@@ -1,6 +1,6 @@
 /**
  * @class function
- * @memberof utilities
+ * @memberof util
  */
 const Function = function () {
 
