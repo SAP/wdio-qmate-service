@@ -27,6 +27,7 @@ globals:
   oData: readonly
   odata: readonly
   common: readonly
+  util: readonly
 parserOptions:
   ecmaVersion: 2018
 rules:

@@ -1,6 +1,6 @@
 /**
  * @class browser
- * @memberof common
+ * @memberof util
  */
 const Browser = function () {
 

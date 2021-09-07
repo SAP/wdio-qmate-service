@@ -1,7 +1,7 @@
 const operatingSystem = require("os");
 /**
  * @class system
- * @memberof common
+ * @memberof util
  */
 const System = function () {
 

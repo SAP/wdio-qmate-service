@@ -1,6 +1,6 @@
 /**
  * @class formatter
- * @memberof common
+ * @memberof util
  */
 const Formatter = function () {
 
