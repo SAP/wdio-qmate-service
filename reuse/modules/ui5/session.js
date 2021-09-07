@@ -163,7 +163,7 @@ const Session = function () {
         browser.config.params.auth.password) {
         username = browser.config.params.auth.username;
         password = browser.config.params.auth.password;
-        common.console.info("\x1b[33m%s\x1b[0m", "Login credentials will be taken from config.");
+        util.console.info("\x1b[33m%s\x1b[0m", "Login credentials will be taken from config.");
       } else if (!username && !password) {
         throw new Error("Username or password is missing. Check your parameters or config file.");
       }
@@ -216,7 +216,7 @@ const Session = function () {
    */
   this.switchUser = async function (username, password = "Welcome1!", authenticator, wait = 10000) {
     await this.logout();
-    await common.browser.sleep(wait);
+    await util.browser.sleep(wait);
     await browser.navigateTo(browser.config.baseUrl);
     if (!authenticator) {
       this.login(username, password);
@@ -277,11 +277,11 @@ const Session = function () {
   async function logUI5Version() {
     const logUI5Version = browser.params.logUI5Version;
     if (logUI5Version !== false && !process.env.UI5_VERSION_LOGGED) {
-      const ui5Version = await common.browser.getUI5Version();
-      common.console.log("");
-      common.console.info(`UI5 Version:\t${ui5Version.version}`);
-      common.console.info(`UI5 Timestamp:\t${ui5Version.timestamp}`);
-      common.console.log("");
+      const ui5Version = await util.browser.getUI5Version();
+      util.console.log("");
+      util.console.info(`UI5 Version:\t${ui5Version.version}`);
+      util.console.info(`UI5 Timestamp:\t${ui5Version.timestamp}`);
+      util.console.log("");
 
       if (logUI5Version !== "always") {
         process.env.UI5_VERSION_LOGGED = true;

@@ -7,13 +7,13 @@ const Formatter = function () {
   // =================================== STRING ===================================
   /**
    * @function sliceStringAt
-   * @memberOf common.formatter
+   * @memberOf util.formatter
    * @description Slices the given string beginning at a specific substring.
    * @param {String} input - The input string to slice.
    * @param {String} slicePoint - The substring at which the input string is being sliced.
    * @param {Integer} length - The required length of the returning string (starting at the index of the passed slice point).
    * @returns {String} The sliced string.
-   * @example const sliced = common.formatter.sliceStringAt("prefixNR12345postfix", "NR", 7);
+   * @example const sliced = util.formatter.sliceStringAt("prefixNR12345postfix", "NR", 7);
    * // returns "NR12345"
    */
   this.sliceStringAt = function (input, slicePoint, length) {
@@ -31,13 +31,13 @@ const Formatter = function () {
 
   /**
    * @function sliceStringAfter
-   * @memberOf common.formatter
+   * @memberOf util.formatter
    * @description Slices the given string after a specific substring.
    * @param {String} input - The input string to slice.
    * @param {String} slicePoint - The substring after which the input string is being sliced.
    * @param {Integer} length - The required length of the returning string (starting at the index after the passed slice point).
    * @returns {String} The sliced string.
-   * @example const sliced = common.formatter.sliceStringAfter("prefixNR12345postfix", "NR", 5);
+   * @example const sliced = util.formatter.sliceStringAfter("prefixNR12345postfix", "NR", 5);
    * // returns "12345"
    */
   this.sliceStringAfter = function (input, slicePoint, length) {
@@ -56,10 +56,10 @@ const Formatter = function () {
 
   /**
    * @function trimString
-   * @memberOf common.formatter
+   * @memberOf util.formatter
    * @description Removes whitespace from both sides of the given string.
    * @param {String} input - The input string to trim.
-   * @example const trimmed = common.formatter.trimString("   value ");
+   * @example const trimmed = util.formatter.trimString("   value ");
    * // returns "value"
    */
   this.trimString = function (input) {
@@ -72,14 +72,14 @@ const Formatter = function () {
 
   /**
    * @function extractNumberFromString
-   * @memberOf common.formatter
+   * @memberOf util.formatter
    * @description Extracts all numbers from a string.
    * @param {String} input - The input string to extract the number.
    * @param {Integer} [index=0] - If there are multiple numbers in the string you can pass an index to return a specific number.
    * @returns {String} The extracted number.
-   * @example const extracted = common.formatter.extractNumberFromString("prefixNR12345postfix");
+   * @example const extracted = util.formatter.extractNumberFromString("prefixNR12345postfix");
    * // returns "12345"
-   * @example const extracted = common.formatter.extractNumberFromString("first12345 someText second 20 abc", 1);
+   * @example const extracted = util.formatter.extractNumberFromString("first12345 someText second 20 abc", 1);
    * // returns "20"
    */
   this.extractNumberFromString = function (input, index = 0) {
@@ -92,11 +92,11 @@ const Formatter = function () {
 
   /**
    * @function stringifyJSON
-   * @memberOf common.formatter
+   * @memberOf util.formatter
    * @description Converts a JSON object to string.
    * @param {Object} object - The JSON to be converted.
    * @returns {String} The converted JSON object.
-   * @example console.log(`Printing the current selector: ${common.formatter.stringifyJSON(selector)}`);
+   * @example console.log(`Printing the current selector: ${util.formatter.stringifyJSON(selector)}`);
    */
   this.stringifyJSON = function (object) {
     try {
@@ -110,7 +110,7 @@ const Formatter = function () {
   // =================================== DATE ===================================
   /**
    * @function formatDate
-   * @memberOf common.formatter
+   * @memberOf util.formatter
    * @description formats date.
    * @param {Date} date - The date object to be formatted.
    * @param {String} format - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object").

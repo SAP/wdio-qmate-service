@@ -7,10 +7,10 @@ const Browser = function () {
   // =================================== URL ===================================
   /**
    * @function getBaseUrl
-   * @memberOf common.browser
+   * @memberOf util.browser
    * @description Retrieves the baseUrl from the configuration file.
    * @returns {String} The baseUrl.
-   * @example const baseUrl = await common.browser.getBaseUrl();
+   * @example const baseUrl = await util.browser.getBaseUrl();
    */
   this.getBaseUrl = function () {
     return browser.config.baseUrl;
@@ -18,10 +18,10 @@ const Browser = function () {
 
   /**
    * @function setBaseUrl
-   * @memberOf common.browser
+   * @memberOf util.browser
    * @description Sets or overwrites the baseUrl in the configuration file.
    * @param {String} baseUrl: base URL to set
-   * @example await common.browser.setBaseUrl("https://cc3-721.wdf.sap.corp/ui");
+   * @example await util.browser.setBaseUrl("https://cc3-721.wdf.sap.corp/ui");
    */
   this.setBaseUrl = function (baseUrl) {
     browser.config.baseUrl = baseUrl;
@@ -31,10 +31,10 @@ const Browser = function () {
   // =================================== ACTIONS ===================================
   /**
    * @function sleep
-   * @memberOf common.browser
+   * @memberOf util.browser
    * @description Sleeps (pauses execution) for the passed duration.
    * @param {Number} [duration=1000] - The time to pause (ms).
-   * @example await common.browser.sleep(30000);
+   * @example await util.browser.sleep(30000);
    */
   this.sleep = async function (duration = 10000) {
     await browser.pause(duration);
@@ -43,25 +43,25 @@ const Browser = function () {
   // TODO: function does not sleep? -> rename to collectCoverage?
   /**
    * @function sleepAndCollectCoverage
-   * @memberOf common.browser
+   * @memberOf util.browser
    * @description Collects and stores the coverage information before a hard browser event (logout, clear history),
    * also useful when parallelizing multiple specs and need to aggregate the coverage information
    * @param {Integer} [sleep=5000] - The time to pause (ms).
-   * @example await common.browser.sleepAndCollectCoverage(5000);
+   * @example await util.browser.sleepAndCollectCoverage(5000);
    */
   this.sleepAndCollectCoverage = function (sleep = 5000) {
     if (browser.params.coverage.status && browser.params.coverage.status !== "false") {
       // Coverage will be collected via @wdio/qmate-code-coverage-service
     } else {
-      common.console.warn("Coverage is disabled. To generate coverage, enabled the flag in the config file.");
+      util.console.warn("Coverage is disabled. To generate coverage, enabled the flag in the config file.");
     }
   };
 
   /**
    * @function refresh
-   * @memberOf common.browser
+   * @memberOf util.browser
    * @description Refreshes the page.
-   * @example await common.browser.refresh();
+   * @example await util.browser.refresh();
    */
   this.refresh = async function () {
     await browser.refresh();
@@ -69,12 +69,12 @@ const Browser = function () {
 
   /**
    * @function clearBrowser
-   * @memberOf common.browser
+   * @memberOf util.browser
    * @description Clears the local and session cache and deletes all browser cookies.
    * @param {Boolean} [clearLocal=true] - Specifies if the local cache will be cleared.
    * @param {Boolean} [clearSession=true] - Specifies if the session cache will be cleared.
    * @param {Boolean} [clearCookies=true] - Specifies if the cookies will be cleared.
-   * @example await common.browser.clearBrowser();
+   * @example await util.browser.clearBrowser();
    */
   this.clearBrowser = async function (clearLocal = true, clearSession = true, clearCookies = true) {
     if (clearLocal) {
@@ -93,10 +93,10 @@ const Browser = function () {
   // TODO: move to common.userInteraction?
   /**
    * @function sendKeys
-   * @memberOf common.browser
+   * @memberOf util.browser
    * @description Executes the set of keystrokes.
    * @param {String} keys - The combination of keys to execute.
-   * @example await common.browser.sendKeys(protractor.Key.CONTROL, protractor.Key.ALT, "d");
+   * @example await util.browser.sendKeys(protractor.Key.CONTROL, protractor.Key.ALT, "d");
    */
   this.sendKeys = async function (...keys) {
     await browser.sendKeys(keys);
@@ -106,10 +106,10 @@ const Browser = function () {
   // =================================== INFO ===================================
   /**
    * @function getBrowserName
-   * @memberOf common.browser
+   * @memberOf util.browser
    * @description Retrieves the name of the current browser.
    * @returns {String} The browser name.
-   * @example const browserName = await common.browser.getBrowserName();
+   * @example const browserName = await util.browser.getBrowserName();
    */
   this.getBrowserName = function () {
     return browser.capabilities.browserName;
@@ -118,9 +118,9 @@ const Browser = function () {
   // TODO: move to UI5 namespace?
   /**
    * @function getUI5Version
-   * @memberOf common.browser
+   * @memberOf util.browser
    * @description Gets the UI5 version and creation date for UI5 based applications.
-   * @example await common.browser.getUI5Version();
+   * @example await util.browser.getUI5Version();
    */
   this.getUI5Version = async function () {
     await browser.waitUntil(async function () {
@@ -141,7 +141,7 @@ const Browser = function () {
       interval: 400
     });
 
-    return common.browser.executeScript(function () {
+    return util.browser.executeScript(function () {
       /* eslint-disable no-undef */
       if (sap && sap.ui && sap.ui.getVersionInfo && sap.ui.getVersionInfo()) {
         const version = sap.ui.getVersionInfo().version;
@@ -168,10 +168,10 @@ const Browser = function () {
   // =================================== EXECUTION ===================================
   /**
    * @function executeScript
-   * @memberOf common.browser
+   * @memberOf util.browser
    * @description Executes the specified JavaScript command.
    * @param {String} command - The command to execute.
-   * @example await common.browser.executeScript(command);
+   * @example await util.browser.executeScript(command);
    */
   this.executeScript = async function (command) {
     return browser.execute(command);
@@ -183,37 +183,37 @@ const Browser = function () {
   //@TODO: need to be updated - would be good to return all handles getWindowHandles() in array
   /**
    * @function waitForWindows
-   * @memberOf common.browser
-   * @example await common.browser.waitForWindows();
+   * @memberOf util.browser
+   * @example await util.browser.waitForWindows();
    */
   this.waitForWindows = async function (expectedWindowsNumber, retries = 50, waitInternal = 1000) {
     try {
       const windowHandles = await browser.getWindowHandles();
       //if(!windowHandles) return await this.waitForWindow(expectedWindowsNumber, retries, waitInternal);
-      common.console.log("Windows length -->" + windowHandles.length);
+      util.console.log("Windows length -->" + windowHandles.length);
       if (windowHandles.length === expectedWindowsNumber) {
         return expect(true).toEqual(true); //@TODO: change to promise resolve 
       }
       retries--;
       await browser.pause(waitInternal);
       if (retries < 1) {
-        common.console.error("Function 'waitForWindows' failed: Timeout reached, increase the retries, window was not loaded fully.");
+        util.console.error("Function 'waitForWindows' failed: Timeout reached, increase the retries, window was not loaded fully.");
         return expect(true).toEqual(false); //@TODO: change to promise reject 
       }
       return await this.waitForWindows(expectedWindowsNumber, retries, waitInternal);
     } catch (error) {
-      common.console.error(`Function 'waitForWindows' failed: ${error}`);
+      util.console.error(`Function 'waitForWindows' failed: ${error}`);
     }
   };
 
   // better to use this.switchToWindow
   /**
    * @function switchToNewWindow
-   * @memberOf common.browser
+   * @memberOf util.browser
    * @description Switches the window.
    * @param {String} originalHandle - The main window handle.
    * @param {String} windowTitle - Window Title to be expected
-   * @example await common.browser.switchToNewWindow(originalHandle,);
+   * @example await util.browser.switchToNewWindow(originalHandle,);
    */
   this.switchToNewWindow = async function (originalHandle, windowTitle) {
     const windowHandles = await browser.getWindowHandles();
@@ -236,12 +236,12 @@ const Browser = function () {
                 return expect(true).toEqual(true);
               }
             } catch (error) {
-              common.console.warn("Retrying 'switchToNewWindow'."); //@TODO: check for endeless recursion
+              util.console.warn("Retrying 'switchToNewWindow'."); //@TODO: check for endeless recursion
               return await this.switchToNewWindow(originalHandle, windowTitle);
             }
           }
         } catch (e) {
-          common.console.warn("Function 'switchToNewWindow': Could not get Title. Window already closed.");
+          util.console.warn("Function 'switchToNewWindow': Could not get Title. Window already closed.");
         }
       })(i);
     }
@@ -249,10 +249,10 @@ const Browser = function () {
 
   /**
    * @function switchToWindow
-   * @memberOf common.browser
+   * @memberOf util.browser
    * @description Switches to the passed window.
    * @param {Object} handle - The window handle.
-   * @example await common.browser.switchToWindow(originalWindowHandle);
+   * @example await util.browser.switchToWindow(originalWindowHandle);
    */
   this.switchToWindow = async function (handle) {
     await browser.switchToWindow(handle);
@@ -260,10 +260,10 @@ const Browser = function () {
 
   /**
    * @function getCurrentWindow
-   * @memberOf common.browser
+   * @memberOf util.browser
    * @description Returns the current window handle.
    * @returns {Object} The window handle.
-   * @example await common.browser.getCurrentWindow();
+   * @example await util.browser.getCurrentWindow();
    */
   this.getCurrentWindow = async function () {
     return browser.getWindowHandle();

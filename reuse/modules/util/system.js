@@ -7,10 +7,10 @@ const System = function () {
 
   /**
    * @function getOS
-   * @memberOf common.system
+   * @memberOf util.system
    * @description Returns the current operating system.
    * @returns {String} AIX | Android | MacOS | FreeBSD | Linux | OpenBSD | Windows | SunOS
-   * @example const os = await common.system.getOS();
+   * @example const os = await util.system.getOS();
    */
   this.getOS = async function () {
     const platform = operatingSystem.platform();

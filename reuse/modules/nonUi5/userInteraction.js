@@ -30,7 +30,7 @@ const UserInteraction = function () {
     try {
       await element.click();
     } catch (error) {
-      const errorMessage = await common.function.mapWdioErrorToQmateErrorMessage(error, "click"); //@TODO: Rename function since it is confusing.
+      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "click"); //@TODO: Rename function since it is confusing.
       throw new Error(errorMessage);
     }
   };
@@ -50,7 +50,7 @@ const UserInteraction = function () {
     if (!element) {
       throw new Error("Function 'clearAndRetry' failed. Please provide an element as first argument.");
     }
-    return await common.function.retry(this.click, [element, timeout], retries, interval, this);
+    return await util.function.retry(this.click, [element, timeout], retries, interval, this);
   };
 
 
@@ -69,7 +69,7 @@ const UserInteraction = function () {
       await element.setValue(value);
     } catch (error) {
       if (error.message && error.message.match(new RegExp(/(invalid element state|element not interactable)/))) {
-        const errorMessage = await common.function.mapWdioErrorToQmateErrorMessage(error, "fill");
+        const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "fill");
         throw new Error(errorMessage);
       } else {
         if (!value) {
@@ -94,9 +94,9 @@ const UserInteraction = function () {
    */
   this.fillAndRetry = async function (element, value, retries, interval) {
     if (!value) {
-      common.console.error("Function 'fillAndRetry' failed: Please provide a value as second argument.");
+      util.console.error("Function 'fillAndRetry' failed: Please provide a value as second argument.");
     }
-    return common.function.retry(this.fill, [element, value], retries, interval, this);
+    return util.function.retry(this.fill, [element, value], retries, interval, this);
   };
 
 
@@ -130,7 +130,7 @@ const UserInteraction = function () {
     if (element === null || element === undefined) {
       throw new Error("Function 'clearAndRetry' failed: Please provide an element as first argument.");
     }
-    return common.function.retry(this.clear, [element], retries, interval, this);
+    return util.function.retry(this.clear, [element], retries, interval, this);
   };
 
   /**
@@ -145,7 +145,7 @@ const UserInteraction = function () {
   this.clearAndFill = async function (element, value) {
     await this.clear(element);
     if (!value) {
-      common.console.error("Function 'clearAndFill' failed: Please provide a value as second argument.");
+      util.console.error("Function 'clearAndFill' failed: Please provide a value as second argument.");
     }
     await element.setValue(value);
   };
@@ -163,7 +163,7 @@ const UserInteraction = function () {
    * await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
    */
   this.clearAndFillAndRetry = async function (element, value, retries = 3, interval = 5000, verify = true) {
-    return await common.function.retry(async (elem, value) => {
+    return await util.function.retry(async (elem, value) => {
       await this.clearAndFill(elem, value);
       if (verify) {
         const elemValue = await elem.getValue();

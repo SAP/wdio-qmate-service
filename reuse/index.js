@@ -11,18 +11,29 @@ const ReuseLibrary = function () {
      */
     const common = {
       assertion: require("./modules/common/assertion.js"),
-      browser: require("./modules/common/browser.js"),
-      console: require("./modules/common/console.js"),
       date: require("./modules/common/util/date.js"),
-      formatter: require("./modules/common/formatter.js"),
-      function: require("./modules/common/function.js"),
       navigation: require("./modules/common/navigation.js"),
-      system: require("./modules/common/system.js"),
       userInteraction: require("./modules/common/userInteraction.js")
     };
     global.common = {
       ...common,
       ...global.common
+    };
+
+    /**
+     * @global util
+     * @description Global namespace for util modules.
+     */
+    const util = {
+      browser: require("./modules/util/browser.js"),
+      console: require("./modules/util/console.js"),
+      formatter: require("./modules/util/formatter.js"),
+      function: require("./modules/util/function.js"),
+      system: require("./modules/util/system.js")
+    };
+    global.util = {
+      ...util,
+      ...global.util
     };
 
     /**

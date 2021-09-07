@@ -48,7 +48,7 @@ const Navigation = function () {
    * @example await ui5.navigation.navigateToApplicationAndRetry("PurchaseOrder-manage");
    */
   this.navigateToApplicationAndRetry = async function (intent, preventPopups = true, verify = true, retries = 3, interval = 5000) {
-    return await common.function.retry(async (intent, preventPopups) => {
+    return await util.function.retry(async (intent, preventPopups) => {
       await this.navigateToApplication(intent, preventPopups, verify);
     }, [intent, preventPopups, verify], retries, interval, this);
   };
@@ -56,7 +56,7 @@ const Navigation = function () {
   // TODO: why is this needed? navigateToApplication does the refresh internally
   this.navigateToApplicationAndRetryRefresh = async function (intent, preventPopups = true, verify = true, retries, interval) {
     await ui5.navigation.navigateToApplicationAndRetry(intent, preventPopups, verify, retries, interval);
-    await common.browser.refresh();
+    await util.browser.refresh();
   };
 
   /**
@@ -98,7 +98,7 @@ const Navigation = function () {
    * @example await ui5.navigation.navigateToSystemAndApplicationAndRetry("cc2-715.wdf.sap.corp", "PurchaseOrder-manage");
    */
   this.navigateToSystemAndApplicationAndRetry = async function (system, intent, closePopups = true, verify = true, retries = 3, interval = 5000) {
-    await common.function.retry(async (system, intent, closePopups) => {
+    await util.function.retry(async (system, intent, closePopups) => {
       await this.navigateToSystemAndApplication(system, intent, closePopups, verify);
     }, [system, intent, closePopups, verify], retries, interval, this);
   };
@@ -150,7 +150,7 @@ const Navigation = function () {
    * await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
    */
   this.navigateToApplicationWithQueryParamsAndRetry = async function (intent, queryParams, closePopups = true, verify = true, retries, interval) {
-    await common.function.retry(async (intent, queryParams, closePopups, verify) => {
+    await util.function.retry(async (intent, queryParams, closePopups, verify) => {
       await this.navigateToApplicationWithQueryParams(intent, queryParams, closePopups, verify);
     }, [intent, queryParams, closePopups, verify], retries, interval, this);
   };
@@ -170,13 +170,13 @@ const Navigation = function () {
       const popUp1 = await nonUi5.locator.getElementByCss(".help4-wrapper button", 0, 2500);
       await popUp1.click();
     } catch (e) {
-      common.console.log("First Popup not found.");
+      util.console.log("First Popup not found.");
     }
     try {
       const popUp2 = await nonUi5.locator.getElementById("SAMLDialog", 2500);
       await popUp2.click();
     } catch (e) {
-      common.console.log("Second Popup not found.");
+      util.console.log("Second Popup not found.");
     }
     try {
       const selector = {
@@ -191,7 +191,7 @@ const Navigation = function () {
       };
       await ui5.userInteraction.click(selector, 0, 2500);
     } catch (e) {
-      common.console.log("Third Popup not found.");
+      util.console.log("Third Popup not found.");
     }
   };
 
