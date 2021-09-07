@@ -29,6 +29,16 @@ Global namespace for common modules.
         * [.expectUndefined(value)](#common.assertion.expectUndefined)
         * [.expectUrlToBe()](#common.assertion.expectUrlToBe) ⇒ <code>Promise</code>
     * [.browser](#common.browser)
+        * [.getBaseUrl()](#common.browser.getBaseUrl) ⇒ <code>String</code>
+        * [.setBaseUrl(baseUrl:)](#common.browser.setBaseUrl)
+        * [.sleep([duration])](#common.browser.sleep)
+        * [.sleepAndCollectCoverage([sleep])](#common.browser.sleepAndCollectCoverage)
+        * [.refresh()](#common.browser.refresh)
+        * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#common.browser.clearBrowser)
+        * [.sendKeys(keys)](#common.browser.sendKeys)
+        * [.getBrowserName()](#common.browser.getBrowserName) ⇒ <code>String</code>
+        * [.getUI5Version()](#common.browser.getUI5Version)
+        * [.executeScript(command)](#common.browser.executeScript)
         * [.waitForWindows()](#common.browser.waitForWindows)
         * [.switchToNewWindow(originalHandle, windowTitle)](#common.browser.switchToNewWindow)
         * [.switchToWindow(handle)](#common.browser.switchToWindow)
@@ -39,6 +49,15 @@ Global namespace for common modules.
         * [.warn(message)](#common.console.warn)
         * [.success(message)](#common.console.success)
         * [.info(message)](#common.console.info)
+    * [.date](#common.date)
+        * [.getToday([format])](#common.date.getToday) ⇒ <code>String</code>
+        * [.getTomorrow([format])](#common.date.getTomorrow) ⇒ <code>String</code>
+        * [.getNextMonth([format])](#common.date.getNextMonth) ⇒ <code>String</code>
+        * [.getPreviousMonth([format])](#common.date.getPreviousMonth) ⇒ <code>String</code>
+        * [.getNextYear([format])](#common.date.getNextYear) ⇒ <code>String</code>
+        * [.getPreviousYear([format])](#common.date.getPreviousYear) ⇒ <code>String</code>
+        * [.getSpecificDate(date, [format])](#common.date.getSpecificDate) ⇒ <code>String</code>
+        * [.calculateDate([date], [format])](#common.date.calculateDate) ⇒ <code>String</code>
     * [.navigation](#common.navigation)
         * [.navigateToUrl(url)](#common.navigation.navigateToUrl)
         * [.navigateToUrlAndRetry(url, [retries], [interval])](#common.navigation.navigateToUrlAndRetry)
@@ -55,16 +74,6 @@ Global namespace for common modules.
         * [.pressEscape()](#common.userInteraction.pressEscape)
         * [.pressArrowLeft()](#common.userInteraction.pressArrowLeft)
         * [.pressArrowRight()](#common.userInteraction.pressArrowRight)
-    * [.util](#common.util) : <code>object</code>
-        * [.date](#common.util.date)
-            * [.getToday([format])](#common.util.date.getToday) ⇒ <code>String</code>
-            * [.getTomorrow([format])](#common.util.date.getTomorrow) ⇒ <code>String</code>
-            * [.getNextMonth([format])](#common.util.date.getNextMonth) ⇒ <code>String</code>
-            * [.getPreviousMonth([format])](#common.util.date.getPreviousMonth) ⇒ <code>String</code>
-            * [.getNextYear([format])](#common.util.date.getNextYear) ⇒ <code>String</code>
-            * [.getPreviousYear([format])](#common.util.date.getPreviousYear) ⇒ <code>String</code>
-            * [.getSpecificDate(date, [format])](#common.util.date.getSpecificDate) ⇒ <code>String</code>
-            * [.calculateDate([date], [format])](#common.util.date.calculateDate) ⇒ <code>String</code>
 
 <a name="common.assertion"></a>
 
@@ -190,11 +199,155 @@ await common.assertion.expectUrlToBe("www.sap.com");
 **Kind**: static class of [<code>common</code>](#common)  
 
 * [.browser](#common.browser)
+    * [.getBaseUrl()](#common.browser.getBaseUrl) ⇒ <code>String</code>
+    * [.setBaseUrl(baseUrl:)](#common.browser.setBaseUrl)
+    * [.sleep([duration])](#common.browser.sleep)
+    * [.sleepAndCollectCoverage([sleep])](#common.browser.sleepAndCollectCoverage)
+    * [.refresh()](#common.browser.refresh)
+    * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#common.browser.clearBrowser)
+    * [.sendKeys(keys)](#common.browser.sendKeys)
+    * [.getBrowserName()](#common.browser.getBrowserName) ⇒ <code>String</code>
+    * [.getUI5Version()](#common.browser.getUI5Version)
+    * [.executeScript(command)](#common.browser.executeScript)
     * [.waitForWindows()](#common.browser.waitForWindows)
     * [.switchToNewWindow(originalHandle, windowTitle)](#common.browser.switchToNewWindow)
     * [.switchToWindow(handle)](#common.browser.switchToWindow)
     * [.getCurrentWindow()](#common.browser.getCurrentWindow) ⇒ <code>Object</code>
 
+<a name="common.browser.getBaseUrl"></a>
+
+#### browser.getBaseUrl() ⇒ <code>String</code>
+Retrieves the baseUrl from the configuration file.
+
+**Kind**: static method of [<code>browser</code>](#common.browser)  
+**Returns**: <code>String</code> - The baseUrl.  
+**Example**  
+```js
+const baseUrl = await common.browser.getBaseUrl();
+```
+<a name="common.browser.setBaseUrl"></a>
+
+#### browser.setBaseUrl(baseUrl:)
+Sets or overwrites the baseUrl in the configuration file.
+
+**Kind**: static method of [<code>browser</code>](#common.browser)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| baseUrl: | <code>String</code> | base URL to set |
+
+**Example**  
+```js
+await common.browser.setBaseUrl("https://cc3-721.wdf.sap.corp/ui");
+```
+<a name="common.browser.sleep"></a>
+
+#### browser.sleep([duration])
+Sleeps (pauses execution) for the passed duration.
+
+**Kind**: static method of [<code>browser</code>](#common.browser)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [duration] | <code>Number</code> | <code>1000</code> | The time to pause (ms). |
+
+**Example**  
+```js
+await common.browser.sleep(30000);
+```
+<a name="common.browser.sleepAndCollectCoverage"></a>
+
+#### browser.sleepAndCollectCoverage([sleep])
+Collects and stores the coverage information before a hard browser event (logout, clear history),also useful when parallelizing multiple specs and need to aggregate the coverage information
+
+**Kind**: static method of [<code>browser</code>](#common.browser)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [sleep] | <code>Integer</code> | <code>5000</code> | The time to pause (ms). |
+
+**Example**  
+```js
+await common.browser.sleepAndCollectCoverage(5000);
+```
+<a name="common.browser.refresh"></a>
+
+#### browser.refresh()
+Refreshes the page.
+
+**Kind**: static method of [<code>browser</code>](#common.browser)  
+**Example**  
+```js
+await common.browser.refresh();
+```
+<a name="common.browser.clearBrowser"></a>
+
+#### browser.clearBrowser([clearLocal], [clearSession], [clearCookies])
+Clears the local and session cache and deletes all browser cookies.
+
+**Kind**: static method of [<code>browser</code>](#common.browser)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [clearLocal] | <code>Boolean</code> | <code>true</code> | Specifies if the local cache will be cleared. |
+| [clearSession] | <code>Boolean</code> | <code>true</code> | Specifies if the session cache will be cleared. |
+| [clearCookies] | <code>Boolean</code> | <code>true</code> | Specifies if the cookies will be cleared. |
+
+**Example**  
+```js
+await common.browser.clearBrowser();
+```
+<a name="common.browser.sendKeys"></a>
+
+#### browser.sendKeys(keys)
+Executes the set of keystrokes.
+
+**Kind**: static method of [<code>browser</code>](#common.browser)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| keys | <code>String</code> | The combination of keys to execute. |
+
+**Example**  
+```js
+await common.browser.sendKeys(protractor.Key.CONTROL, protractor.Key.ALT, "d");
+```
+<a name="common.browser.getBrowserName"></a>
+
+#### browser.getBrowserName() ⇒ <code>String</code>
+Retrieves the name of the current browser.
+
+**Kind**: static method of [<code>browser</code>](#common.browser)  
+**Returns**: <code>String</code> - The browser name.  
+**Example**  
+```js
+const browserName = await common.browser.getBrowserName();
+```
+<a name="common.browser.getUI5Version"></a>
+
+#### browser.getUI5Version()
+Gets the UI5 version and creation date for UI5 based applications.
+
+**Kind**: static method of [<code>browser</code>](#common.browser)  
+**Example**  
+```js
+await common.browser.getUI5Version();
+```
+<a name="common.browser.executeScript"></a>
+
+#### browser.executeScript(command)
+Executes the specified JavaScript command.
+
+**Kind**: static method of [<code>browser</code>](#common.browser)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| command | <code>String</code> | The command to execute. |
+
+**Example**  
+```js
+await common.browser.executeScript(command);
+```
 <a name="common.browser.waitForWindows"></a>
 
 #### browser.waitForWindows()
@@ -334,6 +487,151 @@ Logs a info message to the console in cyan.
 **Example**  
 ```js
 common.console.success("The document has been saved.");
+```
+<a name="common.date"></a>
+
+### common.date
+**Kind**: static class of [<code>common</code>](#common)  
+
+* [.date](#common.date)
+    * [.getToday([format])](#common.date.getToday) ⇒ <code>String</code>
+    * [.getTomorrow([format])](#common.date.getTomorrow) ⇒ <code>String</code>
+    * [.getNextMonth([format])](#common.date.getNextMonth) ⇒ <code>String</code>
+    * [.getPreviousMonth([format])](#common.date.getPreviousMonth) ⇒ <code>String</code>
+    * [.getNextYear([format])](#common.date.getNextYear) ⇒ <code>String</code>
+    * [.getPreviousYear([format])](#common.date.getPreviousYear) ⇒ <code>String</code>
+    * [.getSpecificDate(date, [format])](#common.date.getSpecificDate) ⇒ <code>String</code>
+    * [.calculateDate([date], [format])](#common.date.calculateDate) ⇒ <code>String</code>
+
+<a name="common.date.getToday"></a>
+
+#### date.getToday([format]) ⇒ <code>String</code>
+Returns the current day in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.date)  
+**Returns**: <code>String</code> - The date in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+
+**Example**  
+```js
+const date = await common.date.getToday("mm/dd/yyyy");
+```
+<a name="common.date.getTomorrow"></a>
+
+#### date.getTomorrow([format]) ⇒ <code>String</code>
+Returns tomorrows date in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.date)  
+**Returns**: <code>String</code> - The date in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+
+**Example**  
+```js
+const date = await common.date.getTomorrow("mm/dd/yyyy");
+```
+<a name="common.date.getNextMonth"></a>
+
+#### date.getNextMonth([format]) ⇒ <code>String</code>
+Returns the current day one month later in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.date)  
+**Returns**: <code>String</code> - The date in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+
+**Example**  
+```js
+const date = await common.date.getNextMonth("mm/dd/yyyy");
+```
+<a name="common.date.getPreviousMonth"></a>
+
+#### date.getPreviousMonth([format]) ⇒ <code>String</code>
+Returns the current day one month before in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.date)  
+**Returns**: <code>String</code> - The date in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+
+**Example**  
+```js
+const date = await common.date.getPreviousMonth("mm/dd/yyyy");
+```
+<a name="common.date.getNextYear"></a>
+
+#### date.getNextYear([format]) ⇒ <code>String</code>
+Returns the current day one year later in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.date)  
+**Returns**: <code>String</code> - The date in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+
+**Example**  
+```js
+const date = await common.date.getNextYear("mm/dd/yyyy");
+```
+<a name="common.date.getPreviousYear"></a>
+
+#### date.getPreviousYear([format]) ⇒ <code>String</code>
+Returns the current day one year before in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.date)  
+**Returns**: <code>String</code> - The date in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+
+**Example**  
+```js
+const date = await common.date.getPreviousYear("mm/dd/yyyy");
+```
+<a name="common.date.getSpecificDate"></a>
+
+#### date.getSpecificDate(date, [format]) ⇒ <code>String</code>
+Returns a specific date in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.date)  
+**Returns**: <code>String</code> - The date in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| date | <code>String</code> |  | A specific date string. |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+
+**Example**  
+```js
+const date = await common.date.getSpecificDate("2020, 0, 17", "mm/dd/yyyy");
+```
+<a name="common.date.calculateDate"></a>
+
+#### date.calculateDate([date], [format]) ⇒ <code>String</code>
+Calculates the date based on the input parameter and returns it in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.date)  
+**Returns**: <code>String</code> - The calculated date in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [date] | <code>String</code> | <code>&quot;today&quot;</code> | Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, lastYear |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object"). |
+
+**Example**  
+```js
+const date = await common.date.calculateDate("today", "mm/dd/yyy");
 ```
 <a name="common.navigation"></a>
 
@@ -539,167 +837,6 @@ Performs the Arrow Right keypress.
 ```js
 await common.userInteraction.pressArrowRight();
 ```
-<a name="common.util"></a>
-
-### common.util : <code>object</code>
-**Kind**: static namespace of [<code>common</code>](#common)  
-
-* [.util](#common.util) : <code>object</code>
-    * [.date](#common.util.date)
-        * [.getToday([format])](#common.util.date.getToday) ⇒ <code>String</code>
-        * [.getTomorrow([format])](#common.util.date.getTomorrow) ⇒ <code>String</code>
-        * [.getNextMonth([format])](#common.util.date.getNextMonth) ⇒ <code>String</code>
-        * [.getPreviousMonth([format])](#common.util.date.getPreviousMonth) ⇒ <code>String</code>
-        * [.getNextYear([format])](#common.util.date.getNextYear) ⇒ <code>String</code>
-        * [.getPreviousYear([format])](#common.util.date.getPreviousYear) ⇒ <code>String</code>
-        * [.getSpecificDate(date, [format])](#common.util.date.getSpecificDate) ⇒ <code>String</code>
-        * [.calculateDate([date], [format])](#common.util.date.calculateDate) ⇒ <code>String</code>
-
-<a name="common.util.date"></a>
-
-#### util.date
-**Kind**: static class of [<code>util</code>](#common.util)  
-
-* [.date](#common.util.date)
-    * [.getToday([format])](#common.util.date.getToday) ⇒ <code>String</code>
-    * [.getTomorrow([format])](#common.util.date.getTomorrow) ⇒ <code>String</code>
-    * [.getNextMonth([format])](#common.util.date.getNextMonth) ⇒ <code>String</code>
-    * [.getPreviousMonth([format])](#common.util.date.getPreviousMonth) ⇒ <code>String</code>
-    * [.getNextYear([format])](#common.util.date.getNextYear) ⇒ <code>String</code>
-    * [.getPreviousYear([format])](#common.util.date.getPreviousYear) ⇒ <code>String</code>
-    * [.getSpecificDate(date, [format])](#common.util.date.getSpecificDate) ⇒ <code>String</code>
-    * [.calculateDate([date], [format])](#common.util.date.calculateDate) ⇒ <code>String</code>
-
-<a name="common.util.date.getToday"></a>
-
-##### date.getToday([format]) ⇒ <code>String</code>
-Returns the current day in the given format.
-
-**Kind**: static method of [<code>date</code>](#common.util.date)  
-**Returns**: <code>String</code> - The date in the given format.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
-
-**Example**  
-```js
-const date = await common.util.date.getToday("mm/dd/yyyy");
-```
-<a name="common.util.date.getTomorrow"></a>
-
-##### date.getTomorrow([format]) ⇒ <code>String</code>
-Returns tomorrows date in the given format.
-
-**Kind**: static method of [<code>date</code>](#common.util.date)  
-**Returns**: <code>String</code> - The date in the given format.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
-
-**Example**  
-```js
-const date = await common.util.date.getTomorrow("mm/dd/yyyy");
-```
-<a name="common.util.date.getNextMonth"></a>
-
-##### date.getNextMonth([format]) ⇒ <code>String</code>
-Returns the current day one month later in the given format.
-
-**Kind**: static method of [<code>date</code>](#common.util.date)  
-**Returns**: <code>String</code> - The date in the given format.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
-
-**Example**  
-```js
-const date = await common.util.date.getNextMonth("mm/dd/yyyy");
-```
-<a name="common.util.date.getPreviousMonth"></a>
-
-##### date.getPreviousMonth([format]) ⇒ <code>String</code>
-Returns the current day one month before in the given format.
-
-**Kind**: static method of [<code>date</code>](#common.util.date)  
-**Returns**: <code>String</code> - The date in the given format.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
-
-**Example**  
-```js
-const date = await common.util.date.getPreviousMonth("mm/dd/yyyy");
-```
-<a name="common.util.date.getNextYear"></a>
-
-##### date.getNextYear([format]) ⇒ <code>String</code>
-Returns the current day one year later in the given format.
-
-**Kind**: static method of [<code>date</code>](#common.util.date)  
-**Returns**: <code>String</code> - The date in the given format.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
-
-**Example**  
-```js
-const date = await common.util.date.getNextYear("mm/dd/yyyy");
-```
-<a name="common.util.date.getPreviousYear"></a>
-
-##### date.getPreviousYear([format]) ⇒ <code>String</code>
-Returns the current day one year before in the given format.
-
-**Kind**: static method of [<code>date</code>](#common.util.date)  
-**Returns**: <code>String</code> - The date in the given format.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
-
-**Example**  
-```js
-const date = await common.util.date.getPreviousYear("mm/dd/yyyy");
-```
-<a name="common.util.date.getSpecificDate"></a>
-
-##### date.getSpecificDate(date, [format]) ⇒ <code>String</code>
-Returns a specific date in the given format.
-
-**Kind**: static method of [<code>date</code>](#common.util.date)  
-**Returns**: <code>String</code> - The date in the given format.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| date | <code>String</code> |  | A specific date string. |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
-
-**Example**  
-```js
-const date = await common.util.date.getSpecificDate("2020, 0, 17", "mm/dd/yyyy");
-```
-<a name="common.util.date.calculateDate"></a>
-
-##### date.calculateDate([date], [format]) ⇒ <code>String</code>
-Calculates the date based on the input parameter and returns it in the given format.
-
-**Kind**: static method of [<code>date</code>](#common.util.date)  
-**Returns**: <code>String</code> - The calculated date in the given format.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [date] | <code>String</code> | <code>&quot;today&quot;</code> | Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, lastYear |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object"). |
-
-**Example**  
-```js
-const date = await common.util.date.calculateDate("today", "mm/dd/yyy");
-```
 <a name="ui5"></a>
 
 ## ui5
@@ -728,6 +865,10 @@ Global namespace for UI5 modules.
         * [.expectLogoutText()](#ui5.assertion.expectLogoutText) ⇒ <code>Promise</code>
         * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.assertion.expectUnsupportedNavigationPopup) ⇒ <code>Promise</code>
         * [.expectMessageToastText(text, [timeout])](#ui5.assertion.expectMessageToastText) ⇒ <code>Promise</code>
+    * [.date](#ui5.date)
+        * [.pickDate(selector, date)](#ui5.date.pickDate)
+        * [.pickDateRange(selector, range)](#ui5.date.pickDateRange)
+        * [.fillDateRange(selector, range)](#ui5.date.fillDateRange)
     * [.element](#ui5.element)
         * [.waitForAllElements(selector, [timeout])](#ui5.element.waitForAllElements)
         * [.getDisplayedElements(selector, [timeout])](#ui5.element.getDisplayedElements) ⇒ <code>Array.&lt;Object&gt;</code>
@@ -756,10 +897,6 @@ Global namespace for UI5 modules.
         * [.loginCustomViaConfig(username, password, [verify])](#ui5.session.loginCustomViaConfig)
         * [.logout([verify])](#ui5.session.logout)
     * [.userInteraction](#ui5.userInteraction)
-        * [.date](#ui5.userInteraction.date)
-        * [.pickDate(selector, date)](#ui5.userInteraction.pickDate)
-        * [.pickDateRange(selector, range)](#ui5.userInteraction.pickDateRange)
-        * [.fillDateRange(selector, range)](#ui5.userInteraction.fillDateRange)
         * [.click(selector, [index], [timeout])](#ui5.userInteraction.click)
         * [.clickAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clickAndRetry)
         * [.clickTab(selector, [index], [timeout])](#ui5.userInteraction.clickTab)
@@ -1153,6 +1290,64 @@ Expects the message toast with the passed text.
 **Example**  
 ```js
 await ui5.assertion.expectMessageToastText(text);
+```
+<a name="ui5.date"></a>
+
+### ui5.date
+**Kind**: static class of [<code>ui5</code>](#ui5)  
+
+* [.date](#ui5.date)
+    * [.pickDate(selector, date)](#ui5.date.pickDate)
+    * [.pickDateRange(selector, range)](#ui5.date.pickDateRange)
+    * [.fillDateRange(selector, range)](#ui5.date.fillDateRange)
+
+<a name="ui5.date.pickDate"></a>
+
+#### date.pickDate(selector, date)
+Picks the passed date using the "DatePicker" with the given selector.
+
+**Kind**: static method of [<code>date</code>](#ui5.date)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>Selector</code> | The selector describing the element. |
+| date | <code>Date</code> | The date object. |
+
+**Example**  
+```js
+const today = await common.date.calculateDate("today");await ui5.date.pickDate(selector, date);
+```
+<a name="ui5.date.pickDateRange"></a>
+
+#### date.pickDateRange(selector, range)
+Picks the passed date range using the "DatePicker" with the given selector.Note that this will only work within the current month!
+
+**Kind**: static method of [<code>date</code>](#ui5.date)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>Selector</code> | The selector describing the element. |
+| range | <code>Array.&lt;Object&gt;</code> | The array of date objects containing start- and end date. |
+
+**Example**  
+```js
+const start = await common.date.calculateDate("2020, 9, 20");const end = await common.date.calculateDate("2021, 1, 3");const range = [start, end];await ui5.date.pickDateRange(selector, range);
+```
+<a name="ui5.date.fillDateRange"></a>
+
+#### date.fillDateRange(selector, range)
+Enters the passed date range to the date input with the given selector by providing the start- and end date.
+
+**Kind**: static method of [<code>date</code>](#ui5.date)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>Selector</code> | The selector describing the element. |
+| range | <code>Array.&lt;Object&gt;</code> | The array of date objects containing start- and end date. |
+
+**Example**  
+```js
+const start = await common.date.calculateDate("2020, 9, 20", "dd.mm.yyyy");const end = await common.date.calculateDate("2021, 1, 3", "dd.mm.yyyy");const range = [start, end];await ui5.date.fillDateRange(selector, range);
 ```
 <a name="ui5.element"></a>
 
@@ -1660,10 +1855,6 @@ await ui5.session.logout();
 **Kind**: static class of [<code>ui5</code>](#ui5)  
 
 * [.userInteraction](#ui5.userInteraction)
-    * [.date](#ui5.userInteraction.date)
-    * [.pickDate(selector, date)](#ui5.userInteraction.pickDate)
-    * [.pickDateRange(selector, range)](#ui5.userInteraction.pickDateRange)
-    * [.fillDateRange(selector, range)](#ui5.userInteraction.fillDateRange)
     * [.click(selector, [index], [timeout])](#ui5.userInteraction.click)
     * [.clickAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clickAndRetry)
     * [.clickTab(selector, [index], [timeout])](#ui5.userInteraction.clickTab)
@@ -1687,58 +1878,6 @@ await ui5.session.logout();
     * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
     * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
 
-<a name="ui5.userInteraction.date"></a>
-
-#### userInteraction.date
-**Kind**: static class of [<code>userInteraction</code>](#ui5.userInteraction)  
-<a name="ui5.userInteraction.pickDate"></a>
-
-#### userInteraction.pickDate(selector, date)
-Picks the passed date using the "DatePicker" with the given selector.
-
-**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| selector | <code>Selector</code> | The selector describing the element. |
-| date | <code>Date</code> | The date object. |
-
-**Example**  
-```js
-const today = await common.util.date.calculateDate("today");await ui5.userInteraction.pickDate(selector, date);
-```
-<a name="ui5.userInteraction.pickDateRange"></a>
-
-#### userInteraction.pickDateRange(selector, range)
-Picks the passed date range using the "DatePicker" with the given selector.Note that this will only work within the current month!
-
-**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| selector | <code>Selector</code> | The selector describing the element. |
-| range | <code>Array.&lt;Object&gt;</code> | The array of date objects containing start- and end date. |
-
-**Example**  
-```js
-const start = await common.util.date.calculateDate("2020, 9, 20");const end = await common.util.date.calculateDate("2021, 1, 3");const range = [start, end];await ui5.userInteraction.pickDateRange(selector, range);
-```
-<a name="ui5.userInteraction.fillDateRange"></a>
-
-#### userInteraction.fillDateRange(selector, range)
-Enters the passed date range to the date input with the given selector by providing the start- and end date.
-
-**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| selector | <code>Selector</code> | The selector describing the element. |
-| range | <code>Array.&lt;Object&gt;</code> | The array of date objects containing start- and end date. |
-
-**Example**  
-```js
-const start = await common.util.date.calculateDate("2020, 9, 20", "dd.mm.yyyy");const end = await common.util.date.calculateDate("2021, 1, 3", "dd.mm.yyyy");const range = [start, end];await ui5.userInteraction.fillDateRange(selector, range);
-```
 <a name="ui5.userInteraction.click"></a>
 
 #### userInteraction.click(selector, [index], [timeout])

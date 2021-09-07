@@ -11,10 +11,11 @@ const ReuseLibrary = function () {
      */
     const common = {
       assertion: require("./modules/common/assertion.js"),
+      browser: require("./modules/common/browser.js"),
       console: require("./modules/common/console.js"),
       date: require("./modules/common/util/date.js"),
       navigation: require("./modules/common/navigation.js"),
-      userInteraction: require("./modules/common/userInteraction.js"),
+      userInteraction: require("./modules/common/userInteraction.js")
     };
     global.common = {
       ...common,
@@ -31,7 +32,7 @@ const ReuseLibrary = function () {
       element: require("./modules/ui5/element.js"),
       navigation: require("./modules/ui5/navigation.js"),
       session: require("./modules/ui5/session.js"),
-      userInteraction: require("./modules/ui5/userInteraction.js"),
+      userInteraction: require("./modules/ui5/userInteraction.js")
     };
     global.ui5 = {
       ...ui5,
@@ -45,7 +46,7 @@ const ReuseLibrary = function () {
     const nonUi5 = {
       assertion: require("./modules/nonUi5/assertion.js"),
       element: require("./modules/nonUi5/element.js"),
-      userInteraction: require("./modules/nonUi5/userInteraction.js"),
+      userInteraction: require("./modules/nonUi5/userInteraction.js")
     };
     global.nonUi5 = {
       ...global.nonUi5,
