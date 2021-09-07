@@ -135,6 +135,7 @@ const UserInteraction = function () {
     await common.function.retry(this.fill, [selector, value, index, timeout], retries, interval, this);
   };
 
+  // =================================== CLEAR ===================================
   /**
    * @function clear
    * @memberOf ui5.userInteraction
@@ -192,7 +193,7 @@ const UserInteraction = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
-   * @param {Boolean} verify - Verifies if the value was entered correctly. Default is true.
+   * @param {Boolean} [verify=true] - Specifies if the filled value should be verified.
    * @example await ui5.userInteraction.clearFillAndRetry(selector, "My Value");
    */
   this.clearFillAndRetry = async function (selector, value, index = 0, timeout = 30000, retries = 3, interval = 5000, verify = true) {
