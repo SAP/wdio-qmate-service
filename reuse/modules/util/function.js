@@ -31,8 +31,8 @@ const Function = function () {
    * @param {Function} fct - The function to execute.
    * @param {Array} args - An array of the arguments passed to the function.
    * @example await util.function.executeOptional(ui5.userInteraction.fill, [selector, value]);
-   * @example await util.function.executeOptional(() => {
-   *  ui5.userInteraction.fill(selector, "ABC");
+   * @example await util.function.executeOptional(async () => {
+   *  await ui5.userInteraction.fill(selector, "ABC");
    * }, []);
    */
   this.executeOptional = async function (fct, args) {

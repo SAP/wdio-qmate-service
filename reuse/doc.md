@@ -1025,7 +1025,7 @@ await util.function.executeOptional(ui5.userInteraction.fill, [selector, value])
 ```
 **Example**  
 ```js
-await util.function.executeOptional(() => { ui5.userInteraction.fill(selector, "ABC");}, []);
+await util.function.executeOptional(async () => { await ui5.userInteraction.fill(selector, "ABC");}, []);
 ```
 <a name="util.system"></a>
 
