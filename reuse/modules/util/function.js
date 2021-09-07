@@ -7,7 +7,7 @@ const Function = function () {
   // =================================== MAIN ===================================
   /**
    * @function retry
-   * @memberOf utilities.function
+   * @memberOf util.function
    * @description Retries the passed function n times with an specific intervall until it executed successfully.
    * @param {Function} fct - The function to retry.
    * @param {Array} args - An array of the arguments passed to the function.
@@ -17,7 +17,7 @@ const Function = function () {
    * @example async function sayHello(firstName, lastName) {
    * console.log("Hello " + firstName + " " + lastName + "!");
    * }
-   * await utilities.function.retry(sayHello, ["John", "Doe"], 3, 5000);
+   * await util.function.retry(sayHello, ["John", "Doe"], 3, 5000);
    */
   this.retry = async function (fct, args, retries, interval, scope) {
     var res = await setRetryProperties(retries, interval);
@@ -26,12 +26,12 @@ const Function = function () {
 
   /**
    * @function executeOptional
-   * @memberOf utilities.function
+   * @memberOf util.function
    * @description Executes the given function optionally. If it fails, a promise will be returned anyway.
    * @param {Function} fct - The function to execute.
    * @param {Array} args - An array of the arguments passed to the function.
-   * @example await utilities.function.executeOptional(ui5.userInteraction.fill, [selector, value]);
-   * @example await utilities.function.executeOptional(() => {
+   * @example await util.function.executeOptional(ui5.userInteraction.fill, [selector, value]);
+   * @example await util.function.executeOptional(() => {
    *  ui5.userInteraction.fill(selector, "ABC");
    * }, []);
    */
@@ -47,12 +47,12 @@ const Function = function () {
   // =================================== HELPER ===================================
   /**
    * @function mapWdioErrorToQmateErrorMessage
-   * @memberOf utilities.function
+   * @memberOf util.function
    * @private
    * @description Maps Wdio Error to Qmate Error Message
    * @param {Error} wdioError - The wdio error
    * @param {string} action - An action performed upon the element ("click", "fill")
-   * @example await utilities.function.mapWdioErrorToQmateErrorMessage(error, "click");
+   * @example await util.function.mapWdioErrorToQmateErrorMessage(error, "click");
    */
   this.mapWdioErrorToQmateErrorMessage = async function (wdioError, action) {
     const errorMessage = wdioError.message;

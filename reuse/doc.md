@@ -561,6 +561,8 @@ Global namespace for util modules.
         * [.stringifyJSON(object)](#util.formatter.stringifyJSON) ⇒ <code>String</code>
         * [.formatDate(date, format)](#util.formatter.formatDate) ⇒ <code>String</code>
     * [.function](#util.function)
+        * [.retry(fct, args, retries, interval, scope)](#util.function.retry)
+        * [.executeOptional(fct, args)](#util.function.executeOptional)
     * [.system](#util.system)
         * [.getOS()](#util.system.getOS) ⇒ <code>String</code>
 
@@ -981,6 +983,50 @@ const date = new Date(2020, 0, 17);const formattedDate = utilities.formatDate(d
 
 ### util.function
 **Kind**: static class of [<code>util</code>](#util)  
+
+* [.function](#util.function)
+    * [.retry(fct, args, retries, interval, scope)](#util.function.retry)
+    * [.executeOptional(fct, args)](#util.function.executeOptional)
+
+<a name="util.function.retry"></a>
+
+#### function.retry(fct, args, retries, interval, scope)
+Retries the passed function n times with an specific intervall until it executed successfully.
+
+**Kind**: static method of [<code>function</code>](#util.function)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fct | <code>function</code> | The function to retry. |
+| args | <code>Array</code> | An array of the arguments passed to the function. |
+| retries | <code>Integer</code> | The number of retries, can be set in config for all functions under params stepsRetries. Default is 3 times. |
+| interval | <code>Integer</code> | The interval of the retries, can be set in config for all functions under params stepRetriesIntervals. Default is 5 secs. |
+| scope | <code>Object</code> | The function scope to execute the function, defaults to null (global object) |
+
+**Example**  
+```js
+async function sayHello(firstName, lastName) {console.log("Hello " + firstName + " " + lastName + "!");}await util.function.retry(sayHello, ["John", "Doe"], 3, 5000);
+```
+<a name="util.function.executeOptional"></a>
+
+#### function.executeOptional(fct, args)
+Executes the given function optionally. If it fails, a promise will be returned anyway.
+
+**Kind**: static method of [<code>function</code>](#util.function)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fct | <code>function</code> | The function to execute. |
+| args | <code>Array</code> | An array of the arguments passed to the function. |
+
+**Example**  
+```js
+await util.function.executeOptional(ui5.userInteraction.fill, [selector, value]);
+```
+**Example**  
+```js
+await util.function.executeOptional(() => { ui5.userInteraction.fill(selector, "ABC");}, []);
+```
 <a name="util.system"></a>
 
 ### util.system
