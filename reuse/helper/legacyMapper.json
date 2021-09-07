@@ -1,11 +1,11 @@
 [
   {
     "old": "utilities",
-    "new": "common"
+    "new": "util"
   },
   {
     "old": "utilities.os",
-    "new": "common.system"
+    "new": "util.system"
   },
   {
     "old": "ui5.common",
@@ -92,8 +92,8 @@
     "new": "TODO"
   },
   {
-    "old": "ui5.common.formatter",
-    "new": "common.formatter"
+    "old": "ui5.util.formatter",
+    "new": "util.formatter"
   },
   {
     "old": "ui5.common.iconTabBar",
@@ -217,19 +217,19 @@
   },
   {
     "old": "non_ui5.common.locator.getCurrentWindow",
-    "new": "common.browser.getCurrentWindow"
+    "new": "util.browser.getCurrentWindow"
   },
   {
     "old": "non_ui5.common.locator.waitForWindows",
-    "new": "common.browser.waitForWindows"
+    "new": "util.browser.waitForWindows"
   },
   {
     "old": "non_ui5.common.locator.switchToNewWindow",
-    "new": "common.browser.switchToNewWindow"
+    "new": "util.browser.switchToNewWindow"
   },
   {
     "old": "non_ui5.common.locator.switchToWindow",
-    "new": "common.browser.switchToWindow"
+    "new": "util.browser.switchToWindow"
   },
   {
     "old": "non_ui5.common.navigation.navigateToUrl",

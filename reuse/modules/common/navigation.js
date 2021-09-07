@@ -30,7 +30,7 @@ const Navigation = function () {
    * @example await common.navigation.navigateToUrlAndRetry("www.sap.com");
    */
   this.navigateToUrlAndRetry = async function (url, retries = 3, interval = 5000) {
-    return await common.function.retry(this.navigateToUrl, [url], retries, interval, this);
+    return await util.function.retry(this.navigateToUrl, [url], retries, interval, this);
   };
 
   /**
@@ -41,7 +41,7 @@ const Navigation = function () {
    */
   this.printCurrentUrl = async function () {
     const url = await browser.getUrl();
-    common.console.info("Current URL: " + url);
+    util.console.info("Current URL: " + url);
   };
 
 };

@@ -8,13 +8,13 @@ const Console = function () {
 
   /**
    * @function log
-   * @memberOf common.console
+   * @memberOf util.console
    * @description Logs a message to the console in the given color.
    * @param {String} message - The message to log.
    * @param {String} [textColor] - The color of the text: "black, white", "red", "yellow", "green", "blue", "cyan", "magenta".
    * @param {String} [backgroundColor] - The color of the background: "black, white", "red", "yellow", "green", "blue", "cyan", "magenta".
    * @param {String} [brightness] - Adjusts the brightness of the color: "bright", "dim". Leave empty for default.
-   * @example common.console.log("The document has been saved.", "green");
+   * @example util.console.log("The document has been saved.", "green");
    */
   this.log = function (message, textColor, backgroundColor, brightness) {
     let colorValue = "";
@@ -37,10 +37,10 @@ const Console = function () {
 
   /**
    * @function error
-   * @memberOf common.console
+   * @memberOf util.console
    * @description Logs a error message to the console in red.
    * @param {String} message - The message to log.
-   * @example common.console.error("Error: Please investigate.");
+   * @example util.console.error("Error: Please investigate.");
    */
   this.error = function (message) {
     const colorValue = getColorValue("red");
@@ -49,10 +49,10 @@ const Console = function () {
 
   /**
    * @function warn
-   * @memberOf common.console
+   * @memberOf util.console
    * @description Logs a warning message to the console in yellow.
    * @param {String} message - The message to log.
-   * @example common.console.warn("Optional step not executed.");
+   * @example util.console.warn("Optional step not executed.");
    */
   this.warn = function (message) {
     const colorValue = getColorValue("yellow");
@@ -61,10 +61,10 @@ const Console = function () {
 
   /**
    * @function success
-   * @memberOf common.console
+   * @memberOf util.console
    * @description Logs a success message to the console in green.
    * @param {String} message - The message to log.
-   * @example common.console.success("The document has been saved.");
+   * @example util.console.success("The document has been saved.");
    */
   this.success = function (message) {
     const colorValue = getColorValue("green");
@@ -73,10 +73,10 @@ const Console = function () {
 
   /**
    * @function info
-   * @memberOf common.console
+   * @memberOf util.console
    * @description Logs a info message to the console in cyan.
    * @param {String} message - The message to log.
-   * @example common.console.success("The document has been saved.");
+   * @example util.console.success("The document has been saved.");
    */
   this.info = function (message) {
     const colorValue = getColorValue("cyan");

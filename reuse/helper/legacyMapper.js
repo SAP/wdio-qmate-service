@@ -32,14 +32,14 @@ function setGlobalValue(oldNamespace, value, newNamespace) {
         for (const f in value) {
           const currentFct = value[f];
           newValue[f] = function () {
-            common.console.warn(`Namespace "${oldNamespace}" is deprecated. Please use "${newNamespace}" instead.`);
+            util.console.warn(`Namespace "${oldNamespace}" is deprecated. Please use "${newNamespace}" instead.`);
             currentFct(arguments[0], arguments[1], arguments[2], arguments[3]);
           };
         }
         currentGlobalValue[namespaceParts[i]] = newValue;
       } else if (typeof value === "function") {
         currentGlobalValue[namespaceParts[i]] = function () {
-          common.console.warn(`Function "${oldNamespace}" is deprecated. Please use "${newNamespace}" instead.`);
+          util.console.warn(`Function "${oldNamespace}" is deprecated. Please use "${newNamespace}" instead.`);
           value(arguments[0], arguments[1], arguments[2], arguments[3]);
         };
       }

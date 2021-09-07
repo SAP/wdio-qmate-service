@@ -118,7 +118,7 @@ const DateModule = function () {
         await nonUi5.userInteraction.click(yearPick);
       }
 
-      const dayPick = await nonUi5.userInteraction.locator.getElementByCss(`[id="${id}-cal"] .sapUiCalItem[data-sap-day="${common.formatter.formatDate(date, "yyyymmdd")}"] .sapUiCalItemText`);
+      const dayPick = await nonUi5.userInteraction.locator.getElementByCss(`[id="${id}-cal"] .sapUiCalItem[data-sap-day="${util.formatter.formatDate(date, "yyyymmdd")}"] .sapUiCalItemText`);
       return await nonUi5.userInteraction.click(dayPick);
     }
   }
