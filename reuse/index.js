@@ -14,6 +14,7 @@ const ReuseLibrary = function () {
       browser: require("./modules/common/browser.js"),
       console: require("./modules/common/console.js"),
       date: require("./modules/common/util/date.js"),
+      formatter: require("./modules/common/formatter.js"),
       navigation: require("./modules/common/navigation.js"),
       userInteraction: require("./modules/common/userInteraction.js")
     };

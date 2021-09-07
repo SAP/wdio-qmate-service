@@ -58,6 +58,13 @@ Global namespace for common modules.
         * [.getPreviousYear([format])](#common.date.getPreviousYear) ⇒ <code>String</code>
         * [.getSpecificDate(date, [format])](#common.date.getSpecificDate) ⇒ <code>String</code>
         * [.calculateDate([date], [format])](#common.date.calculateDate) ⇒ <code>String</code>
+    * [.formatter](#common.formatter)
+        * [.sliceStringAt(input, slicePoint, length)](#common.formatter.sliceStringAt) ⇒ <code>String</code>
+        * [.sliceStringAfter(input, slicePoint, length)](#common.formatter.sliceStringAfter) ⇒ <code>String</code>
+        * [.trimString(input)](#common.formatter.trimString)
+        * [.extractNumberFromString(input, [index])](#common.formatter.extractNumberFromString) ⇒ <code>String</code>
+        * [.stringifyJSON(object)](#common.formatter.stringifyJSON) ⇒ <code>String</code>
+        * [.formatDate(date, format)](#common.formatter.formatDate) ⇒ <code>String</code>
     * [.navigation](#common.navigation)
         * [.navigateToUrl(url)](#common.navigation.navigateToUrl)
         * [.navigateToUrlAndRetry(url, [retries], [interval])](#common.navigation.navigateToUrlAndRetry)
@@ -632,6 +639,124 @@ Calculates the date based on the input parameter and returns it in the given for
 **Example**  
 ```js
 const date = await common.date.calculateDate("today", "mm/dd/yyy");
+```
+<a name="common.formatter"></a>
+
+### common.formatter
+**Kind**: static class of [<code>common</code>](#common)  
+
+* [.formatter](#common.formatter)
+    * [.sliceStringAt(input, slicePoint, length)](#common.formatter.sliceStringAt) ⇒ <code>String</code>
+    * [.sliceStringAfter(input, slicePoint, length)](#common.formatter.sliceStringAfter) ⇒ <code>String</code>
+    * [.trimString(input)](#common.formatter.trimString)
+    * [.extractNumberFromString(input, [index])](#common.formatter.extractNumberFromString) ⇒ <code>String</code>
+    * [.stringifyJSON(object)](#common.formatter.stringifyJSON) ⇒ <code>String</code>
+    * [.formatDate(date, format)](#common.formatter.formatDate) ⇒ <code>String</code>
+
+<a name="common.formatter.sliceStringAt"></a>
+
+#### formatter.sliceStringAt(input, slicePoint, length) ⇒ <code>String</code>
+Slices the given string beginning at a specific substring.
+
+**Kind**: static method of [<code>formatter</code>](#common.formatter)  
+**Returns**: <code>String</code> - The sliced string.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| input | <code>String</code> | The input string to slice. |
+| slicePoint | <code>String</code> | The substring at which the input string is being sliced. |
+| length | <code>Integer</code> | The required length of the returning string (starting at the index of the passed slice point). |
+
+**Example**  
+```js
+const sliced = common.formatter.sliceStringAt("prefixNR12345postfix", "NR", 7);// returns "NR12345"
+```
+<a name="common.formatter.sliceStringAfter"></a>
+
+#### formatter.sliceStringAfter(input, slicePoint, length) ⇒ <code>String</code>
+Slices the given string after a specific substring.
+
+**Kind**: static method of [<code>formatter</code>](#common.formatter)  
+**Returns**: <code>String</code> - The sliced string.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| input | <code>String</code> | The input string to slice. |
+| slicePoint | <code>String</code> | The substring after which the input string is being sliced. |
+| length | <code>Integer</code> | The required length of the returning string (starting at the index after the passed slice point). |
+
+**Example**  
+```js
+const sliced = common.formatter.sliceStringAfter("prefixNR12345postfix", "NR", 5);// returns "12345"
+```
+<a name="common.formatter.trimString"></a>
+
+#### formatter.trimString(input)
+Removes whitespace from both sides of the given string.
+
+**Kind**: static method of [<code>formatter</code>](#common.formatter)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| input | <code>String</code> | The input string to trim. |
+
+**Example**  
+```js
+const trimmed = common.formatter.trimString("   value ");// returns "value"
+```
+<a name="common.formatter.extractNumberFromString"></a>
+
+#### formatter.extractNumberFromString(input, [index]) ⇒ <code>String</code>
+Extracts all numbers from a string.
+
+**Kind**: static method of [<code>formatter</code>](#common.formatter)  
+**Returns**: <code>String</code> - The extracted number.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| input | <code>String</code> |  | The input string to extract the number. |
+| [index] | <code>Integer</code> | <code>0</code> | If there are multiple numbers in the string you can pass an index to return a specific number. |
+
+**Example**  
+```js
+const extracted = common.formatter.extractNumberFromString("prefixNR12345postfix");// returns "12345"
+```
+**Example**  
+```js
+const extracted = common.formatter.extractNumberFromString("first12345 someText second 20 abc", 1);// returns "20"
+```
+<a name="common.formatter.stringifyJSON"></a>
+
+#### formatter.stringifyJSON(object) ⇒ <code>String</code>
+Converts a JSON object to string.
+
+**Kind**: static method of [<code>formatter</code>](#common.formatter)  
+**Returns**: <code>String</code> - The converted JSON object.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| object | <code>Object</code> | The JSON to be converted. |
+
+**Example**  
+```js
+console.log(`Printing the current selector: ${common.formatter.stringifyJSON(selector)}`);
+```
+<a name="common.formatter.formatDate"></a>
+
+#### formatter.formatDate(date, format) ⇒ <code>String</code>
+formats date.
+
+**Kind**: static method of [<code>formatter</code>](#common.formatter)  
+**Returns**: <code>String</code> - The formatted date as string.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| date | <code>Date</code> | The date object to be formatted. |
+| format | <code>String</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object"). |
+
+**Example**  
+```js
+const date = new Date(2020, 0, 17);const formattedDate = utilities.formatDate(date, "mm/dd/yyyy");// returns "01/17/2020"
 ```
 <a name="common.navigation"></a>
 
