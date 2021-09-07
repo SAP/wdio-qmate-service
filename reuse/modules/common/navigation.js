@@ -21,16 +21,16 @@ const Navigation = function () {
   };
 
   /**
-  * @function navigateToUrlAndRetry
-  * @memberOf common.navigation
-  * @description Navigates to the passed url and retries the function in case of a failure.
-  * @param {String} url - The url to navigate to.
-  * @param {Integer} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
-  * @param {Integer} [interval=5000] - The interval of the retries (ms), can be set in config for all functions under params stepRetriesIntervals.
-  * @example await common.navigation.navigateToUrlAndRetry("www.sap.com");
-  */
+   * @function navigateToUrlAndRetry
+   * @memberOf common.navigation
+   * @description Navigates to the passed url and retries the function in case of a failure.
+   * @param {String} url - The url to navigate to.
+   * @param {Integer} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
+   * @param {Integer} [interval=5000] - The interval of the retries (ms), can be set in config for all functions under params stepRetriesIntervals.
+   * @example await common.navigation.navigateToUrlAndRetry("www.sap.com");
+   */
   this.navigateToUrlAndRetry = async function (url, retries = 3, interval = 5000) {
-    return await utilities.function.retry(this.navigateToUrl, [url], retries, interval, this);
+    return await common.function.retry(this.navigateToUrl, [url], retries, interval, this);
   };
 
   /**
