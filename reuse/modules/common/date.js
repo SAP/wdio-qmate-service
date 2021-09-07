@@ -1,17 +1,17 @@
 /**
  * @class date
- * @memberof common.util
+ * @memberof common
  */
 const DateModule = function () {
 
   // =================================== GET DATES ===================================
   /**
    * @function getToday
-   * @memberOf common.util.date
+   * @memberOf common.date
    * @description Returns the current day in the given format.
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object").
    * @returns {String} The date in the given format.
-   * @example const date = await common.util.date.getToday("mm/dd/yyyy");
+   * @example const date = await common.date.getToday("mm/dd/yyyy");
    */
   this.getToday = function (format = "object") {
     const date = new Date();
@@ -20,11 +20,11 @@ const DateModule = function () {
 
   /**
    * @function getTomorrow
-   * @memberOf common.util.date
+   * @memberOf common.date
    * @description Returns tomorrows date in the given format.
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object").
    * @returns {String} The date in the given format.
-   * @example const date = await common.util.date.getTomorrow("mm/dd/yyyy");
+   * @example const date = await common.date.getTomorrow("mm/dd/yyyy");
    */
   this.getTomorrow = function (format = "object") {
     const date = new Date();
@@ -34,11 +34,11 @@ const DateModule = function () {
 
   /**
    * @function getNextMonth
-   * @memberOf common.util.date
+   * @memberOf common.date
    * @description Returns the current day one month later in the given format.
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object").
    * @returns {String} The date in the given format.
-   * @example const date = await common.util.date.getNextMonth("mm/dd/yyyy");
+   * @example const date = await common.date.getNextMonth("mm/dd/yyyy");
    */
   this.getNextMonth = function (format = "object") {
     const date = new Date();
@@ -48,11 +48,11 @@ const DateModule = function () {
 
   /**
    * @function getPreviousMonth
-   * @memberOf common.util.date
+   * @memberOf common.date
    * @description Returns the current day one month before in the given format.
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object").
    * @returns {String} The date in the given format.
-   * @example const date = await common.util.date.getPreviousMonth("mm/dd/yyyy");
+   * @example const date = await common.date.getPreviousMonth("mm/dd/yyyy");
    */
   this.getPreviousMonth = function (format = "object") {
     const date = new Date();
@@ -62,11 +62,11 @@ const DateModule = function () {
 
   /**
    * @function getNextYear
-   * @memberOf common.util.date
+   * @memberOf common.date
    * @description Returns the current day one year later in the given format.
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object").
    * @returns {String} The date in the given format.
-   * @example const date = await common.util.date.getNextYear("mm/dd/yyyy");
+   * @example const date = await common.date.getNextYear("mm/dd/yyyy");
    */
   this.getNextYear = function (format = "object") {
     const date = new Date();
@@ -76,11 +76,11 @@ const DateModule = function () {
 
   /**
    * @function getPreviousYear
-   * @memberOf common.util.date
+   * @memberOf common.date
    * @description Returns the current day one year before in the given format.
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object").
    * @returns {String} The date in the given format.
-   * @example const date = await common.util.date.getPreviousYear("mm/dd/yyyy");
+   * @example const date = await common.date.getPreviousYear("mm/dd/yyyy");
    */
   this.getPreviousYear = function (format = "object") {
     const date = new Date();
@@ -90,12 +90,12 @@ const DateModule = function () {
 
   /**
    * @function getSpecificDate
-   * @memberOf common.util.date
+   * @memberOf common.date
    * @description Returns a specific date in the given format.
    * @param {String} date - A specific date string.
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object").
    * @returns {String} The date in the given format.
-   * @example const date = await common.util.date.getSpecificDate("2020, 0, 17", "mm/dd/yyyy");
+   * @example const date = await common.date.getSpecificDate("2020, 0, 17", "mm/dd/yyyy");
    */
   this.getSpecificDate = function (date, format = "object") {
     if (!date) {
@@ -108,12 +108,12 @@ const DateModule = function () {
 
   /**
    * @function calculateDate
-   * @memberOf common.util.date
+   * @memberOf common.date
    * @description Calculates the date based on the input parameter and returns it in the given format.
    * @param {String} [date="today"] - Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, lastYear
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object").
    * @returns {String} The calculated date in the given format.
-   * @example const date = await common.util.date.calculateDate("today", "mm/dd/yyy");
+   * @example const date = await common.date.calculateDate("today", "mm/dd/yyy");
    */
   this.calculateDate = function (date = "today", format = "object") {
     if (date === null) {
