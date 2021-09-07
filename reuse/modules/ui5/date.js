@@ -11,7 +11,7 @@ const DateModule = function () {
    * @description Picks the passed date using the "DatePicker" with the given selector.
    * @param {Selector} selector - The selector describing the element.
    * @param {Date} date - The date object.
-   * @example const today = await common.util.date.calculateDate("today");
+   * @example const today = await common.date.calculateDate("today");
    * await ui5.date.pickDate(selector, date);
    */
   this.pickDate = async function (selector, date) {
@@ -26,8 +26,8 @@ const DateModule = function () {
    * Note that this will only work within the current month!
    * @param {Selector} selector - The selector describing the element.
    * @param {Object[]} range - The array of date objects containing start- and end date.
-   * @example const start = await common.util.date.calculateDate("2020, 9, 20");
-   * const end = await common.util.date.calculateDate("2021, 1, 3");
+   * @example const start = await common.date.calculateDate("2020, 9, 20");
+   * const end = await common.date.calculateDate("2021, 1, 3");
    * const range = [start, end];
    * await ui5.date.pickDateRange(selector, range);
    */
@@ -44,8 +44,8 @@ const DateModule = function () {
    * @description Enters the passed date range to the date input with the given selector by providing the start- and end date.
    * @param {Selector} selector - The selector describing the element.
    * @param {Object[]} range - The array of date objects containing start- and end date.
-   * @example const start = await common.util.date.calculateDate("2020, 9, 20", "dd.mm.yyyy");
-   * const end = await common.util.date.calculateDate("2021, 1, 3", "dd.mm.yyyy");
+   * @example const start = await common.date.calculateDate("2020, 9, 20", "dd.mm.yyyy");
+   * const end = await common.date.calculateDate("2021, 1, 3", "dd.mm.yyyy");
    * const range = [start, end];
    * await ui5.date.fillDateRange(selector, range);
    */
@@ -118,7 +118,7 @@ const DateModule = function () {
         await nonUi5.userInteraction.click(yearPick);
       }
 
-      const dayPick = await nonUi5.userInteraction.locator.getElementByCss(`[id="${id}-cal"] .sapUiCalItem[data-sap-day="${common.util.formatter.formatDate(date, "yyyymmdd")}"] .sapUiCalItemText`);
+      const dayPick = await nonUi5.userInteraction.locator.getElementByCss(`[id="${id}-cal"] .sapUiCalItem[data-sap-day="${common.formatter.formatDate(date, "yyyymmdd")}"] .sapUiCalItemText`);
       return await nonUi5.userInteraction.click(dayPick);
     }
   }
