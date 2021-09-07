@@ -236,6 +236,10 @@
     "new": "common.navigation.navigateToUrlAndRetry"
   },
   {
+    "old": "non_ui5.common.userInteraction",
+    "new": "non_ui5.userInteraction"
+  },
+  {
     "old": "non_ui5.common.userInteraction.pressEnter",
     "new": "common.userInteraction.pressEnter"
   },
@@ -262,5 +266,13 @@
   {
     "old": "non_ui5.common.userInteraction.pressArrowRight",
     "new": "common.userInteraction.pressArrowRight"
+  },
+  {
+    "old": "non_ui5.common.userInteraction.fillActive",
+    "new": "common.userInteraction.fillActive"
+  },
+  {
+    "old": "non_ui5.common.userInteraction.fillActiveAndRetry",
+    "new": "common.userInteraction.fillActiveAndRetry"
   }
 ]
