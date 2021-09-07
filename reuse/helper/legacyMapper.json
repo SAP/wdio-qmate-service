@@ -89,7 +89,7 @@
   },
   {
     "old": "ui5.common.formatter",
-    "new": "common.util.formatter"
+    "new": "common.formatter"
   },
   {
     "old": "ui5.common.iconTabBar",

@@ -15,7 +15,7 @@ const DateModule = function () {
    */
   this.getToday = function (format = "object") {
     const date = new Date();
-    return common.util.formatter.formatDate(date, format);
+    return common.formatter.formatDate(date, format);
   };
 
   /**
@@ -29,7 +29,7 @@ const DateModule = function () {
   this.getTomorrow = function (format = "object") {
     const date = new Date();
     date.setDate(date.getDate() + 1);
-    return common.util.formatter.formatDate(date, format);
+    return common.formatter.formatDate(date, format);
   };
 
   /**
@@ -43,7 +43,7 @@ const DateModule = function () {
   this.getNextMonth = function (format = "object") {
     const date = new Date();
     date.setMonth(date.getMonth() + 1);
-    return common.util.formatter.formatDate(date, format);
+    return common.formatter.formatDate(date, format);
   };
 
   /**
@@ -57,7 +57,7 @@ const DateModule = function () {
   this.getPreviousMonth = function (format = "object") {
     const date = new Date();
     date.setMonth(date.getMonth() - 1);
-    return common.util.formatter.formatDate(date, format);
+    return common.formatter.formatDate(date, format);
   };
 
   /**
@@ -71,7 +71,7 @@ const DateModule = function () {
   this.getNextYear = function (format = "object") {
     const date = new Date();
     date.setFullYear(date.getFullYear() + 1);
-    return common.util.formatter.formatDate(date, format);
+    return common.formatter.formatDate(date, format);
   };
 
   /**
@@ -85,7 +85,7 @@ const DateModule = function () {
   this.getPreviousYear = function (format = "object") {
     const date = new Date();
     date.setFullYear(date.getFullYear() - 1);
-    return common.util.formatter.formatDate(date, format);
+    return common.formatter.formatDate(date, format);
   };
 
   /**
@@ -103,7 +103,7 @@ const DateModule = function () {
     }
     const parsedDate = Date.parse(date);
     const dateObject = new Date(parsedDate);
-    return common.util.formatter.formatDate(dateObject, format);
+    return common.formatter.formatDate(dateObject, format);
   };
 
   /**
