@@ -49,35 +49,35 @@
   },
   {
     "old": "ui5.common.date.getToday",
-    "new": "common.util.date.getToday"
+    "new": "common.date.getToday"
   },
   {
     "old": "ui5.common.date.getTomorrow",
-    "new": "common.util.date.getTomorrow"
+    "new": "common.date.getTomorrow"
   },
   {
     "old": "ui5.common.date.getNextMonth",
-    "new": "common.util.date.getNextMonth"
+    "new": "common.date.getNextMonth"
   },
   {
     "old": "ui5.common.date.getPreviousMonth",
-    "new": "common.util.date.getPreviousMonth"
+    "new": "common.date.getPreviousMonth"
   },
   {
     "old": "ui5.common.date.getNextYear",
-    "new": "common.util.date.getNextYear"
+    "new": "common.date.getNextYear"
   },
   {
     "old": "ui5.common.date.getPreviousYear",
-    "new": "common.util.date.getPreviousYear"
+    "new": "common.date.getPreviousYear"
   },
   {
     "old": "ui5.common.date.getSpecificDate",
-    "new": "common.util.date.getSpecificDate"
+    "new": "common.date.getSpecificDate"
   },
   {
     "old": "ui5.common.date.calculateDate",
-    "new": "common.util.date.calculateDate"
+    "new": "common.date.calculateDate"
   },
   {
     "old": "ui5.common.errorDialog",
