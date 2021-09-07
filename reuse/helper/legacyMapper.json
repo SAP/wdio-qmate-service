@@ -4,6 +4,10 @@
     "new": "common"
   },
   {
+    "old": "utilities.os",
+    "new": "common.system"
+  },
+  {
     "old": "ui5.common",
     "new": "ui5"
   },

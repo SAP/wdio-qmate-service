@@ -69,6 +69,8 @@ Global namespace for common modules.
         * [.navigateToUrl(url)](#common.navigation.navigateToUrl)
         * [.navigateToUrlAndRetry(url, [retries], [interval])](#common.navigation.navigateToUrlAndRetry)
         * [.printCurrentUrl()](#common.navigation.printCurrentUrl)
+    * [.system](#common.system)
+        * [.getOS()](#common.system.getOS) ⇒ <code>String</code>
     * [.userInteraction](#common.userInteraction)
         * [.fillActive(value)](#common.userInteraction.fillActive)
         * [.fillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.fillActiveAndRetry)
@@ -809,6 +811,21 @@ Displays the current URL in the console.
 **Example**  
 ```js
 await common.navigation.printCurrentUrl();
+```
+<a name="common.system"></a>
+
+### common.system
+**Kind**: static class of [<code>common</code>](#common)  
+<a name="common.system.getOS"></a>
+
+#### system.getOS() ⇒ <code>String</code>
+Returns the current operating system.
+
+**Kind**: static method of [<code>system</code>](#common.system)  
+**Returns**: <code>String</code> - AIX | Android | MacOS | FreeBSD | Linux | OpenBSD | Windows | SunOS  
+**Example**  
+```js
+const os = await common.system.getOS();
 ```
 <a name="common.userInteraction"></a>
 
