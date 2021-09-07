@@ -1,18 +1,18 @@
 /**
  * @class date
- * @memberof ui5.userInteraction
+ * @memberof ui5
  */
 const DateModule = function () {
 
   // =================================== PICK ===================================
   /**
    * @function pickDate
-   * @memberOf ui5.userInteraction
+   * @memberOf ui5.date
    * @description Picks the passed date using the "DatePicker" with the given selector.
    * @param {Selector} selector - The selector describing the element.
    * @param {Date} date - The date object.
    * @example const today = await common.util.date.calculateDate("today");
-   * await ui5.userInteraction.pickDate(selector, date);
+   * await ui5.date.pickDate(selector, date);
    */
   this.pickDate = async function (selector, date) {
     await openDatePicker(selector);
@@ -21,7 +21,7 @@ const DateModule = function () {
 
   /**
    * @function pickDateRange
-   * @memberOf ui5.userInteraction
+   * @memberOf ui5.date
    * @description Picks the passed date range using the "DatePicker" with the given selector.
    * Note that this will only work within the current month!
    * @param {Selector} selector - The selector describing the element.
@@ -29,7 +29,7 @@ const DateModule = function () {
    * @example const start = await common.util.date.calculateDate("2020, 9, 20");
    * const end = await common.util.date.calculateDate("2021, 1, 3");
    * const range = [start, end];
-   * await ui5.userInteraction.pickDateRange(selector, range);
+   * await ui5.date.pickDateRange(selector, range);
    */
   this.pickDateRange = async function (selector, range) {
     await openDatePicker(selector);
@@ -40,14 +40,14 @@ const DateModule = function () {
   // =================================== FILL ===================================
   /**
    * @function fillDateRange
-   * @memberOf ui5.userInteraction
+   * @memberOf ui5.date
    * @description Enters the passed date range to the date input with the given selector by providing the start- and end date.
    * @param {Selector} selector - The selector describing the element.
    * @param {Object[]} range - The array of date objects containing start- and end date.
    * @example const start = await common.util.date.calculateDate("2020, 9, 20", "dd.mm.yyyy");
    * const end = await common.util.date.calculateDate("2021, 1, 3", "dd.mm.yyyy");
    * const range = [start, end];
-   * await ui5.userInteraction.fillDateRange(selector, range);
+   * await ui5.date.fillDateRange(selector, range);
    */
   this.fillDateRange = async function (selector, range) {
     const value = range[0] + " - " + range[1];
@@ -71,7 +71,7 @@ const DateModule = function () {
     const month = date.getMonth();
     const day = date.getDay();
 
-    const currentDate = ui5.userInteraction.getToday();
+    const currentDate = ui5.date.getToday();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth();
     const currentDay = currentDate.getDay();

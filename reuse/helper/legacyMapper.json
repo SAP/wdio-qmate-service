@@ -45,7 +45,7 @@
   },
   {
     "old": "ui5.common.date",
-    "new": "ui5.userInteraction"
+    "new": "ui5.date"
   },
   {
     "old": "ui5.common.date.getToday",
