@@ -1,8 +1,6 @@
 /**
  * @class footerBar
  * @memberof ui5
- * @description Please note: Some of the internally used selectors have text dependencies.
- * Hence these reuse functions might not work for other languages than english.
  */
 const FooterBar = function () {
 
