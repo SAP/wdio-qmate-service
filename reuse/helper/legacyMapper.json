@@ -41,7 +41,31 @@
   },
   {
     "old": "ui5.common.client",
-    "new": "TODO"
+    "new": "ui5.control"
+  },
+  {
+    "old": "ui5.common.client.executeControlInBrowser",
+    "new": "ui5.control.execute"
+  },
+  {
+    "old": "ui5.common.client.getControlProperty",
+    "new": "ui5.control.getProperty"
+  },
+  {
+    "old": "ui5.common.client.getControlAggregationProperty",
+    "new": "ui5.control.getAggregationProperty"
+  },
+  {
+    "old": "ui5.common.client.getControlAssociationProperty",
+    "new": "ui5.control.getAssociationProperty"
+  },
+  {
+    "old": "ui5.common.client.getControlBindingContextPathProperty",
+    "new": "ui5.control.getBindingContextPathProperty"
+  },
+  {
+    "old": "ui5.common.client.getControlPropertyBinding",
+    "new": "ui5.control.getPropertyBinding"
   },
   {
     "old": "ui5.common.confirmationDialog",

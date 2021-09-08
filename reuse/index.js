@@ -6,7 +6,7 @@ const ReuseLibrary = function () {
   this.load = function () {
 
     /**
-     * @global common
+     * @global
      * @description Global namespace for common modules.
      */
     const common = {
@@ -21,7 +21,7 @@ const ReuseLibrary = function () {
     };
 
     /**
-     * @global util
+     * @global
      * @description Global namespace for util modules.
      */
     const util = {
@@ -37,11 +37,12 @@ const ReuseLibrary = function () {
     };
 
     /**
-     * @global ui5
+     * @global
      * @description Global namespace for UI5 modules.
      */
     const ui5 = {
       assertion: require("./modules/ui5/assertion.js"),
+      client: require("./modules/ui5/client.js"),
       date: require("./modules/ui5/date.js"),
       element: require("./modules/ui5/element.js"),
       navigation: require("./modules/ui5/navigation.js"),
@@ -54,7 +55,7 @@ const ReuseLibrary = function () {
     };
 
     /**
-     * @global nonUi5
+     * @global
      * @description Global namespace for non UI5 modules.
      */
     const nonUi5 = {
