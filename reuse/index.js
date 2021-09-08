@@ -47,6 +47,7 @@ const ReuseLibrary = function () {
       date: require("./modules/ui5/date.js"),
       errorDialog: require("./modules/ui5/errorDialog.js"),
       element: require("./modules/ui5/element.js"),
+      footerBar: require("./modules/ui5/footerBar.js"),
       navigation: require("./modules/ui5/navigation.js"),
       session: require("./modules/ui5/session.js"),
       userInteraction: require("./modules/ui5/userInteraction.js")

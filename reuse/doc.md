@@ -1079,6 +1079,7 @@ Global namespace for UI5 modules.
         * [.clickCreate([timeout])](#ui5.confirmationDialog.clickCreate)
         * [.clickDelete([timeout])](#ui5.confirmationDialog.clickDelete)
         * [.clickRevokeApproval([timeout])](#ui5.confirmationDialog.clickRevokeApproval)
+        * [.clickButton(text, [timeout])](#ui5.confirmationDialog.clickButton)
     * [.control](#ui5.control)
         * [.execute(callbackFunction, selectorOrElement, args)](#ui5.control.execute)
         * [.getProperty(elem, propertyName)](#ui5.control.getProperty)
@@ -1105,6 +1106,16 @@ Global namespace for UI5 modules.
     * [.errorDialog](#ui5.errorDialog)
         * [.expectErrorDialogToBeVisible()](#ui5.errorDialog.expectErrorDialogToBeVisible)
         * [.clickClose()](#ui5.errorDialog.clickClose)
+    * [.footerBar](#ui5.footerBar)
+        * [new footerBar()](#new_ui5.footerBar_new)
+        * [.clickApply([timeout])](#ui5.footerBar.clickApply)
+        * [.clickSave([timeout])](#ui5.footerBar.clickSave)
+        * [.clickCreate([timeout])](#ui5.footerBar.clickCreate)
+        * [.clickCancel([timeout])](#ui5.footerBar.clickCancel)
+        * [.clickCheck([timeout])](#ui5.footerBar.clickCheck)
+        * [.clickOrder([timeout])](#ui5.footerBar.clickOrder)
+        * [.clickPost([timeout])](#ui5.footerBar.clickPost)
+        * [.clickAdd([timeout])](#ui5.footerBar.clickAdd)
     * [.navigation](#ui5.navigation)
         * [.navigateToApplication(intent, [preventPopups], [verify])](#ui5.navigation.navigateToApplication)
         * [.navigateToApplicationAndRetry(intent, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationAndRetry)
@@ -1529,6 +1540,7 @@ await ui5.assertion.expectMessageToastText(text);
     * [.clickCreate([timeout])](#ui5.confirmationDialog.clickCreate)
     * [.clickDelete([timeout])](#ui5.confirmationDialog.clickDelete)
     * [.clickRevokeApproval([timeout])](#ui5.confirmationDialog.clickRevokeApproval)
+    * [.clickButton(text, [timeout])](#ui5.confirmationDialog.clickButton)
 
 <a name="ui5.confirmationDialog.clickButton"></a>
 
@@ -1650,6 +1662,22 @@ Clicks the "Revoke Approval" button at the confirmation dialog.
 **Example**  
 ```js
 await ui5.confirmationDialog.clickRevokeApproval();
+```
+<a name="ui5.confirmationDialog.clickButton"></a>
+
+#### confirmationDialog.clickButton(text, [timeout])
+Clicks the button with the given text at the footer bar.
+
+**Kind**: static method of [<code>confirmationDialog</code>](#ui5.confirmationDialog)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| text | <code>Number</code> |  | The text of the button. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.confirmationDialog.clickButton("Ok");
 ```
 <a name="ui5.control"></a>
 
@@ -2064,6 +2092,147 @@ Clicks the 'Close' button at the error dialog.
 **Example**  
 ```js
 await ui5.errorDialog.clickClose();
+```
+<a name="ui5.footerBar"></a>
+
+### ui5.footerBar
+**Kind**: static class of [<code>ui5</code>](#ui5)  
+
+* [.footerBar](#ui5.footerBar)
+    * [new footerBar()](#new_ui5.footerBar_new)
+    * [.clickApply([timeout])](#ui5.footerBar.clickApply)
+    * [.clickSave([timeout])](#ui5.footerBar.clickSave)
+    * [.clickCreate([timeout])](#ui5.footerBar.clickCreate)
+    * [.clickCancel([timeout])](#ui5.footerBar.clickCancel)
+    * [.clickCheck([timeout])](#ui5.footerBar.clickCheck)
+    * [.clickOrder([timeout])](#ui5.footerBar.clickOrder)
+    * [.clickPost([timeout])](#ui5.footerBar.clickPost)
+    * [.clickAdd([timeout])](#ui5.footerBar.clickAdd)
+
+<a name="new_ui5.footerBar_new"></a>
+
+#### new footerBar()
+Please note: Some of the internally used selectors have text dependencies.Hence these reuse functions might not work for other languages than english.
+
+<a name="ui5.footerBar.clickApply"></a>
+
+#### footerBar.clickApply([timeout])
+Clicks the 'Apply' button at the footer toolbar.
+
+**Kind**: static method of [<code>footerBar</code>](#ui5.footerBar)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.footerBar.clickApply();
+```
+<a name="ui5.footerBar.clickSave"></a>
+
+#### footerBar.clickSave([timeout])
+Clicks the 'Save' button at the footer toolbar.
+
+**Kind**: static method of [<code>footerBar</code>](#ui5.footerBar)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.footerBar.clickSave();
+```
+<a name="ui5.footerBar.clickCreate"></a>
+
+#### footerBar.clickCreate([timeout])
+Clicks the 'Create' button at the footer toolbar.
+
+**Kind**: static method of [<code>footerBar</code>](#ui5.footerBar)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.footerBar.clickCreate();
+```
+<a name="ui5.footerBar.clickCancel"></a>
+
+#### footerBar.clickCancel([timeout])
+Clicks the 'Cancel' button at the footer toolbar.
+
+**Kind**: static method of [<code>footerBar</code>](#ui5.footerBar)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.footerBar.clickCancel();
+```
+<a name="ui5.footerBar.clickCheck"></a>
+
+#### footerBar.clickCheck([timeout])
+Clicks the 'Check' button at the footer toolbar.
+
+**Kind**: static method of [<code>footerBar</code>](#ui5.footerBar)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.footerBar.clickCheck();
+```
+<a name="ui5.footerBar.clickOrder"></a>
+
+#### footerBar.clickOrder([timeout])
+Clicks the 'Order' button at the footer toolbar.
+
+**Kind**: static method of [<code>footerBar</code>](#ui5.footerBar)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.footerBar.clickOrder();
+```
+<a name="ui5.footerBar.clickPost"></a>
+
+#### footerBar.clickPost([timeout])
+Clicks the 'Post' button at the footer toolbar.
+
+**Kind**: static method of [<code>footerBar</code>](#ui5.footerBar)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.footerBar.clickPost();
+```
+<a name="ui5.footerBar.clickAdd"></a>
+
+#### footerBar.clickAdd([timeout])
+Clicks the 'Add' button at the footer toolbar.
+
+**Kind**: static method of [<code>footerBar</code>](#ui5.footerBar)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.footerBar.clickAdd();
 ```
 <a name="ui5.navigation"></a>
 
