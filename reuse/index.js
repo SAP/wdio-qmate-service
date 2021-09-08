@@ -42,7 +42,7 @@ const ReuseLibrary = function () {
      */
     const ui5 = {
       assertion: require("./modules/ui5/assertion.js"),
-      client: require("./modules/ui5/client.js"),
+      control: require("./modules/ui5/control.js"),
       date: require("./modules/ui5/date.js"),
       element: require("./modules/ui5/element.js"),
       navigation: require("./modules/ui5/navigation.js"),
