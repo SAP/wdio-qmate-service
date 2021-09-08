@@ -1070,6 +1070,13 @@ Global namespace for UI5 modules.
         * [.expectLogoutText()](#ui5.assertion.expectLogoutText) ⇒ <code>Promise</code>
         * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.assertion.expectUnsupportedNavigationPopup) ⇒ <code>Promise</code>
         * [.expectMessageToastText(text, [timeout])](#ui5.assertion.expectMessageToastText) ⇒ <code>Promise</code>
+    * [.control](#ui5.control)
+        * [.execute(callbackFunction, selectorOrElement, args)](#ui5.control.execute)
+        * [.getProperty(elem, propertyName)](#ui5.control.getProperty)
+        * [.getAggregationProperty(elem, propertyName)](#ui5.control.getAggregationProperty)
+        * [.getAssociationProperty(elem, propertyName)](#ui5.control.getAssociationProperty)
+        * [.getBindingContextPathProperty(elem)](#ui5.control.getBindingContextPathProperty)
+        * [.getPropertyBinding(elem, propertyName)](#ui5.control.getPropertyBinding) ⇒ <code>Array</code>
     * [.date](#ui5.date)
         * [.pickDate(selector, date)](#ui5.date.pickDate)
         * [.pickDateRange(selector, range)](#ui5.date.pickDateRange)
@@ -1495,6 +1502,132 @@ Expects the message toast with the passed text.
 **Example**  
 ```js
 await ui5.assertion.expectMessageToastText(text);
+```
+<a name="ui5.control"></a>
+
+### ui5.control
+**Kind**: static class of [<code>ui5</code>](#ui5)  
+
+* [.control](#ui5.control)
+    * [.execute(callbackFunction, selectorOrElement, args)](#ui5.control.execute)
+    * [.getProperty(elem, propertyName)](#ui5.control.getProperty)
+    * [.getAggregationProperty(elem, propertyName)](#ui5.control.getAggregationProperty)
+    * [.getAssociationProperty(elem, propertyName)](#ui5.control.getAssociationProperty)
+    * [.getBindingContextPathProperty(elem)](#ui5.control.getBindingContextPathProperty)
+    * [.getPropertyBinding(elem, propertyName)](#ui5.control.getPropertyBinding) ⇒ <code>Array</code>
+
+<a name="ui5.control.execute"></a>
+
+#### control.execute(callbackFunction, selectorOrElement, args)
+Executes a native UI5 action as callback function in the browser on the given UI5 control.
+
+**Kind**: static method of [<code>control</code>](#ui5.control)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| callbackFunction | <code>function</code> | The client script function to be used with the control instance. Caution: The first and last argument is reserved (1st param is the control instance and last argument the promise resolve function - done) |
+| selectorOrElement | <code>String</code> \| <code>Object</code> | The selector object or the dom element (retrieved from getDisplayedElement). |
+| args | <code>Object</code> | An object containing the arguments to pass to the callback function. |
+
+**Example**  
+```js
+const selector = {"elementProperties":{"metadata":"sap.m.StandardListItem", "id": "*categoryList-7"}};const args = {"property": "text"};const title = await ui5.control.execute(function(control, args, done){
+      done(control.getProperty(args.property));
+    }, selector, args);
+```
+<a name="ui5.control.getProperty"></a>
+
+#### control.getProperty(elem, propertyName)
+Gets the UI5 control property of the given element.
+
+**Kind**: static method of [<code>control</code>](#ui5.control)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+| propertyName | <code>String</code> | The property name of the control to retrieve the value from. |
+
+**Example**  
+```js
+const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};
+    const elem = await ui5.control.locator.getDisplayedElement(selector);
+    const propertyName = "title";
+    const val = await ui5.control.getProperty(elem, propertyName);
+```
+<a name="ui5.control.getAggregationProperty"></a>
+
+#### control.getAggregationProperty(elem, propertyName)
+Gets the UI5 control aggregation property  of the given element.
+
+**Kind**: static method of [<code>control</code>](#ui5.control)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+| propertyName | <code>String</code> | The aggregation property name of the control to retrieve the value from. |
+
+**Example**  
+```js
+const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "items":[{"path":"/Categories"}] }};
+    const elem = await ui5.control.locator.getDisplayedElement(selector);
+    const propertyName = "tooltip";
+    const val = await ui5.control.getAggregationProperty(elem, propertyName);
+```
+<a name="ui5.control.getAssociationProperty"></a>
+
+#### control.getAssociationProperty(elem, propertyName)
+Get UI control property
+
+**Kind**: static method of [<code>control</code>](#ui5.control)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+| propertyName | <code>String</code> | The association property name of the control to retrieve the value from. |
+
+**Example**  
+```js
+const selector = { "elementProperties":{"metadata":"sap.m.MultiComboBox","mProperties":{}};
+    const elem = await ui5.control.locator.getDisplayedElement(selector);
+    const propertyName = "selectedItems";
+    const propertyValue = await ui5.control.getAssociationProperty(elem, propertyName);
+```
+<a name="ui5.control.getBindingContextPathProperty"></a>
+
+#### control.getBindingContextPathProperty(elem)
+Get UI control binding context path
+
+**Kind**: static method of [<code>control</code>](#ui5.control)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+
+**Example**  
+```js
+const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{"title":[{"path":"CategoryName"}] }};
+    const elem = await ui5.control.locator.getDisplayedElement(selector);
+    const context = await ui5.control.getBindingContextPathProperty(elem);
+```
+<a name="ui5.control.getPropertyBinding"></a>
+
+#### control.getPropertyBinding(elem, propertyName) ⇒ <code>Array</code>
+Get UI control property
+
+**Kind**: static method of [<code>control</code>](#ui5.control)  
+**Returns**: <code>Array</code> - Array of bindings for the specific property  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+| propertyName | <code>String</code> | The property name to retrieve from the control binding |
+
+**Example**  
+```js
+const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};
+    const elem = await ui5.control.locator.getDisplayedElement(selector);
+    const propertyName = "title";
+    const binding = await ui5.control.getPropertyBinding(elem, propertyName);
 ```
 <a name="ui5.date"></a>
 
