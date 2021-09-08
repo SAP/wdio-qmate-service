@@ -129,5 +129,6 @@ const FooterBar = function () {
   this.clickMessageBoxButton = async function () {
     return ui5.messageBox.clickMessageBoxButton();
   };
+
 };
 module.exports = new FooterBar();
