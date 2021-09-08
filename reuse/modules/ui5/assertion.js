@@ -472,7 +472,7 @@ const Assertion = function () {
       throw new Error("Function 'expectMessageToast' failed. Please provide the expected text as argument.");
     }
     const xpath = "//div[contains(@class, 'sapMMessageToast') and contains(string(), '" + text + "')]";
-    const elem = await non_ui5.locator.getElementByXPath(xpath, 0, timeout);
+    const elem = await nonUi5.locator.getElementByXPath(xpath, 0, timeout);
     return nonUi5.assertion.isVisible(elem); //TODO: should be a strict assertion which fails instead of returning true/false
   };
 
