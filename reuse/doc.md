@@ -1070,6 +1070,15 @@ Global namespace for UI5 modules.
         * [.expectLogoutText()](#ui5.assertion.expectLogoutText) ⇒ <code>Promise</code>
         * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.assertion.expectUnsupportedNavigationPopup) ⇒ <code>Promise</code>
         * [.expectMessageToastText(text, [timeout])](#ui5.assertion.expectMessageToastText) ⇒ <code>Promise</code>
+    * [.confirmationDialog](#ui5.confirmationDialog)
+        * [.clickButton(text, [timeout])](#ui5.confirmationDialog.clickButton)
+        * [.clickOk([timeout])](#ui5.confirmationDialog.clickOk)
+        * [.clickCancel([timeout])](#ui5.confirmationDialog.clickCancel)
+        * [.clickYes([timeout])](#ui5.confirmationDialog.clickYes)
+        * [.clickNo([timeout])](#ui5.confirmationDialog.clickNo)
+        * [.clickCreate([timeout])](#ui5.confirmationDialog.clickCreate)
+        * [.clickDelete([timeout])](#ui5.confirmationDialog.clickDelete)
+        * [.clickRevokeApproval([timeout])](#ui5.confirmationDialog.clickRevokeApproval)
     * [.control](#ui5.control)
         * [.execute(callbackFunction, selectorOrElement, args)](#ui5.control.execute)
         * [.getProperty(elem, propertyName)](#ui5.control.getProperty)
@@ -1502,6 +1511,142 @@ Expects the message toast with the passed text.
 **Example**  
 ```js
 await ui5.assertion.expectMessageToastText(text);
+```
+<a name="ui5.confirmationDialog"></a>
+
+### ui5.confirmationDialog
+**Kind**: static class of [<code>ui5</code>](#ui5)  
+
+* [.confirmationDialog](#ui5.confirmationDialog)
+    * [.clickButton(text, [timeout])](#ui5.confirmationDialog.clickButton)
+    * [.clickOk([timeout])](#ui5.confirmationDialog.clickOk)
+    * [.clickCancel([timeout])](#ui5.confirmationDialog.clickCancel)
+    * [.clickYes([timeout])](#ui5.confirmationDialog.clickYes)
+    * [.clickNo([timeout])](#ui5.confirmationDialog.clickNo)
+    * [.clickCreate([timeout])](#ui5.confirmationDialog.clickCreate)
+    * [.clickDelete([timeout])](#ui5.confirmationDialog.clickDelete)
+    * [.clickRevokeApproval([timeout])](#ui5.confirmationDialog.clickRevokeApproval)
+
+<a name="ui5.confirmationDialog.clickButton"></a>
+
+#### confirmationDialog.clickButton(text, [timeout])
+Clicks the button with the given text at the confirmation dialog.
+
+**Kind**: static method of [<code>confirmationDialog</code>](#ui5.confirmationDialog)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| text | <code>Number</code> |  | The text of the button. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.confirmationDialog.clickButton("Ok");
+```
+<a name="ui5.confirmationDialog.clickOk"></a>
+
+#### confirmationDialog.clickOk([timeout])
+Clicks the "OK" button at the confirmation dialog.
+
+**Kind**: static method of [<code>confirmationDialog</code>](#ui5.confirmationDialog)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.confirmationDialog.clickOk();
+```
+<a name="ui5.confirmationDialog.clickCancel"></a>
+
+#### confirmationDialog.clickCancel([timeout])
+Clicks the "Cancel" button at the confirmation dialog.
+
+**Kind**: static method of [<code>confirmationDialog</code>](#ui5.confirmationDialog)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.confirmationDialog.clickCancel();
+```
+<a name="ui5.confirmationDialog.clickYes"></a>
+
+#### confirmationDialog.clickYes([timeout])
+Clicks the "Yes" button at the confirmation dialog.
+
+**Kind**: static method of [<code>confirmationDialog</code>](#ui5.confirmationDialog)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [timeout] | <code>Number</code> | The timeout to wait (default value: 30 sec). |
+
+**Example**  
+```js
+await ui5.confirmationDialog.clickYes();
+```
+<a name="ui5.confirmationDialog.clickNo"></a>
+
+#### confirmationDialog.clickNo([timeout])
+Clicks the "Yes" button at the confirmation dialog.
+
+**Kind**: static method of [<code>confirmationDialog</code>](#ui5.confirmationDialog)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [timeout] | <code>Number</code> | The timeout to wait (default value: 30 sec). |
+
+**Example**  
+```js
+await ui5.confirmationDialog.clickNo();
+```
+<a name="ui5.confirmationDialog.clickCreate"></a>
+
+#### confirmationDialog.clickCreate([timeout])
+Clicks the create button in the confirmation dialog
+
+**Kind**: static method of [<code>confirmationDialog</code>](#ui5.confirmationDialog)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [timeout] | <code>Number</code> | The timeout to wait (default value: 30 sec). |
+
+**Example**  
+```js
+await ui5.confirmationDialog.clickCreate();
+```
+<a name="ui5.confirmationDialog.clickDelete"></a>
+
+#### confirmationDialog.clickDelete([timeout])
+Clicks the "Delete" button at the confirmation dialog.
+
+**Kind**: static method of [<code>confirmationDialog</code>](#ui5.confirmationDialog)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [timeout] | <code>Number</code> | The timeout to wait (default value: 30 sec). |
+
+**Example**  
+```js
+await ui5.confirmationDialog.clickDelete();
+```
+<a name="ui5.confirmationDialog.clickRevokeApproval"></a>
+
+#### confirmationDialog.clickRevokeApproval([timeout])
+Clicks the "Revoke Approval" button at the confirmation dialog.
+
+**Kind**: static method of [<code>confirmationDialog</code>](#ui5.confirmationDialog)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [timeout] | <code>Number</code> | The timeout to wait (default value: 30 sec). |
+
+**Example**  
+```js
+await ui5.confirmationDialog.clickRevokeApproval();
 ```
 <a name="ui5.control"></a>
 
