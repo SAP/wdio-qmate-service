@@ -1079,7 +1079,6 @@ Global namespace for UI5 modules.
         * [.clickCreate([timeout])](#ui5.confirmationDialog.clickCreate)
         * [.clickDelete([timeout])](#ui5.confirmationDialog.clickDelete)
         * [.clickRevokeApproval([timeout])](#ui5.confirmationDialog.clickRevokeApproval)
-        * [.clickButton(text, [timeout])](#ui5.confirmationDialog.clickButton)
     * [.control](#ui5.control)
         * [.execute(callbackFunction, selectorOrElement, args)](#ui5.control.execute)
         * [.getProperty(elem, propertyName)](#ui5.control.getProperty)
@@ -1107,6 +1106,7 @@ Global namespace for UI5 modules.
         * [.expectErrorDialogToBeVisible()](#ui5.errorDialog.expectErrorDialogToBeVisible)
         * [.clickClose()](#ui5.errorDialog.clickClose)
     * [.footerBar](#ui5.footerBar)
+        * [.clickButton(text, [timeout])](#ui5.footerBar.clickButton)
         * [.clickApply([timeout])](#ui5.footerBar.clickApply)
         * [.clickSave([timeout])](#ui5.footerBar.clickSave)
         * [.clickCreate([timeout])](#ui5.footerBar.clickCreate)
@@ -1153,6 +1153,11 @@ Global namespace for UI5 modules.
         * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
         * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
         * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
+    * [.messageBox](#ui5.messageBox) : <code>object</code>
+        * [.clickMessageBoxButton()](#ui5.messageBox.clickMessageBoxButton)
+        * [.closeMessageBox()](#ui5.messageBox.closeMessageBox)
+        * [.expectMessageBoxToBeVisible()](#ui5.messageBox.expectMessageBoxToBeVisible)
+        * [.isMessageBoxVisible()](#ui5.messageBox.isMessageBoxVisible) ⇒ <code>Boolean</code>
 
 <a name="ui5.assertion"></a>
 
@@ -1539,7 +1544,6 @@ await ui5.assertion.expectMessageToastText(text);
     * [.clickCreate([timeout])](#ui5.confirmationDialog.clickCreate)
     * [.clickDelete([timeout])](#ui5.confirmationDialog.clickDelete)
     * [.clickRevokeApproval([timeout])](#ui5.confirmationDialog.clickRevokeApproval)
-    * [.clickButton(text, [timeout])](#ui5.confirmationDialog.clickButton)
 
 <a name="ui5.confirmationDialog.clickButton"></a>
 
@@ -1661,22 +1665,6 @@ Clicks the "Revoke Approval" button at the confirmation dialog.
 **Example**  
 ```js
 await ui5.confirmationDialog.clickRevokeApproval();
-```
-<a name="ui5.confirmationDialog.clickButton"></a>
-
-#### confirmationDialog.clickButton(text, [timeout])
-Clicks the button with the given text at the footer bar.
-
-**Kind**: static method of [<code>confirmationDialog</code>](#ui5.confirmationDialog)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| text | <code>Number</code> |  | The text of the button. |
-| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-
-**Example**  
-```js
-await ui5.confirmationDialog.clickButton("Ok");
 ```
 <a name="ui5.control"></a>
 
@@ -2098,6 +2086,7 @@ await ui5.errorDialog.clickClose();
 **Kind**: static class of [<code>ui5</code>](#ui5)  
 
 * [.footerBar](#ui5.footerBar)
+    * [.clickButton(text, [timeout])](#ui5.footerBar.clickButton)
     * [.clickApply([timeout])](#ui5.footerBar.clickApply)
     * [.clickSave([timeout])](#ui5.footerBar.clickSave)
     * [.clickCreate([timeout])](#ui5.footerBar.clickCreate)
@@ -2107,6 +2096,22 @@ await ui5.errorDialog.clickClose();
     * [.clickPost([timeout])](#ui5.footerBar.clickPost)
     * [.clickAdd([timeout])](#ui5.footerBar.clickAdd)
 
+<a name="ui5.footerBar.clickButton"></a>
+
+#### footerBar.clickButton(text, [timeout])
+Clicks the button with the given text at the footer bar.
+
+**Kind**: static method of [<code>footerBar</code>](#ui5.footerBar)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| text | <code>Number</code> |  | The text of the button. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.footerBar.clickButton("Ok");
+```
 <a name="ui5.footerBar.clickApply"></a>
 
 #### footerBar.clickApply([timeout])
@@ -2931,6 +2936,58 @@ Resets the search field.
 **Example**  
 ```js
 await ui5.userInteraction.resetSearch(selector);
+```
+<a name="ui5.messageBox"></a>
+
+### ui5.messageBox : <code>object</code>
+**Kind**: static namespace of [<code>ui5</code>](#ui5)  
+
+* [.messageBox](#ui5.messageBox) : <code>object</code>
+    * [.clickMessageBoxButton()](#ui5.messageBox.clickMessageBoxButton)
+    * [.closeMessageBox()](#ui5.messageBox.closeMessageBox)
+    * [.expectMessageBoxToBeVisible()](#ui5.messageBox.expectMessageBoxToBeVisible)
+    * [.isMessageBoxVisible()](#ui5.messageBox.isMessageBoxVisible) ⇒ <code>Boolean</code>
+
+<a name="ui5.messageBox.clickMessageBoxButton"></a>
+
+#### messageBox.clickMessageBoxButton()
+Opens the message box by clicking the button at the footer bar.
+
+**Kind**: static method of [<code>messageBox</code>](#ui5.messageBox)  
+**Example**  
+```js
+await ui5.messageBox.clickMessageBoxButton();
+```
+<a name="ui5.messageBox.closeMessageBox"></a>
+
+#### messageBox.closeMessageBox()
+Closes the message box.
+
+**Kind**: static method of [<code>messageBox</code>](#ui5.messageBox)  
+**Example**  
+```js
+await ui5.messageBox.closeMessageBox();
+```
+<a name="ui5.messageBox.expectMessageBoxToBeVisible"></a>
+
+#### messageBox.expectMessageBoxToBeVisible()
+Expects the MessageBox to be visible.
+
+**Kind**: static method of [<code>messageBox</code>](#ui5.messageBox)  
+**Example**  
+```js
+await ui5.messageBox.expectMessageBoxToBeVisible();
+```
+<a name="ui5.messageBox.isMessageBoxVisible"></a>
+
+#### messageBox.isMessageBoxVisible() ⇒ <code>Boolean</code>
+Determines if the messageBox is visible.
+
+**Kind**: static method of [<code>messageBox</code>](#ui5.messageBox)  
+**Returns**: <code>Boolean</code> - Bool value if the element is visible or not.  
+**Example**  
+```js
+await ui5.messageBox.isMessageBoxVisible();
 ```
 <a name="nonUi5"></a>
 
