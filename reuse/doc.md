@@ -1102,6 +1102,9 @@ Global namespace for UI5 modules.
         * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
         * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.element.scrollToElement)
         * [.highlightElement(selector, [duration], [color])](#ui5.element.highlightElement)
+    * [.errorDialog](#ui5.errorDialog)
+        * [.expectErrorDialogToBeVisible()](#ui5.errorDialog.expectErrorDialogToBeVisible)
+        * [.clickClose()](#ui5.errorDialog.clickClose)
     * [.navigation](#ui5.navigation)
         * [.navigateToApplication(intent, [preventPopups], [verify])](#ui5.navigation.navigateToApplication)
         * [.navigateToApplicationAndRetry(intent, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationAndRetry)
@@ -2032,6 +2035,35 @@ Highlights the element with the given selector.
 **Example**  
 ```js
 await ui5.element.highlightElement(selector, 3000, "green");
+```
+<a name="ui5.errorDialog"></a>
+
+### ui5.errorDialog
+**Kind**: static class of [<code>ui5</code>](#ui5)  
+
+* [.errorDialog](#ui5.errorDialog)
+    * [.expectErrorDialogToBeVisible()](#ui5.errorDialog.expectErrorDialogToBeVisible)
+    * [.clickClose()](#ui5.errorDialog.clickClose)
+
+<a name="ui5.errorDialog.expectErrorDialogToBeVisible"></a>
+
+#### errorDialog.expectErrorDialogToBeVisible()
+Expects that the error dialog is visible on the page.
+
+**Kind**: static method of [<code>errorDialog</code>](#ui5.errorDialog)  
+**Example**  
+```js
+await ui5.errorDialog.expectErrorDialogToBeVisible();
+```
+<a name="ui5.errorDialog.clickClose"></a>
+
+#### errorDialog.clickClose()
+Clicks the 'Close' button at the error dialog.
+
+**Kind**: static method of [<code>errorDialog</code>](#ui5.errorDialog)  
+**Example**  
+```js
+await ui5.errorDialog.clickClose();
 ```
 <a name="ui5.navigation"></a>
 
