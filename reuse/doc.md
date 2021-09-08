@@ -1107,7 +1107,6 @@ Global namespace for UI5 modules.
         * [.expectErrorDialogToBeVisible()](#ui5.errorDialog.expectErrorDialogToBeVisible)
         * [.clickClose()](#ui5.errorDialog.clickClose)
     * [.footerBar](#ui5.footerBar)
-        * [new footerBar()](#new_ui5.footerBar_new)
         * [.clickApply([timeout])](#ui5.footerBar.clickApply)
         * [.clickSave([timeout])](#ui5.footerBar.clickSave)
         * [.clickCreate([timeout])](#ui5.footerBar.clickCreate)
@@ -2099,7 +2098,6 @@ await ui5.errorDialog.clickClose();
 **Kind**: static class of [<code>ui5</code>](#ui5)  
 
 * [.footerBar](#ui5.footerBar)
-    * [new footerBar()](#new_ui5.footerBar_new)
     * [.clickApply([timeout])](#ui5.footerBar.clickApply)
     * [.clickSave([timeout])](#ui5.footerBar.clickSave)
     * [.clickCreate([timeout])](#ui5.footerBar.clickCreate)
@@ -2108,11 +2106,6 @@ await ui5.errorDialog.clickClose();
     * [.clickOrder([timeout])](#ui5.footerBar.clickOrder)
     * [.clickPost([timeout])](#ui5.footerBar.clickPost)
     * [.clickAdd([timeout])](#ui5.footerBar.clickAdd)
-
-<a name="new_ui5.footerBar_new"></a>
-
-#### new footerBar()
-Please note: Some of the internally used selectors have text dependencies.Hence these reuse functions might not work for other languages than english.
 
 <a name="ui5.footerBar.clickApply"></a>
 
