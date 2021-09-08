@@ -40,6 +40,7 @@ rules:
   no-redeclare: 2
   no-undef: 2
   no-unused-expressions: 2
+  no-return-await: 2
   quotes: [2, 'double', {avoidEscape: true, allowTemplateLiterals: true}]
   prefer-const: 1
   semi: [2, 'always']

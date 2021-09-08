@@ -22,11 +22,11 @@ const FooterBar = function () {
 
   /**
    * @function clickButton
-   * @memberOf ui5.confirmationDialog
+   * @memberOf ui5.footerBar
    * @description Clicks the button with the given text at the footer bar.
    * @param {Number} text - The text of the button.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await ui5.confirmationDialog.clickButton("Ok");
+   * @example await ui5.footerBar.clickButton("Ok");
    */
   this.clickButton = async function (text, timeout = 30000) {
     return ui5.userInteraction.click(this.selector.genericButton(text), 0, timeout);
