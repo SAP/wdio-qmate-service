@@ -11,7 +11,7 @@ const ReuseLibrary = function () {
      */
     const common = {
       assertion: require("./modules/common/assertion.js"),
-      date: require("./modules/common/util/date.js"),
+      date: require("./modules/common/date.js"),
       navigation: require("./modules/common/navigation.js"),
       userInteraction: require("./modules/common/userInteraction.js")
     };
