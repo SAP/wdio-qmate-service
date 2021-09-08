@@ -120,10 +120,6 @@
     "new": "util.formatter"
   },
   {
-    "old": "ui5.common.iconTabBar",
-    "new": "TODO"
-  },
-  {
     "old": "ui5.common.locator",
     "new": "ui5.element"
   },
