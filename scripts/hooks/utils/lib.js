@@ -259,7 +259,7 @@ var LibScripts = function () {
       return false;
     }, {
       timeout: finalTimeout,
-      timeoutMsg: `uiControlExecuteLocator(): No visible elements found with selector: ${utilities.formatter.stringifyJSON(ui5Selector)}`,
+      timeoutMsg: `uiControlExecuteLocator(): No visible elements found with selector: ${JSON.stringify(ui5Selector)}`,
       interval: 400
     });
     if (elems && Array.isArray(elems) && elems.length > 0 &&
