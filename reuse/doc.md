@@ -1531,9 +1531,10 @@ Executes a native UI5 action as callback function in the browser on the given UI
 
 **Example**  
 ```js
-const selector = {"elementProperties":{"metadata":"sap.m.StandardListItem", "id": "*categoryList-7"}};const args = {"property": "text"};const title = await ui5.control.execute(function(control, args, done){
-      done(control.getProperty(args.property));
-    }, selector, args);
+const selector = {"elementProperties":{"metadata":"sap.m.StandardListItem", "id": "*categoryList-7"}};const args = {"property": "text"};
+  const title = await ui5.control.execute(function (control, args, done) {
+    done(control.getProperty(args.property));
+  }, selector, args);
 ```
 <a name="ui5.control.getProperty"></a>
 
@@ -1550,9 +1551,9 @@ Gets the UI5 control property of the given element.
 **Example**  
 ```js
 const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};
-    const elem = await ui5.control.locator.getDisplayedElement(selector);
-    const propertyName = "title";
-    const val = await ui5.control.getProperty(elem, propertyName);
+  const elem = await ui5.control.locator.getDisplayedElement(selector);
+  const propertyName = "title";
+  const val = await ui5.control.getProperty(elem, propertyName);
 ```
 <a name="ui5.control.getAggregationProperty"></a>
 
@@ -1569,9 +1570,9 @@ Gets the UI5 control aggregation property  of the given element.
 **Example**  
 ```js
 const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "items":[{"path":"/Categories"}] }};
-    const elem = await ui5.control.locator.getDisplayedElement(selector);
-    const propertyName = "tooltip";
-    const val = await ui5.control.getAggregationProperty(elem, propertyName);
+  const elem = await ui5.control.locator.getDisplayedElement(selector);
+  const propertyName = "tooltip";
+  const val = await ui5.control.getAggregationProperty(elem, propertyName);
 ```
 <a name="ui5.control.getAssociationProperty"></a>
 
@@ -1588,9 +1589,9 @@ Get UI control property
 **Example**  
 ```js
 const selector = { "elementProperties":{"metadata":"sap.m.MultiComboBox","mProperties":{}};
-    const elem = await ui5.control.locator.getDisplayedElement(selector);
-    const propertyName = "selectedItems";
-    const propertyValue = await ui5.control.getAssociationProperty(elem, propertyName);
+  const elem = await ui5.control.locator.getDisplayedElement(selector);
+  const propertyName = "selectedItems";
+  const propertyValue = await ui5.control.getAssociationProperty(elem, propertyName);
 ```
 <a name="ui5.control.getBindingContextPathProperty"></a>
 
@@ -1606,8 +1607,8 @@ Get UI control binding context path
 **Example**  
 ```js
 const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{"title":[{"path":"CategoryName"}] }};
-    const elem = await ui5.control.locator.getDisplayedElement(selector);
-    const context = await ui5.control.getBindingContextPathProperty(elem);
+  const elem = await ui5.control.locator.getDisplayedElement(selector);
+  const context = await ui5.control.getBindingContextPathProperty(elem);
 ```
 <a name="ui5.control.getPropertyBinding"></a>
 
@@ -1625,9 +1626,9 @@ Get UI control property
 **Example**  
 ```js
 const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};
-    const elem = await ui5.control.locator.getDisplayedElement(selector);
-    const propertyName = "title";
-    const binding = await ui5.control.getPropertyBinding(elem, propertyName);
+  const elem = await ui5.control.locator.getDisplayedElement(selector);
+  const propertyName = "title";
+  const binding = await ui5.control.getPropertyBinding(elem, propertyName);
 ```
 <a name="ui5.date"></a>
 
