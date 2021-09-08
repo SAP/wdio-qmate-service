@@ -1123,6 +1123,10 @@ Global namespace for UI5 modules.
         * [.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])](#ui5.navigation.navigateToApplicationWithQueryParams)
         * [.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationWithQueryParamsAndRetry)
         * [.closePopups([timeout])](#ui5.navigation.closePopups)
+    * [.navigationBar](#ui5.navigationBar)
+        * [.clickBack([timeout])](#ui5.navigationBar.clickBack)
+        * [.clickSapLogo([timeout])](#ui5.navigationBar.clickSapLogo)
+        * [.clickUserIcon([timeout])](#ui5.navigationBar.clickUserIcon)
     * [.session](#ui5.session)
         * [.login(username, [password], [verify], [timeout])](#ui5.session.login)
         * [.loginFiori(username, [password], [verify])](#ui5.session.loginFiori)
@@ -2372,6 +2376,61 @@ Closes all popups if they occur after navigating to a specific page.
 **Example**  
 ```js
 await ui5.navigation.closePopups();
+```
+<a name="ui5.navigationBar"></a>
+
+### ui5.navigationBar
+**Kind**: static class of [<code>ui5</code>](#ui5)  
+
+* [.navigationBar](#ui5.navigationBar)
+    * [.clickBack([timeout])](#ui5.navigationBar.clickBack)
+    * [.clickSapLogo([timeout])](#ui5.navigationBar.clickSapLogo)
+    * [.clickUserIcon([timeout])](#ui5.navigationBar.clickUserIcon)
+
+<a name="ui5.navigationBar.clickBack"></a>
+
+#### navigationBar.clickBack([timeout])
+Navigates one layer back.
+
+**Kind**: static method of [<code>navigationBar</code>](#ui5.navigationBar)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.navigationBar.clickBack();
+```
+<a name="ui5.navigationBar.clickSapLogo"></a>
+
+#### navigationBar.clickSapLogo([timeout])
+Clicks at the SAP Logo.
+
+**Kind**: static method of [<code>navigationBar</code>](#ui5.navigationBar)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.navigationBar.clickSapLogo();
+```
+<a name="ui5.navigationBar.clickUserIcon"></a>
+
+#### navigationBar.clickUserIcon([timeout])
+Clicks at the Account Icon.
+
+**Kind**: static method of [<code>navigationBar</code>](#ui5.navigationBar)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.navigationBar.clickUserIcon();
 ```
 <a name="ui5.session"></a>
 

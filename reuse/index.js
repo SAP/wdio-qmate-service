@@ -50,6 +50,7 @@ const ReuseLibrary = function () {
       footerBar: require("./modules/ui5/footerBar.js"),
       messageBox: require("./modules/ui5/messageBox.js"),
       navigation: require("./modules/ui5/navigation.js"),
+      navigationBar: require("./modules/ui5/navigationBar.js"),
       session: require("./modules/ui5/session.js"),
       userInteraction: require("./modules/ui5/userInteraction.js")
     };
