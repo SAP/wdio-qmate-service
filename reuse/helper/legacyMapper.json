@@ -69,11 +69,7 @@
   },
   {
     "old": "ui5.common.confirmationDialog",
-    "new": "TODO"
-  },
-  {
-    "old": "ui5.common.date",
-    "new": "ui5.date"
+    "new": "ui5.confirmationDialog"
   },
   {
     "old": "ui5.common.date.getToday",
@@ -108,24 +104,12 @@
     "new": "common.date.calculateDate"
   },
   {
-    "old": "ui5.common.errorDialog",
-    "new": "TODO"
-  },
-  {
-    "old": "ui5.common.footerBar",
-    "new": "TODO"
-  },
-  {
-    "old": "ui5.util.formatter",
+    "old": "ui5.common.formatter",
     "new": "util.formatter"
   },
   {
     "old": "ui5.common.locator",
     "new": "ui5.element"
-  },
-  {
-    "old": "ui5.common.messageBox",
-    "new": "TODO"
   },
   {
     "old": "ui5.common.navigation.navigateToUrl",
@@ -213,23 +197,23 @@
   },
   {
     "old": "non_ui5.common.assertion.isVisible",
-    "new": "common.element.isVisible"
+    "new": "nonUi5.element.isVisible"
   },
   {
     "old": "non_ui5.common.assertion.isElementPresent",
-    "new": "common.element.isElementPresent"
+    "new": "nonUi5.element.isElementPresent"
   },
   {
     "old": "non_ui5.common.assertion.isPresentByCss",
-    "new": "common.element.isPresentByCss"
+    "new": "nonUi5.element.isPresentByCss"
   },
   {
     "old": "non_ui5.common.assertion.isPresent",
-    "new": "common.element.isPresentByCss"
+    "new": "nonUi5.element.isPresentByCss"
   },
   {
     "old": "non_ui5.common.assertion.isPresentByXPath",
-    "new": "common.element.isPresentByXPath"
+    "new": "nonUi5.element.isPresentByXPath"
   },
   {
     "old": "non_ui5.common.locator",
