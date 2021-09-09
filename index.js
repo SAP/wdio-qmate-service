@@ -76,9 +76,9 @@ module.exports = class CustomWorkerService {
     } catch (e) {
       if (specs && specs[0]) {
         // `specs` variable is an array, but includes only one current spec
-        console.error(`qmateLoader() in 'before' hook failed for spec '${specs[0]}'. ${e}`);
+        util.console.error(`qmateLoader() in 'before' hook failed for spec '${specs[0]}'. ${e}`);
       } else {
-        console.error(`qmateLoader() in 'before' hook failed. ${e}`);
+        util.console.error(`qmateLoader() in 'before' hook failed. ${e}`);
       }
     }
   }
@@ -88,7 +88,7 @@ module.exports = class CustomWorkerService {
    * @param {Object} suite suite details
    */
   async beforeSuite(suite) {
-    console.log(` ${suite.fullTitle}  `, "black", "white");
+    util.console.log(` ${suite.fullTitle}  `, "black", "white");
   }
 
   /**
@@ -106,9 +106,9 @@ module.exports = class CustomWorkerService {
     const testName = test.title || test.description;
     // Print test titles as in vyperForAll during test run
     if (!error && passed === true) {
-      console.info(`\x1b[32m\t✓ ${testName}\x1b[0m \t${Math.round(duration/1000)}s`);
+      util.console.info(`\x1b[32m\t✓ ${testName}\x1b[0m \t${Math.round(duration/1000)}s`);
     } else if (error || passed !== true) {
-      console.error(`\x1b[31m\t✗ ${testName}\x1b[0m \t${Math.round(duration/1000)}s`);
+      util.console.error(`\x1b[31m\t✗ ${testName}\x1b[0m \t${Math.round(duration/1000)}s`);
     }
   }
 
@@ -123,7 +123,7 @@ module.exports = class CustomWorkerService {
     try {
       afterHook(result, capabilities, specs);
     } catch (e) {
-      console.error(`after hook failed: ${e}`);
+      util.console.error(`after hook failed: ${e}`);
     }
   }
 
@@ -139,7 +139,7 @@ module.exports = class CustomWorkerService {
     try {
       await onCompleteHook(exitCode, config, capabilities, results);
     } catch (e) {
-      console.error(`onComplete hook failed: ${e}`);
+      util.console.error(`onComplete hook failed: ${e}`);
     }
   }
 };

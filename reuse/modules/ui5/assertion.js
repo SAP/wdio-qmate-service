@@ -294,7 +294,7 @@ const Assertion = function () {
       const isDomVisible = await elem.isDisplayed();
       value = isUi5Visible || isDomVisible;
     }
-    this.expectTrue(value);
+    common.assertion.expectTrue(value);
   };
 
   /**
@@ -455,7 +455,7 @@ const Assertion = function () {
     const dataHtmlText = await detailsTextElement.getAttribute("data-htmltext");
     const stringExists = await dataHtmlText.includes(navigationTarget.replace(/&/g, "&amp;"));
 
-    return this.expectTrue(stringExists);
+    return common.assertion.expectTrue(stringExists);
   };
 
   /**
