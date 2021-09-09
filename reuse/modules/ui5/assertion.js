@@ -79,7 +79,7 @@ const Assertion = function () {
         util.console.info("Removing trailing spaces didn't work for 'text' property.");
       }
     }
-    return await expect(value).toContain(compareValue);
+    return expect(value).toContain(compareValue);
   };
 
   /**
@@ -414,7 +414,7 @@ const Assertion = function () {
    * @example await ui5.assertion.expectLogoutText();
    */
   this.expectLogoutText = async function () {
-    const elem = await nonUi5.locator.getElementById("msgText");
+    const elem = await nonUi5.element.getElementById("msgText");
     await nonUi5.assertion.expectToBeVisible(elem);
   };
 
@@ -472,8 +472,8 @@ const Assertion = function () {
       throw new Error("Function 'expectMessageToast' failed. Please provide the expected text as argument.");
     }
     const xpath = "//div[contains(@class, 'sapMMessageToast') and contains(string(), '" + text + "')]";
-    const elem = await nonUi5.locator.getElementByXPath(xpath, 0, timeout);
-    return nonUi5.assertion.isVisible(elem); //TODO: should be a strict assertion which fails instead of returning true/false
+    const elem = await nonUi5.element.getElementByXPath(xpath, 0, timeout);
+    return nonUi5.element.isVisible(elem); //TODO: should be a strict assertion which fails instead of returning true/false
   };
 
 };

@@ -26,8 +26,8 @@ const Session = function () {
       await browser.waitUntil(async function () {
         try {
           const fioriFormId = ui5.authenticators.fioriForm.formId;
-          const elem = await nonUi5.locator.getElementByCss(fioriFormId, 0, 7500);
-          await nonUi5.assertion.isVisible(elem);
+          const elem = await nonUi5.element.getElementByCss(fioriFormId, 0, 7500);
+          await nonUi5.element.isVisible(elem);
           authenticator = ui5.authenticators.fioriForm;
           return true;
         } catch (e) {
@@ -35,8 +35,8 @@ const Session = function () {
         }
         try {
           const sapCloudFormId = ui5.authenticators.sapCloudForm.formId;
-          const elem = await nonUi5.locator.getElementByCss(sapCloudFormId, 0, 7500);
-          await nonUi5.assertion.isVisible(elem);
+          const elem = await nonUi5.element.getElementByCss(sapCloudFormId, 0, 7500);
+          await nonUi5.element.isVisible(elem);
           authenticator = ui5.authenticators.sapCloudForm;
           return true;
         } catch (e) {

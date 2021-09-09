@@ -108,9 +108,9 @@ const UserInteraction = function () {
       const id = await ui5.locator.getElementId(selector, index, timeout);
       let elem = null;
       if (selector.elementProperties.metadata === "sap.m.TextArea") {
-        elem = await nonUi5.locator.getElementByCss("[id='" + id + "'] textarea", index, timeout);
+        elem = await nonUi5.element.getElementByCss("[id='" + id + "'] textarea", index, timeout);
       } else {
-        elem = await nonUi5.locator.getElementByCss("[id='" + id + "'] input", index, timeout);
+        elem = await nonUi5.element.getElementByCss("[id='" + id + "'] input", index, timeout);
       }
       await elem.setValue(value);
     }
@@ -230,7 +230,7 @@ const UserInteraction = function () {
    */
   this.clearAndFillSmartFieldInput = async function (selector, value, index = 0, timeout = 30000) {
     const id = await ui5.locator.getElementId(selector, index, timeout);
-    const elem = await nonUi5.locator.getElementByCss(`input[id*='${id}']`);
+    const elem = await nonUi5.element.getElementByCss(`input[id*='${id}']`);
     await elem.click();
     await ui5.userInteraction.selectAll(selector, index, timeout);
     await elem.setValue(value);
@@ -356,7 +356,7 @@ const UserInteraction = function () {
    */
   this.clickSelectArrow = async function (selector, index = 0) {
     const id = await ui5.locator.getElementId(selector, index);
-    const arrow = await nonUi5.locator.getElementByCss("[id='" + id + "-arrow']", 0, 3000);
+    const arrow = await nonUi5.element.getElementByCss("[id='" + id + "-arrow']", 0, 3000);
     await arrow.click();
   };
 
@@ -411,7 +411,7 @@ const UserInteraction = function () {
       await this.pressF4();
     } else {
       const id = await ui5.locator.getElementId(selector);
-      const button = await nonUi5.locator.getElementByCss("[id='" + id + "-vhi']", 0, timeout);
+      const button = await nonUi5.element.getElementByCss("[id='" + id + "-vhi']", 0, timeout);
       await button.click();
     }
   };
@@ -434,7 +434,7 @@ const UserInteraction = function () {
       await this.pressEnter();
     } else {
       const id = await ui5.locator.getElementId(selector, index, timeout);
-      const searchButton = await nonUi5.locator.getElementByCss("[id='" + id + "-search']", 0, timeout);
+      const searchButton = await nonUi5.element.getElementByCss("[id='" + id + "-search']", 0, timeout);
       await searchButton.click();
     }
   };
@@ -450,7 +450,7 @@ const UserInteraction = function () {
    */
   this.resetSearch = async function (selector, index = 0, timeout = 30000) {
     const id = await ui5.locator.getElementId(selector, index, timeout);
-    const resetButton = await nonUi5.locator.getElementByCss("[id='" + id + "-reset']", 0, timeout);
+    const resetButton = await nonUi5.element.getElementByCss("[id='" + id + "-reset']", 0, timeout);
     await resetButton.click();
   };
 
