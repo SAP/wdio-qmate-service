@@ -118,13 +118,10 @@ const Formatter = function () {
    * @example const itemNumber = await util.formatter.addRemoveLeadingZeros(10, 5);
    */
   this.addRemoveLeadingZeros = function (number, length) {
+    const string = number.toString(8);
     const zero = "0";
-    let output = "";
-    for (let i = 0; i < length; i++) {
-      output = output + zero;
-    }
-    output = output + number;
-    return output.slice(-length);
+    const char = zero.repeat(length) + string;
+    return char.slice(-length);
   };
 
 
