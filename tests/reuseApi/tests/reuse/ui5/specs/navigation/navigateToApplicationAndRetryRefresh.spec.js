@@ -1,53 +1,46 @@
 "use strict";
+const queryToClosePopups = "help-readCatalog=false&help-stateUACP=PRODUCTION"; // from private function 'generateUrlParams'
 
-describe("navigation - navigateToApplicationAndRetryRefresh (s4)", function () {
+describe("navigation - navigateToApplicationAndRetryRefresh with preventPopups=false", function () {
   it("Preparation", async function () {
-    browser.config.baseUrl = "https://super-sensitive.domain.name/ui";
-    await ui5.common.navigation.navigateToApplicationAndRetryRefresh("Shell-home", true);
-    await ui5.common.session.loginFiori("PURCHASER");
+    // First navigation - to #Shell-home
+    // "http://localhost:34099/ui?help-readCatalog=false&help-stateUACP=PRODUCTION#Shell-home" - as preventPopups=true
+
+    await ui5.common.navigation.navigateToApplicationAndRetryRefresh("Shell-home", false);
+    const urlExpected = `${await utilities.browser.getBaseUrl()}#Shell-home`;
+    await ui5.common.assertion.expectUrlToBe(urlExpected);
   });
 
   it("Execution", async function () {
-    await ui5.common.navigation.navigateToApplicationAndRetryRefresh("PurchaseOrder-manage", true);
+    // Second navigation - to #PurchaseOrder-manage
+    await ui5.common.navigation.navigateToApplicationAndRetryRefresh("PurchaseOrder-manage", false);
   });
 
   it("Verification", async function () {
-    // Note: currentUrl can contain system specific query params
-    const currentUrl = await browser.getUrl();
-    expect(currentUrl).toContain("#PurchaseOrder-manage");
-    expect(currentUrl).toContain(browser.config.baseUrl);
-  });
-
-  it("Clean Up", async function () {
-    await ui5.common.session.logout();
-
-    // Reset baseUrl from config file
-    browser.config.baseUrl = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html";
+    const urlExpected = `${await utilities.browser.getBaseUrl()}#PurchaseOrder-manage`;
+    await ui5.common.assertion.expectUrlToBe(urlExpected);
   });
 });
 
-describe("navigation - navigateToApplicationAndRetryRefresh (demo url)", function () {
-  const scannerIntent = "/category/SC";
-  const graphicsCardIntent = "/category/GC";
-  const selector = {
-    "elementProperties": {
-      "viewName": "sap.ui.demo.cart.view.Category",
-      "metadata": "sap.m.Title",
-      "id": "*page-title"
-    }
-  };
-  it("Execution and Verification", async function () {
-    await ui5.common.navigation.navigateToApplicationAndRetryRefresh(scannerIntent, false);
+describe("navigation - navigateToApplicationAndRetryRefresh with preventPopups=true", function () {
+  it("Preparation", async function () {
+    // First navigation - to #Shell-home
+    // "http://localhost:34099/ui?help-readCatalog=false&help-stateUACP=PRODUCTION#Shell-home" - as preventPopups=true
 
-    await ui5.common.assertion.expectUrlToBe(`${browser.config.baseUrl}#${scannerIntent}`);
-    await ui5.common.assertion.expectToBeVisible(selector);
-    await ui5.common.assertion.expectAttributeToBe(selector, "text", "Scanners");
+    await ui5.common.navigation.navigateToApplicationAndRetryRefresh("Shell-home"); // preventPopups = true by default
+    const urlExpected = `${await utilities.browser.getBaseUrl()}?${queryToClosePopups}#Shell-home`;
 
-    await ui5.common.navigation.navigateToApplicationAndRetryRefresh(graphicsCardIntent, false);
+    await ui5.common.assertion.expectUrlToBe(urlExpected);
+  });
 
-    await ui5.common.assertion.expectUrlToBe(`${browser.config.baseUrl}#${graphicsCardIntent}`);
-    await ui5.common.assertion.expectToBeVisible(selector);
-    await ui5.common.assertion.expectAttributeToBe(selector, "text", "Graphics Card");
+  it("Execution", async function () {
+    // Second navigation - to #PurchaseOrder-manage
+    await ui5.common.navigation.navigateToApplicationAndRetryRefresh("PurchaseOrder-manage");
+  });
+
+  it("Verification", async function () {
+    const urlExpected = `${await utilities.browser.getBaseUrl()}?${queryToClosePopups}#PurchaseOrder-manage`;
+    await ui5.common.assertion.expectUrlToBe(urlExpected);
   });
 });
 
@@ -55,36 +48,14 @@ describe("navigation - navigateToApplicationAndRetryRefresh wrong navigation int
   const wrongApplication = { strange: "intent" };
   const application = "Shell-home";
 
-  it("Preparation", async function () {
-    browser.config.baseUrl = "https://super-sensitive.domain.name/ui";
-  });
-
   it("Execution and Verification", async function () {
-    await ui5.common.navigation.navigateToApplicationAndRetryRefresh(application, true);
-    await ui5.common.session.loginFiori("PURCHASER");
+    await ui5.common.navigation.navigateToApplicationAndRetryRefresh(application, false);
 
-    await ui5.common.navigation.navigateToApplicationAndRetryRefresh(wrongApplication, false, false); // verify = false
-    const currentUrl = await browser.getUrl();
-    // first navigate to 'https://super-sensitive.domain.name/ui#%5Bobject%20Object%5D'
-    // later, in a second, navigate to 'https://super-sensitive.domain.name/ui#Shell-home'
-    // Cannot test the intent inside the url, because it changes too fast in case of wrong intent
-    expect(currentUrl).toContain(browser.config.baseUrl); // check you are still at the qs9-715 page
+    await ui5.common.navigation.navigateToApplicationAndRetryRefresh(wrongApplication, false, false); // preventPopups = false, verify = false
+    const urlExpected = `${await utilities.browser.getBaseUrl()}#[object%20Object]`;
+    await ui5.common.assertion.expectUrlToBe(urlExpected);
 
-    await expect(ui5.common.navigation.navigateToApplicationAndRetryRefresh(wrongApplication, false)) // verify = true by default
+    await expect(ui5.common.navigation.navigateToApplicationAndRetryRefresh(wrongApplication, false)) // preventPopups = false, verify = true by default
       .rejects.toThrow(/Navigation failed/);
   });
 });
-
-
-const selectorForErrorPopupText = {
-  "elementProperties": {
-    "metadata": "sap.m.Text",
-    "ancestorProperties": {
-      "elementProperties": {
-        "metadata": "sap.m.Dialog",
-        "type": "Message",
-        "state": "Error"
-      }
-    }
-  }
-};

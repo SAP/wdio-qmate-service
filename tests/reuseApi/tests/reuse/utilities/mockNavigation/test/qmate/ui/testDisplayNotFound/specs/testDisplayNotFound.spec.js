@@ -31,7 +31,7 @@ describe("Test display not found", function () {
     await ui5.common.assertion.expectToBeVisible(selector);
   });
 
-  it("Step 03: Expect Button 'Display Not Found'", async function () {
+  it("Step 04: Expect Button 'Display Not Found'", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.ui.demo.nav.view.Home",
@@ -42,7 +42,7 @@ describe("Test display not found", function () {
     await ui5.common.assertion.expectToBeVisible(selector);
   });
 
-  it("Step 04: Click Button 'Display Not Found'", async function () {
+  it("Step 05: Click Button 'Display Not Found'", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.ui.demo.nav.view.Home",
@@ -53,7 +53,7 @@ describe("Test display not found", function () {
     await ui5.common.userInteraction.click(selector);
   });
 
-  it("Step 05: Check if navigated correctly", async function () {
+  it("Step 06: Check if navigated correctly", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.ui.demo.nav.view.NotFound",
@@ -63,7 +63,7 @@ describe("Test display not found", function () {
     await ui5.common.assertion.expectToBeVisible(selector);
   });
 
-  it("Step 06: Teardown and register coverage", async function () {
+  it("Step 07: Teardown and register coverage", async function () {
     // Register coverage if enabled otherwise will not
     await mockHelper.takeCoverageSnapshot();
   });

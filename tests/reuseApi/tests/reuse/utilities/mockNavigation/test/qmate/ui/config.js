@@ -1,6 +1,6 @@
 const path = require("path");
 const WdioQmateService = require("@wdio/qmate-service");
-const WdioQmateCoverageService = require("@wdio/vyper-code-coverage-service"); // TODO: will be migrated to qmate soon
+const WdioQmateCoverageService = require("@wdio/qmate-code-coverage-service");
 exports.config = {
   runner: "local",
 
@@ -67,7 +67,15 @@ exports.config = {
 
   logLevel: "error",
   bail: 0,
-  services: [["selenium-standalone"], [WdioQmateService], [WdioQmateCoverageService]],
+  services: [["selenium-standalone"], [WdioQmateService], [WdioQmateCoverageService], ["static-server", {
+    port: 34005,
+    folders: [
+      {mount: "/test/flpSandboxMockServer.html", path: path.resolve(__dirname, "../../flpSandboxMockServer.html")},
+      // Need to mount "/" path to "mockNavigation" root folder
+      // as UI5 app will request Component.js, manifest.json, localService inner files, i18n inner files etc.
+      {mount: "/", path: path.resolve(__dirname, "../../../")},
+    ]
+  }]],
 
   params: {
     // clientInterval: 50,

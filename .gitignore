@@ -16,6 +16,7 @@ node_modules/
 *.log
 logs
 results/
+reports/
  
 #desktop services store
 *DS_Store
