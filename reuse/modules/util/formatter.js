@@ -107,6 +107,27 @@ const Formatter = function () {
   };
 
 
+  // =================================== NUMBER ===================================
+  /**
+   * @function addRemoveLeadingZeros
+   * @memberOf util.formatter
+   * @description Adds or removes leading zeros to the passed number to format it to the required length.
+   * @param {String} number - The number to be formatted.
+   * @param {Number} length - The required length of the number.
+   * @returns {String} The formatted number.
+   * @example const itemNumber = await util.formatter.addRemoveLeadingZeros(10, 5);
+   */
+  this.addRemoveLeadingZeros = function (number, length) {
+    const zero = "0";
+    let output = "";
+    for (let i = 0; i < length; i++) {
+      output = output + zero;
+    }
+    output = output + number;
+    return output.slice(-length);
+  };
+
+
   // =================================== DATE ===================================
   /**
    * @function formatDate
