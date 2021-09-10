@@ -15,7 +15,7 @@ describe("Mocha retry per suite/step", function () {
       counterForTestWith2TimesRetry++;
       expect(title).toEqual("Wrong title");
     } else {
-      expect(title).toEqual("WebdriverIO · Next-gen browser and mobile automation test framework for Node.js");
+      expect(title).toEqual("WebdriverIO · Next-gen browser and mobile automation test framework for Node.js | WebdriverIO");
     }
   });
 
@@ -27,7 +27,7 @@ describe("Mocha retry per suite/step", function () {
       counterForTestWith2TimesRetry++;
       expect(title).toEqual("Wrong title");
     } else {
-      expect(title).toEqual("WebdriverIO · Next-gen browser and mobile automation test framework for Node.js");
+      expect(title).toEqual("WebdriverIO · Next-gen browser and mobile automation test framework for Node.js | WebdriverIO");
     }
   });
 
@@ -40,7 +40,7 @@ describe("Mocha retry per suite/step", function () {
       counterForTestWith4TimesRetry++;
       expect(title).toEqual("Wrong title");
     } else {
-      expect(title).toEqual("WebdriverIO · Next-gen browser and mobile automation test framework for Node.js");
+      expect(title).toEqual("WebdriverIO · Next-gen browser and mobile automation test framework for Node.js | WebdriverIO");
     }
   });
 });
@@ -60,7 +60,7 @@ describe("Mocha retry per step", function () {
       counterForTestWith2TimesRetry++;
       expect(title).toEqual("Wrong title");
     } else {
-      expect(title).toEqual("WebdriverIO · Next-gen browser and mobile automation test framework for Node.js");
+      expect(title).toEqual("WebdriverIO · Next-gen browser and mobile automation test framework for Node.js | WebdriverIO");
     }
   });
 
@@ -72,7 +72,7 @@ describe("Mocha retry per step", function () {
       counterForTestWithoutRetry++;
       expect(title).toEqual("Wrong title");
     } else {
-      expect(title).toEqual("WebdriverIO · Next-gen browser and mobile automation test framework for Node.js");
+      expect(title).toEqual("WebdriverIO · Next-gen browser and mobile automation test framework for Node.js | WebdriverIO");
     }
   });
 });
