@@ -13,7 +13,7 @@ describe("(Mocha) retry per step", function () {
       retries++;
       expect(title).toEqual("Wrong title");
     } else {
-      expect(title).toEqual("WebdriverIO · Next-gen browser and mobile automation test framework for Node.js");
+      expect(title).toEqual("WebdriverIO · Next-gen browser and mobile automation test framework for Node.js | WebdriverIO");
     }
   }, 1); // <- step should be retried once
 
@@ -23,7 +23,7 @@ describe("(Mocha) retry per step", function () {
     if (this.wdioRetries < 2) { // Two retries - three test runs
       expect(title).toEqual("Wrong title");
     } else {
-      expect(title).toEqual("WebdriverIO · Next-gen browser and mobile automation test framework for Node.js");
+      expect(title).toEqual("WebdriverIO · Next-gen browser and mobile automation test framework for Node.js | WebdriverIO");
     }
   }, 2); // <- step should be retried twice
 }); // Cannot set number of retries per suite
