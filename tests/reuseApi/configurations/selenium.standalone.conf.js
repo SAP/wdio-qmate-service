@@ -40,13 +40,13 @@ exports.config = merge(baseConfig.config, {
       logPath: "results/logs",
       installArgs: {
         drivers: {
-          chrome: { version: "81.0.4044.69", arch: process.arch },
+          chrome: { version: "91.0.4472.101", arch: process.arch },
           firefox: { version: "0.26.0", arch: process.arch }
         }
       },
       args: {
         drivers: {
-          chrome: { version: "81.0.4044.69", arch: process.arch },
+          chrome: { version: "91.0.4472.101", arch: process.arch },
           firefox: { version: "0.26.0", arch: process.arch }
         }
       },
