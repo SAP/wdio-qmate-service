@@ -134,7 +134,7 @@ describe("webdriver.io page", function () {
 
   it("step7: get wrong element by wrong selector and throw error", async function () {
     const parent = await $('li[id*="homeView--categoryList-0"]');
-    await expect(parent).toBeVisibleInViewport();
+    await expect(parent).toBeDisplayedInViewport();
     const elem = await parent.$$('li[id*="__item1-container-cart---homeView--categoryList-0-wrong"]');
     await expect(elem.length).toBe(0);
   });

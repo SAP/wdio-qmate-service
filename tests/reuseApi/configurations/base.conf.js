@@ -61,7 +61,7 @@ exports.config = {
   waitforTimeout: 300000,
   //
   // UI5 waiting timeout waiting for page to load
-  waitForUI5Timeout: 300000,
+  waitForUI5Timeout: 90000,
   //
   // UI5 waiting timeout waiting for page to load polling interval
   waitForUI5PollingInterval: 150,

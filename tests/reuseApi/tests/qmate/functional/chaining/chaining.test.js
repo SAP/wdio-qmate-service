@@ -87,7 +87,7 @@ describe("webdriver.io page", function () {
     const backButton = await productList.uiControl(ui5ControlProperties3);
     await expect(await item.getAttribute("id")).not.toBeNull();
     await item.click();
-    await expect(backButton).toBeVisibleInViewport();
+    await expect(backButton).toBeDisplayedInViewport();
     await expect(await backButton.getAttribute("id")).not.toBeNull();
     await backButton.click();
 
