@@ -5,10 +5,6 @@ exports.config = merge(customConfig.config, {
   maxInstances: 1,
   bail: 1,
 
-  logLevel: "warn",
-
-  reporters: ["spec"],
-
   services: [
     ["chromedriver", { port: 4444 }],
     ["static-server", {
