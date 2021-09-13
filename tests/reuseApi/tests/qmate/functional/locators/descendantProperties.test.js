@@ -58,9 +58,15 @@ describe("webdriver.io page locator test", function () {
         "id": "*categoryList"
       }
     };
-    const elems = await browser.uiControls(ui5ControlProperties);
-    expect(elems).toBeInstanceOf(Array);
-    expect(elems).toBeElementsArrayOfSize({ gte: 1 });
+
+    // Code before fixes:
+    // const elems = await browser.uiControls(ui5ControlProperties);
+    // expect(elems).toBeInstanceOf(Array);
+    // expect(elems).toBeElementsArrayOfSize({ gte: 1 });
+
+    // Code after fixes:
+    await expect(browser.uiControls(ui5ControlProperties, 1, 1000))
+      .rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 
   it("should access element by element properties and descendant properties", async function () {
@@ -80,7 +86,7 @@ describe("webdriver.io page locator test", function () {
     };
     const elem = await browser.uiControl(ui5ControlProperties);
 
-    await expect(elem).toBeVisibleInViewport();
+    await expect(elem).toBeDisplayedInViewport();
     expect(elem).toBeInstanceOf(Object);
     expect(elem).toHaveAttribute("elementId");
   });
@@ -94,7 +100,8 @@ describe("webdriver.io page locator test", function () {
         "displayBlock": "true"
       }
     };
-    await expect(browser.uiControl(wrongProperties)).rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
+    await expect(browser.uiControl(wrongProperties, 1, 1000))
+      .rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 
 });

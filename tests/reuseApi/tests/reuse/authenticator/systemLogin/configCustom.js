@@ -4,9 +4,6 @@ const customConfig = require("../../../../configurations/chrome.headless.conf.js
 exports.config = merge(customConfig.config, {
   maxInstances: 1,
   bail: 1,
-  // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "warn",
-  //
   // ==================
   // Specify Test Files
   // ==================

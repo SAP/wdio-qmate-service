@@ -20,7 +20,7 @@ describe("webdriver.io page locator test", function () {
       }
     };
     const elem = await browser.uiControl(ui5ControlProperties);
-    await expect(elem).toBeVisibleInViewport();
+    await expect(elem).toBeDisplayedInViewport();
     expect(elem).toBeInstanceOf(Object);
     expect(elem).toHaveAttribute("elementId");
   });
@@ -39,7 +39,7 @@ describe("webdriver.io page locator test", function () {
       }
     };
     const elem = await browser.uiControl(ui5ControlProperties);
-    await expect(elem).toBeVisibleInViewport();
+    await expect(elem).toBeDisplayedInViewport();
     expect(elem).toBeInstanceOf(Object);
     expect(elem).toHaveAttribute("elementId");
   });
@@ -58,7 +58,7 @@ describe("webdriver.io page locator test", function () {
       }
     };
     const elem = await browser.uiControl(ui5ControlProperties);
-    await expect(elem).toBeVisibleInViewport();
+    await expect(elem).toBeDisplayedInViewport();
     expect(elem).toBeInstanceOf(Object);
     expect(elem).toHaveAttribute("elementId");
   });
@@ -91,7 +91,7 @@ describe("webdriver.io page locator test", function () {
     };
     const elem = await browser.uiControl(ui5ControlProperties);
 
-    await expect(elem).toBeVisibleInViewport();
+    await expect(elem).toBeDisplayedInViewport();
     await expect(elem).toBeDisplayed();
     await expect(elem).toBeClickable();
     expect(elem).toBeInstanceOf(Object);

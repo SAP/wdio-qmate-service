@@ -3,6 +3,7 @@ const merge = require("deepmerge");
 const staticServerConfig = require("./staticServerConfig.js");
 exports.config = merge(staticServerConfig.config, {
   params: {
+    logUI5Version: false,
     auth: {
       formType: "plain",
       usernameFieldSelector: "#USERNAME_BLOCK input",
