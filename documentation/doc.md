@@ -93,6 +93,12 @@ Namespace for utilities modules.
         * [.executeScript(command)](#utilities.browser.executeScript)
         * [.getUI5Version()](#utilities.browser.getUI5Version)
         * [.sendKeys(keys)](#utilities.browser.sendKeys)
+    * [.console](#utilities.console)
+        * [.log(message, [textColor], [backgroundColor], [brightness])](#utilities.console.log)
+        * [.error(message)](#utilities.console.error)
+        * [.warn(message)](#utilities.console.warn)
+        * [.success(message)](#utilities.console.success)
+        * [.info(message)](#utilities.console.info)
     * [.dialogInteraction](#utilities.dialogInteraction)
         * [.uploadFiles(files)](#utilities.dialogInteraction.uploadFiles)
     * [.execute](#utilities.execute)
@@ -278,6 +284,96 @@ Executes the set of keystrokes.
 **Example**  
 ```js
 await utilities.browser.sendKeys(protractor.Key.CONTROL, protractor.Key.ALT, "d");
+```
+<a name="utilities.console"></a>
+
+### utilities.console
+**Kind**: static class of [<code>utilities</code>](#utilities)  
+
+* [.console](#utilities.console)
+    * [.log(message, [textColor], [backgroundColor], [brightness])](#utilities.console.log)
+    * [.error(message)](#utilities.console.error)
+    * [.warn(message)](#utilities.console.warn)
+    * [.success(message)](#utilities.console.success)
+    * [.info(message)](#utilities.console.info)
+
+<a name="utilities.console.log"></a>
+
+#### console.log(message, [textColor], [backgroundColor], [brightness])
+Logs a message to the console in the given color.
+
+**Kind**: static method of [<code>console</code>](#utilities.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+| [textColor] | <code>String</code> | The color of the text: "black, white", "red", "yellow", "green", "blue", "cyan", "magenta". |
+| [backgroundColor] | <code>String</code> | The color of the background: "black, white", "red", "yellow", "green", "blue", "cyan", "magenta". |
+| [brightness] | <code>String</code> | Adjusts the brightness of the color: "bright", "dim". Leave empty for default. |
+
+**Example**  
+```js
+utilities.console.log("The document has been saved.", "green");
+```
+<a name="utilities.console.error"></a>
+
+#### console.error(message)
+Logs a error message to the console in red.
+
+**Kind**: static method of [<code>console</code>](#utilities.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+
+**Example**  
+```js
+utilities.console.error("Error: Please investigate.");
+```
+<a name="utilities.console.warn"></a>
+
+#### console.warn(message)
+Logs a warning message to the console in yellow.
+
+**Kind**: static method of [<code>console</code>](#utilities.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+
+**Example**  
+```js
+utilities.console.warn("Optional step not executed.");
+```
+<a name="utilities.console.success"></a>
+
+#### console.success(message)
+Logs a success message to the console in green.
+
+**Kind**: static method of [<code>console</code>](#utilities.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+
+**Example**  
+```js
+utilities.console.success("The document has been saved.");
+```
+<a name="utilities.console.info"></a>
+
+#### console.info(message)
+Logs a info message to the console in cyan.
+
+**Kind**: static method of [<code>console</code>](#utilities.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+
+**Example**  
+```js
+utilities.console.success("The document has been saved.");
 ```
 <a name="utilities.dialogInteraction"></a>
 
@@ -923,13 +1019,13 @@ Namespace for ui5 modules.
             * [.clickSapLogo()](#ui5.common.navigationBar.clickSapLogo)
             * [.clickUserIcon()](#ui5.common.navigationBar.clickUserIcon)
         * [.session](#ui5.common.session)
-            * [.login(username, password, verify, timeout)](#ui5.common.session.login)
+            * [.login(username, password, [verify], timeout)](#ui5.common.session.login)
             * [.loginFiori(username, password, verify)](#ui5.common.session.loginFiori)
             * [.loginSapCloud(username, password, verify)](#ui5.common.session.loginSapCloud)
             * [.loginCustom(username, password, usernameFieldSelector, passwordFieldSelector, logonButtonSelector, verify)](#ui5.common.session.loginCustom)
             * [.loginCustomViaConfig(username, password, verify)](#ui5.common.session.loginCustomViaConfig)
             * [.logout(verify)](#ui5.common.session.logout)
-            * [.switchUser(username, password, authenticator, timeout)](#ui5.common.session.switchUser)
+            * [.switchUser(username, [password], [authenticator], [wait])](#ui5.common.session.switchUser)
         * [.userInteraction](#ui5.common.userInteraction)
             * [.click(selector, index, timeout)](#ui5.common.userInteraction.click)
             * [.clickAndRetry(selector, index, timeout, retries, interval)](#ui5.common.userInteraction.clickAndRetry)
@@ -1070,13 +1166,13 @@ Namespace for common modules.
         * [.clickSapLogo()](#ui5.common.navigationBar.clickSapLogo)
         * [.clickUserIcon()](#ui5.common.navigationBar.clickUserIcon)
     * [.session](#ui5.common.session)
-        * [.login(username, password, verify, timeout)](#ui5.common.session.login)
+        * [.login(username, password, [verify], timeout)](#ui5.common.session.login)
         * [.loginFiori(username, password, verify)](#ui5.common.session.loginFiori)
         * [.loginSapCloud(username, password, verify)](#ui5.common.session.loginSapCloud)
         * [.loginCustom(username, password, usernameFieldSelector, passwordFieldSelector, logonButtonSelector, verify)](#ui5.common.session.loginCustom)
         * [.loginCustomViaConfig(username, password, verify)](#ui5.common.session.loginCustomViaConfig)
         * [.logout(verify)](#ui5.common.session.logout)
-        * [.switchUser(username, password, authenticator, timeout)](#ui5.common.session.switchUser)
+        * [.switchUser(username, [password], [authenticator], [wait])](#ui5.common.session.switchUser)
     * [.userInteraction](#ui5.common.userInteraction)
         * [.click(selector, index, timeout)](#ui5.common.userInteraction.click)
         * [.clickAndRetry(selector, index, timeout, retries, interval)](#ui5.common.userInteraction.clickAndRetry)
@@ -2666,27 +2762,27 @@ await ui5.common.navigationBar.clickUserIcon();
 **Kind**: static class of [<code>common</code>](#ui5.common)  
 
 * [.session](#ui5.common.session)
-    * [.login(username, password, verify, timeout)](#ui5.common.session.login)
+    * [.login(username, password, [verify], timeout)](#ui5.common.session.login)
     * [.loginFiori(username, password, verify)](#ui5.common.session.loginFiori)
     * [.loginSapCloud(username, password, verify)](#ui5.common.session.loginSapCloud)
     * [.loginCustom(username, password, usernameFieldSelector, passwordFieldSelector, logonButtonSelector, verify)](#ui5.common.session.loginCustom)
     * [.loginCustomViaConfig(username, password, verify)](#ui5.common.session.loginCustomViaConfig)
     * [.logout(verify)](#ui5.common.session.logout)
-    * [.switchUser(username, password, authenticator, timeout)](#ui5.common.session.switchUser)
+    * [.switchUser(username, [password], [authenticator], [wait])](#ui5.common.session.switchUser)
 
 <a name="ui5.common.session.login"></a>
 
-##### session.login(username, password, verify, timeout)
+##### session.login(username, password, [verify], timeout)
 Login with specific username and password. This function works for both fiori and sap-cloud login.
 
 **Kind**: static method of [<code>session</code>](#ui5.common.session)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| username | <code>String</code> | The username. |
-| password | <code>String</code> | The password. |
-| verify | <code>Boolean</code> | [OPTIONAL] Specifies if the function will check the shell header after logging in. Default is 'false'. |
-| timeout | <code>Integer</code> | The timeout to wait (default value: 30 sec). |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| username | <code>String</code> |  | The username. |
+| password | <code>String</code> |  | The password. |
+| [verify] | <code>Boolean</code> | <code>false</code> | [OPTIONAL] Specifies if the function will check the shell header after logging in. Default is 'false'. |
+| timeout | <code>Integer</code> |  | The timeout to wait (default value: 30 sec). |
 
 **Example**  
 ```js
@@ -2799,17 +2895,17 @@ await ui5.common.session.logout();
 ```
 <a name="ui5.common.session.switchUser"></a>
 
-##### session.switchUser(username, password, authenticator, timeout)
-switchs the user according to the passed username and password.
+##### session.switchUser(username, [password], [authenticator], [wait])
+switches the user according to the passed username and password.
 
 **Kind**: static method of [<code>session</code>](#ui5.common.session)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | username | <code>String</code> |  | The username. |
-| password | <code>String</code> |  | The password. |
-| authenticator | <code>Object</code> |  | The login form type. |
-| timeout | <code>Number</code> | <code>8000</code> | The timeout to wait (default value: 8 sec). |
+| [password] | <code>String</code> |  | The password. |
+| [authenticator] | <code>Object</code> |  | The login form type. |
+| [wait] | <code>Number</code> | <code>8000</code> | The waiting time between logout and login (default value: 8 sec). |
 
 **Example**  
 ```js

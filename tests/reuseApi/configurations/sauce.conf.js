@@ -1,5 +1,5 @@
-var merge = require("deepmerge");
-var baseConfig = require("./base.conf.js");
+const merge = require("deepmerge");
+const baseConfig = require("./base.conf.js");
 const milliseconds = new Date().getMilliseconds();
 exports.config = merge(baseConfig.config, {
   user: "d060530",//process.env.SAUCE_USERNAME,

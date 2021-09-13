@@ -20,8 +20,7 @@ const Console = function () {
     let colorValue = "";
 
     if (textColor) {
-      const textColorValue = getColorValue(textColor);
-      colorValue = textColorValue;
+      colorValue = getColorValue(textColor);
     }
     if (backgroundColor) {
       const backgroundColorValue = getBackgroundColorValue(backgroundColor);
@@ -43,7 +42,7 @@ const Console = function () {
    * @example utilities.console.error("Error: Please investigate.");
    */
   this.error = function (message) {
-    let colorValue = getColorValue("red");
+    const colorValue = getColorValue("red");
     console.error(colorValue, message + "\x1b[0m");
   };
 
@@ -55,7 +54,7 @@ const Console = function () {
    * @example utilities.console.warn("Optional step not executed.");
    */
   this.warn = function (message) {
-    let colorValue = getColorValue("yellow");
+    const colorValue = getColorValue("yellow");
     console.warn(colorValue, message + "\x1b[0m");
   };
 
@@ -67,7 +66,7 @@ const Console = function () {
    * @example utilities.console.success("The document has been saved.");
    */
   this.success = function (message) {
-    let colorValue = getColorValue("green");
+    const colorValue = getColorValue("green");
     console.log(colorValue, message + "\x1b[0m");
   };
 
@@ -79,7 +78,7 @@ const Console = function () {
    * @example utilities.console.success("The document has been saved.");
    */
   this.info = function (message) {
-    let colorValue = getColorValue("cyan");
+    const colorValue = getColorValue("cyan");
     console.log(colorValue, message + "\x1b[0m");
   };
 
