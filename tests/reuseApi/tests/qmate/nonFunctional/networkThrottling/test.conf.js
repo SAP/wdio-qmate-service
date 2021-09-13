@@ -1,7 +1,7 @@
 const path = require("path");
 const merge = require("deepmerge");
-const vyperConfig = require("../../../../configurations/devtools.conf.js");
-const config = merge(vyperConfig.config, {
+const qmateConfig = require("../../../../configurations/devtools.conf.js");
+const config = merge(qmateConfig.config, {
   maxInstances: 1,
 
   specs: [

@@ -1,10 +1,9 @@
-var path = require("path");
-var merge = require("deepmerge");
-var qmateConfig = require("../../../../configurations/chrome.headless.conf.js");
+const path = require("path");
+const merge = require("deepmerge");
+const qmateConfig = require("../../../../configurations/chrome.headless.conf.js");
 exports.config = merge(qmateConfig.config, {
   maxInstances: 1,
   bail: 1,
-
   //
   // ==================
   // Specify Test Files

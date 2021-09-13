@@ -62,10 +62,10 @@ describe("Test 'getBindingContextPath()' and 'getBindingProperty()' on both elem
     };
     const element = await browser.uiControl(listElementProperties);
 
-    await expect(element.getBindingProperty("wrong_property_name")).rejects.toThrow("javascript error: Cannot read property 'parts' of undefined");
-    await expect(browser.getBindingProperty("wrong_property_name", element)).rejects.toThrow("javascript error: Cannot read property 'parts' of undefined");
+    await expect(element.getBindingProperty("wrong_property_name")).rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'parts')");
+    await expect(browser.getBindingProperty("wrong_property_name", element)).rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'parts')");
 
-    await expect(element.getBindingProperty("")).rejects.toThrow("javascript error: Cannot read property 'parts' of undefined");
-    await expect(browser.getBindingProperty("", element)).rejects.toThrow("javascript error: Cannot read property 'parts' of undefined");
+    await expect(element.getBindingProperty("")).rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'parts')");
+    await expect(browser.getBindingProperty("", element)).rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'parts')");
   });
 });

@@ -1,7 +1,7 @@
 const path = require("path");
 const merge = require("deepmerge");
-const vyperConfig = require("../../../../configurations/devtools.conf");
-exports.config = merge(vyperConfig.config, {
+const qmateConfig = require("../../../../configurations/devtools.conf");
+exports.config = merge(qmateConfig.config, {
   connectionTimeout: 5000,
   waitforTimeout: 300000,
   bail: 1,

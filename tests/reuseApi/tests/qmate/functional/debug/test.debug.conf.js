@@ -1,6 +1,6 @@
 var path = require("path");
 var merge = require("deepmerge");
-var debuggerConfig = require(path.resolve(process.env.CONFIG_TEMPLATES, "debug.conf.js"));
+var debuggerConfig = require("../../../../configurations/debug.conf.js");
 exports.config = merge(debuggerConfig.config, {
   //
   // ==================

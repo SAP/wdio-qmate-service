@@ -1,5 +1,7 @@
-const WdioQmateService = require("@wdio/qmate-service");
+const WdioVyperService = require("@wdio/qmate-service");
+const CodeCoverageVyperService = require("@wdio/vyper-code-coverage-service");
 exports.config = {
+  services: [[WdioVyperService], [CodeCoverageVyperService]],
   //
   // ====================
   // Runner Configuration
@@ -47,8 +49,6 @@ exports.config = {
   //     webdriver: 'info',
   //     '@wdio/applitools-service': 'info'
   // },
-
-  services: [[WdioQmateService]],
 
   //
   // Legacy flag

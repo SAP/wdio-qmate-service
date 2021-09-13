@@ -1,8 +1,5 @@
 // Note: it is not a test (not for CI), just a showcase
-const chai = require("chai")
-  , expect = chai.expect
-  , should = chai.should();
-const assert = require("assert");
+// https://webdriver.io/docs/debugging/
 
 describe("webdriver.io page", function () {
 
@@ -33,8 +30,8 @@ describe("webdriver.io page", function () {
     };
     browser.placeholder = ui5ControlProperties;
     await browser.debug();
-    var elems = await browser.uiControls(ui5ControlProperties);
-    await assert.ok(elems.length === 1);
+    const elems = await browser.uiControls(ui5ControlProperties);
+    expect(elems.length).toBe(1);
     await elems[0].click();
   });
 });
