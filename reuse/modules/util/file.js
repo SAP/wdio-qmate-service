@@ -1,11 +1,12 @@
-const path = require("path");
-const pdf = require("pdf-parse");
-
 /**
  * @class file
  * @memberof util
  */
 const File = function () {
+
+  const path = require("path");
+  const pdf = require("pdf-parse");
+
 
   // =================================== UPLOAD ===================================
   /**
@@ -66,13 +67,13 @@ const File = function () {
 
   /**
    * @function expectPdfNotContainsText
-   * @memberOf utilities.fileHandler
+   * @memberOf util.file
    * @description Parses the PDF and checks for given text not to be contained in PDF.
    * @param {Buffer} pdfStream - PDF stream to be downloaded
    * @param {String} text - The text expected to be not contained in the PDF.
    * @param {Function} renderingMethod - Function to customize the parsing process.
-   * @see <a href="https://github.wdf.sap.corp/sProcurement/vyperForAll/blob/master/documentation/topics/pdfParsing.md#customized-parsing-and-how-to-do-it">Parse pdf</a>
-   * @example await utilities.fileHandler.expectPdfNotContainsText(pdfStream, "abc");
+   * @see <a href="TODO">Parse pdf</a>
+   * @example await util.file.expectPdfNotContainsText(pdfStream, "abc");
    */
   this.expectPdfNotContainsText = async function (pdfStream, text, renderingMethod = _renderPage) {
     if (!text) {

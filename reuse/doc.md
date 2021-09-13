@@ -557,6 +557,7 @@ Global namespace for util modules.
         * [.upload(files)](#util.file.upload)
         * [.parsePdf(pdfStream, renderingMethod)](#util.file.parsePdf) ⇒ <code>String</code>
         * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
+        * [.expectPdfNotContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfNotContainsText)
     * [.formatter](#util.formatter)
         * [.sliceStringAt(input, slicePoint, length)](#util.formatter.sliceStringAt) ⇒ <code>String</code>
         * [.sliceStringAfter(input, slicePoint, length)](#util.formatter.sliceStringAfter) ⇒ <code>String</code>
@@ -875,6 +876,7 @@ util.console.success("The document has been saved.");
     * [.upload(files)](#util.file.upload)
     * [.parsePdf(pdfStream, renderingMethod)](#util.file.parsePdf) ⇒ <code>String</code>
     * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
+    * [.expectPdfNotContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfNotContainsText)
 
 <a name="util.file.upload"></a>
 
@@ -926,6 +928,24 @@ Parses the PDF and checks for given text to be contained in PDF.
 **Example**  
 ```js
 await util.file.expectPdfContainsText(pdfStream, "abc");
+```
+<a name="util.file.expectPdfNotContainsText"></a>
+
+#### file.expectPdfNotContainsText(pdfStream, text, renderingMethod)
+Parses the PDF and checks for given text not to be contained in PDF.
+
+**Kind**: static method of [<code>file</code>](#util.file)  
+**See**: <a href="TODO">Parse pdf</a>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| pdfStream | <code>Buffer</code> | PDF stream to be downloaded |
+| text | <code>String</code> | The text expected to be not contained in the PDF. |
+| renderingMethod | <code>function</code> | Function to customize the parsing process. |
+
+**Example**  
+```js
+await util.file.expectPdfNotContainsText(pdfStream, "abc");
 ```
 <a name="util.formatter"></a>
 
