@@ -1,6 +1,5 @@
-var path = require("path");
-var merge = require("deepmerge");
-var chromeConfig = require(path.resolve(process.env.CONFIG_TEMPLATES, "chrome.conf.js"));
+const merge = require("deepmerge");
+const chromeConfig = require("./chrome.conf.js");
 exports.config = merge(chromeConfig.config, {
   // Test runner services
   // Services take over a specific job you don't want to take care of. They enhance

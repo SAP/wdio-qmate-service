@@ -94,7 +94,7 @@ exports.config = {
   //
   // Saves a screenshot to a given path if a command fails.
   screenshotPath: "results/errorShots",
-  outputDir: "results",
+  // outputDir: "results", // uncomment to log errors into results file
   //logDir: "results",
 
   //
@@ -189,7 +189,7 @@ exports.config = {
   //afterCommand: function (commandName, args, result, error) {
   //},
   /**
-   * Gets executed after all tests are done. You still have access to all global variables from
+   * Gets executed after all tests are done. You still have access to all global constiables from
    * the test.
    * @param {Number} result 0 - test pass, 1 - test fail
    * @param {Array.<Object>} capabilities list of capabilities details

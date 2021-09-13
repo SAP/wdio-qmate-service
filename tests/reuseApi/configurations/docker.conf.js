@@ -1,5 +1,5 @@
-var merge = require("deepmerge");
-var chromeConfig = require("./base.conf.js");
+const merge = require("deepmerge");
+const chromeConfig = require("./base.conf.js");
 exports.config = merge(chromeConfig.config, {
   host: "localhost",
   //

@@ -1,5 +1,5 @@
-var merge = require("deepmerge");
-var baseConfig = require("./base.conf.js");
+const merge = require("deepmerge");
+const baseConfig = require("./base.conf.js");
 exports.config = merge(baseConfig.config, {
 
   //
