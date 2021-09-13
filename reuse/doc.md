@@ -553,12 +553,17 @@ Global namespace for util modules.
         * [.warn(message)](#util.console.warn)
         * [.success(message)](#util.console.success)
         * [.info(message)](#util.console.info)
+    * [.file](#util.file)
+        * [.upload(files)](#util.file.upload)
+        * [.parsePdf(pdfStream, renderingMethod)](#util.file.parsePdf) ⇒ <code>String</code>
+        * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
     * [.formatter](#util.formatter)
         * [.sliceStringAt(input, slicePoint, length)](#util.formatter.sliceStringAt) ⇒ <code>String</code>
         * [.sliceStringAfter(input, slicePoint, length)](#util.formatter.sliceStringAfter) ⇒ <code>String</code>
         * [.trimString(input)](#util.formatter.trimString)
         * [.extractNumberFromString(input, [index])](#util.formatter.extractNumberFromString) ⇒ <code>String</code>
         * [.stringifyJSON(object)](#util.formatter.stringifyJSON) ⇒ <code>String</code>
+        * [.addRemoveLeadingZeros(number, length)](#util.formatter.addRemoveLeadingZeros) ⇒ <code>String</code>
         * [.formatDate(date, format)](#util.formatter.formatDate) ⇒ <code>String</code>
     * [.function](#util.function)
         * [.retry(fct, args, retries, interval, scope)](#util.function.retry)
@@ -861,6 +866,67 @@ Logs a info message to the console in cyan.
 ```js
 util.console.success("The document has been saved.");
 ```
+<a name="util.file"></a>
+
+### util.file
+**Kind**: static class of [<code>util</code>](#util)  
+
+* [.file](#util.file)
+    * [.upload(files)](#util.file.upload)
+    * [.parsePdf(pdfStream, renderingMethod)](#util.file.parsePdf) ⇒ <code>String</code>
+    * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
+
+<a name="util.file.upload"></a>
+
+#### file.upload(files)
+Uploads all the file/s by the paths given in the Array.
+
+**Kind**: static method of [<code>file</code>](#util.file)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| files | <code>Array.&lt;String&gt;</code> | Array with path/s of file/s to be uploaded. |
+
+**Example**  
+```js
+await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"]);
+```
+<a name="util.file.parsePdf"></a>
+
+#### file.parsePdf(pdfStream, renderingMethod) ⇒ <code>String</code>
+Parses the text from PDF stream. Returned text can be asserted to verify the PDF document content.
+
+**Kind**: static method of [<code>file</code>](#util.file)  
+**Returns**: <code>String</code> - The parsed PDF text.  
+**See**: <a href="TODO">Parse PDF</a>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| pdfStream | <code>Buffer</code> | PDF stream to be downloaded. |
+| renderingMethod | <code>function</code> | Function to customize the parsing process. |
+
+**Example**  
+```js
+await util.file.parsePdf(pdfStream, customRenderingMethod);
+```
+<a name="util.file.expectPdfContainsText"></a>
+
+#### file.expectPdfContainsText(pdfStream, text, renderingMethod)
+Parses the PDF and checks for given text to be contained in PDF.
+
+**Kind**: static method of [<code>file</code>](#util.file)  
+**See**: <a href="TODO">Parse pdf</a>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| pdfStream | <code>Buffer</code> | PDF stream to be downloaded. |
+| text | <code>String</code> | The expected text. |
+| renderingMethod | <code>function</code> | Function to customize the parsing process. |
+
+**Example**  
+```js
+await util.file.expectPdfContainsText(pdfStream, "abc");
+```
 <a name="util.formatter"></a>
 
 ### util.formatter
@@ -872,6 +938,7 @@ util.console.success("The document has been saved.");
     * [.trimString(input)](#util.formatter.trimString)
     * [.extractNumberFromString(input, [index])](#util.formatter.extractNumberFromString) ⇒ <code>String</code>
     * [.stringifyJSON(object)](#util.formatter.stringifyJSON) ⇒ <code>String</code>
+    * [.addRemoveLeadingZeros(number, length)](#util.formatter.addRemoveLeadingZeros) ⇒ <code>String</code>
     * [.formatDate(date, format)](#util.formatter.formatDate) ⇒ <code>String</code>
 
 <a name="util.formatter.sliceStringAt"></a>
@@ -961,6 +1028,23 @@ Converts a JSON object to string.
 **Example**  
 ```js
 console.log(`Printing the current selector: ${util.formatter.stringifyJSON(selector)}`);
+```
+<a name="util.formatter.addRemoveLeadingZeros"></a>
+
+#### formatter.addRemoveLeadingZeros(number, length) ⇒ <code>String</code>
+Adds or removes leading zeros to the passed number to format it to the required length.
+
+**Kind**: static method of [<code>formatter</code>](#util.formatter)  
+**Returns**: <code>String</code> - The formatted number.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| number | <code>String</code> | The number to be formatted. |
+| length | <code>Number</code> | The required length of the number. |
+
+**Example**  
+```js
+const itemNumber = await util.formatter.addRemoveLeadingZeros(10, 5);
 ```
 <a name="util.formatter.formatDate"></a>
 

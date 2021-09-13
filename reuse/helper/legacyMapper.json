@@ -8,6 +8,14 @@
     "new": "util.system"
   },
   {
+    "old": "utilities.dialogInteraction.uploadFiles",
+    "new": "util.file.upload"
+  },
+  {
+    "old": "utilities.fileHandler",
+    "new": "util.file"
+  },
+  {
     "old": "ui5.common",
     "new": "ui5"
   },

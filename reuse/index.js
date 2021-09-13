@@ -27,6 +27,7 @@ const ReuseLibrary = function () {
     const util = {
       browser: require("./modules/util/browser.js"),
       console: require("./modules/util/console.js"),
+      file: require("./modules/util/file.js"),
       formatter: require("./modules/util/formatter.js"),
       function: require("./modules/util/function.js"),
       system: require("./modules/util/system.js")
