@@ -82,9 +82,5 @@ describe("assertion - expectToBeEnabled with wrong selector (unhappy case)", fun
     };
     await expect(ui5.common.assertion.expectToBeEnabled(selectorForNonExistingElement))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
-
-    const wrongSelector = 123;
-    await expect(ui5.common.assertion.expectToBeEnabled(wrongSelector))
-      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Cannot read property 'getMetadata' of null");
   });
 });

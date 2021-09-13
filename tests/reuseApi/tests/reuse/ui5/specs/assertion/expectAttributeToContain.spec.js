@@ -38,10 +38,6 @@ describe("assertion - expectAttributeToContain with wrong selector (unhappy case
     };
     await expect(ui5.common.assertion.expectAttributeToContain(selectorWithATypo, "text", "to the Shopping Cart"))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
-
-    // skip selector
-    await expect(ui5.common.assertion.expectAttributeToContain("text", "to the Shopping Cart"))
-      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Matcher is not supported! Matcher name: '0'");
   });
 });
 

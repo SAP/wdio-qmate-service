@@ -43,15 +43,12 @@ describe("assertion - expectValueToBe with wrong selector (unhappy case)", funct
   });
 
   it("Execution and Verification", async function () {
-    let wrongSelector = {
+    const wrongSelector = {
       "elementProperties": {
         "wrongData": "123"
       }
     };
     await expect(ui5.common.assertion.expectValueToBe(wrongSelector, "Watch"))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
-    wrongSelector = 123;
-    await expect(ui5.common.assertion.expectValueToBe(wrongSelector, "Watch"))
-      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Cannot read property 'getMetadata' of null");
   });
 });

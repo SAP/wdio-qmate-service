@@ -41,7 +41,7 @@ describe("locator - getBindingValue for wrong attribute", function () {
     const attribute = "case";
 
     await expect(ui5.common.locator.getBindingValue(selector, attribute))
-      .rejects.toThrow(/Cannot read property 'getValue' of undefined/);
+      .rejects.toThrow(/.*Cannot read properties of undefined \(reading 'getValue'\)/);
   });
 });
 

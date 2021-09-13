@@ -59,7 +59,7 @@ describe("assertion - expectBindingPathToBe with loadPropertyTimeout", function 
   });
 });
 
-describe("assertion - expectBindingPathToBe with wrong selector (unhappy case)", function () {
+describe.only("assertion - expectBindingPathToBe with wrong selector (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -68,11 +68,6 @@ describe("assertion - expectBindingPathToBe with wrong selector (unhappy case)",
     const selector = {
       "wrongData": "123"
     };
-    await expect(ui5.common.assertion.expectBindingPathToBe(selector, "items", "/ProductCategories"))
-      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Matcher is not supported! Matcher name: 'wrongData', arguments: '\"123\"'");
-
-    await expect(ui5.common.assertion.expectBindingPathToBe(123, "items", "/ProductCategories"))
-      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Cannot read property 'getMetadata' of null");
 
     await expect(ui5.common.assertion.expectBindingPathToBe(false, "items", "/ProductCategories"))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
@@ -92,19 +87,19 @@ describe("assertion - expectBindingPathToBe with wrong attribute (unhappy case)"
 
   it("Execution and Verification", async function () {
     await expect(ui5.common.assertion.expectBindingPathToBe(categoryHeaderSelector, "itms", "/ProductCategories"))
-      .rejects.toThrow("javascript error: Cannot read property 'parts' of undefined");
+      .rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'parts')");
 
     await expect(ui5.common.assertion.expectBindingPathToBe(categoryHeaderSelector, 123, "/ProductCategories"))
-      .rejects.toThrow("javascript error: Cannot read property 'parts' of undefined");
+      .rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'parts')");
 
     await expect(ui5.common.assertion.expectBindingPathToBe(categoryHeaderSelector, false, "/ProductCategories"))
-      .rejects.toThrow("javascript error: Cannot read property 'parts' of undefined");
+      .rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'parts')");
 
     await expect(ui5.common.assertion.expectBindingPathToBe(categoryHeaderSelector, null, "/ProductCategories"))
-      .rejects.toThrow("javascript error: Cannot read property 'parts' of undefined");
+      .rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'parts')");
 
     await expect(ui5.common.assertion.expectBindingPathToBe(categoryHeaderSelector, undefined, "/ProductCategories"))
-      .rejects.toThrow("javascript error: Cannot read property 'parts' of undefined");
+      .rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'parts')");
   });
 });
 
@@ -115,6 +110,7 @@ describe("assertion - expectBindingPathToBe with wrong compareValue (unhappy cas
 
   it("Execution and Verification", async function () {
     // Typo in compareValue
+    debugger;
     await expect(ui5.common.assertion.expectBindingPathToBe(categoryHeaderSelector, "items", "/ProductCategores"))
       .rejects.toThrow(/Expect\w+|\d+ProductCategores\w+|\d+Received\w+|\d+ProductCategories/);
     // Wrong compareValue

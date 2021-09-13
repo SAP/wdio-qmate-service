@@ -52,15 +52,8 @@ describe("assertion - expectBindingContextPathToBe with wrong selector (unhappy 
       }
     };
 
-    await expect(ui5.common.assertion.expectBindingContextPathToBe(totallyWrongSelector, "/ProductCategories('AC')"))
-      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Matcher is not supported! Matcher name: 'wrongData', arguments: '\"123\"'");
-
-
     await expect(ui5.common.assertion.expectBindingContextPathToBe(wrongSelector, "/ProductCategories('AC')"))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
-
-    await expect(ui5.common.assertion.expectBindingContextPathToBe(123, "/ProductCategories('AC')"))
-      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Cannot read property 'getMetadata' of null");
 
     await expect(ui5.common.assertion.expectBindingContextPathToBe(false, "/ProductCategories('AC')"))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
