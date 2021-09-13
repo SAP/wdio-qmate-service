@@ -317,7 +317,7 @@ const Assertion = function () {
     const elem = await browser.uiControl(selector, index, timeout);
     let value = null;
     if (loadPropertyTimeout > 0) {
-      await expect(elem).toBeVisibleInViewport({
+      await expect(elem).toBeDisplayedInViewport({
         wait: loadPropertyTimeout,
         interval: 100,
         message: "Timeout by waiting for element to be visible."
@@ -382,7 +382,7 @@ const Assertion = function () {
       }
     };
     const elem = await browser.uiControl(ui5ControlProperties);
-    await expect(elem).toBeVisibleInViewport({
+    await expect(elem).toBeDisplayedInViewport({
       wait: 10000,
       interval: 100,
       message: "Timeout by waiting for element to be visible."
