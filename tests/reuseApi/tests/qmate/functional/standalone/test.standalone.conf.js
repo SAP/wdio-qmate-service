@@ -1,6 +1,6 @@
 var path = require("path");
 var merge = require("deepmerge");
-var qmateConfig = require(path.resolve(process.env.CONFIG_TEMPLATES, "selenium.standalone.conf.js"));
+var qmateConfig = require("../../../../configurations/selenium.standalone.conf");
 exports.config = merge(qmateConfig.config, {
   maxInstances: 1,
   bail: 1,

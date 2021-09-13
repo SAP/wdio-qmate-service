@@ -1,27 +1,7 @@
 const path = require("path");
-const WdioQmateService = require("@wdio/qmate-service");
-const WdioQmateCoverageService = require("@wdio/qmate-code-coverage-service");
-exports.config = {
-  runner: "local",
-
-  // Default timeout for all waitFor* commands.
-  waitforTimeout: 60000,
-
-  // UI5 waiting timeout waiting for page to load
-  waitForUI5Timeout: 90000,
-
-  // UI5 waiting timeout waiting for page to load polling interval
-  waitForUI5PollingInterval: 150,
-
-  // After finding elements will recount again to make sure the count is stable, as many times as defined here
-  stableCountTries: 1,
-
-  // Default timeout in milliseconds for request
-  // if browser driver or grid doesn't send response
-  connectionRetryTimeout: 90000,
-
-  // Default request retries count
-  connectionRetryCount: 3,
+const merge = require("deepmerge");
+const plainConfig = require("../../../../../../../configurations/base.conf.js");
+exports.config = merge(plainConfig.config, {
   capabilities: [{
 
     // maxInstances can get overwritten per capability. So if you have an in-house Selenium
@@ -65,9 +45,7 @@ exports.config = {
     }
   }],
 
-  logLevel: "error",
-  bail: 0,
-  services: [["selenium-standalone"], [WdioQmateService], [WdioQmateCoverageService], ["static-server", {
+  services: [["selenium-standalone"], ["static-server", {
     port: 34005,
     folders: [
       {mount: "/test/flpSandboxMockServer.html", path: path.resolve(__dirname, "../../flpSandboxMockServer.html")},
@@ -104,12 +82,5 @@ exports.config = {
     path.resolve(__dirname, "qunitExecution/specs/runQUnitTests.spec.js"),
     path.resolve(__dirname, "testDisplayNotFound/specs/testDisplayNotFound.spec.js"),
     path.resolve(__dirname, "testShowEmployeeList/specs/testShowEmployeeList.spec.js")
-  ],
-  reporters: ["spec"],
-
-  framework: "mocha",
-  mochaOpts: {
-    ui: "bdd",
-    timeout: 3000000
-  }
-};
+  ]
+});

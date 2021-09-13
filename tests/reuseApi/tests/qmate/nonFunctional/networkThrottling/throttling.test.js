@@ -1,5 +1,5 @@
 "use strict";
-// This spec produces an error:
+// This spec produces an inner error (but spec passes fine):
 // ERROR @wdio/devtools-service:TraceGatherer: Neither network nor CPU idle time could be detected within timeout, wrapping up tracing"
 describe("Initialization Page performance test", function () {
   it("Enable throttling", async function () {

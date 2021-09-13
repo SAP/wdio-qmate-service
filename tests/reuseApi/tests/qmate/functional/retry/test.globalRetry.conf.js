@@ -10,7 +10,7 @@ exports.config = merge(qmateConfig.config, {
   specFileRetriesDeferred: true,
 
   specs: [
-    path.resolve(__dirname, "retryGlobal.test.js"),
+    path.resolve(__dirname, "failingFileForGlobal.test.js"),
     path.resolve(__dirname, "successFileForGlobal.test.js")
   ],
 });
