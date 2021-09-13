@@ -24,7 +24,8 @@ exports.config = merge(qmateConfig.config, {
     path.resolve(__dirname, "getValue.spec.js"),
     path.resolve(__dirname, "highlightElement.spec.js"),
     path.resolve(__dirname, "scrollToElement.spec.js"),
-    path.resolve(__dirname, "isVisible.spec.js")
+    path.resolve(__dirname, "isVisible.spec.js"),
+    path.resolve(__dirname, "waitUI5ToStabilize.spec.js")
   ],
   // Patterns to exclude.
   exclude: [

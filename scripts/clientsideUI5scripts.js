@@ -132,8 +132,8 @@ functions.getControlBindingContextPath = function (mScriptParams) {
     for (let index = 0; index < aKeys.length; index++) {
       const oBindingContext = bindingContexts[aKeys[index]];
       if (oBindingContext &&
-        oBindingContext.getPath &&
-        oBindingContext.getPath())
+          oBindingContext.getPath &&
+          oBindingContext.getPath())
         return oBindingContext.getPath();
     }
   }
@@ -174,146 +174,86 @@ functions.getControlPropertyBinding = function (mScriptParams) {
 };
 
 functions.loadUI5CoreAndAutowaiter = function () {
+  if (!window.findBusyIndicator) {
+    window.findBusyIndicator = function () {
+      return Boolean(Array.from(document.getElementsByClassName("sapMBusyIndicator")).find(function (elem) {
+        var rect = elem.getBoundingClientRect();
+        return (rect.x > 0 || rect.y > 0) && rect.width > 0 && rect.height > 0;
+      }));
+    };
+  }
   try {
-    if (
-      window.sap &&
-      window.sap.ui.getCore &&
-      window.sap.ui.getCore() &&
-      !window.sap.ui.getCore().isLocked() &&
-      !window.sap.ui.getCore().getUIDirty() &&
-      document.readyState === "complete"
-    ) {
-      sap.ui.require([
-        "sap/ui/test/_ControlFinder",
-        "sap/ui/test/RecordReplay",
-        "sap/base/Log"
-      ], function (_ControlFinder, RecordReplay, Log) {
-        // Use log globally
-        window.Log = Log;
-        // Attach RecordReplay globally
-        if (RecordReplay) {
-          window.RecordReplay = RecordReplay;
-        } else {
-          window.RecordReplay = null;
-        }
-        //Workaround until I get multiple results
-        if (_ControlFinder) {
-          window._ControlFinder = _ControlFinder;
-        } else {
-          // _findElements
-          window._ControlFinder = null;
-        }
-      });
-    }
-    if (window.RecordReplay && window._ControlFinder && window.Log) {
+    // First check if already everything loaded
+    if (window.RecordReplay && !window.findBusyIndicator()) {
       return true;
     }
-    return false;
+    if (
+      window.sap &&
+        window.sap.ui.getCore &&
+        window.sap.ui.getCore() &&
+        !window.sap.ui.getCore().isLocked() &&
+        !window.sap.ui.getCore().getUIDirty() &&
+        document.readyState === "complete"
+    ) {
+      // Always check for busy indicators
+      if (window.findBusyIndicator()) { return false; }
+
+      return new Promise(function(res, rej) {
+        sap.ui.require([
+          "sap/ui/test/RecordReplay"
+        ], function (RecordReplay) {
+          // Attach RecordReplay globally
+          if (RecordReplay) {
+            window.RecordReplay = RecordReplay;
+            res(!window.findBusyIndicator());
+          }
+          res(false);
+        });
+      });
+    }
   } catch (oError) {
     return false;
   }
 };
 
 functions.loadUI5Page = function (mScriptParams) {
+  if (!window.findBusyIndicator) {
+    window.findBusyIndicator = function () {
+      return Boolean(Array.from(document.getElementsByClassName("sapMBusyIndicator")).find(function (elem) {
+        var rect = elem.getBoundingClientRect();
+        return (rect.x > 0 || rect.y > 0) && rect.width > 0 && rect.height > 0;
+      }));
+    };
+  }
+  // Always check for busy indicators
+  if (window.findBusyIndicator()) { return false; }
   return window.RecordReplay.waitForUI5({
     timeout: mScriptParams.waitForUI5Timeout,
     interval: mScriptParams.waitForUI5PollingInterval
   }).then(function () {
-    window.Log.warning("Finish loading");
-    // Can use also interactWithControl
-    return true;
+    return (!window.findBusyIndicator());
   }).catch(function (err) {
     return false;
   });
 };
 
 functions.waitForAngular = function (rootSelector, interval, callback) {
-
   var findBusyIndicator = function () {
-    return Boolean(Array.from(document.getElementsByClassName("sapUiLocalBusyIndicator")).find(function (elem) {
+    return Boolean(Array.from(document.getElementsByClassName("sapMBusyIndicator")).find(function (elem) {
       var rect = elem.getBoundingClientRect();
-      var aModalDialog = Array.from(document.getElementsByClassName("sapMDialog"));
-      var nModalCount = 0;
-      if (aModalDialog && aModalDialog.length) {
-        nModalCount = aModalDialog.length;
-      }
-      return (rect.x > 0 || rect.y > 0) && rect.width > 0 && rect.height > 0 && nModalCount === 0;
+      return (rect.x > 0 || rect.y > 0) && rect.width > 0 && rect.height > 0;
     }));
   };
-
-  function defineTestCooperation() {
-    var TestCooperation = function (oCore) {
-
-      this._bSameTick = false;
-      this.iPendingXHRs = 0;
-      this.aDoNotTrack = [];
-      this.aPendingCallbacks = [];
-      this.oCore = oCore;
-
-      this._wrapXHR();
-
-      this.oCore.attachUIUpdated(this._tryToExecuteCallbacks);
-    };
-
-    // Constants for TestCooperation class
-    TestCooperation.EXECUTE_CALLBACKS_REG_EXP = /_tryToExecuteCallbacks/;
-
-    TestCooperation.prototype.notifyWhenStable = function (fnCallback) {
-      if (this.isStable()) {
-        fnCallback();
-      } else {
-        this.aPendingCallbacks.push(fnCallback);
-      }
-    };
-
-    TestCooperation.prototype.isStable = function () {
-      return (!this.oCore.getUIDirty() && this.aPendingCallbacks.length === 0);
-    };
-
-    TestCooperation.prototype._wrapXHR = function () {
-      var that = this,
-        fnOriginalSend = window.XMLHttpRequest.prototype.send;
-      window.XMLHttpRequest.prototype.send = function () {
-        this.addEventListener("readystatechange", function () {
-          if (this.readyState == 4 && this.isTracked) {
-            that.iPendingXHRs--;
-            that._tryToExecuteCallbacks();
-          }
-        });
-        this.isTracked = true;
-        that.iPendingXHRs++;
-        fnOriginalSend.apply(this, arguments);
-      };
-    };
-
-    TestCooperation.prototype._tryToExecuteCallbacks = function () {
-      if (!this._bSameTick) {
-        var that = this;
-        this._bSameTick = true;
-        window.setTimeout(function () {
-          if (!that.oCore.getUIDirty() && that.aPendingCallbacks.length > 0) {
-            do {
-              var fnCallback = that.aPendingCallbacks.shift();
-              fnCallback();
-            } while (!that.oCore.getUIDirty() && that.aPendingCallbacks.length > 0);
-          }
-          that._bSameTick = false;
-        }, 0);
-      }
-    };
-
-    return TestCooperation;
-  }
 
   function waitForRendered() {
     if (
       window.sap &&
-      window.sap.ui.getCore &&
-      window.sap.ui.getCore() &&
-      !window.sap.ui.getCore().isLocked() &&
-      !window.sap.ui.getCore().getUIDirty() &&
-      !findBusyIndicator() &&           // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
-      document.readyState == "complete"
+        window.sap.ui.getCore &&
+        window.sap.ui.getCore() &&
+        !window.sap.ui.getCore().isLocked() &&
+        !window.sap.ui.getCore().getUIDirty() &&
+        !findBusyIndicator() &&           // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
+        document.readyState == "complete"
     ) {
       callback();
     } else {
@@ -321,58 +261,25 @@ functions.waitForAngular = function (rootSelector, interval, callback) {
     }
   }
 
-  var i = 0;
   function waitForFirstRendered(cb) {
     if (
       window.sap &&
-      window.sap.ui.getCore &&
-      window.sap.ui.getCore() &&
-      !window.sap.ui.getCore().isLocked() &&
-      !window.sap.ui.getCore().getUIDirty() &&
-      !findBusyIndicator() &&          // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
-      document.readyState == "complete"
+        window.sap.ui.getCore &&
+        window.sap.ui.getCore() &&
+        !window.sap.ui.getCore().isLocked() &&
+        !window.sap.ui.getCore().getUIDirty() &&
+        !findBusyIndicator() &&          // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
+        document.readyState == "complete"
     ) {
-      findui5Busy();
+      window.setTimeout(waitForRendered, interval);
     } else {
       window.setTimeout(waitForFirstRendered, interval);
     }
   }
 
-  function findui5Busy() {
-    setTimeout(function () {
-      if (!window.sap) {
-        return window.setTimeout(waitForRendered, interval);
-      }
-      var oLcaTestCooperation = window.oLcaTestCooperation;
-      if (!oLcaTestCooperation) {
-        var LcaTestCooperation = window.TestCooperation || defineTestCooperation();
-        /* eslint-disable-next-line no-redeclare */
-        var oLcaTestCooperation = new LcaTestCooperation({
-          getUIDirty: window.sap.ui.getCore().getUIDirty.bind(window.sap.ui.getCore()),
-          attachUIUpdated: function () {
-
-          }
-        });
-        window.oLcaTestCooperation = oLcaTestCooperation;
-      }
-
-      if (!oLcaTestCooperation.isStable()) {
-
-        setTimeout(findui5Busy, interval);
-      } else {
-        window.setTimeout(waitForRendered, interval);
-      }
-    }, 10);
-  }
-
   window.setTimeout(function () {
-    waitForFirstRendered(findui5Busy);
+    waitForFirstRendered();
   }, interval);
-
-
-
-
-
 
 };
 
@@ -391,7 +298,7 @@ var util = require("util");
 var scriptsList = [];
 var scriptFmt = (
   "try { return (%s).apply(this, arguments); }\n" +
-  "catch(e) { throw (e instanceof Error) ? e : new Error(e); }");
+    "catch(e) { throw (e instanceof Error) ? e : new Error(e); }");
 for (var fnName in functions) {
   if (functions.hasOwnProperty(fnName)) {
     exports[fnName] = util.format(scriptFmt, functions[fnName]);
