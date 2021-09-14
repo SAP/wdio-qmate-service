@@ -274,8 +274,8 @@ const Session = function () {
   };
 
   async function logUI5Version() {
-    const logUI5Version = browser.params.logUI5Version;
-    if (logUI5Version !== false && !process.env.UI5_VERSION_LOGGED) {
+    const logUI5Version = browser.params && browser.params.logUI5Version;
+    if (![undefined, false].includes(logUI5Version) && !process.env.UI5_VERSION_LOGGED) {
       const ui5Version = await utilities.browser.getUI5Version();
       utilities.console.log("");
       utilities.console.info(`UI5 Version:\t${ui5Version.version}`);
