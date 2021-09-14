@@ -29,7 +29,7 @@ const ConfirmationDialog = function () {
    * @example await ui5.confirmationDialog.clickButton("Ok");
    */
   this.clickButton = async function (text, timeout = 30000) {
-    return ui5.userInteraction.click(this.selector.genericButton(text), 0, timeout);
+    return ui5.userInteraction.click(this.selectors.genericButton(text), 0, timeout);
   };
 
   /**
@@ -40,7 +40,7 @@ const ConfirmationDialog = function () {
    * @example await ui5.confirmationDialog.clickOk();
    */
   this.clickOk = async function (timeout = 30000) {
-    return this.clickButton("Ok", timeout);
+    return this.clickButton(/ok/gi, timeout);
   };
 
   /**

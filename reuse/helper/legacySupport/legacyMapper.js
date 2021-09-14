@@ -22,10 +22,10 @@ function getGlobalObjectFor(namespace) {
   return currentGlobalValue;
 }
 
-function assignWrapperFunction(fct, oldNamespace, newNamespace) {
+function assignWrapperFunction(context, fct, oldNamespace, newNamespace) {
   return async function () {
     util.console.warn(`"${oldNamespace}" is deprecated. Please use "${newNamespace}" instead.`);
-    return fct(...arguments);
+    return fct.call(context, ...arguments);
   };
 }
 
@@ -50,16 +50,16 @@ function setGlobal(oldNamespace, newNamespace) {
           if (typeof currentValue === "object") {
             const innerObject = {};
             for (const f in currentValue) {
-              innerObject[f] = assignWrapperFunction(currentValue[f], oldNamespace, newNamespace);
+              innerObject[f] = assignWrapperFunction(currentValue, currentValue[f], oldNamespace, newNamespace);
             }
             newValue[j] = innerObject;
           } else {
-            newValue[j] = assignWrapperFunction(currentValue, oldNamespace, newNamespace);
+            newValue[j] = assignWrapperFunction(newGlobalObject, currentValue, oldNamespace, newNamespace);
           }
         }
         currentGlobalValue[namespaceParts[i]] = newValue;
       } else if (typeof newGlobalObject === "function") {
-        currentGlobalValue[namespaceParts[i]] = assignWrapperFunction(newGlobalObject, oldNamespace, newNamespace);
+        currentGlobalValue[namespaceParts[i]] = assignWrapperFunction(newGlobalObject, newGlobalObject, oldNamespace, newNamespace);
       }
     }
   }
