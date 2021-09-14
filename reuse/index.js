@@ -1,6 +1,6 @@
 "use strict";
 
-const legacyMapper = require("./helper/legacyMapper.js");
+const legacyMapper = require("./helper/legacySupport/legacyMapper.js");
 
 const ReuseLibrary = function () {
   this.load = function () {

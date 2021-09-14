@@ -1,10 +1,10 @@
-const clientsidescripts = require("../../../clientsideUI5scripts"); // TODO
-
 /**
  * @class qUnit  
  * @memberof util
  */
 const QUnit = function () {
+
+  const clientsidescripts = require("../../helper/clientsideUI5scripts");
 
   /**
    * @function executeTests
