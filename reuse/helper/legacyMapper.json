@@ -12,6 +12,14 @@
     "new": "util.file.upload"
   },
   {
+    "old": "utilities.execute.executeJavaScript",
+    "new": "util.browser.execute"
+  },
+  {
+    "old": "utilities.execute.executeKeys",
+    "new": "util.browser.sendKeys"
+  },
+  {
     "old": "utilities.fileHandler",
     "new": "util.file"
   },

@@ -94,9 +94,9 @@ const Browser = function () {
   /**
    * @function sendKeys
    * @memberOf util.browser
-   * @description Executes the set of keystrokes.
+   * @description Executes the set of keystrokes as described https://w3c.github.io/webdriver/#keyboard-actions.
    * @param {String} keys - The combination of keys to execute.
-   * @example await util.browser.sendKeys(protractor.Key.CONTROL, protractor.Key.ALT, "d");
+   * @example await util.browser.sendKeys("\uE009", "\uE00A", "KeyD");
    */
   this.sendKeys = async function (...keys) {
     await browser.sendKeys(keys);
@@ -124,7 +124,7 @@ const Browser = function () {
    */
   this.getUI5Version = async function () {
     await browser.waitUntil(async function () {
-      return await browser.execute(function () {
+      await browser.execute(function () {
         try {
           if (window && window.sap && window.sap.ui) {
             return true;
@@ -171,6 +171,7 @@ const Browser = function () {
    * @memberOf util.browser
    * @description Executes the specified JavaScript command.
    * @param {String} command - The command to execute.
+   * @returns {Any} The result from the executed function.
    * @example await util.browser.executeScript(command);
    */
   this.executeScript = async function (command) {
