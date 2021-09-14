@@ -17,7 +17,7 @@ const UserInteraction = function () {
   this.click = async function (selector, index = 0, timeout = 30000) {
     let elem = null;
     await browser.waitUntil(async function () {
-      elem = await ui5.locator.getDisplayedElement(selector, index, timeout);
+      elem = await ui5.element.getDisplayedElement(selector, index, timeout);
       if (!elem) return false;
       return elem.isClickable();
     }, {
@@ -62,7 +62,7 @@ const UserInteraction = function () {
   this.clickTab = async function (selector, index = 0, timeout = 30000) {
     await util.function.retry(async function (selector, index, timeout) {
       await ui5.userInteraction.click(selector);
-      const tab = await ui5.locator.getDisplayedElement(selector, index, timeout);
+      const tab = await ui5.element.getDisplayedElement(selector, index, timeout);
       const classList = await tab.getAttribute("class");
       if (!classList.includes("sapUxAPAnchorBarButtonSelected")) {
         throw new Error();
@@ -82,7 +82,7 @@ const UserInteraction = function () {
    * @example await ui5.userInteraction.clickListItem(selector);
    */
   this.clickListItem = async function (selector, index = 0, timeout = 30000) {
-    const elem = await ui5.locator.getDisplayedElement(selector, index, timeout);
+    const elem = await ui5.element.getDisplayedElement(selector, index, timeout);
     await ui5._____________TODO______________.executeControlInBrowser(function (control, done) {
       control.attachPress(function () {
         done();
@@ -105,7 +105,7 @@ const UserInteraction = function () {
    */
   this.fill = async function (selector, value, index = 0, timeout = 30000) {
     if (value !== null) {
-      const id = await ui5.locator.getElementId(selector, index, timeout);
+      const id = await ui5.element.getElementId(selector, index, timeout);
       let elem = null;
       if (selector.elementProperties.metadata === "sap.m.TextArea") {
         elem = await nonUi5.element.getElementByCss("[id='" + id + "'] textarea", index, timeout);
@@ -229,7 +229,7 @@ const UserInteraction = function () {
    * @example await ui5.userInteraction.clearAndFillSmartFieldInput(selector, "My Value");
    */
   this.clearAndFillSmartFieldInput = async function (selector, value, index = 0, timeout = 30000) {
-    const id = await ui5.locator.getElementId(selector, index, timeout);
+    const id = await ui5.element.getElementId(selector, index, timeout);
     const elem = await nonUi5.element.getElementByCss(`input[id*='${id}']`);
     await elem.click();
     await ui5.userInteraction.selectAll(selector, index, timeout);
@@ -279,7 +279,7 @@ const UserInteraction = function () {
           "metadata": "sap.m.SelectList"
         }
       };
-      await ui5.locator.scrollToElement(ui5ControlProperties);
+      await ui5.element.scrollToElement(ui5ControlProperties);
       await this.click(ui5ControlProperties);
     }
   };
@@ -309,7 +309,7 @@ const UserInteraction = function () {
           "metadata": "sap.m.List"
         }
       };
-      await ui5.locator.scrollToElement(selector);
+      await ui5.element.scrollToElement(selector);
       await this.click(selector);
     }
   };
@@ -340,7 +340,7 @@ const UserInteraction = function () {
           }
         }
       };
-      await ui5.locator.scrollToElement(ui5ControlProperties);
+      await ui5.element.scrollToElement(ui5ControlProperties);
       await this.click(ui5ControlProperties);
     }
     await this.pressEnter();
@@ -355,7 +355,7 @@ const UserInteraction = function () {
    * @example await ui5.userInteraction.clickSelectArrow(selector);
    */
   this.clickSelectArrow = async function (selector, index = 0) {
-    const id = await ui5.locator.getElementId(selector, index);
+    const id = await ui5.element.getElementId(selector, index);
     const arrow = await nonUi5.element.getElementByCss("[id='" + id + "-arrow']", 0, 3000);
     await arrow.click();
   };
@@ -410,7 +410,7 @@ const UserInteraction = function () {
     if (useF4Key === true) {
       await this.pressF4();
     } else {
-      const id = await ui5.locator.getElementId(selector);
+      const id = await ui5.element.getElementId(selector);
       const button = await nonUi5.element.getElementByCss("[id='" + id + "-vhi']", 0, timeout);
       await button.click();
     }
@@ -433,7 +433,7 @@ const UserInteraction = function () {
     if (useEnter === true) {
       await this.pressEnter();
     } else {
-      const id = await ui5.locator.getElementId(selector, index, timeout);
+      const id = await ui5.element.getElementId(selector, index, timeout);
       const searchButton = await nonUi5.element.getElementByCss("[id='" + id + "-search']", 0, timeout);
       await searchButton.click();
     }
@@ -449,7 +449,7 @@ const UserInteraction = function () {
    * @example await ui5.userInteraction.resetSearch(selector);
    */
   this.resetSearch = async function (selector, index = 0, timeout = 30000) {
-    const id = await ui5.locator.getElementId(selector, index, timeout);
+    const id = await ui5.element.getElementId(selector, index, timeout);
     const resetButton = await nonUi5.element.getElementByCss("[id='" + id + "-reset']", 0, timeout);
     await resetButton.click();
   };
@@ -460,7 +460,7 @@ const UserInteraction = function () {
     let id, elem;
     if (selector) {
       await ui5.userInteraction.click(selector, index, timeout);
-      id = await ui5.locator.getElementId(selector, index, timeout);
+      id = await ui5.element.getElementId(selector, index, timeout);
       elem = await browser.getActiveElement();
     } else {
       elem = await browser.getActiveElement();

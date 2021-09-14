@@ -19,7 +19,7 @@ exports.config = merge(baseConfig.config, {
         "--whitelisted-ips",
         "--disable-dev-shm-usage",
         // "--incognito",
-        "--disable-gpu",
+        // "--disable-gpu",
         "--disable-web-security",
         "--disable-infobars",
         "--disable-extensions",
@@ -43,7 +43,9 @@ exports.config = merge(baseConfig.config, {
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
   services: [
-    ["chromedriver", { port: 4444 }]
+    ["chromedriver", {
+      port: 4444
+    }]
   ],
 
   //

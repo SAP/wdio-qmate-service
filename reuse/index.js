@@ -32,7 +32,7 @@ const ReuseLibrary = function () {
       function: require("./modules/util/function.js"),
       mockserver: require("./modules/util/mockserver.js"),
       system: require("./modules/util/system.js"),
-      qUint: require("./modules/util/qUint.js")
+      qUnit: require("./modules/util/qUnit.js")
     };
     global.util = {
       ...util,

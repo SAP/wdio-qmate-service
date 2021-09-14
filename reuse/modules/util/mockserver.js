@@ -8,7 +8,7 @@
  */
 const Mockserver = function () {
 
-  const lib = require("../../../hooks/utils/lib.js"); // TODO
+  const lib = require("../../../scripts/hooks/utils/lib.js");
 
   /**
    * @function waitForUi5ApplicationLoad
@@ -403,8 +403,6 @@ const Mockserver = function () {
     return util.mockserver.waitForUi5ApplicationLoad();
   };
 
-
-
   /**
    * @function initMockServer
    * @memberOf util.mockserver
@@ -434,7 +432,6 @@ const Mockserver = function () {
       });
     }, mockServerPath, mockServerOpts);
   };
-
 
   /**
    * @function initApplication
