@@ -2,7 +2,7 @@
 let selector;
 const {
   handleCookiesConsent
-} = require("../../../../utils");
+} = require("../../utils");
 
 describe("assertion - expectToBeVisible with right selector", function () {
 
@@ -22,7 +22,7 @@ describe("assertion - expectToBeVisible with right selector", function () {
   });
 
   it("Verification", async function () {
-    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector);
   });
 });
 
@@ -42,7 +42,7 @@ describe("assertion - expectToBeVisible with wrong selector", function () {
   });
 
   it("Verification", async function () {
-    await expect(ui5.common.assertion.expectToBeVisible(selector))
+    await expect(ui5.assertion.expectToBeVisible(selector))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
@@ -64,6 +64,6 @@ describe("assertion - expectToBeVisible outside viewport", function () {
   });
 
   it("Verification", async function () {
-    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector);
   });
 });

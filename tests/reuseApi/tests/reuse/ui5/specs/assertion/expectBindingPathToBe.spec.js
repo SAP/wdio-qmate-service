@@ -2,24 +2,41 @@
 
 const categoryHeaderSelector = {
   "elementProperties": {
-    "metadata": "sap.m.List", "mProperties": {
-      "headerText": { "path": "homeCategoryListHeader" },
-      "items": { "path": "/ProductCategories" }
+    "metadata": "sap.m.List",
+    "mProperties": {
+      "headerText": {
+        "path": "homeCategoryListHeader"
+      },
+      "items": {
+        "path": "/ProductCategories"
+      }
     }
   },
   "parentProperties": {
-    "metadata": "sap.m.Page", "mProperties": {
-      "title": { "path": "homeTitle" }
+    "metadata": "sap.m.Page",
+    "mProperties": {
+      "title": {
+        "path": "homeTitle"
+      }
     }
   },
   "childProperties": {
-    "metadata": "sap.m.StandardListItem", "mProperties": {
+    "metadata": "sap.m.StandardListItem",
+    "mProperties": {
       "bindingContextPath": "/ProductCategories('AC')",
-      "counter": { "path": "NumberOfProducts" },
-      "title": { "path": "CategoryName" },
+      "counter": {
+        "path": "NumberOfProducts"
+      },
+      "title": {
+        "path": "CategoryName"
+      },
       // model = "i18n"
       // path = "openCategoryProducts"
-      "tooltip": [{ "path": "i18n>openCategoryProducts" }, { "path": "CategoryName" }]
+      "tooltip": [{
+        "path": "i18n>openCategoryProducts"
+      }, {
+        "path": "CategoryName"
+      }]
     }
   }
 };
@@ -32,13 +49,22 @@ describe("assertion - expectBindingPathToBe", function () {
   it("Execution and Verification", async function () {
     const category = {
       "elementProperties": {
-        "metadata": "sap.m.StandardListItem", "mProperties": {
+        "metadata": "sap.m.StandardListItem",
+        "mProperties": {
           "bindingContextPath": "/ProductCategories('AC')",
-          "counter": { "path": "NumberOfProducts" },
-          "title": { "path": "CategoryName" },
+          "counter": {
+            "path": "NumberOfProducts"
+          },
+          "title": {
+            "path": "CategoryName"
+          },
           // model = "i18n"
           // path = "openCategoryProducts"
-          "tooltip": [{ "path": "i18n>openCategoryProducts" }, { "path": "CategoryName" }]
+          "tooltip": [{
+            "path": "i18n>openCategoryProducts"
+          }, {
+            "path": "CategoryName"
+          }]
         }
       }
     };
@@ -72,7 +98,7 @@ describe("assertion - expectBindingPathToBe with wrong selector (unhappy case)",
       .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Matcher is not supported! Matcher name: 'wrongData', arguments: '\"123\"'");
 
     await expect(ui5.common.assertion.expectBindingPathToBe(123, "items", "/ProductCategories"))
-      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Cannot read property 'getMetadata' of null");
+      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Cannot read properties of null (reading 'getMetadata')");
 
     await expect(ui5.common.assertion.expectBindingPathToBe(false, "items", "/ProductCategories"))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);

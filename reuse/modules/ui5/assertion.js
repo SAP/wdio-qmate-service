@@ -125,9 +125,9 @@ const Assertion = function () {
    * @example await ui5.assertion.expectValueToBeDefined(selector);
    */
   this.expectValueToBeDefined = async function (selector, index = 0, timeout = 30000) {
-    const value = await ui5.locator.getValue(selector, "value", index, timeout);
-    await ui5.assertion.expectDefined(value);
-    await ui5.assertion.expectUnequal(value, "");
+    const value = await ui5.element.getValue(selector, "value", index, timeout);
+    await common.assertion.expectDefined(value);
+    await common.assertion.expectUnequal(value, "");
   };
 
   /**
@@ -451,7 +451,7 @@ const Assertion = function () {
         "ancestorProperties": missingNavigationPopup
       }
     };
-    const detailsTextElement = await ui5.locator.getDisplayedElement(selector);
+    const detailsTextElement = await ui5.element.getDisplayedElement(selector);
     const dataHtmlText = await detailsTextElement.getAttribute("data-htmltext");
     const stringExists = await dataHtmlText.includes(navigationTarget.replace(/&/g, "&amp;"));
 

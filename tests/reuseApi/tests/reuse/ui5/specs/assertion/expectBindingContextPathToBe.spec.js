@@ -2,11 +2,20 @@
 
 const categorySelector = {
   "elementProperties": {
-    "metadata": "sap.m.StandardListItem", "mProperties": {
+    "metadata": "sap.m.StandardListItem",
+    "mProperties": {
       "bindingContextPath": "/ProductCategories('AC')",
-      "counter": { "path": "NumberOfProducts" },
-      "title": { "path": "CategoryName" },
-      "tooltip": [{ "path": "i18n>openCategoryProducts" }, { "path": "CategoryName" }]
+      "counter": {
+        "path": "NumberOfProducts"
+      },
+      "title": {
+        "path": "CategoryName"
+      },
+      "tooltip": [{
+        "path": "i18n>openCategoryProducts"
+      }, {
+        "path": "CategoryName"
+      }]
     }
   }
 };
@@ -43,11 +52,20 @@ describe("assertion - expectBindingContextPathToBe with wrong selector (unhappy 
 
     const wrongSelector = {
       "elementProperties": {
-        "metadata": "sap.m.StandardListItem", "mProperties": {
+        "metadata": "sap.m.StandardListItem",
+        "mProperties": {
           "bindingContextPath": "/ProductCategories('AC')",
-          "counter": { "path": "NumberOfProducts" },
-          "title": { "path": "CategoryWrongName" }, // "{"path": "CategoryWrongName"}" instead of {"path": "CategoryWrongName"}
-          "tooltip": [{ "path": "i18n>openCategoryProducts" }, { "path": "CategoryName" }]
+          "counter": {
+            "path": "NumberOfProducts"
+          },
+          "title": {
+            "path": "CategoryWrongName"
+          }, // "{"path": "CategoryWrongName"}" instead of {"path": "CategoryWrongName"}
+          "tooltip": [{
+            "path": "i18n>openCategoryProducts"
+          }, {
+            "path": "CategoryName"
+          }]
         }
       }
     };
@@ -60,7 +78,7 @@ describe("assertion - expectBindingContextPathToBe with wrong selector (unhappy 
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
 
     await expect(ui5.common.assertion.expectBindingContextPathToBe(123, "/ProductCategories('AC')"))
-      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Cannot read property 'getMetadata' of null");
+      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Cannot read properties of null (reading 'getMetadata')");
 
     await expect(ui5.common.assertion.expectBindingContextPathToBe(false, "/ProductCategories('AC')"))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
@@ -83,4 +101,3 @@ describe("assertion - expectBindingContextPathToBe wrong compareValue (unhappy c
       .rejects.toThrow(/Expect\w+|\d+ProductCategores\w+|\d+Received\w+|\d+ProductCategories/);
   });
 });
-

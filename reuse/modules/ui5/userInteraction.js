@@ -174,7 +174,7 @@ const UserInteraction = function () {
   this.clearAndFill = async function (selector, value, index = 0, timeout = 30000) {
     if (value !== null) {
       await this.clear(selector, index, timeout);
-      await this.fillActive(value);
+      await common.userInteraction.fillActive(value);
     } else {
       throw new Error("Function 'clearAndFill' failed. Please provide a value as second parameter.");
     }

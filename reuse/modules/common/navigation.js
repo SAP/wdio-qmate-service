@@ -30,7 +30,7 @@ const Navigation = function () {
    * @example await common.navigation.navigateToUrlAndRetry("www.sap.com");
    */
   this.navigateToUrlAndRetry = async function (url, retries = 3, interval = 5000) {
-    return await util.function.retry(this.navigateToUrl, [url], retries, interval, this);
+    await util.function.retry(this.navigateToUrl, [url], retries, interval, this);
   };
 
   /**

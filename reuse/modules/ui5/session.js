@@ -65,7 +65,7 @@ const Session = function () {
 
     try {
       const authenticator = await ui5.authenticators.fioriForm;
-      return await this.loginWithUsernameAndPassword(username, password, authenticator, verify);
+      return await loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
       throw new Error(`Function 'loginFiori' failed: ${error}`);
     }
@@ -87,7 +87,7 @@ const Session = function () {
 
     try {
       const authenticator = await ui5.authenticators.sapCloudForm;
-      return await this.loginWithUsernameAndPassword(username, password, authenticator, verify);
+      return await loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
       throw new Error(`Function 'loginSapCloud' failed: ${error}`);
     }
@@ -116,7 +116,7 @@ const Session = function () {
         "passwordFieldSelector": passwordFieldSelector,
         "logonButtonSelector": logonButtonSelector
       };
-      return await this.loginWithUsernameAndPassword(username, password, authenticator, verify);
+      return await loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
       throw new Error(`Function 'loginCustom' failed: ${error}`);
     }
@@ -176,7 +176,7 @@ const Session = function () {
         "passwordFieldSelector": browser.config.params.auth.passwordFieldSelector,
         "logonButtonSelector": browser.config.params.auth.logonButtonSelector
       };
-      return await this.loginWithUsernameAndPassword(username, password, authenticator, verify);
+      return await loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
       throw new Error("Function 'loginCustomViaConfig' failed. Please maintain the auth values in your config.");
     }
@@ -221,7 +221,7 @@ const Session = function () {
     if (!authenticator) {
       this.login(username, password);
     } else {
-      this.loginWithUsernameAndPassword(username, password, authenticator);
+      loginWithUsernameAndPassword(username, password, authenticator);
     }
   };
 
@@ -257,7 +257,7 @@ const Session = function () {
       await ui5.assertion.expectShellHeader();
     }
 
-    await logUI5Version();
+    // await logUI5Version(); // TODO: not working - > endless loading
   }
 
   async function clickSignOut() {
@@ -269,13 +269,20 @@ const Session = function () {
         }
       }
     };
-    await ui5.locator.scrollToElement(selector);
+    await ui5.element.scrollToElement(selector);
     return ui5.userInteraction.click(selector);
   }
 
   //TODO: move to common as global function
   async function logUI5Version() {
-    const logUI5Version = browser.params.logUI5Version;
+    let logUI5Version;
+
+    try {
+      logUI5Version = await browser.config.params.logUI5Version;
+    } catch (error) {
+      logUI5Version = true;
+    }
+
     if (logUI5Version !== false && !process.env.UI5_VERSION_LOGGED) {
       const ui5Version = await util.browser.getUI5Version();
       util.console.log("");
