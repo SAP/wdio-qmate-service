@@ -26,7 +26,7 @@ const Navigation = function () {
     try {
       await browser.navigateTo(`${browser.config.baseUrl.split("#")[0] + urlParams}#${intent}`);
       const url = await browser.getUrl();
-      await this.printCurrentUrl();
+      await common.navigation.printCurrentUrl();
       if (url && url.indexOf(intent) === -1 && verify) {
         throw new Error("Verification of function 'navigateToApplication' failed. For retrying use 'navigateToApplicationAndRetry'.");
       }
@@ -48,7 +48,7 @@ const Navigation = function () {
    * @example await ui5.navigation.navigateToApplicationAndRetry("PurchaseOrder-manage");
    */
   this.navigateToApplicationAndRetry = async function (intent, preventPopups = true, verify = true, retries = 3, interval = 5000) {
-    return await util.function.retry(async (intent, preventPopups) => {
+    await util.function.retry(async (intent, preventPopups) => {
       await this.navigateToApplication(intent, preventPopups, verify);
     }, [intent, preventPopups, verify], retries, interval, this);
   };
@@ -73,7 +73,7 @@ const Navigation = function () {
     try {
       await browser.navigateTo(`https://${system}/ui#${intent}`);
       const url = await browser.getUrl();
-      await this.printCurrentUrl();
+      await common.navigation.printCurrentUrl();
       if (url && url.indexOf(intent) === -1 && verify) {
         throw new Error("Verification of function 'navigateToSystemAndApplication' failed. For retrying use 'navigateToSystemAndApplicationAndRetry'.");
       }
@@ -122,7 +122,7 @@ const Navigation = function () {
     try {
       await browser.url(`${browser.config.baseUrl}${queryParams}#${intent}`);
       url = await browser.getUrl();
-      await this.printCurrentUrl();
+      await common.navigation.printCurrentUrl();
       if (url && url.indexOf(intent) === -1 && verify) {
         throw new Error("Verification of function 'navigateToApplication' failed. For retrying use 'navigateToApplicationAndRetry'.");
       }

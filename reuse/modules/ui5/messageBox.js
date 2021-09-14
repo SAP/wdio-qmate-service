@@ -79,7 +79,7 @@ const MessageBox = function () {
    * @example await ui5.messageBox.isMessageBoxVisible();
    */
   this.isMessageBoxVisible = async function () {
-    return ui5.locator.getValue(this.selectors.messageBox, "visible");
+    return ui5.element.getValue(this.selectors.messageBox, "visible");
   };
 
 };

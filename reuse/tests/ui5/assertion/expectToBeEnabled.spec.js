@@ -12,7 +12,7 @@ describe("assertion - expectToBeEnabled", function () {
       }
     };
 
-    await ui5.common.userInteraction.click(elementSelector); // navigate to products
+    await ui5.userInteraction.click(elementSelector); // navigate to products
 
     const productSelector = {
       "elementProperties": {
@@ -21,7 +21,7 @@ describe("assertion - expectToBeEnabled", function () {
       }
     };
 
-    await ui5.common.userInteraction.click(productSelector); // navigate to product
+    await ui5.userInteraction.click(productSelector); // navigate to product
   });
 
   it("Execution and Verification", async function () {
@@ -34,7 +34,7 @@ describe("assertion - expectToBeEnabled", function () {
         }]
       }
     };
-    await ui5.common.assertion.expectToBeEnabled(addToCartSelector);
+    await ui5.assertion.expectToBeEnabled(addToCartSelector);
   });
 });
 
@@ -49,7 +49,7 @@ describe("assertion - expectToBeEnabled when element not enabled (unhappy case)"
         "src": "sap-icon://cart"
       }
     };
-    await ui5.common.userInteraction.click(cartSelector); // Navigate to shopping cart
+    await ui5.userInteraction.click(cartSelector); // Navigate to shopping cart
   });
 
   it("Execution and Verification", async function () {
@@ -60,7 +60,7 @@ describe("assertion - expectToBeEnabled when element not enabled (unhappy case)"
         "id": "*editButton"
       }
     };
-    await expect(ui5.common.assertion.expectToBeEnabled(selectorForNotEnabledElement))
+    await expect(ui5.assertion.expectToBeEnabled(selectorForNotEnabledElement))
       .rejects.toThrow(/Expect\w+|\d+true\w+|\d+Received\w+|\d+false/);
   });
 });
@@ -80,11 +80,11 @@ describe("assertion - expectToBeEnabled with wrong selector (unhappy case)", fun
         }]
       }
     };
-    await expect(ui5.common.assertion.expectToBeEnabled(selectorForNonExistingElement))
+    await expect(ui5.assertion.expectToBeEnabled(selectorForNonExistingElement))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
 
     const wrongSelector = 123;
-    await expect(ui5.common.assertion.expectToBeEnabled(wrongSelector))
+    await expect(ui5.assertion.expectToBeEnabled(wrongSelector))
       .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Cannot read properties of null (reading 'getMetadata')");
   });
 });

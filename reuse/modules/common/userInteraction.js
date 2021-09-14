@@ -13,7 +13,7 @@ const UserInteraction = function () {
    * @example await common.userInteraction.fillActive("My Value");
    */
   this.fillActive = async function (value) {
-    if (value) {
+    if (value !== null) {
       const elem = await $(await browser.getActiveElement());
       return elem.setValue(value);
       // await elem.addValue(value); // @TODO: which is right
