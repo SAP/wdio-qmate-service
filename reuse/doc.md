@@ -584,6 +584,8 @@ Global namespace for util modules.
         * [.loadMockDataFile(filePath, isText)](#util.mockserver.loadMockDataFile) ⇒ <code>String</code>
         * [.getEntitySetData(mockServerPath, entitySetName)](#util.mockserver.getEntitySetData) ⇒ <code>Array</code>
         * [.setEntitySetData(mockServerPath, entitySetName, entries)](#util.mockserver.setEntitySetData)
+    * [.qUnit](#util.qUnit)
+        * [.executeTests(path)](#util.qUnit.executeTests)
     * [.system](#util.system)
         * [.getOS()](#util.system.getOS) ⇒ <code>String</code>
 
@@ -1402,6 +1404,25 @@ Override entity data entries
 **Example**  
 ```js
 await util.mockserver.setEntitySetData("path/to/project/localService/main/mockserver", "Headers", entries);
+```
+<a name="util.qUnit"></a>
+
+### util.qUnit
+**Kind**: static class of [<code>util</code>](#util)  
+<a name="util.qUnit.executeTests"></a>
+
+#### qUnit.executeTests(path)
+Executes QUnit & OPA5 tests. Qmate acts like a runner.
+
+**Kind**: static method of [<code>qUnit</code>](#util.qUnit)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>String</code> | Relative path to the QUnit/OPA5 html file. |
+
+**Example**  
+```js
+await util.qUnit.executeTests("path/to/qunit.html");
 ```
 <a name="util.system"></a>
 
