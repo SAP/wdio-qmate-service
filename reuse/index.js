@@ -31,7 +31,8 @@ const ReuseLibrary = function () {
       formatter: require("./modules/util/formatter.js"),
       function: require("./modules/util/function.js"),
       mockserver: require("./modules/util/mockserver.js"),
-      system: require("./modules/util/system.js")
+      system: require("./modules/util/system.js"),
+      qUint: require("./modules/util/qUint.js")
     };
     global.util = {
       ...util,
