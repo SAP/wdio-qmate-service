@@ -22,9 +22,16 @@ function getGlobalObjectFor(namespace) {
   return currentGlobalValue;
 }
 
+function getGlobalParentObjectFor(namespace) {
+  const namespaceParts = namespace.split(".");
+  namespaceParts.splice(-1, 1);
+  namespace = namespaceParts.join(".");
+  return getGlobalObjectFor(namespace);
+}
+
 function assignWrapperFunction(context, fct, oldNamespace, newNamespace) {
   return async function () {
-    util.console.warn(`"${oldNamespace}" is deprecated. Please use "${newNamespace}" instead.`);
+    util.console.warn(`⚠  "${oldNamespace}" is deprecated. Please use "${newNamespace}" instead.`);
     return fct.call(context, ...arguments);
   };
 }
@@ -59,7 +66,8 @@ function setGlobal(oldNamespace, newNamespace) {
         }
         currentGlobalValue[namespaceParts[i]] = newValue;
       } else if (typeof newGlobalObject === "function") {
-        currentGlobalValue[namespaceParts[i]] = assignWrapperFunction(newGlobalObject, newGlobalObject, oldNamespace, newNamespace);
+        const context = getGlobalParentObjectFor(newNamespace);
+        currentGlobalValue[namespaceParts[i]] = assignWrapperFunction(context, newGlobalObject, oldNamespace, newNamespace);
       }
     }
   }
