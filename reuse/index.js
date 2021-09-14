@@ -55,7 +55,11 @@ const ReuseLibrary = function () {
       navigation: require("./modules/ui5/navigation.js"),
       navigationBar: require("./modules/ui5/navigationBar.js"),
       session: require("./modules/ui5/session.js"),
-      userInteraction: require("./modules/ui5/userInteraction.js")
+      userInteraction: require("./modules/ui5/userInteraction.js"),
+      // data
+      appIntents: require("./data/appIntents.json"),
+      authenticators: require("./data/authenticators.json"),
+      users: require("./data/users.json")
     };
     global.ui5 = {
       ...ui5,
