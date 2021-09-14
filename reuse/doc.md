@@ -542,7 +542,7 @@ Global namespace for util modules.
         * [.sendKeys(keys)](#util.browser.sendKeys)
         * [.getBrowserName()](#util.browser.getBrowserName) ⇒ <code>String</code>
         * [.getUI5Version()](#util.browser.getUI5Version)
-        * [.executeScript(command)](#util.browser.executeScript)
+        * [.executeScript(command)](#util.browser.executeScript) ⇒ <code>Any</code>
         * [.waitForWindows()](#util.browser.waitForWindows)
         * [.switchToNewWindow(originalHandle, windowTitle)](#util.browser.switchToNewWindow)
         * [.switchToWindow(handle)](#util.browser.switchToWindow)
@@ -604,7 +604,7 @@ Global namespace for util modules.
     * [.sendKeys(keys)](#util.browser.sendKeys)
     * [.getBrowserName()](#util.browser.getBrowserName) ⇒ <code>String</code>
     * [.getUI5Version()](#util.browser.getUI5Version)
-    * [.executeScript(command)](#util.browser.executeScript)
+    * [.executeScript(command)](#util.browser.executeScript) ⇒ <code>Any</code>
     * [.waitForWindows()](#util.browser.waitForWindows)
     * [.switchToNewWindow(originalHandle, windowTitle)](#util.browser.switchToNewWindow)
     * [.switchToWindow(handle)](#util.browser.switchToWindow)
@@ -696,7 +696,7 @@ await util.browser.clearBrowser();
 <a name="util.browser.sendKeys"></a>
 
 #### browser.sendKeys(keys)
-Executes the set of keystrokes.
+Executes the set of keystrokes as described https://w3c.github.io/webdriver/#keyboard-actions.
 
 **Kind**: static method of [<code>browser</code>](#util.browser)  
 
@@ -706,7 +706,7 @@ Executes the set of keystrokes.
 
 **Example**  
 ```js
-await util.browser.sendKeys(protractor.Key.CONTROL, protractor.Key.ALT, "d");
+await util.browser.sendKeys("\uE009", "\uE00A", "KeyD");
 ```
 <a name="util.browser.getBrowserName"></a>
 
@@ -731,10 +731,11 @@ await util.browser.getUI5Version();
 ```
 <a name="util.browser.executeScript"></a>
 
-#### browser.executeScript(command)
+#### browser.executeScript(command) ⇒ <code>Any</code>
 Executes the specified JavaScript command.
 
 **Kind**: static method of [<code>browser</code>](#util.browser)  
+**Returns**: <code>Any</code> - The result from the executed function.  
 
 | Param | Type | Description |
 | --- | --- | --- |
