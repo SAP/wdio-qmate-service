@@ -1,4 +1,3 @@
-const operatingSystem = require("os");
 /**
  * @class OS
  * @memberof utilities

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /**
  * @class assertion
  * @memberof nonUi5

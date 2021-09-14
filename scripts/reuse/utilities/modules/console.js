@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable indent */
 /**
  * @class console
  * @memberof utilities
