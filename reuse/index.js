@@ -30,6 +30,7 @@ const ReuseLibrary = function () {
       file: require("./modules/util/file.js"),
       formatter: require("./modules/util/formatter.js"),
       function: require("./modules/util/function.js"),
+      mockserver: require("./modules/util/mockserver.js"),
       system: require("./modules/util/system.js")
     };
     global.util = {
