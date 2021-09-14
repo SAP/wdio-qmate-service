@@ -14,7 +14,7 @@ const Control = function () {
    * @memberOf ui5.control
    * @description Executes a native UI5 action as callback function in the browser on the given UI5 control.
    * @param {Function} callbackFunction - The client script function to be used with the control instance.
-   * Caution: The first and last argument is reserved (1st param is the control instance and last argument the promise resolve function - done)
+   * Caution: The first and last parameter is reserved for the mockserver instance and the promise resolve function - done.
    * @param {String | Object} selectorOrElement - The selector object or the dom element (retrieved from getDisplayedElement).
    * @param {Object} args - An object containing the arguments to pass to the callback function.
    * @example const selector = {"elementProperties":{"metadata":"sap.m.StandardListItem", "id": "*categoryList-7"}};
