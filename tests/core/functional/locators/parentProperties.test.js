@@ -1,5 +1,5 @@
 "use strict";
-const { handleCookiesConsent } = require("../../../reuseApi/tests/utils");
+const { handleCookiesConsent } = require("../../utils");
 
 describe("webdriver.io page locator test", function () {
   it("should access element by elementProperties, parentProperties and inner parentProperties", async function () {

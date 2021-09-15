@@ -1,10 +1,11 @@
 var path = require("path");
 var merge = require("deepmerge");
-var qmateConfig = require("../../../reuseApi/configurations/chrome.headless.conf.js");
+var qmateConfig = require("../../configurations/chrome.conf.js");
 
 exports.config = merge(qmateConfig.config, {
   maxInstances: 8,
   bail: 1,
+  outputDir: "./results",
 
   //
   // ==================
@@ -18,11 +19,11 @@ exports.config = merge(qmateConfig.config, {
   specs: [
     // path.resolve(__dirname, "elementProperties.test.js"),
     // path.resolve(__dirname, "ancestorProperties.test.js"),
-    path.resolve(__dirname, "descendantProperties.test.js"),
+    // path.resolve(__dirname, "descendantProperties.test.js"),
     // path.resolve(__dirname, "siblingProperties.test.js"),
     // path.resolve(__dirname, "domProperties.test.js"),
     // path.resolve(__dirname, "parentProperties.test.js"),
-    // path.resolve(__dirname, "childProperties.test.js"),
+    path.resolve(__dirname, "childProperties.test.js"),
     // path.resolve(__dirname, "mixedProperties.test.js")
   ],
   // Patterns to exclude.
