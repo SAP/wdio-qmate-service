@@ -22,7 +22,7 @@ Then("I should see an element", async () => {
 });
 
 
-const {handleCookiesConsent} = require("@wdio/qmate-service/tests/reuseApi/tests/utils");
+const {handleCookiesConsent} = require("@wdio/qmate-service/tests/reuse/utils");
 
 const selectorForDialog = {
   "elementProperties": {
