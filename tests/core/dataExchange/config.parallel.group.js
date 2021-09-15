@@ -2,9 +2,9 @@ var path = require("path");
 var merge = require("deepmerge");
 var chromeConfig = require("../configurations/chrome.headless.conf.js");
 exports.config = merge(chromeConfig.config, {
-  maxInstances: 4,
-
+  maxInstances: 2,
   params: {
+
     import: {            // Directory path
       myFolder1: "./data/my/folder/data/qs9",
       myFolder2: "./data/another/folder/data/anotherFolder",
@@ -27,14 +27,17 @@ exports.config = merge(chromeConfig.config, {
   },
 
   baseUrl: "https://openui5.hana.ondemand.com/entity/sap.m.Input/sample/sap.m.sample.InputTypes",
-
   specs: [
-    path.resolve(__dirname, "specs/import.spec.js"),
-    path.resolve(__dirname, "specs/export.spec.js"),
-    path.resolve(__dirname, "specs/export.slow.spec.js"),
-    path.resolve(__dirname, "specs/export.fast.spec.js")
+    [
+      path.resolve(__dirname, "specs/import.spec.js"),
+      path.resolve(__dirname, "specs/export.slow.spec.js")
+    ],
+    [
+      path.resolve(__dirname, "specs/import.spec.js"),
+      path.resolve(__dirname, "specs/export.spec.js"),
+      path.resolve(__dirname, "specs/export.fast.spec.js")
+    ]
   ],
-
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
