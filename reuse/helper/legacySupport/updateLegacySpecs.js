@@ -1,9 +1,10 @@
 const fs = require("fs");
 const utils = require("./utils");
 
-const fileOrFolderPath = `${process.cwd()}/${process.argv[2]}`;
+const fileOrFolderPath = process.argv[2];
 const legacyMappingObjects = utils.getLegacyMappingObjects(__dirname + "/legacyMapper.json");
-replaceOldNamespacesWithNewNamespacesInFolderOrFile(fileOrFolderPath, legacyMappingObjects);
+const sortedLegacyMappingObjects = sortLegacyMappingObjects(legacyMappingObjects);
+replaceOldNamespacesWithNewNamespacesInFolderOrFile(fileOrFolderPath, sortedLegacyMappingObjects);
 
 function replaceOldNamespacesWithNewNamespacesInFolderOrFile (fileOrFolderPath, legacyMappingObjects) {
   const fileOrFolderLstat = fs.lstatSync(fileOrFolderPath);
@@ -25,4 +26,16 @@ function replaceOldNamespacesWithNewNamespacesInFile (filePath, legacyMappingObj
     fileContent = fileContent.replace(oldNamespaceRegexp, newNamespace);
   }
   fs.writeFileSync(filePath, fileContent);  
+}
+
+function sortLegacyMappingObjects (mappingObjects) {
+  return mappingObjects.sort((objectA, objectB) => {
+    const namespacePartsCountA = getNumberOfNamespaceParts(objectA.old);
+    const namespacePartsCountB = getNumberOfNamespaceParts(objectB.old);
+    return namespacePartsCountB - namespacePartsCountA;
+  });
+}
+
+function getNumberOfNamespaceParts (namespace) {
+  return namespace.split(".").length;
 }
