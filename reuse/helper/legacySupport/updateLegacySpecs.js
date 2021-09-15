@@ -1,7 +1,7 @@
 const fs = require("fs");
 const utils = require("./utils");
 
-const fileOrFolderPath = process.argv[2];
+const fileOrFolderPath = `${process.cwd()}/${process.argv[2]}`;
 const legacyMappingObjects = utils.getLegacyMappingObjects(__dirname + "/legacyMapper.json");
 const sortedLegacyMappingObjects = sortLegacyMappingObjects(legacyMappingObjects);
 replaceOldNamespacesWithNewNamespacesInFolderOrFile(fileOrFolderPath, sortedLegacyMappingObjects);
