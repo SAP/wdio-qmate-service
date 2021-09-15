@@ -294,7 +294,7 @@ const Assertion = function () {
       const isDomVisible = await elem.isDisplayed();
       value = isUi5Visible || isDomVisible;
     }
-    common.assertion.expectTrue(value);
+    common.assertion.expectTrue(value); // TODO: check return
   };
 
   /**
@@ -328,7 +328,7 @@ const Assertion = function () {
       const isDomVisible = await elem.isDisplayedInViewport();
       value = isDomVisible;
     }
-    this.expectTrue(value);
+    common.assertion.expectTrue(value);
   };
 
   /**
