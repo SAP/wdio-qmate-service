@@ -2,8 +2,8 @@ const path = require("path");
 const merge = require("deepmerge");
 const qmateConfigure = require("../../../../../configurations/chrome.headless.conf.js");
 exports.config = merge(qmateConfigure.config, {
-  maxInstances: 6,
-  bail: 1,
+  // maxInstances: 6,
+  // bail: 1,
   //
   // ==================
   // Specify Test Files
@@ -15,16 +15,16 @@ exports.config = merge(qmateConfigure.config, {
   //
 
   specs: [
-    path.resolve(__dirname, "pickDate.spec.js"),
-    path.resolve(__dirname, "pickDateRange.spec.js"),
+    // path.resolve(__dirname, "pickDate.spec.js"),
+    // path.resolve(__dirname, "pickDateRange.spec.js"),
     path.resolve(__dirname, "fillDateRange.spec.js"),
-    path.resolve(__dirname, "getToday.spec.js"),
-    path.resolve(__dirname, "getTomorrow.spec.js"),
-    path.resolve(__dirname, "getNextMonth.spec.js"),
-    path.resolve(__dirname, "getPreviousMonth.spec.js"),
-    path.resolve(__dirname, "getNextYear.spec.js"),
-    path.resolve(__dirname, "getPreviousYear.spec.js"),
-    path.resolve(__dirname, "calculateDate.spec.js"),
+    // path.resolve(__dirname, "getToday.spec.js"),
+    // path.resolve(__dirname, "getTomorrow.spec.js"),
+    // path.resolve(__dirname, "getNextMonth.spec.js"),
+    // path.resolve(__dirname, "getPreviousMonth.spec.js"),
+    // path.resolve(__dirname, "getNextYear.spec.js"),
+    // path.resolve(__dirname, "getPreviousYear.spec.js"),
+    // path.resolve(__dirname, "calculateDate.spec.js"),
   ],
   // Patterns to exclude.
   exclude: [

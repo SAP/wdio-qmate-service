@@ -21,7 +21,7 @@ describe("date - calculateDate with null/undefined/false parameters", function (
   it("Execution and Verification", function () {
     expect(ui5.common.date.calculateDate(null).getDate()).toBe(calculatedDate.getDate());
     expect(ui5.common.date.calculateDate(undefined).getDate()).toBe(calculatedDate.getDate());
-    expect(() => ui5.common.date.calculateDate(false)).toThrowError(`Function 'getSpecificDate' failed: No date was given.`);
+    expect(() => ui5.common.date.calculateDate(false)).toThrowError("Function 'getSpecificDate' failed: Please provide a date string ('2020, 0, 17') as first argument.");
     expect(ui5.common.date.calculateDate(true).toString()).toBe("Invalid Date");
   });
 });
@@ -88,9 +88,9 @@ describe("date - calculateDate with parameter 'previousMonth' ", function () {
   });
 });
 
-describe("date - calculateDate with parameter 'lastMonth' ", function () {
+describe("date - calculateDate with parameter 'previousMonth' ", function () {
   it("Execution", function () {
-    calculatedDate = ui5.common.date.calculateDate("lastMonth").toString();
+    calculatedDate = ui5.common.date.calculateDate("previousMonth").toString();
     nextMonth = ui5.common.date.calculateDate("nextMonth").toString();
   });
 
@@ -133,19 +133,12 @@ describe("date - calculateDate with parameter 'previousYear' ", function () {
   });
 });
 
-describe("date - calculateDate with parameter 'lastYear' ", function () {
-  it("Execution", function () {
-    calculatedDate = ui5.common.date.calculateDate("lastYear").toString();
-    nextYear = ui5.common.date.calculateDate("nextYear").toString();
-  });
-
-  it("Verification", function () {
-    const date = new Date();
-    date.setFullYear(date.getFullYear() - 1);
-    const dateString = date.toString();
-    ui5.common.assertion.expectEqual(calculatedDate, dateString);
-    ui5.common.assertion.expectUnequal(calculatedDate, nextYear);
-  });
+it("Verification", function () {
+  const date = new Date();
+  date.setFullYear(date.getFullYear() - 1);
+  const dateString = date.toString();
+  ui5.common.assertion.expectEqual(calculatedDate, dateString);
+  ui5.common.assertion.expectUnequal(calculatedDate, nextYear);
 });
 
 function getFullDateAsStringFromDate(date) {
