@@ -63,17 +63,16 @@ describe("webdriver.io page locator test", function () {
     expect(elem).toHaveAttribute("elementId");
   });
 
-  it("should access elements by siblingProperties", async function () {
-    const ui5ControlProperties = {
+  it("should access elements only by siblingProperties and fail (unhappy case)", async function () {
+    const selectorWithoutElementProperties = {
       "siblingProperties": {
         "viewName": "sap.ui.demo.cart.view.Home",
         "metadata": "sap.m.StandardListItem",
         "bindingContextPath": "/ProductCategories*'CSA')"
       }
     };
-    const elems = await browser.uiControls(ui5ControlProperties);
-    expect(elems).toBeInstanceOf(Array);
-    expect(elems).toBeElementsArrayOfSize({ gte: 1 });
+    await expect(browser.uiControl(selectorWithoutElementProperties))
+      .rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 
   it("should access element by elementProperties and siblingProperties", async function () {

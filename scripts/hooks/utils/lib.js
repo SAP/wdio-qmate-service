@@ -220,6 +220,9 @@ var LibScripts = function () {
             || ui5Selector.descendantProperties || ui5Selector.siblingProperties
             || ui5Selector.parentProperties || ui5Selector.childProperties
             || ui5Selector.prevSiblingProperties || ui5Selector.nextSiblingProperties)) {
+          if (!ui5Selector.elementProperties || isEmptyObjectOrUndefined(ui5Selector.elementProperties)) {
+            console.error(`The selector your provided ${ui5Selector ? JSON.stringify(ui5Selector) : ui5Selector} does not contain elementProperties, please provide a valid selector with elementProperties`);
+          }
           aElements = await browser.custom$$("ui5All", ui5Selector, rootElement);
         } else if (ui5Selector && ui5Selector.controlType){
           aElements = await browser.custom$$("ui5Veri5", ui5Selector);
@@ -276,10 +279,8 @@ var LibScripts = function () {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
     await browser.waitUntil(async () => {
       elems = await that.getDisplayedElements(ui5Selector, rootElement, countStable, allTries, returnAllDomElements);
-      if (elems && Array.isArray(elems) && elems.length > 0) {
-        return true;
-      }
-      return false;
+      return elems && Array.isArray(elems) && elems.length > 0;
+
     }, {
       timeout: finalTimeout,
       timeoutMsg: `uiControlExecuteLocator(): No visible elements found with selector: ${utilities.formatter.stringifyJSON(ui5Selector)}`,

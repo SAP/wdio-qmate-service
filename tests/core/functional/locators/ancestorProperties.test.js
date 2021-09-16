@@ -1,5 +1,5 @@
 "use strict";
-const { handleCookiesConsent } = require("../../../reuseApi/tests/utils");
+const { handleCookiesConsent } = require("../../utils");
 
 describe("webdriver.io page locator test", function () {
   it("should access same element by elementProperties, ancestorProperties and nested ancestorProperties", async function () {
@@ -81,19 +81,19 @@ describe("webdriver.io page locator test", function () {
     await expect(secondButton.getProperty("id")).resolves.not.toEqual(firstButtonId);
   });
 
-  it("should try access element by wrong ancestor properties and fail", async function () {
+  it("should try access element only by ancestor properties and fail (unhappy case)", async function () {
     await browser.navigateTo(
       "https://sapui5.hana.ondemand.com/#/entity/sap.m.Button/sample/sap.m.sample.Button");
     await handleCookiesConsent();
 
-    const wrongSelector = {
+    const wrongSelectorWithoutElementProperties = {
       "ancestorProperties": {
         "metadata": "sap.tnt.NavigationList",
         "viewName": "sap.tnt.sample.SideNavigation.V",
         "selectedKey": "subItem_non"
       }
     };
-    await expect(browser.uiControl(wrongSelector))
+    await expect(browser.uiControl(wrongSelectorWithoutElementProperties))
       .rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
