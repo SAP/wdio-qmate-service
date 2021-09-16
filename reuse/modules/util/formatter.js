@@ -118,9 +118,9 @@ const Formatter = function () {
    * @example const itemNumber = await util.formatter.addRemoveLeadingZeros(10, 5);
    */
   this.addRemoveLeadingZeros = function (number, length) {
-    const string = number.toString(8);
+    number = parseInt(number, 10);
     const zero = "0";
-    const char = zero.repeat(length) + string;
+    const char = zero.repeat(length) + number;
     return char.slice(-length);
   };
 
