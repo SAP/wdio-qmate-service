@@ -1,10 +1,12 @@
 describe("test uiveri5 locators page", function () {
 
-  this.beforeAll(async () => {
-    await browser.url("#/categories");
-  });
+  // this.beforeAll(async () => {
+  //   await browser.url("#/categories");
+  // });
 
   it("step 0:click on item Accessories - Use array controls", async function () {
+    await browser.url("#/categories");
+
     var selector = {
       controlType: "sap.m.StandardListItem",
       viewName: "sap.ui.demo.cart.view.Home",
@@ -55,6 +57,4 @@ describe("test uiveri5 locators page", function () {
     const backBtn = await browser.uiControl(selector);
     await backBtn.click();
   });
-
-
 });

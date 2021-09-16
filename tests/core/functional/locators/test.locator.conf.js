@@ -1,6 +1,6 @@
 var path = require("path");
 var merge = require("deepmerge");
-var qmateConfig = require("../../configurations/chrome.conf.js");
+var qmateConfig = require("../../configurations/chrome.headless.conf");
 
 exports.config = merge(qmateConfig.config, {
   maxInstances: 8,
@@ -17,14 +17,14 @@ exports.config = merge(qmateConfig.config, {
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
   specs: [
-    // path.resolve(__dirname, "elementProperties.test.js"),
-    // path.resolve(__dirname, "ancestorProperties.test.js"),
-    // path.resolve(__dirname, "descendantProperties.test.js"),
-    // path.resolve(__dirname, "siblingProperties.test.js"),
-    // path.resolve(__dirname, "domProperties.test.js"),
-    // path.resolve(__dirname, "parentProperties.test.js"),
+    path.resolve(__dirname, "elementProperties.test.js"),
+    path.resolve(__dirname, "ancestorProperties.test.js"),
+    path.resolve(__dirname, "descendantProperties.test.js"),
+    path.resolve(__dirname, "siblingProperties.test.js"),
+    path.resolve(__dirname, "domProperties.test.js"),
+    path.resolve(__dirname, "parentProperties.test.js"),
     path.resolve(__dirname, "childProperties.test.js"),
-    // path.resolve(__dirname, "mixedProperties.test.js")
+    path.resolve(__dirname, "mixedProperties.test.js")
   ],
   // Patterns to exclude.
   exclude: [
