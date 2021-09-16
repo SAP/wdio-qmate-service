@@ -1,12 +1,12 @@
 "use strict";
 const {
   handleCookiesConsent
-} = require("../../../../utils");
+} = require("../../utils");
 
 describe("errorDialog - clickClose", function () {
 
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Dialog/sample/sap.m.sample.Dialog");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Dialog/sample/sap.m.sample.Dialog");
     await handleCookiesConsent();
   });
 
@@ -23,9 +23,9 @@ describe("errorDialog - clickClose", function () {
 
   it("Verification", async function () {
     const dialogCloseButtonSelector = ui5.errorDialog.selectors.closeButton;
-    await ui5.common.assertion.expectToBeVisible(dialogCloseButtonSelector);
+    await ui5.assertion.expectToBeVisible(dialogCloseButtonSelector);
 
-    await ui5.common.errorDialog.clickClose();
-    await ui5.common.assertion.expectToBeNotVisible(dialogCloseButtonSelector);
+    await ui5.errorDialog.clickClose();
+    await ui5.assertion.expectToBeNotVisible(dialogCloseButtonSelector);
   });
 });
