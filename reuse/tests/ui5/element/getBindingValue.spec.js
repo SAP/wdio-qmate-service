@@ -16,11 +16,11 @@ describe("locator - getBindingValue 'text'", function () {
       }
     };
     const attribute = "title";
-    bindingValue = await ui5.common.locator.getBindingValue(selector, attribute);
+    bindingValue = await ui5.element.getBindingValue(selector, attribute);
   });
 
   it("Verification", function () {
-    ui5.common.assertion.expectEqual(bindingValue, "Laptops");
+    common.assertion.expectEqual(bindingValue, "Laptops");
   });
 
 });
@@ -40,7 +40,7 @@ describe("locator - getBindingValue for wrong attribute", function () {
     };
     const attribute = "case";
 
-    await expect(ui5.common.locator.getBindingValue(selector, attribute))
+    await expect(ui5.element.getBindingValue(selector, attribute))
       .rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'getValue')");
   });
 });
@@ -59,7 +59,7 @@ describe("locator - getBindingValue for wrong selector", function () {
       }
     };
     const attribute = "title";
-    await expect(ui5.common.locator.getBindingValue(selector, attribute))
+    await expect(ui5.element.getBindingValue(selector, attribute))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
