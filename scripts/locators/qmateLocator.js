@@ -1282,7 +1282,7 @@ module.exports = {
     }
 
     if (!ui5Selector.elementProperties) {
-      throw new Error(`The selector your provided ${ui5Selector} does not contain elementProperties, please provide a valid selector with elementProperties`);
+      throw new Error(`The selector your provided ${JSON.stringify(ui5Selector)} does not contain elementProperties, please provide a valid selector with elementProperties`);
     }
     //console.log("going in...");
     Array.prototype.filter.call(aValidControls, function (oControl) {
