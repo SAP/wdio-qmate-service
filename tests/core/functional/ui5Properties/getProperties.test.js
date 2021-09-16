@@ -1,5 +1,5 @@
 "use strict";
-const { handleCookiesConsent } = require("../../../reuseApi/tests/utils");
+const { handleCookiesConsent } = require("../../utils");
 
 describe("Test 'getUI5Property()' and 'getUI5Properties()' on both element and browser levels", function () {
 

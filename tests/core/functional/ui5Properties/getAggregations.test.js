@@ -1,5 +1,5 @@
 "use strict";
-const { handleCookiesConsent } = require("../../../reuseApi/tests/utils");
+const { handleCookiesConsent } = require("../../utils");
 
 describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both element and browser levels", function () {
 

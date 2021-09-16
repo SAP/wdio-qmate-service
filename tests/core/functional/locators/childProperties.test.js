@@ -26,47 +26,15 @@ describe("webdriver.io page locator test", function () {
     await expect(backButton).toBeClickable();
   });
 
-  it("should access element by child properties", async function () {
-    const backButtonProperties = {
+  it("should access element only by child properties and fail (unhappy case)", async function () {
+    const wrongSelectorWithoutElementProperties = {
       "childProperties": {
         "viewName": "sap.m.sample.Button.Page",
         "metadata": "sap.ui.core.Icon",
         "src": "sap-icon://nav-back"
       }
     };
-    const backButton = await browser.uiControl(backButtonProperties);
-    await expect(backButton).toBeDisplayed();
-    await expect(backButton).toBeClickable();
-
-
-    const allPropertiesNamesOnElementLevel = await backButton.getAllUI5Properties();
-    console.log(allPropertiesNamesOnElementLevel);
-    expect(allPropertiesNamesOnElementLevel).toBeInstanceOf(Array);
-    expect(allPropertiesNamesOnElementLevel).toContain("type");
-  });
-
-  it("should access element(s) by child properties and index", async function () {
-    const defaultButtonsProperties = {
-      "childProperties": {
-        "viewName": "sap.m.sample.Button.Page",
-        "metadata": "sap.m.ToolbarSpacer"
-      }
-    };
-    const firstButton = await browser.uiControl(defaultButtonsProperties, 0);
-    const firstButtonId = await firstButton.getProperty("id");
-
-    const secondButton = await browser.uiControl(defaultButtonsProperties, 1);
-    const secondButtonId = await secondButton.getProperty("id");
-    expect(firstButtonId).not.toEqual(secondButtonId);
-  });
-
-  it("try access element by wrong child properties and catch error", async function () {
-    const wrongProperties = {
-      "childProperties": {
-        "viewName": "sap.m..Button.Page",
-        "metadata": "sap.m.ToolbarSpacer"
-      }
-    };
-    await expect(browser.uiControl(wrongProperties)).rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
+    await expect(browser.uiControl(wrongSelectorWithoutElementProperties))
+      .rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });

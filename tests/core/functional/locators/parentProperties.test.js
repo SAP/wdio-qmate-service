@@ -41,7 +41,7 @@ describe("webdriver.io page locator test", function () {
         "type": "Back"
       }
     };
-    await expect(browser.uiControl(wrongProperties)).rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
+    await expect(browser.uiControl(wrongProperties))
+      .rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
   });
-
 });

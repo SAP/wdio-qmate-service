@@ -26,7 +26,7 @@ describe("webdriver.io page locator test", function () {
   });
 
   it("should access element only by domProperties (unhappy case)", async function () {
-    const ui5ControlDomProperties = {
+    const selectorWithoutElementProperties = {
       "domProperties": {
         "nodeName": "li",
         "class": "sapMLIB sapMLIB-CTX sapMLIBShowSeparator sapMLIBTypeActive sapMLIBActionable sapMLIBFocusable sapMSLI sapMLIBHoverable",
@@ -35,8 +35,8 @@ describe("webdriver.io page locator test", function () {
       }
     };
 
-    await expect(browser.uiControl(ui5ControlDomProperties))
-      .rejects.toThrow(/waitUntil condition failed with the following reason: javascript error: Matcher is not supported! Matcher name: 'domProperties'/);
+    await expect(browser.uiControl(selectorWithoutElementProperties))
+      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 
   it("try access element by element properties, wrong dom properties and catch error", async function () {
@@ -53,7 +53,8 @@ describe("webdriver.io page locator test", function () {
         }
       }
     };
-    await expect(browser.uiControl(wrongProperties)).rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
+    await expect(browser.uiControl(wrongProperties))
+      .rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 
 });
