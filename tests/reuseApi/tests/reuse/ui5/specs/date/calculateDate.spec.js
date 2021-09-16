@@ -131,15 +131,16 @@ describe("date - calculateDate with parameter 'previousYear' ", function () {
     ui5.common.assertion.expectEqual(calculatedDate, dateString);
     ui5.common.assertion.expectUnequal(calculatedDate, nextYear);
   });
+
+  it("Verification", function () {
+    const date = new Date();
+    date.setFullYear(date.getFullYear() - 1);
+    const dateString = date.toString();
+    ui5.common.assertion.expectEqual(calculatedDate, dateString);
+    ui5.common.assertion.expectUnequal(calculatedDate, nextYear);
+  });
 });
 
-it("Verification", function () {
-  const date = new Date();
-  date.setFullYear(date.getFullYear() - 1);
-  const dateString = date.toString();
-  ui5.common.assertion.expectEqual(calculatedDate, dateString);
-  ui5.common.assertion.expectUnequal(calculatedDate, nextYear);
-});
 
 function getFullDateAsStringFromDate(date) {
   const month = (date.getMonth() + 1) / 10 >= 1 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
