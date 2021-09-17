@@ -1,7 +1,9 @@
 /* eslint-disable no-undef */
+const { handleCookiesConsent } = require("../utils");
 describe("table", function () {
 
   it("step1:getChild", async function () {
+    await handleCookiesConsent();
     var ui5ControlProperties = {
       "elementProperties": { "metadata": "sap.m.ColumnListItem", "mProperties": { "bindingContextPath": "/ProductCollection/2" } },
       "parentProperties": { "metadata": "sap.m.Table", "mProperties": { "items": [{ "path": "/ProductCollection" }] } },
@@ -12,7 +14,7 @@ describe("table", function () {
       "elementProperties": { "metadata": "sap.m.Text", "mProperties": {} },
     };
 
-    const nameField = await list.all(by.ui5All(ui5ControlProperties2)).get(0);
+    const nameField = await list.uiControl(ui5ControlProperties2);
     var attribute = "text";   //eg: title, text, value etc.
     var compareValue = "Notebook Basic 18";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -56,8 +58,8 @@ describe("table", function () {
     };
     var value = "20";   //value to be entered by user
     var id = await common.locator.getElementId(ui5ControlProperties);
-    await element(by.css("[id='" + id + "'] input")).clear();
-    await element(by.css("[id='" + id + "'] input")).sendKeys(value);
+    await $("[id='" + id + "'] input").clearValue();
+    await $("[id='" + id + "'] input").setValue(value);
     //await common.userInteraction.clearAndFill(ui5ControlProperties, value);
   });
 
@@ -87,7 +89,7 @@ describe("table", function () {
     };
     var value = "99";   //value to be entered by user
     var id = await common.locator.getElementId(ui5ControlProperties);
-    await element(by.css("[id='" + id + "'] input")).clear();
-    await element(by.css("[id='" + id + "'] input")).sendKeys(value);
+    await $("[id='" + id + "'] input").clearValue();
+    await $("[id='" + id + "'] input").setValue(value);
   });
 });
