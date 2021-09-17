@@ -1,6 +1,6 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfig = require("../../../reuseApi/configurations/devtools.conf.js");
+const qmateConfig = require("../configurations/devtools.conf.js");
 const config = merge(qmateConfig.config, {
   maxInstances: 1,
 

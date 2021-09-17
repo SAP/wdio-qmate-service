@@ -1,6 +1,6 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfig = require("../../../reuseApi/configurations/devtools.conf");
+const qmateConfig = require("../configurations/devtools.conf");
 exports.config = merge(qmateConfig.config, {
   connectionTimeout: 5000,
   waitforTimeout: 300000,
