@@ -12,10 +12,10 @@
     "@wdio/cli": "^7.0.3"
   },
   "devDependencies": {
-    "@wdio/qmate-service": "file:../..",
-    "@wdio/local-runner": "^7.0.3",
-    "@wdio/mocha-framework": "^7.0.3",
-    "@wdio/selenium-standalone-service": "^7.0.3",
-    "@wdio/spec-reporter": "^7.0.3"
+    "@wdio/local-runner": "^7.12.5",
+    "@wdio/mocha-framework": "^7.12.5",
+    "@wdio/qmate-service": "file:../../../",
+    "@wdio/selenium-standalone-service": "^7.12.5",
+    "@wdio/spec-reporter": "^7.12.5"
   }
 }
