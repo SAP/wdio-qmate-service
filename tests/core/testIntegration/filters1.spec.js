@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-
 /*
 1) Test standard properties
 2) Test new properties adding from ui5 api
@@ -73,15 +72,12 @@ describe("filters1", function () {
     };
     var newText = "master";
     var selectorParams = { selector: ui5ControlProperties, index: 0, timeout: 3000 };
-    try {
-      await browser.controlActionInBrowser(function (control, txt, done) {
-        control.setTitle(txt);
-        done(control.getTitle());
-      }, selectorParams, newText);
-      await expect(true).toBe(false);
-    } catch (error) {
-      await expect(true).toBe(true);
-    }
+
+    await expect(browser.controlActionInBrowser(function (control, txt, done) {
+      control.setTitle(txt);
+      done(control.getTitle());
+    }, selectorParams, newText))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step0as:click on the first standard item - evaluate browser and fire press", async function () {
@@ -132,13 +128,7 @@ describe("filters1", function () {
           "text": [{ "path": "i18n>welcomeCarouselShipping" }],
           "ancestorProperties": {
             "viewName": "*view.Welcome",
-            "tooltip": [{ "path": "i18n>welcomeDescription" }],
-            "descendantProperties": {
-              "metadata": "sap.m.ScrollContainer",
-              "domProperties": {
-                "class": "*sapMScrollCont"
-              }
-            }
+            "tooltip": [{ "path": "i18n>welcomeDescription" }]
           }
         }
       }
@@ -149,7 +139,8 @@ describe("filters1", function () {
   it("step0v1: check Page has descendant text - use deep selector structure sibling", async function () {
     var ui5ControlProperties = {
       "elementProperties": {
-        "metadata": "sap.m.Page", "mProperties": {
+        "metadata": "sap.m.Page",
+        "mProperties": {
           "id": "container-cart---welcomeView--page"
         }
       },
@@ -159,22 +150,9 @@ describe("filters1", function () {
           "ancestorProperties": {
             "viewName": "*view.Welcome",
             "tooltip": [{ "path": "i18n>welcomeDescription" }],
-            "descendantProperties": {
-              "metadata": "sap.m.ScrollContainer",
-              "domProperties": {
-                "class": "*sapMScrollCont"
-              },
-              "siblingProperties": {
-                "metadata": "sap.m.ScrollContainer",
-                "domProperties": {
-                  "class": "*sapMScrollCont"
-                },
-                "descendantProperties": {
-                  "metadata": "sap.m.Text", "mProperties": {
-                    "text": [{ "path": "welcomeCarouselCreditCard" }],
-                  }
-                }
-              }
+            "siblinkProperties": {
+              "viewName": "*view.Welcome",
+              "tooltip": [{ "path": "i18n>welcomeDescription" }]
             }
           }
         }
@@ -182,7 +160,6 @@ describe("filters1", function () {
     };
     await ui5.common.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 30000, 30000);
   });
-
 
   it("step0v1: check Page has descendant text - use deep selector structure sibling wrong", async function () {
     var ui5ControlProperties = {
@@ -218,12 +195,8 @@ describe("filters1", function () {
         }
       }
     };
-    try {
-      await common.locator.getDisplayedElement(ui5ControlProperties, 0, 5000);
-      await expect(true).toBe(false);
-    } catch (error) {
-      await expect(true).toBe(true);
-    }
+    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 5000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step0v1: check Page has descendant text - use deep selector structure in elementProperties", async function () {
@@ -261,10 +234,10 @@ describe("filters1", function () {
       },
       "descendantProperties": {
         "metadata": "sap.m.Text", "mProperties": {
-          "text": [{ "path": "i18n>welcomeCarouselShipping" }],
+          "text": [{"path": "i18n>welcomeCarouselShipping"}],
           "ancestorProperties": {
             "viewName": "*view.Welcome",
-            "tooltip": [{ "path": "i18n>welcomeDescription" }],
+            "tooltip": [{"path": "i18n>welcomeDescription"}],
             "descendantProperties": {
               "metadata": "sap.m.ScrollContainer",
               "domProperties": {
@@ -275,12 +248,8 @@ describe("filters1", function () {
         }
       }
     };
-    try {
-      await common.locator.getDisplayedElement(ui5ControlProperties, 0, 5000);
-      await expect(true).toBe(false);
-    } catch (error) {
-      await expect(true).toBe(true);
-    }
+    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 5000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step0v1: check Page has descendant text - wait for property only not element", async function () {
@@ -316,15 +285,12 @@ describe("filters1", function () {
         "bindingContextPath": "/ProductCategories*",
         "domProperties": {
           "nodeName": "li",
-          "data-sap-ui": "*categoryList-0",
           "role": "option",
-          "class": "*sapMLIB*sapMSLI",
-          "id": "__item1-container-cart---homeView--categoryList-0"
+          "class": "*sapMLIB*sapMSLI"
         }
       }
     };
-    await common.locator.getDisplayedElement(ui5ControlProperties);
-    const nameField = element(by.ui5All(ui5ControlProperties, 0));
+    const nameField = await browser.uiControl(ui5ControlProperties);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -346,12 +312,9 @@ describe("filters1", function () {
         }
       }
     };
-    try {
-      await common.locator.getDisplayedElement(ui5ControlProperties, 0, 5000);
-      await expect(true).toBe(false);
-    } catch (error) {
-      await expect(true).toBe(true);
-    }
+
+    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step0v1: check name is Accessories - check with wrong dom properties and not mProperties", async function () {
@@ -359,7 +322,7 @@ describe("filters1", function () {
       "elementProperties": {
         "metadata": "sap.m.StandardListItem",
         "viewId": "cont*cart*",
-        "title": [{ "path": "CategoryName" }],
+        "title": [{"path": "CategoryName"}],
         "bindingContextPath": "/ProductCategories*",
         "domProperties": {
           "nodeName": "li",
@@ -370,12 +333,9 @@ describe("filters1", function () {
         }
       }
     };
-    try {
-      await common.locator.getDisplayedElement(ui5ControlProperties, 0, 5000);
-      await expect(true).toBe(false);
-    } catch (error) {
-      await expect(true).toBe(true);
-    }
+
+    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step0v1: check Page has empty descendant button", async function () {
@@ -435,12 +395,8 @@ describe("filters1", function () {
         }
       }
     };
-    try {
-      await common.locator.getDisplayedElement(ui5ControlProperties, 0, 5000);
-      await expect(true).toBe(false);
-    } catch (error) {
-      await expect(true).toBe(true);
-    }
+    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step0v1: check Page has not direct childern text control", async function () {
@@ -456,12 +412,8 @@ describe("filters1", function () {
         }
       }
     };
-    try {
-      await common.locator.getDisplayedElement(ui5ControlProperties, 0, 5000);
-      await expect(true).toBe(false);
-    } catch (error) {
-      await expect(true).toBe(true);
-    }
+    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step0v1: check Page has not direct children button control", async function () {
@@ -477,15 +429,10 @@ describe("filters1", function () {
         }
       }
     };
-    try {
-      await common.locator.getDisplayedElement(ui5ControlProperties, 0, 5000);
-      await expect(true).toBe(false);
-    } catch (error) {
-      await expect(true).toBe(true);
-    }
+
+    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
-
-
 
   it("step0v1: check name is Accessories - check with dom properties", async function () {
     var ui5ControlProperties = {
@@ -497,15 +444,13 @@ describe("filters1", function () {
         },
         "domProperties": {
           "nodeName": "li",
-          "data-sap-ui": "*categoryList-0",
+          "data-sap-ui": "*categoryList*",
           "role": "option",
-          "class": "*sapMLIB*sapMSLI",
-          "id": "__item1-container-cart---homeView--categoryList-0"
+          "class": "*sapMLIB*sapMSLI"
         }
       }
     };
-    await common.locator.getDisplayedElement(ui5ControlProperties);
-    const nameField = element(by.ui5All(ui5ControlProperties, 0));
+    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -521,8 +466,7 @@ describe("filters1", function () {
         }
       }
     };
-    await common.locator.getDisplayedElement(ui5ControlProperties);
-    const nameField = element(by.ui5All(ui5ControlProperties, 0));
+    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -545,12 +489,8 @@ describe("filters1", function () {
         }
       }
     };
-    try {
-      await common.locator.getDisplayedElement(ui5ControlProperties, 0, 5000);
-      await expect(true).toBe(false);
-    } catch (error) {
-      await expect(true).toBe(true);
-    }
+    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step0v1: check name is Accessories - check with wrong dom properties", async function () {
@@ -558,7 +498,7 @@ describe("filters1", function () {
       "elementProperties": {
         "metadata": "sap.m.StandardListItem", "mProperties": {
           "viewId": "cont*cart*",
-          "title": [{ "path": "CategoryName" }],
+          "title": [{"path": "CategoryName"}],
           "bindingContextPath": "/ProductCategories*"
         },
         "domProperties": {
@@ -570,12 +510,8 @@ describe("filters1", function () {
         }
       }
     };
-    try {
-      await common.locator.getDisplayedElement(ui5ControlProperties, 0, 5000);
-      await expect(true).toBe(false);
-    } catch (error) {
-      await expect(true).toBe(true);
-    }
+    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("check getDisplayedChildElement 1", async function () {
@@ -673,7 +609,7 @@ describe("filters1", function () {
         }
       }
     };
-    const nameField = element(by.ui5All(ui5ControlProperties, 0));
+    var nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";
     var compareValue = "Accessories";
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -690,12 +626,10 @@ describe("filters1", function () {
         }
       }
     };
-    await common.locator.getDisplayedElement(ui5ControlProperties);
-    const nameField = element(by.ui5All(ui5ControlProperties, 0));
+    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
-
   });
 
 
@@ -715,8 +649,7 @@ describe("filters1", function () {
         }
       }
     };
-    await common.locator.getDisplayedElement(ui5ControlProperties);
-    const nameField = element(by.ui5All(ui5ControlProperties, 0));
+    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -738,14 +671,8 @@ describe("filters1", function () {
         }
       }
     };
-    try {
-      //var attribute = "title";
-      await common.locator.getDisplayedElement(ui5ControlProperties);
-      //await element(by.ui5All(ui5ControlProperties)).getAttribute("data-" + attribute);
-      await expect(true).toBe(false);
-    } catch (error) {
-      await expect(true).toBe(true);
-    }
+    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step0v1: check name is Accessories - view Name check", async function () {
@@ -759,8 +686,7 @@ describe("filters1", function () {
         }
       }
     };
-    await common.locator.getDisplayedElement(ui5ControlProperties);
-    const nameField = element(by.ui5All(ui5ControlProperties, 0));
+    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -778,8 +704,7 @@ describe("filters1", function () {
         }
       }
     };
-    await common.locator.getDisplayedElement(ui5ControlProperties);
-    const nameField = element(by.ui5All(ui5ControlProperties, 0));
+    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -803,8 +728,7 @@ describe("filters1", function () {
         }
       }
     };
-    await common.locator.getDisplayedElement(ui5ControlProperties);
-    const nameField = element(by.ui5All(ui5ControlProperties, 0));
+    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -826,12 +750,8 @@ describe("filters1", function () {
         }
       }
     };
-    try {
-      await common.locator.getDisplayedElement(ui5ControlProperties);
-      await expect(true).toBe(false);
-    } catch (error) {
-      await expect(true).toBe(true);
-    }
+    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step0ay:check name is Accessories - chaining assert with no index", async function () {
@@ -845,7 +765,7 @@ describe("filters1", function () {
       "elementProperties": { "metadata": "sap.m.StandardListItem", "mProperties": { "title": [{ "path": "CategoryName" }], "bindingContextPath": "/ProductCategories*" } },
     };
 
-    const nameField = await list.all(by.ui5All(ui5ControlProperties2)).get(0);
+    const nameField = await list.uiControl(ui5ControlProperties2);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -863,9 +783,7 @@ describe("filters1", function () {
       "elementProperties": { "metadata": "sap.m.StandardListItem", "mProperties": { "title": [{ "path": "CategoryName" }], "bindingContextPath": "/ProductCategories*" } },
     };
 
-    const nameField = await list.all(by.ui5All(ui5ControlProperties2, 0)).get(0);
-    // eslint-disable-next-line no-console
-    console.log(await list.all(by.ui5All(ui5ControlProperties2)).count());
+    const nameField = await common.locator.getDisplayedChildElement(ui5ControlProperties, ui5ControlProperties2);
     var attribute = "title";
     var compareValue = "Accessories";
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -899,7 +817,7 @@ describe("filters1", function () {
     var ui5ControlProperties2 = {
       "elementProperties": { "metadata": "sap.m.StandardListItem", "mProperties": { "title": [{ "path": "CategoryName" }], "bindingContextPath": "/ProductCategories*" } },
     };
-    const nameField = await list.all(by.ui5All(ui5ControlProperties2, 0)).get(0);
+    const nameField = await list.uiControl(ui5ControlProperties2);
     var attribute = "title";
     var compareValue = "Computer System Accessories";
     await expect(await nameField.getAttribute("data-" + attribute)).not.toBe(compareValue);
@@ -916,7 +834,7 @@ describe("filters1", function () {
       "elementProperties": { "metadata": "sap.m.StandardListItem", "mProperties": { "title": [{ "path": "CategoryName" }] } },
     };
 
-    const nameField = await list.all(by.ui5All(ui5ControlProperties2)).get(1);
+    const nameField = await list.uiControl(ui5ControlProperties2, 1);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Computer System Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -932,8 +850,8 @@ describe("filters1", function () {
         }
       }
     };
-    await common.locator.getDisplayedElement(ui5ControlProperties);
-    await element(by.ui5All(ui5ControlProperties)).click();
+    const nameField = await browser.uiControl(ui5ControlProperties);
+    await nameField.click();
   });
 
   it("step0ch1:check chaining in a objectlist item", async function () {
@@ -941,14 +859,15 @@ describe("filters1", function () {
     var objectListProp = {
       "elementProperties": { "metadata": "sap.m.ObjectListItem", "mProperties": { "title": [{ "path": "Name" }], "number": [{ "path": "Price" }], "bindingContextPath": "/Products('HT-2001')" } },
     };
-    var elem = await common.locator.getDisplayedElement(objectListProp);
+    var elem = await browser.uiControl(objectListProp);
     var objectNumber = {
       "elementProperties": { "metadata": "sap.m.ObjectNumber", "mProperties": {} },
     };
     var attribute = "number";   //eg: title, text, value etc.
     var compareValue = "449,99";   //expected value
-    var expVal = await elem.all(by.ui5All(objectNumber)).getAttribute("data-" + attribute);
-    await expect(expVal[0]).toBe(compareValue);
+    const innerElement =  await elem.uiControl(objectNumber);
+    var expVal = await innerElement.getAttribute("data-" + attribute);
+    await expect(expVal).toBe(compareValue); // === expVal[0] in vyperForAll
   });
 
   it("step0ch2:check chaining in a objectlist item with index", async function () {
@@ -956,14 +875,15 @@ describe("filters1", function () {
     var objectListProp = {
       "elementProperties": { "metadata": "sap.m.ObjectListItem", "mProperties": { "title": [{ "path": "Name" }], "number": [{ "path": "Price" }], "bindingContextPath": "/Products('HT-2001')" } },
     };
-    var elem = await common.locator.getDisplayedElement(objectListProp);
+    var elem = await browser.uiControl(objectListProp);
     var objectNumber = {
       "elementProperties": { "metadata": "sap.m.ObjectNumber", "mProperties": {} },
     };
     var attribute = "number";   //eg: title, text, value etc.
     var compareValue = "449,99";   //expected value
-    var expVal = await elem.all(by.ui5All(objectNumber, 0)).getAttribute("data-" + attribute);
-    await expect(expVal[0]).toBe(compareValue);
+    const innerElement = await elem.uiControl(objectNumber, 0);
+    var expVal = await innerElement.getAttribute("data-" + attribute);
+    await expect(expVal).toBe(compareValue); // === expVal[0] in vyperForAll
   });
 
   it("step0as:navigate back to main page", async function () {
@@ -985,8 +905,7 @@ describe("filters1", function () {
         }
       }
     };
-    await common.locator.getDisplayedElement(ui5ControlProperties);
-    await element(by.ui5All(ui5ControlProperties)).click();
+    await common.userInteraction.click(ui5ControlProperties);
   });
 
   it("step0as:navigate back to main page", async function () {
@@ -1009,13 +928,8 @@ describe("filters1", function () {
         }
       }
     };
-    try {
-      await common.locator.getDisplayedElement(ui5ControlProperties);
-      await element(by.ui5All(ui5ControlProperties)).click();
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step 0i: check first item with aggregation property", async function () {
@@ -1055,28 +969,25 @@ describe("filters1", function () {
     var compareValue = "Accessories";   //expected value
     await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
   });
+
   it("step 0y: check first item with aggregation property wildcard", async function () {
     //----------------------- Block for sap.m.StandardListItem - Perform Assert -----------------------
     var ui5ControlProperties = {
       "elementProperties": {
         "metadata": "sap.m.StandardListItem", "mProperties": {
-          "title": "Accessories", "tooltip": "*1category Acc*"
+          "title": "Accessories"
         }
       },
-      "parentProperties": { "metadata": "sap.m.List", "mProperties": { "headerText": "Categories" } },
-      "prevSiblingProperties": {},
-      "nextSiblingProperties": { "metadata": "sap.m.StandardListItem", "mProperties": { "type": "Active", "title": "Computer System Accessories" } },
-      "childProperties": {}
+      "parentProperties": {"metadata": "sap.m.List", "mProperties": {"headerText": "Categories"}},
+      "nextSiblingProperties": {
+        "metadata": "sap.m.StandardListItem",
+        "mProperties": {"type": "Active", "title": "Computer System Accessories"}
+      },
     };
     var Index = 0;
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
-    try {
-      await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+    await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
   });
 
   it("step 0v: check first item with association property wrong", async function () {
@@ -1095,12 +1006,8 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
-    try {
-      await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+    await expect(common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step0:check if product list aggregation bindingpath is correct", async function () {
@@ -1139,8 +1046,8 @@ describe("filters1", function () {
         }
       }
     };
-    await common.locator.getDisplayedElement(ui5ControlProperties);
-    await element(by.ui5All(ui5ControlProperties)).click();
+    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
+    await nameField.click();
   });
 
   it("step1t:check text for specific list item ancestor with * wildcard", async function () {
@@ -1287,12 +1194,8 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Audio/Video Cable Kit - 4m";   //expected value
-    try {
-      await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+    await expect(common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step1k:check text for specific list item sibling", async function () {
@@ -1344,12 +1247,8 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Audio/Video Cable Kit - 4m";   //expected value
-    try {
-      await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+    await expect(common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step1h:check text for specific list item ancestor wrong path", async function () {
@@ -1370,12 +1269,8 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "text";   //eg: title, text, value etc.
     var compareValue = "Audio/Video Cable Kit - 4m";   //expected value
-    try {
-      await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+    await expect(common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step0b:navigate back to main page", async function () {
@@ -1396,8 +1291,8 @@ describe("filters1", function () {
         }
       }
     };
-    await common.locator.getDisplayedElement(ui5ControlProperties);
-    await element(by.ui5All(ui5ControlProperties, 1)).click();
+    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
+    await nameField.click();
   });
 
   it("step0d:navigate back to main page", async function () {
@@ -1435,6 +1330,7 @@ describe("filters1", function () {
   });
 
   it("step1a:enter on Accessories and search wrong element value", async function () {
+    // "placeholders": "Search1"  - wring value for test
     var ui5ControlProperties = {
       "elementProperties": { "metadata": "sap.m.SearchField", "mProperties": { "placeholders": "Search1" } },
       "parentProperties": { "metadata": "sap.m.Toolbar", "mProperties": {} },
@@ -1443,12 +1339,8 @@ describe("filters1", function () {
       "childProperties": {}
     };
     var value = "Flat Basic";   //value to be entered by user
-    try {
-      await common.userInteraction.searchFor(ui5ControlProperties, value, 0, 30000, false);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+    await expect(common.userInteraction.searchFor(ui5ControlProperties, value, 0, 1000, false))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step1b:enter on Accessories and search with additional property", async function () {
@@ -1464,6 +1356,7 @@ describe("filters1", function () {
   });
 
   it("step1c:enter on Accessories and search with wrong boolean additional property", async function () {
+    // "enableSuggestions": "true" - wrong property for test
     var ui5ControlProperties = {
       "elementProperties": { "metadata": "sap.m.SearchField", "mProperties": { "placeholder": "Search", "enableSuggestions": "true", "maxLength": "0" } },
       "parentProperties": { "metadata": "sap.m.Toolbar", "mProperties": {} },
@@ -1471,15 +1364,13 @@ describe("filters1", function () {
       "nextSiblingProperties": {},
       "childProperties": {}
     };
-    try {
-      await common.userInteraction.searchFor(ui5ControlProperties, value, 0, 30000, false);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+    var value = "Flat Basic";   //value to be entered by user
+    await expect(common.userInteraction.searchFor(ui5ControlProperties, value, 0, 1000, false))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step1c:enter on Accessories and search with wrong number additional property", async function () {
+    // "maxLength": "1" - wrong value for test
     var ui5ControlProperties = {
       "elementProperties": { "metadata": "sap.m.SearchField", "mProperties": { "placeholder": "Search", "enableSuggestions": "false", "maxLength": "1" } },
       "parentProperties": { "metadata": "sap.m.Toolbar", "mProperties": {} },
@@ -1487,55 +1378,44 @@ describe("filters1", function () {
       "nextSiblingProperties": {},
       "childProperties": {}
     };
-    try {
-      await common.userInteraction.searchFor(ui5ControlProperties, value, 0, 30000, false);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+    var value = "Flat Basic";   //value to be entered by user
+    await expect(common.userInteraction.searchFor(ui5ControlProperties, value, 0, 1000, false))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step2:click  on Object item", async function () {
     var ui5ControlProperties = {
-      "elementProperties": { "metadata": "sap.m.ObjectListItem", "mProperties": { "numberUnit": "EUR", "type": "Inactive", "icon": "./../../../../../../test-resources/sap/ui/documentation/sdk/images/HT-1035.jpg", "title": "Flat Basic", "number": "399,00" } },
+      "elementProperties": { "metadata": "sap.m.ObjectListItem", "mProperties": { "numberUnit": "EUR", "type": "Inactive", "title": "Flat Basic", "number": "399,00" } },
       "parentProperties": { "metadata": "sap.m.List", "mProperties": { "mode": "SingleSelectMaster", "noDataText": "No products found" } },
       "prevSiblingProperties": {},
-      "nextSiblingProperties": {},
-      "childProperties": { "metadata": "sap.m.Image", "mProperties": { "src": "./../../../../../../test-resources/sap/ui/documentation/sdk/images/HT-1035.jpg" } }
+      "nextSiblingProperties": {}
     };
     await common.userInteraction.click(ui5ControlProperties);
   });
 
   it("step2b:click  on Object item wrong child property", async function () {
+    // "src": "./../../../../../../test-resources/sap/ui/documentation/sdk/images/HT-1036.jpg" - wrong value for test
     var ui5ControlProperties = {
-      "elementProperties": { "metadata": "sap.m.ObjectListItem", "mProperties": { "numberUnit": "EUR", "type": "Inactive", "icon": "./../../../../../../test-resources/sap/ui/documentation/sdk/images/HT-1035.jpg", "title": "Flat Basic", "number": "399,00" } },
+      "elementProperties": { "metadata": "sap.m.ObjectListItem", "mProperties": { "numberUnit": "EUR", "type": "Inactive", "title": "Flat Basic", "number": "399,00" } },
       "parentProperties": { "metadata": "sap.m.List", "mProperties": { "mode": "SingleSelectMaster", "noDataText": "No products found" } },
       "prevSiblingProperties": {},
       "nextSiblingProperties": {},
       "childProperties": { "metadata": "sap.m.Image", "mProperties": { "src": "./../../../../../../test-resources/sap/ui/documentation/sdk/images/HT-1036.jpg" } }
     };
-    try {
-      await common.userInteraction.click(ui5ControlProperties);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+    await expect(common.userInteraction.click(ui5ControlProperties, 0, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step2c:click  on Object item wrong element property", async function () {
+    // "numberUnit": "EUV" - wrong value for test
     var ui5ControlProperties = {
-      "elementProperties": { "metadata": "sap.m.ObjectListItem", "mProperties": { "numberUnit": "EUV", "type": "Inactive", "icon": "./../../../../../../test-resources/sap/ui/documentation/sdk/images/HT-1035.jpg", "title": "Flat Basic", "number": "399,00" } },
+      "elementProperties": { "metadata": "sap.m.ObjectListItem", "mProperties": { "numberUnit": "EUV", "type": "Inactive", "title": "Flat Basic", "number": "399,00" } },
       "parentProperties": { "metadata": "sap.m.List", "mProperties": { "mode": "SingleSelectMaster", "noDataText": "No products found" } },
       "prevSiblingProperties": {},
-      "nextSiblingProperties": {},
-      "childProperties": { "metadata": "sap.m.Image", "mProperties": { "src": "./../../../../../../test-resources/sap/ui/documentation/sdk/images/HT-1036.jpg" } }
+      "nextSiblingProperties": {}
     };
-    try {
-      await common.userInteraction.click(ui5ControlProperties);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+    await expect(common.userInteraction.click(ui5ControlProperties, 0, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step3:check if Supplier text exists", async function () {
@@ -1554,6 +1434,7 @@ describe("filters1", function () {
   });
 
   it("step3a:check if Supplier text exists wrong parent property", async function () {
+    // "title": "Flat Basics" - wrong value for test, should be 'Flat Basic'
     var ui5ControlProperties = {
       "elementProperties": { "metadata": "sap.m.ObjectAttribute", "mProperties": { "title": "Supplier", "text": "Very Best Screens" } },
       "parentProperties": { "metadata": "sap.m.ObjectHeader", "mProperties": { "titleLevel": "H3", "numberUnit": "EUR", "title": "Flat Basics", "number": "399,00" } },
@@ -1564,15 +1445,13 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Supplier";   //expected value
-    try {
-      await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+
+    await expect(common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step3b:check if Supplier text exists wrong prevSibiling property", async function () {
+    // "number": "399" - wring value for test purposes, should be "number": "399,00",
     var ui5ControlProperties = {
       "elementProperties": { "metadata": "sap.m.ObjectAttribute", "mProperties": { "title": "Supplier", "text": "Very Best Screens" } },
       "parentProperties": { "metadata": "sap.m.ObjectHeader", "mProperties": { "titleLevel": "H3", "numberUnit": "EUR", "title": "Flat Basic", "number": "399,00" } },
@@ -1583,15 +1462,13 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Supplier";   //expected value
-    try {
-      await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+
+    await expect(common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step3c:check if Supplier text exists wrong nextSibiling property", async function () {
+    // "state": "Suckscess"  - wrong value for test purposes
     var ui5ControlProperties = {
       "elementProperties": { "metadata": "sap.m.ObjectAttribute", "mProperties": { "title": "Supplier", "text": "Very Best Screens" } },
       "parentProperties": { "metadata": "sap.m.ObjectHeader", "mProperties": { "titleLevel": "H3", "numberUnit": "EUR", "title": "Flat Basic", "number": "399,00" } },
@@ -1602,12 +1479,9 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Supplier";   //expected value
-    try {
-      await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+
+    await expect(common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step3d:check if Supplier text exists remove childproperties", async function () {
@@ -1694,7 +1568,7 @@ describe("filters1", function () {
     var ui5ControlProperties = {
       "elementProperties": {
         "metadata": "sap.m.ObjectAttribute", "mProperties": {
-          "bindingContextPath": "/Products('HT-1025')",
+          "bindingContextPath": "/Products('HT-1025')", // wrong value for test purposes
           "title": [{ "path": "i18n>productSupplierAttributeText" }],
           "text": [{ "path": "SupplierName" }]
         }
@@ -1705,12 +1579,8 @@ describe("filters1", function () {
       "childProperties": {}
     };
     var Index = 0;
-    try {
-      await common.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true, "Correct!");
-    }
+    await expect(common.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step4c:check if Supplier i18n path is correct wrong binding path name", async function () {
@@ -1719,7 +1589,7 @@ describe("filters1", function () {
         "metadata": "sap.m.ObjectAttribute", "mProperties": {
           "bindingContextPath": "/Products('HT-1035')",
           "title": [{ "path": "i18n>productSupplierAttributeText" }],
-          "text": [{ "path": "SupplierNames" }]
+          "text": [{ "path": "SupplierNames" }] // wrong value for tests purposes
         }
       },
       "parentProperties": { "metadata": "sap.m.ObjectHeader", "mProperties": { "titleLevel": "H3", "numberUnit": "EUR", "title": "Flat Basic", "number": "399,00" } },
@@ -1727,14 +1597,11 @@ describe("filters1", function () {
       "nextSiblingProperties": { "metadata": "sap.m.ObjectStatus", "mProperties": { "text": "Available", "state": "Success" } },
       "childProperties": {}
     };
-    try {
-      var attribute2 = "text";   //eg: title, text, value etc.
-      var comparePath2 = "SupplierName";   //expected value
-      await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute2, comparePath2, Index);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+    var attribute2 = "text";   //eg: title, text, value etc.
+    var comparePath2 = "SupplierName";   //expected value
+
+    await expect(common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute2, comparePath2, 0, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step4d:check if Supplier i18n path is correct no model defined", async function () {
@@ -1751,14 +1618,12 @@ describe("filters1", function () {
       "nextSiblingProperties": { "metadata": "sap.m.ObjectStatus", "mProperties": { "text": "Available", "state": "Success" } },
       "childProperties": {}
     };
-    try {
-      var attribute1 = "title";   //eg: title, text, value etc.
-      var comparePath1 = "productSupplierAttributeText";   //expected value
-      await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+    var attribute1 = "title";   //eg: title, text, value etc.
+    var comparePath1 = "productSupplierAttributeText";   //expected value
+
+
+    await expect(common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, 0, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step4e:check if Supplier i18n path is correct not array", async function () {
@@ -1987,12 +1852,9 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "number";   //eg: title, text, value etc.
     var compareValue = "399,00";   //expected value
-    try {
-      await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
-      await expect(true).toBe(false);
-    } catch (e) {
-      await expect(true).toBe(true);
-    }
+
+    await expect(common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
+      .rejects.toThrow(/No visible elements found with selector/);
   });
 
   it("step6c:check if product measure is correct with number bindingpath", async function () {

@@ -5,7 +5,6 @@ var qmateConfig = require("../../configurations/chrome.headless.conf");
 exports.config = merge(qmateConfig.config, {
   maxInstances: 8,
   bail: 1,
-  outputDir: "./results",
 
   //
   // ==================

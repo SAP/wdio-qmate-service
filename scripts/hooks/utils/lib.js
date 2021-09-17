@@ -252,7 +252,7 @@ var LibScripts = function () {
       // If the element is not there yet will throw an error that node was not present,
       // javascript error: no node html elements found
       // In such cases we have to wait untill it appears until timeout is reached
-      // Later we have to investigate on appropriatte messaging
+      // Later we have to investigate on appropriate messaging
       // console.log(`getDisplayedElements(): Function raised exception and is ignored... Selector: ${ui5Selector} and error: ${error}`);
       return null;
     }

@@ -9,7 +9,8 @@
     "postinstall": "npm config set chromedriver_skip_download=false",
     "test": "npm run test:dataExchange && node sleeper.js 5 && npm run test:functional",
     "test:dataExchange": "npx wdio dataExchange/config.import.js && node sleeper.js 5 && npx wdio dataExchange/config.export.js && node sleeper.js 5 && npx wdio dataExchange/config.parallel.js && node sleeper.js 5 && npx wdio dataExchange/config.parallel.group.js && node sleeper.js 5 && npx wdio dataExchange/config.js",
-    "test:functional": "npx wdio functional/locators/test.locator.conf.js && node sleeper.js 15 && npx wdio functional/nativeBrowser/test.conf.js && node sleeper.js 15 && npx wdio functional/nonUi5/test.conf.js && node sleeper.js 15 && npx wdio functional/ui5Properties/test.conf.js && node sleeper.js 15 && npx wdio functional/uiveri5/test.conf.js"
+    "test:functional": "npx wdio functional/locators/test.locator.conf.js && node sleeper.js 15 && npx wdio functional/nativeBrowser/test.conf.js && node sleeper.js 15 && npx wdio functional/nonUi5/test.conf.js && node sleeper.js 15 && npx wdio functional/ui5Properties/test.conf.js && node sleeper.js 15 && npx wdio functional/uiveri5/test.conf.js",
+    "test:integration": "npx wdio testIntegration/config.js"
   },
   "author": "",
   "license": "ISC",
