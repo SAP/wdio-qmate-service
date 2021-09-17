@@ -1,5 +1,5 @@
 "use strict";
-describe("locator - getElementId by wrong selector (unhappy case)", function () {
+describe("locator - getElementId by selector", function () {
   let elemIdFirst;
   let elemIdSecond;
 

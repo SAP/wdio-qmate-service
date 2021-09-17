@@ -1,8 +1,10 @@
 /* eslint-disable no-undef */
-var ui5ControlConverter = require("../../ui5ControlConverter");
+const locatorCommands = require("@wdio/qmate-service/scripts/hooks/utils/locatorCommands");
+const { handleCookiesConsent } = require("../utils");
 
 describe("multi combo", function () {
   it("step1:click on arrow of multicombo", async function () {
+    await handleCookiesConsent();
     var ui5ControlProperties = {
       "elementProperties": { "metadata": "sap.m.MultiComboBox", "mProperties": {} },
       "parentProperties": { "metadata": "sap.ui.layout.VerticalLayout", "mProperties": {} },
@@ -11,7 +13,8 @@ describe("multi combo", function () {
       "childProperties": { "metadata": "sap.m.Tokenizer", "mProperties": {} }
     };
     var id = await common.locator.getElementId(ui5ControlProperties);
-    await element(by.css("[id='" + id + "-arrow']")).click();
+    const element = await $("[id='" + id + "-arrow']");
+    await element.click();
   });
 
   it("step2:select item 1", async function () {
@@ -76,7 +79,8 @@ describe("multi combo", function () {
     var compareValue1 = "HT-1252";   //expected value
     var compareValue2 = "HT-6101";   //expected value
     var elem = await common.locator.getDisplayedElement(ui5ControlProperties, Index);
-    var aVal = await ui5ControlConverter.getControlProperty(elem, attribute);
+    var aVal = await locatorCommands.getUI5Property(attribute, elem);
+    aVal = aVal.split(","); // values are stringified to satisfy vyperForAll regression tests logic
     await expect(aVal[0]).toBe(compareValue1);
     await expect(aVal[1]).toBe(compareValue2);
   });
@@ -99,8 +103,7 @@ describe("multi combo", function () {
     var compareValue1 = "__box0-3";   //expected value
     var compareValue2 = "__box0-6";   //expected value
     var elem = await common.locator.getDisplayedElement(ui5ControlProperties, Index);
-    var aVal = await ui5ControlConverter.getControlAssociationProperty(elem, attribute);
-    //console.log(aVal);
+    var aVal = await locatorCommands.getUI5Association(attribute, elem);
     await expect(aVal[0]).toContain(compareValue1);
     await expect(aVal[1]).toContain(compareValue2);
   });
@@ -123,8 +126,8 @@ describe("multi combo", function () {
     var compareValue1 = "HT-1252";   //expected value
     var compareValue2 = "HT-6101";   //expected value
     var elem = await common.locator.getDisplayedElement(ui5ControlProperties, Index);
-    var aVal = await ui5ControlConverter.getControlProperty(elem, attribute);
-    //console.log(aVal);
+    var aVal = await locatorCommands.getUI5Property(attribute, elem);
+    aVal = aVal.split(","); // values are stringified to satisfy vyperForAll regression tests logic
     await expect(aVal[0]).toBe(compareValue1);
     await expect(aVal[1]).toBe(compareValue2);
   });
