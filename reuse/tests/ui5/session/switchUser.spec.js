@@ -41,7 +41,7 @@ describe.skip("session - switchUser in sapCloud", function () {
   });
 
   it("Execution", async function () {
-    await ui5.session.switchUser("AP_ACCOUNTANT", "Welcome1!", ui5.common.authenticators.sapCloudForm);
+    await ui5.session.switchUser("AP_ACCOUNTANT", "Welcome1!", ui5.authenticators.sapCloudForm);
     await ui5.navigation.navigateToApplication("Shell-home", true);
 
     // closePopups() call is not required for "https://hbr-715.wdf.sap.corp/ui",

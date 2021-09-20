@@ -48,9 +48,9 @@ describe("locator - scrollToElement outside of viewpoint", function () {
       }
     };
 
-    await ui5.common.userInteraction.clickSelectArrow(selectorForDropdownList);
+    await ui5.userInteraction.clickSelectArrow(selectorForDropdownList);
     await ui5.element.scrollToElement(selector);
-    await ui5.common.userInteraction.click(selector);
+    await ui5.userInteraction.click(selector);
   });
 
   it("Verification", async function () {
@@ -60,7 +60,7 @@ describe("locator - scrollToElement outside of viewpoint", function () {
         "metadata": "sap.m.Token"
       }
     };
-    await ui5.common.assertion.expectAttributeToBe(selector, "text", "Smart Games");
+    await ui5.assertion.expectAttributeToBe(selector, "text", "Smart Games");
   });
 });
 

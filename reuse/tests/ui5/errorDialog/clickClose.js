@@ -18,7 +18,7 @@ describe("errorDialog - clickClose", function () {
         "text": "Dialog (Fixed Size)"
       }
     };
-    await ui5.common.userInteraction.click(dialogSelector);
+    await ui5.userInteraction.click(dialogSelector);
   });
 
   it("Verification", async function () {

@@ -1,4 +1,4 @@
-const { handleCookiesConsent } = require("../../../utils");
+const { handleCookiesConsent } = require("../../utils");
 
 describe("userInteraction - fill and retry", function () {
 
@@ -24,12 +24,12 @@ describe("userInteraction - fill and retry", function () {
     const timeout = 30000;
     const attribute = "value";
     const retries = 1;
-    await ui5.common.userInteraction.fillAndRetry(selector, value, index, timeout, retries);
-    actualValue = await ui5.common.locator.getValue(selector, attribute, index, timeout);
+    await ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries);
+    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
   });
 
   it("Verification", function () {
-    ui5.common.assertion.expectEqual(actualValue, value);
+    common.assertion.expectEqual(actualValue, value);
   });
 });
 
@@ -54,7 +54,7 @@ describe("userInteraction - fillAndRetry element with invalid selector", functio
     const index = 0;
     const timeout = 30000;
     const retries = 1;
-    await expect(ui5.common.userInteraction.fillAndRetry(selector, value, index, timeout, retries))
+    await expect(ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries))
       .rejects.toThrow("Retries done. Failed to execute the function");
   });
 });
@@ -82,12 +82,12 @@ describe("userInteraction - fillAndRetry element with number", function () {
     const timeout = 30000;
     const attribute = "value";
     const retries = 1;
-    await ui5.common.userInteraction.fillAndRetry(selector, value, index, timeout, retries);
-    actualValue = await ui5.common.locator.getValue(selector, attribute, index, timeout);
+    await ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries);
+    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
   });
 
   it("Verification", function () {
-    ui5.common.assertion.expectEqual(actualValue, "12");
+    common.assertion.expectEqual(actualValue, "12");
   });
 });
 
@@ -113,11 +113,11 @@ describe("userInteraction - fillAndRetry element with empty value", function () 
     const timeout = 30000;
     const attribute = "value";
     const retries = 1;
-    await ui5.common.userInteraction.fillAndRetry(selector, value, index, timeout, retries);
-    actualValue = await ui5.common.locator.getValue(selector, attribute, index, timeout);
+    await ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries);
+    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
   });
 
   it("Verification", function () {
-    ui5.common.assertion.expectEqual(actualValue, "");
+    common.assertion.expectEqual(actualValue, "");
   });
 });

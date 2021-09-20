@@ -10,7 +10,7 @@ exports.handleCookiesConsent = async function handleCookiesConsent() {
         }]
       }
     };
-    await ui5.common.userInteraction.click(selector, 0, 15000);
+    await ui5.userInteraction.click(selector, 0, 15000);
   }, []);
 
 };

@@ -1,4 +1,6 @@
-const { handleCookiesConsent } = require("../../../utils");
+const {
+  handleCookiesConsent
+} = require("../../../utils");
 
 describe("userInteraction - clearAndRetry", function () {
 
@@ -50,6 +52,6 @@ describe("userInteraction - clearAndRetry with invalid selector", function () {
     const retries = 1;
     const interval = 2000;
     await expect(ui5.common.userInteraction.clearAndRetry(selector, index, timeout, retries, interval))
-      .rejects.toThrow("Retries done. Failed to execute the function. increase your retries.");
+      .rejects.toThrow("Retries done. Failed to execute the function.");
   });
 });

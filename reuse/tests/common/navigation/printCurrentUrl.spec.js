@@ -12,7 +12,7 @@ describe("navigation - printCurrentUrl", function () {
 
     util.console.info = function customLog(message) {
       util.console.info = variableToKeepConsoleLog; // restore global object
-      ui5.common.assertion.expectEqual(message, "Current URL: " + browser.config.baseUrl);
+      common.assertion.expectEqual(message, "Current URL: " + browser.config.baseUrl);
       callsCounter++;
     };
 
