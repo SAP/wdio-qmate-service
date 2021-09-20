@@ -20,7 +20,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@wdio/cli": "^7.9.1"
+    "@wdio/cli": "^7.9.1",
+    "@wdio/selenium-standalone-service": "^7.12.5"
   },
   "devDependencies": {
     "@wdio/local-runner": "^7.12.4",
