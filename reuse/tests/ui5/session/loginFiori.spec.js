@@ -3,14 +3,14 @@
 
 describe("session - loginFiori", function () {
   it("Preparation", async function () {
-    utilities.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
-    await non_ui5.common.navigation.navigateToUrl(browser.config.baseUrl);
+    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
   it("Execution", async function () {
-    await ui5.common.session.loginFiori("PURCHASER");
-    await ui5.common.navigation.navigateToApplication("Shell-home", true);
-    await ui5.common.navigation.closePopups();
+    await ui5.session.loginFiori("PURCHASER");
+    await ui5.navigation.navigateToApplication("Shell-home", true);
+    await ui5.navigation.closePopups();
   });
 
   it("Verification", async function () {
@@ -20,18 +20,18 @@ describe("session - loginFiori", function () {
         "id": "shellAppTitle"
       }
     };
-    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector);
   });
 });
 
 describe("session - loginFiori for Sap Cloud login", function () {
   it("Preparation", async function () {
-    utilities.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
-    await ui5.common.navigation.navigateToApplication("", true);
+    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    await ui5.navigation.navigateToApplication("", true);
   });
 
   it("Execution and Verification", async function () {
-    await expect(ui5.common.session.loginFiori("PURCHASER"))
+    await expect(ui5.session.loginFiori("PURCHASER"))
       .rejects.toThrow(/Function 'loginFiori' failed/);
   });
 });
