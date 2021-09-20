@@ -24,7 +24,7 @@ const Assertion = function () {
     if (loadPropertyTimeout > 0) {
       await browser.waitUntil(async function () {
         const receivedValue = await getUI5PropertyForSelector(attribute);
-        return receivedValue === compareValue;
+        return String(receivedValue) === String(compareValue);
       }, {
         timeout: loadPropertyTimeout,
         timeoutMsg: "Timeout while waiting for element.",
@@ -219,12 +219,22 @@ const Assertion = function () {
     } else {
       values = await elem.getBindingProperty(attribute);
     }
+    // Note: looks like we should construct values[x|0].model + '>' +  values[x|0].path
     if (Array.isArray(compareValue)) {
+      const mergedArrayOfValues = values.map(value => mergeModelAndPath(value));
       for (let x = 0; x < compareValue.length; x++) {
-        expect(values[x].path).toContain(compareValue[x]);
+        expect(mergedArrayOfValues).toContain(compareValue[x]);
       }
     } else {
-      expect(values[0].path).toContain(compareValue);
+      expect(mergeModelAndPath(values[0])).toContain(compareValue);
+    }
+
+    function mergeModelAndPath(value) {
+      if (value.model && value.model.length) {
+        return `${value.model}>${value.path}`;
+      } else {
+        return value.path;
+      }
     }
   };
 
@@ -275,12 +285,12 @@ const Assertion = function () {
     const elem = await browser.uiControl(selector, index, timeout);
     let value = null;
     if (loadPropertyTimeout > 0) {
-      await expect(elem).toBeVisible({
+      await expect(elem).toBeDisplayed({
         wait: loadPropertyTimeout,
         interval: 100,
         message: "Timeout by waiting for element to be visible."
       });
-      await browser.waitUntil(async function () {
+      return await browser.waitUntil(async function () {
         const isUi5Visible = await elem.getUI5Property("visible");
         const isDomVisible = await elem.isDisplayed();
         return isUi5Visible !== null && isUi5Visible !== undefined ||
@@ -293,8 +303,8 @@ const Assertion = function () {
       const isUi5Visible = await elem.getUI5Property("visible");
       const isDomVisible = await elem.isDisplayed();
       value = isUi5Visible || isDomVisible;
+      common.assertion.expectTrue(value); // TODO: check return
     }
-    common.assertion.expectTrue(value); // TODO: check return
   };
 
   /**
@@ -325,8 +335,7 @@ const Assertion = function () {
         timeoutMsg: "Property could not be loaded, timeout was reached."
       });
     } else {
-      const isDomVisible = await elem.isDisplayedInViewport();
-      value = isDomVisible;
+      value = await elem.isDisplayedInViewport();
     }
     common.assertion.expectTrue(value);
   };
