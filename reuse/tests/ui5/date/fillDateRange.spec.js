@@ -30,7 +30,7 @@ describe("date - fillDateRange", function () {
 
     // It is not possible to programmatically check the correct execution of the test, however, while the test is running, it is clear that it is being executed correctly
     // const rangeAsString = `${start} - ${end}`;
-    // ui5.common.assertion.expectEqual(arrivedRange, rangeAsString);
+    // common.assertion.expectEqual(arrivedRange, rangeAsString);
     common.assertion.expectEqual(arrivedRange, "");
   });
 });

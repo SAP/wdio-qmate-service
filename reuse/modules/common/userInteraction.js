@@ -15,7 +15,7 @@ const UserInteraction = function () {
   this.fillActive = async function (value) {
     if (value !== null) {
       const elem = await $(await browser.getActiveElement());
-      return elem.setValue(value);
+      await elem.setValue(value);
       // await elem.addValue(value); // @TODO: which is right
     } else {
       throw new Error("Function 'fillActive' failed: Please provide a value as argument.");

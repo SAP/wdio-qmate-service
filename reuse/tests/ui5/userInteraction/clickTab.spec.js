@@ -1,4 +1,4 @@
-const { handleCookiesConsent } = require("../../../utils");
+const { handleCookiesConsent } = require("../../utils");
 
 describe("userInteraction - click Tab", function () {
 
@@ -17,7 +17,7 @@ describe("userInteraction - click Tab", function () {
     };
     const index = 0;
     const timeout = 30000;
-    await ui5.common.userInteraction.clickTab(selector, index, timeout);
+    await ui5.userInteraction.clickTab(selector, index, timeout);
   });
 
   it("Verification", async function () {
@@ -28,7 +28,7 @@ describe("userInteraction - click Tab", function () {
         "text": "Show borrowed properties"
       }
     };
-    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector);
   });
 });
 
@@ -37,7 +37,7 @@ describe("userInteraction - click on non Tab element", function () {
 
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/api/sap.m.IconTabBar");
-    await utilities.browser.refresh();
+    await util.browser.refresh();
     await handleCookiesConsent();
   });
 
@@ -53,7 +53,7 @@ describe("userInteraction - click on non Tab element", function () {
     };
     const index = 0;
     const timeout = 30000;
-    await expect(ui5.common.userInteraction.clickTab(selector, index, timeout))
+    await expect(ui5.userInteraction.clickTab(selector, index, timeout))
       .rejects.toThrow("Retries done. Failed to execute the function");
   });
 });

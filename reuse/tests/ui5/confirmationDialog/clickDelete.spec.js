@@ -65,7 +65,7 @@ describe("confirmationDialog - clickDelete", function () {
         "id": "*entryList"
       }
     };
-    await ui5.common.assertion.expectToBeVisible(emptyCart);
+    await ui5.assertion.expectToBeVisible(emptyCart);
 
     // 8. Check popup disappeared
     await expect(ui5.element.getDisplayedElement(selectorForPopup))

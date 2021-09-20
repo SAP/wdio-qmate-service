@@ -1,17 +1,16 @@
 const {
   handleCookiesConsent
-} = require("../../../../utils");
+} = require("../../utils");
 
-describe("userInteraction - clearFillActiveAndRetry", function () {
+describe("userInteraction - clearAndFillActive", function () {
 
   let value;
-  let actualValue;
+  let valueAct;
   let attribute;
   let selector;
 
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
-    await utilities.browser.refresh();
     await handleCookiesConsent();
   });
 
@@ -23,13 +22,9 @@ describe("userInteraction - clearFillActiveAndRetry", function () {
       }
     };
     value = "My Value";
-    const index = 0;
-    const timeout = 30000;
-    const retries = 1;
-    const interval = 2000;
     attribute = "value";
-    await ui5.common.userInteraction.click(selector);
-    await ui5.common.userInteraction.clearFillActiveAndRetry(value, retries, interval);
+    await ui5.userInteraction.click(selector);
+    await common.userInteraction.clearAndFillActive(value);
 
     const quantityInput = {
       "elementProperties": {
@@ -40,47 +35,46 @@ describe("userInteraction - clearFillActiveAndRetry", function () {
         }]
       }
     };
-    await ui5.common.userInteraction.click(quantityInput);
-    actualValue = await ui5.common.locator.getValue(selector, attribute, index, timeout);
+    await ui5.userInteraction.click(quantityInput);
+    valueAct = await ui5.element.getValue(selector, attribute);
   });
 
   it("Verification", function () {
-    ui5.common.assertion.expectEqual(value, actualValue);
+    common.assertion.expectEqual(value, valueAct);
   });
 });
 
-describe("userInteraction - clearFillActiveAndRetry with invalid selector", function () {
+describe("userInteraction - clearAndFillActive with invalid selector", function () {
 
   let value;
 
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
-    await utilities.browser.refresh();
+    await util.browser.refresh();
     await handleCookiesConsent();
   });
 
   it("Execution and Verification", async function () {
     const selector = {
       "elementProperties": {
-        "viewName": "sap.m.sample.InputDescription.V",
-        "metadata": "sap.mput",
-        "id": "__put4"
+        "viewName": "sap.m..InputDescription.V",
+        "metadata": "sap.ut",
+        "id": "__iut4"
       }
     };
     value = "My Value";
-    await expect(ui5.common.userInteraction.click(selector))
+    await expect(ui5.userInteraction.click(selector))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
-
 });
 
-describe("userInteraction - clearFillActiveAndRetry with wrong element", function () {
+describe("userInteraction - clearAndFillActive with wrong element", function () {
 
   let value;
 
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.MenuButton/sample/sap.m.sample.MenuButton");
-    await utilities.browser.refresh();
+    await util.browser.refresh();
     await handleCookiesConsent();
   });
 
@@ -96,11 +90,11 @@ describe("userInteraction - clearFillActiveAndRetry with wrong element", functio
         "viewName": "sap.m.sample.MenuButton.MB"
       }
     };
+
     value = "My Value";
-    const retries = 1;
-    const interval = 2000;
-    await ui5.common.userInteraction.click(selector);
-    await expect(ui5.common.userInteraction.clearFillActiveAndRetry(value, retries, interval))
-      .rejects.toThrow("Retries done. Failed to execute the function:");
+    // Timeout was increased to avoid an error "Element not clickable after 30s"
+    await ui5.userInteraction.click(selector, 0, 60000);
+    await expect(common.userInteraction.clearAndFillActive(value))
+      .rejects.toThrow("invalid element state");
   });
 });

@@ -20,7 +20,7 @@ describe("locator - getElementId by wrong selector (unhappy case)", function () 
   });
 
   it("Verification", function () {
-    expect(elemIdFirst).toContain("categoryList-0"); // No such method in 'ui5.common.assertion' unfortunately
+    expect(elemIdFirst).toContain("categoryList-0"); // No such method in 'ui5.assertion' unfortunately
     common.assertion.expectUnequal(elemIdFirst, elemIdSecond);
   });
 });

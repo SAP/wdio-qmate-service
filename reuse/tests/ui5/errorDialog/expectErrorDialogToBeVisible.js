@@ -11,7 +11,7 @@ describe("errorDialog - expectErrorDialogToBeVisible", function () {
   });
 
   it("Execution", async function () {
-    await expect(ui5.common.errorDialog.expectErrorDialogToBeVisible())
+    await expect(ui5.errorDialog.expectErrorDialogToBeVisible())
       .rejects.toThrow(/No visible elements/);
 
     const selector = {

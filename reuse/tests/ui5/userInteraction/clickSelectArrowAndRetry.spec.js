@@ -1,11 +1,11 @@
 const {
   handleCookiesConsent
-} = require("../../../../utils");
+} = require("../../utils");
 
 describe("userInteraction - clickSelectArrowAndRetry", function () {
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Select/sample/sap.m.sample.Select");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Select/sample/sap.m.sample.Select");
     await handleCookiesConsent();
   });
 
@@ -25,7 +25,7 @@ describe("userInteraction - clickSelectArrowAndRetry", function () {
     };
 
     let index = 0;
-    await ui5.common.userInteraction.clickSelectArrowAndRetry(catalog, index, retries, interval);
+    await ui5.userInteraction.clickSelectArrowAndRetry(catalog, index, retries, interval);
 
 
     // Verification
@@ -36,7 +36,7 @@ describe("userInteraction - clickSelectArrowAndRetry", function () {
         "bindingContextPath": "/ProductCollection2/3"
       }
     };
-    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector);
 
     // Close dropdown list
     // Execution
@@ -48,7 +48,7 @@ describe("userInteraction - clickSelectArrowAndRetry", function () {
       }
     };
     index = 1;
-    await ui5.common.userInteraction.clickSelectArrowAndRetry(selector, index, retries, interval);
+    await ui5.userInteraction.clickSelectArrowAndRetry(selector, index, retries, interval);
 
     // Verification
     selector = {
@@ -58,7 +58,7 @@ describe("userInteraction - clickSelectArrowAndRetry", function () {
         "bindingContextPath": "/ProductCollection2/3"
       }
     };
-    await ui5.common.assertion.expectToBeNotVisible(selector);
+    await ui5.assertion.expectToBeNotVisible(selector);
   });
 });
 
@@ -66,7 +66,7 @@ describe("userInteraction - clickSelectArrowAndRetry", function () {
 describe("userInteraction - clickSelectArrow and catch an error", function () {
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Select/sample/sap.m.sample.Select");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Select/sample/sap.m.sample.Select");
     await handleCookiesConsent();
   });
 
@@ -81,7 +81,7 @@ describe("userInteraction - clickSelectArrow and catch an error", function () {
     const index = 10;
     const retries = 1;
     const interval = 2;
-    await expect(ui5.common.userInteraction.clickSelectArrowAndRetry(selector, index, interval, retries))
+    await expect(ui5.userInteraction.clickSelectArrowAndRetry(selector, index, interval, retries))
       .rejects.toThrow("Retries done. Failed to execute the function");
   });
 });
@@ -89,8 +89,8 @@ describe("userInteraction - clickSelectArrow and catch an error", function () {
 describe("userInteraction - clickSelectArrowAndRetry with index > 0", function () {
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Select/sample/sap.m.sample.SelectValueState");
-    await utilities.browser.refresh();
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Select/sample/sap.m.sample.SelectValueState");
+    await util.browser.refresh();
     await handleCookiesConsent();
   });
 
@@ -110,7 +110,7 @@ describe("userInteraction - clickSelectArrowAndRetry with index > 0", function (
     };
 
     let index = 2;
-    await ui5.common.userInteraction.clickSelectArrowAndRetry(catalog, index, retries, interval);
+    await ui5.userInteraction.clickSelectArrowAndRetry(catalog, index, retries, interval);
 
 
     // Verification
@@ -121,7 +121,7 @@ describe("userInteraction - clickSelectArrowAndRetry with index > 0", function (
         "bindingContextPath": "/SuccessProductCollection/2"
       }
     };
-    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector);
 
     // Close dropdown list
     selector = {
@@ -132,7 +132,7 @@ describe("userInteraction - clickSelectArrowAndRetry with index > 0", function (
       }
     };
     index = 2;
-    await ui5.common.userInteraction.clickSelectArrowAndRetry(selector, index, retries, interval);
+    await ui5.userInteraction.clickSelectArrowAndRetry(selector, index, retries, interval);
 
     // Verification
     selector = {
@@ -142,6 +142,6 @@ describe("userInteraction - clickSelectArrowAndRetry with index > 0", function (
         "bindingContextPath": "/SuccessProductCollection/2"
       }
     };
-    await ui5.common.assertion.expectToBeNotVisible(selector);
+    await ui5.assertion.expectToBeNotVisible(selector);
   });
 });

@@ -1,9 +1,11 @@
-const { handleCookiesConsent } = require("../../../utils");
+const {
+  handleCookiesConsent
+} = require("../../utils");
 
 describe("userInteraction - searchFor - use button", function () {
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
     await handleCookiesConsent();
   });
 
@@ -22,7 +24,7 @@ describe("userInteraction - searchFor - use button", function () {
     const index = 0;
     const timeout = 30000;
     const useEnter = false;
-    await ui5.common.userInteraction.searchFor(selector, value, index, timeout, useEnter);
+    await ui5.userInteraction.searchFor(selector, value, index, timeout, useEnter);
   });
 
   it("Verification", async function () {
@@ -37,7 +39,7 @@ describe("userInteraction - searchFor - use button", function () {
       }
     };
     const valueExp = "Laptop";
-    await ui5.common.assertion.expectValueToBe(selector, valueExp);
+    await ui5.assertion.expectValueToBe(selector, valueExp);
   });
 
 });
@@ -45,7 +47,7 @@ describe("userInteraction - searchFor - use button", function () {
 describe("userInteraction - searchFor - use Enter", function () {
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
     await handleCookiesConsent();
   });
 
@@ -64,7 +66,7 @@ describe("userInteraction - searchFor - use Enter", function () {
     const index = 0;
     const timeout = 30000;
     const useEnter = true;
-    await ui5.common.userInteraction.searchFor(selector, value, index, timeout, useEnter);
+    await ui5.userInteraction.searchFor(selector, value, index, timeout, useEnter);
   });
 
   it("Verification", async function () {
@@ -79,7 +81,7 @@ describe("userInteraction - searchFor - use Enter", function () {
       }
     };
     const valueExp = "Laptop";
-    await ui5.common.assertion.expectValueToBe(selector, valueExp);
+    await ui5.assertion.expectValueToBe(selector, valueExp);
   });
 
 });
@@ -87,7 +89,7 @@ describe("userInteraction - searchFor - use Enter", function () {
 describe("userInteraction - searchFor - use Enter and wrong selector", function () {
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
     await handleCookiesConsent();
   });
 
@@ -106,7 +108,7 @@ describe("userInteraction - searchFor - use Enter and wrong selector", function 
     const index = 0;
     const timeout = 30000;
     const useEnter = true;
-    await expect(ui5.common.userInteraction.searchFor(selector, value, index, timeout, useEnter))
+    await expect(ui5.userInteraction.searchFor(selector, value, index, timeout, useEnter))
       .rejects.toThrow("Retries done. Failed to execute the function");
   });
 });
@@ -114,7 +116,7 @@ describe("userInteraction - searchFor - use Enter and wrong selector", function 
 describe("userInteraction - resetSearch", function () {
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
     await handleCookiesConsent();
   });
 
@@ -132,8 +134,8 @@ describe("userInteraction - resetSearch", function () {
     const value = "Laptop";
     const index = 0;
     const timeout = 30000;
-    await ui5.common.userInteraction.searchFor(selector, value, index, timeout);
-    await ui5.common.userInteraction.resetSearch(selector, index, timeout);
+    await ui5.userInteraction.searchFor(selector, value, index, timeout);
+    await ui5.userInteraction.resetSearch(selector, index, timeout);
   });
 
   it("Verification", async function () {
@@ -148,6 +150,6 @@ describe("userInteraction - resetSearch", function () {
       }
     };
     const valueExp = "";
-    await ui5.common.assertion.expectValueToBe(selector, valueExp);
+    await ui5.assertion.expectValueToBe(selector, valueExp);
   });
 });

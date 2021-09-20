@@ -1,4 +1,4 @@
-const { handleCookiesConsent } = require("../../../utils");
+const { handleCookiesConsent } = require("../../utils");
 
 describe("userInteraction - click and retry", function () {
 
@@ -19,11 +19,11 @@ describe("userInteraction - click and retry", function () {
     const timeout = 30000;
     const retries = 1;
     const interval = 2000;
-    await ui5.common.userInteraction.clickAndRetry(selector, index, timeout, retries, interval);
+    await ui5.userInteraction.clickAndRetry(selector, index, timeout, retries, interval);
   });
 
   it("Verification", async function () {
-    await ui5.common.assertion.expectUrlToBe("https://sapui5.hana.ondemand.com/#/api");
+    await common.assertion.expectUrlToBe("https://sapui5.hana.ondemand.com/#/api");
   });
 });
 
@@ -46,7 +46,7 @@ describe("userInteraction - click and retry on not displayed element", function 
     const timeout = 30000;
     const retries = 3;
     const interval = 3000;
-    await expect(ui5.common.userInteraction.clickAndRetry(selector, index, timeout, retries, interval))
+    await expect(ui5.userInteraction.clickAndRetry(selector, index, timeout, retries, interval))
       .rejects.toThrow("Retries done. Failed to execute the function");
   });
 });
