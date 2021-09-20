@@ -52,6 +52,7 @@ describe("test uiveri5 locators page", function () {
 
   it("step 3:click back", async function () {
     var selector = {
+      controlType: "sap.ui.core.Icon",
       id: "container-cart---category--page-navButton-iconBtn"
     };
     const backBtn = await browser.uiControl(selector);
