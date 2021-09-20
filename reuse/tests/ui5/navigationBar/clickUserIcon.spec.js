@@ -12,18 +12,18 @@ describe("navigationBar - click User Icon", function () {
   it("Preparation", async function () {
     browser.config.baseUrl = "https://super-sensitive.domain.name/ui";
     await browser.navigateTo("https://super-sensitive.domain.name/ui");
-    await ui5.common.session.login("PURCHASER");
-    await ui5.common.navigation.navigateToApplication("Shell-home", true);
-    await ui5.common.navigation.closePopups();
-    await ui5.common.assertion.expectShellHeader();
+    await ui5.session.login("PURCHASER");
+    await ui5.navigation.navigateToApplication("Shell-home", true);
+    await ui5.navigation.closePopups();
+    await ui5.assertion.expectShellHeader();
   });
 
   it("Execution and Verification", async function () {
-    await expect(ui5.common.assertion.expectToBeVisible(signoutButton))
+    await expect(ui5.assertion.expectToBeVisible(signoutButton))
       .rejects.toThrow(/No visible elements found/);
 
-    await ui5.common.navigationBar.clickUserIcon();
-    await ui5.common.assertion.expectToBeVisible(signoutButton, 0, 60000);
+    await ui5.navigationBar.clickUserIcon();
+    await ui5.assertion.expectToBeVisible(signoutButton, 0, 60000);
   });
 });
 
@@ -34,7 +34,7 @@ describe("navigationBar - click User Icon (wrong case)", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(ui5.common.navigationBar.clickUserIcon())
+    await expect(ui5.navigationBar.clickUserIcon())
       .rejects.toThrowError(/.*Timeout reached UI5 libraries did not load/);
   });
 });
