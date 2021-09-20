@@ -1,6 +1,6 @@
 #### Reuse API with wdio-qmate-service
 
-This package include tests to use `wdio-qmate-service` for [Reuse API](https://github.wdf.sap.corp/sProcurement/vyperForAll/blob/master/reuse/doc.md)
+This package includes tests to use `wdio-qmate-service` for [Reuse API](https://github.wdf.sap.corp/sProcurement/vyperForAll/blob/master/reuse/doc.md)
 
 
 To run tests:
