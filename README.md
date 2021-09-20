@@ -115,9 +115,9 @@ Please have a look at the following `tests` folders with examples:
 - [Jasmine tests](tests/frameworks/jasmineFramework)
 - [Mocha tests](tests/frameworks/mochaFramework)
 - [Cucumber tests](tests/frameworks/cucumberFramework)
-- [Typescript tests](tests/typescriptSupport)
-- [Sync tests](tests/syncSupport)
-- [Selenium-standalone tests](tests/seleniumStandalone)
+- [Typescript tests](tests/features/typescriptSupport)
+- [Sync tests](tests/features/syncSupport)
+- [Selenium-standalone tests](tests/features/seleniumStandalone)
 - [Reuse API tests](tests/reuse)
 
 
