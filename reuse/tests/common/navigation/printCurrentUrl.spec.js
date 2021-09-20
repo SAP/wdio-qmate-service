@@ -3,7 +3,7 @@
 describe("navigation - printCurrentUrl", function () {
   let callsCounter = 0;
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToUrl(browser.config.baseUrl);
+    await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
   it("Execution and Verification", async function () {
@@ -16,8 +16,8 @@ describe("navigation - printCurrentUrl", function () {
       callsCounter++;
     };
 
-    await ui5.common.navigation.printCurrentUrl();
+    await common.navigation.printCurrentUrl();
 
-    ui5.common.assertion.expectEqual(callsCounter, 1);
+    common.assertion.expectEqual(callsCounter, 1);
   });
 });
