@@ -2,11 +2,11 @@
 const lib = require("./lib");
 
 module.exports = {
-  ui5ControlLocator: async function (ui5Selector, index = 0, timeout = 30000, rootElement, returnAllDomElements = false) {
+  ui5ControlLocator: async function (ui5Selector, index = 0, timeout = 60000, rootElement, returnAllDomElements = false) {
     return await lib.uiControlExecuteLocator(ui5Selector, index, timeout, rootElement, returnAllDomElements);
   },
 
-  ui5ControlsLocators: async function (ui5Selector, timeout = 30000, rootElement) {
+  ui5ControlsLocators: async function (ui5Selector, timeout = 60000, rootElement) {
     return await lib.uiControlExecuteLocator(ui5Selector, null, timeout, rootElement);
   },
 
@@ -69,8 +69,8 @@ module.exports = {
         for (let index = 0; index < aKeys.length; index++) {
           const oBindingContext = bindingContexts[aKeys[index]];
           if (oBindingContext &&
-            oBindingContext.getPath &&
-            oBindingContext.getPath())
+              oBindingContext.getPath &&
+              oBindingContext.getPath())
             bindingContextPath = oBindingContext.getPath();
         }
       }
@@ -89,8 +89,8 @@ module.exports = {
             for (let j = 0; j < aBindingInfos.length; j++) {
               try {
                 if (!aBindings[i].getBindings &&
-                  aBindingInfos[j].path === aBindings[i].getPath() &&
-                  aBindings[i].getValue) {
+                    aBindingInfos[j].path === aBindings[i].getPath() &&
+                    aBindings[i].getValue) {
                   aBindingInfos[j].value = aBindings[i].getValue();
                 } else if (aBindings[i].getBindings) {
                   retrieveCompositeBindings(aBindings[i], aBindingInfos);
@@ -104,7 +104,7 @@ module.exports = {
           for (let j = 0; j < aBindingInfos.length; j++) {
             try {
               if (aBindingInfos[j].path === oBinding.getPath() &&
-                oBinding.getValue) {
+                  oBinding.getValue) {
                 aBindingInfos[j].value = oBinding.getValue();
               }
               // eslint-disable-next-line no-empty
