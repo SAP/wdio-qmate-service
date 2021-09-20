@@ -7,12 +7,15 @@ exports.config = merge(qmateConfig.config, {
   baseUrl: "http://localhost:34099/ui",
 
   services: [
-    ["chromedriver", {port: 4444}],
+    ["chromedriver", {
+      port: 4444
+    }],
     ["static-server", {
       port: 34099,
-      folders: [
-        {mount: "/ui", path: path.resolve(__dirname, "./website/main.html")},
-      ]
+      folders: [{
+        mount: "/ui",
+        path: path.resolve(__dirname, "./website/main.html")
+      }, ]
     }]
   ],
 
