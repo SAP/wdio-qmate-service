@@ -1,0 +1,11 @@
+{
+    "urlParams": {
+        "initialIntent": "home-view",
+        "queryParams": "?mockKey=testShowEmployeeList"
+    },
+    "pathToMockData": "../test/qmate/ui/testShowEmployeeList/data/mock",
+    "pathToMockDataRel": "test/qmate/ui/testShowEmployeeList/data/mock",
+    "entitiesToload": [
+        ""
+    ]
+}

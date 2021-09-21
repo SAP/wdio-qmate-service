@@ -5,7 +5,7 @@ describe("browser - getUI5Version", function () {
   let ui5VersionInfo;
   it("Preparation", async function () {
     await browser.navigateTo(browser.config.baseUrl);
-    await utilities.function.executeOptional(async function () {
+    await util.function.executeOptional(async function () {
       const selector = {
         "elementProperties": {
           "viewName": "sap.ui.documentation.sdk.view.App",
@@ -15,7 +15,7 @@ describe("browser - getUI5Version", function () {
           }]
         }
       };
-      await ui5.common.userInteraction.click(selector, 0, 15000);
+      await ui5.userInteraction.click(selector, 0, 15000);
     }, []);
   });
 
