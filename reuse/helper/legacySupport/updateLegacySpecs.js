@@ -4,18 +4,38 @@ const utils = require("./utils");
 const yargs = require("yargs");
 const path = require("path");
 
+const defaultPathsToIgnore = [
+  "node_modules",
+  ".git",
+  "reports",
+  "results",
+  ".PNG",
+  ".png",
+  "package.json",
+  "package-lock.json",
+  ".yml",
+  ".JPG",
+  ".jpg",
+  ".doc",
+  ".pdf",
+  ".xls",
+  ".pptx",
+  ".txt"
+];
+
 const argv = yargs
   .option("pathsToIgnore", {
     type: "array",
+    alias: "ignore",
     desc: "Paths, file names and file name parts to ignore when updating namespaces",
-    default: [ "node_modules", ".git", "reports", "results", ".PNG", "package.json", "package-lock.json", ".yml" ]
+    default: defaultPathsToIgnore
   })
   .help()
   .alias("help", "h")
   .argv;
 
 const fileOrFolderPathFromCli = argv._[0] || "";
-const pathsToIgnore = argv.pathsToIgnore;
+const pathsToIgnore = defaultPathsToIgnore.concat(argv.pathsToIgnore);
 
 const fileOrFolderPath = path.resolve(process.cwd(), fileOrFolderPathFromCli);
 const legacyMappingObjects = utils.getLegacyMappingObjects(__dirname + "/legacyMapper.json");
