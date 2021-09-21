@@ -1,5 +1,7 @@
 "use strict";
-const { handleCookiesConsent } = require("../../../utils");
+const {
+  handleCookiesConsent
+} = require("../../../utils");
 
 describe("locator - waitForElementIsClickable", function () {
 
@@ -21,6 +23,6 @@ describe("locator - waitForElementIsClickable and catch error", function () {
 
   it("Execution and Verification", async function () {
     await expect(non_ui5.common.locator.waitForElementIsClickable("[class='sdk---app--changeVersionButton-BDI-content']", 40000))
-      .rejects.toThrow("waitForElementIsClickable(): Timeout by waiting for element for selector '[class='sdk---app--changeVersionButton-BDI-content']' to be clickable.");
+      .rejects.toThrow("Function 'waitForElementIsClickable' failed");
   });
 });

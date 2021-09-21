@@ -1,7 +1,7 @@
 "use strict";
 const {
   handleCookiesConsent
-} = require("../../../utils");
+} = require("../../utils");
 
 describe("locator - getValue + expectEqual", function () {
 
@@ -9,13 +9,13 @@ describe("locator - getValue + expectEqual", function () {
   let currentValue;
 
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
     await handleCookiesConsent();
   });
 
   it("Execution", async function () {
-    product = await non_ui5.common.locator.getElementByXPath("//div[contains(text(),'Laptops')]");
-    currentValue = await non_ui5.common.locator.getValue(product);
+    product = await nonUi5.element.getElementByXPath("//div[contains(text(),'Laptops')]");
+    currentValue = await nonUi5.element.getValue(product);
   });
 
   it("Verification", async function () {
@@ -26,11 +26,11 @@ describe("locator - getValue + expectEqual", function () {
 describe("locator - getValue and catch error", function () {
 
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution and Verification", async function () {
-    await expect(non_ui5.common.locator.getValue())
+    await expect(nonUi5.element.getValue())
       .rejects.toThrow("Function 'getValue' failed");
   });
 });

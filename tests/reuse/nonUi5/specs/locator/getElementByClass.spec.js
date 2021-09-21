@@ -25,6 +25,6 @@ describe("locator - getElementByClass and catch error", function () {
 
   it("Execution and Verification", async function () {
     await expect(non_ui5.common.locator.getElementByClass("sapMPSubHeader"))
-      .rejects.toThrow("getElementByClass(): Element with class \"sapMPSubHeader\" not found.");
+      .rejects.toThrow("Function 'getElementByClass' failed");
   });
 });
