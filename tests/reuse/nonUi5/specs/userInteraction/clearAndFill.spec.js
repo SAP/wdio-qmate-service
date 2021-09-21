@@ -14,17 +14,20 @@ describe("userInteraction - clearAndFill form field", function () {
     await non_ui5.common.userInteraction.clearAndFill(element, "First test value");
     await non_ui5.common.assertion.expectValueToBe(element, "First test value", "value");
 
-    await non_ui5.common.userInteraction.clearAndFill(element);
-    await non_ui5.common.assertion.expectValueToBe(element, "", "value");
+    await expect(non_ui5.common.userInteraction.clearAndFill(element))
+      .rejects.toThrow("Function 'clearAndFill' failed: Please provide an element and value as arguments.");
+    await non_ui5.common.assertion.expectValueToBe(element, "First test value", "value");
 
     await non_ui5.common.userInteraction.clearAndFill(element, "Second test value");
     await non_ui5.common.assertion.expectValueToBe(element, "Second test value", "value");
 
-    await non_ui5.common.userInteraction.clearAndFill(element, "");
-    await non_ui5.common.assertion.expectValueToBe(element, "", "value");
+    await expect(non_ui5.common.userInteraction.clearAndFill())
+      .rejects.toThrow("Function 'clearAndFill' failed: Please provide an element and value as arguments.");
+    await non_ui5.common.assertion.expectValueToBe(element, "Second test value", "value");
 
-    await non_ui5.common.userInteraction.clearAndFill(element, null);
-    await non_ui5.common.assertion.expectValueToBe(element, "", "value");
+    await expect(non_ui5.common.userInteraction.clearAndFill(element, null))
+      .rejects.toThrow("Function 'clearAndFill' failed: Please provide an element and value as arguments.");;
+    await non_ui5.common.assertion.expectValueToBe(element, "Second test value", "value");
   });
 });
 

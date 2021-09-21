@@ -183,3 +183,55 @@ describe("userInteraction - fillActive textarea", function () {
     common.assertion.expectEqual(actualValue, value);
   });
 });
+
+describe("userInteraction - fillActive form field", function () {
+  let element;
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
+    element = await nonUi5.element.getElementById("ExampleValue1", 10000);
+    // Check field is empty before the test
+    await nonUi5.assertion.expectValueToBe(element, "", "value");
+  });
+
+  it("Execution", async function () {
+    await nonUi5.userInteraction.click(element); // Make the form field active
+    await common.userInteraction.fillActive("New test value");
+  });
+
+  it("Verification", async function () {
+    await nonUi5.assertion.expectValueToBe(element, "New test value", "value");
+  });
+});
+
+describe("userInteraction - fillActive with empty value", function () {
+  let element;
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
+    element = await nonUi5.element.getElementById("ExampleValue1", 10000);
+    // Check field is empty before the test
+    await nonUi5.assertion.expectValueToBe(element, "", "value");
+  });
+
+  it("Execution", async function () {
+    // Make the form field active
+    await nonUi5.userInteraction.click(element);
+    await common.userInteraction.fillActive();
+  });
+
+  it("Verification", async function () {
+    // Check the form field itself
+    await nonUi5.assertion.expectValueToBe(element, "", "value");
+  });
+});
+
+describe("userInteraction - fillActive a button (unhappy case)", function () {
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
+  });
+
+  it("Execution and Verification", async function () {
+    // Active element is random
+    await expect(common.userInteraction.fillActive("New test value"))
+      .rejects.toThrow(/invalid element state/);
+  });
+});

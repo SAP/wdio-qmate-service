@@ -58,6 +58,6 @@ describe("userInteraction - fillActiveAndRetry a button (unhappy case)", functio
   it("Execution and Verification", async function () {
     // Active element is random
     await expect(non_ui5.common.userInteraction.fillActiveAndRetry("New test value"))
-      .rejects.toThrow(/Retries done. Failed to execute the function. increase your retries/);
+      .rejects.toThrow("Retries done. Failed to execute the function: invalid element state");
   });
 });

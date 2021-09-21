@@ -26,7 +26,7 @@ describe("userInteraction - clearAndRetry without element (unhappy case)", funct
 
   it("Execution and Verification", async function () {
     await expect(non_ui5.common.userInteraction.clearAndRetry())
-      .rejects.toThrow(/Please provide an element as first parameter/);
+      .rejects.toThrow("Function 'clearAndRetry' failed: Please provide an element as first argument.");
   });
 });
 
@@ -38,6 +38,6 @@ describe("userInteraction - clearAndRetry a button (unhappy case)", function () 
   it("Execution and Verification", async function () {
     const elem = await non_ui5.common.locator.getElementById("Default", 10000);
     await expect(non_ui5.common.userInteraction.clearAndRetry(elem, 1))
-      .rejects.toThrow(/Retries done. Failed to execute the function. increase your retries/);
+      .rejects.toThrow("Retries done. Failed to execute the function: invalid element state");
   });
 });
