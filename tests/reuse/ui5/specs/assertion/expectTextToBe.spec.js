@@ -25,7 +25,7 @@ describe("assertion - expectTextToBe with wrong selector", function () {
   });
 
   it("Execution and Verification", async function () {
-    let wrongSelector = {
+    const wrongSelector = {
       "elementProperties": {
         "wrongData": "123"
       }
