@@ -20,7 +20,7 @@ const Assertion = function () {
    */
   this.expectValueToBe = async function (elem, compareValue, attribute) {
     const value = await nonUi5.element.getValue(elem, attribute);
-    return nonUi5.assertion.expectEqual(value, compareValue);
+    return common.assertion.expectEqual(value, compareValue);
   };
 
 
