@@ -1,0 +1,11 @@
+{
+    "urlParams": {
+        "initialIntent": "home-view",
+        "queryParams": "?mockKey=testDisplayNotFound"
+    },
+    "pathToMockData": "../test/qmate/ui/testDisplayNotFound/data/mock",
+    "pathToMockDataRel": "test/qmate/ui/testDisplayNotFound/data/mock",
+    "entitiesToload": [
+        ""
+    ]
+}

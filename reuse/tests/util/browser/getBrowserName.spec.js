@@ -6,7 +6,7 @@ describe("browser - getBrowserName", function () {
 
   it("Execution", async function () {
     await browser.navigateTo(browser.config.baseUrl);
-    browserName = await utilities.browser.getBrowserName();
+    browserName = await util.browser.getBrowserName();
   });
 
   it("Verification", async function () {

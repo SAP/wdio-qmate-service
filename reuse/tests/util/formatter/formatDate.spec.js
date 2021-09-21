@@ -6,13 +6,13 @@ describe("formatter - formatDate - 'mm/dd/yyyy'", function () {
 
   it("Execution", async function () {
     const date = new Date(2020, 0, 17);
-    formattedDate = utilities.formatter.formatDate(date, "mm/dd/yyyy");
+    formattedDate = util.formatter.formatDate(date, "mm/dd/yyyy");
   });
 
   it("Verification", async function () {
     const valueAct = formattedDate;
     const valueExp = "01/17/2020";
-    ui5.common.assertion.expectEqual(valueAct, valueExp);
+    common.assertion.expectEqual(valueAct, valueExp);
   });
 
 });
@@ -23,13 +23,13 @@ describe("formatter - formatDate - 'dd.mm.yyyy'", function () {
 
   it("Execution", async function () {
     const date = new Date(2020, 0, 17);
-    formattedDate = utilities.formatter.formatDate(date, "dd.mm.yyyy");
+    formattedDate = util.formatter.formatDate(date, "dd.mm.yyyy");
   });
 
   it("Verification", async function () {
     const valueAct = formattedDate;
     const valueExp = "17.01.2020";
-    ui5.common.assertion.expectEqual(valueAct, valueExp);
+    common.assertion.expectEqual(valueAct, valueExp);
   });
 
 });
@@ -40,13 +40,13 @@ describe("formatter - formatDate - 'dd/mm/yyyy'", function () {
 
   it("Execution", async function () {
     const date = new Date(2020, 0, 17);
-    formattedDate = utilities.formatter.formatDate(date, "dd/mm/yyyy");
+    formattedDate = util.formatter.formatDate(date, "dd/mm/yyyy");
   });
 
   it("Verification", async function () {
     const valueAct = formattedDate;
     const valueExp = "17/01/2020";
-    ui5.common.assertion.expectEqual(valueAct, valueExp);
+    common.assertion.expectEqual(valueAct, valueExp);
   });
 
 });
@@ -57,13 +57,13 @@ describe("formatter - formatDate - 'yyyymmdd'", function () {
 
   it("Execution", async function () {
     const date = new Date(2020, 0, 17);
-    formattedDate = utilities.formatter.formatDate(date, "yyyymmdd");
+    formattedDate = util.formatter.formatDate(date, "yyyymmdd");
   });
 
   it("Verification", async function () {
     const valueAct = formattedDate;
     const valueExp = "20200117";
-    ui5.common.assertion.expectEqual(valueAct, valueExp);
+    common.assertion.expectEqual(valueAct, valueExp);
   });
 
 });
@@ -74,13 +74,13 @@ describe("formatter - formatDate - 'yyyy/mm/dd'", function () {
 
   it("Execution", async function () {
     const date = new Date(2020, 0, 17);
-    formattedDate = utilities.formatter.formatDate(date, "yyyy/mm/dd");
+    formattedDate = util.formatter.formatDate(date, "yyyy/mm/dd");
   });
 
   it("Verification", async function () {
     const valueAct = formattedDate;
     const valueExp = "2020/01/17";
-    ui5.common.assertion.expectEqual(valueAct, valueExp);
+    common.assertion.expectEqual(valueAct, valueExp);
   });
 
 });
@@ -91,13 +91,13 @@ describe("formatter - formatDate - 'datetime'", function () {
 
   it("Execution", async function () {
     const date = new Date(2020, 0, 17);
-    formattedDate = utilities.formatter.formatDate(date, "datetime");
+    formattedDate = util.formatter.formatDate(date, "datetime");
   });
 
   it("Verification", async function () {
     const valueAct = formattedDate;
     const valueExp = "datetime'2020-01-17T00:00:00'";
-    ui5.common.assertion.expectEqual(valueAct, valueExp);
+    common.assertion.expectEqual(valueAct, valueExp);
   });
 
 });
