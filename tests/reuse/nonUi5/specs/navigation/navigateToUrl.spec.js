@@ -23,6 +23,6 @@ describe("navigateToUrl with wrong parameter", function () {
 
   it("Execution and Verification", async function () {
     await expect(non_ui5.common.navigation.navigateToUrl())
-      .rejects.toThrow("Please provide an URL as first argument (must be of type 'string').");
+      .rejects.toThrow("Function 'navigateToUrl' failed: Please provide an url as argument.");
   });
 });
