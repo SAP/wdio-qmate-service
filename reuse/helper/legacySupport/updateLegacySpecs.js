@@ -1,16 +1,39 @@
+/* eslint-disable no-console */
 const fs = require("fs");
 const utils = require("./utils");
+const yargs = require("yargs");
+const path = require("path");
 
-const pathsToIgnore = [ "node_modules", ".git", "reports", "results", ".PNG" ];
+const argv = yargs
+  .option("pathsToIgnore", {
+    type: "array",
+    desc: "Paths, file names and file name parts to ignore when updating namespaces",
+    default: [ "node_modules", ".git", "reports", "results", ".PNG", "package.json", "package-lock.json", ".yml" ]
+  })
+  .help()
+  .alias("help", "h")
+  .argv;
 
-const fileOrFolderPathFromCli = process.argv[2] || "";
-const fileOrFolderPath = `${process.cwd()}/${fileOrFolderPathFromCli}`;
+const fileOrFolderPathFromCli = argv._[0] || "";
+const pathsToIgnore = argv.pathsToIgnore;
+
+const fileOrFolderPath = path.resolve(process.cwd(), fileOrFolderPathFromCli);
 const legacyMappingObjects = utils.getLegacyMappingObjects(__dirname + "/legacyMapper.json");
 const sortedLegacyMappingObjects = sortLegacyMappingObjects(legacyMappingObjects);
 replaceOldNamespacesWithNewNamespacesInFolderOrFile(fileOrFolderPath, sortedLegacyMappingObjects);
 
 function replaceOldNamespacesWithNewNamespacesInFolderOrFile (fileOrFolderPath, legacyMappingObjects) {
-  const fileOrFolderLstat = fs.lstatSync(fileOrFolderPath);
+  let fileOrFolderLstat;
+  try {
+    fileOrFolderLstat = fs.lstatSync(fileOrFolderPath);
+  } catch (err) {
+    if (err.code === "ENOENT") {
+      console.error(`Error: File or folder with path ${fileOrFolderPath} does not exist`);
+      process.exit();
+    } else {
+      throw err;
+    }
+  }
   if (fileOrFolderPathIncludesIgnoredPath(fileOrFolderPath)) {
     return;
   }
