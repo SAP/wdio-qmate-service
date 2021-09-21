@@ -43,7 +43,7 @@ describe("assertion - expectValueToBe with wrong selector (unhappy case)", funct
   });
 
   it("Execution and Verification", async function () {
-    const wrongSelector = {
+    let wrongSelector = {
       "elementProperties": {
         "wrongData": "123"
       }

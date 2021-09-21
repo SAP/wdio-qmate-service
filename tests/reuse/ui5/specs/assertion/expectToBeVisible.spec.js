@@ -1,9 +1,6 @@
 "use strict";
 let selector;
-const {
-  handleCookiesConsent
-} = require("../../../../utils");
-
+const { handleCookiesConsent } = require("../../../utils");
 describe("assertion - expectToBeVisible with right selector", function () {
 
   it("Preparation", async function () {
