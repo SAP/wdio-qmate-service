@@ -25,6 +25,6 @@ describe("locator - getElementByXPath and catch error", function () {
 
   it("Execution and Verification", async function () {
     await expect(non_ui5.common.locator.getElementByXPath("sap-word"))
-      .rejects.toThrow("getElementByXPath(): Element with XPath \"sap-word\" not found.");
+      .rejects.toThrow("Function 'getElementByXPath' failed");
   });
 });

@@ -1,16 +1,16 @@
 const {
   handleCookiesConsent
-} = require("../../../utils");
+} = require("../../utils");
 
 describe("locator - getDisplayedElements and catch error", function () {
 
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
     await handleCookiesConsent();
   });
 
   it("Execution and Verification", async function () {
-    await expect(non_ui5.common.locator.getDisplayedElements("[class='sapMBtnBase sapMBtn sapMBtnInverted sapMDialogBeginButton sapMBarChild']", 4000))
+    await expect(nonUi5.element.getDisplayedElements("[class='sapMBtnBase sapMBtn sapMBtnInverted sapMDialogBeginButton sapMBarChild']", 4000))
       .rejects.toThrow("Function 'waitForAllElements' failed");
   });
 });
@@ -18,12 +18,12 @@ describe("locator - getDisplayedElements and catch error", function () {
 describe("locator - getDisplayedElements", function () {
   let displayedElements;
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
     await handleCookiesConsent();
   });
 
   it("Execution", async function () {
-    displayedElements = await non_ui5.common.locator.getDisplayedElements("[id='sdk---app--changeVersionButton-BDI-content']", 40000);
+    displayedElements = await nonUi5.element.getDisplayedElements("[id='sdk---app--changeVersionButton-BDI-content']", 40000);
   });
 
   it("Verification", async function () {
@@ -41,7 +41,7 @@ describe("locator - getDisplayedElements for non-visible element (element is in 
   });
 
   it("Execution", async function () {
-    displayedElements = await non_ui5.common.locator.getDisplayedElements("[class='sapUiInvisibleText']");
+    displayedElements = await nonUi5.element.getDisplayedElements("[class='sapUiInvisibleText']");
   });
 
   it("Verification", async function () {

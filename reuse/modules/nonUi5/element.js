@@ -256,6 +256,7 @@ const Element = function () {
    * @example const elem = await nonUi5.element.getElementByChild(".form01", ".input01");
    */
   this.getElementByChild = async function (elementSelector, childSelector) {
+    // TODO: add try catch
     const elem = await this.getElementByCss(elementSelector);
     let childElem = null;
     await browser.waitUntil(async function () {
