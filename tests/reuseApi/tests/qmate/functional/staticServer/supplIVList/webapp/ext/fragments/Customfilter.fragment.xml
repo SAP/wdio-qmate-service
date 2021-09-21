@@ -1,8 +1,0 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:smartfilterbar="sap.ui.comp.smartfilterbar" xmlns:core="sap.ui.core">
-	<smartfilterbar:ControlConfiguration label="{i18n>POSTING_DATE}" key="PostingDate" groupId="_BASIC" visibleInAdvancedArea="false" index="40" 
-		conditionType="{ module: 'sap.ui.comp.config.condition.DateRangeType', operations: { filter: { path: 'key', contains: 'WEEK', exclude:true } } }" />
-	<smartfilterbar:ControlConfiguration label="{i18n>DOCUMENT_DATE}" key="DocumentDate" groupId="_BASIC" visibleInAdvancedArea="false" index="50" 
-		conditionType="{ module: 'sap.ui.comp.config.condition.DateRangeType', operations: { filter: { path: 'key', contains: 'WEEK', exclude:true } } }" />
-	<smartfilterbar:ControlConfiguration label="{i18n>ENTERED_BY}" key="CreatedByUserFullName" groupId="C_SupplierInvoiceListType" visibleInAdvancedArea="false"/>
-	<smartfilterbar:ControlConfiguration label="{i18n>ENTRY_TYPE}" key="SupplierInvoiceOriginDesc" groupId="C_SupplierInvoiceListType" visibleInAdvancedArea="false"/>
-</core:FragmentDefinition>
