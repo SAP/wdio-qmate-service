@@ -17,7 +17,7 @@ const File = function () {
    * @example await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"]);
    */
   this.upload = async function (files) {
-    const elem = await nonUi5.common.locator.getElementByCss('input[type="file"]');
+    const elem = await nonUi5.element.getElementByCss('input[type="file"]');
     for (const file of files) {
       await elem.setValue(path.resolve(file));
     }

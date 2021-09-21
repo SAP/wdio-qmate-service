@@ -69,60 +69,60 @@ module.exports = {
 
     function getControlAllProperties(oControl) {
       if (!oControl ||
-        !oControl.getMetadata ||
-        !oControl.getMetadata() ||
-        !oControl.getMetadata().getAllProperties
+          !oControl.getMetadata ||
+          !oControl.getMetadata() ||
+          !oControl.getMetadata().getAllProperties
       ) { return null; }
       return oControl.getMetadata().getAllProperties();
     }
 
     function getControlAllAggregations(oControl) {
       if (!oControl ||
-        !oControl.getMetadata ||
-        !oControl.getMetadata() ||
-        !oControl.getMetadata().getAllAggregations
+          !oControl.getMetadata ||
+          !oControl.getMetadata() ||
+          !oControl.getMetadata().getAllAggregations
       ) { return null; }
       return oControl.getMetadata().getAllAggregations();
     }
 
     function getControlAllAssociations(oControl) {
       if (!oControl ||
-        !oControl.getMetadata ||
-        !oControl.getMetadata() ||
-        !oControl.getMetadata().getAllAssociations
+          !oControl.getMetadata ||
+          !oControl.getMetadata() ||
+          !oControl.getMetadata().getAllAssociations
       ) { return null; }
       return oControl.getMetadata().getAllAssociations();
     }
 
     function getControlProperty(oControl, sPropKey) {
       if (!oControl ||
-        !oControl.getProperty ||
-        !oControl.getMetadata() ||
-        !oControl.getMetadata().getProperty ||
-        !oControl.getMetadata().getProperty(sPropKey) ||
-        !oControl.getMetadata().getProperty(sPropKey).get
+          !oControl.getProperty ||
+          !oControl.getMetadata() ||
+          !oControl.getMetadata().getProperty ||
+          !oControl.getMetadata().getProperty(sPropKey) ||
+          !oControl.getMetadata().getProperty(sPropKey).get
       ) { return null; }
       return oControl.getMetadata().getProperty(sPropKey).get(oControl);
     }
 
     function getAggregationProperty(oControl, sPropKey) {
       if (!oControl ||
-        !oControl.getAggregation ||
-        !oControl.getMetadata() ||
-        !oControl.getMetadata().getAggregation ||
-        !oControl.getMetadata().getAggregation(sPropKey) ||
-        !oControl.getMetadata().getAggregation(sPropKey).get
+          !oControl.getAggregation ||
+          !oControl.getMetadata() ||
+          !oControl.getMetadata().getAggregation ||
+          !oControl.getMetadata().getAggregation(sPropKey) ||
+          !oControl.getMetadata().getAggregation(sPropKey).get
       ) { return null; }
       return oControl.getMetadata().getAggregation(sPropKey).get(oControl);
     }
 
     function getAssociationProperty(oControl, sPropKey) {
       if (!oControl ||
-        !oControl.getAssociation ||
-        !oControl.getMetadata() ||
-        !oControl.getMetadata().getAssociation ||
-        !oControl.getMetadata().getAssociation(sPropKey) ||
-        !oControl.getMetadata().getAssociation(sPropKey).get
+          !oControl.getAssociation ||
+          !oControl.getMetadata() ||
+          !oControl.getMetadata().getAssociation ||
+          !oControl.getMetadata().getAssociation(sPropKey) ||
+          !oControl.getMetadata().getAssociation(sPropKey).get
       ) { return null; }
       return oControl.getMetadata().getAssociation(sPropKey).get(oControl);
     }
@@ -149,8 +149,8 @@ module.exports = {
           if (aKeys[index] === "$cmd") continue;
           const oBindingContext = bindingContexts[aKeys[index]];
           if (oBindingContext &&
-            oBindingContext.getPath &&
-            oBindingContext.getPath())
+              oBindingContext.getPath &&
+              oBindingContext.getPath())
             aBindingContextPaths.push(oBindingContext.getPath());
         }
         return aBindingContextPaths;
@@ -165,9 +165,9 @@ module.exports = {
           return false;
         }
         if (oControl.getViewName &&
-          // eslint-disable-next-line no-undef
-          oControl instanceof sap.ui.core.mvc.View &&
-          wildCardAndNormalCompare(sViewName, oControl.getViewName())) {
+            // eslint-disable-next-line no-undef
+            oControl instanceof sap.ui.core.mvc.View &&
+            wildCardAndNormalCompare(sViewName, oControl.getViewName())) {
           return true;
         } else {
           return isControlInViewName(oControl.getParent(), sViewName);
@@ -184,9 +184,9 @@ module.exports = {
           return false;
         }
         if (oControl.getId &&
-          wildCardAndNormalCompare(sViewId, oControl.getId()) &&
-          // eslint-disable-next-line no-undef
-          oControl instanceof sap.ui.core.mvc.View) {
+            wildCardAndNormalCompare(sViewId, oControl.getId()) &&
+            // eslint-disable-next-line no-undef
+            oControl instanceof sap.ui.core.mvc.View) {
           return true;
         } else {
           return isControlInViewId(oControl.getParent(), sViewId);
@@ -254,8 +254,8 @@ module.exports = {
           for (let j = 0; j < aBindingInfos.length; j++) {
             try {
               if (!aBindings[i].getBindings &&
-                aBindingInfos[j].path === aBindings[i].getPath() &&
-                aBindings[i].getValue) {
+                  aBindingInfos[j].path === aBindings[i].getPath() &&
+                  aBindings[i].getValue) {
                 aBindingInfos[j].value = aBindings[i].getValue();
               } else if (aBindings[i].getBindings) {
                 retrieveCompositeBindings(aBindings[i], aBindingInfos);
@@ -269,7 +269,7 @@ module.exports = {
         for (let j = 0; j < aBindingInfos.length; j++) {
           try {
             if (aBindingInfos[j].path === oBinding.getPath() &&
-              oBinding.getValue) {
+                oBinding.getValue) {
               aBindingInfos[j].value = oBinding.getValue();
             }
             // eslint-disable-next-line no-empty
@@ -322,9 +322,9 @@ module.exports = {
       try {
         if (aAggregation.hasOwnProperty(sPropKey)) {
           if (!oControl || !sPropKey
-            || !aAggregation.hasOwnProperty(sPropKey)
-            || !oControl.getBindingInfo
-            || !oControl.getBindingInfo(sPropKey)) return aBindingInfos;
+              || !aAggregation.hasOwnProperty(sPropKey)
+              || !oControl.getBindingInfo
+              || !oControl.getBindingInfo(sPropKey)) return aBindingInfos;
           aBindingInfos = retrieverBindingPaths(oControl, sPropKey);
         }
       } catch (e) {
@@ -339,9 +339,9 @@ module.exports = {
       try {
         if (aAssociation.hasOwnProperty(sPropKey)) {
           if (!oControl || !sPropKey
-            || !aAssociation.hasOwnProperty(sPropKey)
-            || !oControl.getBindingInfo
-            || !oControl.getBindingInfo(sPropKey)) return aBindingInfos;
+              || !aAssociation.hasOwnProperty(sPropKey)
+              || !oControl.getBindingInfo
+              || !oControl.getBindingInfo(sPropKey)) return aBindingInfos;
           aBindingInfos = retrieverBindingPaths(oControl, sPropKey);
         }
       } catch (e) {
@@ -356,9 +356,9 @@ module.exports = {
       try {
         if (aProperties.hasOwnProperty(sPropKey)) {
           if (!oControl || !sPropKey
-            || !aProperties.hasOwnProperty(sPropKey)
-            || !oControl.getBindingInfo
-            || !oControl.getBindingInfo(sPropKey)) return aBindingInfos;
+              || !aProperties.hasOwnProperty(sPropKey)
+              || !oControl.getBindingInfo
+              || !oControl.getBindingInfo(sPropKey)) return aBindingInfos;
           aBindingInfos = retrieverBindingPaths(oControl, sPropKey);
         }
       } catch (e) {
@@ -481,7 +481,7 @@ module.exports = {
       }
       if (
         (!extrPath.path && aBindindInfo.length > 0) ||
-        (!extrPath.path && aBindindInfo.length === 0)
+          (!extrPath.path && aBindindInfo.length === 0)
       ) {
         return true;
       } else if (extrPath.path && aBindindInfo.length === 0) {
@@ -492,7 +492,7 @@ module.exports = {
         const bindindInfo = aBindindInfo[index];
         if ((extrPath.model && bindindInfo.model)) {
           if ((extrPath.path && (bindindInfo.path !== null && bindindInfo.path !== undefined))
-            && wildCardAndNormalCompare(extrPath.model, bindindInfo.model)) {
+              && wildCardAndNormalCompare(extrPath.model, bindindInfo.model)) {
             //if(convertToString(bindindInfo.path) === convertToString(extrPath.path))
             if (wildCardAndNormalCompare(extrPath.path, bindindInfo.path))
               aCandidatePath.push(bindindInfo.path);
@@ -511,7 +511,7 @@ module.exports = {
 
     function wildCardAndNormalCompare(sWild, sValue) {
       if ((sValue === undefined || sValue === null)
-        && (sWild === undefined || sWild === null)) return true;
+          && (sWild === undefined || sWild === null)) return true;
       else {
         if (sValue === undefined || sValue === null) sValue = "";
         if (sWild === undefined || sWild === null) sWild = "";
@@ -536,8 +536,8 @@ module.exports = {
           const aAttrKey = Object.keys(oElm);
           const aAttrValue = Object.values(oElm);
           if (aAttrKey && aAttrValue &&
-            aAttrKey.length > 0 && aAttrValue.length > 0 &&
-            aAttrValue[0] !== undefined && aAttrValue[0] !== null) {
+              aAttrKey.length > 0 && aAttrValue.length > 0 &&
+              aAttrValue[0] !== undefined && aAttrValue[0] !== null) {
             if (aAttrKey[0] === sKey) {
               var val = aAttrValue[0].toString();
               if (wildCardAndNormalCompare(sValue, val)) {
@@ -590,10 +590,10 @@ module.exports = {
       for (var key in mProperties) {
         var value = mProperties[key];
         if (key !== "domProperties" &&
-          key !== "metadata" &&
-          key !== "ancestorProperties" &&
-          key !== "descendantProperties" &&
-          key !== "siblingProperties") {
+            key !== "metadata" &&
+            key !== "ancestorProperties" &&
+            key !== "descendantProperties" &&
+            key !== "siblingProperties") {
           if (value && Array.isArray(value)) {
             let bIsStringVal = false;
             if (value.length > 0) {
@@ -674,7 +674,7 @@ module.exports = {
       }
 
       if ((aPropValues.length === 0 && elemId) ||
-        (aPropValues.length > 0 && !elemId)) {
+          (aPropValues.length > 0 && !elemId)) {
         return bPass;
       } else if (aPropValues.length === 0 && !elemId) {
         return true;
@@ -717,7 +717,7 @@ module.exports = {
 
     function getId(oControl) {
       if (!oControl ||
-        !oControl.getId
+          !oControl.getId
       ) { return null; }
       return oControl.getId();
     }
@@ -799,7 +799,7 @@ module.exports = {
         //if(oControl.getId() === "__box0")
         bPass = bPass && compareToProperties(elementProperties.mProperties, oControl);
       } else if (elementProperties && typeof elementProperties === "object"
-        && !elementProperties.mProperties) {
+          && !elementProperties.mProperties) {
         bPass = bPass && compareToProperties(elementProperties, oControl);
       }
 
@@ -963,8 +963,8 @@ module.exports = {
       var aBindingInfos = [];
       try {
         if (!oControl || !key
-          || !oControl.getBindingInfo
-          || !oControl.getBindingInfo(key)) return aBindingInfos;
+            || !oControl.getBindingInfo
+            || !oControl.getBindingInfo(key)) return aBindingInfos;
         var aBindingInfoParts = oControl.getBindingInfo(key).parts;
         if (aBindingInfoParts && aBindingInfoParts.length > 0) {
           for (var i = 0; i < aBindingInfoParts.length; i++) {
@@ -992,9 +992,9 @@ module.exports = {
       var aBindingInfos = [];
       try {
         if (!oControl || !key
-          || !oControl.getBindingInfo
-          || !oControl.getBindingInfo(key)
-          || !oControl.getBindingInfo(key)) return aBindingInfos;
+            || !oControl.getBindingInfo
+            || !oControl.getBindingInfo(key)
+            || !oControl.getBindingInfo(key)) return aBindingInfos;
         var aBindingInfoParts = oControl.getBindingInfo(key).parts;
         if (aBindingInfoParts && aBindingInfoParts.length > 0) {
           for (var i = 0; i < aBindingInfoParts.length; i++) {
@@ -1022,9 +1022,9 @@ module.exports = {
       var aBindingInfos = [];
       try {
         if (!oControl || !key
-          || !oControl.getBindingInfo
-          || !oControl.getBindingInfo(key)
-          || !oControl.getBindingInfo(key)) return aBindingInfos;
+            || !oControl.getBindingInfo
+            || !oControl.getBindingInfo(key)
+            || !oControl.getBindingInfo(key)) return aBindingInfos;
         var aBindingInfoParts = oControl.getBindingInfo(key).parts;
         if (aBindingInfoParts && aBindingInfoParts.length > 0) {
           for (var i = 0; i < aBindingInfoParts.length; i++) {
@@ -1111,13 +1111,13 @@ module.exports = {
       retrieveValidUI5ControlsSubElements(aAllChildrenNodes);
       var aValidControls = aCandidateControls;
       if ((elementProperties || !isEmptyObject(elementProperties))
-        && (!aValidControls || aValidControls.length === 0)) {
+          && (!aValidControls || aValidControls.length === 0)) {
         return false;
       } else if ((!elementProperties || isEmptyObject(elementProperties))
-        && (aValidControls && aValidControls.length > 0)) {
+          && (aValidControls && aValidControls.length > 0)) {
         return bPass;
       } else if ((!elementProperties || isEmptyObject(elementProperties))
-        && (!aValidControls || aValidControls.length === 0)) {
+          && (!aValidControls || aValidControls.length === 0)) {
         return bPass;
       }
       Array.prototype.filter.call(aValidControls, function (oChildControl) {
@@ -1156,13 +1156,13 @@ module.exports = {
       retrieveValidUI5ControlsSubElements(aAllChildrenNodes);
       var aValidControls = aCandidateControls;
       if ((elementProperties || !isEmptyObject(elementProperties))
-        && (!aValidControls || aValidControls.length === 0)) {
+          && (!aValidControls || aValidControls.length === 0)) {
         return false;
       } else if ((!elementProperties || isEmptyObject(elementProperties))
-        && (aValidControls && aValidControls.length > 0)) {
+          && (aValidControls && aValidControls.length > 0)) {
         return bPass;
       } else if ((!elementProperties || isEmptyObject(elementProperties))
-        && (!aValidControls || aValidControls.length === 0)) {
+          && (!aValidControls || aValidControls.length === 0)) {
         return bPass;
       }
       Array.prototype.filter.call(aValidControls, function (oChildControl) {
@@ -1191,13 +1191,13 @@ module.exports = {
       }
       var aSiblingControls = findSiblingControls(oControl, oParentControl);
       if ((elementProperties || !isEmptyObject(elementProperties))
-        && (!aSiblingControls || aSiblingControls.length === 0)) {
+          && (!aSiblingControls || aSiblingControls.length === 0)) {
         return false;
       } else if ((!elementProperties || isEmptyObject(elementProperties))
-        && (aSiblingControls && aSiblingControls.length > 0)) {
+          && (aSiblingControls && aSiblingControls.length > 0)) {
         return bPass;
       } else if ((!elementProperties || isEmptyObject(elementProperties))
-        && (!aSiblingControls || aSiblingControls.length === 0)) {
+          && (!aSiblingControls || aSiblingControls.length === 0)) {
         return bPass;
       }
       for (var i = 0; i < aValidControls.length; i++) {
@@ -1234,7 +1234,7 @@ module.exports = {
 
     function filterByIndex(aControls) {
       if ((index !== null && index !== undefined)
-        && aControls && aControls.length > 0) {
+          && aControls && aControls.length > 0) {
         if (typeof index === "object" && index.nodeType) {
           return aControls;
         } else if ((index <= (aControls.length - 1)) && (index >= 0)) {
@@ -1276,6 +1276,14 @@ module.exports = {
     var aCandidateControl = [];
     var aValidControls = retrieveValidUI5Controls(nodes);
     if (aValidControls === null || aValidControls === undefined) return aCandidateControl;
+
+    if (!ui5Selector) {
+      throw new Error(`The selector your provided ${ui5Selector} is undefined/null, please provide a valid selector`);
+    }
+
+    if (!ui5Selector.elementProperties) {
+      throw new Error(`The selector your provided ${JSON.stringify(ui5Selector)} does not contain elementProperties, please provide a valid selector with elementProperties`);
+    }
     //console.log("going in...");
     Array.prototype.filter.call(aValidControls, function (oControl) {
       var isNotCandidate = !compareToElementProperties(ui5Selector.elementProperties, oControl);

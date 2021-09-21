@@ -126,7 +126,9 @@ const Browser = function () {
     await browser.waitUntil(async function () {
       await browser.execute(function () {
         try {
+          console.log(window.sap);
           if (window && window.sap && window.sap.ui) {
+            debugger;
             return true;
           } else {
             return false;

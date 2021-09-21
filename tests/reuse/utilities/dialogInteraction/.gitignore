@@ -1,0 +1,19 @@
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# node modules
+node_modules
+
+# results
+results/
+coverageReport/
+jasmine-test-results.json
+
+# logs
+*.log
+reuse/ui5/businessObjects/purchaseOrder/specs/e2e/config.js
+ 
+#desktop services store
+*DS_Store

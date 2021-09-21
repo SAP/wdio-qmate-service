@@ -39,7 +39,11 @@ const Function = function () {
     try {
       await fct.apply(this, args);
     } catch (e) {
-      util.console.info(`Optional function '${fct.name}' not executed, continue ...`);
+      if (fct.name) {
+        util.console.info(`Optional function '${fct.name}' not executed, continue ...`);
+      } else {
+        util.console.info(`Optional anonymous function not executed, continue ...`);
+      }
       return Promise.resolve();
     }
   };
@@ -109,7 +113,7 @@ const Function = function () {
     } catch (e) {
       retries = retries - 1;
       if (retries < 0) {
-        throw new Error(`Retries done. Failed to execute the function. ${e}. \nCallstack: \n${e.stack}`);
+        throw new Error(`Retries done. Failed to execute the function: ${e}`);
       }
       await browser.pause(interval);
       util.console.log("Retrying function again " + retries);

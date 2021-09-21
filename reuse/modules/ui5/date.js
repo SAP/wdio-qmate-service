@@ -60,8 +60,8 @@ const DateModule = function () {
     if (selector.elementProperties.metadata === "sap.ui.core.Icon") {
       await ui5.userInteraction.click(selector);
     } else if (selector.elementProperties.metadata === "sap.m.DatePicker") {
-      const id = await ui5.userInteraction.locator.getElementId(selector);
-      const icon = await nonUi5.userInteraction.locator.getElementById(`${id}-icon`);
+      const id = await ui5.element.getElementId(selector);
+      const icon = await nonUi5.element.getElementById(`${id}-icon`);
       await nonUi5.userInteraction.click(icon);
     }
   }
@@ -71,54 +71,54 @@ const DateModule = function () {
     const month = date.getMonth();
     const day = date.getDay();
 
-    const currentDate = ui5.date.getToday();
+    const currentDate = common.date.getToday();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth();
     const currentDay = currentDate.getDay();
 
     let found = false;
 
-    let id = await ui5.userInteraction.locator.getElementId(selector);
+    let id = await ui5.element.getElementId(selector);
     if (selector.elementProperties.metadata === "sap.ui.core.Icon") {
       id = id.replace("-icon", "");
     }
 
     if (day === currentDay && month === currentMonth && year === currentYear) {
-      return await nonUi5.userInteraction.pressEnter();
+      await common.userInteraction.pressEnter();
     } else {
 
       if (month !== currentMonth) {
-        const monthOverview = await nonUi5.userInteraction.locator.getElementById(`${id}-cal--Head-B1`);
+        const monthOverview = await nonUi5.element.getElementById(`${id}-cal--Head-B1`);
         await nonUi5.userInteraction.click(monthOverview);
 
-        const monthPick = await nonUi5.userInteraction.locator.getElementByCss(`[id*="${id}-cal--MP-m${month}"]`);
+        const monthPick = await nonUi5.element.getElementByCss(`[id*="${id}-cal--MP-m${month}"]`);
         await nonUi5.userInteraction.click(monthPick);
       }
 
       if (year !== currentYear) {
-        const yearOverview = await nonUi5.userInteraction.locator.getElementById(`${id}-cal--Head-B2`);
+        const yearOverview = await nonUi5.element.getElementById(`${id}-cal--Head-B2`);
         await nonUi5.userInteraction.click(yearOverview);
 
         while (!found) {
-          const yearSpanElem = await nonUi5.userInteraction.locator.getElementById(`${id}-cal--Head-B2`);
+          const yearSpanElem = await nonUi5.element.getElementById(`${id}-cal--Head-B2`);
           const yearSpan = await yearSpanElem.getText();
           const yearMin = yearSpan.slice(0, 4);
           const yearMax = yearSpan.slice(7, 11);
           if (year < yearMin) {
-            const prev = await nonUi5.userInteraction.locator.getElementById(`${id}-cal--Head-prev`);
+            const prev = await nonUi5.element.getElementById(`${id}-cal--Head-prev`);
             await nonUi5.userInteraction.click(prev);
           } else if (year > yearMax) {
-            const next = await nonUi5.userInteraction.locator.getElementById(`${id}-cal--Head-next`);
+            const next = await nonUi5.element.getElementById(`${id}-cal--Head-next`);
             await nonUi5.userInteraction.click(next);
           } else {
             found = true;
           }
         }
-        const yearPick = await nonUi5.userInteraction.locator.getElementByCss(`[id*="${id}-cal--YP-y${year}"]`);
+        const yearPick = await nonUi5.element.getElementByCss(`[id*="${id}-cal--YP-y${year}"]`);
         await nonUi5.userInteraction.click(yearPick);
       }
 
-      const dayPick = await nonUi5.userInteraction.locator.getElementByCss(`[id="${id}-cal"] .sapUiCalItem[data-sap-day="${util.formatter.formatDate(date, "yyyymmdd")}"] .sapUiCalItemText`);
+      const dayPick = await nonUi5.element.getElementByCss(`[id="${id}-cal"] .sapUiCalItem[data-sap-day="${util.formatter.formatDate(date, "yyyymmdd")}"] .sapUiCalItemText`);
       return await nonUi5.userInteraction.click(dayPick);
     }
   }
