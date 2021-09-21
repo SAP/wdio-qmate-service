@@ -94,6 +94,7 @@ describe.only("assertion - expectBindingPathToBe with wrong selector (unhappy ca
     const selector = {
       "wrongData": "123"
     };
+
     await expect(ui5.common.assertion.expectBindingPathToBe(selector, "items", "/ProductCategories"))
       .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Matcher is not supported! Matcher name: 'wrongData', arguments: '\"123\"'");
 
