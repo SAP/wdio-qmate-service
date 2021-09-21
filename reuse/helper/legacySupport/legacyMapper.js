@@ -30,10 +30,19 @@ function getGlobalParentObjectFor(namespace) {
 }
 
 function assignWrapperFunction(context, fct, oldNamespace, newNamespace) {
-  return async function () {
-    util.console.warn(`⚠  "${oldNamespace}" is deprecated. Please use "${newNamespace}" instead.`);
-    return fct.call(context, ...arguments);
-  };
+  const isAsync = fct[Symbol.toStringTag] === "AsyncFunction";
+  if (isAsync) {
+    return async function () {
+      util.console.warn(`⚠  "${oldNamespace}" is deprecated. Please use "${newNamespace}" instead.`);
+      return fct.call(context, ...arguments);
+    };
+  } else {
+    return function () {
+      util.console.warn(`⚠  "${oldNamespace}" is deprecated. Please use "${newNamespace}" instead.`);
+      return fct.call(context, ...arguments);
+    };
+  }
+
 }
 
 function setGlobal(oldNamespace, newNamespace) {

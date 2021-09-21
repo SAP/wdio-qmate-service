@@ -9,7 +9,7 @@ describe("assertion - expectUrlToBe simple url (before login)", function () {
   });
 
   it("Execution and Verification", async function () {
-    await ui5.common.assertion.expectUrlToBe(url);
+    await common.assertion.expectUrlToBe(url);
   });
 });
 
@@ -20,16 +20,16 @@ describe("assertion - expectUrlToBe after login with sap client and language (un
   });
 
   it("Execution", async function () {
-    await ui5.common.navigation.navigateToApplication("Shell-home", true);
-    await ui5.common.session.loginFiori("PURCHASER");
+    await ui5.navigation.navigateToApplication("Shell-home", true);
+    await ui5.session.loginFiori("PURCHASER");
   });
 
   it("Verification", async function () {
     const urlExp = "https://qs9-715.wdf.sap.corp/ui#Shell-home";
-    // this check "await ui5.common.assertion.expectUrlToBe(urlExp);" is not working (from time to time) - during login url can be
+    // this check "await common.assertion.expectUrlToBe(urlExp);" is not working (from time to time) - during login url can be
     // https://qs9-715.wdf.sap.corp/ui?_sap-hash=JTIzU2hlbGwtaG9tZQ&sap-system-login=X&sap-system-login-cookie=X&sap-contextid=SID:ANON:ldai1qs9_QS9_00:E6H6esENrZdnhPd1G7VjCTa0jUDMw377cB8hPHuC-ATT
     // need to wait for stabilization?
-    // await expect(ui5.common.assertion.expectUrlToBe(urlExp)).rejects.toThrow(/sap-hash/);
+    // await expect(common.assertion.expectUrlToBe(urlExp)).rejects.toThrow(/sap-hash/);
     const currentUrl = await browser.getUrl();
     console.log(`Url after login: ${currentUrl}`);
   });
@@ -42,10 +42,10 @@ describe("assertion - expectUrlToBe wrong url (unhappy case)", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(ui5.common.assertion.expectUrlToBe())
+    await expect(common.assertion.expectUrlToBe())
       .rejects.toThrow(/Expect\w+|\d+undefined\w+|\d+Received\w+|\d+"https:\/\/qs9-715.wdf.sap.corp\/ui"/);
 
-    await expect(ui5.common.assertion.expectUrlToBe("https://qs9-715.wdf.sap.corp"))
+    await expect(common.assertion.expectUrlToBe("https://qs9-715.wdf.sap.corp"))
       .rejects.toThrow(/Expect\w+|\d+"https:\/\/qs9-715.wdf.sap.corp"\w+|\d+Received\w+|\d+"https:\/\/qs9-715.wdf.sap.corp\/ui"/);
   });
 });
