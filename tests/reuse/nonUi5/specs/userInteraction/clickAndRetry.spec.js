@@ -24,7 +24,7 @@ describe("userInteraction - clickAndRetry on disabled button (unhappy case)", fu
   it("Execution and Verification", async function () {
     const elem = await non_ui5.common.locator.getElementById("Not-clickable", 10000);
     await expect(non_ui5.common.userInteraction.clickAndRetry(elem, 1))
-      .rejects.toThrow(/Retries done. Failed to execute the function. increase your retries/);
+      .rejects.toThrow("Retries done. Failed to execute the function: ");
   });
 });
 
@@ -35,7 +35,7 @@ describe("userInteraction - clickAndRetry for empty value", function () {
 
   it("Execution and Verification", async function () {
     await expect(non_ui5.common.userInteraction.clickAndRetry())
-      .rejects.toThrow(/Retries done. Failed to execute the function. increase your retries/);
+      .rejects.toThrow("Function 'clearAndRetry' failed. Please provide an element as first argument.");
   });
 });
 

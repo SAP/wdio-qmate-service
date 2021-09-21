@@ -26,7 +26,7 @@ describe("userInteraction - clear without element (unhappy case)", function () {
 
   it("Execution and Verification", async function () {
     await expect(non_ui5.common.userInteraction.clear())
-      .rejects.toThrow(/Please provide an element as first parameter/);
+      .rejects.toThrow("Function 'clear' failed: Please provide an element as first argument.");
   });
 });
 
