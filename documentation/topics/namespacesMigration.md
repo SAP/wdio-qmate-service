@@ -35,7 +35,7 @@ In case `<path_to_file_or_folder>` is a path to a folder, the script will update
 ]
 ```
 
-If you specify this `<paths_to_ignore>` option with your items, they will be added to that list from above.
+If you specify this `<paths_to_ignore>` option with your items, they will be added to this list from above.
 
 
 ## Example of usage of `<paths_to_ignore>` option
