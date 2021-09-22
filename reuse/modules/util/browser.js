@@ -161,7 +161,7 @@ const Browser = function () {
           "timestamp": timestamp
         };
       } else {
-        utilities.console.warn("UI5 version information could not be retrieved.");
+        util.console.warn("UI5 version information could not be retrieved.");
         return null;
       }
     });

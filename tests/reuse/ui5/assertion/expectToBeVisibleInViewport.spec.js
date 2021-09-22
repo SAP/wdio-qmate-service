@@ -2,7 +2,7 @@
 let selector;
 const {
   handleCookiesConsent
-} = require("../../utils");
+} = require("../../../helper/utils");
 
 describe("assertion - expectToBeVisibleInViewport with element in viewport", function () {
 

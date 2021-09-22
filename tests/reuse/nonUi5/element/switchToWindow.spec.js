@@ -18,24 +18,24 @@ describe("locator - switchToWindow", function () {
 
   it("Execution and Verification", async function () {
     // First 'sap' window
-    await nonUi5.element.switchToWindow(sapWindowHandle);
+    await util.browser.switchToWindow(sapWindowHandle);
     await expect(browser.getTitle()).resolves.toEqual("Shopping Cart");
 
-    let currentWindowHandle = await nonUi5.element.getCurrentWindow();
-    await ui5.common.assertion.expectEqual(sapWindowHandle, currentWindowHandle); //compare reuse and native single handle
+    let currentWindowHandle = await util.browser.getCurrentWindow();
+    await common.assertion.expectEqual(sapWindowHandle, currentWindowHandle); //compare reuse and native single handle
 
     let currentUrl = await browser.getUrl();
-    await ui5.common.assertion.expectEqual(currentUrl, sapWindowUrl);
+    await common.assertion.expectEqual(currentUrl, sapWindowUrl);
 
     // Second 'wdio' window
-    await nonUi5.element.switchToWindow(wdioWindowHandle);
+    await util.browser.switchToWindow(wdioWindowHandle);
     await expect(browser.getTitle()).resolves.toMatch(/WebdriverIO/);
 
-    currentWindowHandle = await nonUi5.element.getCurrentWindow();
-    await ui5.common.assertion.expectEqual(wdioWindowHandle, currentWindowHandle); //compare reuse and native single handle
+    currentWindowHandle = await util.browser.getCurrentWindow();
+    await common.assertion.expectEqual(wdioWindowHandle, currentWindowHandle); //compare reuse and native single handle
 
     currentUrl = await browser.getUrl();
-    await ui5.common.assertion.expectEqual(currentUrl, wdioWindowUrl);
+    await common.assertion.expectEqual(currentUrl, wdioWindowUrl);
   });
 });
 
@@ -49,9 +49,9 @@ describe("locator - switchToWindow (unhappy case)", function () {
   it("Execution and Verification", async function () {
     const windowHandles = await browser.getWindowHandles(); // returns array of handles
 
-    await nonUi5.element.switchToWindow(windowHandles[0]);
+    await util.browser.switchToWindow(windowHandles[0]);
 
-    await expect(nonUi5.element.switchToWindow())
+    await expect(util.browser.switchToWindow())
       .rejects.toThrow(/Malformed type for "handle" parameter of command switchToWindow/);
   });
 });

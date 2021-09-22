@@ -1,6 +1,6 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfigure = require("../../../configurations/chrome.headless.conf.js");
+const qmateConfigure = require("../../../helper/configurations/chrome.headless.conf.js");
 exports.config = merge(qmateConfigure.config, {
   // maxInstances: 6,
   // bail: 1,
