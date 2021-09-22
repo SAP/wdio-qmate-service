@@ -41,7 +41,7 @@ describe("assertion - expectAttributeToContain with wrong selector (unhappy case
 
     // skip selector
     await expect(ui5.assertion.expectAttributeToContain("text", "to the Shopping Cart"))
-      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Matcher is not supported! Matcher name: '0'");
+      .rejects.toThrow("Function 'expectAttributeToContain' failed:");
   });
 });
 
