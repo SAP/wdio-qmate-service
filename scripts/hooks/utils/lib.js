@@ -172,7 +172,7 @@ var LibScripts = function () {
       });
     } catch (error) {
       // eslint-disable-next-line no-console
-      //console.log(`waitUI5ToStabilize(ui5Selector): Function raised an exception and ignored... Selector: ${utilities.formatter.stringifyJSON(ui5Selector)} and error: ${error}`);
+      //console.log(`waitUI5ToStabilize(ui5Selector): Function raised an exception and ignored... Selector: ${util.formatter.stringifyJSON(ui5Selector)} and error: ${error}`);
     }
 
   };
@@ -270,9 +270,9 @@ var LibScripts = function () {
       /*
       * If not used it will not wait for the page to be stabilized before next action
       */
-      console.log("Waiting page to stabilize");
+      // console.log("Waiting page to stabilize");
       await this.waitUI5ToStabilize(ui5Selector);
-      console.log("Page stabilized, continue...");
+      // console.log("Page stabilized, continue...");
     }
 
     // Note: it is possible to use () => {} - arrow function to keep scope:
@@ -283,7 +283,7 @@ var LibScripts = function () {
 
     }, {
       timeout: finalTimeout,
-      timeoutMsg: `uiControlExecuteLocator(): No visible elements found with selector: ${utilities.formatter.stringifyJSON(ui5Selector)}`,
+      timeoutMsg: `uiControlExecuteLocator(): No visible elements found with selector: ${util.formatter.stringifyJSON(ui5Selector)}`,
       interval: 50
     });
     if (elems && Array.isArray(elems) && elems.length > 0 &&
