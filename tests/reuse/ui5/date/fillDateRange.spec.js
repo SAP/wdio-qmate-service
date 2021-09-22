@@ -1,5 +1,5 @@
 "use strict";
-const { handleCookiesConsent } = require("../../utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 let start;
 let end;

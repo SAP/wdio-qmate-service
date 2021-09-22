@@ -1,7 +1,7 @@
 "use strict";
 const {
   handleCookiesConsent
-} = require("../../utils");
+} = require("../../../helper/utils");
 
 describe("locator - getValue + expectEqual", function () {
 
@@ -19,7 +19,7 @@ describe("locator - getValue + expectEqual", function () {
   });
 
   it("Verification", async function () {
-    await ui5.common.assertion.expectEqual(currentValue, "Laptops");
+    await common.assertion.expectEqual(currentValue, "Laptops");
   });
 });
 

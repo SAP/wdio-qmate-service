@@ -7,7 +7,7 @@ describe("userInteraction - clearAndRetry form field", function () {
     element = await nonUi5.element.getElementById("ExampleValue1", 10000);
 
     await nonUi5.userInteraction.fill(element, "New test value");
-    await common.assertion.expectValueToBe(element, "New test value", "value");
+    await nonUi5.assertion.expectValueToBe(element, "New test value", "value");
   });
 
   it("Execution", async function () {
@@ -15,7 +15,7 @@ describe("userInteraction - clearAndRetry form field", function () {
   });
 
   it("Verification", async function () {
-    common.assertion.expectValueToBe(element, "", "value");
+    nonUi5.assertion.expectValueToBe(element, "", "value");
   });
 });
 

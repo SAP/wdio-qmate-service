@@ -2,7 +2,7 @@
 let selector;
 const {
   handleCookiesConsent
-} = require("../../utils");
+} = require("../../../helper/utils");
 
 describe("assertion - expectToBeVisible with right selector", function () {
 
