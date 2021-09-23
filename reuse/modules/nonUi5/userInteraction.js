@@ -50,7 +50,7 @@ const UserInteraction = function () {
     if (!element) {
       throw new Error("Function 'clearAndRetry' failed. Please provide an element as first argument.");
     }
-    return await util.function.retry(this.click, [element, timeout], retries, interval, this);
+    return util.function.retry(this.click, [element, timeout], retries, interval, this);
   };
 
 
@@ -172,7 +172,7 @@ const UserInteraction = function () {
    * await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
    */
   this.clearAndFillAndRetry = async function (element, value, retries = 3, interval = 5000, verify = true) {
-    return await util.function.retry(async (elem, value) => {
+    return util.function.retry(async (elem, value) => {
       await this.clearAndFill(elem, value);
       if (verify) {
         const elemValue = await elem.getValue();
@@ -208,7 +208,7 @@ const UserInteraction = function () {
    */
   this.clickChartPart = async function (element) {
     await element.moveTo();
-    return await element.click();
+    await element.click();
   };
 
 };

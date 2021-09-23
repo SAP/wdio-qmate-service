@@ -1,3 +1,4 @@
+/* eslint-disable no-return-await */
 var authConfig = require("./authConfig");
 /**
 * Handle page authentication
