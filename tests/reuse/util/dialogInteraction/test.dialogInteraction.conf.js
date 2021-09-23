@@ -1,6 +1,6 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfig = require("../../configurations/chrome.headless.conf.js");
+const qmateConfig = require("../../../helper/configurations/chrome.headless.conf.js");
 exports.config = merge(qmateConfig.config, {
   maxInstances: 1,
   bail: 1,
@@ -17,7 +17,7 @@ exports.config = merge(qmateConfig.config, {
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
   specs: [
-    path.resolve(__dirname, "fileUploadTest.spec.js")
+    path.resolve(__dirname, "file.spec.js")
   ],
   // Patterns to exclude.
   exclude: [
