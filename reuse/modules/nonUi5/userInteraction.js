@@ -146,7 +146,7 @@ const UserInteraction = function () {
   this.clearAndFill = async function (element, value) {
     //arg. 'value' needs to be checked in case of numeric values. E.g.: 0 or 1 will be handled as boolean value in if.
     if (!element || (value === null || value === undefined || value === "")) {
-      throw new Error("Function 'clearAndFill' failed: Please provide an element and value as arguments.")
+      throw new Error("Function 'clearAndFill' failed: Please provide an element and value as arguments.");
     } else {
       try {
         await this.clear(element);

@@ -1,9 +1,7 @@
 const WdioVyperService = require("@wdio/qmate-service");
-const WdioCodeCoverageService = require("@wdio/qmate-code-coverage-service");
 exports.config = {
   services: [
-    [WdioVyperService],
-    [WdioCodeCoverageService]
+    [WdioVyperService]
   ],
   //
   // ====================
@@ -29,7 +27,7 @@ exports.config = {
   // and 30 processes will get spawned. The property handles how many capabilities
   // from the same test should run tests.
   //
-  maxInstances: 1,
+  // maxInstances: 1,
   //
   // ===================
   // Test Configurations
@@ -58,7 +56,7 @@ exports.config = {
   failFast: true,
   // If you only want to run your tests until a specific amount of tests have failed use
   // bail 1, fail fast, bail 0 - dont bail.
-  bail: this.failFast ? 1 : 0,
+  // bail: this.failFast ? 1 : 0,
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 300000,
