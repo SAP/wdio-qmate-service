@@ -63,7 +63,7 @@ var LibScripts = function () {
         }
         return userDefFunction(mockserver, callBack);
       };
-      return await browser.executeAsync(nConvFunction, browserFunction.toString(), mockServerPath, aCustomParams);
+      return browser.executeAsync(nConvFunction, browserFunction.toString(), mockServerPath, aCustomParams);
     } else {
       throw new Error("Invalid parameters.");
     }
@@ -138,7 +138,7 @@ var LibScripts = function () {
         }
         return userDefFunction(control, callBack);
       };
-      return await browser.executeAsync(nConvFunction, browserFunction.toString(), webElem, aCustomParams);
+      return browser.executeAsync(nConvFunction, browserFunction.toString(), webElem, aCustomParams);
     } else {
       throw new Error("Invalid parameters.");
     }
@@ -208,7 +208,7 @@ var LibScripts = function () {
       allTries--;
       // eslint-disable-next-line no-console
       //console.log("Countstable:" + countStable +" All tries" + allTries +" Stability check, found:" + displayedElements.length + " expected:" + newLength);
-      return await this.stableDomElementCount(ui5Selector, rootElement, countStable, newLength, allTries);
+      return this.stableDomElementCount(ui5Selector, rootElement, countStable, newLength, allTries);
     }
   };
 
@@ -294,7 +294,7 @@ var LibScripts = function () {
   };
 
   this.loadMockData = async function (responsePath, isText) {
-    return await browser.executeAsync(clientsidescripts.loadMockData, {
+    return browser.executeAsync(clientsidescripts.loadMockData, {
       responsePath: responsePath,
       isText: isText
     });

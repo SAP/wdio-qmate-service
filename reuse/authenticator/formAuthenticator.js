@@ -1,3 +1,4 @@
+/* eslint-disable no-return-await */
 const authConfig = require("./authConfig");
 
 async function FormAuthenticator() {

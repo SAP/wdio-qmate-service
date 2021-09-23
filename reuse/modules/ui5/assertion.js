@@ -319,7 +319,7 @@ const Assertion = function () {
         interval: 100,
         message: "Timeout by waiting for element to be visible."
       });
-      return await browser.waitUntil(async function () {
+      return browser.waitUntil(async function () {
         const isUi5Visible = await elem.getUI5Property("visible");
         const isDomVisible = await elem.isDisplayed();
         return isUi5Visible !== null && isUi5Visible !== undefined ||
