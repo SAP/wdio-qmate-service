@@ -1,9 +1,8 @@
 describe("assertion", () => {
   it("should assert all globals are in place", () => {
-    expect(non_ui5).toBeTruthy();
+    expect(common).toBeTruthy();
     expect(ui5).toBeTruthy();
-    expect(utilities).toBeTruthy();
+    expect(nonUi5).toBeTruthy();
+    expect(util).toBeTruthy();
   });
 });
-
-
