@@ -1,13 +1,13 @@
 const path = require("path");
 const merge = require("deepmerge");
-const plainConfig = require("../../../../../configurations/base.conf.js");
+const plainConfig = require("../../../../../../helper/configurations/base.conf.js");
 exports.config = merge(plainConfig.config, {
   capabilities: [{
 
     // maxInstances can get overwritten per capability. So if you have an in-house Selenium
     // grid with only 5 firefox instances available you can make sure that not more than
     // 5 instances get started at a time.
-    maxInstances: 3,
+    // maxInstances: 3,
     //
     browserName: "chrome",
     acceptInsecureCerts: true,
@@ -27,8 +27,8 @@ exports.config = merge(plainConfig.config, {
         "--allow-insecure-localhost",
         "--enable-logging",
         "--disable-infobars",
-        "--headless",
-        "--disable-gpu",
+        // "--headless",
+        // "--disable-gpu",
         "--window-size=1920,1200",
         //"start-maximized",
         //"--incognito",

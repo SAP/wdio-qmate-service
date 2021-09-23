@@ -26,7 +26,7 @@ describe("userInteraction - clearAndFill form field", function () {
     await nonUi5.assertion.expectValueToBe(element, "Second test value", "value");
 
     await expect(nonUi5.userInteraction.clearAndFill(element, null))
-      .rejects.toThrow("Function 'clearAndFill' failed: Please provide an element and value as arguments.");;
+      .rejects.toThrow("Function 'clearAndFill' failed: Please provide an element and value as arguments.");
     await nonUi5.assertion.expectValueToBe(element, "Second test value", "value");
   });
 });

@@ -26,7 +26,7 @@ describe("userInteraction - clearAndFill form field", function () {
     await non_ui5.common.assertion.expectValueToBe(element, "Second test value", "value");
 
     await expect(non_ui5.common.userInteraction.clearAndFill(element, null))
-      .rejects.toThrow("Function 'clearAndFill' failed: Please provide an element and value as arguments.");;
+      .rejects.toThrow("Function 'clearAndFill' failed: Please provide an element and value as arguments.");
     await non_ui5.common.assertion.expectValueToBe(element, "Second test value", "value");
   });
 });
