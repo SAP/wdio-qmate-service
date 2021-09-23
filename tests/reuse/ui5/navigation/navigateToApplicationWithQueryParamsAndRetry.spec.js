@@ -7,7 +7,7 @@ describe("navigation - navigateToApplicationWithQueryParamsAndRetry with query p
   it("Preparation", async function () {
     await ui5.navigation.navigateToApplication("Shell-home", false);
     const urlExpected = `${await util.browser.getBaseUrl()}#Shell-home`;
-    await ui5.assertion.expectUrlToBe(urlExpected);
+    await common.assertion.expectUrlToBe(urlExpected);
   });
 
   it("Execution", async function () {
@@ -16,7 +16,7 @@ describe("navigation - navigateToApplicationWithQueryParamsAndRetry with query p
 
   it("Verification", async function () {
     const urlExpected = `${await util.browser.getBaseUrl()}${query}#${intent}`;
-    await ui5.assertion.expectUrlToBe(urlExpected);
+    await common.assertion.expectUrlToBe(urlExpected);
   });
 });
 
@@ -27,7 +27,7 @@ describe("navigation - navigateToApplicationWithQueryParamsAndRetry with wrong p
   it("Preparation", async function () {
     await ui5.navigation.navigateToApplication("Shell-home", false);
     const urlExpected = `${await util.browser.getBaseUrl()}#Shell-home`;
-    await ui5.assertion.expectUrlToBe(urlExpected);
+    await common.assertion.expectUrlToBe(urlExpected);
   });
 
   it("Execution", async function () {
@@ -37,7 +37,7 @@ describe("navigation - navigateToApplicationWithQueryParamsAndRetry with wrong p
 
   it("Verification", async function () {
     const urlExpected = `${await util.browser.getBaseUrl()}${query}#${intent}`;
-    await ui5.assertion.expectUrlToBe(urlExpected);
+    await common.assertion.expectUrlToBe(urlExpected);
 
     // if 'query' includes no "?", url will be interpreted as another (unsupported) mount
     await expect(nonUi5.element.getElementById("parseUrl"))
@@ -59,6 +59,6 @@ describe("navigation - navigateToApplicationWithQueryParamsAndRetry with empty p
   it("Verification", async function () {
     // No query
     const urlExpected = `${await util.browser.getBaseUrl()}#${intent}`;
-    await ui5.assertion.expectUrlToBe(urlExpected);
+    await common.assertion.expectUrlToBe(urlExpected);
   });
 });
