@@ -34,6 +34,6 @@ describe("assertion - expectTextToBe with wrong selector", function () {
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
     wrongSelector = 123;
     await expect(ui5.assertion.expectTextToBe(wrongSelector, "Watch"))
-      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Cannot read properties of null (reading 'getMetadata')");
+      .rejects.toThrow("Function 'expectAttributeToContain' failed:Error:");
   });
 });
