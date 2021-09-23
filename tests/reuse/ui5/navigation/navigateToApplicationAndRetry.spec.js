@@ -12,7 +12,7 @@ describe("navigation - navigateToApplicationAndRetry with closePopups=true", fun
     let button = await nonUi5.element.getElementById("parseUrl");
     await nonUi5.userInteraction.click(button);
 
-    await ui5.assertion.expectUrlToBe(urlExpected);
+    await common.assertion.expectUrlToBe(urlExpected);
 
     let parsedUrlElement = await nonUi5.element.getElementById("navigationUrl");
     let parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
@@ -27,7 +27,7 @@ describe("navigation - navigateToApplicationAndRetry with closePopups=true", fun
     button = await nonUi5.element.getElementById("parseUrl");
     await nonUi5.userInteraction.click(button);
 
-    await ui5.assertion.expectUrlToBe(urlExpected);
+    await common.assertion.expectUrlToBe(urlExpected);
 
     parsedUrlElement = await nonUi5.element.getElementById("navigationUrl");
     parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
@@ -47,7 +47,7 @@ describe("navigation - navigateToApplicationAndRetry with closePopups=false", fu
     let button = await nonUi5.element.getElementById("parseUrl");
     await nonUi5.userInteraction.click(button);
 
-    await ui5.assertion.expectUrlToBe(urlExpected);
+    await common.assertion.expectUrlToBe(urlExpected);
 
     let parsedUrlElement = await nonUi5.element.getElementById("navigationUrl");
     let parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
@@ -62,7 +62,7 @@ describe("navigation - navigateToApplicationAndRetry with closePopups=false", fu
     button = await nonUi5.element.getElementById("parseUrl");
     await nonUi5.userInteraction.click(button);
 
-    await ui5.assertion.expectUrlToBe(urlExpected);
+    await common.assertion.expectUrlToBe(urlExpected);
 
     parsedUrlElement = await nonUi5.element.getElementById("navigationUrl");
     parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
