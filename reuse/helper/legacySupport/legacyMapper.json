@@ -298,5 +298,9 @@
   {
     "old": "non_ui5.common.userInteraction.fillActiveAndRetry",
     "new": "common.userInteraction.fillActiveAndRetry"
+  },
+  {
+    "old": "odata.common.service",
+    "new": "service.odata"
   }
 ]

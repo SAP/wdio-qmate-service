@@ -1,0 +1,79 @@
+{
+  "language":                          "english",
+  "purchaseOrderNumber":               "",
+  "generalInformation": {
+    "supplier":                        "10300001"
+  },
+  "items": {
+    "item1": {
+      "position":                     "10",
+        "itemCategory":                null,
+        "material" :                   "TG0001",
+        "shortText":                   "Vyper Test Service",
+        "plant":                       "1010",
+        "orderQuantity":               "10",
+        "orderQuantityUoM":            null,
+        "netOrderPrice":               "10",
+        "priceUnit":                   "PC",
+        "priceUnitCurrency":           null,
+        "priceUnitUoM":                null,
+        "productTypeGroup":            "Service (2)",
+        "servicePerformer":            null,
+        "accountAssignmentCategory":   "Cost center (K)",
+        "overallLimit":                "200",
+        "expectedValue":               "100",
+        "materialGroup":               "P001"
+
+    },
+    "scheduleLines": {
+      "scheduleLine1": {
+        "position":                   "1",
+        "scheduledQuantity":          "10",
+        "startOfPerformancePeriod":   "lastMonth",
+        "endOfPerformancePeriod":     "nextYear",
+        "deliveryDate":               "tomorrow",
+
+        "subcontractingComponent1": {
+          "Material":                   null,
+          "ItemText":                   null,
+          "Requirement Date":           null,
+          "Quantity":                   null,
+          "UnitOfMeasure":              null,
+          "Plant":                      null
+        },
+        "subcontractingComponent2": {
+          "Material":                   null,
+          "ItemText":                   null,
+          "Requirement Date":           null,
+          "Quantity":                   null,
+          "UnitOfMeasure":              null,
+          "Plant":                      null
+        }
+      },
+      "scheduleLine2": {
+        "position":                   "2",
+        "scheduledQuantity":          "5",
+        "startOfPerformancePeriod":   "lastMonth",
+        "endOfPerformancePeriod":     "nextYear",
+        "deliveryDate":               "tomorrow",
+
+        "subcontractingComponent1": {
+          "Material":                   null,
+          "ItemText":                   null,
+          "Requirement Date":           null,
+          "Quantity":                   null,
+          "UnitOfMeasure":              null,
+          "Plant":                      null
+        },
+        "subcontractingComponent2": {
+          "Material":                   null,
+          "ItemText":                   null,
+          "Requirement Date":           null,
+          "Quantity":                   null,
+          "UnitOfMeasure":              null,
+          "Plant":                      null
+        }
+      }
+    }
+  }
+}

@@ -30,9 +30,7 @@ const ReuseLibrary = function () {
       file: require("./modules/util/file.js"),
       formatter: require("./modules/util/formatter.js"),
       function: require("./modules/util/function.js"),
-      mockserver: require("./modules/util/mockserver.js"),
-      system: require("./modules/util/system.js"),
-      qUnit: require("./modules/util/qUnit.js")
+      system: require("./modules/util/system.js")
     };
     global.util = {
       ...util,
@@ -52,10 +50,12 @@ const ReuseLibrary = function () {
       element: require("./modules/ui5/element.js"),
       footerBar: require("./modules/ui5/footerBar.js"),
       messageBox: require("./modules/ui5/messageBox.js"),
+      mockserver: require("./modules/ui5/mockserver.js"),
       navigation: require("./modules/ui5/navigation.js"),
       navigationBar: require("./modules/ui5/navigationBar.js"),
       session: require("./modules/ui5/session.js"),
       userInteraction: require("./modules/ui5/userInteraction.js"),
+      qUnit: require("./modules/ui5/qUnit.js"),
       // data
       appIntents: require("./data/appIntents.json"),
       authenticators: require("./data/authenticators.json"),
@@ -76,8 +76,20 @@ const ReuseLibrary = function () {
       userInteraction: require("./modules/nonUi5/userInteraction.js")
     };
     global.nonUi5 = {
-      ...global.nonUi5,
-      ...nonUi5
+      ...nonUi5,
+      ...global.nonUi5
+    };
+
+    /**
+     * @global
+     * @description Global namespace for service modules.
+     */
+    const service = {
+      odata: require("./modules/service/odata.js")
+    };
+    global.service = {
+      ...service,
+      ...global.service
     };
 
     legacyMapper();
