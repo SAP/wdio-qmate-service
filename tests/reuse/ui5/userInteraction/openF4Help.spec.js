@@ -1,6 +1,6 @@
 const {
   handleCookiesConsent
-} = require("../../utils");
+} = require("../../../helper/utils");
 
 describe("userInteraction - openF4Help - use button", function () {
 

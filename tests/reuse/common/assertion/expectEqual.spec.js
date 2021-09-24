@@ -28,11 +28,11 @@ describe("assertion - expectEqual for an object", function () {
     });
 
     expect(() => common.assertion.expectEqual({
-        property: "value"
-      }, {
-        property: "value",
-        anotherProp: "value"
-      }))
+      property: "value"
+    }, {
+      property: "value",
+      anotherProp: "value"
+    }))
       .toThrow(/"anotherProp": "value"/);
   });
 });

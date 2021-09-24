@@ -14,7 +14,7 @@ describe("dialogInteraction - uploadFiles", function () {
   it("Execution", async function () {
     var files = [];
     files.push(path.resolve(__dirname, "./testFiles/test.txt"), path.resolve(__dirname, "./testFiles/test2.txt"));
-    await util.dialogInteraction.uploadFiles(files);
+    await util.file.upload(files);
   });
 
   it("Verification", async function () {

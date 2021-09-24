@@ -1,6 +1,6 @@
 "use strict";
 
-const { handleCookiesConsent } = require("../../../utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("assertion - isPresentByXPath", function () {
 
@@ -13,7 +13,7 @@ describe("assertion - isPresentByXPath", function () {
 
   it("Execution and Verification", async function () {
     linkBtn = "//span[contains(text(),'API Reference')]";
-    const isPresented = await nonUi5.assertion.isPresentByXPath(linkBtn);
+    const isPresented = await nonUi5.element.isPresentByXPath(linkBtn);
     common.assertion.expectTrue(isPresented);
   });
 });
@@ -25,7 +25,7 @@ describe("assertion - isPresentByXPath with wrong selector and catch error", fun
   });
 
   it("Execution and Verification", async function () {
-    const isPresented = await nonUi5.assertion.isPresentByXPath("//span[contains(text(),'Wrong Text')]");
+    const isPresented = await nonUi5.element.isPresentByXPath("//span[contains(text(),'Wrong Text')]");
     common.assertion.expectFalse(isPresented);
   });
 });

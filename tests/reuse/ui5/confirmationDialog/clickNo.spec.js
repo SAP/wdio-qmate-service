@@ -1,7 +1,7 @@
 "use strict";
 const {
   handleCookiesConsent
-} = require("../../utils");
+} = require("../../../helper/utils");
 const selectorForNoButton = {
   "elementProperties": {
     "metadata": "sap.m.Button",

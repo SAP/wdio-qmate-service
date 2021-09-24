@@ -23,7 +23,7 @@ describe("locator - waitForElementIsPresent with wrong selector (unhappy case)",
 
   it("Execution and Verification", async function () {
     await expect(non_ui5.common.locator
-        .waitForElementIsPresent("[class='sapMBtnBase sapMBtn sapMBtnInverted sapMDialogBeginButton sapMBarChild']", 1000))
+      .waitForElementIsPresent("[class='sapMBtnBase sapMBtn sapMBtnInverted sapMDialogBeginButton sapMBarChild']", 1000))
       .rejects.toThrow("Function 'waitForElementIsPresent' failed");
   });
 });

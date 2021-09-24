@@ -1,5 +1,5 @@
 exports.handleCookiesConsent = async function handleCookiesConsent() {
-  await utilities.function.executeOptional(async function () {
+  await util.function.executeOptional(async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.ui.documentation.sdk.view.App",

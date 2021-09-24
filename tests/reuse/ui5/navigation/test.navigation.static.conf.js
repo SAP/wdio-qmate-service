@@ -1,6 +1,6 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfig = require("../../../configurations/chrome.headless.conf.js");
+const qmateConfig = require("../../../helper/configurations/chrome.headless.conf.js");
 exports.config = merge(qmateConfig.config, {
   maxInstances: 3,
   bail: 1,
@@ -26,14 +26,9 @@ exports.config = merge(qmateConfig.config, {
     path.resolve(__dirname, "navigateToApplicationWithQueryParams.spec.js"),
     path.resolve(__dirname, "navigateToApplicationWithQueryParamsAndRetry.spec.js")
   ],
-  // Patterns to exclude.
-  exclude: [
-    // 'path/to/excluded/files'
-  ],
 
-  //
-  // Options to be passed to Mocha.
-  // See the full list at http://mochajs.org/
+  exclude: [],
+
   mochaOpts: {
     timeout: 2000000,
   },

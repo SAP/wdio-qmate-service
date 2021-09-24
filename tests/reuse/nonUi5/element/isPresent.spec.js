@@ -5,7 +5,7 @@ describe("assertion - isPresent for list item element", function () {
   });
 
   it("Execution and Verification", async function () {
-    const isPresent = await nonUi5.assertion.isPresent(".sapMSLITitleOnly=Computer System Accessories");
+    const isPresent = await nonUi5.element.isPresent(".sapMSLITitleOnly=Computer System Accessories");
     await common.assertion.expectTrue(isPresent);
   });
 });
@@ -17,7 +17,7 @@ describe("assertion - isPresent for hidden element", function () {
   });
 
   it("Execution and Verification", async function () {
-    const isPresent = await nonUi5.assertion.isPresent(".sapUiInvisibleText");
+    const isPresent = await nonUi5.element.isPresent(".sapUiInvisibleText");
     await common.assertion.expectTrue(isPresent);
   });
 });
@@ -29,7 +29,7 @@ describe("assertion - isPresent for wrong element", function () {
   });
 
   it("Execution and Verification", async function () {
-    const isPresent = await nonUi5.assertion.isPresent(".sapUiInvisibleTextThatDoesNotExist");
+    const isPresent = await nonUi5.element.isPresent(".sapUiInvisibleTextThatDoesNotExist");
     await common.assertion.expectFalse(isPresent);
   });
 });

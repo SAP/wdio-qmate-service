@@ -35,6 +35,6 @@ describe("navigationBar - click User Icon (wrong case)", function () {
 
   it("Execution and Verification", async function () {
     await expect(ui5.navigationBar.clickUserIcon())
-      .rejects.toThrowError(/.*Timeout reached UI5 libraries did not load/);
+      .rejects.toThrowError("waitUntil condition failed with the following reason:");
   });
 });

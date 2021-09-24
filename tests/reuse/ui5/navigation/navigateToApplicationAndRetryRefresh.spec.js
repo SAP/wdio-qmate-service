@@ -8,7 +8,7 @@ describe("navigation - navigateToApplicationAndRetryRefresh with preventPopups=f
 
     await ui5.navigation.navigateToApplicationAndRetryRefresh("Shell-home", false);
     const urlExpected = `${await util.browser.getBaseUrl()}#Shell-home`;
-    await ui5.assertion.expectUrlToBe(urlExpected);
+    await common.assertion.expectUrlToBe(urlExpected);
   });
 
   it("Execution", async function () {
@@ -18,7 +18,7 @@ describe("navigation - navigateToApplicationAndRetryRefresh with preventPopups=f
 
   it("Verification", async function () {
     const urlExpected = `${await util.browser.getBaseUrl()}#PurchaseOrder-manage`;
-    await ui5.assertion.expectUrlToBe(urlExpected);
+    await common.assertion.expectUrlToBe(urlExpected);
   });
 });
 
@@ -30,7 +30,7 @@ describe("navigation - navigateToApplicationAndRetryRefresh with preventPopups=t
     await ui5.navigation.navigateToApplicationAndRetryRefresh("Shell-home"); // preventPopups = true by default
     const urlExpected = `${await util.browser.getBaseUrl()}?${queryToClosePopups}#Shell-home`;
 
-    await ui5.assertion.expectUrlToBe(urlExpected);
+    await common.assertion.expectUrlToBe(urlExpected);
   });
 
   it("Execution", async function () {
@@ -40,7 +40,7 @@ describe("navigation - navigateToApplicationAndRetryRefresh with preventPopups=t
 
   it("Verification", async function () {
     const urlExpected = `${await util.browser.getBaseUrl()}?${queryToClosePopups}#PurchaseOrder-manage`;
-    await ui5.assertion.expectUrlToBe(urlExpected);
+    await common.assertion.expectUrlToBe(urlExpected);
   });
 });
 
@@ -53,7 +53,7 @@ describe("navigation - navigateToApplicationAndRetryRefresh wrong navigation int
 
     await ui5.navigation.navigateToApplicationAndRetryRefresh(wrongApplication, false, false); // preventPopups = false, verify = false
     const urlExpected = `${await util.browser.getBaseUrl()}#[object%20Object]`;
-    await ui5.assertion.expectUrlToBe(urlExpected);
+    await common.assertion.expectUrlToBe(urlExpected);
 
     await expect(ui5.navigation.navigateToApplicationAndRetryRefresh(wrongApplication, false)) // preventPopups = false, verify = true by default
       .rejects.toThrow(/Navigation failed/);
