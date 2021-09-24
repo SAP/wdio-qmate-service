@@ -84,10 +84,10 @@ function replaceOldNamespacesWithNewNamespacesInFile(filePath, legacyMappingObje
       "g");
     const newNamespace = legacyMappingObjects[i].new;
     fileContentNew = fileContentNew.replace(oldNamespaceRegexp, newNamespace);
-    fs.writeFileSync(filePath, fileContentNew);
-    if (fileContent !== fileContentNew) {
-      console.info("\x1b[32m%s\x1b[0m", `The file has been updated successfully: ${filePath}.\n`);
-    }
+  }
+  fs.writeFileSync(filePath, fileContentNew);
+  if (fileContent !== fileContentNew) {
+    console.info("\x1b[32m%s\x1b[0m", `The file has been updated successfully: ${filePath}.\n`);
   }
 }
 
