@@ -26,7 +26,7 @@ const defaultPathsToIgnore = [
 const argv = yargs
   .option("pathsToIgnore", {
     type: "array",
-    alias: "ignore",
+    alias: "ig",
     desc: "Paths, file names and file name parts to ignore when updating namespaces",
     default: defaultPathsToIgnore
   })
@@ -36,13 +36,18 @@ const argv = yargs
 
 const fileOrFolderPathFromCli = argv._[0] || "";
 const pathsToIgnore = defaultPathsToIgnore.concat(argv.pathsToIgnore);
-
 const fileOrFolderPath = path.resolve(process.cwd(), fileOrFolderPathFromCli);
+
+console.log("── OPTIONS ────────────────────────────────────────");
+console.log("Source:      ", fileOrFolderPath);
+console.log("Ignore:      ", pathsToIgnore);
+console.log("───────────────────────────────────────────────────\n");
+
 const legacyMappingObjects = utils.getLegacyMappingObjects(__dirname + "/legacyMapper.json");
 const sortedLegacyMappingObjects = sortLegacyMappingObjects(legacyMappingObjects);
 replaceOldNamespacesWithNewNamespacesInFolderOrFile(fileOrFolderPath, sortedLegacyMappingObjects);
 
-function replaceOldNamespacesWithNewNamespacesInFolderOrFile (fileOrFolderPath, legacyMappingObjects) {
+function replaceOldNamespacesWithNewNamespacesInFolderOrFile(fileOrFolderPath, legacyMappingObjects) {
   let fileOrFolderLstat;
   try {
     fileOrFolderLstat = fs.lstatSync(fileOrFolderPath);
@@ -66,18 +71,24 @@ function replaceOldNamespacesWithNewNamespacesInFolderOrFile (fileOrFolderPath, 
   }
 }
 
-function replaceOldNamespacesWithNewNamespacesInFile (filePath, legacyMappingObjects) {
-  let fileContent = fs.readFileSync(filePath, { encoding: "utf8" });
+function replaceOldNamespacesWithNewNamespacesInFile(filePath, legacyMappingObjects) {
+  const fileContent = fs.readFileSync(filePath, {
+    encoding: "utf8"
+  });
+  let fileContentNew = fileContent;
   for (let i = 0; i < legacyMappingObjects.length; i++) {
     const oldNamespace = ` ${legacyMappingObjects[i].old}`;
     const newNamespace = ` ${legacyMappingObjects[i].new}`;
     const oldNamespaceRegexp = new RegExp(`${oldNamespace}`, "g");
-    fileContent = fileContent.replace(oldNamespaceRegexp, newNamespace);
+    fileContentNew = fileContentNew.replace(oldNamespaceRegexp, newNamespace);
   }
-  fs.writeFileSync(filePath, fileContent);  
+  fs.writeFileSync(filePath, fileContentNew);
+  if (fileContent !== fileContentNew) {
+    console.info("\x1b[32m%s\x1b[0m", `The file has been updated successfully: ${filePath}.\n`);
+  }
 }
 
-function sortLegacyMappingObjects (mappingObjects) {
+function sortLegacyMappingObjects(mappingObjects) {
   return mappingObjects.sort((objectA, objectB) => {
     const namespacePartsCountA = getNumberOfNamespaceParts(objectA.old);
     const namespacePartsCountB = getNumberOfNamespaceParts(objectB.old);
@@ -85,10 +96,10 @@ function sortLegacyMappingObjects (mappingObjects) {
   });
 }
 
-function getNumberOfNamespaceParts (namespace) {
+function getNumberOfNamespaceParts(namespace) {
   return namespace.split(".").length;
 }
 
 function fileOrFolderPathIncludesIgnoredPath(fileOrFolderPath) {
-  return pathsToIgnore.some( folderName => fileOrFolderPath.includes( folderName ));
+  return pathsToIgnore.some(folderName => fileOrFolderPath.includes(folderName));
 }
