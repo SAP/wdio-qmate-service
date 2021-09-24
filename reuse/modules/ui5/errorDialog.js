@@ -1,0 +1,46 @@
+/**
+ * @class errorDialog
+ * @memberof ui5
+ */
+const ErrorDialog = function () {
+
+  this.selectors = {
+    errorDialog: {
+      "elementProperties": {
+        "metadata": "sap.m.Bar"
+      },
+      "ancestorProperties": {
+        "metadata": "sap.m.Dialog",
+        "icon": "sap-icon://error"
+      }
+    },
+    closeButton: {
+      "elementProperties": {
+        "metadata": "sap.m.Button",
+        "text": "Close"
+      }
+    }
+  };
+
+  /**
+   * @function expectErrorDialogToBeVisible
+   * @memberOf ui5.errorDialog
+   * @description Expects that the error dialog is visible on the page.
+   * @example await ui5.errorDialog.expectErrorDialogToBeVisible();
+   */
+  this.expectErrorDialogToBeVisible = async function () {
+    await ui5.assertion.expectToBeVisible(this.selectors.errorDialog);
+  };
+
+  /**
+   * @function clickClose
+   * @memberOf ui5.errorDialog
+   * @description Clicks the 'Close' button at the error dialog.
+   * @example await ui5.errorDialog.clickClose();
+   */
+  this.clickClose = async function () {
+    await ui5.userInteraction.click(this.selectors.closeButton);
+  };
+
+};
+module.exports = new ErrorDialog();
