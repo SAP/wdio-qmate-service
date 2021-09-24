@@ -1,0 +1,21 @@
+{
+    "CompanyCode": "1010",
+    "PurchaseOrderType": "NB",
+    "Supplier": "10300001",
+    "PurchasingOrganization": "1010",
+    "DocumentCurrency": "NZD",
+    "PurchasingGroup": "003",
+    "PurchaseOrderDate": "datetime'2019-12-16T00:00:00'",
+    "to_PurchaseOrderItem":
+        [{
+            "PurchaseOrderItem": "0010",
+            "PurchaseOrderItemText": "Demo: quick demo",
+            "Plant": "1010",
+            "OrderQuantity": "", 
+            "PurchaseOrderQuantityUnit":"PC",
+            "NetPriceAmount": "14.57",
+            "NetPriceQuantity": "1",
+            "PurchaseOrderItemCategory": "0",
+            "Material": "TG0001"
+        }]
+}

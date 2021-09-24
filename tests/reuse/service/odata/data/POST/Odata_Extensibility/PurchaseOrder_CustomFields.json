@@ -1,0 +1,25 @@
+{
+    "CompanyCode": "1010",
+    "PurchaseOrderType": "NB",
+    "Supplier": "10300001",
+    "PurchasingOrganization": "1010",
+    "DocumentCurrency": "EUR",
+    "PurchasingGroup": "001", 
+    "ZZ1_test_po_header_mdt_PDH": "1",   
+    "to_PurchaseOrderItem":
+        [{
+            "PurchaseOrderItem": "0010",
+            "Plant": "1010",
+            "OrderQuantity": "7",
+            "NetPriceAmount": "130.00",
+            "NetPriceQuantity": "1",
+            "PurchaseOrderItemCategory": "0",
+            "Material": "TG11",
+            "ZZ1_test_po_item_mdt_PDI": "1",
+            "to_ScheduleLine":
+               [{
+                    "ScheduleLineOrderQuantity": "7",
+                   "ScheduleLineDeliveryDate": "2019-12-30T00:00:00"
+                }] 
+        }]
+}
