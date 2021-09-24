@@ -12,8 +12,8 @@ But some changes need to be added to the code, especially if you use protractor 
 
 |  native protractor function, used in vyperForAll |  native WDIO function | qmate reuse API function  |
 |---|---|---|
-| browser.sleep(time)  | await browser.pause(time)  | await utilities.browser.sleep(time)  |
-| browser..driver.navigate().refresh()  | await browser.refresh() | await utilities.browser.refresh()  |
+| browser.sleep(time)  | await browser.pause(time)  | await util.browser.sleep(time)  |
+| browser..driver.navigate().refresh()  | await browser.refresh() | await util.browser.refresh()  |
 | browser.get(url)  | await browser.navigateTo(url)  | await non_ui5.common.navigation.navigateToUrl(url)  |
 | await browser.switchTo().defaultContent()   |  await browser.switchToFrame(null) | await non_ui5.common.locator.switchToDefaultContent()  |
 |   |   |   |
@@ -25,8 +25,8 @@ But some changes need to be added to the code, especially if you use protractor 
 |  native protractor function, used in vyperForAll |  native WDIO function | qmate reuse API function  |
 |---|---|---|
 | browser.getCurrentUrl()  | browser.getUrl()  | utilities.browser.getCurrentUrl()  |
-| browser.baseUrl (to read property) | browser.config.baseUrl  | await utilities.browser.getBaseUrl()  |
-| browser.baseUrl (to set property) | browser.config.baseUrl  | await utilities.browser.setBaseUrl() |
+| browser.baseUrl (to read property) | browser.config.baseUrl  | await util.browser.getBaseUrl()  |
+| browser.baseUrl (to set property) | browser.config.baseUrl  | await util.browser.setBaseUrl() |
 | browser.ignoreSynchronization | -  | `TODO` |
 |   |   |   |
 

@@ -17,6 +17,6 @@ describe("script", function () {
       // You require the following command
       // One step back, Inside Files folder
       resolvedFilePaths[i] = path.resolve("Files", files[i]);
-    await utilities.dialogInteraction.uploadFile(resolvedFilePaths);
+    await util.dialogInteraction.uploadFile(resolvedFilePaths);
   });
 });

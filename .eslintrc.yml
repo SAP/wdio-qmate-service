@@ -23,10 +23,11 @@ globals:
   document: readonly
   protractor: readonly
   ui5: readonly
-  non_ui5: readonly
+  nonUi5: readonly
   oData: readonly
   odata: readonly
-  utilities: readonly
+  common: readonly
+  util: readonly
 parserOptions:
   ecmaVersion: 2018
 rules:
@@ -39,6 +40,7 @@ rules:
   no-redeclare: 2
   no-undef: 2
   no-unused-expressions: 2
+  no-return-await: 2
   quotes: [2, 'double', {avoidEscape: true, allowTemplateLiterals: true}]
   prefer-const: 1
   semi: [2, 'always']
