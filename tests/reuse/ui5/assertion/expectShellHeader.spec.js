@@ -27,6 +27,6 @@ describe("assertion - expectShellHeader not to be visible (unhappy case)", funct
 
   it("Execution and Verification", async function () {
     await expect(ui5.assertion.expectShellHeader())
-      .rejects.toThrow(/Timeout/);
+      .rejects.toThrow("Function 'expectToBeVisible' failed:Error:");
   });
 });

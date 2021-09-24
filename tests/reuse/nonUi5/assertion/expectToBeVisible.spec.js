@@ -1,9 +1,9 @@
 "use strict";
 const {
   handleCookiesConsent
-} = require("../../../utils");
+} = require("../../../helper/utils");
 
-describe("assertion - getElementByCss + expectToBeVisible", function () {
+describe("assertion - expectToBeVisible", function () {
   let visibleElement;
 
   it("Preparation", async function () {

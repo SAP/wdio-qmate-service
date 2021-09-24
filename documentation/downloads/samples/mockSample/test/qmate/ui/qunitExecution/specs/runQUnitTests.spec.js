@@ -3,7 +3,7 @@ const mockHelper = require("../../utils/mockHelper.js");
 describe("Execute all QUnit tests", function () {
   it("Execute QUnits", async function () {
     // Enter path to Qunit html file  
-    await utilities.qUnit.executeTests("test/unit/unitTests.qunit.html");
+    await util.qUnit.executeTests("test/unit/unitTests.qunit.html");
   });
 
   it("Teardown", async function () {

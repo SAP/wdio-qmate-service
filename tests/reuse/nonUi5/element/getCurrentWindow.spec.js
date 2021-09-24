@@ -12,10 +12,10 @@ describe("locator - getCurrentWindow", function () {
 
   it("Execution and Verification", async function () {
     sapWindowHandleNative = await browser.getWindowHandle();
-    sapWindowHandleCustom = await nonUi5.element.getCurrentWindow();
+    sapWindowHandleCustom = await util.browser.getCurrentWindow();
 
     await expect(typeof sapWindowHandleCustom).toBe("string");
-    await ui5.common.assertion.expectEqual(sapWindowHandleNative, sapWindowHandleCustom);
+    await common.assertion.expectEqual(sapWindowHandleNative, sapWindowHandleCustom);
   });
 });
 
@@ -31,15 +31,12 @@ describe("locator - getCurrentWindow (unhappy case)", function () {
   });
 
   it("Execution and Verification", async function () {
-    sapWindowHandleCustom = await nonUi5.element.getCurrentWindow();
+    sapWindowHandleCustom = await util.browser.getCurrentWindow();
 
     await browser.newWindow(wdioWindowUrl);
 
-    wdioWindowHandleCustom = await nonUi5.element.getCurrentWindow();
+    wdioWindowHandleCustom = await util.browser.getCurrentWindow();
 
-    await ui5.common.assertion.expectUnequal(wdioWindowHandleCustom, sapWindowHandleCustom);
+    await common.assertion.expectUnequal(wdioWindowHandleCustom, sapWindowHandleCustom);
   });
 });
-
-
-

@@ -12,7 +12,7 @@ describe("userInteraction - click on 'Default' button", function () {
 
   it("Verification", async function () {
     const submittedResultField = await nonUi5.element.getElementById("display1", 10000);
-    await common.assertion.expectValueToBe(submittedResultField, "Default", "textContent");
+    await nonUi5.assertion.expectValueToBe(submittedResultField, "Default", "textContent");
   });
 });
 
@@ -45,16 +45,16 @@ describe("userInteraction - click on field (make it active)", function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
     element = await nonUi5.element.getElementById("ExampleValue1", 10000);
     // Check field is empty before the test
-    common.assertion.expectValueToBe(element, "", "value");
+    nonUi5.assertion.expectValueToBe(element, "", "value");
   });
 
   it("Execution", async function () {
     // Make the form field active
     await nonUi5.userInteraction.click(element);
-    await nonUi5.userInteraction.fillActive("New test value");
+    await common.userInteraction.fillActive("New test value");
   });
 
   it("Verification", async function () {
-    await common.assertion.expectValueToBe(element, "New test value", "value");
+    await nonUi5.assertion.expectValueToBe(element, "New test value", "value");
   });
 });

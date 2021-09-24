@@ -50,7 +50,7 @@ const UserInteraction = function () {
     if (!element) {
       throw new Error("Function 'clearAndRetry' failed. Please provide an element as first argument.");
     }
-    return await util.function.retry(this.click, [element, timeout], retries, interval, this);
+    return util.function.retry(this.click, [element, timeout], retries, interval, this);
   };
 
 
@@ -146,7 +146,7 @@ const UserInteraction = function () {
   this.clearAndFill = async function (element, value) {
     //arg. 'value' needs to be checked in case of numeric values. E.g.: 0 or 1 will be handled as boolean value in if.
     if (!element || (value === null || value === undefined || value === "")) {
-      throw new Error("Function 'clearAndFill' failed: Please provide an element and value as arguments.")
+      throw new Error("Function 'clearAndFill' failed: Please provide an element and value as arguments.");
     } else {
       try {
         await this.clear(element);
@@ -172,7 +172,7 @@ const UserInteraction = function () {
    * await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
    */
   this.clearAndFillAndRetry = async function (element, value, retries = 3, interval = 5000, verify = true) {
-    return await util.function.retry(async (elem, value) => {
+    return util.function.retry(async (elem, value) => {
       await this.clearAndFill(elem, value);
       if (verify) {
         const elemValue = await elem.getValue();
@@ -208,7 +208,7 @@ const UserInteraction = function () {
    */
   this.clickChartPart = async function (element) {
     await element.moveTo();
-    return await element.click();
+    await element.click();
   };
 
 };

@@ -17,7 +17,7 @@ module.exports = {
         delay: delay
       };
       // Call mockserver initMockServer qmate utility method
-      await utilities.mockserver.initMockServer(constants.pathToMockServer, oMockServerOptions);
+      await util.mockserver.initMockServer(constants.pathToMockServer, oMockServerOptions);
     }
   }
 };

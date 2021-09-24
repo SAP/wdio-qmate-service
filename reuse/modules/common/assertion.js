@@ -13,7 +13,7 @@ const Assertion = function () {
    * @example common.assertion.expectEqual(value1, value2);
    */
   this.expectEqual = function (value1, value2) {
-    return expect(value1).toEqual(value2);
+    expect(value1).toEqual(value2);
   };
 
   /**
@@ -25,7 +25,7 @@ const Assertion = function () {
    * @example common.assertion.expectUnequal(value1, value2);
    */
   this.expectUnequal = function (value1, value2) {
-    return expect(value1).not.toEqual(value2);
+    expect(value1).not.toEqual(value2);
   };
 
   /**
@@ -36,7 +36,7 @@ const Assertion = function () {
    * @example common.assertion.expectTrue(value);
    */
   this.expectTrue = function (value) {
-    return this.expectEqual(value, true);
+    this.expectEqual(value, true);
   };
 
   /**
@@ -44,11 +44,10 @@ const Assertion = function () {
    * @memberOf common.assertion
    * @description Expects the passed value to be false.
    * @param {Boolean} value - The value to be false.
-   * @returns {Promise} The promise to be resolved.
-   * @example await common.assertion.expectFalse(false);
+   * @example common.assertion.expectFalse(false);
    */
-  this.expectFalse = async function (value) {
-    return this.expectEqual(value, false);
+  this.expectFalse = function (value) {
+    this.expectEqual(value, false);
   };
 
   /**
@@ -59,7 +58,7 @@ const Assertion = function () {
    * @example common.assertion.expectDefined(value);
    */
   this.expectDefined = function (value) {
-    return expect(value).toBeDefined();
+    expect(value).toBeDefined();
   };
 
   /**
@@ -70,7 +69,7 @@ const Assertion = function () {
    * @example common.assertion.expectUndefined(value);
    */
   this.expectUndefined = function (value) {
-    return expect(value).toBeUndefined();
+    expect(value).toBeUndefined();
   };
 
   /**

@@ -6,10 +6,10 @@ describe("assertion - isPresentByCss (id)", function () {
   });
 
   it("Execution and Verification", async function () {
-    let isPresented = await nonUi5.assertion.isPresentByCss("[id='paragraphWithClass']");
+    let isPresented = await nonUi5.element.isPresentByCss("[id='paragraphWithClass']");
     common.assertion.expectTrue(isPresented);
 
-    isPresented = await nonUi5.assertion.isPresentByCss("#paragraphWithClass");
+    isPresented = await nonUi5.element.isPresentByCss("#paragraphWithClass");
     common.assertion.expectTrue(isPresented);
   });
 });
@@ -20,7 +20,7 @@ describe("assertion - isPresentByCss (class)", function () {
   });
 
   it("Execution and Verification", async function () {
-    const isPresented = await nonUi5.assertion.isPresentByCss(".customClass");
+    const isPresented = await nonUi5.element.isPresentByCss(".customClass");
     common.assertion.expectTrue(isPresented);
   });
 });
@@ -31,7 +31,7 @@ describe("assertion - isPresentByCss (partial text for paragraph)", function () 
   });
 
   it("Execution and Verification", async function () {
-    const isPresented = await nonUi5.assertion.isPresentByCss("p*=paragraph");
+    const isPresented = await nonUi5.element.isPresentByCss("p*=paragraph");
     common.assertion.expectTrue(isPresented);
   });
 });
@@ -42,10 +42,10 @@ describe("assertion - isPresentByCss with wrong selector/hidden element and catc
   });
 
   it("Execution and Verification", async function () {
-    let isPresented = await nonUi5.assertion.isPresentByCss("[='wrongSelector']", 1000);
+    let isPresented = await nonUi5.element.isPresentByCss("[='wrongSelector']", 1000);
     common.assertion.expectFalse(isPresented);
 
-    isPresented = await nonUi5.assertion.isPresentByCss("#hiddenParagraph", 1000);
+    isPresented = await nonUi5.element.isPresentByCss("#hiddenParagraph", 1000);
     common.assertion.expectFalse(isPresented);
   });
 });

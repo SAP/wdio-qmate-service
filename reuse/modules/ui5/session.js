@@ -239,6 +239,7 @@ const Session = function () {
         logonField = await $(authenticator.logonButtonSelector);
         return await usernameField.isDisplayedInViewport() &&
           await passwordField.isDisplayedInViewport() &&
+          // eslint-disable-next-line no-return-await
           await logonField.isDisplayedInViewport();
       }, {
         timeout: 60000,
