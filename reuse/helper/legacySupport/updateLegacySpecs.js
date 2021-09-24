@@ -86,6 +86,9 @@ function sortLegacyMappingObjects (mappingObjects) {
   return mappingObjects.sort((objectA, objectB) => {
     const namespacePartsCountA = getNumberOfNamespaceParts(objectA.old);
     const namespacePartsCountB = getNumberOfNamespaceParts(objectB.old);
+    if (namespacePartsCountA === namespacePartsCountB) {
+      return objectB.old.length - objectA.old.length;
+    }
     return namespacePartsCountB - namespacePartsCountA;
   });
 }
