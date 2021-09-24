@@ -69,10 +69,15 @@ function replaceOldNamespacesWithNewNamespacesInFolderOrFile (fileOrFolderPath, 
 function replaceOldNamespacesWithNewNamespacesInFile (filePath, legacyMappingObjects) {
   let fileContent = fs.readFileSync(filePath, { encoding: "utf8" });
   for (let i = 0; i < legacyMappingObjects.length; i++) {
-    const oldNamespace = ` ${legacyMappingObjects[i].old}`;
-    const newNamespace = ` ${legacyMappingObjects[i].new}`;
-    const oldNamespaceRegexp = new RegExp(`${oldNamespace}`, "g");
-    fileContent = fileContent.replace(oldNamespaceRegexp, newNamespace);
+    const oldNamespaceRegexp = new RegExp(
+      `[^\.]${legacyMappingObjects[i].old.replace(
+        new RegExp("\\.", "g"), "\\."
+      )}`,
+      "g");
+    const newNamespace = legacyMappingObjects[i].new;
+    fileContent = fileContent.replace(oldNamespaceRegexp, (match) => {
+      return `${match.charAt(0)}${newNamespace}`;
+    });
   }
   fs.writeFileSync(filePath, fileContent);  
 }
