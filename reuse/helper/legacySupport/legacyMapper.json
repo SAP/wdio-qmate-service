@@ -302,5 +302,13 @@
   {
     "old": "odata.common.service",
     "new": "service.odata"
+  },
+  {
+    "old": "oData.common.service",
+    "new": "service.odata"
+  },
+  {
+    "old": "browser.sleep",
+    "new": "util.browser.sleep"
   }
 ]
