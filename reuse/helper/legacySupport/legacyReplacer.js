@@ -77,9 +77,12 @@ function replaceOldNamespacesWithNewNamespacesInFile(filePath, legacyMappingObje
   });
   let fileContentNew = fileContent;
   for (let i = 0; i < legacyMappingObjects.length; i++) {
-    const oldNamespace = ` ${legacyMappingObjects[i].old}`;
-    const newNamespace = ` ${legacyMappingObjects[i].new}`;
-    const oldNamespaceRegexp = new RegExp(`${oldNamespace}`, "g");
+    const oldNamespaceRegexp = new RegExp(
+      `[^\.]${legacyMappingObjects[i].old.replace(
+        new RegExp("\\.", "g"), "\\."
+      )}`,
+      "g");
+    const newNamespace = legacyMappingObjects[i].new;
     fileContentNew = fileContentNew.replace(oldNamespaceRegexp, newNamespace);
   }
   fs.writeFileSync(filePath, fileContentNew);
@@ -92,6 +95,9 @@ function sortLegacyMappingObjects(mappingObjects) {
   return mappingObjects.sort((objectA, objectB) => {
     const namespacePartsCountA = getNumberOfNamespaceParts(objectA.old);
     const namespacePartsCountB = getNumberOfNamespaceParts(objectB.old);
+    if (namespacePartsCountA === namespacePartsCountB) {
+      return objectB.old.length - objectA.old.length;
+    }
     return namespacePartsCountB - namespacePartsCountA;
   });
 }
