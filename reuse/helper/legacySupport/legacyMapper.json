@@ -180,6 +180,10 @@
     "new": "common.userInteraction.pressArrowRight"
   },
   {
+    "old": "ui5.common.userInteraction.clearFillAndRetry",
+    "new": "ui5.userInteraction.clearAndFillAndRetry"
+  },
+  {
     "old": "ui5.common.userInteraction.fillActive",
     "new": "common.userInteraction.fillActive"
   },
@@ -193,7 +197,7 @@
   },
   {
     "old": "ui5.common.userInteraction.clearFillActiveAndRetry",
-    "new": "common.userInteraction.clearFillActiveAndRetry"
+    "new": "common.userInteraction.clearAndFillActiveAndRetry"
   },
   {
     "old": "non_ui5.common",

@@ -53,12 +53,6 @@ const Navigation = function () {
     }, [intent, preventPopups, verify], retries, interval, this);
   };
 
-  // TODO: why is this needed? navigateToApplication does the refresh internally
-  this.navigateToApplicationAndRetryRefresh = async function (intent, preventPopups = true, verify = true, retries, interval) {
-    await ui5.navigation.navigateToApplicationAndRetry(intent, preventPopups, verify, retries, interval);
-    await util.browser.refresh();
-  };
-
   /**
    * @function navigateToSystemAndApplication
    * @memberOf ui5.navigation

@@ -13,6 +13,9 @@
 <dt><a href="#nonUi5">nonUi5</a></dt>
 <dd><p>Global namespace for non UI5 modules.</p>
 </dd>
+<dt><a href="#service">service</a></dt>
+<dd><p>Global namespace for service modules.</p>
+</dd>
 </dl>
 
 <a name="common"></a>
@@ -27,7 +30,7 @@ Global namespace for common modules.
         * [.expectEqual(value1, value2)](#common.assertion.expectEqual)
         * [.expectUnequal(value1, value2)](#common.assertion.expectUnequal)
         * [.expectTrue(value)](#common.assertion.expectTrue)
-        * [.expectFalse(value)](#common.assertion.expectFalse) ⇒ <code>Promise</code>
+        * [.expectFalse(value)](#common.assertion.expectFalse)
         * [.expectDefined(value)](#common.assertion.expectDefined)
         * [.expectUndefined(value)](#common.assertion.expectUndefined)
         * [.expectUrlToBe()](#common.assertion.expectUrlToBe) ⇒ <code>Promise</code>
@@ -48,7 +51,7 @@ Global namespace for common modules.
         * [.fillActive(value)](#common.userInteraction.fillActive)
         * [.fillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.fillActiveAndRetry)
         * [.clearAndFillActive(value)](#common.userInteraction.clearAndFillActive)
-        * [.clearFillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.clearFillActiveAndRetry)
+        * [.clearAndFillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.clearAndFillActiveAndRetry)
         * [.pressEnter()](#common.userInteraction.pressEnter)
         * [.pressTab()](#common.userInteraction.pressTab)
         * [.pressF4()](#common.userInteraction.pressF4)
@@ -66,7 +69,7 @@ Global namespace for common modules.
     * [.expectEqual(value1, value2)](#common.assertion.expectEqual)
     * [.expectUnequal(value1, value2)](#common.assertion.expectUnequal)
     * [.expectTrue(value)](#common.assertion.expectTrue)
-    * [.expectFalse(value)](#common.assertion.expectFalse) ⇒ <code>Promise</code>
+    * [.expectFalse(value)](#common.assertion.expectFalse)
     * [.expectDefined(value)](#common.assertion.expectDefined)
     * [.expectUndefined(value)](#common.assertion.expectUndefined)
     * [.expectUrlToBe()](#common.assertion.expectUrlToBe) ⇒ <code>Promise</code>
@@ -120,11 +123,10 @@ common.assertion.expectTrue(value);
 ```
 <a name="common.assertion.expectFalse"></a>
 
-#### assertion.expectFalse(value) ⇒ <code>Promise</code>
+#### assertion.expectFalse(value)
 Expects the passed value to be false.
 
 **Kind**: static method of [<code>assertion</code>](#common.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -132,7 +134,7 @@ Expects the passed value to be false.
 
 **Example**  
 ```js
-await common.assertion.expectFalse(false);
+common.assertion.expectFalse(false);
 ```
 <a name="common.assertion.expectDefined"></a>
 
@@ -381,7 +383,7 @@ await common.navigation.printCurrentUrl();
     * [.fillActive(value)](#common.userInteraction.fillActive)
     * [.fillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.fillActiveAndRetry)
     * [.clearAndFillActive(value)](#common.userInteraction.clearAndFillActive)
-    * [.clearFillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.clearFillActiveAndRetry)
+    * [.clearAndFillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.clearAndFillActiveAndRetry)
     * [.pressEnter()](#common.userInteraction.pressEnter)
     * [.pressTab()](#common.userInteraction.pressTab)
     * [.pressF4()](#common.userInteraction.pressF4)
@@ -437,9 +439,9 @@ Clears and fills the active input.
 ```js
 await common.userInteraction.clearAndFillActive("My Value");
 ```
-<a name="common.userInteraction.clearFillActiveAndRetry"></a>
+<a name="common.userInteraction.clearAndFillActiveAndRetry"></a>
 
-#### userInteraction.clearFillActiveAndRetry(value, [retries], [interval])
+#### userInteraction.clearAndFillActiveAndRetry(value, [retries], [interval])
 CClears and fills the active input. Retries the action in case of a failure.
 
 **Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
@@ -452,7 +454,7 @@ CClears and fills the active input. Retries the action in case of a failure.
 
 **Example**  
 ```js
-await common.userInteraction.clearFillActiveAndRetry("My Value");
+await common.userInteraction.clearAndFillActiveAndRetry("My Value");
 ```
 <a name="common.userInteraction.pressEnter"></a>
 
@@ -569,23 +571,6 @@ Global namespace for util modules.
     * [.function](#util.function)
         * [.retry(fct, args, retries, interval, scope)](#util.function.retry)
         * [.executeOptional(fct, args)](#util.function.executeOptional)
-    * [.mockserver](#util.mockserver)
-        * [.waitForUi5ApplicationLoad()](#util.mockserver.waitForUi5ApplicationLoad)
-        * [.interactWithMockServer(mockServerPath, callback, params)](#util.mockserver.interactWithMockServer)
-        * [.attachFunctionBefore(method, mockServerPath, beforeCallback, params)](#util.mockserver.attachFunctionBefore)
-        * [.attachFunctionAfter(method, mockServerPath, afterCallback, params)](#util.mockserver.attachFunctionAfter)
-        * [.addNewRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)](#util.mockserver.addNewRequest)
-        * [.removeRequest(method, mockServerPath, urlPathRegex)](#util.mockserver.removeRequest)
-        * [.addOrOverrideRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)](#util.mockserver.addOrOverrideRequest)
-        * [.startMockServer(mockServerPath)](#util.mockserver.startMockServer)
-        * [.initMockServer(mockServerPath, mockServerOptions)](#util.mockserver.initMockServer)
-        * [.initApplication(mockServerPath)](#util.mockserver.initApplication)
-        * [.stopMockServer(mockServerPath)](#util.mockserver.stopMockServer)
-        * [.loadMockDataFile(filePath, isText)](#util.mockserver.loadMockDataFile) ⇒ <code>String</code>
-        * [.getEntitySetData(mockServerPath, entitySetName)](#util.mockserver.getEntitySetData) ⇒ <code>Array</code>
-        * [.setEntitySetData(mockServerPath, entitySetName, entries)](#util.mockserver.setEntitySetData)
-    * [.qUnit](#util.qUnit)
-        * [.executeTests(path)](#util.qUnit.executeTests)
     * [.system](#util.system)
         * [.getOS()](#util.system.getOS) ⇒ <code>String</code>
 
@@ -1099,14 +1084,14 @@ formats date.
 **Returns**: <code>String</code> - The formatted date as string.  
 
 | Param | Type | Description |
-| --- | --- | --- |util.formatter.formatDate
+| --- | --- | --- |
 | date | <code>Date</code> | The date object to be formatted. |
 | format | <code>String</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object"). |
 
 **Example**  
 ```js
 const date = new Date(2020, 0, 17);
-const formattedDate = utilities.formatDate(date, "mm/dd/yyyy");
+const formattedDate = util.formatter.formatDate(date, "mm/dd/yyyy");
 // returns "01/17/2020"
 ```
 <a name="util.function"></a>
@@ -1161,283 +1146,6 @@ await util.function.executeOptional(ui5.userInteraction.fill, [selector, value])
 await util.function.executeOptional(async () => {
  await ui5.userInteraction.fill(selector, "ABC");
 }, []);
-```
-<a name="util.mockserver"></a>
-
-### util.mockserver
-**Kind**: static class of [<code>util</code>](#util)  
-
-* [.mockserver](#util.mockserver)
-    * [.waitForUi5ApplicationLoad()](#util.mockserver.waitForUi5ApplicationLoad)
-    * [.interactWithMockServer(mockServerPath, callback, params)](#util.mockserver.interactWithMockServer)
-    * [.attachFunctionBefore(method, mockServerPath, beforeCallback, params)](#util.mockserver.attachFunctionBefore)
-    * [.attachFunctionAfter(method, mockServerPath, afterCallback, params)](#util.mockserver.attachFunctionAfter)
-    * [.addNewRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)](#util.mockserver.addNewRequest)
-    * [.removeRequest(method, mockServerPath, urlPathRegex)](#util.mockserver.removeRequest)
-    * [.addOrOverrideRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)](#util.mockserver.addOrOverrideRequest)
-    * [.startMockServer(mockServerPath)](#util.mockserver.startMockServer)
-    * [.initMockServer(mockServerPath, mockServerOptions)](#util.mockserver.initMockServer)
-    * [.initApplication(mockServerPath)](#util.mockserver.initApplication)
-    * [.stopMockServer(mockServerPath)](#util.mockserver.stopMockServer)
-    * [.loadMockDataFile(filePath, isText)](#util.mockserver.loadMockDataFile) ⇒ <code>String</code>
-    * [.getEntitySetData(mockServerPath, entitySetName)](#util.mockserver.getEntitySetData) ⇒ <code>Array</code>
-    * [.setEntitySetData(mockServerPath, entitySetName, entries)](#util.mockserver.setEntitySetData)
-
-<a name="util.mockserver.waitForUi5ApplicationLoad"></a>
-
-#### mockserver.waitForUi5ApplicationLoad()
-Waits for the UI5 framework, XHR requests and busy indicators to be finished.
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-**Example**  
-```js
-await util.mockserver.waitForUi5ApplicationLoad();
-```
-<a name="util.mockserver.interactWithMockServer"></a>
-
-#### mockserver.interactWithMockServer(mockServerPath, callback, params)
-Executes client script function to interact with the mockserver instance. Code can be written in UI5 context.
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| mockServerPath | <code>String</code> | The full path to the mockserver instance. |
-| callback | <code>function</code> | The client script function you can use to interact with the mockserver instance. Caution: The first and last parameter is reserved for the mockserver instance and the promise resolve function - done. |
-| params | <code>Object</code> | Additional parameters you would like to inject in your client script function. |
-
-**Example**  
-```js
-const callback = function(mockServerInstance, params, done) {...};
-await util.mockserver.interactWithMockServer("path/to/project/localService/main/mockserver", callback, params);
-```
-<a name="util.mockserver.attachFunctionBefore"></a>
-
-#### mockserver.attachFunctionBefore(method, mockServerPath, beforeCallback, params)
-Attaches a callback function in mockserver attachBefore event to be executed.
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| method | <code>String</code> | The attachBefore http method (GET or POST). |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method so the mockserver instance can be consumed]. |
-| beforeCallback | <code>String</code> \| <code>Object</code> | The callback function to be used in the native attachBefore method as described (https://sapui5.hana.ondemand.com/#/api/sap.ui.core.util.MockServer%23methods/Summary) |
-| params | <code>Object</code> | Additional parameters you would like to inject in your client script function |
-
-**Example**  
-```js
-await util.mockserver.attachFunctionBefore("GET", "path/to/project/localService/main/mockserver", beforeCallback, params);
-```
-<a name="util.mockserver.attachFunctionAfter"></a>
-
-#### mockserver.attachFunctionAfter(method, mockServerPath, afterCallback, params)
-Attaches a callback function in mockserver attachAfter event to be executed
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| method | <code>String</code> | The attachAfter http method (GET or POST). |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method so the mockserver instance can be consumed]. |
-| afterCallback | <code>String</code> \| <code>Object</code> | The callback function to be used in the native attachAfter method as described (https://sapui5.hana.ondemand.com/#/api/sap.ui.core.util.MockServer%23methods/Summary) |
-| params | <code>Object</code> | Additional parameters you would like to inject in your client script function |
-
-**Example**  
-```js
-await util.mockserver.attachFunctionAfter("GET", "path/to/project/localService/main/mockserver",  afterCallback);
-```
-<a name="util.mockserver.addNewRequest"></a>
-
-#### mockserver.addNewRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)
-Adds new mock request
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| method | <code>String</code> | The http method [GET,POST..]. |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-| urlPathRegex | <code>String</code> | The url path regex to filter the requests |
-| responseJsonPath | <code>String</code> | The json object or the path to your json file to be used as response [use relative path from the html page started]. |
-| returnCode | <code>Integer</code> | The http response code to simulate for this mock request. |
-| isText | <code>Boolean</code> | If true then content type is text/plain otherwise application/json. |
-| responseMessages | <code>String</code> | Mocks the gw sap-message response messages [Don't forget to stringify your json before: JSON.stringify(msg)] |
-| responseLocation | <code>String</code> | Mocks the location response messages header |
-
-**Example**  
-```js
-await util.mockserver.addNewRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*", "path/to/project/localService/main/mockdata/test.json", 200, true, JSON.stringify(msg));
-```
-<a name="util.mockserver.removeRequest"></a>
-
-#### mockserver.removeRequest(method, mockServerPath, urlPathRegex)
-Removes request mock [Doesn't work currently - Mockserver bug]
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| method | <code>String</code> | The http method [GET,POST..]. |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-| urlPathRegex | <code>String</code> | The url path regex to filter the requests |
-
-**Example**  
-```js
-await util.mockserver.removeRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*");
-```
-<a name="util.mockserver.addOrOverrideRequest"></a>
-
-#### mockserver.addOrOverrideRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)
-Adds new or overrides an existing mock request
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| method | <code>String</code> | The http method [GET,POST..]. |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-| urlPathRegex | <code>String</code> | The url path regex to filter the requests |
-| responseJsonPath | <code>String</code> | The json object or the path to your json file to be used as response [use relative path from the html page started]. |
-| returnCode | <code>Integer</code> | The http response code to simulate for this mock request. |
-| isText | <code>Boolean</code> | If true then content type is text/plain otherwise application/json. |
-| responseMessages | <code>String</code> | Mocks the gw sap-message response messages [Don't forget to stringify your json before: JSON.stringify(msg)] |
-| responseLocation | <code>String</code> | Mocks the location response messages header |
-
-**Example**  
-```js
-await util.mockserver.addOrOverrideRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*", "path/to/project/localService/main/mockdata/test.json", 200, true, JSON.stringify(msg));
-```
-<a name="util.mockserver.startMockServer"></a>
-
-#### mockserver.startMockServer(mockServerPath)
-(Re-)Starts mock server instance
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-
-**Example**  
-```js
-await util.mockserver.startMockServer("path/to/project/localService/main/mockserver");
-```
-<a name="util.mockserver.initMockServer"></a>
-
-#### mockserver.initMockServer(mockServerPath, mockServerOptions)
-Initializes the provide mockserver instance on the fly
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-| mockServerOptions | <code>String</code> | The mock server options |
-
-**Example**  
-```js
-await util.mockserver.initMockServer("path/to/project/localService/main/mockserver", mockServerOptions);
-```
-<a name="util.mockserver.initApplication"></a>
-
-#### mockserver.initApplication(mockServerPath)
-Initializes the application [Used in the beginning of script, once the mockserver is fully initialized and request mocking is done]
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-
-**Example**  
-```js
-await util.mockserver.initApplication("path/to/project/localService/main/mockserver");
-```
-<a name="util.mockserver.stopMockServer"></a>
-
-#### mockserver.stopMockServer(mockServerPath)
-Stops the mockserver instance
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-
-**Example**  
-```js
-await util.mockserver.stopMockServer("path/to/project/localService/main/mockserver");
-```
-<a name="util.mockserver.loadMockDataFile"></a>
-
-#### mockserver.loadMockDataFile(filePath, isText) ⇒ <code>String</code>
-Loads a mock data file
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-**Returns**: <code>String</code> - The json object  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| filePath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-| isText | <code>Boolean</code> | If true then content type is text/plain otherwise application/json. |
-
-**Example**  
-```js
-await util.mockserver.loadMockDataFile("path/to/project/mockData/myData.json", true);
-```
-<a name="util.mockserver.getEntitySetData"></a>
-
-#### mockserver.getEntitySetData(mockServerPath, entitySetName) ⇒ <code>Array</code>
-Retrieves entity data
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-**Returns**: <code>Array</code> - An array of json objects  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-| entitySetName | <code>String</code> | The entity set name |
-
-**Example**  
-```js
-await util.mockserver.getEntitySetData("path/to/project/localService/main/mockserver", "Headers");
-```
-<a name="util.mockserver.setEntitySetData"></a>
-
-#### mockserver.setEntitySetData(mockServerPath, entitySetName, entries)
-Override entity data entries
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-| entitySetName | <code>String</code> | The entity name |
-| entries | <code>String</code> | The json object to be used as data to be inserted [use relative path from the html page started]. |
-
-**Example**  
-```js
-await util.mockserver.setEntitySetData("path/to/project/localService/main/mockserver", "Headers", entries);
-```
-<a name="util.qUnit"></a>
-
-### util.qUnit
-**Kind**: static class of [<code>util</code>](#util)  
-<a name="util.qUnit.executeTests"></a>
-
-#### qUnit.executeTests(path)
-Executes QUnit & OPA5 tests. Qmate acts like a runner.
-
-**Kind**: static method of [<code>qUnit</code>](#util.qUnit)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| path | <code>String</code> | Relative path to the QUnit/OPA5 html file. |
-
-**Example**  
-```js
-await util.qUnit.executeTests("path/to/qunit.html");
 ```
 <a name="util.system"></a>
 
@@ -1527,18 +1235,35 @@ Global namespace for UI5 modules.
         * [.clickOrder([timeout])](#ui5.footerBar.clickOrder)
         * [.clickPost([timeout])](#ui5.footerBar.clickPost)
         * [.clickAdd([timeout])](#ui5.footerBar.clickAdd)
+    * [.mockserver](#ui5.mockserver)
+        * [.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])](#ui5.mockserver.navigateToApplicationWithQueryParams)
+        * [.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])](#ui5.mockserver.navigateToApplicationWithQueryParamsAndRetry)
+        * [.waitForUi5ApplicationLoad(interval)](#ui5.mockserver.waitForUi5ApplicationLoad)
+        * [.interactWithMockServer(mockServerPath, fnCallback, oParams)](#ui5.mockserver.interactWithMockServer)
+        * [.attachFunctionBefore(method, mockServerPath, fnBeforeCallback, oParams)](#ui5.mockserver.attachFunctionBefore)
+        * [.attachFunctionAfter(method, mockServerPath, fnAfterCallback, oParams)](#ui5.mockserver.attachFunctionAfter)
+        * [.addNewRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)](#ui5.mockserver.addNewRequest)
+        * [.removeRequest(method, mockServerPath, urlPathRegex)](#ui5.mockserver.removeRequest)
+        * [.addOrOverrideRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)](#ui5.mockserver.addOrOverrideRequest)
+        * [.startMockServer(mockServerPath)](#ui5.mockserver.startMockServer)
+        * [.initMockServer(mockServerPath, mockServerOptions)](#ui5.mockserver.initMockServer)
+        * [.initApplication(mockServerPath)](#ui5.mockserver.initApplication)
+        * [.stopMockServer(mockServerPath)](#ui5.mockserver.stopMockServer)
+        * [.loadMockDataFile(filePath, isText)](#ui5.mockserver.loadMockDataFile) ⇒ <code>String</code>
+        * [.getEntitySetData(mockServerPath, entitySetName)](#ui5.mockserver.getEntitySetData) ⇒ <code>Array</code>
+        * [.setEntitySetData(mockServerPath, entitySetName, entries)](#ui5.mockserver.setEntitySetData)
     * [.navigation](#ui5.navigation)
         * [.navigateToApplication(intent, [preventPopups], [verify])](#ui5.navigation.navigateToApplication)
         * [.navigateToApplicationAndRetry(intent, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationAndRetry)
         * [.navigateToSystemAndApplication(system, intent, [closePopups], [verify])](#ui5.navigation.navigateToSystemAndApplication)
         * [.navigateToSystemAndApplicationAndRetry(system, intent, [closePopups], [verify], [retries], [interval])](#ui5.navigation.navigateToSystemAndApplicationAndRetry)
-        * [.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])](#ui5.navigation.navigateToApplicationWithQueryParams)
-        * [.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationWithQueryParamsAndRetry)
         * [.closePopups([timeout])](#ui5.navigation.closePopups)
     * [.navigationBar](#ui5.navigationBar)
         * [.clickBack([timeout])](#ui5.navigationBar.clickBack)
         * [.clickSapLogo([timeout])](#ui5.navigationBar.clickSapLogo)
         * [.clickUserIcon([timeout])](#ui5.navigationBar.clickUserIcon)
+    * [.qUnit](#ui5.qUnit)
+        * [.executeTests(path)](#ui5.qUnit.executeTests)
     * [.session](#ui5.session)
         * [.login(username, [password], [verify], [timeout])](#ui5.session.login)
         * [.loginFiori(username, [password], [verify])](#ui5.session.loginFiori)
@@ -1556,7 +1281,7 @@ Global namespace for UI5 modules.
         * [.clear(selector, [index], [timeout])](#ui5.userInteraction.clear)
         * [.clearAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clearAndRetry)
         * [.clearAndFill(selector, value, [index], [timeout])](#ui5.userInteraction.clearAndFill)
-        * [.clearFillAndRetry(selector, value, [index], [timeout], [retries], [interval], [verify])](#ui5.userInteraction.clearFillAndRetry)
+        * [.clearAndFillAndRetry(selector, value, [index], [timeout], [retries], [interval], [verify])](#ui5.userInteraction.clearAndFillAndRetry)
         * [.clearSmartFieldInput(selector, [index], [timeout])](#ui5.userInteraction.clearSmartFieldInput)
         * [.clearAndFillSmartFieldInput(selector, value, [index], [timeout])](#ui5.userInteraction.clearAndFillSmartFieldInput)
         * [.clearAndFillSmartFieldInputAndRetry(selector, value, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clearAndFillSmartFieldInputAndRetry)
@@ -2676,6 +2401,312 @@ Clicks the 'Add' button at the footer toolbar.
 ```js
 await ui5.footerBar.clickAdd();
 ```
+<a name="ui5.mockserver"></a>
+
+### ui5.mockserver
+**Kind**: static class of [<code>ui5</code>](#ui5)  
+
+* [.mockserver](#ui5.mockserver)
+    * [.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])](#ui5.mockserver.navigateToApplicationWithQueryParams)
+    * [.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])](#ui5.mockserver.navigateToApplicationWithQueryParamsAndRetry)
+    * [.waitForUi5ApplicationLoad(interval)](#ui5.mockserver.waitForUi5ApplicationLoad)
+    * [.interactWithMockServer(mockServerPath, fnCallback, oParams)](#ui5.mockserver.interactWithMockServer)
+    * [.attachFunctionBefore(method, mockServerPath, fnBeforeCallback, oParams)](#ui5.mockserver.attachFunctionBefore)
+    * [.attachFunctionAfter(method, mockServerPath, fnAfterCallback, oParams)](#ui5.mockserver.attachFunctionAfter)
+    * [.addNewRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)](#ui5.mockserver.addNewRequest)
+    * [.removeRequest(method, mockServerPath, urlPathRegex)](#ui5.mockserver.removeRequest)
+    * [.addOrOverrideRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)](#ui5.mockserver.addOrOverrideRequest)
+    * [.startMockServer(mockServerPath)](#ui5.mockserver.startMockServer)
+    * [.initMockServer(mockServerPath, mockServerOptions)](#ui5.mockserver.initMockServer)
+    * [.initApplication(mockServerPath)](#ui5.mockserver.initApplication)
+    * [.stopMockServer(mockServerPath)](#ui5.mockserver.stopMockServer)
+    * [.loadMockDataFile(filePath, isText)](#ui5.mockserver.loadMockDataFile) ⇒ <code>String</code>
+    * [.getEntitySetData(mockServerPath, entitySetName)](#ui5.mockserver.getEntitySetData) ⇒ <code>Array</code>
+    * [.setEntitySetData(mockServerPath, entitySetName, entries)](#ui5.mockserver.setEntitySetData)
+
+<a name="ui5.mockserver.navigateToApplicationWithQueryParams"></a>
+
+#### mockserver.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])
+Navigates to the application with the passed queryParams via the passed intent.
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| intent | <code>String</code> |  | The intent of the app. |
+| queryParams | <code>String</code> |  | [OPTIONAL] Add url query params. |
+| [preventPopups] | <code>Boolean</code> | <code>false</code> | Specifies if random popup appearance should be prevented. |
+| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the url should be asserted after the navigation. |
+
+**Example**  
+```js
+const intent = ui5.appIntents.managePurchaseOrders;
+const queryParams = "?sap-language=EN&responderOn=true";
+await ui5.mockserver.navigateToApplicationWithQueryParams(intent, queryParams);
+```
+<a name="ui5.mockserver.navigateToApplicationWithQueryParamsAndRetry"></a>
+
+#### mockserver.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])
+Navigates to the application via the passed intent, and retries in case it fails.
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| intent | <code>String</code> |  | The intent of the app. |
+| queryParams | <code>String</code> |  | [OPTIONAL] Add url query params. |
+| [preventPopups] | <code>Boolean</code> | <code>false</code> | Specifies if random popup appearance should be prevented. |
+| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the url should be asserted after the navigation. |
+| [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
+| [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
+
+**Example**  
+```js
+const intent = ui5.appIntents.managePurchaseOrders;
+const queryParams = "?sap-language=EN&responderOn=true";
+await ui5.mockserver.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
+```
+<a name="ui5.mockserver.waitForUi5ApplicationLoad"></a>
+
+#### mockserver.waitForUi5ApplicationLoad(interval)
+Waits for the UI5 framework to load and makes sure XHR request finished und busy indicators are not visible anymore.
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| interval | <code>Integer</code> | The intervals to use when waiting UI5 to load. |
+
+**Example**  
+```js
+await ui5.mockserver.waitForUi5ApplicationLoad(100);
+```
+<a name="ui5.mockserver.interactWithMockServer"></a>
+
+#### mockserver.interactWithMockServer(mockServerPath, fnCallback, oParams)
+Execute client script function to enable interaction with mockserver instance [you can write code in ui5 app context]
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| mockServerPath | <code>String</code> | The full path to your mockserver instance |
+| fnCallback | <code>String</code> \| <code>Object</code> | The client script function that you can use to interact with your mockserver instance. [Caution] The first and last parameter is reserved (1st param is the mockserver instance and last parameter the promise resolve function - done) |
+| oParams | <code>String</code> | Additional parameters you would like to inject in your client script function |
+
+**Example**  
+```js
+await ui5.mockserver.interactWithMockServer("path/to/project/localService/main/mockserver", fnCallback, oParams);
+```
+<a name="ui5.mockserver.attachFunctionBefore"></a>
+
+#### mockserver.attachFunctionBefore(method, mockServerPath, fnBeforeCallback, oParams)
+Attaches a callback function in mockserver attachBefore event to be executed
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| method | <code>String</code> | The attachAfter http method [GET or POST]. |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method so the mockserver instance can be consumed]. |
+| fnBeforeCallback | <code>String</code> \| <code>Object</code> | The callback function to be used in the native attachBefore method as described (https://sapui5.hana.ondemand.com/#/api/sap.ui.core.ui5.mockserver%23methods/Summary) |
+| oParams | <code>Object</code> | Additional parameters you would like to inject in your client script function |
+
+**Example**  
+```js
+await ui5.mockserver.attachFunctionBefore("GET", "path/to/project/localService/main/mockserver", fnBeforeCallback, oParams);
+```
+<a name="ui5.mockserver.attachFunctionAfter"></a>
+
+#### mockserver.attachFunctionAfter(method, mockServerPath, fnAfterCallback, oParams)
+Attaches a callback function in mockserver attachAfter event to be executed
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| method | <code>String</code> | The attachAfter http method [GET or POST]. |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method so the mockserver instance can be consumed]. |
+| fnAfterCallback | <code>String</code> \| <code>Object</code> | The callback function to be used in the native attachAfter method as described (https://sapui5.hana.ondemand.com/#/api/sap.ui.core.ui5.mockserver%23methods/Summary) |
+| oParams | <code>Object</code> | Additional parameters you would like to inject in your client script function |
+
+**Example**  
+```js
+await ui5.mockserver.attachFunctionAfter("GET", "path/to/project/localService/main/mockserver",  fnAfterCallback);
+```
+<a name="ui5.mockserver.addNewRequest"></a>
+
+#### mockserver.addNewRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)
+Adds new mock request
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| method | <code>String</code> | The http method [GET,POST..]. |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+| urlPathRegex | <code>String</code> | The url path regex to filter the requests |
+| responseJsonPath | <code>String</code> | The json object or the path to your json file to be used as response [use relative path from the html page started]. |
+| returnCode | <code>Integer</code> | The http response code to simulate for this mock request. |
+| isText | <code>Boolean</code> | If true then content type is text/plain otherwise application/json. |
+| responseMessages | <code>String</code> | Mocks the gw sap-message response messages [Don't forget to stringify your json before: JSON.stringify(msg)] |
+| responseLocation | <code>String</code> | Mocks the location response messages header |
+
+**Example**  
+```js
+await ui5.mockserver.addNewRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*", "path/to/project/localService/main/mockdata/test.json", 200, true, JSON.stringify(msg));
+```
+<a name="ui5.mockserver.removeRequest"></a>
+
+#### mockserver.removeRequest(method, mockServerPath, urlPathRegex)
+Removes request mock [Doesn't work currently - Mockserver bug]
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| method | <code>String</code> | The http method [GET,POST..]. |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+| urlPathRegex | <code>String</code> | The url path regex to filter the requests |
+
+**Example**  
+```js
+await ui5.mockserver.removeRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*");
+```
+<a name="ui5.mockserver.addOrOverrideRequest"></a>
+
+#### mockserver.addOrOverrideRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)
+Adds new or overrides an existing mock request
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| method | <code>String</code> | The http method [GET,POST..]. |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+| urlPathRegex | <code>String</code> | The url path regex to filter the requests |
+| responseJsonPath | <code>String</code> | The json object or the path to your json file to be used as response [use relative path from the html page started]. |
+| returnCode | <code>Integer</code> | The http response code to simulate for this mock request. |
+| isText | <code>Boolean</code> | If true then content type is text/plain otherwise application/json. |
+| responseMessages | <code>String</code> | Mocks the gw sap-message response messages [Don't forget to stringify your json before: JSON.stringify(msg)] |
+| responseLocation | <code>String</code> | Mocks the location response messages header |
+
+**Example**  
+```js
+await ui5.mockserver.addOrOverrideRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*", "path/to/project/localService/main/mockdata/test.json", 200, true, JSON.stringify(msg));
+```
+<a name="ui5.mockserver.startMockServer"></a>
+
+#### mockserver.startMockServer(mockServerPath)
+(Re-)Starts mock server instance
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+
+**Example**  
+```js
+await ui5.mockserver.startMockServer("path/to/project/localService/main/mockserver");
+```
+<a name="ui5.mockserver.initMockServer"></a>
+
+#### mockserver.initMockServer(mockServerPath, mockServerOptions)
+Initializes the provide mockserver instance on the fly
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+| mockServerOptions | <code>String</code> | The mock server options |
+
+**Example**  
+```js
+await ui5.mockserver.initMockServer("path/to/project/localService/main/mockserver", mockServerOptions);
+```
+<a name="ui5.mockserver.initApplication"></a>
+
+#### mockserver.initApplication(mockServerPath)
+Initializes the application [Used in the beggining of script, once the mockserver is fully initialized and request mocking is done]
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+
+**Example**  
+```js
+await ui5.mockserver.initApplication("path/to/project/localService/main/mockserver");
+```
+<a name="ui5.mockserver.stopMockServer"></a>
+
+#### mockserver.stopMockServer(mockServerPath)
+Stops the mockserver instance
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+
+**Example**  
+```js
+await ui5.mockserver.stopMockServer("path/to/project/localService/main/mockserver");
+```
+<a name="ui5.mockserver.loadMockDataFile"></a>
+
+#### mockserver.loadMockDataFile(filePath, isText) ⇒ <code>String</code>
+Loads a mock data file
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+**Returns**: <code>String</code> - The json object  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| filePath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+| isText | <code>Boolean</code> | If true then content type is text/plain otherwise application/json. |
+
+**Example**  
+```js
+await ui5.mockserver.loadMockDataFile("path/to/project/mockData/myData.json", true);
+```
+<a name="ui5.mockserver.getEntitySetData"></a>
+
+#### mockserver.getEntitySetData(mockServerPath, entitySetName) ⇒ <code>Array</code>
+Retrieves entity data
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+**Returns**: <code>Array</code> - An array of json objects  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+| entitySetName | <code>String</code> | The entity set name |
+
+**Example**  
+```js
+await ui5.mockserver.getEntitySetData("path/to/project/localService/main/mockserver", "Headers");
+```
+<a name="ui5.mockserver.setEntitySetData"></a>
+
+#### mockserver.setEntitySetData(mockServerPath, entitySetName, entries)
+Override entity data entries
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+| entitySetName | <code>String</code> | The entity name |
+| entries | <code>String</code> | The json object to be used as data to be inserted [use relative path from the html page started]. |
+
+**Example**  
+```js
+await ui5.mockserver.setEntitySetData("path/to/project/localService/main/mockserver", "Headers", entries);
+```
 <a name="ui5.navigation"></a>
 
 ### ui5.navigation
@@ -2686,8 +2717,6 @@ await ui5.footerBar.clickAdd();
     * [.navigateToApplicationAndRetry(intent, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationAndRetry)
     * [.navigateToSystemAndApplication(system, intent, [closePopups], [verify])](#ui5.navigation.navigateToSystemAndApplication)
     * [.navigateToSystemAndApplicationAndRetry(system, intent, [closePopups], [verify], [retries], [interval])](#ui5.navigation.navigateToSystemAndApplicationAndRetry)
-    * [.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])](#ui5.navigation.navigateToApplicationWithQueryParams)
-    * [.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationWithQueryParamsAndRetry)
     * [.closePopups([timeout])](#ui5.navigation.closePopups)
 
 <a name="ui5.navigation.navigateToApplication"></a>
@@ -2764,48 +2793,6 @@ Navigates within the passed system to the application via the passed intent, and
 ```js
 await ui5.navigation.navigateToSystemAndApplicationAndRetry("cc2-715.wdf.sap.corp", "PurchaseOrder-manage");
 ```
-<a name="ui5.navigation.navigateToApplicationWithQueryParams"></a>
-
-#### navigation.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])
-Navigates to the application with the passed queryParams via the passed intent.
-
-**Kind**: static method of [<code>navigation</code>](#ui5.navigation)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| intent | <code>String</code> |  | The intent of the app. |
-| queryParams | <code>String</code> |  | [OPTIONAL] Add url query params. |
-| [preventPopups] | <code>Boolean</code> | <code>false</code> | Specifies if random popup appearance should be prevented. |
-| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the url should be asserted after the navigation. |
-
-**Example**  
-```js
-const intent = ui5.appIntents.managePurchaseOrders;
-const queryParams = "?sap-language=EN&responderOn=true";
-await ui5.navigation.navigateToApplicationWithQueryParams(intent, queryParams);
-```
-<a name="ui5.navigation.navigateToApplicationWithQueryParamsAndRetry"></a>
-
-#### navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])
-Navigates to the application via the passed intent, and retries in case it fails.
-
-**Kind**: static method of [<code>navigation</code>](#ui5.navigation)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| intent | <code>String</code> |  | The intent of the app. |
-| queryParams | <code>String</code> |  | [OPTIONAL] Add url query params. |
-| [preventPopups] | <code>Boolean</code> | <code>false</code> | Specifies if random popup appearance should be prevented. |
-| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the url should be asserted after the navigation. |
-| [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
-| [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
-
-**Example**  
-```js
-const intent = ui5.appIntents.managePurchaseOrders;
-const queryParams = "?sap-language=EN&responderOn=true";
-await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
-```
 <a name="ui5.navigation.closePopups"></a>
 
 #### navigation.closePopups([timeout])
@@ -2875,6 +2862,25 @@ Clicks at the Account Icon.
 **Example**  
 ```js
 await ui5.navigationBar.clickUserIcon();
+```
+<a name="ui5.qUnit"></a>
+
+### ui5.qUnit
+**Kind**: static class of [<code>ui5</code>](#ui5)  
+<a name="ui5.qUnit.executeTests"></a>
+
+#### qUnit.executeTests(path)
+Executes QUnit & OPA5 tests. Qmate acts like a runner.
+
+**Kind**: static method of [<code>qUnit</code>](#ui5.qUnit)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>String</code> | Relative path to the QUnit/OPA5 html file. |
+
+**Example**  
+```js
+await ui5.qUnit.executeTests("path/to/qunit.html");
 ```
 <a name="ui5.session"></a>
 
@@ -3033,7 +3039,7 @@ await ui5.session.logout();
     * [.clear(selector, [index], [timeout])](#ui5.userInteraction.clear)
     * [.clearAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clearAndRetry)
     * [.clearAndFill(selector, value, [index], [timeout])](#ui5.userInteraction.clearAndFill)
-    * [.clearFillAndRetry(selector, value, [index], [timeout], [retries], [interval], [verify])](#ui5.userInteraction.clearFillAndRetry)
+    * [.clearAndFillAndRetry(selector, value, [index], [timeout], [retries], [interval], [verify])](#ui5.userInteraction.clearAndFillAndRetry)
     * [.clearSmartFieldInput(selector, [index], [timeout])](#ui5.userInteraction.clearSmartFieldInput)
     * [.clearAndFillSmartFieldInput(selector, value, [index], [timeout])](#ui5.userInteraction.clearAndFillSmartFieldInput)
     * [.clearAndFillSmartFieldInputAndRetry(selector, value, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clearAndFillSmartFieldInputAndRetry)
@@ -3212,9 +3218,9 @@ Clears the input field with the given selector and enters the given value.
 ```js
 await ui5.userInteraction.clearAndFill(selector, "My Value");
 ```
-<a name="ui5.userInteraction.clearFillAndRetry"></a>
+<a name="ui5.userInteraction.clearAndFillAndRetry"></a>
 
-#### userInteraction.clearFillAndRetry(selector, value, [index], [timeout], [retries], [interval], [verify])
+#### userInteraction.clearAndFillAndRetry(selector, value, [index], [timeout], [retries], [interval], [verify])
 Clears the input field with the given selector and enters the given value. Retries the action in case of a failure.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
@@ -3231,7 +3237,7 @@ Clears the input field with the given selector and enters the given value. Retri
 
 **Example**  
 ```js
-await ui5.userInteraction.clearFillAndRetry(selector, "My Value");
+await ui5.userInteraction.clearAndFillAndRetry(selector, "My Value");
 ```
 <a name="ui5.userInteraction.clearSmartFieldInput"></a>
 
@@ -4193,3 +4199,9 @@ Clicks on a target element inside a chart area.
 const elem = await nonUi5.element.getElementById("chartPartToCLick");
 await nonUi5.userInteraction.clickChartPart(elem);
 ```
+<a name="service"></a>
+
+## service
+Global namespace for service modules.
+
+**Kind**: global constant  

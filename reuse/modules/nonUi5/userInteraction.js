@@ -154,9 +154,7 @@ const UserInteraction = function () {
       } catch (error) {
         throw new Error(`Function 'clearAndFill' failed: ${error}`);
       }
-
     }
-
   };
 
   /**
