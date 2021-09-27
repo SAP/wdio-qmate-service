@@ -1,6 +1,6 @@
 "use strict";
 
-describe("locator - getBindingValue 'text'", function () {
+describe("element - getBindingValue 'text'", function () {
   let bindingValue;
 
   it("Preparation", async function () {
@@ -25,7 +25,7 @@ describe("locator - getBindingValue 'text'", function () {
 
 });
 
-describe("locator - getBindingValue for wrong attribute", function () {
+describe("element - getBindingValue for wrong attribute", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -45,7 +45,7 @@ describe("locator - getBindingValue for wrong attribute", function () {
   });
 });
 
-describe("locator - getBindingValue for wrong selector", function () {
+describe("element - getBindingValue for wrong selector", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });

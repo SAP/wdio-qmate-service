@@ -427,7 +427,8 @@ const Element = function () {
    */
   this.getValue = async function (elem) {
     try {
-      return this.getAttributeValue(elem, "value");
+      // eslint-disable-next-line no-return-await
+      return await this.getAttributeValue(elem, "value");
     } catch (error) {
       throw new Error(`Function 'getValue' failed: ${error}`);
     }

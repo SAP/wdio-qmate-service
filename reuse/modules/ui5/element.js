@@ -123,7 +123,7 @@ const Element = function () {
   };
 
   /**
-   * @function getValue
+   * @function getAttributeValue
    * @memberOf ui5.element
    * @description Returns the attribute value of the passed element.
    * @param {Object} selector - The selector describing the element.
@@ -131,12 +131,31 @@ const Element = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {String} The attribute value of the element.
-   * @example const elemValue = await ui5.element.getValue(selector, "text");
+   * @example const elemValue = await ui5.element.getAttributeValue(selector, "text");
    */
-  this.getValue = async function (selector, attribute, index = 0, timeout = 30000) {
+  this.getAttributeValue = async function (selector, attribute, index = 0, timeout = 30000) {
     try {
       const elem = await this.getDisplayedElement(selector, index, timeout);
       return String(await elem.getUI5Property(attribute));
+    } catch (error) {
+      throw new Error("getAttributeValue() failed with " + error);
+    }
+  };
+
+  /**
+   * @function getValue
+   * @memberOf ui5.element
+   * @description Returns the value of the passed element.
+   * @param {Object} selector - The selector describing the element.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @returns {String} The value of the element.
+   * @example const elemValue = await ui5.element.getValue(selector);
+   */
+  this.getValue = async function (selector, index = 0, timeout = 30000) {
+    try {
+      // eslint-disable-next-line no-return-await
+      return await this.getAttributeValue(selector, "value", index, timeout);
     } catch (error) {
       throw new Error("getValue() failed with " + error);
     }

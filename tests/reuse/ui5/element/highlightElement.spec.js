@@ -1,6 +1,6 @@
 "use strict";
 
-describe("locator - highlightElement", function () {
+describe("element - highlightElement", function () {
 
   it("Preparation", async function () {
     await browser.url("#/categories");
@@ -24,7 +24,7 @@ describe("locator - highlightElement", function () {
   });
 });
 
-describe("locator - highlightElement and catch error", function () {
+describe("element - highlightElement and catch error", function () {
 
   it("Preparation", async function () {
     await browser.url("#/categories");
