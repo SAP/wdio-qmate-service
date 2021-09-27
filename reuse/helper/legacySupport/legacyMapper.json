@@ -136,6 +136,10 @@
     "new": "ui5.element"
   },
   {
+    "old": "ui5.common.locator.getValue",
+    "new": "ui5.element.getAttributeValue"
+  },
+  {
     "old": "ui5.common.navigation.navigateToUrl",
     "new": "common.navigation.navigateToUrl"
   },

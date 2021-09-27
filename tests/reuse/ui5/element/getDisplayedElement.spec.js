@@ -8,7 +8,7 @@ const selectorForKeyboardsListElement = {
   }
 };
 
-describe("locator - 'getDisplayedElement' by selector and index", function () {
+describe("element - 'getDisplayedElement' by selector and index", function () {
   let elementOne;
   let elementTwo;
 
@@ -34,7 +34,7 @@ describe("locator - 'getDisplayedElement' by selector and index", function () {
   });
 });
 
-describe("locator - getDisplayedElement by wrong index (unhappy case)", function () {
+describe("element - getDisplayedElement by wrong index (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -45,7 +45,7 @@ describe("locator - getDisplayedElement by wrong index (unhappy case)", function
   });
 });
 
-describe("locator - getDisplayedElement by wrong selector (unhappy case)", function () {
+describe("element - getDisplayedElement by wrong selector (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -63,7 +63,7 @@ describe("locator - getDisplayedElement by wrong selector (unhappy case)", funct
   });
 });
 
-describe("locator - getDisplayedElement by index which is equal to the number of elements on a page (unhappy case)", function () {
+describe("element - getDisplayedElement by index which is equal to the number of elements on a page (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });

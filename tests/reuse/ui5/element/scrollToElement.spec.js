@@ -3,7 +3,7 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("locator - scrollToElement", function () {
+describe("element - scrollToElement", function () {
 
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html");
@@ -27,7 +27,7 @@ describe("locator - scrollToElement", function () {
   });
 });
 
-describe("locator - scrollToElement outside of viewpoint", function () {
+describe("element - scrollToElement outside of viewpoint", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await handleCookiesConsent();
@@ -64,7 +64,7 @@ describe("locator - scrollToElement outside of viewpoint", function () {
   });
 });
 
-describe("locator - scrollToElement and catch error", function () {
+describe("element - scrollToElement and catch error", function () {
 
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html");

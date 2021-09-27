@@ -1217,7 +1217,8 @@ Global namespace for UI5 modules.
         * [.getDisplayedChildElement(parentSelector, childSelector, [parentIndex], [childIndex], [timeout])](#ui5.element.getDisplayedChildElement) ⇒ <code>Object</code>
         * [.getElementByText(selector, value, [index], [timeout])](#ui5.element.getElementByText) ⇒ <code>Object</code>
         * [.getElementId(selector, [index], [timeout])](#ui5.element.getElementId) ⇒ <code>String</code>
-        * [.getValue(selector, attribute, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
+        * [.getAttributeValue(selector, attribute, [index], [timeout])](#ui5.element.getAttributeValue) ⇒ <code>String</code>
+        * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
         * [.getBindingValue(selector, attribute, [index], [timeout])](#ui5.element.getBindingValue) ⇒ <code>String</code>
         * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
         * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.element.scrollToElement)
@@ -2015,7 +2016,8 @@ await ui5.date.fillDateRange(selector, range);
     * [.getDisplayedChildElement(parentSelector, childSelector, [parentIndex], [childIndex], [timeout])](#ui5.element.getDisplayedChildElement) ⇒ <code>Object</code>
     * [.getElementByText(selector, value, [index], [timeout])](#ui5.element.getElementByText) ⇒ <code>Object</code>
     * [.getElementId(selector, [index], [timeout])](#ui5.element.getElementId) ⇒ <code>String</code>
-    * [.getValue(selector, attribute, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
+    * [.getAttributeValue(selector, attribute, [index], [timeout])](#ui5.element.getAttributeValue) ⇒ <code>String</code>
+    * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
     * [.getBindingValue(selector, attribute, [index], [timeout])](#ui5.element.getBindingValue) ⇒ <code>String</code>
     * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
     * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.element.scrollToElement)
@@ -2129,9 +2131,9 @@ Returns the id of the element with the given selector.
 ```js
 const elemId = await ui5.element.getElementId(selector);
 ```
-<a name="ui5.element.getValue"></a>
+<a name="ui5.element.getAttributeValue"></a>
 
-#### element.getValue(selector, attribute, [index], [timeout]) ⇒ <code>String</code>
+#### element.getAttributeValue(selector, attribute, [index], [timeout]) ⇒ <code>String</code>
 Returns the attribute value of the passed element.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
@@ -2146,7 +2148,25 @@ Returns the attribute value of the passed element.
 
 **Example**  
 ```js
-const elemValue = await ui5.element.getValue(selector, "text");
+const elemValue = await ui5.element.getAttributeValue(selector, "text");
+```
+<a name="ui5.element.getValue"></a>
+
+#### element.getValue(selector, [index], [timeout]) ⇒ <code>String</code>
+Returns the value of the passed element.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+**Returns**: <code>String</code> - The value of the element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elemValue = await ui5.element.getValue(selector);
 ```
 <a name="ui5.element.getBindingValue"></a>
 
