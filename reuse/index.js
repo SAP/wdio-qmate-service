@@ -55,7 +55,7 @@ const ReuseLibrary = function () {
       navigationBar: require("./modules/ui5/navigationBar.js"),
       session: require("./modules/ui5/session.js"),
       userInteraction: require("./modules/ui5/userInteraction.js"),
-      qUnit: require("./modules/ui5/qUnit.js"),
+      qunit: require("./modules/ui5/qunit.js"),
       // data
       appIntents: require("./data/appIntents.json"),
       authenticators: require("./data/authenticators.json"),

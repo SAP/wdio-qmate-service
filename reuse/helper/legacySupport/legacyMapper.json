@@ -24,6 +24,14 @@
     "new": "util.file"
   },
   {
+    "old": "utilities.mockserver",
+    "new": "ui5.mockserver"
+  },
+  {
+    "old": "utilities.qUnit",
+    "new": "util.qunit"
+  },
+  {
     "old": "ui5.common",
     "new": "ui5"
   },
@@ -130,6 +138,14 @@
   {
     "old": "ui5.common.navigation.navigateToUrl",
     "new": "common.navigation.navigateToUrl"
+  },
+  {
+    "old": "ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry",
+    "new": "ui5.mockserver.navigateToApplicationWithQueryParamsAndRetry"
+  },
+  {
+    "old": "ui5.common.navigation.navigateToApplicationWithQueryParams",
+    "new": "ui5.mockserver.navigateToApplicationWithQueryParams"
   },
   {
     "old": "ui5.common.navigation.printCurrentUrl",

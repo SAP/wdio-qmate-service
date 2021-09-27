@@ -3,7 +3,6 @@
 // Note: functions to be executed in browser need to be stringified (fn.toString()).
 // E.g. `await lib.mockServerActionInBrowser(function (mockserver, method, fnAfterCallbackAsString, oParams, done){...})`
 // It is not required to check the type (function or string) - toString() function can be applied to a string too.
-const lib = require("../../../scripts/hooks/utils/lib.js");
 
 /**
  * @class mockserver  
@@ -11,6 +10,63 @@ const lib = require("../../../scripts/hooks/utils/lib.js");
  */
 const Mockserver = function () {
 
+  const lib = require("../../../scripts/hooks/utils/lib.js");
+  const errorText = "Navigation failed because page didn't load, possible reasons: " +
+    "Site is down, or you are using a wrong address. For retrying use 'navigateToApplicationAndRetry'.\n";
+
+  // =================================== NAVIGATION ===================================
+  /**
+   * @function navigateToApplicationWithQueryParams
+   * @memberOf ui5.mockserver
+   * @description Navigates to the application with the passed queryParams via the passed intent.
+   * @param {String} intent - The intent of the app.
+   * @param {String} queryParams - [OPTIONAL] Add url query params.
+   * @param {Boolean} [preventPopups=false] - Specifies if random popup appearance should be prevented.
+   * @param {Boolean} [verify=false] - Specifies if the url should be asserted after the navigation.
+   * @example const intent = ui5.appIntents.managePurchaseOrders;
+   * const queryParams = "?sap-language=EN&responderOn=true";
+   * await ui5.mockserver.navigateToApplicationWithQueryParams(intent, queryParams);
+   */
+  this.navigateToApplicationWithQueryParams = async function (intent, queryParams = "", closePopups = true, verify = false) {
+    let url;
+    try {
+      await browser.url(`${browser.config.baseUrl}${queryParams}#${intent}`);
+      url = await browser.getUrl();
+      await common.navigation.printCurrentUrl();
+      if (url && url.indexOf(intent) === -1 && verify) {
+        throw new Error("Verification of function 'navigateToApplication' failed. For retrying use 'navigateToApplicationAndRetry'.");
+      }
+      if (closePopups) {
+        await ui5.navigation.closePopups();
+      }
+      await browser.refresh();
+    } catch (error) {
+      throw new Error(errorText + error);
+    }
+  };
+
+  /**
+   * @function navigateToApplicationWithQueryParamsAndRetry
+   * @memberOf ui5.mockserver
+   * @description Navigates to the application via the passed intent, and retries in case it fails.
+   * @param {String} intent - The intent of the app.
+   * @param {String} queryParams - [OPTIONAL] Add url query params.
+   * @param {Boolean} [preventPopups=false] - Specifies if random popup appearance should be prevented.
+   * @param {Boolean} [verify=false] - Specifies if the url should be asserted after the navigation.
+   * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
+   * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
+   * @example const intent = ui5.appIntents.managePurchaseOrders;
+   * const queryParams = "?sap-language=EN&responderOn=true";
+   * await ui5.mockserver.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
+   */
+  this.navigateToApplicationWithQueryParamsAndRetry = async function (intent, queryParams, closePopups = true, verify = true, retries, interval) {
+    await util.function.retry(async (intent, queryParams, closePopups, verify) => {
+      await this.navigateToApplicationWithQueryParams(intent, queryParams, closePopups, verify);
+    }, [intent, queryParams, closePopups, verify], retries, interval, this);
+  };
+
+
+  // =================================== MAIN ===================================
   /**
    * @function waitForUi5ApplicationLoad
    * @memberOf ui5.mockserver
@@ -21,7 +77,6 @@ const Mockserver = function () {
   this.waitForUi5ApplicationLoad = async function (interval = 100) {
     await lib.waitUI5ToStabilize(); // Note: interval is hardcoded in  lib.js
   };
-
 
   /**
    * @function interactWithMockServer

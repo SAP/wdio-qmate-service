@@ -24,9 +24,9 @@ module.exports = {
     // Executes the init method of your mockserver file
     await mockDataMapper.initMockServer(constants.applicationPath, startMockParams, constants.mockDelay);
     // Starts mockserver
-    await util.mockserver.startMockServer(constants.pathToMockServer);
+    await ui5.mockserver.startMockServer(constants.pathToMockServer);
     // Initialize application by calling sap.ushell.Container.createRenderer().placeAt("content");
-    await util.mockserver.initApplication(constants.pathToMockServer);
+    await ui5.mockserver.initApplication(constants.pathToMockServer);
   },
 
   /**
@@ -37,7 +37,7 @@ module.exports = {
     // Executes the init method of your mockserver file
     await mockDataMapper.initMockServer(constants.applicationPath, startMockParams, constants.mockDelay);
     // Starts mockserver
-    await util.mockserver.startMockServer(constants.pathToMockServer);
+    await ui5.mockserver.startMockServer(constants.pathToMockServer);
   },
 
   /**
@@ -45,7 +45,7 @@ module.exports = {
    * @param {Object} startMockParams The start up parameters to be used for the mockserver
    */
   initMockServerDynamically: async function (startMockParams) {
-    await util.mockserver.waitForUi5ApplicationLoad();
+    await ui5.mockserver.waitForUi5ApplicationLoad();
     // Prepare mockserver initialization parameters
     var oMockServerOptions = {
       appPath: constants.applicationPath,
@@ -53,7 +53,7 @@ module.exports = {
       entitiesToload: startMockParams.entitiesToload,
       delay: 1
     };
-    await util.mockserver.interactWithMockServer(constants.pathToMockServer, function (mockserver, mockServerOpts, done) {
+    await ui5.mockserver.interactWithMockServer(constants.pathToMockServer, function (mockserver, mockServerOpts, done) {
       if (!mockserver) throw new Error("Mockserver file not yet loaded or is missing");
       //debugger;
       mockserver.init(mockServerOpts).catch(function (oError) {
@@ -77,12 +77,12 @@ module.exports = {
    */
   initApplication: async function () {
     // Initialize application by calling sap.ushell.Container.createRenderer().placeAt("content");
-    await util.mockserver.initApplication(constants.pathToMockServer);
+    await ui5.mockserver.initApplication(constants.pathToMockServer);
   },
 
   initApplicationDynamically: async function () {
-    await util.mockserver.waitForUi5ApplicationLoad();
-    await util.mockserver.interactWithMockServer(constants.pathToMockServer, function (mockserver, done) {
+    await ui5.mockserver.waitForUi5ApplicationLoad();
+    await ui5.mockserver.interactWithMockServer(constants.pathToMockServer, function (mockserver, done) {
       if (!mockserver) throw new Error("Mockserver file not yet loaded or is missing");
       //debugger;
       // eslint-disable-next-line no-undef
@@ -98,7 +98,7 @@ module.exports = {
    */
   getEmployeesCount: async function (nCount) {
     // Add expand response
-    await util.mockserver.addOrOverrideRequest(
+    await ui5.mockserver.addOrOverrideRequest(
       constants.httpMethod.get,
       constants.pathToMockServer,
       constants.regexRequests.getEmployeesCount,
@@ -106,7 +106,7 @@ module.exports = {
       200, true);
 
     //Register new response [start mockserver is required]    
-    await util.mockserver.startMockServer(constants.pathToMockServer);
+    await ui5.mockserver.startMockServer(constants.pathToMockServer);
   },
 
   /**
@@ -117,10 +117,10 @@ module.exports = {
   getEmployees: async function (expandedEntityOrPath) {
     var expandedEntity = expandedEntityOrPath;
     if (typeof expandedEntityOrPath === "string") {
-      expandedEntity = await util.mockserver.loadMockDataFile(expandedEntityOrPath);
+      expandedEntity = await ui5.mockserver.loadMockDataFile(expandedEntityOrPath);
     }
     // Add expand response specific
-    await util.mockserver.addNewRequest(
+    await ui5.mockserver.addNewRequest(
       constants.httpMethod.get,
       constants.pathToMockServer,
       constants.regexRequests.getEmployees,
@@ -128,38 +128,38 @@ module.exports = {
       200, false);
 
     //Register new response [start mockserver is required]    
-    await util.mockserver.startMockServer(constants.pathToMockServer);
+    await ui5.mockserver.startMockServer(constants.pathToMockServer);
   },
 
 
   setResumes: async function (expandedEntityOrPath) {
     var expandedEntity = expandedEntityOrPath;
     if (typeof expandedEntityOrPath === "string") {
-      expandedEntity = await util.mockserver.loadMockDataFile(expandedEntityOrPath);
+      expandedEntity = await ui5.mockserver.loadMockDataFile(expandedEntityOrPath);
     }
     // Add expand response specific
-    await util.mockserver.setEntitySetData(
+    await ui5.mockserver.setEntitySetData(
       constants.pathToMockServer,
       constants.entitySet.resumes,
       expandedEntity);
 
     //Register new response [start mockserver is required]    
-    await util.mockserver.startMockServer(constants.pathToMockServer);
+    await ui5.mockserver.startMockServer(constants.pathToMockServer);
   },
 
   setEmployee: async function (expandedEntityOrPath) {
     var expandedEntity = expandedEntityOrPath;
     if (typeof expandedEntityOrPath === "string") {
-      expandedEntity = await util.mockserver.loadMockDataFile(expandedEntityOrPath);
+      expandedEntity = await ui5.mockserver.loadMockDataFile(expandedEntityOrPath);
     }
     // Add expand response specific
-    await util.mockserver.setEntitySetData(
+    await ui5.mockserver.setEntitySetData(
       constants.pathToMockServer,
       constants.entitySet.employees,
       expandedEntity);
 
     //Register new response [start mockserver is required]    
-    await util.mockserver.startMockServer(constants.pathToMockServer);
+    await ui5.mockserver.startMockServer(constants.pathToMockServer);
   },
 
   /**
@@ -170,10 +170,10 @@ module.exports = {
   getResumes: async function (expandedEntityOrPath) {
     var expandedEntity = expandedEntityOrPath;
     if (typeof expandedEntityOrPath === "string") {
-      expandedEntity = await util.mockserver.loadMockDataFile(expandedEntityOrPath);
+      expandedEntity = await ui5.mockserver.loadMockDataFile(expandedEntityOrPath);
     }
     // Add expand response specific
-    await util.mockserver.addNewRequest(
+    await ui5.mockserver.addNewRequest(
       constants.httpMethod.get,
       constants.pathToMockServer,
       constants.regexRequests.getResumes,
@@ -181,7 +181,7 @@ module.exports = {
       200, false);
 
     //Register new response [start mockserver is required]    
-    await util.mockserver.startMockServer(constants.pathToMockServer);
+    await ui5.mockserver.startMockServer(constants.pathToMockServer);
   },
 
   getResumeForEmployee: async function () {
@@ -189,7 +189,7 @@ module.exports = {
       regexp: constants.regexRequests.getResumeForEmployee
     };
     // Add expand response specific
-    await util.mockserver.attachFunctionAfter(
+    await ui5.mockserver.attachFunctionAfter(
       constants.httpMethod.get,
       constants.pathToMockServer,
       function (oEvent) {
@@ -203,9 +203,9 @@ module.exports = {
       }, oParams
     );
 
-    const dataResums = await util.mockserver.getEntitySetData(constants.pathToMockServer, constants.entitySet.resumes);
+    const dataResums = await ui5.mockserver.getEntitySetData(constants.pathToMockServer, constants.entitySet.resumes);
     //Register new response [start mockserver is required]    
-    await util.mockserver.startMockServer(constants.pathToMockServer);
+    await ui5.mockserver.startMockServer(constants.pathToMockServer);
     return dataResums[0].Information;
   },
 
