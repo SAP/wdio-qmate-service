@@ -3517,7 +3517,8 @@ Global namespace for non UI5 modules.
 
 * [nonUi5](#nonUi5)
     * [.assertion](#nonUi5.assertion)
-        * [.expectValueToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectValueToBe) ⇒ <code>Promise</code>
+        * [.expectAttributeToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe) ⇒ <code>Promise</code>
+        * [.expectValueToBe(elem, compareValue)](#nonUi5.assertion.expectValueToBe) ⇒ <code>Promise</code>
         * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible) ⇒ <code>Promise</code>
     * [.element](#nonUi5.element)
         * [.waitForAllElements(selector, [timeout])](#nonUi5.element.waitForAllElements) ⇒ <code>Array.&lt;Object&gt;</code>
@@ -3537,7 +3538,8 @@ Global namespace for non UI5 modules.
         * [.isElementPresent(elem)](#nonUi5.element.isElementPresent) ⇒ <code>Boolean</code>
         * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
         * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
-        * [.getValue(elem, [attribute])](#nonUi5.element.getValue) ⇒ <code>String</code>
+        * [.getAttributeValue(elem, [attribute])](#nonUi5.element.getAttributeValue) ⇒ <code>String</code>
+        * [.getValue(elem)](#nonUi5.element.getValue) ⇒ <code>String</code>
         * [.scrollToElement(elem, alignment)](#nonUi5.element.scrollToElement)
         * [.highlightElement(elem, [duration], [color])](#nonUi5.element.highlightElement)
         * [.switchToIframe(selector)](#nonUi5.element.switchToIframe)
@@ -3558,12 +3560,13 @@ Global namespace for non UI5 modules.
 **Kind**: static class of [<code>nonUi5</code>](#nonUi5)  
 
 * [.assertion](#nonUi5.assertion)
-    * [.expectValueToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectValueToBe) ⇒ <code>Promise</code>
+    * [.expectAttributeToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe) ⇒ <code>Promise</code>
+    * [.expectValueToBe(elem, compareValue)](#nonUi5.assertion.expectValueToBe) ⇒ <code>Promise</code>
     * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible) ⇒ <code>Promise</code>
 
-<a name="nonUi5.assertion.expectValueToBe"></a>
+<a name="nonUi5.assertion.expectAttributeToBe"></a>
 
-#### assertion.expectValueToBe(elem, compareValue, [attribute]) ⇒ <code>Promise</code>
+#### assertion.expectAttributeToBe(elem, compareValue, [attribute]) ⇒ <code>Promise</code>
 Expects the attributes value of the passed element to be the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
@@ -3578,12 +3581,30 @@ Expects the attributes value of the passed element to be the compare value.
 **Example**  
 ```js
 const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.assertion.expectValueToBe(elem, "Save");
+await nonUi5.assertion.expectAttributeToBe(elem, "Save");
 ```
 **Example**  
 ```js
 const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.assertion.expectValueToBe(element, "Save", "title");
+await nonUi5.assertion.expectAttributeToBe(element, "Save", "title");
+```
+<a name="nonUi5.assertion.expectValueToBe"></a>
+
+#### assertion.expectValueToBe(elem, compareValue) ⇒ <code>Promise</code>
+Expects the attributes value of the passed element to be the compare value.
+
+**Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
+**Returns**: <code>Promise</code> - The promise to be resolved.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+| compareValue | <code>String</code> | The compare value. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("button01");
+await nonUi5.assertion.expectValueToBe(elem, "Save");
 ```
 <a name="nonUi5.assertion.expectToBeVisible"></a>
 
@@ -3625,7 +3646,8 @@ await nonUi5.assertion.expectToBeVisible(elem);
     * [.isElementPresent(elem)](#nonUi5.element.isElementPresent) ⇒ <code>Boolean</code>
     * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
     * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
-    * [.getValue(elem, [attribute])](#nonUi5.element.getValue) ⇒ <code>String</code>
+    * [.getAttributeValue(elem, [attribute])](#nonUi5.element.getAttributeValue) ⇒ <code>String</code>
+    * [.getValue(elem)](#nonUi5.element.getValue) ⇒ <code>String</code>
     * [.scrollToElement(elem, alignment)](#nonUi5.element.scrollToElement)
     * [.highlightElement(elem, [duration], [color])](#nonUi5.element.highlightElement)
     * [.switchToIframe(selector)](#nonUi5.element.switchToIframe)
@@ -3951,9 +3973,9 @@ returns a boolean if the element is present at the DOM or not.
 ```js
 await nonUi5.element.isPresentByXPath(".//*[text()='Create']");
 ```
-<a name="nonUi5.element.getValue"></a>
+<a name="nonUi5.element.getAttributeValue"></a>
 
-#### element.getValue(elem, [attribute]) ⇒ <code>String</code>
+#### element.getAttributeValue(elem, [attribute]) ⇒ <code>String</code>
 Returns the attributes value of the passed element.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -3967,8 +3989,25 @@ Returns the attributes value of the passed element.
 **Example**  
 ```js
 const elem = await nonUi5.element.getElementById("elem01");
-const text = await nonUi5.element.getValue(elem, "text");
+const text = await nonUi5.element.getAttributeValue(elem, "text");
 ```
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("elem02");
+const innerHTML = await nonUi5.element.getAttributeValue(elem);
+```
+<a name="nonUi5.element.getValue"></a>
+
+#### element.getValue(elem) ⇒ <code>String</code>
+Returns the value of the passed element.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>String</code> - The  value of the element.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+
 **Example**  
 ```js
 const elem = await nonUi5.element.getElementById("elem02");
