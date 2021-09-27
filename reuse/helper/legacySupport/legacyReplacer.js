@@ -83,7 +83,9 @@ function replaceOldNamespacesWithNewNamespacesInFile(filePath, legacyMappingObje
       )}`,
       "g");
     const newNamespace = legacyMappingObjects[i].new;
-    fileContentNew = fileContentNew.replace(oldNamespaceRegexp, newNamespace);
+    fileContentNew = fileContentNew.replace(oldNamespaceRegexp, (match) => {
+      return `${match.charAt(0)}${newNamespace}`;
+    });
   }
   fs.writeFileSync(filePath, fileContentNew);
   if (fileContent !== fileContentNew) {
