@@ -3,7 +3,7 @@
  * @memberof service.odata
  */
 const OData = function () {
-  const util = require("util");
+  const utilModule = require("util");
   const urlLib = require("url").URL;
   const curl = require("curl");
 
@@ -258,7 +258,7 @@ const OData = function () {
       }
 
     }
-    curl.getAsync = util.promisify(curl.get);
+    curl.getAsync = utilModule.promisify(curl.get);
     return curl.getAsync(url, options);
   }
 
