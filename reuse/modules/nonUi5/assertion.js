@@ -6,7 +6,7 @@ const Assertion = function () {
 
   // =================================== PROPERTIES ===================================
   /**
-   * @function expectValueToBe
+   * @function expectAttributeToBe
    * @memberOf nonUi5.assertion
    * @description Expects the attributes value of the passed element to be the compare value.
    * @param {Object} elem - The element.
@@ -14,12 +14,27 @@ const Assertion = function () {
    * @param {String} [attribute] - The attribute to compare. If not passed, it will compare the inner HTML content of the element.
    * @returns {Promise} The promise to be resolved.
    * @example const elem = await nonUi5.element.getElementById("button01");
-   * await nonUi5.assertion.expectValueToBe(elem, "Save");
+   * await nonUi5.assertion.expectAttributeToBe(elem, "Save");
    * @example const elem = await nonUi5.element.getElementById("button01");
-   * await nonUi5.assertion.expectValueToBe(element, "Save", "title");
+   * await nonUi5.assertion.expectAttributeToBe(element, "Save", "title");
    */
-  this.expectValueToBe = async function (elem, compareValue, attribute) {
+  this.expectAttributeToBe = async function (elem, compareValue, attribute) {
     const value = await nonUi5.element.getValue(elem, attribute);
+    return common.assertion.expectEqual(value, compareValue);
+  };
+
+  /**
+   * @function expectValueToBe
+   * @memberOf nonUi5.assertion
+   * @description Expects the attributes value of the passed element to be the compare value.
+   * @param {Object} elem - The element.
+   * @param {String} compareValue - The compare value.
+   * @returns {Promise} The promise to be resolved.
+   * @example const elem = await nonUi5.element.getElementById("button01");
+   * await nonUi5.assertion.expectValueToBe(elem, "Save");
+   */
+  this.expectValueToBe = async function (elem, compareValue) {
+    const value = await this.expectAttributeToBe(elem, compareValue, "value");
     return common.assertion.expectEqual(value, compareValue);
   };
 
