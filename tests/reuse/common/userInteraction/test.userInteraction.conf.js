@@ -9,7 +9,7 @@ exports.config = merge(qmateConfig.config, {
   specs: [
     path.resolve(__dirname, "pressKey.spec.js"),
     path.resolve(__dirname, "clearAndFillActive.spec.js"),
-    path.resolve(__dirname, "clearFillActiveAndRetry.spec.js"),
+    path.resolve(__dirname, "clearAndFillActiveAndRetry.spec.js"),
     path.resolve(__dirname, "fillActive.spec.js"),
     path.resolve(__dirname, "fillActiveAndRetry.spec.js")
   ],

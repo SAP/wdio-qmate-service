@@ -181,7 +181,7 @@ const UserInteraction = function () {
   };
 
   /**
-   * @function clearFillAndRetry
+   * @function clearAndFillAndRetry
    * @memberOf ui5.userInteraction
    * @description Clears the input field with the given selector and enters the given value. Retries the action in case of a failure.
    * @param {Object} selector - The selector describing the element.
@@ -191,15 +191,15 @@ const UserInteraction = function () {
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
    * @param {Boolean} [verify=true] - Specifies if the filled value should be verified.
-   * @example await ui5.userInteraction.clearFillAndRetry(selector, "My Value");
+   * @example await ui5.userInteraction.clearAndFillAndRetry(selector, "My Value");
    */
-  this.clearFillAndRetry = async function (selector, value, index = 0, timeout = 30000, retries = 3, interval = 5000, verify = true) {
+  this.clearAndFillAndRetry = async function (selector, value, index = 0, timeout = 30000, retries = 3, interval = 5000, verify = true) {
     await util.function.retry(async (selector, value, index, timeout) => {
       await this.clearAndFill(selector, value, index, timeout);
       // if (verify) {
       //   const elemValue = await ui5.element.getValue(selector, index);
       //   if (elemValue !== value) {
-      //     throw new Error("Verification of function 'clearFillAndRetry' failed. Values could not be entered correctly.");
+      //     throw new Error("Verification of function 'clearAndFillAndRetry' failed. Values could not be entered correctly.");
       //   }
       // }
       // TODO: test failing, getValue not working

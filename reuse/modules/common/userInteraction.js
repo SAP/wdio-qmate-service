@@ -54,15 +54,15 @@ const UserInteraction = function () {
   };
 
   /**
-   * @function clearFillActiveAndRetry
+   * @function clearAndFillActiveAndRetry
    * @memberOf common.userInteraction
    * @description CClears and fills the active input. Retries the action in case of a failure.
    * @param {String} value - The value to enter.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
-   * @example await common.userInteraction.clearFillActiveAndRetry("My Value");
+   * @example await common.userInteraction.clearAndFillActiveAndRetry("My Value");
    */
-  this.clearFillActiveAndRetry = async function (value, retries = 3, interval = 5000) {
+  this.clearAndFillActiveAndRetry = async function (value, retries = 3, interval = 5000) {
     await util.function.retry(this.clearAndFillActive, [value], retries, interval, this);
   };
 

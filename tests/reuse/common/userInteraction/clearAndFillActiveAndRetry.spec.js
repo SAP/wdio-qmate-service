@@ -2,7 +2,7 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("userInteraction - clearFillActiveAndRetry", function () {
+describe("userInteraction - clearAndFillActiveAndRetry", function () {
 
   let value;
   let actualValue;
@@ -29,7 +29,7 @@ describe("userInteraction - clearFillActiveAndRetry", function () {
     const interval = 2000;
     attribute = "value";
     await ui5.userInteraction.click(selector);
-    await common.userInteraction.clearFillActiveAndRetry(value, retries, interval);
+    await common.userInteraction.clearAndFillActiveAndRetry(value, retries, interval);
 
     const quantityInput = {
       "elementProperties": {
@@ -49,7 +49,7 @@ describe("userInteraction - clearFillActiveAndRetry", function () {
   });
 });
 
-describe("userInteraction - clearFillActiveAndRetry with invalid selector", function () {
+describe("userInteraction - clearAndFillActiveAndRetry with invalid selector", function () {
 
   let value;
 
@@ -74,7 +74,7 @@ describe("userInteraction - clearFillActiveAndRetry with invalid selector", func
 
 });
 
-describe("userInteraction - clearFillActiveAndRetry with wrong element", function () {
+describe("userInteraction - clearAndFillActiveAndRetry with wrong element", function () {
 
   let value;
 
@@ -100,7 +100,7 @@ describe("userInteraction - clearFillActiveAndRetry with wrong element", functio
     const retries = 1;
     const interval = 2000;
     await ui5.userInteraction.click(selector);
-    await expect(common.userInteraction.clearFillActiveAndRetry(value, retries, interval))
+    await expect(common.userInteraction.clearAndFillActiveAndRetry(value, retries, interval))
       .rejects.toThrow("Retries done. Failed to execute the function: invalid element state: invalid element state");
   });
 });

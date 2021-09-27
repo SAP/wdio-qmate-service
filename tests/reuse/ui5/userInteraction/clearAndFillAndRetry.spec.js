@@ -2,7 +2,7 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("userInteraction - clearFillAndRetry", function () {
+describe("userInteraction - clearAndFillAndRetry", function () {
 
   let value;
   let valueAct;
@@ -25,7 +25,7 @@ describe("userInteraction - clearFillAndRetry", function () {
     const retries = 1;
     const interval = 2000;
     const attribute = "value";
-    await ui5.userInteraction.clearFillAndRetry(selector, value, index, timeout, retries, interval);
+    await ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout, retries, interval);
     const quantityInput = {
       "elementProperties": {
         "viewName": "sap.ui.comp.sample.smartfield.Overview.Main",
@@ -44,7 +44,7 @@ describe("userInteraction - clearFillAndRetry", function () {
   });
 });
 
-describe("userInteraction - clearFillAndRetry with invalid selector", function () {
+describe("userInteraction - clearAndFillAndRetry with invalid selector", function () {
 
   let value;
 
@@ -66,12 +66,12 @@ describe("userInteraction - clearFillAndRetry with invalid selector", function (
     const timeout = 30000;
     const retries = 1;
     const interval = 2000;
-    await expect(ui5.userInteraction.clearFillAndRetry(selector, value, index, timeout, retries, interval))
+    await expect(ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout, retries, interval))
       .rejects.toThrow("Retries done. Failed to execute the function");
   });
 });
 
-describe("userInteraction - clearFillAndRetry with wrong element", function () {
+describe("userInteraction - clearAndFillAndRetry with wrong element", function () {
 
   let value;
 
@@ -97,7 +97,7 @@ describe("userInteraction - clearFillAndRetry with wrong element", function () {
     const timeout = 30000;
     const retries = 1;
     const interval = 2000;
-    await expect(ui5.userInteraction.clearFillAndRetry(selector, value, index, timeout, retries, interval))
+    await expect(ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout, retries, interval))
       .rejects.toThrow("Retries done. Failed to execute the function");
   });
 });
