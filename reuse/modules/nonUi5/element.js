@@ -168,7 +168,7 @@ const Element = function () {
   this.getElementByCssContainingText = async function (selector, text = "", index = 0, timeout = 60000) {
     try {
       const elems = await this.waitForAllElements(selector, timeout);
-      return await filterElementsContainingText(elems, text, index);
+      return await _filterElementsContainingText(elems, text, index);
     } catch (error) {
       throw new Error(`Function 'getElementByCssContainingText' failed. Element with CSS "${selector}" and text value "${text}" not found. ${error}`);
     }
@@ -502,7 +502,7 @@ const Element = function () {
 
 
   // =================================== HELPER ===================================
-  async function filterElementsContainingText(elems, text, index) {
+  async function _filterElementsContainingText(elems, text, index) {
     const elemsWithTxt = elems.filter(async function (elem) {
       if (await elem.isDisplayed()) {
         const sText = await elem.getText();

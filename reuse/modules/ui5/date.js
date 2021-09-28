@@ -15,8 +15,8 @@ const DateModule = function () {
    * await ui5.date.pickDate(selector, date);
    */
   this.pickDate = async function (selector, date) {
-    await openDatePicker(selector);
-    await selectDate(selector, date);
+    await _openDatePicker(selector);
+    await _selectDate(selector, date);
   };
 
   /**
@@ -32,9 +32,9 @@ const DateModule = function () {
    * await ui5.date.pickDateRange(selector, range);
    */
   this.pickDateRange = async function (selector, range) {
-    await openDatePicker(selector);
-    await selectDate(selector, range[0]);
-    await selectDate(selector, range[1]);
+    await _openDatePicker(selector);
+    await _selectDate(selector, range[0]);
+    await _selectDate(selector, range[1]);
   };
 
   // =================================== FILL ===================================
@@ -56,7 +56,7 @@ const DateModule = function () {
 
 
   // =================================== HELPER ===================================
-  async function openDatePicker(selector) {
+  async function _openDatePicker(selector) {
     if (selector.elementProperties.metadata === "sap.ui.core.Icon") {
       await ui5.userInteraction.click(selector);
     } else if (selector.elementProperties.metadata === "sap.m.DatePicker") {
@@ -66,7 +66,7 @@ const DateModule = function () {
     }
   }
 
-  async function selectDate(selector, date) {
+  async function _selectDate(selector, date) {
     const year = date.getFullYear();
     const month = date.getMonth();
     const day = date.getDay();

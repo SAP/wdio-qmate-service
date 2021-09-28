@@ -143,7 +143,7 @@ const UserInteraction = function () {
    * @example await ui5.userInteraction.clear(selector);
    */
   this.clear = async function (selector, index = 0, timeout = 30000) {
-    await clearHelper(selector, index, timeout);
+    await _clearHelper(selector, index, timeout);
   };
 
   /**
@@ -457,7 +457,7 @@ const UserInteraction = function () {
 
 
   // =================================== HELPER ===================================
-  async function clearHelper(selector, index = 0, timeout = 30000) {
+  async function _clearHelper(selector, index = 0, timeout = 30000) {
     let id, elem;
     if (selector) {
       await ui5.userInteraction.click(selector, index, timeout);
