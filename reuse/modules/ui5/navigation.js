@@ -137,6 +137,48 @@ const Navigation = function () {
     }
   };
 
+
+  // =================================== ASSERTION ===================================
+  /**
+   * @function expectUnsupportedNavigationPopup
+   * @memberOf ui5.navigation
+   * @description Expects navigation to an app that is not supported.
+   * This can be the case for Mocked tests when the application does not exist or when the app is not included in a role.
+   * @param {String} navigationTarget - The selector describing the element.
+   * @example await ui5.navigation.expectUnsupportedNavigationPopup("#SupplierInvoice-display?FiscalYear=1234&SupplierInvoice=1234567890");
+   */
+  this.expectUnsupportedNavigationPopup = async function (navigationTarget) {
+    const missingNavigationPopup = {
+      "elementProperties": {
+        "metadata": "sap.m.Dialog",
+        "type": "Message",
+        "state": "Error"
+      }
+    };
+    await ui5.assertion.expectToBeVisible(missingNavigationPopup);
+
+    const moreDetailsButton = {
+      "elementProperties": {
+        "metadata": "sap.m.Link",
+        "ancestor": missingNavigationPopup
+      }
+    };
+    await ui5.userInteraction.click(moreDetailsButton);
+
+    const selector = {
+      "elementProperties": {
+        "metadata": "sap.m.FormattedText",
+        "ancestorProperties": missingNavigationPopup
+      }
+    };
+    const detailsTextElement = await ui5.element.getDisplayedElement(selector);
+    const dataHtmlText = await detailsTextElement.getAttribute("data-htmltext");
+    const stringExists = await dataHtmlText.includes(navigationTarget.replace(/&/g, "&amp;"));
+
+    return common.assertion.expectTrue(stringExists);
+  };
+
+
   // =================================== PRIVATE ===================================
   function _generateUrlParams() {
     let urlParams;
