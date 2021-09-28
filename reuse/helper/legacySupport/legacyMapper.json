@@ -164,6 +164,14 @@
     "new": "ui5.element.getAttributeValue"
   },
   {
+    "old": "ui5.common.messageBox",
+    "new": "ui5.footerBar"
+  },
+  {
+    "old": "ui5.common.messageBox.closeMessageBox",
+    "new": "ui5.footerBar.clickCloseMessageBox"
+  },
+  {
     "old": "ui5.common.navigation.navigateToUrl",
     "new": "common.navigation.navigateToUrl"
   },

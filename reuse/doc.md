@@ -1285,11 +1285,6 @@ Global namespace for UI5 modules.
         * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
         * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
         * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
-    * [.messageBox](#ui5.messageBox) : <code>object</code>
-        * [.clickMessageBoxButton()](#ui5.messageBox.clickMessageBoxButton)
-        * [.closeMessageBox()](#ui5.messageBox.closeMessageBox)
-        * [.expectMessageBoxToBeVisible()](#ui5.messageBox.expectMessageBoxToBeVisible)
-        * [.isMessageBoxVisible()](#ui5.messageBox.isMessageBoxVisible) ⇒ <code>Boolean</code>
 
 <a name="ui5.assertion"></a>
 
@@ -3404,58 +3399,6 @@ Resets the search field.
 **Example**  
 ```js
 await ui5.userInteraction.resetSearch(selector);
-```
-<a name="ui5.messageBox"></a>
-
-### ui5.messageBox : <code>object</code>
-**Kind**: static namespace of [<code>ui5</code>](#ui5)  
-
-* [.messageBox](#ui5.messageBox) : <code>object</code>
-    * [.clickMessageBoxButton()](#ui5.messageBox.clickMessageBoxButton)
-    * [.closeMessageBox()](#ui5.messageBox.closeMessageBox)
-    * [.expectMessageBoxToBeVisible()](#ui5.messageBox.expectMessageBoxToBeVisible)
-    * [.isMessageBoxVisible()](#ui5.messageBox.isMessageBoxVisible) ⇒ <code>Boolean</code>
-
-<a name="ui5.messageBox.clickMessageBoxButton"></a>
-
-#### messageBox.clickMessageBoxButton()
-Opens the message box by clicking the button at the footer bar.
-
-**Kind**: static method of [<code>messageBox</code>](#ui5.messageBox)  
-**Example**  
-```js
-await ui5.messageBox.clickMessageBoxButton();
-```
-<a name="ui5.messageBox.closeMessageBox"></a>
-
-#### messageBox.closeMessageBox()
-Closes the message box.
-
-**Kind**: static method of [<code>messageBox</code>](#ui5.messageBox)  
-**Example**  
-```js
-await ui5.messageBox.closeMessageBox();
-```
-<a name="ui5.messageBox.expectMessageBoxToBeVisible"></a>
-
-#### messageBox.expectMessageBoxToBeVisible()
-Expects the MessageBox to be visible.
-
-**Kind**: static method of [<code>messageBox</code>](#ui5.messageBox)  
-**Example**  
-```js
-await ui5.messageBox.expectMessageBoxToBeVisible();
-```
-<a name="ui5.messageBox.isMessageBoxVisible"></a>
-
-#### messageBox.isMessageBoxVisible() ⇒ <code>Boolean</code>
-Determines if the messageBox is visible.
-
-**Kind**: static method of [<code>messageBox</code>](#ui5.messageBox)  
-**Returns**: <code>Boolean</code> - Bool value if the element is visible or not.  
-**Example**  
-```js
-await ui5.messageBox.isMessageBoxVisible();
 ```
 <a name="nonUi5"></a>
 
