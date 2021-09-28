@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @class date
  * @memberof ui5

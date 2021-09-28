@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @class qunit  
  * @memberof ui5

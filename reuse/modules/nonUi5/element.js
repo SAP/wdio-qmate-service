@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @class element
  * @memberof nonUi5

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @class errorDialog
  * @memberof ui5
