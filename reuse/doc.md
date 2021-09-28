@@ -1223,8 +1223,6 @@ Global namespace for UI5 modules.
         * [.clickPost([timeout])](#ui5.footerBar.clickPost)
         * [.clickAdd([timeout])](#ui5.footerBar.clickAdd)
     * [.mockserver](#ui5.mockserver)
-        * [.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])](#ui5.mockserver.navigateToApplicationWithQueryParams)
-        * [.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])](#ui5.mockserver.navigateToApplicationWithQueryParamsAndRetry)
         * [.waitForUi5ApplicationLoad(interval)](#ui5.mockserver.waitForUi5ApplicationLoad)
         * [.interactWithMockServer(mockServerPath, fnCallback, oParams)](#ui5.mockserver.interactWithMockServer)
         * [.attachFunctionBefore(method, mockServerPath, fnBeforeCallback, oParams)](#ui5.mockserver.attachFunctionBefore)
@@ -1244,6 +1242,8 @@ Global namespace for UI5 modules.
         * [.navigateToApplicationAndRetry(intent, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationAndRetry)
         * [.navigateToSystemAndApplication(system, intent, [closePopups], [verify])](#ui5.navigation.navigateToSystemAndApplication)
         * [.navigateToSystemAndApplicationAndRetry(system, intent, [closePopups], [verify], [retries], [interval])](#ui5.navigation.navigateToSystemAndApplicationAndRetry)
+        * [.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])](#ui5.navigation.navigateToApplicationWithQueryParams)
+        * [.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationWithQueryParamsAndRetry)
         * [.closePopups([timeout])](#ui5.navigation.closePopups)
         * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.navigation.expectUnsupportedNavigationPopup)
     * [.navigationBar](#ui5.navigationBar)
@@ -2316,8 +2316,6 @@ await ui5.footerBar.clickAdd();
 **Kind**: static class of [<code>ui5</code>](#ui5)  
 
 * [.mockserver](#ui5.mockserver)
-    * [.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])](#ui5.mockserver.navigateToApplicationWithQueryParams)
-    * [.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])](#ui5.mockserver.navigateToApplicationWithQueryParamsAndRetry)
     * [.waitForUi5ApplicationLoad(interval)](#ui5.mockserver.waitForUi5ApplicationLoad)
     * [.interactWithMockServer(mockServerPath, fnCallback, oParams)](#ui5.mockserver.interactWithMockServer)
     * [.attachFunctionBefore(method, mockServerPath, fnBeforeCallback, oParams)](#ui5.mockserver.attachFunctionBefore)
@@ -2333,44 +2331,6 @@ await ui5.footerBar.clickAdd();
     * [.getEntitySetData(mockServerPath, entitySetName)](#ui5.mockserver.getEntitySetData) ⇒ <code>Array</code>
     * [.setEntitySetData(mockServerPath, entitySetName, entries)](#ui5.mockserver.setEntitySetData)
 
-<a name="ui5.mockserver.navigateToApplicationWithQueryParams"></a>
-
-#### mockserver.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])
-Navigates to the application with the passed queryParams via the passed intent.
-
-**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| intent | <code>String</code> |  | The intent of the app. |
-| queryParams | <code>String</code> |  | [OPTIONAL] Add url query params. |
-| [preventPopups] | <code>Boolean</code> | <code>false</code> | Specifies if random popup appearance should be prevented. |
-| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the url should be asserted after the navigation. |
-
-**Example**  
-```js
-const intent = ui5.appIntents.managePurchaseOrders;const queryParams = "?sap-language=EN&responderOn=true";await ui5.mockserver.navigateToApplicationWithQueryParams(intent, queryParams);
-```
-<a name="ui5.mockserver.navigateToApplicationWithQueryParamsAndRetry"></a>
-
-#### mockserver.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])
-Navigates to the application via the passed intent, and retries in case it fails.
-
-**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| intent | <code>String</code> |  | The intent of the app. |
-| queryParams | <code>String</code> |  | [OPTIONAL] Add url query params. |
-| [preventPopups] | <code>Boolean</code> | <code>false</code> | Specifies if random popup appearance should be prevented. |
-| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the url should be asserted after the navigation. |
-| [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
-| [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
-
-**Example**  
-```js
-const intent = ui5.appIntents.managePurchaseOrders;const queryParams = "?sap-language=EN&responderOn=true";await ui5.mockserver.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
-```
 <a name="ui5.mockserver.waitForUi5ApplicationLoad"></a>
 
 #### mockserver.waitForUi5ApplicationLoad(interval)
@@ -2622,6 +2582,8 @@ await ui5.mockserver.setEntitySetData("path/to/project/localService/main/mockser
     * [.navigateToApplicationAndRetry(intent, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationAndRetry)
     * [.navigateToSystemAndApplication(system, intent, [closePopups], [verify])](#ui5.navigation.navigateToSystemAndApplication)
     * [.navigateToSystemAndApplicationAndRetry(system, intent, [closePopups], [verify], [retries], [interval])](#ui5.navigation.navigateToSystemAndApplicationAndRetry)
+    * [.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])](#ui5.navigation.navigateToApplicationWithQueryParams)
+    * [.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationWithQueryParamsAndRetry)
     * [.closePopups([timeout])](#ui5.navigation.closePopups)
     * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.navigation.expectUnsupportedNavigationPopup)
 
@@ -2698,6 +2660,44 @@ Navigates within the passed system to the application via the passed intent, and
 **Example**  
 ```js
 await ui5.navigation.navigateToSystemAndApplicationAndRetry("cc2-715.wdf.sap.corp", "PurchaseOrder-manage");
+```
+<a name="ui5.navigation.navigateToApplicationWithQueryParams"></a>
+
+#### navigation.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])
+Navigates to the application with the passed queryParams via the passed intent.
+
+**Kind**: static method of [<code>navigation</code>](#ui5.navigation)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| intent | <code>String</code> |  | The intent of the app. |
+| queryParams | <code>String</code> |  | [OPTIONAL] Add url query params. |
+| [preventPopups] | <code>Boolean</code> | <code>false</code> | Specifies if random popup appearance should be prevented. |
+| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the url should be asserted after the navigation. |
+
+**Example**  
+```js
+const intent = ui5.appIntents.managePurchaseOrders;const queryParams = "?sap-language=EN&responderOn=true";await ui5.navigation.navigateToApplicationWithQueryParams(intent, queryParams);
+```
+<a name="ui5.navigation.navigateToApplicationWithQueryParamsAndRetry"></a>
+
+#### navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])
+Navigates to the application via the passed intent, and retries in case it fails.
+
+**Kind**: static method of [<code>navigation</code>](#ui5.navigation)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| intent | <code>String</code> |  | The intent of the app. |
+| queryParams | <code>String</code> |  | [OPTIONAL] Add url query params. |
+| [preventPopups] | <code>Boolean</code> | <code>false</code> | Specifies if random popup appearance should be prevented. |
+| [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the url should be asserted after the navigation. |
+| [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
+| [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
+
+**Example**  
+```js
+const intent = ui5.appIntents.managePurchaseOrders;const queryParams = "?sap-language=EN&responderOn=true";await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
 ```
 <a name="ui5.navigation.closePopups"></a>
 
