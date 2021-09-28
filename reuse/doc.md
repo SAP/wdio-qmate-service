@@ -3490,7 +3490,10 @@ Global namespace for non UI5 modules.
         * [.switchToIframe(selector)](#nonUi5.element.switchToIframe)
         * [.switchToDefaultContent()](#nonUi5.element.switchToDefaultContent)
     * [.userInteraction](#nonUi5.userInteraction)
+        * [.click(element, [timeout])](#nonUi5.userInteraction.click)
         * [.clickAndRetry(element, [timeout], [retries], [interval])](#nonUi5.userInteraction.clickAndRetry)
+        * [.doubleClick(element, [timeout])](#nonUi5.userInteraction.doubleClick)
+        * [.rightClick(element, [timeout])](#nonUi5.userInteraction.rightClick)
         * [.fill(element, value)](#nonUi5.userInteraction.fill)
         * [.fillAndRetry(element, value, [retries], [interval])](#nonUi5.userInteraction.fillAndRetry)
         * [.clear(element)](#nonUi5.userInteraction.clear)
@@ -4014,7 +4017,10 @@ await nonUi5.element.switchToDefaultContent();
 **Kind**: static class of [<code>nonUi5</code>](#nonUi5)  
 
 * [.userInteraction](#nonUi5.userInteraction)
+    * [.click(element, [timeout])](#nonUi5.userInteraction.click)
     * [.clickAndRetry(element, [timeout], [retries], [interval])](#nonUi5.userInteraction.clickAndRetry)
+    * [.doubleClick(element, [timeout])](#nonUi5.userInteraction.doubleClick)
+    * [.rightClick(element, [timeout])](#nonUi5.userInteraction.rightClick)
     * [.fill(element, value)](#nonUi5.userInteraction.fill)
     * [.fillAndRetry(element, value, [retries], [interval])](#nonUi5.userInteraction.fillAndRetry)
     * [.clear(element)](#nonUi5.userInteraction.clear)
@@ -4023,6 +4029,22 @@ await nonUi5.element.switchToDefaultContent();
     * [.dragAndDrop(element, targetElem)](#nonUi5.userInteraction.dragAndDrop)
     * [.clickChartPart(element)](#nonUi5.userInteraction.clickChartPart)
 
+<a name="nonUi5.userInteraction.click"></a>
+
+#### userInteraction.click(element, [timeout])
+Clicks on the passed element.
+
+**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| element | <code>Object</code> |  | The element. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.userInteraction.click(elem);
+```
 <a name="nonUi5.userInteraction.clickAndRetry"></a>
 
 #### userInteraction.clickAndRetry(element, [timeout], [retries], [interval])
@@ -4040,6 +4062,38 @@ Clicks on the passed element, retries in case it fails.
 **Example**  
 ```js
 const elem = await nonUi5.element.getElementById("button01");await nonUi5.userInteraction.clickAndRetry(elem);
+```
+<a name="nonUi5.userInteraction.doubleClick"></a>
+
+#### userInteraction.doubleClick(element, [timeout])
+Double Clicks on the passed element.
+
+**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| element | <code>Object</code> |  | The element. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.userInteraction.doubleClick(elem);
+```
+<a name="nonUi5.userInteraction.rightClick"></a>
+
+#### userInteraction.rightClick(element, [timeout])
+Right Clicks on the passed element.
+
+**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| element | <code>Object</code> |  | The element. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.userInteraction.rightClick(elem);
 ```
 <a name="nonUi5.userInteraction.fill"></a>
 
