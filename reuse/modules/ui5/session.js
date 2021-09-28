@@ -227,6 +227,20 @@ const Session = function () {
   };
 
 
+  // =================================== ASSERTION ===================================
+  /**
+   * @function expectLogoutText
+   * @memberOf ui5.session
+   * @description Expects the logout text after logout to be "You have been logged off.
+   * This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
+   * @example await ui5.session.expectLogoutText();
+   */
+  this.expectLogoutText = async function () {
+    const elem = await nonUi5.element.getElementById("msgText");
+    await nonUi5.assertion.expectToBeVisible(elem);
+  };
+
+
   // =================================== HELPER ===================================
   async function _loginWithUsernameAndPassword(username, password = "super-duper-sensitive-pw", authenticator = ui5.authenticators.fioriForm, verify = false) {
     let usernameField = null;

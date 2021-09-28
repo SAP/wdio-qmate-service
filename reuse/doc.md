@@ -1175,10 +1175,6 @@ Global namespace for UI5 modules.
         * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible)
         * [.expectToBeVisibleInViewport(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisibleInViewport)
         * [.expectToBeNotVisible(selector, [index], [timeout])](#ui5.assertion.expectToBeNotVisible)
-        * [.expectPageTitle(compareValue)](#ui5.assertion.expectPageTitle)
-        * [.expectShellHeader()](#ui5.assertion.expectShellHeader)
-        * [.expectLogoutText()](#ui5.assertion.expectLogoutText)
-        * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.assertion.expectUnsupportedNavigationPopup)
         * [.expectMessageToastText(text, [timeout])](#ui5.assertion.expectMessageToastText)
     * [.confirmationDialog](#ui5.confirmationDialog)
         * [.clickButton(text, [timeout])](#ui5.confirmationDialog.clickButton)
@@ -1249,10 +1245,13 @@ Global namespace for UI5 modules.
         * [.navigateToSystemAndApplication(system, intent, [closePopups], [verify])](#ui5.navigation.navigateToSystemAndApplication)
         * [.navigateToSystemAndApplicationAndRetry(system, intent, [closePopups], [verify], [retries], [interval])](#ui5.navigation.navigateToSystemAndApplicationAndRetry)
         * [.closePopups([timeout])](#ui5.navigation.closePopups)
+        * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.navigation.expectUnsupportedNavigationPopup)
     * [.navigationBar](#ui5.navigationBar)
         * [.clickBack([timeout])](#ui5.navigationBar.clickBack)
         * [.clickSapLogo([timeout])](#ui5.navigationBar.clickSapLogo)
         * [.clickUserIcon([timeout])](#ui5.navigationBar.clickUserIcon)
+        * [.expectPageTitle(compareValue)](#ui5.navigationBar.expectPageTitle)
+        * [.expectShellHeader()](#ui5.navigationBar.expectShellHeader)
     * [.qunit](#ui5.qunit)
         * [.executeTests(path)](#ui5.qunit.executeTests)
     * [.session](#ui5.session)
@@ -1262,6 +1261,7 @@ Global namespace for UI5 modules.
         * [.loginCustom(username, [password], usernameFieldSelector, passwordFieldSelector, logonButtonSelector, [verify])](#ui5.session.loginCustom)
         * [.loginCustomViaConfig(username, password, [verify])](#ui5.session.loginCustomViaConfig)
         * [.logout([verify])](#ui5.session.logout)
+        * [.expectLogoutText()](#ui5.session.expectLogoutText)
     * [.userInteraction](#ui5.userInteraction)
         * [.click(selector, [index], [timeout])](#ui5.userInteraction.click)
         * [.clickAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clickAndRetry)
@@ -1311,10 +1311,6 @@ Global namespace for UI5 modules.
     * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible)
     * [.expectToBeVisibleInViewport(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisibleInViewport)
     * [.expectToBeNotVisible(selector, [index], [timeout])](#ui5.assertion.expectToBeNotVisible)
-    * [.expectPageTitle(compareValue)](#ui5.assertion.expectPageTitle)
-    * [.expectShellHeader()](#ui5.assertion.expectShellHeader)
-    * [.expectLogoutText()](#ui5.assertion.expectLogoutText)
-    * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.assertion.expectUnsupportedNavigationPopup)
     * [.expectMessageToastText(text, [timeout])](#ui5.assertion.expectMessageToastText)
 
 <a name="ui5.assertion.expectAttributeToBe"></a>
@@ -1576,56 +1572,6 @@ Expects that the element is not visible to the user.
 **Example**  
 ```js
 await ui5.assertion.expectToBeNotVisible(selector);
-```
-<a name="ui5.assertion.expectPageTitle"></a>
-
-#### assertion.expectPageTitle(compareValue)
-Expects the page title of the current page to be the compare value.
-
-**Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| compareValue | <code>String</code> | The compare value. |
-
-**Example**  
-```js
-await ui5.assertion.expectPageTitle("Home");
-```
-<a name="ui5.assertion.expectShellHeader"></a>
-
-#### assertion.expectShellHeader()
-Expects the shell header to be visible
-
-**Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Example**  
-```js
-await ui5.assertion.expectShellHeader();
-```
-<a name="ui5.assertion.expectLogoutText"></a>
-
-#### assertion.expectLogoutText()
-Expects the logout text after logout to be "You have been logged off.This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
-
-**Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Example**  
-```js
-await ui5.assertion.expectLogoutText();
-```
-<a name="ui5.assertion.expectUnsupportedNavigationPopup"></a>
-
-#### assertion.expectUnsupportedNavigationPopup(navigationTarget)
-Expects navigation to an app that is not supported.This can be the case for Mocked tests when the application does not exist or when the app is not included in a role.
-
-**Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| navigationTarget | <code>String</code> | The selector describing the element. |
-
-**Example**  
-```js
-await ui5.assertion.expectUnsupportedNavigationPopup("#SupplierInvoice-display?FiscalYear=1234&SupplierInvoice=1234567890");
 ```
 <a name="ui5.assertion.expectMessageToastText"></a>
 
@@ -2677,6 +2623,7 @@ await ui5.mockserver.setEntitySetData("path/to/project/localService/main/mockser
     * [.navigateToSystemAndApplication(system, intent, [closePopups], [verify])](#ui5.navigation.navigateToSystemAndApplication)
     * [.navigateToSystemAndApplicationAndRetry(system, intent, [closePopups], [verify], [retries], [interval])](#ui5.navigation.navigateToSystemAndApplicationAndRetry)
     * [.closePopups([timeout])](#ui5.navigation.closePopups)
+    * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.navigation.expectUnsupportedNavigationPopup)
 
 <a name="ui5.navigation.navigateToApplication"></a>
 
@@ -2767,6 +2714,21 @@ Closes all popups if they occur after navigating to a specific page.
 ```js
 await ui5.navigation.closePopups();
 ```
+<a name="ui5.navigation.expectUnsupportedNavigationPopup"></a>
+
+#### navigation.expectUnsupportedNavigationPopup(navigationTarget)
+Expects navigation to an app that is not supported.This can be the case for Mocked tests when the application does not exist or when the app is not included in a role.
+
+**Kind**: static method of [<code>navigation</code>](#ui5.navigation)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| navigationTarget | <code>String</code> | The selector describing the element. |
+
+**Example**  
+```js
+await ui5.navigation.expectUnsupportedNavigationPopup("#SupplierInvoice-display?FiscalYear=1234&SupplierInvoice=1234567890");
+```
 <a name="ui5.navigationBar"></a>
 
 ### ui5.navigationBar
@@ -2776,6 +2738,8 @@ await ui5.navigation.closePopups();
     * [.clickBack([timeout])](#ui5.navigationBar.clickBack)
     * [.clickSapLogo([timeout])](#ui5.navigationBar.clickSapLogo)
     * [.clickUserIcon([timeout])](#ui5.navigationBar.clickUserIcon)
+    * [.expectPageTitle(compareValue)](#ui5.navigationBar.expectPageTitle)
+    * [.expectShellHeader()](#ui5.navigationBar.expectShellHeader)
 
 <a name="ui5.navigationBar.clickBack"></a>
 
@@ -2822,6 +2786,31 @@ Clicks at the Account Icon.
 ```js
 await ui5.navigationBar.clickUserIcon();
 ```
+<a name="ui5.navigationBar.expectPageTitle"></a>
+
+#### navigationBar.expectPageTitle(compareValue)
+Expects the page title of the current page to be the compare value.
+
+**Kind**: static method of [<code>navigationBar</code>](#ui5.navigationBar)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| compareValue | <code>String</code> | The compare value. |
+
+**Example**  
+```js
+await ui5.navigationBar.expectPageTitle("Home");
+```
+<a name="ui5.navigationBar.expectShellHeader"></a>
+
+#### navigationBar.expectShellHeader()
+Expects the shell header to be visible
+
+**Kind**: static method of [<code>navigationBar</code>](#ui5.navigationBar)  
+**Example**  
+```js
+await ui5.navigationBar.expectShellHeader();
+```
 <a name="ui5.qunit"></a>
 
 ### ui5.qunit
@@ -2853,6 +2842,7 @@ await ui5.qunit.executeTests("path/to/qunit.html");
     * [.loginCustom(username, [password], usernameFieldSelector, passwordFieldSelector, logonButtonSelector, [verify])](#ui5.session.loginCustom)
     * [.loginCustomViaConfig(username, password, [verify])](#ui5.session.loginCustomViaConfig)
     * [.logout([verify])](#ui5.session.logout)
+    * [.expectLogoutText()](#ui5.session.expectLogoutText)
 
 <a name="ui5.session.login"></a>
 
@@ -2982,6 +2972,16 @@ Logs the user out.
 **Example**  
 ```js
 await ui5.session.logout();
+```
+<a name="ui5.session.expectLogoutText"></a>
+
+#### session.expectLogoutText()
+Expects the logout text after logout to be "You have been logged off.This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
+
+**Kind**: static method of [<code>session</code>](#ui5.session)  
+**Example**  
+```js
+await ui5.session.expectLogoutText();
 ```
 <a name="ui5.userInteraction"></a>
 

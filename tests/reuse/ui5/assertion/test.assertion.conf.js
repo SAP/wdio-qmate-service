@@ -20,9 +20,6 @@ exports.config = merge(qmateConfiguration.config, {
     path.resolve(__dirname, "expectToBeEnabled.spec.js"),
     path.resolve(__dirname, "expectToBeVisible.spec.js"),
     path.resolve(__dirname, "expectToBeNotVisible.spec.js"),
-    path.resolve(__dirname, "expectPageTitle.spec.js"),
-    path.resolve(__dirname, "expectShellHeader.spec.js"),
-    path.resolve(__dirname, "expectUnsupportedNavigationPopup.spec.js"),
     path.resolve(__dirname, "expectToBeVisibleInViewport.spec.js")
   ],
 

@@ -64,6 +64,22 @@
     "new": "common.assertion.expectUrlToBe"
   },
   {
+    "old": "ui5.common.assertion.expectLogoutText",
+    "new": "ui5.session.expectLogoutText"
+  },
+  {
+    "old": "ui5.common.assertion.expectShellHeader",
+    "new": "ui5.navigationBar.expectShellHeader"
+  },
+  {
+    "old": "ui5.common.assertion.expectPageTitle",
+    "new": "ui5.navigationBar.expectPageTitle"
+  },
+  {
+    "old": "ui5.common.assertion.expectUnsupportedNavigationPopup",
+    "new": "ui5.navigation.expectUnsupportedNavigationPopup"
+  },
+  {
     "old": "ui5.common.client",
     "new": "ui5.control"
   },
