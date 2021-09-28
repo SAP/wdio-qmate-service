@@ -2,6 +2,23 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
+describe("userInteraction - pressKey - single key", function () {
+
+  it("Execution", async function () {
+    await common.userInteraction.pressKey("Enter");
+    await common.userInteraction.pressKey("\uE007");
+  });
+
+});
+
+describe("userInteraction - pressKey - multiple keys", function () {
+
+  it("Execution", async function () {
+    await common.userInteraction.pressKey("\uE007", "\uE004");
+  });
+
+});
+
 describe("userInteraction - pressEnter", function () {
 
   it("Execution", async function () {

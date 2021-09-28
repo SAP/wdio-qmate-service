@@ -70,6 +70,18 @@ const UserInteraction = function () {
 
   // =================================== KEYS ===================================
   /**
+   * @function pressKey
+   * @memberOf common.userInteraction
+   * @description Performs the specified keypress. Possible values: https://w3c.github.io/webdriver/#keyboard-actions
+   * @param {String} keys - The key or combination of keys to execute.
+   * @example await common.userInteraction.pressKey("Clear");
+   * @example await common.userInteraction.pressKey("\uE009", "\uE00A", "KeyD");
+   */
+  this.pressKey = async function (...keys) {
+    await browser.keys(keys);
+  };
+
+  /**
    * @function pressEnter
    * @memberOf common.userInteraction
    * @description Performs the Enter keypress.
