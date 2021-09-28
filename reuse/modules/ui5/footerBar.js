@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @class footerBar
  * @memberof ui5

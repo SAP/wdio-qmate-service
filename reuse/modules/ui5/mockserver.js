@@ -4,6 +4,7 @@
 // E.g. `await lib.mockServerActionInBrowser(function (mockserver, method, fnAfterCallbackAsString, oParams, done){...})`
 // It is not required to check the type (function or string) - toString() function can be applied to a string too.
 
+"use strict";
 /**
  * @class mockserver  
  * @memberof ui5
