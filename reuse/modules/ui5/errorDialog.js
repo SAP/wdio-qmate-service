@@ -24,12 +24,12 @@ const ErrorDialog = function () {
   };
 
   /**
-   * @function expectErrorDialogToBeVisible
+   * @function expectToBeVisible
    * @memberOf ui5.errorDialog
    * @description Expects that the error dialog is visible on the page.
-   * @example await ui5.errorDialog.expectErrorDialogToBeVisible();
+   * @example await ui5.errorDialog.expectToBeVisible();
    */
-  this.expectErrorDialogToBeVisible = async function () {
+  this.expectToBeVisible = async function () {
     await ui5.assertion.expectToBeVisible(this.selectors.errorDialog);
   };
 

@@ -20,7 +20,8 @@ exports.config = merge(qmateConfiguration.config, {
     path.resolve(__dirname, "expectToBeEnabled.spec.js"),
     path.resolve(__dirname, "expectToBeVisible.spec.js"),
     path.resolve(__dirname, "expectToBeNotVisible.spec.js"),
-    path.resolve(__dirname, "expectToBeVisibleInViewport.spec.js")
+    path.resolve(__dirname, "expectToBeVisibleInViewport.spec.js"),
+    path.resolve(__dirname, "expectMessageToastTextToBe.spec.js")
   ],
 
   exclude: [],
