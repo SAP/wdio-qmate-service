@@ -33,7 +33,7 @@ Global namespace for common modules.
         * [.expectFalse(value)](#common.assertion.expectFalse)
         * [.expectDefined(value)](#common.assertion.expectDefined)
         * [.expectUndefined(value)](#common.assertion.expectUndefined)
-        * [.expectUrlToBe()](#common.assertion.expectUrlToBe) ⇒ <code>Promise</code>
+        * [.expectUrlToBe()](#common.assertion.expectUrlToBe)
     * [.date](#common.date)
         * [.getToday([format])](#common.date.getToday) ⇒ <code>String</code>
         * [.getTomorrow([format])](#common.date.getTomorrow) ⇒ <code>String</code>
@@ -72,7 +72,7 @@ Global namespace for common modules.
     * [.expectFalse(value)](#common.assertion.expectFalse)
     * [.expectDefined(value)](#common.assertion.expectDefined)
     * [.expectUndefined(value)](#common.assertion.expectUndefined)
-    * [.expectUrlToBe()](#common.assertion.expectUrlToBe) ⇒ <code>Promise</code>
+    * [.expectUrlToBe()](#common.assertion.expectUrlToBe)
 
 <a name="common.assertion.expectEqual"></a>
 
@@ -168,11 +168,10 @@ common.assertion.expectUndefined(value);
 ```
 <a name="common.assertion.expectUrlToBe"></a>
 
-#### assertion.expectUrlToBe() ⇒ <code>Promise</code>
+#### assertion.expectUrlToBe()
 Expects the url to be the passed value.
 
 **Kind**: static method of [<code>assertion</code>](#common.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 **Example**  
 ```js
 await common.assertion.expectUrlToBe("www.sap.com");
@@ -1158,25 +1157,25 @@ Global namespace for UI5 modules.
 
 * [ui5](#ui5)
     * [.assertion](#ui5.assertion)
-        * [.expectAttributeToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectAttributeToBe) ⇒ <code>Promise</code>
-        * [.expectAttributeToContain(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectAttributeToContain) ⇒ <code>Promise</code>
-        * [.expectTextToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectTextToBe) ⇒ <code>Promise</code>
-        * [.expectValueToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValueToBe) ⇒ <code>Promise</code>
-        * [.expectValueToBeDefined(selector, [index], [timeout])](#ui5.assertion.expectValueToBeDefined) ⇒ <code>Promise</code>
-        * [.expectToBeNotEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeNotEnabled) ⇒ <code>Promise</code>
-        * [.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeEnabled) ⇒ <code>Promise</code>
-        * [.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationError) ⇒ <code>Promise</code>
-        * [.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationSuccess) ⇒ <code>Promise</code>
-        * [.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingPathToBe) ⇒ <code>Promise</code>
-        * [.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingContextPathToBe) ⇒ <code>Promise</code>
-        * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible) ⇒ <code>Promise</code>
-        * [.expectToBeVisibleInViewport(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisibleInViewport) ⇒ <code>Promise</code>
-        * [.expectToBeNotVisible(selector, [index], [timeout])](#ui5.assertion.expectToBeNotVisible) ⇒ <code>Promise</code>
-        * [.expectPageTitle(compareValue)](#ui5.assertion.expectPageTitle) ⇒ <code>Promise</code>
-        * [.expectShellHeader()](#ui5.assertion.expectShellHeader) ⇒ <code>Promise</code>
-        * [.expectLogoutText()](#ui5.assertion.expectLogoutText) ⇒ <code>Promise</code>
-        * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.assertion.expectUnsupportedNavigationPopup) ⇒ <code>Promise</code>
-        * [.expectMessageToastText(text, [timeout])](#ui5.assertion.expectMessageToastText) ⇒ <code>Promise</code>
+        * [.expectAttributeToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectAttributeToBe)
+        * [.expectAttributeToContain(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectAttributeToContain)
+        * [.expectTextToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectTextToBe)
+        * [.expectValueToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValueToBe)
+        * [.expectValueToBeDefined(selector, [index], [timeout])](#ui5.assertion.expectValueToBeDefined)
+        * [.expectToBeNotEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeNotEnabled)
+        * [.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeEnabled)
+        * [.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationError)
+        * [.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationSuccess)
+        * [.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingPathToBe)
+        * [.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingContextPathToBe)
+        * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible)
+        * [.expectToBeVisibleInViewport(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisibleInViewport)
+        * [.expectToBeNotVisible(selector, [index], [timeout])](#ui5.assertion.expectToBeNotVisible)
+        * [.expectPageTitle(compareValue)](#ui5.assertion.expectPageTitle)
+        * [.expectShellHeader()](#ui5.assertion.expectShellHeader)
+        * [.expectLogoutText()](#ui5.assertion.expectLogoutText)
+        * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.assertion.expectUnsupportedNavigationPopup)
+        * [.expectMessageToastText(text, [timeout])](#ui5.assertion.expectMessageToastText)
     * [.confirmationDialog](#ui5.confirmationDialog)
         * [.clickButton(text, [timeout])](#ui5.confirmationDialog.clickButton)
         * [.clickOk([timeout])](#ui5.confirmationDialog.clickOk)
@@ -1294,33 +1293,32 @@ Global namespace for UI5 modules.
 **Kind**: static class of [<code>ui5</code>](#ui5)  
 
 * [.assertion](#ui5.assertion)
-    * [.expectAttributeToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectAttributeToBe) ⇒ <code>Promise</code>
-    * [.expectAttributeToContain(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectAttributeToContain) ⇒ <code>Promise</code>
-    * [.expectTextToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectTextToBe) ⇒ <code>Promise</code>
-    * [.expectValueToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValueToBe) ⇒ <code>Promise</code>
-    * [.expectValueToBeDefined(selector, [index], [timeout])](#ui5.assertion.expectValueToBeDefined) ⇒ <code>Promise</code>
-    * [.expectToBeNotEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeNotEnabled) ⇒ <code>Promise</code>
-    * [.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeEnabled) ⇒ <code>Promise</code>
-    * [.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationError) ⇒ <code>Promise</code>
-    * [.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationSuccess) ⇒ <code>Promise</code>
-    * [.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingPathToBe) ⇒ <code>Promise</code>
-    * [.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingContextPathToBe) ⇒ <code>Promise</code>
-    * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible) ⇒ <code>Promise</code>
-    * [.expectToBeVisibleInViewport(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisibleInViewport) ⇒ <code>Promise</code>
-    * [.expectToBeNotVisible(selector, [index], [timeout])](#ui5.assertion.expectToBeNotVisible) ⇒ <code>Promise</code>
-    * [.expectPageTitle(compareValue)](#ui5.assertion.expectPageTitle) ⇒ <code>Promise</code>
-    * [.expectShellHeader()](#ui5.assertion.expectShellHeader) ⇒ <code>Promise</code>
-    * [.expectLogoutText()](#ui5.assertion.expectLogoutText) ⇒ <code>Promise</code>
-    * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.assertion.expectUnsupportedNavigationPopup) ⇒ <code>Promise</code>
-    * [.expectMessageToastText(text, [timeout])](#ui5.assertion.expectMessageToastText) ⇒ <code>Promise</code>
+    * [.expectAttributeToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectAttributeToBe)
+    * [.expectAttributeToContain(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectAttributeToContain)
+    * [.expectTextToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectTextToBe)
+    * [.expectValueToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValueToBe)
+    * [.expectValueToBeDefined(selector, [index], [timeout])](#ui5.assertion.expectValueToBeDefined)
+    * [.expectToBeNotEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeNotEnabled)
+    * [.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeEnabled)
+    * [.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationError)
+    * [.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationSuccess)
+    * [.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingPathToBe)
+    * [.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingContextPathToBe)
+    * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible)
+    * [.expectToBeVisibleInViewport(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisibleInViewport)
+    * [.expectToBeNotVisible(selector, [index], [timeout])](#ui5.assertion.expectToBeNotVisible)
+    * [.expectPageTitle(compareValue)](#ui5.assertion.expectPageTitle)
+    * [.expectShellHeader()](#ui5.assertion.expectShellHeader)
+    * [.expectLogoutText()](#ui5.assertion.expectLogoutText)
+    * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.assertion.expectUnsupportedNavigationPopup)
+    * [.expectMessageToastText(text, [timeout])](#ui5.assertion.expectMessageToastText)
 
 <a name="ui5.assertion.expectAttributeToBe"></a>
 
-#### assertion.expectAttributeToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectAttributeToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])
 Expects the passed elements attribute to be the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1337,11 +1335,10 @@ await ui5.assertion.expectAttributeToBe(selector, "text", "Hello");
 ```
 <a name="ui5.assertion.expectAttributeToContain"></a>
 
-#### assertion.expectAttributeToContain(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectAttributeToContain(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])
 Expects the passed elements attribute to contain the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1358,11 +1355,10 @@ await ui5.assertion.expectAttributeToContain(selector, "text", "abc");
 ```
 <a name="ui5.assertion.expectTextToBe"></a>
 
-#### assertion.expectTextToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectTextToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])
 Expects the passed elements text attribute to be the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1378,11 +1374,10 @@ await ui5.assertion.expectTextToBe(selector, "Hello");
 ```
 <a name="ui5.assertion.expectValueToBe"></a>
 
-#### assertion.expectValueToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectValueToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])
 Expects the passed elements value attribute to be the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1398,11 +1393,10 @@ await ui5.assertion.expectValueToBe(selector, "123");
 ```
 <a name="ui5.assertion.expectValueToBeDefined"></a>
 
-#### assertion.expectValueToBeDefined(selector, [index], [timeout]) ⇒ <code>Promise</code>
+#### assertion.expectValueToBeDefined(selector, [index], [timeout])
 Expects the passed elements value to be defined.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1416,11 +1410,10 @@ await ui5.assertion.expectValueToBeDefined(selector);
 ```
 <a name="ui5.assertion.expectToBeNotEnabled"></a>
 
-#### assertion.expectToBeNotEnabled(selector, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectToBeNotEnabled(selector, [index], [timeout], [loadPropertyTimeout])
 Expects that the element is enabled to the user.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1435,11 +1428,10 @@ await ui5.assertion.expectToBeNotEnabled(selector);
 ```
 <a name="ui5.assertion.expectToBeEnabled"></a>
 
-#### assertion.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])
 Expects that the element is enabled to the user.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1454,11 +1446,10 @@ await ui5.assertion.expectToBeEnabled(selector);
 ```
 <a name="ui5.assertion.expectValidationError"></a>
 
-#### assertion.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])
 Expects the "valueState" of the element to be "Error".
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1473,11 +1464,10 @@ await ui5.assertion.expectValidationError(selector);
 ```
 <a name="ui5.assertion.expectValidationSuccess"></a>
 
-#### assertion.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])
 Expects the valueState of the element to be "None".
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1492,11 +1482,10 @@ await ui5.assertion.expectValidationSuccess(selector);
 ```
 <a name="ui5.assertion.expectBindingPathToBe"></a>
 
-#### assertion.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])
 Expects the passed elements attribute binding-path to contain the compare value
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1513,11 +1502,10 @@ await ui5.assertion.expectBindingPathToBe(selector, "text", "Hello");
 ```
 <a name="ui5.assertion.expectBindingContextPathToBe"></a>
 
-#### assertion.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])
 Expects the passed elements binding-context-path to be the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1534,11 +1522,10 @@ await ui5.assertion.expectBindingContextPathToBe(selector, "text", "Hello");
 ```
 <a name="ui5.assertion.expectToBeVisible"></a>
 
-#### assertion.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])
 Expects that the element is visible to the user.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1553,11 +1540,10 @@ await ui5.assertion.expectToBeVisible(selector);
 ```
 <a name="ui5.assertion.expectToBeVisibleInViewport"></a>
 
-#### assertion.expectToBeVisibleInViewport(selector, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectToBeVisibleInViewport(selector, [index], [timeout], [loadPropertyTimeout])
 Expects that the element is visible in the viewport.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1572,11 +1558,10 @@ await ui5.assertion.expectToBeVisibleInViewport(selector);
 ```
 <a name="ui5.assertion.expectToBeNotVisible"></a>
 
-#### assertion.expectToBeNotVisible(selector, [index], [timeout]) ⇒ <code>Promise</code>
+#### assertion.expectToBeNotVisible(selector, [index], [timeout])
 Expects that the element is not visible to the user.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1590,11 +1575,10 @@ await ui5.assertion.expectToBeNotVisible(selector);
 ```
 <a name="ui5.assertion.expectPageTitle"></a>
 
-#### assertion.expectPageTitle(compareValue) ⇒ <code>Promise</code>
+#### assertion.expectPageTitle(compareValue)
 Expects the page title of the current page to be the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1606,33 +1590,30 @@ await ui5.assertion.expectPageTitle("Home");
 ```
 <a name="ui5.assertion.expectShellHeader"></a>
 
-#### assertion.expectShellHeader() ⇒ <code>Promise</code>
+#### assertion.expectShellHeader()
 Expects the shell header to be visible
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 **Example**  
 ```js
 await ui5.assertion.expectShellHeader();
 ```
 <a name="ui5.assertion.expectLogoutText"></a>
 
-#### assertion.expectLogoutText() ⇒ <code>Promise</code>
+#### assertion.expectLogoutText()
 Expects the logout text after logout to be "You have been logged off.This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 **Example**  
 ```js
 await ui5.assertion.expectLogoutText();
 ```
 <a name="ui5.assertion.expectUnsupportedNavigationPopup"></a>
 
-#### assertion.expectUnsupportedNavigationPopup(navigationTarget) ⇒ <code>Promise</code>
+#### assertion.expectUnsupportedNavigationPopup(navigationTarget)
 Expects navigation to an app that is not supported.This can be the case for Mocked tests when the application does not exist or when the app is not included in a role.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1644,11 +1625,10 @@ await ui5.assertion.expectUnsupportedNavigationPopup("#SupplierInvoice-display?F
 ```
 <a name="ui5.assertion.expectMessageToastText"></a>
 
-#### assertion.expectMessageToastText(text, [timeout]) ⇒ <code>Promise</code>
+#### assertion.expectMessageToastText(text, [timeout])
 Expects the message toast with the passed text.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -3482,9 +3462,9 @@ Global namespace for non UI5 modules.
 
 * [nonUi5](#nonUi5)
     * [.assertion](#nonUi5.assertion)
-        * [.expectAttributeToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe) ⇒ <code>Promise</code>
-        * [.expectValueToBe(elem, compareValue)](#nonUi5.assertion.expectValueToBe) ⇒ <code>Promise</code>
-        * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible) ⇒ <code>Promise</code>
+        * [.expectAttributeToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
+        * [.expectValueToBe(elem, compareValue)](#nonUi5.assertion.expectValueToBe)
+        * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible)
     * [.element](#nonUi5.element)
         * [.waitForAllElements(selector, [timeout])](#nonUi5.element.waitForAllElements) ⇒ <code>Array.&lt;Object&gt;</code>
         * [.waitForElementIsPresent(selector, [timeout])](#nonUi5.element.waitForElementIsPresent)
@@ -3525,17 +3505,16 @@ Global namespace for non UI5 modules.
 **Kind**: static class of [<code>nonUi5</code>](#nonUi5)  
 
 * [.assertion](#nonUi5.assertion)
-    * [.expectAttributeToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe) ⇒ <code>Promise</code>
-    * [.expectValueToBe(elem, compareValue)](#nonUi5.assertion.expectValueToBe) ⇒ <code>Promise</code>
-    * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible) ⇒ <code>Promise</code>
+    * [.expectAttributeToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
+    * [.expectValueToBe(elem, compareValue)](#nonUi5.assertion.expectValueToBe)
+    * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible)
 
 <a name="nonUi5.assertion.expectAttributeToBe"></a>
 
-#### assertion.expectAttributeToBe(elem, compareValue, [attribute]) ⇒ <code>Promise</code>
+#### assertion.expectAttributeToBe(elem, compareValue, [attribute])
 Expects the attributes value of the passed element to be the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -3553,11 +3532,10 @@ const elem = await nonUi5.element.getElementById("button01");await nonUi5.asser
 ```
 <a name="nonUi5.assertion.expectValueToBe"></a>
 
-#### assertion.expectValueToBe(elem, compareValue) ⇒ <code>Promise</code>
+#### assertion.expectValueToBe(elem, compareValue)
 Expects the attributes value of the passed element to be the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -3570,11 +3548,10 @@ const elem = await nonUi5.element.getElementById("button01");await nonUi5.asser
 ```
 <a name="nonUi5.assertion.expectToBeVisible"></a>
 
-#### assertion.expectToBeVisible(element) ⇒ <code>Promise</code>
+#### assertion.expectToBeVisible(element)
 Expects that the element is visible to the user.
 
 **Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Description |
 | --- | --- | --- |
