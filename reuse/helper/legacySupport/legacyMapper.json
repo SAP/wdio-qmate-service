@@ -80,6 +80,10 @@
     "new": "ui5.navigation.expectUnsupportedNavigationPopup"
   },
   {
+    "old": "ui5.common.assertion.expectMessageToastText",
+    "new": "ui5.assertion.expectMessageToastTextToBe"
+  },
+  {
     "old": "ui5.common.client",
     "new": "ui5.control"
   },
@@ -142,6 +146,10 @@
   {
     "old": "ui5.common.date.calculateDate",
     "new": "common.date.calculateDate"
+  },
+  {
+    "old": "ui5.common.errorDialog.expectErrorDialogToBeVisible",
+    "new": "ui5.errorDialog.expectToBeVisible"
   },
   {
     "old": "ui5.common.formatter",

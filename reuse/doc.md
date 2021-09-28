@@ -1175,7 +1175,7 @@ Global namespace for UI5 modules.
         * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible)
         * [.expectToBeVisibleInViewport(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisibleInViewport)
         * [.expectToBeNotVisible(selector, [index], [timeout])](#ui5.assertion.expectToBeNotVisible)
-        * [.expectMessageToastText(text, [timeout])](#ui5.assertion.expectMessageToastText)
+        * [.expectMessageToastTextToBe(text, [timeout])](#ui5.assertion.expectMessageToastTextToBe)
     * [.confirmationDialog](#ui5.confirmationDialog)
         * [.clickButton(text, [timeout])](#ui5.confirmationDialog.clickButton)
         * [.clickOk([timeout])](#ui5.confirmationDialog.clickOk)
@@ -1210,7 +1210,7 @@ Global namespace for UI5 modules.
         * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.element.scrollToElement)
         * [.highlightElement(selector, [duration], [color])](#ui5.element.highlightElement)
     * [.errorDialog](#ui5.errorDialog)
-        * [.expectErrorDialogToBeVisible()](#ui5.errorDialog.expectErrorDialogToBeVisible)
+        * [.expectToBeVisible()](#ui5.errorDialog.expectToBeVisible)
         * [.clickClose()](#ui5.errorDialog.clickClose)
     * [.footerBar](#ui5.footerBar)
         * [.clickButton(text, [timeout])](#ui5.footerBar.clickButton)
@@ -1311,7 +1311,7 @@ Global namespace for UI5 modules.
     * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible)
     * [.expectToBeVisibleInViewport(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisibleInViewport)
     * [.expectToBeNotVisible(selector, [index], [timeout])](#ui5.assertion.expectToBeNotVisible)
-    * [.expectMessageToastText(text, [timeout])](#ui5.assertion.expectMessageToastText)
+    * [.expectMessageToastTextToBe(text, [timeout])](#ui5.assertion.expectMessageToastTextToBe)
 
 <a name="ui5.assertion.expectAttributeToBe"></a>
 
@@ -1573,9 +1573,9 @@ Expects that the element is not visible to the user.
 ```js
 await ui5.assertion.expectToBeNotVisible(selector);
 ```
-<a name="ui5.assertion.expectMessageToastText"></a>
+<a name="ui5.assertion.expectMessageToastTextToBe"></a>
 
-#### assertion.expectMessageToastText(text, [timeout])
+#### assertion.expectMessageToastTextToBe(text, [timeout])
 Expects the message toast with the passed text.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
@@ -1587,7 +1587,7 @@ Expects the message toast with the passed text.
 
 **Example**  
 ```js
-await ui5.assertion.expectMessageToastText(text);
+await ui5.assertion.expectMessageToastTextToBe(text);
 ```
 <a name="ui5.confirmationDialog"></a>
 
@@ -2135,18 +2135,18 @@ await ui5.element.highlightElement(selector, 3000, "green");
 **Kind**: static class of [<code>ui5</code>](#ui5)  
 
 * [.errorDialog](#ui5.errorDialog)
-    * [.expectErrorDialogToBeVisible()](#ui5.errorDialog.expectErrorDialogToBeVisible)
+    * [.expectToBeVisible()](#ui5.errorDialog.expectToBeVisible)
     * [.clickClose()](#ui5.errorDialog.clickClose)
 
-<a name="ui5.errorDialog.expectErrorDialogToBeVisible"></a>
+<a name="ui5.errorDialog.expectToBeVisible"></a>
 
-#### errorDialog.expectErrorDialogToBeVisible()
+#### errorDialog.expectToBeVisible()
 Expects that the error dialog is visible on the page.
 
 **Kind**: static method of [<code>errorDialog</code>](#ui5.errorDialog)  
 **Example**  
 ```js
-await ui5.errorDialog.expectErrorDialogToBeVisible();
+await ui5.errorDialog.expectToBeVisible();
 ```
 <a name="ui5.errorDialog.clickClose"></a>
 

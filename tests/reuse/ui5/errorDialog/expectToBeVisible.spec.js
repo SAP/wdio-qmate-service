@@ -3,7 +3,7 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("errorDialog - expectErrorDialogToBeVisible", function () {
+describe("errorDialog - expectToBeVisible", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Dialog/sample/sap.m.sample.DialogMessage");
@@ -11,7 +11,7 @@ describe("errorDialog - expectErrorDialogToBeVisible", function () {
   });
 
   it("Execution", async function () {
-    await expect(ui5.errorDialog.expectErrorDialogToBeVisible())
+    await expect(ui5.errorDialog.expectToBeVisible())
       .rejects.toThrow(/No visible elements/);
 
     const selector = {
@@ -25,6 +25,6 @@ describe("errorDialog - expectErrorDialogToBeVisible", function () {
   });
 
   it("Verification", async function () {
-    await ui5.errorDialog.expectErrorDialogToBeVisible();
+    await ui5.errorDialog.expectToBeVisible();
   });
 });

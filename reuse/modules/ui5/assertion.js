@@ -391,20 +391,21 @@ const Assertion = function () {
 
   // =================================== APPLICATION ===================================
   /**
-   * @function expectMessageToastText
+   * @function expectMessageToastTextToBe
    * @memberOf ui5.assertion
    * @description Expects the message toast with the passed text.
    * @param {String} text - The expected text.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await ui5.assertion.expectMessageToastText(text);
+   * @example await ui5.assertion.expectMessageToastTextToBe(text);
    */
-  this.expectMessageToastText = async function (text, timeout = 30000) {
+  this.expectMessageToastTextToBe = async function (text, timeout = 30000) {
     if (!text) {
       throw new Error("Function 'expectMessageToast' failed. Please provide the expected text as argument.");
     }
+    // TODO: change to UI5 locator
     const xpath = "//div[contains(@class, 'sapMMessageToast') and contains(string(), '" + text + "')]";
     const elem = await nonUi5.element.getElementByXPath(xpath, 0, timeout);
-    return nonUi5.element.isVisible(elem); //TODO: should be a strict assertion which fails instead of returning true/false
+    return nonUi5.assertion.expectToBeVisible(elem);
   };
 
 };
