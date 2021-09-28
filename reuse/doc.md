@@ -13,6 +13,9 @@
 <dt><a href="#nonUi5">nonUi5</a></dt>
 <dd><p>Global namespace for non UI5 modules.</p>
 </dd>
+<dt><a href="#service">service</a></dt>
+<dd><p>Global namespace for service modules.</p>
+</dd>
 </dl>
 
 <a name="common"></a>
@@ -27,10 +30,10 @@ Global namespace for common modules.
         * [.expectEqual(value1, value2)](#common.assertion.expectEqual)
         * [.expectUnequal(value1, value2)](#common.assertion.expectUnequal)
         * [.expectTrue(value)](#common.assertion.expectTrue)
-        * [.expectFalse(value)](#common.assertion.expectFalse) ⇒ <code>Promise</code>
+        * [.expectFalse(value)](#common.assertion.expectFalse)
         * [.expectDefined(value)](#common.assertion.expectDefined)
         * [.expectUndefined(value)](#common.assertion.expectUndefined)
-        * [.expectUrlToBe()](#common.assertion.expectUrlToBe) ⇒ <code>Promise</code>
+        * [.expectUrlToBe()](#common.assertion.expectUrlToBe)
     * [.date](#common.date)
         * [.getToday([format])](#common.date.getToday) ⇒ <code>String</code>
         * [.getTomorrow([format])](#common.date.getTomorrow) ⇒ <code>String</code>
@@ -48,7 +51,8 @@ Global namespace for common modules.
         * [.fillActive(value)](#common.userInteraction.fillActive)
         * [.fillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.fillActiveAndRetry)
         * [.clearAndFillActive(value)](#common.userInteraction.clearAndFillActive)
-        * [.clearFillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.clearFillActiveAndRetry)
+        * [.clearAndFillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.clearAndFillActiveAndRetry)
+        * [.pressKey(keys)](#common.userInteraction.pressKey)
         * [.pressEnter()](#common.userInteraction.pressEnter)
         * [.pressTab()](#common.userInteraction.pressTab)
         * [.pressF4()](#common.userInteraction.pressF4)
@@ -66,10 +70,10 @@ Global namespace for common modules.
     * [.expectEqual(value1, value2)](#common.assertion.expectEqual)
     * [.expectUnequal(value1, value2)](#common.assertion.expectUnequal)
     * [.expectTrue(value)](#common.assertion.expectTrue)
-    * [.expectFalse(value)](#common.assertion.expectFalse) ⇒ <code>Promise</code>
+    * [.expectFalse(value)](#common.assertion.expectFalse)
     * [.expectDefined(value)](#common.assertion.expectDefined)
     * [.expectUndefined(value)](#common.assertion.expectUndefined)
-    * [.expectUrlToBe()](#common.assertion.expectUrlToBe) ⇒ <code>Promise</code>
+    * [.expectUrlToBe()](#common.assertion.expectUrlToBe)
 
 <a name="common.assertion.expectEqual"></a>
 
@@ -120,11 +124,10 @@ common.assertion.expectTrue(value);
 ```
 <a name="common.assertion.expectFalse"></a>
 
-#### assertion.expectFalse(value) ⇒ <code>Promise</code>
+#### assertion.expectFalse(value)
 Expects the passed value to be false.
 
 **Kind**: static method of [<code>assertion</code>](#common.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -132,7 +135,7 @@ Expects the passed value to be false.
 
 **Example**  
 ```js
-await common.assertion.expectFalse(false);
+common.assertion.expectFalse(false);
 ```
 <a name="common.assertion.expectDefined"></a>
 
@@ -166,11 +169,10 @@ common.assertion.expectUndefined(value);
 ```
 <a name="common.assertion.expectUrlToBe"></a>
 
-#### assertion.expectUrlToBe() ⇒ <code>Promise</code>
+#### assertion.expectUrlToBe()
 Expects the url to be the passed value.
 
 **Kind**: static method of [<code>assertion</code>](#common.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 **Example**  
 ```js
 await common.assertion.expectUrlToBe("www.sap.com");
@@ -381,7 +383,8 @@ await common.navigation.printCurrentUrl();
     * [.fillActive(value)](#common.userInteraction.fillActive)
     * [.fillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.fillActiveAndRetry)
     * [.clearAndFillActive(value)](#common.userInteraction.clearAndFillActive)
-    * [.clearFillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.clearFillActiveAndRetry)
+    * [.clearAndFillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.clearAndFillActiveAndRetry)
+    * [.pressKey(keys)](#common.userInteraction.pressKey)
     * [.pressEnter()](#common.userInteraction.pressEnter)
     * [.pressTab()](#common.userInteraction.pressTab)
     * [.pressF4()](#common.userInteraction.pressF4)
@@ -431,28 +434,47 @@ Clears and fills the active input.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| value | <code>String</code> | The value to enter. |
+| value | <code>String</code> | The value to fill. |
 
 **Example**  
 ```js
 await common.userInteraction.clearAndFillActive("My Value");
 ```
-<a name="common.userInteraction.clearFillActiveAndRetry"></a>
+<a name="common.userInteraction.clearAndFillActiveAndRetry"></a>
 
-#### userInteraction.clearFillActiveAndRetry(value, [retries], [interval])
+#### userInteraction.clearAndFillActiveAndRetry(value, [retries], [interval])
 CClears and fills the active input. Retries the action in case of a failure.
 
 **Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| value | <code>String</code> |  | The value to enter. |
+| value | <code>String</code> |  | The value to fill. |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
 | [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
 
 **Example**  
 ```js
-await common.userInteraction.clearFillActiveAndRetry("My Value");
+await common.userInteraction.clearAndFillActiveAndRetry("My Value");
+```
+<a name="common.userInteraction.pressKey"></a>
+
+#### userInteraction.pressKey(keys)
+Performs the specified keypress. Possible values: https://w3c.github.io/webdriver/#keyboard-actions
+
+**Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| keys | <code>String</code> | The key or combination of keys to execute. |
+
+**Example**  
+```js
+await common.userInteraction.pressKey("Clear");
+```
+**Example**  
+```js
+await common.userInteraction.pressKey("\uE009", "\uE00A", "KeyD");
 ```
 <a name="common.userInteraction.pressEnter"></a>
 
@@ -539,7 +561,6 @@ Global namespace for util modules.
         * [.sleepAndCollectCoverage([sleep])](#util.browser.sleepAndCollectCoverage)
         * [.refresh()](#util.browser.refresh)
         * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#util.browser.clearBrowser)
-        * [.sendKeys(keys)](#util.browser.sendKeys)
         * [.getBrowserName()](#util.browser.getBrowserName) ⇒ <code>String</code>
         * [.getUI5Version()](#util.browser.getUI5Version)
         * [.executeScript(command)](#util.browser.executeScript) ⇒ <code>Any</code>
@@ -569,23 +590,6 @@ Global namespace for util modules.
     * [.function](#util.function)
         * [.retry(fct, args, retries, interval, scope)](#util.function.retry)
         * [.executeOptional(fct, args)](#util.function.executeOptional)
-    * [.mockserver](#util.mockserver)
-        * [.waitForUi5ApplicationLoad()](#util.mockserver.waitForUi5ApplicationLoad)
-        * [.interactWithMockServer(mockServerPath, callback, params)](#util.mockserver.interactWithMockServer)
-        * [.attachFunctionBefore(method, mockServerPath, beforeCallback, params)](#util.mockserver.attachFunctionBefore)
-        * [.attachFunctionAfter(method, mockServerPath, afterCallback, params)](#util.mockserver.attachFunctionAfter)
-        * [.addNewRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)](#util.mockserver.addNewRequest)
-        * [.removeRequest(method, mockServerPath, urlPathRegex)](#util.mockserver.removeRequest)
-        * [.addOrOverrideRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)](#util.mockserver.addOrOverrideRequest)
-        * [.startMockServer(mockServerPath)](#util.mockserver.startMockServer)
-        * [.initMockServer(mockServerPath, mockServerOptions)](#util.mockserver.initMockServer)
-        * [.initApplication(mockServerPath)](#util.mockserver.initApplication)
-        * [.stopMockServer(mockServerPath)](#util.mockserver.stopMockServer)
-        * [.loadMockDataFile(filePath, isText)](#util.mockserver.loadMockDataFile) ⇒ <code>String</code>
-        * [.getEntitySetData(mockServerPath, entitySetName)](#util.mockserver.getEntitySetData) ⇒ <code>Array</code>
-        * [.setEntitySetData(mockServerPath, entitySetName, entries)](#util.mockserver.setEntitySetData)
-    * [.qUnit](#util.qUnit)
-        * [.executeTests(path)](#util.qUnit.executeTests)
     * [.system](#util.system)
         * [.getOS()](#util.system.getOS) ⇒ <code>String</code>
 
@@ -601,7 +605,6 @@ Global namespace for util modules.
     * [.sleepAndCollectCoverage([sleep])](#util.browser.sleepAndCollectCoverage)
     * [.refresh()](#util.browser.refresh)
     * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#util.browser.clearBrowser)
-    * [.sendKeys(keys)](#util.browser.sendKeys)
     * [.getBrowserName()](#util.browser.getBrowserName) ⇒ <code>String</code>
     * [.getUI5Version()](#util.browser.getUI5Version)
     * [.executeScript(command)](#util.browser.executeScript) ⇒ <code>Any</code>
@@ -654,8 +657,7 @@ await util.browser.sleep(30000);
 <a name="util.browser.sleepAndCollectCoverage"></a>
 
 #### browser.sleepAndCollectCoverage([sleep])
-Collects and stores the coverage information before a hard browser event (logout, clear history),
-also useful when parallelizing multiple specs and need to aggregate the coverage information
+Collects and stores the coverage information before a hard browser event (logout, clear history),also useful when parallelizing multiple specs and need to aggregate the coverage information
 
 **Kind**: static method of [<code>browser</code>](#util.browser)  
 
@@ -693,21 +695,6 @@ Clears the local and session cache and deletes all browser cookies.
 **Example**  
 ```js
 await util.browser.clearBrowser();
-```
-<a name="util.browser.sendKeys"></a>
-
-#### browser.sendKeys(keys)
-Executes the set of keystrokes as described https://w3c.github.io/webdriver/#keyboard-actions.
-
-**Kind**: static method of [<code>browser</code>](#util.browser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| keys | <code>String</code> | The combination of keys to execute. |
-
-**Example**  
-```js
-await util.browser.sendKeys("\uE009", "\uE00A", "KeyD");
 ```
 <a name="util.browser.getBrowserName"></a>
 
@@ -996,8 +983,7 @@ Slices the given string beginning at a specific substring.
 
 **Example**  
 ```js
-const sliced = util.formatter.sliceStringAt("prefixNR12345postfix", "NR", 7);
-// returns "NR12345"
+const sliced = util.formatter.sliceStringAt("prefixNR12345postfix", "NR", 7);// returns "NR12345"
 ```
 <a name="util.formatter.sliceStringAfter"></a>
 
@@ -1015,8 +1001,7 @@ Slices the given string after a specific substring.
 
 **Example**  
 ```js
-const sliced = util.formatter.sliceStringAfter("prefixNR12345postfix", "NR", 5);
-// returns "12345"
+const sliced = util.formatter.sliceStringAfter("prefixNR12345postfix", "NR", 5);// returns "12345"
 ```
 <a name="util.formatter.trimString"></a>
 
@@ -1031,8 +1016,7 @@ Removes whitespace from both sides of the given string.
 
 **Example**  
 ```js
-const trimmed = util.formatter.trimString("   value ");
-// returns "value"
+const trimmed = util.formatter.trimString("   value ");// returns "value"
 ```
 <a name="util.formatter.extractNumberFromString"></a>
 
@@ -1049,13 +1033,11 @@ Extracts all numbers from a string.
 
 **Example**  
 ```js
-const extracted = util.formatter.extractNumberFromString("prefixNR12345postfix");
-// returns "12345"
+const extracted = util.formatter.extractNumberFromString("prefixNR12345postfix");// returns "12345"
 ```
 **Example**  
 ```js
-const extracted = util.formatter.extractNumberFromString("first12345 someText second 20 abc", 1);
-// returns "20"
+const extracted = util.formatter.extractNumberFromString("first12345 someText second 20 abc", 1);// returns "20"
 ```
 <a name="util.formatter.stringifyJSON"></a>
 
@@ -1099,15 +1081,13 @@ formats date.
 **Returns**: <code>String</code> - The formatted date as string.  
 
 | Param | Type | Description |
-| --- | --- | --- |util.formatter.formatDate
+| --- | --- | --- |
 | date | <code>Date</code> | The date object to be formatted. |
 | format | <code>String</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object"). |
 
 **Example**  
 ```js
-const date = new Date(2020, 0, 17);
-const formattedDate = utilities.formatDate(date, "mm/dd/yyyy");
-// returns "01/17/2020"
+const date = new Date(2020, 0, 17);const formattedDate = util.formatter.formatDate(date, "mm/dd/yyyy");// returns "01/17/2020"
 ```
 <a name="util.function"></a>
 
@@ -1135,10 +1115,7 @@ Retries the passed function n times with an specific intervall until it executed
 
 **Example**  
 ```js
-async function sayHello(firstName, lastName) {
-console.log("Hello " + firstName + " " + lastName + "!");
-}
-await util.function.retry(sayHello, ["John", "Doe"], 3, 5000);
+async function sayHello(firstName, lastName) {console.log("Hello " + firstName + " " + lastName + "!");}await util.function.retry(sayHello, ["John", "Doe"], 3, 5000);
 ```
 <a name="util.function.executeOptional"></a>
 
@@ -1158,286 +1135,7 @@ await util.function.executeOptional(ui5.userInteraction.fill, [selector, value])
 ```
 **Example**  
 ```js
-await util.function.executeOptional(async () => {
- await ui5.userInteraction.fill(selector, "ABC");
-}, []);
-```
-<a name="util.mockserver"></a>
-
-### util.mockserver
-**Kind**: static class of [<code>util</code>](#util)  
-
-* [.mockserver](#util.mockserver)
-    * [.waitForUi5ApplicationLoad()](#util.mockserver.waitForUi5ApplicationLoad)
-    * [.interactWithMockServer(mockServerPath, callback, params)](#util.mockserver.interactWithMockServer)
-    * [.attachFunctionBefore(method, mockServerPath, beforeCallback, params)](#util.mockserver.attachFunctionBefore)
-    * [.attachFunctionAfter(method, mockServerPath, afterCallback, params)](#util.mockserver.attachFunctionAfter)
-    * [.addNewRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)](#util.mockserver.addNewRequest)
-    * [.removeRequest(method, mockServerPath, urlPathRegex)](#util.mockserver.removeRequest)
-    * [.addOrOverrideRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)](#util.mockserver.addOrOverrideRequest)
-    * [.startMockServer(mockServerPath)](#util.mockserver.startMockServer)
-    * [.initMockServer(mockServerPath, mockServerOptions)](#util.mockserver.initMockServer)
-    * [.initApplication(mockServerPath)](#util.mockserver.initApplication)
-    * [.stopMockServer(mockServerPath)](#util.mockserver.stopMockServer)
-    * [.loadMockDataFile(filePath, isText)](#util.mockserver.loadMockDataFile) ⇒ <code>String</code>
-    * [.getEntitySetData(mockServerPath, entitySetName)](#util.mockserver.getEntitySetData) ⇒ <code>Array</code>
-    * [.setEntitySetData(mockServerPath, entitySetName, entries)](#util.mockserver.setEntitySetData)
-
-<a name="util.mockserver.waitForUi5ApplicationLoad"></a>
-
-#### mockserver.waitForUi5ApplicationLoad()
-Waits for the UI5 framework, XHR requests and busy indicators to be finished.
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-**Example**  
-```js
-await util.mockserver.waitForUi5ApplicationLoad();
-```
-<a name="util.mockserver.interactWithMockServer"></a>
-
-#### mockserver.interactWithMockServer(mockServerPath, callback, params)
-Executes client script function to interact with the mockserver instance. Code can be written in UI5 context.
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| mockServerPath | <code>String</code> | The full path to the mockserver instance. |
-| callback | <code>function</code> | The client script function you can use to interact with the mockserver instance. Caution: The first and last parameter is reserved for the mockserver instance and the promise resolve function - done. |
-| params | <code>Object</code> | Additional parameters you would like to inject in your client script function. |
-
-**Example**  
-```js
-const callback = function(mockServerInstance, params, done) {...};
-await util.mockserver.interactWithMockServer("path/to/project/localService/main/mockserver", callback, params);
-```
-<a name="util.mockserver.attachFunctionBefore"></a>
-
-#### mockserver.attachFunctionBefore(method, mockServerPath, beforeCallback, params)
-Attaches a callback function in mockserver attachBefore event to be executed.
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| method | <code>String</code> | The attachBefore http method (GET or POST). |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method so the mockserver instance can be consumed]. |
-| beforeCallback | <code>String</code> \| <code>Object</code> | The callback function to be used in the native attachBefore method as described (https://sapui5.hana.ondemand.com/#/api/sap.ui.core.util.MockServer%23methods/Summary) |
-| params | <code>Object</code> | Additional parameters you would like to inject in your client script function |
-
-**Example**  
-```js
-await util.mockserver.attachFunctionBefore("GET", "path/to/project/localService/main/mockserver", beforeCallback, params);
-```
-<a name="util.mockserver.attachFunctionAfter"></a>
-
-#### mockserver.attachFunctionAfter(method, mockServerPath, afterCallback, params)
-Attaches a callback function in mockserver attachAfter event to be executed
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| method | <code>String</code> | The attachAfter http method (GET or POST). |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method so the mockserver instance can be consumed]. |
-| afterCallback | <code>String</code> \| <code>Object</code> | The callback function to be used in the native attachAfter method as described (https://sapui5.hana.ondemand.com/#/api/sap.ui.core.util.MockServer%23methods/Summary) |
-| params | <code>Object</code> | Additional parameters you would like to inject in your client script function |
-
-**Example**  
-```js
-await util.mockserver.attachFunctionAfter("GET", "path/to/project/localService/main/mockserver",  afterCallback);
-```
-<a name="util.mockserver.addNewRequest"></a>
-
-#### mockserver.addNewRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)
-Adds new mock request
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| method | <code>String</code> | The http method [GET,POST..]. |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-| urlPathRegex | <code>String</code> | The url path regex to filter the requests |
-| responseJsonPath | <code>String</code> | The json object or the path to your json file to be used as response [use relative path from the html page started]. |
-| returnCode | <code>Integer</code> | The http response code to simulate for this mock request. |
-| isText | <code>Boolean</code> | If true then content type is text/plain otherwise application/json. |
-| responseMessages | <code>String</code> | Mocks the gw sap-message response messages [Don't forget to stringify your json before: JSON.stringify(msg)] |
-| responseLocation | <code>String</code> | Mocks the location response messages header |
-
-**Example**  
-```js
-await util.mockserver.addNewRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*", "path/to/project/localService/main/mockdata/test.json", 200, true, JSON.stringify(msg));
-```
-<a name="util.mockserver.removeRequest"></a>
-
-#### mockserver.removeRequest(method, mockServerPath, urlPathRegex)
-Removes request mock [Doesn't work currently - Mockserver bug]
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| method | <code>String</code> | The http method [GET,POST..]. |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-| urlPathRegex | <code>String</code> | The url path regex to filter the requests |
-
-**Example**  
-```js
-await util.mockserver.removeRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*");
-```
-<a name="util.mockserver.addOrOverrideRequest"></a>
-
-#### mockserver.addOrOverrideRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)
-Adds new or overrides an existing mock request
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| method | <code>String</code> | The http method [GET,POST..]. |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-| urlPathRegex | <code>String</code> | The url path regex to filter the requests |
-| responseJsonPath | <code>String</code> | The json object or the path to your json file to be used as response [use relative path from the html page started]. |
-| returnCode | <code>Integer</code> | The http response code to simulate for this mock request. |
-| isText | <code>Boolean</code> | If true then content type is text/plain otherwise application/json. |
-| responseMessages | <code>String</code> | Mocks the gw sap-message response messages [Don't forget to stringify your json before: JSON.stringify(msg)] |
-| responseLocation | <code>String</code> | Mocks the location response messages header |
-
-**Example**  
-```js
-await util.mockserver.addOrOverrideRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*", "path/to/project/localService/main/mockdata/test.json", 200, true, JSON.stringify(msg));
-```
-<a name="util.mockserver.startMockServer"></a>
-
-#### mockserver.startMockServer(mockServerPath)
-(Re-)Starts mock server instance
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-
-**Example**  
-```js
-await util.mockserver.startMockServer("path/to/project/localService/main/mockserver");
-```
-<a name="util.mockserver.initMockServer"></a>
-
-#### mockserver.initMockServer(mockServerPath, mockServerOptions)
-Initializes the provide mockserver instance on the fly
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-| mockServerOptions | <code>String</code> | The mock server options |
-
-**Example**  
-```js
-await util.mockserver.initMockServer("path/to/project/localService/main/mockserver", mockServerOptions);
-```
-<a name="util.mockserver.initApplication"></a>
-
-#### mockserver.initApplication(mockServerPath)
-Initializes the application [Used in the beginning of script, once the mockserver is fully initialized and request mocking is done]
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-
-**Example**  
-```js
-await util.mockserver.initApplication("path/to/project/localService/main/mockserver");
-```
-<a name="util.mockserver.stopMockServer"></a>
-
-#### mockserver.stopMockServer(mockServerPath)
-Stops the mockserver instance
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-
-**Example**  
-```js
-await util.mockserver.stopMockServer("path/to/project/localService/main/mockserver");
-```
-<a name="util.mockserver.loadMockDataFile"></a>
-
-#### mockserver.loadMockDataFile(filePath, isText) ⇒ <code>String</code>
-Loads a mock data file
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-**Returns**: <code>String</code> - The json object  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| filePath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-| isText | <code>Boolean</code> | If true then content type is text/plain otherwise application/json. |
-
-**Example**  
-```js
-await util.mockserver.loadMockDataFile("path/to/project/mockData/myData.json", true);
-```
-<a name="util.mockserver.getEntitySetData"></a>
-
-#### mockserver.getEntitySetData(mockServerPath, entitySetName) ⇒ <code>Array</code>
-Retrieves entity data
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-**Returns**: <code>Array</code> - An array of json objects  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-| entitySetName | <code>String</code> | The entity set name |
-
-**Example**  
-```js
-await util.mockserver.getEntitySetData("path/to/project/localService/main/mockserver", "Headers");
-```
-<a name="util.mockserver.setEntitySetData"></a>
-
-#### mockserver.setEntitySetData(mockServerPath, entitySetName, entries)
-Override entity data entries
-
-**Kind**: static method of [<code>mockserver</code>](#util.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
-| entitySetName | <code>String</code> | The entity name |
-| entries | <code>String</code> | The json object to be used as data to be inserted [use relative path from the html page started]. |
-
-**Example**  
-```js
-await util.mockserver.setEntitySetData("path/to/project/localService/main/mockserver", "Headers", entries);
-```
-<a name="util.qUnit"></a>
-
-### util.qUnit
-**Kind**: static class of [<code>util</code>](#util)  
-<a name="util.qUnit.executeTests"></a>
-
-#### qUnit.executeTests(path)
-Executes QUnit & OPA5 tests. Qmate acts like a runner.
-
-**Kind**: static method of [<code>qUnit</code>](#util.qUnit)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| path | <code>String</code> | Relative path to the QUnit/OPA5 html file. |
-
-**Example**  
-```js
-await util.qUnit.executeTests("path/to/qunit.html");
+await util.function.executeOptional(async () => { await ui5.userInteraction.fill(selector, "ABC");}, []);
 ```
 <a name="util.system"></a>
 
@@ -1463,25 +1161,21 @@ Global namespace for UI5 modules.
 
 * [ui5](#ui5)
     * [.assertion](#ui5.assertion)
-        * [.expectAttributeToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectAttributeToBe) ⇒ <code>Promise</code>
-        * [.expectAttributeToContain(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectAttributeToContain) ⇒ <code>Promise</code>
-        * [.expectTextToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectTextToBe) ⇒ <code>Promise</code>
-        * [.expectValueToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValueToBe) ⇒ <code>Promise</code>
-        * [.expectValueToBeDefined(selector, [index], [timeout])](#ui5.assertion.expectValueToBeDefined) ⇒ <code>Promise</code>
-        * [.expectToBeNotEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeNotEnabled) ⇒ <code>Promise</code>
-        * [.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeEnabled) ⇒ <code>Promise</code>
-        * [.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationError) ⇒ <code>Promise</code>
-        * [.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationSuccess) ⇒ <code>Promise</code>
-        * [.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingPathToBe) ⇒ <code>Promise</code>
-        * [.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingContextPathToBe) ⇒ <code>Promise</code>
-        * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible) ⇒ <code>Promise</code>
-        * [.expectToBeVisibleInViewport(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisibleInViewport) ⇒ <code>Promise</code>
-        * [.expectToBeNotVisible(selector, [index], [timeout])](#ui5.assertion.expectToBeNotVisible) ⇒ <code>Promise</code>
-        * [.expectPageTitle(compareValue)](#ui5.assertion.expectPageTitle) ⇒ <code>Promise</code>
-        * [.expectShellHeader()](#ui5.assertion.expectShellHeader) ⇒ <code>Promise</code>
-        * [.expectLogoutText()](#ui5.assertion.expectLogoutText) ⇒ <code>Promise</code>
-        * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.assertion.expectUnsupportedNavigationPopup) ⇒ <code>Promise</code>
-        * [.expectMessageToastText(text, [timeout])](#ui5.assertion.expectMessageToastText) ⇒ <code>Promise</code>
+        * [.expectAttributeToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectAttributeToBe)
+        * [.expectAttributeToContain(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectAttributeToContain)
+        * [.expectTextToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectTextToBe)
+        * [.expectValueToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValueToBe)
+        * [.expectValueToBeDefined(selector, [index], [timeout])](#ui5.assertion.expectValueToBeDefined)
+        * [.expectToBeNotEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeNotEnabled)
+        * [.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeEnabled)
+        * [.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationError)
+        * [.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationSuccess)
+        * [.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingPathToBe)
+        * [.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingContextPathToBe)
+        * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible)
+        * [.expectToBeVisibleInViewport(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisibleInViewport)
+        * [.expectToBeNotVisible(selector, [index], [timeout])](#ui5.assertion.expectToBeNotVisible)
+        * [.expectMessageToastTextToBe(text, [timeout])](#ui5.assertion.expectMessageToastTextToBe)
     * [.confirmationDialog](#ui5.confirmationDialog)
         * [.clickButton(text, [timeout])](#ui5.confirmationDialog.clickButton)
         * [.clickOk([timeout])](#ui5.confirmationDialog.clickOk)
@@ -1509,13 +1203,14 @@ Global namespace for UI5 modules.
         * [.getDisplayedChildElement(parentSelector, childSelector, [parentIndex], [childIndex], [timeout])](#ui5.element.getDisplayedChildElement) ⇒ <code>Object</code>
         * [.getElementByText(selector, value, [index], [timeout])](#ui5.element.getElementByText) ⇒ <code>Object</code>
         * [.getElementId(selector, [index], [timeout])](#ui5.element.getElementId) ⇒ <code>String</code>
-        * [.getValue(selector, attribute, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
+        * [.getAttributeValue(selector, attribute, [index], [timeout])](#ui5.element.getAttributeValue) ⇒ <code>String</code>
+        * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
         * [.getBindingValue(selector, attribute, [index], [timeout])](#ui5.element.getBindingValue) ⇒ <code>String</code>
         * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
         * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.element.scrollToElement)
         * [.highlightElement(selector, [duration], [color])](#ui5.element.highlightElement)
     * [.errorDialog](#ui5.errorDialog)
-        * [.expectErrorDialogToBeVisible()](#ui5.errorDialog.expectErrorDialogToBeVisible)
+        * [.expectToBeVisible()](#ui5.errorDialog.expectToBeVisible)
         * [.clickClose()](#ui5.errorDialog.clickClose)
     * [.footerBar](#ui5.footerBar)
         * [.clickButton(text, [timeout])](#ui5.footerBar.clickButton)
@@ -1527,6 +1222,21 @@ Global namespace for UI5 modules.
         * [.clickOrder([timeout])](#ui5.footerBar.clickOrder)
         * [.clickPost([timeout])](#ui5.footerBar.clickPost)
         * [.clickAdd([timeout])](#ui5.footerBar.clickAdd)
+    * [.mockserver](#ui5.mockserver)
+        * [.waitForUi5ApplicationLoad(interval)](#ui5.mockserver.waitForUi5ApplicationLoad)
+        * [.interactWithMockServer(mockServerPath, fnCallback, oParams)](#ui5.mockserver.interactWithMockServer)
+        * [.attachFunctionBefore(method, mockServerPath, fnBeforeCallback, oParams)](#ui5.mockserver.attachFunctionBefore)
+        * [.attachFunctionAfter(method, mockServerPath, fnAfterCallback, oParams)](#ui5.mockserver.attachFunctionAfter)
+        * [.addNewRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)](#ui5.mockserver.addNewRequest)
+        * [.removeRequest(method, mockServerPath, urlPathRegex)](#ui5.mockserver.removeRequest)
+        * [.addOrOverrideRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)](#ui5.mockserver.addOrOverrideRequest)
+        * [.startMockServer(mockServerPath)](#ui5.mockserver.startMockServer)
+        * [.initMockServer(mockServerPath, mockServerOptions)](#ui5.mockserver.initMockServer)
+        * [.initApplication(mockServerPath)](#ui5.mockserver.initApplication)
+        * [.stopMockServer(mockServerPath)](#ui5.mockserver.stopMockServer)
+        * [.loadMockDataFile(filePath, isText)](#ui5.mockserver.loadMockDataFile) ⇒ <code>String</code>
+        * [.getEntitySetData(mockServerPath, entitySetName)](#ui5.mockserver.getEntitySetData) ⇒ <code>Array</code>
+        * [.setEntitySetData(mockServerPath, entitySetName, entries)](#ui5.mockserver.setEntitySetData)
     * [.navigation](#ui5.navigation)
         * [.navigateToApplication(intent, [preventPopups], [verify])](#ui5.navigation.navigateToApplication)
         * [.navigateToApplicationAndRetry(intent, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationAndRetry)
@@ -1535,10 +1245,15 @@ Global namespace for UI5 modules.
         * [.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])](#ui5.navigation.navigateToApplicationWithQueryParams)
         * [.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationWithQueryParamsAndRetry)
         * [.closePopups([timeout])](#ui5.navigation.closePopups)
+        * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.navigation.expectUnsupportedNavigationPopup)
     * [.navigationBar](#ui5.navigationBar)
         * [.clickBack([timeout])](#ui5.navigationBar.clickBack)
         * [.clickSapLogo([timeout])](#ui5.navigationBar.clickSapLogo)
         * [.clickUserIcon([timeout])](#ui5.navigationBar.clickUserIcon)
+        * [.expectPageTitle(compareValue)](#ui5.navigationBar.expectPageTitle)
+        * [.expectShellHeader()](#ui5.navigationBar.expectShellHeader)
+    * [.qunit](#ui5.qunit)
+        * [.executeTests(path)](#ui5.qunit.executeTests)
     * [.session](#ui5.session)
         * [.login(username, [password], [verify], [timeout])](#ui5.session.login)
         * [.loginFiori(username, [password], [verify])](#ui5.session.loginFiori)
@@ -1546,6 +1261,7 @@ Global namespace for UI5 modules.
         * [.loginCustom(username, [password], usernameFieldSelector, passwordFieldSelector, logonButtonSelector, [verify])](#ui5.session.loginCustom)
         * [.loginCustomViaConfig(username, password, [verify])](#ui5.session.loginCustomViaConfig)
         * [.logout([verify])](#ui5.session.logout)
+        * [.expectLogoutText()](#ui5.session.expectLogoutText)
     * [.userInteraction](#ui5.userInteraction)
         * [.click(selector, [index], [timeout])](#ui5.userInteraction.click)
         * [.clickAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clickAndRetry)
@@ -1556,7 +1272,7 @@ Global namespace for UI5 modules.
         * [.clear(selector, [index], [timeout])](#ui5.userInteraction.clear)
         * [.clearAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clearAndRetry)
         * [.clearAndFill(selector, value, [index], [timeout])](#ui5.userInteraction.clearAndFill)
-        * [.clearFillAndRetry(selector, value, [index], [timeout], [retries], [interval], [verify])](#ui5.userInteraction.clearFillAndRetry)
+        * [.clearAndFillAndRetry(selector, value, [index], [timeout], [retries], [interval], [verify])](#ui5.userInteraction.clearAndFillAndRetry)
         * [.clearSmartFieldInput(selector, [index], [timeout])](#ui5.userInteraction.clearSmartFieldInput)
         * [.clearAndFillSmartFieldInput(selector, value, [index], [timeout])](#ui5.userInteraction.clearAndFillSmartFieldInput)
         * [.clearAndFillSmartFieldInputAndRetry(selector, value, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clearAndFillSmartFieldInputAndRetry)
@@ -1569,11 +1285,6 @@ Global namespace for UI5 modules.
         * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
         * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
         * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
-    * [.messageBox](#ui5.messageBox) : <code>object</code>
-        * [.clickMessageBoxButton()](#ui5.messageBox.clickMessageBoxButton)
-        * [.closeMessageBox()](#ui5.messageBox.closeMessageBox)
-        * [.expectMessageBoxToBeVisible()](#ui5.messageBox.expectMessageBoxToBeVisible)
-        * [.isMessageBoxVisible()](#ui5.messageBox.isMessageBoxVisible) ⇒ <code>Boolean</code>
 
 <a name="ui5.assertion"></a>
 
@@ -1581,33 +1292,28 @@ Global namespace for UI5 modules.
 **Kind**: static class of [<code>ui5</code>](#ui5)  
 
 * [.assertion](#ui5.assertion)
-    * [.expectAttributeToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectAttributeToBe) ⇒ <code>Promise</code>
-    * [.expectAttributeToContain(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectAttributeToContain) ⇒ <code>Promise</code>
-    * [.expectTextToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectTextToBe) ⇒ <code>Promise</code>
-    * [.expectValueToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValueToBe) ⇒ <code>Promise</code>
-    * [.expectValueToBeDefined(selector, [index], [timeout])](#ui5.assertion.expectValueToBeDefined) ⇒ <code>Promise</code>
-    * [.expectToBeNotEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeNotEnabled) ⇒ <code>Promise</code>
-    * [.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeEnabled) ⇒ <code>Promise</code>
-    * [.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationError) ⇒ <code>Promise</code>
-    * [.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationSuccess) ⇒ <code>Promise</code>
-    * [.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingPathToBe) ⇒ <code>Promise</code>
-    * [.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingContextPathToBe) ⇒ <code>Promise</code>
-    * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible) ⇒ <code>Promise</code>
-    * [.expectToBeVisibleInViewport(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisibleInViewport) ⇒ <code>Promise</code>
-    * [.expectToBeNotVisible(selector, [index], [timeout])](#ui5.assertion.expectToBeNotVisible) ⇒ <code>Promise</code>
-    * [.expectPageTitle(compareValue)](#ui5.assertion.expectPageTitle) ⇒ <code>Promise</code>
-    * [.expectShellHeader()](#ui5.assertion.expectShellHeader) ⇒ <code>Promise</code>
-    * [.expectLogoutText()](#ui5.assertion.expectLogoutText) ⇒ <code>Promise</code>
-    * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.assertion.expectUnsupportedNavigationPopup) ⇒ <code>Promise</code>
-    * [.expectMessageToastText(text, [timeout])](#ui5.assertion.expectMessageToastText) ⇒ <code>Promise</code>
+    * [.expectAttributeToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectAttributeToBe)
+    * [.expectAttributeToContain(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectAttributeToContain)
+    * [.expectTextToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectTextToBe)
+    * [.expectValueToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValueToBe)
+    * [.expectValueToBeDefined(selector, [index], [timeout])](#ui5.assertion.expectValueToBeDefined)
+    * [.expectToBeNotEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeNotEnabled)
+    * [.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeEnabled)
+    * [.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationError)
+    * [.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationSuccess)
+    * [.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingPathToBe)
+    * [.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingContextPathToBe)
+    * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible)
+    * [.expectToBeVisibleInViewport(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisibleInViewport)
+    * [.expectToBeNotVisible(selector, [index], [timeout])](#ui5.assertion.expectToBeNotVisible)
+    * [.expectMessageToastTextToBe(text, [timeout])](#ui5.assertion.expectMessageToastTextToBe)
 
 <a name="ui5.assertion.expectAttributeToBe"></a>
 
-#### assertion.expectAttributeToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectAttributeToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])
 Expects the passed elements attribute to be the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1624,11 +1330,10 @@ await ui5.assertion.expectAttributeToBe(selector, "text", "Hello");
 ```
 <a name="ui5.assertion.expectAttributeToContain"></a>
 
-#### assertion.expectAttributeToContain(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectAttributeToContain(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])
 Expects the passed elements attribute to contain the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1645,11 +1350,10 @@ await ui5.assertion.expectAttributeToContain(selector, "text", "abc");
 ```
 <a name="ui5.assertion.expectTextToBe"></a>
 
-#### assertion.expectTextToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectTextToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])
 Expects the passed elements text attribute to be the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1665,11 +1369,10 @@ await ui5.assertion.expectTextToBe(selector, "Hello");
 ```
 <a name="ui5.assertion.expectValueToBe"></a>
 
-#### assertion.expectValueToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectValueToBe(selector, compareValue, [index], [timeout], [loadPropertyTimeout])
 Expects the passed elements value attribute to be the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1685,11 +1388,10 @@ await ui5.assertion.expectValueToBe(selector, "123");
 ```
 <a name="ui5.assertion.expectValueToBeDefined"></a>
 
-#### assertion.expectValueToBeDefined(selector, [index], [timeout]) ⇒ <code>Promise</code>
+#### assertion.expectValueToBeDefined(selector, [index], [timeout])
 Expects the passed elements value to be defined.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1703,11 +1405,10 @@ await ui5.assertion.expectValueToBeDefined(selector);
 ```
 <a name="ui5.assertion.expectToBeNotEnabled"></a>
 
-#### assertion.expectToBeNotEnabled(selector, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectToBeNotEnabled(selector, [index], [timeout], [loadPropertyTimeout])
 Expects that the element is enabled to the user.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1722,11 +1423,10 @@ await ui5.assertion.expectToBeNotEnabled(selector);
 ```
 <a name="ui5.assertion.expectToBeEnabled"></a>
 
-#### assertion.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])
 Expects that the element is enabled to the user.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1741,11 +1441,10 @@ await ui5.assertion.expectToBeEnabled(selector);
 ```
 <a name="ui5.assertion.expectValidationError"></a>
 
-#### assertion.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])
 Expects the "valueState" of the element to be "Error".
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1760,11 +1459,10 @@ await ui5.assertion.expectValidationError(selector);
 ```
 <a name="ui5.assertion.expectValidationSuccess"></a>
 
-#### assertion.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])
 Expects the valueState of the element to be "None".
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1779,11 +1477,10 @@ await ui5.assertion.expectValidationSuccess(selector);
 ```
 <a name="ui5.assertion.expectBindingPathToBe"></a>
 
-#### assertion.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])
 Expects the passed elements attribute binding-path to contain the compare value
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1800,11 +1497,10 @@ await ui5.assertion.expectBindingPathToBe(selector, "text", "Hello");
 ```
 <a name="ui5.assertion.expectBindingContextPathToBe"></a>
 
-#### assertion.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])
 Expects the passed elements binding-context-path to be the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1821,11 +1517,10 @@ await ui5.assertion.expectBindingContextPathToBe(selector, "text", "Hello");
 ```
 <a name="ui5.assertion.expectToBeVisible"></a>
 
-#### assertion.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])
 Expects that the element is visible to the user.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1840,11 +1535,10 @@ await ui5.assertion.expectToBeVisible(selector);
 ```
 <a name="ui5.assertion.expectToBeVisibleInViewport"></a>
 
-#### assertion.expectToBeVisibleInViewport(selector, [index], [timeout], [loadPropertyTimeout]) ⇒ <code>Promise</code>
+#### assertion.expectToBeVisibleInViewport(selector, [index], [timeout], [loadPropertyTimeout])
 Expects that the element is visible in the viewport.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1859,11 +1553,10 @@ await ui5.assertion.expectToBeVisibleInViewport(selector);
 ```
 <a name="ui5.assertion.expectToBeNotVisible"></a>
 
-#### assertion.expectToBeNotVisible(selector, [index], [timeout]) ⇒ <code>Promise</code>
+#### assertion.expectToBeNotVisible(selector, [index], [timeout])
 Expects that the element is not visible to the user.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1875,69 +1568,12 @@ Expects that the element is not visible to the user.
 ```js
 await ui5.assertion.expectToBeNotVisible(selector);
 ```
-<a name="ui5.assertion.expectPageTitle"></a>
+<a name="ui5.assertion.expectMessageToastTextToBe"></a>
 
-#### assertion.expectPageTitle(compareValue) ⇒ <code>Promise</code>
-Expects the page title of the current page to be the compare value.
-
-**Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| compareValue | <code>String</code> | The compare value. |
-
-**Example**  
-```js
-await ui5.assertion.expectPageTitle("Home");
-```
-<a name="ui5.assertion.expectShellHeader"></a>
-
-#### assertion.expectShellHeader() ⇒ <code>Promise</code>
-Expects the shell header to be visible
-
-**Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
-**Example**  
-```js
-await ui5.assertion.expectShellHeader();
-```
-<a name="ui5.assertion.expectLogoutText"></a>
-
-#### assertion.expectLogoutText() ⇒ <code>Promise</code>
-Expects the logout text after logout to be "You have been logged off.
-This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
-
-**Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
-**Example**  
-```js
-await ui5.assertion.expectLogoutText();
-```
-<a name="ui5.assertion.expectUnsupportedNavigationPopup"></a>
-
-#### assertion.expectUnsupportedNavigationPopup(navigationTarget) ⇒ <code>Promise</code>
-Expects navigation to an app that is not supported.
-This can be the case for Mocked tests when the application does not exist or when the app is not included in a role.
-
-**Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| navigationTarget | <code>String</code> | The selector describing the element. |
-
-**Example**  
-```js
-await ui5.assertion.expectUnsupportedNavigationPopup("#SupplierInvoice-display?FiscalYear=1234&SupplierInvoice=1234567890");
-```
-<a name="ui5.assertion.expectMessageToastText"></a>
-
-#### assertion.expectMessageToastText(text, [timeout]) ⇒ <code>Promise</code>
+#### assertion.expectMessageToastTextToBe(text, [timeout])
 Expects the message toast with the passed text.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1946,7 +1582,7 @@ Expects the message toast with the passed text.
 
 **Example**  
 ```js
-await ui5.assertion.expectMessageToastText(text);
+await ui5.assertion.expectMessageToastTextToBe(text);
 ```
 <a name="ui5.confirmationDialog"></a>
 
@@ -2112,11 +1748,7 @@ Executes a native UI5 action as callback function in the browser on the given UI
 
 **Example**  
 ```js
-const selector = {"elementProperties":{"metadata":"sap.m.StandardListItem", "id": "*categoryList-7"}};
-const args = {"property": "text"};
-const title = await ui5.control.execute(function (control, args, done) {
-  done(control.getProperty(args.property));
-}, selector, args);
+const selector = {"elementProperties":{"metadata":"sap.m.StandardListItem", "id": "*categoryList-7"}};const args = {"property": "text"};const title = await ui5.control.execute(function (control, args, done) {  done(control.getProperty(args.property));}, selector, args);
 ```
 <a name="ui5.control.getProperty"></a>
 
@@ -2132,10 +1764,7 @@ Gets the UI5 control property of the given element.
 
 **Example**  
 ```js
-const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};
-const elem = await ui5.control.locator.getDisplayedElement(selector);
-const propertyName = "title";
-const val = await ui5.control.getProperty(elem, propertyName);
+const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};const elem = await ui5.control.locator.getDisplayedElement(selector);const propertyName = "title";const val = await ui5.control.getProperty(elem, propertyName);
 ```
 <a name="ui5.control.getAggregationProperty"></a>
 
@@ -2151,10 +1780,7 @@ Gets the UI5 control aggregation property  of the given element.
 
 **Example**  
 ```js
-const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "items":[{"path":"/Categories"}] }};
-const elem = await ui5.control.locator.getDisplayedElement(selector);
-const propertyName = "tooltip";
-const val = await ui5.control.getAggregationProperty(elem, propertyName);
+const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "items":[{"path":"/Categories"}] }};const elem = await ui5.control.locator.getDisplayedElement(selector);const propertyName = "tooltip";const val = await ui5.control.getAggregationProperty(elem, propertyName);
 ```
 <a name="ui5.control.getAssociationProperty"></a>
 
@@ -2170,10 +1796,7 @@ Get UI control property
 
 **Example**  
 ```js
-const selector = { "elementProperties":{"metadata":"sap.m.MultiComboBox","mProperties":{}};
-const elem = await ui5.control.locator.getDisplayedElement(selector);
-const propertyName = "selectedItems";
-const propertyValue = await ui5.control.getAssociationProperty(elem, propertyName);
+const selector = { "elementProperties":{"metadata":"sap.m.MultiComboBox","mProperties":{}};const elem = await ui5.control.locator.getDisplayedElement(selector);const propertyName = "selectedItems";const propertyValue = await ui5.control.getAssociationProperty(elem, propertyName);
 ```
 <a name="ui5.control.getBindingContextPathProperty"></a>
 
@@ -2188,9 +1811,7 @@ Get UI control binding context path
 
 **Example**  
 ```js
-const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{"title":[{"path":"CategoryName"}] }};
-const elem = await ui5.control.locator.getDisplayedElement(selector);
-const context = await ui5.control.getBindingContextPathProperty(elem);
+const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{"title":[{"path":"CategoryName"}] }};const elem = await ui5.control.locator.getDisplayedElement(selector);const context = await ui5.control.getBindingContextPathProperty(elem);
 ```
 <a name="ui5.control.getPropertyBinding"></a>
 
@@ -2207,10 +1828,7 @@ Get UI control property
 
 **Example**  
 ```js
-const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};
-const elem = await ui5.control.locator.getDisplayedElement(selector);
-const propertyName = "title";
-const binding = await ui5.control.getPropertyBinding(elem, propertyName);
+const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};const elem = await ui5.control.locator.getDisplayedElement(selector);const propertyName = "title";const binding = await ui5.control.getPropertyBinding(elem, propertyName);
 ```
 <a name="ui5.date"></a>
 
@@ -2236,14 +1854,12 @@ Picks the passed date using the "DatePicker" with the given selector.
 
 **Example**  
 ```js
-const today = await common.date.calculateDate("today");
-await ui5.date.pickDate(selector, date);
+const today = await common.date.calculateDate("today");await ui5.date.pickDate(selector, date);
 ```
 <a name="ui5.date.pickDateRange"></a>
 
 #### date.pickDateRange(selector, range)
-Picks the passed date range using the "DatePicker" with the given selector.
-Note that this will only work within the current month!
+Picks the passed date range using the "DatePicker" with the given selector.Note that this will only work within the current month!
 
 **Kind**: static method of [<code>date</code>](#ui5.date)  
 
@@ -2254,10 +1870,7 @@ Note that this will only work within the current month!
 
 **Example**  
 ```js
-const start = await common.date.calculateDate("2020, 9, 20");
-const end = await common.date.calculateDate("2021, 1, 3");
-const range = [start, end];
-await ui5.date.pickDateRange(selector, range);
+const start = await common.date.calculateDate("2020, 9, 20");const end = await common.date.calculateDate("2021, 1, 3");const range = [start, end];await ui5.date.pickDateRange(selector, range);
 ```
 <a name="ui5.date.fillDateRange"></a>
 
@@ -2273,10 +1886,7 @@ Enters the passed date range to the date input with the given selector by provid
 
 **Example**  
 ```js
-const start = await common.date.calculateDate("2020, 9, 20", "dd.mm.yyyy");
-const end = await common.date.calculateDate("2021, 1, 3", "dd.mm.yyyy");
-const range = [start, end];
-await ui5.date.fillDateRange(selector, range);
+const start = await common.date.calculateDate("2020, 9, 20", "dd.mm.yyyy");const end = await common.date.calculateDate("2021, 1, 3", "dd.mm.yyyy");const range = [start, end];await ui5.date.fillDateRange(selector, range);
 ```
 <a name="ui5.element"></a>
 
@@ -2290,7 +1900,8 @@ await ui5.date.fillDateRange(selector, range);
     * [.getDisplayedChildElement(parentSelector, childSelector, [parentIndex], [childIndex], [timeout])](#ui5.element.getDisplayedChildElement) ⇒ <code>Object</code>
     * [.getElementByText(selector, value, [index], [timeout])](#ui5.element.getElementByText) ⇒ <code>Object</code>
     * [.getElementId(selector, [index], [timeout])](#ui5.element.getElementId) ⇒ <code>String</code>
-    * [.getValue(selector, attribute, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
+    * [.getAttributeValue(selector, attribute, [index], [timeout])](#ui5.element.getAttributeValue) ⇒ <code>String</code>
+    * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
     * [.getBindingValue(selector, attribute, [index], [timeout])](#ui5.element.getBindingValue) ⇒ <code>String</code>
     * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
     * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.element.scrollToElement)
@@ -2404,9 +2015,9 @@ Returns the id of the element with the given selector.
 ```js
 const elemId = await ui5.element.getElementId(selector);
 ```
-<a name="ui5.element.getValue"></a>
+<a name="ui5.element.getAttributeValue"></a>
 
-#### element.getValue(selector, attribute, [index], [timeout]) ⇒ <code>String</code>
+#### element.getAttributeValue(selector, attribute, [index], [timeout]) ⇒ <code>String</code>
 Returns the attribute value of the passed element.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
@@ -2421,7 +2032,25 @@ Returns the attribute value of the passed element.
 
 **Example**  
 ```js
-const elemValue = await ui5.element.getValue(selector, "text");
+const elemValue = await ui5.element.getAttributeValue(selector, "text");
+```
+<a name="ui5.element.getValue"></a>
+
+#### element.getValue(selector, [index], [timeout]) ⇒ <code>String</code>
+Returns the value of the passed element.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+**Returns**: <code>String</code> - The value of the element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elemValue = await ui5.element.getValue(selector);
 ```
 <a name="ui5.element.getBindingValue"></a>
 
@@ -2501,18 +2130,18 @@ await ui5.element.highlightElement(selector, 3000, "green");
 **Kind**: static class of [<code>ui5</code>](#ui5)  
 
 * [.errorDialog](#ui5.errorDialog)
-    * [.expectErrorDialogToBeVisible()](#ui5.errorDialog.expectErrorDialogToBeVisible)
+    * [.expectToBeVisible()](#ui5.errorDialog.expectToBeVisible)
     * [.clickClose()](#ui5.errorDialog.clickClose)
 
-<a name="ui5.errorDialog.expectErrorDialogToBeVisible"></a>
+<a name="ui5.errorDialog.expectToBeVisible"></a>
 
-#### errorDialog.expectErrorDialogToBeVisible()
+#### errorDialog.expectToBeVisible()
 Expects that the error dialog is visible on the page.
 
 **Kind**: static method of [<code>errorDialog</code>](#ui5.errorDialog)  
 **Example**  
 ```js
-await ui5.errorDialog.expectErrorDialogToBeVisible();
+await ui5.errorDialog.expectToBeVisible();
 ```
 <a name="ui5.errorDialog.clickClose"></a>
 
@@ -2676,6 +2305,268 @@ Clicks the 'Add' button at the footer toolbar.
 ```js
 await ui5.footerBar.clickAdd();
 ```
+<a name="ui5.mockserver"></a>
+
+### ui5.mockserver
+**Kind**: static class of [<code>ui5</code>](#ui5)  
+
+* [.mockserver](#ui5.mockserver)
+    * [.waitForUi5ApplicationLoad(interval)](#ui5.mockserver.waitForUi5ApplicationLoad)
+    * [.interactWithMockServer(mockServerPath, fnCallback, oParams)](#ui5.mockserver.interactWithMockServer)
+    * [.attachFunctionBefore(method, mockServerPath, fnBeforeCallback, oParams)](#ui5.mockserver.attachFunctionBefore)
+    * [.attachFunctionAfter(method, mockServerPath, fnAfterCallback, oParams)](#ui5.mockserver.attachFunctionAfter)
+    * [.addNewRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)](#ui5.mockserver.addNewRequest)
+    * [.removeRequest(method, mockServerPath, urlPathRegex)](#ui5.mockserver.removeRequest)
+    * [.addOrOverrideRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)](#ui5.mockserver.addOrOverrideRequest)
+    * [.startMockServer(mockServerPath)](#ui5.mockserver.startMockServer)
+    * [.initMockServer(mockServerPath, mockServerOptions)](#ui5.mockserver.initMockServer)
+    * [.initApplication(mockServerPath)](#ui5.mockserver.initApplication)
+    * [.stopMockServer(mockServerPath)](#ui5.mockserver.stopMockServer)
+    * [.loadMockDataFile(filePath, isText)](#ui5.mockserver.loadMockDataFile) ⇒ <code>String</code>
+    * [.getEntitySetData(mockServerPath, entitySetName)](#ui5.mockserver.getEntitySetData) ⇒ <code>Array</code>
+    * [.setEntitySetData(mockServerPath, entitySetName, entries)](#ui5.mockserver.setEntitySetData)
+
+<a name="ui5.mockserver.waitForUi5ApplicationLoad"></a>
+
+#### mockserver.waitForUi5ApplicationLoad(interval)
+Waits for the UI5 framework to load and makes sure XHR request finished und busy indicators are not visible anymore.
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| interval | <code>Integer</code> | The intervals to use when waiting UI5 to load. |
+
+**Example**  
+```js
+await ui5.mockserver.waitForUi5ApplicationLoad(100);
+```
+<a name="ui5.mockserver.interactWithMockServer"></a>
+
+#### mockserver.interactWithMockServer(mockServerPath, fnCallback, oParams)
+Execute client script function to enable interaction with mockserver instance [you can write code in ui5 app context]
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| mockServerPath | <code>String</code> | The full path to your mockserver instance |
+| fnCallback | <code>String</code> \| <code>Object</code> | The client script function that you can use to interact with your mockserver instance. [Caution] The first and last parameter is reserved (1st param is the mockserver instance and last parameter the promise resolve function - done) |
+| oParams | <code>String</code> | Additional parameters you would like to inject in your client script function |
+
+**Example**  
+```js
+await ui5.mockserver.interactWithMockServer("path/to/project/localService/main/mockserver", fnCallback, oParams);
+```
+<a name="ui5.mockserver.attachFunctionBefore"></a>
+
+#### mockserver.attachFunctionBefore(method, mockServerPath, fnBeforeCallback, oParams)
+Attaches a callback function in mockserver attachBefore event to be executed
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| method | <code>String</code> | The attachAfter http method [GET or POST]. |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method so the mockserver instance can be consumed]. |
+| fnBeforeCallback | <code>String</code> \| <code>Object</code> | The callback function to be used in the native attachBefore method as described (https://sapui5.hana.ondemand.com/#/api/sap.ui.core.ui5.mockserver%23methods/Summary) |
+| oParams | <code>Object</code> | Additional parameters you would like to inject in your client script function |
+
+**Example**  
+```js
+await ui5.mockserver.attachFunctionBefore("GET", "path/to/project/localService/main/mockserver", fnBeforeCallback, oParams);
+```
+<a name="ui5.mockserver.attachFunctionAfter"></a>
+
+#### mockserver.attachFunctionAfter(method, mockServerPath, fnAfterCallback, oParams)
+Attaches a callback function in mockserver attachAfter event to be executed
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| method | <code>String</code> | The attachAfter http method [GET or POST]. |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method so the mockserver instance can be consumed]. |
+| fnAfterCallback | <code>String</code> \| <code>Object</code> | The callback function to be used in the native attachAfter method as described (https://sapui5.hana.ondemand.com/#/api/sap.ui.core.ui5.mockserver%23methods/Summary) |
+| oParams | <code>Object</code> | Additional parameters you would like to inject in your client script function |
+
+**Example**  
+```js
+await ui5.mockserver.attachFunctionAfter("GET", "path/to/project/localService/main/mockserver",  fnAfterCallback);
+```
+<a name="ui5.mockserver.addNewRequest"></a>
+
+#### mockserver.addNewRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)
+Adds new mock request
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| method | <code>String</code> | The http method [GET,POST..]. |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+| urlPathRegex | <code>String</code> | The url path regex to filter the requests |
+| responseJsonPath | <code>String</code> | The json object or the path to your json file to be used as response [use relative path from the html page started]. |
+| returnCode | <code>Integer</code> | The http response code to simulate for this mock request. |
+| isText | <code>Boolean</code> | If true then content type is text/plain otherwise application/json. |
+| responseMessages | <code>String</code> | Mocks the gw sap-message response messages [Don't forget to stringify your json before: JSON.stringify(msg)] |
+| responseLocation | <code>String</code> | Mocks the location response messages header |
+
+**Example**  
+```js
+await ui5.mockserver.addNewRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*", "path/to/project/localService/main/mockdata/test.json", 200, true, JSON.stringify(msg));
+```
+<a name="ui5.mockserver.removeRequest"></a>
+
+#### mockserver.removeRequest(method, mockServerPath, urlPathRegex)
+Removes request mock [Doesn't work currently - Mockserver bug]
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| method | <code>String</code> | The http method [GET,POST..]. |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+| urlPathRegex | <code>String</code> | The url path regex to filter the requests |
+
+**Example**  
+```js
+await ui5.mockserver.removeRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*");
+```
+<a name="ui5.mockserver.addOrOverrideRequest"></a>
+
+#### mockserver.addOrOverrideRequest(method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation)
+Adds new or overrides an existing mock request
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| method | <code>String</code> | The http method [GET,POST..]. |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+| urlPathRegex | <code>String</code> | The url path regex to filter the requests |
+| responseJsonPath | <code>String</code> | The json object or the path to your json file to be used as response [use relative path from the html page started]. |
+| returnCode | <code>Integer</code> | The http response code to simulate for this mock request. |
+| isText | <code>Boolean</code> | If true then content type is text/plain otherwise application/json. |
+| responseMessages | <code>String</code> | Mocks the gw sap-message response messages [Don't forget to stringify your json before: JSON.stringify(msg)] |
+| responseLocation | <code>String</code> | Mocks the location response messages header |
+
+**Example**  
+```js
+await ui5.mockserver.addOrOverrideRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*", "path/to/project/localService/main/mockdata/test.json", 200, true, JSON.stringify(msg));
+```
+<a name="ui5.mockserver.startMockServer"></a>
+
+#### mockserver.startMockServer(mockServerPath)
+(Re-)Starts mock server instance
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+
+**Example**  
+```js
+await ui5.mockserver.startMockServer("path/to/project/localService/main/mockserver");
+```
+<a name="ui5.mockserver.initMockServer"></a>
+
+#### mockserver.initMockServer(mockServerPath, mockServerOptions)
+Initializes the provide mockserver instance on the fly
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+| mockServerOptions | <code>String</code> | The mock server options |
+
+**Example**  
+```js
+await ui5.mockserver.initMockServer("path/to/project/localService/main/mockserver", mockServerOptions);
+```
+<a name="ui5.mockserver.initApplication"></a>
+
+#### mockserver.initApplication(mockServerPath)
+Initializes the application [Used in the beggining of script, once the mockserver is fully initialized and request mocking is done]
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+
+**Example**  
+```js
+await ui5.mockserver.initApplication("path/to/project/localService/main/mockserver");
+```
+<a name="ui5.mockserver.stopMockServer"></a>
+
+#### mockserver.stopMockServer(mockServerPath)
+Stops the mockserver instance
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+
+**Example**  
+```js
+await ui5.mockserver.stopMockServer("path/to/project/localService/main/mockserver");
+```
+<a name="ui5.mockserver.loadMockDataFile"></a>
+
+#### mockserver.loadMockDataFile(filePath, isText) ⇒ <code>String</code>
+Loads a mock data file
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+**Returns**: <code>String</code> - The json object  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| filePath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+| isText | <code>Boolean</code> | If true then content type is text/plain otherwise application/json. |
+
+**Example**  
+```js
+await ui5.mockserver.loadMockDataFile("path/to/project/mockData/myData.json", true);
+```
+<a name="ui5.mockserver.getEntitySetData"></a>
+
+#### mockserver.getEntitySetData(mockServerPath, entitySetName) ⇒ <code>Array</code>
+Retrieves entity data
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+**Returns**: <code>Array</code> - An array of json objects  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+| entitySetName | <code>String</code> | The entity set name |
+
+**Example**  
+```js
+await ui5.mockserver.getEntitySetData("path/to/project/localService/main/mockserver", "Headers");
+```
+<a name="ui5.mockserver.setEntitySetData"></a>
+
+#### mockserver.setEntitySetData(mockServerPath, entitySetName, entries)
+Override entity data entries
+
+**Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance]. |
+| entitySetName | <code>String</code> | The entity name |
+| entries | <code>String</code> | The json object to be used as data to be inserted [use relative path from the html page started]. |
+
+**Example**  
+```js
+await ui5.mockserver.setEntitySetData("path/to/project/localService/main/mockserver", "Headers", entries);
+```
 <a name="ui5.navigation"></a>
 
 ### ui5.navigation
@@ -2689,6 +2580,7 @@ await ui5.footerBar.clickAdd();
     * [.navigateToApplicationWithQueryParams(intent, queryParams, [preventPopups], [verify])](#ui5.navigation.navigateToApplicationWithQueryParams)
     * [.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationWithQueryParamsAndRetry)
     * [.closePopups([timeout])](#ui5.navigation.closePopups)
+    * [.expectUnsupportedNavigationPopup(navigationTarget)](#ui5.navigation.expectUnsupportedNavigationPopup)
 
 <a name="ui5.navigation.navigateToApplication"></a>
 
@@ -2780,9 +2672,7 @@ Navigates to the application with the passed queryParams via the passed intent.
 
 **Example**  
 ```js
-const intent = ui5.appIntents.managePurchaseOrders;
-const queryParams = "?sap-language=EN&responderOn=true";
-await ui5.navigation.navigateToApplicationWithQueryParams(intent, queryParams);
+const intent = ui5.appIntents.managePurchaseOrders;const queryParams = "?sap-language=EN&responderOn=true";await ui5.navigation.navigateToApplicationWithQueryParams(intent, queryParams);
 ```
 <a name="ui5.navigation.navigateToApplicationWithQueryParamsAndRetry"></a>
 
@@ -2802,9 +2692,7 @@ Navigates to the application via the passed intent, and retries in case it fails
 
 **Example**  
 ```js
-const intent = ui5.appIntents.managePurchaseOrders;
-const queryParams = "?sap-language=EN&responderOn=true";
-await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
+const intent = ui5.appIntents.managePurchaseOrders;const queryParams = "?sap-language=EN&responderOn=true";await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
 ```
 <a name="ui5.navigation.closePopups"></a>
 
@@ -2821,6 +2709,21 @@ Closes all popups if they occur after navigating to a specific page.
 ```js
 await ui5.navigation.closePopups();
 ```
+<a name="ui5.navigation.expectUnsupportedNavigationPopup"></a>
+
+#### navigation.expectUnsupportedNavigationPopup(navigationTarget)
+Expects navigation to an app that is not supported.This can be the case for Mocked tests when the application does not exist or when the app is not included in a role.
+
+**Kind**: static method of [<code>navigation</code>](#ui5.navigation)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| navigationTarget | <code>String</code> | The selector describing the element. |
+
+**Example**  
+```js
+await ui5.navigation.expectUnsupportedNavigationPopup("#SupplierInvoice-display?FiscalYear=1234&SupplierInvoice=1234567890");
+```
 <a name="ui5.navigationBar"></a>
 
 ### ui5.navigationBar
@@ -2830,6 +2733,8 @@ await ui5.navigation.closePopups();
     * [.clickBack([timeout])](#ui5.navigationBar.clickBack)
     * [.clickSapLogo([timeout])](#ui5.navigationBar.clickSapLogo)
     * [.clickUserIcon([timeout])](#ui5.navigationBar.clickUserIcon)
+    * [.expectPageTitle(compareValue)](#ui5.navigationBar.expectPageTitle)
+    * [.expectShellHeader()](#ui5.navigationBar.expectShellHeader)
 
 <a name="ui5.navigationBar.clickBack"></a>
 
@@ -2876,6 +2781,50 @@ Clicks at the Account Icon.
 ```js
 await ui5.navigationBar.clickUserIcon();
 ```
+<a name="ui5.navigationBar.expectPageTitle"></a>
+
+#### navigationBar.expectPageTitle(compareValue)
+Expects the page title of the current page to be the compare value.
+
+**Kind**: static method of [<code>navigationBar</code>](#ui5.navigationBar)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| compareValue | <code>String</code> | The compare value. |
+
+**Example**  
+```js
+await ui5.navigationBar.expectPageTitle("Home");
+```
+<a name="ui5.navigationBar.expectShellHeader"></a>
+
+#### navigationBar.expectShellHeader()
+Expects the shell header to be visible
+
+**Kind**: static method of [<code>navigationBar</code>](#ui5.navigationBar)  
+**Example**  
+```js
+await ui5.navigationBar.expectShellHeader();
+```
+<a name="ui5.qunit"></a>
+
+### ui5.qunit
+**Kind**: static class of [<code>ui5</code>](#ui5)  
+<a name="ui5.qunit.executeTests"></a>
+
+#### qunit.executeTests(path)
+Executes QUnit & OPA5 tests. Qmate acts like a runner.
+
+**Kind**: static method of [<code>qunit</code>](#ui5.qunit)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>String</code> | Relative path to the QUnit/OPA5 html file. |
+
+**Example**  
+```js
+await ui5.qunit.executeTests("path/to/qunit.html");
+```
 <a name="ui5.session"></a>
 
 ### ui5.session
@@ -2888,6 +2837,7 @@ await ui5.navigationBar.clickUserIcon();
     * [.loginCustom(username, [password], usernameFieldSelector, passwordFieldSelector, logonButtonSelector, [verify])](#ui5.session.loginCustom)
     * [.loginCustomViaConfig(username, password, [verify])](#ui5.session.loginCustomViaConfig)
     * [.logout([verify])](#ui5.session.logout)
+    * [.expectLogoutText()](#ui5.session.expectLogoutText)
 
 <a name="ui5.session.login"></a>
 
@@ -3018,6 +2968,16 @@ Logs the user out.
 ```js
 await ui5.session.logout();
 ```
+<a name="ui5.session.expectLogoutText"></a>
+
+#### session.expectLogoutText()
+Expects the logout text after logout to be "You have been logged off.This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
+
+**Kind**: static method of [<code>session</code>](#ui5.session)  
+**Example**  
+```js
+await ui5.session.expectLogoutText();
+```
 <a name="ui5.userInteraction"></a>
 
 ### ui5.userInteraction
@@ -3033,7 +2993,7 @@ await ui5.session.logout();
     * [.clear(selector, [index], [timeout])](#ui5.userInteraction.clear)
     * [.clearAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clearAndRetry)
     * [.clearAndFill(selector, value, [index], [timeout])](#ui5.userInteraction.clearAndFill)
-    * [.clearFillAndRetry(selector, value, [index], [timeout], [retries], [interval], [verify])](#ui5.userInteraction.clearFillAndRetry)
+    * [.clearAndFillAndRetry(selector, value, [index], [timeout], [retries], [interval], [verify])](#ui5.userInteraction.clearAndFillAndRetry)
     * [.clearSmartFieldInput(selector, [index], [timeout])](#ui5.userInteraction.clearSmartFieldInput)
     * [.clearAndFillSmartFieldInput(selector, value, [index], [timeout])](#ui5.userInteraction.clearAndFillSmartFieldInput)
     * [.clearAndFillSmartFieldInputAndRetry(selector, value, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clearAndFillSmartFieldInputAndRetry)
@@ -3086,8 +3046,7 @@ await ui5.userInteraction.clickAndRetry(selector);
 <a name="ui5.userInteraction.clickTab"></a>
 
 #### userInteraction.clickTab(selector, [index], [timeout])
-Clicks on the tab with the given selector and checks if the tab got selected successfully.
-The function retries the click for maximal 3 times if the selection of the tab (blue underline) was not successful.
+Clicks on the tab with the given selector and checks if the tab got selected successfully.The function retries the click for maximal 3 times if the selection of the tab (blue underline) was not successful.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3104,9 +3063,7 @@ await ui5.userInteraction.clickTab(selector);
 <a name="ui5.userInteraction.clickListItem"></a>
 
 #### userInteraction.clickListItem(selector, [index], [timeout])
-Clicks or opens the list item with the given selector (e.g. ColumnListItem, StandardListItem).
-In some cases the default click function is not working correctly (clicks an element within the list item).
-Therefore we recommend to use this function to open a specific list item.
+Clicks or opens the list item with the given selector (e.g. ColumnListItem, StandardListItem).In some cases the default click function is not working correctly (clicks an element within the list item).Therefore we recommend to use this function to open a specific list item.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3130,7 +3087,7 @@ Fills the input field with the given selector.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to enter. |
+| value | <code>String</code> |  | The value to fill. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
@@ -3148,7 +3105,7 @@ Fills the input field with the given selector and retries the action in case of 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to enter. |
+| value | <code>String</code> |  | The value to fill. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
@@ -3197,14 +3154,14 @@ await ui5.userInteraction.clearAndRetry(selector);
 <a name="ui5.userInteraction.clearAndFill"></a>
 
 #### userInteraction.clearAndFill(selector, value, [index], [timeout])
-Clears the input field with the given selector and enters the given value.
+Clears the input field with the given selector and fills the given value.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to enter. |
+| value | <code>String</code> |  | The value to fill. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
@@ -3212,17 +3169,17 @@ Clears the input field with the given selector and enters the given value.
 ```js
 await ui5.userInteraction.clearAndFill(selector, "My Value");
 ```
-<a name="ui5.userInteraction.clearFillAndRetry"></a>
+<a name="ui5.userInteraction.clearAndFillAndRetry"></a>
 
-#### userInteraction.clearFillAndRetry(selector, value, [index], [timeout], [retries], [interval], [verify])
-Clears the input field with the given selector and enters the given value. Retries the action in case of a failure.
+#### userInteraction.clearAndFillAndRetry(selector, value, [index], [timeout], [retries], [interval], [verify])
+Clears the input field with the given selector and fills the given value. Retries the action in case of a failure.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to enter. |
+| value | <code>String</code> |  | The value to fill. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
@@ -3231,7 +3188,7 @@ Clears the input field with the given selector and enters the given value. Retri
 
 **Example**  
 ```js
-await ui5.userInteraction.clearFillAndRetry(selector, "My Value");
+await ui5.userInteraction.clearAndFillAndRetry(selector, "My Value");
 ```
 <a name="ui5.userInteraction.clearSmartFieldInput"></a>
 
@@ -3253,14 +3210,14 @@ await ui5.userInteraction.clearSmartFieldInput(selector);
 <a name="ui5.userInteraction.clearAndFillSmartFieldInput"></a>
 
 #### userInteraction.clearAndFillSmartFieldInput(selector, value, [index], [timeout])
-Clears the smart filed with the given selector and enters the given value.
+Clears the smart filed with the given selector and fills the given value.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to enter. |
+| value | <code>String</code> |  | The value to fill. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
@@ -3271,14 +3228,14 @@ await ui5.userInteraction.clearAndFillSmartFieldInput(selector, "My Value");
 <a name="ui5.userInteraction.clearAndFillSmartFieldInputAndRetry"></a>
 
 #### userInteraction.clearAndFillSmartFieldInputAndRetry(selector, value, [index], [timeout], [retries], [interval])
-Clears the smart filed with the given selector and enters the given value and retries the action in case of a failure.
+Clears the smart filed with the given selector and fills the given value and retries the action in case of a failure.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to enter. |
+| value | <code>String</code> |  | The value to fill. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
@@ -3291,9 +3248,7 @@ await ui5.userInteraction.clearAndFillSmartFieldInputAndRetry(selector, "My Valu
 <a name="ui5.userInteraction.selectBox"></a>
 
 #### userInteraction.selectBox(selector, value, [index])
-Selects the passed value of the Select box.
-Please note that the function will only work for the default select Box.
-In special cases, please use the clickSelectArrow function.
+Selects the passed value of the Select box.Please note that the function will only work for the default select Box.In special cases, please use the clickSelectArrow function.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3310,9 +3265,7 @@ await ui5.userInteraction.selectBox(selector, "Germany");
 <a name="ui5.userInteraction.selectComboBox"></a>
 
 #### userInteraction.selectComboBox(selector, value, [index])
-Selects the passed value from the ComboBox with the given selector.
-Please note that the function will only work for the default ComboBox.
-In special cases you need to use the 'clickSelectArrow' function.
+Selects the passed value from the ComboBox with the given selector.Please note that the function will only work for the default ComboBox.In special cases you need to use the 'clickSelectArrow' function.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3329,9 +3282,7 @@ await ui5.userInteraction.selectComboBox(selector, "Germany");
 <a name="ui5.userInteraction.selectMultiComboBox"></a>
 
 #### userInteraction.selectMultiComboBox(selector, values, [index])
-Selects the passed values of the MultiComboBox with the given selector.
-Please note that the function will only work for the default MultiComboBox.
-In special cases, please use the clickSelectArrow function.
+Selects the passed values of the MultiComboBox with the given selector.Please note that the function will only work for the default MultiComboBox.In special cases, please use the clickSelectArrow function.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3417,8 +3368,7 @@ await ui5.userInteraction.openF4Help(selector, 0, 30000, false);
 <a name="ui5.userInteraction.searchFor"></a>
 
 #### userInteraction.searchFor(selector, [index], [timeout], useEnter)
-Searches for the passed value and executes the search.
-In case that the search is already filled, it will reset the field first.
+Searches for the passed value and executes the search.In case that the search is already filled, it will reset the field first.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3450,58 +3400,6 @@ Resets the search field.
 ```js
 await ui5.userInteraction.resetSearch(selector);
 ```
-<a name="ui5.messageBox"></a>
-
-### ui5.messageBox : <code>object</code>
-**Kind**: static namespace of [<code>ui5</code>](#ui5)  
-
-* [.messageBox](#ui5.messageBox) : <code>object</code>
-    * [.clickMessageBoxButton()](#ui5.messageBox.clickMessageBoxButton)
-    * [.closeMessageBox()](#ui5.messageBox.closeMessageBox)
-    * [.expectMessageBoxToBeVisible()](#ui5.messageBox.expectMessageBoxToBeVisible)
-    * [.isMessageBoxVisible()](#ui5.messageBox.isMessageBoxVisible) ⇒ <code>Boolean</code>
-
-<a name="ui5.messageBox.clickMessageBoxButton"></a>
-
-#### messageBox.clickMessageBoxButton()
-Opens the message box by clicking the button at the footer bar.
-
-**Kind**: static method of [<code>messageBox</code>](#ui5.messageBox)  
-**Example**  
-```js
-await ui5.messageBox.clickMessageBoxButton();
-```
-<a name="ui5.messageBox.closeMessageBox"></a>
-
-#### messageBox.closeMessageBox()
-Closes the message box.
-
-**Kind**: static method of [<code>messageBox</code>](#ui5.messageBox)  
-**Example**  
-```js
-await ui5.messageBox.closeMessageBox();
-```
-<a name="ui5.messageBox.expectMessageBoxToBeVisible"></a>
-
-#### messageBox.expectMessageBoxToBeVisible()
-Expects the MessageBox to be visible.
-
-**Kind**: static method of [<code>messageBox</code>](#ui5.messageBox)  
-**Example**  
-```js
-await ui5.messageBox.expectMessageBoxToBeVisible();
-```
-<a name="ui5.messageBox.isMessageBoxVisible"></a>
-
-#### messageBox.isMessageBoxVisible() ⇒ <code>Boolean</code>
-Determines if the messageBox is visible.
-
-**Kind**: static method of [<code>messageBox</code>](#ui5.messageBox)  
-**Returns**: <code>Boolean</code> - Bool value if the element is visible or not.  
-**Example**  
-```js
-await ui5.messageBox.isMessageBoxVisible();
-```
 <a name="nonUi5"></a>
 
 ## nonUi5
@@ -3511,8 +3409,9 @@ Global namespace for non UI5 modules.
 
 * [nonUi5](#nonUi5)
     * [.assertion](#nonUi5.assertion)
-        * [.expectValueToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectValueToBe) ⇒ <code>Promise</code>
-        * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible) ⇒ <code>Promise</code>
+        * [.expectAttributeToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
+        * [.expectValueToBe(elem, compareValue)](#nonUi5.assertion.expectValueToBe)
+        * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible)
     * [.element](#nonUi5.element)
         * [.waitForAllElements(selector, [timeout])](#nonUi5.element.waitForAllElements) ⇒ <code>Array.&lt;Object&gt;</code>
         * [.waitForElementIsPresent(selector, [timeout])](#nonUi5.element.waitForElementIsPresent)
@@ -3531,13 +3430,17 @@ Global namespace for non UI5 modules.
         * [.isElementPresent(elem)](#nonUi5.element.isElementPresent) ⇒ <code>Boolean</code>
         * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
         * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
-        * [.getValue(elem, [attribute])](#nonUi5.element.getValue) ⇒ <code>String</code>
+        * [.getAttributeValue(elem, [attribute])](#nonUi5.element.getAttributeValue) ⇒ <code>String</code>
+        * [.getValue(elem)](#nonUi5.element.getValue) ⇒ <code>String</code>
         * [.scrollToElement(elem, alignment)](#nonUi5.element.scrollToElement)
         * [.highlightElement(elem, [duration], [color])](#nonUi5.element.highlightElement)
         * [.switchToIframe(selector)](#nonUi5.element.switchToIframe)
         * [.switchToDefaultContent()](#nonUi5.element.switchToDefaultContent)
     * [.userInteraction](#nonUi5.userInteraction)
+        * [.click(element, [timeout])](#nonUi5.userInteraction.click)
         * [.clickAndRetry(element, [timeout], [retries], [interval])](#nonUi5.userInteraction.clickAndRetry)
+        * [.doubleClick(element, [timeout])](#nonUi5.userInteraction.doubleClick)
+        * [.rightClick(element, [timeout])](#nonUi5.userInteraction.rightClick)
         * [.fill(element, value)](#nonUi5.userInteraction.fill)
         * [.fillAndRetry(element, value, [retries], [interval])](#nonUi5.userInteraction.fillAndRetry)
         * [.clear(element)](#nonUi5.userInteraction.clear)
@@ -3552,16 +3455,16 @@ Global namespace for non UI5 modules.
 **Kind**: static class of [<code>nonUi5</code>](#nonUi5)  
 
 * [.assertion](#nonUi5.assertion)
-    * [.expectValueToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectValueToBe) ⇒ <code>Promise</code>
-    * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible) ⇒ <code>Promise</code>
+    * [.expectAttributeToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
+    * [.expectValueToBe(elem, compareValue)](#nonUi5.assertion.expectValueToBe)
+    * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible)
 
-<a name="nonUi5.assertion.expectValueToBe"></a>
+<a name="nonUi5.assertion.expectAttributeToBe"></a>
 
-#### assertion.expectValueToBe(elem, compareValue, [attribute]) ⇒ <code>Promise</code>
+#### assertion.expectAttributeToBe(elem, compareValue, [attribute])
 Expects the attributes value of the passed element to be the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -3571,21 +3474,34 @@ Expects the attributes value of the passed element to be the compare value.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.assertion.expectValueToBe(elem, "Save");
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.assertion.expectAttributeToBe(elem, "Save");
 ```
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.assertion.expectValueToBe(element, "Save", "title");
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.assertion.expectAttributeToBe(element, "Save", "title");
+```
+<a name="nonUi5.assertion.expectValueToBe"></a>
+
+#### assertion.expectValueToBe(elem, compareValue)
+Expects the attributes value of the passed element to be the compare value.
+
+**Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+| compareValue | <code>String</code> | The compare value. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.assertion.expectValueToBe(elem, "Save");
 ```
 <a name="nonUi5.assertion.expectToBeVisible"></a>
 
-#### assertion.expectToBeVisible(element) ⇒ <code>Promise</code>
+#### assertion.expectToBeVisible(element)
 Expects that the element is visible to the user.
 
 **Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
-**Returns**: <code>Promise</code> - The promise to be resolved.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -3593,8 +3509,7 @@ Expects that the element is visible to the user.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.assertion.expectToBeVisible(elem);
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.assertion.expectToBeVisible(elem);
 ```
 <a name="nonUi5.element"></a>
 
@@ -3619,7 +3534,8 @@ await nonUi5.assertion.expectToBeVisible(elem);
     * [.isElementPresent(elem)](#nonUi5.element.isElementPresent) ⇒ <code>Boolean</code>
     * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
     * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
-    * [.getValue(elem, [attribute])](#nonUi5.element.getValue) ⇒ <code>String</code>
+    * [.getAttributeValue(elem, [attribute])](#nonUi5.element.getAttributeValue) ⇒ <code>String</code>
+    * [.getValue(elem)](#nonUi5.element.getValue) ⇒ <code>String</code>
     * [.scrollToElement(elem, alignment)](#nonUi5.element.scrollToElement)
     * [.highlightElement(elem, [duration], [color])](#nonUi5.element.highlightElement)
     * [.switchToIframe(selector)](#nonUi5.element.switchToIframe)
@@ -3890,8 +3806,7 @@ Returns a boolean if the element is visible to the user.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.element.isVisible(elem);
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.element.isVisible(elem);
 ```
 <a name="nonUi5.element.isElementPresent"></a>
 
@@ -3907,8 +3822,7 @@ Returns a boolean if the element is present at the DOM or not.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.element.isElementPresent(elem);
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.element.isElementPresent(elem);
 ```
 <a name="nonUi5.element.isPresentByCss"></a>
 
@@ -3945,9 +3859,9 @@ returns a boolean if the element is present at the DOM or not.
 ```js
 await nonUi5.element.isPresentByXPath(".//*[text()='Create']");
 ```
-<a name="nonUi5.element.getValue"></a>
+<a name="nonUi5.element.getAttributeValue"></a>
 
-#### element.getValue(elem, [attribute]) ⇒ <code>String</code>
+#### element.getAttributeValue(elem, [attribute]) ⇒ <code>String</code>
 Returns the attributes value of the passed element.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -3960,13 +3874,27 @@ Returns the attributes value of the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("elem01");
-const text = await nonUi5.element.getValue(elem, "text");
+const elem = await nonUi5.element.getElementById("elem01");const text = await nonUi5.element.getAttributeValue(elem, "text");
 ```
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("elem02");
-const innerHTML = await nonUi5.element.getValue(elem);
+const elem = await nonUi5.element.getElementById("elem02");const innerHTML = await nonUi5.element.getAttributeValue(elem);
+```
+<a name="nonUi5.element.getValue"></a>
+
+#### element.getValue(elem) ⇒ <code>String</code>
+Returns the value of the passed element.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>String</code> - The  value of the element.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("elem02");const innerHTML = await nonUi5.element.getValue(elem);
 ```
 <a name="nonUi5.element.scrollToElement"></a>
 
@@ -3982,8 +3910,7 @@ Scrolls to the passed element to get it into view.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("footer01");
-await nonUi5.element.scrollToElement(elem);
+const elem = await nonUi5.element.getElementById("footer01");await nonUi5.element.scrollToElement(elem);
 ```
 <a name="nonUi5.element.highlightElement"></a>
 
@@ -4000,13 +3927,11 @@ Highlights the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("text01");
-await nonUi5.element.highlightElement(elem);
+const elem = await nonUi5.element.getElementById("text01");await nonUi5.element.highlightElement(elem);
 ```
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("text01");
-await nonUi5.element.highlightElement(elem, 3000, "green");
+const elem = await nonUi5.element.getElementById("text01");await nonUi5.element.highlightElement(elem, 3000, "green");
 ```
 <a name="nonUi5.element.switchToIframe"></a>
 
@@ -4039,7 +3964,10 @@ await nonUi5.element.switchToDefaultContent();
 **Kind**: static class of [<code>nonUi5</code>](#nonUi5)  
 
 * [.userInteraction](#nonUi5.userInteraction)
+    * [.click(element, [timeout])](#nonUi5.userInteraction.click)
     * [.clickAndRetry(element, [timeout], [retries], [interval])](#nonUi5.userInteraction.clickAndRetry)
+    * [.doubleClick(element, [timeout])](#nonUi5.userInteraction.doubleClick)
+    * [.rightClick(element, [timeout])](#nonUi5.userInteraction.rightClick)
     * [.fill(element, value)](#nonUi5.userInteraction.fill)
     * [.fillAndRetry(element, value, [retries], [interval])](#nonUi5.userInteraction.fillAndRetry)
     * [.clear(element)](#nonUi5.userInteraction.clear)
@@ -4048,6 +3976,22 @@ await nonUi5.element.switchToDefaultContent();
     * [.dragAndDrop(element, targetElem)](#nonUi5.userInteraction.dragAndDrop)
     * [.clickChartPart(element)](#nonUi5.userInteraction.clickChartPart)
 
+<a name="nonUi5.userInteraction.click"></a>
+
+#### userInteraction.click(element, [timeout])
+Clicks on the passed element.
+
+**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| element | <code>Object</code> |  | The element. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.userInteraction.click(elem);
+```
 <a name="nonUi5.userInteraction.clickAndRetry"></a>
 
 #### userInteraction.clickAndRetry(element, [timeout], [retries], [interval])
@@ -4064,8 +4008,39 @@ Clicks on the passed element, retries in case it fails.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.userInteraction.clickAndRetry(elem);
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.userInteraction.clickAndRetry(elem);
+```
+<a name="nonUi5.userInteraction.doubleClick"></a>
+
+#### userInteraction.doubleClick(element, [timeout])
+Double Clicks on the passed element.
+
+**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| element | <code>Object</code> |  | The element. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.userInteraction.doubleClick(elem);
+```
+<a name="nonUi5.userInteraction.rightClick"></a>
+
+#### userInteraction.rightClick(element, [timeout])
+Right Clicks on the passed element.
+
+**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| element | <code>Object</code> |  | The element. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.userInteraction.rightClick(elem);
 ```
 <a name="nonUi5.userInteraction.fill"></a>
 
@@ -4081,8 +4056,7 @@ Fills the given value into the passed input.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("input01");
-await nonUi5.userInteraction.fill(elem, "Service 01");
+const elem = await nonUi5.element.getElementById("input01");await nonUi5.userInteraction.fill(elem, "Service 01");
 ```
 <a name="nonUi5.userInteraction.fillAndRetry"></a>
 
@@ -4100,8 +4074,7 @@ Fills the given value into the passed input, retries in case of a failure.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("input01");
-await nonUi5.userInteraction.fillAndRetry(elem, "Service 01");
+const elem = await nonUi5.element.getElementById("input01");await nonUi5.userInteraction.fillAndRetry(elem, "Service 01");
 ```
 <a name="nonUi5.userInteraction.clear"></a>
 
@@ -4116,8 +4089,7 @@ Clears the passed input element.
 
 **Example**  
 ```js
-const elem = await non_ui5.common.locator.getElementById("input01");
-await nonUi5.userInteraction.clear(elem);
+const elem = await non_ui5.common.locator.getElementById("input01");await nonUi5.userInteraction.clear(elem);
 ```
 <a name="nonUi5.userInteraction.clearAndFill"></a>
 
@@ -4133,8 +4105,7 @@ Clears and fills the passed input element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("input01");
-await nonUi5.userInteraction.clearAndFill(elem, "Service 01");
+const elem = await nonUi5.element.getElementById("input01");await nonUi5.userInteraction.clearAndFill(elem, "Service 01");
 ```
 <a name="nonUi5.userInteraction.clearAndFillAndRetry"></a>
 
@@ -4153,8 +4124,7 @@ Clears and fills the passed input, retries in case it fails.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("input01");
-await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
+const elem = await nonUi5.element.getElementById("input01");await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
 ```
 <a name="nonUi5.userInteraction.dragAndDrop"></a>
 
@@ -4174,8 +4144,7 @@ const elem = await nonUi5.element.getElementById("drag01");
 ```
 **Example**  
 ```js
-const targetElem = await nonUi5.element.getElementById("drop02");
-await nonUi5.userInteraction.dragAndDrop(elem, targetElem);
+const targetElem = await nonUi5.element.getElementById("drop02");await nonUi5.userInteraction.dragAndDrop(elem, targetElem);
 ```
 <a name="nonUi5.userInteraction.clickChartPart"></a>
 
@@ -4190,6 +4159,11 @@ Clicks on a target element inside a chart area.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("chartPartToCLick");
-await nonUi5.userInteraction.clickChartPart(elem);
+const elem = await nonUi5.element.getElementById("chartPartToCLick");await nonUi5.userInteraction.clickChartPart(elem);
 ```
+<a name="service"></a>
+
+## service
+Global namespace for service modules.
+
+**Kind**: global constant  

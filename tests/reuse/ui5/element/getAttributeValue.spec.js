@@ -1,5 +1,5 @@
 "use strict";
-describe("locator - getValue", function () {
+describe("element - getAttributeValue", function () {
 
   let value;
 
@@ -18,7 +18,7 @@ describe("locator - getValue", function () {
     const index = 0;
     const timeout = 30000;
     const attribute = "title";
-    value = await ui5.element.getValue(selector, attribute, index, timeout);
+    value = await ui5.element.getAttributeValue(selector, attribute, index, timeout);
   });
 
   it("Verification", async function () {
@@ -26,7 +26,7 @@ describe("locator - getValue", function () {
   });
 });
 
-describe("locator - getValue with wrong attribute", function () {
+describe("element - getAttributeValue with wrong attribute", function () {
 
   let value;
 
@@ -45,7 +45,7 @@ describe("locator - getValue with wrong attribute", function () {
     const index = 0;
     const timeout = 30000;
     const attribute = "vbcza";
-    value = await ui5.element.getValue(selector, attribute, index, timeout);
+    value = await ui5.element.getAttributeValue(selector, attribute, index, timeout);
   });
 
   it("Verification", async function () {
@@ -53,7 +53,7 @@ describe("locator - getValue with wrong attribute", function () {
   });
 });
 
-describe("locator - getValue with wrong selector", function () {
+describe("element - getAttributeValue with wrong selector", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -69,12 +69,12 @@ describe("locator - getValue with wrong selector", function () {
     const index = 0;
     const timeout = 30000;
     const attribute = "title";
-    await expect(ui5.element.getValue(selector, attribute, index, timeout))
+    await expect(ui5.element.getAttributeValue(selector, attribute, index, timeout))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
 
-describe("locator - getValue for boolean attribute", function () {
+describe("element - getAttributeValue for boolean attribute", function () {
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
   });
@@ -90,7 +90,7 @@ describe("locator - getValue for boolean attribute", function () {
     const index = 0;
     const timeout = 30000;
     const attribute = "selected";
-    // need to make sure that getValue returns a stringified boolean
-    await expect(await ui5.element.getValue(selector, attribute, index, timeout)).toStrictEqual("false");
+    // need to make sure that getAttributeValue returns a stringified boolean
+    await expect(await ui5.element.getAttributeValue(selector, attribute, index, timeout)).toStrictEqual("false");
   });
 });

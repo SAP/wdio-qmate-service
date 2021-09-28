@@ -6,7 +6,7 @@ const selectorForAllListItems = {
   }
 };
 
-describe("locator - getElementByText should get element by right text", function () {
+describe("element - getElementByText should get element by right text", function () {
   let elementByRightName;
   let secondElementByRightName;
   let elementText;
@@ -29,7 +29,7 @@ describe("locator - getElementByText should get element by right text", function
   });
 });
 
-describe("locator - getElementByText should get element by wrong text (unhappy case)", function () {
+describe("element - getElementByText should get element by wrong text (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -41,7 +41,7 @@ describe("locator - getElementByText should get element by wrong text (unhappy c
   });
 });
 
-describe("locator - getElementByText with index 1 (unhappy case)", function () {
+describe("element - getElementByText with index 1 (unhappy case)", function () {
 
   const value = "Gaming Monster";
 

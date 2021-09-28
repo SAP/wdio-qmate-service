@@ -20,7 +20,7 @@ const selectorForErrorPopupText = {
 
 // Test is unstable - system itself can close the popup
 // TODO: discuss local server usage for assertion tests execution
-describe.skip("assertion - expectUnsupportedNavigationPopup", function () {
+describe.skip("navigation - expectUnsupportedNavigationPopup", function () {
   it("Preparation", async function () {
     browser.config.baseUrl = "https://super-sensitive.domain.name/ui";
     await ui5.navigation.navigateToApplication("Shell-home", true);
@@ -32,7 +32,7 @@ describe.skip("assertion - expectUnsupportedNavigationPopup", function () {
   });
 
   it("Verification", async function () {
-    await ui5.assertion.expectUnsupportedNavigationPopup("#SomeWrong-intent");
+    await ui5.navigation.expectUnsupportedNavigationPopup("#SomeWrong-intent");
   });
 
   it("Clean Up", async function () {
@@ -42,7 +42,7 @@ describe.skip("assertion - expectUnsupportedNavigationPopup", function () {
 
 // Test is unstable - system itself can close the popup
 // TODO: discuss local server usage for assertion tests execution
-describe.skip("assertion - expectUnsupportedNavigationPopup with '&' (unhappy case, another error popup)", function () {
+describe.skip("navigation - expectUnsupportedNavigationPopup with '&' (unhappy case, another error popup)", function () {
   it("Preparation", async function () {
     browser.config.baseUrl = "https://super-sensitive.domain.name/ui";
     await ui5.navigation.navigateToApplication("Shell-home", true);
@@ -54,7 +54,7 @@ describe.skip("assertion - expectUnsupportedNavigationPopup with '&' (unhappy ca
   });
 
   it("Verification", async function () {
-    await expect(ui5.assertion.expectUnsupportedNavigationPopup("#SomeWrongIntentWith&"))
+    await expect(ui5.navigation.expectUnsupportedNavigationPopup("#SomeWrongIntentWith&"))
       .rejects.toThrow(/No visible elements found/);
     const textElement = await ui5.locator.getDisplayedElement(selectorForErrorPopupText);
     const text = await textElement.getText();
@@ -66,7 +66,7 @@ describe.skip("assertion - expectUnsupportedNavigationPopup with '&' (unhappy ca
   });
 });
 
-describe("assertion - expectUnsupportedNavigationPopup (unhappy case - no popup - correct navigation)", function () {
+describe("navigation - expectUnsupportedNavigationPopup (unhappy case - no popup - correct navigation)", function () {
   it("Preparation", async function () {
     browser.config.baseUrl = "https://super-sensitive.domain.name/ui";
     await ui5.navigation.navigateToApplication("Shell-home", true);
@@ -75,7 +75,7 @@ describe("assertion - expectUnsupportedNavigationPopup (unhappy case - no popup 
 
   it("Execution and Verification", async function () {
     await ui5.navigation.navigateToApplication("PurchaseOrder-manage", false);
-    await expect(ui5.assertion.expectUnsupportedNavigationPopup("#PurchaseOrder-manage"))
+    await expect(ui5.navigation.expectUnsupportedNavigationPopup("#PurchaseOrder-manage"))
       .rejects.toThrow("uiControlExecuteLocator(): No visible elements found");
   });
 });

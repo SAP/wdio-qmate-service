@@ -1,6 +1,6 @@
 "use strict";
 
-describe("assertion - expectPageTitle equal 'Home' after login", function () {
+describe("navigationBar - expectPageTitle equal 'Home' after login", function () {
   it("Preparation", async function () {
     browser.config.baseUrl = "https://super-sensitive.domain.name/ui";
   });
@@ -11,8 +11,8 @@ describe("assertion - expectPageTitle equal 'Home' after login", function () {
   });
 
   it("Verification", async function () {
-    await ui5.assertion.expectPageTitle("Home");
-    await expect(ui5.assertion.expectPageTitle("PurchaseOrder"))
+    await ui5.navigationBar.expectPageTitle("Home");
+    await expect(ui5.navigationBar.expectPageTitle("PurchaseOrder"))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });

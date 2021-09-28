@@ -8,7 +8,9 @@ exports.config = merge(qmateConfig.config, {
 
   specs: [
     path.resolve(__dirname, "clickBack.spec.js"),
-    path.resolve(__dirname, "clickUserIcon.spec.js")
+    path.resolve(__dirname, "clickUserIcon.spec.js"),
+    path.resolve(__dirname, "expectPageTitle.spec.js"),
+    path.resolve(__dirname, "expectShellHeader.spec.js")
   ],
 
   exclude: [],
