@@ -1,10 +1,10 @@
-const operatingSystem = require("os");
 "use strict";
 /**
  * @class system
  * @memberof util
  */
 const System = function () {
+  const operatingSystem = require("os");
 
   /**
    * @function getOS
