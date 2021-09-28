@@ -8,7 +8,7 @@ const QUnit = function () {
 
   /**
    * @function executeTests
-   * @memberOf ui5.qUnit
+   * @memberOf ui5.qunit
    * @description Executes QUnit & OPA5 tests. Qmate acts like a runner.
    * @param {String} path - Relative path to the QUnit/OPA5 html file.
    * @example await ui5.qunit.executeTests("path/to/qunit.html");
