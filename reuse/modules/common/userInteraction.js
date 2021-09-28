@@ -40,7 +40,7 @@ const UserInteraction = function () {
    * @function clearAndFillActive
    * @memberOf common.userInteraction
    * @description Clears and fills the active input.
-   * @param {String} value - The value to enter.
+   * @param {String} value - The value to fill.
    * @example await common.userInteraction.clearAndFillActive("My Value");
    */
   this.clearAndFillActive = async function (value) {
@@ -57,7 +57,7 @@ const UserInteraction = function () {
    * @function clearAndFillActiveAndRetry
    * @memberOf common.userInteraction
    * @description CClears and fills the active input. Retries the action in case of a failure.
-   * @param {String} value - The value to enter.
+   * @param {String} value - The value to fill.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await common.userInteraction.clearAndFillActiveAndRetry("My Value");

@@ -98,7 +98,7 @@ const UserInteraction = function () {
    * @memberOf ui5.userInteraction
    * @description Fills the input field with the given selector.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} value - The value to enter.
+   * @param {String} value - The value to fill.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.fill(selector, "My Value");
@@ -121,7 +121,7 @@ const UserInteraction = function () {
    * @memberOf ui5.userInteraction
    * @description Fills the input field with the given selector and retries the action in case of a failure.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} value - The value to enter.
+   * @param {String} value - The value to fill.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
@@ -164,9 +164,9 @@ const UserInteraction = function () {
   /**
    * @function clearAndFill
    * @memberOf ui5.userInteraction
-   * @description Clears the input field with the given selector and enters the given value.
+   * @description Clears the input field with the given selector and fills the given value.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} value - The value to enter.
+   * @param {String} value - The value to fill.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clearAndFill(selector, "My Value");
@@ -183,9 +183,9 @@ const UserInteraction = function () {
   /**
    * @function clearAndFillAndRetry
    * @memberOf ui5.userInteraction
-   * @description Clears the input field with the given selector and enters the given value. Retries the action in case of a failure.
+   * @description Clears the input field with the given selector and fills the given value. Retries the action in case of a failure.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} value - The value to enter.
+   * @param {String} value - The value to fill.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
@@ -199,7 +199,7 @@ const UserInteraction = function () {
       // if (verify) {
       //   const elemValue = await ui5.element.getValue(selector, index);
       //   if (elemValue !== value) {
-      //     throw new Error("Verification of function 'clearAndFillAndRetry' failed. Values could not be entered correctly.");
+      //     throw new Error("Verification of function 'clearAndFillAndRetry' failed. Values could not be filled correctly.");
       //   }
       // }
       // TODO: test failing, getValue not working
@@ -222,9 +222,9 @@ const UserInteraction = function () {
   /**
    * @function clearAndFillSmartFieldInput
    * @memberOf ui5.userInteraction
-   * @description Clears the smart filed with the given selector and enters the given value.
+   * @description Clears the smart filed with the given selector and fills the given value.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} value - The value to enter.
+   * @param {String} value - The value to fill.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clearAndFillSmartFieldInput(selector, "My Value");
@@ -240,9 +240,9 @@ const UserInteraction = function () {
   /**
    * @function clearAndFillSmartFieldInputAndRetry
    * @memberOf ui5.userInteraction
-   * @description Clears the smart filed with the given selector and enters the given value and retries the action in case of a failure.
+   * @description Clears the smart filed with the given selector and fills the given value and retries the action in case of a failure.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} value - The value to enter.
+   * @param {String} value - The value to fill.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
