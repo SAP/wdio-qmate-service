@@ -15,7 +15,6 @@ const Assertion = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectAttributeToBe(selector, "text", "Hello");
    */
   this.expectAttributeToBe = async function (selector, attribute, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
@@ -63,7 +62,6 @@ const Assertion = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectAttributeToContain(selector, "text", "abc");
    */
   this.expectAttributeToContain = async function (selector, attribute, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
@@ -102,7 +100,6 @@ const Assertion = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectTextToBe(selector, "Hello");
    */
   this.expectTextToBe = async function (selector, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
@@ -118,7 +115,6 @@ const Assertion = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectValueToBe(selector, "123");
    */
   this.expectValueToBe = async function (selector, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
@@ -132,7 +128,6 @@ const Assertion = function () {
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectValueToBeDefined(selector);
    */
   this.expectValueToBeDefined = async function (selector, index = 0, timeout = 30000) {
@@ -149,7 +144,6 @@ const Assertion = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectToBeNotEnabled(selector);
    */
   this.expectToBeNotEnabled = async function (selector, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
@@ -164,7 +158,6 @@ const Assertion = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectToBeEnabled(selector);
    */
   this.expectToBeEnabled = async function (selector, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
@@ -179,7 +172,6 @@ const Assertion = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectValidationError(selector);
    */
   this.expectValidationError = async function (selector, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
@@ -194,7 +186,6 @@ const Assertion = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectValidationSuccess(selector);
    */
   this.expectValidationSuccess = async function (selector, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
@@ -213,7 +204,6 @@ const Assertion = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectBindingPathToBe(selector, "text", "Hello");
    */
   this.expectBindingPathToBe = async function (selector, attribute, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
@@ -265,7 +255,6 @@ const Assertion = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectBindingContextPathToBe(selector, "text", "Hello");
    */
   this.expectBindingContextPathToBe = async function (selector, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
@@ -301,7 +290,6 @@ const Assertion = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectToBeVisible(selector);
    */
   this.expectToBeVisible = async function (selector, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
@@ -344,7 +332,6 @@ const Assertion = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectToBeVisibleInViewport(selector);
    */
   this.expectToBeVisibleInViewport = async function (selector, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
@@ -382,7 +369,6 @@ const Assertion = function () {
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectToBeNotVisible(selector);
    */
   this.expectToBeNotVisible = async function (selector, index = 0, timeout = 30000) { //TODO should we decrease the default timeouts for every function?
@@ -408,7 +394,6 @@ const Assertion = function () {
    * @memberOf ui5.assertion
    * @description Expects the page title of the current page to be the compare value.
    * @param {String} compareValue - The compare value.
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectPageTitle("Home");
    */
   this.expectPageTitle = async function (compareValue) {
@@ -440,7 +425,6 @@ const Assertion = function () {
    * @function expectShellHeader
    * @memberOf ui5.assertion
    * @description Expects the shell header to be visible
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectShellHeader();
    */
   this.expectShellHeader = async function () {
@@ -458,7 +442,6 @@ const Assertion = function () {
    * @memberOf ui5.assertion
    * @description Expects the logout text after logout to be "You have been logged off.
    * This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectLogoutText();
    */
   this.expectLogoutText = async function () {
@@ -472,7 +455,6 @@ const Assertion = function () {
    * @description Expects navigation to an app that is not supported.
    * This can be the case for Mocked tests when the application does not exist or when the app is not included in a role.
    * @param {String} navigationTarget - The selector describing the element.
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectUnsupportedNavigationPopup("#SupplierInvoice-display?FiscalYear=1234&SupplierInvoice=1234567890");
    */
   this.expectUnsupportedNavigationPopup = async function (navigationTarget) {
@@ -512,7 +494,6 @@ const Assertion = function () {
    * @description Expects the message toast with the passed text.
    * @param {String} text - The expected text.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectMessageToastText(text);
    */
   this.expectMessageToastText = async function (text, timeout = 30000) {
