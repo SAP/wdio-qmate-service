@@ -49,7 +49,6 @@ const ReuseLibrary = function () {
       errorDialog: require("./modules/ui5/errorDialog.js"),
       element: require("./modules/ui5/element.js"),
       footerBar: require("./modules/ui5/footerBar.js"),
-      messageBox: require("./modules/ui5/messageBox.js"),
       mockserver: require("./modules/ui5/mockserver.js"),
       navigation: require("./modules/ui5/navigation.js"),
       navigationBar: require("./modules/ui5/navigationBar.js"),
