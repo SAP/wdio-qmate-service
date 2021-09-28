@@ -1251,6 +1251,7 @@ Global namespace for UI5 modules.
         * [.clickSapLogo([timeout])](#ui5.navigationBar.clickSapLogo)
         * [.clickUserIcon([timeout])](#ui5.navigationBar.clickUserIcon)
     * [.qunit](#ui5.qunit)
+        * [.executeTests(path)](#ui5.qunit.executeTests)
     * [.session](#ui5.session)
         * [.login(username, [password], [verify], [timeout])](#ui5.session.login)
         * [.loginFiori(username, [password], [verify])](#ui5.session.loginFiori)
@@ -2841,6 +2842,21 @@ await ui5.navigationBar.clickUserIcon();
 
 ### ui5.qunit
 **Kind**: static class of [<code>ui5</code>](#ui5)  
+<a name="ui5.qunit.executeTests"></a>
+
+#### qunit.executeTests(path)
+Executes QUnit & OPA5 tests. Qmate acts like a runner.
+
+**Kind**: static method of [<code>qunit</code>](#ui5.qunit)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>String</code> | Relative path to the QUnit/OPA5 html file. |
+
+**Example**  
+```js
+await ui5.qunit.executeTests("path/to/qunit.html");
+```
 <a name="ui5.session"></a>
 
 ### ui5.session
