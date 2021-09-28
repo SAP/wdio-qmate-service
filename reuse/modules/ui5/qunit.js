@@ -1,5 +1,5 @@
 /**
- * @class qUnit  
+ * @class qunit  
  * @memberof ui5
  */
 const QUnit = function () {
@@ -11,7 +11,7 @@ const QUnit = function () {
    * @memberOf ui5.qUnit
    * @description Executes QUnit & OPA5 tests. Qmate acts like a runner.
    * @param {String} path - Relative path to the QUnit/OPA5 html file.
-   * @example await ui5.qUnit.executeTests("path/to/qunit.html");
+   * @example await ui5.qunit.executeTests("path/to/qunit.html");
    */
   this.executeTests = async function (path) {
     const url = await browser.getUrl();
