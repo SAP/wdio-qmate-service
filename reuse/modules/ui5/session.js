@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @class session
  * @memberof ui5
@@ -43,7 +44,7 @@ const Session = function () {
           return false;
         }
       }, timeout);
-      await loginWithUsernameAndPassword(username, password, authenticator, verify);
+      await _loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
       throw new Error("login failed. Could not find the login page within the given time. \n" + error);
     }
@@ -65,7 +66,7 @@ const Session = function () {
 
     try {
       const authenticator = await ui5.authenticators.fioriForm;
-      return await loginWithUsernameAndPassword(username, password, authenticator, verify);
+      return await _loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
       throw new Error(`Function 'loginFiori' failed: ${error}`);
     }
@@ -87,7 +88,7 @@ const Session = function () {
 
     try {
       const authenticator = await ui5.authenticators.sapCloudForm;
-      return await loginWithUsernameAndPassword(username, password, authenticator, verify);
+      return await _loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
       throw new Error(`Function 'loginSapCloud' failed: ${error}`);
     }
@@ -116,7 +117,7 @@ const Session = function () {
         "passwordFieldSelector": passwordFieldSelector,
         "logonButtonSelector": logonButtonSelector
       };
-      return await loginWithUsernameAndPassword(username, password, authenticator, verify);
+      return await _loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
       throw new Error(`Function 'loginCustom' failed: ${error}`);
     }
@@ -176,7 +177,7 @@ const Session = function () {
         "passwordFieldSelector": browser.config.params.auth.passwordFieldSelector,
         "logonButtonSelector": browser.config.params.auth.logonButtonSelector
       };
-      return await loginWithUsernameAndPassword(username, password, authenticator, verify);
+      return await _loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
       throw new Error("Function 'loginCustomViaConfig' failed. Please maintain the auth values in your config.");
     }
@@ -194,7 +195,7 @@ const Session = function () {
    */
   this.logout = async function (verify = true) {
     await ui5.navigationBar.clickUserIcon();
-    await clickSignOut();
+    await _clickSignOut();
     await ui5.confirmationDialog.clickOk();
 
     if (verify) {
@@ -221,13 +222,27 @@ const Session = function () {
     if (!authenticator) {
       this.login(username, password);
     } else {
-      loginWithUsernameAndPassword(username, password, authenticator);
+      _loginWithUsernameAndPassword(username, password, authenticator);
     }
   };
 
 
+  // =================================== ASSERTION ===================================
+  /**
+   * @function expectLogoutText
+   * @memberOf ui5.session
+   * @description Expects the logout text after logout to be "You have been logged off.
+   * This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
+   * @example await ui5.session.expectLogoutText();
+   */
+  this.expectLogoutText = async function () {
+    const elem = await nonUi5.element.getElementById("msgText");
+    await nonUi5.assertion.expectToBeVisible(elem);
+  };
+
+
   // =================================== HELPER ===================================
-  async function loginWithUsernameAndPassword(username, password = "Welcome1!", authenticator = ui5.authenticators.fioriForm, verify = false) {
+  async function _loginWithUsernameAndPassword(username, password = "Welcome1!", authenticator = ui5.authenticators.fioriForm, verify = false) {
     let usernameField = null;
     let passwordField = null;
     let logonField = null;
@@ -258,10 +273,10 @@ const Session = function () {
       await ui5.assertion.expectShellHeader();
     }
 
-    // await logUI5Version(); // TODO: not working - > endless loading
+    // await _logUI5Version(); // TODO: not working - > endless loading
   }
 
-  async function clickSignOut() {
+  async function _clickSignOut() {
     const selector = {
       "elementProperties": {
         "metadata": "sap.m.StandardListItem",
@@ -275,7 +290,7 @@ const Session = function () {
   }
 
   //TODO: move to common as global function
-  async function logUI5Version() {
+  async function _logUI5Version() {
     let logUI5Version;
 
     try {

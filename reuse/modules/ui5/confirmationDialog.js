@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @class confirmationDialog
  * @memberof ui5

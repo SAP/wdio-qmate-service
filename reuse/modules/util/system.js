@@ -1,4 +1,5 @@
 const operatingSystem = require("os");
+"use strict";
 /**
  * @class system
  * @memberof util

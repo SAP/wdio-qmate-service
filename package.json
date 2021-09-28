@@ -47,7 +47,7 @@
     "eslint-plugin-wdio": "^6.0.12"
   },
   "dependencies": {
-    "@sap_oss/odata-library": "^0.10.1",
+    "@sap_oss/odata-library": "^0.10.2",
     "curl": "^0.1.4",
     "fs-extra": "^10.0.0",
     "jsdoc-to-markdown": "^5.0.3",

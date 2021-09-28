@@ -79,8 +79,8 @@ exports.config = merge(plainConfig.config, {
   // Spec patterns are relative to the current working directory when
   // protractor is called.
   specs: [
-    path.resolve(__dirname, "qunitExecution/specs/runQUnitTests.spec.js"),
-    path.resolve(__dirname, "testDisplayNotFound/specs/testDisplayNotFound.spec.js"),
+    // path.resolve(__dirname, "qunitExecution/specs/runQUnitTests.spec.js"),
+    // path.resolve(__dirname, "testDisplayNotFound/specs/testDisplayNotFound.spec.js"),
     path.resolve(__dirname, "testShowEmployeeList/specs/testShowEmployeeList.spec.js")
   ]
 });

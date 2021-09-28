@@ -1,5 +1,5 @@
 "use strict";
-describe("locator - getElementId by wrong selector (unhappy case)", function () {
+describe("element - getElementId by wrong selector (unhappy case)", function () {
   let elemIdFirst;
   let elemIdSecond;
 
@@ -25,7 +25,7 @@ describe("locator - getElementId by wrong selector (unhappy case)", function () 
   });
 });
 
-describe("locator - getElementId by wrong selector (unhappy case)", function () {
+describe("element - getElementId by wrong selector (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -42,7 +42,7 @@ describe("locator - getElementId by wrong selector (unhappy case)", function () 
   });
 });
 
-describe("locator - getElementId by wrong index (unhappy case)", function () {
+describe("element - getElementId by wrong index (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -60,7 +60,7 @@ describe("locator - getElementId by wrong index (unhappy case)", function () {
   });
 });
 
-describe("locator - getElementId should get element id by empty object selector(unhappy case)", function () {
+describe("element - getElementId should get element id by empty object selector(unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
