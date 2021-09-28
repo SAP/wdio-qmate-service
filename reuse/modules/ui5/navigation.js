@@ -20,7 +20,7 @@ const Navigation = function () {
   this.navigateToApplication = async function (intent, preventPopups = false, verify = false) {
     let urlParams = "";
     if (preventPopups) {
-      urlParams = generateUrlParams();
+      urlParams = _generateUrlParams();
     }
 
     try {
@@ -137,7 +137,7 @@ const Navigation = function () {
   };
 
   // =================================== PRIVATE ===================================
-  function generateUrlParams() {
+  function _generateUrlParams() {
     let urlParams;
     let prefix;
 
