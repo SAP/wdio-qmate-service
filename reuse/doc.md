@@ -433,7 +433,7 @@ Clears and fills the active input.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| value | <code>String</code> | The value to enter. |
+| value | <code>String</code> | The value to fill. |
 
 **Example**  
 ```js
@@ -448,7 +448,7 @@ CClears and fills the active input. Retries the action in case of a failure.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| value | <code>String</code> |  | The value to enter. |
+| value | <code>String</code> |  | The value to fill. |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
 | [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
 
@@ -3108,7 +3108,7 @@ Fills the input field with the given selector.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to enter. |
+| value | <code>String</code> |  | The value to fill. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
@@ -3126,7 +3126,7 @@ Fills the input field with the given selector and retries the action in case of 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to enter. |
+| value | <code>String</code> |  | The value to fill. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
@@ -3175,14 +3175,14 @@ await ui5.userInteraction.clearAndRetry(selector);
 <a name="ui5.userInteraction.clearAndFill"></a>
 
 #### userInteraction.clearAndFill(selector, value, [index], [timeout])
-Clears the input field with the given selector and enters the given value.
+Clears the input field with the given selector and fills the given value.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to enter. |
+| value | <code>String</code> |  | The value to fill. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
@@ -3193,14 +3193,14 @@ await ui5.userInteraction.clearAndFill(selector, "My Value");
 <a name="ui5.userInteraction.clearAndFillAndRetry"></a>
 
 #### userInteraction.clearAndFillAndRetry(selector, value, [index], [timeout], [retries], [interval], [verify])
-Clears the input field with the given selector and enters the given value. Retries the action in case of a failure.
+Clears the input field with the given selector and fills the given value. Retries the action in case of a failure.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to enter. |
+| value | <code>String</code> |  | The value to fill. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
@@ -3231,14 +3231,14 @@ await ui5.userInteraction.clearSmartFieldInput(selector);
 <a name="ui5.userInteraction.clearAndFillSmartFieldInput"></a>
 
 #### userInteraction.clearAndFillSmartFieldInput(selector, value, [index], [timeout])
-Clears the smart filed with the given selector and enters the given value.
+Clears the smart filed with the given selector and fills the given value.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to enter. |
+| value | <code>String</code> |  | The value to fill. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
@@ -3249,14 +3249,14 @@ await ui5.userInteraction.clearAndFillSmartFieldInput(selector, "My Value");
 <a name="ui5.userInteraction.clearAndFillSmartFieldInputAndRetry"></a>
 
 #### userInteraction.clearAndFillSmartFieldInputAndRetry(selector, value, [index], [timeout], [retries], [interval])
-Clears the smart filed with the given selector and enters the given value and retries the action in case of a failure.
+Clears the smart filed with the given selector and fills the given value and retries the action in case of a failure.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to enter. |
+| value | <code>String</code> |  | The value to fill. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
