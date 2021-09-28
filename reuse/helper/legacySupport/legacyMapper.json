@@ -17,7 +17,7 @@
   },
   {
     "old": "utilities.execute.executeKeys",
-    "new": "util.browser.sendKeys"
+    "new": "common.userInteraction.pressKey"
   },
   {
     "old": "utilities.fileHandler",

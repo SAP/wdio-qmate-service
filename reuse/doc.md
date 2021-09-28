@@ -52,6 +52,7 @@ Global namespace for common modules.
         * [.fillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.fillActiveAndRetry)
         * [.clearAndFillActive(value)](#common.userInteraction.clearAndFillActive)
         * [.clearAndFillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.clearAndFillActiveAndRetry)
+        * [.pressKey(keys)](#common.userInteraction.pressKey)
         * [.pressEnter()](#common.userInteraction.pressEnter)
         * [.pressTab()](#common.userInteraction.pressTab)
         * [.pressF4()](#common.userInteraction.pressF4)
@@ -383,6 +384,7 @@ await common.navigation.printCurrentUrl();
     * [.fillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.fillActiveAndRetry)
     * [.clearAndFillActive(value)](#common.userInteraction.clearAndFillActive)
     * [.clearAndFillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.clearAndFillActiveAndRetry)
+    * [.pressKey(keys)](#common.userInteraction.pressKey)
     * [.pressEnter()](#common.userInteraction.pressEnter)
     * [.pressTab()](#common.userInteraction.pressTab)
     * [.pressF4()](#common.userInteraction.pressF4)
@@ -454,6 +456,25 @@ CClears and fills the active input. Retries the action in case of a failure.
 **Example**  
 ```js
 await common.userInteraction.clearAndFillActiveAndRetry("My Value");
+```
+<a name="common.userInteraction.pressKey"></a>
+
+#### userInteraction.pressKey(keys)
+Performs the specified keypress. Possible values: https://w3c.github.io/webdriver/#keyboard-actions
+
+**Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| keys | <code>String</code> | The key or combination of keys to execute. |
+
+**Example**  
+```js
+await common.userInteraction.pressKey("Clear");
+```
+**Example**  
+```js
+await common.userInteraction.pressKey("\uE009", "\uE00A", "KeyD");
 ```
 <a name="common.userInteraction.pressEnter"></a>
 
@@ -540,7 +561,6 @@ Global namespace for util modules.
         * [.sleepAndCollectCoverage([sleep])](#util.browser.sleepAndCollectCoverage)
         * [.refresh()](#util.browser.refresh)
         * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#util.browser.clearBrowser)
-        * [.sendKeys(keys)](#util.browser.sendKeys)
         * [.getBrowserName()](#util.browser.getBrowserName) ⇒ <code>String</code>
         * [.getUI5Version()](#util.browser.getUI5Version)
         * [.executeScript(command)](#util.browser.executeScript) ⇒ <code>Any</code>
@@ -585,7 +605,6 @@ Global namespace for util modules.
     * [.sleepAndCollectCoverage([sleep])](#util.browser.sleepAndCollectCoverage)
     * [.refresh()](#util.browser.refresh)
     * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#util.browser.clearBrowser)
-    * [.sendKeys(keys)](#util.browser.sendKeys)
     * [.getBrowserName()](#util.browser.getBrowserName) ⇒ <code>String</code>
     * [.getUI5Version()](#util.browser.getUI5Version)
     * [.executeScript(command)](#util.browser.executeScript) ⇒ <code>Any</code>
@@ -676,21 +695,6 @@ Clears the local and session cache and deletes all browser cookies.
 **Example**  
 ```js
 await util.browser.clearBrowser();
-```
-<a name="util.browser.sendKeys"></a>
-
-#### browser.sendKeys(keys)
-Executes the set of keystrokes as described https://w3c.github.io/webdriver/#keyboard-actions.
-
-**Kind**: static method of [<code>browser</code>](#util.browser)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| keys | <code>String</code> | The combination of keys to execute. |
-
-**Example**  
-```js
-await util.browser.sendKeys("\uE009", "\uE00A", "KeyD");
 ```
 <a name="util.browser.getBrowserName"></a>
 
