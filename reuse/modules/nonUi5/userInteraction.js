@@ -8,7 +8,7 @@ const UserInteraction = function () {
   // =================================== CLICK ===================================
   /**
    * @function click
-   * @memberOf non_ui5.nonUi5.userInteraction
+   * @memberOf nonUi5.userInteraction
    * @description Clicks on the passed element.
    * @param {Object} element - The element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
@@ -52,6 +52,68 @@ const UserInteraction = function () {
       throw new Error("Function 'clearAndRetry' failed. Please provide an element as first argument.");
     }
     return util.function.retry(this.click, [element, timeout], retries, interval, this);
+  };
+
+  /**
+   * @function doubleClick
+   * @memberOf nonUi5.userInteraction
+   * @description Double Clicks on the passed element.
+   * @param {Object} element - The element.
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example const elem = await nonUi5.element.getElementById("button01");
+   * await nonUi5.userInteraction.doubleClick(elem);
+   */
+  this.doubleClick = async function (element, timeout = 30000) {
+    await Promise.all([
+      expect(element).toBeDisplayed({
+        wait: timeout,
+        interval: 100,
+        message: `Timeout '${timeout / 1000}s' by waiting for element is displayed.`
+      }),
+      expect(element).toBeEnabled({
+        wait: timeout,
+        interval: 100,
+        message: `Timeout '${timeout / 1000}s' by waiting for element is enabled.`
+      })
+    ]);
+    try {
+      await element.doubleClick();
+    } catch (error) {
+      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "doubleClick");
+      throw new Error(errorMessage);
+    }
+  };
+
+  /**
+   * @function rightClick
+   * @memberOf nonUi5.userInteraction
+   * @description Right Clicks on the passed element.
+   * @param {Object} element - The element.
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example const elem = await nonUi5.element.getElementById("button01");
+   * await nonUi5.userInteraction.rightClick(elem);
+   */
+  this.rightClick = async function (element, timeout = 30000) {
+    await Promise.all([
+      expect(element).toBeDisplayed({
+        wait: timeout,
+        interval: 100,
+        message: `Timeout '${timeout / 1000}s' by waiting for element is displayed.`
+      }),
+      expect(element).toBeEnabled({
+        wait: timeout,
+        interval: 100,
+        message: `Timeout '${timeout / 1000}s' by waiting for element is enabled.`
+      })
+    ]);
+    try {
+      await element.rightClick({
+        button: "right"
+      });
+    } catch (error) {
+      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "rightClick");
+      throw new Error(errorMessage);
+    }
   };
 
 
