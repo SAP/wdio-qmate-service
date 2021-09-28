@@ -160,14 +160,6 @@
     "new": "common.navigation.navigateToUrl"
   },
   {
-    "old": "ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry",
-    "new": "ui5.mockserver.navigateToApplicationWithQueryParamsAndRetry"
-  },
-  {
-    "old": "ui5.common.navigation.navigateToApplicationWithQueryParams",
-    "new": "ui5.mockserver.navigateToApplicationWithQueryParams"
-  },
-  {
     "old": "ui5.common.navigation.printCurrentUrl",
     "new": "common.navigation.printCurrentUrl"
   },
