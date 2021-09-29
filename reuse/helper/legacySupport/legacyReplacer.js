@@ -21,7 +21,8 @@ const defaultPathsToIgnore = [
   ".xls",
   ".pptx",
   ".txt",
-  ".woff"
+  ".woff",
+  ".md"
 ];
 
 const argv = yargs
