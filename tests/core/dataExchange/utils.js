@@ -27,7 +27,7 @@ const utilsMethods = {
       files = await fs.readdir(folderPath, { withFileTypes: true });
     } catch (err) {
       console.error(err);
-      await ui5.common.assertion.expectEqual(true, false);
+      await common.assertion.expectEqual(true, false);
     }
     // filter out json files
     const jsonFiles = files.filter((file) => !file.isDirectory() && file.name.match(/\.json$/) !== null);
@@ -44,19 +44,19 @@ const utilsMethods = {
 
     for (let i = 0; i < jsonFilePrefixes.length; i++) {
       const prefix = jsonFilePrefixes[i];
-      await ui5.common.assertion.expectUnequal(browserParamKeys.indexOf(prefix), -1);
+      await common.assertion.expectUnequal(browserParamKeys.indexOf(prefix), -1);
     }
 
     // check if non json files are absent in browser.params.import
     for (let i = 0; i < nonJsonFilePrefixes.length; i++) {
       const prefix = nonJsonFilePrefixes[i];
-      await ui5.common.assertion.expectEqual(browserParamKeys.indexOf(prefix), -1);
+      await common.assertion.expectEqual(browserParamKeys.indexOf(prefix), -1);
     }
 
     //check if subfolders are present
     for (let i = 0; i < subfolders.length; i++) {
       const folder = subfolders[i];
-      await ui5.common.assertion.expectUnequal(browserParamKeys.indexOf(folder), -1);
+      await common.assertion.expectUnequal(browserParamKeys.indexOf(folder), -1);
     }
   },
 
@@ -84,7 +84,7 @@ const utilsMethods = {
       data = await dataExchangeUtil.readJson(fileWithPath);
     } catch (err) {
       console.error(err);
-      await ui5.common.assertion.expectEqual(true, false);
+      await common.assertion.expectEqual(true, false);
     }
 
     let importedData = browser.params.import;
@@ -93,8 +93,8 @@ const utilsMethods = {
     });
     //check if the json files have been loaded into browser.params.import
     importedData = importedData[jsonFilePrefix];
-    //can't find a method in ui5.common.assertion to check if two JSON objects match
-    // await ui5.common.assertion.expectEqual(importedData, data);
+    //can't find a method in ui5.assertion to check if two JSON objects match
+    // await common.assertion.expectEqual(importedData, data);
     await expect(importedData).toEqual(data);
 
   },
@@ -114,12 +114,12 @@ const utilsMethods = {
       data = await dataExchangeUtil.readJson(fileWithPath);
     } catch (err) {
       console.error(err);
-      await ui5.common.assertion.expectEqual(true, false);
+      await common.assertion.expectEqual(true, false);
     }
 
     //check if the json files have been loaded into browser.params.import
     const importedData = browser.params.import[paramName];
-    // await ui5.common.assertion.expectEqual(importedData, data);
+    // await common.assertion.expectEqual(importedData, data);
     await expect(importedData).toEqual(data);
 
   },
@@ -145,7 +145,7 @@ const utilsMethods = {
       data = await dataExchangeUtil.readJson(fileWithPath);
     } catch (err) {
       console.error(err);
-      await ui5.common.assertion.expectEqual(true, false);
+      await common.assertion.expectEqual(true, false);
     }
 
     // assign data to browser.params.export, so that it gets written to export file

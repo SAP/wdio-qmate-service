@@ -75,7 +75,7 @@ describe("Export Data", function () {
       },
       ...browser.params.export.exportArrayData
     ];
-    await ui5.common.assertion.expectEqual(Array.isArray(browser.params.export.exportArrayData), true);
+    await common.assertion.expectEqual(Array.isArray(browser.params.export.exportArrayData), true);
 
     // file "./data/my/folder/path/in/arrayDataFile.json" will have an array
     // check manually after test run is complete

@@ -186,7 +186,7 @@ const OData = function () {
     CentralRequestForQuotation : "7500000026",
     Supplier : "100006"
   };
-  const res = await oData.common.service.callFunctionImport(service, functionImportName, options);
+  const res = await service.odata.callFunctionImport(service, functionImportName, options);
   */
   this.callFunctionImport = async function (srv, functionImportName, options) {
     const functionImport = srv.functionImports[functionImportName];
@@ -208,7 +208,7 @@ const OData = function () {
                 ApplObjectId: "7000002653",
                 ItemId: "1"
               };
-              const pdfStream = await oData.common.service.getOutputManagementPdfStream(outputConf, url, user, password);
+              const pdfStream = await service.odata.getOutputManagementPdfStream(outputConf, url, user, password);
 
   */
   this.getOutputManagementPdfStream = async function (outputConf, url, username, password) {
@@ -231,7 +231,7 @@ const OData = function () {
   * @param {username} - [OPTIONAL] username for login
   * @param {password} - [OPTIONAL] password for login
   * @example  const url = "https://domain.com/getPdfFile";
-      const pdfStream = await oData.common.service.readPdfFromDirectUrl(url, "username", "Password");
+      const pdfStream = await service.odata.readPdfFromDirectUrl(url, "username", "Password");
   */
   this.readPdfFromDirectUrl = async function (url, username, password, isSaml = false) {
     if (url === undefined || url === null) {
