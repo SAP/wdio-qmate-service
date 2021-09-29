@@ -16,9 +16,9 @@ describe("sync test", () => {
   });
 
   it("Verification", async function () {
-    await ui5.common.assertion.expectToBeVisible(selector); // sync navigation works
+    await ui5.assertion.expectToBeVisible(selector); // sync navigation works
 
-    const result = ui5.common.assertion.expectToBeVisible(selector); // but async custom command cannot be used as sync
+    const result = ui5.assertion.expectToBeVisible(selector); // but async custom command cannot be used as sync
     expect(result instanceof Promise).toBe(true);
   });
 });

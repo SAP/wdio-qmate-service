@@ -42,6 +42,6 @@ describe("dialogInteraction - uploadFiles", function () {
     };
     await ui5.element.getDisplayedElement(selectorTest); //TODO rename to getDisplayed?
     await ui5.element.getDisplayedElement(selectorTest2);
-    //await browser.sleep(25000);
+    //await util.browser.sleep(25000);
   });
 });

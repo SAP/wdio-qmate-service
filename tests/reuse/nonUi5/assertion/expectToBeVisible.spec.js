@@ -34,7 +34,7 @@ describe("assertion - expectToBeVisible for element out of viewpoint", function 
     };
 
     // Expand dropdown list
-    await ui5.common.userInteraction.clickSelectArrow(selectorForDropdownList);
+    await ui5.userInteraction.clickSelectArrow(selectorForDropdownList);
   });
 
   it("Verification", async function () {

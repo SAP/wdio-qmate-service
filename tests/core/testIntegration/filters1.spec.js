@@ -133,7 +133,7 @@ describe("filters1", function () {
         }
       }
     };
-    await ui5.common.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 30000, 30000);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 30000, 30000);
   });
 
   it("step0v1: check Page has descendant text - use deep selector structure sibling", async function () {
@@ -158,7 +158,7 @@ describe("filters1", function () {
         }
       }
     };
-    await ui5.common.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 30000, 30000);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 30000, 30000);
   });
 
   it("step0v1: check Page has descendant text - use deep selector structure sibling wrong", async function () {
@@ -222,7 +222,7 @@ describe("filters1", function () {
         }
       },
     };
-    await ui5.common.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 30000, 30000);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 30000, 30000);
   });
 
   it("step0v1: check Page has descendant text - use deep selector structure wrong", async function () {
@@ -265,7 +265,7 @@ describe("filters1", function () {
         }
       }
     };
-    await ui5.common.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 1, 30000);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 1, 30000);
   });
 
   it("step0v1: check Page has descendant text - wait for property without mProperties", async function () {
@@ -273,7 +273,7 @@ describe("filters1", function () {
       "elementProperties": { "metadata": "sap.m.Page", "id": "container-cart---welcomeView--page" },
       "descendantProperties": { "metadata": "sap.m.Text", "text": [{ "path": "i18n>welcomeCarouselShipping" }] }
     };
-    await ui5.common.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 1, 30000);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 1, 30000);
   });
 
   it("step0v1: check name is Accessories - check with dom properties and not mProperties", async function () {
@@ -347,7 +347,7 @@ describe("filters1", function () {
       },
       "descendantProperties": {}
     };
-    await ui5.common.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 30000, 10000);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 30000, 10000);
   });
 
   it("step0v1: check Page has descendant text", async function () {
@@ -363,7 +363,7 @@ describe("filters1", function () {
         }
       }
     };
-    await ui5.common.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 30000, 10000);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 30000, 10000);
   });
 
   it("step0v1: check Page has descendant button", async function () {
@@ -379,7 +379,7 @@ describe("filters1", function () {
         }
       }
     };
-    await ui5.common.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 30000, 10000);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 30000, 10000);
   });
 
   it("step0v1: check Page has wrong descendant text", async function () {
@@ -1314,7 +1314,7 @@ describe("filters1", function () {
       "nextSiblingProperties": {},
       "childProperties": {}
     };
-    await ui5.common.assertion.expectToBeVisible(ui5ControlProperties, 0, 10, 30000);
+    await ui5.assertion.expectToBeVisible(ui5ControlProperties, 0, 10, 30000);
   });
 
   it("step1:enter on Accessories and search", async function () {
