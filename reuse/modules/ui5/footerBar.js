@@ -62,7 +62,7 @@ const FooterBar = function () {
    * @example await ui5.footerBar.clickButton("Ok");
    */
   this.clickButton = async function (text, timeout = 30000) {
-    return ui5.userInteraction.click(this.selector.genericButton(text), 0, timeout);
+    return ui5.userInteraction.click(this.selectors.genericButton(text), 0, timeout);
   };
 
   /**
