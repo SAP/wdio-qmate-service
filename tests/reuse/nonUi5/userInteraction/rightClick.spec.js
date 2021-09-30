@@ -1,6 +1,6 @@
 const { handleCookiesConsent } = require("../../../helper/utils");
 
-describe("userInteraction - rightClick (happy case)", async function () {
+describe("userInteraction - rightClick", async function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.TextArea/sample/sap.m.sample.TextArea");
     await handleCookiesConsent();
