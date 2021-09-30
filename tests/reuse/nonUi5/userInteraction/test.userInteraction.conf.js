@@ -17,7 +17,8 @@ exports.config = merge(qmateConfig.config, {
     path.resolve(__dirname, "fill.spec.js"),
     path.resolve(__dirname, "fillAndRetry.spec.js"),
     path.resolve(__dirname, "charts.spec.js"),
-    path.resolve(__dirname, "checkAttributeAndValue.spec.js")
+    path.resolve(__dirname, "checkAttributeAndValue.spec.js"),
+    path.resolve(__dirname, "rightClick.spec.js")
   ],
   exclude: [],
 
