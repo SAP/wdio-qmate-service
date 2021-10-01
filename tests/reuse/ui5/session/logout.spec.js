@@ -16,7 +16,7 @@ describe("session - logout with inner verification", function () {
   });
 
   it("Verification", async function () {
-    await ui5.assertion.expectLogoutText();
+    await ui5.session.expectLogoutText();
   });
 });
 
@@ -34,7 +34,7 @@ describe("session - logout without inner verification", function () {
   });
 
   it("Verification", async function () {
-    await ui5.assertion.expectLogoutText();
+    await ui5.session.expectLogoutText();
   });
 });
 
