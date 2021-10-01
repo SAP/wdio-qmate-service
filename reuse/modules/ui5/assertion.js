@@ -19,12 +19,18 @@ const Assertion = function () {
    * @example await ui5.assertion.expectAttributeToBe(selector, "text", "Hello");
    */
   this.expectAttributeToBe = async function (selector, attribute, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
-    const elem = await browser.uiControl(selector, index, timeout);
+    let elem;
+    try {
+      elem = await browser.uiControl(selector, index, timeout);
+    } catch (error) {
+      throw new Error(`Function 'expectAttributeToContain' failed:${error}`);
+    }
+
 
     if (loadPropertyTimeout > 0) {
       await browser.waitUntil(async function () {
         const receivedValue = await getUI5PropertyForSelector(attribute);
-        return receivedValue === compareValue;
+        return String(receivedValue) === String(compareValue);
       }, {
         timeout: loadPropertyTimeout,
         timeoutMsg: "Timeout while waiting for element.",
@@ -61,7 +67,12 @@ const Assertion = function () {
    * @example await ui5.assertion.expectAttributeToContain(selector, "text", "abc");
    */
   this.expectAttributeToContain = async function (selector, attribute, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
-    const elem = await browser.uiControl(selector, index, timeout);
+    let elem;
+    try {
+      elem = await browser.uiControl(selector, index, timeout);
+    } catch (error) {
+      throw new Error(`Function 'expectAttributeToContain' failed:${error}`);
+    }
 
     if (loadPropertyTimeout > 0) {
       await expect(elem).toHaveAttributeContaining(attribute, compareValue, {
@@ -206,7 +217,13 @@ const Assertion = function () {
    * @example await ui5.assertion.expectBindingPathToBe(selector, "text", "Hello");
    */
   this.expectBindingPathToBe = async function (selector, attribute, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
-    const elem = await browser.uiControl(selector, index, timeout);
+    let elem;
+    try {
+      elem = await browser.uiControl(selector, index, timeout);
+    } catch (error) {
+      throw new Error(`Function 'expectBindingPathToBe' failed:${error}`);
+    }
+
     let values = null;
     if (loadPropertyTimeout > 0) {
       await browser.waitUntil(async function () {
@@ -219,12 +236,22 @@ const Assertion = function () {
     } else {
       values = await elem.getBindingProperty(attribute);
     }
+    // Note: looks like we should construct values[x|0].model + '>' +  values[x|0].path
     if (Array.isArray(compareValue)) {
+      const mergedArrayOfValues = values.map(value => mergeModelAndPath(value));
       for (let x = 0; x < compareValue.length; x++) {
-        expect(values[x].path).toContain(compareValue[x]);
+        expect(mergedArrayOfValues).toContain(compareValue[x]);
       }
     } else {
-      expect(values[0].path).toContain(compareValue);
+      expect(mergeModelAndPath(values[0])).toContain(compareValue);
+    }
+
+    function mergeModelAndPath(value) {
+      if (value.model && value.model.length) {
+        return `${value.model}>${value.path}`;
+      } else {
+        return value.path;
+      }
     }
   };
 
@@ -242,7 +269,13 @@ const Assertion = function () {
    * @example await ui5.assertion.expectBindingContextPathToBe(selector, "text", "Hello");
    */
   this.expectBindingContextPathToBe = async function (selector, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
-    const elem = await browser.uiControl(selector, index, timeout);
+    let elem;
+    try {
+      elem = await browser.uiControl(selector, index, timeout);
+    } catch (error) {
+      throw new Error(`Function 'expectBindingContextPathToBe' failed:${error}`);
+    }
+
     let value = null;
     if (loadPropertyTimeout > 0) {
       await browser.waitUntil(async function () {
@@ -272,15 +305,21 @@ const Assertion = function () {
    * @example await ui5.assertion.expectToBeVisible(selector);
    */
   this.expectToBeVisible = async function (selector, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
-    const elem = await browser.uiControl(selector, index, timeout);
+    let elem;
+    try {
+      elem = await browser.uiControl(selector, index, timeout);
+    } catch (error) {
+      throw new Error(`Function 'expectToBeVisible' failed:${error}`);
+    }
+
     let value = null;
     if (loadPropertyTimeout > 0) {
-      await expect(elem).toBeVisible({
+      await expect(elem).toBeDisplayed({
         wait: loadPropertyTimeout,
         interval: 100,
         message: "Timeout by waiting for element to be visible."
       });
-      await browser.waitUntil(async function () {
+      return browser.waitUntil(async function () {
         const isUi5Visible = await elem.getUI5Property("visible");
         const isDomVisible = await elem.isDisplayed();
         return isUi5Visible !== null && isUi5Visible !== undefined ||
@@ -293,8 +332,8 @@ const Assertion = function () {
       const isUi5Visible = await elem.getUI5Property("visible");
       const isDomVisible = await elem.isDisplayed();
       value = isUi5Visible || isDomVisible;
+      common.assertion.expectTrue(value); // TODO: check return
     }
-    common.assertion.expectTrue(value); // TODO: check return
   };
 
   /**
@@ -309,7 +348,13 @@ const Assertion = function () {
    * @example await ui5.assertion.expectToBeVisibleInViewport(selector);
    */
   this.expectToBeVisibleInViewport = async function (selector, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
-    const elem = await browser.uiControl(selector, index, timeout);
+    let elem;
+    try {
+      elem = await browser.uiControl(selector, index, timeout);
+    } catch (error) {
+      throw new Error(`Function 'expectToBeVisibleInViewport' failed:${error}`);
+    }
+
     let value = null;
     if (loadPropertyTimeout > 0) {
       await expect(elem).toBeVisibleInViewport({
@@ -325,8 +370,7 @@ const Assertion = function () {
         timeoutMsg: "Property could not be loaded, timeout was reached."
       });
     } else {
-      const isDomVisible = await elem.isDisplayedInViewport();
-      value = isDomVisible;
+      value = await elem.isDisplayedInViewport();
     }
     common.assertion.expectTrue(value);
   };
@@ -341,12 +385,11 @@ const Assertion = function () {
    * @returns {Promise} The promise to be resolved.
    * @example await ui5.assertion.expectToBeNotVisible(selector);
    */
-  this.expectToBeNotVisible = async function (selector, index = 0, timeout = 30000) {
+  this.expectToBeNotVisible = async function (selector, index = 0, timeout = 30000) { //TODO should we decrease the default timeouts for every function?
     let elem;
     try {
       elem = await browser.uiControl(selector, index, timeout, true);
     } catch (e) {
-      // util.console.log("Cannot get element in expectToBeNotVisible with the selector ", selector); // TODO: should we log this as it is expected?
       return;
     }
 
@@ -380,7 +423,12 @@ const Assertion = function () {
         }
       }
     };
-    const elem = await browser.uiControl(selector);
+    let elem;
+    try {
+      elem = await browser.uiControl(selector);
+    } catch (error) {
+      throw new Error(`Function 'expectToBeVisibleInViewport' failed:${error}`);
+    }
     await expect(elem).toBeVisibleInViewport({
       wait: 10000,
       interval: 100,

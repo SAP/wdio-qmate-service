@@ -46,9 +46,10 @@ const Element = function () {
    */
   this.waitForElementIsPresent = async function (selector, timeout = 60000) {
     let elem = null;
-    await browser.waitUntil(async function () {
+    await browser.waitUntil(async function () { //TODO is return await really needed?
       elem = await $(selector);
       if (!elem) return false;
+      // eslint-disable-next-line no-return-await
       return await elem.isExisting();
     }, {
       timeout,
@@ -90,9 +91,10 @@ const Element = function () {
    */
   this.waitForElementIsClickable = async function (selector, timeout = 60000) {
     let elem = null;
-    await browser.waitUntil(async function () {
+    await browser.waitUntil(async function () { //TODO is return await really needed?
       elem = await $(selector);
       if (!elem) return false;
+      // eslint-disable-next-line no-return-await
       return await elem.isClickable();
     }, {
       timeout,
@@ -256,11 +258,13 @@ const Element = function () {
    * @example const elem = await nonUi5.element.getElementByChild(".form01", ".input01");
    */
   this.getElementByChild = async function (elementSelector, childSelector) {
+    // TODO: add try catch
     const elem = await this.getElementByCss(elementSelector);
     let childElem = null;
-    await browser.waitUntil(async function () {
+    await browser.waitUntil(async function () { //TODO is return await really needed?
       childElem = await elem.$(childSelector);
       if (!childElem) return false;
+      // eslint-disable-next-line no-return-await
       return await childElem.isDisplayed();
     }, {
       timeout: 60000,

@@ -124,8 +124,10 @@ const Browser = function () {
    */
   this.getUI5Version = async function () {
     await browser.waitUntil(async function () {
-      await browser.execute(function () {
+      // eslint-disable-next-line no-return-await
+      return await browser.execute(function () {
         try {
+          console.log(window.sap);
           if (window && window.sap && window.sap.ui) {
             return true;
           } else {
@@ -159,7 +161,7 @@ const Browser = function () {
           "timestamp": timestamp
         };
       } else {
-        utilities.console.warn("UI5 version information could not be retrieved.");
+        util.console.warn("UI5 version information could not be retrieved.");
         return null;
       }
     });
