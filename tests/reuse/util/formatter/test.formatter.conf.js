@@ -9,6 +9,7 @@ exports.config = merge(qmateConfig.config, {
   specs: [
     path.resolve(__dirname, "sliceStringAt.spec.js"),
     path.resolve(__dirname, "sliceStringAfter.spec.js"),
-    path.resolve(__dirname, "trimString.spec.js")
+    path.resolve(__dirname, "trimString.spec.js"),
+    path.resolve(__dirname, "extractNumberFromString.spec.js")
   ]
 });
