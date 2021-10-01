@@ -35,7 +35,7 @@ describe("locator - getElementByCss outside of viewpoint", function () {
       }
     };
 
-    await ui5.common.userInteraction.clickSelectArrow(selectorForDropdownList);
+    await ui5.userInteraction.clickSelectArrow(selectorForDropdownList);
   });
 
   it("Execution", async function () {

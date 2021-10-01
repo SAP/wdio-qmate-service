@@ -316,10 +316,6 @@
     "new": "common.navigation.navigateToUrlAndRetry"
   },
   {
-    "old": "non_ui5.common.userInteraction",
-    "new": "non_ui5.userInteraction"
-  },
-  {
     "old": "non_ui5.common.userInteraction.pressEnter",
     "new": "common.userInteraction.pressEnter"
   },

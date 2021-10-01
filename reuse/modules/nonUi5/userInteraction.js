@@ -107,7 +107,7 @@ const UserInteraction = function () {
       })
     ]);
     try {
-      await element.rightClick({
+      await element.click({
         button: "right"
       });
     } catch (error) {
@@ -170,7 +170,7 @@ const UserInteraction = function () {
    * @memberOf nonUi5.userInteraction
    * @description Clears the passed input element.
    * @param {Object} element - The element.
-   * @example const elem = await non_ui5.common.locator.getElementById("input01");
+   * @example const elem = await nonUi5.element.getElementById("input01");
    * await nonUi5.userInteraction.clear(elem);
    */
   this.clear = async function (element) {
@@ -182,13 +182,13 @@ const UserInteraction = function () {
 
   /**
    * @function clearAndRetry
-   * @memberOf non_ui5.common.userInteraction
+   * @memberOf nonUi5.userInteraction
    * @description Clears the passed input element, retries in case of a failure.
    * @param {Object} element - The element.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
-   * @example const elem = await non_ui5.common.locator.getElementById("input01", 10000);
-   * await non_ui5.common.userInteraction.clearAndRetry(elem);
+   * @example const elem = await nonUi5.element.getElementById("input01", 10000);
+   * await nonUi5.userInteraction.clearAndRetry(elem);
    */
   this.clearAndRetry = async function (element, retries = 3, interval = 5000) {
     if (!element) {
