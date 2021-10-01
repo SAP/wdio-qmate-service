@@ -43,14 +43,14 @@ describe("Import Data", function () {
     // folders and valid json files should be loaded
     // missing or inaccessible folders, non-json files, and invalid json files
     // should not be loaded
-    await ui5.common.assertion.expectDefined(browser.params.import.myFolder1);
-    await ui5.common.assertion.expectDefined(browser.params.import.myFolder2);
-    await ui5.common.assertion.expectUndefined(browser.params.import.myMissingFolder);
-    await ui5.common.assertion.expectDefined(browser.params.import.yourPrefixSpecName);
-    await ui5.common.assertion.expectUndefined(browser.params.import.missingFile);
-    await ui5.common.assertion.expectUndefined(browser.params.import.invalidJsonFile);
-    await ui5.common.assertion.expectDefined(browser.params.import.uiUser);
-    await ui5.common.assertion.expectEqual(browser.params.import.emptyObject === null, true);
+    await common.assertion.expectDefined(browser.params.import.myFolder1);
+    await common.assertion.expectDefined(browser.params.import.myFolder2);
+    await common.assertion.expectUndefined(browser.params.import.myMissingFolder);
+    await common.assertion.expectDefined(browser.params.import.yourPrefixSpecName);
+    await common.assertion.expectUndefined(browser.params.import.missingFile);
+    await common.assertion.expectUndefined(browser.params.import.invalidJsonFile);
+    await common.assertion.expectDefined(browser.params.import.uiUser);
+    await common.assertion.expectEqual(browser.params.import.emptyObject === null, true);
 
   });
 
@@ -92,15 +92,15 @@ describe("Import Data", function () {
 
   });
   it("step 8: check invalid json is not loaded", async function () {
-    await ui5.common.assertion.expectUndefined(browser.params.import["invalidJsonFile"]);
+    await common.assertion.expectUndefined(browser.params.import["invalidJsonFile"]);
 
   });
   it("step 9: check missing file is not loaded", async function () {
-    await ui5.common.assertion.expectUndefined(browser.params.import["missingFile"]);
+    await common.assertion.expectUndefined(browser.params.import["missingFile"]);
 
   });
   it("step 10: check missing folder is not loaded", async function () {
-    await ui5.common.assertion.expectUndefined(browser.params.import["missingFolder"]);
+    await common.assertion.expectUndefined(browser.params.import["missingFolder"]);
 
   });
   it("step 11: check files in subfolder are loaded", async function () {
@@ -121,12 +121,12 @@ describe("Import Data", function () {
 
     // check if this is an array
     const poItems = browser.params.import.myFolder2.subfolder.PurchaseOrderItems;
-    await ui5.common.assertion.expectEqual(Array.isArray(poItems), true);
+    await common.assertion.expectEqual(Array.isArray(poItems), true);
   });
 
   it("step 13: check if subfolders with special characters in their names are loaded", async function () {
 
-    await ui5.common.assertion.expectDefined(browser.params.import.myFolder2["purchase-orders"]);
+    await common.assertion.expectDefined(browser.params.import.myFolder2["purchase-orders"]);
 
   });
   it("step 14: check files with special characters in their names are loaded", async function () {

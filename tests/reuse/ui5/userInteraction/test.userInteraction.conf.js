@@ -11,7 +11,7 @@ exports.config = merge(qmateConfig.config, {
     path.resolve(__dirname, "clearAndFill.spec.js"),
     path.resolve(__dirname, "clearAndFillSmartFieldInput.spec.js"),
     path.resolve(__dirname, "clearAndRetry.spec.js"),
-    path.resolve(__dirname, "clearFillAndRetry.spec.js"),
+    path.resolve(__dirname, "clearAndFillAndRetry.spec.js"),
     path.resolve(__dirname, "click.spec.js"),
     path.resolve(__dirname, "clickAndRetry.spec.js"),
     path.resolve(__dirname, "clickSelectArrow.spec.js"),

@@ -12,7 +12,7 @@ describe("Test display not found", function () {
   it("Step 01: Navigate to Application", async function () {
     // Use the mockey that depicts the test case name to be able to map it directly to path, and corresponding data
     //http://localhost:34005/webapp/test/flpSandboxMockServer.html?mockKey=myTestCase
-    await ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry(setup.urlParams.initialIntent, setup.urlParams.queryParams, false);
+    await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(setup.urlParams.initialIntent, setup.urlParams.queryParams, false);
   });
 
   it("Step 02: Initialize mock with dynamic function", async function () {
@@ -28,7 +28,7 @@ describe("Test display not found", function () {
         "id": "*displayNotFoundBtn"
       }
     };
-    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector);
   });
 
   it("Step 03: Expect Button 'Display Not Found'", async function () {
@@ -39,7 +39,7 @@ describe("Test display not found", function () {
         "id": "*displayNotFoundBtn"
       }
     };
-    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector);
   });
 
   it("Step 04: Click Button 'Display Not Found'", async function () {
@@ -50,7 +50,7 @@ describe("Test display not found", function () {
         "id": "*displayNotFoundBtn"
       }
     };
-    await ui5.common.userInteraction.click(selector);
+    await ui5.userInteraction.click(selector);
   });
 
   it("Step 05: Check if navigated correctly", async function () {
@@ -60,7 +60,7 @@ describe("Test display not found", function () {
         "metadata": "sap.m.Title"
       }
     };
-    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector);
   });
 
   it("Step 06: Teardown and register coverage", async function () {

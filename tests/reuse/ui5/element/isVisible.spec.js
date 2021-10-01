@@ -1,5 +1,5 @@
 "use strict";
-describe("locator - isVisible with right selector", function () {
+describe("element - isVisible with right selector", function () {
   let isVisible;
   it("Preparation", async function () {
     await browser.url("#/categories");
@@ -22,7 +22,7 @@ describe("locator - isVisible with right selector", function () {
   });
 });
 
-describe("locator - isVisible with right, but hidden selector", function () {
+describe("element - isVisible with right, but hidden selector", function () {
   let isVisible;
 
   it("Preparation", async function () {
@@ -44,7 +44,7 @@ describe("locator - isVisible with right, but hidden selector", function () {
   });
 });
 
-describe("locator - isVisible with wrong selector", function () {
+describe("element - isVisible with wrong selector", function () {
   let isVisible;
   it("Preparation", async function () {
     await browser.url("#/categories");

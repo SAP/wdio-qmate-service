@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @class browser
  * @memberof util
@@ -88,18 +89,6 @@ const Browser = function () {
     if (clearCookies) {
       browser.deleteAllCookies();
     }
-  };
-
-  // TODO: move to common.userInteraction?
-  /**
-   * @function sendKeys
-   * @memberOf util.browser
-   * @description Executes the set of keystrokes as described https://w3c.github.io/webdriver/#keyboard-actions.
-   * @param {String} keys - The combination of keys to execute.
-   * @example await util.browser.sendKeys("\uE009", "\uE00A", "KeyD");
-   */
-  this.sendKeys = async function (...keys) {
-    await browser.sendKeys(keys);
   };
 
 
