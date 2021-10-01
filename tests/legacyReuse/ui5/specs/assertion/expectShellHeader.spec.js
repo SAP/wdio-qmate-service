@@ -27,8 +27,8 @@ describe("assertion - expectShellHeader not to be visible (unhappy case)", funct
 
   it("Execution and Verification", async function () {
     browser.config.useWaitUI5ToStabilize = false;
-    await expect(ui5.common.assertion.expectShellHeader())
+    await expect(ui5.common.assertion.expectShellHeader(2500, 0))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found with selector*./);
-    browser.config.useWaitUI5ToStabilize= true;
+    browser.config.useWaitUI5ToStabilize = true;
   });
 });

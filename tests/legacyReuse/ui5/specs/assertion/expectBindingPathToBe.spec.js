@@ -95,10 +95,10 @@ describe.only("assertion - expectBindingPathToBe with wrong selector (unhappy ca
       "wrongData": "123"
     };
     await expect(ui5.common.assertion.expectBindingPathToBe(selector, "items", "/ProductCategories"))
-      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Matcher is not supported! Matcher name: 'wrongData', arguments: '\"123\"'");
+      .rejects.toThrow("Function 'expectBindingPathToBe' failed");
 
     await expect(ui5.common.assertion.expectBindingPathToBe(123, "items", "/ProductCategories"))
-      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Cannot read properties of null (reading 'getMetadata')");
+      .rejects.toThrow("Function 'expectBindingPathToBe' failed:");
 
     await expect(ui5.common.assertion.expectBindingPathToBe(false, "items", "/ProductCategories"))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);

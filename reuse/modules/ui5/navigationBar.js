@@ -75,17 +75,11 @@ const NavigationBar = function () {
         }
       }
     };
-    let elem;
     try {
-      elem = await browser.uiControl(selector);
+      await ui5.assertion.expectToBeVisibleInViewport(selector);
     } catch (error) {
-      throw new Error(`Function 'expectToBeVisibleInViewport' failed:${error}`);
+      throw new Error(`Function 'expectPageTitle' failed:${error}`);
     }
-    await expect(elem).toBeVisibleInViewport({
-      wait: 10000,
-      interval: 100,
-      message: "Timeout by waiting for element to be visible."
-    });
   };
 
   /**
@@ -94,14 +88,14 @@ const NavigationBar = function () {
    * @description Expects the shell header to be visible
    * @example await ui5.navigationBar.expectShellHeader();
    */
-  this.expectShellHeader = async function () {
+  this.expectShellHeader = async function (timeout = 30000, loadPropertyTimeout = 0) {
     const selector = {
       "elementProperties": {
         "metadata": "sap.ushell.ui.ShellHeader",
         "id": "shell-header"
       }
     };
-    return ui5.assertion.expectToBeVisible(selector);
+    return ui5.assertion.expectToBeVisible(selector, 0, timeout, loadPropertyTimeout);
   };
 
 };

@@ -199,6 +199,7 @@ const Navigation = function () {
    * @param {String} navigationTarget - The selector describing the element.
    * @example await ui5.navigation.expectUnsupportedNavigationPopup("#SupplierInvoice-display?FiscalYear=1234&SupplierInvoice=1234567890");
    */
+  //TODO: look what it is doing. Looks weeeeeird!
   this.expectUnsupportedNavigationPopup = async function (navigationTarget) {
     const missingNavigationPopup = {
       "elementProperties": {

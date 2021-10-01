@@ -199,7 +199,7 @@ const Session = function () {
     await ui5.confirmationDialog.clickOk();
 
     if (verify) {
-      await ui5.assertion.expectLogoutText();
+      await ui5.session.expectLogoutText();
     }
   };
 
@@ -270,7 +270,7 @@ const Session = function () {
     }
 
     if (verify) {
-      await ui5.assertion.expectShellHeader();
+      await ui5.navigationBar.expectShellHeader();
     }
 
     // await _logUI5Version(); // TODO: not working - > endless loading

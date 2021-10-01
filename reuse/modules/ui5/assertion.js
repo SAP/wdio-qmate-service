@@ -132,7 +132,7 @@ const Assertion = function () {
    * @example await ui5.assertion.expectValueToBeDefined(selector);
    */
   this.expectValueToBeDefined = async function (selector, index = 0, timeout = 30000) {
-    const value = await ui5.element.getValue(selector, "value", index, timeout);
+    const value = await ui5.element.getValue(selector, index, timeout);
     await common.assertion.expectDefined(value);
     await common.assertion.expectUnequal(value, "");
   };
