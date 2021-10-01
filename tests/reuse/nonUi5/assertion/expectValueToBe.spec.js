@@ -21,7 +21,7 @@ describe("assertion - getValue + expectValueToBe", function () {
 
 describe("assertion - expectValueToBe and catch error", function () {
 
-  let product;
+  let product; //is intended not to be used! Do not remove!
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");

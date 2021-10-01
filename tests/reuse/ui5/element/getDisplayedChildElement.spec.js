@@ -1,6 +1,6 @@
 "use strict";
 
-describe("locator - getDisplayedChildElement by parent and child selectors", function () {
+describe("element - getDisplayedChildElement by parent and child selectors", function () {
   let element;
 
   it("Preparation", async function () {
@@ -31,7 +31,7 @@ describe("locator - getDisplayedChildElement by parent and child selectors", fun
   });
 });
 
-describe("locator - getDisplayedChildElement by wrong parent, child selectors and indexes (unhappy case)", function () {
+describe("element - getDisplayedChildElement by wrong parent, child selectors and indexes (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -57,7 +57,7 @@ describe("locator - getDisplayedChildElement by wrong parent, child selectors an
   });
 });
 
-describe("locator - getDisplayedChildElement by parent, wrong child selectors and indexes (unhappy case)", function () {
+describe("element - getDisplayedChildElement by parent, wrong child selectors and indexes (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });

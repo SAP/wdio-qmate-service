@@ -3,7 +3,7 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("locator - getValue + expectEqual", function () {
+describe("locator - getAttributeValue + expectEqual", function () {
 
   let product;
   let currentValue;
@@ -15,7 +15,7 @@ describe("locator - getValue + expectEqual", function () {
 
   it("Execution", async function () {
     product = await nonUi5.element.getElementByXPath("//div[contains(text(),'Laptops')]");
-    currentValue = await nonUi5.element.getValue(product);
+    currentValue = await nonUi5.element.getAttributeValue(product);
   });
 
   it("Verification", async function () {
@@ -30,7 +30,7 @@ describe("locator - getValue and catch error", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getValue())
-      .rejects.toThrow("Function 'getValue' failed");
+    await expect(nonUi5.element.getAttributeValue())
+      .rejects.toThrow("Function 'getAttributeValue' failed");
   });
 });

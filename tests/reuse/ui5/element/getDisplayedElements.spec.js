@@ -1,7 +1,7 @@
 "use strict";
 let elements;
 
-describe("locator - getDisplayedElements by selector", function () {
+describe("element - getDisplayedElements by selector", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -22,7 +22,7 @@ describe("locator - getDisplayedElements by selector", function () {
   });
 });
 
-describe("locator - getDisplayedElements by wrong selector (unhappy case)", function () {
+describe("element - getDisplayedElements by wrong selector (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -39,7 +39,7 @@ describe("locator - getDisplayedElements by wrong selector (unhappy case)", func
   });
 });
 
-describe("locator - getDisplayedElements by selector for invisible elements (unhappy case)", function () {
+describe("element - getDisplayedElements by selector for invisible elements (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -55,7 +55,7 @@ describe("locator - getDisplayedElements by selector for invisible elements (unh
   });
 });
 
-describe("locator - getDisplayedElements should get displayed elements by empty selector (strange case)", function () {
+describe("element - getDisplayedElements should get displayed elements by empty selector (strange case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
