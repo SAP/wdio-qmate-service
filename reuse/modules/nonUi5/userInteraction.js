@@ -107,7 +107,7 @@ const UserInteraction = function () {
       })
     ]);
     try {
-      await element.rightClick({
+      await element.click({
         button: "right"
       });
     } catch (error) {
