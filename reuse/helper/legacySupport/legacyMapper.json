@@ -232,6 +232,10 @@
     "new": "nonUi5"
   },
   {
+    "old": "non_ui5.common.locator",
+    "new": "nonUi5.element"
+  },
+  {
     "old": "non_ui5.common.locator.getValue",
     "new": "nonUi5.element.getAttributeValue"
   },
@@ -286,10 +290,6 @@
   {
     "old": "non_ui5.common.assertion.isPresentByXPath",
     "new": "nonUi5.element.isPresentByXPath"
-  },
-  {
-    "old": "non_ui5.common.locator",
-    "new": "nonUi5.element"
   },
   {
     "old": "non_ui5.common.locator.getCurrentWindow",
