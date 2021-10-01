@@ -17,11 +17,19 @@
   },
   {
     "old": "utilities.execute.executeKeys",
-    "new": "util.browser.sendKeys"
+    "new": "common.userInteraction.pressKey"
   },
   {
     "old": "utilities.fileHandler",
     "new": "util.file"
+  },
+  {
+    "old": "utilities.mockserver",
+    "new": "ui5.mockserver"
+  },
+  {
+    "old": "utilities.qUnit",
+    "new": "util.qunit"
   },
   {
     "old": "ui5.common",
@@ -54,6 +62,26 @@
   {
     "old": "ui5.common.assertion.expectUrlToBe",
     "new": "common.assertion.expectUrlToBe"
+  },
+  {
+    "old": "ui5.common.assertion.expectLogoutText",
+    "new": "ui5.session.expectLogoutText"
+  },
+  {
+    "old": "ui5.common.assertion.expectShellHeader",
+    "new": "ui5.navigationBar.expectShellHeader"
+  },
+  {
+    "old": "ui5.common.assertion.expectPageTitle",
+    "new": "ui5.navigationBar.expectPageTitle"
+  },
+  {
+    "old": "ui5.common.assertion.expectUnsupportedNavigationPopup",
+    "new": "ui5.navigation.expectUnsupportedNavigationPopup"
+  },
+  {
+    "old": "ui5.common.assertion.expectMessageToastText",
+    "new": "ui5.assertion.expectMessageToastTextToBe"
   },
   {
     "old": "ui5.common.client",
@@ -120,12 +148,28 @@
     "new": "common.date.calculateDate"
   },
   {
+    "old": "ui5.common.errorDialog.expectErrorDialogToBeVisible",
+    "new": "ui5.errorDialog.expectToBeVisible"
+  },
+  {
     "old": "ui5.common.formatter",
     "new": "util.formatter"
   },
   {
     "old": "ui5.common.locator",
     "new": "ui5.element"
+  },
+  {
+    "old": "ui5.common.locator.getValue",
+    "new": "ui5.element.getAttributeValue"
+  },
+  {
+    "old": "ui5.common.messageBox",
+    "new": "ui5.footerBar"
+  },
+  {
+    "old": "ui5.common.messageBox.closeMessageBox",
+    "new": "ui5.footerBar.clickCloseMessageBox"
   },
   {
     "old": "ui5.common.navigation.navigateToUrl",
@@ -164,6 +208,10 @@
     "new": "common.userInteraction.pressArrowRight"
   },
   {
+    "old": "ui5.common.userInteraction.clearFillAndRetry",
+    "new": "ui5.userInteraction.clearAndFillAndRetry"
+  },
+  {
     "old": "ui5.common.userInteraction.fillActive",
     "new": "common.userInteraction.fillActive"
   },
@@ -177,11 +225,19 @@
   },
   {
     "old": "ui5.common.userInteraction.clearFillActiveAndRetry",
-    "new": "common.userInteraction.clearFillActiveAndRetry"
+    "new": "common.userInteraction.clearAndFillActiveAndRetry"
   },
   {
     "old": "non_ui5.common",
     "new": "nonUi5"
+  },
+  {
+    "old": "non_ui5.common.locator.getValue",
+    "new": "nonUi5.element.getAttributeValue"
+  },
+  {
+    "old": "non_ui5.common.assertion.expectValue",
+    "new": "nonUi5.assertion.expectAttributeToBe"
   },
   {
     "old": "non_ui5.common.assertion.expectEqual",
@@ -260,10 +316,6 @@
     "new": "common.navigation.navigateToUrlAndRetry"
   },
   {
-    "old": "non_ui5.common.userInteraction",
-    "new": "non_ui5.userInteraction"
-  },
-  {
     "old": "non_ui5.common.userInteraction.pressEnter",
     "new": "common.userInteraction.pressEnter"
   },
@@ -298,5 +350,17 @@
   {
     "old": "non_ui5.common.userInteraction.fillActiveAndRetry",
     "new": "common.userInteraction.fillActiveAndRetry"
+  },
+  {
+    "old": "odata.common.service",
+    "new": "service.odata"
+  },
+  {
+    "old": "oData.common.service",
+    "new": "service.odata"
+  },
+  {
+    "old": "browser.sleep",
+    "new": "util.browser.sleep"
   }
 ]

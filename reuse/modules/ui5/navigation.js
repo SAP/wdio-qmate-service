@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @class navigation
  * @memberof ui5
@@ -20,7 +21,7 @@ const Navigation = function () {
   this.navigateToApplication = async function (intent, preventPopups = false, verify = false) {
     let urlParams = "";
     if (preventPopups) {
-      urlParams = generateUrlParams();
+      urlParams = _generateUrlParams();
     }
 
     try {
@@ -51,12 +52,6 @@ const Navigation = function () {
     await util.function.retry(async (intent, preventPopups) => {
       await this.navigateToApplication(intent, preventPopups, verify);
     }, [intent, preventPopups, verify], retries, interval, this);
-  };
-
-  // TODO: why is this needed? navigateToApplication does the refresh internally
-  this.navigateToApplicationAndRetryRefresh = async function (intent, preventPopups = true, verify = true, retries, interval) {
-    await ui5.navigation.navigateToApplicationAndRetry(intent, preventPopups, verify, retries, interval);
-    await util.browser.refresh();
   };
 
   /**
@@ -104,7 +99,6 @@ const Navigation = function () {
   };
 
 
-  // =================================== QUERY ===================================
   /**
    * @function navigateToApplicationWithQueryParams
    * @memberOf ui5.navigation
@@ -127,7 +121,7 @@ const Navigation = function () {
         throw new Error("Verification of function 'navigateToApplication' failed. For retrying use 'navigateToApplicationAndRetry'.");
       }
       if (closePopups) {
-        await this.closePopups();
+        await ui5.navigation.closePopups();
       }
       await browser.refresh();
     } catch (error) {
@@ -195,8 +189,50 @@ const Navigation = function () {
     }
   };
 
+
+  // =================================== ASSERTION ===================================
+  /**
+   * @function expectUnsupportedNavigationPopup
+   * @memberOf ui5.navigation
+   * @description Expects navigation to an app that is not supported.
+   * This can be the case for Mocked tests when the application does not exist or when the app is not included in a role.
+   * @param {String} navigationTarget - The selector describing the element.
+   * @example await ui5.navigation.expectUnsupportedNavigationPopup("#SupplierInvoice-display?FiscalYear=1234&SupplierInvoice=1234567890");
+   */
+  this.expectUnsupportedNavigationPopup = async function (navigationTarget) {
+    const missingNavigationPopup = {
+      "elementProperties": {
+        "metadata": "sap.m.Dialog",
+        "type": "Message",
+        "state": "Error"
+      }
+    };
+    await ui5.assertion.expectToBeVisible(missingNavigationPopup);
+
+    const moreDetailsButton = {
+      "elementProperties": {
+        "metadata": "sap.m.Link",
+        "ancestor": missingNavigationPopup
+      }
+    };
+    await ui5.userInteraction.click(moreDetailsButton);
+
+    const selector = {
+      "elementProperties": {
+        "metadata": "sap.m.FormattedText",
+        "ancestorProperties": missingNavigationPopup
+      }
+    };
+    const detailsTextElement = await ui5.element.getDisplayedElement(selector);
+    const dataHtmlText = await detailsTextElement.getAttribute("data-htmltext");
+    const stringExists = await dataHtmlText.includes(navigationTarget.replace(/&/g, "&amp;"));
+
+    return common.assertion.expectTrue(stringExists);
+  };
+
+
   // =================================== PRIVATE ===================================
-  function generateUrlParams() {
+  function _generateUrlParams() {
     let urlParams;
     let prefix;
 

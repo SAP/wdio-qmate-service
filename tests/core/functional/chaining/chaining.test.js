@@ -112,7 +112,7 @@ describe("webdriver.io page", function () {
     const item1 = await list.uiControl(ui5ControlProperties2, 0);
     await expect(await item1.getAttribute("id")).not.toBeNull();
     // item1.setValue("ABCDEF"); async code without await
-    // await ui5.common.userInteraction.pressEnter(); // we cannot use reuse
+    // await common.userInteraction.pressEnter(); // we cannot use reuse
   });
 
   it("step 5:fill wrong element and catch error - Use control and index", async function () {

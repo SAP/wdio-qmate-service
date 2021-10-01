@@ -7,7 +7,7 @@ exports.config = merge(qmateConfig.config, {
 
   specs: [
     path.resolve(__dirname, "clickClose.spec.js"),
-    path.resolve(__dirname, "expectErrorDialogToBeVisible.spec.js")
+    path.resolve(__dirname, "expectToBeVisible.spec.js")
   ],
 
   exclude: [],

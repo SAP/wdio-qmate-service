@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @class assertion
  * @memberof common
@@ -76,7 +77,6 @@ const Assertion = function () {
    * @function expectUrlToBe
    * @memberOf common.assertion
    * @description Expects the url to be the passed value.
-   * @returns {Promise} The promise to be resolved.
    * @example await common.assertion.expectUrlToBe("www.sap.com");
    */
   this.expectUrlToBe = async function (urlExp) {
