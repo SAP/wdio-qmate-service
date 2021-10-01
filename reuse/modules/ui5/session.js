@@ -199,7 +199,7 @@ const Session = function () {
     await ui5.confirmationDialog.clickOk();
 
     if (verify) {
-      await ui5.assertion.expectLogoutText();
+      await ui5.session.expectLogoutText();
     }
   };
 
