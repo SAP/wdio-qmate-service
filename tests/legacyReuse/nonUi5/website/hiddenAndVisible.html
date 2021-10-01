@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <style>
+    .customClass {
+      background-color: tomato;
+      color: white;
+      border: 2px solid black;
+      margin: 20px;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <nav class="navbar navbar-light ">
+    <a class="navbar-brand" href="#">Non ui5 testing</a>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row content">
+      <div class="col-sm-3 sidenav hidden-xs">
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="buttons.html">Buttons</a></li>
+          <li><a href="tables.html">Tables</a></li>
+          <li><a href="Forms.html">Forms</a></li>
+          <li><a href="Dropdown.html">Dropdown</a></li>
+          <li><a href="checkBox.html">checkBox</a></li>
+          <li><a href="waitForElements.html">WaitForElements</a></li>
+          <li><a href="scrollPage.html">ScrollPage</a></li>
+          <li class="active"><a href="hiddenAndVisible.html">Hidden elements</a></li>
+        </ul><br>
+      </div>
+      <br>
+
+      <div class="col-sm-5">
+        <div class="row">
+          <div class="well">
+            <p id="paragraphWithClass" class="customClass">This paragraph should be with current style (class).</p>
+            <p id="visibleParagraph">This paragraph should be visible.</p>
+            <label> your hidden paragraph is here (you cannot see it for sure): </label>
+            <p hidden id="hiddenParagraph">This paragraph should be hidden.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

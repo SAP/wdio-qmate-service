@@ -93,6 +93,12 @@ Namespace for utilities modules.
         * [.executeScript(command)](#utilities.browser.executeScript)
         * [.getUI5Version()](#utilities.browser.getUI5Version)
         * [.sendKeys(keys)](#utilities.browser.sendKeys)
+    * [.console](#utilities.console)
+        * [.log(message, [textColor], [backgroundColor], [brightness])](#utilities.console.log)
+        * [.error(message)](#utilities.console.error)
+        * [.warn(message)](#utilities.console.warn)
+        * [.success(message)](#utilities.console.success)
+        * [.info(message)](#utilities.console.info)
     * [.dialogInteraction](#utilities.dialogInteraction)
         * [.uploadFiles(files)](#utilities.dialogInteraction.uploadFiles)
     * [.execute](#utilities.execute)
@@ -154,7 +160,7 @@ Get baseUrl from the configuration file for the current test spec
 **Kind**: static method of [<code>browser</code>](#utilities.browser)  
 **Example**  
 ```js
-const baseUrl = await utilities.browser.getBaseUrl();
+const baseUrl = await util.browser.getBaseUrl();
 ```
 <a name="utilities.browser.setBaseUrl"></a>
 
@@ -169,7 +175,7 @@ Get baseUrl from the configuration file for the current test spec
 
 **Example**  
 ```js
-await utilities.browser.setBaseUrl("https://cc3-721.wdf.sap.corp/ui");
+await util.browser.setBaseUrl("https://cc3-721.wdf.sap.corp/ui");
 ```
 <a name="utilities.browser.clearBrowser"></a>
 
@@ -186,7 +192,7 @@ Clears the local and session cache and deletes all browser cookies.
 
 **Example**  
 ```js
-await utilities.browser.clearBrowser();
+await util.browser.clearBrowser();
 ```
 <a name="utilities.browser.sleep"></a>
 
@@ -201,7 +207,7 @@ Browser will sleep for the passed duration.
 
 **Example**  
 ```js
-await utilities.browser.sleep(30000);
+await util.browser.sleep(30000);
 ```
 <a name="utilities.browser.refresh"></a>
 
@@ -211,12 +217,13 @@ Browser will refresh the page.
 **Kind**: static method of [<code>browser</code>](#utilities.browser)  
 **Example**  
 ```js
-await utilities.browser.refresh();
+await util.browser.refresh();
 ```
 <a name="utilities.browser.sleepAndCollectCoverage"></a>
 
 #### browser.sleepAndCollectCoverage(sleep)
-Collects and stores the coverage information before a hard browser event (logout, clear history),also useful when parallelizing multiple specs and need to aggregate the coverage information
+Collects and stores the coverage information before a hard browser event (logout, clear history),
+also useful when parallelizing multiple specs and need to aggregate the coverage information
 
 **Kind**: static method of [<code>browser</code>](#utilities.browser)  
 
@@ -225,7 +232,7 @@ Collects and stores the coverage information before a hard browser event (logout
 | sleep | <code>Integer</code> | Stop browser actions for the collection of coverage (Default is 5 secs or 5000 msecs). |
 
 **Example**  
-```js
+await util.
 await utilities.browser.sleepAndCollectCoverage(5000);
 ```
 <a name="utilities.browser.getBrowserName"></a>
@@ -236,7 +243,7 @@ Returns the name of the current browser.
 **Kind**: static method of [<code>browser</code>](#utilities.browser)  
 **Returns**: <code>String</code> - The browser name.  
 **Example**  
-```js
+```jsawait util.
 const browserName = await utilities.browser.getBrowserName();
 ```
 <a name="utilities.browser.executeScript"></a>
@@ -251,7 +258,7 @@ Executes the specified JS command.
 | command | <code>String</code> | The command to run. |
 
 **Example**  
-```js
+await util.
 await utilities.browser.executeScript(command);
 ```
 <a name="utilities.browser.getUI5Version"></a>
@@ -261,7 +268,7 @@ Get UI5 Version and creation date for ui5 based apps
 
 **Kind**: static method of [<code>browser</code>](#utilities.browser)  
 **Example**  
-```js
+await util.
 await utilities.browser.getUI5Version();
 ```
 <a name="utilities.browser.sendKeys"></a>
@@ -276,8 +283,98 @@ Executes the set of keystrokes.
 | keys | <code>String</code> | The combination of keys to execute. |
 
 **Example**  
-```js
+await util.
 await utilities.browser.sendKeys(protractor.Key.CONTROL, protractor.Key.ALT, "d");
+```
+<a name="utilities.console"></a>
+
+### utilities.console
+**Kind**: static class of [<code>utilities</code>](#utilities)  
+
+* [.console](#utilities.console)
+    * [.log(message, [textColor], [backgroundColor], [brightness])](#utilities.console.log)
+    * [.error(message)](#utilities.console.error)
+    * [.warn(message)](#utilities.console.warn)
+    * [.success(message)](#utilities.console.success)
+    * [.info(message)](#utilities.console.info)
+
+<a name="utilities.console.log"></a>
+
+#### console.log(message, [textColor], [backgroundColor], [brightness])
+Logs a message to the console in the given color.
+
+**Kind**: static method of [<code>console</code>](#utilities.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+| [textColor] | <code>String</code> | The color of the text: "black, white", "red", "yellow", "green", "blue", "cyan", "magenta". |
+| [backgroundColor] | <code>String</code> | The color of the background: "black, white", "red", "yellow", "green", "blue", "cyan", "magenta". |
+| [brightness] | <code>String</code> | Adjusts the brightness of the color: "bright", "dim". Leave empty for default. |
+
+**Example**  
+```js
+utilities.console.log("The document has been saved.", "green");
+```
+<a name="utilities.console.error"></a>
+
+#### console.error(message)
+Logs a error message to the console in red.
+
+**Kind**: static method of [<code>console</code>](#utilities.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+
+**Example**  
+```js
+utilities.console.error("Error: Please investigate.");
+```
+<a name="utilities.console.warn"></a>
+
+#### console.warn(message)
+Logs a warning message to the console in yellow.
+
+**Kind**: static method of [<code>console</code>](#utilities.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+
+**Example**  
+```js
+utilities.console.warn("Optional step not executed.");
+```
+<a name="utilities.console.success"></a>
+
+#### console.success(message)
+Logs a success message to the console in green.
+
+**Kind**: static method of [<code>console</code>](#utilities.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+
+**Example**  
+```js
+utilities.console.success("The document has been saved.");
+```
+<a name="utilities.console.info"></a>
+
+#### console.info(message)
+Logs a info message to the console in cyan.
+
+**Kind**: static method of [<code>console</code>](#utilities.console)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | The message to log. |
+
+**Example**  
+```js
+utilities.console.success("The document has been saved.");
 ```
 <a name="utilities.dialogInteraction"></a>
 
@@ -295,7 +392,7 @@ Uploads all the file/s as mentioned in the Array.
 | files | <code>Array</code> | List of file/s to be uploaded. |
 
 **Example**  
-```js
+await util.
 await utilities.dialogInteraction.uploadFile(["path/to/text1.txt", "path/to/text2.txt"]);
 ```
 <a name="utilities.execute"></a>
@@ -326,7 +423,7 @@ parses the text from PDF docs, returned text can be asserted to verify its pdf d
 | renderMethod | <code>function</code> | a function to customize the parsing process |
 
 **Example**  
-```js
+await util.
 await utilities.fileHandler.parsePdf(pdfStream, customRenderer);
 ```
 <a name="utilities.fileHandler.expectPdfContainsText"></a>
@@ -344,7 +441,7 @@ parses the pdf and checks for given text to be present in pdf
 | renderMethod | <code>function</code> | a function to customize the parsing process |
 
 **Example**  
-```js
+await util.
 await utilities.fileHandler.expectPdfContainsText(pdfStream, "text");
 ```
 <a name="utilities.fileHandler.expectPdfNotContainsText"></a>
@@ -362,7 +459,7 @@ parses the pdf and checks for given text not to be present in pdf
 | renderMethod | <code>function</code> | a function to customize the parsing process. |
 
 **Example**  
-```js
+await util.
 await utilities.fileHandler.expectPdfNotContainsText(pdfStream, "text");
 ```
 <a name="utilities.formatter"></a>
@@ -394,7 +491,8 @@ Slices a input string beginning at specific substring.
 
 **Example**  
 ```js
-let sliced = utilities.formatter.sliceStringAt("prefixNR12345postfix", "NR", 7);// this will return "NR12345"
+let sliced = utilities.formatter.sliceStringAt("prefixNR12345postfix", "NR", 7);
+// this will return "NR12345"
 ```
 <a name="utilities.formatter.sliceStringAfter"></a>
 
@@ -412,7 +510,8 @@ Slices a input string beginning after a specific substring.
 
 **Example**  
 ```js
-let sliced = utilities.formatter.sliceStringAfter("prefixNR12345postfix", "NR", 5);// this will return "12345"
+let sliced = utilities.formatter.sliceStringAfter("prefixNR12345postfix", "NR", 5);
+// this will return "12345"
 ```
 <a name="utilities.formatter.trimString"></a>
 
@@ -427,7 +526,8 @@ Removes whitespace from both sides of a string.
 
 **Example**  
 ```js
-let trimmed = utilities.formatter.trimString("   value ");// this will return "value"
+let trimmed = utilities.formatter.trimString("   value ");
+// this will return "value"
 ```
 <a name="utilities.formatter.extractNumberFromString"></a>
 
@@ -444,11 +544,13 @@ Extracts all numbers from a string.
 
 **Example**  
 ```js
-let extracted = utilities.formatter.extractNumberFromString("prefixNR12345postfix");// this will return "12345"
+let extracted = utilities.formatter.extractNumberFromString("prefixNR12345postfix");
+// this will return "12345"
 ```
 **Example**  
 ```js
-let extracted = utilities.formatter.extractNumberFromString("first12345 someText second 20 abc", 1);// this will return "20"
+let extracted = utilities.formatter.extractNumberFromString("first12345 someText second 20 abc", 1);
+// this will return "20"
 ```
 <a name="utilities.formatter.stringifyJSON"></a>
 
@@ -485,7 +587,9 @@ formats date.
 
 **Example**  
 ```js
-const date = new Date(2020, 0, 17);const formattedDate = utilities.formatDate(date, "mm/dd/yyyy");// this will return "01/17/2020"
+const date = new Date(2020, 0, 17);
+const formattedDate = utilities.formatDate(date, "mm/dd/yyyy");
+// this will return "01/17/2020"
 ```
 <a name="utilities.function"></a>
 
@@ -505,7 +609,7 @@ Retries the passed function n times with an specific intervall until it executed
 
 | Param | Type | Description |
 | --- | --- | --- |
-| fct | <code>function</code> | The function to retry. |
+| fct | <code>function</code> | The function to retry. |await util.
 | args | <code>Array</code> | An array of the arguments passed to the function. |
 | retries | <code>Integer</code> | The number of retries, can be set in config for all functions under params stepsRetries. Default is 3 times. |
 | interval | <code>Integer</code> | The interval of the retries, can be set in config for all functions under params stepRetriesIntervals. Default is 5 secs. |
@@ -513,12 +617,15 @@ Retries the passed function n times with an specific intervall until it executed
 
 **Example**  
 ```js
-async function sayHello(firstName, lastName) {console.log("Hello " + firstName + " " + lastName + "!");}await utilities.function.retry(sayHello, ["John", "Doe"], 3, 5000);
+async function sayHello(firstName, lastName) {
+console.log("Hello " + firstName + " " + lastName + "!");
+}
+await utilities.function.retry(sayHello, ["John", "Doe"], 3, 5000);
 ```
 <a name="utilities.function.executeOptional"></a>
 
 #### function.executeOptional(fct, args)
-Executes the passed function optionally. If it fails, a promise will be returned anyway.
+Executes the passed function optionally. If it fails, a promise will be returned anyway.await util.
 
 **Kind**: static method of [<code>function</code>](#utilities.function)  
 
@@ -529,7 +636,10 @@ Executes the passed function optionally. If it fails, a promise will be returned
 
 **Example**  
 ```js
-function sayHello(firstName, lastName) {console.log("Hello " + firstName + " " + lastName + "!");}await utilities.function.executeOptional(sayHello, ["John", "Doe"]);
+function sayHello(firstName, lastName) {
+console.log("Hello " + firstName + " " + lastName + "!");
+}
+await utilities.function.executeOptional(sayHello, ["John", "Doe"]);
 ```
 <a name="utilities.mockserver"></a>
 
@@ -551,7 +661,7 @@ function sayHello(firstName, lastName) {console.log("Hello " + firstName + " " 
     * [.loadMockDataFile(filePath, isText)](#utilities.mockserver.loadMockDataFile) ⇒ <code>String</code>
     * [.getEntitySetData(mockServerPath, entitySetName)](#utilities.mockserver.getEntitySetData) ⇒ <code>Array</code>
     * [.setEntitySetData(mockServerPath, entitySetName, entries)](#utilities.mockserver.setEntitySetData)
-
+await util.
 <a name="utilities.mockserver.waitForUi5ApplicationLoad"></a>
 
 #### mockserver.waitForUi5ApplicationLoad(interval)
@@ -568,7 +678,7 @@ Waits for the UI5 framework to load and makes sure XHR request finished und busy
 await utilities.mockserver.waitForUi5ApplicationLoad(100);
 ```
 <a name="utilities.mockserver.interactWithMockServer"></a>
-
+await util.
 #### mockserver.interactWithMockServer(mockServerPath, fnCallback, oParams)
 Execute client script function to enable interaction with mockserver instance [you can write code in ui5 app context]
 
@@ -586,7 +696,7 @@ await utilities.mockserver.interactWithMockServer("path/to/project/localService/
 ```
 <a name="utilities.mockserver.attachFunctionBefore"></a>
 
-#### mockserver.attachFunctionBefore(method, mockServerPath, fnBeforeCallback, oParams)
+await util.attachFunctionBefore(method, mockServerPath, fnBeforeCallback, oParams)
 Attaches a callback function in mockserver attachBefore event to be executed
 
 **Kind**: static method of [<code>mockserver</code>](#utilities.mockserver)  
@@ -604,7 +714,7 @@ await utilities.mockserver.attachFunctionBefore("GET", "path/to/project/localSer
 ```
 <a name="utilities.mockserver.attachFunctionAfter"></a>
 
-#### mockserver.attachFunctionAfter(method, mockServerPath, fnAfterCallback, oParams)
+await util.attachFunctionAfter(method, mockServerPath, fnAfterCallback, oParams)
 Attaches a callback function in mockserver attachAfter event to be executed
 
 **Kind**: static method of [<code>mockserver</code>](#utilities.mockserver)  
@@ -626,7 +736,7 @@ await utilities.mockserver.attachFunctionAfter("GET", "path/to/project/localServ
 Adds new mock request
 
 **Kind**: static method of [<code>mockserver</code>](#utilities.mockserver)  
-
+await util.
 | Param | Type | Description |
 | --- | --- | --- |
 | method | <code>String</code> | The http method [GET,POST..]. |
@@ -643,7 +753,7 @@ Adds new mock request
 await utilities.mockserver.addNewRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*", "path/to/project/localService/main/mockdata/test.json", 200, true, JSON.stringify(msg));
 ```
 <a name="utilities.mockserver.removeRequest"></a>
-
+await util.
 #### mockserver.removeRequest(method, mockServerPath, urlPathRegex)
 Removes request mock [Doesn't work currently - Mockserver bug]
 
@@ -665,7 +775,7 @@ await utilities.mockserver.removeRequest("GET","path/to/project/localService/mai
 Adds new or overrides an existing mock request
 
 **Kind**: static method of [<code>mockserver</code>](#utilities.mockserver)  
-
+await util.
 | Param | Type | Description |
 | --- | --- | --- |
 | method | <code>String</code> | The http method [GET,POST..]. |
@@ -680,7 +790,7 @@ Adds new or overrides an existing mock request
 **Example**  
 ```js
 await utilities.mockserver.addOrOverrideRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*", "path/to/project/localService/main/mockdata/test.json", 200, true, JSON.stringify(msg));
-```
+await util.
 <a name="utilities.mockserver.startMockServer"></a>
 
 #### mockserver.startMockServer(mockServerPath)
@@ -696,7 +806,7 @@ await utilities.mockserver.addOrOverrideRequest("GET","path/to/project/localServ
 ```js
 await utilities.mockserver.startMockServer("path/to/project/localService/main/mockserver");
 ```
-<a name="utilities.mockserver.initMockServer"></a>
+await util.es.mockserver.initMockServer"></a>
 
 #### mockserver.initMockServer(mockServerPath, mockServerOptions)
 Initializes the provide mockserver instance on the fly
@@ -711,7 +821,7 @@ Initializes the provide mockserver instance on the fly
 **Example**  
 ```js
 await utilities.mockserver.initMockServer("path/to/project/localService/main/mockserver", mockServerOptions);
-```
+await util.
 <a name="utilities.mockserver.initApplication"></a>
 
 #### mockserver.initApplication(mockServerPath)
@@ -726,7 +836,7 @@ Initializes the application [Used in the beggining of script, once the mockserve
 **Example**  
 ```js
 await utilities.mockserver.initApplication("path/to/project/localService/main/mockserver");
-```
+await util.
 <a name="utilities.mockserver.stopMockServer"></a>
 
 #### mockserver.stopMockServer(mockServerPath)
@@ -743,7 +853,7 @@ Stops the mockserver instance
 await utilities.mockserver.stopMockServer("path/to/project/localService/main/mockserver");
 ```
 <a name="utilities.mockserver.loadMockDataFile"></a>
-
+await util.
 #### mockserver.loadMockDataFile(filePath, isText) ⇒ <code>String</code>
 Loads a mock data file
 
@@ -760,7 +870,7 @@ Loads a mock data file
 await utilities.mockserver.loadMockDataFile("path/to/project/mockData/myData.json", true);
 ```
 <a name="utilities.mockserver.getEntitySetData"></a>
-
+await util.
 #### mockserver.getEntitySetData(mockServerPath, entitySetName) ⇒ <code>Array</code>
 Retrieves entity data
 
@@ -777,7 +887,7 @@ Retrieves entity data
 await utilities.mockserver.getEntitySetData("path/to/project/localService/main/mockserver", "Headers");
 ```
 <a name="utilities.mockserver.setEntitySetData"></a>
-
+await util.
 #### mockserver.setEntitySetData(mockServerPath, entitySetName, entries)
 Override entity data entries
 
@@ -800,7 +910,7 @@ await utilities.mockserver.setEntitySetData("path/to/project/localService/main/m
 <a name="utilities.qUnit"></a>
 
 ### utilities.qUnit
-**Kind**: static class of [<code>utilities</code>](#utilities)  
+await util. class of [<code>utilities</code>](#utilities)  
 <a name="utilities.qUnit.executeTests"></a>
 
 #### qUnit.executeTests(relativePathToQUnitHTML)
@@ -923,13 +1033,13 @@ Namespace for ui5 modules.
             * [.clickSapLogo()](#ui5.common.navigationBar.clickSapLogo)
             * [.clickUserIcon()](#ui5.common.navigationBar.clickUserIcon)
         * [.session](#ui5.common.session)
-            * [.login(username, password, verify, timeout)](#ui5.common.session.login)
+            * [.login(username, password, [verify], timeout)](#ui5.common.session.login)
             * [.loginFiori(username, password, verify)](#ui5.common.session.loginFiori)
             * [.loginSapCloud(username, password, verify)](#ui5.common.session.loginSapCloud)
             * [.loginCustom(username, password, usernameFieldSelector, passwordFieldSelector, logonButtonSelector, verify)](#ui5.common.session.loginCustom)
             * [.loginCustomViaConfig(username, password, verify)](#ui5.common.session.loginCustomViaConfig)
             * [.logout(verify)](#ui5.common.session.logout)
-            * [.switchUser(username, password, authenticator, timeout)](#ui5.common.session.switchUser)
+            * [.switchUser(username, [password], [authenticator], [wait])](#ui5.common.session.switchUser)
         * [.userInteraction](#ui5.common.userInteraction)
             * [.click(selector, index, timeout)](#ui5.common.userInteraction.click)
             * [.clickAndRetry(selector, index, timeout, retries, interval)](#ui5.common.userInteraction.clickAndRetry)
@@ -1070,13 +1180,13 @@ Namespace for common modules.
         * [.clickSapLogo()](#ui5.common.navigationBar.clickSapLogo)
         * [.clickUserIcon()](#ui5.common.navigationBar.clickUserIcon)
     * [.session](#ui5.common.session)
-        * [.login(username, password, verify, timeout)](#ui5.common.session.login)
+        * [.login(username, password, [verify], timeout)](#ui5.common.session.login)
         * [.loginFiori(username, password, verify)](#ui5.common.session.loginFiori)
         * [.loginSapCloud(username, password, verify)](#ui5.common.session.loginSapCloud)
         * [.loginCustom(username, password, usernameFieldSelector, passwordFieldSelector, logonButtonSelector, verify)](#ui5.common.session.loginCustom)
         * [.loginCustomViaConfig(username, password, verify)](#ui5.common.session.loginCustomViaConfig)
         * [.logout(verify)](#ui5.common.session.logout)
-        * [.switchUser(username, password, authenticator, timeout)](#ui5.common.session.switchUser)
+        * [.switchUser(username, [password], [authenticator], [wait])](#ui5.common.session.switchUser)
     * [.userInteraction](#ui5.common.userInteraction)
         * [.click(selector, index, timeout)](#ui5.common.userInteraction.click)
         * [.clickAndRetry(selector, index, timeout, retries, interval)](#ui5.common.userInteraction.clickAndRetry)
@@ -1447,7 +1557,8 @@ await ui5.common.assertion.expectShellHeader();
 <a name="ui5.common.assertion.expectLogoutText"></a>
 
 ##### assertion.expectLogoutText() ⇒ <code>Promise</code>
-Expects the logout text after logout to be "You have been logged off.            This is essential for chaining scripts, therefore there is no hard browser sleep required anymore in the spec itself".
+Expects the logout text after logout to be "You have been logged off.
+            This is essential for chaining scripts, therefore there is no hard browser sleep required anymore in the spec itself".
 
 **Kind**: static method of [<code>assertion</code>](#ui5.common.assertion)  
 **Returns**: <code>Promise</code> - The promise to be resolved.  
@@ -1458,7 +1569,9 @@ await ui5.common.assertion.expectLogoutText();
 <a name="ui5.common.assertion.expectUnsupportedNavigationPopup"></a>
 
 ##### assertion.expectUnsupportedNavigationPopup(navigationTarget) ⇒ <code>Promise</code>
-Expects navigation to an app that is not supported.             This can be the case for Mocked tests when the application does not exist             or when the app is not included in a role.
+Expects navigation to an app that is not supported.
+             This can be the case for Mocked tests when the application does not exist
+             or when the app is not included in a role.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.common.assertion)  
 **Returns**: <code>Promise</code> - The promise to be resolved.  
@@ -1607,7 +1720,8 @@ ui5.common.assertion.expectUndefined(value);
 <a name="ui5.common.client.executeControlInBrowser"></a>
 
 ##### client.executeControlInBrowser(callbackFunction, selectorOrElement, parameters)
-Executes the passed callback function in browser client ui5 context, retrieving the passed element ui5 control in the native browser contextproviding you the possibility to work directly with a ui5 control and do any action and retrieve any property as you would do in the browser client.
+Executes the passed callback function in browser client ui5 context, retrieving the passed element ui5 control in the native browser context
+providing you the possibility to work directly with a ui5 control and do any action and retrieve any property as you would do in the browser client.
 
 **Kind**: static method of [<code>client</code>](#ui5.common.client)  
 
@@ -1619,7 +1733,9 @@ Executes the passed callback function in browser client ui5 context, retrieving 
 
 **Example**  
 ```js
-let ui5ControlProperties = {"elementProperties":{"metadata":"sap.m.StandardListItem", "id": "*categoryList-7"}};let parameters = {"property": "text"};var title = await ui5.common.client.executeControlInBrowser(function(control, parameters, done){
+let ui5ControlProperties = {"elementProperties":{"metadata":"sap.m.StandardListItem", "id": "*categoryList-7"}};
+let parameters = {"property": "text"};
+var title = await ui5.common.client.executeControlInBrowser(function(control, parameters, done){
       done(control.getProperty(parameters.property));
     }, ui5ControlProperties, parameters);
 ```
@@ -1863,12 +1979,14 @@ Picks the passed date with the DatePicker.
 
 **Example**  
 ```js
-const today = await ui5.common.date.calculateDate("today");await ui5.common.date.pickDate(selector, date);
+const today = await ui5.common.date.calculateDate("today");
+await ui5.common.date.pickDate(selector, date);
 ```
 <a name="ui5.common.date.pickDateRange"></a>
 
 ##### date.pickDateRange(selector, range)
-Picks the passed date range with the DatePicker.Note that this will only work within the current month!
+Picks the passed date range with the DatePicker.
+Note that this will only work within the current month!
 
 **Kind**: static method of [<code>date</code>](#ui5.common.date)  
 
@@ -1879,7 +1997,10 @@ Picks the passed date range with the DatePicker.Note that this will only work w
 
 **Example**  
 ```js
-const start = await ui5.common.date.calculateDate("2020, 9, 20");const end = await ui5.common.date.calculateDate("2021, 1, 3");const range = [start, end];await ui5.common.date.pickDateRange(selector, range);
+const start = await ui5.common.date.calculateDate("2020, 9, 20");
+const end = await ui5.common.date.calculateDate("2021, 1, 3");
+const range = [start, end];
+await ui5.common.date.pickDateRange(selector, range);
 ```
 <a name="ui5.common.date.fillDateRange"></a>
 
@@ -1895,7 +2016,10 @@ Fills the passed date range by passing the start- and end date.
 
 **Example**  
 ```js
-const start = await ui5.common.date.calculateDate("2020, 9, 20", "dd.mm.yyyy");const end = await ui5.common.date.calculateDate("2021, 1, 3", "dd.mm.yyyy");const range = [start, end];await ui5.common.date.fillDateRange(selector, range);
+const start = await ui5.common.date.calculateDate("2020, 9, 20", "dd.mm.yyyy");
+const end = await ui5.common.date.calculateDate("2021, 1, 3", "dd.mm.yyyy");
+const range = [start, end];
+await ui5.common.date.fillDateRange(selector, range);
 ```
 <a name="ui5.common.date.getToday"></a>
 
@@ -2467,7 +2591,8 @@ await ui5.common.navigation.navigateToApplication("PurchaseOrder-manage", false)
 ```
 **Example**  
 ```js
-let intent = ui5.common.appIntents.managePurchaseOrders;await ui5.common.navigation.navigateToApplication(intent);
+let intent = ui5.common.appIntents.managePurchaseOrders;
+await ui5.common.navigation.navigateToApplication(intent);
 ```
 <a name="ui5.common.navigation.navigateToApplicationAndRetry"></a>
 
@@ -2490,7 +2615,8 @@ await ui5.common.navigation.navigateToApplicationAndRetry("PurchaseOrder-manage"
 ```
 **Example**  
 ```js
-let intent = ui5.common.appIntents.managePurchaseOrders;await ui5.common.navigation.navigateToApplicationAndRetry(intent);
+let intent = ui5.common.appIntents.managePurchaseOrders;
+await ui5.common.navigation.navigateToApplicationAndRetry(intent);
 ```
 <a name="ui5.common.navigation.navigateToApplicationWithQueryParams"></a>
 
@@ -2508,7 +2634,9 @@ Navigates to the application via the passed intent.
 
 **Example**  
 ```js
-let intent = ui5.common.appIntents.managePurchaseOrders;let queryParams = "?sap-language=EN&responderOn=true";await ui5.common.navigation.navigateToApplicationWithQueryParams(intent, queryParam);
+let intent = ui5.common.appIntents.managePurchaseOrders;
+let queryParams = "?sap-language=EN&responderOn=true";
+await ui5.common.navigation.navigateToApplicationWithQueryParams(intent, queryParam);
 ```
 <a name="ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry"></a>
 
@@ -2532,7 +2660,9 @@ await ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry("Purcha
 ```
 **Example**  
 ```js
-let intent = ui5.common.appIntents.managePurchaseOrders;let queryParams = "?sap-language=EN&responderOn=true";await ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
+let intent = ui5.common.appIntents.managePurchaseOrders;
+let queryParams = "?sap-language=EN&responderOn=true";
+await ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
 ```
 <a name="ui5.common.navigation.navigateToApplicationAndRetryRefresh"></a>
 
@@ -2555,7 +2685,8 @@ await ui5.common.navigation.navigateToApplicationAndRetryRefresh("PurchaseOrder-
 ```
 **Example**  
 ```js
-let intent = ui5.common.appIntents.managePurchaseOrders;await ui5.common.navigation.navigateToApplicationAndRetryRefresh(intent);
+let intent = ui5.common.appIntents.managePurchaseOrders;
+await ui5.common.navigation.navigateToApplicationAndRetryRefresh(intent);
 ```
 <a name="ui5.common.navigation.navigateToSystemAndApplication"></a>
 
@@ -2573,7 +2704,8 @@ Navigates within the passed system to the application via the passed intent.
 
 **Example**  
 ```js
-let intent = ui5.common.appIntents.managePurchaseOrders;await ui5.common.navigation.navigateToSystemAndApplication("cc2-715.wdf.sap.corp", intent);
+let intent = ui5.common.appIntents.managePurchaseOrders;
+await ui5.common.navigation.navigateToSystemAndApplication("cc2-715.wdf.sap.corp", intent);
 ```
 <a name="ui5.common.navigation.navigateToSystemAndApplicationAndRetry"></a>
 
@@ -2593,7 +2725,8 @@ Navigates within the passed system to the application via the passed intent, and
 
 **Example**  
 ```js
-let intent = ui5.common.appIntents.managePurchaseOrders;await ui5.common.navigation.navigateToSystemAndApplicationAndRetry("cc2-715.wdf.sap.corp", intent);
+let intent = ui5.common.appIntents.managePurchaseOrders;
+await ui5.common.navigation.navigateToSystemAndApplicationAndRetry("cc2-715.wdf.sap.corp", intent);
 ```
 <a name="ui5.common.navigation.navigateToUrl"></a>
 
@@ -2666,27 +2799,27 @@ await ui5.common.navigationBar.clickUserIcon();
 **Kind**: static class of [<code>common</code>](#ui5.common)  
 
 * [.session](#ui5.common.session)
-    * [.login(username, password, verify, timeout)](#ui5.common.session.login)
+    * [.login(username, password, [verify], timeout)](#ui5.common.session.login)
     * [.loginFiori(username, password, verify)](#ui5.common.session.loginFiori)
     * [.loginSapCloud(username, password, verify)](#ui5.common.session.loginSapCloud)
     * [.loginCustom(username, password, usernameFieldSelector, passwordFieldSelector, logonButtonSelector, verify)](#ui5.common.session.loginCustom)
     * [.loginCustomViaConfig(username, password, verify)](#ui5.common.session.loginCustomViaConfig)
     * [.logout(verify)](#ui5.common.session.logout)
-    * [.switchUser(username, password, authenticator, timeout)](#ui5.common.session.switchUser)
+    * [.switchUser(username, [password], [authenticator], [wait])](#ui5.common.session.switchUser)
 
 <a name="ui5.common.session.login"></a>
 
-##### session.login(username, password, verify, timeout)
+##### session.login(username, password, [verify], timeout)
 Login with specific username and password. This function works for both fiori and sap-cloud login.
 
 **Kind**: static method of [<code>session</code>](#ui5.common.session)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| username | <code>String</code> | The username. |
-| password | <code>String</code> | The password. |
-| verify | <code>Boolean</code> | [OPTIONAL] Specifies if the function will check the shell header after logging in. Default is 'false'. |
-| timeout | <code>Integer</code> | The timeout to wait (default value: 30 sec). |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| username | <code>String</code> |  | The username. |
+| password | <code>String</code> |  | The password. |
+| [verify] | <code>Boolean</code> | <code>false</code> | [OPTIONAL] Specifies if the function will check the shell header after logging in. Default is 'false'. |
+| timeout | <code>Integer</code> |  | The timeout to wait (default value: 30 sec). |
 
 **Example**  
 ```js
@@ -2765,22 +2898,30 @@ Login with specific username and password. The selectors will be taken from the 
 
 **Example**  
 ```js
-// config - SAMPLE 1auth: {
+// config - SAMPLE 1
+auth: {
       formType: 'plain',
       usernameFieldSelector: "#USERNAME_BLOCK input",
       passwordFieldSelector: "#PASSWORD_BLOCK input",
       logonButtonSelector: "#LOGIN_LINK"
-  },// specawait ui5.common.session.loginCustomViaConfig("john", "abc123!");
+  },
+
+// spec
+await ui5.common.session.loginCustomViaConfig("john", "abc123!");
 
 
-   // config - SAMPLE 2auth: {
+   // config - SAMPLE 2
+auth: {
       username: "PURCH_EXT",
       password: "Welcome1!",
       formType: "plain",
       usernameFieldSelector: "#USERNAME_BLOCK input",
       passwordFieldSelector: "#PASSWORD_BLOCK input",
       logonButtonSelector: "#LOGIN_LINK"
-  },// specawait ui5.common.session.loginCustomViaConfig();
+  },
+
+// spec
+await ui5.common.session.loginCustomViaConfig();
 ```
 <a name="ui5.common.session.logout"></a>
 
@@ -2799,17 +2940,17 @@ await ui5.common.session.logout();
 ```
 <a name="ui5.common.session.switchUser"></a>
 
-##### session.switchUser(username, password, authenticator, timeout)
-switchs the user according to the passed username and password.
+##### session.switchUser(username, [password], [authenticator], [wait])
+switches the user according to the passed username and password.
 
 **Kind**: static method of [<code>session</code>](#ui5.common.session)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | username | <code>String</code> |  | The username. |
-| password | <code>String</code> |  | The password. |
-| authenticator | <code>Object</code> |  | The login form type. |
-| timeout | <code>Number</code> | <code>8000</code> | The timeout to wait (default value: 8 sec). |
+| [password] | <code>String</code> |  | The password. |
+| [authenticator] | <code>Object</code> |  | The login form type. |
+| [wait] | <code>Number</code> | <code>8000</code> | The waiting time between logout and login (default value: 8 sec). |
 
 **Example**  
 ```js
@@ -2893,7 +3034,9 @@ await ui5.common.userInteraction.clickAndRetry(selector, 0, 30000, 2, 1000);
 <a name="ui5.common.userInteraction.clickTab"></a>
 
 ##### userInteraction.clickTab(selector, index, timeout)
-Clicks on the passed tab and checks if the tab got selected successfully.The function retries the click if the selection of the tab (blue underline) was not successful.The maximum amount of retries is set to 3 per default.
+Clicks on the passed tab and checks if the tab got selected successfully.
+The function retries the click if the selection of the tab (blue underline) was not successful.
+The maximum amount of retries is set to 3 per default.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.common.userInteraction)  
 
@@ -2910,7 +3053,9 @@ await ui5.common.userInteraction.clickTab(selector);
 <a name="ui5.common.userInteraction.clickListItem"></a>
 
 ##### userInteraction.clickListItem(selector, index, timeout)
-Clicks on a specific item of a list (e.g. ColumnListItem, StandardListItem, etc.).In some cases the default click function is not working correctly (clicks an element within the list item).Therefore we recommend to use this function to open a specific list item.
+Clicks on a specific item of a list (e.g. ColumnListItem, StandardListItem, etc.).
+In some cases the default click function is not working correctly (clicks an element within the list item).
+Therefore we recommend to use this function to open a specific list item.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.common.userInteraction)  
 
@@ -3254,7 +3399,8 @@ await ui5.common.userInteraction.openF4Help(selector, 0, 30000, false);
 <a name="ui5.common.userInteraction.searchFor"></a>
 
 ##### userInteraction.searchFor(selector, value, index, timeout, useEnter)
-Searchs for the passed value and executes the search.In case that the search is already filled, it will reset the field first.
+Searchs for the passed value and executes the search.
+In case that the search is already filled, it will reset the field first.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.common.userInteraction)  
 
@@ -3273,7 +3419,8 @@ await ui5.common.userInteraction.searchFor(selector, "My Value", 0, 30000, false
 <a name="ui5.common.userInteraction.resetSearch"></a>
 
 ##### userInteraction.resetSearch(selector, index, timeout)
-Resets the search field if it is filled.In case that the search is not filled, it will raise an error.
+Resets the search field if it is filled.
+In case that the search is not filled, it will raise an error.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.common.userInteraction)  
 
@@ -3290,7 +3437,9 @@ await ui5.common.userInteraction.resetSearch(selector);
 <a name="ui5.common.userInteraction.selectComboBox"></a>
 
 ##### userInteraction.selectComboBox(selector, value, index)
-Selects the passed value from the ComboBox.Please note that the function will only work for the default ComboBox.In special cases, please use the clickSelectArrow function.
+Selects the passed value from the ComboBox.
+Please note that the function will only work for the default ComboBox.
+In special cases, please use the clickSelectArrow function.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.common.userInteraction)  
 
@@ -3307,7 +3456,9 @@ await ui5.common.userInteraction.selectComboBox(selector, "Germany");
 <a name="ui5.common.userInteraction.selectMultiComboBox"></a>
 
 ##### userInteraction.selectMultiComboBox(selector, values, index)
-Selects the passed values of the MultiComboBox.Please note that the function will only work for the default MultiComboBox.In special cases, please use the clickSelectArrow function.
+Selects the passed values of the MultiComboBox.
+Please note that the function will only work for the default MultiComboBox.
+In special cases, please use the clickSelectArrow function.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.common.userInteraction)  
 
@@ -3324,7 +3475,9 @@ await ui5.common.userInteraction.selectMultiComboBox(selector, ["Item1", "Item2"
 <a name="ui5.common.userInteraction.selectBox"></a>
 
 ##### userInteraction.selectBox(selector, value, index)
-Selects the passed value of the Select box.Please note that the function will only work for the default select Box.In special cases, please use the clickSelectArrow function.
+Selects the passed value of the Select box.
+Please note that the function will only work for the default select Box.
+In special cases, please use the clickSelectArrow function.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.common.userInteraction)  
 
@@ -3542,7 +3695,8 @@ Expects that the element is visible to the user. Will fail if it is not visible.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("button01");await non_ui5.common.assertion.expectToBeVisible(elem);
+let elem = await non_ui5.common.locator.getElementById("button01");
+await non_ui5.common.assertion.expectToBeVisible(elem);
 ```
 <a name="non_ui5.common.assertion.expectValueToBe"></a>
 
@@ -3560,11 +3714,13 @@ Expects the attributes value of the passed element to be the compare value.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("button01");await non_ui5.common.assertion.expectValueToBe(elem, "Save");
+let elem = await non_ui5.common.locator.getElementById("button01");
+await non_ui5.common.assertion.expectValueToBe(elem, "Save");
 ```
 **Example**  
 ```js
-let element = await non_ui5.common.locator.getElementById("button01");await non_ui5.common.assertion.expectValueToBe(element, "Save", "title");
+let element = await non_ui5.common.locator.getElementById("button01");
+await non_ui5.common.assertion.expectValueToBe(element, "Save", "title");
 ```
 <a name="non_ui5.common.assertion.isVisible"></a>
 
@@ -3580,7 +3736,8 @@ returns a boolean if the element is visible to the user.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("button01");await non_ui5.common.assertion.isVisible(elem);
+let elem = await non_ui5.common.locator.getElementById("button01");
+await non_ui5.common.assertion.isVisible(elem);
 ```
 <a name="non_ui5.common.assertion.isElementPresent"></a>
 
@@ -4047,11 +4204,13 @@ Returns the attributes value of the passed element.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("elem01");let text = await non_ui5.common.locator.getValue(elem, "text");
+let elem = await non_ui5.common.locator.getElementById("elem01");
+let text = await non_ui5.common.locator.getValue(elem, "text");
 ```
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("elem02");let innerHTML = await non_ui5.common.locator.getValue(elem, "value");
+let elem = await non_ui5.common.locator.getElementById("elem02");
+let innerHTML = await non_ui5.common.locator.getValue(elem, "value");
 ```
 <a name="non_ui5.common.locator.scrollToElement"></a>
 
@@ -4067,7 +4226,8 @@ Scrolls to the passed element to get it into view.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("footer01");await non_ui5.common.locator.scrollToElement(elem);
+let elem = await non_ui5.common.locator.getElementById("footer01");
+await non_ui5.common.locator.scrollToElement(elem);
 ```
 <a name="non_ui5.common.locator.highlightElement"></a>
 
@@ -4084,11 +4244,13 @@ Highlights the element with the passed selector.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("text01");await non_ui5.common.locator.highlightElement(elem);
+let elem = await non_ui5.common.locator.getElementById("text01");
+await non_ui5.common.locator.highlightElement(elem);
 ```
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("text01");await non_ui5.common.locator.highlightElement(elem, 3000, "green");
+let elem = await non_ui5.common.locator.getElementById("text01");
+await non_ui5.common.locator.highlightElement(elem, 3000, "green");
 ```
 <a name="non_ui5.common.locator.switchToIframe"></a>
 
@@ -4245,7 +4407,8 @@ Clicks on the passed element.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("button01", 10000);await non_ui5.common.userInteraction.click(elem);
+let elem = await non_ui5.common.locator.getElementById("button01", 10000);
+await non_ui5.common.userInteraction.click(elem);
 ```
 <a name="non_ui5.common.userInteraction.clickAndRetry"></a>
 
@@ -4263,7 +4426,8 @@ Clicks on the passed element, retries in case it fails.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("button01", 10000);await non_ui5.common.userInteraction.clickAndRetry(elem);
+let elem = await non_ui5.common.locator.getElementById("button01", 10000);
+await non_ui5.common.userInteraction.clickAndRetry(elem);
 ```
 <a name="non_ui5.common.userInteraction.fill"></a>
 
@@ -4279,7 +4443,8 @@ Fills the passed input.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("input01", 10000);await non_ui5.common.userInteraction.fill(elem, "Service 01");
+let elem = await non_ui5.common.locator.getElementById("input01", 10000);
+await non_ui5.common.userInteraction.fill(elem, "Service 01");
 ```
 <a name="non_ui5.common.userInteraction.fillAndRetry"></a>
 
@@ -4297,7 +4462,8 @@ Fills the passed input, retries in case it fails.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("input01", 10000);await non_ui5.common.userInteraction.fillAndRetry(elem, "Service 01");
+let elem = await non_ui5.common.locator.getElementById("input01", 10000);
+await non_ui5.common.userInteraction.fillAndRetry(elem, "Service 01");
 ```
 <a name="non_ui5.common.userInteraction.fillActive"></a>
 
@@ -4344,7 +4510,8 @@ Clears the passed input.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("input01", 10000);await non_ui5.common.userInteraction.clear(elem);
+let elem = await non_ui5.common.locator.getElementById("input01", 10000);
+await non_ui5.common.userInteraction.clear(elem);
 ```
 <a name="non_ui5.common.userInteraction.clearAndRetry"></a>
 
@@ -4361,7 +4528,8 @@ Clears the passed input, retries in case it fails.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("input01", 10000);await non_ui5.common.userInteraction.clearAndRetry(elem);
+let elem = await non_ui5.common.locator.getElementById("input01", 10000);
+await non_ui5.common.userInteraction.clearAndRetry(elem);
 ```
 <a name="non_ui5.common.userInteraction.clearAndFill"></a>
 
@@ -4377,7 +4545,8 @@ Clears and fills the passed input.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("input01", 10000);await non_ui5.common.userInteraction.clearAndFill(elem, "Service 01");
+let elem = await non_ui5.common.locator.getElementById("input01", 10000);
+await non_ui5.common.userInteraction.clearAndFill(elem, "Service 01");
 ```
 <a name="non_ui5.common.userInteraction.clearAndFillAndRetry"></a>
 
@@ -4396,7 +4565,8 @@ Clears and fills the passed input, retries in case it fails.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("input01", 10000);await non_ui5.common.userInteraction.clearAndFillAndRetry(elem, "Service 01");
+let elem = await non_ui5.common.locator.getElementById("input01", 10000);
+await non_ui5.common.userInteraction.clearAndFillAndRetry(elem, "Service 01");
 ```
 <a name="non_ui5.common.userInteraction.dragAndDrop"></a>
 
@@ -4416,7 +4586,8 @@ let elem = await non_ui5.common.locator.getElementById("drag01");
 ```
 **Example**  
 ```js
-let target = await non_ui5.common.locator.getElementById("drop02");await non_ui5.common.userInteraction.dragAndDrop(elem, target);
+let target = await non_ui5.common.locator.getElementById("drop02");
+await non_ui5.common.userInteraction.dragAndDrop(elem, target);
 ```
 <a name="non_ui5.common.userInteraction.clickChartPart"></a>
 
@@ -4431,7 +4602,8 @@ Clicks on a target element inside a chart area.
 
 **Example**  
 ```js
-let elem = await non_ui5.common.locator.getElementById("chartPartToCLick");await non_ui5.common.userInteraction.clickChartPart(elem);
+let elem = await non_ui5.common.locator.getElementById("chartPartToCLick");
+await non_ui5.common.userInteraction.clickChartPart(elem);
 ```
 <a name="non_ui5.common.userInteraction.pressEnter"></a>
 
@@ -4561,7 +4733,9 @@ Namespace for common modules.
 <a name="odata.common.service.init"></a>
 
 ##### service.init(url, username, password) ⇒ <code>Object</code>
-Intializes The service to work with.XCSRF-Token will be automatically fetched and stored in the service instance.Cookies will also automatically assembled and stored in the service instance.
+Intializes The service to work with.
+XCSRF-Token will be automatically fetched and stored in the service instance.
+Cookies will also automatically assembled and stored in the service instance.
 
 **Kind**: static method of [<code>service</code>](#odata.common.service)  
 **Returns**: <code>Object</code> - The initialized service object.  
@@ -4574,7 +4748,8 @@ Intializes The service to work with.XCSRF-Token will be automatically fetched a
 
 **Example**  
 ```js
-const url = "https://hbr-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";service = await odata.common.service.init(url, user, password);
+const url = "https://hbr-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
+service = await odata.common.service.init(url, user, password);
 ```
 <a name="odata.common.service.get"></a>
 
@@ -4591,7 +4766,8 @@ makes a GET request.
 
 **Example**  
 ```js
-const url = "https://qs9-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";service = await odata.common.service.init(url, user, password);
+const url = "https://qs9-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
+service = await odata.common.service.init(url, user, password);
 ```
 <a name="odata.common.service.getEntitySet"></a>
 
@@ -4607,7 +4783,9 @@ GET's the EntitySet collection.
 
 **Example**  
 ```js
-const url = "https://qs9-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";service = await odata.common.service.init(url, user, password);let res = await odata.common.service.getEntitySet(service, "A_PurchaseOrder");
+const url = "https://qs9-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
+service = await odata.common.service.init(url, user, password);
+let res = await odata.common.service.getEntitySet(service, "A_PurchaseOrder");
 ```
 <a name="odata.common.service.isFeatureToggleActivated"></a>
 
@@ -4623,7 +4801,9 @@ checks if a feature toggle is switched on or off
 
 **Example**  
 ```js
-const url = browser.params.systemUrl + "/sap/opu/odata/SAP/CA_FM_FEATURE_TOGGLE_STATUS_SRV/";service = await odata.common.service.init(url, user, password);let isFeatureActive = await odata.common.service.isFeatureToggleActivated(service, "MM_PUR_PO_BATCHES_IN_MANAGE_PO");
+const url = browser.params.systemUrl + "/sap/opu/odata/SAP/CA_FM_FEATURE_TOGGLE_STATUS_SRV/";
+service = await odata.common.service.init(url, user, password);
+let isFeatureActive = await odata.common.service.isFeatureToggleActivated(service, "MM_PUR_PO_BATCHES_IN_MANAGE_PO");
 ```
 <a name="odata.common.service.post"></a>
 
@@ -4640,7 +4820,12 @@ makes a POST request.
 
 **Example**  
 ```js
-let keys = {             "PurchaseOrder": "4500007108",             "DraftUUID": "00000000-0000-0000-0000-000000000000",             "IsActiveEntity": "true"         };let res = await odata.common.service.get(service, "A_PurchaseOrder", keys);
+let keys = {
+             "PurchaseOrder": "4500007108",
+             "DraftUUID": "00000000-0000-0000-0000-000000000000",
+             "IsActiveEntity": "true"
+         };
+let res = await odata.common.service.get(service, "A_PurchaseOrder", keys);
 ```
 <a name="odata.common.service.merge"></a>
 
@@ -4657,7 +4842,13 @@ makes a MERGE request.
 
 **Example**  
 ```js
-let res = await odata.common.service.merge(service, "A_PurchaseOrderScheduleLine", {             "PurchasingDocument": "4500007108",             "PurchasingDocumentItem": "10",             "ScheduleLine": "1",             "ScheduleLineDeliveryDate": new Date()         };let res = await odata.common.service.get(service, "A_PurchaseOrder", keys);
+let res = await odata.common.service.merge(service, "A_PurchaseOrderScheduleLine", {
+             "PurchasingDocument": "4500007108",
+             "PurchasingDocumentItem": "10",
+             "ScheduleLine": "1",
+             "ScheduleLineDeliveryDate": new Date()
+         };
+let res = await odata.common.service.get(service, "A_PurchaseOrder", keys);
 ```
 <a name="odata.common.service.delete"></a>
 

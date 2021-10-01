@@ -2,16 +2,16 @@
 const lib = require("./lib");
 
 module.exports = {
-  ui5ControlLocator: async function (ui5Selector, index = 0, timeout = 30000, rootElement, returnAllDomElements = false) {
-    return await lib.uiControlExecuteLocator(ui5Selector, index, timeout, rootElement, returnAllDomElements);
+  ui5ControlLocator: async function (ui5Selector, index = 0, timeout = 60000, rootElement, returnAllDomElements = false) {
+    return lib.uiControlExecuteLocator(ui5Selector, index, timeout, rootElement, returnAllDomElements);
   },
 
-  ui5ControlsLocators: async function (ui5Selector, timeout = 30000, rootElement) {
-    return await lib.uiControlExecuteLocator(ui5Selector, null, timeout, rootElement);
+  ui5ControlsLocators: async function (ui5Selector, timeout = 60000, rootElement) {
+    return lib.uiControlExecuteLocator(ui5Selector, null, timeout, rootElement);
   },
 
   getUI5Property: async function (propName, selectorOrElement) {
-    return await lib.controlActionInBrowser(function (control, propName, done) {
+    return lib.controlActionInBrowser(function (control, propName, done) {
       let val = null;
       try {
         val = control.getProperty(propName);
@@ -25,7 +25,7 @@ module.exports = {
   },
 
   getUI5Aggregation: async function (propName, selectorOrElement) {
-    return await lib.controlActionInBrowser(function (control, propName, done) {
+    return lib.controlActionInBrowser(function (control, propName, done) {
       let value = null;
       try {
         value = control.getAggregation(propName);
@@ -37,7 +37,7 @@ module.exports = {
   },
 
   getUI5Association: async function (propName, selectorOrElement) {
-    return await lib.controlActionInBrowser(function (control, propName, done) {
+    return lib.controlActionInBrowser(function (control, propName, done) {
       let value = null;
       try {
         value = control.getAssociation(propName);
@@ -49,7 +49,7 @@ module.exports = {
   },
 
   getBindingContextPath: async function (selectorOrElement) {
-    return await lib.controlActionInBrowser(function (control, done) {
+    return lib.controlActionInBrowser(function (control, done) {
       let bindingContextPath = null;
       let bindingContexts = jQuery.extend({},
         control.oPropagatedProperties && control.oPropagatedProperties.oBindingContexts,
@@ -69,8 +69,8 @@ module.exports = {
         for (let index = 0; index < aKeys.length; index++) {
           const oBindingContext = bindingContexts[aKeys[index]];
           if (oBindingContext &&
-            oBindingContext.getPath &&
-            oBindingContext.getPath())
+              oBindingContext.getPath &&
+              oBindingContext.getPath())
             bindingContextPath = oBindingContext.getPath();
         }
       }
@@ -79,7 +79,7 @@ module.exports = {
   },
 
   getBindingProperty: async function (propName, selectorOrElement) {
-    return await lib.controlActionInBrowser(function (control, propertyName, done) {
+    return lib.controlActionInBrowser(function (control, propertyName, done) {
       let aBindingInfos = [];
       function retrieveCompositeBindings(oBinding, aBindingInfos) {
         if (!oBinding) return;
@@ -89,8 +89,8 @@ module.exports = {
             for (let j = 0; j < aBindingInfos.length; j++) {
               try {
                 if (!aBindings[i].getBindings &&
-                  aBindingInfos[j].path === aBindings[i].getPath() &&
-                  aBindings[i].getValue) {
+                    aBindingInfos[j].path === aBindings[i].getPath() &&
+                    aBindings[i].getValue) {
                   aBindingInfos[j].value = aBindings[i].getValue();
                 } else if (aBindings[i].getBindings) {
                   retrieveCompositeBindings(aBindings[i], aBindingInfos);
@@ -104,7 +104,7 @@ module.exports = {
           for (let j = 0; j < aBindingInfos.length; j++) {
             try {
               if (aBindingInfos[j].path === oBinding.getPath() &&
-                oBinding.getValue) {
+                  oBinding.getValue) {
                 aBindingInfos[j].value = oBinding.getValue();
               }
               // eslint-disable-next-line no-empty
@@ -156,7 +156,7 @@ module.exports = {
   },
 
   getAllUI5Properties: async function (selectorOrElement) {
-    return await lib.controlActionInBrowser(function (control, done) {
+    return lib.controlActionInBrowser(function (control, done) {
       let allProps = null;
       if (control.getMetadata()) {
         const controlMetadata = control.getMetadata();
@@ -167,7 +167,7 @@ module.exports = {
   },
 
   getAllUI5Aggregations: async function (selectorOrElement) {
-    return await lib.controlActionInBrowser(function (control, done) {
+    return lib.controlActionInBrowser(function (control, done) {
       let allProps = null;
       if (control.getMetadata()) {
         const controlMetadata = control.getMetadata();
@@ -178,7 +178,7 @@ module.exports = {
   },
 
   getAllUI5Associations: async function (selectorOrElement) {
-    return await lib.controlActionInBrowser(function (control, done) {
+    return lib.controlActionInBrowser(function (control, done) {
       let allProps = null;
       if (control.getMetadata()) {
         const controlMetadata = control.getMetadata();

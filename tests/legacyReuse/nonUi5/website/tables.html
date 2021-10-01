@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="main.css">
+
+
+  <script language="JavaScript">
+    function showTableValue() {
+      document.getElementById('display1').innerHTML =
+        document.getElementById("row1column1").value;
+
+      document.getElementById('display2').innerHTML =
+        document.getElementById("row1column2").value;
+
+      document.getElementById('display3').innerHTML =
+        document.getElementById("row1column3").value;
+
+      document.getElementById('display4').innerHTML =
+        document.getElementById("row1column4").value;
+
+      document.getElementById('display5').innerHTML =
+        document.getElementById("row2column1").value;
+
+      document.getElementById('display6').innerHTML =
+        document.getElementById("row2column2").value;
+
+      document.getElementById('display7').innerHTML =
+        document.getElementById("row2column3").value;
+
+      document.getElementById('display8').innerHTML =
+        document.getElementById("row2column4").value;
+    }
+  </script>
+
+</head>
+
+<body>
+
+
+
+  <nav class="navbar navbar-light ">
+    <a class="navbar-brand" href="#">Non ui5 testing</a>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row content">
+      <div class="col-sm-3 sidenav hidden-xs">
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="buttons.html">Buttons</a></li>
+          <li class="active"><a href="Tables.html">Tables</a></li>
+          <li><a href="Forms.html">Forms</a></li>
+          <li><a href="Dropdown.html">Dropdown</a></li>
+          <li><a href="checkBox.html">checkBox</a></li>
+          <li><a href="waitForElements.html">WaitForElements</a></li>
+          <li><a href="scrollPage.html">ScrollPage</a></li>
+          <li><a href="hiddenAndVisible.html">Hidden elements</a></li>
+
+        </ul><br>
+      </div>
+      <br>
+
+
+      <div class="col-sm-8">
+        <div class="well">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th class="col-md-2">Street:</th>
+                <th class="col-md-2">City:</th>
+                <th class="col-md-2">country:</th>
+                <th class="col-md-2">year:</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="name in getdrugnameNewArray">
+                <td><input type="text" id="row1column1"></td>
+                <td><input type="text" id="row1column2"></td>
+                <td><input type="text" id="row1column3"></td>
+                <td><input type="text" id="row1column4"></td>
+              </tr>
+              <tr ng-repeat="name in getdrugnameNewArray">
+                <td><input type="text" id="row2column1"></td>
+                <td><input type="text" id="row2column2"></td>
+                <td><input type="text" id="row2column3"></td>
+                <td><input type="text" id="row2column4"></td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="button" onclick="showTableValue();" class="btn btn-primary">Submit</button>
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="well">
+              <label> your values are: </label>
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th class="col-md-2">Street:</th>
+                    <th class="col-md-2">City:</th>
+                    <th class="col-md-2">country:</th>
+                    <th class="col-md-2">year:</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="name in getdrugnameNewArray">
+                    <td><span id='display1'></span></td>
+                    <td><span id='display2'></span></td>
+                    <td><span id='display3'></span></td>
+                    <td><span id='display4'></span></td>
+                  </tr>
+                  <tr ng-repeat="name in getdrugnameNewArray">
+                    <td><span id='display5'></span></td>
+                    <td><span id='display6'></span></td>
+                    <td><span id='display7'></span></td>
+                    <td><span id='display8'></span></td>
+                  </tr>
+                </tbody>
+
+              </table>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

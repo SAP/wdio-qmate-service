@@ -18,17 +18,13 @@
     {
       "name": "Benjamin Warth",
       "email": "benjamin.warth@sap.com"
-    },
-    {
-      "name": "Asif Navalur",
-      "email": "asif.iqbal.navalur@sap.com"
     }
   ],
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "generate-docs": "node reuse/helper/jsDocGen",
-    "update-legacy-specs": "node reuse/helper/updateLegacySpecs"
+    "update-legacy-specs": "node reuse/helper/legacySupport/updateLegacySpecs"
   },
   "homepage": "https://github.tools.sap/sProcurement/wdio-qmate-service",
   "repository": {
@@ -46,7 +42,7 @@
   ],
   "license": "ISC",
   "devDependencies": {
-    "@wdio/cli": "^7.9.1",
+    "@wdio/cli": "^7.12.5",
     "eslint": "^6.8.0",
     "eslint-plugin-wdio": "^6.0.12"
   },
@@ -55,6 +51,7 @@
     "curl": "^0.1.4",
     "fs-extra": "^10.0.0",
     "jsdoc-to-markdown": "^5.0.3",
-    "yargs": "^17.0.1"
+    "path": "^0.12.7",
+    "yargs": "^17.1.1"
   }
 }

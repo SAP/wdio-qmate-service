@@ -134,7 +134,7 @@ const Formatter = function () {
    * @param {String} format - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object").
    * @returns {String} The formatted date as string.
    * @example const date = new Date(2020, 0, 17);
-   * const formattedDate = utilities.formatDate(date, "mm/dd/yyyy");
+   * const formattedDate = util.formatter.formatDate(date, "mm/dd/yyyy");
    * // returns "01/17/2020"
    */
   this.formatDate = function (date, format) {

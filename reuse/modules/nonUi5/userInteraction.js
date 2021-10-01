@@ -50,7 +50,7 @@ const UserInteraction = function () {
     if (!element) {
       throw new Error("Function 'clearAndRetry' failed. Please provide an element as first argument.");
     }
-    return await util.function.retry(this.click, [element, timeout], retries, interval, this);
+    return util.function.retry(this.click, [element, timeout], retries, interval, this);
   };
 
 
@@ -93,10 +93,11 @@ const UserInteraction = function () {
    * await nonUi5.userInteraction.fillAndRetry(elem, "Service 01");
    */
   this.fillAndRetry = async function (element, value, retries, interval) {
-    if (!value) {
-      util.console.error("Function 'fillAndRetry' failed: Please provide a value as second argument.");
+    if (!element || (value === null || value === undefined || value === "")) {
+      throw new Error("Function 'fillAndRetry' failed: Please provide an element and value as arguments.");
+    } else {
+      return util.function.retry(this.fill, [element, value], retries, interval, this);
     }
-    return util.function.retry(this.fill, [element, value], retries, interval, this);
   };
 
 
@@ -127,7 +128,7 @@ const UserInteraction = function () {
    * await non_ui5.common.userInteraction.clearAndRetry(elem);
    */
   this.clearAndRetry = async function (element, retries = 3, interval = 5000) {
-    if (element === null || element === undefined) {
+    if (!element) {
       throw new Error("Function 'clearAndRetry' failed: Please provide an element as first argument.");
     }
     return util.function.retry(this.clear, [element], retries, interval, this);
@@ -143,11 +144,19 @@ const UserInteraction = function () {
    * await nonUi5.userInteraction.clearAndFill(elem, "Service 01");
    */
   this.clearAndFill = async function (element, value) {
-    await this.clear(element);
-    if (!value) {
-      util.console.error("Function 'clearAndFill' failed: Please provide a value as second argument.");
+    //arg. 'value' needs to be checked in case of numeric values. E.g.: 0 or 1 will be handled as boolean value in if.
+    if (!element || (value === null || value === undefined || value === "")) {
+      throw new Error("Function 'clearAndFill' failed: Please provide an element and value as arguments.");
+    } else {
+      try {
+        await this.clear(element);
+        await element.setValue(value);
+      } catch (error) {
+        throw new Error(`Function 'clearAndFill' failed: ${error}`);
+      }
+
     }
-    await element.setValue(value);
+
   };
 
   /**
@@ -163,11 +172,11 @@ const UserInteraction = function () {
    * await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
    */
   this.clearAndFillAndRetry = async function (element, value, retries = 3, interval = 5000, verify = true) {
-    return await util.function.retry(async (elem, value) => {
+    return util.function.retry(async (elem, value) => {
       await this.clearAndFill(elem, value);
       if (verify) {
         const elemValue = await elem.getValue();
-        if (elemValue !== value) throw new Error("Function 'clearAndFillAndRetry' failed. Verification of value failed.");
+        if (elemValue != value) throw new Error("Function 'clearAndFillAndRetry' failed. Verification of value failed.");
       }
     }, [element, value], retries, interval, this);
   };
@@ -199,7 +208,7 @@ const UserInteraction = function () {
    */
   this.clickChartPart = async function (element) {
     await element.moveTo();
-    return await element.click();
+    await element.click();
   };
 
 };
