@@ -1,4 +1,4 @@
-describe("formatter - sliceStringAt", function () {
+describe("formatter - sliceStringAfter", function () {
   let input;
   let slicePoint;
   let length;
@@ -6,16 +6,16 @@ describe("formatter - sliceStringAt", function () {
   let expected;
   let expectedError;
 
-  describe("sliceStringAt - happy case", async function () {
+  describe("sliceStringAfter - happy case", async function () {
     it("Preparation", function () {
       input = "abcd1234xyz";
       slicePoint = "12";
       length = 4;
-      expected = "1234";
+      expected = "34xy";
     });
 
     it("Execution", function () {
-      sliced = util.formatter.sliceStringAt(input, slicePoint, length);
+      sliced = util.formatter.sliceStringAfter(input, slicePoint, length);
     });
 
     it("Verification", async function () {
@@ -23,7 +23,7 @@ describe("formatter - sliceStringAt", function () {
     });
   });
 
-  describe("sliceStringAt - unhappy case (slice at char which is not present in a string)", async function () {
+  describe("sliceStringAfter - unhappy case (slice at char which is not present in a string)", async function () {
     it("Preparation", function () {
       input = "abcd1234xyz";
       slicePoint = "s";
@@ -34,7 +34,7 @@ describe("formatter - sliceStringAt", function () {
     it("Execution and Verification", async function () {
       let error;
       try {
-        util.formatter.sliceStringAt(input, slicePoint, length);
+        util.formatter.sliceStringAfter(input, slicePoint, length);
       } catch (e) {
         error = e.message;
       }
@@ -42,17 +42,17 @@ describe("formatter - sliceStringAt", function () {
     });
   });
 
-  describe("sliceStringAt - unhappy case (pass 2 arguments instead of 3)", async function () {
+  describe("sliceStringAfter - unhappy case (pass 2 arguments instead of 3)", async function () {
     it("Preparation", function () {
       input = "abcd1234xyz";
       slicePoint = "12";
-      expectedError = `Function 'sliceStringAt' failed: Incorrect or missing arguments.`;
+      expectedError = `Function 'sliceStringAfter' failed: Incorrect or missing arguments.`;
     });
 
     it("Execution and Verification", async function () {
       let error;
       try {
-        util.formatter.sliceStringAt(input, slicePoint);
+        util.formatter.sliceStringAfter(input, slicePoint);
       } catch (e) {
         error = e.message;
       }

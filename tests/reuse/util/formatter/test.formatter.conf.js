@@ -7,6 +7,7 @@ exports.config = merge(qmateConfig.config, {
   baseUrl: "https://sapui5.hana.ondemand.com/",
 
   specs: [
-    path.resolve(__dirname, "sliceStringAt.spec.js")
+    path.resolve(__dirname, "sliceStringAt.spec.js"),
+    path.resolve(__dirname, "sliceStringAfter.spec.js")
   ]
 });
