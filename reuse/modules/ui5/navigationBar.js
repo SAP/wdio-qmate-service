@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @class navigationBar
  * @memberof ui5
@@ -51,6 +52,56 @@ const NavigationBar = function () {
       }
     };
     return ui5.userInteraction.click(selector, 0, timeout);
+  };
+
+
+  // =================================== ASSERTION ===================================
+  /**
+   * @function expectPageTitle
+   * @memberOf ui5.navigationBar
+   * @description Expects the page title of the current page to be the compare value.
+   * @param {String} compareValue - The compare value.
+   * @example await ui5.navigationBar.expectPageTitle("Home");
+   */
+  this.expectPageTitle = async function (compareValue) {
+    const selector = {
+      "elementProperties": {
+        "metadata": "sap.ushell.ui.shell.ShellAppTitle",
+        "mProperties": {
+          "text": compareValue,
+          "tooltip": [{
+            "path": "i18n>shellNavMenu_openMenuTooltip"
+          }]
+        }
+      }
+    };
+    let elem;
+    try {
+      elem = await browser.uiControl(selector);
+    } catch (error) {
+      throw new Error(`Function 'expectToBeVisibleInViewport' failed:${error}`);
+    }
+    await expect(elem).toBeVisibleInViewport({
+      wait: 10000,
+      interval: 100,
+      message: "Timeout by waiting for element to be visible."
+    });
+  };
+
+  /**
+   * @function expectShellHeader
+   * @memberOf ui5.navigationBar
+   * @description Expects the shell header to be visible
+   * @example await ui5.navigationBar.expectShellHeader();
+   */
+  this.expectShellHeader = async function () {
+    const selector = {
+      "elementProperties": {
+        "metadata": "sap.ushell.ui.ShellHeader",
+        "id": "shell-header"
+      }
+    };
+    return ui5.assertion.expectToBeVisible(selector);
   };
 
 };

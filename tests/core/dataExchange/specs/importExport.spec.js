@@ -39,19 +39,19 @@ const formUtils = {
     }
   },
   fillForm: async function (description, userData) {
-    await ui5.common.locator.waitForAllElements(this.textSelector);
-    await ui5.common.userInteraction.fill(this.textSelector, description);
-    await ui5.common.userInteraction.fill(this.emailSelector, userData.email);
-    await ui5.common.userInteraction.fill(this.telephoneSelector, userData.telephone);
-    await ui5.common.userInteraction.fill(this.numberSelector, userData.amount);
-    await ui5.common.userInteraction.fill(this.urlSelector, userData.website);
+    await ui5.element.waitForAllElements(this.textSelector);
+    await ui5.userInteraction.fill(this.textSelector, description);
+    await ui5.userInteraction.fill(this.emailSelector, userData.email);
+    await ui5.userInteraction.fill(this.telephoneSelector, userData.telephone);
+    await ui5.userInteraction.fill(this.numberSelector, userData.amount);
+    await ui5.userInteraction.fill(this.urlSelector, userData.website);
   },
   clearForm: async function () {
-    await ui5.common.userInteraction.clear(this.textSelector);
-    await ui5.common.userInteraction.clear(this.emailSelector);
-    await ui5.common.userInteraction.clear(this.telephoneSelector);
-    await ui5.common.userInteraction.clear(this.numberSelector);
-    await ui5.common.userInteraction.clear(this.urlSelector);
+    await ui5.userInteraction.clear(this.textSelector);
+    await ui5.userInteraction.clear(this.emailSelector);
+    await ui5.userInteraction.clear(this.telephoneSelector);
+    await ui5.userInteraction.clear(this.numberSelector);
+    await ui5.userInteraction.clear(this.urlSelector);
   }
 };
 
@@ -73,7 +73,7 @@ describe("Import and Export using UI", function () {
 
     // uses data from file pointed to by myUserPrefix
     //   myUserPrefix: "./data/ui/user.json",
-    await ui5.common.navigation.navigateToApplication("", false);
+    await ui5.navigation.navigateToApplication("", false);
     const acceptCookiesButton = {
       "elementProperties": {
         "viewName": "sap.ui.documentation.sdk.view.App",
@@ -84,17 +84,17 @@ describe("Import and Export using UI", function () {
       }
     };
     try {
-      await ui5.common.userInteraction.click(acceptCookiesButton);
+      await ui5.userInteraction.click(acceptCookiesButton);
     } catch (e) {
       // ignore, no cookie dialog
     }
     const userData = browser.params.import.myUserPrefix;
-    await ui5.common.assertion.expectDefined(userData);
+    await common.assertion.expectDefined(userData);
 
-    await ui5.common.assertion.expectDefined(userData.email);
-    await ui5.common.assertion.expectDefined(userData.telephone);
-    await ui5.common.assertion.expectDefined(userData.amount);
-    await ui5.common.assertion.expectDefined(userData.website);
+    await common.assertion.expectDefined(userData.email);
+    await common.assertion.expectDefined(userData.telephone);
+    await common.assertion.expectDefined(userData.amount);
+    await common.assertion.expectDefined(userData.website);
 
     await formUtils.fillForm("Data from myUserPrefix", userData);
 
@@ -107,16 +107,16 @@ describe("Import and Export using UI", function () {
     // file anotherUser.json is in subfolder "moreDataFolder" within directory pointed to by userDataFolder
     //   userDataFolder: "./data/ui",
     const userDataFolder = browser.params.import.userDataFolder;
-    await ui5.common.assertion.expectDefined(userDataFolder);
+    await common.assertion.expectDefined(userDataFolder);
     const moreDataFolder = browser.params.import.userDataFolder.moreDataFolder;
-    await ui5.common.assertion.expectDefined(moreDataFolder);
+    await common.assertion.expectDefined(moreDataFolder);
     const anotherUser = browser.params.import.userDataFolder.moreDataFolder.anotherUser;
-    await ui5.common.assertion.expectDefined(anotherUser);
+    await common.assertion.expectDefined(anotherUser);
 
-    await ui5.common.assertion.expectDefined(anotherUser.email);
-    await ui5.common.assertion.expectDefined(anotherUser.telephone);
-    await ui5.common.assertion.expectDefined(anotherUser.amount);
-    await ui5.common.assertion.expectDefined(anotherUser.website);
+    await common.assertion.expectDefined(anotherUser.email);
+    await common.assertion.expectDefined(anotherUser.telephone);
+    await common.assertion.expectDefined(anotherUser.amount);
+    await common.assertion.expectDefined(anotherUser.website);
 
     await formUtils.fillForm("Data from anotherUser.json in moreDataFolder", anotherUser);
 
@@ -128,12 +128,12 @@ describe("Import and Export using UI", function () {
     // uses data from file pointed to by reference
     //   uiUser: "./data/ui/webUser.json"
     const userData = browser.params.import.uiUser;
-    await ui5.common.assertion.expectDefined(userData);
+    await common.assertion.expectDefined(userData);
 
-    await ui5.common.assertion.expectDefined(userData.email);
-    await ui5.common.assertion.expectDefined(userData.telephone);
-    await ui5.common.assertion.expectDefined(userData.amount);
-    await ui5.common.assertion.expectDefined(userData.website);
+    await common.assertion.expectDefined(userData.email);
+    await common.assertion.expectDefined(userData.telephone);
+    await common.assertion.expectDefined(userData.amount);
+    await common.assertion.expectDefined(userData.website);
 
     await formUtils.fillForm("Data from uiUser", userData);
 
@@ -158,11 +158,11 @@ describe("Import and Export using UI", function () {
     //   exportData: "./data/ui/export/exportedUser.json",
     browser.params.export.exportData = userData;
 
-    await ui5.common.assertion.expectDefined(browser.params.export.exportData.description);
-    await ui5.common.assertion.expectDefined(browser.params.export.exportData.email);
-    await ui5.common.assertion.expectDefined(browser.params.export.exportData.telephone);
-    await ui5.common.assertion.expectDefined(browser.params.export.exportData.amount);
-    await ui5.common.assertion.expectDefined(browser.params.export.exportData.website);
+    await common.assertion.expectDefined(browser.params.export.exportData.description);
+    await common.assertion.expectDefined(browser.params.export.exportData.email);
+    await common.assertion.expectDefined(browser.params.export.exportData.telephone);
+    await common.assertion.expectDefined(browser.params.export.exportData.amount);
+    await common.assertion.expectDefined(browser.params.export.exportData.website);
 
   });
 
@@ -183,11 +183,11 @@ describe("Import and Export using UI", function () {
     //   webUser : "./data/ui/export/exportedWebUser.json"
     browser.params.export.webUser = userData;
 
-    await ui5.common.assertion.expectDefined(browser.params.export.webUser.description);
-    await ui5.common.assertion.expectDefined(browser.params.export.webUser.email);
-    await ui5.common.assertion.expectDefined(browser.params.export.webUser.telephone);
-    await ui5.common.assertion.expectDefined(browser.params.export.webUser.amount);
-    await ui5.common.assertion.expectDefined(browser.params.export.webUser.website);
+    await common.assertion.expectDefined(browser.params.export.webUser.description);
+    await common.assertion.expectDefined(browser.params.export.webUser.email);
+    await common.assertion.expectDefined(browser.params.export.webUser.telephone);
+    await common.assertion.expectDefined(browser.params.export.webUser.amount);
+    await common.assertion.expectDefined(browser.params.export.webUser.website);
 
   });
 

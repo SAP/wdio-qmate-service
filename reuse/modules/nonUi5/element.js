@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @class element
  * @memberof nonUi5
@@ -168,7 +169,7 @@ const Element = function () {
   this.getElementByCssContainingText = async function (selector, text = "", index = 0, timeout = 60000) {
     try {
       const elems = await this.waitForAllElements(selector, timeout);
-      return await filterElementsContainingText(elems, text, index);
+      return await _filterElementsContainingText(elems, text, index);
     } catch (error) {
       throw new Error(`Function 'getElementByCssContainingText' failed. Element with CSS "${selector}" and text value "${text}" not found. ${error}`);
     }
@@ -379,24 +380,23 @@ const Element = function () {
   };
 
   /**
-   * @function getValue
+   * @function getAttributeValue
    * @memberOf nonUi5.element
    * @description Returns the attributes value of the passed element.
    * @param {Object} elem - The element.
    * @param {String} [attribute] - The attribute of the element. Leave empty to return the inner HTML value of the element.
    * @returns {String} The attributes value of the element.
    * @example const elem = await nonUi5.element.getElementById("elem01");
-   * const text = await nonUi5.element.getValue(elem, "text");
+   * const text = await nonUi5.element.getAttributeValue(elem, "text");
    * @example const elem = await nonUi5.element.getElementById("elem02");
-   * const innerHTML = await nonUi5.element.getValue(elem);
+   * const innerHTML = await nonUi5.element.getAttributeValue(elem);
    */
   // TODO: check empty attribute arg -> innerHTML
-  this.getValue = async function (elem, attribute) {
+  this.getAttributeValue = async function (elem, attribute) {
     if (typeof elem === "object" && elem !== null) {
       const tagName = await elem.getTagName();
       if (attribute === "value" && (tagName === "input" || tagName === "textarea")) {
-        // return the element value (and not element attribute value) for
-        // input and textarea "value" attribute 
+        // return the element value (and not element attribute value) for input and textarea "value" attribute 
         return elem.getValue();
       } else if (attribute && attribute !== "textContent") {
         return elem.getAttribute(attribute);
@@ -413,7 +413,25 @@ const Element = function () {
         return value || text;
       }
     } else {
-      throw new Error(`Function 'getValue' failed. Please provide an element as first argument (must be of type 'object').`);
+      throw new Error(`Function 'getAttributeValue' failed. Please provide an element as first argument (must be of type 'object').`);
+    }
+  };
+
+  /**
+   * @function getValue
+   * @memberOf nonUi5.element
+   * @description Returns the value of the passed element.
+   * @param {Object} elem - The element.
+   * @returns {String} The  value of the element.
+   * @example const elem = await nonUi5.element.getElementById("elem02");
+   * const innerHTML = await nonUi5.element.getValue(elem);
+   */
+  this.getValue = async function (elem) {
+    try {
+      // eslint-disable-next-line no-return-await
+      return await this.getAttributeValue(elem, "value");
+    } catch (error) {
+      throw new Error(`Function 'getValue' failed: ${error}`);
     }
   };
 
@@ -485,7 +503,7 @@ const Element = function () {
 
 
   // =================================== HELPER ===================================
-  async function filterElementsContainingText(elems, text, index) {
+  async function _filterElementsContainingText(elems, text, index) {
     const elemsWithTxt = elems.filter(async function (elem) {
       if (await elem.isDisplayed()) {
         const sText = await elem.getText();
