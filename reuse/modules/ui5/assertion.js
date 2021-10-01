@@ -23,7 +23,7 @@ const Assertion = function () {
     try {
       elem = await browser.uiControl(selector, index, timeout);
     } catch (error) {
-      throw new Error(`Function 'expectAttributeToContain' failed:${error}`);
+      throw new Error(`Function 'expectAttributeToBe' failed:${error}`);
     }
 
 

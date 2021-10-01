@@ -36,6 +36,10 @@
     "new": "ui5"
   },
   {
+    "old": "ui5.common.locator",
+    "new": "ui5.element"
+  },
+  {
     "old": "ui5.common.assertion.expectEqual",
     "new": "common.assertion.expectEqual"
   },
@@ -154,10 +158,6 @@
   {
     "old": "ui5.common.formatter",
     "new": "util.formatter"
-  },
-  {
-    "old": "ui5.common.locator",
-    "new": "ui5.element"
   },
   {
     "old": "ui5.common.locator.getValue",
