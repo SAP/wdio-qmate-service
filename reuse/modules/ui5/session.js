@@ -205,15 +205,15 @@ const Session = function () {
 
   /**
    * @function switchUser
-   * @memberOf ui5.common.session
+   * @memberOf ui5.session
    * @description switches the user according to the passed username and password.
    * @param {String} username - The username.
    * @param {String} [password="super-duper-sensitive-pw"] - The password.
    * @param {Object} [authenticator] - The login form type. Set to null to use generic login.
    * @param {Number} [wait=10000] - The waiting time between logout and login (ms).
-   * @example await ui5.common.session.switchUser("PURCHASER");
+   * @example await ui5.session.switchUser("PURCHASER");
    * @example const authenticator = ui5.authenticators.fioriForm;
-   * await ui5.common.session.switchUser("PURCHASER", "super-duper-sensitive-pw", authenticator, 30000);
+   * await ui5.session.switchUser("PURCHASER", "super-duper-sensitive-pw", authenticator, 30000);
    */
   this.switchUser = async function (username, password = "super-duper-sensitive-pw", authenticator, wait = 10000) {
     await this.logout();

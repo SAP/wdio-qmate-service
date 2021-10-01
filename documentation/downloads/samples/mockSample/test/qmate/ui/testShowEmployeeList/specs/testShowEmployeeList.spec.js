@@ -24,7 +24,7 @@ describe("Test show employee list", function () {
   it("Step 01: Navigate to Application", async function () {
     // Use the mockey that depicts the test case name to be able to map it directly to path, and corresponding data
     //http://localhost:34005/webapp/test/flpSandboxMockServer.html?mockKey=myTestCase
-    await ui5.common.navigation.navigateToApplicationWithQueryParamsAndRetry(setup.urlParams.initialIntent, setup.urlParams.queryParams, false);
+    await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(setup.urlParams.initialIntent, setup.urlParams.queryParams, false);
   });
 
   it("Step 02: Initialize mock and finalize app loading", async function () {
@@ -45,7 +45,7 @@ describe("Test show employee list", function () {
         "id": "*employeeListBtn"
       }
     };
-    await ui5.common.userInteraction.click(selector);
+    await ui5.userInteraction.click(selector);
   });
 
   it("Step 04: Check if the list is loaded", async function () {
@@ -56,7 +56,7 @@ describe("Test show employee list", function () {
         "bindingContextPath": "/Employees*1)"
       }
     };
-    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector);
   });
 
   it("Step 05: Click on the employee", async function () {
@@ -67,7 +67,7 @@ describe("Test show employee list", function () {
         "bindingContextPath": "/Employees*1)"
       }
     };
-    await ui5.common.userInteraction.click(selector);
+    await ui5.userInteraction.click(selector);
   });
 
   it("Step 06: Save mock data for resume in db and trigger after event to override results", async function () {
@@ -86,7 +86,7 @@ describe("Test show employee list", function () {
         "metadata": "sap.m.Link"
       }
     };
-    await ui5.common.userInteraction.click(selector);
+    await ui5.userInteraction.click(selector);
   });
 
   it("Step 08: Expect Resume page appears", async function () {
@@ -97,7 +97,7 @@ describe("Test show employee list", function () {
         "id": "*employeeResumePage-title"
       }
     };
-    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector);
   });
 
   it("Step 09: Expect Resume Info have text", async function () {
@@ -108,7 +108,7 @@ describe("Test show employee list", function () {
         "metadata": "sap.m.Text"
       }
     };
-    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector);
   });
 
   it("Step 10: Teardown and register coverage", async function () {
