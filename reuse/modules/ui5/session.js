@@ -65,7 +65,7 @@ const Session = function () {
     }
 
     try {
-      const authenticator = await ui5.authenticators.fioriForm;
+      const authenticator = ui5.authenticators.fioriForm;
       return await _loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
       throw new Error(`Function 'loginFiori' failed: ${error}`);
