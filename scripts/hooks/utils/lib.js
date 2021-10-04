@@ -238,7 +238,8 @@ var LibScripts = function () {
           } else {
             const isDisplayed = await aElements[i].isDisplayed();
             const isUi5Visible = await aElements[i].getUI5Property("visible");
-            if (isDisplayed || isUi5Visible) {
+            //TODO lets discuss: does || make any sense here? And why not only isDisplayed() ? -> also checks for hidden etc..
+            if (isDisplayed && isUi5Visible) {
               displayedElements.push(aElements[i]);
             }
           }
