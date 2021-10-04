@@ -431,7 +431,7 @@ const UserInteraction = function () {
    * @example await ui5.userInteraction.searchFor(selector, "My Value", 0, 30000, false);
    */
   this.searchFor = async function (selector, value, index = 0, timeout = 30000, useEnter = true) {
-    await ui5.userInteraction.clearFillAndRetry(selector, value, index, timeout);
+    await ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout);
     if (useEnter === true) {
       await common.userInteraction.pressEnter();
     } else {
