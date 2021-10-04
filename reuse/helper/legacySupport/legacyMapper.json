@@ -180,6 +180,10 @@
     "new": "common.navigation.printCurrentUrl"
   },
   {
+    "old": "ui5.common.navigation.navigateToApplicationAndRetryRefresh",
+    "new": "ui5.common.navigation.navigateToApplicationAndRetry"
+  },
+  {
     "old": "ui5.common.userInteraction.pressEnter",
     "new": "common.userInteraction.pressEnter"
   },
