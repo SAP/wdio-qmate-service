@@ -80,7 +80,7 @@ describe("assertion - expectToBeEnabled with wrong selector (unhappy case)", fun
         }]
       }
     };
-    await expect(ui5.common.assertion.expectToBeEnabled(selectorForNonExistingElement))
+    await expect(ui5.common.assertion.expectToBeEnabled(selectorForNonExistingElement, 0, 2500))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
 
     const wrongSelector = 123;

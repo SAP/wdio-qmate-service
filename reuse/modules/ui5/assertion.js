@@ -21,7 +21,7 @@ const Assertion = function () {
   this.expectAttributeToBe = async function (selector, attribute, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
     let elem;
     try {
-      elem = await browser.uiControl(selector, index, timeout);
+      elem = await ui5.element.getDisplayedElement(selector, index, timeout);
     } catch (error) {
       throw new Error(`Function 'expectAttributeToBe' failed:${error}`);
     }
