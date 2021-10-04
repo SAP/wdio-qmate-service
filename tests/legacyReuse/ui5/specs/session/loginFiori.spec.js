@@ -24,9 +24,9 @@ describe("session - loginFiori", function () {
   });
 });
 
-describe("session - loginFiori for Sap Cloud login", function () {
+describe("session - loginFiori negative case", function () {
   it("Preparation", async function () {
-    utilities.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    utilities.browser.setBaseUrl("https://sap.de");
     await ui5.common.navigation.navigateToApplication("", true);
   });
 
