@@ -237,7 +237,8 @@ var LibScripts = function () {
             displayedElements.push(aElements[i]);
           } else {
             const isDisplayed = await aElements[i].isDisplayed();
-            if (isDisplayed) {
+            const isUi5Visible = await aElements[i].getUI5Property("visible");
+            if (isDisplayed || isUi5Visible) {
               displayedElements.push(aElements[i]);
             }
           }
