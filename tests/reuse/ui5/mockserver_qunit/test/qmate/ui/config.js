@@ -50,15 +50,15 @@ exports.config = merge(plainConfig.config, {
     ["static-server", {
       port: 34005,
       folders: [{
-          mount: "/test/flpSandboxMockServer.html",
-          path: path.resolve(__dirname, "../../flpSandboxMockServer.html")
-        },
+        mount: "/test/flpSandboxMockServer.html",
+        path: path.resolve(__dirname, "../../flpSandboxMockServer.html")
+      },
         // Need to mount "/" path to "mockNavigation" root folder
         // as UI5 app will request Component.js, manifest.json, localService inner files, i18n inner files etc.
-        {
-          mount: "/",
-          path: path.resolve(__dirname, "../../../")
-        },
+      {
+        mount: "/",
+        path: path.resolve(__dirname, "../../../")
+      },
       ]
     }]
   ],
