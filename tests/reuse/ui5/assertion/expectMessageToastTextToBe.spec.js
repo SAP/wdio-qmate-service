@@ -1,7 +1,8 @@
 "use strict";
 const {
   handleCookiesConsent
-} = require("../../../../utils");
+} = require("../../../helper/utils");
+
 describe("assertion - expectMessageToastTextToBe - no message toast (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.MessageToast/sample/sap.m.sample.MessageToast");
