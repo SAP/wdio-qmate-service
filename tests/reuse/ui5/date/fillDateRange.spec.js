@@ -1,5 +1,7 @@
 "use strict";
-const { handleCookiesConsent } = require("../../../helper/utils");
+const {
+  handleCookiesConsent
+} = require("../../../helper/utils");
 
 let start;
 let end;
@@ -26,7 +28,7 @@ describe("date - fillDateRange", function () {
   });
 
   it("Verification", async function () {
-    const arrivedRange = await ui5.element.getValue(dataRangeSelector, "value");
+    const arrivedRange = await ui5.element.getValue(dataRangeSelector);
 
     // It is not possible to programmatically check the correct execution of the test, however, while the test is running, it is clear that it is being executed correctly
     // const rangeAsString = `${start} - ${end}`;

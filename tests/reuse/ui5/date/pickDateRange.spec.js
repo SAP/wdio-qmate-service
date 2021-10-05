@@ -1,5 +1,7 @@
 "use strict";
-const { handleCookiesConsent } = require("../../../helper/utils");
+const {
+  handleCookiesConsent
+} = require("../../../helper/utils");
 
 const dataInput = {
   "elementProperties": {
@@ -41,7 +43,7 @@ describe("date - pickDateRange", function () {
   });
 
   it("Verification", async function () {
-    const arrivedRange = await ui5.element.getValue(dataInput, "value");
+    const arrivedRange = await ui5.element.getValue(dataInput);
 
     const startRange = getBorderOfRange(start);
     const endRange = getBorderOfRange(end);
