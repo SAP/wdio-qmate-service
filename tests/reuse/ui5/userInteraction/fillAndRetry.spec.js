@@ -22,10 +22,9 @@ describe("userInteraction - fill and retry", function () {
     value = "My Value";
     const index = 0;
     const timeout = 30000;
-    const attribute = "value";
     const retries = 1;
     await ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries);
-    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
+    actualValue = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {
@@ -80,10 +79,9 @@ describe("userInteraction - fillAndRetry element with number", function () {
     value = 12;
     const index = 0;
     const timeout = 30000;
-    const attribute = "value";
     const retries = 1;
     await ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries);
-    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
+    actualValue = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {
@@ -111,10 +109,9 @@ describe("userInteraction - fillAndRetry element with empty value", function () 
     };
     const index = 0;
     const timeout = 30000;
-    const attribute = "value";
     const retries = 1;
     await ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries);
-    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
+    actualValue = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {

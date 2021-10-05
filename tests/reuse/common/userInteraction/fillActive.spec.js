@@ -24,10 +24,9 @@ describe("userInteraction - fillActive", function () {
     value = "My Value";
     const index = 0;
     const timeout = 30000;
-    const attribute = "value";
     await ui5.userInteraction.click(selector);
     await common.userInteraction.fillActive(value);
-    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
+    actualValue = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {
@@ -75,10 +74,9 @@ describe("userInteraction - fillActive element with number", function () {
     value = 12;
     const index = 0;
     const timeout = 30000;
-    const attribute = "value";
     await ui5.userInteraction.click(selector);
     await common.userInteraction.fillActive(value);
-    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
+    actualValue = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {
@@ -106,10 +104,9 @@ describe("userInteraction - fillActive element with empty value", function () {
     };
     const index = 0;
     const timeout = 30000;
-    const attribute = "value";
     await ui5.userInteraction.click(selector);
     await common.userInteraction.fillActive(value);
-    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
+    actualValue = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {
@@ -138,11 +135,10 @@ describe("userInteraction - fillActive input", function () {
     value = "Qmate Test";
     const index = 0;
     const timeout = 30000;
-    const attribute = "value";
     await ui5.userInteraction.click(selector);
     await common.userInteraction.fillActive(value);
     await common.userInteraction.pressTab();
-    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
+    actualValue = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {
@@ -171,12 +167,11 @@ describe("userInteraction - fillActive textarea", function () {
     value = "Qmate Test";
     const index = 0;
     const timeout = 30000;
-    const attribute = "value";
     await ui5.userInteraction.click(selector);
     await ui5.userInteraction.clear(selector);
     await common.userInteraction.fillActive(value);
     await common.userInteraction.pressTab();
-    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
+    actualValue = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {
