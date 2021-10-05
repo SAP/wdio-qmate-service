@@ -85,6 +85,6 @@ describe("assertion - expectToBeEnabled with wrong selector (unhappy case)", fun
 
     const wrongSelector = 123;
     await expect(ui5.assertion.expectToBeEnabled(wrongSelector))
-      .rejects.toThrow("Function 'expectAttributeToContain' failed:Error: uiControlExecuteLocator():");
+      .rejects.toThrow("Function 'expectAttributeToBe' failed:Error: uiControlExecuteLocator(): No visible elements found with selector: 123");
   });
 });

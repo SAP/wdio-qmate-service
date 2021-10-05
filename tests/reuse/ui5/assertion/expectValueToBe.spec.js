@@ -52,6 +52,6 @@ describe("assertion - expectValueToBe with wrong selector (unhappy case)", funct
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
     wrongSelector = 123;
     await expect(ui5.assertion.expectValueToBe(wrongSelector, "Watch"))
-      .rejects.toThrow("Function 'expectAttributeToContain' failed:Error:");
+      .rejects.toThrow("Function 'expectAttributeToBe' failed:Error: uiControlExecuteLocator(): No visible elements found with selector: 123");
   });
 });
