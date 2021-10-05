@@ -326,7 +326,7 @@ const Assertion = function () {
   };
 
   /**
-   * @function expectToBeVisibleInViewport
+   * @function expectToBeVisibleInViewport 
    * @memberOf ui5.assertion
    * @description Expects that the element is visible in the viewport. 
    * @param {Object} selector - The selector describing the element.
