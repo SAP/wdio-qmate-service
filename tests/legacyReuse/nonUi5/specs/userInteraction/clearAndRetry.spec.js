@@ -37,7 +37,7 @@ describe("userInteraction - clearAndRetry a button (unhappy case)", function () 
 
   it("Execution and Verification", async function () {
     const elem = await non_ui5.common.locator.getElementById("Default", 10000);
-    await expect(non_ui5.common.userInteraction.clearAndRetry(elem, 1))
+    await expect(non_ui5.common.userInteraction.clearAndRetry(elem, 1, 1000))
       .rejects.toThrow("Retries done. Failed to execute the function: invalid element state");
   });
 });
