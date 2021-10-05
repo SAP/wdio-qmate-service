@@ -12,7 +12,7 @@ describe("Test display not found", function () {
   it("Step 01: Navigate to Application", async function () {
     // Use the mockey that depicts the test case name to be able to map it directly to path, and corresponding data
     //http://localhost:34005/webapp/test/flpSandboxMockServer.html?mockKey=myTestCase
-    await ui5.mockserver.navigateToApplicationWithQueryParamsAndRetry(setup.urlParams.initialIntent, setup.urlParams.queryParams, false);
+    await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(setup.urlParams.initialIntent, setup.urlParams.queryParams, false);
   });
 
   it("Step 02: Initialize mock with dynamic function", async function () {

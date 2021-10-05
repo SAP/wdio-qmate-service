@@ -1,6 +1,6 @@
 const path = require("path");
 const merge = require("deepmerge");
-const plainConfig = require("../../../../../../helper/configurations/base.conf.js");
+const plainConfig = require("../../../../../configurations/base.conf.js");
 exports.config = merge(plainConfig.config, {
   capabilities: [{
 
@@ -45,15 +45,23 @@ exports.config = merge(plainConfig.config, {
     }
   }],
 
-  services: [["selenium-standalone"], ["static-server", {
-    port: 34005,
-    folders: [
-      {mount: "/test/flpSandboxMockServer.html", path: path.resolve(__dirname, "../../flpSandboxMockServer.html")},
-      // Need to mount "/" path to "mockNavigation" root folder
-      // as UI5 app will request Component.js, manifest.json, localService inner files, i18n inner files etc.
-      {mount: "/", path: path.resolve(__dirname, "../../../")},
-    ]
-  }]],
+  services: [
+    ["selenium-standalone"],
+    ["static-server", {
+      port: 34005,
+      folders: [{
+          mount: "/test/flpSandboxMockServer.html",
+          path: path.resolve(__dirname, "../../flpSandboxMockServer.html")
+        },
+        // Need to mount "/" path to "mockNavigation" root folder
+        // as UI5 app will request Component.js, manifest.json, localService inner files, i18n inner files etc.
+        {
+          mount: "/",
+          path: path.resolve(__dirname, "../../../")
+        },
+      ]
+    }]
+  ],
 
   params: {
     // clientInterval: 50,
@@ -76,11 +84,9 @@ exports.config = merge(plainConfig.config, {
 
   baseUrl: "http://localhost:34005/test/flpSandboxMockServer.html#home-view",
 
-  // Spec patterns are relative to the current working directory when
-  // protractor is called.
   specs: [
-    // path.resolve(__dirname, "qunitExecution/specs/runQUnitTests.spec.js"),
-    // path.resolve(__dirname, "testDisplayNotFound/specs/testDisplayNotFound.spec.js"),
+    path.resolve(__dirname, "qunitExecution/specs/runQUnitTests.spec.js"),
+    path.resolve(__dirname, "testDisplayNotFound/specs/testDisplayNotFound.spec.js"),
     path.resolve(__dirname, "testShowEmployeeList/specs/testShowEmployeeList.spec.js")
   ]
 });
