@@ -24,12 +24,11 @@ describe("userInteraction - fill active and retry", function () {
     value = "My Value";
     const index = 0;
     const timeout = 30000;
-    const attribute = "value";
     const retries = 1;
     const interval = 3000;
     await ui5.userInteraction.click(selector);
     await common.userInteraction.fillActiveAndRetry(value, retries, interval);
-    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
+    actualValue = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {
@@ -52,7 +51,6 @@ describe("userInteraction - fillActiveAndRetry element with invalid selector", f
       }
     };
 
-    const value = "My Value";
     await expect(ui5.userInteraction.click(selector))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
@@ -79,12 +77,11 @@ describe("userInteraction - fillActiveAndRetry element with number", function ()
     value = 12;
     const index = 0;
     const timeout = 30000;
-    const attribute = "value";
     const retries = 1;
     const interval = 3000;
     await ui5.userInteraction.click(selector);
     await common.userInteraction.fillActiveAndRetry(value, retries, interval);
-    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
+    actualValue = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {
@@ -112,12 +109,11 @@ describe("userInteraction - fillActiveAndRetry element with empty value", functi
     };
     const index = 0;
     const timeout = 30000;
-    const attribute = "value";
     const retries = 1;
     const interval = 3000;
     await ui5.userInteraction.click(selector);
     await common.userInteraction.fillActiveAndRetry(value, retries, interval);
-    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
+    actualValue = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {

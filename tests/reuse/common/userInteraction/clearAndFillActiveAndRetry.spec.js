@@ -41,7 +41,7 @@ describe("userInteraction - clearAndFillActiveAndRetry", function () {
       }
     };
     await ui5.userInteraction.click(quantityInput);
-    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
+    actualValue = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {
