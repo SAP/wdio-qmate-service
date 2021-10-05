@@ -1,6 +1,6 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfig = require("../../configurations/chrome.headless.conf.js");
+const qmateConfig = require("../../configurations/chrome.conf.js");
 exports.config = merge(qmateConfig.config, {
   maxInstances: 6,
   bail: 1,
@@ -30,7 +30,7 @@ exports.config = merge(qmateConfig.config, {
     path.resolve(__dirname, "isElementPresent.spec.js"),
     path.resolve(__dirname, "isPresent.spec.js"),
     path.resolve(__dirname, "isPresentByCss.spec.js"),
-    path.resolve(__dirname, "isPresentByXPath.spec.js")
+    // path.resolve(__dirname, "isPresentByXPath.spec.js")
   ],
 
   exclude: [],
@@ -41,10 +41,16 @@ exports.config = merge(qmateConfig.config, {
     }],
     ["static-server", {
       port: 34005,
-      folders: [{
-        mount: "/forms.html",
-        path: path.resolve(__dirname, "../../../helper/website/forms.html")
-      }]
+      folders: [
+        { mount: "/waitForElements.html", path: path.resolve(__dirname, "../../../helper/website/waitForElements.html") },
+        { mount: "/buttons.html", path: path.resolve(__dirname, "../../../helper/website/buttons.html") },
+        { mount: "/checkBox.html", path: path.resolve(__dirname, "../../../helper/website/checkBox.html") },
+        { mount: "/dropdown.html", path: path.resolve(__dirname, "../../../helper/website/dropdown.html") },
+        { mount: "/forms.html", path: path.resolve(__dirname, "../../../helper/website/forms.html") },
+        { mount: "/scrollPage.html", path: path.resolve(__dirname, "../../../helper/website/scrollPage.html") },
+        { mount: "/hiddenAndVisible.html", path: path.resolve(__dirname, "../../../helper/website/hiddenAndVisible.html") },
+        { mount: "/tables.html", path: path.resolve(__dirname, "../../../helper/website/tables.html") }
+      ]
     }]
   ],
 

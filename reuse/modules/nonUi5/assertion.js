@@ -33,8 +33,8 @@ const Assertion = function () {
    * await nonUi5.assertion.expectValueToBe(elem, "Save");
    */
   this.expectValueToBe = async function (elem, compareValue) {
-    const value = await this.expectAttributeToBe(elem, compareValue, "value");
-    return common.assertion.expectEqual(value, compareValue);
+    // Note: it is not required to send 'value' here, because 'expectAttributeToBe' is calling 'getValue' inside
+    await this.expectAttributeToBe(elem, compareValue);
   };
 
 

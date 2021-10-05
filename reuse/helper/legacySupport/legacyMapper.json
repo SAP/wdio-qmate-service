@@ -231,6 +231,12 @@
     "old": "ui5.common.userInteraction.clearFillActiveAndRetry",
     "new": "common.userInteraction.clearAndFillActiveAndRetry"
   },
+
+  {
+    "old": "non_ui5.common.assertion.expectValue",
+    "new": "nonUi5.assertion.expectAttributeToBe"
+  },
+
   {
     "old": "non_ui5.common",
     "new": "nonUi5"

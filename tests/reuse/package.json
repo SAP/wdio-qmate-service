@@ -6,11 +6,13 @@
     "chromedriver-upgrade": "npm install chromedriver --chromedriver-force-download",
     "preinstall": "npm config set chromedriver_skip_download=true && npm install chromedriver --chromedriver_skip_download=true",
     "postinstall": "npm config set chromedriver_skip_download=false",
-    "test": "npm run test:ui5 && node sleeper.js 5 && npm run test:nonUi5 && node sleeper.js 5 && npm run test:auth && node sleeper.js 5 && npm run test:utilities && node sleeper.js 5 && npm run test:odata",
-    "test:ui5": "node sleeper.js 5 && npx wdio ui5/specs/confirmationDialog/test.confirmationDialog.conf.js && node sleeper.js 5 && npx wdio ui5/specs/date/test.date.conf.js && node sleeper.js 5 && npx wdio ui5/specs/formatter/test.formatter.conf.js && node sleeper.js 15 && npx wdio ui5/specs/session/test.session.conf.js && node sleeper.js 5 && npx wdio ui5/specs/iconTabBar/test.iconTabBar.conf.js && node sleeper.js 15 && npx wdio ui5/specs/userInteraction/test.userInteraction.conf.js && node sleeper.js 15 && npx wdio ui5/specs/client/test.client.conf.js && node sleeper.js 15 && npx wdio ui5/specs/errorDialog/test.errorDialog.conf.js",
-    "test:ui5:navigation": "node sleeper.js 10 && npx wdio ui5/specs/navigation/test.navigation.static.conf.js && node sleeper.js 10 && npx wdio ui5/specs/navigation/test.navigation.s4.conf.js",
-    "test:nonUi5": "npx wdio nonUi5/assertion/test.assertion.conf.js && node sleeper.js 15 && npx wdio nonUi5/userInteraction/test.userInteraction.conf.js && node sleeper.js 15 && npx wdio nonUi5/element/test.elemnent.conf.js && node sleeper.js 15",
-    "test:userInt": "npx wdio nonUi5/userInteraction/test.userInteraction.conf.js"
+    "test": "npm run test:ui5 && node ../helper/sleeper.js 5 && npm run test:nonUi5 && node ../helper/sleeper.js 5 && npm run test:common",
+    "test:ui5": "node ../helper/sleeper.js 5 && npx wdio ui5/specs/confirmationDialog/test.confirmationDialog.conf.js && node ../helper/sleeper.js 5 && npx wdio ui5/specs/date/test.date.conf.js && node ../helper/sleeper.js 5 && npx wdio ui5/specs/formatter/test.formatter.conf.js && node ../helper/sleeper.js 15 && npx wdio ui5/specs/session/test.session.conf.js && node ../helper/sleeper.js 5 && npx wdio ui5/specs/iconTabBar/test.iconTabBar.conf.js && node ../helper/sleeper.js 15 && npx wdio ui5/specs/userInteraction/test.userInteraction.conf.js && node ../helper/sleeper.js 15 && npx wdio ui5/specs/client/test.client.conf.js && node ../helper/sleeper.js 15 && npx wdio ui5/specs/errorDialog/test.errorDialog.conf.js",
+    "test:ui5:navigation": "node ../helper/sleeper.js 10 && npx wdio ui5/specs/navigation/test.navigation.static.conf.js && node ../helper/sleeper.js 10 && npx wdio ui5/specs/navigation/test.navigation.s4.conf.js",
+    "test:nonUi5": "npx wdio nonUi5/assertion/test.assertion.conf.js && node ../helper/sleeper.js 15 && npx wdio nonUi5/userInteraction/test.userInteraction.conf.js && node ../helper/sleeper.js 15 && npx wdio nonUi5/element/test.elemnent.conf.js && node ../helper/sleeper.js 15",
+    "test:common": "npx wdio common/assertion/test.assertion.conf.js && node ../helper/sleeper.js 15 && npx wdio common/userInteraction/test.userInteraction.conf.js && node ../helper/sleeper.js 15 && npx wdio common/date/test.date.conf.js && node ../helper/sleeper.js 15 && npx wdio common/navigation/test.navigation.conf.js",
+    "test:common:ui": "npx wdio common/userInteraction/test.userInteraction.conf.js",
+    "test:common:assert": "npx wdio common/assertion/test.assertion.conf.js"
   },
   "author": "",
   "license": "ISC",
