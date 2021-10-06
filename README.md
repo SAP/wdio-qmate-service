@@ -112,12 +112,12 @@ Please have a look at the following `tests` folders with examples:
 
 #### Tests
 
-- [Jasmine tests](tests/frameworks/jasmineFramework)
-- [Mocha tests](tests/frameworks/mochaFramework)
-- [Cucumber tests](tests/frameworks/cucumberFramework)
-- [Typescript tests](tests/features/typescriptSupport)
-- [Sync tests](tests/features/syncSupport)
-- [Selenium-standalone tests](tests/features/seleniumStandalone)
+- [Jasmine tests](documentation/downloads/samples/jasmineFramework)
+- [Mocha tests](documentation/downloads/samples/mochaFramework)
+- [Cucumber tests](documentation/downloads/samples/cucumberFramework)
+- [Typescript tests](documentation/downloads/samples/typescriptSupport)
+- [Sync tests](documentation/downloads/samples/syncSupport)
+- [Selenium-standalone tests](documentation/downloads/samples/seleniumStandalone)
 - [Reuse API tests](tests/reuse)
 
 
