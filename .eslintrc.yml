@@ -24,11 +24,9 @@ globals:
   protractor: readonly
   ui5: readonly
   nonUi5: readonly
-  non_ui5: readonly
   service: readonly
   common: readonly
   util: readonly
-  utilities: readonly
 parserOptions:
   ecmaVersion: 2018
 rules:
