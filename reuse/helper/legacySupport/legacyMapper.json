@@ -8,6 +8,10 @@
     "new": "util.system"
   },
   {
+    "old": "utilities.browser.sleepAndCollectCoverage",
+    "new": "util.browser.collectCoverage"
+  },
+  {
     "old": "utilities.dialogInteraction.uploadFiles",
     "new": "util.file.upload"
   },
