@@ -237,7 +237,6 @@ var LibScripts = function () {
             displayedElements.push(aElements[i]);
           } else {
             const isDisplayed = await aElements[i].isDisplayed();
-            //TODO lets discuss: does || make any sense here? And why not only isDisplayed() ? -> also checks for hidden etc..
             if (isDisplayed) {
               displayedElements.push(aElements[i]);
             }

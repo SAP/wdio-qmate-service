@@ -84,7 +84,7 @@ const UserInteraction = function () {
    */
   this.clickListItem = async function (selector, index = 0, timeout = 30000) {
     const elem = await ui5.element.getDisplayedElement(selector, index, timeout);
-    await ui5._____________TODO______________.executeControlInBrowser(function (control, done) {
+    await ui5.control.execute(function (control, done) {
       control.attachPress(function () {
         done();
       });

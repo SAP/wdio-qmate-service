@@ -41,16 +41,14 @@ const Browser = function () {
     await browser.pause(duration);
   };
 
-  // TODO: function does not sleep? -> rename to collectCoverage?
   /**
-   * @function sleepAndCollectCoverage
+   * @function collectCoverage
    * @memberOf util.browser
    * @description Collects and stores the coverage information before a hard browser event (logout, clear history),
    * also useful when parallelizing multiple specs and need to aggregate the coverage information
-   * @param {Integer} [sleep=5000] - The time to pause (ms).
-   * @example await util.browser.sleepAndCollectCoverage(5000);
+   * @example await util.browser.collectCoverage();
    */
-  this.sleepAndCollectCoverage = function (sleep = 5000) {
+  this.collectCoverage = function () {
     if (browser.params.coverage.status && browser.params.coverage.status !== "false") {
       // Coverage will be collected via @wdio/qmate-code-coverage-service
     } else {
