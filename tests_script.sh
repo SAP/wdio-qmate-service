@@ -13,12 +13,12 @@ for d in */ ; do
     echo "1 Install dependencies and devDependencies"
     npm i
 
-    IS_CHROMEDRIVER_UPDATE_REQUIRED="grep 'chromedriver-upgrade' package.json"
+    IS_CHROMEDRIVER_UPDATE_REQUIRED="grep 'chromedriver-update' package.json"
 
     if [[ $IS_CHROMEDRIVER_UPDATE_REQUIRED ]]
     then
-      echo "1.1 Run chromedriver-upgrade script"
-      npm run chromedriver-upgrade
+      echo "1.1 Run chromedriver-update script"
+      npm run chromedriver-update
     fi
 
     echo "2. Run tests"
