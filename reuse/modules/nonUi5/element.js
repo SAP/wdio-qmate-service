@@ -4,20 +4,17 @@
  * @memberof nonUi5
  */
 const Element = function () {
-
-  //TODO: why 60s timeout?
-
   // =================================== WAIT ===================================
   /**
    * @function waitForAllElements
    * @memberOf nonUi5.element
    * @description Waits until all elements with the given selector are rendered.
    * @param {Object} selector - The CSS selector describing the element.
-   * @param {Number} [timeout=60000] - The timeout to wait (ms).
-   * @returns {Object[]} The array of elements. //TODO
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @returns {Object[]} The array of elements.
    * @example await nonUi5.element.waitForAllElements(".inputField");
    */
-  this.waitForAllElements = async function (selector, timeout = 60000) {
+  this.waitForAllElements = async function (selector, timeout = 30000) {
     let elems = null;
     try {
       await browser.waitUntil(async function () {
@@ -32,7 +29,6 @@ const Element = function () {
     } catch (error) {
       throw new Error("Function 'waitForAllElements' failed. Browser wait exception. " + error);
     }
-    return elems; //TODO: why does it return the elements?
   };
 
   /**
@@ -40,14 +36,14 @@ const Element = function () {
    * @memberOf nonUi5.element
    * @description Waits until the element with the given selector is present.
    * @param {Object} selector - The CSS selector describing the element.
-   * @param {Number} [timeout=60000] - The timeout to wait (ms).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await nonUi5.element.waitForElementIsPresent(".input01");
    * @example await nonUi5.element.waitForElementIsPresent("#button12");
    * @example await nonUi5.element.waitForElementIsPresent("p:first-child");
    */
-  this.waitForElementIsPresent = async function (selector, timeout = 60000) {
+  this.waitForElementIsPresent = async function (selector, timeout = 30000) {
     let elem = null;
-    await browser.waitUntil(async function () { //TODO is return await really needed?
+    await browser.waitUntil(async function () {
       elem = await $(selector);
       if (!elem) return false;
       // eslint-disable-next-line no-return-await
@@ -63,12 +59,12 @@ const Element = function () {
    * @memberOf nonUi5.element
    * @description Waits until the element with the given selector is visible.
    * @param {Object} selector - The CSS selector describing the element.
-   * @param {Number} [timeout=60000] - The timeout to wait (ms).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await nonUi5.element.waitForElementIsVisible(".input01");
    * @example await nonUi5.element.waitForElementIsVisible("#button12");
    * @example await nonUi5.element.waitForElementIsVisible("p:first-child");
    */
-  this.waitForElementIsVisible = async function (selector, timeout = 60000) {
+  this.waitForElementIsVisible = async function (selector, timeout = 30000) {
     let elem = null;
     await browser.waitUntil(async function () {
       elem = await $(selector);
@@ -85,14 +81,14 @@ const Element = function () {
    * @memberOf nonUi5.element
    * @description Waits until the element with the given selector is clickable.
    * @param {Object} selector - The CSS selector describing the element.
-   * @param {Number} [timeout=60000] - The timeout to wait (ms).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await nonUi5.element.waitForElementIsClickable(".input01");
    * @example await nonUi5.element.waitForElementIsClickable("#button12");
    * @example await nonUi5.element.waitForElementIsClickable("p:first-child");
    */
-  this.waitForElementIsClickable = async function (selector, timeout = 60000) {
+  this.waitForElementIsClickable = async function (selector, timeout = 30000) {
     let elem = null;
-    await browser.waitUntil(async function () { //TODO is return await really needed?
+    await browser.waitUntil(async function () {
       elem = await $(selector);
       if (!elem) return false;
       // eslint-disable-next-line no-return-await
@@ -110,11 +106,11 @@ const Element = function () {
    * @memberOf nonUi5.element
    * @description Gets all visible elements with the passed selector.
    * @param {Object} selector - The CSS selector describing the element.
-   * @param {Number} [timeout=60000] - The timeout to wait (ms).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object[]} The array of elements.
    * @example await nonUi5.element.getDisplayedElements(".inputField");
    */
-  this.getDisplayedElements = async function (selector, timeout = 60000) {
+  this.getDisplayedElements = async function (selector, timeout = 30000) {
     const elements = await this.waitForAllElements(selector, timeout);
     if (!elements) {
       throw new Error(`Function 'getDisplayedElements' failed. No element found for selector '${selector}' after ${timeout / 1000}s.`);
@@ -142,11 +138,11 @@ const Element = function () {
    * @description Gets the element with the given CSS selector.
    * @param {Object} selector - The CSS selector describing the element.
    * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
-   * @param {Number} [timeout=60000] - The timeout to wait (ms).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getElementByCss(".button01");
    */
-  this.getElementByCss = async function (selector, index = 0, timeout = 60000) {
+  this.getElementByCss = async function (selector, index = 0, timeout = 30000) {
     try {
       await this.waitForAllElements(selector, timeout);
       return await filterElements(selector, index, timeout);
@@ -162,11 +158,11 @@ const Element = function () {
    * @param {Object} selector - The CSS selector describing the element.
    * @param {String} [text=""] - The containing text value of the element.
    * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
-   * @param {Number} [timeout=60000] - The timeout to wait (ms).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getElementByCssContainingText(".input01", "Jack Jackson");
    */
-  this.getElementByCssContainingText = async function (selector, text = "", index = 0, timeout = 60000) {
+  this.getElementByCssContainingText = async function (selector, text = "", index = 0, timeout = 30000) {
     try {
       const elems = await this.waitForAllElements(selector, timeout);
       return await _filterElementsContainingText(elems, text, index);
@@ -180,11 +176,11 @@ const Element = function () {
    * @memberOf nonUi5.element
    * @description Gets the element with the given ID.
    * @param {String} id - The id of the element.
-   * @param {Number} [timeout=60000] - The timeout to wait (ms).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getElementById("button01");
    */
-  this.getElementById = async function (id, timeout = 60000) {
+  this.getElementById = async function (id, timeout = 30000) {
     try {
       const selector = `[id='${id}']`;
       return await filterElements(selector, 0, timeout);
@@ -199,11 +195,11 @@ const Element = function () {
    * @description Gets the element with the given class.
    * @param {String} elemClass - The class describing the element.
    * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
-   * @param {Number} [timeout=60000] - The timeout to wait (ms).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getElementByClass("button01");
    */
-  this.getElementByClass = async function (elemClass, index = 0, timeout = 60000) {
+  this.getElementByClass = async function (elemClass, index = 0, timeout = 30000) {
     try {
       const selector = `[class='${elemClass}']`;
       return await filterElements(selector, index, timeout);
@@ -218,11 +214,11 @@ const Element = function () {
    * @description Gets the element with the given name.
    * @param {String} name - The name attribute of the element.
    * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
-   * @param {Number} [timeout=60000] - The timeout to wait (ms).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getElementByName(".button01");
    */
-  this.getElementByName = async function (name, index = 0, timeout = 60000) {
+  this.getElementByName = async function (name, index = 0, timeout = 30000) {
     try {
       const selector = `[name='${name}']`;
       return await filterElements(selector, index, timeout);
@@ -237,11 +233,11 @@ const Element = function () {
    * @description Gets the element with the given XPath.
    * @param {String} xpath - The XPath describing the element.
    * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
-   * @param {Number} [timeout=60000] - The timeout to wait (ms).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getElementByXPath("//ul/li/a");
    */
-  this.getElementByXPath = async function (xpath, index = 0, timeout = 60000) {
+  this.getElementByXPath = async function (xpath, index = 0, timeout = 30000) {
     try {
       return await filterElements(xpath, index, timeout);
     } catch (error) {
@@ -259,16 +255,20 @@ const Element = function () {
    * @example const elem = await nonUi5.element.getElementByChild(".form01", ".input01");
    */
   this.getElementByChild = async function (elementSelector, childSelector) {
-    // TODO: add try catch
-    const elem = await this.getElementByCss(elementSelector);
+    let elem;
     let childElem = null;
-    await browser.waitUntil(async function () { //TODO is return await really needed?
+    try {
+      elem = await this.getElementByCss(elementSelector);
+    } catch (error) {
+      throw new Error("Function 'getElementByChild' failed.", error);
+    }
+    await browser.waitUntil(async function () {
       childElem = await elem.$(childSelector);
       if (!childElem) return false;
       // eslint-disable-next-line no-return-await
       return await childElem.isDisplayed();
     }, {
-      timeout: 60000,
+      timeout: 30000,
       timeoutMsg: `Function 'getElementByChild' failed. No visible elements found for selector '${elementSelector}' and child selector '${childSelector}'`
     });
     return childElem;
@@ -276,7 +276,6 @@ const Element = function () {
 
 
   // =================================== NODES ===================================
-  // TODO: NOT YET AVAILABLE ????
   /**
    * @function getChildNode
    * @memberOf nonUi5.element
@@ -285,11 +284,11 @@ const Element = function () {
    * @param {String} childSelector - The CSS of the child element (can be a class for example).
    * @param {Integer} [elementIndex=0] - The index of the element (in case there are more than one elements visible at the same time). 
    * @param {Integer} [childIndex=0] - The index of the child element (in case there are more than one child elements visible at the same time). 
-   * @param {Number} [timeout=60000] - The timeout to wait (ms).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getChildNode("ul[class='list']", "li[class='firstItem']");
    */
-  this.getChildNode = async function (elementSelector, childSelector, elementIndex = 0, childIndex = 0, timeout = 60000) {
+  this.getChildNode = async function (elementSelector, childSelector, elementIndex = 0, childIndex = 0, timeout = 30000) {
     const elem = await this.getElementByCss(elementSelector, elementIndex, timeout);
     let childElem = null;
     await browser.waitUntil(async function () {
@@ -391,7 +390,6 @@ const Element = function () {
    * @example const elem = await nonUi5.element.getElementById("elem02");
    * const innerHTML = await nonUi5.element.getAttributeValue(elem);
    */
-  // TODO: check empty attribute arg -> innerHTML
   this.getAttributeValue = async function (elem, attribute) {
     if (typeof elem === "object" && elem !== null) {
       const tagName = await elem.getTagName();
@@ -436,26 +434,7 @@ const Element = function () {
   };
 
 
-  // TODO: maybe move to userInteraction?
   // =================================== ACTIONS ===================================
-  /**
-   * @function scrollToElement
-   * @memberOf nonUi5.element
-   * @description Scrolls to the passed element to get it into view.
-   * @param {Object} elem - The element.
-   * @param {String} alignment="center" - Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest".
-   * Affects the alignToTop parameter of scrollIntoView function. By default, it takes 'up'
-   * @example const elem = await nonUi5.element.getElementById("footer01");
-   * await nonUi5.element.scrollToElement(elem);
-   */
-  this.scrollToElement = async function (elem, alignment = "center") {
-    const options = {
-      "block": alignment,
-      "inline": alignment
-    };
-    await elem.scrollIntoView(options);
-  };
-
   /**
    * @function highlightElement
    * @memberOf nonUi5.element
@@ -475,7 +454,6 @@ const Element = function () {
   };
 
 
-  // TODO: maybe move to different namespace
   // =================================== FRAMES ===================================
   /**
    * @function switchToIframe
@@ -514,7 +492,7 @@ const Element = function () {
     return elemsWithTxt[index];
   }
 
-  async function filterElements(selector, index = 0, timeout = 60000) {
+  async function filterElements(selector, index = 0, timeout = 30000) {
     let elems = null;
     let selectedElement = null;
     try {
