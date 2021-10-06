@@ -12,7 +12,7 @@ describe("multi combo", function () {
       "nextSiblingProperties": {},
       "childProperties": { "metadata": "sap.m.Tokenizer", "mProperties": {} }
     };
-    var id = await common.locator.getElementId(ui5ControlProperties);
+    var id = await ui5.element.getElementId(ui5ControlProperties);
     const element = await $("[id='" + id + "-arrow']");
     await element.click();
   });
@@ -25,7 +25,7 @@ describe("multi combo", function () {
       "nextSiblingProperties": {},
       "childProperties": {}
     };
-    await common.userInteraction.click(ui5ControlProperties);
+    await ui5.userInteraction.click (ui5ControlProperties);
   });
 
   it("step3:select item 2", async function () {
@@ -37,7 +37,7 @@ describe("multi combo", function () {
       "nextSiblingProperties": {},
       "childProperties": {}
     };
-    await common.userInteraction.click(ui5ControlProperties);
+    await ui5.userInteraction.click (ui5ControlProperties);
   });
 
   it("step4: assert selected items", async function () {
@@ -58,7 +58,7 @@ describe("multi combo", function () {
     var Index = 0;
     var attribute = "selectedKeys";   //eg: title, text, value etc.
     var compareValue = "HT-1252,HT-6101";   //expected value
-    await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
   });
 
   it("step4: assert selected items - use UI5 Control properties", async function () {
@@ -78,7 +78,7 @@ describe("multi combo", function () {
     var attribute = "selectedKeys";   //eg: title, text, value etc.
     var compareValue1 = "HT-1252";   //expected value
     var compareValue2 = "HT-6101";   //expected value
-    var elem = await common.locator.getDisplayedElement(ui5ControlProperties, Index);
+    var elem = await ui5.element.getDisplayedElement(ui5ControlProperties, Index);
     var aVal = await locatorCommands.getUI5Property(attribute, elem);
     aVal = aVal.split(","); // values are stringified to satisfy vyperForAll regression tests logic
     await expect(aVal[0]).toBe(compareValue1);
@@ -102,7 +102,7 @@ describe("multi combo", function () {
     var attribute = "selectedItems";   //eg: title, text, value etc.
     var compareValue1 = "__box0-3";   //expected value
     var compareValue2 = "__box0-6";   //expected value
-    var elem = await common.locator.getDisplayedElement(ui5ControlProperties, Index);
+    var elem = await ui5.element.getDisplayedElement(ui5ControlProperties, Index);
     var aVal = await locatorCommands.getUI5Association(attribute, elem);
     await expect(aVal[0]).toContain(compareValue1);
     await expect(aVal[1]).toContain(compareValue2);
@@ -125,7 +125,7 @@ describe("multi combo", function () {
     var attribute = "selectedKeys";   //eg: title, text, value etc.
     var compareValue1 = "HT-1252";   //expected value
     var compareValue2 = "HT-6101";   //expected value
-    var elem = await common.locator.getDisplayedElement(ui5ControlProperties, Index);
+    var elem = await ui5.element.getDisplayedElement(ui5ControlProperties, Index);
     var aVal = await locatorCommands.getUI5Property(attribute, elem);
     aVal = aVal.split(","); // values are stringified to satisfy vyperForAll regression tests logic
     await expect(aVal[0]).toBe(compareValue1);
