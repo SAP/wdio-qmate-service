@@ -15,9 +15,8 @@ const Element = function () {
    * @example await ui5.element.waitForAllElements(selector);
    */
   this.waitForAllElements = async function (selector, timeout = 30000) {
-    return browser.uiControls(selector, timeout); //TODO: is returned required?
+    await browser.uiControls(selector, timeout);
   };
-
 
   // =================================== GET ELEMENTS ===================================
   /**
@@ -200,30 +199,7 @@ const Element = function () {
   };
 
 
-  // TODO: maybe move to userInteraction?
   // =================================== ACTIONS ===================================
-  /**
-   * @function scrollToElement
-   * @memberOf ui5.element
-   * @description Scrolls to the element with the given selector to get it into view.
-   * @param {Object} selector - The selector describing the element.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
-   * @param {String} [alignment="center"] - Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest".
-   * Affects the alignToTop parameter of scrollIntoView function. By default, it takes 'up'
-   * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await ui5.element.scrollToElement(selector, 0, "start", 5000);
-   */
-  this.scrollToElement = async function (selector, index = 0, alignment = "center", timeout = 30000) {
-    const elem = await this.getDisplayedElement(selector, index, timeout);
-    if (elem) {
-      const options = {
-        "block": alignment,
-        "inline": alignment
-      };
-      await elem.scrollIntoView(options);
-    }
-  };
-
   /**
    * @function highlightElement
    * @memberOf ui5.element

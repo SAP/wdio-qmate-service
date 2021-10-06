@@ -276,16 +276,15 @@ const UserInteraction = function () {
     await element.dragAndDrop(targetElem);
   };
 
-  // TODO: is this common or bo reuse?
   /**
-   * @function clickChartPart
+   * @function moveCursorAndClick
    * @memberOf nonUi5.userInteraction
-   * @description Clicks on a target element inside a chart area.
-   * @param {Object} element - The element to click inside the chart.
-   * @example const elem = await nonUi5.element.getElementById("chartPartToCLick");
-   * await nonUi5.userInteraction.clickChartPart(elem);
+   * @description Moves the cursor to the target element and clicks on it. Can be used for charts.
+   * @param {Object} element - The element to be clicked.
+   * @example const elem = await nonUi5.element.getElementById("chartPartToClick");
+   * await nonUi5.userInteraction.moveCursorAndClick(elem);
    */
-  this.clickChartPart = async function (element) {
+  this.moveCursorAndClick = async function (element) {
     await element.moveTo();
     await element.click();
   };

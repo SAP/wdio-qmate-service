@@ -104,7 +104,6 @@ const Browser = function () {
     return browser.capabilities.browserName;
   };
 
-  // TODO: move to UI5 namespace?
   /**
    * @function getUI5Version
    * @memberOf util.browser
@@ -154,6 +153,33 @@ const Browser = function () {
         return null;
       }
     });
+  };
+
+   /**
+   * @function logUI5Version
+   * @memberOf util.browser
+   * @description Logs the UI5 version and creation date for UI5 based applications to the console.
+   * @example await util.browser.logUI5Version();
+   */
+  this.logUI5Version = async function () {
+    let logUI5Version;
+    if (browser.config.params && browser.config.params.logUI5Version) {
+      logUI5Version = browser.config.params.logUI5Version;
+    } else {
+      logUI5Version = true;
+    }
+
+    if (logUI5Version !== false && !process.env.UI5_VERSION_LOGGED) {
+      const ui5Version = await this.getUI5Version();
+      util.console.log("");
+      util.console.info(`UI5 Version:\t${ui5Version.version}`);
+      util.console.info(`UI5 Timestamp:\t${ui5Version.timestamp}`);
+      util.console.log("");
+
+      if (logUI5Version !== "always") {
+        process.env.UI5_VERSION_LOGGED = true;
+      }
+    }
   };
 
   // =================================== EXECUTION ===================================
