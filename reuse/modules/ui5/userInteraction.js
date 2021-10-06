@@ -281,7 +281,7 @@ const UserInteraction = function () {
           "metadata": "sap.m.SelectList"
         }
       };
-      await ui5.element.scrollToElement(ui5ControlProperties);
+      await this.scrollToElement(ui5ControlProperties);
       await this.click(ui5ControlProperties);
     }
   };
@@ -311,7 +311,7 @@ const UserInteraction = function () {
           "metadata": "sap.m.List"
         }
       };
-      await ui5.element.scrollToElement(selector);
+      await this.scrollToElement(selector);
       await this.click(selector);
     }
   };
@@ -342,7 +342,7 @@ const UserInteraction = function () {
           }
         }
       };
-      await ui5.element.scrollToElement(ui5ControlProperties);
+      await this.scrollToElement(ui5ControlProperties);
       await this.click(ui5ControlProperties);
     }
     await common.userInteraction.pressEnter();
@@ -378,6 +378,28 @@ const UserInteraction = function () {
 
 
   // =================================== OTHERS ===================================
+  /**
+   * @function scrollToElement
+   * @memberOf ui5.userInteraction
+   * @description Scrolls to the element with the given selector to get it into view.
+   * @param {Object} selector - The selector describing the element.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
+   * @param {String} [alignment="center"] - Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest".
+   * Affects the alignToTop parameter of scrollIntoView function. By default, it takes 'up'
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example await this.scrollToElement(selector, 0, "start", 5000);
+   */
+  this.scrollToElement = async function (selector, index = 0, alignment = "center", timeout = 30000) {
+    const elem = await ui5.element.getDisplayedElement(selector, index, timeout);
+    if (elem) {
+      const options = {
+        "block": alignment,
+        "inline": alignment
+      };
+      await elem.scrollIntoView(options);
+    }
+  };
+  
   /**
    * @function selectAll
    * @memberOf ui5.userInteraction
