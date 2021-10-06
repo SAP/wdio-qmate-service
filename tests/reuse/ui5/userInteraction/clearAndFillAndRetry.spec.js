@@ -24,7 +24,6 @@ describe("userInteraction - clearAndFillAndRetry", function () {
     const timeout = 30000;
     const retries = 1;
     const interval = 2000;
-    const attribute = "value";
     await ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout, retries, interval);
     const quantityInput = {
       "elementProperties": {
@@ -36,7 +35,7 @@ describe("userInteraction - clearAndFillAndRetry", function () {
       }
     };
     await ui5.userInteraction.click(quantityInput);
-    valueAct = await ui5.element.getValue(selector, attribute, index, timeout);
+    valueAct = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {

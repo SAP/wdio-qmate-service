@@ -1,5 +1,7 @@
 "use strict";
-const { handleCookiesConsent } = require("../../../helper/utils");
+const {
+  handleCookiesConsent
+} = require("../../../helper/utils");
 
 const date = new Date();
 
@@ -27,7 +29,7 @@ describe("date - pickDate", function () {
   });
 
   it("Verification", async function () {
-    const value = await ui5.element.getValue(dataInput, "value");
+    const value = await ui5.element.getValue(dataInput);
     const arrivedDate = new Date(value);
     common.assertion.expectEqual(arrivedDate.toDateString(), date.toDateString());
   });

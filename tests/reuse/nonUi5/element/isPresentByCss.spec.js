@@ -1,6 +1,6 @@
 "use strict";
 
-describe("assertion - isPresentByCss (id)", function () {
+describe("element - isPresentByCss (id)", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/hiddenAndVisible.html");
   });
@@ -14,7 +14,7 @@ describe("assertion - isPresentByCss (id)", function () {
   });
 });
 
-describe("assertion - isPresentByCss (class)", function () {
+describe("element - isPresentByCss (class)", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/hiddenAndVisible.html");
   });
@@ -25,7 +25,7 @@ describe("assertion - isPresentByCss (class)", function () {
   });
 });
 
-describe("assertion - isPresentByCss (partial text for paragraph)", function () {
+describe("element - isPresentByCss (partial text for paragraph)", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/hiddenAndVisible.html");
   });
@@ -36,7 +36,7 @@ describe("assertion - isPresentByCss (partial text for paragraph)", function () 
   });
 });
 
-describe("assertion - isPresentByCss with wrong selector/hidden element and catch error", function () {
+describe("element - isPresentByCss with wrong selector/hidden element and catch error", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/hiddenAndVisible.html");
   });
@@ -47,5 +47,27 @@ describe("assertion - isPresentByCss with wrong selector/hidden element and catc
 
     isPresented = await nonUi5.element.isPresentByCss("#hiddenParagraph", 1000);
     common.assertion.expectFalse(isPresented);
+  });
+});
+
+describe("element - isPresent (by class) for list item element", function () {
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+  });
+
+  it("Execution and Verification", async function () {
+    const isPresent = await nonUi5.element.isPresentByCss(".sapMSLITitleOnly=Computer System Accessories");
+    await common.assertion.expectTrue(isPresent);
+  });
+});
+
+describe("element - isPresent (by class) for hidden element", function () {
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+  });
+
+  it("Execution and Verification", async function () {
+    const isPresent = await nonUi5.element.isPresentByCss(".sapUiInvisibleText");
+    await common.assertion.expectTrue(isPresent);
   });
 });

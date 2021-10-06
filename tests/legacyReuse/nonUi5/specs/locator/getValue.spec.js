@@ -31,6 +31,6 @@ describe("locator - getValue and catch error", function () {
 
   it("Execution and Verification", async function () {
     await expect(non_ui5.common.locator.getValue())
-      .rejects.toThrow("Function 'getValue' failed");
+      .rejects.toThrow("Function 'getAttributeValue' failed. Please provide an element as first argument (must be of type 'object').");
   });
 });

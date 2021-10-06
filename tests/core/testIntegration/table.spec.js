@@ -8,7 +8,7 @@ describe("table", function () {
       "elementProperties": { "metadata": "sap.m.ColumnListItem", "mProperties": { "bindingContextPath": "/ProductCollection/2" } },
       "parentProperties": { "metadata": "sap.m.Table", "mProperties": { "items": [{ "path": "/ProductCollection" }] } },
     };
-    var list = await common.locator.getDisplayedElement(ui5ControlProperties, 0);
+    var list = await ui5.element.getDisplayedElement(ui5ControlProperties, 0);
 
     var ui5ControlProperties2 = {
       "elementProperties": { "metadata": "sap.m.Text", "mProperties": {} },
@@ -30,7 +30,7 @@ describe("table", function () {
       "elementProperties": { "metadata": "sap.m.Text", "mProperties": {} },
     };
 
-    const nameField = await common.locator.getDisplayedChildElement(ui5ControlProperties, ui5ControlProperties2);
+    const nameField = await ui5.element.getDisplayedChildElement(ui5ControlProperties, ui5ControlProperties2);
     var attribute = "text";   //eg: title, text, value etc.
     var compareValue = "Notebook Basic 18";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -45,7 +45,7 @@ describe("table", function () {
       "nextSiblingProperties": {},
       "childProperties": {}
     };
-    await common.userInteraction.click(ui5ControlProperties);
+    await ui5.userInteraction.click (ui5ControlProperties);
   });
 
   it("step2:enter value for 3rd element", async function () {
@@ -57,10 +57,10 @@ describe("table", function () {
       "childProperties": {}
     };
     var value = "20";   //value to be entered by user
-    var id = await common.locator.getElementId(ui5ControlProperties);
+    var id = await ui5.element.getElementId(ui5ControlProperties);
     await $("[id='" + id + "'] input").clearValue();
     await $("[id='" + id + "'] input").setValue(value);
-    //await common.userInteraction.clearAndFill(ui5ControlProperties, value);
+    //await ui5.userInteraction.clearAndFill(ui5ControlProperties, value);
   });
 
   it("step3:enter value for 4rd element with ancestor", async function () {
@@ -88,7 +88,7 @@ describe("table", function () {
       }
     };
     var value = "99";   //value to be entered by user
-    var id = await common.locator.getElementId(ui5ControlProperties);
+    var id = await ui5.element.getElementId(ui5ControlProperties);
     await $("[id='" + id + "'] input").clearValue();
     await $("[id='" + id + "'] input").setValue(value);
   });

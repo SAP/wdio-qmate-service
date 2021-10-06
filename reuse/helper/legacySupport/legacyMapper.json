@@ -36,6 +36,10 @@
     "new": "ui5"
   },
   {
+    "old": "ui5.common.locator",
+    "new": "ui5.element"
+  },
+  {
     "old": "ui5.common.assertion.expectEqual",
     "new": "common.assertion.expectEqual"
   },
@@ -156,10 +160,6 @@
     "new": "util.formatter"
   },
   {
-    "old": "ui5.common.locator",
-    "new": "ui5.element"
-  },
-  {
     "old": "ui5.common.locator.getValue",
     "new": "ui5.element.getAttributeValue"
   },
@@ -178,6 +178,10 @@
   {
     "old": "ui5.common.navigation.printCurrentUrl",
     "new": "common.navigation.printCurrentUrl"
+  },
+  {
+    "old": "ui5.common.navigation.navigateToApplicationAndRetryRefresh",
+    "new": "ui5.common.navigation.navigateToApplicationAndRetry"
   },
   {
     "old": "ui5.common.userInteraction.pressEnter",
@@ -227,9 +231,19 @@
     "old": "ui5.common.userInteraction.clearFillActiveAndRetry",
     "new": "common.userInteraction.clearAndFillActiveAndRetry"
   },
+
+  {
+    "old": "non_ui5.common.assertion.expectValue",
+    "new": "nonUi5.assertion.expectAttributeToBe"
+  },
+
   {
     "old": "non_ui5.common",
     "new": "nonUi5"
+  },
+  {
+    "old": "non_ui5.common.locator",
+    "new": "nonUi5.element"
   },
   {
     "old": "non_ui5.common.locator.getValue",
@@ -286,10 +300,6 @@
   {
     "old": "non_ui5.common.assertion.isPresentByXPath",
     "new": "nonUi5.element.isPresentByXPath"
-  },
-  {
-    "old": "non_ui5.common.locator",
-    "new": "nonUi5.element"
   },
   {
     "old": "non_ui5.common.locator.getCurrentWindow",

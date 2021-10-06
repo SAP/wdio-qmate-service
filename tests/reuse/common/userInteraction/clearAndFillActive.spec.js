@@ -36,7 +36,7 @@ describe("userInteraction - clearAndFillActive", function () {
       }
     };
     await ui5.userInteraction.click(quantityInput);
-    valueAct = await ui5.element.getValue(selector, attribute);
+    valueAct = await ui5.element.getValue(selector);
   });
 
   it("Verification", function () {

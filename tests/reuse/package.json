@@ -1,0 +1,32 @@
+{
+  "name": "reuse-api",
+  "version": "1.1.1",
+  "description": "Tests for Qmate as a test automation framework",
+  "scripts": {
+    "chromedriver-upgrade": "npm install chromedriver --chromedriver-force-download",
+    "preinstall": "npm config set chromedriver_skip_download=true && npm install chromedriver --chromedriver_skip_download=true",
+    "postinstall": "npm config set chromedriver_skip_download=false",
+    "test": "npm run test:ui5 && node ../helper/sleeper.js 5 && npm run test:nonUi5 && node ../helper/sleeper.js 5 && npm run test:common && node ../helper/sleeper.js 5 && npm run test:util",
+    "test:ui5": "npm run test:ui5:navigation && node ../helper/sleeper.js 5 && npx wdio ui5/specs/assertion/test.assertion.conf.js && node ../helper/sleeper.js 5 && npx wdio ui5/specs/confirmationDialog/test.confirmationDialog.conf.js && node ../helper/sleeper.js 5 && npx wdio ui5/specs/control/test.control.conf.js && node ../helper/sleeper.js 5 && npx wdio ui5/specs/date/test.date.conf.js && node ../helper/sleeper.js 5 && npx wdio ui5/specs/element/test.element.conf.js && node ../helper/sleeper.js 15 && npx wdio ui5/specs/errorDialog/test.errorDialog.conf.js && node ../helper/sleeper.js 15 && npx wdio ui5/specs/navigationBar/test.navigationBar.conf.js && node ../helper/sleeper.js 15 && npx wdio ui5/specs/session/test.session.conf.js && node ../helper/sleeper.js 15 && npx wdio ui5/specs/userInteraction/test.userInteraction.conf.js",
+    "test:ui5:navigation": "node ../helper/sleeper.js 10 && npx wdio ui5/specs/navigation/test.navigation.static.conf.js && node ../helper/sleeper.js 10 && npx wdio ui5/specs/navigation/test.navigation.s4.conf.js",
+    "test:nonUi5": "npx wdio nonUi5/assertion/test.assertion.conf.js && node ../helper/sleeper.js 15 && npx wdio nonUi5/userInteraction/test.userInteraction.conf.js && node ../helper/sleeper.js 15 && npx wdio nonUi5/element/test.element.conf.js && node ../helper/sleeper.js 15",
+    "test:common": "npx wdio common/assertion/test.assertion.conf.js && node ../helper/sleeper.js 15 && npx wdio common/userInteraction/test.userInteraction.conf.js && node ../helper/sleeper.js 15 && npx wdio common/date/test.date.conf.js && node ../helper/sleeper.js 15 && npx wdio common/navigation/test.navigation.conf.js",
+    "test:util": "npx wdio util/browser/test.browser.conf.js && node ../helper/sleeper.js 15 && npx wdio util/dialogInteraction/test.dialogInteraction.conf.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wdio/cli": "^7.9.1",
+    "@wdio/selenium-standalone-service": "^7.12.5"
+  },
+  "devDependencies": {
+    "@wdio/local-runner": "^7.12.4",
+    "@wdio/mocha-framework": "^7.12.4",
+    "@wdio/qmate-service": "file:../../",
+    "@wdio/spec-reporter": "^7.10.1",
+    "@wdio/static-server-service": "^7.10.1",
+    "@wdio/vyper-code-coverage-service": "^1.0.0",
+    "chromedriver": "^93.0.1",
+    "wdio-chromedriver-service": "^7.2.0"
+  }
+}

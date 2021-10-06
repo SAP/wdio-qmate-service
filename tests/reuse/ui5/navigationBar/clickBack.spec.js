@@ -8,15 +8,15 @@ describe("navigationBar - click Back", async function () {
     await ui5.navigation.navigateToApplication("Shell-home", true);
     await ui5.navigation.closePopups();
 
-    await ui5.assertion.expectPageTitle("Home");
+    await ui5.navigationBar.expectPageTitle("Home");
 
     await ui5.navigation.navigateToApplication("PurchaseOrder-manage", true);
-    await ui5.assertion.expectPageTitle("Manage Purchase Orders");
+    await ui5.navigationBar.expectPageTitle("Manage Purchase Orders");
   });
 
   it("Execution and Verification", async function () {
     await ui5.navigationBar.clickBack();
-    await ui5.assertion.expectPageTitle("Home");
+    await ui5.navigationBar.expectPageTitle("Home");
   });
 });
 

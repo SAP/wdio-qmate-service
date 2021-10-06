@@ -5,7 +5,6 @@ describe("userInteraction - clearAndFill", function () {
   let selector;
   let value;
   let actualValue;
-  let elem;
 
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
@@ -34,7 +33,7 @@ describe("userInteraction - clearAndFill", function () {
     const timeout = 30000;
     await ui5.userInteraction.clearAndFill(selector, value, index, timeout);
     await ui5.userInteraction.click(secondProp, index, timeout);
-    actualValue = await ui5.element.getValue(selector, "value");
+    actualValue = await ui5.element.getValue(selector);
     common.assertion.expectEqual(value, actualValue);
   });
 });
@@ -58,14 +57,14 @@ describe("userInteraction - clearAndFill 'NumericInput' with 0.000 template insi
   it("Execution", async function () {
     await ui5.userInteraction.clear(selector);
     await common.userInteraction.pressEnter(); // Call template
-    const actualValue = await ui5.element.getValue(selector, "value");
+    const actualValue = await ui5.element.getValue(selector);
     common.assertion.expectEqual(actualValue, "0.000"); // Expect field with a template
 
     await ui5.userInteraction.clearAndFill(selector, valueToSet); // Clear the template
   });
 
   it("Verification", async function () {
-    const actualValue = await ui5.element.getValue(selector, "value");
+    const actualValue = await ui5.element.getValue(selector);
     common.assertion.expectEqual(actualValue, String(valueToSet)); // Check field value in not 0.010, but 10
   });
 });

@@ -74,7 +74,7 @@ describe("assertion - expectBindingContextPathToBe with wrong selector (unhappy 
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
 
     await expect(ui5.common.assertion.expectBindingContextPathToBe(123, "/ProductCategories('AC')"))
-      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Cannot read properties of null (reading 'getMetadata')");
+      .rejects.toThrow("Function 'expectBindingContextPathToBe' failed:");
 
     await expect(ui5.common.assertion.expectBindingContextPathToBe(false, "/ProductCategories('AC')"))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
