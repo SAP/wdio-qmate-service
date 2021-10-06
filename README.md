@@ -64,22 +64,44 @@ npm i @wdio/cli
 npx wdio config
 ```
 
-**Step 2:** Add `wdio-qmate-service` as a devDependency:
+**!!!** *To be inserted*: Clarify what items to choose in config prompt **!!!**
+
+**Step 2:** Configure nexus npm registry (local / global)
+
+1) Local config (recommended):
+
+   Create `.npmrc` file in the root directory of your project and fill it with following content
+```shell
+registry=http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.milestones.npm/
+strict-ssl=false
+no-proxy=nexus.wdf.sap.corp
+```
+
+2) Global config:
+
+   Invoke following commands in your terminal
+
+```shell
+npm config set strict-ssl=false
+npm config set registry=http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.milestones.npm/
+npm config set no-proxy=nexus.wdf.sap.corp
+```
+
+**Step 3:** Add `wdio-qmate-service` as a devDependency:
 
 1) Get latest version
 ```shell script
-npm install <@wdio/qmate-service>@latest --save-dev
+npm install @wdio/qmate-service --save-dev
 ```
 
 or 
 
 2) Get specific version
 ```shell script
-npm install <@wdio/qmate-service>@1.1.5 --save-dev
+npm install @wdio/qmate-service@1.1.5 --save-dev
 ```
 
-
-**Step 3:** For your first script you will need at least 2 files. Create one test spec file and one configuration file.
+**Step 4:** For your first script you will need at least 2 files. Create one test spec file and one configuration file.
 
 **1.** Test specification file 'test.spec.js'.
 
@@ -118,11 +140,11 @@ const path = require("path");
 exports.config = {
   ...
     services: [
-      WdioQmateService,
+      [WdioQmateService],
       // all other services
     ],
     
-    // test specs you would like to run
+    // test specs you would like to run (accepts wildcard paths ex. '/test/**/*.spec.js')
     specs: [path.resolve(__dirname, "test.spec.js")],
     
     // baseUrl you would like to use
@@ -147,7 +169,8 @@ exports.config = {
 Please, have a look at WDIO [test tunnner configuration](https://webdriver.io/docs/configurationfile/) for all parameters
 or use provided configuration [templates](tests/reuse/configurations)
 
-**Step 4:** Run tests:
+**Step 5** Run tests:
+
 ```shell script
 npx wdio <path/to/your/config.js>
 ```
@@ -166,9 +189,8 @@ npx wdio <path/to/your/config.js>
 ### Notes
 
 1. If you face such error `command not found: wdio`, remove your package-lock.json, run `npm cache clean --force` and run `npm install`.
-We moved `@wdio/cli` from `dependencies` to `devDependencies`, so you  just to refresh your local dependencies and cache.
+   We moved `@wdio/cli` from `dependencies` to `devDependencies`, so you  just to refresh your local dependencies and cache.
    
-
 2. Please, use `npx wdio <config file>` instead of `wdio <config file>`.
 
 If you see an error 
