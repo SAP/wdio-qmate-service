@@ -27,7 +27,7 @@ const {
 
 //   it("Execution and Verification", async function () {
 //     await common.userInteraction.pressTab(); // Copy-pasted from vyperForAll tests
-//     const actualValue = await ui5.element.getValue(selector, "value");
+//     const actualValue = await ui5.element.getValue(selector);
 //     common.assertion.expectEqual(actualValue, "");
 //   });
 // });

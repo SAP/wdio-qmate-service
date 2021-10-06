@@ -21,9 +21,9 @@ const Assertion = function () {
   this.expectAttributeToBe = async function (selector, attribute, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
     let elem;
     try {
-      elem = await browser.uiControl(selector, index, timeout);
+      elem = await ui5.element.getDisplayedElement(selector, index, timeout);
     } catch (error) {
-      throw new Error(`Function 'expectAttributeToContain' failed:${error}`);
+      throw new Error(`Function 'expectAttributeToBe' failed:${error}`);
     }
 
 
@@ -132,7 +132,7 @@ const Assertion = function () {
    * @example await ui5.assertion.expectValueToBeDefined(selector);
    */
   this.expectValueToBeDefined = async function (selector, index = 0, timeout = 30000) {
-    const value = await ui5.element.getValue(selector, "value", index, timeout);
+    const value = await ui5.element.getValue(selector, index, timeout);
     await common.assertion.expectDefined(value);
     await common.assertion.expectUnequal(value, "");
   };
@@ -326,7 +326,7 @@ const Assertion = function () {
   };
 
   /**
-   * @function expectToBeVisibleInViewport
+   * @function expectToBeVisibleInViewport 
    * @memberOf ui5.assertion
    * @description Expects that the element is visible in the viewport. 
    * @param {Object} selector - The selector describing the element.

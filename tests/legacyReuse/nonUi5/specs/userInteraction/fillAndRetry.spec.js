@@ -20,7 +20,7 @@ describe("userInteraction - fillAndRetry form field", function () {
     await non_ui5.common.userInteraction.fillAndRetry(element, "Second test value");
     await non_ui5.common.assertion.expectValueToBe(element, "Second test value", "value");
 
-    await expect(non_ui5.common.userInteraction.fillAndRetry(element))
+    await expect(non_ui5.common.userInteraction.fillAndRetry(element, undefined, 1, 1000))
       .rejects.toThrow("Function 'fillAndRetry' failed: Please provide an element and value as arguments.");
     await non_ui5.common.assertion.expectValueToBe(element, "Second test value", "value");
   });
@@ -33,7 +33,7 @@ describe("userInteraction - fillAndRetry a button (unhappy case)", function () {
 
   it("Execution and Verification", async function () {
     const elem = await non_ui5.common.locator.getElementById("Default", 10000);
-    await expect(non_ui5.common.userInteraction.fillAndRetry(elem, "New test value", 1))
+    await expect(non_ui5.common.userInteraction.fillAndRetry(elem, "New test value", 1, 1000))
       .rejects.toThrow("Retries done. Failed to execute the function:");
   });
 });

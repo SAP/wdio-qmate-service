@@ -34,7 +34,7 @@ describe("filters1", function () {
       }
     };
     var newText = "whatsUp";
-    var elem = await common.locator.getDisplayedElement(ui5ControlProperties);
+    var elem = await ui5.element.getDisplayedElement(ui5ControlProperties);
     var title = await browser.controlActionInBrowser(function (control, txt, done) {
       control.setTitle(txt);
       done(control.getTitle());
@@ -53,7 +53,7 @@ describe("filters1", function () {
     };
     var newText = "test";
     var selectorParams = { selector: ui5ControlProperties, index: 0, timeout: 30000 };
-    //await common.locator.getDisplayedElement(ui5ControlProperties);
+    //await ui5.element.getDisplayedElement(ui5ControlProperties);
     var title = await browser.controlActionInBrowser(function (control, txt, done) {
       control.setTitle(txt);
       done(control.getTitle());
@@ -88,7 +88,7 @@ describe("filters1", function () {
         "bindingContextPath": "/ProductCategories('LT')"
       }
     };
-    //await common.locator.getDisplayedElement(ui5ControlProperties);
+    //await ui5.element.getDisplayedElement(ui5ControlProperties);
     var title = await browser.controlActionInBrowser(function (control, done) {
       var data = { title: control.getTitle() };
       control.attachPress(data, function () {
@@ -107,7 +107,7 @@ describe("filters1", function () {
       "childProperties": { "metadata": "sap.ui.core.Icon", "mProperties": { "src": "sap-icon://nav-back" } }
     };
     var selectorParams = { selector: ui5ControlProperties, index: 0, timeout: 3000 };
-    //await common.locator.getDisplayedElement(ui5ControlProperties);
+    //await ui5.element.getDisplayedElement(ui5ControlProperties);
     await browser.controlActionInBrowser(function (control, done) {
       control.attachPress(undefined, function () {
         done();
@@ -195,7 +195,7 @@ describe("filters1", function () {
         }
       }
     };
-    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 5000))
+    await expect(ui5.element.getDisplayedElement(ui5ControlProperties, 0, 5000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -248,7 +248,7 @@ describe("filters1", function () {
         }
       }
     };
-    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 5000))
+    await expect(ui5.element.getDisplayedElement(ui5ControlProperties, 0, 5000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -313,7 +313,7 @@ describe("filters1", function () {
       }
     };
 
-    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+    await expect(ui5.element.getDisplayedElement(ui5ControlProperties, 0, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -334,7 +334,7 @@ describe("filters1", function () {
       }
     };
 
-    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+    await expect(ui5.element.getDisplayedElement(ui5ControlProperties, 0, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -395,7 +395,7 @@ describe("filters1", function () {
         }
       }
     };
-    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+    await expect(ui5.element.getDisplayedElement(ui5ControlProperties, 0, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -412,7 +412,7 @@ describe("filters1", function () {
         }
       }
     };
-    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+    await expect(ui5.element.getDisplayedElement(ui5ControlProperties, 0, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -430,7 +430,7 @@ describe("filters1", function () {
       }
     };
 
-    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+    await expect(ui5.element.getDisplayedElement(ui5ControlProperties, 0, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -450,7 +450,7 @@ describe("filters1", function () {
         }
       }
     };
-    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
+    const nameField = await ui5.element.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -466,7 +466,7 @@ describe("filters1", function () {
         }
       }
     };
-    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
+    const nameField = await ui5.element.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -489,7 +489,7 @@ describe("filters1", function () {
         }
       }
     };
-    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+    await expect(ui5.element.getDisplayedElement(ui5ControlProperties, 0, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -510,7 +510,7 @@ describe("filters1", function () {
         }
       }
     };
-    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+    await expect(ui5.element.getDisplayedElement(ui5ControlProperties, 0, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -524,7 +524,7 @@ describe("filters1", function () {
       "elementProperties": { "metadata": "sap.m.StandardListItem", "mProperties": { "title": [{ "path": "CategoryName" }], "bindingContextPath": "/ProductCategories*" } },
     };
 
-    const nameField = await common.locator.getDisplayedChildElement(ui5ControlProperties, ui5ControlProperties2);
+    const nameField = await ui5.element.getDisplayedChildElement(ui5ControlProperties, ui5ControlProperties2);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -541,7 +541,7 @@ describe("filters1", function () {
         }
       }
     };
-    var elem = await common.locator.getDisplayedElement(ui5ControlProperties);
+    var elem = await ui5.element.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";
     var compareValue = "Accessories";
     var val = await browser.getUI5Property(attribute, elem);
@@ -558,7 +558,7 @@ describe("filters1", function () {
         }
       }
     };
-    var elem = await common.locator.getDisplayedElement(ui5ControlProperties);
+    var elem = await ui5.element.getDisplayedElement(ui5ControlProperties);
     var attribute = "tooltip";
     var compareValue = "Open category Accessories";
     var val = await browser.getUI5Aggregation(attribute, elem);
@@ -575,7 +575,7 @@ describe("filters1", function () {
         }
       }
     };
-    var elem = await common.locator.getDisplayedElement(ui5ControlProperties);
+    var elem = await ui5.element.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";
     var aBindings = await browser.getBindingProperty(attribute, elem);
     await expect(aBindings[0].path).toBe("CategoryName");
@@ -593,7 +593,7 @@ describe("filters1", function () {
         }
       }
     };
-    var elem = await common.locator.getDisplayedElement(ui5ControlProperties);
+    var elem = await ui5.element.getDisplayedElement(ui5ControlProperties);
     var sContext = await browser.getBindingContextPath(elem);
     await expect(sContext).toBe("/ProductCategories('AC')");
   });
@@ -609,7 +609,7 @@ describe("filters1", function () {
         }
       }
     };
-    var nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
+    var nameField = await ui5.element.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";
     var compareValue = "Accessories";
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -626,7 +626,7 @@ describe("filters1", function () {
         }
       }
     };
-    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
+    const nameField = await ui5.element.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -649,7 +649,7 @@ describe("filters1", function () {
         }
       }
     };
-    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
+    const nameField = await ui5.element.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -671,7 +671,7 @@ describe("filters1", function () {
         }
       }
     };
-    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+    await expect(ui5.element.getDisplayedElement(ui5ControlProperties, 0, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -686,7 +686,7 @@ describe("filters1", function () {
         }
       }
     };
-    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
+    const nameField = await ui5.element.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -704,7 +704,7 @@ describe("filters1", function () {
         }
       }
     };
-    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
+    const nameField = await ui5.element.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -728,7 +728,7 @@ describe("filters1", function () {
         }
       }
     };
-    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
+    const nameField = await ui5.element.getDisplayedElement(ui5ControlProperties);
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -750,7 +750,7 @@ describe("filters1", function () {
         }
       }
     };
-    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+    await expect(ui5.element.getDisplayedElement(ui5ControlProperties, 0, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -759,7 +759,7 @@ describe("filters1", function () {
       "elementProperties": { "metadata": "sap.m.List", "mProperties": { "items": [{ "path": "/ProductCategories" }] } },
       "parentProperties": { "metadata": "sap.m.Page", "mProperties": { "title": [{ "path": "i18n>homeTitle" }] } }
     };
-    var list = await common.locator.getDisplayedElement(ui5ControlProperties, 0);
+    var list = await ui5.element.getDisplayedElement(ui5ControlProperties, 0);
 
     var ui5ControlProperties2 = {
       "elementProperties": { "metadata": "sap.m.StandardListItem", "mProperties": { "title": [{ "path": "CategoryName" }], "bindingContextPath": "/ProductCategories*" } },
@@ -777,13 +777,13 @@ describe("filters1", function () {
       "elementProperties": { "metadata": "sap.m.List", "mProperties": { "items": [{ "path": "/ProductCategories" }] } },
       "parentProperties": { "metadata": "sap.m.Page", "mProperties": { "title": [{ "path": "i18n>homeTitle" }] } }
     };
-    var list = await common.locator.getDisplayedElement(ui5ControlProperties, 0);
+    var list = await ui5.element.getDisplayedElement(ui5ControlProperties, 0);
 
     var ui5ControlProperties2 = {
       "elementProperties": { "metadata": "sap.m.StandardListItem", "mProperties": { "title": [{ "path": "CategoryName" }], "bindingContextPath": "/ProductCategories*" } },
     };
 
-    const nameField = await common.locator.getDisplayedChildElement(ui5ControlProperties, ui5ControlProperties2);
+    const nameField = await ui5.element.getDisplayedChildElement(ui5ControlProperties, ui5ControlProperties2);
     var attribute = "title";
     var compareValue = "Accessories";
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
@@ -800,7 +800,7 @@ describe("filters1", function () {
       "elementProperties": { "metadata": "sap.m.StandardListItem", "mProperties": { "title": [{ "path": "CategoryName" }], "bindingContextPath": "/ProductCategories*" } },
     };
 
-    const nameField = await common.locator.getDisplayedChildElement(ui5ControlProperties, ui5ControlProperties2);
+    const nameField = await ui5.element.getDisplayedChildElement(ui5ControlProperties, ui5ControlProperties2);
     var attribute = "title";
     var compareValue = "Computer System Accessories";
     await expect(await nameField.getAttribute("data-" + attribute)).not.toBe(compareValue);
@@ -812,7 +812,7 @@ describe("filters1", function () {
       "elementProperties": { "metadata": "sap.m.List", "mProperties": { "items": [{ "path": "/ProductCategories" }] } },
       "parentProperties": { "metadata": "sap.m.Page", "mProperties": { "title": [{ "path": "i18n>homeTitle" }] } }
     };
-    var list = await common.locator.getDisplayedElement(ui5ControlProperties, 0);
+    var list = await ui5.element.getDisplayedElement(ui5ControlProperties, 0);
 
     var ui5ControlProperties2 = {
       "elementProperties": { "metadata": "sap.m.StandardListItem", "mProperties": { "title": [{ "path": "CategoryName" }], "bindingContextPath": "/ProductCategories*" } },
@@ -828,7 +828,7 @@ describe("filters1", function () {
       "elementProperties": { "metadata": "sap.m.List", "mProperties": { "items": [{ "path": "/ProductCategories" }] } },
       "parentProperties": { "metadata": "sap.m.Page", "mProperties": { "title": [{ "path": "i18n>homeTitle" }] } }
     };
-    var list = await common.locator.getDisplayedElement(ui5ControlProperties, 0);
+    var list = await ui5.element.getDisplayedElement(ui5ControlProperties, 0);
 
     var ui5ControlProperties2 = {
       "elementProperties": { "metadata": "sap.m.StandardListItem", "mProperties": { "title": [{ "path": "CategoryName" }] } },
@@ -894,7 +894,7 @@ describe("filters1", function () {
       "nextSiblingProperties": { "metadata": "sap.m.Title", "mProperties": {} },
       "childProperties": { "metadata": "sap.ui.core.Icon", "mProperties": { "src": "sap-icon://nav-back" } }
     };
-    await common.userInteraction.click(ui5ControlProperties);
+    await ui5.userInteraction.click(ui5ControlProperties);
   });
 
   it("step0an:click on the first standard item check id only with wildcard", async function () {
@@ -905,7 +905,7 @@ describe("filters1", function () {
         }
       }
     };
-    await common.userInteraction.click(ui5ControlProperties);
+    await ui5.userInteraction.click(ui5ControlProperties);
   });
 
   it("step0as:navigate back to main page", async function () {
@@ -916,7 +916,7 @@ describe("filters1", function () {
       "nextSiblingProperties": { "metadata": "sap.m.Title", "mProperties": {} },
       "childProperties": { "metadata": "sap.ui.core.Icon", "mProperties": { "src": "sap-icon://nav-back" } }
     };
-    await common.userInteraction.click(ui5ControlProperties);
+    await ui5.userInteraction.click(ui5ControlProperties);
   });
 
   it("step0as:click on the first standard item check id with wildcard", async function () {
@@ -928,7 +928,7 @@ describe("filters1", function () {
         }
       }
     };
-    await expect(common.locator.getDisplayedElement(ui5ControlProperties, 0, 1000))
+    await expect(ui5.element.getDisplayedElement(ui5ControlProperties, 0, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -948,7 +948,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
-    await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
   });
 
   it("step 0k: check first item with aggregation property wildcard", async function () {
@@ -967,7 +967,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
-    await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
   });
 
   it("step 0y: check first item with aggregation property wildcard", async function () {
@@ -987,7 +987,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
-    await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
   });
 
   it("step 0v: check first item with association property wrong", async function () {
@@ -1006,7 +1006,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Accessories";   //expected value
-    await expect(common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
+    await expect(ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -1035,7 +1035,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute1 = "items";   //eg: title, text, value etc.
     var comparePath1 = "/ProductCategories";   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index, 100, 30000);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index, 100, 30000);
   });
 
   it("step0a:click on the first standard item", async function () {
@@ -1046,7 +1046,7 @@ describe("filters1", function () {
         }
       }
     };
-    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
+    const nameField = await ui5.element.getDisplayedElement(ui5ControlProperties);
     await nameField.click();
   });
 
@@ -1068,7 +1068,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "text";   //eg: title, text, value etc.
     var compareValue = "Audio/Video Cable Kit - 4m";   //expected value
-    await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
   });
 
   it("step1e:check text for specific list item ancestor", async function () {
@@ -1089,7 +1089,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "text";   //eg: title, text, value etc.
     var compareValue = "Audio/Video Cable Kit - 4m";   //expected value
-    await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
   });
 
   it("step1v:check text for specific list item ancestor with wild card", async function () {
@@ -1110,7 +1110,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "text";   //eg: title, text, value etc.
     var compareValue = "Audio/Video Cable Kit - 4m";   //expected value
-    await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
   });
 
   it("step1x:check text for specific list item ancestor with wild card 2", async function () {
@@ -1131,7 +1131,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "text";   //eg: title, text, value etc.
     var compareValue = "Audio/Video Cable Kit - 4m";   //expected value
-    await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
   });
 
   it("step1y:check text for specific list item ancestor with wild card 2", async function () {
@@ -1152,7 +1152,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "text";   //eg: title, text, value etc.
     var compareValue = "Audio/Video Cable Kit - 4m";   //expected value
-    await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
   });
 
   it("step1f:check text for specific list item ancestor", async function () {
@@ -1173,7 +1173,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "text";   //eg: title, text, value etc.
     var compareValue = "Audio/Video Cable Kit - 4m";   //expected value
-    await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
   });
 
   it("step1s:check text for specific list item ancestor with wrong wildcard", async function () {
@@ -1194,7 +1194,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Audio/Video Cable Kit - 4m";   //expected value
-    await expect(common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
+    await expect(ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -1221,7 +1221,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Audio/Video Cable Kit - 4m";   //expected value
-    await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
   });
 
   it("step1i:check text for specific list item sibling wrong property", async function () {
@@ -1247,7 +1247,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Audio/Video Cable Kit - 4m";   //expected value
-    await expect(common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
+    await expect(ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -1269,7 +1269,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "text";   //eg: title, text, value etc.
     var compareValue = "Audio/Video Cable Kit - 4m";   //expected value
-    await expect(common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
+    await expect(ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -1281,7 +1281,7 @@ describe("filters1", function () {
       "nextSiblingProperties": { "metadata": "sap.m.Title", "mProperties": {} },
       "childProperties": { "metadata": "sap.ui.core.Icon", "mProperties": { "src": "sap-icon://nav-back" } }
     };
-    await common.userInteraction.click(ui5ControlProperties);
+    await ui5.userInteraction.click(ui5ControlProperties);
   });
 
   it("step0c:click on the second standard item", async function () {
@@ -1291,7 +1291,7 @@ describe("filters1", function () {
         }
       }
     };
-    const nameField = await common.locator.getDisplayedElement(ui5ControlProperties);
+    const nameField = await ui5.element.getDisplayedElement(ui5ControlProperties);
     await nameField.click();
   });
 
@@ -1303,7 +1303,7 @@ describe("filters1", function () {
       "nextSiblingProperties": { "metadata": "sap.m.Title", "mProperties": {} },
       "childProperties": { "metadata": "sap.ui.core.Icon", "mProperties": { "src": "sap-icon://nav-back" } }
     };
-    await common.userInteraction.click(ui5ControlProperties);
+    await ui5.userInteraction.click(ui5ControlProperties);
   });
 
   it("step0c:expect main page visible", async function () {
@@ -1326,7 +1326,7 @@ describe("filters1", function () {
       "childProperties": {}
     };
     var value = "Flat Basic";   //value to be entered by user
-    await common.userInteraction.searchFor(ui5ControlProperties, value, 0, 30000, false);
+    await ui5.userInteraction.searchFor(ui5ControlProperties, value, 0, 30000, false);
   });
 
   it("step1a:enter on Accessories and search wrong element value", async function () {
@@ -1339,7 +1339,7 @@ describe("filters1", function () {
       "childProperties": {}
     };
     var value = "Flat Basic";   //value to be entered by user
-    await expect(common.userInteraction.searchFor(ui5ControlProperties, value, 0, 1000, false))
+    await expect(ui5.userInteraction.searchFor(ui5ControlProperties, value, 0, 1000, false))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -1352,7 +1352,7 @@ describe("filters1", function () {
       "childProperties": {}
     };
     var value = "Flat Basic";   //value to be entered by user
-    await common.userInteraction.searchFor(ui5ControlProperties, value, 0, 30000, false);
+    await ui5.userInteraction.searchFor(ui5ControlProperties, value, 0, 30000, false);
   });
 
   it("step1c:enter on Accessories and search with wrong boolean additional property", async function () {
@@ -1365,7 +1365,7 @@ describe("filters1", function () {
       "childProperties": {}
     };
     var value = "Flat Basic";   //value to be entered by user
-    await expect(common.userInteraction.searchFor(ui5ControlProperties, value, 0, 1000, false))
+    await expect(ui5.userInteraction.searchFor(ui5ControlProperties, value, 0, 1000, false))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -1379,7 +1379,7 @@ describe("filters1", function () {
       "childProperties": {}
     };
     var value = "Flat Basic";   //value to be entered by user
-    await expect(common.userInteraction.searchFor(ui5ControlProperties, value, 0, 1000, false))
+    await expect(ui5.userInteraction.searchFor(ui5ControlProperties, value, 0, 1000, false))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -1390,7 +1390,7 @@ describe("filters1", function () {
       "prevSiblingProperties": {},
       "nextSiblingProperties": {}
     };
-    await common.userInteraction.click(ui5ControlProperties);
+    await ui5.userInteraction.click(ui5ControlProperties);
   });
 
   it("step2b:click  on Object item wrong child property", async function () {
@@ -1402,7 +1402,7 @@ describe("filters1", function () {
       "nextSiblingProperties": {},
       "childProperties": { "metadata": "sap.m.Image", "mProperties": { "src": "./../../../../../../test-resources/sap/ui/documentation/sdk/images/HT-1036.jpg" } }
     };
-    await expect(common.userInteraction.click(ui5ControlProperties, 0, 1000))
+    await expect(ui5.userInteraction.click(ui5ControlProperties, 0, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -1414,7 +1414,7 @@ describe("filters1", function () {
       "prevSiblingProperties": {},
       "nextSiblingProperties": {}
     };
-    await expect(common.userInteraction.click(ui5ControlProperties, 0, 1000))
+    await expect(ui5.userInteraction.click(ui5ControlProperties, 0, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -1429,7 +1429,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Supplier";   //expected value
-    await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
 
   });
 
@@ -1446,7 +1446,7 @@ describe("filters1", function () {
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Supplier";   //expected value
 
-    await expect(common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
+    await expect(ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -1463,7 +1463,7 @@ describe("filters1", function () {
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Supplier";   //expected value
 
-    await expect(common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
+    await expect(ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -1480,7 +1480,7 @@ describe("filters1", function () {
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Supplier";   //expected value
 
-    await expect(common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
+    await expect(ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -1494,7 +1494,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "title";   //eg: title, text, value etc.
     var compareValue = "Supplier";   //expected value
-    await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
 
   });
 
@@ -1515,11 +1515,11 @@ describe("filters1", function () {
     var Index = 0;
     var attribute1 = "title";   //eg: title, text, value etc.
     var comparePath1 = "i18n>productSupplierAttributeText";   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
     var attribute2 = "text";   //eg: title, text, value etc.
     var comparePath2 = "SupplierName";   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute2, comparePath2, Index);
-    await common.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute2, comparePath2, Index);
+    await ui5.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
   });
 
   it("step4:check if Supplier context path is correct", async function () {
@@ -1537,7 +1537,7 @@ describe("filters1", function () {
       "childProperties": {}
     };
     var Index = 0;
-    await common.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index, 0, 30000);
+    await ui5.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index, 0, 30000);
   });
 
   it("step4a:check if Supplier i18n path is correct remove model name", async function () {
@@ -1557,11 +1557,11 @@ describe("filters1", function () {
     var Index = 0;
     var attribute1 = "title";   //eg: title, text, value etc.
     var comparePath1 = "productSupplierAttributeText";   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
     var attribute2 = "text";   //eg: title, text, value etc.
     var comparePath2 = "SupplierName";   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute2, comparePath2, Index);
-    await common.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute2, comparePath2, Index);
+    await ui5.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
   });
 
   it("step4b:check if Supplier i18n path is correct wrong binding context", async function () {
@@ -1579,7 +1579,7 @@ describe("filters1", function () {
       "childProperties": {}
     };
     var Index = 0;
-    await expect(common.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index, 1000))
+    await expect(ui5.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -1600,7 +1600,7 @@ describe("filters1", function () {
     var attribute2 = "text";   //eg: title, text, value etc.
     var comparePath2 = "SupplierName";   //expected value
 
-    await expect(common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute2, comparePath2, 0, 1000))
+    await expect(ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute2, comparePath2, 0, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -1622,7 +1622,7 @@ describe("filters1", function () {
     var comparePath1 = "productSupplierAttributeText";   //expected value
 
 
-    await expect(common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, 0, 1000))
+    await expect(ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, 0, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -1643,11 +1643,11 @@ describe("filters1", function () {
     var Index = 0;
     var attribute1 = "title";   //eg: title, text, value etc.
     var comparePath1 = "i18n>productSupplierAttributeText";   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
     var attribute2 = "text";   //eg: title, text, value etc.
     var comparePath2 = "SupplierName";   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute2, comparePath2, Index);
-    await common.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute2, comparePath2, Index);
+    await ui5.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
   });
 
   it("step4f:check if Supplier i18n path is correct only binding path", async function () {
@@ -1661,11 +1661,11 @@ describe("filters1", function () {
     var Index = 0;
     var attribute1 = "title";   //eg: title, text, value etc.
     var comparePath1 = "i18n>productSupplierAttributeText";   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
     var attribute2 = "text";   //eg: title, text, value etc.
     var comparePath2 = "SupplierName";   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute2, comparePath2, Index);
-    await common.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute2, comparePath2, Index);
+    await ui5.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
   });
 
   it("step4h:check if Supplier i18n path is correct only i18n text key", async function () {
@@ -1679,11 +1679,11 @@ describe("filters1", function () {
     var Index = 0;
     var attribute1 = "title";   //eg: title, text, value etc.
     var comparePath1 = "i18n>productSupplierAttributeText";   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
     var attribute2 = "text";   //eg: title, text, value etc.
     var comparePath2 = "SupplierName";   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute2, comparePath2, Index);
-    await common.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute2, comparePath2, Index);
+    await ui5.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
   });
 
   it("step4k:check if Supplier i18n path is correct bindings as array", async function () {
@@ -1703,11 +1703,11 @@ describe("filters1", function () {
     var Index = 0;
     var attribute1 = "title";   //eg: title, text, value etc.
     var comparePath1 = ["i18n>productSupplierAttributeText"];   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
     var attribute2 = "text";   //eg: title, text, value etc.
     var comparePath2 = ["SupplierName"];   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute2, comparePath2, Index);
-    await common.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute2, comparePath2, Index);
+    await ui5.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
   });
 
   it("step4l:check if Supplier i18n path is wrong bindings as array", async function () {
@@ -1727,14 +1727,14 @@ describe("filters1", function () {
     var Index = 0;
     var attribute1 = "title";   //eg: title, text, value etc.
     var comparePath1 = ["i18n>productSupplierAttributeText"];   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
     var attribute2 = "text";   //eg: title, text, value etc.
     //var comparePath2 = ["SupplierName", "SupplierNames"];
     //
-    var elem = await common.locator.getDisplayedElement(ui5ControlProperties);
+    var elem = await ui5.element.getDisplayedElement(ui5ControlProperties);
     var value = await elem.getAttribute("data-" + attribute2 + "-path");
     await expect(value).not.toContain("SupplierNames");
-    await common.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
+    await ui5.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
   });
 
   it("step5:check if Weight i18n path is correct and previous or next is correct", async function () {
@@ -1777,8 +1777,8 @@ describe("filters1", function () {
     var Index = 0;
     var attribute1 = "title";   //eg: title, text, value etc.
     var comparePath1 = "productWeightAttributeText";   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
-    await common.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
+    await ui5.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
   });
 
   it("step6:check if product measure is correct", async function () {
@@ -1799,8 +1799,8 @@ describe("filters1", function () {
     var Index = 0;
     var attribute1 = "text";   //eg: title, text, value etc.
     var comparePath1 = ["DimensionHeight", "Unit"];   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
-    await common.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
+    await ui5.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
   });
 
   it("step6a:check if product measure is correct with bindingpath on children element", async function () {
@@ -1826,7 +1826,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute = "number";   //eg: title, text, value etc.
     var compareValue = "399,00";   //expected value
-    await common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
+    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
   });
 
   it("step6b:check if product measure is correct with wrong bindingpath on children element", async function () {
@@ -1853,7 +1853,7 @@ describe("filters1", function () {
     var attribute = "number";   //eg: title, text, value etc.
     var compareValue = "399,00";   //expected value
 
-    await expect(common.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
+    await expect(ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index, 1000))
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
@@ -1882,7 +1882,7 @@ describe("filters1", function () {
     var Index = 0;
     var attribute1 = "number";   //eg: title, text, value etc.
     var comparePath1 = "Price";   //expected value
-    await common.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
-    await common.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
+    await ui5.assertion.expectBindingPathToBe(ui5ControlProperties, attribute1, comparePath1, Index);
+    await ui5.assertion.expectBindingContextPathToBe(ui5ControlProperties, "/Products('HT-1035')", Index);
   });
 });

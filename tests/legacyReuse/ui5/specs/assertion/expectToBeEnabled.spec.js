@@ -80,11 +80,11 @@ describe("assertion - expectToBeEnabled with wrong selector (unhappy case)", fun
         }]
       }
     };
-    await expect(ui5.common.assertion.expectToBeEnabled(selectorForNonExistingElement))
+    await expect(ui5.common.assertion.expectToBeEnabled(selectorForNonExistingElement, 0, 2500))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
 
     const wrongSelector = 123;
     await expect(ui5.common.assertion.expectToBeEnabled(wrongSelector))
-      .rejects.toThrow("waitUntil condition failed with the following reason: javascript error: Cannot read properties of null (reading 'getMetadata')");
+      .rejects.toThrow("Function 'expectAttributeToBe' failed:");
   });
 });

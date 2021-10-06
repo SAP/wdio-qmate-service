@@ -1,7 +1,7 @@
 "use strict";
 const {
   handleCookiesConsent
-} = require("../../../../utils");
+} = require("../../../utils");
 
 describe("assertion - expectValueToBeDefined", function () {
 

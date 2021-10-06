@@ -1,6 +1,6 @@
 const {
   handleCookiesConsent
-} = require("../../../../utils");
+} = require("../../../utils");
 
 describe("userInteraction - clearFillActiveAndRetry", function () {
 

@@ -15,7 +15,7 @@ describe("navigationBar - click User Icon", function () {
     await ui5.session.login("PURCHASER");
     await ui5.navigation.navigateToApplication("Shell-home", true);
     await ui5.navigation.closePopups();
-    await ui5.assertion.expectShellHeader();
+    await ui5.navigationBar.expectShellHeader();
   });
 
   it("Execution and Verification", async function () {

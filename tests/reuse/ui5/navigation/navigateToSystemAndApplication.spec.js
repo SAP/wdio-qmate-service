@@ -12,7 +12,7 @@ describe("navigation - navigateToSystemAndApplication (s4)", function () {
   });
 
   it("Verification", async function () {
-    await ui5.assertion.expectPageTitle("Manage Purchase Orders");
+    await ui5.navigationBar.expectPageTitle("Manage Purchase Orders");
   });
 
 

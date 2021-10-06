@@ -22,9 +22,8 @@ describe("userInteraction - fill", function () {
     value = "My Value";
     const index = 0;
     const timeout = 30000;
-    const attribute = "value";
     await ui5.userInteraction.fill(selector, value, index, timeout);
-    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
+    actualValue = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {
@@ -78,9 +77,8 @@ describe("userInteraction - fill element with number", function () {
     value = 12;
     const index = 0;
     const timeout = 30000;
-    const attribute = "value";
     await ui5.userInteraction.fill(selector, value, index, timeout);
-    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
+    actualValue = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {
@@ -107,8 +105,7 @@ describe("userInteraction - fill element with empty value", function () {
     };
     const index = 0;
     const timeout = 30000;
-    const attribute = "value";
-    actualValue = await ui5.element.getValue(selector, attribute, index, timeout);
+    actualValue = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {

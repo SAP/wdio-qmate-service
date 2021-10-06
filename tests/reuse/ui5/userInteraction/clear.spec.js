@@ -22,7 +22,7 @@ describe("userInteraction - clear", function () {
 
   it("Verification", async function () {
     await common.userInteraction.pressTab(); // Copy-pasted from vyperForAll tests
-    const actualValue = await ui5.element.getValue(selector, "value");
+    const actualValue = await ui5.element.getValue(selector);
     common.assertion.expectEqual(actualValue, "");
   });
 });
@@ -69,7 +69,7 @@ describe("userInteraction - clear third input field", function () {
   it("Verification", async function () {
     index = 2;
     await common.userInteraction.pressTab(); // Copy-pasted from vyperForAll tests
-    const actualValue = await ui5.element.getValue(selector, "value", index);
+    const actualValue = await ui5.element.getValue(selector, index);
     common.assertion.expectEqual(actualValue, "");
   });
 });

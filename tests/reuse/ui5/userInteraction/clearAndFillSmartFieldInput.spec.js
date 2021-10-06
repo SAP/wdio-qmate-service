@@ -25,7 +25,6 @@ describe("userInteraction - clearAndFillSmartFieldInput", function () {
     value = "375";
     const index = 0;
     const timeout = 30000;
-    const attribute = "value";
 
     await ui5.userInteraction.clearAndFillSmartFieldInput(selector, value, index, timeout);
 
@@ -37,7 +36,7 @@ describe("userInteraction - clearAndFillSmartFieldInput", function () {
     };
     await ui5.userInteraction.click(textArea);
     await ui5.userInteraction.click(selector);
-    valueAct = await ui5.element.getValue(selector, attribute, index, timeout);
+    valueAct = await ui5.element.getValue(selector, index, timeout);
   });
 
   it("Verification", function () {
