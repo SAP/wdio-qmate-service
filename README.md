@@ -66,60 +66,101 @@ npx wdio config
 
 **Step 2:** Add `wdio-qmate-service` as a devDependency:
 
+1) Get latest version
 ```shell script
-npm install <@wdio/qmate-service> --save-dev
+npm install <@wdio/qmate-service>@latest --save-dev
+```
+
+or 
+
+2) Get specific version
+```shell script
+npm install <@wdio/qmate-service>@1.1.5 --save-dev
 ```
 
 
-**Step 3:** Add `wdio-qmate-service` as a service to your configuration file:
+**Step 3:** For your first script you will need at least 2 files. Create one test spec file and one configuration file.
 
-1) without `require` statement  (implicit import)
+**1.** Test specification file 'test.spec.js'.
 
-```js
-exports.config = {
-...
-    services: [
-                ["qmate"], 
-                // all other services
-    ]
-...
-}
+```bash
+describe("My first test", function() {
+  it("step1:click on the first standard item", async function() {
+    await browser.url("#/categories");
+    const selector = {
+      "elementProperties":{
+        "metadata":"sap.m.StandardListItem",
+        "bindingContextPath" : "/ProductCategories('AC')"
+      }};
+    await ui5.common.userInteraction.click(selector);
+  });
+
+  it("step1:navigate back to main page", async function() {
+    const selector = {
+      "elementProperties":{
+        "metadata":"sap.m.Button",
+        "type":"Back"
+      }
+    };
+    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.common.userInteraction.click(selector);
+  });
+});
 ```
 
-2) with `require` statement (explicit import)
+**2.** Configuration file 'test.conf.js'.
+
+with `require` statement (explicit import)
 ```js
 const WdioQmateService = require("@wdio/qmate-service");
+const path = require("path");
 ...
 exports.config = {
   ...
     services: [
-      [WdioQmateService],
+      WdioQmateService,
       // all other services
+    ],
+    
+    // test specs you would like to run
+    specs: [path.resolve(__dirname, "test.spec.js")],
+    
+    // baseUrl you would like to use
+    baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html"
+...
+}
+```
+
+Note: do not use [implicit import](https://github.tools.sap/sProcurement/wdio-qmate-service/issues/5) for qmate-service:
+
+```js
+exports.config = {
+...
+    services: [
+                ["qmate"], // does not work
+                ...
     ]
 ...
 }
 ```
 
+Please, have a look at WDIO [test tunnner configuration](https://webdriver.io/docs/configurationfile/) for all parameters
+or use provided configuration [templates](tests/reuse/configurations)
 
 **Step 4:** Run tests:
 ```shell script
 npx wdio <path/to/your/config.js>
 ```
 
+## Samples and tests
 
-Please have a look at the following `tests` folders with examples:
-
-
-#### Tests
-
-- [Jasmine tests](tests/frameworks/jasmineFramework)
-- [Mocha tests](tests/frameworks/mochaFramework)
-- [Cucumber tests](tests/frameworks/cucumberFramework)
-- [Typescript tests](tests/features/typescriptSupport)
-- [Sync tests](tests/features/syncSupport)
-- [Selenium-standalone tests](tests/features/seleniumStandalone)
-- [Reuse API tests](tests/reuse)
-
+`qmate-service` can be integrated with wdio available frameworks/features:
+- [Jasmine](tests/frameworks/jasmineFramework)
+- [Mocha](tests/frameworks/mochaFramework)
+- [Cucumber](tests/frameworks/cucumberFramework)
+- [Typescript](tests/features/typescriptSupport)
+- [Sync (not supported by qmate-service)](tests/features/syncSupport)
+- [Selenium-standalone](tests/features/seleniumStandalone)
 
 ---
 ### Notes
