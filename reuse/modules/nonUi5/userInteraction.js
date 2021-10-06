@@ -17,12 +17,12 @@ const UserInteraction = function () {
    */
   this.click = async function (element, timeout = 30000) {
     await Promise.all([
-      expect(element).toBeDisplayed({ //@TODO: Reuse of internal functions?
+      expect(element).toBeDisplayed({ //TODO: Reuse of internal functions?
         wait: timeout,
         interval: 100,
         message: `Timeout '${timeout / 1000}s' by waiting for element is displayed.`
       }),
-      expect(element).toBeEnabled({ //@TODO: Reuse of internal functions?
+      expect(element).toBeEnabled({ //TODO: Reuse of internal functions?
         wait: timeout,
         interval: 100,
         message: `Timeout '${timeout / 1000}s' by waiting for element is enabled.`
@@ -31,7 +31,7 @@ const UserInteraction = function () {
     try {
       await element.click();
     } catch (error) {
-      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "click"); //@TODO: Rename function since it is confusing.
+      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "click");
       throw new Error(errorMessage);
     }
   };
@@ -244,6 +244,24 @@ const UserInteraction = function () {
 
 
   // =================================== OTHERS ===================================
+  /**
+   * @function scrollToElement
+   * @memberOf nonUi5.userInteraction
+   * @description Scrolls to the passed element to get it into view.
+   * @param {Object} elem - The element.
+   * @param {String} alignment="center" - Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest".
+   * Affects the alignToTop parameter of scrollIntoView function. By default, it takes 'up'
+   * @example const elem = await nonUi5.userInteraction.getElementById("footer01");
+   * await nonUi5.userInteraction.scrollToElement(elem);
+   */
+  this.scrollToElement = async function (elem, alignment = "center") {
+    const options = {
+      "block": alignment,
+      "inline": alignment
+    };
+    await elem.scrollIntoView(options);
+  };
+
   /**
    * @function dragAndDrop
    * @memberOf nonUi5.userInteraction
