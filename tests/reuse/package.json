@@ -11,7 +11,7 @@
     "test:ui5:navigation": "node ../helper/sleeper.js 10 && npx wdio ui5/specs/navigation/test.navigation.static.conf.js && node ../helper/sleeper.js 10 && npx wdio ui5/specs/navigation/test.navigation.s4.conf.js",
     "test:nonUi5": "npx wdio nonUi5/assertion/test.assertion.conf.js && node ../helper/sleeper.js 15 && npx wdio nonUi5/userInteraction/test.userInteraction.conf.js && node ../helper/sleeper.js 15 && npx wdio nonUi5/element/test.element.conf.js && node ../helper/sleeper.js 15",
     "test:common": "npx wdio common/assertion/test.assertion.conf.js && node ../helper/sleeper.js 15 && npx wdio common/userInteraction/test.userInteraction.conf.js && node ../helper/sleeper.js 15 && npx wdio common/date/test.date.conf.js && node ../helper/sleeper.js 15 && npx wdio common/navigation/test.navigation.conf.js",
-    "test:util": "npx wdio common/browser/test.browser.conf.js && node ../helper/sleeper.js 15 && npx wdio common/file/test.file.conf.js && node ../helper/sleeper.js 15 && npx wdio common/formatter/test.formatter.conf.js"
+    "test:util": "npx wdio util/browser/test.browser.conf.js && node ../helper/sleeper.js 15 && npx wdio util/dialogInteraction/test.dialogInteraction.conf.js"
   },
   "author": "",
   "license": "ISC",
