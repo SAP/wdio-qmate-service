@@ -18,6 +18,7 @@ const Element = function () {
     await browser.uiControls(selector, timeout);
   };
 
+  
   // =================================== GET ELEMENTS ===================================
   /**
    * @function getDisplayedElements
@@ -123,22 +124,22 @@ const Element = function () {
   };
 
   /**
-   * @function getAttributeValue
+   * @function getPropertyValue
    * @memberOf ui5.element
-   * @description Returns the attribute value of the passed element.
+   * @description Returns the UI5 property value of the passed element.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} attribute - The attribute of the element.
+   * @param {String} property - The property of the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @returns {String} The attribute value of the element.
-   * @example const elemValue = await ui5.element.getAttributeValue(selector, "text");
+   * @returns {String} The property value of the element.
+   * @example const elemValue = await ui5.element.getPropertyValue(selector, "text");
    */
-  this.getAttributeValue = async function (selector, attribute, index = 0, timeout = 30000) {
+  this.getPropertyValue = async function (selector, property, index = 0, timeout = 30000) {
     try {
       const elem = await this.getDisplayedElement(selector, index, timeout);
-      return String(await elem.getUI5Property(attribute));
+      return String(await elem.getUI5Property(property));
     } catch (error) {
-      throw new Error("getAttributeValue() failed with " + error);
+      throw new Error("getPropertyValue() failed with " + error);
     }
   };
 
@@ -155,7 +156,7 @@ const Element = function () {
   this.getValue = async function (selector, index = 0, timeout = 30000) {
     try {
       // eslint-disable-next-line no-return-await
-      return await this.getAttributeValue(selector, "value", index, timeout);
+      return await this.getPropertyValue(selector, "value", index, timeout);
     } catch (error) {
       throw new Error("getValue() failed with " + error);
     }
@@ -164,19 +165,19 @@ const Element = function () {
   /**
    * @function getBindingValue
    * @memberOf ui5.element
-   * @description Returns the value of the given attribute of the bindingContext for a specific element.
+   * @description Returns the value of the given binding context for a specific element.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} attribute - The attribute of the bindingContext.
+   * @param {String} bindingContext - The binding context to retrieve.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @returns {String} The attribute value.
+   * @returns {String} The binding context value.
    * @example const elemBindingValue = await ui5.element.getBindingValue(selector, "InvoiceGrossAmount");
    */
-  this.getBindingValue = async function (selector, attribute, index = 0, timeout = 30000) {
+  this.getBindingValue = async function (selector, bindingContext, index = 0, timeout = 30000) {
     const elem = await this.getDisplayedElement(selector, index, timeout);
     return browser.controlActionInBrowser(function (control, attr, done) {
       done(control.getBinding(attr).getValue());
-    }, elem, attribute);
+    }, elem, bindingContext);
   };
 
   /**
