@@ -9,7 +9,7 @@ describe("chart tests", function () {
 
   it("Execution", async function () {
     const elem = await nonUi5.element.getElementByCss("g:nth-child(1) > g:nth-child(7)");
-    await nonUi5.userInteraction.clickChartPart(elem);
+    await nonUi5.userInteraction.moveCursorAndClick(elem);
   });
 
   it("Verification", async function () {
