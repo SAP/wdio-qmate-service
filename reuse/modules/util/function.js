@@ -4,24 +4,27 @@
  * @memberof util
  */
 const Function = function () {
+  let overallRetries;
 
   // =================================== MAIN ===================================
   /**
    * @function retry
    * @memberOf util.function
-   * @description Retries the passed function n times with an specific intervall until it executed successfully.
+   * @description Retries the passed function n times with a specific interval until it executed successfully.
    * @param {Function} fct - The function to retry.
    * @param {Array} args - An array of the arguments passed to the function.
-   * @param {Integer} retries - The number of retries, can be set in config for all functions under params stepsRetries. Default is 3 times.
-   * @param {Integer} interval - The interval of the retries, can be set in config for all functions under params stepRetriesIntervals. Default is 5 secs.
-   * @param {Object} scope - The function scope to execute the function, defaults to null (global object)
-   * @example async function sayHello(firstName, lastName) {
-   * console.log("Hello " + firstName + " " + lastName + "!");
-   * }
-   * await util.function.retry(sayHello, ["John", "Doe"], 3, 5000);
+   * @param {Integer} [retries=3] - The number of retries. Can be set in config for all functions under "params" - "stepsRetries".
+   * @param {Integer} [interval=5000] - The interval of the retries (ms). Can be set in config for all functions under "params" - "stepRetriesIntervals".
+   * @param {Object} [scope=null] - The function scope. Defaults is the global object.
+   * @example await util.function.retry(ui5.userInteraction.fill, [selector, value], 4, 10000);
+   * @example await util.function.retry(async () => {
+   *  await ui5.userInteraction.fill(selector, "ABC");
+   * }, [], 2, 30000);
    */
-  this.retry = async function (fct, args, retries, interval, scope) {
-    var res = await setRetryProperties(retries, interval);
+  // NOTE: Don't set default values since they will be calculated with "_getRetryProperties".
+  this.retry = async function (fct, args, retries, interval, scope = null) {
+    overallRetries = retries;
+    const res = await _getRetryProperties(retries, interval);
     await _retry(fct, args, res.retries, res.interval, scope);
   };
 
@@ -88,8 +91,10 @@ const Function = function () {
     return qmateMessage;
   };
 
-  async function setRetryProperties(retries, interval) {
-    var res = {
+
+  // =================================== HELPER ===================================
+  async function _getRetryProperties(retries, interval) {
+    const res = {
       retries: retries,
       interval: interval
     };
@@ -117,7 +122,7 @@ const Function = function () {
         throw new Error(`Retries done. Failed to execute the function: ${e}`);
       }
       await browser.pause(interval);
-      util.console.log("Retrying function again " + retries);
+      util.console.log(`Retrying function again (${overallRetries - retries}/${overallRetries})`);
       await _retry(fct, args, retries, interval, scope);
     }
   }
