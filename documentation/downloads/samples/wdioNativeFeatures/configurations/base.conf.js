@@ -1,6 +1,6 @@
-const WdioVyperService = require("@wdio/qmate-service");
+const WdioQmateService = require("@wdio/qmate-service");
 exports.config = {
-  services: [[WdioVyperService]],
+  services: [[WdioQmateService]],
   //
   // ====================
   // Runner Configuration
