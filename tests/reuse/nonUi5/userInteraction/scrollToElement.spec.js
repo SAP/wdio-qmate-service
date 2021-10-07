@@ -14,7 +14,7 @@ describe("locator - scrollToElement", function () {
     elem = await $("*=Legal Disclosure");
     const isDisplayedInViewport = await elem.isDisplayedInViewport();
     await common.assertion.expectFalse(isDisplayedInViewport);
-    await nonUi5.element.scrollToElement(elem);
+    await nonUi5.userInteraction.scrollToElement(elem);
   });
 
   it("Verification", async function () {
@@ -29,7 +29,7 @@ describe("locator - scrollToElement with wrong element (unhappy case)", function
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.scrollToElement("*=Legal Disclosure"))
+    await expect(nonUi5.userInteraction.scrollToElement("*=Legal Disclosure"))
       .rejects.toThrow(/elem.scrollIntoView is not a function/);
   });
 });

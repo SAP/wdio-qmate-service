@@ -26,10 +26,10 @@
   "devDependencies": {
     "@wdio/local-runner": "^7.12.4",
     "@wdio/mocha-framework": "^7.12.4",
+    "@wdio/qmate-code-coverage-service": "^1.0.0",
     "@wdio/qmate-service": "file:../../",
     "@wdio/spec-reporter": "^7.10.1",
     "@wdio/static-server-service": "^7.10.1",
-    "@wdio/vyper-code-coverage-service": "^1.0.0",
     "chromedriver": "^93.0.1",
     "wdio-chromedriver-service": "^7.2.0"
   }

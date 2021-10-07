@@ -1,4 +1,4 @@
-describe("authenticator - custom", function () {
+describe("authenticator - fiori", function () {
 
   it("Verification", async function () {
     const selector = {
@@ -7,7 +7,6 @@ describe("authenticator - custom", function () {
         "id": "shellAppTitle"
       }
     };
-    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector);
   });
-
 });

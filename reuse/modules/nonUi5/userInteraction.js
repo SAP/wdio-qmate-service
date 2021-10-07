@@ -17,12 +17,12 @@ const UserInteraction = function () {
    */
   this.click = async function (element, timeout = 30000) {
     await Promise.all([
-      expect(element).toBeDisplayed({ //@TODO: Reuse of internal functions?
+      expect(element).toBeDisplayed({ //TODO: Reuse of internal functions?
         wait: timeout,
         interval: 100,
         message: `Timeout '${timeout / 1000}s' by waiting for element is displayed.`
       }),
-      expect(element).toBeEnabled({ //@TODO: Reuse of internal functions?
+      expect(element).toBeEnabled({ //TODO: Reuse of internal functions?
         wait: timeout,
         interval: 100,
         message: `Timeout '${timeout / 1000}s' by waiting for element is enabled.`
@@ -31,7 +31,7 @@ const UserInteraction = function () {
     try {
       await element.click();
     } catch (error) {
-      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "click"); //@TODO: Rename function since it is confusing.
+      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "click");
       throw new Error(errorMessage);
     }
   };
@@ -245,6 +245,24 @@ const UserInteraction = function () {
 
   // =================================== OTHERS ===================================
   /**
+   * @function scrollToElement
+   * @memberOf nonUi5.userInteraction
+   * @description Scrolls to the passed element to get it into view.
+   * @param {Object} elem - The element.
+   * @param {String} alignment="center" - Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest".
+   * Affects the alignToTop parameter of scrollIntoView function. By default, it takes 'up'
+   * @example const elem = await nonUi5.userInteraction.getElementById("footer01");
+   * await nonUi5.userInteraction.scrollToElement(elem);
+   */
+  this.scrollToElement = async function (elem, alignment = "center") {
+    const options = {
+      "block": alignment,
+      "inline": alignment
+    };
+    await elem.scrollIntoView(options);
+  };
+
+  /**
    * @function dragAndDrop
    * @memberOf nonUi5.userInteraction
    * @description Drags and drops the given element to the given target element.
@@ -258,16 +276,15 @@ const UserInteraction = function () {
     await element.dragAndDrop(targetElem);
   };
 
-  // TODO: is this common or bo reuse?
   /**
-   * @function clickChartPart
+   * @function moveCursorAndClick
    * @memberOf nonUi5.userInteraction
-   * @description Clicks on a target element inside a chart area.
-   * @param {Object} element - The element to click inside the chart.
-   * @example const elem = await nonUi5.element.getElementById("chartPartToCLick");
-   * await nonUi5.userInteraction.clickChartPart(elem);
+   * @description Moves the cursor to the target element and clicks on it. Can be used for charts.
+   * @param {Object} element - The element to be clicked.
+   * @example const elem = await nonUi5.element.getElementById("chartPartToClick");
+   * await nonUi5.userInteraction.moveCursorAndClick(elem);
    */
-  this.clickChartPart = async function (element) {
+  this.moveCursorAndClick = async function (element) {
     await element.moveTo();
     await element.click();
   };

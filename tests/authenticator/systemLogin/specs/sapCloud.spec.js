@@ -1,4 +1,4 @@
-describe("authenticator - fiori", function () {
+describe("session - sapCloud", function () {
 
   it("Verification", async function () {
     const selector = {
@@ -7,6 +7,7 @@ describe("authenticator - fiori", function () {
         "id": "shellAppTitle"
       }
     };
-    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector);
   });
+
 });

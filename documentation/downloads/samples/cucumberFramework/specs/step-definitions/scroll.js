@@ -14,7 +14,7 @@ Given(/^I am on (\w+) page$/, async (intent) => {
 });
 
 When(/^I scroll to an element with index (\w+), timeout (\w+) and alignment (.+)$/, async (index, timeout, alignment) => {
-  await ui5.element.scrollToElement(selector, index, alignment, timeout);
+  await ui5.userInteraction.scrollToElement(selector, index, alignment, timeout);
 });
 
 Then("I should see an element", async () => {

@@ -1,7 +1,7 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfig = require("../../configurations/chrome.headless.conf");
-exports.config = merge(qmateConfig.config, {
+const qmateConfiguration = require("../../../helper/configurations/chrome.headless.conf");
+exports.config = merge(qmateConfiguration.config, {
   maxInstances: 6,
   bail: 1,
   baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html",
@@ -13,9 +13,8 @@ exports.config = merge(qmateConfig.config, {
     path.resolve(__dirname, "getDisplayedChildElement.spec.js"),
     path.resolve(__dirname, "getElementByText.spec.js"),
     path.resolve(__dirname, "getElementId.spec.js"),
-    path.resolve(__dirname, "getValue.spec.js"),
+    path.resolve(__dirname, "getPropertyValue.spec.js"),
     path.resolve(__dirname, "highlightElement.spec.js"),
-    path.resolve(__dirname, "scrollToElement.spec.js"),
     path.resolve(__dirname, "isVisible.spec.js")
   ],
 

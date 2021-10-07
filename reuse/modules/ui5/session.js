@@ -273,7 +273,7 @@ const Session = function () {
       await ui5.navigationBar.expectShellHeader();
     }
 
-    // await _logUI5Version(); // TODO: not working - > endless loading
+    await util.browser.logUI5Version();
   }
 
   async function _clickSignOut() {
@@ -285,32 +285,8 @@ const Session = function () {
         }
       }
     };
-    await ui5.element.scrollToElement(selector);
+    await ui5.userInteraction.scrollToElement(selector);
     return ui5.userInteraction.click(selector);
   }
-
-  //TODO: move to common as global function
-  async function _logUI5Version() {
-    let logUI5Version;
-
-    try {
-      logUI5Version = await browser.config.params.logUI5Version;
-    } catch (error) {
-      logUI5Version = true;
-    }
-
-    if (logUI5Version !== false && !process.env.UI5_VERSION_LOGGED) {
-      const ui5Version = await util.browser.getUI5Version();
-      util.console.log("");
-      util.console.info(`UI5 Version:\t${ui5Version.version}`);
-      util.console.info(`UI5 Timestamp:\t${ui5Version.timestamp}`);
-      util.console.log("");
-
-      if (logUI5Version !== "always") {
-        process.env.UI5_VERSION_LOGGED = true;
-      }
-    }
-  }
-
 };
 module.exports = new Session();
