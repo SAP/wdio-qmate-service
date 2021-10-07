@@ -169,7 +169,7 @@
   },
   {
     "old": "ui5.common.locator.getValue",
-    "new": "ui5.element.getAttributeValue"
+    "new": "ui5.element.getPropertyValue"
   },
   {
     "old": "ui5.common.messageBox",

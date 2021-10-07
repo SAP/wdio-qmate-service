@@ -13,7 +13,7 @@ exports.config = merge(qmateConfig.config, {
     path.resolve(__dirname, "getDisplayedChildElement.spec.js"),
     path.resolve(__dirname, "getElementByText.spec.js"),
     path.resolve(__dirname, "getElementId.spec.js"),
-    path.resolve(__dirname, "getValue.spec.js"),
+    path.resolve(__dirname, "getPropertyValue.spec.js"),
     path.resolve(__dirname, "highlightElement.spec.js"),
     path.resolve(__dirname, "isVisible.spec.js")
   ],

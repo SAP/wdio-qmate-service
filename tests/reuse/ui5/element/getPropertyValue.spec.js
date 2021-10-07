@@ -1,5 +1,5 @@
 "use strict";
-describe("element - getAttributeValue", function () {
+describe("element - getPropertyValue", function () {
 
   let value;
 
@@ -17,8 +17,8 @@ describe("element - getAttributeValue", function () {
     };
     const index = 0;
     const timeout = 30000;
-    const attribute = "title";
-    value = await ui5.element.getAttributeValue(selector, attribute, index, timeout);
+    const property = "title";
+    value = await ui5.element.getPropertyValue(selector, property, index, timeout);
   });
 
   it("Verification", async function () {
@@ -26,7 +26,7 @@ describe("element - getAttributeValue", function () {
   });
 });
 
-describe("element - getAttributeValue with wrong attribute", function () {
+describe("element - getPropertyValue - wrong property", function () {
 
   let value;
 
@@ -44,8 +44,8 @@ describe("element - getAttributeValue with wrong attribute", function () {
     };
     const index = 0;
     const timeout = 30000;
-    const attribute = "vbcza";
-    value = await ui5.element.getAttributeValue(selector, attribute, index, timeout);
+    const property = "vbcza";
+    value = await ui5.element.getPropertyValue(selector, property, index, timeout);
   });
 
   it("Verification", async function () {
@@ -53,7 +53,7 @@ describe("element - getAttributeValue with wrong attribute", function () {
   });
 });
 
-describe("element - getAttributeValue with wrong selector", function () {
+describe("element - getPropertyValue - wrong selector", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -68,13 +68,13 @@ describe("element - getAttributeValue with wrong selector", function () {
     };
     const index = 0;
     const timeout = 30000;
-    const attribute = "title";
-    await expect(ui5.element.getAttributeValue(selector, attribute, index, timeout))
+    const property = "title";
+    await expect(ui5.element.getPropertyValue(selector, property, index, timeout))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
 
-describe("element - getAttributeValue for boolean attribute", function () {
+describe("element - getPropertyValue - boolean property", function () {
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
   });
@@ -89,8 +89,8 @@ describe("element - getAttributeValue for boolean attribute", function () {
     };
     const index = 0;
     const timeout = 30000;
-    const attribute = "selected";
-    // need to make sure that getAttributeValue returns a stringified boolean
-    await expect(await ui5.element.getAttributeValue(selector, attribute, index, timeout)).toStrictEqual("false");
+    const property = "selected";
+    // need to make sure that getPropertyValue returns a stringified boolean
+    await expect(await ui5.element.getPropertyValue(selector, property, index, timeout)).toStrictEqual("false");
   });
 });
