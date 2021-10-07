@@ -17,6 +17,7 @@ node_modules/
 logs
 results/
 reports/
+temp_out/
  
 #desktop services store
 *DS_Store
