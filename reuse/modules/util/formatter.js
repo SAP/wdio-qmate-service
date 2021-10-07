@@ -186,7 +186,7 @@ const Formatter = function () {
         case "yyyy/mm/dd":
           formattedDate = `${yyyy}/${mm}/${dd}`;
           break;
-        case "dd.mm.yyyy.HH.MM":
+        case "dd.mm.yyyy.hh.mm":
           formattedDate = `${dd}.${mm}.${yyyy}.${hour}.${min}`;
           break;
         case "datetime":
