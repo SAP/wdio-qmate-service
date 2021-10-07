@@ -2066,15 +2066,15 @@ const elemValue = await ui5.element.getValue(selector);
 <a name="ui5.element.getBindingValue"></a>
 
 #### element.getBindingValue(selector, bindingContext, [index], [timeout]) ⇒ <code>String</code>
-Returns the value of the given binding context for a specific element.
+Returns the value of the given binding property for a specific element.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
-**Returns**: <code>String</code> - The binding context value.  
+**Returns**: <code>String</code> - The binding property value.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| bindingContext | <code>String</code> |  | The binding context to retrieve. |
+| bindingContext | <code>String</code> |  | The binding property to retrieve. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 

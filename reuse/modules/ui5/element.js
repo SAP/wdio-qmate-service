@@ -165,18 +165,18 @@ const Element = function () {
   /**
    * @function getBindingValue
    * @memberOf ui5.element
-   * @description Returns the value of the given binding context for a specific element.
+   * @description Returns the value of the given binding property for a specific element.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} bindingContext - The binding context to retrieve.
+   * @param {String} bindingContext - The binding property to retrieve.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @returns {String} The binding context value.
+   * @returns {String} The binding property value.
    * @example const elemBindingValue = await ui5.element.getBindingValue(selector, "InvoiceGrossAmount");
    */
   this.getBindingValue = async function (selector, bindingContext, index = 0, timeout = 30000) {
     const elem = await this.getDisplayedElement(selector, index, timeout);
-    return browser.controlActionInBrowser(function (control, attr, done) {
-      done(control.getBinding(attr).getValue());
+    return browser.controlActionInBrowser(function (control, property, done) {
+      done(control.getBinding(property).getValue());
     }, elem, bindingContext);
   };
 
