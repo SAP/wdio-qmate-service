@@ -1,4 +1,4 @@
-describe("session - sapCloud", function () {
+describe("authenticator - custom", function () {
 
   it("Verification", async function () {
     const selector = {
@@ -7,7 +7,7 @@ describe("session - sapCloud", function () {
         "id": "shellAppTitle"
       }
     };
-    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector);
   });
 
 });

@@ -161,7 +161,7 @@ const Browser = function () {
    */
   this.logUI5Version = async function () {
     let logUI5Version;
-    if (browser.config.params && browser.config.params.logUI5Version) {
+    if (browser.config.params && browser.config.params.logUI5Version !== undefined) {
       logUI5Version = browser.config.params.logUI5Version;
     } else {
       logUI5Version = true;
