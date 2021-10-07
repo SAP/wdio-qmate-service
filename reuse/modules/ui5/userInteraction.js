@@ -197,13 +197,13 @@ const UserInteraction = function () {
   this.clearAndFillAndRetry = async function (selector, value, index = 0, timeout = 30000, retries = 3, interval = 5000, verify = true) {
     await util.function.retry(async (selector, value, index, timeout) => {
       await this.clearAndFill(selector, value, index, timeout);
-      // if (verify) {
-      //   const elemValue = await ui5.element.getValue(selector, index);
-      //   if (elemValue !== value) {
-      //     throw new Error("Verification of function 'clearAndFillAndRetry' failed. Values could not be filled correctly.");
-      //   }
-      // }
-      // TODO: test failing, getValue not working
+      if (verify) {
+        await common.userInteraction.pressTab();
+        const elemValue = await ui5.element.getValue(selector, index);
+        if (elemValue !== value) {
+          throw new Error("Verification of function 'clearAndFillAndRetry' failed. Values could not be filled correctly.");
+        }
+      }
     }, [selector, value, index, timeout], retries, interval, this);
   };
 
@@ -399,7 +399,7 @@ const UserInteraction = function () {
       await elem.scrollIntoView(options);
     }
   };
-  
+
   /**
    * @function selectAll
    * @memberOf ui5.userInteraction
