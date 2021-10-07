@@ -1,6 +1,6 @@
 const path = require("path");
 const merge = require("deepmerge");
-const plainConfig = require("../../../../../configurations/base.conf.js");
+const plainConfig = require("../../../../../../helper/configurations/base.conf.js");
 exports.config = merge(plainConfig.config, {
   capabilities: [{
 

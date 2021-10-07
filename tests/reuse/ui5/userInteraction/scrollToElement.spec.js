@@ -22,7 +22,7 @@ describe("element - scrollToElement", function () {
     const index = 0;
     const alignment = "start";
     const timeout = 30000;
-    await ui5.element.scrollToElement(selector, index, alignment, timeout);
+    await ui5.userInteraction.scrollToElement(selector, index, alignment, timeout);
     await ui5.assertion.expectToBeVisible(selector);
   });
 });
@@ -49,7 +49,7 @@ describe("element - scrollToElement outside of viewpoint", function () {
     };
 
     await ui5.userInteraction.clickSelectArrow(selectorForDropdownList);
-    await ui5.element.scrollToElement(selector);
+    await ui5.userInteraction.scrollToElement(selector);
     await ui5.userInteraction.click(selector);
   });
 
@@ -83,7 +83,7 @@ describe("element - scrollToElement and catch error", function () {
     const index = 0;
     const alignment = "start";
     const timeout = 30000;
-    await expect(ui5.element.scrollToElement(selector, index, alignment, timeout))
+    await expect(ui5.userInteraction.scrollToElement(selector, index, alignment, timeout))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });

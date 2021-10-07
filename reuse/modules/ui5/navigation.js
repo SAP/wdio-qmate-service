@@ -199,21 +199,20 @@ const Navigation = function () {
    * @param {String} navigationTarget - The selector describing the element.
    * @example await ui5.navigation.expectUnsupportedNavigationPopup("#SupplierInvoice-display?FiscalYear=1234&SupplierInvoice=1234567890");
    */
-  //TODO: look what it is doing. Looks weeeeeird!
   this.expectUnsupportedNavigationPopup = async function (navigationTarget) {
-    const missingNavigationPopup = {
+    const unsupportedNavigationPopup = {
       "elementProperties": {
         "metadata": "sap.m.Dialog",
         "type": "Message",
         "state": "Error"
       }
     };
-    await ui5.assertion.expectToBeVisible(missingNavigationPopup);
+    await ui5.assertion.expectToBeVisible(unsupportedNavigationPopup);
 
     const moreDetailsButton = {
       "elementProperties": {
         "metadata": "sap.m.Link",
-        "ancestor": missingNavigationPopup
+        "ancestor": unsupportedNavigationPopup
       }
     };
     await ui5.userInteraction.click(moreDetailsButton);
@@ -221,7 +220,7 @@ const Navigation = function () {
     const selector = {
       "elementProperties": {
         "metadata": "sap.m.FormattedText",
-        "ancestorProperties": missingNavigationPopup
+        "ancestorProperties": unsupportedNavigationPopup
       }
     };
     const detailsTextElement = await ui5.element.getDisplayedElement(selector);

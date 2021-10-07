@@ -1,11 +1,11 @@
 describe("session - plain", function () {
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToApplication("Shell-home", false, true);
+    await ui5.navigation.navigateToApplication("Shell-home", false, true);
   });
 
   it("Execution", async function () {
-    await ui5.common.session.loginFiori("PURCHASER");
+    await ui5.session.loginFiori("PURCHASER");
   });
 
   it("Verification", async function () {
@@ -15,7 +15,7 @@ describe("session - plain", function () {
         "id": "shellAppTitle"
       }
     };
-    await ui5.common.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector);
   });
 
 });

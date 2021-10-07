@@ -16,9 +16,6 @@ const OData = function () {
     util.console.error("OData test client Service issue: Probably @sap_oss/odata-library was not installed as a npm module.");
   }
 
-  //@TODO: markdown that there is no draft for odata-API's
-  //If user wants to send requests against normal Services UUID and isActiveEntity as key are mandatory!
-
   /**
    * @function init
    * @memberOf service.odata

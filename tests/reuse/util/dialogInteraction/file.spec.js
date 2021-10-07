@@ -40,7 +40,7 @@ describe("dialogInteraction - uploadFiles", function () {
         "alt": "test2.txt"
       }
     };
-    await ui5.element.getDisplayedElement(selectorTest); //TODO rename to getDisplayed?
+    await ui5.element.getDisplayedElement(selectorTest);
     await ui5.element.getDisplayedElement(selectorTest2);
     //await util.browser.sleep(25000);
   });

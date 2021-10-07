@@ -14,13 +14,17 @@ const UserInteraction = function () {
    * @example await common.userInteraction.fillActive("My Value");
    */
   this.fillActive = async function (value) {
-    if (value !== null) {
-      const elem = await $(await browser.getActiveElement());
-      await elem.setValue(value);
-      // await elem.addValue(value); // @TODO: which is right
-    } else {
-      throw new Error("Function 'fillActive' failed: Please provide a value as argument.");
+    try {
+      if (value !== null) {
+        const elem = await $(await browser.getActiveElement());
+        await elem.addValue(value); //TODO: open issue on wdio github for different behavior in terms of the active element of addValue() and setValue()
+      } else {
+        throw new Error("Function 'fillActive' failed: Please provide a value as argument.");
+      }
+    } catch (error) {
+      throw new Error("Function 'fillActive' failed: ", error);
     }
+
   };
 
   /**
@@ -47,7 +51,6 @@ const UserInteraction = function () {
   this.clearAndFillActive = async function (value) {
     if (value !== null) {
       const elem = await $(await browser.getActiveElement());
-      await elem.clearValue();
       await elem.setValue(value);
     } else {
       throw new Error("Function 'clearAndFillActive' failed. Please provide a value as argument.");

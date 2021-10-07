@@ -15,10 +15,10 @@ const Element = function () {
    * @example await ui5.element.waitForAllElements(selector);
    */
   this.waitForAllElements = async function (selector, timeout = 30000) {
-    return browser.uiControls(selector, timeout); //TODO: is returned required?
+    await browser.uiControls(selector, timeout);
   };
 
-
+  
   // =================================== GET ELEMENTS ===================================
   /**
    * @function getDisplayedElements
@@ -124,22 +124,22 @@ const Element = function () {
   };
 
   /**
-   * @function getAttributeValue
+   * @function getPropertyValue
    * @memberOf ui5.element
-   * @description Returns the attribute value of the passed element.
+   * @description Returns the UI5 property value of the passed element.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} attribute - The attribute of the element.
+   * @param {String} property - The property of the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @returns {String} The attribute value of the element.
-   * @example const elemValue = await ui5.element.getAttributeValue(selector, "text");
+   * @returns {String} The property value of the element.
+   * @example const elemValue = await ui5.element.getPropertyValue(selector, "text");
    */
-  this.getAttributeValue = async function (selector, attribute, index = 0, timeout = 30000) {
+  this.getPropertyValue = async function (selector, property, index = 0, timeout = 30000) {
     try {
       const elem = await this.getDisplayedElement(selector, index, timeout);
-      return String(await elem.getUI5Property(attribute));
+      return String(await elem.getUI5Property(property));
     } catch (error) {
-      throw new Error("getAttributeValue() failed with " + error);
+      throw new Error("getPropertyValue() failed with " + error);
     }
   };
 
@@ -156,7 +156,7 @@ const Element = function () {
   this.getValue = async function (selector, index = 0, timeout = 30000) {
     try {
       // eslint-disable-next-line no-return-await
-      return await this.getAttributeValue(selector, "value", index, timeout);
+      return await this.getPropertyValue(selector, "value", index, timeout);
     } catch (error) {
       throw new Error("getValue() failed with " + error);
     }
@@ -165,19 +165,19 @@ const Element = function () {
   /**
    * @function getBindingValue
    * @memberOf ui5.element
-   * @description Returns the value of the given attribute of the bindingContext for a specific element.
+   * @description Returns the value of the given binding property for a specific element.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} attribute - The attribute of the bindingContext.
+   * @param {String} bindingContext - The binding property to retrieve.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @returns {String} The attribute value.
+   * @returns {String} The binding property value.
    * @example const elemBindingValue = await ui5.element.getBindingValue(selector, "InvoiceGrossAmount");
    */
-  this.getBindingValue = async function (selector, attribute, index = 0, timeout = 30000) {
+  this.getBindingValue = async function (selector, bindingContext, index = 0, timeout = 30000) {
     const elem = await this.getDisplayedElement(selector, index, timeout);
-    return browser.controlActionInBrowser(function (control, attr, done) {
-      done(control.getBinding(attr).getValue());
-    }, elem, attribute);
+    return browser.controlActionInBrowser(function (control, property, done) {
+      done(control.getBinding(property).getValue());
+    }, elem, bindingContext);
   };
 
   /**
@@ -200,30 +200,7 @@ const Element = function () {
   };
 
 
-  // TODO: maybe move to userInteraction?
   // =================================== ACTIONS ===================================
-  /**
-   * @function scrollToElement
-   * @memberOf ui5.element
-   * @description Scrolls to the element with the given selector to get it into view.
-   * @param {Object} selector - The selector describing the element.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
-   * @param {String} [alignment="center"] - Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest".
-   * Affects the alignToTop parameter of scrollIntoView function. By default, it takes 'up'
-   * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await ui5.element.scrollToElement(selector, 0, "start", 5000);
-   */
-  this.scrollToElement = async function (selector, index = 0, alignment = "center", timeout = 30000) {
-    const elem = await this.getDisplayedElement(selector, index, timeout);
-    if (elem) {
-      const options = {
-        "block": alignment,
-        "inline": alignment
-      };
-      await elem.scrollIntoView(options);
-    }
-  };
-
   /**
    * @function highlightElement
    * @memberOf ui5.element
