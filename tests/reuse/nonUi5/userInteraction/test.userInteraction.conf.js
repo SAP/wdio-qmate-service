@@ -1,7 +1,7 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfig = require("../../configurations/chrome.headless.conf.js");
-exports.config = merge(qmateConfig.config, {
+const qmateConfiguration = require("../../../helper/configurations/chrome.headless.conf");
+exports.config = merge(qmateConfiguration.config, {
   maxInstances: 6,
   bail: 1,
   baseUrl: "http://localhost:34005/",
@@ -13,10 +13,13 @@ exports.config = merge(qmateConfig.config, {
     path.resolve(__dirname, "clearAndFillAndRetry.spec.js"),
     path.resolve(__dirname, "click.spec.js"),
     path.resolve(__dirname, "clickAndRetry.spec.js"),
+    path.resolve(__dirname, "doubleClick.spec.js"),
     path.resolve(__dirname, "fill.spec.js"),
     path.resolve(__dirname, "fillAndRetry.spec.js"),
-    path.resolve(__dirname, "charts.spec.js"),
-    path.resolve(__dirname, "checkAttributeAndValue.spec.js")
+    path.resolve(__dirname, "moveCursorAndClick.spec.js"),
+    path.resolve(__dirname, "checkAttributeAndValue.spec.js"),
+    path.resolve(__dirname, "scrollToElement.spec.js"),
+    path.resolve(__dirname, "rightClick.spec.js")
   ],
   exclude: [],
 

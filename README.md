@@ -91,7 +91,7 @@ npm config set no-proxy=nexus.wdf.sap.corp
 
 1) Get latest version
 ```shell script
-npm install @wdio/qmate-service --save-dev
+npm install @wdio/qmate-service@latest --save-dev
 ```
 
 or 
@@ -178,12 +178,13 @@ npx wdio <path/to/your/config.js>
 ## Samples and tests
 
 `qmate-service` can be integrated with wdio available frameworks/features:
-- [Jasmine](tests/frameworks/jasmineFramework)
-- [Mocha](tests/frameworks/mochaFramework)
-- [Cucumber](tests/frameworks/cucumberFramework)
-- [Typescript](tests/features/typescriptSupport)
-- [Sync (not supported by qmate-service)](tests/features/syncSupport)
-- [Selenium-standalone](tests/features/seleniumStandalone)
+- [Jasmine tests](documentation/downloads/samples/jasmineFramework)
+- [Mocha tests](documentation/downloads/samples/mochaFramework)
+- [Cucumber tests](documentation/downloads/samples/cucumberFramework)
+- [Typescript tests](documentation/downloads/samples/typescriptSupport)
+- [Sync tests](documentation/downloads/samples/syncSupport)
+- [Selenium-standalone tests](documentation/downloads/samples/seleniumStandalone)
+
 
 ---
 ### Notes

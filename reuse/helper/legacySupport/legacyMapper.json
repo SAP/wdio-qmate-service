@@ -8,6 +8,10 @@
     "new": "util.system"
   },
   {
+    "old": "utilities.browser.sleepAndCollectCoverage",
+    "new": "util.browser.collectCoverage"
+  },
+  {
     "old": "utilities.dialogInteraction.uploadFiles",
     "new": "util.file.upload"
   },
@@ -38,6 +42,10 @@
   {
     "old": "ui5.common.locator",
     "new": "ui5.element"
+  },
+  {
+    "old": "ui5.common.locator.scrollToElement",
+    "new": "ui5.userInteraction.scrollToElement"
   },
   {
     "old": "ui5.common.assertion.expectEqual",
@@ -161,7 +169,7 @@
   },
   {
     "old": "ui5.common.locator.getValue",
-    "new": "ui5.element.getAttributeValue"
+    "new": "ui5.element.getPropertyValue"
   },
   {
     "old": "ui5.common.messageBox",
@@ -310,6 +318,10 @@
     "new": "util.browser.waitForWindows"
   },
   {
+    "old": "non_ui5.common.locator.scrollToElement",
+    "new": "nonUi5.userInteraction.scrollToElement"
+  },
+  {
     "old": "non_ui5.common.locator.switchToNewWindow",
     "new": "util.browser.switchToNewWindow"
   },
@@ -360,6 +372,10 @@
   {
     "old": "non_ui5.common.userInteraction.fillActiveAndRetry",
     "new": "common.userInteraction.fillActiveAndRetry"
+  },
+  {
+    "old": "non_ui5.common.userInteraction.clickChartPart",
+    "new": "nonUi5.userInteraction.moveCursorAndClick"
   },
   {
     "old": "odata.common.service",

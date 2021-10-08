@@ -20,7 +20,6 @@ describe("browser - getUI5Version", function () {
   });
 
   it("Execution", async function () {
-    //TODO fix endless loading 
     ui5VersionInfo = await util.browser.getUI5Version();
     console.log(ui5VersionInfo);
   });

@@ -1,6 +1,6 @@
 const path = require("path");
 const WdioQmateService = require("@wdio/qmate-service");
-const WdioQmateCoverageService = require("@wdio/vyper-code-coverage-service"); // TODO: will be migrated to qmate soon
+const WdioQmateCoverageService = require("@wdio/qmate-code-coverage-service");
 exports.config = {
   runner: "local",
 
