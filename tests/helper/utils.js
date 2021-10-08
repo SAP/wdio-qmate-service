@@ -1,5 +1,4 @@
 exports.handleCookiesConsent = async function handleCookiesConsent() {
-
   await util.function.executeOptional(async function () {
     const selector = {
       "elementProperties": {
@@ -12,5 +11,4 @@ exports.handleCookiesConsent = async function handleCookiesConsent() {
     };
     await ui5.userInteraction.click(selector, 0, 15000);
   }, []);
-
 };
