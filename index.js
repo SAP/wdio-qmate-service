@@ -106,9 +106,9 @@ module.exports = class CustomWorkerService {
     const testName = test.title || test.description;
     // Print test titles as in vyperForAll during test run
     if (!error && passed === true) {
-      util.console.info(`\x1b[32m\t✓ ${testName}\x1b[0m \t${Math.round(duration/1000)}s`);
+      util.console.info(`\x1b[32m\t✓ ${testName}\x1b[0m  (${Math.round(duration/1000)}s)`);
     } else if (error || passed !== true) {
-      util.console.error(`\x1b[31m\t✗ ${testName}\x1b[0m \t${Math.round(duration/1000)}s`);
+      util.console.error(`\x1b[31m\t✗ ${testName}\x1b[0m  (${Math.round(duration/1000)}s)`);
     }
   }
 
