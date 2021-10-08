@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const locatorCommands = require("@wdio/qmate-service/scripts/hooks/utils/locatorCommands");
+const locatorCommands = require("../../../scripts/hooks/utils/locatorCommands");
 const { handleCookiesConsent } = require("../../helper/utils");
 
 describe("multi combo", function () {
