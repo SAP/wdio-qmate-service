@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const fs = require("fs-extra");
 const path = require("path");
-const dataExchangeUtil = require("@wdio/qmate-service/scripts/dataExchange/dataExchangeUtil");
+const dataExchangeUtil = require("../../../scripts/dataExchange/dataExchangeUtil");
 
 /** 
  * Utility functions for regression testing of import and export of data.
