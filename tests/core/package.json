@@ -1,30 +1,12 @@
 {
-  "name": "core",
+  "name": "core-tests",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "chromedriver-upgrade": "npm install chromedriver --chromedriver-force-download",
-    "preinstall": "npm config set chromedriver_skip_download=true && npm install chromedriver --chromedriver_skip_download=true",
-    "postinstall": "npm config set chromedriver_skip_download=false",
-    "test": "npm run test:dataExchange && node sleeper.js 5 && npm run test:functional && node sleeper.js 5 && npm run test:integration",
-    "test:dataExchange": "npx wdio dataExchange/config.import.js && node sleeper.js 5 && npx wdio dataExchange/config.export.js && node sleeper.js 5 && npx wdio dataExchange/config.parallel.js && node sleeper.js 5 && npx wdio dataExchange/config.parallel.group.js && node sleeper.js 5 && npx wdio dataExchange/config.js",
-    "test:functional": "npx wdio functional/locators/test.locator.conf.js && node sleeper.js 15 && npx wdio functional/nativeBrowser/test.conf.js && node sleeper.js 15 && npx wdio functional/nonUi5/test.conf.js && node sleeper.js 15 && npx wdio functional/ui5Properties/test.conf.js && node sleeper.js 15 && npx wdio functional/uiveri5/test.conf.js",
-    "test:integration": "npx wdio testIntegration/config.js && node sleeper.js 5 && npx wdio testIntegration/configMultiCombo.js && node sleeper.js 5 && npx wdio testIntegration/configTable.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@wdio/cli": "^7.12.5"
-  },
-  "devDependencies": {
-    "@wdio/local-runner": "^7.12.5",
-    "@wdio/mocha-framework": "^7.12.5",
-    "@wdio/qmate-code-coverage-service": "^1.0.0",
-    "@wdio/qmate-service": "file:../../",
-    "@wdio/spec-reporter": "^7.10.1",
-    "chai": "^4.3.4",
-    "chromedriver": "^93.0.1",
-    "wdio-chromedriver-service": "^7.2.0"
+    "test": "npm run test:dataExchange && node ../helper/sleeper.js 5 && npm run test:functional && node ../helper/sleeper.js 5 && npm run test:integration",
+    "test:dataExchange": "npx wdio dataExchange/config.import.js && node ../helper/sleeper.js 5 && npx wdio dataExchange/config.export.js && node ../helper/sleeper.js 5 && npx wdio dataExchange/config.parallel.js && node ../helper/sleeper.js 5 && npx wdio dataExchange/config.parallel.group.js && node ../helper/sleeper.js 5 && npx wdio dataExchange/config.js",
+    "test:functional": "npx wdio functional/locators/test.locator.conf.js && node ../helper/sleeper.js 15 && npx wdio functional/nativeBrowser/test.conf.js && node ../helper/sleeper.js 15 && npx wdio functional/nonUi5/test.conf.js && node ../helper/sleeper.js 15 && npx wdio functional/ui5Properties/test.conf.js && node ../helper/sleeper.js 15 && npx wdio functional/uiveri5/test.conf.js",
+    "test:integration": "npx wdio testIntegration/config.js && node ../helper/sleeper.js 5 && npx wdio testIntegration/configMultiCombo.js && node ../helper/sleeper.js 5 && npx wdio testIntegration/configTable.js"
   }
 }

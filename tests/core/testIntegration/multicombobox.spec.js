@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const locatorCommands = require("@wdio/qmate-service/scripts/hooks/utils/locatorCommands");
-const { handleCookiesConsent } = require("../utils");
+const { handleCookiesConsent } = require("../../helper/utils");
 
 describe("multi combo", function () {
   it("step1:click on arrow of multicombo", async function () {
