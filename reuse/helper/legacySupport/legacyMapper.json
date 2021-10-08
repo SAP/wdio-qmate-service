@@ -258,6 +258,10 @@
     "new": "nonUi5.element.getAttributeValue"
   },
   {
+    "old": "ui5.common.appIntents",
+    "new": "ui5.appIntents"
+  },
+  {
     "old": "non_ui5.common.assertion.expectValue",
     "new": "nonUi5.assertion.expectAttributeToBe"
   },
