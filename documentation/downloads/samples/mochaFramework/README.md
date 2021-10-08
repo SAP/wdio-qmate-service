@@ -1,6 +1,6 @@
 #### Mocha Framework usage with `wdio-qmate-service`
 
-This package include tests to use `wdio-qmate-service` with parameters:
+This package includes tests to use `wdio-qmate-service` with parameters:
 - automation backend located on local machine (`runner: 'local'`)
 - [mocha](https://mochajs.org/) as a [wdio framework](https://webdriver.io/docs/frameworks.html#using-mocha)
 - WebdriverIO commands will be used asynchronously

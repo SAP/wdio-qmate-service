@@ -29,9 +29,7 @@ providing an access to [Reuse API](https://github.wdf.sap.corp/sProcurement/vype
 
 [Reuse API](https://github.wdf.sap.corp/sProcurement/vyperForAll/blob/master/reuse/doc.md) |
 [Business Object Reuse](https://github.wdf.sap.corp/sProcurement/vyperBusinessObjectReuse) |
-Templates |
-Samples |
-Exercises |
+[Samples](documentation/downloads/samples) |
 [Spotlight - Chrome Extension](https://github.wdf.sap.corp/sProcurement/vyper-spotlight)
 
 
@@ -64,7 +62,18 @@ npm i @wdio/cli
 npx wdio config
 ```
 
-**!!!** *To be inserted*: Clarify what items to choose in config prompt **!!!**
+Examples of selections for `npx wdio config` command
+
+1) chrome+mocha
+![chrome+mocha](documentation/downloads/samples/mochaFramework/wdioConfigurationHelper.PNG)
+
+2) chrome+jasmin
+![chrome+jasmin](documentation/downloads/samples/jasmineFramework/wdioConfigurationHelper.PNG)
+
+3) selenium+jasmin
+![selenium+jasmin](documentation/downloads/samples/seleniumStandalone/wdioConfigurationHelper.PNG)
+
+
 
 **Step 2:** Configure nexus npm registry (local / global)
 
