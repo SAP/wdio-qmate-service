@@ -9,7 +9,6 @@ const Control = function () {
   const locatorCommands = require("../../../scripts/hooks/utils/locatorCommands");
 
   // =================================== EXECUTE ===================================
-  //TODO: maybe rename function?
   /**
    * @function execute
    * @memberOf ui5.control

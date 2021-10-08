@@ -1,0 +1,24 @@
+{
+  "name": "wdionativefeatures",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx wdio assertions/test.conf.js && node sleeper.js 10 && npx wdio networkThrottling/test.conf.js && node sleeper.js 10 && npx wdio performance/test.conf.js  && node sleeper.js 10 && npx wdio retry/test.retry.conf.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wdio/cli": "^7.12.6"
+  },
+  "devDependencies": {
+    "@wdio/devtools-service": "^7.12.5",
+    "@wdio/local-runner": "^7.12.5",
+    "@wdio/mocha-framework": "^7.12.5",
+    "@wdio/qmate-service": "*",
+    "@wdio/spec-reporter": "^7.12.5",
+    "chai": "^4.3.4",
+    "chromedriver": "^93.0.1",
+    "wdio-chromedriver-service": "^7.2.0"
+  }
+}

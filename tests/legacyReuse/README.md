@@ -1,11 +1,10 @@
-#### Reuse API with wdio-qmate-service
+#### Legacy Reuse API with wdio-qmate-service
 
-This package includes tests to use `wdio-qmate-service` for [Reuse API](https://github.wdf.sap.corp/sProcurement/vyperForAll/blob/master/reuse/doc.md)
-
+This package includes tests to use `wdio-qmate-service` legacy (old) reuse api
 
 To run tests:
 
-Step 1. Install dependencies:
+Step 1. Install dependencies in **root package.json**, if you have not done it yet:
 ```bash
 npm i
 npm run chromedriver-upgrade

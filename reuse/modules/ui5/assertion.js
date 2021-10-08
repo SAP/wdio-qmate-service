@@ -295,6 +295,7 @@ const Assertion = function () {
    */
   this.expectToBeVisible = async function (selector, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
     let elem;
+    //TODO: replace with getDisplayedElement() since we want the visible elements only in the DOM
     try {
       elem = await browser.uiControl(selector, index, timeout);
     } catch (error) {
@@ -321,7 +322,7 @@ const Assertion = function () {
       const isUi5Visible = await elem.getUI5Property("visible");
       const isDomVisible = await elem.isDisplayed();
       value = isUi5Visible || isDomVisible;
-      common.assertion.expectTrue(value); // TODO: check return
+      common.assertion.expectTrue(value);
     }
   };
 
@@ -369,10 +370,10 @@ const Assertion = function () {
    * @description Expects that the element is not visible to the user.
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
-   * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await ui5.assertion.expectToBeNotVisible(selector);
+   * @param {Number} [timeout=30000] - The timeout to wait (ms). Recommendation is to lower the timeout since the element is not expected to show up.
+   * @example await ui5.assertion.expectToBeNotVisible(selector, 0, 5000);
    */
-  this.expectToBeNotVisible = async function (selector, index = 0, timeout = 30000) { //TODO should we decrease the default timeouts for every function?
+  this.expectToBeNotVisible = async function (selector, index = 0, timeout = 30000) {
     let elem;
     try {
       elem = await browser.uiControl(selector, index, timeout, true);
@@ -402,7 +403,6 @@ const Assertion = function () {
     if (!text) {
       throw new Error("Function 'expectMessageToast' failed. Please provide the expected text as argument.");
     }
-    // TODO: change to UI5 locator
     const xpath = "//div[contains(@class, 'sapMMessageToast') and contains(string(), '" + text + "')]";
     const elem = await nonUi5.element.getElementByXPath(xpath, 0, timeout);
     return nonUi5.assertion.expectToBeVisible(elem);

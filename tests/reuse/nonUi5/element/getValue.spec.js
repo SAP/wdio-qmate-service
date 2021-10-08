@@ -3,10 +3,8 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("locator - getAttributeValue + expectEqual", function () {
-
-  let product;
-  let currentValue;
+describe("locator - getValue", function () {
+  let actValue;
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
@@ -14,23 +12,40 @@ describe("locator - getAttributeValue + expectEqual", function () {
   });
 
   it("Execution", async function () {
-    product = await nonUi5.element.getElementByXPath("//div[contains(text(),'Laptops')]");
-    currentValue = await nonUi5.element.getAttributeValue(product);
+    const elem = await nonUi5.element.getElementByXPath("//div[contains(text(),'Laptops')]");
+    actValue = await nonUi5.element.getValue(elem);
   });
 
   it("Verification", async function () {
-    await common.assertion.expectEqual(currentValue, "Laptops");
+    await common.assertion.expectEqual(actValue, "Laptops");
   });
 });
 
-describe("locator - getValue and catch error", function () {
+describe("locator - getValue - innerHTML", function () {
+  let actValue;
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
+  it("Execution", async function () {
+    const elem = await nonUi5.element.getElementByCss("SPAN[id='container-cart---homeView--page-title-inner']");
+    actValue = await nonUi5.element.getValue(elem);
+  });
+
+  it("Verification", async function () {
+    const expValue = "Product Catalog";
+    await common.assertion.expectEqual(actValue, expValue);
+  });
+});
+
+describe("locator - getValue - error case", function () {
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+  });
+
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getAttributeValue())
-      .rejects.toThrow("Function 'getAttributeValue' failed");
+    await expect(nonUi5.element.getValue())
+      .rejects.toThrow("Function 'getValue' failed");
   });
 });

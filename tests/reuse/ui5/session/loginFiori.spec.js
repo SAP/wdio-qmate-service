@@ -26,7 +26,7 @@ describe("session - loginFiori", function () {
 
 describe("session - loginFiori for Sap Cloud login", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    util.browser.setBaseUrl("https://www.sap.com");
     await ui5.navigation.navigateToApplication("", true);
   });
 
