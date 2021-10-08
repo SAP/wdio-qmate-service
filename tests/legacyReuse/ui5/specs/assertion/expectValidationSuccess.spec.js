@@ -1,5 +1,5 @@
 "use strict";
-const { handleCookiesConsent } = require("../../../utils");
+const { handleCookiesConsent } = require("../../../../helper/utils");
 
 const submitButtonSelector = {
   "elementProperties": {
