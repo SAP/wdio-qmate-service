@@ -1,6 +1,6 @@
 "user strict";
 let selector;
-const { handleCookiesConsent } = require("../../../utils");
+const { handleCookiesConsent } = require("../../../../helper/utils");
 
 describe("assertion - expectToBeVisibleInViewport with element in viewport", function () {
 

@@ -1,7 +1,7 @@
 "use strict";
 const {
   handleCookiesConsent
-} = require("../../../utils");
+} = require("../../../../helper/utils");
 
 // No visible element found. TypeError: elements.filter is not a function
 describe("locator - waitForAllElements", function () {

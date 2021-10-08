@@ -1,4 +1,4 @@
-const WdioQmateService = require("index");
+const WdioQmateService = require("../../../index");
 const WdioCodeCoverageService = require("@wdio/qmate-code-coverage-service");
 exports.config = {
   services: [[WdioQmateService], [WdioCodeCoverageService]],

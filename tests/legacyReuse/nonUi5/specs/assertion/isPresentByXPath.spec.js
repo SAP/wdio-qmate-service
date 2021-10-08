@@ -1,6 +1,6 @@
 "use strict";
 
-const { handleCookiesConsent } = require("../../../utils");
+const { handleCookiesConsent } = require("../../../../helper/utils");
 
 describe("assertion - isPresentByXPath", function () {
 
