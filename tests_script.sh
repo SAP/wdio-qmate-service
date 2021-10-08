@@ -1,27 +1,27 @@
+echo "Run 'npm ci' in root folder"
+npm ci
+echo ''
+echo "Run 'npm run chromedriver-upgrade' in root folder"
+npm run chromedriver-upgrade
+echo ''
 cd ./tests
 
 echo "List test folders"
 echo
 for d in */ ; do
+  if [[ $d != "helper/" ]]
+  then
     echo "$d"
+  fi
 done
 for d in */ ; do
-    echo
-    echo "$d" " test folder"
-    cd $d
-
-    echo "1 Install dependencies and devDependencies"
-    npm i
-
-    IS_CHROMEDRIVER_UPDATE_REQUIRED="grep 'chromedriver-update' package.json"
-
-    if [[ $IS_CHROMEDRIVER_UPDATE_REQUIRED ]]
+    if [[ $d != "helper/" ]]
     then
-      echo "1.1 Run chromedriver-update script"
-      npm run chromedriver-update
+      echo
+      echo "$d" " test folder"
+      cd $d
+
+      echo "Run tests"
+      npm run test
     fi
-
-    echo "2. Run tests"
-    npm run test
-
 done
