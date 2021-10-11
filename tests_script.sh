@@ -1,10 +1,9 @@
 echo "1. Run 'npm i' in root folder"
-npm config set unsafe-perm true
-export CHROMEDRIVER_PORT=4444
-export CHROMEDRIVER_FILEPATH=/usr/bin/chromedriver
+npm i
 echo ''
 echo "2. set environment variables for chromedriver"
-
+export CHROMEDRIVER_PORT=4444
+export CHROMEDRIVER_FILEPATH=/usr/bin/chromedriver
 echo "Run tests"
 node -v
 npm -v
