@@ -11,7 +11,7 @@ cd ./tests
 echo "List test folders"
 echo
 for d in */ ; do
-    if [[ $d == "reuse/"]]
+    if [[ $d = "reuse/" ]]
     then
       echo
       echo "$d" " test folder"
