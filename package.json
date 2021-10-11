@@ -21,7 +21,7 @@
     }
   ],
   "scripts": {
-    "chromedriver-upgrade": "npm install chromedriver --chromedriver-force-download",
+    "chromedriver-update": "npm install chromedriver --chromedriver-force-download",
     "preinstall": "npm config set chromedriver_skip_download=true && npm install chromedriver --chromedriver_skip_download=true",
     "postinstall": "npm config set chromedriver_skip_download=false",
     "lint": "eslint .",
