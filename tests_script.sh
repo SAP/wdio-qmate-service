@@ -11,11 +11,11 @@ cd ./tests
 echo "List test folders"
 echo
 for d in */ ; do
-    if [[ $d != "helper/" ]]
+    if [[ $d == "reuse/"]]
     then
       echo
       echo "$d" " test folder"
-      cd ./$d
+      cd $d
       echo "install dependencies"
       npm i
       echo "Run tests"
