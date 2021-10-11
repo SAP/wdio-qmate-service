@@ -11,17 +11,11 @@ cd ./tests
 echo "List test folders"
 echo
 for d in */ ; do
-  if [[ $d != "helper/" ]]
-  then
-    echo "$d"
-  fi
-done
-for d in *./ ; do
     if [[ $d != "helper/" ]]
     then
       echo
       echo "$d" " test folder"
-      cd $d
+      cd ./$d
       echo "install dependencies"
       npm i
       echo "Run tests"
