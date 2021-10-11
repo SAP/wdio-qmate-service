@@ -1,6 +1,7 @@
 echo "1. Run 'npm i' in root folder"
 npm config set unsafe-perm true
 npm i
+npm run chromedriver-update
 echo ''
 echo "2. set environment variables for chromedriver"
 export CHROMEDRIVER_PORT=4444
