@@ -4,21 +4,6 @@ echo ''
 echo "2. set environment variables for chromedriver"
 export CHROMEDRIVER_PORT=4444
 export CHROMEDRIVER_FILEPATH=/usr/bin/chromedriver
-echo "List test folders"
-echo ''
-cd ./tests
+echo "Run tests"
 
-echo "List test folders"
-echo
-for d in */ ; do
-    if [[ $d = "reuse/" ]]
-    then
-      echo
-      echo "$d" " test folder"
-      cd $d
-      echo "install dependencies"
-      npm i
-      echo "Run tests"
-      npm run test
-    fi
-done
+npx wdio tests/reuse/nonUi5/assertion/test.assertion.conf.js
