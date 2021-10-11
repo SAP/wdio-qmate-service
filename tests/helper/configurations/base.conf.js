@@ -1,7 +1,6 @@
 const WdioQmateService = require("../../../index");
 const WdioCodeCoverageService = require("@wdio/qmate-code-coverage-service");
 exports.config = {
-  automationProtocol: "devtools",
   services: [
     [WdioQmateService],
     [WdioCodeCoverageService]
