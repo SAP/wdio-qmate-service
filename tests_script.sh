@@ -16,7 +16,7 @@ for d in */ ; do
     echo "$d"
   fi
 done
-for d in */ ; do
+for d in *./ ; do
     if [[ $d != "helper/" ]]
     then
       echo
