@@ -1,5 +1,5 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
-const {handleCookiesConsent} = require("@wdio/qmate-service/tests/reuse/utils");
+const {handleCookiesConsent} = require("@wdio/qmate-service/tests/helper/utils");
 
 const selectorForDialog = {
   "elementProperties": {
