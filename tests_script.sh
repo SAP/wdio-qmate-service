@@ -6,4 +6,4 @@ export CHROMEDRIVER_PORT=4444
 export CHROMEDRIVER_FILEPATH=/usr/bin/chromedriver
 echo "Run tests"
 
-npx wdio tests/reuse/nonUi5/assertion/test.assertion.conf.js
+wdio tests/reuse/nonUi5/assertion/test.assertion.conf.js
