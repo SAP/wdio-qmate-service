@@ -1,4 +1,5 @@
 echo "1. Run 'npm i' in root folder"
+npm config set unsafe-perm true
 npm i
 echo ''
 echo "2. set environment variables for chromedriver"
