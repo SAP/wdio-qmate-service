@@ -1,6 +1,6 @@
-#### Legacy Reuse API with wdio-qmate-service
+#### wdio-qmate-service core functionality
 
-This package includes tests to use `wdio-qmate-service` legacy (old) reuse api
+This package includes tests for `wdio-qmate-service` core functionality 
 
 To run tests:
 

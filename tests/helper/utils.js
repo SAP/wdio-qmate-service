@@ -1,6 +1,6 @@
 exports.handleCookiesConsent = async function handleCookiesConsent() {
-
-  await util.function.executeOptional(async function () {
+  // eslint-disable-next-line no-undef
+  await utilities.function.executeOptional(async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.ui.documentation.sdk.view.App",
@@ -10,7 +10,6 @@ exports.handleCookiesConsent = async function handleCookiesConsent() {
         }]
       }
     };
-    await ui5.userInteraction.click(selector, 0, 15000);
+    await ui5.common.userInteraction.click(selector, 0, 15000);
   }, []);
-
 };

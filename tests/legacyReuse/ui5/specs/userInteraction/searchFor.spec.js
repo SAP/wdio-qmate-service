@@ -1,4 +1,4 @@
-const { handleCookiesConsent } = require("../../../utils");
+const { handleCookiesConsent } = require("../../../../helper/utils");
 
 describe("userInteraction - searchFor - use button", function () {
 
