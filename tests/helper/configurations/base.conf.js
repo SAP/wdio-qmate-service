@@ -1,6 +1,7 @@
 const WdioQmateService = require("../../../index");
 const WdioCodeCoverageService = require("@wdio/qmate-code-coverage-service");
 exports.config = {
+  automationProtocol: "devtools",
   services: [
     [WdioQmateService],
     [WdioCodeCoverageService]
@@ -37,7 +38,7 @@ exports.config = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "error",
+  logLevel: "silent",
   //
   // Set specific log levels per logger
   // loggers:
