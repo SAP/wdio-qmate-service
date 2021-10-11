@@ -22,7 +22,8 @@ for d in */ ; do
       echo
       echo "$d" " test folder"
       cd $d
-
+      echo "install dependencies"
+      npm i
       echo "Run tests"
       npm run test
     fi
