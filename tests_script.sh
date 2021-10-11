@@ -3,8 +3,8 @@ npm ci
 echo ''
 echo "2. set environment variables for chromedriver"
 export CHROMEDRIVER_PORT=4444
-export DBUS_SESSION_BUS_ADDRESS=/dev/null
-export OPENSSL_BIN='/usr/bin/openssl'
+export CHROMEDRIVER_FILEPATH=/usr/bin/chromedriver
+npm run chromedriver-update
 echo "List test folders"
 echo ''
 cd ./tests
