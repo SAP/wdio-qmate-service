@@ -16,6 +16,8 @@ describe("locator - getElementByCssContainingText + expectToBeVisible", function
 
   it("Verification", async function () {
     await non_ui5.common.assertion.expectToBeVisible(downloadBtn, 10000);
+    const text = await downloadBtn.getText();
+    await common.assertion.expectTrue(text.match(/Down/) !== null);
   });
 });
 
@@ -27,7 +29,7 @@ describe("locator - getElementByCssContainingText and catch error", function () 
   });
 
   it("Execution and Verification", async function () {
-    await expect(non_ui5.common.locator.getElementByCssContainingText("[id='sdk--readMoreButton-BDI-content']"))
+    await expect(non_ui5.common.locator.getElementByCssContainingText("[id='sdk---welcome--readMoreButton-BDI-content']","Some Junk Text"))
       .rejects.toThrow(/getElementByCssContainingText(): Element \w*|\d* not found/);
   });
 });

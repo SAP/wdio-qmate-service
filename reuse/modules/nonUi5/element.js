@@ -29,6 +29,7 @@ const Element = function () {
     } catch (error) {
       throw new Error("Function 'waitForAllElements' failed. Browser wait exception. " + error);
     }
+    return elems;
   };
 
   /**
@@ -482,14 +483,18 @@ const Element = function () {
 
   // =================================== HELPER ===================================
   async function _filterElementsContainingText(elems, text, index) {
-    const elemsWithTxt = elems.filter(async function (elem) {
-      if (await elem.isDisplayed()) {
-        const sText = await elem.getText();
-        return sText.indexOf(text) !== -1;
+    const elemsWithTxt = [];
+    for (const elem of elems) {
+      const elementText = await elem.getText();
+      if (elementText.indexOf(text) !== -1) {
+        elemsWithTxt.push(elem);
       }
-      return false;
-    });
-    return elemsWithTxt[index];
+    }
+    if (elemsWithTxt.length > 0 && index < elemsWithTxt.length) {
+      return elemsWithTxt[index];
+    } else {
+      throw new Error(`No elements containing text ${text} and index ${index}`);
+    }
   }
 
   async function filterElements(selector, index = 0, timeout = 30000) {
