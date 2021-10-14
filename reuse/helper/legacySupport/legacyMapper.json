@@ -33,7 +33,7 @@
   },
   {
     "old": "utilities.qUnit",
-    "new": "util.qunit"
+    "new": "ui5.qunit"
   },
   {
     "old": "ui5.common",
