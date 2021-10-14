@@ -4,6 +4,7 @@
  * @memberof nonUi5
  */
 const Element = function () {
+
   // =================================== WAIT ===================================
   /**
    * @function waitForAllElements
@@ -11,7 +12,6 @@ const Element = function () {
    * @description Waits until all elements with the given selector are rendered.
    * @param {Object} selector - The CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @returns {Object[]} The array of elements.
    * @example await nonUi5.element.waitForAllElements(".inputField");
    */
   this.waitForAllElements = async function (selector, timeout = 30000) {
@@ -111,12 +111,9 @@ const Element = function () {
    * @example await nonUi5.element.getDisplayedElements(".inputField");
    */
   this.getDisplayedElements = async function (selector, timeout = 30000) {
-    const elements = await this.waitForAllElements(selector, timeout);
-    if (!elements) {
-      throw new Error(`Function 'getDisplayedElements' failed. No element found for selector '${selector}' after ${timeout / 1000}s.`);
-    }
-
     try {
+      await this.waitForAllElements(selector, timeout);
+      const elements = await $$(selector);
       const displayedElements = [];
       for (const element of elements) {
         if (element) {
@@ -145,7 +142,7 @@ const Element = function () {
   this.getElementByCss = async function (selector, index = 0, timeout = 30000) {
     try {
       await this.waitForAllElements(selector, timeout);
-      return await filterElements(selector, index, timeout);
+      return await _filterElements(selector, index, timeout);
     } catch (error) {
       throw new Error(`Function 'getElementByCss' failed. Element with CSS "${selector}" not found. ${error}`);
     }
@@ -164,7 +161,7 @@ const Element = function () {
    */
   this.getElementByCssContainingText = async function (selector, text = "", index = 0, timeout = 30000) {
     try {
-      const elems = await this.waitForAllElements(selector, timeout);
+      const elems = await this.getDisplayedElements(selector, timeout);
       return await _filterElementsContainingText(elems, text, index);
     } catch (error) {
       throw new Error(`Function 'getElementByCssContainingText' failed. Element with CSS "${selector}" and text value "${text}" not found. ${error}`);
@@ -183,7 +180,7 @@ const Element = function () {
   this.getElementById = async function (id, timeout = 30000) {
     try {
       const selector = `[id='${id}']`;
-      return await filterElements(selector, 0, timeout);
+      return await _filterElements(selector, 0, timeout);
     } catch (error) {
       throw new Error(`Function 'getElementById' failed. Element with id "${id}" not found. ${error}`);
     }
@@ -202,7 +199,7 @@ const Element = function () {
   this.getElementByClass = async function (elemClass, index = 0, timeout = 30000) {
     try {
       const selector = `[class='${elemClass}']`;
-      return await filterElements(selector, index, timeout);
+      return await _filterElements(selector, index, timeout);
     } catch (error) {
       throw new Error(`Function 'getElementByClass' failed. Element with class "${elemClass}" not found. ${error}`);
     }
@@ -221,7 +218,7 @@ const Element = function () {
   this.getElementByName = async function (name, index = 0, timeout = 30000) {
     try {
       const selector = `[name='${name}']`;
-      return await filterElements(selector, index, timeout);
+      return await _filterElements(selector, index, timeout);
     } catch (error) {
       throw new Error(`Function 'getElementByName' failed. Element with name "${name}" not found. ${error}`);
     }
@@ -239,7 +236,7 @@ const Element = function () {
    */
   this.getElementByXPath = async function (xpath, index = 0, timeout = 30000) {
     try {
-      return await filterElements(xpath, index, timeout);
+      return await _filterElements(xpath, index, timeout);
     } catch (error) {
       throw new Error(`Function 'getElementByXPath' failed. Element with XPath "${xpath}" not found. ${error}`);
     }
@@ -492,7 +489,7 @@ const Element = function () {
     return elemsWithTxt[index];
   }
 
-  async function filterElements(selector, index = 0, timeout = 30000) {
+  async function _filterElements(selector, index = 0, timeout = 30000) {
     let elems = null;
     let selectedElement = null;
     try {
@@ -521,7 +518,7 @@ const Element = function () {
       });
       return selectedElement;
     } catch (error) {
-      throw new Error("Function 'filterElements' failed. Browser wait exception. " + error);
+      throw new Error("Function '_filterElements' failed. Browser wait exception. " + error);
     }
   }
 
