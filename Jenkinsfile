@@ -5,6 +5,7 @@ def jenkinsNode = 'dlms4hana'
 echo "jenkinsNode ${jenkinsNode}"
 node (jenkinsNode) {
   timestamps {   
+    env.JENKINS_NODE_NAME = jenkinsNode
     env.fioriNotInstall = true
     wdioQmateServicePr()
   }
