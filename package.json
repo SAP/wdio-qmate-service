@@ -29,7 +29,7 @@
     "generate-docs": "node reuse/helper/jsDocGen",
     "update-legacy-specs": "node reuse/helper/legacySupport/updateLegacySpecs",
     "test:reuse:common": "npx wdio /tests/reuse/common/assertion/test.assertion.conf.js && /tests/reuse/common/date/test.date.conf.js && /tests/reuse/common/navigation/test.navigation.conf.js && /tests/reuse/common/userInteraction/test.userInteraction.conf.js",
-    "test:reuse": "npm run tests:reuse:common"
+    "test:reuse": "npm run test:reuse:common"
   },
   "homepage": "https://github.tools.sap/sProcurement/wdio-qmate-service",
   "repository": {
