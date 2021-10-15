@@ -33,7 +33,7 @@
     "test:reuse:common:date": "npx wdio ./tests/reuse/common/date/test.date.conf.js",
     "test:reuse:common:userInteraction": "npx wdio ./tests/reuse/common/userInteraction/test.userInteraction.conf.js",
     "test:reuse:common": "npm run test:reuse:common:assertion && npm run test:reuse:common:navigation && npm run test:reuse:common:date && npm run test:reuse:common:userInteraction",
-    "test:reuse": "npm run test:reuse:common"
+    "test:reuse": "npm i npx && npm run test:reuse:common"
   },
   "homepage": "https://github.tools.sap/sProcurement/wdio-qmate-service",
   "repository": {
@@ -57,7 +57,6 @@
     "jsdoc-to-markdown": "^5.0.3",
     "path": "^0.12.7",
     "yargs": "^17.1.1",
-    "yarn": "^1.22.15",
     "@wdio/cli": "^7.12.5",
     "@wdio/local-runner": "^7.12.4",
     "@wdio/mocha-framework": "^7.12.4",
