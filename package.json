@@ -33,7 +33,7 @@
     "test:reuse:common:date": "npx wdio ./tests/reuse/common/date/test.date.conf.js",
     "test:reuse:common:userInteraction": "npx wdio ./tests/reuse/common/userInteraction/test.userInteraction.conf.js",
     "test:reuse:common": "npm run test:reuse:common:assertion && npm run test:reuse:common:navigation && npm run test:reuse:common:date && npm run test:reuse:common:userInteraction",
-    "test:reuse": "npm i npx && npm run test:reuse:common"
+    "test:reuse": "npm run test:reuse:common"
   },
   "homepage": "https://github.tools.sap/sProcurement/wdio-qmate-service",
   "repository": {
@@ -52,11 +52,6 @@
   "license": "ISC",
   "dependencies": {
     "@sap_oss/odata-library": "^0.10.2",
-    "curl": "^0.1.4",
-    "fs-extra": "^10.0.0",
-    "jsdoc-to-markdown": "^5.0.3",
-    "path": "^0.12.7",
-    "yargs": "^17.1.1",
     "@wdio/cli": "^7.12.5",
     "@wdio/local-runner": "^7.12.4",
     "@wdio/mocha-framework": "^7.12.4",
@@ -66,8 +61,14 @@
     "@wdio/static-server-service": "^7.10.1",
     "chai": "^4.3.4",
     "chromedriver": "^93.0.1",
+    "curl": "^0.1.4",
     "eslint": "^6.8.0",
     "eslint-plugin-wdio": "^6.0.12",
-    "wdio-chromedriver-service": "^7.2.0"
+    "fs-extra": "^10.0.0",
+    "jsdoc-to-markdown": "^5.0.3",
+    "npx": "^10.2.2",
+    "path": "^0.12.7",
+    "wdio-chromedriver-service": "^7.2.0",
+    "yargs": "^17.1.1"
   }
 }
