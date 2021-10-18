@@ -77,6 +77,7 @@
     "test:reuse:util:browser": "npx wdio ./tests/reuse/util/browser/test.browser.conf.js",
     "test:reuse:util:dialogInteraction": "npx wdio ./tests/reuse/util/dialogInteraction/test.dialogInteraction.conf.js",
     "test:reuse:util:formatter": "npx wdio ./tests/reuse/util/formatter/test.formatter.conf.js",
+    "test:reuse:util": "npm run test:reuse:util:browser && npm run test:reuse:util:dialogInteraction && npm run test:reuse:util:formatter",
     "test:reuse:common:assertion": "npx wdio ./tests/reuse/assertion/test.element.conf.js",
     "test:reuse:common:navigation": "npx wdio ./tests/reuse/common/navigation/test.navigation.conf.js",
     "test:reuse:common:date": "npx wdio ./tests/reuse/common/date/test.date.conf.js",
