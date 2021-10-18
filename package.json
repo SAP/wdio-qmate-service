@@ -38,7 +38,7 @@
     "test:authenticator:systemLogin:fiori": "npx wdio ./tests/authenticator/systemLogin/configFiori.js",
     "test:authenticator:systemLogin:plain": "npx wdio ./tests/authenticator/systemLogin/configPlain.js",
     "test:authenticator:systemLogin:sapCloud": "npx wdio ./tests/authenticator/systemLogin/configSapCloud.js",
-    "test:authenticator:systemLogin": "npm run test:authenticator:systemLogin:custom && test:authenticator:systemLogin:fiori && npm run test:authenticator:systemLogin:plain && npm run test:authenticator:systemLogin:sapCloud",
+    "test:authenticator:systemLogin": "npm run test:authenticator:systemLogin:custom && npm run test:authenticator:systemLogin:fiori && npm run test:authenticator:systemLogin:plain && npm run test:authenticator:systemLogin:sapCloud",
     "test:authenticator": "npm run test:authenticator:staticLogin && npm run test:authenticator:systemLogin",
     "test:core:dataExchange:export": "npx wdio ./tests/core/dataExchange/config.export.js",
     "test:core:dataExchange:import": "npx wdio ./tests/core/dataExchange/config.import.js",
