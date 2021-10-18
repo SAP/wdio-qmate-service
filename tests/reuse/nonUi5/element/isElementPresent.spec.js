@@ -1,14 +1,12 @@
 "use strict";
-describe("element- isElementPresent for list item element", function () {
+describe.only("element- isElementPresent for list item element", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution and Verification", async function () {
-    const itemElements = await nonUi5.element.waitForAllElements(".sapMSLITitleOnly=Computer System Accessories");
-    common.assertion.expectDefined(itemElements);
-    common.assertion.expectDefined(itemElements.length);
-    const isPresent = await nonUi5.element.isElementPresent(itemElements[0]);
+    const itemElement = await nonUi5.element.getElementByCss(".sapMSLITitleOnly=Computer System Accessories");
+    const isPresent = await nonUi5.element.isElementPresent(itemElement);
     await common.assertion.expectTrue(isPresent);
   });
 });
