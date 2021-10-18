@@ -7,6 +7,8 @@ node (jenkinsNode) {
   timestamps {   
     env.JENKINS_NODE_NAME = jenkinsNode
     env.fioriNotInstall = true
-    wdioQmateServicePr()
+    wdioQmateServiceReusePr()
+    wdioQmateServiceCorePr()
+    wdioQmateServiceAuthenticatorPr()
   }
 }
