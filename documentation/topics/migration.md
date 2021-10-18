@@ -5,10 +5,8 @@ We try to keep qmate API as stable as possible during protractor->WDIO migration
 But some changes need to be added to the code, especially if you use protractor native functions:
 
 ---
-## Changes in resue API
+## Changes in reuse API
 ### Browser actions
-
-[TODO: need to change vyperForAll name after migration]
 
 |  native protractor function, used in vyperForAll |  native WDIO function | qmate reuse API function  |
 |---|---|---|
@@ -20,7 +18,7 @@ But some changes need to be added to the code, especially if you use protractor 
 
 
 
-### [Navigation](../../scripts/reuse/ui5/common/modules/navigation.js)
+### [Navigation](../../reuse/modules/ui5/navigation.js)
 
 |  native protractor function, used in vyperForAll |  native WDIO function | qmate reuse API function  |
 |---|---|---|
@@ -44,7 +42,7 @@ But some changes need to be added to the code, especially if you use protractor 
 
 ### New style of configuration files:
 
-All examples of configuration files are [here](../../tests/reuseApi/configurations)
+All examples of configuration files are [here](../../tests/helper/configurations)
 
 
 ### Specs
@@ -80,4 +78,4 @@ exports.config = merge(qmateConfig.config, {
 
 Please have a look at [WDIO documentation](https://webdriver.io/docs/organizingsuites/#grouping-test-specs-to-run-sequentially)
 
-Please note that this logic is availble only since [v.7.4.0](https://github.com/webdriverio/webdriverio/blob/main/CHANGELOG.md#v740-2021-04-13)
+Please note that this logic is available only since [v.7.4.0](https://github.com/webdriverio/webdriverio/blob/main/CHANGELOG.md#v740-2021-04-13)
