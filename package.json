@@ -36,7 +36,8 @@
     "test:reuse:nonUi5:navigation": "npx wdio ./tests/reuse/nonUi5/navigation/test.navigation.conf.js",
     "test:reuse:nonUi5:userInteraction": "npx wdio ./tests/reuse/nonUi5/userInteraction/test.userInteraction.conf.js",
     "test:reuse:common": "npm run test:reuse:common:assertion && npm run test:reuse:common:navigation && npm run test:reuse:common:date && npm run test:reuse:common:userInteraction",
-    "test:reuse": "npm run test:reuse:common"
+    "test:reuse:nonUi5": "npm run test:reuse:nonUi5:assertion && npm run test:reuse:nonUi5:navigation && npm run test:reuse:nonUi5:userInteraction",
+    "test:reuse": "npm run test:reuse:common && npm run test:reuse:nonUi5"
   },
   "homepage": "https://github.tools.sap/sProcurement/wdio-qmate-service",
   "repository": {
