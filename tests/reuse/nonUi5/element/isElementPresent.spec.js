@@ -1,5 +1,5 @@
 "use strict";
-describe.only("element- isElementPresent for list item element", function () {
+describe("element - isElementPresent - list item element", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
@@ -12,7 +12,7 @@ describe.only("element- isElementPresent for list item element", function () {
 });
 
 
-describe("element- isElementPresent for hidden element", function () {
+describe("element - isElementPresent - hidden element", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
@@ -27,7 +27,7 @@ describe("element- isElementPresent for hidden element", function () {
 });
 
 
-describe("element- isElementPresent for wrong element", function () {
+describe("element - isElementPresent - wrong element", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
