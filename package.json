@@ -73,7 +73,7 @@
     "test:reuse:ui5:navigationBar": "npx wdio ./tests/reuse/ui5/navigationBar/test.navigationBar.conf.js",
     "test:reuse:ui5:session": "npx wdio ./tests/reuse/ui5/session/test.session.conf.js",
     "test:reuse:ui5:userInteraction": "npx wdio ./tests/reuse/ui5/userInteraction/test.userInteraction.conf.js",
-    "test:reuse:ui5": "npm run test:reuse:ui5:assertion && npm run test:reuse:ui5:confirmationDialog && npm run test:reuse:ui5:control && npm run test:reuse:ui5:date && npm run test:reuse:ui5:element && npm run test:reuse:ui5:element:errorDialog && npm run test:reuse:ui5:element:formatter && npm run test:reuse:ui5:element:navigation && npm run test:reuse:ui5:element:navigationBar && npm run test:reuse:ui5:element:session && npm run && npm run test:reuse:ui5:element:userInteraction",
+    "test:reuse:ui5": "npm run test:reuse:ui5:assertion && npm run test:reuse:ui5:confirmationDialog && npm run test:reuse:ui5:control && npm run test:reuse:ui5:date && npm run test:reuse:ui5:element && npm run test:reuse:ui5:errorDialog && npm run test:reuse:ui5:element:formatter && npm run test:reuse:ui5:element:navigation && npm run test:reuse:ui5:element:navigationBar && npm run test:reuse:ui5:element:session && npm run && npm run test:reuse:ui5:element:userInteraction",
     "test:reuse:util:browser": "npx wdio ./tests/reuse/util/browser/test.browser.conf.js",
     "test:reuse:util:dialogInteraction": "npx wdio ./tests/reuse/util/dialogInteraction/test.dialogInteraction.conf.js",
     "test:reuse:util:formatter": "npx wdio ./tests/reuse/util/formatter/test.formatter.conf.js",
