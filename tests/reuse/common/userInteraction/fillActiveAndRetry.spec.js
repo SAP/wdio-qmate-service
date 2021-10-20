@@ -2,7 +2,7 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("userInteraction - fill active and retry", function () {
+describe("userInteraction - fillActiveAndRetry", function () {
 
   let value;
   let actualValue;
@@ -36,7 +36,7 @@ describe("userInteraction - fill active and retry", function () {
   });
 });
 
-describe("userInteraction - fillActiveAndRetry element with invalid selector", function () {
+describe("userInteraction - fillActiveAndRetry - invalid selector", function () {
 
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html");
@@ -56,7 +56,7 @@ describe("userInteraction - fillActiveAndRetry element with invalid selector", f
   });
 });
 
-describe("userInteraction - fillActiveAndRetry element with number", function () {
+describe("userInteraction - fillActiveAndRetry - element with number", function () {
 
   let value;
   let actualValue;
@@ -89,7 +89,7 @@ describe("userInteraction - fillActiveAndRetry element with number", function ()
   });
 });
 
-describe("userInteraction - fillActiveAndRetry element with empty value", function () {
+describe("userInteraction - fillActiveAndRetry - empty value", function () {
 
   let value;
   let actualValue;
@@ -121,7 +121,7 @@ describe("userInteraction - fillActiveAndRetry element with empty value", functi
   });
 });
 
-describe("userInteraction - fillActiveAndRetry form field", function () {
+describe("userInteraction - fillActiveAndRetry - form field", function () {
   let element;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
@@ -150,7 +150,7 @@ describe("userInteraction - fillActiveAndRetry form field", function () {
   });
 });
 
-describe("userInteraction - fillActiveAndRetry with empty value", function () {
+describe("userInteraction - fillActiveAndRetry - empty value", function () {
   let element;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
@@ -168,17 +168,5 @@ describe("userInteraction - fillActiveAndRetry with empty value", function () {
   it("Verification", async function () {
     // Check the form field itself
     await nonUi5.assertion.expectValueToBe(element, "", "value");
-  });
-});
-
-describe("userInteraction - fillActiveAndRetry a button (unhappy case)", function () {
-  it("Preparation", async function () {
-    await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
-  });
-
-  it("Execution and Verification", async function () {
-    // Active element is random
-    await expect(common.userInteraction.fillActiveAndRetry("New test value"))
-      .rejects.toThrow("Retries done. Failed to execute the function: invalid element state");
   });
 });
