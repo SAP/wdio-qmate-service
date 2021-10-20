@@ -105,7 +105,7 @@
     "test:legacyReuse:utilities:formatter": "npx wdio ./tests/legacyReuse/utilities/formatter/test.formatter.conf.js",
     "test:legacyReuse:utilities": "npm run test:legacyReuse:utilities:browser && npm run test:legacyReuse:utilities:dialogInteraction && npm run test:legacyReuse:utilities:formatter",
     "test:reuse": "npm run test:reuse:common && npm run test:reuse:nonUi5 && npm run test:reuse:ui5 && npm run test:reuse:util",
-    "test": "npm run test:authenticator && npm run test:core && npm run test:reuse"
+    "test": "npm run test:authenticator:staticLogin && npm run test:core && npm run test:reuse"
   },
   "homepage": "https://github.tools.sap/sProcurement/wdio-qmate-service",
   "repository": {
