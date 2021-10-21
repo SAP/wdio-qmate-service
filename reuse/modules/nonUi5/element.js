@@ -125,8 +125,37 @@ const Element = function () {
       }
       return displayedElements;
     } catch (error) {
-      throw new Error(`Function 'getDisplayedElements' failed. No visible element found for selector '${selector}' after ${timeout/1000}s. ` + error);
+      throw new Error(`Function 'getDisplayedElements' failed. No visible element found for selector '${selector}' after ${timeout / 1000}s. ` + error);
     }
+  };
+
+  /**
+ * @function getAll
+ * @memberOf nonUi5.element
+ * @description Returns all elements found by the given selector despite visible or not.
+ * @param {Object} selector - The CSS selector describing the element.
+ * @param {Number} [timeout=30000] - The timeout to wait (ms).
+ * @example const hiddenElements = await nonUi5.element.getAll(".sapUiInvisibleText");
+ *          const isPresent = await nonUi5.element.isElementPresent(hiddenElements[0]);
+ *          await common.assertion.expectTrue(isPresent);
+ */
+  this.getAll = async function (selector, timeout = 30000) {
+    let elems = null;
+    let count = null;
+    try {
+      await browser.waitUntil(async function () {
+        elems = await $$(selector);
+        if (!elems) return false;
+        count = elems.length;
+        return count > 0;
+      }, {
+        timeout: timeout,
+        timeoutMsg: `No elements found for selector '${selector}' after ${timeout / 1000}s`
+      });
+    } catch (error) {
+      throw new Error("Function 'getAll' failed. Browser wait exception. " + error);
+    }
+    return count > 0 ? elems : null;
   };
 
   /**
