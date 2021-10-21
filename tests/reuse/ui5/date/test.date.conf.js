@@ -13,7 +13,6 @@ exports.config = merge(qmateConfiguration.config, {
 
   exclude: [],
 
-  reporters: ["spec"],
 
   mochaOpts: {
     timeout: 2000000,

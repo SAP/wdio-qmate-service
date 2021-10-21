@@ -5,10 +5,8 @@ describe("assertion - isElementPresent for list item element", function () {
   });
 
   it("Execution and Verification", async function () {
-    const itemElements = await non_ui5.common.locator.waitForAllElements(".sapMSLITitleOnly=Computer System Accessories");
-    non_ui5.common.assertion.expectDefined(itemElements);
-    non_ui5.common.assertion.expectDefined(itemElements.length);
-    const isPresent = await non_ui5.common.assertion.isElementPresent(itemElements[0]);
+    const itemElement = await nonUi5.element.getElementByCss(".sapMSLITitleOnly=Computer System Accessories");
+    const isPresent = await non_ui5.common.assertion.isElementPresent(itemElement);
     await non_ui5.common.assertion.expectTrue(isPresent);
   });
 });

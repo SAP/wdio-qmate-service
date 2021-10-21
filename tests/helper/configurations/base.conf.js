@@ -1,7 +1,10 @@
 const WdioQmateService = require("../../../index");
 const WdioCodeCoverageService = require("@wdio/qmate-code-coverage-service");
 exports.config = {
-  services: [[WdioQmateService], [WdioCodeCoverageService]],
+  services: [
+    [WdioQmateService],
+    [WdioCodeCoverageService]
+  ],
   //
   // ====================
   // Runner Configuration
@@ -106,7 +109,15 @@ exports.config = {
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter.html
   reporters: [
-    "spec"
+    [
+      "spec",
+      {
+        symbols: {
+          passed: "[PASS]",
+          failed: "[ASIF]",
+        },
+      },
+    ]
   ],
 
   //
