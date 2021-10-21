@@ -136,8 +136,8 @@ const Element = function () {
  * @param {Object} selector - The CSS selector describing the element.
  * @param {Number} [timeout=30000] - The timeout to wait (ms).
  * @example const hiddenElements = await nonUi5.element.getAll(".sapUiInvisibleText");
- *          const isPresent = await nonUi5.element.isElementPresent(hiddenElements[0]);
- *          await common.assertion.expectTrue(isPresent);
+ * const isPresent = await nonUi5.element.isElementPresent(hiddenElements[0]);
+ * await common.assertion.expectTrue(isPresent);
  */
   this.getAll = async function (selector, timeout = 30000) {
     let elems = null;
