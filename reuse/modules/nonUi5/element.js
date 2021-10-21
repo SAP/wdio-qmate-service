@@ -155,7 +155,7 @@ const Element = function () {
     } catch (error) {
       throw new Error("Function 'getAll' failed. Browser wait exception. " + error);
     }
-    return count > 0 ? elems : null;
+    return elems;
   };
 
   /**
