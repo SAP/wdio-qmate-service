@@ -88,7 +88,7 @@
     "test:legacyReuse:nonUi5:navigation": "npx wdio ./tests/legacyReuse/nonUi5/navigation/test.navigation.conf.js",
     "test:legacyReuse:nonUi5:userInteraction": "npx wdio ./tests/legacyReuse/nonUi5/userInteraction/test.userInteraction.conf.js",
     "test:legacyReuse:nonUi5": "npm run test:legacyReuse:nonUi5:assertion && npm run test:legacyReuse:nonUi5:locator && npm run test:legacyReuse:nonUi5:navigation && npm run test:legacyReuse:nonUi5:userInteraction",
-    "test:legacyReuse:ui5:assert  ion": "npx wdio ./tests/legacyReuse/ui5/specs/assertion/test.assertion.conf.js",
+    "test:legacyReuse:ui5:assertion": "npx wdio ./tests/legacyReuse/ui5/specs/assertion/test.assertion.conf.js",
     "test:legacyReuse:ui5:client": "npx wdio ./tests/legacyReuse/ui5/specs/client/test.client.conf.js",
     "test:legacyReuse:ui5:confirmationDialog": "npx wdio ./tests/legacyReuse/ui5/specs/confirmationDialog/test.confirmationDialog.conf.js",
     "test:legacyReuse:ui5:date": "npx wdio ./tests/legacyReuse/ui5/specs/date/test.date.conf.js",
