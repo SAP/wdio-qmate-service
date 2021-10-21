@@ -1,27 +1,11 @@
-echo "Run 'npm ci' in root folder"
-npm ci
+echo "1. Run 'npm i' in root folder"
+npm i
 echo ''
-echo "Run 'npm run chromedriver-upgrade' in root folder"
-npm run chromedriver-upgrade
-echo ''
-cd ./tests
-
-echo "List test folders"
-echo
-for d in */ ; do
-  if [[ $d != "helper/" ]]
-  then
-    echo "$d"
-  fi
-done
-for d in */ ; do
-    if [[ $d != "helper/" ]]
-    then
-      echo
-      echo "$d" " test folder"
-      cd $d
-
-      echo "Run tests"
-      npm run test
-    fi
-done
+echo "2. set environment variables for chromedriver"
+export CHROMEDRIVER_PORT=4444
+export CHROMEDRIVER_FILEPATH=/usr/bin/chromedriver
+echo "Run tests"
+node -v
+npm -v
+npm i npx
+npx wdio ./tests/reuse/nonUi5/assertion/test.assertion.conf.js

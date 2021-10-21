@@ -34,6 +34,6 @@ describe("locator - getElementByChild and catch error", function () {
 
   it("Execution and Verification", async function () {
     await expect(nonUi5.element.getElementByChild(".form01", ".input01"))
-      .rejects.toThrow("Function 'getElementByCss' failed");
+      .rejects.toThrow("Function 'getElementByChild' failed");
   });
 });
