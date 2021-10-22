@@ -1,53 +1,39 @@
-# Qmate WDIO service
-
-Is an easy-to-use UI and E2E test automation [custom service](https://webdriver.io/docs/customservices/) based on [Webdriver.io](https://webdriver.io/).
+# qmate service (WebdriverIO)
+Qmate-service Is an easy-to-use UI and E2E test automation [custom service](https://webdriver.io/docs/customservices/) based on [Webdriver.io](https://webdriver.io/).
 It provides helpful reuse methods for any web application to write scripts more easily.
 
 
-[Documentation is in process]
-
-
-## Why wdio-qmate-service?
-
-`wdio-qmate-service` allows you to use all the native webdriver.io commands and features, 
-providing access to [Reuse API](./reuse/doc.md).
-
-`wdio-qmate-service` provides you more flexibility than [qmate](https://github.tools.sap/sProcurement/qmate).
-
-
-#### It allows you to choose WDIO features you prefer :
-- [frameworks](https://webdriver.io/docs/frameworks/) (jasmin, mocha, cucumber), 
-- compilers ([typescript](https://webdriver.io/docs/typescript/#compile--lint), [babel](https://webdriver.io/docs/babel/)), 
-- reporters ([allure](https://webdriver.io/docs/allure-reporter), [html](https://webdriver.io/docs/rpii-wdio-html-reporter) etc.)
-- [assertion libraries](https://webdriver.io/docs/assertion)
-- services ([selenium](https://webdriver.io/docs/selenium-standalone-service), [chromedriver](https://webdriver.io/docs/wdio-chromedriver-service), [devtools](https://webdriver.io/docs/devtools-service) etc.)
-- add logic to [WDIO hooks](https://webdriver.io/docs/options/#hooks)
-
 ## Quicklinks
-
-[MIGRATION GUIDE](./documentation/topics/migration.md) |
 [Reuse API](./reuse/doc.md) |
-[Business Object Reuse](https://github.wdf.sap.corp/sProcurement/vyperBusinessObjectReuse) |
 [Samples](documentation/downloads/samples) |
+[Business Object Reuse](https://github.wdf.sap.corp/sProcurement/vyperBusinessObjectReuse) |
 [Spotlight - Chrome Extension](https://github.wdf.sap.corp/sProcurement/vyper-spotlight)
 
 
-
 ## Table Of Contents
-- [Actions & Reuse](./documentation/topics/actionsAndReuse.md)
-
-- [Data](./documentation/topics/data.md)
-
-- [Data Exchange](./documentation/topics/dataImportExport.md)
-
-- [Qmate UI5 Locators](./documentation/topics/locators.md)
-
-- [Authentication](./documentation/topics/authentication.md)
-
+- [Setup & Installation](./documentation/topics/setupAndInstallation.md)
+- [Native Features](./documentation/topics/nativeFeatures.md)
+- Custom Features
+  - [Reuse](./documentation/topics/reuse.md)
+  - [Authentication](./documentation/topics/authentication.md)
+  - [Data Exchange](./documentation/topics/dataImportExport.md)
+  - [OData](./documentation/topics/odata.md) 
+- Custom Services
+    - [wdio-qmate-reporter-service](https://github.tools.sap/sProcurement/wdio-qmate-reporter-service)
+    - [wdio-qmate-bo-reuse-service](https://github.tools.sap/sProcurement/wdio-qmate-bo-reuse-service)
+    - [wdio-qmate-code-coverage-service](https://github.tools.sap/sProcurement/wdio-qmate-code-coverage-service)
+- [Selectors](./documentation/topics/selectors.md)
 - [Contribution](./documentation/topics/contribution.md)
 
-- [OData](./documentation/topics/OData.md)
+---
 
+## About
+### Native wdio- and qmate common reuse API
+*wdio-qmate-service* allows you to use all the native webdriver.io commands and features and
+provides additionally access to the qmate [Reuse API](./reuse/doc.md).
+
+### Flexibility / Advanced Setup
+Compared to [qmate](https://github.tools.sap/sProcurement/qmate) - which covers all related custom services like common reuse, reporting etc. out of the box, *wdio-qmate-service* provides you more flexibility to enable only the services and [features](#Native_Features) you require and is intended as more advanced setup. 
 
 
 ## Getting started
@@ -66,13 +52,13 @@ npx wdio config
 Examples of selections for `npx wdio config` command
 
 1) chrome+mocha
-![chrome+mocha](documentation/downloads/samples/mochaFramework/wdioConfigurationHelper.PNG)
+![chrome+mocha](documentation/downloads/samples/nativeFeatures/mochaFramework/wdioConfigurationHelper.PNG)
 
 2) chrome+jasmin
-![chrome+jasmin](documentation/downloads/samples/jasmineFramework/wdioConfigurationHelper.PNG)
+![chrome+jasmin](documentation/downloads/samples/nativeFeatures/jasmineFramework/wdioConfigurationHelper.PNG)
 
 3) selenium+jasmin
-![selenium+jasmin](documentation/downloads/samples/seleniumStandalone/wdioConfigurationHelper.PNG)
+![selenium+jasmin](documentation/downloads/samples/nativeFeatures/seleniumStandalone/wdioConfigurationHelper.PNG)
 
 
 
@@ -115,9 +101,9 @@ npm install @wdio/qmate-service@1.1.5 --save-dev
 
 **1.** Test specification file 'test.spec.js'.
 
-```bash
+```js
 describe("My first test", function() {
-  it("step1:click on the first standard item", async function() {
+  it("Step 01: click on the first standard item", async function() {
     await browser.url("#/categories");
     const selector = {
       "elementProperties":{
@@ -127,7 +113,7 @@ describe("My first test", function() {
     await ui5.common.userInteraction.click(selector);
   });
 
-  it("step1:navigate back to main page", async function() {
+  it("Step 02: navigate back to main page", async function() {
     const selector = {
       "elementProperties":{
         "metadata":"sap.m.Button",
@@ -168,15 +154,15 @@ Note: do not use [implicit import](https://github.tools.sap/sProcurement/wdio-qm
 ```js
 exports.config = {
 ...
-    services: [
-                ["qmate"], // does not work
-                ...
-    ]
+  services: [
+    ["qmate"], // does not work
+    ...
+  ]
 ...
 }
 ```
 
-Please, have a look at WDIO [test tunnner configuration](https://webdriver.io/docs/configurationfile/) for all parameters
+Please, have a look at WDIO [test runner configuration](https://webdriver.io/docs/configurationfile/) for all parameters
 or use provided configuration [templates](tests/helper/configurations)
 
 **Step 5** Run tests:
@@ -185,32 +171,17 @@ or use provided configuration [templates](tests/helper/configurations)
 npx wdio <path/to/your/config.js>
 ```
 
-## Samples and tests
-
-`qmate-service` can be integrated with wdio available frameworks/features:
-- [Jasmine tests](documentation/downloads/samples/jasmineFramework)
-- [Mocha tests](documentation/downloads/samples/mochaFramework)
-- [Cucumber tests](documentation/downloads/samples/cucumberFramework)
-- [Typescript tests](documentation/downloads/samples/typescriptSupport)
-- [Sync tests](documentation/downloads/samples/syncSupport)
-- [Selenium-standalone tests](documentation/downloads/samples/seleniumStandalone)
-
-
 ---
-### Notes
 
-1. If you face such error `command not found: wdio`, remove your package-lock.json, run `npm cache clean --force` and run `npm install`.
-   We moved `@wdio/cli` from `dependencies` to `devDependencies`, so you  just to refresh your local dependencies and cache.
-   
-2. Please, use `npx wdio <config file>` instead of `wdio <config file>`.
+## Contact
+### Marvin Grüßinger
+⌂ Walldorf - Germany\
+✉ marvin.gruessinger@sap.com
 
-If you see an error 
-```
-'wdio' is not recognized as an internal or external command,
-operable program or batch file.
-```
+### Benjamin Warth
+⌂ Walldorf - Germany\
+✉ benjamin.warth@sap.com
 
-it means you try to use `wdio` as a command to execute tests suite.
-
-
-3. It is not required to run `npm i` in root package, if you want to run tests ß there is no dependencies in wdio-qmate-service (only devDependencie)
+### Georgios Treska
+⌂ Walldorf - Germany\
+✉ georgios.treska@sap.com
