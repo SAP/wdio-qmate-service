@@ -14,9 +14,9 @@ It provides helpful reuse methods for any web application to write scripts more 
 - [Setup & Installation](./documentation/topics/setupAndInstallation.md)
 - [Native Features](./documentation/topics/nativeFeatures.md)
 - Custom Features
-  - [Reuse](./reuse.md)
-  - [Authentication](./authentication.md)
-  - [Data Exchange](./dataImportExport.md)
+  - [Reuse](./documentation/topics/reuse.md)
+  - [Authentication](./documentation/topics/authentication.md)
+  - [Data Exchange](./documentation/topics/dataImportExport.md)
   - [OData](./documentation/topics/odata.md) 
 - Custom Services
     - [wdio-qmate-reporter-service](https://github.tools.sap/sProcurement/wdio-qmate-reporter-service)
