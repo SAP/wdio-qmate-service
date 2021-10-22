@@ -124,6 +124,12 @@
   "license": "ISC",
   "dependencies": {
     "@sap_oss/odata-library": "^0.10.2",
+    "curl": "^0.1.4",
+    "fs-extra": "^10.0.0",
+    "path": "^0.12.7",
+    "yargs": "^17.1.1"
+  },
+  "devDependencies": {
     "@wdio/cli": "^7.12.5",
     "@wdio/local-runner": "^7.12.4",
     "@wdio/mocha-framework": "^7.12.4",
@@ -131,16 +137,12 @@
     "@wdio/selenium-standalone-service": "^7.12.5",
     "@wdio/spec-reporter": "^7.10.1",
     "@wdio/static-server-service": "^7.10.1",
+    "wdio-chromedriver-service": "^7.2.0",
     "chai": "^4.3.4",
-    "chromedriver": "^93.0.1",
-    "curl": "^0.1.4",
+    "npx": "^10.2.2",
+    "jsdoc-to-markdown": "^5.0.3",
     "eslint": "^6.8.0",
     "eslint-plugin-wdio": "^6.0.12",
-    "fs-extra": "^10.0.0",
-    "jsdoc-to-markdown": "^5.0.3",
-    "npx": "^10.2.2",
-    "path": "^0.12.7",
-    "wdio-chromedriver-service": "^7.2.0",
-    "yargs": "^17.1.1"
+    "chromedriver": "^93.0.1"
   }
 }
