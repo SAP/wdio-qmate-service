@@ -53,13 +53,13 @@ npx wdio config
 Examples of selections for `npx wdio config` command
 
 1) chrome+mocha
-![chrome+mocha](documentation/downloads/samples/mochaFramework/wdioConfigurationHelper.PNG)
+![chrome+mocha](documentation/downloads/samples/nativeFeatures/mochaFramework/wdioConfigurationHelper.PNG)
 
 2) chrome+jasmin
-![chrome+jasmin](documentation/downloads/samples/jasmineFramework/wdioConfigurationHelper.PNG)
+![chrome+jasmin](documentation/downloads/samples/nativeFeatures/jasmineFramework/wdioConfigurationHelper.PNG)
 
 3) selenium+jasmin
-![selenium+jasmin](documentation/downloads/samples/seleniumStandalone/wdioConfigurationHelper.PNG)
+![selenium+jasmin](documentation/downloads/samples/nativeFeatures/seleniumStandalone/wdioConfigurationHelper.PNG)
 
 
 
