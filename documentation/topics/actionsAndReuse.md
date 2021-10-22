@@ -9,7 +9,7 @@ Please find a detailed overview of all our reuse functions with descriptions and
 - Make use of our [Reuse Methods](../../reuse/doc.md) 
 whenever possible, to provide stability and support for future improvements and changes.
 
-- If you ar missing any functionality, please don't hesitate to [Contact](./contact.md) us. We will continuously improve our reuse to your needs, if possible.
+- If you are missing any functionality, please don't hesitate to [Contact](./contact.md) us. We will continuously improve our reuse to your needs, if possible.
 
 ## Namespaces
 To give a better overview of all functionalities we split them into several namespaces, starting with the UI technologies to use, followed by the category of action.

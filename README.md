@@ -1,30 +1,9 @@
-# Qmate WDIO service
-
-Is an easy-to-use UI and E2E test automation [custom service](https://webdriver.io/docs/customservices/) based on [Webdriver.io](https://webdriver.io/).
+# Qmate service (WebdriverIO)
+Qmate-service Is an easy-to-use UI and E2E test automation [custom service](https://webdriver.io/docs/customservices/) based on [Webdriver.io](https://webdriver.io/).
 It provides helpful reuse methods for any web application to write scripts more easily.
 
 
-[Documentation is in process]
-
-
-## Why wdio-qmate-service?
-
-`wdio-qmate-service` allows you to use all the native webdriver.io commands and features, 
-providing access to [Reuse API](./reuse/doc.md).
-
-`wdio-qmate-service` provides you more flexibility than [qmate](https://github.tools.sap/sProcurement/qmate).
-
-
-#### It allows you to choose WDIO features you prefer :
-- [frameworks](https://webdriver.io/docs/frameworks/) (jasmin, mocha, cucumber), 
-- compilers ([typescript](https://webdriver.io/docs/typescript/#compile--lint), [babel](https://webdriver.io/docs/babel/)), 
-- reporters ([allure](https://webdriver.io/docs/allure-reporter), [html](https://webdriver.io/docs/rpii-wdio-html-reporter) etc.)
-- [assertion libraries](https://webdriver.io/docs/assertion)
-- services ([selenium](https://webdriver.io/docs/selenium-standalone-service), [chromedriver](https://webdriver.io/docs/wdio-chromedriver-service), [devtools](https://webdriver.io/docs/devtools-service) etc.)
-- add logic to [WDIO hooks](https://webdriver.io/docs/options/#hooks)
-
 ## Quicklinks
-
 [MIGRATION GUIDE](./documentation/topics/migration.md) |
 [Reuse API](./reuse/doc.md) |
 [Business Object Reuse](https://github.wdf.sap.corp/sProcurement/vyperBusinessObjectReuse) |
@@ -32,21 +11,36 @@ providing access to [Reuse API](./reuse/doc.md).
 [Spotlight - Chrome Extension](https://github.wdf.sap.corp/sProcurement/vyper-spotlight)
 
 
-
 ## Table Of Contents
+- [Setup & Installation](./documentation/topics/setupAndInstallation.md)
+
+- [Native Features](./documentation/topics/nativeFeatures.md)
+
+- [Custom Features](./documentation/topics/customFeatures.md)
+  - [Reuse API](./documentation/topics/customFeatures/#Reuse_API.md)
+  - [Other Custom Services](./documentation/topics/customFeatures/#Other_Custom_Services)
+  - [Migration Tools](./documentation/topics/customFeatures/#Migration_Tools_for_Vyper)
+  
+- [Best Practices](./documentation/topics/bestPractices.md)
+
+
 - [Actions & Reuse](./documentation/topics/actionsAndReuse.md)
-
 - [Data](./documentation/topics/data.md)
-
 - [Data Exchange](./documentation/topics/dataImportExport.md)
-
 - [Qmate UI5 Locators](./documentation/topics/locators.md)
-
 - [Authentication](./documentation/topics/authentication.md)
-
 - [Contribution](./documentation/topics/contribution.md)
-
 - [OData](./documentation/topics/OData.md)
+
+
+## Why qmate service?
+### Native wdio- and qmate common reuse API
+*wdio-qmate-service* allows you to use all the native webdriver.io commands and features and
+provides additionally access to qmate [Reuse API](./reuse/doc.md).
+
+### Flexibility / Advanced Setup
+Compared to [qmate](https://github.tools.sap/sProcurement/qmate) - which covers all related custom services like common reuse, reporting etc. out of the box, *wdio-qmate-service* provides you more flexibility to enable only the services and [features](#Native_Features) you require and is intended as more advanced setup. 
+
 
 
 
