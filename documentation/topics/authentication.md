@@ -11,7 +11,7 @@ Which way to choose depends on your needs and preferences. If you are testing a 
 ## Via configuration file
 Inside the *conf.js* file You can specify how the script will automatically log into the system. This will only be executed once before the first script is being executed. Hence, we recommend to use this only if you are not switching between multiple users or systems during the test execution.
 
-There are multiple options to set the ```formType``` of the [Configuration](./configuration.md).
+There are multiple options to set the ```formType``` of the [Configuration](TODO).
 
 ### Fiori Login
 Use this configuration for the Fiori login.
@@ -75,7 +75,7 @@ Main advantage here is, that you are able to use the login/logout multiple times
 
 You can use the following methods.
 
-### Fiori Login
+### [Fiori Login](https://github.tools.sap/sProcurement/wdio-qmate-service/blob/main/documentation/doc.md#ui5.session.loginFiori)
 Use this method for the Fiori login.
 
 ![fiori-form](../sources/images/fiori_form.PNG)
@@ -85,12 +85,12 @@ If the password for this user differs from the standard password *super-duper-se
 
 ```javascript
 it("Step 01: login Fiori", async function () {
-    await ui5.common.session.loginFiori("PURCHASER");
-    // await ui5.common.session.loginFiori("JOHNDOE", "abc123");
+    await ui5.session.loginFiori("PURCHASER");
+    // await ui5.session.loginFiori("JOHNDOE", "abc123");
 });
 ```
 
-### SAP Cloud Login
+### [SAP Cloud Login](https://github.tools.sap/sProcurement/wdio-qmate-service/blob/main/documentation/doc.md#ui5.session.loginSapCloud)
 Use this method for the SAP Cloud login.
 
 ![sapcloud-form](../sources/images/sapCloud_form.PNG)
@@ -100,12 +100,21 @@ If the password for this user differs from the standard password *super-duper-se
 
 ```javascript
 it("Step 01: login Sap Cloud", async function () {
-    await ui5.common.session.loginSapCloud("PURCHASER");
-    // await ui5.common.session.loginSapCloud("JOHNDOE", "abc123");
+    await ui5.session.loginSapCloud("PURCHASER");
+    // await ui5.session.loginSapCloud("JOHNDOE", "abc123");
 });
 ```
 
-### Custom Login
+### [Generic Login](https://github.tools.sap/sProcurement/wdio-qmate-service/blob/main/documentation/doc.md#ui5.session.login)
+Generic login which automatically detects the correct form-type (fiori, sap-cloud) and performs the login.
+
+```javascript
+it("Step 01: login Generic", async function () {
+    await ui5.session.login("PURCHASER", "super-duper-sensitive-pw");
+  });
+```
+
+### [Custom Login](https://github.tools.sap/sProcurement/wdio-qmate-service/blob/main/documentation/doc.md#ui5.session.loginCustom)
 If you want to define your own custom form, you can use the following method.
 
 Define the step (at the top of your script) and pass the ```username```, ```password```, ```usernameFieldSelector```, ```passwordFieldSelector``` 
@@ -113,15 +122,15 @@ and ```logonButtonSelector```. Therefore set the CSS selectors of the correspond
 
 ```javascript
 it("Step 01: login Custom", async function () {
-    await ui5.common.session.loginCustom("PURCHASER", "super-duper-sensitive-pw", "#USERNAME_BLOCK input", "#PASSWORD_BLOCK input", "#LOGIN_LINK");
+    await ui5.session.loginCustom("PURCHASER", "super-duper-sensitive-pw", "#USERNAME_BLOCK input", "#PASSWORD_BLOCK input", "#LOGIN_LINK");
   });
 ```
 
-### Logout
+### [Logout](https://github.tools.sap/sProcurement/wdio-qmate-service/blob/main/documentation/doc.md#ui5.session.logout)
 To logout from a S/4HANA system, please use the following method.
 ```javascript
-it("Step X: logout", async function () {
-    await ui5.common.session.logout();
+it("Step XX: logout", async function () {
+    await ui5.session.logout();
 });
 ```
 
