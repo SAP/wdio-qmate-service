@@ -22,8 +22,7 @@ It provides helpful reuse methods for any web application to write scripts more 
     - [wdio-qmate-reporter-service](https://github.tools.sap/sProcurement/wdio-qmate-reporter-service)
     - [wdio-qmate-bo-reuse-service](https://github.tools.sap/sProcurement/wdio-qmate-bo-reuse-service)
     - [wdio-qmate-code-coverage-service](https://github.tools.sap/sProcurement/wdio-qmate-code-coverage-service)
-- [UI5 Selectors](./documentation/topics/locators.md)
-- [Non UI5 Elements](./documentation/topics/locators.md)
+- [Selectors](./documentation/topics/selectors.md)
 - [Contribution](./documentation/topics/contribution.md)
 
 ---
@@ -102,9 +101,9 @@ npm install @wdio/qmate-service@1.1.5 --save-dev
 
 **1.** Test specification file 'test.spec.js'.
 
-```bash
+```js
 describe("My first test", function() {
-  it("step1:click on the first standard item", async function() {
+  it("Step 01: click on the first standard item", async function() {
     await browser.url("#/categories");
     const selector = {
       "elementProperties":{
@@ -114,7 +113,7 @@ describe("My first test", function() {
     await ui5.common.userInteraction.click(selector);
   });
 
-  it("step1:navigate back to main page", async function() {
+  it("Step 02: navigate back to main page", async function() {
     const selector = {
       "elementProperties":{
         "metadata":"sap.m.Button",
@@ -155,10 +154,10 @@ Note: do not use [implicit import](https://github.tools.sap/sProcurement/wdio-qm
 ```js
 exports.config = {
 ...
-    services: [
-                ["qmate"], // does not work
-                ...
-    ]
+  services: [
+    ["qmate"], // does not work
+    ...
+  ]
 ...
 }
 ```

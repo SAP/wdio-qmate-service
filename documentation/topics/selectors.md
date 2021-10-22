@@ -1,15 +1,15 @@
-# UI5 Locators
+# Selectors
 To perform any action to an element (e.g. clicking a button) you need to specify the element at which the action is being executed. This differs from the web technology you use. Read the following instructions, depending on the UI technology of the application to be tested. 
 
 ## UI5
 
 ### Defining the selector
-To write tests for any UI5 application, we provide a Chrome Extension to find the element selector. Please find the instructions under the section [Chrome Extension](./setupAndInstallation.md#Configure Chromedriver). This tool will generate the locator (ui5ControlProperties) with all the necessary properties. 
+To write tests for any UI5 application, we provide a Chrome Extension to find the element selector. Please find the instructions under the section [Chrome Extension](./setupAndInstallation.md#Configure Chromedriver). This tool will generate the selector (selector) with all the necessary properties. 
 
 ### Supported Selector Properties
 The supported properties for any UI5 based application are the following:
 ```javascript
-const ui5ControlProperties = {
+const selector = {
 	"elementProperties": { ... },
 	"ancestorProperties": { ... },
 	"parentProperties": { ... },
@@ -21,7 +21,7 @@ const ui5ControlProperties = {
 };
 ```
 
-The locator consists of one mandatory selector called **elementProperties**, representing the target element that the action should be applied and seven optional selectors (Grouped by relevance):  
+The selector consists of one mandatory selector called **elementProperties**, representing the target element that the action should be applied and seven optional selectors (Grouped by relevance):  
 
 - **ancestorProperties, parentProperties** : Both these selectors depict the ancestor and parent control properties, used to locate the element. The difference between parent and ancestor is, that the parent can be used only as direct parent, whereas the ancestor can be used for any level of ancestry (parent, grandparent, grand-grand etc.).
 
@@ -104,8 +104,8 @@ Qmate allows nesting of properties:
 For almost every UI5 action we provide, you can pass the selector directly to the function like:
 ```javascript
 it("Step 01: click on 'Accept' button", async function () {
-	const ui5ControlProperties = { [...] };
-	await ui5.common.userInteraction.click(ui5ControlProperties);
+	const selector = { [...] };
+	await ui5.common.userInteraction.click(selector);
 });
 ```
 
@@ -115,16 +115,16 @@ it("Step 01: click on 'Accept' button", async function () {
 For all non UI5 applications you can define the element in different ways. We provide all common functionalities to get an element by its ID, Class or any other CSS attribute. Hence, you can not pass any selector directly to the function performing an action. Instead, you have to define the element first with one of our [Reuse functions](reuse/doc.md#nonUi5.element.getElementByCss). 
 ```javascript
 // Get an element by its ID
-const elem = await non_ui5.common.locator.getElementById("button-abc");
+const elem = await nonUI5.element.getElementById("button-abc");
 
 // Get an element by its class (pass an index if there are more than one elements with the same class)
-const elem = await non_ui5.common.locator.getElementByClass(".button", 0);
+const elem = await nonUI5.element.getElementByClass(".button", 0);
 
 // Get an element by its attribute value of "title"
-const elem = await non_ui5.common.locator.getElementByCss("input[title='name']");
+const elem = await nonUI5.element.getElementByCss("input[title='name']");
 
 // Get an element by its class and text value
-const elem = await non_ui5.common.locator.getElementByCssContainingText(".button", "Accept");
+const elem = await nonUI5.element.getElementByCssContainingText(".button", "Accept");
 ```
 > 🛈 There are more possibilities of getting the element. You will find them in our [Reuse API](reuse/doc.md#nonUi5.element.getElementByCss). 
 
@@ -149,7 +149,7 @@ $$("[<attr>='<attrValue>']");
 To perform the action, pass the defined element to the action function.
 ```javascript
 it("Step 01: click on 'Accept' button", async function () {
-	const elem = await non_ui5.common.locator.getElementByCss(".acceptButton");
-	await non_ui5.common.userInteraction.click(elem);
+	const elem = await nonUI5.element.getElementByCss(".acceptButton");
+	await nonUI5.userInteraction.click(elem);
 });
 ```
