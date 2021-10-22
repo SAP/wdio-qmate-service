@@ -66,7 +66,7 @@ auth: {
 ```
 
 ## Via reuse methods
-The other way of system authentication, is to use our [reuse methods](https://github.tools.sap/sProcurement/wdio-qmate-service/blob/main/documentation/doc.md#ui5.common.session). 
+The other way of system authentication, is to use our [reuse methods](../../reuse/doc.md#ui5.common.session). 
 This is recommended in general, especially if you are switching between multiple users or systems during the test execution. 
 With this approach, you handle the login as a step within your script/s. 
 
@@ -75,7 +75,7 @@ Main advantage here is, that you are able to use the login/logout multiple times
 
 You can use the following methods.
 
-### [Fiori Login](https://github.tools.sap/sProcurement/wdio-qmate-service/blob/main/documentation/doc.md#ui5.session.loginFiori)
+### [Fiori Login](../../reuse/doc.md#ui5.session.loginFiori)
 Use this method for the Fiori login.
 
 ![fiori-form](../sources/images/fiori_form.PNG)
@@ -90,7 +90,7 @@ it("Step 01: login Fiori", async function () {
 });
 ```
 
-### [SAP Cloud Login](https://github.tools.sap/sProcurement/wdio-qmate-service/blob/main/documentation/doc.md#ui5.session.loginSapCloud)
+### [SAP Cloud Login](../../reuse/doc.md#ui5.session.loginSapCloud)
 Use this method for the SAP Cloud login.
 
 ![sapcloud-form](../sources/images/sapCloud_form.PNG)
@@ -105,7 +105,7 @@ it("Step 01: login Sap Cloud", async function () {
 });
 ```
 
-### [Generic Login](https://github.tools.sap/sProcurement/wdio-qmate-service/blob/main/documentation/doc.md#ui5.session.login)
+### [Generic Login](../../reuse/doc.md#ui5.session.login)
 Generic login which automatically detects the correct form-type (fiori, sap-cloud) and performs the login.
 
 ```javascript
@@ -114,7 +114,7 @@ it("Step 01: login Generic", async function () {
   });
 ```
 
-### [Custom Login](https://github.tools.sap/sProcurement/wdio-qmate-service/blob/main/documentation/doc.md#ui5.session.loginCustom)
+### [Custom Login](../../reuse/doc.md#ui5.session.loginCustom)
 If you want to define your own custom form, you can use the following method.
 
 Define the step (at the top of your script) and pass the ```username```, ```password```, ```usernameFieldSelector```, ```passwordFieldSelector``` 
@@ -126,7 +126,7 @@ it("Step 01: login Custom", async function () {
   });
 ```
 
-### [Logout](https://github.tools.sap/sProcurement/wdio-qmate-service/blob/main/documentation/doc.md#ui5.session.logout)
+### [Logout](../../reuse/doc.md#ui5.session.logout)
 To logout from a S/4HANA system, please use the following method.
 ```javascript
 it("Step XX: logout", async function () {
