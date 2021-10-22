@@ -10,7 +10,7 @@ It provides helpful reuse methods for any web application to write scripts more 
 ## Why wdio-qmate-service?
 
 `wdio-qmate-service` allows you to use all the native webdriver.io commands and features, 
-providing an access to [Reuse API](https://github.wdf.sap.corp/sProcurement/vyperForAll/blob/master/reuse/doc.md).
+providing access to [Reuse API](./reuse/doc.md).
 
 `wdio-qmate-service` provides you more flexibility than [qmate](https://github.tools.sap/sProcurement/qmate).
 
@@ -25,9 +25,8 @@ providing an access to [Reuse API](https://github.wdf.sap.corp/sProcurement/vype
 
 ## Quicklinks
 
-[MIGRATION GUIDE](./documentation/topics/migration.md)
-
-[Reuse API](https://github.wdf.sap.corp/sProcurement/vyperForAll/blob/master/reuse/doc.md) |
+[MIGRATION GUIDE](./documentation/topics/migration.md) |
+[Reuse API](./reuse/doc.md) |
 [Business Object Reuse](https://github.wdf.sap.corp/sProcurement/vyperBusinessObjectReuse) |
 [Samples](documentation/downloads/samples) |
 [Spotlight - Chrome Extension](https://github.wdf.sap.corp/sProcurement/vyper-spotlight)
@@ -35,17 +34,19 @@ providing an access to [Reuse API](https://github.wdf.sap.corp/sProcurement/vype
 
 
 ## Table Of Contents
-- [Actions & Reuse](https://github.wdf.sap.corp/sProcurement/vyperForAll/blob/master/documentation/topics/actionsAndReuse.md)
+- [Actions & Reuse](./documentation/topics/actionsAndReuse.md)
 
-- [Data](https://github.wdf.sap.corp/sProcurement/vyperForAll/blob/master/documentation/topics/data.md)
+- [Data](./documentation/topics/data.md)
 
-- [Data Exchange](https://github.wdf.sap.corp/sProcurement/vyperForAll/blob/master/documentation/topics/dataImportExport.md)
+- [Data Exchange](./documentation/topics/dataImportExport.md)
 
-- [Authentication](https://github.wdf.sap.corp/sProcurement/vyperForAll/blob/master/documentation/topics/authentication.md)
+- [Qmate UI5 Locators](./documentation/topics/locators.md)
 
-- [Contribution](documentation/topics/contribution.md)
+- [Authentication](./documentation/topics/authentication.md)
 
-- [OData](https://github.wdf.sap.corp/sProcurement/vyperForAll/blob/master/documentation/topics/OData.md)
+- [Contribution](./documentation/topics/contribution.md)
+
+- [OData](./documentation/topics/OData.md)
 
 
 
@@ -176,7 +177,7 @@ exports.config = {
 ```
 
 Please, have a look at WDIO [test tunnner configuration](https://webdriver.io/docs/configurationfile/) for all parameters
-or use provided configuration [templates](tests/reuse/configurations)
+or use provided configuration [templates](tests/helper/configurations)
 
 **Step 5** Run tests:
 
