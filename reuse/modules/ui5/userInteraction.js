@@ -510,7 +510,7 @@ const UserInteraction = function () {
 
     if (await tokenizers && await tokenizers.length) {
       await ui5.userInteraction.selectAll(selector, index, timeout);
-      await ui5.userInteraction.pressBackspace();
+      await common.userInteraction.pressBackspace();
     }
   }
 

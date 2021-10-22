@@ -53,7 +53,5 @@ exports.config = merge(qmateConfiguration.config, {
       }
       ]
     }]
-  ],
-
-  reporters: ["spec"],
+  ]
 });

@@ -13,6 +13,8 @@ exports.config = merge(baseConfig.config, {
       // to run chrome headless the following flags are required
       // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
       args: [
+        "--output=/dev/null",
+        "--log-level=3",
         "--no-sandbox",
         "--ignore-certificate-errors",
         "--window-size=1920,1200",

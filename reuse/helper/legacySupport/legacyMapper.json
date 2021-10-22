@@ -33,7 +33,7 @@
   },
   {
     "old": "utilities.qUnit",
-    "new": "util.qunit"
+    "new": "ui5.qunit"
   },
   {
     "old": "ui5.common",
@@ -256,6 +256,10 @@
   {
     "old": "non_ui5.common.locator.getValue",
     "new": "nonUi5.element.getAttributeValue"
+  },
+  {
+    "old": "ui5.common.appIntents",
+    "new": "ui5.appIntents"
   },
   {
     "old": "non_ui5.common.assertion.expectValue",
