@@ -1,10 +1,10 @@
-# Qmate service (WebdriverIO)
+# qmate service (WebdriverIO)
 Qmate-service Is an easy-to-use UI and E2E test automation [custom service](https://webdriver.io/docs/customservices/) based on [Webdriver.io](https://webdriver.io/).
 It provides helpful reuse methods for any web application to write scripts more easily.
 
 
 ## Quicklinks
-[MIGRATION GUIDE](./documentation/topics/migration.md) |
+[Migration Guide](./documentation/topics/migration.md) |
 [Reuse API](./reuse/doc.md) |
 [Business Object Reuse](https://github.wdf.sap.corp/sProcurement/vyperBusinessObjectReuse) |
 [Samples](documentation/downloads/samples) |
@@ -15,9 +15,14 @@ It provides helpful reuse methods for any web application to write scripts more 
 - [Setup & Installation](./documentation/topics/setupAndInstallation.md)
 
 - [Native Features](./documentation/topics/nativeFeatures.md)
+  - [Frameworks](./documentation/topics/nativeFeatures.md#Frameworks)
+  - [Compilers](./documentation/topics/nativeFeatures.md#Compilers)
+  - [Reporter](./documentation/topics/nativeFeatures.md#Reporter)
+  - [Assertion Libraries](./documentation/topics/nativeFeatures.md#Assertion_Libraries)
+  - [Services](./documentation/topics/nativeFeatures.md#Services)
 
 - [Custom Features](./documentation/topics/customFeatures.md)
-  - [Reuse API](./documentation/topics/customFeatures/#Reuse_API.md)
+  - [Reuse API](./documentation/topics/customFeatures#Reuse_API.md)
   - [Other Custom Services](./documentation/topics/customFeatures/#Other_Custom_Services)
   - [Migration Tools](./documentation/topics/customFeatures/#Migration_Tools_for_Vyper)
   
