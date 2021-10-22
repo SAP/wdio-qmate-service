@@ -1,4 +1,4 @@
-# Locators
+# UI5 Locators
 To perform any action to an element (e.g. clicking a button) you need to specify the element at which the action is being executed. This differs from the web technology you use. Read the following instructions, depending on the UI technology of the application to be tested. 
 
 ## UI5
