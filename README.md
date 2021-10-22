@@ -30,16 +30,12 @@ It provides helpful reuse methods for any web application to write scripts more 
 ## About
 ### Native wdio- and qmate common reuse API
 *wdio-qmate-service* allows you to use all the native webdriver.io commands and features and
-provides additionally access to qmate [Reuse API](./reuse/doc.md).
+provides additionally access to the qmate [Reuse API](./reuse/doc.md).
 
 ### Flexibility / Advanced Setup
 Compared to [qmate](https://github.tools.sap/sProcurement/qmate) - which covers all related custom services like common reuse, reporting etc. out of the box, *wdio-qmate-service* provides you more flexibility to enable only the services and [features](#Native_Features) you require and is intended as more advanced setup. 
 
 ## Contact
-### Georgios Treska
-⌂ Walldorf - Germany\
-✉ georgios.treska@sap.com
-
 ### Marvin Grüßinger
 ⌂ Walldorf - Germany\
 ✉ marvin.gruessinger@sap.com
@@ -47,3 +43,7 @@ Compared to [qmate](https://github.tools.sap/sProcurement/qmate) - which covers 
 ### Benjamin Warth
 ⌂ Walldorf - Germany\
 ✉ benjamin.warth@sap.com
+
+### Georgios Treska
+⌂ Walldorf - Germany\
+✉ georgios.treska@sap.com
