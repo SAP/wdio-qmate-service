@@ -17,7 +17,7 @@ It provides helpful reuse methods for any web application to write scripts more 
   - [Reuse](./reuse.md)
   - [Authentication](./authentication.md)
   - [Data Exchange](./dataImportExport.md)
-  - [OData](./documentation/topics/OData.md) 
+  - [OData](./documentation/topics/odata.md) 
 - Custom Services
     - [wdio-qmate-reporter-service](https://github.tools.sap/sProcurement/wdio-qmate-reporter-service)
     - [wdio-qmate-bo-reuse-service](https://github.tools.sap/sProcurement/wdio-qmate-bo-reuse-service)
