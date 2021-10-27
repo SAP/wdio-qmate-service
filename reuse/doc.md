@@ -659,8 +659,7 @@ await util.browser.sleep(30000);
 <a name="util.browser.collectCoverage"></a>
 
 #### browser.collectCoverage()
-Collects and stores the coverage information before a hard browser event (logout, clear history),
-also useful when parallelizing multiple specs and need to aggregate the coverage information
+Collects and stores the coverage information before a hard browser event (logout, clear history),also useful when parallelizing multiple specs and need to aggregate the coverage information
 
 **Kind**: static method of [<code>browser</code>](#util.browser)  
 **Example**  
@@ -991,8 +990,7 @@ Slices the given string beginning at a specific substring.
 
 **Example**  
 ```js
-const sliced = util.formatter.sliceStringAt("prefixNR12345postfix", "NR", 7);
-// returns "NR12345"
+const sliced = util.formatter.sliceStringAt("prefixNR12345postfix", "NR", 7);// returns "NR12345"
 ```
 <a name="util.formatter.sliceStringAfter"></a>
 
@@ -1010,8 +1008,7 @@ Slices the given string after a specific substring.
 
 **Example**  
 ```js
-const sliced = util.formatter.sliceStringAfter("prefixNR12345postfix", "NR", 5);
-// returns "12345"
+const sliced = util.formatter.sliceStringAfter("prefixNR12345postfix", "NR", 5);// returns "12345"
 ```
 <a name="util.formatter.trimString"></a>
 
@@ -1026,8 +1023,7 @@ Removes whitespace from both sides of the given string.
 
 **Example**  
 ```js
-const trimmed = util.formatter.trimString("   value ");
-// returns "value"
+const trimmed = util.formatter.trimString("   value ");// returns "value"
 ```
 <a name="util.formatter.extractNumberFromString"></a>
 
@@ -1044,13 +1040,11 @@ Extracts all numbers from a string.
 
 **Example**  
 ```js
-const extracted = util.formatter.extractNumberFromString("prefixNR12345postfix");
-// returns "12345"
+const extracted = util.formatter.extractNumberFromString("prefixNR12345postfix");// returns "12345"
 ```
 **Example**  
 ```js
-const extracted = util.formatter.extractNumberFromString("first12345 someText second 20 abc", 1);
-// returns "20"
+const extracted = util.formatter.extractNumberFromString("first12345 someText second 20 abc", 1);// returns "20"
 ```
 <a name="util.formatter.stringifyJSON"></a>
 
@@ -1100,9 +1094,7 @@ formats date.
 
 **Example**  
 ```js
-const date = new Date(2020, 0, 17);
-const formattedDate = util.formatter.formatDate(date, "mm/dd/yyyy");
-// returns "01/17/2020"
+const date = new Date(2020, 0, 17);const formattedDate = util.formatter.formatDate(date, "mm/dd/yyyy");// returns "01/17/2020"
 ```
 <a name="util.function"></a>
 
@@ -1134,9 +1126,7 @@ await util.function.retry(ui5.userInteraction.fill, [selector, value], 4, 10000)
 ```
 **Example**  
 ```js
-await util.function.retry(async () => {
- await ui5.userInteraction.fill(selector, "ABC");
-}, [], 2, 30000);
+await util.function.retry(async () => { await ui5.userInteraction.fill(selector, "ABC");}, [], 2, 30000);
 ```
 <a name="util.function.executeOptional"></a>
 
@@ -1156,9 +1146,7 @@ await util.function.executeOptional(ui5.userInteraction.fill, [selector, value])
 ```
 **Example**  
 ```js
-await util.function.executeOptional(async () => {
- await ui5.userInteraction.fill(selector, "ABC");
-}, []);
+await util.function.executeOptional(async () => { await ui5.userInteraction.fill(selector, "ABC");}, []);
 ```
 <a name="util.system"></a>
 
@@ -1220,17 +1208,16 @@ Global namespace for UI5 modules.
         * [.pickDateRange(selector, range)](#ui5.date.pickDateRange)
         * [.fillDateRange(selector, range)](#ui5.date.fillDateRange)
     * [.element](#ui5.element)
-        * [.waitForAllElements(selector, [timeout])](#ui5.element.waitForAllElements)
-        * [.getDisplayedElements(selector, [timeout])](#ui5.element.getDisplayedElements) ⇒ <code>Array.&lt;Object&gt;</code>
-        * [.getDisplayedElement(selector, [index], [timeout])](#ui5.element.getDisplayedElement) ⇒ <code>Object</code>
-        * [.getDisplayedChildElement(parentSelector, childSelector, [parentIndex], [childIndex], [timeout])](#ui5.element.getDisplayedChildElement) ⇒ <code>Object</code>
-        * [.getElementByText(selector, value, [index], [timeout])](#ui5.element.getElementByText) ⇒ <code>Object</code>
-        * [.getElementId(selector, [index], [timeout])](#ui5.element.getElementId) ⇒ <code>String</code>
+        * [.waitForAll(selector, [timeout])](#ui5.element.waitForAll)
+        * [.getAllDisplayed(selector, [timeout])](#ui5.element.getAllDisplayed) ⇒ <code>Array.&lt;Object&gt;</code>
+        * [.getDisplayed(selector, [index], [timeout])](#ui5.element.getDisplayed) ⇒ <code>Object</code>
+        * [.getByText(selector, value, [index], [timeout])](#ui5.element.getByText) ⇒ <code>Object</code>
+        * [.getId(selector, [index], [timeout])](#ui5.element.getId) ⇒ <code>String</code>
         * [.getPropertyValue(selector, property, [index], [timeout])](#ui5.element.getPropertyValue) ⇒ <code>String</code>
         * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
         * [.getBindingValue(selector, bindingContext, [index], [timeout])](#ui5.element.getBindingValue) ⇒ <code>String</code>
         * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
-        * [.highlightElement(selector, [duration], [color])](#ui5.element.highlightElement)
+        * [.highlight(selector, [duration], [color])](#ui5.element.highlight)
     * [.errorDialog](#ui5.errorDialog)
         * [.expectToBeVisible()](#ui5.errorDialog.expectToBeVisible)
         * [.clickClose()](#ui5.errorDialog.clickClose)
@@ -1772,11 +1759,7 @@ Executes a native UI5 action as callback function in the browser on the given UI
 
 **Example**  
 ```js
-const selector = {"elementProperties":{"metadata":"sap.m.StandardListItem", "id": "*categoryList-7"}};
-const args = {"property": "text"};
-const title = await ui5.control.execute(function (control, args, done) {
-  done(control.getProperty(args.property));
-}, selector, args);
+const selector = {"elementProperties":{"metadata":"sap.m.StandardListItem", "id": "*categoryList-7"}};const args = {"property": "text"};const title = await ui5.control.execute(function (control, args, done) {  done(control.getProperty(args.property));}, selector, args);
 ```
 <a name="ui5.control.getProperty"></a>
 
@@ -1792,10 +1775,7 @@ Gets the UI5 control property of the given element.
 
 **Example**  
 ```js
-const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};
-const elem = await ui5.control.locator.getDisplayedElement(selector);
-const propertyName = "title";
-const val = await ui5.control.getProperty(elem, propertyName);
+const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};const elem = await ui5.control.locator.getDisplayedElement(selector);const propertyName = "title";const val = await ui5.control.getProperty(elem, propertyName);
 ```
 <a name="ui5.control.getAggregationProperty"></a>
 
@@ -1811,10 +1791,7 @@ Gets the UI5 control aggregation property  of the given element.
 
 **Example**  
 ```js
-const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "items":[{"path":"/Categories"}] }};
-const elem = await ui5.control.locator.getDisplayedElement(selector);
-const propertyName = "tooltip";
-const val = await ui5.control.getAggregationProperty(elem, propertyName);
+const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "items":[{"path":"/Categories"}] }};const elem = await ui5.control.locator.getDisplayedElement(selector);const propertyName = "tooltip";const val = await ui5.control.getAggregationProperty(elem, propertyName);
 ```
 <a name="ui5.control.getAssociationProperty"></a>
 
@@ -1830,10 +1807,7 @@ Get UI control property
 
 **Example**  
 ```js
-const selector = { "elementProperties":{"metadata":"sap.m.MultiComboBox","mProperties":{}};
-const elem = await ui5.control.locator.getDisplayedElement(selector);
-const propertyName = "selectedItems";
-const propertyValue = await ui5.control.getAssociationProperty(elem, propertyName);
+const selector = { "elementProperties":{"metadata":"sap.m.MultiComboBox","mProperties":{}};const elem = await ui5.control.locator.getDisplayedElement(selector);const propertyName = "selectedItems";const propertyValue = await ui5.control.getAssociationProperty(elem, propertyName);
 ```
 <a name="ui5.control.getBindingContextPathProperty"></a>
 
@@ -1848,9 +1822,7 @@ Get UI control binding context path
 
 **Example**  
 ```js
-const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{"title":[{"path":"CategoryName"}] }};
-const elem = await ui5.control.locator.getDisplayedElement(selector);
-const context = await ui5.control.getBindingContextPathProperty(elem);
+const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{"title":[{"path":"CategoryName"}] }};const elem = await ui5.control.locator.getDisplayedElement(selector);const context = await ui5.control.getBindingContextPathProperty(elem);
 ```
 <a name="ui5.control.getPropertyBinding"></a>
 
@@ -1867,10 +1839,7 @@ Get UI control property
 
 **Example**  
 ```js
-const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};
-const elem = await ui5.control.locator.getDisplayedElement(selector);
-const propertyName = "title";
-const binding = await ui5.control.getPropertyBinding(elem, propertyName);
+const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};const elem = await ui5.control.locator.getDisplayedElement(selector);const propertyName = "title";const binding = await ui5.control.getPropertyBinding(elem, propertyName);
 ```
 <a name="ui5.date"></a>
 
@@ -1896,14 +1865,12 @@ Picks the passed date using the "DatePicker" with the given selector.
 
 **Example**  
 ```js
-const today = await common.date.calculateDate("today");
-await ui5.date.pickDate(selector, date);
+const today = await common.date.calculateDate("today");await ui5.date.pickDate(selector, date);
 ```
 <a name="ui5.date.pickDateRange"></a>
 
 #### date.pickDateRange(selector, range)
-Picks the passed date range using the "DatePicker" with the given selector.
-Note that this will only work within the current month!
+Picks the passed date range using the "DatePicker" with the given selector.Note that this will only work within the current month!
 
 **Kind**: static method of [<code>date</code>](#ui5.date)  
 
@@ -1914,10 +1881,7 @@ Note that this will only work within the current month!
 
 **Example**  
 ```js
-const start = await common.date.calculateDate("2020, 9, 20");
-const end = await common.date.calculateDate("2021, 1, 3");
-const range = [start, end];
-await ui5.date.pickDateRange(selector, range);
+const start = await common.date.calculateDate("2020, 9, 20");const end = await common.date.calculateDate("2021, 1, 3");const range = [start, end];await ui5.date.pickDateRange(selector, range);
 ```
 <a name="ui5.date.fillDateRange"></a>
 
@@ -1933,10 +1897,7 @@ Enters the passed date range to the date input with the given selector by provid
 
 **Example**  
 ```js
-const start = await common.date.calculateDate("2020, 9, 20", "dd.mm.yyyy");
-const end = await common.date.calculateDate("2021, 1, 3", "dd.mm.yyyy");
-const range = [start, end];
-await ui5.date.fillDateRange(selector, range);
+const start = await common.date.calculateDate("2020, 9, 20", "dd.mm.yyyy");const end = await common.date.calculateDate("2021, 1, 3", "dd.mm.yyyy");const range = [start, end];await ui5.date.fillDateRange(selector, range);
 ```
 <a name="ui5.element"></a>
 
@@ -1944,21 +1905,20 @@ await ui5.date.fillDateRange(selector, range);
 **Kind**: static class of [<code>ui5</code>](#ui5)  
 
 * [.element](#ui5.element)
-    * [.waitForAllElements(selector, [timeout])](#ui5.element.waitForAllElements)
-    * [.getDisplayedElements(selector, [timeout])](#ui5.element.getDisplayedElements) ⇒ <code>Array.&lt;Object&gt;</code>
-    * [.getDisplayedElement(selector, [index], [timeout])](#ui5.element.getDisplayedElement) ⇒ <code>Object</code>
-    * [.getDisplayedChildElement(parentSelector, childSelector, [parentIndex], [childIndex], [timeout])](#ui5.element.getDisplayedChildElement) ⇒ <code>Object</code>
-    * [.getElementByText(selector, value, [index], [timeout])](#ui5.element.getElementByText) ⇒ <code>Object</code>
-    * [.getElementId(selector, [index], [timeout])](#ui5.element.getElementId) ⇒ <code>String</code>
+    * [.waitForAll(selector, [timeout])](#ui5.element.waitForAll)
+    * [.getAllDisplayed(selector, [timeout])](#ui5.element.getAllDisplayed) ⇒ <code>Array.&lt;Object&gt;</code>
+    * [.getDisplayed(selector, [index], [timeout])](#ui5.element.getDisplayed) ⇒ <code>Object</code>
+    * [.getByText(selector, value, [index], [timeout])](#ui5.element.getByText) ⇒ <code>Object</code>
+    * [.getId(selector, [index], [timeout])](#ui5.element.getId) ⇒ <code>String</code>
     * [.getPropertyValue(selector, property, [index], [timeout])](#ui5.element.getPropertyValue) ⇒ <code>String</code>
     * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
     * [.getBindingValue(selector, bindingContext, [index], [timeout])](#ui5.element.getBindingValue) ⇒ <code>String</code>
     * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
-    * [.highlightElement(selector, [duration], [color])](#ui5.element.highlightElement)
+    * [.highlight(selector, [duration], [color])](#ui5.element.highlight)
 
-<a name="ui5.element.waitForAllElements"></a>
+<a name="ui5.element.waitForAll"></a>
 
-#### element.waitForAllElements(selector, [timeout])
+#### element.waitForAll(selector, [timeout])
 Waits for all elements matching the given selector.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
@@ -1970,11 +1930,11 @@ Waits for all elements matching the given selector.
 
 **Example**  
 ```js
-await ui5.element.waitForAllElements(selector);
+await ui5.element.waitForAll(selector);
 ```
-<a name="ui5.element.getDisplayedElements"></a>
+<a name="ui5.element.getAllDisplayed"></a>
 
-#### element.getDisplayedElements(selector, [timeout]) ⇒ <code>Array.&lt;Object&gt;</code>
+#### element.getAllDisplayed(selector, [timeout]) ⇒ <code>Array.&lt;Object&gt;</code>
 Returns the visible elements with the given selector.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
@@ -1987,11 +1947,11 @@ Returns the visible elements with the given selector.
 
 **Example**  
 ```js
-const elem = await ui5.element.getDisplayedElements(selector);
+const elem = await ui5.element.getAllDisplayed(selector);
 ```
-<a name="ui5.element.getDisplayedElement"></a>
+<a name="ui5.element.getDisplayed"></a>
 
-#### element.getDisplayedElement(selector, [index], [timeout]) ⇒ <code>Object</code>
+#### element.getDisplayed(selector, [index], [timeout]) ⇒ <code>Object</code>
 Returns the visible element.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
@@ -2005,31 +1965,11 @@ Returns the visible element.
 
 **Example**  
 ```js
-const elem = await ui5.element.getDisplayedElement(selector);
+const elem = await ui5.element.getDisplayed(selector);
 ```
-<a name="ui5.element.getDisplayedChildElement"></a>
+<a name="ui5.element.getByText"></a>
 
-#### element.getDisplayedChildElement(parentSelector, childSelector, [parentIndex], [childIndex], [timeout]) ⇒ <code>Object</code>
-Returns the element with the given selector that is a child element of a given parent.
-
-**Kind**: static method of [<code>element</code>](#ui5.element)  
-**Returns**: <code>Object</code> - The found child element.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| parentSelector | <code>Object</code> |  | The selector describing the parent element. |
-| childSelector | <code>Object</code> |  | The selector describing the child element. |
-| [parentIndex] | <code>Number</code> | <code>0</code> | The index of the parent selector (in case there are more than one elements visible at the same time). |
-| [childIndex] | <code>Number</code> | <code>0</code> | The index of the child selector (in case there are more than one elements visible at the same time). |
-| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-
-**Example**  
-```js
-const elem = await ui5.element.getDisplayedChildElement(parentSelector, childSelector);
-```
-<a name="ui5.element.getElementByText"></a>
-
-#### element.getElementByText(selector, value, [index], [timeout]) ⇒ <code>Object</code>
+#### element.getByText(selector, value, [index], [timeout]) ⇒ <code>Object</code>
 Returns the element with the given selector and text value.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
@@ -2044,11 +1984,11 @@ Returns the element with the given selector and text value.
 
 **Example**  
 ```js
-const elem = await ui5.element.getElementByText(selector, "Home");
+const elem = await ui5.element.getByText(selector, "Home");
 ```
-<a name="ui5.element.getElementId"></a>
+<a name="ui5.element.getId"></a>
 
-#### element.getElementId(selector, [index], [timeout]) ⇒ <code>String</code>
+#### element.getId(selector, [index], [timeout]) ⇒ <code>String</code>
 Returns the id of the element with the given selector.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
@@ -2062,7 +2002,7 @@ Returns the id of the element with the given selector.
 
 **Example**  
 ```js
-const elemId = await ui5.element.getElementId(selector);
+const elemId = await ui5.element.getId(selector);
 ```
 <a name="ui5.element.getPropertyValue"></a>
 
@@ -2138,9 +2078,9 @@ Determines if the element is visible.
 ```js
 const isVisible = await ui5.element.isVisible(selector);
 ```
-<a name="ui5.element.highlightElement"></a>
+<a name="ui5.element.highlight"></a>
 
-#### element.highlightElement(selector, [duration], [color])
+#### element.highlight(selector, [duration], [color])
 Highlights the element with the given selector.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
@@ -2153,7 +2093,7 @@ Highlights the element with the given selector.
 
 **Example**  
 ```js
-await ui5.element.highlightElement(selector, 3000, "green");
+await ui5.element.highlight(selector, 3000, "green");
 ```
 <a name="ui5.errorDialog"></a>
 
@@ -2703,9 +2643,7 @@ Navigates to the application with the passed queryParams via the passed intent.
 
 **Example**  
 ```js
-const intent = ui5.appIntents.managePurchaseOrders;
-const queryParams = "?sap-language=EN&responderOn=true";
-await ui5.navigation.navigateToApplicationWithQueryParams(intent, queryParams);
+const intent = ui5.appIntents.managePurchaseOrders;const queryParams = "?sap-language=EN&responderOn=true";await ui5.navigation.navigateToApplicationWithQueryParams(intent, queryParams);
 ```
 <a name="ui5.navigation.navigateToApplicationWithQueryParamsAndRetry"></a>
 
@@ -2725,9 +2663,7 @@ Navigates to the application via the passed intent, and retries in case it fails
 
 **Example**  
 ```js
-const intent = ui5.appIntents.managePurchaseOrders;
-const queryParams = "?sap-language=EN&responderOn=true";
-await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
+const intent = ui5.appIntents.managePurchaseOrders;const queryParams = "?sap-language=EN&responderOn=true";await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
 ```
 <a name="ui5.navigation.closePopups"></a>
 
@@ -2747,8 +2683,7 @@ await ui5.navigation.closePopups();
 <a name="ui5.navigation.expectUnsupportedNavigationPopup"></a>
 
 #### navigation.expectUnsupportedNavigationPopup(navigationTarget)
-Expects navigation to an app that is not supported.
-This can be the case for Mocked tests when the application does not exist or when the app is not included in a role.
+Expects navigation to an app that is not supported.This can be the case for Mocked tests when the application does not exist or when the app is not included in a role.
 
 **Kind**: static method of [<code>navigation</code>](#ui5.navigation)  
 
@@ -3025,14 +2960,12 @@ await ui5.session.switchUser("PURCHASER");
 ```
 **Example**  
 ```js
-const authenticator = ui5.authenticators.fioriForm;
-await ui5.session.switchUser("PURCHASER", "super-duper-sensitive-pw", authenticator, 30000);
+const authenticator = ui5.authenticators.fioriForm;await ui5.session.switchUser("PURCHASER", "super-duper-sensitive-pw", authenticator, 30000);
 ```
 <a name="ui5.session.expectLogoutText"></a>
 
 #### session.expectLogoutText()
-Expects the logout text after logout to be "You have been logged off.
-This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
+Expects the logout text after logout to be "You have been logged off.This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
 
 **Kind**: static method of [<code>session</code>](#ui5.session)  
 **Example**  
@@ -3108,8 +3041,7 @@ await ui5.userInteraction.clickAndRetry(selector);
 <a name="ui5.userInteraction.clickTab"></a>
 
 #### userInteraction.clickTab(selector, [index], [timeout])
-Clicks on the tab with the given selector and checks if the tab got selected successfully.
-The function retries the click for maximal 3 times if the selection of the tab (blue underline) was not successful.
+Clicks on the tab with the given selector and checks if the tab got selected successfully.The function retries the click for maximal 3 times if the selection of the tab (blue underline) was not successful.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3126,9 +3058,7 @@ await ui5.userInteraction.clickTab(selector);
 <a name="ui5.userInteraction.clickListItem"></a>
 
 #### userInteraction.clickListItem(selector, [index], [timeout])
-Clicks or opens the list item with the given selector (e.g. ColumnListItem, StandardListItem).
-In some cases the default click function is not working correctly (clicks an element within the list item).
-Therefore we recommend to use this function to open a specific list item.
+Clicks or opens the list item with the given selector (e.g. ColumnListItem, StandardListItem).In some cases the default click function is not working correctly (clicks an element within the list item).Therefore we recommend to use this function to open a specific list item.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3313,9 +3243,7 @@ await ui5.userInteraction.clearAndFillSmartFieldInputAndRetry(selector, "My Valu
 <a name="ui5.userInteraction.selectBox"></a>
 
 #### userInteraction.selectBox(selector, value, [index])
-Selects the passed value of the Select box.
-Please note that the function will only work for the default select Box.
-In special cases, please use the clickSelectArrow function.
+Selects the passed value of the Select box.Please note that the function will only work for the default select Box.In special cases, please use the clickSelectArrow function.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3332,9 +3260,7 @@ await ui5.userInteraction.selectBox(selector, "Germany");
 <a name="ui5.userInteraction.selectComboBox"></a>
 
 #### userInteraction.selectComboBox(selector, value, [index])
-Selects the passed value from the ComboBox with the given selector.
-Please note that the function will only work for the default ComboBox.
-In special cases you need to use the 'clickSelectArrow' function.
+Selects the passed value from the ComboBox with the given selector.Please note that the function will only work for the default ComboBox.In special cases you need to use the 'clickSelectArrow' function.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3351,9 +3277,7 @@ await ui5.userInteraction.selectComboBox(selector, "Germany");
 <a name="ui5.userInteraction.selectMultiComboBox"></a>
 
 #### userInteraction.selectMultiComboBox(selector, values, [index])
-Selects the passed values of the MultiComboBox with the given selector.
-Please note that the function will only work for the default MultiComboBox.
-In special cases, please use the clickSelectArrow function.
+Selects the passed values of the MultiComboBox with the given selector.Please note that the function will only work for the default MultiComboBox.In special cases, please use the clickSelectArrow function.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3457,8 +3381,7 @@ await ui5.userInteraction.openF4Help(selector, 0, 30000, false);
 <a name="ui5.userInteraction.searchFor"></a>
 
 #### userInteraction.searchFor(selector, [index], [timeout], useEnter)
-Searches for the passed value and executes the search.
-In case that the search is already filled, it will reset the field first.
+Searches for the passed value and executes the search.In case that the search is already filled, it will reset the field first.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3503,27 +3426,26 @@ Global namespace for non UI5 modules.
         * [.expectValueToBe(elem, compareValue)](#nonUi5.assertion.expectValueToBe)
         * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible)
     * [.element](#nonUi5.element)
-        * [.waitForAllElements(selector, [timeout])](#nonUi5.element.waitForAllElements)
-        * [.waitForElementIsPresent(selector, [timeout])](#nonUi5.element.waitForElementIsPresent)
-        * [.waitForElementIsVisible(selector, [timeout])](#nonUi5.element.waitForElementIsVisible)
-        * [.waitForElementIsClickable(selector, [timeout])](#nonUi5.element.waitForElementIsClickable)
-        * [.getDisplayedElements(selector, [timeout])](#nonUi5.element.getDisplayedElements) ⇒ <code>Array.&lt;Object&gt;</code>
+        * [.waitForAll(selector, [timeout])](#nonUi5.element.waitForAll)
+        * [.waitToBePresent(selector, [timeout])](#nonUi5.element.waitToBePresent)
+        * [.waitToBeVisible(selector, [timeout])](#nonUi5.element.waitToBeVisible)
+        * [.waitToBeClickable(selector, [timeout])](#nonUi5.element.waitToBeClickable)
+        * [.getAllDisplayed(selector, [timeout])](#nonUi5.element.getAllDisplayed) ⇒ <code>Array.&lt;Object&gt;</code>
         * [.getAll(selector, [timeout])](#nonUi5.element.getAll)
-        * [.getElementByCss(selector, [index], [timeout])](#nonUi5.element.getElementByCss) ⇒ <code>Object</code>
-        * [.getElementByCssContainingText(selector, [text], [index], [timeout])](#nonUi5.element.getElementByCssContainingText) ⇒ <code>Object</code>
-        * [.getElementById(id, [timeout])](#nonUi5.element.getElementById) ⇒ <code>Object</code>
-        * [.getElementByClass(elemClass, [index], [timeout])](#nonUi5.element.getElementByClass) ⇒ <code>Object</code>
-        * [.getElementByName(name, [index], [timeout])](#nonUi5.element.getElementByName) ⇒ <code>Object</code>
-        * [.getElementByXPath(xpath, [index], [timeout])](#nonUi5.element.getElementByXPath) ⇒ <code>Object</code>
-        * [.getElementByChild(elementSelector, childSelector)](#nonUi5.element.getElementByChild) ⇒ <code>Object</code>
-        * [.getChildNode(elementSelector, childSelector, [elementIndex], [childIndex], [timeout])](#nonUi5.element.getChildNode) ⇒ <code>Object</code>
+        * [.getByCss(selector, [index], [timeout])](#nonUi5.element.getByCss) ⇒ <code>Object</code>
+        * [.getByCssContainingText(selector, [text], [index], [timeout])](#nonUi5.element.getByCssContainingText) ⇒ <code>Object</code>
+        * [.getById(id, [timeout])](#nonUi5.element.getById) ⇒ <code>Object</code>
+        * [.getByClass(elemClass, [index], [timeout])](#nonUi5.element.getByClass) ⇒ <code>Object</code>
+        * [.getByName(name, [index], [timeout])](#nonUi5.element.getByName) ⇒ <code>Object</code>
+        * [.getByXPath(xpath, [index], [timeout])](#nonUi5.element.getByXPath) ⇒ <code>Object</code>
+        * [.getByChild(elementSelector, childSelector)](#nonUi5.element.getByChild) ⇒ <code>Object</code>
         * [.isVisible(element)](#nonUi5.element.isVisible) ⇒ <code>Boolean</code>
-        * [.isElementPresent(elem)](#nonUi5.element.isElementPresent) ⇒ <code>Boolean</code>
+        * [.isPresent(elem)](#nonUi5.element.isPresent) ⇒ <code>Boolean</code>
         * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
         * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
         * [.getAttributeValue(elem, [attribute])](#nonUi5.element.getAttributeValue) ⇒ <code>String</code>
         * [.getValue(elem)](#nonUi5.element.getValue) ⇒ <code>String</code>
-        * [.highlightElement(elem, [duration], [color])](#nonUi5.element.highlightElement)
+        * [.highlight(elem, [duration], [color])](#nonUi5.element.highlight)
         * [.switchToIframe(selector)](#nonUi5.element.switchToIframe)
         * [.switchToDefaultContent()](#nonUi5.element.switchToDefaultContent)
     * [.userInteraction](#nonUi5.userInteraction)
@@ -3566,13 +3488,11 @@ Expects the attributes value of the passed element to be the compare value.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.assertion.expectAttributeToBe(elem, "Save");
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.assertion.expectAttributeToBe(elem, "Save");
 ```
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.assertion.expectAttributeToBe(element, "Save", "title");
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.assertion.expectAttributeToBe(element, "Save", "title");
 ```
 <a name="nonUi5.assertion.expectValueToBe"></a>
 
@@ -3588,8 +3508,7 @@ Expects the attributes value of the passed element to be the compare value.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.assertion.expectValueToBe(elem, "Save");
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.assertion.expectValueToBe(elem, "Save");
 ```
 <a name="nonUi5.assertion.expectToBeVisible"></a>
 
@@ -3604,8 +3523,7 @@ Expects that the element is visible to the user.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.assertion.expectToBeVisible(elem);
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.assertion.expectToBeVisible(elem);
 ```
 <a name="nonUi5.element"></a>
 
@@ -3613,33 +3531,32 @@ await nonUi5.assertion.expectToBeVisible(elem);
 **Kind**: static class of [<code>nonUi5</code>](#nonUi5)  
 
 * [.element](#nonUi5.element)
-    * [.waitForAllElements(selector, [timeout])](#nonUi5.element.waitForAllElements)
-    * [.waitForElementIsPresent(selector, [timeout])](#nonUi5.element.waitForElementIsPresent)
-    * [.waitForElementIsVisible(selector, [timeout])](#nonUi5.element.waitForElementIsVisible)
-    * [.waitForElementIsClickable(selector, [timeout])](#nonUi5.element.waitForElementIsClickable)
-    * [.getDisplayedElements(selector, [timeout])](#nonUi5.element.getDisplayedElements) ⇒ <code>Array.&lt;Object&gt;</code>
+    * [.waitForAll(selector, [timeout])](#nonUi5.element.waitForAll)
+    * [.waitToBePresent(selector, [timeout])](#nonUi5.element.waitToBePresent)
+    * [.waitToBeVisible(selector, [timeout])](#nonUi5.element.waitToBeVisible)
+    * [.waitToBeClickable(selector, [timeout])](#nonUi5.element.waitToBeClickable)
+    * [.getAllDisplayed(selector, [timeout])](#nonUi5.element.getAllDisplayed) ⇒ <code>Array.&lt;Object&gt;</code>
     * [.getAll(selector, [timeout])](#nonUi5.element.getAll)
-    * [.getElementByCss(selector, [index], [timeout])](#nonUi5.element.getElementByCss) ⇒ <code>Object</code>
-    * [.getElementByCssContainingText(selector, [text], [index], [timeout])](#nonUi5.element.getElementByCssContainingText) ⇒ <code>Object</code>
-    * [.getElementById(id, [timeout])](#nonUi5.element.getElementById) ⇒ <code>Object</code>
-    * [.getElementByClass(elemClass, [index], [timeout])](#nonUi5.element.getElementByClass) ⇒ <code>Object</code>
-    * [.getElementByName(name, [index], [timeout])](#nonUi5.element.getElementByName) ⇒ <code>Object</code>
-    * [.getElementByXPath(xpath, [index], [timeout])](#nonUi5.element.getElementByXPath) ⇒ <code>Object</code>
-    * [.getElementByChild(elementSelector, childSelector)](#nonUi5.element.getElementByChild) ⇒ <code>Object</code>
-    * [.getChildNode(elementSelector, childSelector, [elementIndex], [childIndex], [timeout])](#nonUi5.element.getChildNode) ⇒ <code>Object</code>
+    * [.getByCss(selector, [index], [timeout])](#nonUi5.element.getByCss) ⇒ <code>Object</code>
+    * [.getByCssContainingText(selector, [text], [index], [timeout])](#nonUi5.element.getByCssContainingText) ⇒ <code>Object</code>
+    * [.getById(id, [timeout])](#nonUi5.element.getById) ⇒ <code>Object</code>
+    * [.getByClass(elemClass, [index], [timeout])](#nonUi5.element.getByClass) ⇒ <code>Object</code>
+    * [.getByName(name, [index], [timeout])](#nonUi5.element.getByName) ⇒ <code>Object</code>
+    * [.getByXPath(xpath, [index], [timeout])](#nonUi5.element.getByXPath) ⇒ <code>Object</code>
+    * [.getByChild(elementSelector, childSelector)](#nonUi5.element.getByChild) ⇒ <code>Object</code>
     * [.isVisible(element)](#nonUi5.element.isVisible) ⇒ <code>Boolean</code>
-    * [.isElementPresent(elem)](#nonUi5.element.isElementPresent) ⇒ <code>Boolean</code>
+    * [.isPresent(elem)](#nonUi5.element.isPresent) ⇒ <code>Boolean</code>
     * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
     * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
     * [.getAttributeValue(elem, [attribute])](#nonUi5.element.getAttributeValue) ⇒ <code>String</code>
     * [.getValue(elem)](#nonUi5.element.getValue) ⇒ <code>String</code>
-    * [.highlightElement(elem, [duration], [color])](#nonUi5.element.highlightElement)
+    * [.highlight(elem, [duration], [color])](#nonUi5.element.highlight)
     * [.switchToIframe(selector)](#nonUi5.element.switchToIframe)
     * [.switchToDefaultContent()](#nonUi5.element.switchToDefaultContent)
 
-<a name="nonUi5.element.waitForAllElements"></a>
+<a name="nonUi5.element.waitForAll"></a>
 
-#### element.waitForAllElements(selector, [timeout])
+#### element.waitForAll(selector, [timeout])
 Waits until all elements with the given selector are rendered.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -3651,11 +3568,11 @@ Waits until all elements with the given selector are rendered.
 
 **Example**  
 ```js
-await nonUi5.element.waitForAllElements(".inputField");
+await nonUi5.element.waitForAll(".inputField");
 ```
-<a name="nonUi5.element.waitForElementIsPresent"></a>
+<a name="nonUi5.element.waitToBePresent"></a>
 
-#### element.waitForElementIsPresent(selector, [timeout])
+#### element.waitToBePresent(selector, [timeout])
 Waits until the element with the given selector is present.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -3667,19 +3584,19 @@ Waits until the element with the given selector is present.
 
 **Example**  
 ```js
-await nonUi5.element.waitForElementIsPresent(".input01");
+await nonUi5.element.waitToBePresent(".input01");
 ```
 **Example**  
 ```js
-await nonUi5.element.waitForElementIsPresent("#button12");
+await nonUi5.element.waitToBePresent("#button12");
 ```
 **Example**  
 ```js
-await nonUi5.element.waitForElementIsPresent("p:first-child");
+await nonUi5.element.waitToBePresent("p:first-child");
 ```
-<a name="nonUi5.element.waitForElementIsVisible"></a>
+<a name="nonUi5.element.waitToBeVisible"></a>
 
-#### element.waitForElementIsVisible(selector, [timeout])
+#### element.waitToBeVisible(selector, [timeout])
 Waits until the element with the given selector is visible.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -3691,19 +3608,19 @@ Waits until the element with the given selector is visible.
 
 **Example**  
 ```js
-await nonUi5.element.waitForElementIsVisible(".input01");
+await nonUi5.element.waitToBeVisible(".input01");
 ```
 **Example**  
 ```js
-await nonUi5.element.waitForElementIsVisible("#button12");
+await nonUi5.element.waitToBeVisible("#button12");
 ```
 **Example**  
 ```js
-await nonUi5.element.waitForElementIsVisible("p:first-child");
+await nonUi5.element.waitToBeVisible("p:first-child");
 ```
-<a name="nonUi5.element.waitForElementIsClickable"></a>
+<a name="nonUi5.element.waitToBeClickable"></a>
 
-#### element.waitForElementIsClickable(selector, [timeout])
+#### element.waitToBeClickable(selector, [timeout])
 Waits until the element with the given selector is clickable.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -3715,19 +3632,19 @@ Waits until the element with the given selector is clickable.
 
 **Example**  
 ```js
-await nonUi5.element.waitForElementIsClickable(".input01");
+await nonUi5.element.waitToBeClickable(".input01");
 ```
 **Example**  
 ```js
-await nonUi5.element.waitForElementIsClickable("#button12");
+await nonUi5.element.waitToBeClickable("#button12");
 ```
 **Example**  
 ```js
-await nonUi5.element.waitForElementIsClickable("p:first-child");
+await nonUi5.element.waitToBeClickable("p:first-child");
 ```
-<a name="nonUi5.element.getDisplayedElements"></a>
+<a name="nonUi5.element.getAllDisplayed"></a>
 
-#### element.getDisplayedElements(selector, [timeout]) ⇒ <code>Array.&lt;Object&gt;</code>
+#### element.getAllDisplayed(selector, [timeout]) ⇒ <code>Array.&lt;Object&gt;</code>
 Gets all visible elements with the passed selector.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -3740,7 +3657,7 @@ Gets all visible elements with the passed selector.
 
 **Example**  
 ```js
-await nonUi5.element.getDisplayedElements(".inputField");
+await nonUi5.element.getAllDisplayed(".inputField");
 ```
 <a name="nonUi5.element.getAll"></a>
 
@@ -3756,13 +3673,11 @@ Returns all elements found by the given selector despite visible or not.
 
 **Example**  
 ```js
-const hiddenElements = await nonUi5.element.getAll(".sapUiInvisibleText");
-const isPresent = await nonUi5.element.isElementPresent(hiddenElements[0]);
-await common.assertion.expectTrue(isPresent);
+const hiddenElements = await nonUi5.element.getAll(".sapUiInvisibleText");const isPresent = await nonUi5.element.isPresent(hiddenElements[0]);await common.assertion.expectTrue(isPresent);
 ```
-<a name="nonUi5.element.getElementByCss"></a>
+<a name="nonUi5.element.getByCss"></a>
 
-#### element.getElementByCss(selector, [index], [timeout]) ⇒ <code>Object</code>
+#### element.getByCss(selector, [index], [timeout]) ⇒ <code>Object</code>
 Gets the element with the given CSS selector.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -3776,11 +3691,11 @@ Gets the element with the given CSS selector.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementByCss(".button01");
+const elem = await nonUi5.element.getByCss(".button01");
 ```
-<a name="nonUi5.element.getElementByCssContainingText"></a>
+<a name="nonUi5.element.getByCssContainingText"></a>
 
-#### element.getElementByCssContainingText(selector, [text], [index], [timeout]) ⇒ <code>Object</code>
+#### element.getByCssContainingText(selector, [text], [index], [timeout]) ⇒ <code>Object</code>
 Gets the element with the given CSS selector containing the given text value.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -3795,11 +3710,11 @@ Gets the element with the given CSS selector containing the given text value.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementByCssContainingText(".input01", "Jack Jackson");
+const elem = await nonUi5.element.getByCssContainingText(".input01", "Jack Jackson");
 ```
-<a name="nonUi5.element.getElementById"></a>
+<a name="nonUi5.element.getById"></a>
 
-#### element.getElementById(id, [timeout]) ⇒ <code>Object</code>
+#### element.getById(id, [timeout]) ⇒ <code>Object</code>
 Gets the element with the given ID.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -3812,11 +3727,11 @@ Gets the element with the given ID.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
+const elem = await nonUi5.element.getById("button01");
 ```
-<a name="nonUi5.element.getElementByClass"></a>
+<a name="nonUi5.element.getByClass"></a>
 
-#### element.getElementByClass(elemClass, [index], [timeout]) ⇒ <code>Object</code>
+#### element.getByClass(elemClass, [index], [timeout]) ⇒ <code>Object</code>
 Gets the element with the given class.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -3830,11 +3745,11 @@ Gets the element with the given class.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementByClass("button01");
+const elem = await nonUi5.element.getByClass("button01");
 ```
-<a name="nonUi5.element.getElementByName"></a>
+<a name="nonUi5.element.getByName"></a>
 
-#### element.getElementByName(name, [index], [timeout]) ⇒ <code>Object</code>
+#### element.getByName(name, [index], [timeout]) ⇒ <code>Object</code>
 Gets the element with the given name.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -3848,11 +3763,11 @@ Gets the element with the given name.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementByName(".button01");
+const elem = await nonUi5.element.getByName(".button01");
 ```
-<a name="nonUi5.element.getElementByXPath"></a>
+<a name="nonUi5.element.getByXPath"></a>
 
-#### element.getElementByXPath(xpath, [index], [timeout]) ⇒ <code>Object</code>
+#### element.getByXPath(xpath, [index], [timeout]) ⇒ <code>Object</code>
 Gets the element with the given XPath.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -3866,11 +3781,11 @@ Gets the element with the given XPath.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementByXPath("//ul/li/a");
+const elem = await nonUi5.element.getByXPath("//ul/li/a");
 ```
-<a name="nonUi5.element.getElementByChild"></a>
+<a name="nonUi5.element.getByChild"></a>
 
-#### element.getElementByChild(elementSelector, childSelector) ⇒ <code>Object</code>
+#### element.getByChild(elementSelector, childSelector) ⇒ <code>Object</code>
 Gets an element with the given CSS selector and child selector. Can be used when multiple elements have the same properties.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -3883,27 +3798,7 @@ Gets an element with the given CSS selector and child selector. Can be used when
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementByChild(".form01", ".input01");
-```
-<a name="nonUi5.element.getChildNode"></a>
-
-#### element.getChildNode(elementSelector, childSelector, [elementIndex], [childIndex], [timeout]) ⇒ <code>Object</code>
-Gets an child element of a specific element by CSS.
-
-**Kind**: static method of [<code>element</code>](#nonUi5.element)  
-**Returns**: <code>Object</code> - The found element.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| elementSelector | <code>String</code> |  | The CSS of the parent element (can be a class for example). |
-| childSelector | <code>String</code> |  | The CSS of the child element (can be a class for example). |
-| [elementIndex] | <code>Integer</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
-| [childIndex] | <code>Integer</code> | <code>0</code> | The index of the child element (in case there are more than one child elements visible at the same time). |
-| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-
-**Example**  
-```js
-const elem = await nonUi5.element.getChildNode("ul[class='list']", "li[class='firstItem']");
+const elem = await nonUi5.element.getByChild(".form01", ".input01");
 ```
 <a name="nonUi5.element.isVisible"></a>
 
@@ -3919,12 +3814,11 @@ Returns a boolean if the element is visible to the user.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.element.isVisible(elem);
+const elem = await nonUi5.element.getById("button01");await nonUi5.element.isVisible(elem);
 ```
-<a name="nonUi5.element.isElementPresent"></a>
+<a name="nonUi5.element.isPresent"></a>
 
-#### element.isElementPresent(elem) ⇒ <code>Boolean</code>
+#### element.isPresent(elem) ⇒ <code>Boolean</code>
 Returns a boolean if the element is present at the DOM or not.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -3936,8 +3830,7 @@ Returns a boolean if the element is present at the DOM or not.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.element.isElementPresent(elem);
+const elem = await nonUi5.element.getById("button01");await nonUi5.element.isPresent(elem);
 ```
 <a name="nonUi5.element.isPresentByCss"></a>
 
@@ -3989,13 +3882,11 @@ Returns the attributes value of the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("elem01");
-const text = await nonUi5.element.getAttributeValue(elem, "text");
+const elem = await nonUi5.element.getById("elem01");const text = await nonUi5.element.getAttributeValue(elem, "text");
 ```
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("elem02");
-const innerHTML = await nonUi5.element.getAttributeValue(elem);
+const elem = await nonUi5.element.getById("elem02");const innerHTML = await nonUi5.element.getAttributeValue(elem);
 ```
 <a name="nonUi5.element.getValue"></a>
 
@@ -4011,12 +3902,11 @@ Returns the value of the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("elem02");
-const innerHTML = await nonUi5.element.getValue(elem);
+const elem = await nonUi5.element.getById("elem02");const innerHTML = await nonUi5.element.getValue(elem);
 ```
-<a name="nonUi5.element.highlightElement"></a>
+<a name="nonUi5.element.highlight"></a>
 
-#### element.highlightElement(elem, [duration], [color])
+#### element.highlight(elem, [duration], [color])
 Highlights the passed element.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -4029,13 +3919,11 @@ Highlights the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("text01");
-await nonUi5.element.highlightElement(elem);
+const elem = await nonUi5.element.getById("text01");await nonUi5.element.highlight(elem);
 ```
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("text01");
-await nonUi5.element.highlightElement(elem, 3000, "green");
+const elem = await nonUi5.element.getById("text01");await nonUi5.element.highlight(elem, 3000, "green");
 ```
 <a name="nonUi5.element.switchToIframe"></a>
 
@@ -4096,8 +3984,7 @@ Clicks on the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.userInteraction.click(elem);
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.userInteraction.click(elem);
 ```
 <a name="nonUi5.userInteraction.clickAndRetry"></a>
 
@@ -4115,8 +4002,7 @@ Clicks on the passed element, retries in case it fails.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.userInteraction.clickAndRetry(elem);
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.userInteraction.clickAndRetry(elem);
 ```
 <a name="nonUi5.userInteraction.doubleClick"></a>
 
@@ -4132,8 +4018,7 @@ Double Clicks on the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.userInteraction.doubleClick(elem);
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.userInteraction.doubleClick(elem);
 ```
 <a name="nonUi5.userInteraction.rightClick"></a>
 
@@ -4149,8 +4034,7 @@ Right Clicks on the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("button01");
-await nonUi5.userInteraction.rightClick(elem);
+const elem = await nonUi5.element.getElementById("button01");await nonUi5.userInteraction.rightClick(elem);
 ```
 <a name="nonUi5.userInteraction.fill"></a>
 
@@ -4166,8 +4050,7 @@ Fills the given value into the passed input.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("input01");
-await nonUi5.userInteraction.fill(elem, "Service 01");
+const elem = await nonUi5.element.getElementById("input01");await nonUi5.userInteraction.fill(elem, "Service 01");
 ```
 <a name="nonUi5.userInteraction.fillAndRetry"></a>
 
@@ -4185,8 +4068,7 @@ Fills the given value into the passed input, retries in case of a failure.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("input01");
-await nonUi5.userInteraction.fillAndRetry(elem, "Service 01");
+const elem = await nonUi5.element.getElementById("input01");await nonUi5.userInteraction.fillAndRetry(elem, "Service 01");
 ```
 <a name="nonUi5.userInteraction.clear"></a>
 
@@ -4201,8 +4083,7 @@ Clears the passed input element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("input01");
-await nonUi5.userInteraction.clear(elem);
+const elem = await nonUi5.element.getElementById("input01");await nonUi5.userInteraction.clear(elem);
 ```
 <a name="nonUi5.userInteraction.clearAndRetry"></a>
 
@@ -4219,8 +4100,7 @@ Clears the passed input element, retries in case of a failure.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("input01", 10000);
-await nonUi5.userInteraction.clearAndRetry(elem);
+const elem = await nonUi5.element.getElementById("input01", 10000);await nonUi5.userInteraction.clearAndRetry(elem);
 ```
 <a name="nonUi5.userInteraction.clearAndFill"></a>
 
@@ -4236,8 +4116,7 @@ Clears and fills the passed input element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("input01");
-await nonUi5.userInteraction.clearAndFill(elem, "Service 01");
+const elem = await nonUi5.element.getElementById("input01");await nonUi5.userInteraction.clearAndFill(elem, "Service 01");
 ```
 <a name="nonUi5.userInteraction.clearAndFillAndRetry"></a>
 
@@ -4256,8 +4135,7 @@ Clears and fills the passed input, retries in case it fails.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("input01");
-await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
+const elem = await nonUi5.element.getElementById("input01");await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
 ```
 <a name="nonUi5.userInteraction.scrollToElement"></a>
 
@@ -4273,8 +4151,7 @@ Scrolls to the passed element to get it into view.
 
 **Example**  
 ```js
-const elem = await nonUi5.userInteraction.getElementById("footer01");
-await nonUi5.userInteraction.scrollToElement(elem);
+const elem = await nonUi5.userInteraction.getElementById("footer01");await nonUi5.userInteraction.scrollToElement(elem);
 ```
 <a name="nonUi5.userInteraction.dragAndDrop"></a>
 
@@ -4294,8 +4171,7 @@ const elem = await nonUi5.element.getElementById("drag01");
 ```
 **Example**  
 ```js
-const targetElem = await nonUi5.element.getElementById("drop02");
-await nonUi5.userInteraction.dragAndDrop(elem, targetElem);
+const targetElem = await nonUi5.element.getElementById("drop02");await nonUi5.userInteraction.dragAndDrop(elem, targetElem);
 ```
 <a name="nonUi5.userInteraction.moveCursorAndClick"></a>
 
@@ -4310,8 +4186,7 @@ Moves the cursor to the target element and clicks on it. Can be used for charts.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getElementById("chartPartToClick");
-await nonUi5.userInteraction.moveCursorAndClick(elem);
+const elem = await nonUi5.element.getElementById("chartPartToClick");await nonUi5.userInteraction.moveCursorAndClick(elem);
 ```
 <a name="service"></a>
 
