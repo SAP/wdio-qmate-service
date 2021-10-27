@@ -21,29 +21,29 @@ const Element = function () {
   
   // =================================== GET ELEMENTS ===================================
   /**
-   * @function getAll
+   * @function getAllDisplayed
    * @memberOf ui5.element
    * @description Returns the visible elements with the given selector.
    * @param {Object} selector - The selector describing the elements.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object[]} - The found elements.
-   * @example const elem = await ui5.element.getAll(selector);
+   * @example const elem = await ui5.element.getAllDisplayed(selector);
    */
-  this.getAll = async function (selector, timeout = 30000) {
+  this.getAllDisplayed = async function (selector, timeout = 30000) {
     return browser.uiControls(selector, timeout);
   };
 
   /**
-   * @function get
+   * @function getDisplayed
    * @memberOf ui5.element
    * @description Returns the visible element.
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
-   * @example const elem = await ui5.element.get(selector);
+   * @example const elem = await ui5.element.getDisplayed(selector);
    */
-  this.get = async function (selector, index = 0, timeout = 30000) {
+  this.getDisplayed = async function (selector, index = 0, timeout = 30000) {
     const elems = await browser.uiControls(selector, timeout);
     if (index < 0 || elems.length <= index) {
       throw new Error(`Index out of bound. Trying to access element at index: ${index}, ` +
@@ -64,7 +64,7 @@ const Element = function () {
    * @example const elem = await ui5.element.getByText(selector, "Home");
    */
   this.getByText = async function (selector, value, index = 0, timeout = 30000) {
-    const elements = await this.getAll(selector, timeout);
+    const elements = await this.getAllDisplayed(selector, timeout);
     const elementsWithText = [];
     try {
       for (const element of elements) {
@@ -100,7 +100,7 @@ const Element = function () {
    * @example const elemId = await ui5.element.getId(selector);
    */
   this.getId = async function (selector, index = 0, timeout = 30000) {
-    const elem = await this.get(selector, index, timeout);
+    const elem = await this.getDisplayed(selector, index, timeout);
     return elem.getAttribute("id");
   };
 
@@ -117,7 +117,7 @@ const Element = function () {
    */
   this.getPropertyValue = async function (selector, property, index = 0, timeout = 30000) {
     try {
-      const elem = await this.get(selector, index, timeout);
+      const elem = await this.getDisplayed(selector, index, timeout);
       return String(await elem.getUI5Property(property));
     } catch (error) {
       throw new Error("getPropertyValue() failed with " + error);
@@ -155,7 +155,7 @@ const Element = function () {
    * @example const elemBindingValue = await ui5.element.getBindingValue(selector, "InvoiceGrossAmount");
    */
   this.getBindingValue = async function (selector, bindingContext, index = 0, timeout = 30000) {
-    const elem = await this.get(selector, index, timeout);
+    const elem = await this.getDisplayed(selector, index, timeout);
     return browser.controlActionInBrowser(function (control, property, done) {
       done(control.getBinding(property).getValue());
     }, elem, bindingContext);
@@ -192,7 +192,7 @@ const Element = function () {
    * @example await ui5.element.highlight(selector, 3000, "green");
    */
   this.highlight = async function (selector, duration = 2000, color = "red") {
-    const elem = await this.get(selector);
+    const elem = await this.getDisplayed(selector);
     if (elem) {
       await browser.executeScript(`arguments[0].style.boxShadow = 'inset 0px 0px 0px 2px ${color}'`, [elem]);
       await browser.pause(duration);

@@ -33,16 +33,16 @@ const Element = function () {
   };
 
   /**
-   * @function waitForPresent
+   * @function waitToBePresent
    * @memberOf nonUi5.element
    * @description Waits until the element with the given selector is present.
    * @param {Object} selector - The CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await nonUi5.element.waitForPresent(".input01");
-   * @example await nonUi5.element.waitForPresent("#button12");
-   * @example await nonUi5.element.waitForPresent("p:first-child");
+   * @example await nonUi5.element.waitToBePresent(".input01");
+   * @example await nonUi5.element.waitToBePresent("#button12");
+   * @example await nonUi5.element.waitToBePresent("p:first-child");
    */
-  this.waitForPresent = async function (selector, timeout = 30000) {
+  this.waitToBePresent = async function (selector, timeout = 30000) {
     let elem = null;
     await browser.waitUntil(async function () {
       elem = await $(selector);
@@ -51,21 +51,21 @@ const Element = function () {
       return await elem.isExisting();
     }, {
       timeout,
-      timeoutMsg: `Function 'waitForPresent' failed. Timeout by waiting for element for selector '${selector}' is present at the DOM.`
+      timeoutMsg: `Function 'waitToBePresent' failed. Timeout by waiting for element for selector '${selector}' is present at the DOM.`
     });
   };
 
   /**
-   * @function waitForVisible
+   * @function waitToBeVisible
    * @memberOf nonUi5.element
    * @description Waits until the element with the given selector is visible.
    * @param {Object} selector - The CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await nonUi5.element.waitForVisible(".input01");
-   * @example await nonUi5.element.waitForVisible("#button12");
-   * @example await nonUi5.element.waitForVisible("p:first-child");
+   * @example await nonUi5.element.waitToBeVisible(".input01");
+   * @example await nonUi5.element.waitToBeVisible("#button12");
+   * @example await nonUi5.element.waitToBeVisible("p:first-child");
    */
-  this.waitForVisible = async function (selector, timeout = 30000) {
+  this.waitToBeVisible = async function (selector, timeout = 30000) {
     let elem = null;
     await browser.waitUntil(async function () {
       elem = await $(selector);
@@ -73,21 +73,21 @@ const Element = function () {
       return elem.isDisplayed();
     }, {
       timeout,
-      timeoutMsg: `Function 'waitForVisible' failed. Expected element not visible for selector '${selector}' after ${timeout / 1000}s`
+      timeoutMsg: `Function 'waitToBeVisible' failed. Expected element not visible for selector '${selector}' after ${timeout / 1000}s`
     });
   };
 
   /**
-   * @function waitForClickable
+   * @function waitToBeClickable
    * @memberOf nonUi5.element
    * @description Waits until the element with the given selector is clickable.
    * @param {Object} selector - The CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await nonUi5.element.waitForClickable(".input01");
-   * @example await nonUi5.element.waitForClickable("#button12");
-   * @example await nonUi5.element.waitForClickable("p:first-child");
+   * @example await nonUi5.element.waitToBeClickable(".input01");
+   * @example await nonUi5.element.waitToBeClickable("#button12");
+   * @example await nonUi5.element.waitToBeClickable("p:first-child");
    */
-  this.waitForClickable = async function (selector, timeout = 30000) {
+  this.waitToBeClickable = async function (selector, timeout = 30000) {
     let elem = null;
     await browser.waitUntil(async function () {
       elem = await $(selector);
@@ -96,23 +96,22 @@ const Element = function () {
       return await elem.isClickable();
     }, {
       timeout,
-      timeoutMsg: `Function 'waitForClickable' failed. Timeout by waiting for element for selector '${selector}' to be clickable.`
+      timeoutMsg: `Function 'waitToBeClickable' failed. Timeout by waiting for element for selector '${selector}' to be clickable.`
     });
   };
 
 
   // =================================== GET ELEMENTS ===================================
   /**
-   * @function getDisplayed
+   * @function getAllDisplayed
    * @memberOf nonUi5.element
    * @description Gets all visible elements with the passed selector.
    * @param {Object} selector - The CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object[]} The array of elements.
-   * @example await nonUi5.element.getDisplayed(".inputField");
+   * @example await nonUi5.element.getAllDisplayed(".inputField");
    */
-  // TODO: would be "getAll" like in ui5, but that already exists
-  this.getDisplayed = async function (selector, timeout = 30000) {
+  this.getAllDisplayed = async function (selector, timeout = 30000) {
     try {
       await this.waitForAll(selector, timeout);
       const elements = await $$(selector);
@@ -127,7 +126,7 @@ const Element = function () {
       }
       return displayedElements;
     } catch (error) {
-      throw new Error(`Function 'getDisplayed' failed. No visible element found for selector '${selector}' after ${timeout / 1000}s. ` + error);
+      throw new Error(`Function 'getAllDisplayed' failed. No visible element found for selector '${selector}' after ${timeout / 1000}s. ` + error);
     }
   };
 
@@ -192,8 +191,8 @@ const Element = function () {
    */
   this.getByCssContainingText = async function (selector, text = "", index = 0, timeout = 30000) {
     try {
-      const elems = await this.getDisplayed(selector, timeout);
-      return await _filterDisplayedContainingText(elems, text, index);
+      const elems = await this.getAllDisplayed(selector, timeout);
+      return await _filterWithText(elems, text, index);
     } catch (error) {
       throw new Error(`Function 'getByCssContainingText' failed. Element with CSS "${selector}" and text value "${text}" not found. ${error}`);
     }
@@ -456,7 +455,7 @@ const Element = function () {
    * @example await nonUi5.element.switchToIframe("iframe[id='frame01']");
    */
   this.switchToIframe = async function (selector) {
-    await this.waitForVisible(selector);
+    await this.waitToBeVisible(selector);
     const frame = await $(selector);
     await browser.switchToFrame(frame);
   };
@@ -474,7 +473,7 @@ const Element = function () {
 
 
   // =================================== HELPER ===================================
-  async function _filterDisplayedContainingText(elems, text, index) {
+  async function _filterWithText(elems, text, index) {
     const elemsWithTxt = [];
     for (const elem of elems) {
       const elementText = await elem.getText();
