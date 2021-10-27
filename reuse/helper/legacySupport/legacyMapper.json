@@ -44,6 +44,30 @@
     "new": "ui5.element"
   },
   {
+    "old": "ui5.common.locator.waitForAllElements",
+    "new": "ui5.element.waitForAll"
+  },
+  {
+    "old": "ui5.common.locator.getDisplayedElements",
+    "new": "ui5.element.getAllDisplayed"
+  },
+  {
+    "old": "ui5.common.locator.getDisplayedElement",
+    "new": "ui5.element.getDisplayed"
+  },
+  {
+    "old": "ui5.common.locator.getElementByText",
+    "new": "ui5.element.getByText"
+  },
+  {
+    "old": "ui5.common.locator.getElementId",
+    "new": "ui5.element.getId"
+  },
+  {
+    "old": "ui5.common.locator.highlightElement",
+    "new": "ui5.element.highlight"
+  },
+  {
     "old": "ui5.common.locator.scrollToElement",
     "new": "ui5.userInteraction.scrollToElement"
   },
@@ -252,6 +276,62 @@
   {
     "old": "non_ui5.common.locator",
     "new": "nonUi5.element"
+  },
+  {
+    "old": "non_ui5.common.locator.waitForAllElements",
+    "new": "nonUi5.element.waitForAll"
+  },
+  {
+    "old": "non_ui5.common.locator.waitForElementIsPresent",
+    "new": "nonUi5.element.waitToBePresent"
+  },
+  {
+    "old": "non_ui5.common.locator.waitForElementIsVisible",
+    "new": "nonUi5.element.waitToBeVisible"
+  },
+  {
+    "old": "non_ui5.common.locator.waitForElementIsClickable",
+    "new": "nonUi5.element.waitToBeClickable"
+  },
+  {
+    "old": "non_ui5.common.locator.getDisplayedElements",
+    "new": "nonUi5.element.getAllDisplayed"
+  },
+  {
+    "old": "non_ui5.common.locator.getElementByCss",
+    "new": "nonUi5.element.getByCss"
+  },
+  {
+    "old": "non_ui5.common.locator.getElementByCssContainingText",
+    "new": "nonUi5.element.getByCssContainingText"
+  },
+  {
+    "old": "non_ui5.common.locator.getElementById",
+    "new": "nonUi5.element.getById"
+  },
+  {
+    "old": "non_ui5.common.locator.getElementByClass",
+    "new": "nonUi5.element.getByClass"
+  },
+  {
+    "old": "non_ui5.common.locator.getElementByName",
+    "new": "nonUi5.element.getByName"
+  },
+  {
+    "old": "non_ui5.common.locator.getElementByXPath",
+    "new": "nonUi5.element.getByXPath"
+  },
+  {
+    "old": "non_ui5.common.locator.getElementByChild",
+    "new": "nonUi5.element.getByChild"
+  },
+  {
+    "old": "non_ui5.common.locator.isElementPresent",
+    "new": "nonUi5.element.isPresent"
+  },
+  {
+    "old": "non_ui5.common.locator.highlightElement",
+    "new": "nonUi5.element.highlight"
   },
   {
     "old": "non_ui5.common.locator.getValue",
