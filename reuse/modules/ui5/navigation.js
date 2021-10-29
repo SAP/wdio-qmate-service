@@ -161,13 +161,13 @@ const Navigation = function () {
   this.closePopups = async function (timeout = 15000) {
     await browser.pause(timeout);
     try {
-      const popUp1 = await nonUi5.element.getElementByCss(".help4-wrapper button", 0, 2500);
+      const popUp1 = await nonUi5.element.getByCss(".help4-wrapper button", 0, 2500);
       await popUp1.click();
     } catch (e) {
       util.console.log("First Popup not found.");
     }
     try {
-      const popUp2 = await nonUi5.element.getElementById("SAMLDialog", 2500);
+      const popUp2 = await nonUi5.element.getById("SAMLDialog", 2500);
       await popUp2.click();
     } catch (e) {
       util.console.log("Second Popup not found.");
