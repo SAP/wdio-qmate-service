@@ -17,9 +17,9 @@ describe("element - getElementByText should get element by right text", function
   });
 
   it("Execution", async function () {
-    elementByRightName = await ui5.element.getElementByText(selectorForAllListItems, textToGetElement);
+    elementByRightName = await ui5.element.getByText(selectorForAllListItems, textToGetElement);
     elementText = await elementByRightName.getText();
-    await expect(ui5.element.getElementByText(selectorForAllListItems, textToGetElement, 1))
+    await expect(ui5.element.getByText(selectorForAllListItems, textToGetElement, 1))
       .rejects.toThrow(/getElementByText\(\): Index out of bound./); // Element with text "Laptops\n11" is unique
   });
 
@@ -36,7 +36,7 @@ describe("element - getElementByText should get element by wrong text (unhappy c
 
   it("Execution", async function () {
     const wrongText = "Wrong Text";
-    await expect(ui5.element.getElementByText(selectorForAllListItems, wrongText))
+    await expect(ui5.element.getByText(selectorForAllListItems, wrongText))
       .rejects.toThrow(/No elements found for given text./);
   });
 });
@@ -59,7 +59,7 @@ describe("element - getElementByText with index 1 (unhappy case)", function () {
     const index = 1;
     const timeout = 30000;
 
-    await expect(ui5.element.getElementByText(selector, value, index, timeout))
+    await expect(ui5.element.getByText(selector, value, index, timeout))
       .rejects.toThrow(/getElementByText\(\): Index out of bound./);
   });
 });

@@ -15,8 +15,8 @@ describe("element - getElementId by wrong selector (unhappy case)", function () 
         "bindingContextPath": "/ProductCategories*)"
       }
     };
-    elemIdFirst = await ui5.element.getElementId(selector, 0);
-    elemIdSecond = await ui5.element.getElementId(selector, 1);
+    elemIdFirst = await ui5.element.getId(selector, 0);
+    elemIdSecond = await ui5.element.getId(selector, 1);
   });
 
   it("Verification", function () {
@@ -37,7 +37,7 @@ describe("element - getElementId by wrong selector (unhappy case)", function () 
         "metadata": "sap.m.StandardListItemWrong" // instead of sap.m.StandardListItem
       }
     };
-    await expect(ui5.element.getElementId(wrongSelector, 0))
+    await expect(ui5.element.getId(wrongSelector, 0))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
@@ -55,7 +55,7 @@ describe("element - getElementId by wrong index (unhappy case)", function () {
         "bindingContextPath": "/ProductCategories*'AC')"
       }
     };
-    await expect(ui5.element.getElementId(selector, 111))
+    await expect(ui5.element.getId(selector, 111))
       .rejects.toThrow(/Index out of bound. Trying to access element at index: 111/);
   });
 });
@@ -66,7 +66,7 @@ describe("element - getElementId should get element id by empty object selector(
   });
 
   it("Execution and Verification", async function () {
-    await expect(ui5.element.getElementId({}, 0))
+    await expect(ui5.element.getId({}, 0))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });

@@ -33,11 +33,11 @@ describe("confirmationDialog - clickYes", function () {
 
   it("Execution", async function () {
     // Check Dialog window opened
-    await expect(ui5.element.getDisplayedElement(selectorForDialog))
+    await expect(ui5.element.getDisplayed(selectorForDialog))
       .resolves.toBeTruthy();
 
     // Check we have "Yes" button to click
-    await expect(ui5.element.getDisplayedElement(selectorForYesButton))
+    await expect(ui5.element.getDisplayed(selectorForYesButton))
       .resolves.toBeTruthy();
 
     await ui5.confirmationDialog.clickYes();
@@ -45,7 +45,7 @@ describe("confirmationDialog - clickYes", function () {
 
   it("Verification", async function () {
     // Check Dialog closed
-    await expect(ui5.element.getDisplayedElement(selectorForDialog))
+    await expect(ui5.element.getDisplayed(selectorForDialog))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
@@ -57,11 +57,11 @@ describe("confirmationDialog - clickYes without confirmation dialog (unhappy cas
 
   it("Execution", async function () {
     // Check No Dialog available
-    await expect(ui5.element.getDisplayedElement(selectorForDialog))
+    await expect(ui5.element.getDisplayed(selectorForDialog))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
 
     // Check No "Yes" button available
-    await expect(ui5.element.getDisplayedElement(selectorForYesButton))
+    await expect(ui5.element.getDisplayed(selectorForYesButton))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
 
     await expect(ui5.confirmationDialog.clickYes())

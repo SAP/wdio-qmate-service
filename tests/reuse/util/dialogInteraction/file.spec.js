@@ -8,7 +8,7 @@ describe("dialogInteraction - uploadFiles", function () {
         "metadata": "sap.m.Title"
       }
     };
-    await ui5.element.getDisplayedElement(selector);
+    await ui5.element.getDisplayed(selector);
   });
 
   it("Execution", async function () {
@@ -40,8 +40,8 @@ describe("dialogInteraction - uploadFiles", function () {
         "alt": "test2.txt"
       }
     };
-    await ui5.element.getDisplayedElement(selectorTest);
-    await ui5.element.getDisplayedElement(selectorTest2);
+    await ui5.element.getDisplayed(selectorTest);
+    await ui5.element.getDisplayed(selectorTest2);
     //await util.browser.sleep(25000);
   });
 });

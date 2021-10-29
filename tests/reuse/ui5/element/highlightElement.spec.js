@@ -16,7 +16,7 @@ describe("element - highlightElement", function () {
     };
     const duration = 60000;
     const color = "green";
-    await ui5.element.highlightElement(selector, duration, color);
+    await ui5.element.highlight(selector, duration, color);
   });
 
   it("Verification", async function () {
@@ -40,7 +40,7 @@ describe("element - highlightElement and catch error", function () {
     };
     const duration = 3000;
     const color = "green";
-    await expect(ui5.element.highlightElement(selector, duration, color))
+    await expect(ui5.element.highlight(selector, duration, color))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
