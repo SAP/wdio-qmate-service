@@ -3,7 +3,7 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("locator - getElementByCss + expectToBeVisible", function () {
+describe("locator - getByCss + expectToBeVisible", function () {
 
   let downloadBtn;
 
@@ -21,7 +21,7 @@ describe("locator - getElementByCss + expectToBeVisible", function () {
   });
 });
 
-describe("locator - getElementByCss outside of viewpoint", function () {
+describe("locator - getByCss outside of viewpoint", function () {
   let comboBoxElement;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
@@ -51,7 +51,7 @@ describe("locator - getElementByCss outside of viewpoint", function () {
   });
 });
 
-describe("locator - getElementByCss and catch error", function () {
+describe("locator - getByCss and catch error", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
@@ -60,6 +60,6 @@ describe("locator - getElementByCss and catch error", function () {
 
   it("Execution and Verification", async function () {
     await expect(nonUi5.element.getByCss("[id='sdk--readMoreButton-BDI-content']"))
-      .rejects.toThrow("Function 'getElementByCss' failed");
+      .rejects.toThrow("Function 'getByCss' failed");
   });
 });

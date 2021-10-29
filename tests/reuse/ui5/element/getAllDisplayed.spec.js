@@ -1,7 +1,7 @@
 "use strict";
 let elements;
 
-describe("element - getDisplayedElements by selector", function () {
+describe("element - getAllDisplayed by selector", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -22,7 +22,7 @@ describe("element - getDisplayedElements by selector", function () {
   });
 });
 
-describe("element - getDisplayedElements by wrong selector (unhappy case)", function () {
+describe("element - getAllDisplayed by wrong selector (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -39,7 +39,7 @@ describe("element - getDisplayedElements by wrong selector (unhappy case)", func
   });
 });
 
-describe("element - getDisplayedElements by selector for invisible elements (unhappy case)", function () {
+describe("element - getAllDisplayed by selector for invisible elements (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -55,7 +55,7 @@ describe("element - getDisplayedElements by selector for invisible elements (unh
   });
 });
 
-describe("element - getDisplayedElements should get displayed elements by empty selector (strange case)", function () {
+describe("element - getAllDisplayed should get displayed elements by empty selector (strange case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });

@@ -8,13 +8,12 @@ exports.config = merge(qmateConfiguration.config, {
 
   specs: [
     path.resolve(__dirname, "getBindingValue.spec.js"),
-    path.resolve(__dirname, "getDisplayedElement.spec.js"),
-    path.resolve(__dirname, "getDisplayedElements.spec.js"),
-    path.resolve(__dirname, "getDisplayedChildElement.spec.js"),
-    path.resolve(__dirname, "getElementByText.spec.js"),
-    path.resolve(__dirname, "getElementId.spec.js"),
+    path.resolve(__dirname, "getDisplayed.spec.js"),
+    path.resolve(__dirname, "getAllDisplayed.spec.js"),
+    path.resolve(__dirname, "getByText.spec.js"),
+    path.resolve(__dirname, "getId.spec.js"),
     path.resolve(__dirname, "getPropertyValue.spec.js"),
-    path.resolve(__dirname, "highlightElement.spec.js"),
+    path.resolve(__dirname, "highlight.spec.js"),
     path.resolve(__dirname, "isVisible.spec.js")
   ],
 

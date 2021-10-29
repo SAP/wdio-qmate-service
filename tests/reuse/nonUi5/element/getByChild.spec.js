@@ -3,7 +3,7 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("locator - getElementByChild + expectToBeVisible", function () {
+describe("locator - getByChild + expectToBeVisible", function () {
 
   let parentSelector;
   let childSelector;
@@ -26,7 +26,7 @@ describe("locator - getElementByChild + expectToBeVisible", function () {
   });
 });
 
-describe("locator - getElementByChild and catch error", function () {
+describe("locator - getByChild and catch error", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
@@ -34,6 +34,6 @@ describe("locator - getElementByChild and catch error", function () {
 
   it("Execution and Verification", async function () {
     await expect(nonUi5.element.getByChild(".form01", ".input01"))
-      .rejects.toThrow("Function 'getElementByChild' failed");
+      .rejects.toThrow("Function 'getByChild' failed");
   });
 });

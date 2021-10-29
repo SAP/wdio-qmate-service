@@ -2,7 +2,7 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("locator - waitForElementIsPresent", function () {
+describe("locator - waitToBePresent", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
@@ -14,7 +14,7 @@ describe("locator - waitForElementIsPresent", function () {
   });
 });
 
-describe("locator - waitForElementIsPresent with wrong selector (unhappy case)", function () {
+describe("locator - waitToBePresent with wrong selector (unhappy case)", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
@@ -23,6 +23,6 @@ describe("locator - waitForElementIsPresent with wrong selector (unhappy case)",
 
   it("Execution and Verification", async function () {
     await expect(nonUi5.element.waitToBePresent("[class='sapMBtnBase sapMBtn sapMBtnInverted sapMDialogBeginButton sapMBarChild']", 1000))
-      .rejects.toThrow("Function 'waitForElementIsPresent' failed");
+      .rejects.toThrow("Function 'waitToBePresent' failed");
   });
 });

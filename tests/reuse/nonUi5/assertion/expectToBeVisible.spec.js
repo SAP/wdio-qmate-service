@@ -53,7 +53,7 @@ describe("assertion - expectToBeVisible and catch error", function () {
   });
 
   it("Execution", async function () {
-    // Get hidden elements (cannot use 'getElementByCss' here as element with id=hiddenParagraph is being hidden)
+    // Get hidden elements (cannot use 'getByCss' here as element with id=hiddenParagraph is being hidden)
     await nonUi5.element.waitForAll("#hiddenParagraph");
     const hiddenElements = await $$("#hiddenParagraph");
 
