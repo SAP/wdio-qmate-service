@@ -40,7 +40,7 @@ describe("navigation - navigateToApplicationWithQueryParamsAndRetry with wrong p
     await common.assertion.expectUrlToBe(urlExpected);
 
     // if 'query' includes no "?", url will be interpreted as another (unsupported) mount
-    await expect(nonUi5.element.getElementById("parseUrl"))
+    await expect(nonUi5.element.getById("parseUrl"))
       .rejects.toThrow(/Element with id "parseUrl" not found/);
   });
 });

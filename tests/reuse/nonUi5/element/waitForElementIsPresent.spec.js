@@ -10,7 +10,7 @@ describe("locator - waitForElementIsPresent", function () {
   });
 
   it("Execution and Verification", async function () {
-    await nonUi5.element.waitForElementIsPresent("[id='sdk---app--changeVersionButton-BDI-content']", 40000);
+    await nonUi5.element.waitToBePresent("[id='sdk---app--changeVersionButton-BDI-content']", 40000);
   });
 });
 
@@ -22,7 +22,7 @@ describe("locator - waitForElementIsPresent with wrong selector (unhappy case)",
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.waitForElementIsPresent("[class='sapMBtnBase sapMBtn sapMBtnInverted sapMDialogBeginButton sapMBarChild']", 1000))
+    await expect(nonUi5.element.waitToBePresent("[class='sapMBtnBase sapMBtn sapMBtnInverted sapMDialogBeginButton sapMBarChild']", 1000))
       .rejects.toThrow("Function 'waitForElementIsPresent' failed");
   });
 });

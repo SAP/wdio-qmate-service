@@ -125,7 +125,7 @@ describe("userInteraction - fillActiveAndRetry - form field", function () {
   let element;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
-    element = await nonUi5.element.getElementById("ExampleValue1", 10000);
+    element = await nonUi5.element.getById("ExampleValue1", 10000);
     // Check field is empty before the test
     await nonUi5.assertion.expectValueToBe(element, "", "value");
   });
@@ -135,17 +135,17 @@ describe("userInteraction - fillActiveAndRetry - form field", function () {
     await nonUi5.userInteraction.click(element);
 
     await common.userInteraction.fillActiveAndRetry("New test value");
-    const submitElement = await nonUi5.element.getElementByCss("[onclick='showValue();']");
+    const submitElement = await nonUi5.element.getByCss("[onclick='showValue();']");
     await nonUi5.userInteraction.click(submitElement);
   });
 
   it("Verification", async function () {
     // Check the form field itself
-    element = await nonUi5.element.getElementById("ExampleValue1", 10000);
+    element = await nonUi5.element.getById("ExampleValue1", 10000);
     await nonUi5.assertion.expectValueToBe(element, "New test value", "value");
 
     // Check the submitted value
-    const submittedResultField = await nonUi5.element.getElementById("display1", 10000);
+    const submittedResultField = await nonUi5.element.getById("display1", 10000);
     await nonUi5.assertion.expectValueToBe(submittedResultField, "New test value", "textContent");
   });
 });
@@ -154,7 +154,7 @@ describe("userInteraction - fillActiveAndRetry - empty value", function () {
   let element;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
-    element = await nonUi5.element.getElementById("ExampleValue1", 10000);
+    element = await nonUi5.element.getById("ExampleValue1", 10000);
     // Check field is empty before the test
     await nonUi5.assertion.expectValueToBe(element, "", "value");
   });

@@ -7,7 +7,7 @@ describe("userInteraction - attribute and value", function () {
 
     it("Preparation", async function () {
       await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
-      element = await nonUi5.element.getElementById("ExampleTextArea", 10000);
+      element = await nonUi5.element.getById("ExampleTextArea", 10000);
     });
 
     it("Verify field is empty", async function () {
@@ -51,7 +51,7 @@ describe("userInteraction - attribute and value", function () {
 
     it("Preparation", async function () {
       await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
-      element = await nonUi5.element.getElementById("ExampleValue1", 10000);
+      element = await nonUi5.element.getById("ExampleValue1", 10000);
     });
 
     it("Verify field is empty", async function () {
@@ -96,17 +96,17 @@ describe("userInteraction - attribute and value", function () {
     });
 
     it("Execution", async function () {
-      const elem = await nonUi5.element.getElementById("Default", 10000);
+      const elem = await nonUi5.element.getById("Default", 10000);
       await nonUi5.userInteraction.clickAndRetry(elem);
     });
 
     it("Verify button text", async function () {
-      const defaultButton = await nonUi5.element.getElementById("Default", 10000);
+      const defaultButton = await nonUi5.element.getById("Default", 10000);
       await nonUi5.assertion.expectValueToBe(defaultButton, "Default");
     });
 
     it("Verify button text using \"textContent\" attribute", async function () {
-      const defaultButton = await nonUi5.element.getElementById("Default", 10000);
+      const defaultButton = await nonUi5.element.getById("Default", 10000);
       await nonUi5.assertion.expectValueToBe(defaultButton, "Default", "textContent");
     });
   });
@@ -117,17 +117,17 @@ describe("userInteraction - attribute and value", function () {
     });
 
     it("Execution", async function () {
-      const elem = await nonUi5.element.getElementById("Default", 10000);
+      const elem = await nonUi5.element.getById("Default", 10000);
       await nonUi5.userInteraction.clickAndRetry(elem);
     });
 
     it("Verify span text", async function () {
-      const submittedResultField = await nonUi5.element.getElementById("display1", 10000);
+      const submittedResultField = await nonUi5.element.getById("display1", 10000);
       await nonUi5.assertion.expectValueToBe(submittedResultField, "Default");
     });
 
     it("Verify span text using \"textContent\" attribute", async function () {
-      const submittedResultField = await nonUi5.element.getElementById("display1", 10000);
+      const submittedResultField = await nonUi5.element.getById("display1", 10000);
       await nonUi5.assertion.expectValueToBe(submittedResultField, "Default", "textContent");
     });
   });

@@ -11,7 +11,7 @@ describe("locator - waitForElementIsClickable", function () {
   });
 
   it("Execution", async function () {
-    await nonUi5.element.waitForElementIsClickable("[id='sdk---app--changeVersionButton-BDI-content']", 40000);
+    await nonUi5.element.waitToBeClickable("[id='sdk---app--changeVersionButton-BDI-content']", 40000);
   });
 });
 
@@ -22,7 +22,7 @@ describe("locator - waitForElementIsClickable and catch error", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.waitForElementIsClickable("[class='sdk---app--changeVersionButton-BDI-content']", 40000))
+    await expect(nonUi5.element.waitToBeClickable("[class='sdk---app--changeVersionButton-BDI-content']", 40000))
       .rejects.toThrow("Function 'waitForElementIsClickable' failed");
   });
 });

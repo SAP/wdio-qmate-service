@@ -13,7 +13,7 @@ describe("locator - getElementByCssContainingText + expectToBeVisible", function
   });
 
   it("Execution", async function () {
-    downloadBtn = await nonUi5.element.getElementByCssContainingText("[id='sdk---welcome--readMoreButton-BDI-content']", "Down");
+    downloadBtn = await nonUi5.element.getByCssContainingText("[id='sdk---welcome--readMoreButton-BDI-content']", "Down");
   });
 
   it("Verification", async function () {
@@ -31,7 +31,7 @@ describe("locator - getElementByCssContainingText and catch error", function () 
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getElementByCssContainingText("[id='sdk---welcome--readMoreButton-BDI-content']","Some Junk Text"))
+    await expect(nonUi5.element.getByCssContainingText("[id='sdk---welcome--readMoreButton-BDI-content']","Some Junk Text"))
       .rejects.toThrow(/getElementByCssContainingText(): Element \w*|\d* not found/);
   });
 });

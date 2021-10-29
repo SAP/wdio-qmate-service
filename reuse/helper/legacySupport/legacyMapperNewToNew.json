@@ -278,59 +278,59 @@
     "new": "nonUi5.element"
   },
   {
-    "old": "non_ui5.element.waitForAllElements",
+    "old": "nonUi5.element.waitForAllElements",
     "new": "nonUi5.element.waitForAll"
   },
   {
-    "old": "non_ui5.element.waitForElementIsPresent",
+    "old": "nonUi5.element.waitForElementIsPresent",
     "new": "nonUi5.element.waitToBePresent"
   },
   {
-    "old": "non_ui5.element.waitForElementIsVisible",
+    "old": "nonUi5.element.waitForElementIsVisible",
     "new": "nonUi5.element.waitToBeVisible"
   },
   {
-    "old": "non_ui5.element.waitForElementIsClickable",
+    "old": "nonUi5.element.waitForElementIsClickable",
     "new": "nonUi5.element.waitToBeClickable"
   },
   {
-    "old": "non_ui5.element.getDisplayedElements",
+    "old": "nonUi5.element.getDisplayedElements",
     "new": "nonUi5.element.getAllDisplayed"
   },
   {
-    "old": "non_ui5.element.getElementByCss",
+    "old": "nonUi5.element.getElementByCss",
     "new": "nonUi5.element.getByCss"
   },
   {
-    "old": "non_ui5.element.getElementByCssContainingText",
+    "old": "nonUi5.element.getElementByCssContainingText",
     "new": "nonUi5.element.getByCssContainingText"
   },
   {
-    "old": "non_ui5.element.getElementById",
+    "old": "nonUi5.element.getElementById",
     "new": "nonUi5.element.getById"
   },
   {
-    "old": "non_ui5.element.getElementByClass",
+    "old": "nonUi5.element.getElementByClass",
     "new": "nonUi5.element.getByClass"
   },
   {
-    "old": "non_ui5.element.getElementByName",
+    "old": "nonUi5.element.getElementByName",
     "new": "nonUi5.element.getByName"
   },
   {
-    "old": "non_ui5.element.getElementByXPath",
+    "old": "nonUi5.element.getElementByXPath",
     "new": "nonUi5.element.getByXPath"
   },
   {
-    "old": "non_ui5.element.getElementByChild",
+    "old": "nonUi5.element.getElementByChild",
     "new": "nonUi5.element.getByChild"
   },
   {
-    "old": "non_ui5.element.isElementPresent",
+    "old": "nonUi5.element.isElementPresent",
     "new": "nonUi5.element.isPresent"
   },
   {
-    "old": "non_ui5.element.highlightElement",
+    "old": "nonUi5.element.highlightElement",
     "new": "nonUi5.element.highlight"
   },
   {

@@ -10,7 +10,7 @@ describe("locator - getDisplayedElements and catch error", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getDisplayedElements("[class='sapMBtnBase sapMBtn sapMBtnInverted sapMDialogBeginButton sapMBarChild']", 4000))
+    await expect(nonUi5.element.getAllDisplayed("[class='sapMBtnBase sapMBtn sapMBtnInverted sapMDialogBeginButton sapMBarChild']", 4000))
       .rejects.toThrow("Function 'waitForAllElements' failed");
   });
 });
@@ -23,7 +23,7 @@ describe("locator - getDisplayedElements", function () {
   });
 
   it("Execution", async function () {
-    displayedElements = await nonUi5.element.getDisplayedElements("[id='sdk---app--changeVersionButton-BDI-content']", 40000);
+    displayedElements = await nonUi5.element.getAllDisplayed("[id='sdk---app--changeVersionButton-BDI-content']", 40000);
   });
 
   it("Verification", async function () {
@@ -41,7 +41,7 @@ describe("locator - getDisplayedElements for non-visible element (element is in 
   });
 
   it("Execution", async function () {
-    displayedElements = await nonUi5.element.getDisplayedElements("[class='sapUiInvisibleText']");
+    displayedElements = await nonUi5.element.getAllDisplayed("[class='sapUiInvisibleText']");
   });
 
   it("Verification", async function () {
