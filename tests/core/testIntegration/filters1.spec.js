@@ -514,23 +514,6 @@ describe("filters1", function () {
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
-  it("check getDisplayedChildElement 1", async function () {
-    var ui5ControlProperties = {
-      "elementProperties": { "metadata": "sap.m.List", "mProperties": { "items": [{ "path": "/ProductCategories" }] } },
-      "parentProperties": { "metadata": "sap.m.Page", "mProperties": { "title": [{ "path": "i18n>homeTitle" }] } }
-    };
-
-    var ui5ControlProperties2 = {
-      "elementProperties": { "metadata": "sap.m.StandardListItem", "mProperties": { "title": [{ "path": "CategoryName" }], "bindingContextPath": "/ProductCategories*" } },
-    };
-
-    const nameField = await ui5.element.getDisplayedChildElement(ui5ControlProperties, ui5ControlProperties2);
-    var attribute = "title";   //eg: title, text, value etc.
-    var compareValue = "Accessories";   //expected value
-    await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
-
-  });
-
   it("step0v1: check name is Accessories - use UI5 Control properties", async function () {
     var ui5ControlProperties = {
       "elementProperties": {
@@ -782,28 +765,6 @@ describe("filters1", function () {
     var ui5ControlProperties2 = {
       "elementProperties": { "metadata": "sap.m.StandardListItem", "mProperties": { "title": [{ "path": "CategoryName" }], "bindingContextPath": "/ProductCategories*" } },
     };
-
-    const nameField = await ui5.element.getDisplayedChildElement(ui5ControlProperties, ui5ControlProperties2);
-    var attribute = "title";
-    var compareValue = "Accessories";
-    await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
-
-  });
-
-  it("check getDisplayedChildElement 1 wrong ", async function () {
-    var ui5ControlProperties = {
-      "elementProperties": { "metadata": "sap.m.List", "mProperties": { "items": [{ "path": "/ProductCategories" }] } },
-      "parentProperties": { "metadata": "sap.m.Page", "mProperties": { "title": [{ "path": "i18n>homeTitle" }] } }
-    };
-
-    var ui5ControlProperties2 = {
-      "elementProperties": { "metadata": "sap.m.StandardListItem", "mProperties": { "title": [{ "path": "CategoryName" }], "bindingContextPath": "/ProductCategories*" } },
-    };
-
-    const nameField = await ui5.element.getDisplayedChildElement(ui5ControlProperties, ui5ControlProperties2);
-    var attribute = "title";
-    var compareValue = "Computer System Accessories";
-    await expect(await nameField.getAttribute("data-" + attribute)).not.toBe(compareValue);
 
   });
 
