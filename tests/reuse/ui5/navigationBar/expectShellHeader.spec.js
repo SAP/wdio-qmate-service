@@ -2,7 +2,7 @@
 
 describe("navigationBar - expectShellHeader to be visible", function () {
   it("Preparation", async function () {
-    browser.config.baseUrl = "https://qs9-715.wdf.sap.corp/ui";
+    browser.config.baseUrl = "https://hc7-715.wdf.sap.corp/ui";
   });
 
   it("Execution", async function () {
@@ -21,7 +21,7 @@ describe("navigationBar - expectShellHeader to be visible", function () {
 
 describe("navigationBar - expectShellHeader not to be visible (unhappy case)", function () {
   it("Preparation", async function () {
-    browser.config.baseUrl = "https://qs9-715.wdf.sap.corp/ui";
+    browser.config.baseUrl = "https://hc7-715.wdf.sap.corp/ui";
     await ui5.navigation.navigateToApplication("Shell-home", true);
   });
 
