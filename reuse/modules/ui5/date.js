@@ -61,7 +61,7 @@ const DateModule = function () {
     if (selector.elementProperties.metadata === "sap.ui.core.Icon") {
       await ui5.userInteraction.click(selector);
     } else if (selector.elementProperties.metadata === "sap.m.DatePicker") {
-      const id = await ui5.element.getElementId(selector);
+      const id = await ui5.element.getId(selector);
       const icon = await nonUi5.element.getElementById(`${id}-icon`);
       await nonUi5.userInteraction.click(icon);
     }
@@ -79,7 +79,7 @@ const DateModule = function () {
 
     let found = false;
 
-    let id = await ui5.element.getElementId(selector);
+    let id = await ui5.element.getId(selector);
     if (selector.elementProperties.metadata === "sap.ui.core.Icon") {
       id = id.replace("-icon", "");
     }

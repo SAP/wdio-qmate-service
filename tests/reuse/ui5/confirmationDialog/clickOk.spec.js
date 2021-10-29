@@ -24,7 +24,7 @@ describe("confirmationDialog - clickOk", function () {
     await ui5.userInteraction.click(submitButtonSelector);
 
     // Check Dialog window
-    await expect(ui5.element.getDisplayedElement(selectorForPopupOkButton)).resolves.toBeTruthy();
+    await expect(ui5.element.getDisplayed(selectorForPopupOkButton)).resolves.toBeTruthy();
   });
 
   it("Execution", async function () {
@@ -45,7 +45,7 @@ describe("confirmationDialog - clickOk", function () {
     await ui5.assertion.expectValidationError(inputFieldWithCheckSelector);
 
     // No dialog with "Ok" button any more
-    await expect(ui5.element.getDisplayedElement(selectorForPopupOkButton))
+    await expect(ui5.element.getDisplayed(selectorForPopupOkButton))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
@@ -57,7 +57,7 @@ describe("confirmationDialog - clickOk without confirmation dialog (unhappy case
 
   it("Execution and Verification", async function () {
     // No dialog with "Ok" button
-    await expect(ui5.element.getDisplayedElement(selectorForPopupOkButton))
+    await expect(ui5.element.getDisplayed(selectorForPopupOkButton))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
 
     await expect(ui5.confirmationDialog.clickOk())

@@ -18,7 +18,7 @@ describe("chart tests", function () {
         "metadata": "sap.viz.ui5.controls.chartpopover.ContentPanel"
       }
     };
-    await ui5.element.getDisplayedElement(selector);
+    await ui5.element.getDisplayed(selector);
   });
 
 });

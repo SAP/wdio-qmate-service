@@ -20,7 +20,7 @@ describe("getPropertyBinding - check name is Accessories", async () => {
         }
       }
     };
-    const elem = await ui5.element.getDisplayedElement(ui5ControlProperties);
+    const elem = await ui5.element.getDisplayed(ui5ControlProperties);
     aBindings = await ui5.control.getPropertyBinding(elem, "title");
   });
 

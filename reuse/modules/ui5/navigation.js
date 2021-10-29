@@ -223,7 +223,7 @@ const Navigation = function () {
         "ancestorProperties": unsupportedNavigationPopup
       }
     };
-    const detailsTextElement = await ui5.element.getDisplayedElement(selector);
+    const detailsTextElement = await ui5.element.getDisplayed(selector);
     const dataHtmlText = await detailsTextElement.getAttribute("data-htmltext");
     const stringExists = await dataHtmlText.includes(navigationTarget.replace(/&/g, "&amp;"));
 

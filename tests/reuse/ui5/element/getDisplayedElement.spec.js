@@ -24,8 +24,8 @@ describe("element - 'getDisplayedElement' by selector and index", function () {
         "bindingContextPath": "/ProductCategories*)"
       }
     };
-    elementOne = await ui5.element.getDisplayedElement(selectorForMultipleElements, 0);
-    elementTwo = await ui5.element.getDisplayedElement(selectorForMultipleElements, 1);
+    elementOne = await ui5.element.getDisplayed(selectorForMultipleElements, 0);
+    elementTwo = await ui5.element.getDisplayed(selectorForMultipleElements, 1);
   });
 
   it("Verification", async function () {
@@ -40,7 +40,7 @@ describe("element - getDisplayedElement by wrong index (unhappy case)", function
   });
 
   it("Execution and Verification", async function () {
-    await expect(ui5.element.getDisplayedElement(selectorForKeyboardsListElement, 111))
+    await expect(ui5.element.getDisplayed(selectorForKeyboardsListElement, 111))
       .rejects.toThrow(/Index out of bound. Trying to access element at index: 111/);
   });
 });
@@ -58,7 +58,7 @@ describe("element - getDisplayedElement by wrong selector (unhappy case)", funct
         "bindingContextPath": "/ProductCategories*'KB')"
       }
     };
-    await expect(ui5.element.getDisplayedElement(wrongSelector))
+    await expect(ui5.element.getDisplayed(wrongSelector))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
@@ -76,7 +76,7 @@ describe("element - getDisplayedElement by index which is equal to the number of
         "id": "*searchField"
       }
     };
-    await expect(ui5.element.getDisplayedElement(searchFieldSelector, 1))
+    await expect(ui5.element.getDisplayed(searchFieldSelector, 1))
       .rejects.toThrow(/Index out of bound. Trying to access element at index: 1/);
   });
 });

@@ -20,7 +20,7 @@ describe("getBindingContextPathProperty - check name is Accessories", async () =
         }
       }
     };
-    const elem = await ui5.element.getDisplayedElement(selector);
+    const elem = await ui5.element.getDisplayed(selector);
     aBindings = await ui5.control.getPropertyBinding(elem, "title");
   });
 

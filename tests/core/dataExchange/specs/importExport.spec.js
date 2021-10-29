@@ -39,7 +39,7 @@ const formUtils = {
     }
   },
   fillForm: async function (description, userData) {
-    await ui5.element.waitForAllElements(this.textSelector);
+    await ui5.element.waitForAll(this.textSelector);
     await ui5.userInteraction.fill(this.textSelector, description);
     await ui5.userInteraction.fill(this.emailSelector, userData.email);
     await ui5.userInteraction.fill(this.telephoneSelector, userData.telephone);
