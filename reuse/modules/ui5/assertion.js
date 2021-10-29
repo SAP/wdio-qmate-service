@@ -404,7 +404,7 @@ const Assertion = function () {
       throw new Error("Function 'expectMessageToast' failed. Please provide the expected text as argument.");
     }
     const xpath = "//div[contains(@class, 'sapMMessageToast') and contains(string(), '" + text + "')]";
-    const elem = await nonUi5.element.getElementByXPath(xpath, 0, timeout);
+    const elem = await nonUi5.element.getByXPath(xpath, 0, timeout);
     return nonUi5.assertion.expectToBeVisible(elem);
   };
 
