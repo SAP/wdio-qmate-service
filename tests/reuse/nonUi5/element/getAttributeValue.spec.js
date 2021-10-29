@@ -14,7 +14,7 @@ describe("locator - getAttributeValue - inner HTML", function () {
   });
 
   it("Execution", async function () {
-    product = await nonUi5.element.getElementByXPath("//div[contains(text(),'Laptops')]");
+    product = await nonUi5.element.getByXPath("//div[contains(text(),'Laptops')]");
     valueAct = await nonUi5.element.getAttributeValue(product);
   });
 
@@ -35,7 +35,7 @@ describe("locator - getAttributeValue - with attribute", function () {
   });
 
   it("Execution", async function () {
-    product = await nonUi5.element.getElementByXPath("//div[contains(text(),'Laptops')]");
+    product = await nonUi5.element.getByXPath("//div[contains(text(),'Laptops')]");
     valueAct = await nonUi5.element.getAttributeValue(product, "class");
   });
 

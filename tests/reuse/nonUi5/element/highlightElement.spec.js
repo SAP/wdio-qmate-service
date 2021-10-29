@@ -8,10 +8,10 @@ describe("locator - highlightElement", function () {
   });
 
   it("Execution", async function () {
-    product = await nonUi5.element.getElementByXPath("//div[contains(text(),'Laptops')]");
+    product = await nonUi5.element.getByXPath("//div[contains(text(),'Laptops')]");
     const duration = 3000;
     const color = "green";
-    await nonUi5.element.highlightElement(product, duration, color);
+    await nonUi5.element.highlight(product, duration, color);
   });
 });
 

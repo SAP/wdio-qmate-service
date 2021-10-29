@@ -9,7 +9,7 @@ describe("locator - getElementByName + expectToBeVisible", function () {
   });
 
   it("Execution", async function () {
-    navigationBar = await nonUi5.element.getElementByName("navbar");
+    navigationBar = await nonUi5.element.getByName("navbar");
   });
 
   it("Verification", async function () {
@@ -24,7 +24,7 @@ describe("locator - getElementByName and catch error", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getElementByName("wrong_name"))
+    await expect(nonUi5.element.getByName("wrong_name"))
       .rejects.toThrow("Function 'getElementByName' failed");
   });
 });

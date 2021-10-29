@@ -12,7 +12,7 @@ describe("locator - waitForAllElements", function () {
   });
 
   it("Execution", async function () {
-    await nonUi5.element.waitForAllElements("[id='sdk---app--changeVersionButton-BDI-content']", 40000);
+    await nonUi5.element.waitForAll("[id='sdk---app--changeVersionButton-BDI-content']", 40000);
   });
 });
 
@@ -25,7 +25,7 @@ describe("locator - waitForAllElements and catch error", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.waitForAllElements("[class='sapMBtnBase sapMBtn sapMBtnInverted sapMDialogBeginButton sapMBarChild']", 4000))
+    await expect(nonUi5.element.waitForAll("[class='sapMBtnBase sapMBtn sapMBtnInverted sapMDialogBeginButton sapMBarChild']", 4000))
       .rejects.toThrow("Function 'waitForAllElements' failed");
   });
 });

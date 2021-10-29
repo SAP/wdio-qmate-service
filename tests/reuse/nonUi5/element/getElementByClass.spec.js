@@ -9,7 +9,7 @@ describe("locator - getElementByClass + expectToBeVisible", function () {
   });
 
   it("Execution", async function () {
-    downloadBtn = await nonUi5.element.getElementByClass("sapMPageSubHeader");
+    downloadBtn = await nonUi5.element.getByClass("sapMPageSubHeader");
   });
 
   it("Verification", async function () {
@@ -24,7 +24,7 @@ describe("locator - getElementByClass and catch error", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getElementByClass("sapMPSubHeader"))
+    await expect(nonUi5.element.getByClass("sapMPSubHeader"))
       .rejects.toThrow("Function 'getElementByClass' failed");
   });
 });

@@ -9,7 +9,7 @@ describe("locator - getElementByXPath + expectToBeVisible", function () {
   });
 
   it("Execution", async function () {
-    searchInput = await nonUi5.element.getElementByXPath("//input[@id='container-cart---homeView--searchField-I']");
+    searchInput = await nonUi5.element.getByXPath("//input[@id='container-cart---homeView--searchField-I']");
   });
 
   it("Verification", async function () {
@@ -24,7 +24,7 @@ describe("locator - getElementByXPath and catch error", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getElementByXPath("sap-word"))
+    await expect(nonUi5.element.getByXPath("sap-word"))
       .rejects.toThrow("Function 'getElementByXPath' failed");
   });
 });

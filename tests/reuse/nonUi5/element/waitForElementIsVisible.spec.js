@@ -10,7 +10,7 @@ describe("locator - waitForElementIsVisible", function () {
   });
 
   it("Execution", async function () {
-    await nonUi5.element.waitForElementIsVisible("[id='sdk---app--changeVersionButton-BDI-content']", 40000);
+    await nonUi5.element.waitToBeVisible("[id='sdk---app--changeVersionButton-BDI-content']", 40000);
   });
 });
 
@@ -22,7 +22,7 @@ describe("locator - waitForElementIsVisible and catch error", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.waitForElementIsVisible("[class='sapMBtnBase sapMBtn sapMBtnInverted sapMDialogBeginButton sapMBarChild']", 1000))
+    await expect(nonUi5.element.waitToBeVisible("[class='sapMBtnBase sapMBtn sapMBtnInverted sapMDialogBeginButton sapMBarChild']", 1000))
       .rejects.toThrow("Function 'waitForElementIsVisible' failed");
   });
 });

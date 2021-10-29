@@ -17,7 +17,7 @@ describe("locator - getElementByChild + expectToBeVisible", function () {
   it("Execution", async function () {
     parentSelector = "[id='container-cart---homeView--searchField']";
     childSelector = "[class='sapMSFF']";
-    finalElement = await nonUi5.element.getElementByChild(parentSelector, childSelector);
+    finalElement = await nonUi5.element.getByChild(parentSelector, childSelector);
 
   });
 
@@ -33,7 +33,7 @@ describe("locator - getElementByChild and catch error", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getElementByChild(".form01", ".input01"))
+    await expect(nonUi5.element.getByChild(".form01", ".input01"))
       .rejects.toThrow("Function 'getElementByChild' failed");
   });
 });

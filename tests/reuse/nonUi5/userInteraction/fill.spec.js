@@ -4,7 +4,7 @@ describe("userInteraction - fill form field", function () {
   let element;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
-    element = await nonUi5.element.getElementById("ExampleValue1", 10000);
+    element = await nonUi5.element.getById("ExampleValue1", 10000);
     // Check field is empty before the test
     nonUi5.assertion.expectValueToBe(element, "", "value");
   });
@@ -30,7 +30,7 @@ describe.only("userInteraction - fill a button (unhappy case)", function () {
   });
 
   it("Execution and Verification", async function () {
-    const elem = await nonUi5.element.getElementById("Default", 10000);
+    const elem = await nonUi5.element.getById("Default", 10000);
     await expect(nonUi5.userInteraction.fill(elem, "New test value"))
       .rejects.toThrow(/Function fill failed. Element can not be filled - make sure that the selector matches input/);
   });

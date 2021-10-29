@@ -181,7 +181,7 @@ describe("userInteraction - fillActive - form field", function () {
   let element;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
-    element = await nonUi5.element.getElementById("ExampleValue1", 10000);
+    element = await nonUi5.element.getById("ExampleValue1", 10000);
     // Check field is empty before the test
     await nonUi5.assertion.expectValueToBe(element, "", "value");
   });
@@ -200,7 +200,7 @@ describe("userInteraction - fillActive - empty value", function () {
   let element;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
-    element = await nonUi5.element.getElementById("ExampleValue1", 10000);
+    element = await nonUi5.element.getById("ExampleValue1", 10000);
     // Check field is empty before the test
     await nonUi5.assertion.expectValueToBe(element, "", "value");
   });

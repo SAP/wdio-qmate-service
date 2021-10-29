@@ -13,7 +13,7 @@ describe("locator - getElementById + expectToBeVisible", function () {
   });
 
   it("Execution", async function () {
-    downloadBtn = await nonUi5.element.getElementById("sdk---app--apiMasterTab-text");
+    downloadBtn = await nonUi5.element.getById("sdk---app--apiMasterTab-text");
   });
 
   it("Verification", async function () {
@@ -29,7 +29,7 @@ describe("locator - getElementById and catch error", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getElementById("sdk---app--apiTab-text"))
+    await expect(nonUi5.element.getById("sdk---app--apiTab-text"))
       .rejects.toThrow("Function 'getElementById' failed");
   });
 });

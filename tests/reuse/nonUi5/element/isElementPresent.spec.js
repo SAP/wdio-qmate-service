@@ -5,8 +5,8 @@
 //   });
 
 //   it("Execution and Verification", async function () {
-//     const itemElement = await nonUi5.element.getElementByCss(".sapMSLITitleOnly=Computer System Accessories");
-//     const isPresent = await nonUi5.element.isElementPresent(itemElement);
+//     const itemElement = await nonUi5.element.getByCss(".sapMSLITitleOnly=Computer System Accessories");
+//     const isPresent = await nonUi5.element.isPresent(itemElement);
 //     await common.assertion.expectTrue(isPresent);
 //   });
 // });
@@ -21,7 +21,7 @@ describe("element - isElementPresent - hidden element", function () {
     const hiddenElements = await nonUi5.element.getAll(".sapUiInvisibleText");
     common.assertion.expectDefined(hiddenElements);
     common.assertion.expectDefined(hiddenElements.length);
-    const isPresent = await nonUi5.element.isElementPresent(hiddenElements[0]);
+    const isPresent = await nonUi5.element.isPresent(hiddenElements[0]);
     await common.assertion.expectTrue(isPresent);
   });
 });
@@ -33,7 +33,7 @@ describe("element - isElementPresent - hidden element", function () {
 //   });
 
 //   it("Execution and Verification", async function () {
-//     await expect(nonUi5.element.isElementPresent(".sapUiInvisibleText"))
+//     await expect(nonUi5.element.isPresent(".sapUiInvisibleText"))
 //       .rejects.toThrow(/not a function/);
 //   });
 // });

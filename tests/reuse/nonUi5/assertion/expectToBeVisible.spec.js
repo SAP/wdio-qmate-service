@@ -11,7 +11,7 @@ describe("assertion - expectToBeVisible", function () {
   });
 
   it("Execution", async function () {
-    visibleElement = await nonUi5.element.getElementByCss("#visibleParagraph");
+    visibleElement = await nonUi5.element.getByCss("#visibleParagraph");
   });
 
   it("Verification", async function () {
@@ -39,7 +39,7 @@ describe("assertion - expectToBeVisible for element out of viewpoint", function 
 
   it("Verification", async function () {
     // Get id of an element at the end of dropdown list
-    const elem = await nonUi5.element.getElementByCssContainingText(".sapMMultiComboBoxItem", "Smart Games");
+    const elem = await nonUi5.element.getByCssContainingText(".sapMMultiComboBoxItem", "Smart Games");
     await nonUi5.assertion.expectToBeVisible(elem);
   });
 });
@@ -54,7 +54,7 @@ describe("assertion - expectToBeVisible and catch error", function () {
 
   it("Execution", async function () {
     // Get hidden elements (cannot use 'getElementByCss' here as element with id=hiddenParagraph is being hidden)
-    await nonUi5.element.waitForAllElements("#hiddenParagraph");
+    await nonUi5.element.waitForAll("#hiddenParagraph");
     const hiddenElements = await $$("#hiddenParagraph");
 
     common.assertion.expectDefined(hiddenElements);
