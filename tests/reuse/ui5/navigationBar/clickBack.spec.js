@@ -2,8 +2,8 @@
 
 describe("navigationBar - click Back", async function () {
   it("Preparation", async function () {
-    browser.config.baseUrl = "https://qs9-715.wdf.sap.corp/ui";
-    await browser.navigateTo("https://qs9-715.wdf.sap.corp/ui");
+    browser.config.baseUrl = "https://hc7-715.wdf.sap.corp/ui";
+    await browser.navigateTo("https://hc7-715.wdf.sap.corp/ui");
     await ui5.session.login("PURCHASER");
     await ui5.navigation.navigateToApplication("Shell-home", true);
     await ui5.navigation.closePopups();
@@ -23,7 +23,7 @@ describe("navigationBar - click Back", async function () {
 describe("navigationBar - click Back and catch error", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://qs9-715.wdf.sap.corp/ui");
+    await browser.navigateTo("https://hc7-715.wdf.sap.corp/ui");
   });
 
   it("Execution and Verification", async function () {

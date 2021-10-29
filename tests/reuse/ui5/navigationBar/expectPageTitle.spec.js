@@ -2,7 +2,7 @@
 
 describe("navigationBar - expectPageTitle equal 'Home' after login", function () {
   it("Preparation", async function () {
-    browser.config.baseUrl = "https://qs9-715.wdf.sap.corp/ui";
+    browser.config.baseUrl = "https://hc7-715.wdf.sap.corp/ui";
   });
 
   it("Execution", async function () {
