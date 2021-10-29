@@ -3,7 +3,7 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("locator - waitForElementIsClickable", function () {
+describe("locator - waitToBeClickable", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
@@ -15,7 +15,7 @@ describe("locator - waitForElementIsClickable", function () {
   });
 });
 
-describe("locator - waitForElementIsClickable and catch error", function () {
+describe("locator - waitToBeClickable and catch error", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/category/AC/product/HT-6111");
@@ -23,6 +23,6 @@ describe("locator - waitForElementIsClickable and catch error", function () {
 
   it("Execution and Verification", async function () {
     await expect(nonUi5.element.waitToBeClickable("[class='sdk---app--changeVersionButton-BDI-content']", 40000))
-      .rejects.toThrow("Function 'waitForElementIsClickable' failed");
+      .rejects.toThrow("Function 'waitToBeClickable' failed");
   });
 });

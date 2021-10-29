@@ -1,4 +1,4 @@
-describe("locator - highlightElement", function () {
+describe("locator - highlight", function () {
 
   let product;
 

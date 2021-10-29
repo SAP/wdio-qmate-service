@@ -3,7 +3,7 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("locator - getElementById + expectToBeVisible", function () {
+describe("locator - getById + expectToBeVisible", function () {
 
   let downloadBtn;
 
@@ -21,7 +21,7 @@ describe("locator - getElementById + expectToBeVisible", function () {
   });
 });
 
-describe("locator - getElementById and catch error", function () {
+describe("locator - getById and catch error", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
@@ -30,6 +30,6 @@ describe("locator - getElementById and catch error", function () {
 
   it("Execution and Verification", async function () {
     await expect(nonUi5.element.getById("sdk---app--apiTab-text"))
-      .rejects.toThrow("Function 'getElementById' failed");
+      .rejects.toThrow("Function 'getById' failed");
   });
 });

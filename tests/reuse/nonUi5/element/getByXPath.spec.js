@@ -1,30 +1,30 @@
 "use strict";
 
-describe("locator - getElementByClass + expectToBeVisible", function () {
+describe("locator - getByXPath + expectToBeVisible", function () {
 
-  let downloadBtn;
+  let searchInput;
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution", async function () {
-    downloadBtn = await nonUi5.element.getByClass("sapMPageSubHeader");
+    searchInput = await nonUi5.element.getByXPath("//input[@id='container-cart---homeView--searchField-I']");
   });
 
   it("Verification", async function () {
-    await nonUi5.assertion.expectToBeVisible(downloadBtn, 10000);
+    await nonUi5.assertion.expectToBeVisible(searchInput, 10000);
   });
 });
 
-describe("locator - getElementByClass and catch error", function () {
+describe("locator - getByXPath and catch error", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getByClass("sapMPSubHeader"))
-      .rejects.toThrow("Function 'getElementByClass' failed");
+    await expect(nonUi5.element.getByXPath("sap-word"))
+      .rejects.toThrow("Function 'getByXPath' failed");
   });
 });

@@ -4,7 +4,7 @@ const {
 } = require("../../../helper/utils");
 
 // No visible element found. TypeError: elements.filter is not a function
-describe("locator - waitForAllElements", function () {
+describe("locator - waitForAll", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
@@ -17,7 +17,7 @@ describe("locator - waitForAllElements", function () {
 });
 
 // No visible element found. TypeError: elements.filter is not a function
-describe("locator - waitForAllElements and catch error", function () {
+describe("locator - waitForAll and catch error", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
@@ -26,6 +26,6 @@ describe("locator - waitForAllElements and catch error", function () {
 
   it("Execution and Verification", async function () {
     await expect(nonUi5.element.waitForAll("[class='sapMBtnBase sapMBtn sapMBtnInverted sapMDialogBeginButton sapMBarChild']", 4000))
-      .rejects.toThrow("Function 'waitForAllElements' failed");
+      .rejects.toThrow("Function 'waitForAll' failed");
   });
 });

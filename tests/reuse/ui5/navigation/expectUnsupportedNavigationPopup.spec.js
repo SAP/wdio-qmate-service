@@ -56,7 +56,7 @@ describe.skip("navigation - expectUnsupportedNavigationPopup with '&' (unhappy c
   it("Verification", async function () {
     await expect(ui5.navigation.expectUnsupportedNavigationPopup("#SomeWrongIntentWith&"))
       .rejects.toThrow(/No visible elements found/);
-    const textElement = await ui5.locator.getDisplayedElement(selectorForErrorPopupText);
+    const textElement = await ui5.locator.getDisplayed(selectorForErrorPopupText);
     const text = await textElement.getText();
     await common.assertion.expectEqual(text, "Could not open app. Please try again later.");
   });
