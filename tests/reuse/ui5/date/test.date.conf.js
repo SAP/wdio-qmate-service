@@ -6,9 +6,9 @@ exports.config = merge(qmateConfiguration.config, {
   bail: 1,
 
   specs: [
-    path.resolve(__dirname, "pickDate.spec.js"),
-    path.resolve(__dirname, "pickDateRange.spec.js"),
-    path.resolve(__dirname, "fillDateRange.spec.js")
+    path.resolve(__dirname, "pick.spec.js"),
+    path.resolve(__dirname, "pickRange.spec.js"),
+    path.resolve(__dirname, "fillRange.spec.js")
   ],
 
   exclude: [],

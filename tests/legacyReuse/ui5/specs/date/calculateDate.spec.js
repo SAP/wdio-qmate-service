@@ -21,7 +21,7 @@ describe("date - calculateDate with null/undefined/false parameters", function (
   it("Execution and Verification", function () {
     expect(ui5.common.date.calculateDate(null).getDate()).toBe(calculatedDate.getDate());
     expect(ui5.common.date.calculateDate(undefined).getDate()).toBe(calculatedDate.getDate());
-    expect(() => ui5.common.date.calculateDate(false)).toThrowError("Function 'getSpecificDate' failed: Please provide a date string ('2020, 0, 17') as first argument.");
+    expect(() => ui5.common.date.calculateDate(false)).toThrowError("Function 'getSpecific' failed: Please provide a date string ('2020, 0, 17') as first argument.");
     expect(ui5.common.date.calculateDate(true).toString()).toBe("Invalid Date");
   });
 });

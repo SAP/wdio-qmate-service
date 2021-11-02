@@ -28,6 +28,18 @@ const Browser = function () {
     browser.config.baseUrl = baseUrl;
   };
 
+  
+  /**
+   * @function logCurrentUrl
+   * @memberOf common.navigation
+   * @description Displays the current URL in the console.
+   * @example await util.browser.logCurrentUrl();
+   */
+   this.logCurrentUrl = async function () {
+    const url = await browser.getUrl();
+    util.console.info("Current URL: " + url);
+  };
+
 
   // =================================== ACTIONS ===================================
   /**

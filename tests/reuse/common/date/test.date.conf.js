@@ -12,8 +12,8 @@ exports.config = merge(qmateConfiguration.config, {
     path.resolve(__dirname, "getPreviousMonth.spec.js"),
     path.resolve(__dirname, "getNextYear.spec.js"),
     path.resolve(__dirname, "getPreviousYear.spec.js"),
-    path.resolve(__dirname, "calculateDate.spec.js"),
-    path.resolve(__dirname, "getSpecificDate.spec.js")
+    path.resolve(__dirname, "calculate.spec.js"),
+    path.resolve(__dirname, "getSpecific.spec.js")
   ],
 
   exclude: [],

@@ -41,12 +41,12 @@ Global namespace for common modules.
         * [.getPreviousMonth([format])](#common.date.getPreviousMonth) ⇒ <code>String</code>
         * [.getNextYear([format])](#common.date.getNextYear) ⇒ <code>String</code>
         * [.getPreviousYear([format])](#common.date.getPreviousYear) ⇒ <code>String</code>
-        * [.getSpecificDate(date, [format])](#common.date.getSpecificDate) ⇒ <code>String</code>
-        * [.calculateDate([date], [format])](#common.date.calculateDate) ⇒ <code>String</code>
+        * [.getSpecific(date, [format])](#common.date.getSpecific) ⇒ <code>String</code>
+        * [.calculate([date], [format])](#common.date.calculate) ⇒ <code>String</code>
     * [.navigation](#common.navigation)
         * [.navigateToUrl(url)](#common.navigation.navigateToUrl)
         * [.navigateToUrlAndRetry(url, [retries], [interval])](#common.navigation.navigateToUrlAndRetry)
-        * [.printCurrentUrl()](#common.navigation.printCurrentUrl)
+        * [.logCurrentUrl()](#common.navigation.logCurrentUrl)
     * [.userInteraction](#common.userInteraction)
         * [.fillActive(value)](#common.userInteraction.fillActive)
         * [.fillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.fillActiveAndRetry)
@@ -189,8 +189,8 @@ await common.assertion.expectUrlToBe("www.sap.com");
     * [.getPreviousMonth([format])](#common.date.getPreviousMonth) ⇒ <code>String</code>
     * [.getNextYear([format])](#common.date.getNextYear) ⇒ <code>String</code>
     * [.getPreviousYear([format])](#common.date.getPreviousYear) ⇒ <code>String</code>
-    * [.getSpecificDate(date, [format])](#common.date.getSpecificDate) ⇒ <code>String</code>
-    * [.calculateDate([date], [format])](#common.date.calculateDate) ⇒ <code>String</code>
+    * [.getSpecific(date, [format])](#common.date.getSpecific) ⇒ <code>String</code>
+    * [.calculate([date], [format])](#common.date.calculate) ⇒ <code>String</code>
 
 <a name="common.date.getToday"></a>
 
@@ -288,9 +288,9 @@ Returns the current day one year before in the given format.
 ```js
 const date = await common.date.getPreviousYear("mm/dd/yyyy");
 ```
-<a name="common.date.getSpecificDate"></a>
+<a name="common.date.getSpecific"></a>
 
-#### date.getSpecificDate(date, [format]) ⇒ <code>String</code>
+#### date.getSpecific(date, [format]) ⇒ <code>String</code>
 Returns a specific date in the given format.
 
 **Kind**: static method of [<code>date</code>](#common.date)  
@@ -303,11 +303,11 @@ Returns a specific date in the given format.
 
 **Example**  
 ```js
-const date = await common.date.getSpecificDate("2020, 0, 17", "mm/dd/yyyy");
+const date = await common.date.getSpecific("2020, 0, 17", "mm/dd/yyyy");
 ```
-<a name="common.date.calculateDate"></a>
+<a name="common.date.calculate"></a>
 
-#### date.calculateDate([date], [format]) ⇒ <code>String</code>
+#### date.calculate([date], [format]) ⇒ <code>String</code>
 Calculates the date based on the input parameter and returns it in the given format.
 
 **Kind**: static method of [<code>date</code>](#common.date)  
@@ -320,7 +320,7 @@ Calculates the date based on the input parameter and returns it in the given for
 
 **Example**  
 ```js
-const date = await common.date.calculateDate("today", "mm/dd/yyy");
+const date = await common.date.calculate("today", "mm/dd/yyy");
 ```
 <a name="common.navigation"></a>
 
@@ -330,7 +330,7 @@ const date = await common.date.calculateDate("today", "mm/dd/yyy");
 * [.navigation](#common.navigation)
     * [.navigateToUrl(url)](#common.navigation.navigateToUrl)
     * [.navigateToUrlAndRetry(url, [retries], [interval])](#common.navigation.navigateToUrlAndRetry)
-    * [.printCurrentUrl()](#common.navigation.printCurrentUrl)
+    * [.logCurrentUrl()](#common.navigation.logCurrentUrl)
 
 <a name="common.navigation.navigateToUrl"></a>
 
@@ -364,15 +364,15 @@ Navigates to the passed url and retries the function in case of a failure.
 ```js
 await common.navigation.navigateToUrlAndRetry("www.sap.com");
 ```
-<a name="common.navigation.printCurrentUrl"></a>
+<a name="common.navigation.logCurrentUrl"></a>
 
-#### navigation.printCurrentUrl()
+#### navigation.logCurrentUrl()
 Displays the current URL in the console.
 
 **Kind**: static method of [<code>navigation</code>](#common.navigation)  
 **Example**  
 ```js
-await common.navigation.printCurrentUrl();
+await util.browser.logCurrentUrl();
 ```
 <a name="common.userInteraction"></a>
 
@@ -1216,9 +1216,9 @@ Global namespace for UI5 modules.
         * [.getBindingContextPathProperty(elem)](#ui5.control.getBindingContextPathProperty)
         * [.getPropertyBinding(elem, propertyName)](#ui5.control.getPropertyBinding) ⇒ <code>Array</code>
     * [.date](#ui5.date)
-        * [.pickDate(selector, date)](#ui5.date.pickDate)
-        * [.pickDateRange(selector, range)](#ui5.date.pickDateRange)
-        * [.fillDateRange(selector, range)](#ui5.date.fillDateRange)
+        * [.pick(selector, date)](#ui5.date.pick)
+        * [.pickRange(selector, range)](#ui5.date.pickRange)
+        * [.fillRange(selector, range)](#ui5.date.fillRange)
     * [.element](#ui5.element)
         * [.waitForAll(selector, [timeout])](#ui5.element.waitForAll)
         * [.getAllDisplayed(selector, [timeout])](#ui5.element.getAllDisplayed) ⇒ <code>Array.&lt;Object&gt;</code>
@@ -1877,13 +1877,13 @@ const binding = await ui5.control.getPropertyBinding(elem, propertyName);
 **Kind**: static class of [<code>ui5</code>](#ui5)  
 
 * [.date](#ui5.date)
-    * [.pickDate(selector, date)](#ui5.date.pickDate)
-    * [.pickDateRange(selector, range)](#ui5.date.pickDateRange)
-    * [.fillDateRange(selector, range)](#ui5.date.fillDateRange)
+    * [.pick(selector, date)](#ui5.date.pick)
+    * [.pickRange(selector, range)](#ui5.date.pickRange)
+    * [.fillRange(selector, range)](#ui5.date.fillRange)
 
-<a name="ui5.date.pickDate"></a>
+<a name="ui5.date.pick"></a>
 
-#### date.pickDate(selector, date)
+#### date.pick(selector, date)
 Picks the passed date using the "DatePicker" with the given selector.
 
 **Kind**: static method of [<code>date</code>](#ui5.date)  
@@ -1895,12 +1895,12 @@ Picks the passed date using the "DatePicker" with the given selector.
 
 **Example**  
 ```js
-const today = await common.date.calculateDate("today");
-await ui5.date.pickDate(selector, date);
+const today = await common.date.calculate("today");
+await ui5.date.pick(selector, date);
 ```
-<a name="ui5.date.pickDateRange"></a>
+<a name="ui5.date.pickRange"></a>
 
-#### date.pickDateRange(selector, range)
+#### date.pickRange(selector, range)
 Picks the passed date range using the "DatePicker" with the given selector.
 Note that this will only work within the current month!
 
@@ -1913,14 +1913,14 @@ Note that this will only work within the current month!
 
 **Example**  
 ```js
-const start = await common.date.calculateDate("2020, 9, 20");
-const end = await common.date.calculateDate("2021, 1, 3");
+const start = await common.date.calculate("2020, 9, 20");
+const end = await common.date.calculate("2021, 1, 3");
 const range = [start, end];
-await ui5.date.pickDateRange(selector, range);
+await ui5.date.pickRange(selector, range);
 ```
-<a name="ui5.date.fillDateRange"></a>
+<a name="ui5.date.fillRange"></a>
 
-#### date.fillDateRange(selector, range)
+#### date.fillRange(selector, range)
 Enters the passed date range to the date input with the given selector by providing the start- and end date.
 
 **Kind**: static method of [<code>date</code>](#ui5.date)  
@@ -1932,10 +1932,10 @@ Enters the passed date range to the date input with the given selector by provid
 
 **Example**  
 ```js
-const start = await common.date.calculateDate("2020, 9, 20", "dd.mm.yyyy");
-const end = await common.date.calculateDate("2021, 1, 3", "dd.mm.yyyy");
+const start = await common.date.calculate("2020, 9, 20", "dd.mm.yyyy");
+const end = await common.date.calculate("2021, 1, 3", "dd.mm.yyyy");
 const range = [start, end];
-await ui5.date.fillDateRange(selector, range);
+await ui5.date.fillRange(selector, range);
 ```
 <a name="ui5.element"></a>
 
