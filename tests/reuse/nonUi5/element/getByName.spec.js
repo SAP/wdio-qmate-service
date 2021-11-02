@@ -1,6 +1,6 @@
 "use strict";
 
-describe("locator - getElementByName + expectToBeVisible", function () {
+describe("locator - getByName + expectToBeVisible", function () {
 
   let navigationBar;
 
@@ -9,7 +9,7 @@ describe("locator - getElementByName + expectToBeVisible", function () {
   });
 
   it("Execution", async function () {
-    navigationBar = await nonUi5.element.getElementByName("navbar");
+    navigationBar = await nonUi5.element.getByName("navbar");
   });
 
   it("Verification", async function () {
@@ -17,14 +17,14 @@ describe("locator - getElementByName + expectToBeVisible", function () {
   });
 });
 
-describe("locator - getElementByName and catch error", function () {
+describe("locator - getByName and catch error", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getElementByName("wrong_name"))
-      .rejects.toThrow("Function 'getElementByName' failed");
+    await expect(nonUi5.element.getByName("wrong_name"))
+      .rejects.toThrow("Function 'getByName' failed");
   });
 });

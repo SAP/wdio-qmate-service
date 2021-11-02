@@ -6,7 +6,7 @@ const selectorForAllListItems = {
   }
 };
 
-describe("element - getElementByText should get element by right text", function () {
+describe("element - getByText should get element by right text", function () {
   let elementByRightName;
   let secondElementByRightName;
   let elementText;
@@ -17,10 +17,10 @@ describe("element - getElementByText should get element by right text", function
   });
 
   it("Execution", async function () {
-    elementByRightName = await ui5.element.getElementByText(selectorForAllListItems, textToGetElement);
+    elementByRightName = await ui5.element.getByText(selectorForAllListItems, textToGetElement);
     elementText = await elementByRightName.getText();
-    await expect(ui5.element.getElementByText(selectorForAllListItems, textToGetElement, 1))
-      .rejects.toThrow(/getElementByText\(\): Index out of bound./); // Element with text "Laptops\n11" is unique
+    await expect(ui5.element.getByText(selectorForAllListItems, textToGetElement, 1))
+      .rejects.toThrow(/getByText\(\): Index out of bound./); // Element with text "Laptops\n11" is unique
   });
 
   it("Verification", function () {
@@ -29,19 +29,19 @@ describe("element - getElementByText should get element by right text", function
   });
 });
 
-describe("element - getElementByText should get element by wrong text (unhappy case)", function () {
+describe("element - getByText should get element by wrong text (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
 
   it("Execution", async function () {
     const wrongText = "Wrong Text";
-    await expect(ui5.element.getElementByText(selectorForAllListItems, wrongText))
+    await expect(ui5.element.getByText(selectorForAllListItems, wrongText))
       .rejects.toThrow(/No elements found for given text./);
   });
 });
 
-describe("element - getElementByText with index 1 (unhappy case)", function () {
+describe("element - getByText with index 1 (unhappy case)", function () {
 
   const value = "Gaming Monster";
 
@@ -59,7 +59,7 @@ describe("element - getElementByText with index 1 (unhappy case)", function () {
     const index = 1;
     const timeout = 30000;
 
-    await expect(ui5.element.getElementByText(selector, value, index, timeout))
-      .rejects.toThrow(/getElementByText\(\): Index out of bound./);
+    await expect(ui5.element.getByText(selector, value, index, timeout))
+      .rejects.toThrow(/getByText\(\): Index out of bound./);
   });
 });

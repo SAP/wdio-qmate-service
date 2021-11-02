@@ -9,12 +9,12 @@ describe("navigation - navigateToApplicationAndRetry with closePopups=true", fun
     let urlExpected = `${await util.browser.getBaseUrl()}?${queryToClosePopups}#Shell-home`;
 
     await ui5.navigation.navigateToApplicationAndRetry("Shell-home"); // closePopups=true by default
-    let button = await nonUi5.element.getElementById("parseUrl");
+    let button = await nonUi5.element.getById("parseUrl");
     await nonUi5.userInteraction.click(button);
 
     await common.assertion.expectUrlToBe(urlExpected);
 
-    let parsedUrlElement = await nonUi5.element.getElementById("navigationUrl");
+    let parsedUrlElement = await nonUi5.element.getById("navigationUrl");
     let parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
 
     await common.assertion.expectEqual(urlExpected, parsedUrlValue);
@@ -24,12 +24,12 @@ describe("navigation - navigateToApplicationAndRetry with closePopups=true", fun
     urlExpected = `${await util.browser.getBaseUrl()}?${queryToClosePopups}#PurchaseOrder-manage`;
 
     await ui5.navigation.navigateToApplicationAndRetry("PurchaseOrder-manage"); // closePopups=true by default
-    button = await nonUi5.element.getElementById("parseUrl");
+    button = await nonUi5.element.getById("parseUrl");
     await nonUi5.userInteraction.click(button);
 
     await common.assertion.expectUrlToBe(urlExpected);
 
-    parsedUrlElement = await nonUi5.element.getElementById("navigationUrl");
+    parsedUrlElement = await nonUi5.element.getById("navigationUrl");
     parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
 
     await common.assertion.expectEqual(urlExpected, parsedUrlValue);
@@ -44,12 +44,12 @@ describe("navigation - navigateToApplicationAndRetry with closePopups=false", fu
     let urlExpected = `${await util.browser.getBaseUrl()}#Shell-home`;
 
     await ui5.navigation.navigateToApplicationAndRetry("Shell-home", false); // closePopups=false
-    let button = await nonUi5.element.getElementById("parseUrl");
+    let button = await nonUi5.element.getById("parseUrl");
     await nonUi5.userInteraction.click(button);
 
     await common.assertion.expectUrlToBe(urlExpected);
 
-    let parsedUrlElement = await nonUi5.element.getElementById("navigationUrl");
+    let parsedUrlElement = await nonUi5.element.getById("navigationUrl");
     let parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
 
     await common.assertion.expectEqual(urlExpected, parsedUrlValue);
@@ -59,12 +59,12 @@ describe("navigation - navigateToApplicationAndRetry with closePopups=false", fu
     urlExpected = `${await util.browser.getBaseUrl()}#PurchaseOrder-manage`;
 
     await ui5.navigation.navigateToApplicationAndRetry("PurchaseOrder-manage", false); // closePopups=false
-    button = await nonUi5.element.getElementById("parseUrl");
+    button = await nonUi5.element.getById("parseUrl");
     await nonUi5.userInteraction.click(button);
 
     await common.assertion.expectUrlToBe(urlExpected);
 
-    parsedUrlElement = await nonUi5.element.getElementById("navigationUrl");
+    parsedUrlElement = await nonUi5.element.getById("navigationUrl");
     parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
 
     await common.assertion.expectEqual(urlExpected, parsedUrlValue);
@@ -140,7 +140,7 @@ describe.skip("assertion - expectUnsupportedNavigationPopup with '&' (unhappy ca
   it("Verification", async function () {
     await expect(ui5.assertion.expectUnsupportedNavigationPopup("#SomeWrongIntentWith&"))
       .rejects.toThrow(/No visible elements found/);
-    const textElement = await ui5.element.getDisplayedElement(selectorForErrorPopupText);
+    const textElement = await ui5.element.getDisplayed(selectorForErrorPopupText);
     const text = await textElement.getText();
     await common.assertion.expectEqual(text, "Could not open app. Please try again later.");
   });

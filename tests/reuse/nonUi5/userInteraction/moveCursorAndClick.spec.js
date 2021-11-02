@@ -8,7 +8,7 @@ describe("chart tests", function () {
   });
 
   it("Execution", async function () {
-    const elem = await nonUi5.element.getElementByCss("g:nth-child(1) > g:nth-child(7)");
+    const elem = await nonUi5.element.getByCss("g:nth-child(1) > g:nth-child(7)");
     await nonUi5.userInteraction.moveCursorAndClick(elem);
   });
 
@@ -18,7 +18,7 @@ describe("chart tests", function () {
         "metadata": "sap.viz.ui5.controls.chartpopover.ContentPanel"
       }
     };
-    await ui5.element.getDisplayedElement(selector);
+    await ui5.element.getDisplayed(selector);
   });
 
 });

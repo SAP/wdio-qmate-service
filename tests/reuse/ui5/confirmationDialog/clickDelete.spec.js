@@ -48,7 +48,7 @@ describe("confirmationDialog - clickDelete", function () {
     await ui5.userInteraction.click(removeButton);
 
     // 5. Check popup
-    await expect(ui5.element.getDisplayedElement(selectorForPopup)).resolves.toBeTruthy();
+    await expect(ui5.element.getDisplayed(selectorForPopup)).resolves.toBeTruthy();
   });
 
   it("Execution", async function () {
@@ -68,7 +68,7 @@ describe("confirmationDialog - clickDelete", function () {
     await ui5.assertion.expectToBeVisible(emptyCart);
 
     // 8. Check popup disappeared
-    await expect(ui5.element.getDisplayedElement(selectorForPopup))
+    await expect(ui5.element.getDisplayed(selectorForPopup))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
@@ -80,7 +80,7 @@ describe("confirmationDialog - clickDelete without confirmation dialog (unhappy 
 
   it("Execution and Verification", async function () {
     // No popup to click
-    await expect(ui5.element.getDisplayedElement(selectorForPopup))
+    await expect(ui5.element.getDisplayed(selectorForPopup))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
 
     await expect(ui5.confirmationDialog.clickDelete())

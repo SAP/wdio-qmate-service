@@ -12,7 +12,7 @@ const UserInteraction = function () {
    * @description Clicks on the passed element.
    * @param {Object} element - The element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example const elem = await nonUi5.element.getElementById("button01");
+   * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.click(elem);
    */
   this.click = async function (element, timeout = 30000) {
@@ -44,7 +44,7 @@ const UserInteraction = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
-   * @example const elem = await nonUi5.element.getElementById("button01");
+   * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.clickAndRetry(elem);
    */
   this.clickAndRetry = async function (element, timeout = 30000, retries = 3, interval = 5000) {
@@ -60,7 +60,7 @@ const UserInteraction = function () {
    * @description Double Clicks on the passed element.
    * @param {Object} element - The element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example const elem = await nonUi5.element.getElementById("button01");
+   * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.doubleClick(elem);
    */
   this.doubleClick = async function (element, timeout = 30000) {
@@ -90,7 +90,7 @@ const UserInteraction = function () {
    * @description Right Clicks on the passed element.
    * @param {Object} element - The element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example const elem = await nonUi5.element.getElementById("button01");
+   * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.rightClick(elem);
    */
   this.rightClick = async function (element, timeout = 30000) {
@@ -124,7 +124,7 @@ const UserInteraction = function () {
    * @description Fills the given value into the passed input.
    * @param {Object} element - The element.
    * @param {String} value - The value to be filled.
-   * @example const elem = await nonUi5.element.getElementById("input01");
+   * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.fill(elem, "Service 01");
    */
   this.fill = async function (element, value) {
@@ -152,7 +152,7 @@ const UserInteraction = function () {
    * @param {String} value - The value to be filled.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
-   * @example const elem = await nonUi5.element.getElementById("input01");
+   * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.fillAndRetry(elem, "Service 01");
    */
   this.fillAndRetry = async function (element, value, retries, interval) {
@@ -170,7 +170,7 @@ const UserInteraction = function () {
    * @memberOf nonUi5.userInteraction
    * @description Clears the passed input element.
    * @param {Object} element - The element.
-   * @example const elem = await nonUi5.element.getElementById("input01");
+   * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.clear(elem);
    */
   this.clear = async function (element) {
@@ -187,7 +187,7 @@ const UserInteraction = function () {
    * @param {Object} element - The element.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
-   * @example const elem = await nonUi5.element.getElementById("input01", 10000);
+   * @example const elem = await nonUi5.element.getById("input01", 10000);
    * await nonUi5.userInteraction.clearAndRetry(elem);
    */
   this.clearAndRetry = async function (element, retries = 3, interval = 5000) {
@@ -203,7 +203,7 @@ const UserInteraction = function () {
    * @description Clears and fills the passed input element.
    * @param {Object} element - The element.
    * @param {String} value - The value to be filled in.
-   * @example const elem = await nonUi5.element.getElementById("input01");
+   * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.clearAndFill(elem, "Service 01");
    */
   this.clearAndFill = async function (element, value) {
@@ -229,7 +229,7 @@ const UserInteraction = function () {
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
    * @param {Boolean} [verify=true] - Specifies if the filled value should be verified.
-   * @example const elem = await nonUi5.element.getElementById("input01");
+   * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
    */
   this.clearAndFillAndRetry = async function (element, value, retries = 3, interval = 5000, verify = true) {
@@ -268,8 +268,8 @@ const UserInteraction = function () {
    * @description Drags and drops the given element to the given target element.
    * @param {Object} element - The element to drag.
    * @param {Object} targetElem - The target element to drop the element.
-   * @example const elem = await nonUi5.element.getElementById("drag01");
-   * @example const targetElem = await nonUi5.element.getElementById("drop02");
+   * @example const elem = await nonUi5.element.getById("drag01");
+   * @example const targetElem = await nonUi5.element.getById("drop02");
    * await nonUi5.userInteraction.dragAndDrop(elem, targetElem);
    */
   this.dragAndDrop = async function (element, targetElem) {
@@ -281,7 +281,7 @@ const UserInteraction = function () {
    * @memberOf nonUi5.userInteraction
    * @description Moves the cursor to the target element and clicks on it. Can be used for charts.
    * @param {Object} element - The element to be clicked.
-   * @example const elem = await nonUi5.element.getElementById("chartPartToClick");
+   * @example const elem = await nonUi5.element.getById("chartPartToClick");
    * await nonUi5.userInteraction.moveCursorAndClick(elem);
    */
   this.moveCursorAndClick = async function (element) {

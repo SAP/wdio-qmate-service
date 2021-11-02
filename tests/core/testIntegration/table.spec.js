@@ -8,7 +8,7 @@ describe("table", function () {
       "elementProperties": { "metadata": "sap.m.ColumnListItem", "mProperties": { "bindingContextPath": "/ProductCollection/2" } },
       "parentProperties": { "metadata": "sap.m.Table", "mProperties": { "items": [{ "path": "/ProductCollection" }] } },
     };
-    var list = await ui5.element.getDisplayedElement(ui5ControlProperties, 0);
+    var list = await ui5.element.getDisplayed(ui5ControlProperties, 0);
 
     var ui5ControlProperties2 = {
       "elementProperties": { "metadata": "sap.m.Text", "mProperties": {} },
@@ -20,21 +20,6 @@ describe("table", function () {
     await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
   });
 
-  it("step1:getChild method", async function () {
-    var ui5ControlProperties = {
-      "elementProperties": { "metadata": "sap.m.ColumnListItem", "mProperties": { "bindingContextPath": "/ProductCollection/2" } },
-      "parentProperties": { "metadata": "sap.m.Table", "mProperties": { "items": [{ "path": "/ProductCollection" }] } },
-    };
-
-    var ui5ControlProperties2 = {
-      "elementProperties": { "metadata": "sap.m.Text", "mProperties": {} },
-    };
-
-    const nameField = await ui5.element.getDisplayedChildElement(ui5ControlProperties, ui5ControlProperties2);
-    var attribute = "text";   //eg: title, text, value etc.
-    var compareValue = "Notebook Basic 18";   //expected value
-    await expect(await nameField.getAttribute("data-" + attribute)).toBe(compareValue);
-  });
 
   it("step1:click on edit", async function () {
     //----------------------- Block for sap.m.Button - Perform Click -----------------------
@@ -57,7 +42,7 @@ describe("table", function () {
       "childProperties": {}
     };
     var value = "20";   //value to be entered by user
-    var id = await ui5.element.getElementId(ui5ControlProperties);
+    var id = await ui5.element.getId(ui5ControlProperties);
     await $("[id='" + id + "'] input").clearValue();
     await $("[id='" + id + "'] input").setValue(value);
     //await ui5.userInteraction.clearAndFill(ui5ControlProperties, value);
@@ -88,7 +73,7 @@ describe("table", function () {
       }
     };
     var value = "99";   //value to be entered by user
-    var id = await ui5.element.getElementId(ui5ControlProperties);
+    var id = await ui5.element.getId(ui5ControlProperties);
     await $("[id='" + id + "'] input").clearValue();
     await $("[id='" + id + "'] input").setValue(value);
   });

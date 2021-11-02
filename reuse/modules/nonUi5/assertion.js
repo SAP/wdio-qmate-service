@@ -13,9 +13,9 @@ const Assertion = function () {
    * @param {Object} elem - The element.
    * @param {String} compareValue - The compare value.
    * @param {String} [attribute] - The attribute to compare. If not passed, it will compare the inner HTML content of the element.
-   * @example const elem = await nonUi5.element.getElementById("button01");
+   * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectAttributeToBe(elem, "Save");
-   * @example const elem = await nonUi5.element.getElementById("button01");
+   * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectAttributeToBe(element, "Save", "title");
    */
   this.expectAttributeToBe = async function (elem, compareValue, attribute) {
@@ -29,7 +29,7 @@ const Assertion = function () {
    * @description Expects the attributes value of the passed element to be the compare value.
    * @param {Object} elem - The element.
    * @param {String} compareValue - The compare value.
-   * @example const elem = await nonUi5.element.getElementById("button01");
+   * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectValueToBe(elem, "Save");
    */
   this.expectValueToBe = async function (elem, compareValue) {
@@ -44,7 +44,7 @@ const Assertion = function () {
    * @memberOf nonUi5.assertion
    * @description Expects that the element is visible to the user. 
    * @param {Object} element - The element.
-   * @example const elem = await nonUi5.element.getElementById("button01");
+   * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectToBeVisible(elem);
    */
   this.expectToBeVisible = async function (element) {

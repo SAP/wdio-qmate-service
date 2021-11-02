@@ -12,7 +12,7 @@ describe("locator - getValue", function () {
   });
 
   it("Execution", async function () {
-    const elem = await nonUi5.element.getElementByXPath("//div[contains(text(),'Laptops')]");
+    const elem = await nonUi5.element.getByXPath("//div[contains(text(),'Laptops')]");
     actValue = await nonUi5.element.getValue(elem);
   });
 
@@ -29,7 +29,7 @@ describe("locator - getValue - innerHTML", function () {
   });
 
   it("Execution", async function () {
-    const elem = await nonUi5.element.getElementByCss("SPAN[id='container-cart---homeView--page-title-inner']");
+    const elem = await nonUi5.element.getByCss("SPAN[id='container-cart---homeView--page-title-inner']");
     actValue = await nonUi5.element.getValue(elem);
   });
 

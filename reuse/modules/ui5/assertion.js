@@ -21,7 +21,7 @@ const Assertion = function () {
   this.expectAttributeToBe = async function (selector, attribute, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
     let elem;
     try {
-      elem = await ui5.element.getDisplayedElement(selector, index, timeout);
+      elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
       throw new Error(`Function 'expectAttributeToBe' failed:${error}`);
     }
@@ -404,7 +404,7 @@ const Assertion = function () {
       throw new Error("Function 'expectMessageToast' failed. Please provide the expected text as argument.");
     }
     const xpath = "//div[contains(@class, 'sapMMessageToast') and contains(string(), '" + text + "')]";
-    const elem = await nonUi5.element.getElementByXPath(xpath, 0, timeout);
+    const elem = await nonUi5.element.getByXPath(xpath, 0, timeout);
     return nonUi5.assertion.expectToBeVisible(elem);
   };
 

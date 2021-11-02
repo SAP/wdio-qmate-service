@@ -6,12 +6,12 @@ describe("navigation - navigateToApplication with preventPopups=false", function
     let urlExpected = `${await util.browser.getBaseUrl()}#Shell-home`; // http://localhost:34099/ui#Shell-home
 
     await ui5.navigation.navigateToApplication("Shell-home"); // preventPopups=false by default
-    let button = await nonUi5.element.getElementById("parseUrl");
+    let button = await nonUi5.element.getById("parseUrl");
     await nonUi5.userInteraction.click(button);
 
     await common.assertion.expectUrlToBe(urlExpected);
 
-    let parsedUrlElement = await nonUi5.element.getElementById("navigationUrl");
+    let parsedUrlElement = await nonUi5.element.getById("navigationUrl");
     let parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
 
     await common.assertion.expectEqual(urlExpected, parsedUrlValue);
@@ -20,12 +20,12 @@ describe("navigation - navigateToApplication with preventPopups=false", function
     urlExpected = `${await util.browser.getBaseUrl()}#PurchaseOrder-manage`; // http://localhost:34099/ui#PurchaseOrder-manage
 
     await ui5.navigation.navigateToApplication("PurchaseOrder-manage"); // preventPopups=false by default
-    button = await nonUi5.element.getElementById("parseUrl");
+    button = await nonUi5.element.getById("parseUrl");
     await nonUi5.userInteraction.click(button);
 
     await common.assertion.expectUrlToBe(urlExpected);
 
-    parsedUrlElement = await nonUi5.element.getElementById("navigationUrl");
+    parsedUrlElement = await nonUi5.element.getById("navigationUrl");
     parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
 
     await common.assertion.expectEqual(urlExpected, parsedUrlValue);
@@ -41,12 +41,12 @@ describe("navigation - navigateToApplication with preventPopups=true", function 
     let urlExpected = `${await util.browser.getBaseUrl()}?${queryToClosePopups}#Shell-home`;
 
     await ui5.navigation.navigateToApplication("Shell-home", true); // preventPopups=true
-    let button = await nonUi5.element.getElementById("parseUrl");
+    let button = await nonUi5.element.getById("parseUrl");
     await nonUi5.userInteraction.click(button);
 
     await common.assertion.expectUrlToBe(urlExpected);
 
-    let parsedUrlElement = await nonUi5.element.getElementById("navigationUrl");
+    let parsedUrlElement = await nonUi5.element.getById("navigationUrl");
     let parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
 
     await common.assertion.expectEqual(urlExpected, parsedUrlValue);
@@ -56,12 +56,12 @@ describe("navigation - navigateToApplication with preventPopups=true", function 
     urlExpected = `${await util.browser.getBaseUrl()}?${queryToClosePopups}#PurchaseOrder-manage`;
 
     await ui5.navigation.navigateToApplication("PurchaseOrder-manage", true); // preventPopups=true
-    button = await nonUi5.element.getElementById("parseUrl");
+    button = await nonUi5.element.getById("parseUrl");
     await nonUi5.userInteraction.click(button);
 
     await common.assertion.expectUrlToBe(urlExpected);
 
-    parsedUrlElement = await nonUi5.element.getElementById("navigationUrl");
+    parsedUrlElement = await nonUi5.element.getById("navigationUrl");
     parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
 
     await common.assertion.expectEqual(urlExpected, parsedUrlValue);
@@ -137,7 +137,7 @@ describe.skip("assertion - expectUnsupportedNavigationPopup with '&' (unhappy ca
   it("Verification", async function () {
     await expect(ui5.assertion.expectUnsupportedNavigationPopup("#SomeWrongIntentWith&"))
       .rejects.toThrow(/No visible elements found/);
-    const textElement = await ui5.element.getDisplayedElement(selectorForErrorPopupText);
+    const textElement = await ui5.element.getDisplayed(selectorForErrorPopupText);
     const text = await textElement.getText();
     await common.assertion.expectEqual(text, "Could not open app. Please try again later.");
   });

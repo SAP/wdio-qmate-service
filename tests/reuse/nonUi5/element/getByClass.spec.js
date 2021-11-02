@@ -1,6 +1,6 @@
 "use strict";
 
-describe("locator - getElementByClass + expectToBeVisible", function () {
+describe("locator - getByClass + expectToBeVisible", function () {
 
   let downloadBtn;
 
@@ -9,7 +9,7 @@ describe("locator - getElementByClass + expectToBeVisible", function () {
   });
 
   it("Execution", async function () {
-    downloadBtn = await nonUi5.element.getElementByClass("sapMPageSubHeader");
+    downloadBtn = await nonUi5.element.getByClass("sapMPageSubHeader");
   });
 
   it("Verification", async function () {
@@ -17,14 +17,14 @@ describe("locator - getElementByClass + expectToBeVisible", function () {
   });
 });
 
-describe("locator - getElementByClass and catch error", function () {
+describe("locator - getByClass and catch error", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getElementByClass("sapMPSubHeader"))
-      .rejects.toThrow("Function 'getElementByClass' failed");
+    await expect(nonUi5.element.getByClass("sapMPSubHeader"))
+      .rejects.toThrow("Function 'getByClass' failed");
   });
 });

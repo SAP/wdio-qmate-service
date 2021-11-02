@@ -14,7 +14,7 @@ describe("assertion - getValue + expectValueToBe", function () {
   });
 
   it("Execution and Verification", async function () {
-    product = await nonUi5.element.getElementByXPath("//div[contains(text(),'Laptops')]");
+    product = await nonUi5.element.getByXPath("//div[contains(text(),'Laptops')]");
     await nonUi5.assertion.expectValueToBe(product, "Laptops");
   });
 });
