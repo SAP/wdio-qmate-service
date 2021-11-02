@@ -177,11 +177,23 @@
   },
   {
     "old": "ui5.common.date.getSpecificDate",
-    "new": "common.date.getSpecificDate"
+    "new": "common.date.getSpecific"
   },
   {
     "old": "ui5.common.date.calculateDate",
-    "new": "common.date.calculateDate"
+    "new": "common.date.calculate"
+  },
+  {
+    "old": "ui5.common.date.pickDate",
+    "new": "ui5.date.pick"
+  },
+  {
+    "old": "ui5.common.date.pickDateRange",
+    "new": "ui5.date.pickRange"
+  },
+  {
+    "old": "ui5.common.date.fillDateRange",
+    "new": "ui5.date.fillRange"
   },
   {
     "old": "ui5.common.errorDialog.expectErrorDialogToBeVisible",
@@ -209,7 +221,7 @@
   },
   {
     "old": "ui5.common.navigation.printCurrentUrl",
-    "new": "common.navigation.printCurrentUrl"
+    "new": "util.browser.logCurrentUrl"
   },
   {
     "old": "ui5.common.navigation.navigateToApplicationAndRetryRefresh",
