@@ -5,9 +5,9 @@ let today;
 let nextMonth;
 let nextYear;
 
-describe("date - calculateDate without any parameters ", function () {
+describe("date - calculate without any parameters ", function () {
   it("Execution", function () {
-    calculatedDate = common.date.calculateDate();
+    calculatedDate = common.date.calculate();
   });
 
   it("Verification", function () {
@@ -17,19 +17,19 @@ describe("date - calculateDate without any parameters ", function () {
   });
 });
 
-describe("date - calculateDate with null/undefined/false parameters", function () {
+describe("date - calculate with null/undefined/false parameters", function () {
   it("Execution and Verification", function () {
-    expect(common.date.calculateDate(null).getDate()).toBe(calculatedDate.getDate());
-    expect(common.date.calculateDate(undefined).getDate()).toBe(calculatedDate.getDate());
-    expect(() => common.date.calculateDate(false)).toThrowError("Function 'getSpecificDate' failed: Please provide a date string ('2020, 0, 17') as first argument.");
-    expect(common.date.calculateDate(true).toString()).toBe("Invalid Date");
+    expect(common.date.calculate(null).getDate()).toBe(calculatedDate.getDate());
+    expect(common.date.calculate(undefined).getDate()).toBe(calculatedDate.getDate());
+    expect(() => common.date.calculate(false)).toThrowError("Function 'getSpecific' failed: Please provide a date string ('2020, 0, 17') as first argument.");
+    expect(common.date.calculate(true).toString()).toBe("Invalid Date");
   });
 });
 
-describe("date - calculateDate with parameter 'today' ", function () {
+describe("date - calculate with parameter 'today' ", function () {
   it("Execution", function () {
-    calculatedDate = common.date.calculateDate("today").toString();
-    dateFromTypo = common.date.calculateDate("tobay").toString(); // typo: tobay instead of today
+    calculatedDate = common.date.calculate("today").toString();
+    dateFromTypo = common.date.calculate("tobay").toString(); // typo: tobay instead of today
   });
 
   it("Verification", function () {
@@ -41,11 +41,11 @@ describe("date - calculateDate with parameter 'today' ", function () {
   });
 });
 
-describe("date - calculateDate with parameter 'tomorrow' ", function () {
+describe("date - calculate with parameter 'tomorrow' ", function () {
   it("Execution", function () {
-    calculatedDate = common.date.calculateDate("tomorrow").toString();
-    today = common.date.calculateDate("today").toString();
-    dateFromTypo = common.date.calculateDate("tomorow").toString();
+    calculatedDate = common.date.calculate("tomorrow").toString();
+    today = common.date.calculate("today").toString();
+    dateFromTypo = common.date.calculate("tomorow").toString();
   });
 
   it("Verification", function () {
@@ -58,10 +58,10 @@ describe("date - calculateDate with parameter 'tomorrow' ", function () {
   });
 });
 
-describe("date - calculateDate with parameter 'nextMonth' ", function () {
+describe("date - calculate with parameter 'nextMonth' ", function () {
   it("Execution", function () {
-    calculatedDate = common.date.calculateDate("nextMonth").toString();
-    today = common.date.calculateDate("today").toString();
+    calculatedDate = common.date.calculate("nextMonth").toString();
+    today = common.date.calculate("today").toString();
   });
 
   it("Verification", function () {
@@ -73,10 +73,10 @@ describe("date - calculateDate with parameter 'nextMonth' ", function () {
   });
 });
 
-describe("date - calculateDate with parameter 'previousMonth' ", function () {
+describe("date - calculate with parameter 'previousMonth' ", function () {
   it("Execution", function () {
-    calculatedDate = common.date.calculateDate("previousMonth").toString();
-    nextMonth = common.date.calculateDate("nextMonth").toString();
+    calculatedDate = common.date.calculate("previousMonth").toString();
+    nextMonth = common.date.calculate("nextMonth").toString();
   });
 
   it("Verification", function () {
@@ -88,10 +88,10 @@ describe("date - calculateDate with parameter 'previousMonth' ", function () {
   });
 });
 
-describe("date - calculateDate with parameter 'previousMonth' ", function () {
+describe("date - calculate with parameter 'previousMonth' ", function () {
   it("Execution", function () {
-    calculatedDate = common.date.calculateDate("previousMonth").toString();
-    nextMonth = common.date.calculateDate("nextMonth").toString();
+    calculatedDate = common.date.calculate("previousMonth").toString();
+    nextMonth = common.date.calculate("nextMonth").toString();
   });
 
   it("Verification", function () {
@@ -103,10 +103,10 @@ describe("date - calculateDate with parameter 'previousMonth' ", function () {
   });
 });
 
-describe("date - calculateDate with parameter 'nextYear' ", function () {
+describe("date - calculate with parameter 'nextYear' ", function () {
   it("Execution", function () {
-    calculatedDate = common.date.calculateDate("nextYear").toString();
-    nextMonth = common.date.calculateDate("nextMonth").toString();
+    calculatedDate = common.date.calculate("nextYear").toString();
+    nextMonth = common.date.calculate("nextMonth").toString();
   });
 
   it("Verification", function () {
@@ -118,10 +118,10 @@ describe("date - calculateDate with parameter 'nextYear' ", function () {
   });
 });
 
-describe("date - calculateDate with parameter 'previousYear' ", function () {
+describe("date - calculate with parameter 'previousYear' ", function () {
   it("Execution", function () {
-    calculatedDate = common.date.calculateDate("previousYear").toString();
-    nextYear = common.date.calculateDate("nextYear").toString();
+    calculatedDate = common.date.calculate("previousYear").toString();
+    nextYear = common.date.calculate("nextYear").toString();
   });
 
   it("Verification", function () {

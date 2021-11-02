@@ -15,16 +15,16 @@ exports.config = merge(qmateConfigure.config, {
   //
 
   specs: [
-    // path.resolve(__dirname, "pickDate.spec.js"),
-    // path.resolve(__dirname, "pickDateRange.spec.js"),
+    path.resolve(__dirname, "pickDate.spec.js"),
+    path.resolve(__dirname, "pickDateRange.spec.js"),
     path.resolve(__dirname, "fillDateRange.spec.js"),
-    // path.resolve(__dirname, "getToday.spec.js"),
-    // path.resolve(__dirname, "getTomorrow.spec.js"),
-    // path.resolve(__dirname, "getNextMonth.spec.js"),
-    // path.resolve(__dirname, "getPreviousMonth.spec.js"),
-    // path.resolve(__dirname, "getNextYear.spec.js"),
-    // path.resolve(__dirname, "getPreviousYear.spec.js"),
-    // path.resolve(__dirname, "calculateDate.spec.js"),
+    path.resolve(__dirname, "getToday.spec.js"),
+    path.resolve(__dirname, "getTomorrow.spec.js"),
+    path.resolve(__dirname, "getNextMonth.spec.js"),
+    path.resolve(__dirname, "getPreviousMonth.spec.js"),
+    path.resolve(__dirname, "getNextYear.spec.js"),
+    path.resolve(__dirname, "getPreviousYear.spec.js"),
+    path.resolve(__dirname, "calculateDate.spec.js"),
   ],
   // Patterns to exclude.
   exclude: [

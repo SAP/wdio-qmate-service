@@ -90,17 +90,17 @@ const DateModule = function () {
   };
 
   /**
-   * @function getSpecificDate
+   * @function getSpecific
    * @memberOf common.date
    * @description Returns a specific date in the given format.
    * @param {String} date - A specific date string.
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object").
    * @returns {String} The date in the given format.
-   * @example const date = await common.date.getSpecificDate("2020, 0, 17", "mm/dd/yyyy");
+   * @example const date = await common.date.getSpecific("2020, 0, 17", "mm/dd/yyyy");
    */
-  this.getSpecificDate = function (date, format = "object") {
+  this.getSpecific = function (date, format = "object") {
     if (!date) {
-      throw new Error("Function 'getSpecificDate' failed: Please provide a date string ('2020, 0, 17') as first argument.");
+      throw new Error("Function 'getSpecific' failed: Please provide a date string ('2020, 0, 17') as first argument.");
     }
     const parsedDate = Date.parse(date);
     const dateObject = new Date(parsedDate);
@@ -108,15 +108,15 @@ const DateModule = function () {
   };
 
   /**
-   * @function calculateDate
+   * @function calculate
    * @memberOf common.date
    * @description Calculates the date based on the input parameter and returns it in the given format.
    * @param {String} [date="today"] - Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, lastYear
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object").
    * @returns {String} The calculated date in the given format.
-   * @example const date = await common.date.calculateDate("today", "mm/dd/yyy");
+   * @example const date = await common.date.calculate("today", "mm/dd/yyy");
    */
-  this.calculateDate = function (date = "today", format = "object") {
+  this.calculate = function (date = "today", format = "object") {
     if (date === null) {
       date = "today";
     }
@@ -146,7 +146,7 @@ const DateModule = function () {
         calculatedDate = this.getPreviousYear(format);
         break;
       default:
-        calculatedDate = this.getSpecificDate(date, format);
+        calculatedDate = this.getSpecific(date, format);
     }
     return calculatedDate;
   };

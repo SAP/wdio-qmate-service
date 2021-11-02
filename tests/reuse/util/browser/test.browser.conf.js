@@ -6,6 +6,7 @@ exports.config = merge(qmateConfiguration.config, {
   bail: 1,
 
   specs: [
+    path.resolve(__dirname, "logCurrentUrl.spec.js"),
     path.resolve(__dirname, "getBrowserName.spec.js"),
     path.resolve(__dirname, "getUI5Version.spec.js")
   ],

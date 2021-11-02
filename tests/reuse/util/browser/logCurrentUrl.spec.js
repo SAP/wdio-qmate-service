@@ -1,6 +1,6 @@
 "use strict";
 
-describe("navigation - printCurrentUrl", function () {
+describe("browser - printCurrentUrl", function () {
   let callsCounter = 0;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(browser.config.baseUrl);
@@ -16,7 +16,7 @@ describe("navigation - printCurrentUrl", function () {
       callsCounter++;
     };
 
-    await common.navigation.printCurrentUrl();
+    await util.browser.logCurrentUrl();
 
     common.assertion.expectEqual(callsCounter, 1);
   });

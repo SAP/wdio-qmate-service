@@ -14,7 +14,7 @@ const dataRangeSelector = {
     "bindingContextPath": "/modelData/0"
   }
 };
-describe("date - fillDateRange", function () {
+describe("date - fillRange", function () {
   it("Preparation", async function () {
     await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.m.DateRangeSelection/sample/sap.m.sample.DateRangeSelectionValueState");
     await handleCookiesConsent();
@@ -24,7 +24,7 @@ describe("date - fillDateRange", function () {
     start = common.date.getToday();
     end = common.date.getTomorrow();
     range = [start, end];
-    await ui5.date.fillDateRange(dataRangeSelector, range);
+    await ui5.date.fillRange(dataRangeSelector, range);
   });
 
   it("Verification", async function () {
@@ -37,13 +37,13 @@ describe("date - fillDateRange", function () {
   });
 });
 
-describe("date - fillDateRange: no such field on a screen (unhappy case)", function () {
+describe("date - fillRange: no such field on a screen (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html");
   });
 
   it("Execution and Verification", async function () {
-    await expect(ui5.date.fillDateRange(dataRangeSelector, range))
+    await expect(ui5.date.fillRange(dataRangeSelector, range))
       .rejects.toThrow(/No visible elements found/);
   });
 });
