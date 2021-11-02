@@ -21,7 +21,7 @@ const start = new Date(2020, 0, 17);
 const end = new Date(2020, 1, 5);
 const range = [start, end];
 
-describe("date - pickRange", function () {
+describe("date - pickDateRange", function () {
   const getBorderOfRange = (initialBorder) => {
     let border = initialBorder.toDateString().slice(4).replace(/(?<=\d)\s/, ", ");
     if (/0.(?=,)/.test(border)) {
@@ -37,7 +37,7 @@ describe("date - pickRange", function () {
   });
 
   it("Execution", async function () {
-    await ui5.common.date.pickRange(dataInputIcon, range);
+    await ui5.common.date.pickDateRange(dataInputIcon, range);
   });
 
   it("Verification", async function () {
@@ -51,13 +51,13 @@ describe("date - pickRange", function () {
   });
 });
 
-describe("date - pickRange without datePiker (unhappy case)", function () {
+describe("date - pickDateRange without datePiker (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution and Verification", async function () {
-    await expect(ui5.common.date.pickRange(dataInputIcon, range))
+    await expect(ui5.common.date.pickDateRange(dataInputIcon, range))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });

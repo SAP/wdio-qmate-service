@@ -3,7 +3,7 @@ const { handleCookiesConsent } = require("../../../../helper/utils");
 
 const date = new Date();
 
-describe("date - pick", function () {
+describe("date - pickDate", function () {
   const dataInput = {
     "elementProperties": {
       "viewName": "sap.m.sample.DatePicker.Group",
@@ -23,7 +23,7 @@ describe("date - pick", function () {
   });
 
   it("Execution", async function () {
-    await ui5.common.date.pick(dataInput, date);
+    await ui5.common.date.pickDate(dataInput, date);
   });
 
   it("Verification", async function () {
@@ -33,7 +33,7 @@ describe("date - pick", function () {
   });
 });
 
-describe("date - pick without datePiker (unhappy case)", function () {
+describe("date - pickDate without datePiker (unhappy case)", function () {
   const dataInput = {
     "elementProperties": {
       "viewName": "sap.m.sample.DatePicker.Group",
@@ -52,7 +52,7 @@ describe("date - pick without datePiker (unhappy case)", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(ui5.common.date.pick(dataInput, date))
+    await expect(ui5.common.date.pickDate(dataInput, date))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
