@@ -27,7 +27,7 @@ const Navigation = function () {
     try {
       await browser.navigateTo(`${browser.config.baseUrl.split("#")[0] + urlParams}#${intent}`);
       const url = await browser.getUrl();
-      await common.navigation.printCurrentUrl();
+      await util.browser.logCurrentUrl();
       if (url && url.indexOf(intent) === -1 && verify) {
         throw new Error("Verification of function 'navigateToApplication' failed. For retrying use 'navigateToApplicationAndRetry'.");
       }
@@ -68,7 +68,7 @@ const Navigation = function () {
     try {
       await browser.navigateTo(`https://${system}/ui#${intent}`);
       const url = await browser.getUrl();
-      await common.navigation.printCurrentUrl();
+      await util.browser.logCurrentUrl();
       if (url && url.indexOf(intent) === -1 && verify) {
         throw new Error("Verification of function 'navigateToSystemAndApplication' failed. For retrying use 'navigateToSystemAndApplicationAndRetry'.");
       }
@@ -116,7 +116,7 @@ const Navigation = function () {
     try {
       await browser.url(`${browser.config.baseUrl}${queryParams}#${intent}`);
       url = await browser.getUrl();
-      await common.navigation.printCurrentUrl();
+      await util.browser.logCurrentUrl();
       if (url && url.indexOf(intent) === -1 && verify) {
         throw new Error("Verification of function 'navigateToApplication' failed. For retrying use 'navigateToApplicationAndRetry'.");
       }

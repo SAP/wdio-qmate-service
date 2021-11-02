@@ -7,9 +7,9 @@ date.setDate(date.getDate() - 1);
 
 const { day, month, year } = getFullDate(date);
 
-describe("date - getSpecificDate without any format ", function () {
+describe("date - getSpecific without any format ", function () {
   it("Execution", function () {
-    calculatedDate = common.date.getSpecificDate(date);
+    calculatedDate = common.date.getSpecific(date);
   });
 
   it("Verification", function () {
@@ -18,9 +18,9 @@ describe("date - getSpecificDate without any format ", function () {
   });
 });
 
-describe("date - getSpecificDate with format 'mm/dd/yyyy' ", function () {
+describe("date - getSpecific with format 'mm/dd/yyyy' ", function () {
   it("Execution", function () {
-    calculatedDate = common.date.getSpecificDate(date, "mm/dd/yyyy");
+    calculatedDate = common.date.getSpecific(date, "mm/dd/yyyy");
   });
 
   it("Verification", function () {
@@ -29,9 +29,9 @@ describe("date - getSpecificDate with format 'mm/dd/yyyy' ", function () {
   });
 });
 
-describe("date - getSpecificDate with format 'dd.mm.yyyy' ", function () {
+describe("date - getSpecific with format 'dd.mm.yyyy' ", function () {
   it("Execution", function () {
-    calculatedDate = common.date.getSpecificDate(date, "dd.mm.yyyy");
+    calculatedDate = common.date.getSpecific(date, "dd.mm.yyyy");
   });
 
   it("Verification", function () {
@@ -40,9 +40,9 @@ describe("date - getSpecificDate with format 'dd.mm.yyyy' ", function () {
   });
 });
 
-describe("date - getSpecificDate with format 'yyyymmdd' ", function () {
+describe("date - getSpecific with format 'yyyymmdd' ", function () {
   it("Execution", function () {
-    calculatedDate = common.date.getSpecificDate(date, "yyyymmdd");
+    calculatedDate = common.date.getSpecific(date, "yyyymmdd");
   });
 
   it("Verification", function () {
@@ -51,9 +51,9 @@ describe("date - getSpecificDate with format 'yyyymmdd' ", function () {
   });
 });
 
-describe("date - getSpecificDate with format 'yyyy/mm/dd' ", function () {
+describe("date - getSpecific with format 'yyyy/mm/dd' ", function () {
   it("Execution", function () {
-    calculatedDate = common.date.getSpecificDate(date, "yyyy/mm/dd");
+    calculatedDate = common.date.getSpecific(date, "yyyy/mm/dd");
   });
 
   it("Verification", function () {
