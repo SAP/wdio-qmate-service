@@ -1,4 +1,7 @@
 "use strict";
+
+const { util } = require("chai");
+
 /**
  * @class navigation
  * @memberof common
@@ -15,7 +18,7 @@ const Navigation = function () {
   this.navigateToUrl = async function (url) {
     if (url) {
       await browser.navigateTo(url);
-      await this.printCurrentUrl();
+      await util.browser.logCurrentUrl();
     } else {
       throw new Error("Function 'navigateToUrl' failed: Please provide an url as argument.");
     }
