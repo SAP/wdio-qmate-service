@@ -3,6 +3,7 @@
 describe("browser - printCurrentUrl", function () {
   let callsCounter = 0;
   it("Preparation", async function () {
+    console.log(await util.browser.logCurrentUrl.toString());
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 

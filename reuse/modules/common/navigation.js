@@ -1,7 +1,5 @@
 "use strict";
 
-const { util } = require("chai");
-
 /**
  * @class navigation
  * @memberof common
