@@ -34,16 +34,5 @@ const Navigation = function () {
     await util.function.retry(this.navigateToUrl, [url], retries, interval, this);
   };
 
-  /**
-   * @function printCurrentUrl
-   * @memberOf common.navigation
-   * @description Displays the current URL in the console.
-   * @example await common.navigation.printCurrentUrl();
-   */
-  this.printCurrentUrl = async function () {
-    const url = await browser.getUrl();
-    util.console.info("Current URL: " + url);
-  };
-
 };
 module.exports = new Navigation();
