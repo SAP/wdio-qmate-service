@@ -28,14 +28,14 @@ const Browser = function () {
     browser.config.baseUrl = baseUrl;
   };
 
-  
+
   /**
    * @function logCurrentUrl
    * @memberOf common.navigation
    * @description Displays the current URL in the console.
    * @example await util.browser.logCurrentUrl();
    */
-   this.logCurrentUrl = async function () {
+  this.logCurrentUrl = async function () {
     const url = await browser.getUrl();
     util.console.info("Current URL: " + url);
   };
@@ -165,7 +165,7 @@ const Browser = function () {
     });
   };
 
-   /**
+  /**
    * @function logUI5Version
    * @memberOf util.browser
    * @description Logs the UI5 version and creation date for UI5 based applications to the console.
