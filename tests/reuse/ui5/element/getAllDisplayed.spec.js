@@ -1,7 +1,7 @@
 "use strict";
 let elements;
 
-describe("element - getDisplayedElements by selector", function () {
+describe("element - getAllDisplayed by selector", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -13,7 +13,7 @@ describe("element - getDisplayedElements by selector", function () {
         "metadata": "sap.m.StandardListItem"
       }
     };
-    elements = await ui5.element.getDisplayedElements(selector);
+    elements = await ui5.element.getAllDisplayed(selector);
   });
 
   it("Verification", async function () {
@@ -22,7 +22,7 @@ describe("element - getDisplayedElements by selector", function () {
   });
 });
 
-describe("element - getDisplayedElements by wrong selector (unhappy case)", function () {
+describe("element - getAllDisplayed by wrong selector (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -34,12 +34,12 @@ describe("element - getDisplayedElements by wrong selector (unhappy case)", func
         "metadata": "sap.m.StandardListItem"
       }
     };
-    await expect(ui5.element.getDisplayedElements(selector))
+    await expect(ui5.element.getAllDisplayed(selector))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
 
-describe("element - getDisplayedElements by selector for invisible elements (unhappy case)", function () {
+describe("element - getAllDisplayed by selector for invisible elements (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -50,12 +50,12 @@ describe("element - getDisplayedElements by selector for invisible elements (unh
         "metadata": "sap.ui.core.InvisibleText"
       }
     };
-    await expect(ui5.element.getDisplayedElements(selectorForInvisibleElements))
+    await expect(ui5.element.getAllDisplayed(selectorForInvisibleElements))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/); // inner browser.uiControls() retrieves only displayed in a viewport elements
   });
 });
 
-describe("element - getDisplayedElements should get displayed elements by empty selector (strange case)", function () {
+describe("element - getAllDisplayed should get displayed elements by empty selector (strange case)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -65,7 +65,7 @@ describe("element - getDisplayedElements should get displayed elements by empty 
     const selector = {
       "elementProperties": {}
     };
-    elements = await ui5.element.getDisplayedElements(selector);
+    elements = await ui5.element.getAllDisplayed(selector);
   });
 
   it("Verification", function () {

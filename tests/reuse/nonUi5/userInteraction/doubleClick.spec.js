@@ -9,12 +9,12 @@ describe("userInteraction - Double click on Switch button", async function () {
   });
 
   it("Execution", async function () {
-    const elem = await nonUi5.element.getElementByCss("SECTION:nth-child(2) > DIV:nth-child(1) > DIV:nth-child(2) > DIV:nth-child(1) > DIV:nth-child(2) > DIV:nth-child(1) > DIV:nth-child(1)");
+    const elem = await nonUi5.element.getByCss("SECTION:nth-child(2) > DIV:nth-child(1) > DIV:nth-child(2) > DIV:nth-child(1) > DIV:nth-child(2) > DIV:nth-child(1) > DIV:nth-child(1)");
     await nonUi5.userInteraction.doubleClick(elem);
   });
 
   it("Verification", async function () {
-    const elem = await nonUi5.element.getElementByCss("DIV[class='sapMSlt sapMSltDefault sapMSltMinWidth sapMSltHoverable sapMSltWithArrow']");
+    const elem = await nonUi5.element.getByCss("DIV[class='sapMSlt sapMSltDefault sapMSltMinWidth sapMSltHoverable sapMSltWithArrow']");
     await nonUi5.assertion.expectToBeVisible(elem);
   });
 });

@@ -1,6 +1,6 @@
 "use strict";
 
-describe("locator - getElementByXPath + expectToBeVisible", function () {
+describe("locator - getByXPath + expectToBeVisible", function () {
 
   let searchInput;
 
@@ -9,7 +9,7 @@ describe("locator - getElementByXPath + expectToBeVisible", function () {
   });
 
   it("Execution", async function () {
-    searchInput = await nonUi5.element.getElementByXPath("//input[@id='container-cart---homeView--searchField-I']");
+    searchInput = await nonUi5.element.getByXPath("//input[@id='container-cart---homeView--searchField-I']");
   });
 
   it("Verification", async function () {
@@ -17,14 +17,14 @@ describe("locator - getElementByXPath + expectToBeVisible", function () {
   });
 });
 
-describe("locator - getElementByXPath and catch error", function () {
+describe("locator - getByXPath and catch error", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getElementByXPath("sap-word"))
-      .rejects.toThrow("Function 'getElementByXPath' failed");
+    await expect(nonUi5.element.getByXPath("sap-word"))
+      .rejects.toThrow("Function 'getByXPath' failed");
   });
 });

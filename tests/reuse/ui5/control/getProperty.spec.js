@@ -20,7 +20,7 @@ describe("getProperty - check name is Accessories reuse", async () => {
         }
       }
     };
-    const elem = await ui5.element.getDisplayedElement(selector);
+    const elem = await ui5.element.getDisplayed(selector);
     val = await ui5.control.getProperty(elem, "title");
   });
 

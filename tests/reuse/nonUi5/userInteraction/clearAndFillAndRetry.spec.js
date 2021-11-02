@@ -4,7 +4,7 @@ describe("userInteraction - clearAndFillAndRetry form field", function () {
   let element;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
-    element = await nonUi5.element.getElementById("ExampleValue1", 10000);
+    element = await nonUi5.element.getById("ExampleValue1", 10000);
 
     // Check field is empty before the test
     nonUi5.assertion.expectValueToBe(element, "", "value");
@@ -27,7 +27,7 @@ describe("userInteraction - clearAndFillAndRetry without value/with wrong value 
   let element;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
-    element = await nonUi5.element.getElementById("ExampleValue1", 10000);
+    element = await nonUi5.element.getById("ExampleValue1", 10000);
   });
 
   it("Execution and Verification", async function () {
@@ -51,7 +51,7 @@ describe("userInteraction - clearAndFillAndRetry a button (unhappy case)", funct
   });
 
   it("Execution and Verification", async function () {
-    const elem = await nonUi5.element.getElementById("Default", 10000);
+    const elem = await nonUi5.element.getById("Default", 10000);
     await expect(nonUi5.userInteraction.clearAndFillAndRetry(elem, "New test value", 1))
       .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'clearAndFill' failed: invalid element state: invalid element state");
   });

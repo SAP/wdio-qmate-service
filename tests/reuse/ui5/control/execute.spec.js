@@ -16,7 +16,7 @@ describe("execute - check name is Accessories", async () => {
         "bindingContextPath": "/ProductCategories('LT')"
       }
     };
-    const elem = await ui5.element.getDisplayedElement(selector);
+    const elem = await ui5.element.getDisplayed(selector);
     title = await ui5.control.execute(function (control, txt, done) {
       control.setTitle(txt);
       done(control.getTitle());

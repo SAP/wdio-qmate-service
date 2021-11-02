@@ -7,7 +7,7 @@ describe("userInteraction - rightClick", async function () {
   });
 
   it("Execution", async function () {
-    const elem = await nonUi5.element.getElementByCss("TEXTAREA");
+    const elem = await nonUi5.element.getByCss("TEXTAREA");
     await nonUi5.userInteraction.rightClick(elem);
   });
 });

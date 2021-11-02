@@ -3,7 +3,7 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("locator - getElementByCss + expectToBeVisible", function () {
+describe("locator - getByCss + expectToBeVisible", function () {
 
   let downloadBtn;
 
@@ -13,7 +13,7 @@ describe("locator - getElementByCss + expectToBeVisible", function () {
   });
 
   it("Execution", async function () {
-    downloadBtn = await nonUi5.element.getElementByCss("[id='sdk---app--apiMasterTab-text']");
+    downloadBtn = await nonUi5.element.getByCss("[id='sdk---app--apiMasterTab-text']");
   });
 
   it("Verification", async function () {
@@ -21,7 +21,7 @@ describe("locator - getElementByCss + expectToBeVisible", function () {
   });
 });
 
-describe("locator - getElementByCss outside of viewpoint", function () {
+describe("locator - getByCss outside of viewpoint", function () {
   let comboBoxElement;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
@@ -40,7 +40,7 @@ describe("locator - getElementByCss outside of viewpoint", function () {
 
   it("Execution", async function () {
     // It should be  Photo Scan - combobox element at the end
-    comboBoxElement = await nonUi5.element.getElementByCss(".sapMMultiComboBoxItem", 80);
+    comboBoxElement = await nonUi5.element.getByCss(".sapMMultiComboBoxItem", 80);
   });
 
   it("Verification", async function () {
@@ -51,7 +51,7 @@ describe("locator - getElementByCss outside of viewpoint", function () {
   });
 });
 
-describe("locator - getElementByCss and catch error", function () {
+describe("locator - getByCss and catch error", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
@@ -59,7 +59,7 @@ describe("locator - getElementByCss and catch error", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getElementByCss("[id='sdk--readMoreButton-BDI-content']"))
-      .rejects.toThrow("Function 'getElementByCss' failed");
+    await expect(nonUi5.element.getByCss("[id='sdk--readMoreButton-BDI-content']"))
+      .rejects.toThrow("Function 'getByCss' failed");
   });
 });

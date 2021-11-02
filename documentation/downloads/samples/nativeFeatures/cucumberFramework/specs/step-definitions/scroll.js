@@ -45,7 +45,7 @@ Given(/I am on opened confirmation dialog/, async () => {
   await ui5.userInteraction.click(openDialogButton);
 
     // Check Dialog window opened
-  await ui5.element.getDisplayedElement(selectorForDialog);
+  await ui5.element.getDisplayed(selectorForDialog);
 });
 
 When(/I click (\w+) on confirmation dialog$/, async (button) => {
@@ -59,7 +59,7 @@ When(/I click (\w+) on confirmation dialog$/, async (button) => {
 Then(/I should check that no confirmation dialog any more, error message is (.*)$/, async (message) => {
     // Check Dialog closed
   try {
-    await ui5.element.getDisplayedElement(selectorForDialog);
+    await ui5.element.getDisplayed(selectorForDialog);
   } catch (e) {
     await common.assertion.expectTrue(!!e.message.match(message));
   }

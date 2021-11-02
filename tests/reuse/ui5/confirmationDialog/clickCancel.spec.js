@@ -48,7 +48,7 @@ describe("confirmationDialog - clickCancel", function () {
         "metadata": "sap.m.Dialog"
       }
     };
-    await expect(ui5.element.getDisplayedElement(selectorForPopup)).resolves.toBeTruthy();
+    await expect(ui5.element.getDisplayed(selectorForPopup)).resolves.toBeTruthy();
   });
 
   it("Execution", async function () {
@@ -72,7 +72,7 @@ describe("confirmationDialog - clickCancel", function () {
         "metadata": "sap.m.Dialog"
       }
     };
-    await expect(ui5.element.getDisplayedElement(selectorForPopup)).rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+    await expect(ui5.element.getDisplayed(selectorForPopup)).rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
 

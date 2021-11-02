@@ -3,7 +3,7 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("locator - getElementByCssContainingText + expectToBeVisible", function () {
+describe("locator - getById + expectToBeVisible", function () {
 
   let downloadBtn;
 
@@ -13,17 +13,15 @@ describe("locator - getElementByCssContainingText + expectToBeVisible", function
   });
 
   it("Execution", async function () {
-    downloadBtn = await nonUi5.element.getElementByCssContainingText("[id='sdk---welcome--readMoreButton-BDI-content']", "Down");
+    downloadBtn = await nonUi5.element.getById("sdk---app--apiMasterTab-text");
   });
 
   it("Verification", async function () {
     await nonUi5.assertion.expectToBeVisible(downloadBtn, 10000);
-    const text = await downloadBtn.getText();
-    await common.assertion.expectTrue(text.match(/Down/) !== null);
   });
 });
 
-describe("locator - getElementByCssContainingText and catch error", function () {
+describe("locator - getById and catch error", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
@@ -31,7 +29,7 @@ describe("locator - getElementByCssContainingText and catch error", function () 
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getElementByCssContainingText("[id='sdk---welcome--readMoreButton-BDI-content']","Some Junk Text"))
-      .rejects.toThrow(/getElementByCssContainingText(): Element \w*|\d* not found/);
+    await expect(nonUi5.element.getById("sdk---app--apiTab-text"))
+      .rejects.toThrow("Function 'getById' failed");
   });
 });

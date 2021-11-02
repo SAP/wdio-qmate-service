@@ -44,27 +44,27 @@
     "new": "ui5.element"
   },
   {
-    "old": "ui5.common.locator.waitForAllElements",
+    "old": "ui5.element.waitForAllElements",
     "new": "ui5.element.waitForAll"
   },
   {
-    "old": "ui5.common.locator.getDisplayedElements",
+    "old": "ui5.element.getDisplayedElements",
     "new": "ui5.element.getAllDisplayed"
   },
   {
-    "old": "ui5.common.locator.getDisplayedElement",
+    "old": "ui5.element.getDisplayedElement",
     "new": "ui5.element.getDisplayed"
   },
   {
-    "old": "ui5.common.locator.getElementByText",
+    "old": "ui5.element.getElementByText",
     "new": "ui5.element.getByText"
   },
   {
-    "old": "ui5.common.locator.getElementId",
+    "old": "ui5.element.getElementId",
     "new": "ui5.element.getId"
   },
   {
-    "old": "ui5.common.locator.highlightElement",
+    "old": "ui5.element.highlightElement",
     "new": "ui5.element.highlight"
   },
   {
@@ -278,59 +278,59 @@
     "new": "nonUi5.element"
   },
   {
-    "old": "non_ui5.common.locator.waitForAllElements",
+    "old": "nonUi5.element.waitForAllElements",
     "new": "nonUi5.element.waitForAll"
   },
   {
-    "old": "non_ui5.common.locator.waitForElementIsPresent",
+    "old": "nonUi5.element.waitForElementIsPresent",
     "new": "nonUi5.element.waitToBePresent"
   },
   {
-    "old": "non_ui5.common.locator.waitForElementIsVisible",
+    "old": "nonUi5.element.waitForElementIsVisible",
     "new": "nonUi5.element.waitToBeVisible"
   },
   {
-    "old": "non_ui5.common.locator.waitForElementIsClickable",
+    "old": "nonUi5.element.waitForElementIsClickable",
     "new": "nonUi5.element.waitToBeClickable"
   },
   {
-    "old": "non_ui5.common.locator.getDisplayedElements",
+    "old": "nonUi5.element.getDisplayedElements",
     "new": "nonUi5.element.getAllDisplayed"
   },
   {
-    "old": "non_ui5.common.locator.getElementByCss",
+    "old": "nonUi5.element.getElementByCss",
     "new": "nonUi5.element.getByCss"
   },
   {
-    "old": "non_ui5.common.locator.getElementByCssContainingText",
+    "old": "nonUi5.element.getElementByCssContainingText",
     "new": "nonUi5.element.getByCssContainingText"
   },
   {
-    "old": "non_ui5.common.locator.getElementById",
+    "old": "nonUi5.element.getElementById",
     "new": "nonUi5.element.getById"
   },
   {
-    "old": "non_ui5.common.locator.getElementByClass",
+    "old": "nonUi5.element.getElementByClass",
     "new": "nonUi5.element.getByClass"
   },
   {
-    "old": "non_ui5.common.locator.getElementByName",
+    "old": "nonUi5.element.getElementByName",
     "new": "nonUi5.element.getByName"
   },
   {
-    "old": "non_ui5.common.locator.getElementByXPath",
+    "old": "nonUi5.element.getElementByXPath",
     "new": "nonUi5.element.getByXPath"
   },
   {
-    "old": "non_ui5.common.locator.getElementByChild",
+    "old": "nonUi5.element.getElementByChild",
     "new": "nonUi5.element.getByChild"
   },
   {
-    "old": "non_ui5.common.locator.isElementPresent",
+    "old": "nonUi5.element.isElementPresent",
     "new": "nonUi5.element.isPresent"
   },
   {
-    "old": "non_ui5.common.locator.highlightElement",
+    "old": "nonUi5.element.highlightElement",
     "new": "nonUi5.element.highlight"
   },
   {
