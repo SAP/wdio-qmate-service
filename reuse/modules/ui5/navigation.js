@@ -19,7 +19,6 @@ const Navigation = function () {
    * @example await ui5.navigation.navigateToApplication("PurchaseOrder-manage");
    */
   this.navigateToApplication = async function (intent, preventPopups = false, verify = false) {
-    console.log(util);
     let urlParams = "";
     if (preventPopups) {
       urlParams = _generateUrlParams();
