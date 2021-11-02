@@ -95,7 +95,7 @@
     "test:legacyReuse:ui5:errorDialog": "npx wdio ./tests/legacyReuse/ui5/specs/errorDialog/test.errorDialog.conf.js",
     "test:legacyReuse:ui5:formatter": "npx wdio ./tests/legacyReuse/ui5/specs/formatter/test.formatter.conf.js",
     "test:legacyReuse:ui5:locator": "npx wdio ./tests/legacyReuse/ui5/specs/locator/test.locator.conf.js",
-    "test:legacyReuse:ui5:navigation": "npx wdio ./tests/legacyReuse/ui5/specs/navigation/test.navigation.conf.js",
+    "test:legacyReuse:ui5:navigation": "npx wdio ./tests/legacyReuse/ui5/specs/navigation/test.navigation.s4.conf.js && npx wdio ./tests/legacyReuse/ui5/specs/navigation/test.navigation.static.conf.js",
     "test:legacyReuse:ui5:navigationBar": "npx wdio ./tests/legacyReuse/ui5/specs/navigationBar/test.navigationBar.conf.js",
     "test:legacyReuse:ui5:session": "npx wdio ./tests/legacyReuse/ui5/specs/session/test.session.conf.js",
     "test:legacyReuse:ui5:userInteraction": "npx wdio ./tests/legacyReuse/ui5/specs/userInteraction/test.userInteraction.conf.js",

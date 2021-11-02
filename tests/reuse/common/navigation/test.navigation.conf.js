@@ -20,7 +20,7 @@ exports.config = merge(qmateConfiguration.config, {
   ],
 
   specs: [
-    path.resolve(__dirname, "navigateToUrlAndRetry.spec.js"),
+    // path.resolve(__dirname, "navigateToUrlAndRetry.spec.js"),
     path.resolve(__dirname, "navigateToUrl.spec.js")
   ],
 
