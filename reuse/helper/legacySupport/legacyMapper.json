@@ -44,27 +44,27 @@
     "new": "ui5.element"
   },
   {
-    "old": "ui5.element.waitForAllElements",
+    "old": "ui5.common.locator.waitForAllElements",
     "new": "ui5.element.waitForAll"
   },
   {
-    "old": "ui5.element.getDisplayedElements",
+    "old": "ui5.common.locator.getDisplayedElements",
     "new": "ui5.element.getAllDisplayed"
   },
   {
-    "old": "ui5.element.getDisplayedElement",
+    "old": "ui5.common.locator.getDisplayedElement",
     "new": "ui5.element.getDisplayed"
   },
   {
-    "old": "ui5.element.getElementByText",
+    "old": "ui5.common.locator.getElementByText",
     "new": "ui5.element.getByText"
   },
   {
-    "old": "ui5.element.getElementId",
+    "old": "ui5.common.locator.getElementId",
     "new": "ui5.element.getId"
   },
   {
-    "old": "ui5.element.highlightElement",
+    "old": "ui5.common.locator.highlightElement",
     "new": "ui5.element.highlight"
   },
   {
@@ -176,26 +176,25 @@
     "new": "common.date.getPreviousYear"
   },
   {
-    "old": "ui5.date.pickDate",
-    "new": "ui5.date.pick"
-  },
-  {
-    "old": "ui5.date.pickDateRange",
-    "new": "ui5.date.pickRange"
-  },
-  {
-    "old": "ui5.date.fillDateRange",
-    "new": "ui5.date.fillRange"
-  },
-  {
-    "old": "common.date.getSpecificDate",
+    "old": "ui5.common.date.getSpecificDate",
     "new": "common.date.getSpecific"
   },
   {
-    "old": "common.date.calculateDate",
+    "old": "ui5.common.date.calculateDate",
     "new": "common.date.calculate"
   },
-  
+  {
+    "old": "ui5.common.date.pickDate",
+    "new": "ui5.date.pick"
+  },
+  {
+    "old": "ui5.common.date.pickDateRange",
+    "new": "ui5.date.pickRange"
+  },
+  {
+    "old": "ui5.common.date.fillDateRange",
+    "new": "ui5.date.fillRange"
+  },
   {
     "old": "ui5.common.errorDialog.expectErrorDialogToBeVisible",
     "new": "ui5.errorDialog.expectToBeVisible"
@@ -221,7 +220,7 @@
     "new": "common.navigation.navigateToUrl"
   },
   {
-    "old": "common.navigation.printCurrentUrl",
+    "old": "ui5.common.navigation.printCurrentUrl",
     "new": "util.browser.logCurrentUrl"
   },
   {
@@ -276,10 +275,7 @@
     "old": "ui5.common.userInteraction.clearFillActiveAndRetry",
     "new": "common.userInteraction.clearAndFillActiveAndRetry"
   },
-  {
-    "old": "ui5.common.appIntents",
-    "new": "ui5.appIntents"
-  },
+
   {
     "old": "non_ui5.common.assertion.expectValue",
     "new": "nonUi5.assertion.expectAttributeToBe"
@@ -294,64 +290,68 @@
     "new": "nonUi5.element"
   },
   {
-    "old": "nonUi5.element.waitForAllElements",
+    "old": "non_ui5.common.locator.waitForAllElements",
     "new": "nonUi5.element.waitForAll"
   },
   {
-    "old": "nonUi5.element.waitForElementIsPresent",
+    "old": "non_ui5.common.locator.waitForElementIsPresent",
     "new": "nonUi5.element.waitToBePresent"
   },
   {
-    "old": "nonUi5.element.waitForElementIsVisible",
+    "old": "non_ui5.common.locator.waitForElementIsVisible",
     "new": "nonUi5.element.waitToBeVisible"
   },
   {
-    "old": "nonUi5.element.waitForElementIsClickable",
+    "old": "non_ui5.common.locator.waitForElementIsClickable",
     "new": "nonUi5.element.waitToBeClickable"
   },
   {
-    "old": "nonUi5.element.getDisplayedElements",
+    "old": "non_ui5.common.locator.getDisplayedElements",
     "new": "nonUi5.element.getAllDisplayed"
   },
   {
-    "old": "nonUi5.element.getElementByCss",
+    "old": "non_ui5.common.locator.getElementByCss",
     "new": "nonUi5.element.getByCss"
   },
   {
-    "old": "nonUi5.element.getElementByCssContainingText",
+    "old": "non_ui5.common.locator.getElementByCssContainingText",
     "new": "nonUi5.element.getByCssContainingText"
   },
   {
-    "old": "nonUi5.element.getElementById",
+    "old": "non_ui5.common.locator.getElementById",
     "new": "nonUi5.element.getById"
   },
   {
-    "old": "nonUi5.element.getElementByClass",
+    "old": "non_ui5.common.locator.getElementByClass",
     "new": "nonUi5.element.getByClass"
   },
   {
-    "old": "nonUi5.element.getElementByName",
+    "old": "non_ui5.common.locator.getElementByName",
     "new": "nonUi5.element.getByName"
   },
   {
-    "old": "nonUi5.element.getElementByXPath",
+    "old": "non_ui5.common.locator.getElementByXPath",
     "new": "nonUi5.element.getByXPath"
   },
   {
-    "old": "nonUi5.element.getElementByChild",
+    "old": "non_ui5.common.locator.getElementByChild",
     "new": "nonUi5.element.getByChild"
   },
   {
-    "old": "nonUi5.element.isElementPresent",
+    "old": "non_ui5.common.locator.isElementPresent",
     "new": "nonUi5.element.isPresent"
   },
   {
-    "old": "nonUi5.element.highlightElement",
+    "old": "non_ui5.common.locator.highlightElement",
     "new": "nonUi5.element.highlight"
   },
   {
     "old": "non_ui5.common.locator.getValue",
     "new": "nonUi5.element.getAttributeValue"
+  },
+  {
+    "old": "ui5.common.appIntents",
+    "new": "ui5.appIntents"
   },
   {
     "old": "non_ui5.common.assertion.expectValue",
