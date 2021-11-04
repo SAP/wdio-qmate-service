@@ -5,7 +5,7 @@ exports.config = merge(qmateConfiguration.config, {
   maxInstances: 1,
   bail: 1,
 
-  baseUrl: "https://sapui5.hana.ondemand.com/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection", //ui#CloudSolution-startActivityTransaction?p_guid=E41D2DE53D801EE9BACD7F060DB1C610
+  baseUrl: "https://sapui5.hana.ondemand.com/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection", 
 
   specs: [
     path.resolve(__dirname, "file.spec.js")
