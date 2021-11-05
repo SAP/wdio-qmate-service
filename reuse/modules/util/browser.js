@@ -53,19 +53,8 @@ const Browser = function () {
     await browser.pause(duration);
   };
 
-  /**
-   * @function collectCoverage
-   * @memberOf util.browser
-   * @description Collects and stores the coverage information before a hard browser event (logout, clear history),
-   * also useful when parallelizing multiple specs and need to aggregate the coverage information
-   * @example await util.browser.collectCoverage();
-   */
   this.collectCoverage = function () {
-    if (browser.params.coverage.status && browser.params.coverage.status !== "false") {
-      // Coverage will be collected via @wdio/qmate-code-coverage-service
-    } else {
-      util.console.warn("Coverage is disabled. To generate coverage, enabled the flag in the config file.");
-    }
+    util.console.warn(`⚠  "util.browser.collectCoverage" is deprecated and no longer required. Please remove the function since coverage is now collected internally.`);
   };
 
   /**
