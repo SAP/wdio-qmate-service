@@ -48,10 +48,6 @@
     "new": "util.browser.logCurrentUrl"
   },
   {
-    "old": "ui5.common.appIntents",
-    "new": "ui5.appIntents"
-  },
-  {
     "old": "nonUi5.element.waitForAllElements",
     "new": "nonUi5.element.waitForAll"
   },
