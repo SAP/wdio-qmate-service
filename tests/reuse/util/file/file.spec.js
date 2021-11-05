@@ -1,5 +1,6 @@
-var path = require("path");
-describe("dialogInteraction - uploadFiles", function () {
+describe("file - upload", function () {
+  const path = require("path");
+
   it("Preparation", async function () {
     await browser.navigateTo(browser.config.baseUrl);
     const selector = {
@@ -42,6 +43,5 @@ describe("dialogInteraction - uploadFiles", function () {
     };
     await ui5.element.getDisplayed(selectorTest);
     await ui5.element.getDisplayed(selectorTest2);
-    //await util.browser.sleep(25000);
   });
 });
