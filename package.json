@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "chromedriver-update": "npm install chromedriver --chromedriver-force-download",
-    "preinstall": "npm config set chromedriver_skip_download=true && npm install chromedriver --chromedriver_skip_download=true",
+    "preinstall": "npm config set chromedriver_skip_download=true && npm install chromedriver@latest --chromedriver_skip_download=true",
     "postinstall": "npm config set chromedriver_skip_download=false",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -138,7 +138,7 @@
     "@wdio/spec-reporter": "^7.10.1",
     "@wdio/static-server-service": "^7.10.1",
     "chai": "^4.3.4",
-    "chromedriver": "^93.0.1",
+    "chromedriver": "^95.0.0",
     "eslint": "^6.8.0",
     "eslint-plugin-wdio": "^6.0.12",
     "jsdoc-to-markdown": "^5.0.3",
