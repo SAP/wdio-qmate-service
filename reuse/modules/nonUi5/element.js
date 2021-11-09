@@ -225,7 +225,7 @@ const Element = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByClass("button01");
-   *          const elem = await nonUi5.element.getByClass("sapMIBar sapMTB sapMTBNewFlex sapContrastPlus");
+   * const elem = await nonUi5.element.getByClass("sapMIBar sapMTB sapMTBNewFlex sapContrastPlus");
    */
   this.getByClass = async function (elemClass, index = 0, timeout = 30000) {
     try {

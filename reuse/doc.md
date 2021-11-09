@@ -3727,13 +3727,13 @@ Gets the element with the given class.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| elemClass | <code>String</code> |  | The class describing the element. |
+| elemClass | <code>String</code> |  | The class describing the element (if element has multiple values for 'class' property, you should provide all of them) |
 | [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getByClass("button01");
+const elem = await nonUi5.element.getByClass("button01");const elem = await nonUi5.element.getByClass("sapMIBar sapMTB sapMTBNewFlex sapContrastPlus");
 ```
 <a name="nonUi5.element.getByName"></a>
 
