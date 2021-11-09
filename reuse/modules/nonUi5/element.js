@@ -228,7 +228,7 @@ const Element = function () {
    */
   this.getByClass = async function (elemClass, index = 0, timeout = 30000) {
     try {
-      const selector = `[class='${elemClass}']`;
+      const selector = `.${elemClass}`;
       return await _filterDisplayed(selector, index, timeout);
     } catch (error) {
       throw new Error(`Function 'getByClass' failed. Element with class "${elemClass}" not found. ${error}`);
