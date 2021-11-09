@@ -112,21 +112,21 @@ it("Step 01: click on 'Accept' button", async function () {
 ## Non UI5
 
 ### Defining the element
-For all non UI5 applications you can define the element in different ways. We provide all common functionalities to get an element by its ID, Class or any other CSS attribute. Hence, you can not pass any selector directly to the function performing an action. Instead, you have to define the element first with one of our [Reuse functions](reuse/doc.md#nonUi5.element.getElementByCss). 
+For all non UI5 applications you can define the element in different ways. We provide all common functionalities to get an element by its ID, Class or any other CSS attribute. Hence, you can not pass any selector directly to the function performing an action. Instead, you have to define the element first with one of our [Reuse functions](reuse/doc.md#nonUi5.element.getByCss). 
 ```javascript
 // Get an element by its ID
-const elem = await nonUI5.element.getElementById("button-abc");
+const elem = await nonUI5.element.getById("button-abc");
 
 // Get an element by its class (pass an index if there are more than one elements with the same class)
-const elem = await nonUI5.element.getElementByClass(".button", 0);
+const elem = await nonUI5.element.getByClass(".button", 0);
 
 // Get an element by its attribute value of "title"
-const elem = await nonUI5.element.getElementByCss("input[title='name']");
+const elem = await nonUI5.element.getByCss("input[title='name']");
 
 // Get an element by its class and text value
-const elem = await nonUI5.element.getElementByCssContainingText(".button", "Accept");
+const elem = await nonUI5.element.getByCssContainingText(".button", "Accept");
 ```
-> 🛈 There are more possibilities of getting the element. You will find them in our [Reuse API](reuse/doc.md#nonUi5.element.getElementByCss). 
+> 🛈 There are more possibilities of getting the element. You will find them in our [Reuse API](reuse/doc.md#nonUi5.element.getByCss). 
 
 ### Getting the attribute
 To get an attribute of an element, please follow the steps below:
@@ -149,7 +149,7 @@ $$("[<attr>='<attrValue>']");
 To perform the action, pass the defined element to the action function.
 ```javascript
 it("Step 01: click on 'Accept' button", async function () {
-	const elem = await nonUI5.element.getElementByCss(".acceptButton");
+	const elem = await nonUI5.element.getByCss(".acceptButton");
 	await nonUI5.userInteraction.click(elem);
 });
 ```
