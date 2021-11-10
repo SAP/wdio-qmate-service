@@ -290,13 +290,19 @@ const Element = function () {
     } catch (error) {
       throw new Error(`Function 'getByChild' failed. No element found with selector "${elementSelector}".`);
     }
-    try {
-      return await elems.filter(async function (elementNode) {
-        // eslint-disable-next-line no-return-await
-        return await elementNode.$$(childSelector).isPresent();
-      }).get(index);
-    } catch (error) {
+
+    const elementsWithChild = [];
+    for (const element of elems) {
+      const isDisplayed = await element.$(childSelector).isDisplayed();
+      if (isDisplayed) {
+        elementsWithChild.push(element);
+      }
+    }
+   
+    if (elementsWithChild.length === 0) {
       throw new Error(`Function 'getByChild' failed. The found element(s) with the given selector do(es) not have any child with selector ${childSelector}.`);
+    } else {
+      return elementsWithChild[index];
     }
   };
 
