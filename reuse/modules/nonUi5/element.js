@@ -288,7 +288,7 @@ const Element = function () {
     try {
       elems = await this.getAllDisplayed(elementSelector, timeout);
     } catch (error) {
-      throw new Error(`Function 'getByChild' failed. No element found with selector "${elementSelector}".`);
+      throw new Error(`Function 'getByChild' failed. No element found for selector: "${elementSelector}".`);
     }
 
     const elementsWithChild = [];
@@ -323,7 +323,7 @@ const Element = function () {
     try {
       parentElem = await this.getByCss(parentSelector);
     } catch (error) {
-      throw new Error(`Function 'getByParent' failed. No parent found with selector: ${parentSelector}.`, error);
+      throw new Error(`Function 'getByParent' failed. No parent element found for selector: ${parentSelector}.`, error);
     }
     await browser.waitUntil(async function () {
       elem = await parentElem.$$(elementSelector)[index];
