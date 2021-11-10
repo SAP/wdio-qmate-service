@@ -275,30 +275,60 @@ const Element = function () {
   /**
    * @function getByChild
    * @memberOf nonUi5.element
-   * @description Gets an element with the given CSS selector and child selector. Can be used when multiple elements have the same properties.
+   * @description Gets an element by its selector and child selector. Can be used when multiple elements have the same properties.
    * @param {String} elementSelector - The CSS selector describing the element.
-   * @param {String} childSelector - The CSS selector describing the elements child.
+   * @param {String} childSelector - The CSS selector describing the child element.
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByChild(".form01", ".input01");
    */
-  this.getByChild = async function (elementSelector, childSelector) {
-    let elem;
-    let childElem = null;
+  this.getByChild = async function (elementSelector, childSelector, index = 0, timeout = 30000) {
+    let elems;
     try {
-      elem = await this.getByCss(elementSelector);
+      elems = await this.getAllDisplayed(elementSelector, timeout);
     } catch (error) {
-      throw new Error("Function 'getByChild' failed.", error);
+      throw new Error(`Function 'getByChild' failed. No element found with selector "${elementSelector}".`);
+    }
+    try {
+      return await elems.filter(async function (elementNode) {
+        // eslint-disable-next-line no-return-await
+        return await elementNode.$$(childSelector).isPresent();
+      }).get(index);
+    } catch (error) {
+      throw new Error(`Function 'getByChild' failed. The found element(s) with the given selector do(es) not have any child with selector ${childSelector}.`);
+    }
+  };
+
+  /**
+   * @function getByParent
+   * @memberOf nonUi5.element
+   * @description Gets an element by its selector and parent selector. Can be used when multiple elements have the same properties.
+   * @param {String} elementSelector - The CSS selector describing the element.
+   * @param {String} parentSelector - The CSS selector describing the parent element.
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @returns {Object} The found element.
+   * @example const elem = await nonUi5.element.getByParent(".form01", ".input01");
+   */
+  this.getByParent = async function (elementSelector, parentSelector, index = 0, timeout = 30000) {
+    let elem;
+    let parentElem = null;
+    try {
+      parentElem = await this.getByCss(parentSelector);
+    } catch (error) {
+      throw new Error(`Function 'getByParent' failed. No parent found with selector: ${parentSelector}.`, error);
     }
     await browser.waitUntil(async function () {
-      childElem = await elem.$(childSelector);
-      if (!childElem) return false;
+      elem = await parentElem.$$(elementSelector)[index];
+      if (!elem) return false;
       // eslint-disable-next-line no-return-await
-      return await childElem.isDisplayed();
+      return await elem.isDisplayed();
     }, {
       timeout: 30000,
-      timeoutMsg: `Function 'getByChild' failed. No visible elements found for selector '${elementSelector}' and child selector '${childSelector}'`
+      timeoutMsg: `Function 'getByParent' failed. No visible elements found for selector '${elementSelector}' and parent selector '${parentSelector}'`
     });
-    return childElem;
+    return elem;
   };
 
 
@@ -513,7 +543,7 @@ const Element = function () {
         }
       }, {
         timeout: timeout,
-        timeoutMsg: `No visible elements found for selector '${selector}' after ${timeout / 1000}s`
+        timeoutMsg: `No visible element found for selector '${selector}' after ${timeout / 1000}s`
       });
       return selectedElement;
     } catch (error) {
