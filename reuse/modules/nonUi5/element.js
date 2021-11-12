@@ -318,23 +318,27 @@ const Element = function () {
    * @example const elem = await nonUi5.element.getByParent(".form01", ".input01");
    */
   this.getByParent = async function (elementSelector, parentSelector, index = 0, timeout = 30000) {
-    let elem;
-    let parentElem = null;
+    let parentElems = [];
     try {
-      parentElem = await this.getByCss(parentSelector);
+      parentElems = await this.getAllDisplayed(parentSelector, timeout);
     } catch (error) {
       throw new Error(`Function 'getByParent' failed. No parent element found for selector: ${parentSelector}.`, error);
     }
-    await browser.waitUntil(async function () {
-      elem = await parentElem.$$(elementSelector)[index];
-      if (!elem) return false;
-      // eslint-disable-next-line no-return-await
-      return await elem.isDisplayed();
-    }, {
-      timeout: 30000,
-      timeoutMsg: `Function 'getByParent' failed. No visible elements found for selector '${elementSelector}' and parent selector '${parentSelector}'`
-    });
-    return elem;
+
+    const elementsWithParent = [];
+    for (const parentElement of parentElems) {
+      const elem = await parentElement.$(elementSelector);
+      const isDisplayed = await elem.isDisplayed();
+      if (isDisplayed) {
+        elementsWithParent.push(elem);
+      }
+    }
+
+    if (elementsWithParent.length === 0) {
+      throw new Error(`Function 'getByParent' failed. No visible elements found for selector '${elementSelector}' and parent selector '${parentSelector}'`);
+    } else {
+      return elementsWithParent[index];
+    }
   };
 
 
