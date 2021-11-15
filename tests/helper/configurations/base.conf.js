@@ -1,5 +1,6 @@
 const WdioQmateService = require("../../../index");
 const chromedriverPath = require("chromedriver").path;
+const fs = require("fs");
 
 if (!process.env.CHROME_DRIVER || !fs.existsSync(process.env.CHROME_DRIVER)) {
   if (fs.existsSync(chromedriverPath)) {
