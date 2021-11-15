@@ -19,6 +19,7 @@ exports.config = merge(qmateConfiguration.config, {
     path.resolve(__dirname, "getAttributeValue.spec.js"),
     path.resolve(__dirname, "getValue.spec.js"),
     path.resolve(__dirname, "getByChild.spec.js"),
+    path.resolve(__dirname, "getByParent.spec.js"),
     path.resolve(__dirname, "highlight.spec.js"),
     path.resolve(__dirname, "switchToIframe.spec.js"),
     path.resolve(__dirname, "switchToWindow.spec.js"),
