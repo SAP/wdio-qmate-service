@@ -39,10 +39,7 @@ exports.config = merge(baseConfig.config, {
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
   services: [
-    ["chromedriver", {
-      port: 4444,
-      chromedriverCustomPath: process.env.CHROME_DRIVER
-    }]
+    ["chromedriver", { port: 4444 }]
   ],
 
   //
