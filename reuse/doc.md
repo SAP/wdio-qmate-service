@@ -3426,7 +3426,8 @@ Global namespace for non UI5 modules.
         * [.getByClass(elemClass, [index], [timeout])](#nonUi5.element.getByClass) ⇒ <code>Object</code>
         * [.getByName(name, [index], [timeout])](#nonUi5.element.getByName) ⇒ <code>Object</code>
         * [.getByXPath(xpath, [index], [timeout])](#nonUi5.element.getByXPath) ⇒ <code>Object</code>
-        * [.getByChild(elementSelector, childSelector)](#nonUi5.element.getByChild) ⇒ <code>Object</code>
+        * [.getByChild(elementSelector, childSelector, [index], [timeout])](#nonUi5.element.getByChild) ⇒ <code>Object</code>
+        * [.getByParent(elementSelector, parentSelector, [index], [timeout])](#nonUi5.element.getByParent) ⇒ <code>Object</code>
         * [.isVisible(element)](#nonUi5.element.isVisible) ⇒ <code>Boolean</code>
         * [.isPresent(elem)](#nonUi5.element.isPresent) ⇒ <code>Boolean</code>
         * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
@@ -3531,7 +3532,8 @@ const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.ex
     * [.getByClass(elemClass, [index], [timeout])](#nonUi5.element.getByClass) ⇒ <code>Object</code>
     * [.getByName(name, [index], [timeout])](#nonUi5.element.getByName) ⇒ <code>Object</code>
     * [.getByXPath(xpath, [index], [timeout])](#nonUi5.element.getByXPath) ⇒ <code>Object</code>
-    * [.getByChild(elementSelector, childSelector)](#nonUi5.element.getByChild) ⇒ <code>Object</code>
+    * [.getByChild(elementSelector, childSelector, [index], [timeout])](#nonUi5.element.getByChild) ⇒ <code>Object</code>
+    * [.getByParent(elementSelector, parentSelector, [index], [timeout])](#nonUi5.element.getByParent) ⇒ <code>Object</code>
     * [.isVisible(element)](#nonUi5.element.isVisible) ⇒ <code>Boolean</code>
     * [.isPresent(elem)](#nonUi5.element.isPresent) ⇒ <code>Boolean</code>
     * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
@@ -3773,20 +3775,41 @@ const elem = await nonUi5.element.getByXPath("//ul/li/a");
 ```
 <a name="nonUi5.element.getByChild"></a>
 
-#### element.getByChild(elementSelector, childSelector) ⇒ <code>Object</code>
-Gets an element with the given CSS selector and child selector. Can be used when multiple elements have the same properties.
+#### element.getByChild(elementSelector, childSelector, [index], [timeout]) ⇒ <code>Object</code>
+Gets an element by its selector and child selector. Can be used when multiple elements have the same properties.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
 **Returns**: <code>Object</code> - The found element.  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| elementSelector | <code>String</code> | The CSS selector describing the element. |
-| childSelector | <code>String</code> | The CSS selector describing the elements child. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| elementSelector | <code>String</code> |  | The CSS selector describing the element. |
+| childSelector | <code>String</code> |  | The CSS selector describing the child element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
 ```js
 const elem = await nonUi5.element.getByChild(".form01", ".input01");
+```
+<a name="nonUi5.element.getByParent"></a>
+
+#### element.getByParent(elementSelector, parentSelector, [index], [timeout]) ⇒ <code>Object</code>
+Gets an element by its selector and parent selector. Can be used when multiple elements have the same properties.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>Object</code> - The found element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| elementSelector | <code>String</code> |  | The CSS selector describing the element. |
+| parentSelector | <code>String</code> |  | The CSS selector describing the parent element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getByParent(".form01", ".input01");
 ```
 <a name="nonUi5.element.isVisible"></a>
 
