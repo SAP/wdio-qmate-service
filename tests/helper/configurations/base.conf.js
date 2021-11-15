@@ -1,4 +1,15 @@
 const WdioQmateService = require("../../../index");
+const chromedriverPath = require("chromedriver").path;
+
+if (!process.env.CHROME_DRIVER || !fs.existsSync(process.env.CHROME_DRIVER)) {
+  if (fs.existsSync(chromedriverPath)) {
+    process.env.CHROME_DRIVER = chromedriverPath;
+  } else {
+    console.error("Path to chromedriver bin is wrong." + process.env.CHROME_DRIVER || chromedriverPath);
+    process.exit(1);
+  }
+}
+
 const WdioCodeCoverageService = require("@wdio/qmate-code-coverage-service");
 exports.config = {
   services: [
