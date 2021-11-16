@@ -17,6 +17,40 @@ describe("locator - getByClass + expectToBeVisible", function () {
   });
 });
 
+describe("locator - getByClass - multiple classes", function () {
+
+  let element;
+
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+  });
+
+  it("Execution", async function () {
+    element = await nonUi5.element.getByClass("sapMPage sapMPageBgSolid sapMPageWithHeader");
+  });
+
+  it("Verification", async function () {
+    await nonUi5.assertion.expectToBeVisible(element, 10000);
+  });
+});
+
+describe("locator - getByClass - all classes", function () {
+
+  let element;
+
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+  });
+
+  it("Execution", async function () {
+    element = await nonUi5.element.getByClass("sapMPage sapMPageBgSolid sapMPageWithHeader sapMPageWithSubHeader sapMPageBusyCoversAll");
+  });
+
+  it("Verification", async function () {
+    await nonUi5.assertion.expectToBeVisible(element, 10000);
+  });
+});
+
 describe("locator - getByClass and catch error", function () {
 
   it("Preparation", async function () {
