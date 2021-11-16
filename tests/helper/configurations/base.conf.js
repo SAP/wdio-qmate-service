@@ -11,11 +11,9 @@ if (!process.env.CHROME_DRIVER || !fs.existsSync(process.env.CHROME_DRIVER)) {
   }
 }
 
-const WdioCodeCoverageService = require("@wdio/qmate-code-coverage-service");
 exports.config = {
   services: [
-    [WdioQmateService],
-    [WdioCodeCoverageService]
+    [WdioQmateService]
   ],
   //
   // ====================
