@@ -1,4 +1,17 @@
 const WdioQmateService = require("../../../index");
+const chromedriverPath = require("chromedriver").path;
+const fs = require("fs");
+
+if (!process.env.CHROME_DRIVER || !fs.existsSync(process.env.CHROME_DRIVER)) {
+  if (fs.existsSync(chromedriverPath)) {
+    process.env.CHROME_DRIVER = chromedriverPath;
+  } else {
+    console.error("Path to chromedriver bin is wrong." + process.env.CHROME_DRIVER || chromedriverPath);
+    process.exit(1);
+  }
+}
+
+
 exports.config = {
   services: [
     [WdioQmateService]
