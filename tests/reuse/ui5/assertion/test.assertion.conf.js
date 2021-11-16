@@ -5,7 +5,7 @@ exports.config = merge(qmateConfiguration.config, {
   maxInstances: 6,
   bail: 1,
   baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html",
-
+  
   specs: [
     path.resolve(__dirname, "expectAttributeToBe.spec.js"),
     path.resolve(__dirname, "expectValidationError.spec.js"),
@@ -28,5 +28,5 @@ exports.config = merge(qmateConfiguration.config, {
 
   mochaOpts: {
     timeout: 2000000,
-  },
+  }
 });
