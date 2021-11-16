@@ -220,7 +220,7 @@ const Element = function () {
    * @function getByClass
    * @memberOf nonUi5.element
    * @description Gets the element with the given class.
-   * @param {String} elemClass - The class describing the element (if element has multiple values for 'class' property, you should provide all of them)
+   * @param {String} elemClass - The class describing the element
    * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
@@ -229,7 +229,7 @@ const Element = function () {
    */
   this.getByClass = async function (elemClass, index = 0, timeout = 30000) {
     try {
-      const selector = `[class='${elemClass}']`;
+      const selector = `[class*='${elemClass}']`;
       return await _filterDisplayed(selector, index, timeout);
     } catch (error) {
       throw new Error(`Function 'getByClass' failed. Element with class "${elemClass}" not found. ${error}`);

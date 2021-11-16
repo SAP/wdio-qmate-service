@@ -26,11 +26,24 @@ describe("locator - getByClass - multiple classes", function () {
   });
 
   it("Execution", async function () {
-    element = await nonUi5.element.getByClass("sapMPage sapMPageBgSolid sapMPageWithHeader sapMPageWithSubHeader sapMPageBusyCoversAll");
+    element = await nonUi5.element.getByClass("sapMPage sapMPageBgSolid sapMPageWithHeader");
+  });
 
-    // same element, but with missed 'sapMPageBusyCoversAll' class, should throw an error
-    await expect(nonUi5.element.getByClass("sapMPage sapMPageBgSolid sapMPageWithHeader sapMPageWithSubHeader"))
-      .rejects.toThrow(/No visible elements found for selector/);
+  it("Verification", async function () {
+    await nonUi5.assertion.expectToBeVisible(element, 10000);
+  });
+});
+
+describe("locator - getByClass - all classes", function () {
+
+  let element;
+
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+  });
+
+  it("Execution", async function () {
+    element = await nonUi5.element.getByClass("sapMPage sapMPageBgSolid sapMPageWithHeader sapMPageWithSubHeader sapMPageBusyCoversAll");
   });
 
   it("Verification", async function () {
