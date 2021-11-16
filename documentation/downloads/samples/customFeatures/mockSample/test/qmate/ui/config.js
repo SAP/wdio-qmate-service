@@ -1,6 +1,5 @@
 const path = require("path");
 const WdioQmateService = require("@wdio/qmate-service");
-const WdioQmateCoverageService = require("@wdio/qmate-code-coverage-service");
 exports.config = {
   runner: "local",
 
@@ -67,7 +66,7 @@ exports.config = {
 
   logLevel: "error",
   bail: 0,
-  services: [["selenium-standalone"], [WdioQmateService], [WdioQmateCoverageService], ["static-server", {
+  services: [["selenium-standalone"], [WdioQmateService], ["static-server", {
     port: 34005,
     folders: [
       {mount: "/test/flpSandboxMockServer.html", path: path.resolve(__dirname, "../../flpSandboxMockServer.html")},
@@ -81,18 +80,6 @@ exports.config = {
     // clientInterval: 50,
     auth: {
       formType: "plain"
-    },
-    coverage: {
-      status: false,
-      coverage_files: [
-        "Component.js",
-        "controller",
-        "!test",
-        "!localService",
-        "!test-resources",
-        "!resources"
-      ],
-      sourcePath: "./sourceFolder"
     }
   },
 
