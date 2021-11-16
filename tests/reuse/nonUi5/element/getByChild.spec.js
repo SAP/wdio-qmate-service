@@ -3,11 +3,8 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("locator - getByChild + expectToBeVisible", function () {
-
-  let parentSelector;
-  let childSelector;
-  let finalElement;
+describe("locator - getByChild", function () {
+  let elemAct;
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
@@ -15,25 +12,59 @@ describe("locator - getByChild + expectToBeVisible", function () {
   });
 
   it("Execution", async function () {
-    parentSelector = "[id='container-cart---homeView--searchField']";
-    childSelector = "[class='sapMSFF']";
-    finalElement = await nonUi5.element.getByChild(parentSelector, childSelector);
-
+    const elementSelector = "[id='container-cart---homeView--searchField-F']";
+    const childSelector = "[id='container-cart---homeView--searchField-I']";
+    elemAct = await nonUi5.element.getByChild(elementSelector, childSelector);
   });
 
   it("Verification", async function () {
-    await nonUi5.assertion.expectToBeVisible(finalElement, 10000);
+    await nonUi5.assertion.expectToBeVisible(elemAct, 10000);
   });
 });
 
-describe("locator - getByChild and catch error", function () {
+describe("locator - getByChild - with index", function () {
+  let elemAct;
 
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Tree/sample/sap.m.sample.TreeExpandMulti");
+    await handleCookiesConsent();
+  });
+
+  it("Execution", async function () {
+    const elementSelector = "LI[role='treeitem'][aria-expanded='false']";
+    const childSelector = "DIV[class='sapMLIBContent']";
+    const index = 2;
+    elemAct = await nonUi5.element.getByChild(elementSelector, childSelector, index);
+  });
+
+  it("Verification", async function () {
+    const elemExp = await nonUi5.element.getByCssContainingText("LI", "Node1-3");
+    await common.assertion.expectEqual(elemAct.elementId, elemExp.elementId);
+  });
+});
+
+describe("locator - getByChild - error case with wrong element", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getByChild(".form01", ".input01"))
-      .rejects.toThrow("Function 'getByChild' failed");
+    const elementSelector = ".wrongParent";
+    const childSelector = ".wrongChild";
+    await expect(nonUi5.element.getByChild(elementSelector, childSelector))
+      .rejects.toThrow("Function 'getByChild' failed. No element found for selector:");
+  });
+});
+
+describe("locator - getByChild - error case with wrong order of parent and child", function () {
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+  });
+
+  it("Execution and Verification", async function () {
+    const elementSelector = "[id='container-cart---homeView--searchField-I']";
+    const childSelector = "[id='container-cart---homeView--searchField-F']";
+    await expect(nonUi5.element.getByChild(elementSelector, childSelector))
+      .rejects.toThrow("Function 'getByChild' failed. The found element(s) with the given selector do(es) not have any child with selector");
   });
 });
