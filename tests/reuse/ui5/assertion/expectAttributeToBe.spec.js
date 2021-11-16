@@ -4,6 +4,7 @@ let selector;
 describe("assertion - expectAttributeToBe: title to be 'Laptops' (string)", function () {
 
   it("Preparation", async function () {
+    console.log("in spec ->>>>>> ", browser.config.params);
     await browser.url("#/categories");
   });
 
