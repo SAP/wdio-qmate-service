@@ -1,6 +1,6 @@
 {
   "name": "@wdio/qmate-service",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "author": {
     "name": "Georgios Treska",
     "email": "georgios.treska@sap.com"
@@ -22,8 +22,7 @@
   ],
   "scripts": {
     "update-chromedriver": "npm install chromedriver@latest --chromedriver-force-download",
-    "preinstall": "npm config set chromedriver_skip_download=true && npm install chromedriver@latest --chromedriver_skip_download=true",
-    "postinstall": "npm config set chromedriver_skip_download=false",
+    "before_install": "npm config set chromedriver_skip_download=true && npm install chromedriver@latest --chromedriver_skip_download=true",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "generate-docs": "node reuse/helper/jsDocGen",
