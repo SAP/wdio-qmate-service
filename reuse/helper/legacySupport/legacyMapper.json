@@ -12,6 +12,10 @@
     "new": "util.browser.collectCoverage"
   },
   {
+    "old": "utilities.browser.getCurrentUrl",
+    "new": "util.browser.getCurrentUrl"
+  },
+  {
     "old": "utilities.dialogInteraction.uploadFiles",
     "new": "util.file.upload"
   },
