@@ -31,7 +31,7 @@ const Browser = function () {
 
   /**
    * @function logCurrentUrl
-   * @memberOf common.navigation
+   * @memberOf util.browser
    * @description Displays the current URL in the console.
    * @example await util.browser.logCurrentUrl();
    */
@@ -40,6 +40,15 @@ const Browser = function () {
     util.console.info("Current URL: " + url);
   };
 
+  /**
+   * @function getCurrentUrl
+   * @memberOf util.browser
+   * @description Returns the current URL
+   * @example await util.browser.getCurrentUrl();
+   */
+  this.getCurrentUrl = async function () {
+    return browser.getUrl();
+  };
 
   // =================================== ACTIONS ===================================
   /**
