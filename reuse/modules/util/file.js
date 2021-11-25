@@ -15,7 +15,7 @@ const File = function () {
    * @memberOf util.file
    * @description Uploads all the file/s by the paths given in the Array.
    * @param {String[]} files - Array with path/s of file/s to be uploaded.
-   * @param {Number | Object} - second parameter can be a index or selector of uploader control, default value of index is 0
+   * @param {Number | Object} selector - second parameter can be a index or selector of uploader control, default value of index is 0
    * @example await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"]);
    * @example await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"], 1); //upload to second fileuploader control on ui screen
    * @example await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"], selector); //upload to file uploader with matching selector
