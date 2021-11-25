@@ -18,7 +18,7 @@ const Element = function () {
     try {
       await browser.uiControls(selector, timeout);
     } catch (e) {
-      throw new Error(e.message.replace("uiControlExecuteLocator", "waitForAll"));
+      throw new Error(`Function 'waitForAll' failed: ${e}`);
     }
   };
 
@@ -37,7 +37,7 @@ const Element = function () {
     try {
       return await browser.uiControls(selector, timeout);
     } catch (e) {
-      throw new Error(e.message.replace("uiControlExecuteLocator", "getAllDisplayed"));  
+      throw new Error(`Function 'getAllDisplayed' failed: ${e}`);
     }
   };
 
