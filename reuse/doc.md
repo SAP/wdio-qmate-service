@@ -901,10 +901,19 @@ Uploads all the file/s by the paths given in the Array.
 | Param | Type | Description |
 | --- | --- | --- |
 | files | <code>Array.&lt;String&gt;</code> | Array with path/s of file/s to be uploaded. |
+|  | <code>Number</code> \| <code>Object</code> | second parameter can be a index or selector of uploader control, default value of index is 0 |
 
 **Example**  
 ```js
 await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"]);
+```
+**Example**  
+```js
+await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"], 1); //upload to second fileuploader control on ui screen
+```
+**Example**  
+```js
+await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"], selector); //upload to file uploader with matching selector
 ```
 <a name="util.file.parsePdf"></a>
 
