@@ -15,10 +15,22 @@ const File = function () {
    * @memberOf util.file
    * @description Uploads all the file/s by the paths given in the Array.
    * @param {String[]} files - Array with path/s of file/s to be uploaded.
+   * @param {Number | Object} - second parameter can be a index or selector of uploader control, default value of index is 0
    * @example await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"]);
+   * @example await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"], 1); //upload to second fileuploader control on ui screen
+   * @example await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"], selector); //upload to file uploader with matching selector
    */
-  this.upload = async function (files) {
-    const elem = await nonUi5.element.getByCss('input[type="file"]');
+  this.upload = async function (files, selector = 0) {
+    let elem;
+    if (typeof selector === "number"){
+      elem = await nonUi5.element.getByCss('input[type="file"]', selector);
+    } else if (typeof selector === "object"){
+      const elemId = await ui5.element.getId(selector);
+      elem = await nonUi5.element.getByXPath(`.//input[contains(@id,'${elemId}')][@type='file']`);
+    }
+    if (!elem){
+      throw new Error("No upload input element found with matching index or selector");
+    }
     for (const file of files) {
       await elem.setValue(path.resolve(file));
     }
