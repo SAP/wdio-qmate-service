@@ -565,7 +565,7 @@ Global namespace for util modules.
         * [.success(message)](#util.console.success)
         * [.info(message)](#util.console.info)
     * [.file](#util.file)
-        * [.upload(files)](#util.file.upload)
+        * [.upload(files, selector)](#util.file.upload)
         * [.parsePdf(pdfStream, renderingMethod)](#util.file.parsePdf) ⇒ <code>String</code>
         * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
         * [.expectPdfNotContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfNotContainsText)
@@ -886,14 +886,14 @@ util.console.success("The document has been saved.");
 **Kind**: static class of [<code>util</code>](#util)  
 
 * [.file](#util.file)
-    * [.upload(files)](#util.file.upload)
+    * [.upload(files, selector)](#util.file.upload)
     * [.parsePdf(pdfStream, renderingMethod)](#util.file.parsePdf) ⇒ <code>String</code>
     * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
     * [.expectPdfNotContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfNotContainsText)
 
 <a name="util.file.upload"></a>
 
-#### file.upload(files)
+#### file.upload(files, selector)
 Uploads all the file/s by the paths given in the Array.
 
 **Kind**: static method of [<code>file</code>](#util.file)  
@@ -901,7 +901,7 @@ Uploads all the file/s by the paths given in the Array.
 | Param | Type | Description |
 | --- | --- | --- |
 | files | <code>Array.&lt;String&gt;</code> | Array with path/s of file/s to be uploaded. |
-|  | <code>Number</code> \| <code>Object</code> | second parameter can be a index or selector of uploader control, default value of index is 0 |
+| selector | <code>Number</code> \| <code>Object</code> | second parameter can be a index or selector of uploader control, default value of index is 0 |
 
 **Example**  
 ```js
