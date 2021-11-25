@@ -69,7 +69,7 @@ describe("file - upload - with second param as index", function () {
 
 });
 
-describe("dialogInteraction - uploadFiles - with second param as a selector", function () {
+describe("file - upload - with second param as a selector", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection");
