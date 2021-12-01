@@ -15,7 +15,11 @@ const Element = function () {
    * @example await ui5.element.waitForAll(selector);
    */
   this.waitForAll = async function (selector, timeout = 30000) {
-    await browser.uiControls(selector, timeout);
+    try {
+      await browser.uiControls(selector, timeout);
+    } catch (e) {
+      throw new Error(`Function 'waitForAll' failed: ${e}`);
+    }
   };
 
   
@@ -30,7 +34,11 @@ const Element = function () {
    * @example const elem = await ui5.element.getAllDisplayed(selector);
    */
   this.getAllDisplayed = async function (selector, timeout = 30000) {
-    return browser.uiControls(selector, timeout);
+    try {
+      return await browser.uiControls(selector, timeout);
+    } catch (e) {
+      throw new Error(`Function 'getAllDisplayed' failed: ${e}`);
+    }
   };
 
   /**
