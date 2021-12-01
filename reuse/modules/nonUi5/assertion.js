@@ -28,8 +28,8 @@ const Assertion = function () {
    * @memberOf nonUi5.assertion
    * @description Expects the attributes value of the passed element to be the compare value.
    * @param {Object} elem - The element.
-   * @param {String} [attribute] - The attribute to compare. If not passed, it will compare the inner HTML content of the element.
    * @param {String} compareValue - The compare value.
+   * @param {String} [attribute] - The attribute to compare. If not passed, it will compare the inner HTML content of the element.
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectAttributeToContain(element, "Save", "title");
    */
