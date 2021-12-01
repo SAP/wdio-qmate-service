@@ -8,7 +8,10 @@ exports.config = merge(qmateConfiguration.config, {
 
   specs: [
     path.resolve(__dirname, "expectToBeVisible.spec.js"),
-    path.resolve(__dirname, "expectValueToBe.spec.js")
+    path.resolve(__dirname, "expectValueToBe.spec.js"),
+    path.resolve(__dirname, "expectToBeNotVisible.spec.js"),
+    path.resolve(__dirname, "expectAttributeToBe.spec.js"),
+    path.resolve(__dirname, "expectAttributeToContain.spec.js")
   ],
 
   exclude: [],
