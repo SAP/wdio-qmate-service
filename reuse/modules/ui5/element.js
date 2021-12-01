@@ -181,8 +181,8 @@ const Element = function () {
    */
   this.isVisible = async function (selector, index = 0, timeout = 30000) {
     try {
-      await ui5.assertion.expectToBeVisible(selector, index, timeout);
-      return true;
+      const elem = await ui5.element.getDisplayed(selector, index, timeout);
+      return await elem.isVisible();
     } catch (err) {
       return false;
     }
