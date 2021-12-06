@@ -1,25 +1,26 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfiguration = require("../../../helper/configurations/chrome.headless.conf");
+const qmateConfiguration = require("../../../helper/configurations/chrome.conf");
 exports.config = merge(qmateConfiguration.config, {
   maxInstances: 6,
   bail: 1,
   baseUrl: "http://localhost:34005/",
 
   specs: [
-    path.resolve(__dirname, "clear.spec.js"),
-    path.resolve(__dirname, "clearAndFill.spec.js"),
-    path.resolve(__dirname, "clearAndRetry.spec.js"),
-    path.resolve(__dirname, "clearAndFillAndRetry.spec.js"),
-    path.resolve(__dirname, "click.spec.js"),
-    path.resolve(__dirname, "clickAndRetry.spec.js"),
-    path.resolve(__dirname, "doubleClick.spec.js"),
-    path.resolve(__dirname, "fill.spec.js"),
-    path.resolve(__dirname, "fillAndRetry.spec.js"),
-    path.resolve(__dirname, "moveCursorAndClick.spec.js"),
-    path.resolve(__dirname, "checkAttributeAndValue.spec.js"),
-    path.resolve(__dirname, "scrollToElement.spec.js"),
-    path.resolve(__dirname, "rightClick.spec.js")
+    // path.resolve(__dirname, "clear.spec.js"),
+    // path.resolve(__dirname, "clearAndFill.spec.js"),
+    // path.resolve(__dirname, "clearAndRetry.spec.js"),
+    // path.resolve(__dirname, "clearAndFillAndRetry.spec.js"),
+    // path.resolve(__dirname, "click.spec.js"),
+    // path.resolve(__dirname, "clickAndRetry.spec.js"),
+    // path.resolve(__dirname, "doubleClick.spec.js"),
+    // path.resolve(__dirname, "fill.spec.js"),
+    // path.resolve(__dirname, "fillAndRetry.spec.js"),
+    // path.resolve(__dirname, "moveCursorAndClick.spec.js"),
+    // path.resolve(__dirname, "checkAttributeAndValue.spec.js"),
+    // path.resolve(__dirname, "scrollToElement.spec.js"),
+    // path.resolve(__dirname, "rightClick.spec.js"),
+    path.resolve(__dirname, "dragAndDrop.spec.js")
   ],
   exclude: [],
 
@@ -56,6 +57,10 @@ exports.config = merge(qmateConfiguration.config, {
       {
         mount: "/tables.html",
         path: path.resolve(__dirname, "../../../helper/website/tables.html")
+      },
+      {
+        mount: "/dragAndDrop.html",
+        path: path.resolve(__dirname, "../../../helper/website/dragAndDrop.html")
       }
       ]
     }]
