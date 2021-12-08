@@ -2040,7 +2040,7 @@ const elemValue = await ui5.element.getPropertyValue(selector, "text");
 <a name="ui5.element.getValue"></a>
 
 #### element.getValue(selector, [index], [timeout]) ⇒ <code>String</code>
-Returns the value of the passed element.
+Returns the inner value of the passed element.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
 **Returns**: <code>String</code> - The value of the element.  
