@@ -257,8 +257,8 @@ const Session = function () {
           // eslint-disable-next-line no-return-await
           await logonField.isDisplayedInViewport();
       }, {
-        timeout: 60000,
-        timeoutMsg: "expected user name field to be present after 60s"
+        timeout: 30000,
+        timeoutMsg: "expected user name field to be present after 30s"
       });
 
       await usernameField.setValue(username);
