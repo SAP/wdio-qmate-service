@@ -150,7 +150,7 @@ const Element = function () {
 
       // get value with DOM properties as fallback
       if (!value) {
-        const elem = this.getDisplayed(selector, index, 5000);
+        const elem = await this.getDisplayed(selector, index, 5000);
         value = await nonUi5.element.getAttributeValue(elem);
       }
 
