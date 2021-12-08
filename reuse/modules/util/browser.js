@@ -116,14 +116,14 @@ const Browser = function () {
    * @function getUI5Version
    * @memberOf util.browser
    * @description Gets the UI5 version and creation date for UI5 based applications.
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await util.browser.getUI5Version();
    */
-  this.getUI5Version = async function () {
+  this.getUI5Version = async function (timeout = browser.config.waitForUI5Timeout || 30000) {
     await browser.waitUntil(async function () {
       // eslint-disable-next-line no-return-await
       return await browser.execute(function () {
         try {
-          console.log(window.sap);
           if (window && window.sap && window.sap.ui) {
             return true;
           } else {
@@ -134,8 +134,8 @@ const Browser = function () {
         }
       });
     }, {
-      timeout: browser.config.waitForUI5Timeout,
-      timeoutMsg: `Page did not load within timeout ${browser.config.waitForUI5Timeout / 1000}s`,
+      timeout: timeout,
+      timeoutMsg: `Page did not load within timeout ${timeout / 1000}s`,
       interval: 400
     });
 
