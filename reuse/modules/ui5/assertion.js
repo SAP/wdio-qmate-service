@@ -295,7 +295,7 @@ const Assertion = function () {
    */
   this.expectToBeVisible = async function (selector, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
     let elem;
-    //TODO: replace with getDisplayedElement() since we want the visible elements only in the DOM
+
     try {
       elem = await browser.uiControl(selector, index, timeout);
     } catch (error) {
@@ -374,19 +374,12 @@ const Assertion = function () {
    * @example await ui5.assertion.expectToBeNotVisible(selector, 0, 5000);
    */
   this.expectToBeNotVisible = async function (selector, index = 0, timeout = 30000) {
-    let elem;
     try {
-      elem = await browser.uiControl(selector, index, timeout, true);
-    } catch (e) {
-      return;
+      const isVisible = await ui5.element.isVisible(selector, index, timeout);
+      return common.assertion.expectFalse(isVisible);
+    } catch (error) {
+      throw new Error(`Function 'expectToBeNotVisible' failed. Element with selector ${selector} is visible.`);
     }
-
-    await elem.waitForDisplayed({
-      timeout: timeout,
-      reverse: true,
-      timeoutMsg: "Element is visible, timeout reached.",
-      interval: 100
-    });
   };
 
 
