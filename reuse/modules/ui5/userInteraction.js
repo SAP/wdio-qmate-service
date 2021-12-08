@@ -585,7 +585,7 @@ const UserInteraction = function () {
   this.dragAndDrop = async function (sourceSelector, targetSelector, sourceIndex = 0, targetIndex = 0, duration = 3000, timeout = 30000) {
     const sourceElement = await ui5.element.getDisplayed(sourceSelector, sourceIndex, timeout);
     const targetElement = await ui5.element.getDisplayed(targetSelector, targetIndex, timeout);
-    await sourceElement.dragAndDrop(targetElement, { duration: duration });
+    await nonUi5.userInteraction.dragAndDrop(sourceElement, targetElement);
   };
 };
 module.exports = new UserInteraction();
