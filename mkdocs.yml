@@ -1,0 +1,62 @@
+site_name: Qmate-Service
+site_author: D056896
+nav:
+  - Home: index.md
+  - Reuse API: reuse/doc.md
+  - Setup & Installation:
+    - Qmate-Service Installation: topics/setupAndInstallation.md
+  - Native Features: topics/nativeFeatures.md
+  - Custom Features:
+    - Reuse: topics/reuse.md
+    - Authentication:  topics/authentication.md
+    - Data Exchange: topics/dataImportExport.md
+    - OData: topics/OData.md
+  - Custom Services:
+    - reporter-service: https://github.tools.sap/sProcurement/wdio-qmate-reporter-service
+    - bo-reuse-service: https://github.tools.sap/sProcurement/wdio-qmate-bo-reuse-service
+    - code-coverage-service: https://github.tools.sap/sProcurement/wdio-qmate-code-coverage-service
+  - Selectors: topics/selectors.md
+  - Contribution:
+    - Step Indexer: topics/other/stepIndexer.md
+  - Support:
+      - Contact: topics/contribution.md
+theme:
+  name: 'material'
+  features:
+    - content.code.annotate 
+    - content.tabs.link
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate 
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+markdown_extensions:
+  - attr_list
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true 
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - codehilite:
+      guess_lang: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+      clickable_checkbox: true
+extra_javascript:
+  - 'javascripts/extra.js'
+extra_css:
+  - 'css/extra.css'
+docs_dir: documentation
+site_dir: docs-gen
+repo_url: https://github.tools.sap/sProcurement/wdio-qmate-service
+site_url: https://github.tools.sap/pages/sProcurement/wdio-qmate-service
+edit_uri: main/documentation/
