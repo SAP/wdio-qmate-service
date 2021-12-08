@@ -182,7 +182,7 @@ const Element = function () {
   this.isVisible = async function (selector, index = 0, timeout = 30000) {
     try {
       const elem = await ui5.element.getDisplayed(selector, index, timeout);
-      return await elem.isVisible();
+      return await elem.isDisplayed();
     } catch (err) {
       return false;
     }
