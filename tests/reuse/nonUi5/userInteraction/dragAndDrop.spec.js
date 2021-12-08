@@ -38,7 +38,7 @@ describe("userInteraction - successful dragAndDrop", async function () {
     // From WDIO documentation: "The functionality of this command highly depends on the way drag and drop is implemented in your app..." https://webdriver.io/docs/api/element/dragAndDrop/
     const targetElement = await nonUi5.element.getById("dropTargetDiv");
     const text = await targetElement.getText();
-    common.assertion.expectEqual(text, ""); // instead of text === sourceText
+    common.assertion.expectUnequal(text, ""); // instead of text === sourceText
   });
 });
 
