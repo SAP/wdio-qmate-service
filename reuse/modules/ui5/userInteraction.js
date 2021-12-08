@@ -198,9 +198,8 @@ const UserInteraction = function () {
     await util.function.retry(async (selector, value, index, timeout) => {
       await this.clearAndFill(selector, value, index, timeout);
       if (verify) {
-        await common.userInteraction.pressTab();
         const elemValue = await ui5.element.getValue(selector, index);
-        if (elemValue !== value) {
+        if (elemValue != value) { // keep non-strict comparison for format changes after input (10 -> 10.00)
           throw new Error("Verification of function 'clearAndFillAndRetry' failed. Values could not be filled correctly.");
         }
       }
