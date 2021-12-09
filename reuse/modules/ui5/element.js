@@ -144,17 +144,7 @@ const Element = function () {
    */
   this.getValue = async function (selector, index = 0, timeout = 30000) {
     try {
-      let value;
-      // try to get with UI5 properties
-      value = this.getPropertyValue(selector, "value", index, timeout);
-
-      // get value with DOM properties as fallback
-      if (!value) {
-        const elem = await this.getDisplayed(selector, index, 5000);
-        value = await nonUi5.element.getAttributeValue(elem);
-      }
-
-      return value;
+      return await this.getPropertyValue(selector, "value", index, timeout);
     } catch (error) {
       throw new Error("getValue() failed with " + error);
     }

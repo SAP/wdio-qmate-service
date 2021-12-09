@@ -194,13 +194,13 @@ const UserInteraction = function () {
    * @param {Boolean} [verify=true] - Specifies if the filled value should be verified.
    * @example await ui5.userInteraction.clearAndFillAndRetry(selector, "My Value");
    */
-  this.clearAndFillAndRetry = async function (selector, value, index = 0, timeout = 30000, retries = 3, interval = 5000, verify = true) {
+  this.clearAndFillAndRetry = async function (selector, value, index = 0, timeout = 30000, retries = 1, interval = 5000, verify = true) {
     await util.function.retry(async (selector, value, index, timeout) => {
       await this.clearAndFill(selector, value, index, timeout);
       if (verify) {
-        const elemValue = await ui5.element.getValue(selector, index);
-        if (elemValue != value) { // keep non-strict comparison for format changes after input (10 -> 10.00)
-          throw new Error("Verification of function 'clearAndFillAndRetry' failed. Values could not be filled correctly.");
+        const elemValue = await _getValue(selector, index);
+        if (elemValue != value) { // IMPORTANT: keep non-strict comparison for format changes after input (10 -> 10.00)
+          throw new Error(`Verification of function 'clearAndFillAndRetry' failed. Actual value '${elemValue}' not equal to expected value '${value}'`);
         }
       }
     }, [selector, value, index, timeout], retries, interval, this);
@@ -479,6 +479,28 @@ const UserInteraction = function () {
 
 
   // =================================== HELPER ===================================
+  async function _getValue(selector, index) {
+    let elemValue;
+
+    // try to get value via UI5 properties
+    elemValue = await ui5.element.getValue(selector, index);
+
+    // if unsuccessful, get value via DOM properties
+    if (!elemValue || elemValue == "") {
+      const elemId = await ui5.element.getId(selector);
+      const elem = await nonUi5.element.getById(elemId);
+      elemValue = await nonUi5.element.getValue(elem);
+
+      // if element is not the input element, get the child element
+      if (!elemValue || elemValue == "") {
+        const inputElem = await nonUi5.element.getByParent("input", `#${elemId}`);
+        elemValue = await nonUi5.element.getValue(inputElem);
+      }
+    }
+
+    return elemValue;
+  }
+
   async function _clearHelper(selector, index = 0, timeout = 30000) {
     let id, elem;
     if (selector) {
