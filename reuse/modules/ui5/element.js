@@ -22,7 +22,7 @@ const Element = function () {
     }
   };
 
-  
+
   // =================================== GET ELEMENTS ===================================
   /**
    * @function getAllDisplayed
@@ -135,7 +135,7 @@ const Element = function () {
   /**
    * @function getValue
    * @memberOf ui5.element
-   * @description Returns the value of the passed element.
+   * @description Returns the inner value of the passed element.
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
@@ -144,7 +144,6 @@ const Element = function () {
    */
   this.getValue = async function (selector, index = 0, timeout = 30000) {
     try {
-      // eslint-disable-next-line no-return-await
       return await this.getPropertyValue(selector, "value", index, timeout);
     } catch (error) {
       throw new Error("getValue() failed with " + error);
