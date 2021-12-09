@@ -86,6 +86,7 @@ const NavigationBar = function () {
    * @function expectShellHeader
    * @memberOf ui5.navigationBar
    * @description Expects the shell header to be visible
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.expectShellHeader();
    */
   this.expectShellHeader = async function (timeout = 30000, loadPropertyTimeout = 0) {
