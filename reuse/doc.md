@@ -547,6 +547,7 @@ Global namespace for util modules.
         * [.setBaseUrl(baseUrl:)](#util.browser.setBaseUrl)
         * [.logCurrentUrl()](#util.browser.logCurrentUrl)
         * [.getCurrentUrl()](#util.browser.getCurrentUrl)
+        * [.resetFocus()](#util.browser.resetFocus)
         * [.sleep([duration])](#util.browser.sleep)
         * [.refresh()](#util.browser.refresh)
         * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#util.browser.clearBrowser)
@@ -565,7 +566,7 @@ Global namespace for util modules.
         * [.success(message)](#util.console.success)
         * [.info(message)](#util.console.info)
     * [.file](#util.file)
-        * [.upload(files, selector)](#util.file.upload)
+        * [.upload(files, [selector])](#util.file.upload)
         * [.parsePdf(pdfStream, renderingMethod)](#util.file.parsePdf) ⇒ <code>String</code>
         * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
         * [.expectPdfNotContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfNotContainsText)
@@ -593,6 +594,7 @@ Global namespace for util modules.
     * [.setBaseUrl(baseUrl:)](#util.browser.setBaseUrl)
     * [.logCurrentUrl()](#util.browser.logCurrentUrl)
     * [.getCurrentUrl()](#util.browser.getCurrentUrl)
+    * [.resetFocus()](#util.browser.resetFocus)
     * [.sleep([duration])](#util.browser.sleep)
     * [.refresh()](#util.browser.refresh)
     * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#util.browser.clearBrowser)
@@ -650,6 +652,16 @@ Returns the current URL
 **Example**  
 ```js
 await util.browser.getCurrentUrl();
+```
+<a name="util.browser.resetFocus"></a>
+
+#### browser.resetFocus()
+Resets the focus in case it set for a specific element.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Example**  
+```js
+await util.browser.resetFocus();
 ```
 <a name="util.browser.sleep"></a>
 
@@ -891,34 +903,34 @@ util.console.success("The document has been saved.");
 **Kind**: static class of [<code>util</code>](#util)  
 
 * [.file](#util.file)
-    * [.upload(files, selector)](#util.file.upload)
+    * [.upload(files, [selector])](#util.file.upload)
     * [.parsePdf(pdfStream, renderingMethod)](#util.file.parsePdf) ⇒ <code>String</code>
     * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
     * [.expectPdfNotContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfNotContainsText)
 
 <a name="util.file.upload"></a>
 
-#### file.upload(files, selector)
+#### file.upload(files, [selector])
 Uploads all the file/s by the paths given in the Array.
 
 **Kind**: static method of [<code>file</code>](#util.file)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| files | <code>Array.&lt;String&gt;</code> | Array with path/s of file/s to be uploaded. |
-| selector | <code>Number</code> \| <code>Object</code> | second parameter can be a index or selector of uploader control, default value of index is 0 |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| files | <code>Array.&lt;String&gt;</code> |  | Array with path/s of file/s to be uploaded. |
+| [selector] | <code>Number</code> \| <code>Object</code> | <code>0</code> | Index or custom selector of uploader control, in case there are more then one present. Default value is index 0. |
 
 **Example**  
 ```js
-await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"]);
+await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"]); // uses the default uploader control
 ```
 **Example**  
 ```js
-await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"], 1); //upload to second fileuploader control on ui screen
+await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], 1); // upload to second file uploader control on UI screen
 ```
 **Example**  
 ```js
-await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"], selector); //upload to file uploader with matching selector
+await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], selector); // upload to file uploader with matching selector
 ```
 <a name="util.file.parsePdf"></a>
 
@@ -2043,7 +2055,7 @@ const elemValue = await ui5.element.getPropertyValue(selector, "text");
 <a name="ui5.element.getValue"></a>
 
 #### element.getValue(selector, [index], [timeout]) ⇒ <code>String</code>
-Returns the value of the passed element.
+Returns the inner value of the passed element.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
 **Returns**: <code>String</code> - The value of the element.  
@@ -4036,7 +4048,7 @@ const elem = await nonUi5.element.getById("elem02");const innerHTML = await non
 Returns the value of the passed element.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
-**Returns**: <code>String</code> - The  value of the element.  
+**Returns**: <code>String</code> - The value of the element.  
 
 | Param | Type | Description |
 | --- | --- | --- |
