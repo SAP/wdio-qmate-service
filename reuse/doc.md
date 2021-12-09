@@ -547,6 +547,7 @@ Global namespace for util modules.
         * [.setBaseUrl(baseUrl:)](#util.browser.setBaseUrl)
         * [.logCurrentUrl()](#util.browser.logCurrentUrl)
         * [.getCurrentUrl()](#util.browser.getCurrentUrl)
+        * [.resetFocus()](#util.browser.resetFocus)
         * [.sleep([duration])](#util.browser.sleep)
         * [.refresh()](#util.browser.refresh)
         * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#util.browser.clearBrowser)
@@ -593,6 +594,7 @@ Global namespace for util modules.
     * [.setBaseUrl(baseUrl:)](#util.browser.setBaseUrl)
     * [.logCurrentUrl()](#util.browser.logCurrentUrl)
     * [.getCurrentUrl()](#util.browser.getCurrentUrl)
+    * [.resetFocus()](#util.browser.resetFocus)
     * [.sleep([duration])](#util.browser.sleep)
     * [.refresh()](#util.browser.refresh)
     * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#util.browser.clearBrowser)
@@ -650,6 +652,16 @@ Returns the current URL
 **Example**  
 ```js
 await util.browser.getCurrentUrl();
+```
+<a name="util.browser.resetFocus"></a>
+
+#### browser.resetFocus()
+Resets the focus in case it set for a specific element.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Example**  
+```js
+await util.browser.resetFocus();
 ```
 <a name="util.browser.sleep"></a>
 
