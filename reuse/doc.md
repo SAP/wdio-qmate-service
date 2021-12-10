@@ -1322,6 +1322,8 @@ Global namespace for UI5 modules.
         * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
         * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
         * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
+        * [.doubleClick(selector, [index], [timeout])](#ui5.userInteraction.doubleClick)
+        * [.rightClick(selector, [index], [timeout])](#ui5.userInteraction.rightClick)
 
 <a name="ui5.assertion"></a>
 
@@ -3032,6 +3034,8 @@ await ui5.session.expectLogoutText();
     * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
     * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
     * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
+    * [.doubleClick(selector, [index], [timeout])](#ui5.userInteraction.doubleClick)
+    * [.rightClick(selector, [index], [timeout])](#ui5.userInteraction.rightClick)
 
 <a name="ui5.userInteraction.click"></a>
 
@@ -3444,6 +3448,40 @@ Resets the search field.
 ```js
 await ui5.userInteraction.resetSearch(selector);
 ```
+<a name="ui5.userInteraction.doubleClick"></a>
+
+#### userInteraction.doubleClick(selector, [index], [timeout])
+Double Clicks on the passed element.
+
+**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.userInteraction.doubleClick(selector);
+```
+<a name="ui5.userInteraction.rightClick"></a>
+
+#### userInteraction.rightClick(selector, [index], [timeout])
+Right Clicks on the passed element.
+
+**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getById("button01");await ui5.userInteraction.rightClick(elem);
+```
 <a name="nonUi5"></a>
 
 ## nonUi5
@@ -3454,8 +3492,10 @@ Global namespace for non UI5 modules.
 * [nonUi5](#nonUi5)
     * [.assertion](#nonUi5.assertion)
         * [.expectAttributeToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
+        * [.expectAttributeToContain(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToContain)
         * [.expectValueToBe(elem, compareValue)](#nonUi5.assertion.expectValueToBe)
         * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible)
+        * [.expectToBeNotVisible(element, [timeout])](#nonUi5.assertion.expectToBeNotVisible)
     * [.element](#nonUi5.element)
         * [.waitForAll(selector, [timeout])](#nonUi5.element.waitForAll)
         * [.waitToBePresent(selector, [timeout])](#nonUi5.element.waitToBePresent)
@@ -3502,8 +3542,10 @@ Global namespace for non UI5 modules.
 
 * [.assertion](#nonUi5.assertion)
     * [.expectAttributeToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
+    * [.expectAttributeToContain(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToContain)
     * [.expectValueToBe(elem, compareValue)](#nonUi5.assertion.expectValueToBe)
     * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible)
+    * [.expectToBeNotVisible(element, [timeout])](#nonUi5.assertion.expectToBeNotVisible)
 
 <a name="nonUi5.assertion.expectAttributeToBe"></a>
 
@@ -3525,6 +3567,23 @@ const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.ex
 **Example**  
 ```js
 const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.expectAttributeToBe(element, "Save", "title");
+```
+<a name="nonUi5.assertion.expectAttributeToContain"></a>
+
+#### assertion.expectAttributeToContain(elem, compareValue, [attribute])
+Expects the attributes value of the passed element to contain the compare value.
+
+**Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+| compareValue | <code>String</code> | The compare value. |
+| [attribute] | <code>String</code> | The attribute to compare. If not passed, it will compare the inner HTML content of the element. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.expectAttributeToContain(element, "Save", "title");
 ```
 <a name="nonUi5.assertion.expectValueToBe"></a>
 
@@ -3556,6 +3615,22 @@ Expects that the element is visible to the user.
 **Example**  
 ```js
 const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.expectToBeVisible(elem);
+```
+<a name="nonUi5.assertion.expectToBeNotVisible"></a>
+
+#### assertion.expectToBeNotVisible(element, [timeout])
+Expects that the element is not visible to the user.
+
+**Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| element | <code>Object</code> |  | The element. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). Recommendation is to lower the timeout since the element is not expected to show up. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
 ```
 <a name="nonUi5.element"></a>
 
