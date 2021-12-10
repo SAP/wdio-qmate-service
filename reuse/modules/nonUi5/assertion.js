@@ -26,7 +26,7 @@ const Assertion = function () {
   /**
    * @function expectAttributeToContain
    * @memberOf nonUi5.assertion
-   * @description Expects the attributes value of the passed element to be the compare value.
+   * @description Expects the attributes value of the passed element to contain the compare value.
    * @param {Object} elem - The element.
    * @param {String} compareValue - The compare value.
    * @param {String} [attribute] - The attribute to compare. If not passed, it will compare the inner HTML content of the element.
@@ -73,7 +73,7 @@ const Assertion = function () {
     }, {
       interval: 100,
       timeout: 30000,
-      timeoutMsg: "Timeout by waiting for element to be visible."
+      timeoutMsg: "Function 'expectToBeVisible' failed. Timeout by waiting for element to be visible."
     });
   };
 
@@ -94,7 +94,7 @@ const Assertion = function () {
     await element.waitForDisplayed({
       timeout: timeout,
       reverse: true,
-      timeoutMsg: "Element is visible, timeout reached.",
+      timeoutMsg: "Function 'expectToBeNotVisible' failed. Element is visible but was expected to be not.",
       interval: 100
     });
   };
