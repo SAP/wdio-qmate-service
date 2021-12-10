@@ -1,9 +1,6 @@
 "use strict";
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
 
-describe("assertion - expectToBeVisible", function () {
+describe("assertion - expectToBeNotVisible", function () {
   let hiddenElement;
 
   it("Preparation", async function () {
@@ -19,8 +16,7 @@ describe("assertion - expectToBeVisible", function () {
   });
 });
 
-describe("assertion - expectToBeNotVisible for visible element and catch error", function () {
-
+describe("assertion - expectToBeNotVisible - visible element and catch error", function () {
   let visibleElement;
 
   it("Preparation", async function () {
@@ -33,10 +29,9 @@ describe("assertion - expectToBeNotVisible for visible element and catch error",
 
   it("Verification", async function () {
     await expect(nonUi5.assertion.expectToBeNotVisible(visibleElement))
-      .rejects.toThrow("Element is visible, timeout reached.");
+      .rejects.toThrow("Function 'expectToBeNotVisible' failed. Element is visible but was expected to be not.");
 
     await expect(nonUi5.assertion.expectToBeNotVisible(undefined))
       .rejects.toThrow("Function 'expectToBeNotVisible' failed. Please provide an element as argument.");
   });
 });
-
