@@ -1,7 +1,7 @@
 "use strict";
 /**
  * @class userInteraction
- * @memberof nonUi5 
+ * @memberof nonUi5
  */
 const UserInteraction = function () {
 
@@ -43,7 +43,7 @@ const UserInteraction = function () {
    * @param {Object} element - The element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
-   * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
+   * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.clickAndRetry(elem);
    */
@@ -151,7 +151,7 @@ const UserInteraction = function () {
    * @param {Object} element - The element.
    * @param {String} value - The value to be filled.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
-   * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
+   * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.fillAndRetry(elem, "Service 01");
    */
@@ -186,7 +186,7 @@ const UserInteraction = function () {
    * @description Clears the passed input element, retries in case of a failure.
    * @param {Object} element - The element.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
-   * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
+   * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example const elem = await nonUi5.element.getById("input01", 10000);
    * await nonUi5.userInteraction.clearAndRetry(elem);
    */
@@ -227,7 +227,7 @@ const UserInteraction = function () {
    * @param {Object} element - The element.
    * @param {String} value - The value to be filled in.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
-   * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
+   * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @param {Boolean} [verify=true] - Specifies if the filled value should be verified.
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
@@ -273,7 +273,38 @@ const UserInteraction = function () {
    * await nonUi5.userInteraction.dragAndDrop(elem, targetElem);
    */
   this.dragAndDrop = async function (element, targetElem) {
-    await element.dragAndDrop(targetElem);
+    // await element.dragAndDrop(targetElem);
+
+    // https://stackoverflow.com/questions/60378820/drag-and-drop-with-webdriver-io
+    const sourceSize = await element.getSize();
+    const targetSize = await targetElem.getSize();
+    const sourceLocation = await element.getLocation();
+    const targetLocation = await targetElem.getLocation();
+
+    // Get centers of elements to move from center to center (e.g. to avoid errors in rounded elements)
+    const sourceCenterLocation = {
+      x: +Number(sourceSize.width/2).toFixed(0) + +Number(sourceLocation.x).toFixed(0) + 1,
+      y: +Number(sourceSize.height/2).toFixed(0) + +Number(sourceLocation.y).toFixed(0) + 1
+    };
+
+    const targetCenterLocation = {
+      x: +Number(targetSize.width/2).toFixed(0) + +Number(targetLocation.x).toFixed(0) + 1,
+      y: +Number(targetSize.height/2).toFixed(0) + +Number(targetLocation.y).toFixed(0) + 1
+    };
+
+    await browser.performActions([
+      {
+        type: "pointer",
+        id: "finger1",
+        parameters: { pointerType: "mouse" },
+        actions: [
+          { type: "pointerMove", duration: 0, x: sourceCenterLocation.x, y: sourceCenterLocation.y},
+          { type: "pointerDown", button: 0 },
+          { type: "pointerMove", duration: 0, x: targetCenterLocation.x, y: targetCenterLocation.y},
+          { type: "pointerUp", button: 0 },
+        ],
+      },
+    ]);
   };
 
   /**

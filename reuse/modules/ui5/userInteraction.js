@@ -513,6 +513,80 @@ const UserInteraction = function () {
       await common.userInteraction.pressBackspace();
     }
   }
+  /**
+   * @function doubleClick
+   * @memberOf ui5.userInteraction
+   * @description Double Clicks on the passed element.
+   * @param {Object} selector - The selector describing the element.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example await ui5.userInteraction.doubleClick(selector);
+   */
+  this.doubleClick = async function (selector, index = 0, timeout = 30000) {
+    let elem = null;
+    await browser.waitUntil(async function () {
+      elem = await ui5.element.getDisplayed(selector, index, timeout);
+      if (!elem) return false;
+      return elem.isClickable();
+    }, {
+      timeout,
+      timeoutMsg: `Element not clickable after ${timeout / 1000}s`
+    });
+    try {
+      await elem.doubleClick();
+    } catch (error) {
+      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "doubleClick");
+      throw new Error(errorMessage);
+    }
+  };
 
+  /**
+   * @function rightClick
+   * @memberOf ui5.userInteraction
+   * @description Right Clicks on the passed element.
+   * @param {Object} selector - The selector describing the element.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example const elem = await nonUi5.element.getById("button01");
+   * await ui5.userInteraction.rightClick(elem);
+   */
+  this.rightClick = async function (selector, index = 0, timeout = 30000) {
+    let elem = null;
+    await browser.waitUntil(async function () {
+      elem = await ui5.element.getDisplayed(selector, index, timeout);
+      if (!elem) return false;
+      return elem.isClickable();
+    }, {
+      timeout,
+      timeoutMsg: `Element not clickable after ${timeout / 1000}s`
+    });
+    try {
+      await elem.click({
+        button: "right"
+      });
+    } catch (error) {
+      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "rightClick");
+      throw new Error(errorMessage);
+    }
+  };
+
+  // Disabled since it is not working correctly
+  // /**
+  //  * @function dragAndDrop
+  //  * @memberOf ui5.userInteraction
+  //  * @description Drags and drops the given element to the given target element.
+  //  * @param {Object} sourceSelector - The selector describing the source element to drag.
+  //  * @param {Object} targetSelector - The selector describing the target to drop the source element.
+  //  * @param {Number} [sourceIndex=0] - The index of the source selector.  
+  //  * @param {Number} [targetIndex=0] - The index of the target selector. 
+  //  * @param {Number} [duration=3000] - The duration of the drag and drop (ms).
+  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
+  //  * @example await ui5.userInteraction.dragAndDrop(sourceSelector, targetSelector);
+  //  */
+  // this.dragAndDrop = async function (sourceSelector, targetSelector, sourceIndex = 0, targetIndex = 0, duration = 3000, timeout = 30000) {
+  //   const sourceElement = await ui5.element.getDisplayed(sourceSelector, sourceIndex, timeout);
+  //   const targetElement = await ui5.element.getDisplayed(targetSelector, targetIndex, timeout);
+  //   await nonUi5.userInteraction.dragAndDrop(sourceElement, targetElement);
+  // };
 };
 module.exports = new UserInteraction();
