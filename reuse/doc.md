@@ -1324,7 +1324,6 @@ Global namespace for UI5 modules.
         * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
         * [.doubleClick(selector, [index], [timeout])](#ui5.userInteraction.doubleClick)
         * [.rightClick(selector, [index], [timeout])](#ui5.userInteraction.rightClick)
-        * [.dragAndDrop(sourceSelector, targetSelector, [sourceIndex], [targetIndex], [duration], [timeout])](#ui5.userInteraction.dragAndDrop)
 
 <a name="ui5.assertion"></a>
 
@@ -3037,7 +3036,6 @@ await ui5.session.expectLogoutText();
     * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
     * [.doubleClick(selector, [index], [timeout])](#ui5.userInteraction.doubleClick)
     * [.rightClick(selector, [index], [timeout])](#ui5.userInteraction.rightClick)
-    * [.dragAndDrop(sourceSelector, targetSelector, [sourceIndex], [targetIndex], [duration], [timeout])](#ui5.userInteraction.dragAndDrop)
 
 <a name="ui5.userInteraction.click"></a>
 
@@ -3482,28 +3480,7 @@ Right Clicks on the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");
-await ui5.userInteraction.rightClick(elem);
-```
-<a name="ui5.userInteraction.dragAndDrop"></a>
-
-#### userInteraction.dragAndDrop(sourceSelector, targetSelector, [sourceIndex], [targetIndex], [duration], [timeout])
-Drags and drops the given element to the given target element.
-
-**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| sourceSelector | <code>Object</code> |  | The selector describing the source element to drag. |
-| targetSelector | <code>Object</code> |  | The selector describing the target to drop the source element. |
-| [sourceIndex] | <code>Number</code> | <code>0</code> | The index of the source selector. |
-| [targetIndex] | <code>Number</code> | <code>0</code> | The index of the target selector. |
-| [duration] | <code>Number</code> | <code>3000</code> | The duration of the drag and drop (ms). |
-| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-
-**Example**  
-```js
-await ui5.userInteraction.dragAndDrop(sourceSelector, targetSelector);
+const elem = await nonUi5.element.getById("button01");await ui5.userInteraction.rightClick(elem);
 ```
 <a name="nonUi5"></a>
 
@@ -3594,7 +3571,7 @@ const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.ex
 <a name="nonUi5.assertion.expectAttributeToContain"></a>
 
 #### assertion.expectAttributeToContain(elem, compareValue, [attribute])
-Expects the attributes value of the passed element to be the compare value.
+Expects the attributes value of the passed element to contain the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
 
@@ -3606,8 +3583,7 @@ Expects the attributes value of the passed element to be the compare value.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");
-await nonUi5.assertion.expectAttributeToContain(element, "Save", "title");
+const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.expectAttributeToContain(element, "Save", "title");
 ```
 <a name="nonUi5.assertion.expectValueToBe"></a>
 
@@ -3654,8 +3630,7 @@ Expects that the element is not visible to the user.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");
-await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
+const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
 ```
 <a name="nonUi5.element"></a>
 
