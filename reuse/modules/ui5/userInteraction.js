@@ -570,22 +570,23 @@ const UserInteraction = function () {
     }
   };
 
-  /**
-  * @function dragAndDrop
-  * @memberOf ui5.userInteraction
-  * @description Drags and drops the given element to the given target element.
-  * @param {Object} sourceSelector - The selector describing the source element to drag.
-  * @param {Object} targetSelector - The selector describing the target to drop the source element.
-  * @param {Number} [sourceIndex=0] - The index of the source selector.  
-  * @param {Number} [targetIndex=0] - The index of the target selector. 
-  * @param {Number} [duration=3000] - The duration of the drag and drop (ms).
-  * @param {Number} [timeout=30000] - The timeout to wait (ms).
-  * @example await ui5.userInteraction.dragAndDrop(sourceSelector, targetSelector);
-  */
-  this.dragAndDrop = async function (sourceSelector, targetSelector, sourceIndex = 0, targetIndex = 0, duration = 3000, timeout = 30000) {
-    const sourceElement = await ui5.element.getDisplayed(sourceSelector, sourceIndex, timeout);
-    const targetElement = await ui5.element.getDisplayed(targetSelector, targetIndex, timeout);
-    await nonUi5.userInteraction.dragAndDrop(sourceElement, targetElement);
-  };
+  // Disabled since it is not working correctly
+  // /**
+  //  * @function dragAndDrop
+  //  * @memberOf ui5.userInteraction
+  //  * @description Drags and drops the given element to the given target element.
+  //  * @param {Object} sourceSelector - The selector describing the source element to drag.
+  //  * @param {Object} targetSelector - The selector describing the target to drop the source element.
+  //  * @param {Number} [sourceIndex=0] - The index of the source selector.  
+  //  * @param {Number} [targetIndex=0] - The index of the target selector. 
+  //  * @param {Number} [duration=3000] - The duration of the drag and drop (ms).
+  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
+  //  * @example await ui5.userInteraction.dragAndDrop(sourceSelector, targetSelector);
+  //  */
+  // this.dragAndDrop = async function (sourceSelector, targetSelector, sourceIndex = 0, targetIndex = 0, duration = 3000, timeout = 30000) {
+  //   const sourceElement = await ui5.element.getDisplayed(sourceSelector, sourceIndex, timeout);
+  //   const targetElement = await ui5.element.getDisplayed(targetSelector, targetIndex, timeout);
+  //   await nonUi5.userInteraction.dragAndDrop(sourceElement, targetElement);
+  // };
 };
 module.exports = new UserInteraction();
