@@ -1,0 +1,110 @@
+"use strict";
+
+const {
+  handleCookiesConsent
+} = require("../../../helper/utils");
+
+describe("element - getByChild - simple case", function () {
+
+  let elem;
+
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await handleCookiesConsent();
+  });
+
+  it("Execution", async function () {
+    const elementSelector = {
+      "elementProperties": {
+        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        "metadata": "sap.m.ColumnListItem",
+      }
+    };
+    const childSelector = {
+      "elementProperties": {
+        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        "metadata": "sap.m.Text",
+        "text": "1,418,880.43"
+      }
+    };
+    elem = await ui5.element.getByChild(elementSelector, childSelector);
+  });
+
+  it("Verification", async function () {
+    await nonUi5.assertion.expectAttributeToContain(elem, "__clone4_cell3", "id");
+  });
+
+});
+
+describe("element - getByChild - with ignored nested selectors", function () {
+
+  let elem;
+
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await handleCookiesConsent();
+  });
+
+  it("Execution", async function () {
+    const elementSelector = {
+      "elementProperties": {
+        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        "metadata": "sap.m.ColumnListItem",
+        "bindingContextPath": "/LineItemsSet*'5')"
+      },
+      "descendantProperties": {
+        "viewName": "ABC",
+        "metadata": "DEF"
+      }
+    };
+    const childSelector = {
+      "elementProperties": {
+        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        "metadata": "sap.m.Text",
+        "text": "1,418,880.43"
+      },
+      "ancestorProperties": {
+        "viewName": "ABC",
+        "metadata": "DEF"
+      }
+    };
+    elem = await ui5.element.getByChild(elementSelector, childSelector);
+  });
+
+  it("Verification", async function () {
+    await nonUi5.assertion.expectAttributeToContain(elem, "__clone4_cell3", "id");
+  });
+
+});
+
+describe("element - getByChild - with inner nested selectors and index", function () {
+
+  let elem;
+
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await handleCookiesConsent();
+  });
+
+  it("Execution", async function () {
+    const elementSelector = {
+      "elementProperties": {
+        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        "metadata": "sap.m.ColumnListItem"
+      }
+    };
+    const childSelector = {
+      "elementProperties": {
+        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        "metadata": "sap.m.Text",
+        "text": "Yes"
+      }
+    };
+    elem = await ui5.element.getByChild(elementSelector, childSelector, 3);
+  });
+
+  it("Verification", async function () {
+    await nonUi5.assertion.expectAttributeToContain(elem, "__clone4_cell3", "id");
+  });
+
+});
