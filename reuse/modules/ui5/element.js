@@ -95,6 +95,54 @@ const Element = function () {
     return elementsWithText[index];
   };
 
+  /**
+   * @function getByChild
+   * @memberOf ui5.element
+   * @description Gets an element by its selector and child selector. Can be used when multiple elements have the same properties.
+   * Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
+   * @param {String} elementSelector - The selector describing the element.
+   * @param {String} childSelector - The selector describing the child element.
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @returns {Object} The found element.
+   * @example const elem = await ui5.element.getByChild(elementSelector, childSelector);
+   */
+  this.getByChild = async function (elementSelector, childSelector, index = 0, timeout = 30000) {
+    const selector = {
+      "elementProperties": elementSelector.elementProperties,
+      "descendantProperties": childSelector.elementProperties
+    };
+    try {
+      return await this.getDisplayed(selector, index, timeout);
+    } catch (e) {
+      throw new Error(`Function 'getByChild' failed: ${e}`);
+    }
+  };
+
+  /**
+   * @function getByParent
+   * @memberOf ui5.element
+   * @description Gets an element by its selector and parent selector. Can be used when multiple elements have the same properties.
+   * Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
+   * @param {String} elementSelector - The selector describing the element.
+   * @param {String} parentSelector - The selector describing the parent element.
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @returns {Object} The found element.
+   * @example const elem = await ui5.element.getByParent(elementSelector, parentSelector);
+   */
+  this.getByParent = async function (elementSelector, parentSelector, index = 0, timeout = 30000) {
+    const selector = {
+      "elementProperties": elementSelector.elementProperties,
+      "ancestorProperties": parentSelector.elementProperties
+    };
+    try {
+      return await this.getDisplayed(selector, index, timeout);
+    } catch (e) {
+      throw new Error(`Function 'getByParent' failed: ${e}`);
+    }
+  };
+
 
   // =================================== GET VALUES ===================================
   /**

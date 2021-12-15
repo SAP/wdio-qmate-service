@@ -1238,6 +1238,8 @@ Global namespace for UI5 modules.
         * [.getAllDisplayed(selector, [timeout])](#ui5.element.getAllDisplayed) ⇒ <code>Array.&lt;Object&gt;</code>
         * [.getDisplayed(selector, [index], [timeout])](#ui5.element.getDisplayed) ⇒ <code>Object</code>
         * [.getByText(selector, value, [index], [timeout])](#ui5.element.getByText) ⇒ <code>Object</code>
+        * [.getByChild(elementSelector, childSelector, [index], [timeout])](#ui5.element.getByChild) ⇒ <code>Object</code>
+        * [.getByParent(elementSelector, parentSelector, [index], [timeout])](#ui5.element.getByParent) ⇒ <code>Object</code>
         * [.getId(selector, [index], [timeout])](#ui5.element.getId) ⇒ <code>String</code>
         * [.getPropertyValue(selector, property, [index], [timeout])](#ui5.element.getPropertyValue) ⇒ <code>String</code>
         * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
@@ -1937,6 +1939,8 @@ const start = await common.date.calculate("2020, 9, 20", "dd.mm.yyyy");const en
     * [.getAllDisplayed(selector, [timeout])](#ui5.element.getAllDisplayed) ⇒ <code>Array.&lt;Object&gt;</code>
     * [.getDisplayed(selector, [index], [timeout])](#ui5.element.getDisplayed) ⇒ <code>Object</code>
     * [.getByText(selector, value, [index], [timeout])](#ui5.element.getByText) ⇒ <code>Object</code>
+    * [.getByChild(elementSelector, childSelector, [index], [timeout])](#ui5.element.getByChild) ⇒ <code>Object</code>
+    * [.getByParent(elementSelector, parentSelector, [index], [timeout])](#ui5.element.getByParent) ⇒ <code>Object</code>
     * [.getId(selector, [index], [timeout])](#ui5.element.getId) ⇒ <code>String</code>
     * [.getPropertyValue(selector, property, [index], [timeout])](#ui5.element.getPropertyValue) ⇒ <code>String</code>
     * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
@@ -2013,6 +2017,44 @@ Returns the element with the given selector and text value.
 **Example**  
 ```js
 const elem = await ui5.element.getByText(selector, "Home");
+```
+<a name="ui5.element.getByChild"></a>
+
+#### element.getByChild(elementSelector, childSelector, [index], [timeout]) ⇒ <code>Object</code>
+Gets an element by its selector and child selector. Can be used when multiple elements have the same properties.Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+**Returns**: <code>Object</code> - The found element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| elementSelector | <code>String</code> |  | The selector describing the element. |
+| childSelector | <code>String</code> |  | The selector describing the child element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await ui5.element.getByChild(elementSelector, childSelector);
+```
+<a name="ui5.element.getByParent"></a>
+
+#### element.getByParent(elementSelector, parentSelector, [index], [timeout]) ⇒ <code>Object</code>
+Gets an element by its selector and parent selector. Can be used when multiple elements have the same properties.Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+**Returns**: <code>Object</code> - The found element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| elementSelector | <code>String</code> |  | The selector describing the element. |
+| parentSelector | <code>String</code> |  | The selector describing the parent element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await ui5.element.getByParent(elementSelector, parentSelector);
 ```
 <a name="ui5.element.getId"></a>
 
