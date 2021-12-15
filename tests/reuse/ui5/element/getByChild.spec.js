@@ -24,14 +24,21 @@ describe("element - getByChild - simple case", function () {
       "elementProperties": {
         "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
         "metadata": "sap.m.Text",
-        "text": "1,418,880.43"
+        "bindingContextPath": "/LineItemsSet*'5')",
+        "text": [{
+          "path": "Dmbtr"
+        }, {
+          "path": "Hwaer"
+        }, {
+          "path": "/##@@requestCurrencyCodes"
+        }]
       }
     };
     elem = await ui5.element.getByChild(elementSelector, childSelector);
   });
 
   it("Verification", async function () {
-    await nonUi5.assertion.expectAttributeToContain(elem, "__clone4_cell3", "id");
+    await nonUi5.assertion.expectAttributeToContain(elem, "clone4", "id");
   });
 
 });
@@ -61,7 +68,14 @@ describe("element - getByChild - with ignored nested selectors", function () {
       "elementProperties": {
         "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
         "metadata": "sap.m.Text",
-        "text": "1,418,880.43"
+        "bindingContextPath": "/LineItemsSet*'5')",
+        "text": [{
+          "path": "Dmbtr"
+        }, {
+          "path": "Hwaer"
+        }, {
+          "path": "/##@@requestCurrencyCodes"
+        }]
       },
       "ancestorProperties": {
         "viewName": "ABC",
@@ -72,7 +86,7 @@ describe("element - getByChild - with ignored nested selectors", function () {
   });
 
   it("Verification", async function () {
-    await nonUi5.assertion.expectAttributeToContain(elem, "__clone4_cell3", "id");
+    await nonUi5.assertion.expectAttributeToContain(elem, "clone4", "id");
   });
 
 });
@@ -104,7 +118,7 @@ describe("element - getByChild - with inner nested selectors and index", functio
   });
 
   it("Verification", async function () {
-    await nonUi5.assertion.expectAttributeToContain(elem, "__clone4_cell3", "id");
+    await nonUi5.assertion.expectAttributeToContain(elem, "clone4", "id");
   });
 
 });
