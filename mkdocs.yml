@@ -2,7 +2,7 @@ site_name: Qmate-Service
 site_author: D056896
 nav:
   - Home: index.md
-  - Reuse API: ../reuse/doc.md
+  - Reuse API: ./../reuse/doc.md
   - Setup & Installation:
     - Qmate-Service Installation: topics/setupAndInstallation.md
   - Native Features: topics/nativeFeatures.md
