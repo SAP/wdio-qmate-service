@@ -2058,7 +2058,9 @@ const elem = await ui5.element.getByText(selector, "Home");
 <a name="ui5.element.getByChild"></a>
 
 #### element.getByChild(elementSelector, childSelector, [index], [timeout]) ⇒ <code>Object</code>
-Gets an element by its selector and child selector.Can be used as unique combination between element and child properties when multiple elements have the same properties.Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
+Gets an element by its selector and child selector.
+Can be used as unique combination between element and child properties when multiple elements have the same properties.
+Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
 **Returns**: <code>Object</code> - The found element.  
@@ -2072,12 +2074,20 @@ Gets an element by its selector and child selector.Can be used as unique combin
 
 **Example**  
 ```js
-const elementSelector = { "elementProperties": {...}};const childSelector = { "elementProperties": {...}};const elem = await ui5.element.getByChild(elementSelector, childSelector);
+const elementSelector = {
+ "elementProperties": {...}
+};
+const childSelector = {
+ "elementProperties": {...}
+};
+const elem = await ui5.element.getByChild(elementSelector, childSelector);
 ```
 <a name="ui5.element.getByParent"></a>
 
 #### element.getByParent(elementSelector, parentSelector, [index], [timeout]) ⇒ <code>Object</code>
-Gets an element by its selector and parent selector. Can be used as unique combination between element and parent properties when multiple elements have the same properties.Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
+Gets an element by its selector and parent selector. 
+Can be used as unique combination between element and parent properties when multiple elements have the same properties.
+Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
 **Returns**: <code>Object</code> - The found element.  
@@ -2091,7 +2101,13 @@ Gets an element by its selector and parent selector. Can be used as unique comb
 
 **Example**  
 ```js
-const elementSelector = { "elementProperties": {...}};const parentSelector = { "elementProperties": {...}};const elem = await ui5.element.getByParent(elementSelector, parentSelector);
+const elementSelector = {
+ "elementProperties": {...}
+};
+const parentSelector = {
+ "elementProperties": {...}
+};
+const elem = await ui5.element.getByParent(elementSelector, parentSelector);
 ```
 <a name="ui5.element.getId"></a>
 
@@ -4483,7 +4499,9 @@ Global namespace for service modules.
 <a name="service.odata.init"></a>
 
 #### odata.init(url, username, password) ⇒ <code>Object</code>
-Initializes The service to work with.XCSRF-Token will be automatically fetched and stored in the service instance.Cookies will also automatically assembled and stored in the service instance.
+Initializes The service to work with.
+XCSRF-Token will be automatically fetched and stored in the service instance.
+Cookies will also automatically assembled and stored in the service instance.
 
 **Kind**: static method of [<code>odata</code>](#service.odata)  
 **Returns**: <code>Object</code> - The initialized service object.  
@@ -4496,7 +4514,8 @@ Initializes The service to work with.XCSRF-Token will be automatically fetched 
 
 **Example**  
 ```js
-const url = "https://hbr-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";srv = await service.odata.init(url, user, password);
+const url = "https://hbr-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
+srv = await service.odata.init(url, user, password);
 ```
 <a name="service.odata.get"></a>
 
@@ -4513,7 +4532,8 @@ makes a GET request.
 
 **Example**  
 ```js
-const url = "https://qs9-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";srv = await service.odata.init(url, user, password);
+const url = "https://qs9-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
+srv = await service.odata.init(url, user, password);
 ```
 <a name="service.odata.getEntitySet"></a>
 
@@ -4529,7 +4549,9 @@ GET's the EntitySet collection.
 
 **Example**  
 ```js
-const url = "https://qs9-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";srv = await service.odata.init(url, user, password);let res = await service.odata.getEntitySet(service, "A_PurchaseOrder");
+const url = "https://qs9-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
+srv = await service.odata.init(url, user, password);
+let res = await service.odata.getEntitySet(service, "A_PurchaseOrder");
 ```
 <a name="service.odata.isFeatureToggleActivated"></a>
 
@@ -4545,7 +4567,9 @@ checks if a feature toggle is switched on or off
 
 **Example**  
 ```js
-const url = browser.params.systemUrl + "/sap/opu/odata/SAP/CA_FM_FEATURE_TOGGLE_STATUS_SRV/";service = await service.odata.init(url, user, password);let isFeatureActive = await service.odata.isFeatureToggleActivated(service, "MM_PUR_PO_BATCHES_IN_MANAGE_PO");
+const url = browser.params.systemUrl + "/sap/opu/odata/SAP/CA_FM_FEATURE_TOGGLE_STATUS_SRV/";
+service = await service.odata.init(url, user, password);
+let isFeatureActive = await service.odata.isFeatureToggleActivated(service, "MM_PUR_PO_BATCHES_IN_MANAGE_PO");
 ```
 <a name="service.odata.post"></a>
 
@@ -4562,7 +4586,12 @@ makes a POST request.
 
 **Example**  
 ```js
-let keys = {             "PurchaseOrder": "4500007108",             "DraftUUID": "00000000-0000-0000-0000-000000000000",             "IsActiveEntity": "true"         };let res = await service.odata.get(service, "A_PurchaseOrder", keys);
+let keys = {
+             "PurchaseOrder": "4500007108",
+             "DraftUUID": "00000000-0000-0000-0000-000000000000",
+             "IsActiveEntity": "true"
+         };
+let res = await service.odata.get(service, "A_PurchaseOrder", keys);
 ```
 <a name="service.odata.merge"></a>
 
@@ -4579,7 +4608,13 @@ makes a MERGE request.
 
 **Example**  
 ```js
-let res = await service.odata.merge(service, "A_PurchaseOrderScheduleLine", {             "PurchasingDocument": "4500007108",             "PurchasingDocumentItem": "10",             "ScheduleLine": "1",             "ScheduleLineDeliveryDate": new Date()         };let res = await service.odata.get(service, "A_PurchaseOrder", keys);
+let res = await service.odata.merge(service, "A_PurchaseOrderScheduleLine", {
+             "PurchasingDocument": "4500007108",
+             "PurchasingDocumentItem": "10",
+             "ScheduleLine": "1",
+             "ScheduleLineDeliveryDate": new Date()
+         };
+let res = await service.odata.get(service, "A_PurchaseOrder", keys);
 ```
 <a name="service.odata.delete"></a>
 
