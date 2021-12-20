@@ -15,6 +15,9 @@ const Element = function () {
    * @example await ui5.element.waitForAll(selector);
    */
   this.waitForAll = async function (selector, timeout = 30000) {
+    if (!selector) {
+      _throwSelectorError("waitForAll");
+    }
     try {
       await browser.uiControls(selector, timeout);
     } catch (e) {
@@ -34,6 +37,9 @@ const Element = function () {
    * @example const elem = await ui5.element.getAllDisplayed(selector);
    */
   this.getAllDisplayed = async function (selector, timeout = 30000) {
+    if (!selector) {
+      _throwSelectorError("getAllDisplayed");
+    }
     try {
       return await browser.uiControls(selector, timeout);
     } catch (e) {
@@ -52,6 +58,9 @@ const Element = function () {
    * @example const elem = await ui5.element.getDisplayed(selector);
    */
   this.getDisplayed = async function (selector, index = 0, timeout = 30000) {
+    if (!selector) {
+      _throwSelectorError("getDisplayed");
+    }
     const elems = await browser.uiControls(selector, timeout);
     if (index < 0 || elems.length <= index) {
       throw new Error(`Index out of bound. Trying to access element at index: ${index}, ` +
@@ -254,6 +263,12 @@ const Element = function () {
       await browser.executeScript("arguments[0].style.boxShadow = 'inherit'", [elem]);
     }
   };
+
+
+  // =================================== HELPER ===================================
+  function _throwSelectorError(functionName) {
+    throw new Error(`Function '${functionName}' failed: Please provide a valid selector as argument.`);
+  }
 
 };
 module.exports = new Element();
