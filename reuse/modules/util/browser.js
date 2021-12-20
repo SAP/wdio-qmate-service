@@ -28,7 +28,6 @@ const Browser = function () {
     browser.config.baseUrl = baseUrl;
   };
 
-
   /**
    * @function logCurrentUrl
    * @memberOf util.browser
@@ -51,6 +50,16 @@ const Browser = function () {
   };
 
   // =================================== ACTIONS ===================================
+  /**
+   * @function resetFocus
+   * @memberOf util.browser
+   * @description Resets the focus in case it set for a specific element.
+   * @example await util.browser.resetFocus();
+   */
+  this.resetFocus = async function () {
+    await util.browser.executeScript("if (document.activeElement) { document.activeElement.blur(); }");
+  };
+
   /**
    * @function sleep
    * @memberOf util.browser
@@ -100,7 +109,7 @@ const Browser = function () {
   };
 
 
-  // =================================== INFO ===================================
+  // =================================== LOGGING ===================================
   /**
    * @function getBrowserName
    * @memberOf util.browser
