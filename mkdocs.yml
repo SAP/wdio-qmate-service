@@ -16,8 +16,6 @@ nav:
     - bo-reuse-service: https://github.tools.sap/sProcurement/wdio-qmate-bo-reuse-service
     - code-coverage-service: https://github.tools.sap/sProcurement/wdio-qmate-code-coverage-service
   - Selectors: topics/selectors.md
-  - Contribution:
-    - Step Indexer: topics/other/stepIndexer.md
   - Support:
       - Contact: topics/contribution.md
 theme:
