@@ -46,3 +46,6 @@ TransportSecurity
 
 coverage
 .nyc_output
+
+# mkdocs for GitPages
+docs-gen
