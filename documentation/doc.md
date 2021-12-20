@@ -1249,6 +1249,8 @@ Global namespace for UI5 modules.
         * [.getAllDisplayed(selector, [timeout])](#ui5.element.getAllDisplayed) ⇒ <code>[ &#x27;Array&#x27; ].&lt;Object&gt;</code>
         * [.getDisplayed(selector, [index], [timeout])](#ui5.element.getDisplayed) ⇒ <code>Object</code>
         * [.getByText(selector, value, [index], [timeout])](#ui5.element.getByText) ⇒ <code>Object</code>
+        * [.getByChild(elementSelector, childSelector, [index], [timeout])](#ui5.element.getByChild) ⇒ <code>Object</code>
+        * [.getByParent(elementSelector, parentSelector, [index], [timeout])](#ui5.element.getByParent) ⇒ <code>Object</code>
         * [.getId(selector, [index], [timeout])](#ui5.element.getId) ⇒ <code>String</code>
         * [.getPropertyValue(selector, property, [index], [timeout])](#ui5.element.getPropertyValue) ⇒ <code>String</code>
         * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
@@ -1974,6 +1976,8 @@ await ui5.date.fillRange(selector, range);
     * [.getAllDisplayed(selector, [timeout])](#ui5.element.getAllDisplayed) ⇒ <code>[ &#x27;Array&#x27; ].&lt;Object&gt;</code>
     * [.getDisplayed(selector, [index], [timeout])](#ui5.element.getDisplayed) ⇒ <code>Object</code>
     * [.getByText(selector, value, [index], [timeout])](#ui5.element.getByText) ⇒ <code>Object</code>
+    * [.getByChild(elementSelector, childSelector, [index], [timeout])](#ui5.element.getByChild) ⇒ <code>Object</code>
+    * [.getByParent(elementSelector, parentSelector, [index], [timeout])](#ui5.element.getByParent) ⇒ <code>Object</code>
     * [.getId(selector, [index], [timeout])](#ui5.element.getId) ⇒ <code>String</code>
     * [.getPropertyValue(selector, property, [index], [timeout])](#ui5.element.getPropertyValue) ⇒ <code>String</code>
     * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
@@ -2050,6 +2054,44 @@ Returns the element with the given selector and text value.
 **Example**  
 ```js
 const elem = await ui5.element.getByText(selector, "Home");
+```
+<a name="ui5.element.getByChild"></a>
+
+#### element.getByChild(elementSelector, childSelector, [index], [timeout]) ⇒ <code>Object</code>
+Gets an element by its selector and child selector.Can be used as unique combination between element and child properties when multiple elements have the same properties.Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+**Returns**: <code>Object</code> - The found element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| elementSelector | <code>String</code> |  | The selector describing the requested element. |
+| childSelector | <code>String</code> |  | The selector describing a child element of the requested element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case the combination applies to more than one element). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elementSelector = { "elementProperties": {...}};const childSelector = { "elementProperties": {...}};const elem = await ui5.element.getByChild(elementSelector, childSelector);
+```
+<a name="ui5.element.getByParent"></a>
+
+#### element.getByParent(elementSelector, parentSelector, [index], [timeout]) ⇒ <code>Object</code>
+Gets an element by its selector and parent selector. Can be used as unique combination between element and parent properties when multiple elements have the same properties.Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+**Returns**: <code>Object</code> - The found element.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| elementSelector | <code>String</code> |  | The selector describing the requested element. |
+| parentSelector | <code>String</code> |  | The selector describing the parent element of the requested element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case the combination applies to more than one element). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elementSelector = { "elementProperties": {...}};const parentSelector = { "elementProperties": {...}};const elem = await ui5.element.getByParent(elementSelector, parentSelector);
 ```
 <a name="ui5.element.getId"></a>
 
@@ -4407,3 +4449,219 @@ await nonUi5.userInteraction.moveCursorAndClick(elem);
 Global namespace for service modules.
 
 **Kind**: global constant  
+
+* [service](#service)
+    * [.odata](#service.odata)
+        * [.init(url, username, password)](#service.odata.init) ⇒ <code>Object</code>
+        * [.get(service, entitySet, keys)](#service.odata.get)
+        * [.getEntitySet(service, entitySet)](#service.odata.getEntitySet)
+        * [.isFeatureToggleActivated(service, featureName)](#service.odata.isFeatureToggleActivated)
+        * [.post(service, entitySet, payload)](#service.odata.post)
+        * [.merge(service, entitySet, payload)](#service.odata.merge)
+        * [.delete(service, entitySet, options)](#service.odata.delete)
+        * [.callFunctionImport(service, functionImportName, options)](#service.odata.callFunctionImport)
+        * [.getOutputManagementPdfStream(outputConf, url)](#service.odata.getOutputManagementPdfStream)
+        * [.readPdfFromDirectUrl(url)](#service.odata.readPdfFromDirectUrl)
+
+<a name="service.odata"></a>
+
+### service.odata
+**Kind**: static class of [<code>service</code>](#service)  
+
+* [.odata](#service.odata)
+    * [.init(url, username, password)](#service.odata.init) ⇒ <code>Object</code>
+    * [.get(service, entitySet, keys)](#service.odata.get)
+    * [.getEntitySet(service, entitySet)](#service.odata.getEntitySet)
+    * [.isFeatureToggleActivated(service, featureName)](#service.odata.isFeatureToggleActivated)
+    * [.post(service, entitySet, payload)](#service.odata.post)
+    * [.merge(service, entitySet, payload)](#service.odata.merge)
+    * [.delete(service, entitySet, options)](#service.odata.delete)
+    * [.callFunctionImport(service, functionImportName, options)](#service.odata.callFunctionImport)
+    * [.getOutputManagementPdfStream(outputConf, url)](#service.odata.getOutputManagementPdfStream)
+    * [.readPdfFromDirectUrl(url)](#service.odata.readPdfFromDirectUrl)
+
+<a name="service.odata.init"></a>
+
+#### odata.init(url, username, password) ⇒ <code>Object</code>
+Initializes The service to work with.XCSRF-Token will be automatically fetched and stored in the service instance.Cookies will also automatically assembled and stored in the service instance.
+
+**Kind**: static method of [<code>odata</code>](#service.odata)  
+**Returns**: <code>Object</code> - The initialized service object.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| url | <code>url</code> | The base url of the service |
+| username | <code>username</code> | The username. |
+| password | <code>password</code> | The password of the username. |
+
+**Example**  
+```js
+const url = "https://super-sensitive.domain.name/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";srv = await service.odata.init(url, user, password);
+```
+<a name="service.odata.get"></a>
+
+#### odata.get(service, entitySet, keys)
+makes a GET request.
+
+**Kind**: static method of [<code>odata</code>](#service.odata)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| service | [<code>service</code>](#service) | Instance of the service |
+| entitySet | <code>entitySet</code> | The entitySet you want to GET from. |
+| keys | <code>keys</code> | The required keys for the GET-request. |
+
+**Example**  
+```js
+const url = "https://super-sensitive.domain.name/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";srv = await service.odata.init(url, user, password);
+```
+<a name="service.odata.getEntitySet"></a>
+
+#### odata.getEntitySet(service, entitySet)
+GET's the EntitySet collection.
+
+**Kind**: static method of [<code>odata</code>](#service.odata)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| service | [<code>service</code>](#service) | Instance of the service |
+| entitySet | <code>entitySet</code> | The entitySet you want to GET from. |
+
+**Example**  
+```js
+const url = "https://super-sensitive.domain.name/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";srv = await service.odata.init(url, user, password);let res = await service.odata.getEntitySet(service, "A_PurchaseOrder");
+```
+<a name="service.odata.isFeatureToggleActivated"></a>
+
+#### odata.isFeatureToggleActivated(service, featureName)
+checks if a feature toggle is switched on or off
+
+**Kind**: static method of [<code>odata</code>](#service.odata)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| service | [<code>service</code>](#service) | Instance of the service |
+| featureName | <code>featureName</code> | The name of the feature you want know the status of. |
+
+**Example**  
+```js
+const url = browser.params.systemUrl + "/sap/opu/odata/SAP/CA_FM_FEATURE_TOGGLE_STATUS_SRV/";service = await service.odata.init(url, user, password);let isFeatureActive = await service.odata.isFeatureToggleActivated(service, "MM_PUR_PO_BATCHES_IN_MANAGE_PO");
+```
+<a name="service.odata.post"></a>
+
+#### odata.post(service, entitySet, payload)
+makes a POST request.
+
+**Kind**: static method of [<code>odata</code>](#service.odata)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| service | [<code>service</code>](#service) | Instance of the service |
+| entitySet | <code>entitySet</code> | The entitySet you want to POST against. |
+| payload | <code>payload</code> | The payload for the POST-request. |
+
+**Example**  
+```js
+let keys = {             "PurchaseOrder": "4500007108",             "DraftUUID": "00000000-0000-0000-0000-000000000000",             "IsActiveEntity": "true"         };let res = await service.odata.get(service, "A_PurchaseOrder", keys);
+```
+<a name="service.odata.merge"></a>
+
+#### odata.merge(service, entitySet, payload)
+makes a MERGE request.
+
+**Kind**: static method of [<code>odata</code>](#service.odata)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| service | [<code>service</code>](#service) | Instance of the service |
+| entitySet | <code>entitySet</code> | The entitySet you want to MERGE in. |
+| payload | <code>payload</code> | The payload for the MERGE-request. |
+
+**Example**  
+```js
+let res = await service.odata.merge(service, "A_PurchaseOrderScheduleLine", {             "PurchasingDocument": "4500007108",             "PurchasingDocumentItem": "10",             "ScheduleLine": "1",             "ScheduleLineDeliveryDate": new Date()         };let res = await service.odata.get(service, "A_PurchaseOrder", keys);
+```
+<a name="service.odata.delete"></a>
+
+#### odata.delete(service, entitySet, options)
+makes a DELETE request.
+
+**Kind**: static method of [<code>odata</code>](#service.odata)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| service | [<code>service</code>](#service) | Instance of the service |
+| entitySet | <code>entitySet</code> | The entitySet you want to DELETE. |
+| options | <code>options</code> | The options for the DELETE-request. |
+
+**Example**  
+```js
+let options = {
+                "PurchaseOrder": "",
+                "DraftUUID": draftUUID,
+                "IsActiveEntity": false
+              };
+              await service.odata.delete(service, "C_PurchaseOrderTP", options);
+```
+<a name="service.odata.callFunctionImport"></a>
+
+#### odata.callFunctionImport(service, functionImportName, options)
+makes a function import request on an OData service.
+
+**Kind**: static method of [<code>odata</code>](#service.odata)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| service | [<code>service</code>](#service) | Instance of the service |
+| functionImportName | <code>entitySet</code> | Name of Function Import |
+| options | <code>options</code> | parameters for function import |
+
+**Example**  
+```js
+const options = {
+    CentralRequestForQuotation : "7500000026",
+    Supplier : "100006"
+  };
+  const res = await service.odata.callFunctionImport(service, functionImportName, options);
+```
+<a name="service.odata.getOutputManagementPdfStream"></a>
+
+#### odata.getOutputManagementPdfStream(outputConf, url)
+returns a stream of output management pdf file.
+
+**Kind**: static method of [<code>odata</code>](#service.odata)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| outputConf | <code>outputConf</code> | Configuration for the output management pdf. |
+| url | <code>url</code> | system url |
+|  | <code>username</code> | username for login |
+|  | <code>password</code> | password for login |
+
+**Example**  
+```js
+const outputConf = {
+                ApplObjectType: "REQUEST_FOR_QUOTATION",
+                ApplObjectId: "7000002653",
+                ItemId: "1"
+              };
+              const pdfStream = await service.odata.getOutputManagementPdfStream(outputConf, url, user, password);
+```
+<a name="service.odata.readPdfFromDirectUrl"></a>
+
+#### odata.readPdfFromDirectUrl(url)
+returns a stream of pdf file which is part of attachment.
+
+**Kind**: static method of [<code>odata</code>](#service.odata)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| url | <code>url</code> | system url |
+|  | <code>username</code> | [OPTIONAL] username for login |
+|  | <code>password</code> | [OPTIONAL] password for login |
+
+**Example**  
+```js
+const url = "https://domain.com/getPdfFile";
+      const pdfStream = await service.odata.readPdfFromDirectUrl(url, "username", "Password");
+```
