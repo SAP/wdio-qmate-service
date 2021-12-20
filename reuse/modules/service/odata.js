@@ -1,7 +1,7 @@
 "use strict";
 /**
  * @class odata
- * @memberof service.odata
+ * @memberof service
  */
 const OData = function () {
   const utilModule = require("util");
