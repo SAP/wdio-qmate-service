@@ -10,25 +10,29 @@ nav:
     - Reuse: topics/reuse.md
     - Authentication:  topics/authentication.md
     - Data Exchange: topics/dataImportExport.md
-    - OData: topics/OData.md
+    - OData: https://pages.github.tools.sap/sProcurement/qmate/topics/furtherTopics/odata/
   - Custom Services:
     - reporter-service: https://github.tools.sap/sProcurement/wdio-qmate-reporter-service
     - bo-reuse-service: https://github.tools.sap/sProcurement/wdio-qmate-bo-reuse-service
     - code-coverage-service: https://github.tools.sap/sProcurement/wdio-qmate-code-coverage-service
-  - Selectors: topics/selectors.md
-  - Support:
-      - Contact: topics/contribution.md
+  - Selectors: https://pages.github.tools.sap/sProcurement/qmate/topics/gettingStarted/selectors/
+  - Contact: topics/contact.md
 theme:
-  name: 'material'
+  name: material
   features:
     - content.code.annotate 
     - content.tabs.link
+    - navigation.top
   palette:
     - scheme: default
+      primary: red
+      accent: indigo
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
-    - scheme: slate 
+    - scheme: slate
+      primary: red
+      accent: indigo
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
@@ -49,6 +53,9 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
       clickable_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
 extra_javascript:
   - 'javascripts/extra.js'
 extra_css:
