@@ -107,14 +107,21 @@ const Element = function () {
   /**
    * @function getByChild
    * @memberOf ui5.element
-   * @description Gets an element by its selector and child selector. Can be used when multiple elements have the same properties.
+   * @description Gets an element by its selector and child selector.
+   * Can be used as unique combination between element and child properties when multiple elements have the same properties.
    * Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
-   * @param {String} elementSelector - The selector describing the element.
-   * @param {String} childSelector - The selector describing the child element.
-   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+   * @param {String} elementSelector - The selector describing the requested element.
+   * @param {String} childSelector - The selector describing a child element of the requested element.
+   * @param {Number} [index=0] - The index of the element (in case the combination applies to more than one element). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
-   * @example const elem = await ui5.element.getByChild(elementSelector, childSelector);
+   * @example const elementSelector = {
+   *  "elementProperties": {...}
+   * };
+   * const childSelector = {
+   *  "elementProperties": {...}
+   * };
+   * const elem = await ui5.element.getByChild(elementSelector, childSelector);
    */
   this.getByChild = async function (elementSelector, childSelector, index = 0, timeout = 30000) {
     const selector = {
@@ -131,14 +138,21 @@ const Element = function () {
   /**
    * @function getByParent
    * @memberOf ui5.element
-   * @description Gets an element by its selector and parent selector. Can be used when multiple elements have the same properties.
+   * @description Gets an element by its selector and parent selector. 
+   * Can be used as unique combination between element and parent properties when multiple elements have the same properties.
    * Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
-   * @param {String} elementSelector - The selector describing the element.
-   * @param {String} parentSelector - The selector describing the parent element.
-   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+   * @param {String} elementSelector - The selector describing the requested element.
+   * @param {String} parentSelector - The selector describing the parent element of the requested element.
+   * @param {Number} [index=0] - The index of the element (in case the combination applies to more than one element). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
-   * @example const elem = await ui5.element.getByParent(elementSelector, parentSelector);
+   * @example const elementSelector = {
+   *  "elementProperties": {...}
+   * };
+   * const parentSelector = {
+   *  "elementProperties": {...}
+   * };
+   * const elem = await ui5.element.getByParent(elementSelector, parentSelector);
    */
   this.getByParent = async function (elementSelector, parentSelector, index = 0, timeout = 30000) {
     const selector = {

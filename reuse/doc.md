@@ -2021,40 +2021,40 @@ const elem = await ui5.element.getByText(selector, "Home");
 <a name="ui5.element.getByChild"></a>
 
 #### element.getByChild(elementSelector, childSelector, [index], [timeout]) ⇒ <code>Object</code>
-Gets an element by its selector and child selector. Can be used when multiple elements have the same properties.Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
+Gets an element by its selector and child selector.Can be used as unique combination between element and child properties when multiple elements have the same properties.Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
 **Returns**: <code>Object</code> - The found element.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| elementSelector | <code>String</code> |  | The selector describing the element. |
-| childSelector | <code>String</code> |  | The selector describing the child element. |
-| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
+| elementSelector | <code>String</code> |  | The selector describing the requested element. |
+| childSelector | <code>String</code> |  | The selector describing a child element of the requested element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case the combination applies to more than one element). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
 ```js
-const elem = await ui5.element.getByChild(elementSelector, childSelector);
+const elementSelector = { "elementProperties": {...}};const childSelector = { "elementProperties": {...}};const elem = await ui5.element.getByChild(elementSelector, childSelector);
 ```
 <a name="ui5.element.getByParent"></a>
 
 #### element.getByParent(elementSelector, parentSelector, [index], [timeout]) ⇒ <code>Object</code>
-Gets an element by its selector and parent selector. Can be used when multiple elements have the same properties.Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
+Gets an element by its selector and parent selector. Can be used as unique combination between element and parent properties when multiple elements have the same properties.Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
 **Returns**: <code>Object</code> - The found element.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| elementSelector | <code>String</code> |  | The selector describing the element. |
-| parentSelector | <code>String</code> |  | The selector describing the parent element. |
-| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
+| elementSelector | <code>String</code> |  | The selector describing the requested element. |
+| parentSelector | <code>String</code> |  | The selector describing the parent element of the requested element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the element (in case the combination applies to more than one element). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
 ```js
-const elem = await ui5.element.getByParent(elementSelector, parentSelector);
+const elementSelector = { "elementProperties": {...}};const parentSelector = { "elementProperties": {...}};const elem = await ui5.element.getByParent(elementSelector, parentSelector);
 ```
 <a name="ui5.element.getId"></a>
 
