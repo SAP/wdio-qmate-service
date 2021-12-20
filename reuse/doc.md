@@ -547,6 +547,7 @@ Global namespace for util modules.
         * [.setBaseUrl(baseUrl:)](#util.browser.setBaseUrl)
         * [.logCurrentUrl()](#util.browser.logCurrentUrl)
         * [.getCurrentUrl()](#util.browser.getCurrentUrl)
+        * [.resetFocus()](#util.browser.resetFocus)
         * [.sleep([duration])](#util.browser.sleep)
         * [.refresh()](#util.browser.refresh)
         * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#util.browser.clearBrowser)
@@ -565,7 +566,7 @@ Global namespace for util modules.
         * [.success(message)](#util.console.success)
         * [.info(message)](#util.console.info)
     * [.file](#util.file)
-        * [.upload(files, selector)](#util.file.upload)
+        * [.upload(files, [selector])](#util.file.upload)
         * [.parsePdf(pdfStream, renderingMethod)](#util.file.parsePdf) ⇒ <code>String</code>
         * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
         * [.expectPdfNotContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfNotContainsText)
@@ -593,6 +594,7 @@ Global namespace for util modules.
     * [.setBaseUrl(baseUrl:)](#util.browser.setBaseUrl)
     * [.logCurrentUrl()](#util.browser.logCurrentUrl)
     * [.getCurrentUrl()](#util.browser.getCurrentUrl)
+    * [.resetFocus()](#util.browser.resetFocus)
     * [.sleep([duration])](#util.browser.sleep)
     * [.refresh()](#util.browser.refresh)
     * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#util.browser.clearBrowser)
@@ -650,6 +652,16 @@ Returns the current URL
 **Example**  
 ```js
 await util.browser.getCurrentUrl();
+```
+<a name="util.browser.resetFocus"></a>
+
+#### browser.resetFocus()
+Resets the focus in case it set for a specific element.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Example**  
+```js
+await util.browser.resetFocus();
 ```
 <a name="util.browser.sleep"></a>
 
@@ -891,34 +903,34 @@ util.console.success("The document has been saved.");
 **Kind**: static class of [<code>util</code>](#util)  
 
 * [.file](#util.file)
-    * [.upload(files, selector)](#util.file.upload)
+    * [.upload(files, [selector])](#util.file.upload)
     * [.parsePdf(pdfStream, renderingMethod)](#util.file.parsePdf) ⇒ <code>String</code>
     * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
     * [.expectPdfNotContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfNotContainsText)
 
 <a name="util.file.upload"></a>
 
-#### file.upload(files, selector)
+#### file.upload(files, [selector])
 Uploads all the file/s by the paths given in the Array.
 
 **Kind**: static method of [<code>file</code>](#util.file)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| files | <code>Array.&lt;String&gt;</code> | Array with path/s of file/s to be uploaded. |
-| selector | <code>Number</code> \| <code>Object</code> | second parameter can be a index or selector of uploader control, default value of index is 0 |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| files | <code>Array.&lt;String&gt;</code> |  | Array with path/s of file/s to be uploaded. |
+| [selector] | <code>Number</code> \| <code>Object</code> | <code>0</code> | Index or custom selector of uploader control, in case there are more then one present. Default value is index 0. |
 
 **Example**  
 ```js
-await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"]);
+await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"]); // uses the default uploader control
 ```
 **Example**  
 ```js
-await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"], 1); //upload to second fileuploader control on ui screen
+await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], 1); // upload to second file uploader control on UI screen
 ```
 **Example**  
 ```js
-await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"], selector); //upload to file uploader with matching selector
+await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], selector); // upload to file uploader with matching selector
 ```
 <a name="util.file.parsePdf"></a>
 
@@ -1310,6 +1322,8 @@ Global namespace for UI5 modules.
         * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
         * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
         * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
+        * [.doubleClick(selector, [index], [timeout])](#ui5.userInteraction.doubleClick)
+        * [.rightClick(selector, [index], [timeout])](#ui5.userInteraction.rightClick)
 
 <a name="ui5.assertion"></a>
 
@@ -2040,7 +2054,7 @@ const elemValue = await ui5.element.getPropertyValue(selector, "text");
 <a name="ui5.element.getValue"></a>
 
 #### element.getValue(selector, [index], [timeout]) ⇒ <code>String</code>
-Returns the value of the passed element.
+Returns the inner value of the passed element.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
 **Returns**: <code>String</code> - The value of the element.  
@@ -3020,6 +3034,8 @@ await ui5.session.expectLogoutText();
     * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
     * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
     * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
+    * [.doubleClick(selector, [index], [timeout])](#ui5.userInteraction.doubleClick)
+    * [.rightClick(selector, [index], [timeout])](#ui5.userInteraction.rightClick)
 
 <a name="ui5.userInteraction.click"></a>
 
@@ -3432,6 +3448,40 @@ Resets the search field.
 ```js
 await ui5.userInteraction.resetSearch(selector);
 ```
+<a name="ui5.userInteraction.doubleClick"></a>
+
+#### userInteraction.doubleClick(selector, [index], [timeout])
+Double Clicks on the passed element.
+
+**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.userInteraction.doubleClick(selector);
+```
+<a name="ui5.userInteraction.rightClick"></a>
+
+#### userInteraction.rightClick(selector, [index], [timeout])
+Right Clicks on the passed element.
+
+**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getById("button01");await ui5.userInteraction.rightClick(elem);
+```
 <a name="nonUi5"></a>
 
 ## nonUi5
@@ -3442,8 +3492,10 @@ Global namespace for non UI5 modules.
 * [nonUi5](#nonUi5)
     * [.assertion](#nonUi5.assertion)
         * [.expectAttributeToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
+        * [.expectAttributeToContain(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToContain)
         * [.expectValueToBe(elem, compareValue)](#nonUi5.assertion.expectValueToBe)
         * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible)
+        * [.expectToBeNotVisible(element, [timeout])](#nonUi5.assertion.expectToBeNotVisible)
     * [.element](#nonUi5.element)
         * [.waitForAll(selector, [timeout])](#nonUi5.element.waitForAll)
         * [.waitToBePresent(selector, [timeout])](#nonUi5.element.waitToBePresent)
@@ -3490,8 +3542,10 @@ Global namespace for non UI5 modules.
 
 * [.assertion](#nonUi5.assertion)
     * [.expectAttributeToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
+    * [.expectAttributeToContain(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToContain)
     * [.expectValueToBe(elem, compareValue)](#nonUi5.assertion.expectValueToBe)
     * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible)
+    * [.expectToBeNotVisible(element, [timeout])](#nonUi5.assertion.expectToBeNotVisible)
 
 <a name="nonUi5.assertion.expectAttributeToBe"></a>
 
@@ -3513,6 +3567,23 @@ const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.ex
 **Example**  
 ```js
 const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.expectAttributeToBe(element, "Save", "title");
+```
+<a name="nonUi5.assertion.expectAttributeToContain"></a>
+
+#### assertion.expectAttributeToContain(elem, compareValue, [attribute])
+Expects the attributes value of the passed element to contain the compare value.
+
+**Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+| compareValue | <code>String</code> | The compare value. |
+| [attribute] | <code>String</code> | The attribute to compare. If not passed, it will compare the inner HTML content of the element. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.expectAttributeToContain(element, "Save", "title");
 ```
 <a name="nonUi5.assertion.expectValueToBe"></a>
 
@@ -3544,6 +3615,22 @@ Expects that the element is visible to the user.
 **Example**  
 ```js
 const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.expectToBeVisible(elem);
+```
+<a name="nonUi5.assertion.expectToBeNotVisible"></a>
+
+#### assertion.expectToBeNotVisible(element, [timeout])
+Expects that the element is not visible to the user.
+
+**Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| element | <code>Object</code> |  | The element. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). Recommendation is to lower the timeout since the element is not expected to show up. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
 ```
 <a name="nonUi5.element"></a>
 
@@ -3936,7 +4023,7 @@ const elem = await nonUi5.element.getById("elem02");const innerHTML = await non
 Returns the value of the passed element.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
-**Returns**: <code>String</code> - The  value of the element.  
+**Returns**: <code>String</code> - The value of the element.  
 
 | Param | Type | Description |
 | --- | --- | --- |

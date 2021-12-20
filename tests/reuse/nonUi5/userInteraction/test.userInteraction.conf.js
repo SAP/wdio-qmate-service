@@ -19,7 +19,8 @@ exports.config = merge(qmateConfiguration.config, {
     path.resolve(__dirname, "moveCursorAndClick.spec.js"),
     path.resolve(__dirname, "checkAttributeAndValue.spec.js"),
     path.resolve(__dirname, "scrollToElement.spec.js"),
-    path.resolve(__dirname, "rightClick.spec.js")
+    path.resolve(__dirname, "rightClick.spec.js"),
+    path.resolve(__dirname, "dragAndDrop.spec.js")
   ],
   exclude: [],
 
@@ -56,6 +57,14 @@ exports.config = merge(qmateConfiguration.config, {
       {
         mount: "/tables.html",
         path: path.resolve(__dirname, "../../../helper/website/tables.html")
+      },
+      {
+        mount: "/dragAndDropWdioExample.html",
+        path: path.resolve(__dirname, "../../../helper/website/dragAndDropWdioExample.html")
+      },
+      {
+        mount: "/dragAndDropFailing.html",
+        path: path.resolve(__dirname, "../../../helper/website/dragAndDropFailing.html")
       }
       ]
     }]

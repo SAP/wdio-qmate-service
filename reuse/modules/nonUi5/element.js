@@ -453,7 +453,7 @@ const Element = function () {
    * @memberOf nonUi5.element
    * @description Returns the value of the passed element.
    * @param {Object} elem - The element.
-   * @returns {String} The  value of the element.
+   * @returns {String} The value of the element.
    * @example const elem = await nonUi5.element.getById("elem02");
    * const innerHTML = await nonUi5.element.getValue(elem);
    */

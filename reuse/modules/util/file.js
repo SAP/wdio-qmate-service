@@ -15,20 +15,20 @@ const File = function () {
    * @memberOf util.file
    * @description Uploads all the file/s by the paths given in the Array.
    * @param {String[]} files - Array with path/s of file/s to be uploaded.
-   * @param {Number | Object} selector - second parameter can be a index or selector of uploader control, default value of index is 0
-   * @example await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"]);
-   * @example await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"], 1); //upload to second fileuploader control on ui screen
-   * @example await util.file.uploadFile(["path/to/text1.txt", "path/to/text2.txt"], selector); //upload to file uploader with matching selector
+   * @param {Number | Object} [selector=0] - Index or custom selector of uploader control, in case there are more then one present. Default value is index 0.
+   * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"]); // uses the default uploader control
+   * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], 1); // upload to second file uploader control on UI screen
+   * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], selector); // upload to file uploader with matching selector
    */
   this.upload = async function (files, selector = 0) {
     let elem;
-    if (typeof selector === "number"){
+    if (typeof selector === "number") {
       elem = await nonUi5.element.getByCss('input[type="file"]', selector);
-    } else if (typeof selector === "object"){
+    } else if (typeof selector === "object") {
       const elemId = await ui5.element.getId(selector);
       elem = await nonUi5.element.getByXPath(`.//input[contains(@id,'${elemId}')][@type='file']`);
     }
-    if (!elem){
+    if (!elem) {
       throw new Error("No upload input element found with matching index or selector");
     }
     for (const file of files) {
