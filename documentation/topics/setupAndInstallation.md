@@ -21,13 +21,8 @@ The `NPM` internal configuration is a one time setup, needed so the npm request 
 npm install @wdio/qmate-service@1.0.0 --save-dev
 ```
 
-
 ## Execute specs using npx
 
 ```bash
 npx wdio mytests.conf.js
 ```
-
-## Editor
-To write your scripts, you can use any editor of your choice.
-- We recommend to use [Visual Studio Code](https://code.visualstudio.com/) to write your scripts.
