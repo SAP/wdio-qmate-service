@@ -4,7 +4,7 @@
 Make sure you have installed [Node.js](https://nodejs.org/en/download/) on your computer. If you already have Node.js installed, make sure you upgrade to version ≥ 12.
 
 ## Installation
-To install the latest version of `wdio-qmate-service`, open the commandline and install Qmate-Service as a dev-dependency to your repository.
+To install the latest version of `qmate-service`, open the commandline and install Qmate-Service as a dev-dependency to your repository.
 ```bash
 // Npm configuration for internal nexus
 npm config set strict-ssl=false
