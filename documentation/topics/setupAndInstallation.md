@@ -12,8 +12,10 @@ npm config set registry=http://nexus.wdf.sap.corp:8081/nexus/content/groups/buil
 npm config set no-proxy=nexus.wdf.sap.corp
 
 npm install @wdio/qmate-service@latest --save-dev
-```
-The `NPM` internal configuration is a one time setup, needed so the npm request reach our internal nexus, where all the SAP NPM projects resides (including `qmate-service`).
+```  
+
+!!! info
+    The `NPM` internal configuration is a one time setup, needed so the npm request reach our internal nexus, where all the SAP NPM projects resides (including `qmate-service`).
 
 ### Installing specific version
 
