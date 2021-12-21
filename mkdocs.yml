@@ -65,5 +65,3 @@ site_dir: docs-gen
 repo_url: https://github.tools.sap/sProcurement/wdio-qmate-service
 site_url: https://github.tools.sap/pages/sProcurement/wdio-qmate-service
 edit_uri: main/documentation/
-
-#To deploy to gh-pages branch: mkdocs gh-deploy --force
