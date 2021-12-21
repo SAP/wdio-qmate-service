@@ -4,36 +4,28 @@
 Make sure you have installed [Node.js](https://nodejs.org/en/download/) on your computer. If you already have Node.js installed, make sure you upgrade to version 12.
 
 ## Installation
-To install the latest version of `Qmate` globally, you need to open the commandline and enter the following command in you console:
+To install the latest version of `wdio-qmate-service` globally, you need to open the commandline and enter the following command in you console:
 ```bash
 // Npm configuration for internal nexus
 npm config set strict-ssl=false
 npm config set registry=http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.milestones.npm/
 npm config set no-proxy=nexus.wdf.sap.corp
 
-npm install sproc-qmate@latest -g
-qmate chromedriver-upgrade
+npm install @wdio/qmate-service@latest -g
 ```
 The `NPM` internal configuration is a one time setup, needed so the npm request reach our internal nexus, where all the SAP NPM projects resides (including `qmate`).
 
 ### Installing specific version
 
 ```bash
-npm install sproc-qmate@1.0.1 -g
-qmate chromedriver-upgrade
-```
-
-## Configure Chromedriver
-To be able to execute your test directly with Chrome, you need to install latest chromedriver version. You can achieve that using our CLI command:
-```bash
-qmate chromedriver-update
+npm install @wdio/qmate-service@1.0.0 -g
 ```
 
 ## Qmate CLI
 After setting up the driver and qmate, you can execute your tests using our cli.
 
 ```bash
-qmate mytests.conf.js
+npx wdio run mytests.conf.js
 ```
 
 Qmate CLI encapsulates and extends the [Webdriver.io CLI](https://www.npmjs.com/package/@wdio/cli). So all the WDIO cli options can be used directly too. See [here](https://webdriver.io/docs/clioptions.html) for more details. Example:
