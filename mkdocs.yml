@@ -7,9 +7,9 @@ nav:
     - Qmate-Service Installation: topics/setupAndInstallation.md
   - Native Features: topics/nativeFeatures.md
   - Custom Features:
-    - Reuse: topics/reuse.md
-    - Authentication:  topics/authentication.md
-    - Data Exchange: topics/dataImportExport.md
+    - Reuse: https://pages.github.tools.sap/sProcurement/qmate/topics/gettingStarted/reuse/
+    - Authentication:  https://pages.github.tools.sap/sProcurement/qmate/topics/bestPractices/authentication/
+    - Data Handling: https://pages.github.tools.sap/sProcurement/qmate/topics/gettingStarted/dataHandling
     - OData: https://pages.github.tools.sap/sProcurement/qmate/topics/furtherTopics/odata/
   - Custom Services:
     - reporter-service: https://github.tools.sap/sProcurement/wdio-qmate-reporter-service
