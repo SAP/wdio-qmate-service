@@ -5,17 +5,17 @@ nav:
   - Reuse API: doc.md
   - Setup & Installation:
     - Qmate-Service Installation: topics/setupAndInstallation.md
-  - Native Features: topics/nativeFeatures.md
+    - Spotligth: topics/spotlight.md
   - Custom Features:
+    - UI5 Selectors: https://pages.github.tools.sap/sProcurement/qmate/topics/gettingStarted/selectors/
     - Reuse: https://pages.github.tools.sap/sProcurement/qmate/topics/gettingStarted/reuse/
     - Authentication:  https://pages.github.tools.sap/sProcurement/qmate/topics/bestPractices/authentication/
     - Data Handling: https://pages.github.tools.sap/sProcurement/qmate/topics/gettingStarted/dataHandling
     - OData: https://pages.github.tools.sap/sProcurement/qmate/topics/furtherTopics/odata/
-  - Custom Services:
+  - Other Qmate Custom Services:
     - reporter-service: https://github.tools.sap/sProcurement/wdio-qmate-reporter-service
     - bo-reuse-service: https://github.tools.sap/sProcurement/wdio-qmate-bo-reuse-service
     - code-coverage-service: https://github.tools.sap/sProcurement/wdio-qmate-code-coverage-service
-  - Selectors: https://pages.github.tools.sap/sProcurement/qmate/topics/gettingStarted/selectors/
   - Contact: topics/contact.md
 theme:
   name: material
