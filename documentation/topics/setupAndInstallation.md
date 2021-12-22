@@ -1,12 +1,11 @@
 # Setup and installation
 
 ## Prerequisites
-Make sure you have installed [Node.js](https://nodejs.org/en/download/) on your computer. If you already have Node.js installed, make sure you upgrade to version ≥ 12.
+Make sure [Node.js](https://nodejs.org/en/download/) is installed on your computer. If you already have Node.js installed, make sure you upgrade to version ≥ 12.
 
 ## Installation
 To install the latest version of `qmate-service`, open the commandline and install Qmate-Service as a dev-dependency to your repository.
 ```bash
-// Npm configuration for internal nexus
 npm config set strict-ssl=false
 npm config set registry=http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.milestones.npm/
 npm config set no-proxy=nexus.wdf.sap.corp
