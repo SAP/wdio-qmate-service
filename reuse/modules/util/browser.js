@@ -71,20 +71,33 @@ const Browser = function () {
     await browser.pause(duration);
   };
 
+  /**
+   * @function collectCoverage
+   * @memberOf util.browser
+   * @description Trigger collection of coverage by coverage service.
+   * @example await util.browser.collectCoverage();
+   */
   this.collectCoverage = async function () {
     if (browser.config.params.coverage.status && browser.config.params.coverage.status !== "false") {
       await browser.collectCoverage();
     } else {
-      console.warn("Coverage is disabled. Please enabled the coverage in the config file.");
+      util.console.warn("Coverage is disabled. Please enable coverage in config file.");
     }
   };
 
-  this.sleepAndCollectCoverage = async function (timeout = 5000) {
+  /**
+   * @function sleepAndCollectCoverage
+   * @memberOf util.browser
+   * @description Trigger collection of coverage by coverage service.
+   * @param {Number} [duration=1000] - The time to pause (ms).
+   * @example await util.browser.sleepAndCollectCoverage(3000);
+   */
+  this.sleepAndCollectCoverage = async function (duration = 5000) {
     if (browser.config.params.coverage.status && browser.config.params.coverage.status !== "false") {
-      await this.sleep(timeout);
-      await this.collectCoverage();
+      await this.sleep(duration);
+      await browser.collectCoverage();
     } else {
-      console.warn("Coverage is disabled. Please enabled the coverage in the config file.");
+      util.console.warn("Coverage is disabled. Please enable coverage in config file.");
     }
   };
 

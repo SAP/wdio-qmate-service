@@ -19,7 +19,7 @@ var AddLocatorCommands = function () {
     // Add command to trigger coverage collection
     await browser.addCommand("collectCoverage", async function () {
       return true;
-    }, true);
+    });
 
     // Add command for control
     await browser.addCommand("uiControl", async function (ui5Selector, index, timeout, returnAllDomElements = false) {
