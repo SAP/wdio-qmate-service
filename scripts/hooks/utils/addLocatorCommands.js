@@ -16,6 +16,11 @@ var AddLocatorCommands = function () {
     //global.uiControl = ui5ControlLocator;
     //global.uiControls = ui5ControlsLocator;
 
+    // Add command to trigger coverage collection
+    await browser.addCommand("collectCoverage", async function () {
+      return true;
+    });
+
     // Add command for control
     await browser.addCommand("uiControl", async function (ui5Selector, index, timeout, returnAllDomElements = false) {
       return ui5ControlLocator(ui5Selector, index, timeout, this, returnAllDomElements);
