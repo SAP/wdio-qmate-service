@@ -94,7 +94,8 @@ const Browser = function () {
    * @example await util.browser.sleepAndCollectCoverage(3000);
    */
   this.sleepAndCollectCoverage = async function (duration = 5000) {
-    if (browser.config.params.coverage.status && browser.config.params.coverage.status !== "false") {
+    if (browser.config.params && browser.config.params.coverage && (
+      browser.config.params.coverage.status === true || browser.config.params.coverage.status === "true")) {
       await this.sleep(duration);
       await browser.collectCoverage();
     } else {
