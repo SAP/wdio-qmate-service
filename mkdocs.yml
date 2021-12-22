@@ -24,7 +24,7 @@ theme:
     - content.tabs.link
     - navigation.top
   palette:
-    - scheme: default
+    - scheme: default 
       primary: red
       accent: indigo
       toggle:
@@ -36,7 +36,10 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
+plugins:
+  - search
 markdown_extensions:
+  - meta
   - attr_list
   - admonition
   - pymdownx.highlight
