@@ -25,7 +25,7 @@
     "before_install": "npm config set chromedriver_skip_download=true && npm install chromedriver@latest --chromedriver_skip_download=true",
     "after_install": "npm config set chromedriver_skip_download=false",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint:fix": "npx eslint . --fix",
     "generate-docs": "node reuse/helper/jsDocGen",
     "update-legacy": "node reuse/helper/legacySupport/legacyReplacer.js",
     "test:authenticator:staticLogin:custom": "npx wdio ./tests/authenticator/staticLogin/configCustom.js",

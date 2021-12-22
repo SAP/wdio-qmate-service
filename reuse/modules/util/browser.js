@@ -78,7 +78,8 @@ const Browser = function () {
    * @example await util.browser.collectCoverage();
    */
   this.collectCoverage = async function () {
-    if (browser.config.params.coverage.status && browser.config.params.coverage.status !== "false") {
+    if (browser.config.params && browser.config.params.coverage && (
+      browser.config.params.coverage.status === true || browser.config.params.coverage.status === "true")) {
       await browser.collectCoverage();
     } else {
       util.console.warn("Coverage is disabled. Please enable coverage in config file.");
