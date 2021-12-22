@@ -71,8 +71,21 @@ const Browser = function () {
     await browser.pause(duration);
   };
 
-  this.collectCoverage = function () {
-    util.console.warn(`⚠  "util.browser.collectCoverage" is deprecated and no longer required. Please remove the function since coverage is now collected internally.`);
+  this.collectCoverage = async function () {
+    if (browser.config.params.coverage.status && browser.config.params.coverage.status !== "false") {
+      await browser.collectCoverage();
+    } else {
+      console.warn("Coverage is disabled. Please enabled the coverage in the config file.");
+    }
+  };
+
+  this.sleepAndCollectCoverage = async function (timeout = 5000) {
+    if (browser.config.params.coverage.status && browser.config.params.coverage.status !== "false") {
+      await this.sleep(timeout);
+      await this.collectCoverage();
+    } else {
+      console.warn("Coverage is disabled. Please enabled the coverage in the config file.");
+    }
   };
 
   /**
