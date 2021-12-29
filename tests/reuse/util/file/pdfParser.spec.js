@@ -12,11 +12,11 @@ describe("PDF Parser", function () {
 
   describe("Local PDF file", function () {
     it("Verify text is present", async function () {
-      var pdfPath = path.resolve(__dirname, "./testFiles/sample.pdf");
+      const pdfPath = path.resolve(__dirname, "./testFiles/sample.pdf");
       await util.file.expectPdfContainsText(pdfPath, "A Simple PDF File");
     });
     it("Verify text is absent", async function () {
-      var pdfPath = path.resolve(__dirname, "./testFiles/sample.pdf");
+      const pdfPath = path.resolve(__dirname, "./testFiles/sample.pdf");
       await util.file.expectPdfNotContainsText(pdfPath, "Some random text");
     });
   });
@@ -24,7 +24,7 @@ describe("PDF Parser", function () {
   describe("Local PDF file with custom parser", function () {
 
     it("Verify text", async function () {
-      var pdfPath = path.resolve(__dirname, "./testFiles/sample.pdf");
+      const pdfPath = path.resolve(__dirname, "./testFiles/sample.pdf");
       function customParser(pageData) {
         const render_options = {
           //replaces all occurrences of whitespace with standard spaces (0x20). The default value is `false`.
