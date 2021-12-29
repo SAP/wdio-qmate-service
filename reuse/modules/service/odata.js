@@ -256,8 +256,15 @@ const OData = function () {
       }
 
     }
-    curl.getAsync = utilModule.promisify(curl.get);
-    return curl.getAsync(url, options);
+    return new Promise(function (resolve, reject) {
+      curl.get(url, options, function (error, res, body) {
+        if (!error) {
+          resolve(body);
+        } else {
+          reject(error);
+        }
+      });
+    });
   }
 
 };
