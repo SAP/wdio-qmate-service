@@ -6,7 +6,7 @@
 const File = function () {
 
   const path = require("path");
-  // const pdf = require("pdf-parse");
+  const pdf = require("pdf-parse");
 
 
   // =================================== UPLOAD ===================================
@@ -56,8 +56,8 @@ const File = function () {
     const options = {
       pagerender: renderingMethod
     };
-    // const data = await pdf(pdfStream, options);
-    // return data.text;
+    const data = await pdf(pdfStream, options);
+    return data.text;
   };
 
   /**
