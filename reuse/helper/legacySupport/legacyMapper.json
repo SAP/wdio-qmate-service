@@ -348,7 +348,7 @@
     "new": "nonUi5.element.getAttributeValue"
   },
   {
-    "old": "non_ui5.common.assertion.expectValue",
+    "old": "non_ui5.common.assertion.expectValueToBe",
     "new": "nonUi5.assertion.expectAttributeToBe"
   },
   {
