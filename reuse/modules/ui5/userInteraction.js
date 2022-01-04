@@ -387,7 +387,8 @@ const UserInteraction = function () {
    * @param {String} [alignment="center"] - Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest".
    * Affects the alignToTop parameter of scrollIntoView function. By default, it takes 'up'
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await this.scrollToElement(selector, 0, "start", 5000);
+   * @example await ui5.userInteraction.scrollToElement(selector);
+   * @example await ui5.userInteraction.scrollToElement(selector, 0, "start", 5000);
    */
   this.scrollToElement = async function (selector, index = 0, alignment = "center", timeout = 30000) {
     const elem = await ui5.element.getDisplayed(selector, index, timeout);

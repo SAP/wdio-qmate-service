@@ -549,6 +549,8 @@ Global namespace for util modules.
         * [.getCurrentUrl()](#util.browser.getCurrentUrl)
         * [.resetFocus()](#util.browser.resetFocus)
         * [.sleep([duration])](#util.browser.sleep)
+        * [.collectCoverage()](#util.browser.collectCoverage)
+        * [.sleepAndCollectCoverage([duration])](#util.browser.sleepAndCollectCoverage)
         * [.refresh()](#util.browser.refresh)
         * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#util.browser.clearBrowser)
         * [.getBrowserName()](#util.browser.getBrowserName) ⇒ <code>String</code>
@@ -596,6 +598,8 @@ Global namespace for util modules.
     * [.getCurrentUrl()](#util.browser.getCurrentUrl)
     * [.resetFocus()](#util.browser.resetFocus)
     * [.sleep([duration])](#util.browser.sleep)
+    * [.collectCoverage()](#util.browser.collectCoverage)
+    * [.sleepAndCollectCoverage([duration])](#util.browser.sleepAndCollectCoverage)
     * [.refresh()](#util.browser.refresh)
     * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#util.browser.clearBrowser)
     * [.getBrowserName()](#util.browser.getBrowserName) ⇒ <code>String</code>
@@ -677,6 +681,31 @@ Sleeps (pauses execution) for the passed duration.
 **Example**  
 ```js
 await util.browser.sleep(30000);
+```
+<a name="util.browser.collectCoverage"></a>
+
+#### browser.collectCoverage()
+Trigger collection of coverage by coverage service.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Example**  
+```js
+await util.browser.collectCoverage();
+```
+<a name="util.browser.sleepAndCollectCoverage"></a>
+
+#### browser.sleepAndCollectCoverage([duration])
+Trigger collection of coverage by coverage service.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [duration] | <code>Number</code> | <code>1000</code> | The time to pause (ms). |
+
+**Example**  
+```js
+await util.browser.sleepAndCollectCoverage(3000);
 ```
 <a name="util.browser.refresh"></a>
 
@@ -3418,7 +3447,11 @@ Scrolls to the element with the given selector to get it into view.
 
 **Example**  
 ```js
-await this.scrollToElement(selector, 0, "start", 5000);
+await ui5.userInteraction.scrollToElement(selector);
+```
+**Example**  
+```js
+await ui5.userInteraction.scrollToElement(selector, 0, "start", 5000);
 ```
 <a name="ui5.userInteraction.selectAll"></a>
 
