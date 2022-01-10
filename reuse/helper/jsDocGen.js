@@ -6,11 +6,13 @@ const fs = require("fs");
 const path = require("path");
 const jsdoc2md = require("jsdoc-to-markdown");
 
-const basePath = path.join(__dirname, "../");
+const readPath = path.join(__dirname, "../");
+const writePath = path.join(__dirname, "../../documentation");
+
 const filesToInclude = `{index.js,modules/**/*.js}`;
 
 function generateDoc() {
-  glob(basePath + filesToInclude, async (err, files) => {
+  glob(readPath + filesToInclude, async (err, files) => {
 
     if (err) {
       throw err;
@@ -28,7 +30,7 @@ function generateDoc() {
       return;
     }
 
-    fs.writeFile(basePath + "/doc.md", markdownFile, (err) => {
+    fs.writeFile(writePath + "/doc.md", markdownFile, (err) => {
       if (err) {
         throw err;
       }
