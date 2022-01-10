@@ -40,6 +40,10 @@
     "new": "ui5"
   },
   {
+    "old": "ui5.common.appIntents",
+    "new": "ui5.appIntents"
+  },
+  {
     "old": "ui5.common.locator",
     "new": "ui5.element"
   },
@@ -275,12 +279,6 @@
     "old": "ui5.common.userInteraction.clearFillActiveAndRetry",
     "new": "common.userInteraction.clearAndFillActiveAndRetry"
   },
-
-  {
-    "old": "non_ui5.common.assertion.expectValue",
-    "new": "nonUi5.assertion.expectAttributeToBe"
-  },
-
   {
     "old": "non_ui5.common",
     "new": "nonUi5"
@@ -350,11 +348,7 @@
     "new": "nonUi5.element.getAttributeValue"
   },
   {
-    "old": "ui5.common.appIntents",
-    "new": "ui5.appIntents"
-  },
-  {
-    "old": "non_ui5.common.assertion.expectValue",
+    "old": "non_ui5.common.assertion.expectValueToBe",
     "new": "nonUi5.assertion.expectAttributeToBe"
   },
   {

@@ -71,8 +71,36 @@ const Browser = function () {
     await browser.pause(duration);
   };
 
-  this.collectCoverage = function () {
-    util.console.warn(`⚠  "util.browser.collectCoverage" is deprecated and no longer required. Please remove the function since coverage is now collected internally.`);
+  /**
+   * @function collectCoverage
+   * @memberOf util.browser
+   * @description Trigger collection of coverage by coverage service.
+   * @example await util.browser.collectCoverage();
+   */
+  this.collectCoverage = async function () {
+    if (browser.config.params && browser.config.params.coverage && (
+      browser.config.params.coverage.status === true || browser.config.params.coverage.status === "true")) {
+      await browser.collectCoverage();
+    } else {
+      util.console.warn("Coverage is disabled. Please enable coverage in config file.");
+    }
+  };
+
+  /**
+   * @function sleepAndCollectCoverage
+   * @memberOf util.browser
+   * @description Trigger collection of coverage by coverage service.
+   * @param {Number} [duration=1000] - The time to pause (ms).
+   * @example await util.browser.sleepAndCollectCoverage(3000);
+   */
+  this.sleepAndCollectCoverage = async function (duration = 5000) {
+    if (browser.config.params && browser.config.params.coverage && (
+      browser.config.params.coverage.status === true || browser.config.params.coverage.status === "true")) {
+      await this.sleep(duration);
+      await browser.collectCoverage();
+    } else {
+      util.console.warn("Coverage is disabled. Please enable coverage in config file.");
+    }
   };
 
   /**
