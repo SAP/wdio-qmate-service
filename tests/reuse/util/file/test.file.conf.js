@@ -8,7 +8,8 @@ exports.config = merge(qmateConfiguration.config, {
   baseUrl: "https://sapui5.hana.ondemand.com/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection", 
 
   specs: [
-    path.resolve(__dirname, "file.spec.js")
+    path.resolve(__dirname, "file.spec.js"),
+    path.resolve(__dirname, "pdfParser.spec.js")
   ],
   exclude: []
 });

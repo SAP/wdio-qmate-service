@@ -1,6 +1,6 @@
 {
   "name": "@wdio/qmate-service",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "author": {
     "name": "Georgios Treska",
     "email": "georgios.treska@sap.com"
@@ -25,7 +25,7 @@
     "before_install": "npm config set chromedriver_skip_download=true && npm install chromedriver@latest --chromedriver_skip_download=true",
     "after_install": "npm config set chromedriver_skip_download=false",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint:fix": "npx eslint . --fix",
     "generate-docs": "node reuse/helper/jsDocGen",
     "update-legacy": "node reuse/helper/legacySupport/legacyReplacer.js",
     "test:authenticator:staticLogin:custom": "npx wdio ./tests/authenticator/staticLogin/configCustom.js",
@@ -125,10 +125,11 @@
   "dependencies": {
     "@sap_oss/odata-library": "^0.10.2",
     "axios": "^0.24.0",
-    "supertest": "^6.1.6",
     "curl": "^0.1.4",
     "fs-extra": "^10.0.0",
     "path": "^0.12.7",
+    "pdf-parse": "^1.1.1",
+    "supertest": "^6.1.6",
     "yargs": "^17.1.1"
   },
   "devDependencies": {
