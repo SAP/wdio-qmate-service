@@ -5,7 +5,7 @@ nav:
   - Reuse API: doc.md
   - Setup & Installation:
     - Qmate-Service Installation: topics/setupAndInstallation.md
-    - Spotligth: topics/spotlight.md
+    - Spotlight: topics/spotlight.md
   - Custom Features:
     - UI5 Selectors: https://pages.github.tools.sap/sProcurement/qmate/topics/gettingStarted/selectors/
     - Reuse: https://pages.github.tools.sap/sProcurement/qmate/topics/gettingStarted/reuse/
