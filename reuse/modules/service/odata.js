@@ -25,12 +25,19 @@ const OData = function () {
    * @param {url} url - The base url of the service
    * @param {username} username - The username.
    * @param {password} password - The password of the username.
-   * @param {boolean}  loggingEnabled - The boolean param to control whether user wants to see logs during build run
-   * @param {Object} params - JSON object with key-value pairs of parameter names and corresponding values
+   * @param {boolean}  [loggingEnabled=false] - The boolean param to control whether user wants to see logs during build run
+   * @param {Object} [params={}] - JSON object with key-value pairs of parameter names and corresponding values 
+   * by default we send {
+   *  "client": "715",
+   *  "documentation": ["heading", "quickinfo"],
+   *  "language": "EN"
+   * }
+   * These can be overridden by sending params as JSON object with additional params as shown in example 
    * @returns {Object} The initialized service object.
    * @example const url = "https://hbr-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
    * const params = {
-   *  "saml2": "disabled"
+   *  "saml2": "disabled",
+   *  "language": "de"
    * }
    * srv = await service.odata.init(url, user, password, false, params);
    */
