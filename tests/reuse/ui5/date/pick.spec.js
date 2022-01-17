@@ -49,8 +49,8 @@ describe("date - pick - when datePicker has not assigned any date", function () 
 describe("date - pick - when datePicker already has date assigned and we change it", function () {
   const dataInput = {
     "elementProperties": {
-        "viewName": "sap.m.sample.DatePicker.Group",
-        "metadata": "sap.m.DatePicker"
+      "viewName": "sap.m.sample.DatePicker.Group",
+      "metadata": "sap.m.DatePicker"
     }
   };
 
@@ -75,20 +75,20 @@ describe("date - pick - when datePicker already has date assigned and we change 
 describe("date - pick - using selector for sap.ui.core.Icon", function () {
   const dataInput = {
     "elementProperties": {
-        "viewName": "sap.m.sample.DatePicker.Group",
-        "metadata": "sap.m.DatePicker"
+      "viewName": "sap.m.sample.DatePicker.Group",
+      "metadata": "sap.m.DatePicker"
     }
   };
 
   const dataInputIcon = {
     "elementProperties": {
-        "viewName": "sap.m.sample.DatePicker.Group",
-        "metadata": "sap.ui.core.Icon",
-        "src": "sap-icon://appointment-2"
+      "viewName": "sap.m.sample.DatePicker.Group",
+      "metadata": "sap.ui.core.Icon",
+      "src": "sap-icon://appointment-2"
     },
     "ancestorProperties": {
-        "metadata": "sap.m.DatePicker",
-        "viewName": "sap.m.sample.DatePicker.Group"
+      "metadata": "sap.m.DatePicker",
+      "viewName": "sap.m.sample.DatePicker.Group"
     }
   };
 

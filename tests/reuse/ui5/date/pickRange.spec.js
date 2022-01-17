@@ -10,8 +10,8 @@ const range = [start, end];
 describe("date - pickRange - when DateRangeSelection do not have any value", function () {
   const dateRangeInput = {
     "elementProperties": {
-        "viewName": "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
-        "metadata": "sap.m.DateRangeSelection"
+      "viewName": "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
+      "metadata": "sap.m.DateRangeSelection"
     }
   };
   const getBorderOfRange = (initialBorder) => {
@@ -46,8 +46,8 @@ describe("date - pickRange - when DateRangeSelection do not have any value", fun
 describe("date - pickRange - with index as 2", function () {
   const dateRangeInput = {
     "elementProperties": {
-        "viewName": "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
-        "metadata": "sap.m.DateRangeSelection"
+      "viewName": "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
+      "metadata": "sap.m.DateRangeSelection"
     }
   };
   const getBorderOfRange = (initialBorder) => {
@@ -82,16 +82,16 @@ describe("date - pickRange - with index as 2", function () {
 describe("date - pickRange - with icon as selector", function () {
   const dateRangeInput = {
     "elementProperties": {
-        "viewName": "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
-        "metadata": "sap.m.DateRangeSelection"
+      "viewName": "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
+      "metadata": "sap.m.DateRangeSelection"
     }
   };
 
   const dateRangeInputIcon = {
     "elementProperties": {
-        "viewName": "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
-        "metadata": "sap.ui.core.Icon",
-        "bindingContextPath": "/modelData/0"
+      "viewName": "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
+      "metadata": "sap.ui.core.Icon",
+      "bindingContextPath": "/modelData/0"
     }
   };
 
@@ -127,8 +127,8 @@ describe("date - pickRange - with icon as selector", function () {
 describe("date - pickRange without datePiker (unhappy case)", function () {
   const dateRangeInput = {
     "elementProperties": {
-        "viewName": "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
-        "metadata": "sap.m.DateRangeSelection"
+      "viewName": "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
+      "metadata": "sap.m.DateRangeSelection"
     }
   };
 
