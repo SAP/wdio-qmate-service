@@ -22,12 +22,13 @@ const DateModule = function () {
       id = id.replace("-icon", "");
     }
 
-    var tempSelector = {
+    const tempSelector = {
       "elementProperties" : {
         "metadata" : "sap.m.DatePicker",
         "id" : id
       }
     };
+
     await _openDatePicker(tempSelector);
     await _selectDate(tempSelector, date);
   };
@@ -51,7 +52,7 @@ const DateModule = function () {
       id = id.replace("-icon", "");
     }
 
-    var tempSelector = {
+    const tempSelector = {
       "elementProperties" : {
         "metadata" : "sap.m.DateRangeSelection",
         "id" : id
@@ -83,7 +84,7 @@ const DateModule = function () {
 
   // =================================== HELPER ===================================
   async function _openDatePicker(selector) {
-    const id = await ui5.element.getId(selector);
+    const id = selector.elementProperties.id;
     const icon = await nonUi5.element.getById(`${id}-icon`);
     await nonUi5.userInteraction.click(icon);
   }
@@ -93,11 +94,10 @@ const DateModule = function () {
     const month = date.getMonth();
     
     let found = false;
-    let value;
 
-    let id = await ui5.element.getId(selector);
+    const id = selector.elementProperties.id;
 
-    value = await ui5.element.getValue(selector);
+    const value = await ui5.element.getValue(selector);
 
     const currentDate = new Date(value);
     const currentYear = currentDate.getFullYear();
