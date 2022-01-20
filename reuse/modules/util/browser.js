@@ -124,15 +124,13 @@ const Browser = function () {
    */
   this.clearBrowser = async function (clearLocal = true, clearSession = true, clearCookies = true) {
     if (clearLocal) {
-      const localStorage = await browser.getLocalStorage();
-      localStorage.clear();
+      await browser.execute("window.localStorage.clear()");
     }
     if (clearSession) {
-      const sessionStorage = await browser.getSessionStorage();
-      sessionStorage.clear();
+      await browser.execute("window.sessionStorage.clear()");
     }
     if (clearCookies) {
-      browser.deleteAllCookies();
+      await browser.deleteCookies();
     }
   };
 
@@ -292,6 +290,7 @@ const Browser = function () {
               if (windowTitle) {
                 const title = await browser.getTitle();
                 if (title === windowTitle) {
+                  // TODO: ???. Will change in another PR
                   return expect(true).toEqual(true);
                 }
                 throw new Error("Function 'switchToNewWindow' failed.");
