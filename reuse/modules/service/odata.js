@@ -25,11 +25,23 @@ const OData = function () {
    * @param {url} url - The base url of the service
    * @param {username} username - The username.
    * @param {password} password - The password of the username.
+   * @param {boolean}  [loggingEnabled=false] - The boolean param to control whether user wants to see logs during build run
+   * @param {Object} [params={}] - JSON object with key-value pairs of parameter names and corresponding values 
+   * by default we send {
+   *  "client": "715",
+   *  "documentation": ["heading", "quickinfo"],
+   *  "language": "EN"
+   * }
+   * These can be overridden by sending params as JSON object with additional params as shown in example 
    * @returns {Object} The initialized service object.
    * @example const url = "https://super-sensitive.domain.name/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
-   * srv = await service.odata.init(url, user, password);
+   * const params = {
+   *  "saml2": "disabled",
+   *  "language": "de"
+   * }
+   * srv = await service.odata.init(url, user, password, false, params);
    */
-  this.init = async function (url, username, password, loggingEnabled = false) {
+  this.init = async function (url, username, password, loggingEnabled = false, params = {}) {
     const logger = {
       "trace": () => {},
       "debug": console.debug,
@@ -38,6 +50,16 @@ const OData = function () {
       "error": console.error
     };
 
+    const parameters = {
+      "client": "715",
+      "documentation": ["heading", "quickinfo"],
+      "language": "EN"
+    };
+
+    if (params){
+      Object.keys(params).forEach((key)=>parameters[key] = params[key]);
+    }
+
     const srv = new Service({
       "logger": loggingEnabled ? logger : "",
       "url": url,
@@ -45,11 +67,7 @@ const OData = function () {
         "username": username,
         "password": password
       },
-      "parameters": { //Define initial request by $metadata?sap-client=<client-number>&sap-documentation=&sap-language=EN
-        "client": "715",
-        "documentation": ["heading", "quickinfo"],
-        "language": "EN"
-      },
+      "parameters": parameters, //Define initial request by $metadata?sap-client=<client-number>&sap-documentation=&sap-language=EN
       "strict": false // ignore non critical errors, e.g. orphaned annotations
     });
     await srv.init;
