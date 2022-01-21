@@ -3,14 +3,11 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-const date = new Date();
-
-describe("date - pick", function () {
+describe("date - pick - when datePicker has not assigned any date", function () {
   const dataInput = {
     "elementProperties": {
       "viewName": "sap.m.sample.DatePicker.Group",
-      "metadata": "sap.m.DatePicker",
-      "showFooter": "false"
+      "metadata": "sap.m.DatePicker"
     },
     "ancestorProperties": {
       "metadata": "sap.m.Panel",
@@ -24,18 +21,97 @@ describe("date - pick", function () {
     await handleCookiesConsent();
   });
 
+  it("Execution 1", async function () {
+    const nextYear = await common.date.calculate("nextYear");
+    await ui5.date.pick(dataInput, nextYear);
+  });
+
+  it("Verification 1", async function () {
+    const value = await ui5.element.getValue(dataInput);
+    const arrivedDate = new Date(value);
+    const nextYear = await common.date.calculate("nextYear");
+    common.assertion.expectEqual(arrivedDate.toDateString(), nextYear.toDateString());
+  });
+
+  it("Execution 2", async function () {
+    const previousMonth = await common.date.calculate("previousMonth");
+    await ui5.date.pick(dataInput, previousMonth);
+  });
+
+  it("Verification 2", async function () {
+    const value = await ui5.element.getValue(dataInput);
+    const arrivedDate = new Date(value);
+    const previousMonth = await common.date.calculate("previousMonth");
+    common.assertion.expectEqual(arrivedDate.toDateString(), previousMonth.toDateString());
+  });
+});
+
+describe("date - pick - when datePicker already has date assigned and we change it", function () {
+  const dataInput = {
+    "elementProperties": {
+      "viewName": "sap.m.sample.DatePicker.Group",
+      "metadata": "sap.m.DatePicker"
+    }
+  };
+
+  it("Preparation", async function () {
+    await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.m.DatePicker/sample/sap.m.sample.DatePicker");
+    await handleCookiesConsent();
+  });
+
   it("Execution", async function () {
-    await ui5.date.pick(dataInput, date);
+    const today = await common.date.calculate("today", "yyyy-MM-dd");
+    await ui5.date.pick(dataInput, today, 2);
   });
 
   it("Verification", async function () {
-    const value = await ui5.element.getValue(dataInput);
+    const value = await ui5.element.getValue(dataInput, 2);
     const arrivedDate = new Date(value);
-    common.assertion.expectEqual(arrivedDate.toDateString(), date.toDateString());
+    const today = await common.date.calculate("today", "yyyy-MM-dd");
+    common.assertion.expectEqual(arrivedDate.toDateString(), today.toDateString());
+  });
+});
+
+describe("date - pick - using selector for sap.ui.core.Icon", function () {
+  const dataInput = {
+    "elementProperties": {
+      "viewName": "sap.m.sample.DatePicker.Group",
+      "metadata": "sap.m.DatePicker"
+    }
+  };
+
+  const dataInputIcon = {
+    "elementProperties": {
+      "viewName": "sap.m.sample.DatePicker.Group",
+      "metadata": "sap.ui.core.Icon",
+      "src": "sap-icon://appointment-2"
+    },
+    "ancestorProperties": {
+      "metadata": "sap.m.DatePicker",
+      "viewName": "sap.m.sample.DatePicker.Group"
+    }
+  };
+
+  it("Preparation", async function () {
+    await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.m.DatePicker/sample/sap.m.sample.DatePicker");
+    await handleCookiesConsent();
+  });
+
+  it("Execution", async function () {
+    const today = await common.date.calculate("today", "yyyy-MM-dd");
+    await ui5.date.pick(dataInputIcon, today, 2);
+  });
+
+  it("Verification", async function () {
+    const value = await ui5.element.getValue(dataInput, 2);
+    const arrivedDate = new Date(value);
+    const today = await common.date.calculate("today", "yyyy-MM-dd");
+    common.assertion.expectEqual(arrivedDate.toDateString(), today.toDateString());
   });
 });
 
 describe("date - pick without datePiker (unhappy case)", function () {
+  const date = new Date();
   const dataInput = {
     "elementProperties": {
       "viewName": "sap.m.sample.DatePicker.Group",
