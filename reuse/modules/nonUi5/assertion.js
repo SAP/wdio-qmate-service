@@ -86,7 +86,7 @@ const Assertion = function () {
  * @example const elem = await nonUi5.element.getById("button01");
  * await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
  */
-  this.expectToBeNotVisible = async function (element, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.expectToBeNotVisible = async function (element, timeout = process.env.QMATE_CUSTOM_TIMEOUT.qmateCustomTimeout | 30000) {
     if (!element) {
       throw new Error("Function 'expectToBeNotVisible' failed. Please provide an element as argument.");
     }

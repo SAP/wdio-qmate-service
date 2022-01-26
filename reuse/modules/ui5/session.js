@@ -17,7 +17,7 @@ const Session = function () {
    * @example await ui5.session.login("PURCHASER");
    * @example await ui5.session.login("JOHN_DOE", "abc123!", true);
    */
-  this.login = async function (username, password = "super-duper-sensitive-pw", verify = false, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.login = async function (username, password = "super-duper-sensitive-pw", verify = false, timeout = process.env.QMATE_CUSTOM_TIMEOUT.qmateCustomTimeout | 30000) {
     if (!username) {
       throw new Error("Please provide a valid username.");
     }
