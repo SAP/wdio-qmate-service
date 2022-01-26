@@ -61,7 +61,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickButton("Ok");
    */
-  this.clickButton = async function (text, timeout = 30000) {
+  this.clickButton = async function (text, timeout = browser.config.params.qmateCustomTimeout | 30000) {
     return ui5.userInteraction.click(this.selectors.genericButton(text), 0, timeout);
   };
 
@@ -72,7 +72,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickApply();
    */
-  this.clickApply = async function (timeout = 30000) {
+  this.clickApply = async function (timeout = browser.config.params.qmateCustomTimeout | 30000) {
     return this.clickButton("Apply", timeout);
   };
 
@@ -83,7 +83,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickSave();
    */
-  this.clickSave = async function (timeout = 30000) {
+  this.clickSave = async function (timeout = browser.config.params.qmateCustomTimeout | 30000) {
     return this.clickButton("Save", timeout);
   };
 
@@ -94,7 +94,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickCreate();
    */
-  this.clickCreate = async function (timeout = 30000) {
+  this.clickCreate = async function (timeout = browser.config.params.qmateCustomTimeout | 30000) {
     return this.clickButton("Create", timeout);
   };
 
@@ -105,7 +105,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickCancel();
    */
-  this.clickCancel = async function (timeout = 30000) {
+  this.clickCancel = async function (timeout = browser.config.params.qmateCustomTimeout | 30000) {
     return this.clickButton("Cancel", timeout);
   };
 
@@ -116,7 +116,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickCheck();
    */
-  this.clickCheck = async function (timeout = 30000) {
+  this.clickCheck = async function (timeout = browser.config.params.qmateCustomTimeout | 30000) {
     return this.clickButton("Check", timeout);
   };
 
@@ -127,7 +127,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickOrder();
    */
-  this.clickOrder = async function (timeout = 30000) {
+  this.clickOrder = async function (timeout = browser.config.params.qmateCustomTimeout | 30000) {
     return this.clickButton("Order", timeout);
   };
 
@@ -138,7 +138,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickPost();
    */
-  this.clickPost = async function (timeout = 30000) {
+  this.clickPost = async function (timeout = browser.config.params.qmateCustomTimeout | 30000) {
     return this.clickButton("Post", timeout);
   };
 
@@ -149,7 +149,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickAdd();
    */
-  this.clickAdd = async function (timeout = 30000) {
+  this.clickAdd = async function (timeout = browser.config.params.qmateCustomTimeout | 30000) {
     return this.clickButton("Add", timeout);
   };
 
