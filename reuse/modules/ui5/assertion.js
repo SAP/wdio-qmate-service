@@ -18,7 +18,7 @@ const Assertion = function () {
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectAttributeToBe(selector, "text", "Hello");
    */
-  this.expectAttributeToBe = async function (selector, attribute, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
+  this.expectAttributeToBe = async function (selector, attribute, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
     let elem;
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -65,7 +65,7 @@ const Assertion = function () {
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectAttributeToContain(selector, "text", "abc");
    */
-  this.expectAttributeToContain = async function (selector, attribute, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
+  this.expectAttributeToContain = async function (selector, attribute, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
     let elem;
     try {
       elem = await browser.uiControl(selector, index, timeout);
@@ -103,7 +103,7 @@ const Assertion = function () {
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectTextToBe(selector, "Hello");
    */
-  this.expectTextToBe = async function (selector, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
+  this.expectTextToBe = async function (selector, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
     return this.expectAttributeToBe(selector, "text", compareValue, index, timeout, loadPropertyTimeout);
   };
 
@@ -118,7 +118,7 @@ const Assertion = function () {
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectValueToBe(selector, "123");
    */
-  this.expectValueToBe = async function (selector, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
+  this.expectValueToBe = async function (selector, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
     return this.expectAttributeToBe(selector, "value", compareValue, index, timeout, loadPropertyTimeout);
   };
 
@@ -131,7 +131,7 @@ const Assertion = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.assertion.expectValueToBeDefined(selector);
    */
-  this.expectValueToBeDefined = async function (selector, index = 0, timeout = 30000) {
+  this.expectValueToBeDefined = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000) {
     const value = await ui5.element.getValue(selector, index, timeout);
     await common.assertion.expectDefined(value);
     await common.assertion.expectUnequal(value, "");
@@ -147,7 +147,7 @@ const Assertion = function () {
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeNotEnabled(selector);
    */
-  this.expectToBeNotEnabled = async function (selector, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
+  this.expectToBeNotEnabled = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
     await this.expectAttributeToBe(selector, "enabled", false, index, timeout, loadPropertyTimeout);
   };
 
@@ -161,7 +161,7 @@ const Assertion = function () {
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeEnabled(selector);
    */
-  this.expectToBeEnabled = async function (selector, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
+  this.expectToBeEnabled = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
     await this.expectAttributeToBe(selector, "enabled", true, index, timeout, loadPropertyTimeout);
   };
 
@@ -175,7 +175,7 @@ const Assertion = function () {
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectValidationError(selector);
    */
-  this.expectValidationError = async function (selector, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
+  this.expectValidationError = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
     return this.expectAttributeToBe(selector, "valueState", "Error", index, timeout, loadPropertyTimeout);
   };
 
@@ -189,7 +189,7 @@ const Assertion = function () {
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectValidationSuccess(selector);
    */
-  this.expectValidationSuccess = async function (selector, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
+  this.expectValidationSuccess = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
     return this.expectAttributeToBe(selector, "valueState", "None", index, timeout, loadPropertyTimeout);
   };
 
@@ -207,7 +207,7 @@ const Assertion = function () {
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectBindingPathToBe(selector, "text", "Hello");
    */
-  this.expectBindingPathToBe = async function (selector, attribute, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
+  this.expectBindingPathToBe = async function (selector, attribute, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
     let elem;
     try {
       elem = await browser.uiControl(selector, index, timeout);
@@ -258,7 +258,7 @@ const Assertion = function () {
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectBindingContextPathToBe(selector, "text", "Hello");
    */
-  this.expectBindingContextPathToBe = async function (selector, compareValue, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
+  this.expectBindingContextPathToBe = async function (selector, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
     let elem;
     try {
       elem = await browser.uiControl(selector, index, timeout);
@@ -293,7 +293,7 @@ const Assertion = function () {
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeVisible(selector);
    */
-  this.expectToBeVisible = async function (selector, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
+  this.expectToBeVisible = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
     let elem;
 
     try {
@@ -336,7 +336,7 @@ const Assertion = function () {
    * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeVisibleInViewport(selector);
    */
-  this.expectToBeVisibleInViewport = async function (selector, index = 0, timeout = 30000, loadPropertyTimeout = 0) {
+  this.expectToBeVisibleInViewport = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
     let elem;
     try {
       elem = await browser.uiControl(selector, index, timeout);
@@ -373,7 +373,7 @@ const Assertion = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms). Recommendation is to lower the timeout since the element is not expected to show up.
    * @example await ui5.assertion.expectToBeNotVisible(selector, 0, 5000);
    */
-  this.expectToBeNotVisible = async function (selector, index = 0, timeout = 30000) {
+  this.expectToBeNotVisible = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000) {
     try {
       const isVisible = await ui5.element.isVisible(selector, index, timeout);
       return common.assertion.expectFalse(isVisible);
@@ -392,7 +392,7 @@ const Assertion = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.assertion.expectMessageToastTextToBe(text);
    */
-  this.expectMessageToastTextToBe = async function (text, timeout = 30000) {
+  this.expectMessageToastTextToBe = async function (text, timeout = browser.config.params.qmateCustomTimeout | 30000) {
     if (!text) {
       throw new Error("Function 'expectMessageToast' failed. Please provide the expected text as argument.");
     }
