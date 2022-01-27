@@ -95,15 +95,42 @@ const OData = function () {
    * @description GET's the EntitySet collection.
    * @param {service} service - Instance of the service
    * @param {entitySet} entitySet - The entitySet you want to GET from.
+   * @param {filterString} filterString - The filters to be applied on get query
+   * @param {selectionFields} selectionFields - comma separated list of fields to be selected
+   * @param {queryParams} queryParams - JSON object of key value pairs of custom query parameters.
+   * @returns {Array} - Result set array
    * @example const url = "https://qs9-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
    * srv = await service.odata.init(url, user, password);
-   * let res = await service.odata.getEntitySet(service, "A_PurchaseOrder");
+   * 
+   * let filterString = "Status eq '01'";
+   * let res = await service.odata.getEntitySet(service, "A_PurchaseOrder", filterString);
+   * 
+   * let select = "CentralPurchaseContract,PurchasingProcessingStatus";
+   * let res = await service.odata.getEntitySet(service, "A_PurchaseOrder", filterString, select);
+   * 
+   * let queryParams = {
+   * "$top" : 5,
+   * "$skip" : 10,
+   * };
+   * let res = await service.odata.getEntitySet(service, "A_PurchaseOrder", filterString, select, queryParams);
    */
-  this.getEntitySet = async function (srv, entitySet) {
+  this.getEntitySet = async function (srv, entitySet, filterString = "", selectionFields = "", queryParams={}) {
     if (!srv) {
       throw new Error("Service is not defined. Please make sure to initialize and pass the service.");
     } else {
-      const res = await srv[entitySet].get();
+      let entity = srv[entitySet];
+      if (filterString){
+        entity = entity.filter(filterString);
+      }
+      if (selectionFields){
+        entity = entity.select(selectionFields.split(","));
+      }
+      if (queryParams){
+        Object.keys(queryParams).forEach((key)=>{
+          entity = entity.queryParameter(key, queryParams[key]);
+        });
+      }
+      const res = entity.get();
       return res;
     }
   };
