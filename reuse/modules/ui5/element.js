@@ -196,11 +196,50 @@ const Element = function () {
    */
   this.getPropertyValue = async function (selector, property, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000) {
     try {
-      const elem = await this.getDisplayed(selector, index, timeout);
-      return String(await elem.getUI5Property(property));
+      let elem = await this.getDisplayed(selector, index, timeout);
+      let attrValue = await elem.getUI5Property(property);
+
+      if (!attrValue &&
+        selector.elementProperties &&
+        selector.elementProperties.metadata &&
+        selector.elementProperties.metadata.includes("SFBMultiInput")) {
+        const token = {
+          "elementProperties": {
+            "metadata": "sap.m.Token",
+            "ancestorProperties": selector.elementProperties
+          }
+        };
+        elem = await this.getDisplayed(token, index, timeout);
+        attrValue = await elem.getUI5Property("text");
+        attrValue = attrValue.replace("=", "");
+        console.log("attrValue -> ", attrValue);
+      }
+
+      // Fallback because we always considered the data-properties rather than the native ones
+      // If this is removed it can have an impact on the behavior of the tool comparing with the predecessors
+      if (!attrValue) {
+        attrValue = await this.getInnerAttribute(elem, "data-" + property);
+        console.log("attrValue -> ", attrValue);
+      }
+      console.log("attrValue -> ", attrValue);
+      return attrValue;
     } catch (error) {
       throw new Error("getPropertyValue() failed with " + error);
     }
+  };
+
+  // Executes getAttribute since from Chrome Version 91 is moving completely to W3C and the function is not supported anymore
+  this.getInnerAttribute = async function (elem, name) {
+    return elem.getAttribute(name).then(value => {
+      if (value !== null) {
+        return value;
+      }
+
+      return browser.executeScript(`
+        function getAttribute(webElement, attributeName) {
+            return webElement.getAttribute(attributeName);        
+        }`, element, name);
+    });
   };
 
   /**
