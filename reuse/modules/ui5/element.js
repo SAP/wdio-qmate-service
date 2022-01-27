@@ -212,16 +212,13 @@ const Element = function () {
         elem = await this.getDisplayed(token, index, timeout);
         attrValue = await elem.getUI5Property("text");
         attrValue = attrValue.replace("=", "");
-        console.log("attrValue -> ", attrValue);
       }
 
       // Fallback because we always considered the data-properties rather than the native ones
       // If this is removed it can have an impact on the behavior of the tool comparing with the predecessors
       if (!attrValue) {
         attrValue = await this.getInnerAttribute(elem, "data-" + property);
-        console.log("attrValue -> ", attrValue);
       }
-      console.log("attrValue -> ", attrValue);
       return attrValue;
     } catch (error) {
       throw new Error("getPropertyValue() failed with " + error);
