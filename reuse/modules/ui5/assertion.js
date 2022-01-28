@@ -43,7 +43,7 @@ const Assertion = function () {
     async function getUI5PropertyForSelector(attribute) {
       let value = await elem.getUI5Property(attribute);
 
-      if (!value) {
+      if (value === null || value === undefined || value === "") {
         value = await ui5.element.getInnerAttribute(elem, "data-" + attribute);
       }
 
