@@ -136,7 +136,7 @@ const Assertion = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.assertion.expectValueToBeDefined(selector);
    */
-  this.expectValueToBeDefined = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.expectValueToBeDefined = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     const value = await ui5.element.getValue(selector, index, timeout);
     await common.assertion.expectDefined(value);
     await common.assertion.expectUnequal(value, "");
@@ -378,7 +378,7 @@ const Assertion = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms). Recommendation is to lower the timeout since the element is not expected to show up.
    * @example await ui5.assertion.expectToBeNotVisible(selector, 0, 5000);
    */
-  this.expectToBeNotVisible = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.expectToBeNotVisible = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     try {
       const isVisible = await ui5.element.isVisible(selector, index, timeout);
       return common.assertion.expectFalse(isVisible);
@@ -397,7 +397,7 @@ const Assertion = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.assertion.expectMessageToastTextToBe(text);
    */
-  this.expectMessageToastTextToBe = async function (text, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.expectMessageToastTextToBe = async function (text, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     if (!text) {
       throw new Error("Function 'expectMessageToast' failed. Please provide the expected text as argument.");
     }

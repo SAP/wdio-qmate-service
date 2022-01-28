@@ -14,7 +14,7 @@ const Element = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await nonUi5.element.waitForAll(".inputField");
    */
-  this.waitForAll = async function (selector, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.waitForAll = async function (selector, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     let elems = null;
     try {
       await browser.waitUntil(async function () {
@@ -42,7 +42,7 @@ const Element = function () {
    * @example await nonUi5.element.waitToBePresent("#button12");
    * @example await nonUi5.element.waitToBePresent("p:first-child");
    */
-  this.waitToBePresent = async function (selector, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.waitToBePresent = async function (selector, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     let elem = null;
     await browser.waitUntil(async function () {
       elem = await $(selector);
@@ -65,7 +65,7 @@ const Element = function () {
    * @example await nonUi5.element.waitToBeVisible("#button12");
    * @example await nonUi5.element.waitToBeVisible("p:first-child");
    */
-  this.waitToBeVisible = async function (selector, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.waitToBeVisible = async function (selector, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     let elem = null;
     await browser.waitUntil(async function () {
       elem = await $(selector);
@@ -87,7 +87,7 @@ const Element = function () {
    * @example await nonUi5.element.waitToBeClickable("#button12");
    * @example await nonUi5.element.waitToBeClickable("p:first-child");
    */
-  this.waitToBeClickable = async function (selector, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.waitToBeClickable = async function (selector, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     let elem = null;
     await browser.waitUntil(async function () {
       elem = await $(selector);
@@ -111,7 +111,7 @@ const Element = function () {
    * @returns {Object[]} The array of elements.
    * @example await nonUi5.element.getAllDisplayed(".inputField");
    */
-  this.getAllDisplayed = async function (selector, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.getAllDisplayed = async function (selector, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     try {
       await this.waitForAll(selector, timeout);
       const elements = await $$(selector);
@@ -140,7 +140,7 @@ const Element = function () {
    * const isPresent = await nonUi5.element.isPresent(hiddenElements[0]);
    * await common.assertion.expectTrue(isPresent);
    */
-  this.getAll = async function (selector, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.getAll = async function (selector, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     let elems = null;
     let count = null;
     try {
@@ -169,7 +169,7 @@ const Element = function () {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByCss(".button01");
    */
-  this.getByCss = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.getByCss = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     try {
       await this.waitForAll(selector, timeout);
       return await _filterDisplayed(selector, index, timeout);
@@ -189,7 +189,7 @@ const Element = function () {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByCssContainingText(".input01", "Jack Jackson");
    */
-  this.getByCssContainingText = async function (selector, text = "", index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.getByCssContainingText = async function (selector, text = "", index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     try {
       const elems = await this.getAllDisplayed(selector, timeout);
       return await _filterWithText(elems, text, index);
@@ -207,7 +207,7 @@ const Element = function () {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getById("button01");
    */
-  this.getById = async function (id, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.getById = async function (id, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     try {
       const selector = `[id='${id}']`;
       return await _filterDisplayed(selector, 0, timeout);
@@ -227,7 +227,7 @@ const Element = function () {
    * @example const elem = await nonUi5.element.getByClass("button01");
    * const elem = await nonUi5.element.getByClass("sapMIBar sapMTB sapMTBNewFlex sapContrastPlus");
    */
-  this.getByClass = async function (elemClass, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.getByClass = async function (elemClass, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     try {
       const selector = `[class*='${elemClass}']`;
       return await _filterDisplayed(selector, index, timeout);
@@ -246,7 +246,7 @@ const Element = function () {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByName(".button01");
    */
-  this.getByName = async function (name, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.getByName = async function (name, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     try {
       const selector = `[name='${name}']`;
       return await _filterDisplayed(selector, index, timeout);
@@ -265,7 +265,7 @@ const Element = function () {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByXPath("//ul/li/a");
    */
-  this.getByXPath = async function (xpath, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.getByXPath = async function (xpath, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     try {
       return await _filterDisplayed(xpath, index, timeout);
     } catch (error) {
@@ -284,7 +284,7 @@ const Element = function () {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByChild(".form01", ".input01");
    */
-  this.getByChild = async function (elementSelector, childSelector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.getByChild = async function (elementSelector, childSelector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     let elems;
     try {
       elems = await this.getAllDisplayed(elementSelector, timeout);
@@ -318,7 +318,7 @@ const Element = function () {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByParent(".form01", ".input01");
    */
-  this.getByParent = async function (elementSelector, parentSelector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.getByParent = async function (elementSelector, parentSelector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     let parentElems = [];
     try {
       parentElems = await this.getAllDisplayed(parentSelector, timeout);
@@ -380,7 +380,7 @@ const Element = function () {
    * @returns {boolean} Returns true or false.
    * @example await nonUi5.element.isPresentByCss(".button01");
    */
-  this.isPresentByCss = async function (css, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.isPresentByCss = async function (css, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     try {
       let elements;
 
@@ -407,7 +407,7 @@ const Element = function () {
    * @returns {boolean}
    * @example await nonUi5.element.isPresentByXPath(".//*[text()='Create']");
    */
-  this.isPresentByXPath = async function (xpath, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.isPresentByXPath = async function (xpath, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     return this.isPresentByCss(xpath, index, timeout);
   };
 
@@ -529,7 +529,7 @@ const Element = function () {
     }
   }
 
-  async function _filterDisplayed(selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  async function _filterDisplayed(selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     let elems = null;
     let selectedElement = null;
     try {
