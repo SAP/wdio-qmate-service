@@ -89,7 +89,7 @@ const NavigationBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.expectShellHeader();
    */
-  this.expectShellHeader = async function (timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
+  this.expectShellHeader = async function (timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 10000) {
     const selector = {
       "elementProperties": {
         "metadata": "sap.ushell.ui.ShellHeader",

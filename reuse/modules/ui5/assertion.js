@@ -15,10 +15,10 @@ const Assertion = function () {
    * @param {String | Boolean | Number | Object} compareValue - The compare value.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
+   * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectAttributeToBe(selector, "text", "Hello");
    */
-  this.expectAttributeToBe = async function (selector, attribute, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
+  this.expectAttributeToBe = async function (selector, attribute, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 10000) {
     let elem;
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -33,7 +33,7 @@ const Assertion = function () {
         return String(receivedValue) === String(compareValue);
       }, {
         timeout: loadPropertyTimeout,
-        timeoutMsg: "Timeout while waiting for element.",
+        timeoutMsg: "Timeout while waiting for attribute "+  attribute + ". Expected value: "+ String(compareValue),
         interval: 100,
       });
     }
@@ -42,6 +42,13 @@ const Assertion = function () {
 
     async function getUI5PropertyForSelector(attribute) {
       let value = await elem.getUI5Property(attribute);
+
+      // Fallback because we always considered the data-properties rather than the native ones
+      // If this is removed it can have an impact on the behavior of the tool comparing with the predecessors
+      if (!value) {
+        value = await ui5.element.getInnerAttribute(elem, "data-" + attribute);
+      }
+
       if (attribute.toLowerCase() === "text") {
         try {
           value = value.trim();
@@ -62,10 +69,10 @@ const Assertion = function () {
    * @param {String} compareValue - The compare value.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
+   * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectAttributeToContain(selector, "text", "abc");
    */
-  this.expectAttributeToContain = async function (selector, attribute, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
+  this.expectAttributeToContain = async function (selector, attribute, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 10000) {
     let elem;
     try {
       elem = await browser.uiControl(selector, index, timeout);
@@ -100,10 +107,10 @@ const Assertion = function () {
    * @param {String} compareValue - The compare value.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
+   * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectTextToBe(selector, "Hello");
    */
-  this.expectTextToBe = async function (selector, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
+  this.expectTextToBe = async function (selector, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 10000) {
     return this.expectAttributeToBe(selector, "text", compareValue, index, timeout, loadPropertyTimeout);
   };
 
@@ -115,10 +122,10 @@ const Assertion = function () {
    * @param {String | Number} compareValue - The compare value.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
+   * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectValueToBe(selector, "123");
    */
-  this.expectValueToBe = async function (selector, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
+  this.expectValueToBe = async function (selector, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 10000) {
     return this.expectAttributeToBe(selector, "value", compareValue, index, timeout, loadPropertyTimeout);
   };
 
@@ -144,10 +151,10 @@ const Assertion = function () {
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
+   * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeNotEnabled(selector);
    */
-  this.expectToBeNotEnabled = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
+  this.expectToBeNotEnabled = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 10000) {
     await this.expectAttributeToBe(selector, "enabled", false, index, timeout, loadPropertyTimeout);
   };
 
@@ -158,10 +165,10 @@ const Assertion = function () {
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
+   * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeEnabled(selector);
    */
-  this.expectToBeEnabled = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
+  this.expectToBeEnabled = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 10000) {
     await this.expectAttributeToBe(selector, "enabled", true, index, timeout, loadPropertyTimeout);
   };
 
@@ -172,10 +179,10 @@ const Assertion = function () {
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
+   * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectValidationError(selector);
    */
-  this.expectValidationError = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
+  this.expectValidationError = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 10000) {
     return this.expectAttributeToBe(selector, "valueState", "Error", index, timeout, loadPropertyTimeout);
   };
 
@@ -186,10 +193,10 @@ const Assertion = function () {
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
+   * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectValidationSuccess(selector);
    */
-  this.expectValidationSuccess = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
+  this.expectValidationSuccess = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 10000) {
     return this.expectAttributeToBe(selector, "valueState", "None", index, timeout, loadPropertyTimeout);
   };
 
@@ -204,10 +211,10 @@ const Assertion = function () {
    * @param {String | String[]} compareValue - The compare value(s).
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
+   * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectBindingPathToBe(selector, "text", "Hello");
    */
-  this.expectBindingPathToBe = async function (selector, attribute, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
+  this.expectBindingPathToBe = async function (selector, attribute, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 10000) {
     let elem;
     try {
       elem = await browser.uiControl(selector, index, timeout);
@@ -255,10 +262,10 @@ const Assertion = function () {
    * @param {String} compareValue - The compare value.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
+   * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectBindingContextPathToBe(selector, "text", "Hello");
    */
-  this.expectBindingContextPathToBe = async function (selector, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
+  this.expectBindingContextPathToBe = async function (selector, compareValue, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 10000) {
     let elem;
     try {
       elem = await browser.uiControl(selector, index, timeout);
@@ -290,10 +297,10 @@ const Assertion = function () {
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
+   * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeVisible(selector);
    */
-  this.expectToBeVisible = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
+  this.expectToBeVisible = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 10000) {
     let elem;
 
     try {
@@ -333,10 +340,10 @@ const Assertion = function () {
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Number} [loadPropertyTimeout=0] - The timeout to wait for a specific property to have the given compare value.
+   * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeVisibleInViewport(selector);
    */
-  this.expectToBeVisibleInViewport = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 0) {
+  this.expectToBeVisibleInViewport = async function (selector, index = 0, timeout = browser.config.params.qmateCustomTimeout | 30000, loadPropertyTimeout = 10000) {
     let elem;
     try {
       elem = await browser.uiControl(selector, index, timeout);

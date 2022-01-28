@@ -199,20 +199,20 @@ const Element = function () {
       let elem = await this.getDisplayed(selector, index, timeout);
       let attrValue = await elem.getUI5Property(property);
 
-      if (!attrValue &&
-        selector.elementProperties &&
-        selector.elementProperties.metadata &&
-        selector.elementProperties.metadata.includes("SFBMultiInput")) {
-        const token = {
-          "elementProperties": {
-            "metadata": "sap.m.Token",
-            "ancestorProperties": selector.elementProperties
-          }
-        };
-        elem = await this.getDisplayed(token, index, timeout);
-        attrValue = await elem.getUI5Property("text");
-        attrValue = attrValue.replace("=", "");
-      }
+      // if (!attrValue &&
+      //   selector.elementProperties &&
+      //   selector.elementProperties.metadata &&
+      //   selector.elementProperties.metadata.includes("SFBMultiInput")) {
+      //   const token = {
+      //     "elementProperties": {
+      //       "metadata": "sap.m.Token",
+      //       "ancestorProperties": selector.elementProperties
+      //     }
+      //   };
+      //   elem = await this.getDisplayed(token, index, timeout);
+      //   attrValue = await elem.getUI5Property("text");
+      //   attrValue = attrValue.replace("=", "");
+      // }
 
       // Fallback because we always considered the data-properties rather than the native ones
       // If this is removed it can have an impact on the behavior of the tool comparing with the predecessors

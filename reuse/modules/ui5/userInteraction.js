@@ -198,7 +198,7 @@ const UserInteraction = function () {
     await util.function.retry(async (selector, value, index, timeout) => {
       await this.clearAndFill(selector, value, index, timeout);
       if (verify) {
-        await util.browser.resetFocus();
+        // await util.browser.resetFocus();
         const elemValue = await ui5.element.getValue(selector, index);
         if (elemValue != value) { // IMPORTANT: keep non-strict comparison for format changes after input (10 -> 10.00)
           throw new Error(`Actual value '${elemValue}' not equal to expected value '${value}'`);
