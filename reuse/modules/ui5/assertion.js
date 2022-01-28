@@ -43,8 +43,6 @@ const Assertion = function () {
     async function getUI5PropertyForSelector(attribute) {
       let value = await elem.getUI5Property(attribute);
 
-      // Fallback because we always considered the data-properties rather than the native ones
-      // If this is removed it can have an impact on the behavior of the tool comparing with the predecessors
       if (!value) {
         value = await ui5.element.getInnerAttribute(elem, "data-" + attribute);
       }
