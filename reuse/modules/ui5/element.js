@@ -198,8 +198,8 @@ const Element = function () {
     try {
       let elem = await this.getDisplayed(selector, index, timeout);
       let attrValue = await elem.getUI5Property(property);
-      
-      if (!attrValue) {
+
+      if (attrValue === null || attrValue === undefined || attrValue === "") {
         attrValue = await this.getInnerAttribute(elem, "data-" + property);
       }
       return attrValue;
