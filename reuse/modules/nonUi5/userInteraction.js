@@ -15,7 +15,7 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.click(elem);
    */
-  this.click = async function (element, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.click = async function (element, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     await Promise.all([
       expect(element).toBeDisplayed({ //TODO: Reuse of internal functions?
         wait: timeout,
@@ -47,7 +47,7 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.clickAndRetry(elem);
    */
-  this.clickAndRetry = async function (element, timeout = browser.config.params.qmateCustomTimeout | 30000, retries = 3, interval = 5000) {
+  this.clickAndRetry = async function (element, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000, retries = 3, interval = 5000) {
     if (!element) {
       throw new Error("Function 'clearAndRetry' failed. Please provide an element as first argument.");
     }
@@ -63,7 +63,7 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.doubleClick(elem);
    */
-  this.doubleClick = async function (element, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.doubleClick = async function (element, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     await Promise.all([
       expect(element).toBeDisplayed({
         wait: timeout,
@@ -93,7 +93,7 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.rightClick(elem);
    */
-  this.rightClick = async function (element, timeout = browser.config.params.qmateCustomTimeout | 30000) {
+  this.rightClick = async function (element, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     await Promise.all([
       expect(element).toBeDisplayed({
         wait: timeout,
