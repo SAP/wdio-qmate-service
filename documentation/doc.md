@@ -4406,7 +4406,7 @@ Global namespace for service modules.
     * [.odata](#service.odata)
         * [.init(url, username, password, [loggingEnabled], [params])](#service.odata.init) ⇒ <code>Object</code>
         * [.get(service, entitySet, keys)](#service.odata.get)
-        * [.getEntitySet(service, entitySet, filterString, selectionFields, queryParams)](#service.odata.getEntitySet) ⇒ <code>Array</code>
+        * [.getEntitySet(service, entitySet, [filterString], [selectionFields], [queryParams])](#service.odata.getEntitySet) ⇒ <code>Array</code>
         * [.isFeatureToggleActivated(service, featureName)](#service.odata.isFeatureToggleActivated)
         * [.post(service, entitySet, payload)](#service.odata.post)
         * [.merge(service, entitySet, payload)](#service.odata.merge)
@@ -4423,7 +4423,7 @@ Global namespace for service modules.
 * [.odata](#service.odata)
     * [.init(url, username, password, [loggingEnabled], [params])](#service.odata.init) ⇒ <code>Object</code>
     * [.get(service, entitySet, keys)](#service.odata.get)
-    * [.getEntitySet(service, entitySet, filterString, selectionFields, queryParams)](#service.odata.getEntitySet) ⇒ <code>Array</code>
+    * [.getEntitySet(service, entitySet, [filterString], [selectionFields], [queryParams])](#service.odata.getEntitySet) ⇒ <code>Array</code>
     * [.isFeatureToggleActivated(service, featureName)](#service.odata.isFeatureToggleActivated)
     * [.post(service, entitySet, payload)](#service.odata.post)
     * [.merge(service, entitySet, payload)](#service.odata.merge)
@@ -4471,7 +4471,7 @@ const url = "https://qs9-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PR
 ```
 <a name="service.odata.getEntitySet"></a>
 
-#### odata.getEntitySet(service, entitySet, filterString, selectionFields, queryParams) ⇒ <code>Array</code>
+#### odata.getEntitySet(service, entitySet, [filterString], [selectionFields], [queryParams]) ⇒ <code>Array</code>
 GET's the EntitySet collection.
 
 **Kind**: static method of [<code>odata</code>](#service.odata)  
@@ -4481,9 +4481,9 @@ GET's the EntitySet collection.
 | --- | --- | --- |
 | service | [<code>service</code>](#service) | Instance of the service |
 | entitySet | <code>entitySet</code> | The entitySet you want to GET from. |
-| filterString | <code>filterString</code> | The filters to be applied on get query |
-| selectionFields | <code>selectionFields</code> | comma separated list of fields to be selected |
-| queryParams | <code>queryParams</code> | JSON object of key value pairs of custom query parameters. |
+| [filterString] | <code>String</code> | The filters to be applied on get query |
+| [selectionFields] | <code>String</code> | comma separated list of fields to be selected |
+| [queryParams] | <code>Object</code> | JSON object of key value pairs of custom query parameters. |
 
 **Example**  
 ```js

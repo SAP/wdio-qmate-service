@@ -95,9 +95,9 @@ const OData = function () {
    * @description GET's the EntitySet collection.
    * @param {service} service - Instance of the service
    * @param {entitySet} entitySet - The entitySet you want to GET from.
-   * @param {filterString} filterString - The filters to be applied on get query
-   * @param {selectionFields} selectionFields - comma separated list of fields to be selected
-   * @param {queryParams} queryParams - JSON object of key value pairs of custom query parameters.
+   * @param {String} [filterString] - The filters to be applied on get query
+   * @param {String} [selectionFields] - comma separated list of fields to be selected
+   * @param {Object} [queryParams] - JSON object of key value pairs of custom query parameters.
    * @returns {Array} - Result set array
    * @example const url = "https://qs9-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
    * srv = await service.odata.init(url, user, password);
