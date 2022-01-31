@@ -395,7 +395,7 @@ const Assertion = function () {
       }
     }
     return value;
-  };
+  }
 
 };
 module.exports = new Assertion();
