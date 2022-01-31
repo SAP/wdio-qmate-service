@@ -4,27 +4,27 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-// describe("assertion - expectToBeVisibleInViewport with element in viewport", function () {
+describe("assertion - expectToBeVisibleInViewport with element in viewport", function () {
 
-//   it("Preparation", async function () {
-//     await browser.url("#/categories");
-//     await handleCookiesConsent();
-//   });
+  it("Preparation", async function () {
+    await browser.url("#/categories");
+    await handleCookiesConsent();
+  });
 
-//   it("Execution", async function () {
-//     selector = {
-//       "elementProperties": {
-//         "viewName": "sap.ui.demo.cart.view.Home",
-//         "metadata": "sap.m.SearchField",
-//         "id": "*searchField"
-//       }
-//     };
-//   });
+  it("Execution", async function () {
+    selector = {
+      "elementProperties": {
+        "viewName": "sap.ui.demo.cart.view.Home",
+        "metadata": "sap.m.SearchField",
+        "id": "*searchField"
+      }
+    };
+  });
 
-//   it("Verification", async function () {
-//     await ui5.assertion.expectToBeVisibleInViewport(selector);
-//   });
-// });
+  it("Verification", async function () {
+    await ui5.assertion.expectToBeVisibleInViewport(selector);
+  });
+});
 
 describe("assertion - expectToBeVisibleInViewport with element outside viewport (unhappy case)", function () {
   it("Preparation", async function () {
