@@ -20,6 +20,7 @@ const Assertion = function () {
    */
   this.expectAttributeToBe = async function (selector, attribute, compareValue, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000, loadPropertyTimeout = 10000) {
     let elem;
+    let value;
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
@@ -29,33 +30,17 @@ const Assertion = function () {
 
     if (loadPropertyTimeout > 0) {
       await browser.waitUntil(async function () {
-        const receivedValue = await getUI5PropertyForSelector(attribute);
-        return String(receivedValue) === String(compareValue);
+        value = await getUI5PropertyForElement(elem, attribute);
+        return String(value) === String(compareValue);
       }, {
         timeout: loadPropertyTimeout,
-        timeoutMsg: "Timeout while waiting for attribute "+  attribute + ". Expected value: "+ String(compareValue),
+        timeoutMsg: "Timeout while waiting for attribute " + attribute + ". Expected value: " + String(compareValue),
         interval: 100,
       });
+    } else {
+      value = await getUI5PropertyForElement(elem, attribute);
     }
-    const value = await getUI5PropertyForSelector(attribute);
     return expect(String(value)).toEqual(String(compareValue));
-
-    async function getUI5PropertyForSelector(attribute) {
-      let value = await elem.getUI5Property(attribute);
-
-      if (value === null || value === undefined || value === "") {
-        value = await ui5.element.getInnerAttribute(elem, "data-" + attribute);
-      }
-
-      if (attribute.toLowerCase() === "text") {
-        try {
-          value = value.trim();
-        } catch (e) {
-          util.console.info("Removing trailing spaces didn't work for 'text' property.");
-        }
-      }
-      return value;
-    }
   };
 
   /**
@@ -72,28 +57,25 @@ const Assertion = function () {
    */
   this.expectAttributeToContain = async function (selector, attribute, compareValue, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000, loadPropertyTimeout = 10000) {
     let elem;
+    let value;
     try {
-      elem = await browser.uiControl(selector, index, timeout);
+      elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
       throw new Error(`Function 'expectAttributeToContain' failed:${error}`);
     }
 
     if (loadPropertyTimeout > 0) {
-      await expect(elem).toHaveAttributeContaining(attribute, compareValue, {
-        wait: loadPropertyTimeout,
-        interval: 100,
-        message: "Timeout while waiting for element."
+      await browser.waitUntil(async function () {
+        value = await getUI5PropertyForElement(elem, attribute);
+        return value.includes(compareValue);
+      }, {
+        timeout: loadPropertyTimeout,
+        timeoutMsg: "Timeout while waiting for attribute " + attribute + ". Expected value: " + String(compareValue),
+        interval: 100
       });
     }
-    let value = await elem.getUI5Property(attribute);
 
-    if (attribute.toLowerCase() === "text") {
-      try {
-        value = value.trim();
-      } catch (e) {
-        util.console.info("Removing trailing spaces didn't work for 'text' property.");
-      }
-    }
+    value = await getUI5PropertyForElement(elem, attribute);
     return expect(value).toContain(compareValue);
   };
 
@@ -215,7 +197,7 @@ const Assertion = function () {
   this.expectBindingPathToBe = async function (selector, attribute, compareValue, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000, loadPropertyTimeout = 10000) {
     let elem;
     try {
-      elem = await browser.uiControl(selector, index, timeout);
+      elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
       throw new Error(`Function 'expectBindingPathToBe' failed:${error}`);
     }
@@ -266,7 +248,7 @@ const Assertion = function () {
   this.expectBindingContextPathToBe = async function (selector, compareValue, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000, loadPropertyTimeout = 10000) {
     let elem;
     try {
-      elem = await browser.uiControl(selector, index, timeout);
+      elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
       throw new Error(`Function 'expectBindingContextPathToBe' failed:${error}`);
     }
@@ -302,7 +284,7 @@ const Assertion = function () {
     let elem;
 
     try {
-      elem = await browser.uiControl(selector, index, timeout);
+      elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
       throw new Error(`Function 'expectToBeVisible' failed:${error}`);
     }
@@ -341,31 +323,22 @@ const Assertion = function () {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeVisibleInViewport(selector);
    */
-  this.expectToBeVisibleInViewport = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000, loadPropertyTimeout = 10000) {
+  this.expectToBeVisibleInViewport = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     let elem;
     try {
-      elem = await browser.uiControl(selector, index, timeout);
+      elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
       throw new Error(`Function 'expectToBeVisibleInViewport' failed:${error}`);
     }
 
     let value = null;
-    if (loadPropertyTimeout > 0) {
-      await expect(elem).toBeVisibleInViewport({
-        wait: loadPropertyTimeout,
-        interval: 100,
-        message: "Timeout by waiting for element to be visible."
-      });
-      await browser.waitUntil(async function () {
-        const isDomVisible = await elem.isDisplayedInViewport();
-        return isDomVisible !== null && isDomVisible !== undefined;
-      }, {
-        timeout: loadPropertyTimeout,
-        timeoutMsg: "Property could not be loaded, timeout was reached."
-      });
-    } else {
+    await browser.waitUntil(async function () {
       value = await elem.isDisplayedInViewport();
-    }
+      return value;
+    }, {
+      timeout: timeout,
+      timeoutMsg: `Function 'expectToBeVisibleInViewport' failed: Given Selector was not in the Viewport.`
+    });
     common.assertion.expectTrue(value);
   };
 
@@ -404,6 +377,24 @@ const Assertion = function () {
     const xpath = "//div[contains(@class, 'sapMMessageToast') and contains(string(), '" + text + "')]";
     const elem = await nonUi5.element.getByXPath(xpath, 0, timeout);
     return nonUi5.assertion.expectToBeVisible(elem);
+  };
+
+
+  async function getUI5PropertyForElement(elem, attribute) {
+    let value = await elem.getUI5Property(attribute);
+
+    if (value === null || value === undefined || value === "") {
+      value = await ui5.element.getInnerAttribute(elem, "data-" + attribute);
+    }
+
+    if (attribute.toLowerCase() === "text") {
+      try {
+        value = value.trim();
+      } catch (e) {
+        util.console.info("Removing trailing spaces didn't work for 'text' property.");
+      }
+    }
+    return value;
   };
 
 };

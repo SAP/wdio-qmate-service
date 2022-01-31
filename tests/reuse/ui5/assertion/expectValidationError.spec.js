@@ -31,10 +31,8 @@ describe("Expect input field 'valueState' not to be 'Error' (unhappy case)", fun
 
   it("Verification", async function () {
     await ui5.assertion.expectToBeVisible(inputFieldWithCheckSelector);
-    // Expected: "Error"
-    // Received: "None"
     await expect(ui5.assertion.expectValidationError(inputFieldWithCheckSelector))
-      .rejects.toThrowError(/None/);
+      .rejects.toThrowError("Timeout while waiting for attribute valueState. Expected value: Error");
   });
 });
 

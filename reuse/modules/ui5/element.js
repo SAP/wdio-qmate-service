@@ -58,7 +58,7 @@ const Element = function () {
    * @example const elem = await ui5.element.getDisplayed(selector);
    */
   this.getDisplayed = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
-    if (!selector) {
+    if (!selector || typeof selector !== "object") {
       _throwSelectorError("getDisplayed");
     }
     const elems = await browser.uiControls(selector, timeout);

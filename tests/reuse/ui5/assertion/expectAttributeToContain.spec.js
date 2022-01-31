@@ -52,7 +52,7 @@ describe("assertion - expectAttributeToContain with wrong attribute (unhappy cas
 
   it("Execution and Verification", async function () {
     await expect(ui5.assertion.expectAttributeToContain(selector, 123, "to the Shopping Cart"))
-      .rejects.toThrow("attribute.toLowerCase is not a function");
+      .rejects.toThrow("waitUntil condition failed with the following reason:");
     await expect(ui5.assertion.expectAttributeToContain(selector, false, "to the Shopping Cart"))
       .rejects.toThrow("javascript error: done is not a function");
     await expect(ui5.assertion.expectAttributeToContain(selector, null, "to the Shopping Cart"))
@@ -69,6 +69,6 @@ describe("assertion - expectAttributeToContain with wrong compareValue (unhappy 
 
   it("Execution and Verification", async function () {
     await expect(ui5.assertion.expectAttributeToContain(selector, "text", 123))
-      .rejects.toThrow(/Received string\w*|d*Welcome to the Shopping Cart/);
+      .rejects.toThrow("Timeout while waiting for attribute text. Expected value:");
   });
 });
