@@ -105,7 +105,7 @@ const OData = function () {
    * let filterString = "Status eq '01'";
    * let res = await service.odata.getEntitySet(service, "A_PurchaseOrder", filterString);
    * 
-   * let select = "CentralPurchaseContract,PurchasingProcessingStatus";
+   * let select = "CentralPurchaseContract,PurchasingProcessingStatus" ;
    * let res = await service.odata.getEntitySet(service, "A_PurchaseOrder", filterString, select);
    * 
    * let queryParams = {
