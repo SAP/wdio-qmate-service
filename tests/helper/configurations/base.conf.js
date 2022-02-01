@@ -60,7 +60,7 @@ exports.config = {
   // - @wdio/cli, @wdio/config, @wdio/sync, @wdio/utils
   // Level of logging verbosity: trace | debug | info | warn | error | silent
   logLevels: {
-    webdriver: 'silent'
+    webdriver: "silent"
   },
 
   //
