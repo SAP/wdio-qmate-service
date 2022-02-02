@@ -17,7 +17,7 @@ const QUnit = function () {
   this.executeTests = async function (path) {
     const url = await browser.getUrl();
     if (url.indexOf("4431") !== -1) {
-      await browser.navigateTo(`https://localhost:4431/${path}`);
+      await browser.navigateTo(`http://localhost:4431/${path}`);
     } else {
       await browser.navigateTo(`http://localhost:34005/${path}`);
     }
