@@ -156,7 +156,7 @@ var LibScripts = function () {
         return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
       }, {
         timeout: browser.config.waitForUI5Timeout,
-        timeoutMsg: "Timeout reached UI5 libraries did not load",
+        timeoutMsg: `Timeout of ${browser.config.waitForUI5Timeout / 1000}s reached, UI5 libraries did not load`,
         interval: 10
       });
 
@@ -167,7 +167,7 @@ var LibScripts = function () {
         return (await browser.execute(clientsidescripts.loadUI5Page, mScriptParams)) === true;
       }, {
         timeout: browser.config.waitForUI5Timeout,
-        timeoutMsg: "Timeout reached UI5 page did not load",
+        timeoutMsg: `Timeout of ${browser.config.waitForUI5Timeout / 1000}s reached, UI5 page did not load`,
         interval: 10
       });
     } catch (error) {
@@ -283,7 +283,7 @@ var LibScripts = function () {
 
     }, {
       timeout: finalTimeout,
-      timeoutMsg: `uiControlExecuteLocator(): No visible elements found with selector: ${util.formatter.stringifyJSON(ui5Selector)}`,
+      timeoutMsg: `uiControlExecuteLocator(): No visible elements found with selector: ${util.formatter.stringifyJSON(ui5Selector)} in ${finalTimeout / 1000}s`,
       interval: 50
     });
     if (elems && Array.isArray(elems) && elems.length > 0 &&
