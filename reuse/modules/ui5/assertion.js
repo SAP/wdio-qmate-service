@@ -67,15 +67,16 @@ const Assertion = function () {
     if (loadPropertyTimeout > 0) {
       await browser.waitUntil(async function () {
         value = await getUI5PropertyForElement(elem, attribute);
+        console.log("expectAttributeToContain actual value: ", value);
         return value.includes(compareValue);
       }, {
         timeout: loadPropertyTimeout,
-        timeoutMsg: `Timeout while waiting for attribute ${attribute} Expected value: ${String(compareValue)}`,
+        timeoutMsg: `Timeout while waiting for attribute '${attribute}'. Actual value doesn't include the expected value: '${String(compareValue)}'.`,
         interval: 100
       });
+    } else {
+      value = await getUI5PropertyForElement(elem, attribute);
     }
-
-    value = await getUI5PropertyForElement(elem, attribute);
     return expect(value).toContain(compareValue);
   };
 
