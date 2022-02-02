@@ -125,6 +125,7 @@
   "dependencies": {
     "@sap_oss/odata-library": "^0.10.2",
     "axios": "^0.24.0",
+    "query-string": "^7.1.0",
     "curl": "^0.1.4",
     "fs-extra": "^10.0.0",
     "path": "^0.12.7",
