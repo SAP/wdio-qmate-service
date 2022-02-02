@@ -47,8 +47,7 @@ describe("Expect input field 'valueState' not to be 'None' (unhappy case)", func
   });
 
   it("Verification", async function () {
-    // Expected: "None"
-    // Received: "Error"
-    await expect(ui5.assertion.expectValidationSuccess(inputFieldWithCheckSelector)).rejects.toThrowError(/Error/);
+    await expect(ui5.assertion.expectValidationSuccess(inputFieldWithCheckSelector, 0, 2500, 0))
+      .rejects.toThrowError(/Error/);
   });
 });

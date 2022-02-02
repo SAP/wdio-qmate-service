@@ -1,4 +1,7 @@
 "use strict";
+
+const element = require("../nonUi5/element");
+
 /**
  * @class element
  * @memberof ui5
@@ -58,7 +61,7 @@ const Element = function () {
    * @example const elem = await ui5.element.getDisplayed(selector);
    */
   this.getDisplayed = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
-    if (!selector) {
+    if (!selector || typeof selector !== "object") {
       _throwSelectorError("getDisplayed");
     }
     const elems = await browser.uiControls(selector, timeout);
@@ -195,12 +198,34 @@ const Element = function () {
    * @example const elemValue = await ui5.element.getPropertyValue(selector, "text");
    */
   this.getPropertyValue = async function (selector, property, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+    let attrValue;
     try {
-      const elem = await this.getDisplayed(selector, index, timeout);
-      return String(await elem.getUI5Property(property));
+      let elem = await this.getDisplayed(selector, index, timeout);
+      attrValue = await elem.getUI5Property(property);
+
+      if (attrValue === null || attrValue === undefined || attrValue === "") {
+        attrValue = await this.getInnerAttribute(elem, "data-" + property);
+      }
+      if (attrValue === null || attrValue === undefined) {
+        throw new Error("Function 'getPropertyValue' failed: Not existing property");
+      }
     } catch (error) {
-      throw new Error("getPropertyValue() failed with " + error);
+      throw new Error(`Function 'getPropertyValue' failed: ${error}`);
     }
+    return attrValue;
+  };
+
+  this.getInnerAttribute = async function (elem, name) {
+    return elem.getAttribute(name).then(value => {
+      if (value !== null) {
+        return value;
+      }
+
+      return browser.executeScript(`
+        function getAttribute(webElement, attributeName) {
+            return webElement.getAttribute(attributeName);        
+        }`, [elem, name]);
+    });
   };
 
   /**

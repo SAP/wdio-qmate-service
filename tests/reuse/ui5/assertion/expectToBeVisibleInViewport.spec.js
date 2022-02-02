@@ -43,7 +43,7 @@ describe("assertion - expectToBeVisibleInViewport with element outside viewport 
   });
 
   it("Verification", async function () {
-    await expect(ui5.assertion.expectToBeVisibleInViewport(selector))
-      .rejects.toThrow(/Expected\w*|\d*false/);
+    await expect(ui5.assertion.expectToBeVisibleInViewport(selector, 0, 2500))
+      .rejects.toThrow("Function 'expectToBeVisibleInViewport' failed: Given Selector was not in the Viewport.");
   });
 });

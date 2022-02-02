@@ -59,16 +59,18 @@ exports.config = {
   // - @wdio/sumologic-reporter
   // - @wdio/cli, @wdio/config, @wdio/sync, @wdio/utils
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  // logLevels: {
-  //     webdriver: 'info',
-  //     '@wdio/applitools-service': 'info'
-  // },
+  logLevels: {
+    webdriver: "silent"
+  },
 
   //
   // Legacy flag
   failFast: true,
   // If you only want to run your tests until a specific amount of tests have failed use
   // bail 1, fail fast, bail 0 - dont bail.
+  // bail 1 -> number of tests allowed to failed 0 | jobs get aborted 
+  // bail 2 -> if you want to allow one test to fail and continue set bail to 2 and so on.
+  // bail 0 -> every test will be executed no matter if a tests fails or not
   bail: this.failFast ? 1 : 0,
   //
   // Default timeout for all waitFor* commands.
@@ -99,7 +101,7 @@ exports.config = {
 
   // The number of times to retry the entire specfile when it fails as a whole
   //specFileRetries: 1,
-  // DIsable coverage
+  // Disable coverage
   coverage: {
     status: false
   },
@@ -126,8 +128,7 @@ exports.config = {
   // See the full list at http://mochajs.org/
   mochaOpts: {
     ui: "bdd",
-    timeout: 200000,
-    bail: true
+    timeout: 200000
   },
   //
   // =====

@@ -2,6 +2,36 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
+
+
+describe("userInteraction - clearAndFillAndRetry - smartField", function () {
+  it("Preparation", async function () {
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
+    await handleCookiesConsent();
+  });
+
+  it("Execution & Verification", async function () {
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.ui.comp.sample.smartfield.Overview.Main",
+        "metadata": "sap.ui.comp.smartfield.SmartField",
+        "id": "*idQuantity",
+        "value": [{
+          "path": "Quantity"
+        }]
+      }
+    };
+
+    const value = "69696";
+    const index = 0;
+    const timeout = 30000;
+    const retries = 2;
+    const interval = 2000;
+    const verify = true;
+    await ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout, retries, interval, verify);
+  });
+});
+
 describe("userInteraction - clearAndFillAndRetry - textarea", function () {
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
