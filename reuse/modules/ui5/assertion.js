@@ -67,7 +67,6 @@ const Assertion = function () {
     if (loadPropertyTimeout > 0) {
       await browser.waitUntil(async function () {
         value = await getUI5PropertyForElement(elem, attribute);
-        console.log("expectAttributeToContain actual value: ", value);
         return value.includes(compareValue);
       }, {
         timeout: loadPropertyTimeout,
