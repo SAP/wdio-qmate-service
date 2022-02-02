@@ -1,4 +1,7 @@
 "use strict";
+
+const element = require("../nonUi5/element");
+
 /**
  * @class element
  * @memberof ui5
@@ -195,17 +198,21 @@ const Element = function () {
    * @example const elemValue = await ui5.element.getPropertyValue(selector, "text");
    */
   this.getPropertyValue = async function (selector, property, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+    let attrValue;
     try {
       let elem = await this.getDisplayed(selector, index, timeout);
-      let attrValue = await elem.getUI5Property(property);
+      attrValue = await elem.getUI5Property(property);
 
       if (attrValue === null || attrValue === undefined || attrValue === "") {
         attrValue = await this.getInnerAttribute(elem, "data-" + property);
       }
-      return attrValue;
+      if (attrValue === null || attrValue === undefined) {
+        throw new Error("Function 'getPropertyValue' failed: Not existing property");
+      }
     } catch (error) {
-      throw new Error("getPropertyValue() failed with " + error);
+      throw new Error(`Function 'getPropertyValue' failed: ${error}`);
     }
+    return attrValue;
   };
 
   // Executes getAttribute since from Chrome Version 91 is moving completely to W3C and the function is not supported anymore
@@ -218,7 +225,7 @@ const Element = function () {
       return browser.executeScript(`
         function getAttribute(webElement, attributeName) {
             return webElement.getAttribute(attributeName);        
-        }`, element, name);
+        }`, [elem, name]);
     });
   };
 

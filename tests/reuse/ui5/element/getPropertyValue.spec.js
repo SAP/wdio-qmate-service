@@ -28,13 +28,11 @@ describe("element - getPropertyValue", function () {
 
 describe("element - getPropertyValue - wrong property", function () {
 
-  let value;
-
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
 
-  it("Execution", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.ui.demo.cart.view.Home",
@@ -45,11 +43,8 @@ describe("element - getPropertyValue - wrong property", function () {
     const index = 0;
     const timeout = 30000;
     const property = "vbcza";
-    value = await ui5.element.getPropertyValue(selector, property, index, timeout);
-  });
-
-  it("Verification", async function () {
-    await common.assertion.expectUnequal(value, "Laptops");
+    expect(ui5.element.getPropertyValue(selector, property, index, timeout))
+      .rejects.toThrow("Function 'getPropertyValue' failed: Not existing property");
   });
 });
 
@@ -91,6 +86,6 @@ describe("element - getPropertyValue - boolean property", function () {
     const timeout = 30000;
     const property = "selected";
     // need to make sure that getPropertyValue returns a stringified boolean
-    await expect(await ui5.element.getPropertyValue(selector, property, index, timeout)).toStrictEqual("false");
+    await expect(await ui5.element.getPropertyValue(selector, property, index, timeout)).toStrictEqual(false);
   });
 });

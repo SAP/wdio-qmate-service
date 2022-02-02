@@ -101,7 +101,7 @@ exports.config = {
 
   // The number of times to retry the entire specfile when it fails as a whole
   //specFileRetries: 1,
-  // DIsable coverage
+  // Disable coverage
   coverage: {
     status: false
   },

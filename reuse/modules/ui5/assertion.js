@@ -70,7 +70,7 @@ const Assertion = function () {
         return value.includes(compareValue);
       }, {
         timeout: loadPropertyTimeout,
-        timeoutMsg: "Timeout while waiting for attribute " + attribute + ". Expected value: " + String(compareValue),
+        timeoutMsg: `Timeout while waiting for attribute ${attribute} Expected value: ${String(compareValue)}`,
         interval: 100
       });
     }
