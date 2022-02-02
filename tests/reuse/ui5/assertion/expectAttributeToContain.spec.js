@@ -36,11 +36,11 @@ describe("assertion - expectAttributeToContain with wrong selector (unhappy case
         }]
       }
     };
-    await expect(ui5.assertion.expectAttributeToContain(selectorWithATypo, "text", "to the Shopping Cart"))
+    await expect(ui5.assertion.expectAttributeToContain(selectorWithATypo, "text", "to the Shopping Cart", 0, 5000))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
 
     // skip selector
-    await expect(ui5.assertion.expectAttributeToContain("text", "to the Shopping Cart"))
+    await expect(ui5.assertion.expectAttributeToContain("text", "to the Shopping Cart", 0, 5000))
       .rejects.toThrow("Function 'expectAttributeToContain' failed:");
   });
 });
@@ -51,13 +51,13 @@ describe("assertion - expectAttributeToContain with wrong attribute (unhappy cas
   });
 
   it("Execution and Verification", async function () {
-    await expect(ui5.assertion.expectAttributeToContain(selector, 123, "to the Shopping Cart"))
-      .rejects.toThrow("attribute.toLowerCase is not a function");
-    await expect(ui5.assertion.expectAttributeToContain(selector, false, "to the Shopping Cart"))
+    await expect(ui5.assertion.expectAttributeToContain(selector, 123, "to the Shopping Cart", 0, 5000))
+      .rejects.toThrow("waitUntil condition failed with the following reason:");
+    await expect(ui5.assertion.expectAttributeToContain(selector, false, "to the Shopping Cart", 0, 5000))
       .rejects.toThrow("javascript error: done is not a function");
-    await expect(ui5.assertion.expectAttributeToContain(selector, null, "to the Shopping Cart"))
+    await expect(ui5.assertion.expectAttributeToContain(selector, null, "to the Shopping Cart", 0, 5000))
       .rejects.toThrow("javascript error: done is not a function");
-    await expect(ui5.assertion.expectAttributeToContain(selector, undefined, "to the Shopping Cart"))
+    await expect(ui5.assertion.expectAttributeToContain(selector, undefined, "to the Shopping Cart", 0, 5000))
       .rejects.toThrow("javascript error: done is not a function");
   });
 });
@@ -69,6 +69,6 @@ describe("assertion - expectAttributeToContain with wrong compareValue (unhappy 
 
   it("Execution and Verification", async function () {
     await expect(ui5.assertion.expectAttributeToContain(selector, "text", 123))
-      .rejects.toThrow(/Received string\w*|d*Welcome to the Shopping Cart/);
+      .rejects.toThrow("Timeout while waiting for attribute 'text'. Actual value doesn't include the expected value: '123'."  );
   });
 });
