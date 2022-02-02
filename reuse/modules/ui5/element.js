@@ -215,7 +215,6 @@ const Element = function () {
     return attrValue;
   };
 
-  // Executes getAttribute since from Chrome Version 91 is moving completely to W3C and the function is not supported anymore
   this.getInnerAttribute = async function (elem, name) {
     return elem.getAttribute(name).then(value => {
       if (value !== null) {
