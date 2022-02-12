@@ -23,6 +23,7 @@ const Session = function () {
     }
 
     let authenticator;
+    let messageClass;
     try {
       await browser.waitUntil(async function () {
         try {
@@ -30,6 +31,7 @@ const Session = function () {
           const elem = await nonUi5.element.getByCss(fioriFormId, 0, 7500);
           await nonUi5.element.isVisible(elem);
           authenticator = ui5.authenticators.fioriForm;
+          messageClass = ui5.authenticators.fioriForm.messageClass;
           return true;
         } catch (e) {
           // continue
@@ -39,15 +41,17 @@ const Session = function () {
           const elem = await nonUi5.element.getByCss(sapCloudFormId, 0, 7500);
           await nonUi5.element.isVisible(elem);
           authenticator = ui5.authenticators.sapCloudForm;
+          messageClass = ui5.authenticators.sapCloudForm.messageClass;
           return true;
         } catch (e) {
           return false;
         }
       }, timeout);
-      await _loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
       throw new Error("login failed. Could not find the login page within the given time. \n" + error);
     }
+
+    await _loginWithUsernameAndPassword(username, password, authenticator, verify, messageClass);
   };
 
   /**
@@ -66,7 +70,8 @@ const Session = function () {
 
     try {
       const authenticator = ui5.authenticators.fioriForm;
-      return await _loginWithUsernameAndPassword(username, password, authenticator, verify);
+      const messageClass = ui5.authenticators.fioriForm.messageClass;
+      await _loginWithUsernameAndPassword(username, password, authenticator, verify, messageClass);
     } catch (error) {
       throw new Error(`Function 'loginFiori' failed: ${error}`);
     }
@@ -88,7 +93,8 @@ const Session = function () {
 
     try {
       const authenticator = await ui5.authenticators.sapCloudForm;
-      return await _loginWithUsernameAndPassword(username, password, authenticator, verify);
+      const messageClass = ui5.authenticators.sapCloudForm.messageClass;
+      return await _loginWithUsernameAndPassword(username, password, authenticator, verify, messageClass);
     } catch (error) {
       throw new Error(`Function 'loginSapCloud' failed: ${error}`);
     }
@@ -242,11 +248,10 @@ const Session = function () {
 
 
   // =================================== HELPER ===================================
-  async function _loginWithUsernameAndPassword(username, password = "Welcome1!", authenticator = ui5.authenticators.fioriForm, verify = false) {
+  async function _loginWithUsernameAndPassword(username, password = "Welcome1!", authenticator = ui5.authenticators.fioriForm, verify = false, messageClass) {
     let usernameField = null;
     let passwordField = null;
     let logonField = null;
-
     try {
       await browser.waitUntil(async function () {
         usernameField = await $(authenticator.usernameFieldSelector);
@@ -267,6 +272,22 @@ const Session = function () {
     } catch (error) {
       throw new Error("An exception was caught during the login. " +
         "Possible reasons are: the system is down, a previous script failed, errors in config file. \n" + error);
+    }
+
+    // check for possible messages on ui
+    if (messageClass) {
+      let uiErrorMessagesFound = false;
+      let messageText, messageDiv;
+      try {
+        messageDiv = await nonUi5.element.getByClass(messageClass, 0, 3000);
+        messageText = await nonUi5.element.getValue(messageDiv, "text");
+        uiErrorMessagesFound = true;
+      } catch (e){
+        //no error messages found in login
+      }
+      if (uiErrorMessagesFound){
+        throw new Error(`Failure message while login "${messageText}"`);
+      }
     }
 
     if (verify) {
