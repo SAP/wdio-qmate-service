@@ -2,6 +2,23 @@
 // Note: need to dynamically switch base urls in the spec as we run tests against multiple systems
 // Note 1: need to dynamically switch base urls in the spec as we run tests against multiple systems
 // Note 2: "https://super-sensitive.domain.name/ui" is down from time to time, so tests are skipped
+// Note 4: We skip Invalid credentials test for above reason mentioned, anyway, all cases should be
+//         tested while doing any future developments.
+
+describe.skip("session - loginSapCloud - Invalid credentials", function () {
+  it("Preparation", async function () {
+    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    await common.navigation.navigateToUrl(browser.config.baseUrl);
+  });
+
+  it("Execution and Verification", async function () {
+    await expect(ui5.session.loginSapCloud("Caput", "Draconis"))
+      .rejects.toThrow(/Failure message while login "Sorry, we could not authenticate you. Try again."/);
+  });
+
+
+});
+
 describe.skip("session - loginSapCloud", function () {
   it("Preparation", async function () {
     util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
