@@ -1392,7 +1392,7 @@ Expects the passed elements attribute to be the compare value.
 | compareValue | <code>String</code> \| <code>Boolean</code> \| <code>Number</code> \| <code>Object</code> |  | The compare value. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-| [loadPropertyTimeout] | <code>Number</code> | <code>0</code> | The timeout to wait for a specific property to have the given compare value. |
+| [loadPropertyTimeout] | <code>Number</code> | <code>10000</code> | The timeout to wait for a specific property to have the given compare value. |
 
 **Example**  
 ```js
@@ -1412,7 +1412,7 @@ Expects the passed elements attribute to contain the compare value.
 | compareValue | <code>String</code> |  | The compare value. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-| [loadPropertyTimeout] | <code>Number</code> | <code>0</code> | The timeout to wait for a specific property to have the given compare value. |
+| [loadPropertyTimeout] | <code>Number</code> | <code>10000</code> | The timeout to wait for a specific property to have the given compare value. |
 
 **Example**  
 ```js
@@ -1431,7 +1431,7 @@ Expects the passed elements text attribute to be the compare value.
 | compareValue | <code>String</code> |  | The compare value. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-| [loadPropertyTimeout] | <code>Number</code> | <code>0</code> | The timeout to wait for a specific property to have the given compare value. |
+| [loadPropertyTimeout] | <code>Number</code> | <code>10000</code> | The timeout to wait for a specific property to have the given compare value. |
 
 **Example**  
 ```js
@@ -1450,7 +1450,7 @@ Expects the passed elements value attribute to be the compare value.
 | compareValue | <code>String</code> \| <code>Number</code> |  | The compare value. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-| [loadPropertyTimeout] | <code>Number</code> | <code>0</code> | The timeout to wait for a specific property to have the given compare value. |
+| [loadPropertyTimeout] | <code>Number</code> | <code>10000</code> | The timeout to wait for a specific property to have the given compare value. |
 
 **Example**  
 ```js
@@ -1485,7 +1485,7 @@ Expects that the element is enabled to the user.
 | selector | <code>Object</code> |  | The selector describing the element. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-| [loadPropertyTimeout] | <code>Number</code> | <code>0</code> | The timeout to wait for a specific property to have the given compare value. |
+| [loadPropertyTimeout] | <code>Number</code> | <code>10000</code> | The timeout to wait for a specific property to have the given compare value. |
 
 **Example**  
 ```js
@@ -1503,7 +1503,7 @@ Expects that the element is enabled to the user.
 | selector | <code>Object</code> |  | The selector describing the element. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-| [loadPropertyTimeout] | <code>Number</code> | <code>0</code> | The timeout to wait for a specific property to have the given compare value. |
+| [loadPropertyTimeout] | <code>Number</code> | <code>10000</code> | The timeout to wait for a specific property to have the given compare value. |
 
 **Example**  
 ```js
@@ -1521,7 +1521,7 @@ Expects the "valueState" of the element to be "Error".
 | selector | <code>Object</code> |  | The selector describing the element. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-| [loadPropertyTimeout] | <code>Number</code> | <code>0</code> | The timeout to wait for a specific property to have the given compare value. |
+| [loadPropertyTimeout] | <code>Number</code> | <code>10000</code> | The timeout to wait for a specific property to have the given compare value. |
 
 **Example**  
 ```js
@@ -1539,7 +1539,7 @@ Expects the valueState of the element to be "None".
 | selector | <code>Object</code> |  | The selector describing the element. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-| [loadPropertyTimeout] | <code>Number</code> | <code>0</code> | The timeout to wait for a specific property to have the given compare value. |
+| [loadPropertyTimeout] | <code>Number</code> | <code>10000</code> | The timeout to wait for a specific property to have the given compare value. |
 
 **Example**  
 ```js
@@ -1559,7 +1559,7 @@ Expects the passed elements attribute binding-path to contain the compare value
 | compareValue | <code>String</code> \| <code>Array.&lt;String&gt;</code> |  | The compare value(s). |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-| [loadPropertyTimeout] | <code>Number</code> | <code>0</code> | The timeout to wait for a specific property to have the given compare value. |
+| [loadPropertyTimeout] | <code>Number</code> | <code>10000</code> | The timeout to wait for a specific property to have the given compare value. |
 
 **Example**  
 ```js
@@ -1579,7 +1579,7 @@ Expects the passed elements binding-context-path to be the compare value.
 | compareValue | <code>String</code> |  | The compare value. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-| [loadPropertyTimeout] | <code>Number</code> | <code>0</code> | The timeout to wait for a specific property to have the given compare value. |
+| [loadPropertyTimeout] | <code>Number</code> | <code>10000</code> | The timeout to wait for a specific property to have the given compare value. |
 
 **Example**  
 ```js
@@ -1597,7 +1597,7 @@ Expects that the element is visible to the user.
 | selector | <code>Object</code> |  | The selector describing the element. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-| [loadPropertyTimeout] | <code>Number</code> | <code>0</code> | The timeout to wait for a specific property to have the given compare value. |
+| [loadPropertyTimeout] | <code>Number</code> | <code>10000</code> | The timeout to wait for a specific property to have the given compare value. |
 
 **Example**  
 ```js
@@ -1615,7 +1615,7 @@ Expects that the element is visible in the viewport.
 | selector | <code>Object</code> |  | The selector describing the element. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-| [loadPropertyTimeout] | <code>Number</code> | <code>0</code> | The timeout to wait for a specific property to have the given compare value. |
+| [loadPropertyTimeout] | <code>Number</code> | <code>10000</code> | The timeout to wait for a specific property to have the given compare value. |
 
 **Example**  
 ```js
@@ -4487,7 +4487,7 @@ GET's the EntitySet collection.
 
 **Example**  
 ```js
-const url = "https://super-sensitive.domain.name/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";srv = await service.odata.init(url, user, password);let filterString = "Status eq '01'";let res = await service.odata.getEntitySet(service, "A_PurchaseOrder", filterString);let select = "CentralPurchaseContract,PurchasingProcessingStatus";let res = await service.odata.getEntitySet(service, "A_PurchaseOrder", filterString, select);let queryParams = {"$top" : 5,"$skip" : 10,};let res = await service.odata.getEntitySet(service, "A_PurchaseOrder", filterString, select, queryParams);
+const url = "https://super-sensitive.domain.name/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";srv = await service.odata.init(url, user, password);let filterString = "Status eq '01'";let res = await service.odata.getEntitySet(service, "A_PurchaseOrder", filterString);let select = "CentralPurchaseContract,PurchasingProcessingStatus" ;let res = await service.odata.getEntitySet(service, "A_PurchaseOrder", filterString, select);let queryParams = {"$top" : 5,"$skip" : 10,};let res = await service.odata.getEntitySet(service, "A_PurchaseOrder", filterString, select, queryParams);
 ```
 <a name="service.odata.isFeatureToggleActivated"></a>
 
