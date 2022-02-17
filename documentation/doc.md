@@ -588,7 +588,7 @@ Global namespace for util modules.
         * [.startMeasurement(stepName)](#util.performance.startMeasurement)
         * [.stopMeasurement()](#util.performance.stopMeasurement)
         * [.finishMeasurement()](#util.performance.finishMeasurement)
-        * [.stopMeasurement()](#util.performance.stopMeasurement)
+        * [.generateResultsInExcel()](#util.performance.generateResultsInExcel)
         * [.uploadToIpa()](#util.performance.uploadToIpa)
         * [.stopSupa()](#util.performance.stopSupa)
     * [.system](#util.system)
@@ -1221,7 +1221,7 @@ await util.function.executeOptional(async () => { await ui5.userInteraction.fil
     * [.startMeasurement(stepName)](#util.performance.startMeasurement)
     * [.stopMeasurement()](#util.performance.stopMeasurement)
     * [.finishMeasurement()](#util.performance.finishMeasurement)
-    * [.stopMeasurement()](#util.performance.stopMeasurement)
+    * [.generateResultsInExcel()](#util.performance.generateResultsInExcel)
     * [.uploadToIpa()](#util.performance.uploadToIpa)
     * [.stopSupa()](#util.performance.stopSupa)
 
@@ -1273,9 +1273,9 @@ When all measurements all done, it is necessary to call function finishMeasureme
 ```js
 await util.performance.finishMeasurement();
 ```
-<a name="util.performance.stopMeasurement"></a>
+<a name="util.performance.generateResultsInExcel"></a>
 
-#### performance.stopMeasurement()
+#### performance.generateResultsInExcel()
 SUPA generates an Excel file with measurement results
 
 **Kind**: static method of [<code>performance</code>](#util.performance)  
