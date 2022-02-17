@@ -46,14 +46,6 @@ Global namespace for common modules.
     * [.navigation](#common.navigation)
         * [.navigateToUrl(url)](#common.navigation.navigateToUrl)
         * [.navigateToUrlAndRetry(url, [retries], [interval])](#common.navigation.navigateToUrlAndRetry)
-    * [.performance](#common.performance)
-        * [.configureSupa(configuration)](#common.performance.configureSupa)
-        * [.startMeasurement(stepName)](#common.performance.startMeasurement)
-        * [.stopMeasurement()](#common.performance.stopMeasurement)
-        * [.finishMeasurement()](#common.performance.finishMeasurement)
-        * [.stopMeasurement()](#common.performance.stopMeasurement)
-        * [.uploadToIpa()](#common.performance.uploadToIpa)
-        * [.stopSupa()](#common.performance.stopSupa)
     * [.userInteraction](#common.userInteraction)
         * [.fillActive(value)](#common.userInteraction.fillActive)
         * [.fillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.fillActiveAndRetry)
@@ -369,98 +361,6 @@ Navigates to the passed url and retries the function in case of a failure.
 **Example**  
 ```js
 await common.navigation.navigateToUrlAndRetry("www.sap.com");
-```
-<a name="common.performance"></a>
-
-### common.performance
-**Kind**: static class of [<code>common</code>](#common)  
-
-* [.performance](#common.performance)
-    * [.configureSupa(configuration)](#common.performance.configureSupa)
-    * [.startMeasurement(stepName)](#common.performance.startMeasurement)
-    * [.stopMeasurement()](#common.performance.stopMeasurement)
-    * [.finishMeasurement()](#common.performance.finishMeasurement)
-    * [.stopMeasurement()](#common.performance.stopMeasurement)
-    * [.uploadToIpa()](#common.performance.uploadToIpa)
-    * [.stopSupa()](#common.performance.stopSupa)
-
-<a name="common.performance.configureSupa"></a>
-
-#### performance.configureSupa(configuration)
-Sends new configuration to an existing instance of SUPA with published REST API
-
-**Kind**: static method of [<code>performance</code>](#common.performance)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| configuration | <code>Object</code> | object with configuration. Mandatory is property config with path to supa properties file |
-
-**Example**  
-```jsconst configuration = {   config: "./test/supa-config/F5549RepostLineItems.properties",   ipaConfig: {     project: "FXUBRQ24",     scenario: "F5549 - Repost Line Items",     variant: "Performance",     release: "CE2202",     comment: "Test automation",     username: "fxubrq24",     password: "Oqk2"};await common.performance.configureSupa(configuration);```
-<a name="common.performance.startMeasurement"></a>
-
-#### performance.startMeasurement(stepName)
-SUPA starts the measurement of given step
-
-**Kind**: static method of [<code>performance</code>](#common.performance)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| stepName | <code>String</code> | Name of the step as specified in properties file |
-
-**Example**  
-```js
-await common.performance.startMeasurement("Step 1");
-```
-<a name="common.performance.stopMeasurement"></a>
-
-#### performance.stopMeasurement()
-SUPA stops current measurement
-
-**Kind**: static method of [<code>performance</code>](#common.performance)  
-**Example**  
-```js
-await common.performance.stopMeasurement();
-```
-<a name="common.performance.finishMeasurement"></a>
-
-#### performance.finishMeasurement()
-When all measurements all done, it is necessary to call function finishMeasurement that stores SUPA results locally
-
-**Kind**: static method of [<code>performance</code>](#common.performance)  
-**Example**  
-```js
-await common.performance.finishMeasurement();
-```
-<a name="common.performance.stopMeasurement"></a>
-
-#### performance.stopMeasurement()
-SUPA generates an Excel file with measurement results
-
-**Kind**: static method of [<code>performance</code>](#common.performance)  
-**Example**  
-```js
-await common.performance.generateResultsInExcel();
-```
-<a name="common.performance.uploadToIpa"></a>
-
-#### performance.uploadToIpa()
-SUPA uploads stored results to IPA
-
-**Kind**: static method of [<code>performance</code>](#common.performance)  
-**Example**  
-```js
-await common.performance.uploadToIpa();
-```
-<a name="common.performance.stopSupa"></a>
-
-#### performance.stopSupa()
-Kills running SUPA instance
-
-**Kind**: static method of [<code>performance</code>](#common.performance)  
-**Example**  
-```js
-await common.performance.stopSupa();
 ```
 <a name="common.userInteraction"></a>
 
