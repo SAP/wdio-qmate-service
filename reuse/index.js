@@ -31,6 +31,7 @@ const ReuseLibrary = function () {
       file: require("./modules/util/file.js"),
       formatter: require("./modules/util/formatter.js"),
       function: require("./modules/util/function.js"),
+      performance: require("./modules/util/performance.js"),
       system: require("./modules/util/system.js")
     };
     global.util = {
