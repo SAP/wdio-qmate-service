@@ -72,7 +72,7 @@ const Performance = function () {
   };
 
   /**
-   * @function stopMeasurement
+   * @function generateResultsInExcel
    * @memberOf util.performance
    * @description SUPA generates an Excel file with measurement results
    * @example await util.performance.generateResultsInExcel();
