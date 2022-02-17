@@ -13,7 +13,6 @@ const ReuseLibrary = function () {
       assertion: require("./modules/common/assertion.js"),
       date: require("./modules/common/date.js"),
       navigation: require("./modules/common/navigation.js"),
-      performance: require("./modules/common/performance.js"),
       userInteraction: require("./modules/common/userInteraction.js")
     };
     global.common = {
