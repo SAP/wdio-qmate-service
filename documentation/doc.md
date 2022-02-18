@@ -583,6 +583,14 @@ Global namespace for util modules.
     * [.function](#util.function)
         * [.retry(fct, args, [retries], [interval], [scope])](#util.function.retry)
         * [.executeOptional(fct, args)](#util.function.executeOptional)
+    * [.performance](#util.performance)
+        * [.configureSupa(configuration)](#util.performance.configureSupa)
+        * [.startMeasurement(stepName)](#util.performance.startMeasurement)
+        * [.stopMeasurement()](#util.performance.stopMeasurement)
+        * [.finishMeasurement()](#util.performance.finishMeasurement)
+        * [.generateResultsInExcel()](#util.performance.generateResultsInExcel)
+        * [.uploadToIpa()](#util.performance.uploadToIpa)
+        * [.stopSupa()](#util.performance.stopSupa)
     * [.system](#util.system)
         * [.getOS()](#util.system.getOS) ⇒ <code>String</code>
 
@@ -1202,6 +1210,98 @@ await util.function.executeOptional(ui5.userInteraction.fill, [selector, value])
 **Example**  
 ```js
 await util.function.executeOptional(async () => { await ui5.userInteraction.fill(selector, "ABC");}, []);
+```
+<a name="util.performance"></a>
+
+### util.performance
+**Kind**: static class of [<code>util</code>](#util)  
+
+* [.performance](#util.performance)
+    * [.configureSupa(configuration)](#util.performance.configureSupa)
+    * [.startMeasurement(stepName)](#util.performance.startMeasurement)
+    * [.stopMeasurement()](#util.performance.stopMeasurement)
+    * [.finishMeasurement()](#util.performance.finishMeasurement)
+    * [.generateResultsInExcel()](#util.performance.generateResultsInExcel)
+    * [.uploadToIpa()](#util.performance.uploadToIpa)
+    * [.stopSupa()](#util.performance.stopSupa)
+
+<a name="util.performance.configureSupa"></a>
+
+#### performance.configureSupa(configuration)
+Sends new configuration to an existing instance of SUPA with published REST API
+
+**Kind**: static method of [<code>performance</code>](#util.performance)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| configuration | <code>Object</code> | object with configuration. Mandatory is property config with path to supa properties file |
+
+**Example**  
+```jsconst configuration = {   config: "./test/supa-config/F5549RepostLineItems.properties",   ipaConfig: {     project: "FXUBRQ24",     scenario: "F5549 - Repost Line Items",     variant: "Performance",     release: "CE2202",     comment: "Test automation",     username: "fxubrq24",     password: "Oqk2"};await util.performance.configureSupa(configuration);```
+<a name="util.performance.startMeasurement"></a>
+
+#### performance.startMeasurement(stepName)
+SUPA starts the measurement of given step
+
+**Kind**: static method of [<code>performance</code>](#util.performance)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| stepName | <code>String</code> | Name of the step as specified in properties file |
+
+**Example**  
+```js
+await util.performance.startMeasurement("Step 1");
+```
+<a name="util.performance.stopMeasurement"></a>
+
+#### performance.stopMeasurement()
+SUPA stops current measurement
+
+**Kind**: static method of [<code>performance</code>](#util.performance)  
+**Example**  
+```js
+await util.performance.stopMeasurement();
+```
+<a name="util.performance.finishMeasurement"></a>
+
+#### performance.finishMeasurement()
+When all measurements all done, it is necessary to call function finishMeasurement that stores SUPA results locally
+
+**Kind**: static method of [<code>performance</code>](#util.performance)  
+**Example**  
+```js
+await util.performance.finishMeasurement();
+```
+<a name="util.performance.generateResultsInExcel"></a>
+
+#### performance.generateResultsInExcel()
+SUPA generates an Excel file with measurement results
+
+**Kind**: static method of [<code>performance</code>](#util.performance)  
+**Example**  
+```js
+await util.performance.generateResultsInExcel();
+```
+<a name="util.performance.uploadToIpa"></a>
+
+#### performance.uploadToIpa()
+SUPA uploads stored results to IPA
+
+**Kind**: static method of [<code>performance</code>](#util.performance)  
+**Example**  
+```js
+await util.performance.uploadToIpa();
+```
+<a name="util.performance.stopSupa"></a>
+
+#### performance.stopSupa()
+Kills running SUPA instance
+
+**Kind**: static method of [<code>performance</code>](#util.performance)  
+**Example**  
+```js
+await util.performance.stopSupa();
 ```
 <a name="util.system"></a>
 
