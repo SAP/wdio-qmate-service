@@ -275,7 +275,7 @@ const UserInteraction = function () {
     if (value) {
       const ui5ControlProperties = {
         "elementProperties": {
-          "metadata": "sap.ui.core.Item",
+          "metadata": "sap.ui.core.*Item",
           "mProperties": {
             "text": value
           }
