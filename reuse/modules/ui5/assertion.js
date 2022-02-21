@@ -33,7 +33,7 @@ const Assertion = function () {
         return String(value) === String(compareValue);
       }, {
         timeout: loadPropertyTimeout,
-        timeoutMsg: "Timeout while waiting for attribute " + attribute + ". Expected value: " + String(compareValue),
+        timeoutMsg: "Function 'expectAttributeToBe' failed: Timeout while waiting for attribute " + attribute + ". Expected value: " + String(compareValue),
         interval: 100,
       });
     } else {
