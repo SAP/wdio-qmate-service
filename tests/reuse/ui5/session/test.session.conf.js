@@ -1,9 +1,9 @@
 const path = require("path");
 const merge = require("deepmerge");
 const qmateConfiguration = require("../../../helper/configurations/chrome.headless.conf");
+
 exports.config = merge(qmateConfiguration.config, {
-  maxInstances: 6,
-  bail: 1,
+  maxInstances: 5,
 
   specs: [
     path.resolve(__dirname, "loginFiori.spec.js"),
@@ -13,8 +13,9 @@ exports.config = merge(qmateConfiguration.config, {
     path.resolve(__dirname, "switchUser.spec.js"),
   ],
 
-  exclude: [],
-
+  params: {
+    logUI5Version: false
+  },
 
   mochaOpts: {
     timeout: 2000000,
