@@ -1,9 +1,9 @@
 const path = require("path");
 const merge = require("deepmerge");
 const qmateConfiguration = require("../../../helper/configurations/chrome.headless.conf");
+
 exports.config = merge(qmateConfiguration.config, {
   maxInstances: 6,
-  bail: 1,
   baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html",
 
   specs: [
@@ -29,9 +29,6 @@ exports.config = merge(qmateConfiguration.config, {
     path.resolve(__dirname, "rightClick.spec.js"),
     // path.resolve(__dirname, "dragAndDrop.spec.js")
   ],
-
-  exclude: [],
-
 
   mochaOpts: {
     timeout: 2000000,

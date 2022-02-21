@@ -1,5 +1,4 @@
 "use strict";
-// Note: need to dynamically switch base urls in the spec as we run tests against multiple systems
 
 describe("session - logout with inner verification", function () {
   it("Preparation", async function () {
@@ -8,7 +7,6 @@ describe("session - logout with inner verification", function () {
     await ui5.session.loginFiori("PURCHASER");
     await ui5.navigation.navigateToApplication("Shell-home", true);
     await ui5.navigation.closePopups();
-
   });
 
   it("Execution", async function () {
