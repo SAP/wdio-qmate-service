@@ -273,7 +273,7 @@ const UserInteraction = function () {
   this.selectBox = async function (selector, value, index = 0) {
     await this.clickSelectArrow(selector, index);
     if (value) {
-      const ui5ControlProperties = {
+      const itemSelector = {
         "elementProperties": {
           "mProperties": {
             "text": value
@@ -281,8 +281,10 @@ const UserInteraction = function () {
           "ancestorProperties": selector.elementProperties
         }
       };
-      await this.scrollToElement(ui5ControlProperties);
-      await this.click(ui5ControlProperties);
+      await this.scrollToElement(itemSelector);
+      await this.click(itemSelector);
+    } else {
+      throw new Error("Function 'selectBox' failed: Please provide a value as second argument.");
     }
   };
 
