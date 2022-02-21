@@ -4,7 +4,8 @@ echo "jenkinsNode ${jenkinsNode}"
 
 def tests = [
     [ area:'reuse', name:'common'],
-    [ area:'reuse', name:'ui5'],
+    [ area:'reuse', name:'ui5:pt1'],
+    [ area:'reuse', name:'ui5:pt2'],
     [ area:'reuse', name:'nonUi5'],
     [ area:'reuse', name:'util'],
     [ area:'core', name:'functional'],
