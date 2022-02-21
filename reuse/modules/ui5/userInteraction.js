@@ -275,13 +275,10 @@ const UserInteraction = function () {
     if (value) {
       const ui5ControlProperties = {
         "elementProperties": {
-          "metadata": "sap.ui.core.*Item",
           "mProperties": {
             "text": value
-          }
-        },
-        "parentProperties": {
-          "metadata": "sap.m.SelectList"
+          },
+          "ancestorProperties": selector.elementProperties
         }
       };
       await this.scrollToElement(ui5ControlProperties);
