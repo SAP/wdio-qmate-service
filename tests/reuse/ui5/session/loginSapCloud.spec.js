@@ -1,8 +1,6 @@
 "use strict";
-// Note: need to dynamically switch base urls in the spec as we run tests against multiple systems
-// Note 1: need to dynamically switch base urls in the spec as we run tests against multiple systems
-// Note 2: "https://hbr-715.wdf.sap.corp/ui" is down from time to time, so tests are skipped
-describe.skip("session - loginSapCloud", function () {
+
+describe("session - loginSapCloud", function () {
   it("Preparation", async function () {
     util.browser.setBaseUrl("https://hbr-715.wdf.sap.corp/ui");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
@@ -11,10 +9,6 @@ describe.skip("session - loginSapCloud", function () {
   it("Execution", async function () {
     await ui5.session.loginSapCloud("PURCHASER");
     await ui5.navigation.navigateToApplication("Shell-home", true);
-
-    // closePopups() call is not required for "https://hbr-715.wdf.sap.corp/ui",
-    // it just makes test execution longer
-    // await ui5.navigation.closePopups();
   });
 
   it("Verification", async function () {
@@ -26,9 +20,25 @@ describe.skip("session - loginSapCloud", function () {
     };
     await ui5.assertion.expectToBeVisible(selector);
   });
+
+  it("Cleanup", async function () {
+    await ui5.session.logout();
+  });
 });
 
-describe("session - loginSapCloud for Fiori (unhappy case)", function () {
+describe("session - loginSapCloud - Invalid credentials", function () {
+  it("Preparation", async function () {
+    util.browser.setBaseUrl("https://hbr-715.wdf.sap.corp/ui");
+    await common.navigation.navigateToUrl(browser.config.baseUrl);
+  });
+
+  it("Execution and Verification", async function () {
+    await expect(ui5.session.loginSapCloud("Caput", "Draconis"))
+      .rejects.toThrow(/Login failed: "Sorry, we could not authenticate you. Try again."/);
+  });
+});
+
+describe("session - login - sapCloud for Fiori (error case)", function () {
   it("Preparation", async function () {
     util.browser.setBaseUrl("https://qs9-715.wdf.sap.corp/ui");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
@@ -36,6 +46,6 @@ describe("session - loginSapCloud for Fiori (unhappy case)", function () {
 
   it("Execution and Verification", async function () {
     await expect(ui5.session.loginSapCloud("PURCHASER"))
-      .rejects.toThrow(/expected user name field to be present/);
+      .rejects.toThrow(/Login failed: Login page with the given authenticator not present./);
   });
 });

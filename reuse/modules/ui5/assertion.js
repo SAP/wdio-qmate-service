@@ -27,18 +27,17 @@ const Assertion = function () {
       throw new Error(`Function 'expectAttributeToBe' failed:${error}`);
     }
 
-
     if (loadPropertyTimeout > 0) {
       await browser.waitUntil(async function () {
-        value = await getUI5PropertyForElement(elem, attribute);
+        value = await _getUI5PropertyForElement(elem, attribute, true);
         return String(value) === String(compareValue);
       }, {
         timeout: loadPropertyTimeout,
-        timeoutMsg: "Timeout while waiting for attribute " + attribute + ". Expected value: " + String(compareValue),
+        timeoutMsg: "Function 'expectAttributeToBe' failed: Timeout while waiting for attribute " + attribute + ". Expected value: " + String(compareValue),
         interval: 100,
       });
     } else {
-      value = await getUI5PropertyForElement(elem, attribute);
+      value = await _getUI5PropertyForElement(elem, attribute, true);
     }
     return expect(String(value)).toEqual(String(compareValue));
   };
@@ -66,7 +65,7 @@ const Assertion = function () {
 
     if (loadPropertyTimeout > 0) {
       await browser.waitUntil(async function () {
-        value = await getUI5PropertyForElement(elem, attribute);
+        value = await _getUI5PropertyForElement(elem, attribute, true);
         return value.includes(compareValue);
       }, {
         timeout: loadPropertyTimeout,
@@ -74,7 +73,7 @@ const Assertion = function () {
         interval: 100
       });
     } else {
-      value = await getUI5PropertyForElement(elem, attribute);
+      value = await _getUI5PropertyForElement(elem, attribute, true);
     }
     return expect(value).toContain(compareValue);
   };
@@ -380,7 +379,12 @@ const Assertion = function () {
   };
 
 
-  async function getUI5PropertyForElement(elem, attribute) {
+  // =================================== HELPER ===================================
+  async function _getUI5PropertyForElement(elem, attribute, resetFocus = true) {
+    if (resetFocus) {
+      await util.browser.resetFocus();
+    }
+
     let value = await elem.getUI5Property(attribute);
 
     if (value === null || value === undefined || value === "") {
