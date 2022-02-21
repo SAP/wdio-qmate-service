@@ -1,17 +1,4 @@
 "use strict";
-// Note: need to dynamically switch base urls in the spec as we run tests against multiple systems
-
-describe("session - loginFiori - invalid credentials", function () {
-  it("Preparation", async function () {
-    util.browser.setBaseUrl("https://qs9-715.wdf.sap.corp/ui");
-    await common.navigation.navigateToUrl(browser.config.baseUrl);
-  });
-
-  it("Execution and Verification", async function () {
-    await expect(ui5.session.loginFiori("Caput", "Draconis"))
-      .rejects.toThrow(/Failure message while login "Client, name, or password is not correct; log on again"/);
-  });
-});
 
 describe("session - login - fiori", function () {
   it("Preparation", async function () {
@@ -34,25 +21,25 @@ describe("session - login - fiori", function () {
     };
     await ui5.assertion.expectToBeVisible(selector);
   });
+
+  it("Cleanup", async function () {
+    await ui5.session.logout();
+  });
 });
 
-// Note: "https://hbr-715.wdf.sap.corp/ui" is down from time to time, so tests are skipped
-
-describe.skip("session - loginSapCloud - Invalid credentials", function () {
+describe("session - login - fiori - invalid credentials", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://hbr-715.wdf.sap.corp/ui");
+    util.browser.setBaseUrl("https://qs9-715.wdf.sap.corp/ui");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
   it("Execution and Verification", async function () {
-    await expect(ui5.session.loginSapCloud("Caput", "Draconis"))
-      .rejects.toThrow(/Failure message while login "Sorry, we could not authenticate you. Try again."/);
+    await expect(ui5.session.login("Caput", "Draconis"))
+      .rejects.toThrow(/Login failed: "Client, name, or password is not correct; log on again"/);
   });
-
-
 });
 
-describe.skip("session - login - sapCloud", function () {
+describe("session - login - sapCloud", function () {
   it("Preparation", async function () {
     util.browser.setBaseUrl("https://hbr-715.wdf.sap.corp/ui");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
@@ -61,10 +48,6 @@ describe.skip("session - login - sapCloud", function () {
   it("Execution", async function () {
     await ui5.session.login("PURCHASER");
     await ui5.navigation.navigateToApplication("Shell-home", true);
-
-    // closePopups() call is not required for "https://hbr-715.wdf.sap.corp/ui",
-    // it just makes test execution longer
-    // await ui5.navigation.closePopups();
   });
 
   it("Verification", async function () {
@@ -75,5 +58,21 @@ describe.skip("session - login - sapCloud", function () {
       }
     };
     await ui5.assertion.expectToBeVisible(selector);
+  });
+
+  it("Cleanup", async function () {
+    await ui5.session.logout();
+  });
+});
+
+describe("session - login - sapCloud - Invalid credentials", function () {
+  it("Preparation", async function () {
+    util.browser.setBaseUrl("https://hbr-715.wdf.sap.corp/ui");
+    await common.navigation.navigateToUrl(browser.config.baseUrl);
+  });
+
+  it("Execution and Verification", async function () {
+    await expect(ui5.session.loginSapCloud("Caput", "Draconis"))
+      .rejects.toThrow(/Login failed: "Sorry, we could not authenticate you. Try again."/);
   });
 });
