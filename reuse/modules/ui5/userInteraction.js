@@ -418,7 +418,7 @@ const UserInteraction = function () {
     } else {
       util.console.info("Selector properties are undefined. Action will be performed on current element.");
     }
-    await browser.keys(["\uE051", "a"]);
+    await await common.userInteraction.pressKey(["\uE051", "a"]);
   };
 
   /**
