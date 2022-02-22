@@ -143,6 +143,8 @@ const UserInteraction = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clear(selector);
    */
+
+  //TODO remove clearHelper and use clear
   this.clear = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     await _clearHelper(selector, index, timeout);
   };
@@ -483,6 +485,7 @@ const UserInteraction = function () {
 
 
   // =================================== HELPER ===================================
+  //TODO: rework function in its whole. Why don't we use the clear function from native wdio here?
   async function _clearHelper(selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
     let id, elem;
     if (selector) {
@@ -502,6 +505,7 @@ const UserInteraction = function () {
 
       if (inputs.length) {
         inputs[0].value = "";
+        inputs[0].focus();
       }
 
       if (textareas.length) {
