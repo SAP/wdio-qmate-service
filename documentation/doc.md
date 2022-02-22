@@ -454,15 +454,19 @@ Performs the specified keypress. Possible values: https://w3c.github.io/webdrive
 
 | Param | Type | Description |
 | --- | --- | --- |
-| keys | <code>String</code> | The key or combination of keys to execute. |
+| keys | <code>String</code> \| <code>Array.&lt;String&gt;</code> | The key or combination of keys to execute. |
 
 **Example**  
 ```js
-await common.userInteraction.pressKey("Clear");
+await common.userInteraction.pressKey("Enter");
 ```
 **Example**  
 ```js
-await common.userInteraction.pressKey("\uE009", "\uE00A", "KeyD");
+await common.userInteraction.pressKey("\uE004");
+```
+**Example**  
+```js
+await common.userInteraction.pressKey(["\uE009", "Alt"]);
 ```
 <a name="common.userInteraction.pressEnter"></a>
 
