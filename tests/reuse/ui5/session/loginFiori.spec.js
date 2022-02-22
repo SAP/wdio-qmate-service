@@ -1,5 +1,4 @@
 "use strict";
-// Note: need to dynamically switch base urls in the spec as we run tests against multiple systems
 
 describe("session - loginFiori", function () {
   it("Preparation", async function () {
@@ -22,9 +21,25 @@ describe("session - loginFiori", function () {
     };
     await ui5.assertion.expectToBeVisible(selector);
   });
+
+  it("Cleanup", async function () {
+    await ui5.session.logout();
+  });
 });
 
-describe("session - loginFiori for Sap Cloud login", function () {
+describe("session - loginFiori - invalid credentials", function () {
+  it("Preparation", async function () {
+    util.browser.setBaseUrl("https://qs9-715.wdf.sap.corp/ui");
+    await common.navigation.navigateToUrl(browser.config.baseUrl);
+  });
+
+  it("Execution and Verification", async function () {
+    await expect(ui5.session.loginFiori("Caput", "Draconis"))
+      .rejects.toThrow(/Login failed: "Client, name, or password is not correct; log on again"/);
+  });
+});
+
+describe("session - loginFiori - error case", function () {
   it("Preparation", async function () {
     util.browser.setBaseUrl("https://www.sap.com");
     await ui5.navigation.navigateToApplication("", true);
