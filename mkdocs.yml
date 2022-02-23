@@ -2,6 +2,7 @@ site_name: Qmate-Service
 site_author: D056896
 nav:
   - Home: index.md
+  - 🡬 Qmate Main Documentation: https://pages.github.tools.sap/sProcurement/qmate/
   - Reuse API: doc.md
   - Setup & Installation:
     - Qmate-Service Installation: topics/setupAndInstallation.md
@@ -67,4 +68,4 @@ docs_dir: documentation
 site_dir: docs-gen
 repo_url: https://github.tools.sap/sProcurement/wdio-qmate-service
 site_url: https://github.tools.sap/pages/sProcurement/wdio-qmate-service
-edit_uri: main/documentation/
+edit_uri: edit/main/documentation/
