@@ -7,8 +7,7 @@ Make sure [Node.js](https://nodejs.org/en/download/) is installed on your comput
 To install the latest version of `qmate-service`, open the commandline and install Qmate-Service as a dev-dependency to your repository.
 ```bash
 npm config set strict-ssl=false
-npm config set registry=http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.milestones.npm/
-npm config set no-proxy=nexus.wdf.sap.corp
+npm config set registry=https://int.repositories.cloud.sap/artifactory/api/npm/build-milestones-npm/
 
 npm install @wdio/qmate-service@latest --save-dev
 ```  
