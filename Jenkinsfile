@@ -53,7 +53,7 @@ node(jenkinsNode) {
       '''
     }
     stage('Update Docs') {
-      checkout csm
+      checkout scm
       if(env.ghprbActualCommitAuthorEmail != 'qmate.jenkins@sap.com') {
         sh '''
         env
