@@ -50,11 +50,7 @@ node(jenkinsNode) {
       parallel closureBuilder
     }
     stage('Update Docs') {
-        when {
-          not {
-            environment name: 'ghprbActualCommitAuthorEmail', value: 'qmate.jenkins@sap.com'
-          }
-        }
+      if(env.ghprbActualCommitAuthorEmail != 'qmate.jenkins@sap.com') {
         steps {
             sshagent(['codepipes-github']) {
               sh '''
@@ -82,6 +78,7 @@ node(jenkinsNode) {
               '''
             }
         }
+      }
     }
 }
 
