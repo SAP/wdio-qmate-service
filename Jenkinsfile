@@ -55,7 +55,7 @@ node(jenkinsNode) {
     stage('Update Docs') {
       if(env.ghprbActualCommitAuthorEmail != 'qmate.jenkins@sap.com') {
         sh '''
-        echo env
+        env
         httpUrl=$ghprbAuthorRepoGitUrl
         find='https://github.tools.sap/'
         replace='git@github.tools.sap:'
