@@ -47,11 +47,15 @@ tests.each { test ->
 }
 node(jenkinsNode) {
     stage('Run tests') {
-      parallel closureBuilder
+      // parallel closureBuilder
+      sh '''
+      echo "mocked for now"
+      '''
     }
     stage('Update Docs') {
       if(env.ghprbActualCommitAuthorEmail != 'qmate.jenkins@sap.com') {
         sh '''
+        echo env
         httpUrl=$ghprbAuthorRepoGitUrl
         find='https://github.tools.sap/'
         replace='git@github.tools.sap:'
