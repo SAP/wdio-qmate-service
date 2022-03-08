@@ -51,33 +51,29 @@ node(jenkinsNode) {
     }
     stage('Update Docs') {
       if(env.ghprbActualCommitAuthorEmail != 'qmate.jenkins@sap.com') {
-        steps {
-            sshagent(['codepipes-github']) {
-              sh '''
-              httpUrl=$ghprbAuthorRepoGitUrl
-              find='https://github.tools.sap/'
-              replace='git@github.tools.sap:'
-              sshUrl=${httpUrl//$find/$replace}
-              if [[ $sshUrl != 'git@github.tools.sap:sProcurement/wdio-qmate-service.git' ]]; then
-                cd ..
-                git clone $sshUrl CLONE_FORK_REPO
-                cd CLONE_FORK_REPO
-              fi
-              git remote set-url origin $sshUrl
-              git fetch origin
-              git config user.email "qmate.jenkins@sap.com"
-              git config user.name "Qmate Jenkins"
-              git checkout $ghprbSourceBranch
-              npm install
-              npm run generate-docs
-              changes=$(git diff)
-              if [[ $changes != '' ]]; then
-                git commit -am "Update documentation"
-                git push origin $ghprbSourceBranch
-              fi
-              '''
-            }
-        }
+        sh '''
+        httpUrl=$ghprbAuthorRepoGitUrl
+        find='https://github.tools.sap/'
+        replace='git@github.tools.sap:'
+        sshUrl=${httpUrl//$find/$replace}
+        if [[ $sshUrl != 'git@github.tools.sap:sProcurement/wdio-qmate-service.git' ]]; then
+          cd ..
+          git clone $sshUrl CLONE_FORK_REPO
+          cd CLONE_FORK_REPO
+        fi
+        git remote set-url origin $sshUrl
+        git fetch origin
+        git config user.email "qmate.jenkins@sap.com"
+        git config user.name "Qmate Jenkins"
+        git checkout $ghprbSourceBranch
+        npm install
+        npm run generate-docs
+        changes=$(git diff)
+        if [[ $changes != '' ]]; then
+          git commit -am "Update documentation"
+          git push origin $ghprbSourceBranch
+        fi
+        '''
       }
     }
 }
