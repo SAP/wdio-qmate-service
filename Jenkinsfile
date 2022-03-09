@@ -53,7 +53,8 @@ node(jenkinsNode) {
       '''
     }
     stage('Update Docs') {
-      checkout scm
+      def gitVars = checkout scm
+      echo "gitVars ${gitVars}"
       if(env.ghprbActualCommitAuthorEmail != 'qmate.jenkins@sap.com') {
         sh '''
         env
