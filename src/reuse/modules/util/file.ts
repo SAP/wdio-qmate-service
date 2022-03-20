@@ -3,11 +3,10 @@
  * @class file
  * @memberof util
  */
-const File = function () {
-
-  const path = require("path");
-  const pdf = require("pdf-parse");
-
+// @ts-ignore
+export class File {
+  path = require("path");
+  pdf = require("pdf-parse");
 
   // =================================== UPLOAD ===================================
   /**
@@ -20,7 +19,7 @@ const File = function () {
    * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], 1); // upload to second file uploader control on UI screen
    * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], selector); // upload to file uploader with matching selector
    */
-  this.upload = async function (files, selector = 0) {
+  async upload(files: string[], selector: number | object = 0): Promise<void> {
     let elem;
     if (typeof selector === "number") {
       elem = await nonUi5.element.getByCss('input[type="file"]', selector);
@@ -32,10 +31,9 @@ const File = function () {
       throw new Error("No upload input element found with matching index or selector");
     }
     for (const file of files) {
-      await elem.setValue(path.resolve(file));
+      await elem.setValue(this.path.resolve(file));
     }
-  };
-
+  }
 
   // =================================== PDF ===================================
   /**
@@ -48,17 +46,17 @@ const File = function () {
    * @see <a href="TODO">Parse PDF</a>
    * @example await util.file.parsePdf(pdfStream, customRenderingMethod);
    */
-  this.parsePdf = async function (pdfStream, renderingMethod = _renderPage) {
+  async parsePdf(pdfStream: Buffer, renderingMethod: Function = this._renderPage): Promise<String> {
     if (typeof renderingMethod !== "function") {
       throw new Error("Function 'parsePdf' failed: Please provide a custom rendering method as second parameter.");
     }
 
     const options = {
-      pagerender: renderingMethod
+      pagerender: renderingMethod,
     };
-    const data = await pdf(pdfStream, options);
+    const data = await this.pdf(pdfStream, options);
     return data.text;
-  };
+  }
 
   /**
    * @function expectPdfContainsText
@@ -67,16 +65,16 @@ const File = function () {
    * @param {Buffer} pdfStream - PDF stream to be downloaded.
    * @param {String} text - The expected text.
    * @param {Function} renderingMethod - Function to customize the parsing process.
-   * @see <a href="TODO">Parse pdf</a> 
+   * @see <a href="TODO">Parse pdf</a>
    * @example await util.file.expectPdfContainsText(pdfStream, "abc");
    */
-  this.expectPdfContainsText = async function (pdfStream, text, renderingMethod = _renderPage) {
+  async expectPdfContainsText(pdfStream: Buffer, text: string, renderingMethod: Function = this._renderPage) {
     if (!text) {
       throw new Error("Function 'expectPdfContainsText' failed: Please provide a text as second parameter.");
     }
     const parsedText = await this.parsePdf(pdfStream, renderingMethod);
     return expect(parsedText).toContain(text);
-  };
+  }
 
   /**
    * @function expectPdfNotContainsText
@@ -88,32 +86,36 @@ const File = function () {
    * @see <a href="TODO">Parse pdf</a>
    * @example await util.file.expectPdfNotContainsText(pdfStream, "abc");
    */
-  this.expectPdfNotContainsText = async function (pdfStream, text, renderingMethod = _renderPage) {
+  async expectPdfNotContainsText(
+    pdfStream: Buffer,
+    text: string,
+    renderingMethod: Function = this._renderPage
+  ): Promise<boolean> {
     if (!text) {
       throw new Error("Function 'expectPdfNotContainsText' failed: Please provide a text as second parameter.");
     }
     const parsedText = await this.parsePdf(pdfStream, renderingMethod);
     return expect(parsedText).not.toContain(text);
-  };
-
+  }
 
   // =================================== HELPER ===================================
-  function _renderPage(pageData) {
+  private _renderPage(pageData: any) {
     const render_options = {
       // replaces all occurrences of whitespace with standard spaces (0x20). The default value is `false`.
       normalizeWhitespace: false,
       // do not attempt to combine same line TextItem's. The default value is `false`.
-      disableCombineTextItems: false
+      disableCombineTextItems: false,
     };
 
-    return pageData.getTextContent(render_options).then(_parseText);
+    return pageData.getTextContent(render_options).then(this._parseText);
   }
 
-  function _parseText(textContent) {
+  private _parseText(textContent: any) {
     if (textContent === undefined || textContent === null || !textContent.items || !Array.isArray(textContent.items)) {
       return;
     }
-    let lastY, text = "";
+    let lastY,
+      text = "";
     for (const item of textContent.items) {
       if (Array.isArray(item.transform) && item.transform.length === 6) {
         if (lastY == item.transform[5] || !lastY) {
@@ -126,6 +128,5 @@ const File = function () {
     }
     return text;
   }
-
-};
-module.exports = new File();
+}
+export default new File();

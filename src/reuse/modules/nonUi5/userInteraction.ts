@@ -1,9 +1,13 @@
 "use strict";
+
+import { Element } from "../../../../@types/wdio";
+import { AlignmentValues } from "./constants/userInteraction.constants";
+
 /**
  * @class userInteraction
  * @memberof nonUi5
  */
-const UserInteraction = function () {
+export class UserInteraction {
 
   // =================================== CLICK ===================================
   /**
@@ -15,23 +19,23 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.click(elem);
    */
-  this.click = async function (element, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async click (element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     await Promise.all([
       expect(element).toBeDisplayed({ //TODO: Reuse of internal functions?
         wait: timeout,
         interval: 100,
-        message: `Timeout '${timeout / 1000}s' by waiting for element is displayed.`
+        message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
       }),
       expect(element).toBeEnabled({ //TODO: Reuse of internal functions?
         wait: timeout,
         interval: 100,
-        message: `Timeout '${timeout / 1000}s' by waiting for element is enabled.`
+        message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
       })
     ]);
     try {
       await element.click();
     } catch (error) {
-      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "click");
+      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error as Error, "click");
       throw new Error(errorMessage);
     }
   };
@@ -47,7 +51,7 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.clickAndRetry(elem);
    */
-  this.clickAndRetry = async function (element, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000, retries = 3, interval = 5000) {
+  async clickAndRetry (element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
     if (!element) {
       throw new Error("Function 'clearAndRetry' failed. Please provide an element as first argument.");
     }
@@ -63,23 +67,23 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.doubleClick(elem);
    */
-  this.doubleClick = async function (element, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async doubleClick (element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     await Promise.all([
       expect(element).toBeDisplayed({
         wait: timeout,
         interval: 100,
-        message: `Timeout '${timeout / 1000}s' by waiting for element is displayed.`
+        message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
       }),
       expect(element).toBeEnabled({
         wait: timeout,
         interval: 100,
-        message: `Timeout '${timeout / 1000}s' by waiting for element is enabled.`
+        message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
       })
     ]);
     try {
       await element.doubleClick();
     } catch (error) {
-      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "doubleClick");
+      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error as Error, "doubleClick");
       throw new Error(errorMessage);
     }
   };
@@ -93,17 +97,17 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.rightClick(elem);
    */
-  this.rightClick = async function (element, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async rightClick (element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     await Promise.all([
       expect(element).toBeDisplayed({
         wait: timeout,
         interval: 100,
-        message: `Timeout '${timeout / 1000}s' by waiting for element is displayed.`
+        message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
       }),
       expect(element).toBeEnabled({
         wait: timeout,
         interval: 100,
-        message: `Timeout '${timeout / 1000}s' by waiting for element is enabled.`
+        message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
       })
     ]);
     try {
@@ -111,7 +115,7 @@ const UserInteraction = function () {
         button: "right"
       });
     } catch (error) {
-      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "rightClick");
+      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error as Error, "rightClick");
       throw new Error(errorMessage);
     }
   };
@@ -127,12 +131,13 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.fill(elem, "Service 01");
    */
-  this.fill = async function (element, value) {
+  async fill (element: Element, value: string) {
     try {
       await element.setValue(value);
     } catch (error) {
+      // @ts-ignore
       if (error.message && error.message.match(new RegExp(/(invalid element state|element not interactable)/))) {
-        const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "fill");
+        const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error as Error, "fill");
         throw new Error(errorMessage);
       } else {
         if (!value) {
@@ -155,7 +160,7 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.fillAndRetry(elem, "Service 01");
    */
-  this.fillAndRetry = async function (element, value, retries, interval) {
+  async fillAndRetry (element: Element, value: string, retries: number = 3, interval: number = 5000) {
     if (!element || (value === null || value === undefined || value === "")) {
       throw new Error("Function 'fillAndRetry' failed: Please provide an element and value as arguments.");
     } else {
@@ -173,7 +178,7 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.clear(elem);
    */
-  this.clear = async function (element) {
+  async clear (element: Element) {
     if (!element) {
       throw new Error("Function 'clear' failed: Please provide an element as first argument.");
     }
@@ -190,7 +195,7 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.element.getById("input01", 10000);
    * await nonUi5.userInteraction.clearAndRetry(elem);
    */
-  this.clearAndRetry = async function (element, retries = 3, interval = 5000) {
+  async clearAndRetry (element: Element, retries = 3, interval = 5000) {
     if (!element) {
       throw new Error("Function 'clearAndRetry' failed: Please provide an element as first argument.");
     }
@@ -206,7 +211,7 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.clearAndFill(elem, "Service 01");
    */
-  this.clearAndFill = async function (element, value) {
+  async clearAndFill (element: Element, value: string) {
     //arg. 'value' needs to be checked in case of numeric values. E.g.: 0 or 1 will be handled as boolean value in if.
     if (!element || (value === null || value === undefined || value === "")) {
       throw new Error("Function 'clearAndFill' failed: Please provide an element and value as arguments.");
@@ -232,8 +237,8 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
    */
-  this.clearAndFillAndRetry = async function (element, value, retries = 3, interval = 5000, verify = true) {
-    return util.function.retry(async (elem, value) => {
+  async clearAndFillAndRetry (element: Element, value: string, retries: number = 3, interval: number = 5000, verify: boolean = true) {
+    return util.function.retry(async (elem: Element, value: string) => {
       await this.clearAndFill(elem, value);
       if (verify) {
         const elemValue = await elem.getValue();
@@ -254,7 +259,7 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.userInteraction.getElementById("footer01");
    * await nonUi5.userInteraction.scrollToElement(elem);
    */
-  this.scrollToElement = async function (elem, alignment = "center") {
+  async scrollToElement (elem: Element, alignment: AlignmentValues = AlignmentValues.CENTER) {
     const options = {
       "block": alignment,
       "inline": alignment
@@ -272,7 +277,7 @@ const UserInteraction = function () {
    * @example const targetElem = await nonUi5.element.getById("drop02");
    * await nonUi5.userInteraction.dragAndDrop(elem, targetElem);
    */
-  this.dragAndDrop = async function (element, targetElem) {
+  async dragAndDrop (element: Element, targetElem: Element) {
     // await element.dragAndDrop(targetElem);
 
     // https://stackoverflow.com/questions/60378820/drag-and-drop-with-webdriver-io
@@ -315,10 +320,10 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.element.getById("chartPartToClick");
    * await nonUi5.userInteraction.moveCursorAndClick(elem);
    */
-  this.moveCursorAndClick = async function (element) {
+  async moveCursorAndClick (element: Element) {
     await element.moveTo();
     await element.click();
   };
 
 };
-module.exports = new UserInteraction();
+export default new UserInteraction();

@@ -4,7 +4,7 @@
  * @class navigation
  * @memberof common
  */
-const Navigation = function () {
+export class Navigation {
 
   /**
    * @function navigateToUrl
@@ -13,7 +13,7 @@ const Navigation = function () {
    * @param {String} url - The url.
    * @example await common.navigation.navigateToUrl("www.sap.com");
    */
-  this.navigateToUrl = async function (url) {
+  async navigateToUrl (url: string): Promise<void> {
     if (url) {
       await browser.navigateTo(url);
       await util.browser.logCurrentUrl();
@@ -31,9 +31,9 @@ const Navigation = function () {
    * @param {Integer} [interval=5000] - The interval of the retries (ms), can be set in config for all functions under params stepRetriesIntervals.
    * @example await common.navigation.navigateToUrlAndRetry("www.sap.com");
    */
-  this.navigateToUrlAndRetry = async function (url, retries = 3, interval = 5000) {
+  async navigateToUrlAndRetry (url: string, retries: number = 3, interval: number = 5000): Promise<void> {
     await util.function.retry(this.navigateToUrl, [url], retries, interval, this);
   };
 
 };
-module.exports = new Navigation();
+export default new Navigation();

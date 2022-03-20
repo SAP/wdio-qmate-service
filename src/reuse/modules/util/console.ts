@@ -3,8 +3,7 @@
  * @class console
  * @memberof util
  */
-const Console = function () {
-
+export class Console {
   /**
    * @function log
    * @memberOf util.console
@@ -15,24 +14,24 @@ const Console = function () {
    * @param {String} [brightness] - Adjusts the brightness of the color: "bright", "dim". Leave empty for default.
    * @example util.console.log("The document has been saved.", "green");
    */
-  this.log = function (message, textColor, backgroundColor, brightness) {
+  log(message: string, textColor?: string, backgroundColor?: string, brightness?: string) {
     let colorValue = "";
 
     if (textColor) {
-      const textColorValue = getColorValue(textColor);
+      const textColorValue = this.getColorValue(textColor);
       colorValue = textColorValue;
     }
     if (backgroundColor) {
-      const backgroundColorValue = getBackgroundColorValue(backgroundColor);
+      const backgroundColorValue = this.getBackgroundColorValue(backgroundColor);
       colorValue = colorValue + backgroundColorValue;
     }
     if (brightness) {
-      const brightnessValue = getBrightnessValue(brightness);
+      const brightnessValue = this.getBrightnessValue(brightness);
       colorValue = colorValue + brightnessValue;
     }
 
     console.log(colorValue, message + "\x1b[0m");
-  };
+  }
 
   /**
    * @function error
@@ -41,10 +40,10 @@ const Console = function () {
    * @param {String} message - The message to log.
    * @example util.console.error("Error: Please investigate.");
    */
-  this.error = function (message) {
-    const colorValue = getColorValue("red");
+  error(message: string) {
+    const colorValue = this.getColorValue("red");
     console.error(colorValue, message + "\x1b[0m");
-  };
+  }
 
   /**
    * @function warn
@@ -53,10 +52,10 @@ const Console = function () {
    * @param {String} message - The message to log.
    * @example util.console.warn("Optional step not executed.");
    */
-  this.warn = function (message) {
-    const colorValue = getColorValue("yellow");
+  warn(message: string) {
+    const colorValue = this.getColorValue("yellow");
     console.warn(colorValue, message + "\x1b[0m");
-  };
+  }
 
   /**
    * @function success
@@ -65,10 +64,10 @@ const Console = function () {
    * @param {String} message - The message to log.
    * @example util.console.success("The document has been saved.");
    */
-  this.success = function (message) {
-    const colorValue = getColorValue("green");
+  success(message: string) {
+    const colorValue = this.getColorValue("green");
     console.log(colorValue, message + "\x1b[0m");
-  };
+  }
 
   /**
    * @function info
@@ -77,96 +76,80 @@ const Console = function () {
    * @param {String} message - The message to log.
    * @example util.console.success("The document has been saved.");
    */
-  this.info = function (message) {
-    const colorValue = getColorValue("cyan");
+  info(message: string) {
+    const colorValue = this.getColorValue("cyan");
     console.log(colorValue, message + "\x1b[0m");
-  };
-
-  const colors = [{
-    key: "black",
-    value: "\x1b[30m",
-    valueBg: "\x1b[40m",
-  },
-  {
-    key: "white",
-    value: "\x1b[37m",
-    valueBg: "\x1b[47m",
-  },
-  {
-    key: "red",
-    value: "\x1b[31m",
-    valueBg: "\x1b[41m",
-  },
-  {
-    key: "green",
-    value: "\x1b[32m",
-    valueBg: "\x1b[42m",
-  },
-  {
-    key: "yellow",
-    value: "\x1b[33m",
-    valueBg: "\x1b[30m\x1b[43m",
-  },
-  {
-    key: "blue",
-    value: "\x1b[34m",
-    valueBg: "\x1b[44m",
-  },
-  {
-    key: "magenta",
-    value: "\x1b[35m",
-    valueBg: "\x1b[45m",
-  },
-  {
-    key: "cyan",
-    value: "\x1b[36m",
-    valueBg: "\x1b[30m\x1b[46m",
   }
+
+  private colors = [
+    {
+      key: "black",
+      value: "\x1b[30m",
+      valueBg: "\x1b[40m",
+    },
+    {
+      key: "white",
+      value: "\x1b[37m",
+      valueBg: "\x1b[47m",
+    },
+    {
+      key: "red",
+      value: "\x1b[31m",
+      valueBg: "\x1b[41m",
+    },
+    {
+      key: "green",
+      value: "\x1b[32m",
+      valueBg: "\x1b[42m",
+    },
+    {
+      key: "yellow",
+      value: "\x1b[33m",
+      valueBg: "\x1b[30m\x1b[43m",
+    },
+    {
+      key: "blue",
+      value: "\x1b[34m",
+      valueBg: "\x1b[44m",
+    },
+    {
+      key: "magenta",
+      value: "\x1b[35m",
+      valueBg: "\x1b[45m",
+    },
+    {
+      key: "cyan",
+      value: "\x1b[36m",
+      valueBg: "\x1b[30m\x1b[46m",
+    },
   ];
 
-
   // =================================== HELPER ===================================
-  function getColorValue(key) {
-    const object = colors.filter(obj => {
-      return obj.key === key;
-    })[0];
-
-    if (object.length !== 0) {
-      return object.value;
-    } else {
+  private getColorValue(key: string) {
+    const object = this.colors.find((obj) => obj.key === key);
+    if (object === undefined) {
       return "";
     }
+    return object.value;
   }
 
-  function getBackgroundColorValue(key) {
-    const object = colors.filter(obj => {
-      return obj.key === key;
-    })[0];
-
-    if (object.length !== 0) {
-      return object.valueBg;
-    } else {
+  private getBackgroundColorValue(key: string) {
+    const object = this.colors.find((obj) => obj.key === key);
+    if (object === undefined) {
       return "";
     }
+    return object.valueBg;
   }
 
-  function getBrightnessValue(key) {
-    let value = "";
-
+  private getBrightnessValue(key: string) {
     switch (key) {
       case "bright":
-        value = "\x1b[1m";
-        break;
+        return "\x1b[1m";
       case "dim":
-        value = "\x1b[2m";
-        break;
+        return "\x1b[2m";
       default:
-        value = "";
-        break;
+        return "";
     }
-
-    return value;
   }
-
-};
-module.exports = new Console();
+}
+export default new Console();

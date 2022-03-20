@@ -3,8 +3,7 @@
  * @class browser
  * @memberof util
  */
-const Browser = function () {
-
+export class Browser {
   // =================================== URL ===================================
   /**
    * @function getBaseUrl
@@ -13,9 +12,9 @@ const Browser = function () {
    * @returns {String} The baseUrl.
    * @example const baseUrl = await util.browser.getBaseUrl();
    */
-  this.getBaseUrl = function () {
+  getBaseUrl(): string {
     return browser.config.baseUrl;
-  };
+  }
 
   /**
    * @function setBaseUrl
@@ -24,9 +23,9 @@ const Browser = function () {
    * @param {String} baseUrl: base URL to set
    * @example await util.browser.setBaseUrl("https://cc3-721.wdf.sap.corp/ui");
    */
-  this.setBaseUrl = function (baseUrl) {
+  setBaseUrl(baseUrl: string): void {
     browser.config.baseUrl = baseUrl;
-  };
+  }
 
   /**
    * @function logCurrentUrl
@@ -34,10 +33,10 @@ const Browser = function () {
    * @description Displays the current URL in the console.
    * @example await util.browser.logCurrentUrl();
    */
-  this.logCurrentUrl = async function () {
+  async logCurrentUrl(): Promise<void> {
     const url = await browser.getUrl();
     util.console.info("Current URL: " + url);
-  };
+  }
 
   /**
    * @function getCurrentUrl
@@ -45,9 +44,9 @@ const Browser = function () {
    * @description Returns the current URL
    * @example await util.browser.getCurrentUrl();
    */
-  this.getCurrentUrl = async function () {
+  async getCurrentUrl(): Promise<string> {
     return browser.getUrl();
-  };
+  }
 
   // =================================== ACTIONS ===================================
   /**
@@ -56,9 +55,9 @@ const Browser = function () {
    * @description Resets the focus in case it set for a specific element.
    * @example await util.browser.resetFocus();
    */
-  this.resetFocus = async function () {
+  async resetFocus(): Promise<void> {
     await util.browser.executeScript("if (document.activeElement) { document.activeElement.blur(); }");
-  };
+  }
 
   /**
    * @function sleep
@@ -67,9 +66,9 @@ const Browser = function () {
    * @param {Number} [duration=1000] - The time to pause (ms).
    * @example await util.browser.sleep(30000);
    */
-  this.sleep = async function (duration = 10000) {
+  async sleep(duration: number = 10000): Promise<void> {
     await browser.pause(duration);
-  };
+  }
 
   /**
    * @function collectCoverage
@@ -77,14 +76,17 @@ const Browser = function () {
    * @description Trigger collection of coverage by coverage service.
    * @example await util.browser.collectCoverage();
    */
-  this.collectCoverage = async function () {
-    if (browser.config.params && browser.config.params.coverage && (
-      browser.config.params.coverage.status === true || browser.config.params.coverage.status === "true")) {
+  async collectCoverage(): Promise<void> {
+    if (
+      browser.config.params &&
+      browser.config.params.coverage &&
+      (browser.config.params.coverage.status === true || browser.config.params.coverage.status === "true")
+    ) {
       await browser.collectCoverage();
     } else {
       util.console.warn("Coverage is disabled. Please enable coverage in config file.");
     }
-  };
+  }
 
   /**
    * @function sleepAndCollectCoverage
@@ -93,15 +95,18 @@ const Browser = function () {
    * @param {Number} [duration=1000] - The time to pause (ms).
    * @example await util.browser.sleepAndCollectCoverage(3000);
    */
-  this.sleepAndCollectCoverage = async function (duration = 5000) {
-    if (browser.config.params && browser.config.params.coverage && (
-      browser.config.params.coverage.status === true || browser.config.params.coverage.status === "true")) {
+  async sleepAndCollectCoverage(duration: number = 5000): Promise<void> {
+    if (
+      browser.config.params &&
+      browser.config.params.coverage &&
+      (browser.config.params.coverage.status === true || browser.config.params.coverage.status === "true")
+    ) {
       await this.sleep(duration);
       await browser.collectCoverage();
     } else {
       util.console.warn("Coverage is disabled. Please enable coverage in config file.");
     }
-  };
+  }
 
   /**
    * @function refresh
@@ -109,9 +114,9 @@ const Browser = function () {
    * @description Refreshes the page.
    * @example await util.browser.refresh();
    */
-  this.refresh = async function () {
+  async refresh(): Promise<void> {
     await browser.refresh();
-  };
+  }
 
   /**
    * @function clearBrowser
@@ -122,7 +127,7 @@ const Browser = function () {
    * @param {Boolean} [clearCookies=true] - Specifies if the cookies will be cleared.
    * @example await util.browser.clearBrowser();
    */
-  this.clearBrowser = async function (clearLocal = true, clearSession = true, clearCookies = true) {
+  async clearBrowser(clearLocal: boolean = true, clearSession: boolean = true, clearCookies: boolean = true): Promise<void> {
     if (clearLocal) {
       await browser.execute("window.localStorage.clear()");
     }
@@ -132,8 +137,7 @@ const Browser = function () {
     if (clearCookies) {
       await browser.deleteCookies();
     }
-  };
-
+  }
 
   // =================================== LOGGING ===================================
   /**
@@ -143,9 +147,9 @@ const Browser = function () {
    * @returns {String} The browser name.
    * @example const browserName = await util.browser.getBrowserName();
    */
-  this.getBrowserName = function () {
+  getBrowserName(): string {
     return browser.capabilities.browserName;
-  };
+  }
 
   /**
    * @function getUI5Version
@@ -154,26 +158,30 @@ const Browser = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await util.browser.getUI5Version();
    */
-  this.getUI5Version = async function (timeout = browser.config.waitForUI5Timeout || 30000) {
-    await browser.waitUntil(async function () {
-      // eslint-disable-next-line no-return-await
-      return await browser.execute(function () {
-        try {
-          if (window && window.sap && window.sap.ui) {
-            return true;
-          } else {
+  async getUI5Version(timeout: number = browser.config.waitForUI5Timeout || 30000) {
+    await browser.waitUntil(
+      async function () {
+        // eslint-disable-next-line no-return-await
+        return await browser.execute(function () {
+          try {
+            if (window && window.sap && window.sap.ui) {
+              return true;
+            } else {
+              return false;
+            }
+          } catch (oError) {
             return false;
           }
-        } catch (oError) {
-          return false;
-        }
-      });
-    }, {
-      timeout: timeout,
-      timeoutMsg: `Page did not load within timeout ${timeout / 1000}s`,
-      interval: 400
-    });
+        });
+      },
+      {
+        timeout: timeout,
+        timeoutMsg: `Page did not load within timeout ${timeout / 1000}s`,
+        interval: 400,
+      }
+    );
 
+    // @ts-ignore
     return util.browser.executeScript(function () {
       /* eslint-disable no-undef */
       if (sap && sap.ui && sap.ui.getVersionInfo && sap.ui.getVersionInfo()) {
@@ -188,15 +196,15 @@ const Browser = function () {
         }
 
         return {
-          "version": version,
-          "timestamp": timestamp
+          version: version,
+          timestamp: timestamp,
         };
       } else {
         util.console.warn("UI5 version information could not be retrieved.");
         return null;
       }
     });
-  };
+  }
 
   /**
    * @function logUI5Version
@@ -204,7 +212,7 @@ const Browser = function () {
    * @description Logs the UI5 version and creation date for UI5 based applications to the console.
    * @example await util.browser.logUI5Version();
    */
-  this.logUI5Version = async function () {
+  async logUI5Version() {
     let logUI5Version;
     if (browser.config.params && browser.config.params.logUI5Version !== undefined) {
       logUI5Version = browser.config.params.logUI5Version;
@@ -220,10 +228,11 @@ const Browser = function () {
       util.console.log("");
 
       if (logUI5Version !== "always") {
+        // @ts-ignore
         process.env.UI5_VERSION_LOGGED = true;
       }
     }
-  };
+  }
 
   // =================================== EXECUTION ===================================
   /**
@@ -234,10 +243,9 @@ const Browser = function () {
    * @returns {Any} The result from the executed function.
    * @example await util.browser.executeScript(command);
    */
-  this.executeScript = async function (command) {
+  async executeScript(command: string): Promise<any> {
     return browser.execute(command);
-  };
-
+  }
 
   // =================================== WINDOW HANDLING ===================================
   //@TODO: refactor whole functions
@@ -247,25 +255,27 @@ const Browser = function () {
    * @memberOf util.browser
    * @example await util.browser.waitForWindows();
    */
-  this.waitForWindows = async function (expectedWindowsNumber, retries = 50, waitInternal = 1000) {
+  async waitForWindows(expectedWindowsNumber: number, retries = 50, waitInternal = 1000): Promise<boolean | undefined> {
     try {
       const windowHandles = await browser.getWindowHandles();
       //if(!windowHandles) return await this.waitForWindow(expectedWindowsNumber, retries, waitInternal);
       util.console.log("Windows length -->" + windowHandles.length);
       if (windowHandles.length === expectedWindowsNumber) {
-        return expect(true).toEqual(true); //@TODO: change to promise resolve 
+        return expect(true).toEqual(true); //@TODO: change to promise resolve
       }
       retries--;
       await browser.pause(waitInternal);
       if (retries < 1) {
-        util.console.error("Function 'waitForWindows' failed: Timeout reached, increase the retries, window was not loaded fully.");
-        return expect(true).toEqual(false); //@TODO: change to promise reject 
+        util.console.error(
+          "Function 'waitForWindows' failed: Timeout reached, increase the retries, window was not loaded fully."
+        );
+        return expect(true).toEqual(false); //@TODO: change to promise reject
       }
       return await this.waitForWindows(expectedWindowsNumber, retries, waitInternal);
     } catch (error) {
       util.console.error(`Function 'waitForWindows' failed: ${error}`);
     }
-  };
+  }
 
   // better to use this.switchToWindow
   /**
@@ -276,7 +286,7 @@ const Browser = function () {
    * @param {String} windowTitle - Window Title to be expected
    * @example await util.browser.switchToNewWindow(originalHandle,);
    */
-  this.switchToNewWindow = async function (originalHandle, windowTitle) {
+  async switchToNewWindow(originalHandle: string, windowTitle: string) {
     const windowHandles = await browser.getWindowHandles();
 
     for (let i = 0; i < windowHandles.length; i++) {
@@ -307,7 +317,7 @@ const Browser = function () {
         }
       })(i);
     }
-  };
+  }
 
   /**
    * @function switchToWindow
@@ -316,9 +326,9 @@ const Browser = function () {
    * @param {Object} handle - The window handle.
    * @example await util.browser.switchToWindow(originalWindowHandle);
    */
-  this.switchToWindow = async function (handle) {
+  async switchToWindow(handle: object) {
     await browser.switchToWindow(handle);
-  };
+  }
 
   /**
    * @function getCurrentWindow
@@ -327,9 +337,9 @@ const Browser = function () {
    * @returns {Object} The window handle.
    * @example await util.browser.getCurrentWindow();
    */
-  this.getCurrentWindow = async function () {
+  async getCurrentWindow(): Promise<any> {
     return browser.getWindowHandle();
-  };
+  }
+}
 
-};
-module.exports = new Browser();
+export default new Browser();
