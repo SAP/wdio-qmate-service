@@ -1,9 +1,13 @@
 "use strict";
+
+import { CalculateDates } from "./constants/date.constants";
+import { DateFormats } from "../util/constants/formatter.constants"
+
 /**
  * @class date
  * @memberof common
  */
-const DateModule = function () {
+export class DateModule {
 
   // =================================== GET DATES ===================================
   /**
@@ -14,7 +18,7 @@ const DateModule = function () {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getToday("mm/dd/yyyy");
    */
-  this.getToday = function (format = "object") {
+  getToday (format: DateFormats = DateFormats.OBJECT): string {
     const date = new Date();
     return util.formatter.formatDate(date, format);
   };
@@ -27,7 +31,7 @@ const DateModule = function () {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getTomorrow("mm/dd/yyyy");
    */
-  this.getTomorrow = function (format = "object") {
+  getTomorrow (format: DateFormats = DateFormats.OBJECT): string {
     const date = new Date();
     date.setDate(date.getDate() + 1);
     return util.formatter.formatDate(date, format);
@@ -41,7 +45,7 @@ const DateModule = function () {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getNextMonth("mm/dd/yyyy");
    */
-  this.getNextMonth = function (format = "object") {
+  getNextMonth (format: DateFormats = DateFormats.OBJECT): string {
     const date = new Date();
     date.setMonth(date.getMonth() + 1);
     return util.formatter.formatDate(date, format);
@@ -55,7 +59,7 @@ const DateModule = function () {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getPreviousMonth("mm/dd/yyyy");
    */
-  this.getPreviousMonth = function (format = "object") {
+  getPreviousMonth (format: DateFormats = DateFormats.OBJECT): string {
     const date = new Date();
     date.setMonth(date.getMonth() - 1);
     return util.formatter.formatDate(date, format);
@@ -69,7 +73,7 @@ const DateModule = function () {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getNextYear("mm/dd/yyyy");
    */
-  this.getNextYear = function (format = "object") {
+  getNextYear (format: DateFormats = DateFormats.OBJECT): string {
     const date = new Date();
     date.setFullYear(date.getFullYear() + 1);
     return util.formatter.formatDate(date, format);
@@ -83,7 +87,7 @@ const DateModule = function () {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getPreviousYear("mm/dd/yyyy");
    */
-  this.getPreviousYear = function (format = "object") {
+  getPreviousYear (format: DateFormats = DateFormats.OBJECT): string {
     const date = new Date();
     date.setFullYear(date.getFullYear() - 1);
     return util.formatter.formatDate(date, format);
@@ -98,7 +102,7 @@ const DateModule = function () {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getSpecific("2020, 0, 17", "mm/dd/yyyy");
    */
-  this.getSpecific = function (date, format = "object") {
+  getSpecific (date: string, format: DateFormats = DateFormats.OBJECT): string {
     if (!date) {
       throw new Error("Function 'getSpecific' failed: Please provide a date string ('2020, 0, 17') as first argument.");
     }
@@ -111,38 +115,38 @@ const DateModule = function () {
    * @function calculate
    * @memberOf common.date
    * @description Calculates the date based on the input parameter and returns it in the given format.
-   * @param {String} [date="today"] - Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, lastYear
+   * @param {String} [date="today"] - Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, previousYear
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object").
    * @returns {String} The calculated date in the given format.
    * @example const date = await common.date.calculate("today", "mm/dd/yyy");
    */
-  this.calculate = function (date = "today", format = "object") {
+  calculate (date: CalculateDates = CalculateDates.TODAY, format: DateFormats = DateFormats.OBJECT): string {
     if (date === null) {
-      date = "today";
+      date = CalculateDates.TODAY;
     }
     if (format === null) {
-      format = "object";
+      format = DateFormats.OBJECT;
     }
 
     let calculatedDate;
 
     switch (date) {
-      case "today":
+      case CalculateDates.TODAY:
         calculatedDate = this.getToday(format);
         break;
-      case "tomorrow":
+      case CalculateDates.TOMORROW:
         calculatedDate = this.getTomorrow(format);
         break;
-      case "nextMonth":
+      case CalculateDates.NEXT_MONTH:
         calculatedDate = this.getNextMonth(format);
         break;
-      case "previousMonth":
+      case CalculateDates.PREVIOUS_MONTH:
         calculatedDate = this.getPreviousMonth(format);
         break;
-      case "nextYear":
+      case CalculateDates.NEXT_YEAR:
         calculatedDate = this.getNextYear(format);
         break;
-      case "previousYear":
+      case CalculateDates.PREVIOUS_YEAR:
         calculatedDate = this.getPreviousYear(format);
         break;
       default:
@@ -151,4 +155,4 @@ const DateModule = function () {
     return calculatedDate;
   };
 };
-module.exports = new DateModule();
+export default new DateModule();

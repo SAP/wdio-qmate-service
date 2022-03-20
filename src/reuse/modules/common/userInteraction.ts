@@ -1,9 +1,12 @@
 "use strict";
+
+import { KeyCodes } from "./constants/userInteraction.constants";
+
 /**
  * @class userInteraction
  * @memberof common 
  */
-const UserInteraction = function () {
+export class UserInteraction {
 
   // =================================== FILL ===================================
   /**
@@ -13,7 +16,7 @@ const UserInteraction = function () {
    * @param {String} value - The value with witch the input should be filled.
    * @example await common.userInteraction.fillActive("My Value");
    */
-  this.fillActive = async function (value) {
+  async fillActive (value: string) {
     try {
       if (value !== null) {
         const elem = await $(await browser.getActiveElement());
@@ -22,6 +25,7 @@ const UserInteraction = function () {
         throw new Error("Function 'fillActive' failed: Please provide a value as argument.");
       }
     } catch (error) {
+      // @ts-ignore
       throw new Error("Function 'fillActive' failed: ", error);
     }
 
@@ -36,7 +40,7 @@ const UserInteraction = function () {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
    * @example await common.userInteraction.fillActiveAndRetry("My Value");
    */
-  this.fillActiveAndRetry = async function (value, retries = 3, interval = 5000) {
+  async fillActiveAndRetry (value: string, retries: number = 3, interval: number = 5000) {
     await util.function.retry(this.fillActive, [value], retries, interval, this);
   };
 
@@ -48,7 +52,7 @@ const UserInteraction = function () {
    * @param {String} value - The value to fill.
    * @example await common.userInteraction.clearAndFillActive("My Value");
    */
-  this.clearAndFillActive = async function (value) {
+  async clearAndFillActive (value: string) {
     if (value !== null) {
       const elem = await $(await browser.getActiveElement());
       await elem.setValue(value);
@@ -66,7 +70,7 @@ const UserInteraction = function () {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await common.userInteraction.clearAndFillActiveAndRetry("My Value");
    */
-  this.clearAndFillActiveAndRetry = async function (value, retries = 3, interval = 5000) {
+  async clearAndFillActiveAndRetry (value: string, retries: number = 3, interval: number = 5000) {
     await util.function.retry(this.clearAndFillActive, [value], retries, interval, this);
   };
 
@@ -81,7 +85,7 @@ const UserInteraction = function () {
    * @example await common.userInteraction.pressKey("\uE004");
    * @example await common.userInteraction.pressKey(["\uE009", "Alt"]);
    */
-  this.pressKey = async function (keys) {
+  async pressKey (keys: string | string[]) {
     await browser.keys(keys);
   };
 
@@ -91,8 +95,8 @@ const UserInteraction = function () {
    * @description Performs the Enter keypress.
    * @example await common.userInteraction.pressEnter();
    */
-  this.pressEnter = async function () {
-    await browser.keys("\uE007");
+  async pressEnter () {
+    await browser.keys(KeyCodes.ENTER);
   };
 
   /**
@@ -101,8 +105,8 @@ const UserInteraction = function () {
    * @description Performs the Tab keypress.
    * @example await common.userInteraction.pressTab();
    */
-  this.pressTab = async function () {
-    await browser.keys("\uE004");
+  async pressTab () {
+    await browser.keys(KeyCodes.TAB);
   };
 
   /**
@@ -111,8 +115,8 @@ const UserInteraction = function () {
    * @description Performs the F4 keypress.
    * @example await common.userInteraction.pressF4();
    */
-  this.pressF4 = async function () {
-    await browser.keys("\uE034");
+  async pressF4 () {
+    await browser.keys(KeyCodes.F4);
   };
 
   /**
@@ -121,8 +125,8 @@ const UserInteraction = function () {
    * @description Performs the Backspace keypress.
    * @example await common.userInteraction.pressBackspace();
    */
-  this.pressBackspace = async function () {
-    await browser.keys("\uE003");
+  async pressBackspace () {
+    await browser.keys(KeyCodes.BACKSPACE);
   };
 
   /**
@@ -132,8 +136,8 @@ const UserInteraction = function () {
    * @description Performs the Escape keypress.
    * @example await common.userInteraction.pressEscape();
    */
-  this.pressEscape = async function () {
-    await browser.keys("\uE00C");
+  async pressEscape () {
+    await browser.keys(KeyCodes.ESCAPE);
   };
 
   /**
@@ -142,8 +146,8 @@ const UserInteraction = function () {
    * @description Performs the Arrow Left keypress.
    * @example await common.userInteraction.pressArrowLeft();
    */
-  this.pressArrowLeft = async function () {
-    await browser.keys("\uE012");
+  async pressArrowLeft () {
+    await browser.keys(KeyCodes.ARROW_LEFT);
   };
 
   /**
@@ -152,9 +156,9 @@ const UserInteraction = function () {
    * @description Performs the Arrow Right keypress.
    * @example await common.userInteraction.pressArrowRight();
    */
-  this.pressArrowRight = async function () {
-    await browser.keys("\uE014");
+  async pressArrowRight () {
+    await browser.keys(KeyCodes.ARROW_RIGHT);
   };
 
 };
-module.exports = new UserInteraction();
+export default new UserInteraction();

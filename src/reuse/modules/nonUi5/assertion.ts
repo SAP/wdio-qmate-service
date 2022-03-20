@@ -1,9 +1,12 @@
 "use strict";
+
+import { Element } from "../../../../@types/wdio";
+
 /**
  * @class assertion
  * @memberof nonUi5
  */
-const Assertion = function () {
+export class Assertion {
 
   // =================================== PROPERTIES ===================================
   /**
@@ -18,7 +21,7 @@ const Assertion = function () {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectAttributeToBe(element, "Save", "title");
    */
-  this.expectAttributeToBe = async function (elem, compareValue, attribute) {
+  async expectAttributeToBe (elem: Element, compareValue: string, attribute: string): Promise<void> {
     const value = await nonUi5.element.getAttributeValue(elem, attribute);
     return common.assertion.expectEqual(value, compareValue);
   };
@@ -33,7 +36,7 @@ const Assertion = function () {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectAttributeToContain(element, "Save", "title");
    */
-  this.expectAttributeToContain = async function (elem, compareValue, attribute) {
+  async expectAttributeToContain (elem: Element, compareValue: string, attribute: string) {
     const value = await nonUi5.element.getAttributeValue(elem, attribute);
     return expect(value).toContain(compareValue);
   };
@@ -47,8 +50,9 @@ const Assertion = function () {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectValueToBe(elem, "Save");
    */
-  this.expectValueToBe = async function (elem, compareValue) {
+  async expectValueToBe (elem: Element, compareValue: string): Promise<void> {
     // Note: it is not required to send 'value' here, because 'expectAttributeToBe' is calling 'getValue' inside
+    // @ts-ignore
     await this.expectAttributeToBe(elem, compareValue);
   };
 
@@ -62,7 +66,7 @@ const Assertion = function () {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectToBeVisible(elem);
    */
-  this.expectToBeVisible = async function (element) {
+  async expectToBeVisible (element: Element): Promise<void> {
     if (!element) {
       throw new Error("Function 'expectToBeVisible' failed. Please provide an element as argument.");
     }
@@ -86,13 +90,12 @@ const Assertion = function () {
  * @example const elem = await nonUi5.element.getById("button01");
  * await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
  */
-  this.expectToBeNotVisible = async function (element, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async expectToBeNotVisible (element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<void> {
     if (!element) {
       throw new Error("Function 'expectToBeNotVisible' failed. Please provide an element as argument.");
     }
-
     await element.waitForDisplayed({
-      timeout: timeout,
+      timeout: +timeout,
       reverse: true,
       timeoutMsg: "Function 'expectToBeNotVisible' failed. Element is visible but was expected to be not.",
       interval: 100
@@ -100,4 +103,4 @@ const Assertion = function () {
   };
 
 };
-module.exports = new Assertion();
+export default new Assertion();

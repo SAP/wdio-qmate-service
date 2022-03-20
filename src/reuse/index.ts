@@ -2,18 +2,21 @@
 
 const legacyMapper = require("./helper/legacySupport/legacyMapper.js");
 
-const ReuseLibrary = function () {
-  this.load = function () {
+import utilQmate from './modules/util/Util'
+import commonQmate from './modules/common/Common'
+
+class ReuseLibrary {
+  load() {
 
     /**
      * @global
      * @description Global namespace for common modules.
      */
     const common = {
-      assertion: require("./modules/common/assertion.js"),
-      date: require("./modules/common/date.js"),
-      navigation: require("./modules/common/navigation.js"),
-      userInteraction: require("./modules/common/userInteraction.js")
+      assertion: commonQmate.assertion,
+      date: commonQmate.date,
+      navigation: commonQmate.navigation,
+      userInteraction: commonQmate.userInteraction
     };
     global.common = {
       ...common,
@@ -25,13 +28,13 @@ const ReuseLibrary = function () {
      * @description Global namespace for util modules.
      */
     const util = {
-      browser: require("./modules/util/browser.js"),
-      console: require("./modules/util/console.js"),
-      file: require("./modules/util/file.js"),
-      formatter: require("./modules/util/formatter.js"),
-      function: require("./modules/util/function.js"),
-      performance: require("./modules/util/performance.js"),
-      system: require("./modules/util/system.js")
+      browser: utilQmate.browser,
+      console: utilQmate.console,
+      file: utilQmate.file,
+      formatter: utilQmate.formatter,
+      function: utilQmate.function,
+      // performance: utilQmate.perfomance,
+      system: utilQmate.system
     };
     global.util = {
       ...util,
@@ -95,4 +98,4 @@ const ReuseLibrary = function () {
     legacyMapper();
   };
 };
-module.exports = new ReuseLibrary();
+export default new ReuseLibrary();

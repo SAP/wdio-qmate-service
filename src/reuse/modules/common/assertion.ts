@@ -3,7 +3,7 @@
  * @class assertion
  * @memberof common
  */
-const Assertion = function () {
+export class Assertion {
 
   /**
    * @function expectEqual
@@ -13,7 +13,7 @@ const Assertion = function () {
    * @param {Any} value2 - Value (2) to be equal to value (1)
    * @example common.assertion.expectEqual(value1, value2);
    */
-  this.expectEqual = function (value1, value2) {
+  expectEqual (value1: any, value2: any) {
     expect(value1).toEqual(value2);
   };
 
@@ -25,7 +25,7 @@ const Assertion = function () {
    * @param {Any} value2 - Value (2) to be unequal to value (1)
    * @example common.assertion.expectUnequal(value1, value2);
    */
-  this.expectUnequal = function (value1, value2) {
+  expectUnequal (value1: any, value2: any) {
     expect(value1).not.toEqual(value2);
   };
 
@@ -36,7 +36,7 @@ const Assertion = function () {
    * @param {Any} value - Value to be equal to true
    * @example common.assertion.expectTrue(value);
    */
-  this.expectTrue = function (value) {
+  expectTrue (value: any) {
     this.expectEqual(value, true);
   };
 
@@ -47,7 +47,7 @@ const Assertion = function () {
    * @param {Boolean} value - The value to be false.
    * @example common.assertion.expectFalse(false);
    */
-  this.expectFalse = function (value) {
+  expectFalse (value: any) {
     this.expectEqual(value, false);
   };
 
@@ -58,7 +58,7 @@ const Assertion = function () {
    * @param {Any} value - Value to be defined (not undefined)
    * @example common.assertion.expectDefined(value);
    */
-  this.expectDefined = function (value) {
+  expectDefined (value: any) {
     expect(value).toBeDefined();
   };
 
@@ -69,7 +69,7 @@ const Assertion = function () {
    * @param {Any} value - Value to be undefined
    * @example common.assertion.expectUndefined(value);
    */
-  this.expectUndefined = function (value) {
+  expectUndefined (value: any) {
     expect(value).toBeUndefined();
   };
 
@@ -79,9 +79,9 @@ const Assertion = function () {
    * @description Expects the url to be the passed value.
    * @example await common.assertion.expectUrlToBe("www.sap.com");
    */
-  this.expectUrlToBe = async function (urlExp) {
+  expectUrlToBe (urlExp: string) {
     return expect(browser.getUrl()).resolves.toBe(urlExp);
   };
 
 };
-module.exports = new Assertion();
+export default new Assertion();

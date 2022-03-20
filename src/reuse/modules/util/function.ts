@@ -3,8 +3,8 @@
  * @class function
  * @memberof util
  */
-const Function = function () {
-  let overallRetries;
+export class FunctionModule {
+  overallRetries: number = 3;
 
   // =================================== MAIN ===================================
   /**
@@ -22,10 +22,10 @@ const Function = function () {
    * }, [], 2, 30000);
    */
   // NOTE: Don't set default values since they will be calculated with "_getRetryProperties".
-  this.retry = async function (fct, args, retries, interval, scope = null) {
-    overallRetries = retries;
-    const res = await _getRetryProperties(retries, interval);
-    await _retry(fct, args, res.retries, res.interval, scope);
+  async retry (fct: Function, args: Array<any>, retries: number, interval: number, scope: any = null) {
+    this.overallRetries = retries;
+    const res = await this._getRetryProperties(retries, interval);
+    await this._retry(fct, args, res.retries, res.interval, scope);
   };
 
   /**
@@ -39,7 +39,7 @@ const Function = function () {
    *  await ui5.userInteraction.fill(selector, "ABC");
    * }, []);
    */
-  this.executeOptional = async function (fct, args) {
+  async executeOptional (fct: any, args: Array<any>) {
     try {
       await fct.apply(this, args);
     } catch (e) {
@@ -62,7 +62,7 @@ const Function = function () {
    * @param {string} action - An action performed upon the element ("click", "fill")
    * @example await util.function.mapWdioErrorToQmateErrorMessage(error, "click");
    */
-  this.mapWdioErrorToQmateErrorMessage = async function (wdioError, action) {
+  async mapWdioErrorToQmateErrorMessage (wdioError: Error, action: string) {
     const errorMessage = wdioError.message;
     let qmateMessage = "";
     if (action === "fill") {
@@ -76,8 +76,10 @@ const Function = function () {
         let elementAttributes = foundAttributes;
         if (reg && foundAttributes) {
           if (foundAttributes.includes("id=")) {
+            // @ts-ignore
             elementAttributes = foundAttributes.match(new RegExp(/(?=id)(.*)(?<=")/));
           } else if (foundAttributes.includes("class=")) {
+            // @ts-ignore
             elementAttributes = foundAttributes.match(new RegExp(/(?=class)(.*)(?<=")/));
           }
         }
@@ -93,7 +95,7 @@ const Function = function () {
 
 
   // =================================== HELPER ===================================
-  async function _getRetryProperties(retries, interval) {
+  private async _getRetryProperties(retries: number, interval: number) {
     const res = {
       retries: retries,
       interval: interval
@@ -113,7 +115,7 @@ const Function = function () {
     return res;
   }
 
-  async function _retry(fct, args, retries, interval, scope = null) {
+  private async _retry(fct: any, args: Array<any>, retries: number, interval: number, scope = null) {
     try {
       return await fct.apply(scope, args);
     } catch (e) {
@@ -122,9 +124,10 @@ const Function = function () {
         throw new Error(`Retries done. Failed to execute the function: ${e}`);
       }
       await browser.pause(interval);
-      util.console.log(`Retrying function again (${overallRetries - retries}/${overallRetries})`);
-      await _retry(fct, args, retries, interval, scope);
+      util.console.log(`Retrying function again (${this.overallRetries - retries}/${this.overallRetries})`);
+      await this._retry(fct, args, retries, interval, scope);
     }
   }
 };
-module.exports = new Function();
+
+export default new FunctionModule();
