@@ -28,7 +28,7 @@
     "lint:fix": "npx eslint . --fix",
     "generate-docs": "node reuse/helper/jsDocGen",
     "update-legacy": "node reuse/helper/legacySupport/legacyReplacer.js",
-    "build": "tsc && ./extract.sh",
+    "build": "npx tsc && ./extract.sh",
     "test:authenticator:staticLogin:custom": "npx wdio ./tests/authenticator/staticLogin/configCustom.js",
     "test:authenticator:staticLogin:customViaConfig": "npx wdio ./tests/authenticator/staticLogin/configCustomViaConfig.js",
     "test:authenticator:staticLogin:fiori": "npx wdio ./tests/authenticator/staticLogin/configFiori.js",
@@ -128,11 +128,11 @@
   "dependencies": {
     "@sap_oss/odata-library": "^0.10.2",
     "axios": "^0.24.0",
-    "query-string": "^7.1.0",
     "curl": "^0.1.4",
     "fs-extra": "^10.0.0",
     "path": "^0.12.7",
     "pdf-parse": "^1.1.1",
+    "query-string": "^7.1.0",
     "supa-restapi": "^2.0.0",
     "supertest": "^6.1.6",
     "yargs": "^17.1.1"
@@ -150,6 +150,7 @@
     "eslint-plugin-wdio": "^6.0.12",
     "jsdoc-to-markdown": "^5.0.3",
     "npx": "^10.2.2",
+    "typescript": "^4.6.3",
     "wdio-chromedriver-service": "^7.2.0"
   }
 }

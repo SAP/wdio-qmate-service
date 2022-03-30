@@ -17,10 +17,11 @@ def tests = [
 def closureBuilder = [:]
 
 tests.each { test ->
+
   closureBuilder["${test.area}:${test.name}"] = {
     node(jenkinsNode) {
         timestamps {
-          try {
+          try{
             checkout scm
 
             sh '''
@@ -32,6 +33,7 @@ tests.each { test ->
                 npm config set registry http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.milestones.npm/
                 npm config set @SAP:registry http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.milestones.npm/
                 npm i
+                npm build
                 '''
 
             sh "CHROME_DRIVER=/usr/bin/chromedriver npm run test:${test.area}:${test.name}"
@@ -45,44 +47,5 @@ tests.each { test ->
     }
   }
 }
-node(jenkinsNode) {
-    stage('Run tests') {
-      // parallel closureBuilder
-      sh '''
-      echo "mocked for now"
-      '''
-    }
-    stage('Update Docs') {
-      def gitVars = checkout scm
-      echo "gitVars ${gitVars}"
-      if(env.ghprbActualCommitAuthorEmail != 'qmate.jenkins@sap.com') {
-        sh '''
-        env
-        httpUrl=$ghprbAuthorRepoGitUrl
-        find='https://github.tools.sap/'
-        replace='git@github.tools.sap:'
-        sshUrl=${httpUrl//$find/$replace}
-        if [[ $sshUrl != 'git@github.tools.sap:sProcurement/wdio-qmate-service.git' ]]; then
-          cd ..
-          git clone $sshUrl CLONE_FORK_REPO
-          cd CLONE_FORK_REPO
-        fi
-        git remote set-url origin $sshUrl
-        git fetch origin
-        git config user.email "qmate.jenkins@sap.com"
-        git config user.name "Qmate Jenkins"
-        git checkout $ghprbSourceBranch
-        npm install
-        npm run generate-docs
-        changes=$(git diff)
-        if [[ $changes != '' ]]; then
-          git commit -am "Update documentation"
-          git push origin $ghprbSourceBranch
-        fi
-        '''
-      }
-    }
-}
 
-// parallel closureBuilder
-
+parallel closureBuilder
