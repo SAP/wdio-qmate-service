@@ -2,8 +2,15 @@
 
 const legacyMapper = require("./helper/legacySupport/legacyMapper.js");
 
+// modules
 import utilQmate from './modules/util/Util'
 import commonQmate from './modules/common/Common'
+import nonUi5Qmate from './modules/nonUi5/NonUi5';
+
+// data
+import appIntents from './data/appIntents.json';
+import authenticators from './data/authenticators.json'
+import users from './data/users.json'
 
 class ReuseLibrary {
   load() {
@@ -60,9 +67,9 @@ class ReuseLibrary {
       userInteraction: require("./modules/ui5/userInteraction.js"),
       qunit: require("./modules/ui5/qunit.js"),
       // data
-      appIntents: require("./data/appIntents.json"),
-      authenticators: require("./data/authenticators.json"),
-      users: require("./data/users.json")
+      appIntents,
+      authenticators,
+      users
     };
     global.ui5 = {
       ...ui5,
@@ -74,9 +81,9 @@ class ReuseLibrary {
      * @description Global namespace for non UI5 modules.
      */
     const nonUi5 = {
-      assertion: require("./modules/nonUi5/assertion.js"),
-      element: require("./modules/nonUi5/element.js"),
-      userInteraction: require("./modules/nonUi5/userInteraction.js")
+      assertion: nonUi5Qmate.assertion,
+      element: nonUi5Qmate.element,
+      userInteraction: nonUi5Qmate.userInteraction
     };
     global.nonUi5 = {
       ...nonUi5,
@@ -98,4 +105,5 @@ class ReuseLibrary {
     legacyMapper();
   };
 };
+
 export default new ReuseLibrary();

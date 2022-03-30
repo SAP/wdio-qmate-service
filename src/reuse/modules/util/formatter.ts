@@ -138,7 +138,7 @@ export class Formatter {
    * const formattedDate = util.formatter.formatDate(date, "mm/dd/yyyy");
    * // returns "01/17/2020"
    */
-  formatDate (date: Date, format: DateFormats): string {
+  formatDate (date: Date, format: DateFormats): string | Date {
     let formattedDate: Date | string = date;
     let hour: number | string = date.getHours();
     let min: number | string = date.getMinutes();
@@ -200,7 +200,7 @@ export class Formatter {
       }
     }
 
-    return String(formattedDate);
+    return formattedDate;
   };
 
 };

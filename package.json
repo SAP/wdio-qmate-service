@@ -28,6 +28,7 @@
     "lint:fix": "npx eslint . --fix",
     "generate-docs": "node reuse/helper/jsDocGen",
     "update-legacy": "node reuse/helper/legacySupport/legacyReplacer.js",
+    "build": "tsc && ./extract.sh",
     "test:authenticator:staticLogin:custom": "npx wdio ./tests/authenticator/staticLogin/configCustom.js",
     "test:authenticator:staticLogin:customViaConfig": "npx wdio ./tests/authenticator/staticLogin/configCustomViaConfig.js",
     "test:authenticator:staticLogin:fiori": "npx wdio ./tests/authenticator/staticLogin/configFiori.js",

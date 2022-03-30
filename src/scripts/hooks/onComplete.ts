@@ -1,4 +1,4 @@
-const dataExchangeCommands = require("./utils/dataExchangeCommands");
+import dataExchangeCommands from "./utils/dataExchangeCommands";
 
 /**
  * Gets executed after all workers got shut down and the process is about to exit. An error
@@ -9,6 +9,6 @@ const dataExchangeCommands = require("./utils/dataExchangeCommands");
  * @param {<Object>} results object containing test results
  */
 
-module.exports = async function (exitCode, config, capabilities, results) {
+export default async function (exitCode: any, config: any, capabilities: any, results: any) {
   await dataExchangeCommands.writeExportData();
 };

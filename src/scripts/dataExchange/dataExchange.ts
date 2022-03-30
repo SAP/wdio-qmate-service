@@ -4,13 +4,11 @@
  * Import data to be used in test specs from JSON files, or folders.
  * Export data to JSON files.
  */
-const fs = require("fs-extra");
-const path = require("path");
-const importExportDataUtil = require("./dataExchangeUtil");
+import fs from 'fs-extra'
+import path from "path";
+import importExportDataUtil from "./dataExchangeUtil";
 
-var DataExchange = function () {
-
-
+class DataExchange {
 
   /**
    * @function readParams
@@ -18,7 +16,7 @@ var DataExchange = function () {
    * @example await readParams();
    */
 
-  this.readParams = async function () {
+  async readParams () {
 
     if (!browser.config.params) {
       //nothing to do
@@ -36,8 +34,10 @@ var DataExchange = function () {
       const param = params[i];
       // adjust file path if relative
       const fileOrDir = importExportDataUtil.getFileAbsPath(importParams[param]);
+      // @ts-ignore
       const isFileReadable = await importExportDataUtil.isReadable(fileOrDir);
       if (isFileReadable) {
+        // @ts-ignore
         await importExportDataUtil.readData(fileOrDir, [param]);
       } else {
         delete importParams[param];
@@ -72,7 +72,7 @@ var DataExchange = function () {
    * in these temporary files will be merged after all instances complete
    * @example await writeExportDataInTmpFile();
    */
-  this.writeExportDataInTmpFile = async function () {
+  async writeExportDataInTmpFile () {
     if (!browser.params || !browser.params.exportDataFiles) {
       // no export data files in config.js, nothing to do
       return;
@@ -119,7 +119,7 @@ var DataExchange = function () {
    * files and merges the data.
    * @example await writeExportData();
    */
-  this.writeExportData = async function () {
+  async writeExportData () {
     if (!process.env.TMP_EXPORT_PATH) {
       console.warn("Unexpected error - process.env.TMP_EXPORT_PATH not defined");
       return;
@@ -135,8 +135,8 @@ var DataExchange = function () {
     }
 
     files.sort();
-    const exportData = {};
-    let exportDataFiles = {};
+    const exportData: any = {};
+    let exportDataFiles: any = {};
     // loop through the files in sequence, for loop ensures all files are
     // read before we go to the next step
     for (const file of files) {
