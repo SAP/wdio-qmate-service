@@ -564,4 +564,4 @@ export class ElementModule {
   }
 }
 
-export default new Element();
+export default new ElementModule();

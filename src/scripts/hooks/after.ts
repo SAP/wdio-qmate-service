@@ -1,4 +1,4 @@
-const dataExchangeCommands = require("./utils/dataExchangeCommands");
+import dataExchangeCommands from "./utils/dataExchangeCommands";
 
 /**
  * Gets executed after all tests are done. You still have access to all global variables from
@@ -7,7 +7,7 @@ const dataExchangeCommands = require("./utils/dataExchangeCommands");
  * @param {Array.<Object>} capabilities list of capabilities details
  * @param {Array.<String>} specs List of spec file paths that ran
  */
-module.exports = async function (result, capabilities, specs) {
+export default async function (result: number, capabilities: any, specs: any) {
   // write export data in tmp files
   await dataExchangeCommands.writeExportDataInTmpFile();
-};
+}

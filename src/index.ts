@@ -3,11 +3,11 @@
 // https://webdriver.io/docs/customservices.html
 // Worker service has access to all other hooks and is being executed for each worker.
 
-const qmateLoaderSession = require("./scripts/hooks/beforeSession");
-const qmateLoader = require("./scripts/hooks/before");
-const onPrepareHook = require("./scripts/hooks/onPrepare");
-const onCompleteHook = require("./scripts/hooks/onComplete");
-const afterHook = require("./scripts/hooks/after");
+import qmateLoaderSession from "./scripts/hooks/beforeSession";
+import qmateLoader from "./scripts/hooks/before";
+import onPrepareHook from "./scripts/hooks/onPrepare";
+import onCompleteHook from "./scripts/hooks/onComplete";
+import afterHook from "./scripts/hooks/after";
 module.exports = class CustomWorkerService {
   /**
    * `serviceOptions` contains all options specific to the service
@@ -19,6 +19,7 @@ module.exports = class CustomWorkerService {
    *
    * the `serviceOptions` parameter will be: `{ foo: 'bar' }`
    */
+  // @ts-ignore
   constructor(serviceOptions, capabilities, config, browser) {}
 
   /**
@@ -26,6 +27,7 @@ module.exports = class CustomWorkerService {
    * @param {Object} config wdio configuration object
    * @param {Array.<Object>} capabilities list of capabilities details
    */
+  // @ts-ignore
   async onPrepare(config, capabilities) {
     const logo = `                         __     
   ____ _____ ___  ____ _/ /____ 
@@ -49,6 +51,7 @@ module.exports = class CustomWorkerService {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {Array.<String>} specs List of spec file paths that are to be run
    */
+  // @ts-ignore
   async beforeSession(config, capabilities, specs) {
     try {
       await qmateLoaderSession(config, capabilities, specs);
@@ -69,6 +72,7 @@ module.exports = class CustomWorkerService {
    * @param {Array.<String>} specs        List of spec file paths that are to be run
    * @param {Object}         browser      instance of created browser/device session
    */
+  // @ts-ignore
   async before(capabilities, specs, browser) {
     // Errors in WDIO hooks are suppressed by default => we call process.exit(1). It will mark all specs as failed
     try {
@@ -87,28 +91,23 @@ module.exports = class CustomWorkerService {
    * Gets executed before the suite starts.
    * @param {Object} suite suite details
    */
-  async beforeSuite(suite) {
+  async beforeSuite(suite: any) {
     util.console.log(` ${suite.fullTitle}  `, "black", "white");
   }
 
   /**
    * Function to be executed after a test (in Mocha/Jasmine)
    */
-  async afterTest(test, context, {
-    error,
-    result,
-    duration,
-    passed,
-    retries
-  }) {
+  // @ts-ignore
+  async afterTest(test: any, context: any, { error, result, duration, passed, retries }) {
     // test.title - for mocha framework
     // test.description - for jasmine framework
     const testName = test.title || test.description;
     // Print test titles as in vyperForAll during test run
     if (!error && passed === true) {
-      util.console.info(`\x1b[32m\t✓ ${testName}\x1b[0m  (${Math.round(duration/1000)}s)`);
+      util.console.info(`\x1b[32m\t✓ ${testName}\x1b[0m  (${Math.round(duration / 1000)}s)`);
     } else if (error || passed !== true) {
-      util.console.error(`\x1b[31m\t✗ ${testName}\x1b[0m  (${Math.round(duration/1000)}s)`);
+      util.console.error(`\x1b[31m\t✗ ${testName}\x1b[0m  (${Math.round(duration / 1000)}s)`);
     }
   }
 
@@ -119,7 +118,7 @@ module.exports = class CustomWorkerService {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {Array.<String>} specs List of spec file paths that ran
    */
-  async after(result, capabilities, specs) {
+  async after(result: number, capabilities: any, specs: any) {
     try {
       afterHook(result, capabilities, specs);
     } catch (e) {
@@ -135,7 +134,7 @@ module.exports = class CustomWorkerService {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {<Object>} results object containing test results
    */
-  async onComplete(exitCode, config, capabilities, results) {
+  async onComplete(exitCode: number, config: any, capabilities: any, results: any) {
     try {
       await onCompleteHook(exitCode, config, capabilities, results);
     } catch (e) {

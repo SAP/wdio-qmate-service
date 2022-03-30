@@ -4,10 +4,10 @@
  * Utility functions to import data to be used in test specs from JSON files, or folders.
  * Export data to JSON files.
  */
-const fs = require("fs-extra");
-const path = require("path");
+import fs from 'fs-extra'
+import path from 'path'
 
-var DataExchangeUtil = function () {
+class DataExchangeUtil {
 
   /**
    * @function getFileAbsPath
@@ -15,7 +15,7 @@ var DataExchangeUtil = function () {
    * @return {string} the file with absolute file path
    * @example await getFileAbsPath("./data/myfolder/po.json");
    */
-  this.getFileAbsPath = function (fileWithPath) {
+  getFileAbsPath (fileWithPath: string): string | undefined {
     if (!process.env.CONFIG_PATH) {
       console.warn("Internal error: process.env.CONFIG_PATH not set");
       return;
@@ -28,7 +28,7 @@ var DataExchangeUtil = function () {
    * @param {string} filename - file name with full path
    * @return {Boolean} - true if file is readable, false if file is not present or not readable  
    */
-  this.isReadable = async function (filename) {
+  async isReadable (filename: string): Promise<boolean> {
     try {
       await fs.access(filename, fs.constants.R_OK);
       return true;
@@ -44,7 +44,7 @@ var DataExchangeUtil = function () {
    * @return {object} - the JSON data
    * @throws {*} - throws an error if file is not readable, or if data is not valid JSON
    */
-  this.readJson = async function (filename) {
+  async readJson (filename: string): Promise<object> {
     // handle empty files
     const data = await fs.readFile(filename, "utf-8");
     return data && data.trim() ? JSON.parse(data) : null;
@@ -59,7 +59,7 @@ var DataExchangeUtil = function () {
    * @param {object} options - options, e.g. {spaces: 2} to pretty print JSON
    * @throws {*} - throws an error if file is not writable
    */
-  this.outputJson = async function (fileWithPath, data, options) {
+  async outputJson (fileWithPath: string, data: object, options?: object): Promise<void> {
     // if output directory or file does not exist, it gets created
     // handle empty data object
     if (!data ||
@@ -79,7 +79,7 @@ var DataExchangeUtil = function () {
    * @param {string} fileOrDir - file or directory with full path
    * @param {string[]} params - the keys under which data should be stored
    */
-  this.readData = async function (fileOrDir, params) {
+  async readData (fileOrDir: string, params: string[]): Promise<void> {
     const stat = await fs.stat(fileOrDir);
 
     if (stat.isDirectory()) {
@@ -100,7 +100,7 @@ var DataExchangeUtil = function () {
    * @param {string} folder - folder with complete path
    * @param {string[]} params - the keys hierarchy under which data should be stored
    */
-  this.readFolder = async function (folder, params) {
+  async readFolder (folder: string, params: string[]): Promise<void> {
     const files = await fs.readdir(folder, { withFileTypes: true });
     for (const file of files) {
       if (file.isDirectory()) {
@@ -132,7 +132,7 @@ var DataExchangeUtil = function () {
    * @param {string} filename - file to be read, includes path
    * @param {string[]} params - the keys hierarchy under which data should be stored
    */
-  this.readFile = async function (filename, params) {
+  async readFile (filename: string, params: string[]): Promise<void> {
     try {
       if (!params || params.length <= 0) {
         console.warn("Invalid key params sent, key array is empty");
@@ -180,4 +180,4 @@ var DataExchangeUtil = function () {
 };
 
 
-module.exports = new DataExchangeUtil();
+export default new DataExchangeUtil();

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-const fs = require("fs-extra");
-const path = require("path");
-const os = require("os");
+import fs from 'fs-extra'
+import path from 'path'
+import os from 'os'
 const dataExchange = require("../../dataExchange/dataExchange");
 
 async function createTmpDataFolder() {
@@ -18,11 +18,11 @@ async function createTmpDataFolder() {
   }
 }
 
-var DataFolderCommands = function () {
-  this.createTmpDataFolder = createTmpDataFolder;
-  this.readParams = dataExchange.readParams;
-  this.writeExportDataInTmpFile = dataExchange.writeExportDataInTmpFile;
-  this.writeExportData = dataExchange.writeExportData;
+class DataFolderCommands {
+  createTmpDataFolder = createTmpDataFolder;
+  readParams = dataExchange.readParams;
+  writeExportDataInTmpFile = dataExchange.writeExportDataInTmpFile;
+  writeExportData = dataExchange.writeExportData;
 };
 
-module.exports = new DataFolderCommands();
+export default new DataFolderCommands();
