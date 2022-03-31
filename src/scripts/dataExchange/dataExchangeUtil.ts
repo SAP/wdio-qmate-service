@@ -181,3 +181,5 @@ class DataExchangeUtil {
 
 
 export default new DataExchangeUtil();
+// JS SUPPORT
+module.exports = new DataExchangeUtil();
