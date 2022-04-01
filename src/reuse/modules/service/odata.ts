@@ -3,7 +3,7 @@
  * @class odata
  * @memberof service
  */
-class OData {
+export class OData {
   readonly utilModule = require("util");
   readonly urlLib = require("url").URL;
   readonly curl = require("curl");
@@ -316,4 +316,4 @@ class OData {
   }
 
 };
-module.exports = new OData();
+export default new OData();
