@@ -41,7 +41,7 @@ class ReuseLibrary {
       file: utilQmate.file,
       formatter: utilQmate.formatter,
       function: utilQmate.function,
-      // performance: utilQmate.perfomance,
+      performance: utilQmate.perfomance,
       system: utilQmate.system
     };
     global.util = {

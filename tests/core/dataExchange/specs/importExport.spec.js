@@ -88,6 +88,8 @@ describe("Import and Export using UI", function () {
     } catch (e) {
       // ignore, no cookie dialog
     }
+    await nonUi5.element.switchToIframe("iframe[id='sampleFrame']");
+
     const userData = browser.params.import.myUserPrefix;
     await common.assertion.expectDefined(userData);
 
