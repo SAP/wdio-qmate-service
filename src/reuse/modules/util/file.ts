@@ -3,7 +3,7 @@
  * @class file
  * @memberof util
  */
-// @ts-ignore
+
 export class File {
   path = require("path");
   pdf = require("pdf-parse");
@@ -54,6 +54,7 @@ export class File {
     const options = {
       pagerender: renderingMethod,
     };
+    // @ts-ignore
     const data = await this.pdf(pdfStream, options);
     return data.text;
   }
@@ -99,34 +100,37 @@ export class File {
   }
 
   // =================================== HELPER ===================================
-  private _renderPage(pageData: any) {
+  private async _renderPage(pageData: any) {
+
+    // should be in scope of render page due to library specific implementation
+    const _parseText = function (textContent: any) {
+      if (textContent === undefined || textContent === null || !textContent.items || !Array.isArray(textContent.items)) {
+        return;
+      }
+      let lastY,
+        text = "";
+      for (const item of textContent.items) {
+        if (Array.isArray(item.transform) && item.transform.length === 6) {
+          if (lastY == item.transform[5] || !lastY) {
+            text += " " + item.str;
+          } else {
+            text += "\n" + item.str;
+          }
+          lastY = item.transform[5];
+        }
+      }
+      return text;
+    }
+
     const render_options = {
       // replaces all occurrences of whitespace with standard spaces (0x20). The default value is `false`.
       normalizeWhitespace: false,
       // do not attempt to combine same line TextItem's. The default value is `false`.
       disableCombineTextItems: false,
     };
-
-    return pageData.getTextContent(render_options).then(this._parseText);
+    return pageData.getTextContent(render_options).then(_parseText);
   }
 
-  private _parseText(textContent: any) {
-    if (textContent === undefined || textContent === null || !textContent.items || !Array.isArray(textContent.items)) {
-      return;
-    }
-    let lastY,
-      text = "";
-    for (const item of textContent.items) {
-      if (Array.isArray(item.transform) && item.transform.length === 6) {
-        if (lastY == item.transform[5] || !lastY) {
-          text += " " + item.str;
-        } else {
-          text += "\n" + item.str;
-        }
-        lastY = item.transform[5];
-      }
-    }
-    return text;
-  }
+  
 }
 export default new File();
