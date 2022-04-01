@@ -3,19 +3,20 @@
  * @class odata
  * @memberof service
  */
-const OData = function () {
-  const utilModule = require("util");
-  const urlLib = require("url").URL;
-  const curl = require("curl");
+export class OData {
+  readonly utilModule = require("util");
+  readonly urlLib = require("url").URL;
+  readonly curl = require("curl");
 
-
-  let Service;
-  try {
-    Service = require("@sap_oss/odata-library/lib/Service.js");
-  } catch (error) {
-    util.console.error("OData test client Service issue: Probably @sap_oss/odata-library was not installed as a npm module.");
+  Service: any;
+  constructor() {
+    try {
+      this.Service = require("@sap_oss/odata-library/lib/Service.js");
+    } catch (error) {
+      util.console.error("OData test client Service issue: Probably @sap_oss/odata-library was not installed as a npm module.");
+    }
   }
-
+  
   /**
    * @function init
    * @memberOf service.odata
@@ -41,7 +42,7 @@ const OData = function () {
    * }
    * srv = await service.odata.init(url, user, password, false, params);
    */
-  this.init = async function (url, username, password, loggingEnabled = false, params = {}) {
+  async init (url: string, username: string, password: string, loggingEnabled = false, params = {}): Promise<any> {
     const logger = {
       "trace": () => {},
       "debug": console.debug,
@@ -57,10 +58,11 @@ const OData = function () {
     };
 
     if (params){
+      // @ts-ignore
       Object.keys(params).forEach((key)=>parameters[key] = params[key]);
     }
 
-    const srv = new Service({
+    const srv = new this.Service({
       "logger": loggingEnabled ? logger : "",
       "url": url,
       "auth": {
@@ -85,7 +87,7 @@ const OData = function () {
    * @example const url = "https://qs9-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
    * srv = await service.odata.init(url, user, password);
    */
-  this.get = async function (srv, entitySet, options) {
+  async get (srv: any, entitySet: any, options: any): Promise<any> {
     return srv[entitySet].get(options);
   };
 
@@ -114,7 +116,7 @@ const OData = function () {
    * };
    * let res = await service.odata.getEntitySet(service, "A_PurchaseOrder", filterString, select, queryParams);
    */
-  this.getEntitySet = async function (srv, entitySet, filterString = "", selectionFields = "", queryParams={}) {
+  async getEntitySet (srv: any, entitySet: any, filterString = "", selectionFields = "", queryParams: any = {}) {
     if (!srv) {
       throw new Error("Service is not defined. Please make sure to initialize and pass the service.");
     } else {
@@ -145,9 +147,10 @@ const OData = function () {
    * service = await service.odata.init(url, user, password);
    * let isFeatureActive = await service.odata.isFeatureToggleActivated(service, "MM_PUR_PO_BATCHES_IN_MANAGE_PO");
    */
-  this.isFeatureToggleActivated = async function (srv, featureName) {
+  async isFeatureToggleActivated (srv: any, featureName: string): Promise<boolean> {
     const res = await this.getEntitySet(srv, "ToggleStatusSet");
     for (const featureEntity of Object.values(res)) {
+      // @ts-ignore
       if (featureEntity.Featureid === featureName) {
         //feature toggle is disabled if found
         util.console.info(`Feature Toggle "${featureName}" is disabled.`);
@@ -174,7 +177,7 @@ const OData = function () {
    *          };
    * let res = await service.odata.get(service, "A_PurchaseOrder", keys);
    */
-  this.post = async function (srv, entitySet, payload) {
+  async post (srv: any, entitySet: any, payload: any) {
     return srv[entitySet].post(payload);
   };
 
@@ -193,7 +196,7 @@ const OData = function () {
    *          };
    * let res = await service.odata.get(service, "A_PurchaseOrder", keys);
    */
-  this.merge = async function (srv, entitySet, payload) {
+  async merge (srv: any, entitySet: any, payload: any) {
     const res = await srv[entitySet].merge(payload);
     return res;
   };
@@ -212,7 +215,7 @@ const OData = function () {
               };
               await service.odata.delete(service, "C_PurchaseOrderTP", options);
   */
-  this.delete = async function (srv, entitySet, options) {
+  async delete (srv: any, entitySet: any, options: any) {
     const res = await srv[entitySet].delete(options);
     return res;
   };
@@ -230,7 +233,7 @@ const OData = function () {
   };
   const res = await service.odata.callFunctionImport(service, functionImportName, options);
   */
-  this.callFunctionImport = async function (srv, functionImportName, options) {
+  async callFunctionImport (srv: any, functionImportName: any, options: any) {
     const functionImport = srv.functionImports[functionImportName];
 
     const res = await functionImport.call(options);
@@ -253,11 +256,11 @@ const OData = function () {
               const pdfStream = await service.odata.getOutputManagementPdfStream(outputConf, url, user, password);
 
   */
-  this.getOutputManagementPdfStream = async function (outputConf, url, username, password) {
+  async getOutputManagementPdfStream (outputConf: any, url: string, username: string, password: string) {
     if (arguments.length < 4) {
       throw new Error("getOutputManagementPdfStream Failed. Please send correct parameters");
     }
-    const uri = new urlLib(url);
+    const uri = new this.urlLib(url);
     url = uri.origin + "/sap/opu/odata/sap/CA_OC_OUTPUT_REQUEST_SRV/";
     const srv = await service.odata.init(url, username, password);
     //await service.init;
@@ -275,18 +278,18 @@ const OData = function () {
   * @example  const url = "https://domain.com/getPdfFile";
       const pdfStream = await service.odata.readPdfFromDirectUrl(url, "username", "Password");
   */
-  this.readPdfFromDirectUrl = async function (url, username, password, isSaml = false) {
+  async readPdfFromDirectUrl (url: string, username: string, password: string, isSaml = false) {
     if (url === undefined || url === null) {
       throw new Error("Function 'readPdfFromDirectUrl' Failed. Please provide valid url as first parameter");
     }
-    const res = await _doRequest(url, username, password, isSaml);
+    const res = await this._doRequest(url, username, password, isSaml);
     return res;
   };
 
   // =================================== HELPER ===================================
-  function _doRequest(url, username, password, isSaml) {
+  _doRequest(url: string, username: string, password: string, isSaml: boolean) {
     //const auth = new Buffer(username + ":" + password).toString("base64");
-    const options = {
+    const options : any = {
       encoding: null,
       "content-type": "application/pdf"
     };
@@ -301,8 +304,8 @@ const OData = function () {
       }
 
     }
-    return new Promise(function (resolve, reject) {
-      curl.get(url, options, function (error, res, body) {
+    return new Promise((resolve, reject) => {
+      this.curl.get(url, options, function (error: any, res: any, body: any) {
         if (!error) {
           resolve(body);
         } else {
@@ -313,4 +316,4 @@ const OData = function () {
   }
 
 };
-module.exports = new OData();
+export default new OData();
