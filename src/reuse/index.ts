@@ -6,6 +6,7 @@ const legacyMapper = require("./helper/legacySupport/legacyMapper.js");
 import utilQmate from './modules/util/Util'
 import commonQmate from './modules/common/Common'
 import nonUi5Qmate from './modules/nonUi5/NonUi5';
+import serviceQmate from './modules/service/Service'
 
 // data
 import appIntents from './data/appIntents.json';
@@ -95,7 +96,7 @@ class ReuseLibrary {
      * @description Global namespace for service modules.
      */
     const service = {
-      odata: require("./modules/service/odata.js")
+      odata: serviceQmate.odata
     };
     global.service = {
       ...service,
