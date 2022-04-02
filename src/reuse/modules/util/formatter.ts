@@ -1,6 +1,7 @@
 "use strict";
 
 import { DateFormats } from "./constants/formatter.constants";
+import { DateFormatsType } from "./types/formatter.types";
 
 /**
  * @class formatter
@@ -138,7 +139,7 @@ export class Formatter {
    * const formattedDate = util.formatter.formatDate(date, "mm/dd/yyyy");
    * // returns "01/17/2020"
    */
-  formatDate (date: Date, format: DateFormats): string | Date {
+  formatDate (date: Date, format: DateFormatsType): string | Date {
     let formattedDate: Date | string = date;
     let hour: number | string = date.getHours();
     let min: number | string = date.getMinutes();
@@ -186,13 +187,13 @@ export class Formatter {
         case DateFormats.YEAR_MONTH_DAY_SLASH:
           formattedDate = `${yyyy}/${mm}/${dd}`;
           break;
-        case "dd.mm.yyyy.hh.mm":
+        case DateFormats.DAY_MONTH_YEAR_TIME_DOT:
           formattedDate = `${dd}.${mm}.${yyyy}.${hour}.${min}`;
           break;
-        case "datetime":
+        case DateFormats.DATETIME:
           formattedDate = `datetime'${yyyy}-${mm}-${dd}T${hour}:${min}:${sec}'`;
           break;
-        case "object":
+        case DateFormats.OBJECT:
           formattedDate = date;
           break;
         default:
