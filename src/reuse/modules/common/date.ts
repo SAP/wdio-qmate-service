@@ -1,7 +1,10 @@
 "use strict";
 
 import { CalculateDates } from "./constants/date.constants";
-import { DateFormats } from "../util/constants/formatter.constants"
+import { CalculateDatesType } from "./types/date.types";
+
+import { DateFormats } from "../util/constants/formatter.constants";
+import { DateFormatsType } from "../util/types/formatter.types";
 
 /**
  * @class date
@@ -18,7 +21,7 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getToday("mm/dd/yyyy");
    */
-  getToday (format: DateFormats = DateFormats.OBJECT): Date | string {
+  getToday (format: DateFormatsType = DateFormats.OBJECT): Date | string {
     const date = new Date();
     return util.formatter.formatDate(date, format);
   };
@@ -31,7 +34,7 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getTomorrow("mm/dd/yyyy");
    */
-  getTomorrow (format: DateFormats = DateFormats.OBJECT): Date | string {
+  getTomorrow (format: DateFormatsType = DateFormats.OBJECT): Date | string {
     const date = new Date();
     date.setDate(date.getDate() + 1);
     return util.formatter.formatDate(date, format);
@@ -45,7 +48,7 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getNextMonth("mm/dd/yyyy");
    */
-  getNextMonth (format: DateFormats = DateFormats.OBJECT): Date | string {
+  getNextMonth (format: DateFormatsType = DateFormats.OBJECT): Date | string {
     const date = new Date();
     date.setMonth(date.getMonth() + 1);
     return util.formatter.formatDate(date, format);
@@ -59,7 +62,7 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getPreviousMonth("mm/dd/yyyy");
    */
-  getPreviousMonth (format: DateFormats = DateFormats.OBJECT): Date | string {
+  getPreviousMonth (format: DateFormatsType = DateFormats.OBJECT): Date | string {
     const date = new Date();
     date.setMonth(date.getMonth() - 1);
     return util.formatter.formatDate(date, format);
@@ -73,7 +76,7 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getNextYear("mm/dd/yyyy");
    */
-  getNextYear (format: DateFormats = DateFormats.OBJECT): Date | string {
+  getNextYear (format: DateFormatsType = DateFormats.OBJECT): Date | string {
     const date = new Date();
     date.setFullYear(date.getFullYear() + 1);
     return util.formatter.formatDate(date, format);
@@ -87,7 +90,7 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getPreviousYear("mm/dd/yyyy");
    */
-  getPreviousYear (format: DateFormats = DateFormats.OBJECT): Date | string {
+  getPreviousYear (format: DateFormatsType = DateFormats.OBJECT): Date | string {
     const date = new Date();
     date.setFullYear(date.getFullYear() - 1);
     return util.formatter.formatDate(date, format);
@@ -102,7 +105,7 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getSpecific("2020, 0, 17", "mm/dd/yyyy");
    */
-  getSpecific (date: string, format: DateFormats = DateFormats.OBJECT): Date | string {
+  getSpecific (date: string, format: DateFormatsType = DateFormats.OBJECT): Date | string {
     if (!date) {
       throw new Error("Function 'getSpecific' failed: Please provide a date string ('2020, 0, 17') as first argument.");
     }
@@ -120,7 +123,7 @@ export class DateModule {
    * @returns {String} The calculated date in the given format.
    * @example const date = await common.date.calculate("today", "mm/dd/yyy");
    */
-  calculate (date: CalculateDates = CalculateDates.TODAY, format: DateFormats = DateFormats.OBJECT): Date | string {
+  calculate (date: CalculateDatesType = CalculateDates.TODAY, format: DateFormatsType = DateFormats.OBJECT): Date | string {
     if (date === null) {
       date = CalculateDates.TODAY;
     }
