@@ -3,10 +3,10 @@
  * @class footerBar
  * @memberof ui5
  */
-const FooterBar = function () {
+export class FooterBar {
 
-  this.selectors = {
-    genericButton: (text) => {
+  selectors = {
+    genericButton: (text: string) => {
       return {
         "elementProperties": {
           "metadata": "sap.m.Button",
@@ -57,11 +57,11 @@ const FooterBar = function () {
    * @function clickButton
    * @memberOf ui5.footerBar
    * @description Clicks the button with the given text at the footer bar.
-   * @param {Number} text - The text of the button.
+   * @param {String} text - The text of the button.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickButton("Ok");
    */
-  this.clickButton = async function (text, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async clickButton (text: string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     return ui5.userInteraction.click(this.selectors.genericButton(text), 0, timeout);
   };
 
@@ -72,7 +72,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickApply();
    */
-  this.clickApply = async function (timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async clickApply (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     return this.clickButton("Apply", timeout);
   };
 
@@ -83,7 +83,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickSave();
    */
-  this.clickSave = async function (timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async clickSave (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     return this.clickButton("Save", timeout);
   };
 
@@ -94,7 +94,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickCreate();
    */
-  this.clickCreate = async function (timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async clickCreate (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     return this.clickButton("Create", timeout);
   };
 
@@ -105,7 +105,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickCancel();
    */
-  this.clickCancel = async function (timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async clickCancel (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     return this.clickButton("Cancel", timeout);
   };
 
@@ -116,7 +116,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickCheck();
    */
-  this.clickCheck = async function (timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async clickCheck (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     return this.clickButton("Check", timeout);
   };
 
@@ -127,7 +127,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickOrder();
    */
-  this.clickOrder = async function (timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async clickOrder (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     return this.clickButton("Order", timeout);
   };
 
@@ -138,7 +138,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickPost();
    */
-  this.clickPost = async function (timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async clickPost (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     return this.clickButton("Post", timeout);
   };
 
@@ -149,7 +149,7 @@ const FooterBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickAdd();
    */
-  this.clickAdd = async function (timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async clickAdd (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     return this.clickButton("Add", timeout);
   };
 
@@ -159,7 +159,7 @@ const FooterBar = function () {
    * @description Opens the message box by clicking the button at the footer bar.
    * @example await ui5.messageBox.clickMessageBoxButton();
    */
-  this.clickMessageBoxButton = async function () {
+  async clickMessageBoxButton () {
     return ui5.userInteraction.click(this.selectors.messageBoxButton);
   };
 
@@ -169,7 +169,7 @@ const FooterBar = function () {
    * @description Closes the message box by clicking the close icon.
    * @example await ui5.messageBox.clickCloseMessageBox();
    */
-  this.clickCloseMessageBox = async function () {
+  async clickCloseMessageBox () {
     return ui5.userInteraction.click(this.selectors.messageBoxCloseButton);
   };
 
@@ -181,7 +181,7 @@ const FooterBar = function () {
    * @description Expects the MessageBox to be visible.
    * @example await ui5.messageBox.expectMessageBoxToBeVisible();
    */
-  this.expectMessageBoxToBeVisible = async function () {
+  async expectMessageBoxToBeVisible () {
     return ui5.assertion.expectToBeVisible(this.selectors.messageBox);
   };
 
@@ -192,9 +192,11 @@ const FooterBar = function () {
    * @returns {Boolean} Bool value if the element is visible or not.
    * @example await ui5.messageBox.isMessageBoxVisible();
    */
-  this.isMessageBoxVisible = async function () {
+  async isMessageBoxVisible () {
+    // TODO: check
+    //@ts-ignore
     return ui5.element.getValue(this.selectors.messageBox, "visible");
   };
 
 };
-module.exports = new FooterBar();
+export default new FooterBar();

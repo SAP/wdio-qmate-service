@@ -5,13 +5,16 @@
 // It is not required to check the type (function or string) - toString() function can be applied to a string too.
 
 "use strict";
+
+import { RequestMethodType } from "./types/mockserver.types";
+
 /**
  * @class mockserver  
  * @memberof ui5
  */
-const Mockserver = function () {
+export class Mockserver {
 
-  const lib = require("../../../scripts/hooks/utils/lib.js");
+  lib = require("../../../scripts/hooks/utils/lib.js");
 
   // =================================== MAIN ===================================
   /**
@@ -21,8 +24,8 @@ const Mockserver = function () {
    * @param {Integer} interval - The intervals to use when waiting UI5 to load.
    * @example await ui5.mockserver.waitForUi5ApplicationLoad(100);
    */
-  this.waitForUi5ApplicationLoad = async function (interval = 100) {
-    await lib.waitUI5ToStabilize(); // Note: interval is hardcoded in  lib.js
+  async waitForUi5ApplicationLoad (interval = 100) {
+    await this.lib.waitUI5ToStabilize(); // Note: interval is hardcoded in  lib.js
   };
 
   /**
@@ -35,9 +38,9 @@ const Mockserver = function () {
    * @param {String} oParams - Additional parameters you would like to inject in your client script function
    * @example await ui5.mockserver.interactWithMockServer("path/to/project/localService/main/mockserver", fnCallback, oParams);
    */
-  this.interactWithMockServer = async function (mockServerPath, fnCallback, oParams) {
+  async interactWithMockServer (mockServerPath: string, fnCallback: any, oParams: string) {
     // fnCallback-> function(mockServerInstance, oParams, done){...}
-    await lib.mockServerActionInBrowser(fnCallback, mockServerPath, oParams);
+    await this.lib.mockServerActionInBrowser(fnCallback, mockServerPath, oParams);
     return await ui5.mockserver.waitForUi5ApplicationLoad();
   };
 
@@ -51,9 +54,9 @@ const Mockserver = function () {
    * @param {Object} oParams - Additional parameters you would like to inject in your client script function
    * @example await ui5.mockserver.attachFunctionBefore("GET", "path/to/project/localService/main/mockserver", fnBeforeCallback, oParams);
    */
-  this.attachFunctionBefore = async function (method, mockServerPath, fnBeforeCallback, oParams) {
+  async attachFunctionBefore (method: RequestMethodType, mockServerPath: string, fnBeforeCallback: any, oParams: any) {
     const fnBeforeCallbackString = fnBeforeCallback.toString();
-    await lib.mockServerActionInBrowser(function (mockserver, method, fnBeforeCallbackString, oParams, done) {
+    await this.lib.mockServerActionInBrowser(function (mockserver: any, method: RequestMethodType, fnBeforeCallbackString: any, oParams: any, done: any) {
       const mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
         util.console.error("Mockserver not yet initialized or method getMockServer is missing");
@@ -77,9 +80,9 @@ const Mockserver = function () {
    * @param {Object} oParams - Additional parameters you would like to inject in your client script function
    * @example await ui5.mockserver.attachFunctionAfter("GET", "path/to/project/localService/main/mockserver",  fnAfterCallback);
    */
-  this.attachFunctionAfter = async function (method, mockServerPath, fnAfterCallback, oParams) {
+  async attachFunctionAfter (method: RequestMethodType, mockServerPath: string, fnAfterCallback: any, oParams: any) {
     const fnAfterCallbackString = fnAfterCallback.toString();
-    await lib.mockServerActionInBrowser(function (mockserver, method, fnAfterCallbackString, oParams, done) {
+    await this.lib.mockServerActionInBrowser(function (mockserver: any, method: RequestMethodType, fnAfterCallbackString: any, oParams: any, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
         util.console.error("Mockserver not yet initialized or method getMockServer is missing");
@@ -107,7 +110,7 @@ const Mockserver = function () {
    * @param {String} responseLocation - Mocks the location response messages header
    * @example await ui5.mockserver.addNewRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*", "path/to/project/localService/main/mockdata/test.json", 200, true, JSON.stringify(msg));
    */
-  this.addNewRequest = async function (method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation) {
+  async addNewRequest (method: RequestMethodType, mockServerPath: string, urlPathRegex: string, responseJsonPath: string, returnCode: number, isText: boolean, responseMessages: any, responseLocation: any) {
     var responseData = responseJsonPath;
     try {
       if (typeof responseJsonPath !== "string" && typeof responseJsonPath === "object") {
@@ -124,10 +127,10 @@ const Mockserver = function () {
     if (!responseLocation) {
       responseLocation = false;
     }
-    await lib.mockServerActionInBrowser(function (mockserver, method, urlPathRegex, responseJsonPath, responseMessages, responseLocation, returnCode, isText, done) {
+    await this.lib.mockServerActionInBrowser(function (mockserver: any, method: RequestMethodType, urlPathRegex: any, responseJsonPath: any, responseMessages: any, responseLocation: any, returnCode: number, isText: any, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) throw new Error("Mockserver not yet initialized or method getMockServer is missing");
-      var fnResponse = function (oXhr) {
+      var fnResponse = function (oXhr: any) {
         // If connection close dont redo response
         if (oXhr.readyState && oXhr.readyState === 4) return true;
         var oData = null;
@@ -142,11 +145,13 @@ const Mockserver = function () {
             oData = responseJsonPath;
           } else {
             if (isText && isText !== "false") {
+              // @ts-ignore
               var oResponse = jQuery.sap.sjax({
                 url: responseJsonPath,
                 dataType: "text"
               });
             } else {
+              // @ts-ignore
               oResponse = jQuery.sap.sjax({
                 url: responseJsonPath,
                 dataType: "json"
@@ -174,8 +179,9 @@ const Mockserver = function () {
             }
           }
         }
-        var resHeader = {};
+        var resHeader: any = {};
         resHeader["content-encoding"] = "identity";
+        // @ts-ignore
         let parsedReturnCode = parseInt(returnCode);
         if (isNaN(parsedReturnCode)) {
           parsedReturnCode = 200;
@@ -231,8 +237,8 @@ const Mockserver = function () {
    * @param {String} urlPathRegex - The url path regex to filter the requests
    * @example await ui5.mockserver.removeRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*");
    */
-  this.removeRequest = async function (method, mockServerPath, urlPathRegex) {
-    await lib.mockServerActionInBrowser(function (mockserver, method, urlPathRegex, done) {
+  async removeRequest (method: RequestMethodType, mockServerPath: string, urlPathRegex: string) {
+    await this.lib.mockServerActionInBrowser(function (mockserver: any, method: RequestMethodType, urlPathRegex: string, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
         util.console.error("Mockserver not yet initialized or method getMockServer is missing");
@@ -272,7 +278,7 @@ const Mockserver = function () {
    * @param {String} responseLocation - Mocks the location response messages header
    * @example await ui5.mockserver.addOrOverrideRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*", "path/to/project/localService/main/mockdata/test.json", 200, true, JSON.stringify(msg));
    */
-  this.addOrOverrideRequest = async function (method, mockServerPath, urlPathRegex, responseJsonPath, returnCode, isText, responseMessages, responseLocation) {
+  async addOrOverrideRequest (method: RequestMethodType, mockServerPath: string, urlPathRegex: string, responseJsonPath: string, returnCode: number, isText: any, responseMessages: any, responseLocation: any) {
     var responseData = responseJsonPath;
     try {
       if (typeof responseJsonPath !== "string" && typeof responseJsonPath === "object") {
@@ -289,10 +295,10 @@ const Mockserver = function () {
     if (!responseLocation) {
       responseLocation = false;
     }
-    await lib.mockServerActionInBrowser(function (mockserver, method, urlPathRegex, responseJsonPath, responseMessages, responseLocation, returnCode, isText, done) {
+    await this.lib.mockServerActionInBrowser(function (mockserver: any, method: RequestMethodType, urlPathRegex: string, responseJsonPath: string, responseMessages: any, responseLocation: any, returnCode: any, isText: any, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) throw new Error("Mockserver not yet initialized or method getMockServer is missing");
-      var fnResponse = function (oXhr) {
+      var fnResponse = function (oXhr: any) {
         // If connection close dont redo response
         if (oXhr.readyState && oXhr.readyState === 4) return true;
         var oData = null;
@@ -307,11 +313,13 @@ const Mockserver = function () {
             oData = responseJsonPath;
           } else {
             if (isText && isText !== "false") {
+              // @ts-ignore
               var oResponse = jQuery.sap.sjax({
                 url: responseJsonPath,
                 dataType: "text"
               });
             } else {
+              // @ts-ignore
               oResponse = jQuery.sap.sjax({
                 url: responseJsonPath,
                 dataType: "json"
@@ -339,7 +347,7 @@ const Mockserver = function () {
             }
           }
         }
-        var resHeader = {};
+        var resHeader: any = {};
         resHeader["content-encoding"] = "identity";
         let parsedReturnCode = parseInt(returnCode);
         if (isNaN(parsedReturnCode)) {
@@ -394,8 +402,8 @@ const Mockserver = function () {
    * @param {String} mockServerPath - The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance].
    * @example await ui5.mockserver.startMockServer("path/to/project/localService/main/mockserver");
    */
-  this.startMockServer = async function (mockServerPath) {
-    await lib.mockServerActionInBrowser(function (mockserver, done) {
+  async startMockServer (mockServerPath: string) {
+    await this.lib.mockServerActionInBrowser(function (mockserver: any, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
         util.console.error("Mockserver not yet initialized or method getMockServer is missing");
@@ -416,17 +424,17 @@ const Mockserver = function () {
    * @param {String} mockServerOptions - The mock server options
    * @example await ui5.mockserver.initMockServer("path/to/project/localService/main/mockserver", mockServerOptions);
    */
-  this.initMockServer = async function (mockServerPath, mockServerOptions) {
+  async initMockServer (mockServerPath: string, mockServerOptions: string) {
     var mockServerOpts = JSON.stringify(mockServerOptions);
-    return await lib.mockServerActionInBrowser(function (mockserver, mockServerOpts, done) {
+    return await this.lib.mockServerActionInBrowser(function (mockserver: any, mockServerOpts: string, done: any) {
       if (!mockserver) {
         util.console.error("Mockserver file not yet loaded or is missing");
         done();
       }
-      mockserver.init(JSON.parse(mockServerOpts)).catch(function (oError) {
+      mockserver.init(JSON.parse(mockServerOpts)).catch(function (oError: any) {
         // load MessageBox only when needed as it otherwise bypasses the preload of sap.m
         // eslint-disable-next-line no-undef
-        sap.ui.require(["sap/m/MessageBox"], function (MessageBox) {
+        sap.ui.require(["sap/m/MessageBox"], function (MessageBox: any) {
           MessageBox.error(oError.message);
         });
       }).finally(function () {
@@ -445,8 +453,8 @@ const Mockserver = function () {
    * @param {String} mockServerPath - The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance].
    * @example await ui5.mockserver.initApplication("path/to/project/localService/main/mockserver");
    */
-  this.initApplication = async function (mockServerPath) {
-    await lib.mockServerActionInBrowser(function (mockserver, done) {
+  async initApplication (mockServerPath: string) {
+    await this.lib.mockServerActionInBrowser(function (mockserver: any, done: any) {
       if (!mockserver) {
         util.console.error("Mockserver file not yet loaded or is missing");
         done();
@@ -465,8 +473,8 @@ const Mockserver = function () {
    * @param {String} mockServerPath - The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance].
    * @example await ui5.mockserver.stopMockServer("path/to/project/localService/main/mockserver");
    */
-  this.stopMockServer = async function (mockServerPath) {
-    return await lib.mockServerActionInBrowser(function (mockserver, done) {
+  async stopMockServer (mockServerPath: string) {
+    return await this.lib.mockServerActionInBrowser(function (mockserver: any, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
         util.console.error("Mockserver not yet initialized or method getMockServer is missing");
@@ -486,8 +494,8 @@ const Mockserver = function () {
    * @returns {String} The json object
    * @example await ui5.mockserver.loadMockDataFile("path/to/project/mockData/myData.json", true);
    */
-  this.loadMockDataFile = async function (filePath, isText) {
-    return await lib.loadMockData(filePath, isText);
+  async loadMockDataFile (filePath: string, isText: boolean) {
+    return await this.lib.loadMockData(filePath, isText);
   };
 
   /**
@@ -499,8 +507,8 @@ const Mockserver = function () {
    * @returns {Array} An array of json objects
    * @example await ui5.mockserver.getEntitySetData("path/to/project/localService/main/mockserver", "Headers");
    */
-  this.getEntitySetData = async function (mockServerPath, entitySetName) {
-    return await lib.mockServerActionInBrowser(function (mockserver, entitySetName, done) {
+  async getEntitySetData (mockServerPath: string, entitySetName: string) {
+    return await this.lib.mockServerActionInBrowser(function (mockserver: any, entitySetName: string, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
         util.console.error("Mockserver not yet initialized or method getMockServer is missing");
@@ -520,7 +528,7 @@ const Mockserver = function () {
    * @param {String} entries - The json object to be used as data to be inserted [use relative path from the html page started].
    * @example await ui5.mockserver.setEntitySetData("path/to/project/localService/main/mockserver", "Headers", entries);
    */
-  this.setEntitySetData = async function (mockServerPath, entitySetName, entries) {
+  async setEntitySetData (mockServerPath: string, entitySetName: string, entries: string) {
     var responseData = entries;
     try {
       if (typeof entries !== "string" && typeof entries === "object") {
@@ -529,7 +537,7 @@ const Mockserver = function () {
     } catch (error) {
       throw new Error("Something went wrong with the conversion" + error);
     }
-    return await lib.mockServerActionInBrowser(function (mockserver, entitySetName, entries, done) {
+    return await this.lib.mockServerActionInBrowser(function (mockserver: any, entitySetName: string, entries: any, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
         util.console.error("Mockserver not yet initialized or method getMockServer is missing");
@@ -543,9 +551,11 @@ const Mockserver = function () {
           else if (tempOData.d) oData = [].concat(tempOData.d);
           else oData = [].concat(tempOData);
         } else {
+          // @ts-ignore
           oData = [].concat(tempOData);
         }
       } catch (e) {
+        // @ts-ignore
         var oResponse = jQuery.sap.sjax({
           url: entries,
           dataType: "json"
@@ -578,4 +588,4 @@ const Mockserver = function () {
   };
 
 };
-module.exports = new Mockserver();
+export default new Mockserver();
