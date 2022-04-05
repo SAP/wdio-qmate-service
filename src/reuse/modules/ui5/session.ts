@@ -3,7 +3,7 @@
  * @class session
  * @memberof ui5
  */
-const Session = function () {
+export class Session {
 
   // =================================== LOGIN ===================================
   /**
@@ -17,7 +17,7 @@ const Session = function () {
    * @example await ui5.session.login("PURCHASER");
    * @example await ui5.session.login("JOHN_DOE", "abc123!", true);
    */
-  this.login = async function (username, password = "super-duper-sensitive-pw", verify = false, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async login (username: string, password = "super-duper-sensitive-pw", verify = false, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     if (!username) {
       throw new Error("Please provide a valid username.");
     }
@@ -51,7 +51,7 @@ const Session = function () {
       throw new Error("login failed. Could not find the login page within the given time. \n" + error);
     }
 
-    await _loginWithUsernameAndPassword(username, password, authenticator, verify, messageSelector);
+    await this._loginWithUsernameAndPassword(username, password, authenticator, verify, messageSelector);
   };
 
   /**
@@ -63,7 +63,7 @@ const Session = function () {
    * @param {Boolean} [verify=false] - Specifies if the function will check the shell header after logging in.
    * @example await ui5.session.loginFiori("john", "abc123!");
    */
-  this.loginFiori = async function (username, password, verify = false) {
+  async loginFiori (username: string, password = "super-duper-sensitive-pw", verify = false) {
     if (!username) {
       throw new Error("Please provide a valid username.");
     }
@@ -71,7 +71,7 @@ const Session = function () {
     try {
       const authenticator = ui5.authenticators.fioriForm;
       const messageSelector = ui5.authenticators.fioriForm.messageSelector;
-      await _loginWithUsernameAndPassword(username, password, authenticator, verify, messageSelector);
+      await this._loginWithUsernameAndPassword(username, password, authenticator, verify, messageSelector);
     } catch (error) {
       throw new Error(`Function 'loginFiori' failed: ${error}`);
     }
@@ -86,7 +86,7 @@ const Session = function () {
    * @param {Boolean} [verify=false] - Specifies if the function will check the shell header after logging in.
    * @example await ui5.session.loginSapCloud("john", "abc123!");
    */
-  this.loginSapCloud = async function (username, password, verify = false) {
+  async loginSapCloud (username: string, password = "super-duper-sensitive-pw", verify = false) {
     if (!username) {
       throw new Error("Please provide a valid username.");
     }
@@ -94,7 +94,7 @@ const Session = function () {
     try {
       const authenticator = await ui5.authenticators.sapCloudForm;
       const messageSelector = ui5.authenticators.sapCloudForm.messageSelector;
-      return await _loginWithUsernameAndPassword(username, password, authenticator, verify, messageSelector);
+      return await this._loginWithUsernameAndPassword(username, password, authenticator, verify, messageSelector);
     } catch (error) {
       throw new Error(`Function 'loginSapCloud' failed: ${error}`);
     }
@@ -112,7 +112,7 @@ const Session = function () {
    * @param {Boolean} [verify=false] - Specifies if the function will check the shell header after logging in.
    * @example await ui5.session.loginCustom("JOHN_DOE", "abc123!", "#username", #password, "#logon");
    */
-  this.loginCustom = async function (username, password = "super-duper-sensitive-pw", usernameFieldSelector, passwordFieldSelector, logonButtonSelector, verify = false) {
+  async loginCustom (username: string, password = "super-duper-sensitive-pw", usernameFieldSelector: string, passwordFieldSelector: string, logonButtonSelector: string, verify = false) {
     if (!username) {
       throw new Error("Please provide a valid username.");
     }
@@ -123,7 +123,7 @@ const Session = function () {
         "passwordFieldSelector": passwordFieldSelector,
         "logonButtonSelector": logonButtonSelector
       };
-      return await _loginWithUsernameAndPassword(username, password, authenticator, verify);
+      return await this._loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
       throw new Error(`Function 'loginCustom' failed: ${error}`);
     }
@@ -160,7 +160,7 @@ const Session = function () {
     await ui5.session.loginCustomViaConfig();
    */
 
-  this.loginCustomViaConfig = async function (username, password = "super-duper-sensitive-pw", verify = false) {
+  async loginCustomViaConfig (username: string, password = "super-duper-sensitive-pw", verify = false) {
     try {
       const baseUrl = browser.config.baseUrl;
       await browser.navigateTo(baseUrl);
@@ -170,6 +170,7 @@ const Session = function () {
         browser.config.params.auth.password) {
         username = browser.config.params.auth.username;
         password = browser.config.params.auth.password;
+        // @ts-ignore
         util.console.info("\x1b[33m%s\x1b[0m", "Login credentials will be taken from config.");
       } else if (!username && !password) {
         throw new Error("Username or password is missing. Check your parameters or config file.");
@@ -183,7 +184,7 @@ const Session = function () {
         "passwordFieldSelector": browser.config.params.auth.passwordFieldSelector,
         "logonButtonSelector": browser.config.params.auth.logonButtonSelector
       };
-      return await _loginWithUsernameAndPassword(username, password, authenticator, verify);
+      return await this._loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
       throw new Error("Function 'loginCustomViaConfig' failed. Please maintain the auth values in your config.");
     }
@@ -199,9 +200,9 @@ const Session = function () {
    * Set this to false if the system does not show the text after logging out.
    * @example await ui5.session.logout();
    */
-  this.logout = async function (verify = true) {
+  async logout (verify = true) {
     await ui5.navigationBar.clickUserIcon();
-    await _clickSignOut();
+    await this._clickSignOut();
     await ui5.confirmationDialog.clickOk();
 
     if (verify) {
@@ -221,14 +222,14 @@ const Session = function () {
    * @example const authenticator = ui5.authenticators.fioriForm;
    * await ui5.session.switchUser("PURCHASER", "super-duper-sensitive-pw", authenticator, 30000);
    */
-  this.switchUser = async function (username, password = "super-duper-sensitive-pw", authenticator, wait = 10000) {
+  async switchUser (username: string, password = "super-duper-sensitive-pw", authenticator: any, wait = 10000) {
     await this.logout();
     await util.browser.sleep(wait);
     await browser.navigateTo(browser.config.baseUrl);
     if (!authenticator) {
       this.login(username, password);
     } else {
-      _loginWithUsernameAndPassword(username, password, authenticator);
+      this._loginWithUsernameAndPassword(username, password, authenticator);
     }
   };
 
@@ -241,14 +242,14 @@ const Session = function () {
    * This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
    * @example await ui5.session.expectLogoutText();
    */
-  this.expectLogoutText = async function () {
+  async expectLogoutText () {
     const elem = await nonUi5.element.getById("msgText");
     await nonUi5.assertion.expectToBeVisible(elem);
   };
 
 
   // =================================== HELPER ===================================
-  async function _loginWithUsernameAndPassword(username, password = "super-duper-sensitive-pw", authenticator = ui5.authenticators.fioriForm, verify = false, messageSelector) {
+  private async _loginWithUsernameAndPassword(username: string, password = "super-duper-sensitive-pw", authenticator = ui5.authenticators.fioriForm, verify = false, messageSelector?: string) {
     let usernameField = null;
     let passwordField = null;
     let logonField = null;
@@ -266,15 +267,18 @@ const Session = function () {
         timeoutMsg: "Login failed: Login page with the given authenticator not present."
       });
 
+      // @ts-ignore
       await usernameField.setValue(username);
+      // @ts-ignore
       await passwordField.setValue(password);
+      // @ts-ignore
       await logonField.click();
     } catch (error) {
       throw new Error(`Login failed: Please check if you are already logged in or if the system is down \n. ${error}`);
     }
 
     if (messageSelector) {
-      await _checkForErrors(messageSelector);
+      await this._checkForErrors(messageSelector);
     }
 
     if (verify) {
@@ -284,7 +288,7 @@ const Session = function () {
     await util.browser.logUI5Version();
   }
 
-  async function _clickSignOut() {
+  private async _clickSignOut() {
     const selector = {
       "elementProperties": {
         "metadata": "sap.m.StandardListItem",
@@ -297,12 +301,13 @@ const Session = function () {
     return ui5.userInteraction.click(selector);
   }
 
-  async function _checkForErrors(messageSelector) {
+  private async _checkForErrors(messageSelector: string) {
     let uiErrorMessagesFound = false;
     let messageText;
 
     try {
       const messageDiv = await nonUi5.element.getByCss(messageSelector, 0, 3000);
+      // @ts-ignore
       messageText = await nonUi5.element.getValue(messageDiv, "text");
       uiErrorMessagesFound = true;
     } catch (e) {
@@ -314,4 +319,4 @@ const Session = function () {
   }
 
 };
-module.exports = new Session();
+export default new Session();
