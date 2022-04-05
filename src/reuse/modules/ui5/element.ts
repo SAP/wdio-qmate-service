@@ -1,12 +1,12 @@
 "use strict";
 
-const element = require("../nonUi5/element");
+import { Element } from "../../../../@types/wdio";
 
 /**
  * @class element
  * @memberof ui5
  */
-const Element = function () {
+export class ElementModule {
 
   // =================================== WAIT ===================================
   /**
@@ -17,9 +17,9 @@ const Element = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.element.waitForAll(selector);
    */
-  this.waitForAll = async function (selector, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async waitForAll (selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     if (!selector) {
-      _throwSelectorError("waitForAll");
+      this._throwSelectorError("waitForAll");
     }
     try {
       await browser.uiControls(selector, timeout);
@@ -39,9 +39,9 @@ const Element = function () {
    * @returns {Object[]} - The found elements.
    * @example const elem = await ui5.element.getAllDisplayed(selector);
    */
-  this.getAllDisplayed = async function (selector, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async getAllDisplayed (selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element[]> {
     if (!selector) {
-      _throwSelectorError("getAllDisplayed");
+      this._throwSelectorError("getAllDisplayed");
     }
     try {
       return await browser.uiControls(selector, timeout);
@@ -60,9 +60,9 @@ const Element = function () {
    * @returns {Object} The found element.
    * @example const elem = await ui5.element.getDisplayed(selector);
    */
-  this.getDisplayed = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async getDisplayed (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
     if (!selector || typeof selector !== "object") {
-      _throwSelectorError("getDisplayed");
+      this._throwSelectorError("getDisplayed");
     }
     const elems = await browser.uiControls(selector, timeout);
     if (index < 0 || elems.length <= index) {
@@ -83,7 +83,7 @@ const Element = function () {
    * @returns {Object} The found element.
    * @example const elem = await ui5.element.getByText(selector, "Home");
    */
-  this.getByText = async function (selector, value, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async getByText (selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
     const elements = await this.getAllDisplayed(selector, timeout);
     const elementsWithText = [];
     try {
@@ -126,7 +126,7 @@ const Element = function () {
    * };
    * const elem = await ui5.element.getByChild(elementSelector, childSelector);
    */
-  this.getByChild = async function (elementSelector, childSelector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async getByChild (elementSelector: any, childSelector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
     const selector = {
       "elementProperties": elementSelector.elementProperties,
       "descendantProperties": childSelector.elementProperties
@@ -157,7 +157,7 @@ const Element = function () {
    * };
    * const elem = await ui5.element.getByParent(elementSelector, parentSelector);
    */
-  this.getByParent = async function (elementSelector, parentSelector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async getByParent (elementSelector: any, parentSelector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
     const selector = {
       "elementProperties": elementSelector.elementProperties,
       "ancestorProperties": parentSelector.elementProperties
@@ -181,7 +181,7 @@ const Element = function () {
    * @returns {String} The id of the element.
    * @example const elemId = await ui5.element.getId(selector);
    */
-  this.getId = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async getId (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<string> {
     const elem = await this.getDisplayed(selector, index, timeout);
     return elem.getAttribute("id");
   };
@@ -197,7 +197,7 @@ const Element = function () {
    * @returns {String} The property value of the element.
    * @example const elemValue = await ui5.element.getPropertyValue(selector, "text");
    */
-  this.getPropertyValue = async function (selector, property, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async getPropertyValue (selector: any, property: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<string> {
     let attrValue;
     try {
       let elem = await this.getDisplayed(selector, index, timeout);
@@ -215,7 +215,7 @@ const Element = function () {
     return attrValue;
   };
 
-  this.getInnerAttribute = async function (elem, name) {
+  async getInnerAttribute (elem: Element, name: string) {
     return elem.getAttribute(name).then(value => {
       if (value !== null) {
         return value;
@@ -238,7 +238,7 @@ const Element = function () {
    * @returns {String} The value of the element.
    * @example const elemValue = await ui5.element.getValue(selector);
    */
-  this.getValue = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async getValue (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<string> {
     try {
       return await this.getPropertyValue(selector, "value", index, timeout);
     } catch (error) {
@@ -257,9 +257,9 @@ const Element = function () {
    * @returns {String} The binding property value.
    * @example const elemBindingValue = await ui5.element.getBindingValue(selector, "InvoiceGrossAmount");
    */
-  this.getBindingValue = async function (selector, bindingContext, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async getBindingValue (selector: any, bindingContext: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<string> {
     const elem = await this.getDisplayed(selector, index, timeout);
-    return browser.controlActionInBrowser(function (control, property, done) {
+    return browser.controlActionInBrowser(function (control: any, property: string, done: Function) {
       done(control.getBinding(property).getValue());
     }, elem, bindingContext);
   };
@@ -274,7 +274,7 @@ const Element = function () {
    * @returns {Boolean} The bool value 'true' or 'false' if the element is visible or not.
    * @example const isVisible = await ui5.element.isVisible(selector);
    */
-  this.isVisible = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async isVisible (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<boolean> {
     try {
       const elem = await ui5.element.getDisplayed(selector, index, timeout);
       return await elem.isDisplayed();
@@ -294,7 +294,7 @@ const Element = function () {
    * @param {String} [color="red"] - The color of the highlighting (CSS color).
    * @example await ui5.element.highlight(selector, 3000, "green");
    */
-  this.highlight = async function (selector, duration = 2000, color = "red") {
+  async highlight (selector: any, duration = 2000, color = "red"): Promise<void> {
     const elem = await this.getDisplayed(selector);
     if (elem) {
       await browser.executeScript(`arguments[0].style.boxShadow = 'inset 0px 0px 0px 2px ${color}'`, [elem]);
@@ -305,9 +305,9 @@ const Element = function () {
 
 
   // =================================== HELPER ===================================
-  function _throwSelectorError(functionName) {
+  private _throwSelectorError(functionName: string): never {
     throw new Error(`Function '${functionName}' failed: Please provide a valid selector as argument.`);
   }
 
 };
-module.exports = new Element();
+export default new ElementModule();

@@ -79,10 +79,15 @@ export interface Element {
   setValue(value: ValueType, options?: ValueOptions): Promise<void>;
   shadow$$(selector: string | Function): Promise<Element[]>;
   shadow$(selector: string | Function): Promise<Element>;
-  //   touchAction(action: TouchActions)
+  // touchAction(action: TouchActions)
   waitForClickable(options?: WaitForOptions);
   waitForDisplayed(options?: WaitForOptions);
   waitForEnabled(options?: WaitForOptions);
   waitForExist(options?: WaitForOptions);
   waitUntil(condition: any, options?: WaitForOptions);
+
+  // wdio-extensions
+  getUI5Property(property: string): Promise<any>
+  getBindingProperty(property: string): Promise<any>
+  getBindingContextPath(): Promise<string>
 }

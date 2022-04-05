@@ -1,9 +1,12 @@
 "use strict";
+
+import { DateFormats } from "../util/constants/formatter.constants";
+
 /**
  * @class date
  * @memberof ui5
  */
-const DateModule = function () {
+export class DateModule {
 
   // =================================== PICK ===================================
   /**
@@ -16,7 +19,7 @@ const DateModule = function () {
    * @example const today = await common.date.calculate("today");
    * await ui5.date.pick(selector, date);
    */
-  this.pick = async function (selector, date, index = 0) {
+  async pick (selector: any, date: Date, index: number = 0) {
     let id = await ui5.element.getId(selector, index);
     if (selector.elementProperties.metadata === "sap.ui.core.Icon") {
       id = id.replace("-icon", "");
@@ -29,8 +32,8 @@ const DateModule = function () {
       }
     };
 
-    await _openDatePicker(tempSelector);
-    await _selectDate(tempSelector, date);
+    await this._openDatePicker(tempSelector);
+    await this._selectDate(tempSelector, date);
   };
 
   /**
@@ -46,7 +49,7 @@ const DateModule = function () {
    * const range = [start, end];
    * await ui5.date.pickRange(selector, range);
    */
-  this.pickRange = async function (selector, range, index = 0) {
+  async pickRange (selector: any, range: Date[], index = 0) {
     let id = await ui5.element.getId(selector, index);
     if (selector.elementProperties.metadata === "sap.ui.core.Icon") {
       id = id.replace("-icon", "");
@@ -58,9 +61,9 @@ const DateModule = function () {
         "id" : id
       }
     };
-    await _openDatePicker(tempSelector);
-    await _selectDate(tempSelector, range[0]);
-    await _selectDate(tempSelector, range[1]);
+    await this._openDatePicker(tempSelector);
+    await this._selectDate(tempSelector, range[0]);
+    await this._selectDate(tempSelector, range[1]);
   };
 
   // =================================== FILL ===================================
@@ -76,20 +79,20 @@ const DateModule = function () {
    * const range = [start, end];
    * await ui5.date.fillRange(selector, range);
    */
-  this.fillRange = async function (selector, range, index = 0) {
+  async fillRange (selector: any, range: Date[], index: number = 0) {
     const value = range[0] + " - " + range[1];
     await ui5.userInteraction.clearAndFill(selector, value, index);
   };
 
 
   // =================================== HELPER ===================================
-  async function _openDatePicker(selector) {
+  private async _openDatePicker(selector: any) {
     const id = selector.elementProperties.id;
     const icon = await nonUi5.element.getById(`${id}-icon`);
     await nonUi5.userInteraction.click(icon);
   }
 
-  async function _selectDate(selector, date) {
+  private async _selectDate(selector: any, date: Date) {
     const year = date.getFullYear();
     const month = date.getMonth();
     
@@ -112,10 +115,10 @@ const DateModule = function () {
         const yearSpan = await yearSpanElem.getText();
         const yearMin = yearSpan.slice(0, 4);
         const yearMax = yearSpan.slice(7, 11);
-        if (year < yearMin) {
+        if (String(year) < yearMin) {
           const prev = await nonUi5.element.getById(`${id}-cal--Head-prev`);
           await nonUi5.userInteraction.click(prev);
-        } else if (year > yearMax) {
+        } else if (String(year) > yearMax) {
           const next = await nonUi5.element.getById(`${id}-cal--Head-next`);
           await nonUi5.userInteraction.click(next);
         } else {
@@ -134,9 +137,9 @@ const DateModule = function () {
       await nonUi5.userInteraction.click(monthPick);
     }
 
-    const dayPick = await nonUi5.element.getByCss(`[id="${id}-cal"] .sapUiCalItem[data-sap-day="${util.formatter.formatDate(date, "yyyymmdd")}"] .sapUiCalItemText`);
+    const dayPick = await nonUi5.element.getByCss(`[id="${id}-cal"] .sapUiCalItem[data-sap-day="${util.formatter.formatDate(date, DateFormats.YEAR_MONTH_DAY_PLAIN)}"] .sapUiCalItemText`);
     await nonUi5.userInteraction.click(dayPick);
   }
 
 };
-module.exports = new DateModule();
+export default new DateModule();

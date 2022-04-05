@@ -3,10 +3,10 @@
  * @class control
  * @memberof ui5
  */
-const Control = function () {
+export class Control {
 
-  const lib = require("../../../scripts/hooks/utils/lib");
-  const locatorCommands = require("../../../scripts/hooks/utils/locatorCommands");
+  lib = require("../../../scripts/hooks/utils/lib");
+  locatorCommands = require("../../../scripts/hooks/utils/locatorCommands");
 
   // =================================== EXECUTE ===================================
   /**
@@ -23,8 +23,8 @@ const Control = function () {
    *   done(control.getProperty(args.property));
    * }, selector, args);
    **/
-  this.execute = async function (callbackFunction, selectorOrElement, args) {
-    return lib.controlActionInBrowser(callbackFunction, selectorOrElement, args);
+  async execute (callbackFunction: Function, selectorOrElement: any, args?: any) {
+    return this.lib.controlActionInBrowser(callbackFunction, selectorOrElement, args);
   };
 
 
@@ -40,8 +40,8 @@ const Control = function () {
    * const propertyName = "title";
    * const val = await ui5.control.getProperty(elem, propertyName);
    **/
-  this.getProperty = async function (elem, propertyName) {
-    return locatorCommands.getUI5Property(propertyName, elem);
+  async getProperty (elem: Element, propertyName: string) {
+    return this.locatorCommands.getUI5Property(propertyName, elem);
   };
 
   /**
@@ -55,8 +55,8 @@ const Control = function () {
    * const propertyName = "tooltip";
    * const val = await ui5.control.getAggregationProperty(elem, propertyName);
    **/
-  this.getAggregationProperty = async function (elem, propertyName) {
-    return locatorCommands.getUI5Aggregation(propertyName, elem);
+  async getAggregationProperty (elem: Element, propertyName: string) {
+    return this.locatorCommands.getUI5Aggregation(propertyName, elem);
   };
 
   /**
@@ -70,8 +70,8 @@ const Control = function () {
    * const propertyName = "selectedItems";
    * const propertyValue = await ui5.control.getAssociationProperty(elem, propertyName);
    **/
-  this.getAssociationProperty = async function (elem, propertyName) {
-    return locatorCommands.getUI5Association(propertyName, elem);
+  async getAssociationProperty (elem: Element, propertyName: string) {
+    return this.locatorCommands.getUI5Association(propertyName, elem);
   };
 
   /**
@@ -83,8 +83,8 @@ const Control = function () {
    * const elem = await ui5.control.locator.getDisplayedElement(selector);
    * const context = await ui5.control.getBindingContextPathProperty(elem);
    **/
-  this.getBindingContextPathProperty = async function (elem) {
-    return locatorCommands.getBindingContextPath(elem);
+  async getBindingContextPathProperty (elem: Element) {
+    return this.locatorCommands.getBindingContextPath(elem);
   };
 
 
@@ -100,9 +100,9 @@ const Control = function () {
    * const propertyName = "title";
    * const binding = await ui5.control.getPropertyBinding(elem, propertyName);
    **/
-  this.getPropertyBinding = async function (elem, propertyName) {
-    return locatorCommands.getBindingProperty(propertyName, elem);
+  async getPropertyBinding (elem: Element, propertyName: string) {
+    return this.locatorCommands.getBindingProperty(propertyName, elem);
   };
 
 };
-module.exports = new Control();
+export default new Control();

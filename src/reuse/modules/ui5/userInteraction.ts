@@ -3,7 +3,7 @@
  * @class userInteraction
  * @memberof ui5 
  */
-const UserInteraction = function () {
+export class UserInteraction {
 
   // =================================== CLICK ===================================
   /**
@@ -15,7 +15,7 @@ const UserInteraction = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.click(selector);
    */
-  this.click = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async click (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     let elem = null;
     await browser.waitUntil(async function () {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -23,12 +23,15 @@ const UserInteraction = function () {
       return elem.isClickable();
     }, {
       timeout,
-      timeoutMsg: `Element not clickable after ${timeout / 1000}s`
+      timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
     });
     try {
+      // @ts-ignore
       await elem.click();
     } catch (error) {
+      // @ts-ignore
       if (error.message && error.message.match(new RegExp(/is not clickable at point/))) {
+      // @ts-ignore
         const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "click");
         throw new Error(errorMessage);
       }
@@ -46,7 +49,7 @@ const UserInteraction = function () {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
    * @example await ui5.userInteraction.clickAndRetry(selector);
    */
-  this.clickAndRetry = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000, retries = 3, interval = 5000) {
+  async clickAndRetry (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
     await util.function.retry(this.click, [selector, index, timeout], retries, interval, this);
   };
 
@@ -60,8 +63,8 @@ const UserInteraction = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clickTab(selector);
    */
-  this.clickTab = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
-    await util.function.retry(async function (selector, index, timeout) {
+  async clickTab (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    await util.function.retry(async function (selector: any, index: number, timeout: number) {
       await ui5.userInteraction.click(selector);
       const tab = await ui5.element.getDisplayed(selector, index, timeout);
       const classList = await tab.getAttribute("class");
@@ -82,9 +85,9 @@ const UserInteraction = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clickListItem(selector);
    */
-  this.clickListItem = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async clickListItem (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
-    await ui5.control.execute(function (control, done) {
+    await ui5.control.execute(function (control: any, done: Function) {
       control.attachPress(function () {
         done();
       });
@@ -104,7 +107,7 @@ const UserInteraction = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.fill(selector, "My Value");
    */
-  this.fill = async function (selector, value, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async fill (selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     if (value !== null) {
       const id = await ui5.element.getId(selector, index, timeout);
       let elem = null;
@@ -129,7 +132,7 @@ const UserInteraction = function () {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
    * @example await ui5.userInteraction.fillAndRetry(selector, "My Value");
    */
-  this.fillAndRetry = async function (selector, value, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000, retries = 3, interval = 5000) {
+  async fillAndRetry (selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
     await util.function.retry(this.fill, [selector, value, index, timeout], retries, interval, this);
   };
 
@@ -145,8 +148,8 @@ const UserInteraction = function () {
    */
 
   //TODO remove clearHelper and use clear
-  this.clear = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
-    await _clearHelper(selector, index, timeout);
+  async clear (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    await this._clearHelper(selector, index, timeout);
   };
 
   /**
@@ -160,7 +163,7 @@ const UserInteraction = function () {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await ui5.userInteraction.clearAndRetry(selector);
    */
-  this.clearAndRetry = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000, retries = 3, interval = 5000) {
+  async clearAndRetry (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
     await util.function.retry(this.clear, [selector, index, timeout], retries, interval, this);
   };
 
@@ -174,7 +177,7 @@ const UserInteraction = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clearAndFill(selector, "My Value");
    */
-  this.clearAndFill = async function (selector, value, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async clearAndFill (selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     if (value !== null) {
       await this.clear(selector, index, timeout);
       await common.userInteraction.fillActive(value);
@@ -196,8 +199,8 @@ const UserInteraction = function () {
    * @param {Boolean} [verify=true] - Specifies if the filled value should be verified.
    * @example await ui5.userInteraction.clearAndFillAndRetry(selector, "My Value");
    */
-  this.clearAndFillAndRetry = async function (selector, value, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000, retries = 3, interval = 5000, verify = true) {
-    await util.function.retry(async (selector, value, index, timeout) => {
+  async clearAndFillAndRetry (selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000, verify = true) {
+    await util.function.retry(async (selector: any, value: string, index: number, timeout: number) => {
       await this.clearAndFill(selector, value, index, timeout);
       if (verify) {
         let elemValue = await ui5.element.getValue(selector, index);
@@ -221,7 +224,7 @@ const UserInteraction = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clearSmartFieldInput(selector);
    */
-  this.clearSmartFieldInput = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async clearSmartFieldInput (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     await ui5.userInteraction.clear(selector, index, timeout);
   };
 
@@ -235,7 +238,7 @@ const UserInteraction = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clearAndFillSmartFieldInput(selector, "My Value");
    */
-  this.clearAndFillSmartFieldInput = async function (selector, value, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async clearAndFillSmartFieldInput (selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const id = await ui5.element.getId(selector, index, timeout);
     const elem = await nonUi5.element.getByCss(`input[id*='${id}']`);
     await elem.click();
@@ -255,7 +258,7 @@ const UserInteraction = function () {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
    * @example await ui5.userInteraction.clearAndFillSmartFieldInputAndRetry(selector, "My Value");
    */
-  this.clearAndFillSmartFieldInputAndRetry = async function (selector, value, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000, retries = 3, interval = 5000) {
+  async clearAndFillSmartFieldInputAndRetry (selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
     await util.function.retry(this.clearAndFillSmartFieldInput, [selector, value, index, timeout], retries, interval, this);
   };
 
@@ -272,7 +275,7 @@ const UserInteraction = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @example await ui5.userInteraction.selectBox(selector, "Germany");
    */
-  this.selectBox = async function (selector, value, index = 0) {
+  async selectBox (selector: any, value: string, index = 0) {
     await this.clickSelectArrow(selector, index);
     if (value) {
       const itemSelector = {
@@ -301,7 +304,7 @@ const UserInteraction = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @example await ui5.userInteraction.selectComboBox(selector, "Germany");
    */
-  this.selectComboBox = async function (selector, value, index = 0) {
+  async selectComboBox (selector: any, value: string, index = 0) {
     await this.clickSelectArrow(selector, index);
     if (value) {
       const selector = {
@@ -331,7 +334,7 @@ const UserInteraction = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @example await ui5.userInteraction.selectMultiComboBox(selector, ["Option 1", "Option 2"]);
    */
-  this.selectMultiComboBox = async function (selector, values, index = 0) {
+  async selectMultiComboBox (selector: any, values: any[], index = 0) {
     await this.clickSelectArrow(selector, index);
     for (const v in values) {
       const ui5ControlProperties = {
@@ -360,7 +363,7 @@ const UserInteraction = function () {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @example await ui5.userInteraction.clickSelectArrow(selector);
    */
-  this.clickSelectArrow = async function (selector, index = 0) {
+  async clickSelectArrow (selector: any, index = 0) {
     const id = await ui5.element.getId(selector, index);
     const arrow = await nonUi5.element.getByCss("[id='" + id + "-arrow']", 0, 3000);
     await arrow.click();
@@ -376,7 +379,7 @@ const UserInteraction = function () {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
    * @example await ui5.userInteraction.clickSelectArrowAndRetry(selector);
    */
-  this.clickSelectArrowAndRetry = async function (selector, index = 0, retries = 3, interval = 5000) {
+  async clickSelectArrowAndRetry (selector: any, index = 0, retries = 3, interval = 5000) {
     await util.function.retry(this.clickSelectArrow, [selector, index], retries, interval, this);
   };
 
@@ -394,7 +397,7 @@ const UserInteraction = function () {
    * @example await ui5.userInteraction.scrollToElement(selector);
    * @example await ui5.userInteraction.scrollToElement(selector, 0, "start", 5000);
    */
-  this.scrollToElement = async function (selector, index = 0, alignment = "center", timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async scrollToElement (selector: any, index = 0, alignment = "center", timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
     if (elem) {
       const options = {
@@ -414,7 +417,7 @@ const UserInteraction = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.selectAll(selector);
    */
-  this.selectAll = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async selectAll (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     if (selector !== undefined) {
       await this.click(selector, index, timeout);
     } else {
@@ -434,9 +437,10 @@ const UserInteraction = function () {
    * The default value is true (triggered by pressing the F4-key). Set "useF4Key" to false, to trigger the search by clicking the button.
    * @example await ui5.userInteraction.openF4Help(selector, 0, 30000, false);
    */
-  this.openF4Help = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000, useF4Key = true) {
+  async openF4Help (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, useF4Key = true) {
     await ui5.userInteraction.click(selector, index, timeout);
     if (useF4Key === true) {
+      // @ts-ignore
       await this.pressF4();
     } else {
       const id = await ui5.element.getId(selector);
@@ -457,7 +461,7 @@ const UserInteraction = function () {
    * The default value is true (triggered by pressing the Enter-key). Set "useEnter" to false, to trigger the search by clicking the search button.
    * @example await ui5.userInteraction.searchFor(selector, "My Value", 0, 30000, false);
    */
-  this.searchFor = async function (selector, value, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000, useEnter = true) {
+  async searchFor (selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, useEnter = true) {
     await ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout);
     if (useEnter === true) {
       await common.userInteraction.pressEnter();
@@ -477,7 +481,7 @@ const UserInteraction = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.resetSearch(selector);
    */
-  this.resetSearch = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async resetSearch (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const id = await ui5.element.getId(selector, index, timeout);
     const resetButton = await nonUi5.element.getByCss("[id='" + id + "-reset']", 0, timeout);
     await resetButton.click();
@@ -486,7 +490,7 @@ const UserInteraction = function () {
 
   // =================================== HELPER ===================================
   //TODO: rework function in its whole. Why don't we use the clear function from native wdio here?
-  async function _clearHelper(selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  private async _clearHelper(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     let id, elem;
     if (selector) {
       await ui5.userInteraction.click(selector, index, timeout);
@@ -495,12 +499,16 @@ const UserInteraction = function () {
     } else {
       elem = await browser.getActiveElement();
       await elem.click();
+      // @ts-ignore
       id = await util.function.getAttribute(elem, "id");
     }
 
-    const tokenizers = await browser.execute(function (id) {
+    const tokenizers = await browser.execute(function (id: string) {
+      // @ts-ignore
       const t = document.getElementById(id).querySelectorAll(".sapMTokenizer");
+      // @ts-ignore
       const inputs = document.getElementById(id).getElementsByTagName("input");
+      // @ts-ignore
       const textareas = document.getElementById(id).getElementsByTagName("textarea");
 
       if (inputs.length) {
@@ -529,7 +537,7 @@ const UserInteraction = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.doubleClick(selector);
    */
-  this.doubleClick = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async doubleClick (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     let elem = null;
     await browser.waitUntil(async function () {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -537,11 +545,13 @@ const UserInteraction = function () {
       return elem.isClickable();
     }, {
       timeout,
-      timeoutMsg: `Element not clickable after ${timeout / 1000}s`
+      timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
     });
     try {
+      // @ts-ignore
       await elem.doubleClick();
     } catch (error) {
+      // @ts-ignore
       const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "doubleClick");
       throw new Error(errorMessage);
     }
@@ -557,7 +567,7 @@ const UserInteraction = function () {
    * @example const elem = await nonUi5.element.getById("button01");
    * await ui5.userInteraction.rightClick(elem);
    */
-  this.rightClick = async function (selector, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async rightClick (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     let elem = null;
     await browser.waitUntil(async function () {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -565,13 +575,15 @@ const UserInteraction = function () {
       return elem.isClickable();
     }, {
       timeout,
-      timeoutMsg: `Element not clickable after ${timeout / 1000}s`
+      timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
     });
     try {
+      // @ts-ignore
       await elem.click({
         button: "right"
       });
     } catch (error) {
+      // @ts-ignore
       const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "rightClick");
       throw new Error(errorMessage);
     }
@@ -590,10 +602,10 @@ const UserInteraction = function () {
   //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
   //  * @example await ui5.userInteraction.dragAndDrop(sourceSelector, targetSelector);
   //  */
-  // this.dragAndDrop = async function (sourceSelector, targetSelector, sourceIndex = 0, targetIndex = 0, duration = 3000, timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  // this.dragAndDrop = async function (sourceSelector, targetSelector, sourceIndex = 0, targetIndex = 0, duration = 3000, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
   //   const sourceElement = await ui5.element.getDisplayed(sourceSelector, sourceIndex, timeout);
   //   const targetElement = await ui5.element.getDisplayed(targetSelector, targetIndex, timeout);
   //   await nonUi5.userInteraction.dragAndDrop(sourceElement, targetElement);
   // };
 };
-module.exports = new UserInteraction();
+export default new UserInteraction();
