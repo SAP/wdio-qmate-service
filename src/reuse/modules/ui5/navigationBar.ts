@@ -3,7 +3,7 @@
  * @class navigationBar
  * @memberof ui5
  */
-const NavigationBar = function () {
+export class NavigationBar {
 
   /**
    * @function clickBack
@@ -12,7 +12,7 @@ const NavigationBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickBack();
    */
-  this.clickBack = async function (timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async clickBack (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const selector = {
       "elementProperties": {
         "metadata": "sap.ushell.ui.shell.ShellHeadItem",
@@ -31,7 +31,7 @@ const NavigationBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickSapLogo();
    */
-  this.clickSapLogo = async function (timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async clickSapLogo (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const selector = {
       "id": "shell-header-logo"
     };
@@ -45,7 +45,7 @@ const NavigationBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickUserIcon();
    */
-  this.clickUserIcon = async function (timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000) {
+  async clickUserIcon (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const selector = {
       "elementProperties": {
         "id": "meAreaHeaderButton"
@@ -63,7 +63,7 @@ const NavigationBar = function () {
    * @param {String} compareValue - The compare value.
    * @example await ui5.navigationBar.expectPageTitle("Home");
    */
-  this.expectPageTitle = async function (compareValue) {
+  async expectPageTitle (compareValue: string) {
     const selector = {
       "elementProperties": {
         "metadata": "sap.ushell.ui.shell.ShellAppTitle",
@@ -89,7 +89,7 @@ const NavigationBar = function () {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.expectShellHeader();
    */
-  this.expectShellHeader = async function (timeout = process.env.QMATE_CUSTOM_TIMEOUT | 30000, loadPropertyTimeout = 10000) {
+  async expectShellHeader (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = 10000) {
     const selector = {
       "elementProperties": {
         "metadata": "sap.ushell.ui.ShellHeader",
@@ -100,4 +100,4 @@ const NavigationBar = function () {
   };
 
 };
-module.exports = new NavigationBar();
+export default new NavigationBar();

@@ -3,9 +3,9 @@
  * @class errorDialog
  * @memberof ui5
  */
-const ErrorDialog = function () {
+export class ErrorDialog {
 
-  this.selectors = {
+  selectors = {
     errorDialog: {
       "elementProperties": {
         "metadata": "sap.m.Bar"
@@ -29,7 +29,7 @@ const ErrorDialog = function () {
    * @description Expects that the error dialog is visible on the page.
    * @example await ui5.errorDialog.expectToBeVisible();
    */
-  this.expectToBeVisible = async function () {
+  async expectToBeVisible () {
     await ui5.assertion.expectToBeVisible(this.selectors.errorDialog);
   };
 
@@ -39,9 +39,9 @@ const ErrorDialog = function () {
    * @description Clicks the 'Close' button at the error dialog.
    * @example await ui5.errorDialog.clickClose();
    */
-  this.clickClose = async function () {
+  async clickClose () {
     await ui5.userInteraction.click(this.selectors.closeButton);
   };
 
 };
-module.exports = new ErrorDialog();
+export default new ErrorDialog();

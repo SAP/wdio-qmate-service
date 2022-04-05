@@ -5,6 +5,7 @@ const legacyMapper = require("./helper/legacySupport/legacyMapper.js");
 // modules
 import utilQmate from './modules/util/Util'
 import commonQmate from './modules/common/Common'
+import ui5Qmate from './modules/ui5/Ui5';
 import nonUi5Qmate from './modules/nonUi5/NonUi5';
 import serviceQmate from './modules/service/Service'
 
@@ -54,19 +55,19 @@ class ReuseLibrary {
      * @description Global namespace for UI5 modules.
      */
     const ui5 = {
-      assertion: require("./modules/ui5/assertion.js"),
-      confirmationDialog: require("./modules/ui5/confirmationDialog.js"),
-      control: require("./modules/ui5/control.js"),
-      date: require("./modules/ui5/date.js"),
-      errorDialog: require("./modules/ui5/errorDialog.js"),
-      element: require("./modules/ui5/element.js"),
-      footerBar: require("./modules/ui5/footerBar.js"),
-      mockserver: require("./modules/ui5/mockserver.js"),
-      navigation: require("./modules/ui5/navigation.js"),
-      navigationBar: require("./modules/ui5/navigationBar.js"),
-      session: require("./modules/ui5/session.js"),
-      userInteraction: require("./modules/ui5/userInteraction.js"),
-      qunit: require("./modules/ui5/qunit.js"),
+      assertion: ui5Qmate.assertion,
+      confirmationDialog: ui5Qmate.confirmationDialog,
+      control: ui5Qmate.control,
+      date: ui5Qmate.date,
+      errorDialog: ui5Qmate.errorDialog,
+      element: ui5Qmate.element,
+      footerBar: ui5Qmate.footerBar,
+      mockserver: ui5Qmate.mockserver,
+      navigation: ui5Qmate.navigation,
+      navigationBar: ui5Qmate.navigationBar,
+      session: ui5Qmate.session,
+      userInteraction: ui5Qmate.userInteraction,
+      qunit: ui5Qmate.qunit,
       // data
       appIntents,
       authenticators,
