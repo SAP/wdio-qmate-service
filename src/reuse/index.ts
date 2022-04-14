@@ -97,7 +97,8 @@ class ReuseLibrary {
      * @description Global namespace for service modules.
      */
     const service = {
-      odata: serviceQmate.odata
+      odata: serviceQmate.odata,
+      rest: serviceQmate.rest
     };
     global.service = {
       ...service,
