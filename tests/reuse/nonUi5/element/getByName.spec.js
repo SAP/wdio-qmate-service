@@ -1,6 +1,6 @@
 "use strict";
 
-describe("locator - getByName + expectToBeVisible", function () {
+describe("element - getByName + expectToBeVisible", function () {
 
   let navigationBar;
 
@@ -17,7 +17,7 @@ describe("locator - getByName + expectToBeVisible", function () {
   });
 });
 
-describe("locator - getByName and catch error", function () {
+describe("element - getByName and catch error", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");

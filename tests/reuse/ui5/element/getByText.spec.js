@@ -17,7 +17,9 @@ describe("element - getByText should get element by right text", function () {
   });
 
   it("Execution", async function () {
+    // Note: error in safari macOS: Error: getByText(): No elements found for given text.
     elementByRightName = await ui5.element.getByText(selectorForAllListItems, textToGetElement);
+
     elementText = await elementByRightName.getText();
     await expect(ui5.element.getByText(selectorForAllListItems, textToGetElement, 1))
       .rejects.toThrow(/getByText\(\): Index out of bound./); // Element with text "Laptops\n11" is unique
@@ -46,7 +48,7 @@ describe("element - getByText with index 1 (unhappy case)", function () {
   const value = "Gaming Monster";
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/category/DC");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/category/DC");
   });
 
   it("Execution", async function () {

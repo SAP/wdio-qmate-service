@@ -3,11 +3,11 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("locator - getByChild", function () {
+describe("element - getByChild", function () {
   let elemAct;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
     await handleCookiesConsent();
   });
 
@@ -22,11 +22,11 @@ describe("locator - getByChild", function () {
   });
 });
 
-describe("locator - getByChild - with index", function () {
+describe("element - getByChild - with index", function () {
   let elemAct;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Tree/sample/sap.m.sample.TreeExpandMulti");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Tree/sample/sap.m.sample.TreeExpandMulti");
     await handleCookiesConsent();
   });
 
@@ -43,9 +43,9 @@ describe("locator - getByChild - with index", function () {
   });
 });
 
-describe("locator - getByChild - error case with wrong element", function () {
+describe("element - getByChild - error case with wrong element", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution and Verification", async function () {
@@ -56,9 +56,9 @@ describe("locator - getByChild - error case with wrong element", function () {
   });
 });
 
-describe("locator - getByChild - error case with wrong order of parent and child", function () {
+describe("element - getByChild - error case with wrong order of parent and child", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution and Verification", async function () {

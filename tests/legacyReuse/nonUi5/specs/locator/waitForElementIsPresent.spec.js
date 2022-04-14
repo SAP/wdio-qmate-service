@@ -5,7 +5,7 @@ const {
 describe("locator - waitForElementIsPresent", function () {
 
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
     await handleCookiesConsent();
   });
 
@@ -17,7 +17,7 @@ describe("locator - waitForElementIsPresent", function () {
 describe("locator - waitForElementIsPresent with wrong selector (unhappy case)", function () {
 
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
     await handleCookiesConsent();
   });
 

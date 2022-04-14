@@ -1,12 +1,12 @@
 "use strict";
 const { handleCookiesConsent } = require("../../../helper/utils");
 
-describe("locator - switchToIframe + expectToBeVisible", function () {
+describe("element - switchToIframe + expectToBeVisible", function () {
 
   let elem;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.92.0/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
     await handleCookiesConsent();
   });
 
@@ -17,9 +17,9 @@ describe("locator - switchToIframe + expectToBeVisible", function () {
   });
 });
 
-describe("locator - switchToIframe and catch error", function () {
+describe("element - switchToIframe and catch error", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.92.0/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
     await handleCookiesConsent();
   });
 

@@ -3,7 +3,7 @@ const { handleCookiesConsent } = require("../../../../helper/utils");
 describe("waitUI5ToStabilize - when busy indicator is on the button should not be clickable", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.BusyDialog/sample/sap.m.sample.BusyDialogLight");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.BusyDialog/sample/sap.m.sample.BusyDialogLight");
     await handleCookiesConsent();
   });
 
@@ -32,7 +32,7 @@ describe("waitUI5ToStabilize - when busy indicator is on the button should not b
 describe("waitUI5ToStabilize - when busy indicator is on the click method will wait untill is clickable and reclick", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.BusyDialog/sample/sap.m.sample.BusyDialogLight");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.BusyDialog/sample/sap.m.sample.BusyDialogLight");
     await handleCookiesConsent();
   });
   

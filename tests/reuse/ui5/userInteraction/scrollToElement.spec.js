@@ -6,7 +6,7 @@ const {
 describe("element - scrollToElement", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
   });
 
   it("Execution and Verification", async function () {
@@ -29,7 +29,7 @@ describe("element - scrollToElement", function () {
 
 describe("element - scrollToElement outside of viewpoint", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await handleCookiesConsent();
   });
 
@@ -67,7 +67,7 @@ describe("element - scrollToElement outside of viewpoint", function () {
 describe("element - scrollToElement and catch error", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
   });
 
   it("Execution and Verification", async function () {

@@ -1,50 +1,48 @@
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+"use strict";
 
-describe("locator - getAllDisplayed and catch error", function () {
+describe("element - getAllDisplayed - error case", function () {
 
-  it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
-    await handleCookiesConsent();
+  it("Preparation", async function() {
+    await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });
 
-  it("Execution and Verification", async function () {
-    await expect(nonUi5.element.getAllDisplayed("[class='sapMBtnBase sapMBtn sapMBtnInverted sapMDialogBeginButton sapMBarChild']", 4000))
+  it("Execution and Verification", async function() {
+    await expect(nonUi5.element.getAllDisplayed("BUTTON[id='invalid']", 4000))
       .rejects.toThrow("Function 'waitForAll' failed");
   });
 });
 
-describe("locator - getAllDisplayed", function () {
+describe("element - getAllDisplayed", function() {
   let displayedElements;
-  it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
-    await handleCookiesConsent();
+
+  it("Preparation", async function() {
+    await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });
 
-  it("Execution", async function () {
-    displayedElements = await nonUi5.element.getAllDisplayed("[id='sdk---app--changeVersionButton-BDI-content']", 40000);
+  it("Execution", async function() {
+    displayedElements = await nonUi5.element.getAllDisplayed("BUTTON[type='button']", 30000);
   });
 
-  it("Verification", async function () {
+  it("Verification", async function() {
     expect(displayedElements.length).toBeTruthy();
     await expect(displayedElements[0]).toBeDisplayedInViewport();
     await expect(displayedElements[0].getProperty("id"))
-      .resolves.toEqual("sdk---app--changeVersionButton-BDI-content");
+      .resolves.toEqual("Default");
   });
 });
 
-describe("locator - getAllDisplayed for non-visible element (element is in DOM)", function () {
+describe("element - getAllDisplayed - invisible element (present in DOM)", function() {
   let displayedElements;
-  it("Preparation", async function () {
-    await browser.url("#/categories");
+
+  it("Preparation", async function() {
+    await common.navigation.navigateToUrl("http://localhost:34005/hiddenAndVisible.html");
   });
 
-  it("Execution", async function () {
-    displayedElements = await nonUi5.element.getAllDisplayed("[class='sapUiInvisibleText']");
+  it("Execution", async function() {
+    displayedElements = await nonUi5.element.getAllDisplayed("P[id='hiddenParagraph']");
   });
 
-  it("Verification", async function () {
+  it("Verification", async function() {
     expect(displayedElements.length).toBe(0);
   });
 });

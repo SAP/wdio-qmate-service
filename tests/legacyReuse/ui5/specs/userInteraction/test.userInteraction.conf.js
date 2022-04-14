@@ -1,10 +1,10 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfig = require("../../../../helper/configurations/chrome.headless.conf.js");
+const qmateConfig = require("../../../../helper/configurations/report.headless.conf.js");
 exports.config = merge(qmateConfig.config, {
   maxInstances: 6,
   bail: 1,
-  baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html",
+  baseUrl: "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html",
   //
   // ==================
   // Specify Test Files

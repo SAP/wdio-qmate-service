@@ -19,7 +19,7 @@ describe("assertion - getElementByCss + expectToBeVisible", function () {
 
 describe("assertion - expectToBeVisible for element out of viewpoint", function () {
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
+    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await handleCookiesConsent();
   });
 
