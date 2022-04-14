@@ -18,6 +18,12 @@ export class Session {
    * @example await ui5.session.login("JOHN_DOE", "abc123!", true);
    */
   async login (username: string, password = "Welcome1!", verify = false, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    if (browser.config && browser.config.params &&
+      browser.config.params.auth && browser.config.params.auth.formType === "skip") {
+      console.warn("Login is skipped since 'formType' is set to 'skip'");
+      return true;
+    }
+
     if (!username) {
       throw new Error("Please provide a valid username.");
     }
@@ -201,6 +207,13 @@ export class Session {
    * @example await ui5.session.logout();
    */
   async logout (verify = true) {
+    if (browser.config && browser.config.params &&
+      browser.config.params.auth && browser.config.params.auth.formType === "skip") {
+      console.warn("Logout is skipped.");
+      await browser.reloadSession(); // Clean cache
+      return true;
+    }
+
     await ui5.navigationBar.clickUserIcon();
     await this._clickSignOut();
     await ui5.confirmationDialog.clickOk();

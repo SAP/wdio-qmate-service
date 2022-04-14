@@ -115,10 +115,10 @@ export class DateModule {
         const yearSpan = await yearSpanElem.getText();
         const yearMin = yearSpan.slice(0, 4);
         const yearMax = yearSpan.slice(7, 11);
-        if (String(year) < yearMin) {
+        if (year < Number(yearMin)) {
           const prev = await nonUi5.element.getById(`${id}-cal--Head-prev`);
           await nonUi5.userInteraction.click(prev);
-        } else if (String(year) > yearMax) {
+        } else if (year > Number(yearMax)) {
           const next = await nonUi5.element.getById(`${id}-cal--Head-next`);
           await nonUi5.userInteraction.click(next);
         } else {

@@ -21,26 +21,39 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectAttributeToBe(selector, "text", "Hello");
    */
-  async expectAttributeToBe (selector: any, attribute: string, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = 10000) {
-    let elem: Element;
-    let value;
+  async expectAttributeToBe (selector: any, attribute: string, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+    let elem: Element, value;
+    compareValue = String(compareValue)
+
+    this._throwAttributeError(attribute, "expectAttributeToBe");
+
+
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
       throw new Error(`Function 'expectAttributeToBe' failed:${error}`);
     }
 
-    if (loadPropertyTimeout > 0) {
+    let ui5PropertyValue, innerUI5PropertyValue;
+    try {
       await browser.waitUntil(async () => {
-        value = await this._getUI5PropertyForElement(elem, attribute, true);
-        return String(value) === String(compareValue);
+        ui5PropertyValue = String(await this._getUI5Property(elem, attribute));
+        innerUI5PropertyValue = String(await this._getInnerUI5Property(elem, attribute));
+        if (ui5PropertyValue === compareValue) {
+          value = ui5PropertyValue;
+          return true;
+        } else if (innerUI5PropertyValue === compareValue) {
+          value = innerUI5PropertyValue;
+          return true;
+        } else {
+          return false;
+        }
       }, {
-        timeout: loadPropertyTimeout,
-        timeoutMsg: "Function 'expectAttributeToBe' failed: Timeout while waiting for attribute " + attribute + ". Expected value: " + String(compareValue),
+        timeout: 2000 + +loadPropertyTimeout,
         interval: 100,
       });
-    } else {
-      value = await this._getUI5PropertyForElement(elem, attribute, true);
+    } catch (error) {
+      value = ui5PropertyValue ? ui5PropertyValue : innerUI5PropertyValue;
     }
     return expect(String(value)).toEqual(String(compareValue));
   };
@@ -57,27 +70,41 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectAttributeToContain(selector, "text", "abc");
    */
-  async expectAttributeToContain (selector: any, attribute: string, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = 10000) {
-    let elem: Element;
-    let value;
+  async expectAttributeToContain (selector: any, attribute: string, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+    let elem: Element, value;
+    compareValue = String(compareValue);
+
+    this._throwAttributeError(attribute, "expectAttributeToContain");
+
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
       throw new Error(`Function 'expectAttributeToContain' failed:${error}`);
     }
 
-    if (loadPropertyTimeout > 0) {
+    let ui5PropertyValue, innerUI5PropertyValue;
+    try {
       await browser.waitUntil(async () => {
-        value = await this._getUI5PropertyForElement(elem, attribute, true);
-        return value.includes(compareValue);
+        ui5PropertyValue = String(await this._getUI5Property(elem, attribute));
+        innerUI5PropertyValue = String(await this._getInnerUI5Property(elem, attribute));
+        if (ui5PropertyValue.includes(compareValue)) {
+          value = ui5PropertyValue;
+          return true;
+        } else if (innerUI5PropertyValue.includes(compareValue)) {
+          value = innerUI5PropertyValue;
+          return true;
+        } else {
+          return false;
+        }
       }, {
-        timeout: loadPropertyTimeout,
-        timeoutMsg: `Timeout while waiting for attribute '${attribute}'. Actual value doesn't include the expected value: '${String(compareValue)}'.`,
+        timeout: 2000 + +loadPropertyTimeout,
         interval: 100
       });
-    } else {
-      value = await this._getUI5PropertyForElement(elem, attribute, true);
+
+    } catch (error) {
+      value = ui5PropertyValue ? ui5PropertyValue : innerUI5PropertyValue;
     }
+
     return expect(value).toContain(compareValue);
   };
 
@@ -92,7 +119,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectTextToBe(selector, "Hello");
    */
-  async expectTextToBe (selector: any, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = 10000) {
+  async expectTextToBe (selector: any, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     return this.expectAttributeToBe(selector, "text", compareValue, index, timeout, loadPropertyTimeout);
   };
 
@@ -107,7 +134,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectValueToBe(selector, "123");
    */
-  async expectValueToBe (selector: any, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = 10000) {
+  async expectValueToBe (selector: any, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     return this.expectAttributeToBe(selector, "value", compareValue, index, timeout, loadPropertyTimeout);
   };
 
@@ -136,7 +163,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeNotEnabled(selector);
    */
-  async expectToBeNotEnabled (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = 10000) {
+  async expectToBeNotEnabled (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     await this.expectAttributeToBe(selector, "enabled", false, index, timeout, loadPropertyTimeout);
   };
 
@@ -150,7 +177,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeEnabled(selector);
    */
-  async expectToBeEnabled (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = 10000) {
+  async expectToBeEnabled (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     await this.expectAttributeToBe(selector, "enabled", true, index, timeout, loadPropertyTimeout);
   };
 
@@ -164,7 +191,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectValidationError(selector);
    */
-  async expectValidationError (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = 10000) {
+  async expectValidationError (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     return this.expectAttributeToBe(selector, "valueState", "Error", index, timeout, loadPropertyTimeout);
   };
 
@@ -178,7 +205,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectValidationSuccess(selector);
    */
-  async expectValidationSuccess (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = 10000) {
+  async expectValidationSuccess (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     return this.expectAttributeToBe(selector, "valueState", "None", index, timeout, loadPropertyTimeout);
   };
 
@@ -196,7 +223,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectBindingPathToBe(selector, "text", "Hello");
    */
-  async expectBindingPathToBe (selector: any, attribute: string, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = 10000) {
+  async expectBindingPathToBe (selector: any, attribute: string, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     let elem: Element;
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -210,7 +237,7 @@ export class Assertion {
         values = await elem.getBindingProperty(attribute);
         return values !== null;
       }, {
-        timeout: loadPropertyTimeout,
+        timeout: 2000 + +loadPropertyTimeout,
         timeoutMsg: "Property could not be loaded, timeout was reached."
       });
     } else {
@@ -247,7 +274,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectBindingContextPathToBe(selector, "text", "Hello");
    */
-  async expectBindingContextPathToBe (selector: any, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = 10000) {
+  async expectBindingContextPathToBe (selector: any, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     let elem: Element;
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -261,7 +288,7 @@ export class Assertion {
         value = await elem.getBindingContextPath();
         return value;
       }, {
-        timeout: loadPropertyTimeout,
+        timeout: 2000 + +loadPropertyTimeout,
         timeoutMsg: "Property could not loaded, timeout was reached."
       });
     } else {
@@ -282,7 +309,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeVisible(selector);
    */
-  async expectToBeVisible (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = 10000) {
+  async expectToBeVisible (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     let elem: Element;
 
     try {
@@ -304,7 +331,7 @@ export class Assertion {
         return isUi5Visible !== null && isUi5Visible !== undefined ||
           isDomVisible !== null && isDomVisible !== undefined;
       }, {
-        timeout: loadPropertyTimeout,
+        timeout: 2000 + +loadPropertyTimeout,
         timeoutMsg: "Property could not be loaded, timeout was reached."
       });
     } else {
@@ -383,25 +410,35 @@ export class Assertion {
 
 
   // =================================== HELPER ===================================
-  private async _getUI5PropertyForElement(elem: Element, attribute: string, resetFocus = true) {
-    if (resetFocus) {
-      await util.browser.resetFocus();
-    }
-
+  private async _getUI5Property(elem: Element, attribute: string) {
     let value = await elem.getUI5Property(attribute);
-
-    if (value === null || value === undefined || value === "") {
-      value = await ui5.element.getInnerAttribute(elem, "data-" + attribute);
-    }
-
-    if (attribute.toLowerCase() === "text") {
-      try {
-        value = value.trim();
-      } catch (e) {
-        util.console.info("Removing trailing spaces didn't work for 'text' property.");
-      }
+    if (typeof value === "string") {
+      value = this._trimText(value);
     }
     return value;
+  }
+
+  private async _getInnerUI5Property(elem: Element, attribute: string) {
+    let innerValue = await ui5.element.getInnerAttribute(elem, "data-" + attribute);
+    if (typeof innerValue === "string") {
+      innerValue = this._trimText(innerValue);
+    }
+    return innerValue;
+  }
+
+  private _trimText(text: string) {
+    try {
+      text = text.trim();
+    } catch (e) {
+      util.console.info("Removing trailing spaces didn 't work for 'text' property.");
+    }
+    return text;
+  }
+
+  private _throwAttributeError(attribute: string, functionName: string) {
+    if (!attribute || typeof attribute !== "string") {
+      throw new Error(`Function ${functionName} failed: Please check your attribute argument.`);
+    }
   }
 
 };

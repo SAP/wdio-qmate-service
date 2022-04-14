@@ -14,7 +14,7 @@ import { RequestMethodType } from "./types/mockserver.types";
  */
 export class Mockserver {
 
-  lib = require("../../../scripts/hooks/utils/lib.js");
+  private lib = require("../../../scripts/hooks/utils/lib.js");
 
   // =================================== MAIN ===================================
   /**
@@ -59,7 +59,7 @@ export class Mockserver {
     await this.lib.mockServerActionInBrowser(function (mockserver: any, method: RequestMethodType, fnBeforeCallbackString: any, oParams: any, done: any) {
       const mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
-        util.console.error("Mockserver not yet initialized or method getMockServer is missing");
+        console.error("Mockserver not yet initialized or method getMockServer is missing");
         done();
       }
       const beforeCallback = "beforeCallback = " + fnBeforeCallbackString;
@@ -85,7 +85,7 @@ export class Mockserver {
     await this.lib.mockServerActionInBrowser(function (mockserver: any, method: RequestMethodType, fnAfterCallbackString: any, oParams: any, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
-        util.console.error("Mockserver not yet initialized or method getMockServer is missing");
+        console.error("Mockserver not yet initialized or method getMockServer is missing");
         done();
       }
       var afterCallback = "afterCallback = " + fnAfterCallbackString;
@@ -167,13 +167,13 @@ export class Mockserver {
                   // Function Import or single data
                   oData = oResponse.data;
                 } else {
-                  util.console.error("The mock data are invalid");
+                  console.error("The mock data are invalid");
                 }
               } else {
                 if (Array.isArray(oResponse.data)) {
                   oData = oResponse.data;
                 } else {
-                  util.console.error("The mock data could not be loaded due to wrong format!");
+                  console.error("The mock data could not be loaded due to wrong format!");
                 }
               }
             }
@@ -211,7 +211,7 @@ export class Mockserver {
       const isOverride = false;
       if (!isOverride) {
         if (!urlPathRegex) {
-          util.console.error("path regex wasn't provided");
+          console.error("path regex wasn't provided");
           done();
         }
         //Remove regexp slashes so we read them if needed
@@ -241,7 +241,7 @@ export class Mockserver {
     await this.lib.mockServerActionInBrowser(function (mockserver: any, method: RequestMethodType, urlPathRegex: string, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
-        util.console.error("Mockserver not yet initialized or method getMockServer is missing");
+        console.error("Mockserver not yet initialized or method getMockServer is missing");
         done();
       }
       var aExistingRequests = mockServerInst.getRequests();
@@ -335,13 +335,13 @@ export class Mockserver {
                   // Function Import or single data
                   oData = oResponse.data;
                 } else {
-                  util.console.error("The mock data are invalid");
+                  console.error("The mock data are invalid");
                 }
               } else {
                 if (Array.isArray(oResponse.data)) {
                   oData = oResponse.data;
                 } else {
-                  util.console.error("The mock data could not be loaded due to wrong format!");
+                  console.error("The mock data could not be loaded due to wrong format!");
                 }
               }
             }
@@ -378,7 +378,7 @@ export class Mockserver {
       const isOverride = false;
       if (!isOverride) {
         if (!urlPathRegex) {
-          util.console.error("path regex wasnt provided");
+          console.error("path regex wasnt provided");
           done();
         }
         //Remove regexp slashes so we read them if needed
@@ -406,7 +406,7 @@ export class Mockserver {
     await this.lib.mockServerActionInBrowser(function (mockserver: any, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
-        util.console.error("Mockserver not yet initialized or method getMockServer is missing");
+        console.error("Mockserver not yet initialized or method getMockServer is missing");
         done();
       }
       mockServerInst.start();
@@ -428,7 +428,7 @@ export class Mockserver {
     var mockServerOpts = JSON.stringify(mockServerOptions);
     return await this.lib.mockServerActionInBrowser(function (mockserver: any, mockServerOpts: string, done: any) {
       if (!mockserver) {
-        util.console.error("Mockserver file not yet loaded or is missing");
+        console.error("Mockserver file not yet loaded or is missing");
         done();
       }
       mockserver.init(JSON.parse(mockServerOpts)).catch(function (oError: any) {
@@ -456,7 +456,7 @@ export class Mockserver {
   async initApplication (mockServerPath: string) {
     await this.lib.mockServerActionInBrowser(function (mockserver: any, done: any) {
       if (!mockserver) {
-        util.console.error("Mockserver file not yet loaded or is missing");
+        console.error("Mockserver file not yet loaded or is missing");
         done();
       }
       // eslint-disable-next-line no-undef
@@ -477,7 +477,7 @@ export class Mockserver {
     return await this.lib.mockServerActionInBrowser(function (mockserver: any, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
-        util.console.error("Mockserver not yet initialized or method getMockServer is missing");
+        console.error("Mockserver not yet initialized or method getMockServer is missing");
         done();
       }
       mockServerInst.stop();
@@ -511,7 +511,7 @@ export class Mockserver {
     return await this.lib.mockServerActionInBrowser(function (mockserver: any, entitySetName: string, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
-        util.console.error("Mockserver not yet initialized or method getMockServer is missing");
+        console.error("Mockserver not yet initialized or method getMockServer is missing");
         done();
       }
       const oData = mockServerInst.getEntitySetData(entitySetName);
@@ -540,7 +540,7 @@ export class Mockserver {
     return await this.lib.mockServerActionInBrowser(function (mockserver: any, entitySetName: string, entries: any, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
-        util.console.error("Mockserver not yet initialized or method getMockServer is missing");
+        console.error("Mockserver not yet initialized or method getMockServer is missing");
         done();
       }
       var oData = [];
@@ -571,13 +571,13 @@ export class Mockserver {
               // Fallback Single data
               oData.push(oResponse.data);
             } else {
-              util.console.error("The mock data are invalid");
+              console.error("The mock data are invalid");
             }
           } else {
             if (Array.isArray(oResponse.data)) {
               oData = [].concat(oResponse.data);
             } else {
-              util.console.error("The mock data could not be loaded due to wrong format!");
+              console.error("The mock data could not be loaded due to wrong format!");
             }
           }
         }
