@@ -5,8 +5,8 @@
  */
 export class Control {
 
-  lib = require("../../../scripts/hooks/utils/lib");
-  locatorCommands = require("../../../scripts/hooks/utils/locatorCommands");
+  private lib = require("../../../scripts/hooks/utils/lib");
+  private locatorCommands = require("../../../scripts/hooks/utils/locatorCommands");
 
   // =================================== EXECUTE ===================================
   /**

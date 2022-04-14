@@ -5,7 +5,7 @@
  */
 export class QUnit {
 
-  clientsidescripts = require("../../helper/clientsideUI5scripts");
+  private clientsidescripts = require("../../helper/clientsideUI5scripts");
 
   /**
    * @function executeTests

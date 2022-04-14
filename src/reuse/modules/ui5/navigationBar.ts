@@ -16,9 +16,7 @@ export class NavigationBar {
     const selector = {
       "elementProperties": {
         "metadata": "sap.ushell.ui.shell.ShellHeadItem",
-        "mProperties": {
           "id": "backBtn"
-        }
       }
     };
     return ui5.userInteraction.click(selector, 0, timeout);
@@ -89,7 +87,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.expectShellHeader();
    */
-  async expectShellHeader (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = 10000) {
+  async expectShellHeader (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const selector = {
       "elementProperties": {
         "metadata": "sap.ushell.ui.ShellHeader",

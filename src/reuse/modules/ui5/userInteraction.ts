@@ -203,10 +203,10 @@ export class UserInteraction {
     await util.function.retry(async (selector: any, value: string, index: number, timeout: number) => {
       await this.clearAndFill(selector, value, index, timeout);
       if (verify) {
+        const elem = await ui5.element.getDisplayed(selector)
         let elemValue = await ui5.element.getValue(selector, index);
         if (elemValue != value) { // IMPORTANT: keep non-strict comparison for format changes after input (10 -> 10.00)
-          await util.browser.resetFocus();
-          elemValue = await ui5.element.getValue(selector, index);
+          elemValue = await ui5.element.getInnerAttribute(elem, "data-" + "value");
           if (elemValue != value) { // IMPORTANT: keep non-strict comparison for format changes after input (10 -> 10.00)
             throw new Error(`Actual value '${elemValue}' not equal to expected value '${value}'`);
           }
@@ -423,7 +423,7 @@ export class UserInteraction {
     } else {
       util.console.info("Selector properties are undefined. Action will be performed on current element.");
     }
-    await await common.userInteraction.pressKey(["\uE051", "a"]);
+    await common.userInteraction.pressKey(["\uE051", "a"]);
   };
 
   /**
@@ -440,8 +440,7 @@ export class UserInteraction {
   async openF4Help (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, useF4Key = true) {
     await ui5.userInteraction.click(selector, index, timeout);
     if (useF4Key === true) {
-      // @ts-ignore
-      await this.pressF4();
+      await common.userInteraction.pressF4();
     } else {
       const id = await ui5.element.getId(selector);
       const button = await nonUi5.element.getByCss("[id='" + id + "-vhi']", 0, timeout);
