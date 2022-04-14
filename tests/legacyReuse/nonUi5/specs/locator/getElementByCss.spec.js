@@ -8,7 +8,7 @@ describe("locator - getElementByCss + expectToBeVisible", function () {
   let downloadBtn;
 
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
     await handleCookiesConsent();
   });
 
@@ -24,7 +24,7 @@ describe("locator - getElementByCss + expectToBeVisible", function () {
 describe("locator - getElementByCss outside of viewpoint", function () {
   let comboBoxElement;
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
+    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await utilities.browser.refresh(); // Need a refresh here as sapui5.hana.ondemand.com doesn't work correctly from time to time
     await handleCookiesConsent();
 
@@ -54,7 +54,7 @@ describe("locator - getElementByCss outside of viewpoint", function () {
 describe("locator - getElementByCss and catch error", function () {
 
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
     await handleCookiesConsent();
   });
 

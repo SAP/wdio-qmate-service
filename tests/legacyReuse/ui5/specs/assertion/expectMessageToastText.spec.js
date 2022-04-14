@@ -2,7 +2,7 @@
 const { handleCookiesConsent } = require("../../../../helper/utils");
 describe("assertion - expectMessageToast - no message toast (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.MessageToast/sample/sap.m.sample.MessageToast");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MessageToast/sample/sap.m.sample.MessageToast");
     await handleCookiesConsent();
   });
 
@@ -16,7 +16,7 @@ describe("assertion - expectMessageToast - no message toast (unhappy case)", fun
 
 describe("assertion - expectMessageToast", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.MessageToast/sample/sap.m.sample.MessageToast");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MessageToast/sample/sap.m.sample.MessageToast");
     await handleCookiesConsent();
   });
 

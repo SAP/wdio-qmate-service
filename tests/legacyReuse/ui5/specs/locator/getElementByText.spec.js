@@ -46,7 +46,7 @@ describe("locator - getElementByText with index 1 (unhappy case)", function () {
   const value = "Gaming Monster";
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/category/DC");
+    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/category/DC");
   });
 
   it("Execution", async function () {

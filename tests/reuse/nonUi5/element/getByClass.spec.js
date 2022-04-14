@@ -1,11 +1,11 @@
 "use strict";
 
-describe("locator - getByClass + expectToBeVisible", function () {
+describe("element - getByClass + expectToBeVisible", function () {
 
   let downloadBtn;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution", async function () {
@@ -17,12 +17,12 @@ describe("locator - getByClass + expectToBeVisible", function () {
   });
 });
 
-describe("locator - getByClass - multiple classes", function () {
+describe("element - getByClass - multiple classes", function () {
 
   let element;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution", async function () {
@@ -34,12 +34,12 @@ describe("locator - getByClass - multiple classes", function () {
   });
 });
 
-describe("locator - getByClass - all classes", function () {
+describe("element - getByClass - all classes", function () {
 
   let element;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution", async function () {
@@ -51,10 +51,10 @@ describe("locator - getByClass - all classes", function () {
   });
 });
 
-describe("locator - getByClass and catch error", function () {
+describe("element - getByClass and catch error", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution and Verification", async function () {

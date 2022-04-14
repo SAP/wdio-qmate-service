@@ -4,7 +4,7 @@ const {handleCookiesConsent} = require("../../../../helper/utils");
 describe("errorDialog - expectErrorDialogToBeVisible", function () {
 
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Dialog/sample/sap.m.sample.DialogMessage");
+    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Dialog/sample/sap.m.sample.DialogMessage");
     await handleCookiesConsent();
   });
 

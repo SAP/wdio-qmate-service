@@ -3,11 +3,11 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("locator - getValue", function () {
+describe("element - getValue", function () {
   let actValue;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
     await handleCookiesConsent();
   });
 
@@ -21,11 +21,11 @@ describe("locator - getValue", function () {
   });
 });
 
-describe("locator - getValue - innerHTML", function () {
+describe("element - getValue - innerHTML", function () {
   let actValue;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution", async function () {
@@ -39,9 +39,9 @@ describe("locator - getValue - innerHTML", function () {
   });
 });
 
-describe("locator - getValue - error case", function () {
+describe("element - getValue - error case", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution and Verification", async function () {

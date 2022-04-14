@@ -1,10 +1,11 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfiguration = require("../../../helper/configurations/chrome.headless.conf");
+const qmateConfiguration = require("../../../helper/configurations/report.headless.conf");
 exports.config = merge(qmateConfiguration.config, {
   maxInstances: 6,
+  specFileRetries: 2,
   bail: 1,
-  baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html",
+  baseUrl: "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html",
 
   specs: [
     path.resolve(__dirname, "expectDefined.spec.js"),

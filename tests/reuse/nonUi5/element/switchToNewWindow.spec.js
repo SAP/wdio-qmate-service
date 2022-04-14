@@ -1,7 +1,7 @@
 "use strict";
 
-describe("locator - switchToNewWindow", function () {
-  const sapWindowUrl = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories";
+describe("element - switchToNewWindow", function () {
+  const sapWindowUrl = "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories";
   let sapWindowHandle;
   const sapTitle = "Shopping Cart";
 
@@ -38,8 +38,8 @@ describe("locator - switchToNewWindow", function () {
   });
 });
 
-describe("locator - switchToWindow (unhappy case)", function () {
-  const sapWindowUrl = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories";
+describe("element - switchToWindow (unhappy case)", function () {
+  const sapWindowUrl = "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories";
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(sapWindowUrl);

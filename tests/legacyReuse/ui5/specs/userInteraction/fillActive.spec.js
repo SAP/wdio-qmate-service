@@ -6,7 +6,7 @@ describe("userInteraction - fillActive", function () {
   let actualValue;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
     await handleCookiesConsent();
   });
 
@@ -36,7 +36,7 @@ describe("userInteraction - fillActive", function () {
 describe("userInteraction - fillActive element with invalid selector", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
     await handleCookiesConsent();
   });
 
@@ -58,7 +58,7 @@ describe("userInteraction - fillActive element with number", function () {
   let actualValue;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
     await handleCookiesConsent();
   });
 
@@ -90,7 +90,7 @@ describe("userInteraction - fillActive element with empty value", function () {
   let actualValue;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
     await handleCookiesConsent();
   });
 
@@ -121,7 +121,7 @@ describe("userInteraction - fillActive input", function () {
   let actualValue;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputAssisted");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Input/sample/sap.m.sample.InputAssisted");
     await utilities.browser.refresh();
     await handleCookiesConsent();
   });
@@ -154,7 +154,7 @@ describe("userInteraction - fillActive textarea", function () {
   let actualValue;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.TextArea/sample/sap.m.sample.TextArea");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.TextArea/sample/sap.m.sample.TextArea");
     await utilities.browser.refresh();
     await handleCookiesConsent();
   });

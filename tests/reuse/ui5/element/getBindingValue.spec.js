@@ -40,8 +40,21 @@ describe("element - getBindingValue for wrong attribute", function () {
     };
     const attribute = "case";
 
-    await expect(ui5.element.getBindingValue(selector, attribute))
-      .rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'getValue')");
+    switch (browser.capabilities.browserName) {
+      case "Safari":
+        await expect(ui5.element.getBindingValue(selector, attribute))
+          .rejects.toThrow("A JavaScript exception occured: undefined is not an object");
+        break;
+      case "firefox":
+        await expect(ui5.element.getBindingValue(selector, attribute))
+          .rejects.toThrow("TypeError: control.getBinding(...) is undefined");
+        break;
+      default: //chrome and edge
+        await expect(ui5.element.getBindingValue(selector, attribute))
+          .rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'getValue')");
+        break;
+    }
+
   });
 });
 

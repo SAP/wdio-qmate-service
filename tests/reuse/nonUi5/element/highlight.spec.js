@@ -1,9 +1,9 @@
-describe("locator - highlight", function () {
+describe("element - highlight", function () {
 
   let product;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
 
   });
 

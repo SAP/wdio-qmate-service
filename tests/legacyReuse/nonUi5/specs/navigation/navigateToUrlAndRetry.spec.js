@@ -1,6 +1,6 @@
 describe("navigateToUrlAndRetry", function () {
 
-  const url = "https://sapui5.hana.ondemand.com/";
+  const url = "https://sapui5.hana.ondemand.com/1.99.0/";
   const retries = 1;
   const interval = 500;
 
@@ -15,7 +15,7 @@ describe("navigateToUrlAndRetry", function () {
 
 describe("navigateToUrlAndRetry with wrong url", function () {
 
-  const url = "https://sapui5.hana.ondemand.com/";
+  const url = "https://sapui5.hana.ondemand.com/1.99.0/";
   const retries = 1;
   const interval = 500;
 
@@ -27,7 +27,7 @@ describe("navigateToUrlAndRetry with wrong url", function () {
 
 describe("navigateToUrlAndRetry with wrong parameter", function () {
 
-  const url = "https://sapui5.hana.ondemand.com/";
+  const url = "https://sapui5.hana.ondemand.com/1.99.0/";
 
   it("Execution and Verification", async function () {
     await expect(non_ui5.common.navigation.navigateToUrlAndRetry(undefined, 0, 1000))

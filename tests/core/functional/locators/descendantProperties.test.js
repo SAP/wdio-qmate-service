@@ -4,7 +4,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 describe("webdriver.io page locator test", function () {
 
   it("should access element by elementProperties, descendantProperties and inner descendantProperties", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Button/sample/sap.m.sample.Button");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Button/sample/sap.m.sample.Button");
     await handleCookiesConsent();
 
     const backButtonProperties = {
@@ -70,7 +70,7 @@ describe("webdriver.io page locator test", function () {
   });
 
   it("should access element by element properties and descendant properties", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Button/sample/sap.m.sample.Button");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Button/sample/sap.m.sample.Button");
     await handleCookiesConsent();
 
     const ui5ControlProperties = {

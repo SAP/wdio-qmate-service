@@ -16,7 +16,7 @@ const dataRangeSelector = {
 };
 describe("date - fillRange", function () {
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.m.DateRangeSelection/sample/sap.m.sample.DateRangeSelectionValueState");
+    await browser.url("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.DateRangeSelection/sample/sap.m.sample.DateRangeSelectionValueState");
     await handleCookiesConsent();
   });
 
@@ -33,13 +33,17 @@ describe("date - fillRange", function () {
     // It is not possible to programmatically check the correct execution of the test, however, while the test is running, it is clear that it is being executed correctly
     // const rangeAsString = `${start} - ${end}`;
     // common.assertion.expectEqual(arrivedRange, rangeAsString);
+
+    // Note: error in safari (masOS):
+    // Expected: ""
+    // Received: "true"
     common.assertion.expectEqual(arrivedRange, "");
   });
 });
 
 describe("date - fillRange: no such field on a screen (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.url("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
   });
 
   it("Execution and Verification", async function () {
