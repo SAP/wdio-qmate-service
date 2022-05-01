@@ -43,7 +43,7 @@ export class ElementModule {
    * @example await nonUi5.element.waitToBePresent("p:first-child");
    */
   async waitToBePresent (selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<void> {
-    let elem = null;
+    let elem: Element | null = null;
     await browser.waitUntil(async function () {
       elem = await $(selector);
       if (!elem) return false;
@@ -66,7 +66,7 @@ export class ElementModule {
    * @example await nonUi5.element.waitToBeVisible("p:first-child");
    */
   async waitToBeVisible (selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    let elem = null;
+    let elem: Element | null = null;
     await browser.waitUntil(async function () {
       elem = await $(selector);
       if (!elem) return false;
@@ -88,7 +88,7 @@ export class ElementModule {
    * @example await nonUi5.element.waitToBeClickable("p:first-child");
    */
   async waitToBeClickable (selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    let elem = null;
+    let elem: Element | null = null;
     await browser.waitUntil(async function () {
       elem = await $(selector);
       if (!elem) return false;
@@ -115,7 +115,7 @@ export class ElementModule {
     try {
       await this.waitForAll(selector, timeout);
       const elements: Element[] = await $$(selector);
-      const displayedElements = [];
+      const displayedElements: Element[] = [];
       for (const element of elements) {
         if (element) {
           const isElementDisplayed = await element.isDisplayed();
@@ -465,6 +465,21 @@ export class ElementModule {
     } catch (error) {
       throw new Error(`Function 'getValue' failed: ${error}`);
     }
+  };
+
+  // =================================== SET VALUES ===================================
+  /**
+   * @function setInnerHTML
+   * @memberOf nonUi5.element
+   * @description Sets the innerHTML value of the given element. 
+   * CAUTION: Only use this if filling the value in the normal way is not working and if it is unavoidable. Keep in mind, that a user is not able to perform such actions.
+   * @param {Object} elem - The element.
+   * @returns {String} The value to set.
+   * @example const elem = await nonUi5.element.getById("text-editor");
+   * await nonUi5.element.setInnerHTML(elem, "Hello World!");
+   */
+  async setInnerHTML(elem: Element, value: string): Promise<void> {
+    await browser.executeScript(`arguments[0].innerHTML = '${value}'`, [elem]);
   };
 
 

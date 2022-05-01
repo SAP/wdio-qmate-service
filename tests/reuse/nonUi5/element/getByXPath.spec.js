@@ -1,11 +1,11 @@
 "use strict";
 
-describe("locator - getByXPath + expectToBeVisible", function () {
+describe("element - getByXPath + expectToBeVisible", function () {
 
   let searchInput;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution", async function () {
@@ -17,10 +17,10 @@ describe("locator - getByXPath + expectToBeVisible", function () {
   });
 });
 
-describe("locator - getByXPath and catch error", function () {
+describe("element - getByXPath and catch error", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution and Verification", async function () {

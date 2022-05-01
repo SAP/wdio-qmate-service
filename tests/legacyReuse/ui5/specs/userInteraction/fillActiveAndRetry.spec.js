@@ -6,7 +6,7 @@ describe("userInteraction - fill active and retry", function () {
   let actualValue;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
     await handleCookiesConsent();
   });
 
@@ -40,7 +40,7 @@ describe("userInteraction - fillActiveAndRetry element with invalid selector", f
   let value;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
     await handleCookiesConsent();
   });
 
@@ -64,7 +64,7 @@ describe("userInteraction - fillActiveAndRetry element with number", function ()
   let actualValue;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
     await handleCookiesConsent();
   });
 
@@ -98,7 +98,7 @@ describe("userInteraction - fillActiveAndRetry element with empty value", functi
   let actualValue;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
     await handleCookiesConsent();
   });
 

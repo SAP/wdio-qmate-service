@@ -12,6 +12,8 @@ export default async function (config: any, capabilities: Array<object>) {
   }
   if (config.params && config.params.qmateCustomTimeout) {
     process.env.QMATE_CUSTOM_TIMEOUT = config.params.qmateCustomTimeout;
+    process.env.LOAD_PROPERTY_TIMEOUT = config.params.loadPropertyTimeout;
+    
   }
   await dataExchangeCommands.createTmpDataFolder();
 };

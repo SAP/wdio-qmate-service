@@ -1,6 +1,5 @@
 library 'piper-lib-os'
-def jenkinsNode = 'dlms4hana'
-echo "jenkinsNode ${jenkinsNode}"
+library 'piper-lib'
 
 def tests = [
     [ area:'reuse', name:'common'],
@@ -19,29 +18,44 @@ def closureBuilder = [:]
 tests.each { test ->
 
   closureBuilder["${test.area}:${test.name}"] = {
-    node(jenkinsNode) {
+    node() {
         timestamps {
           try{
-            checkout scm
+            dockerExecute(script: this,
+                          dockerImage: 'qmate.int.repositories.cloud.sap/qmate-executor:latest',
+                          verbose: true) {
 
-            sh '''
-                python --version
-                node --version
-                '''
+              checkout scm
 
-            sh '''
-                npm config set registry http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.milestones.npm/
-                npm config set @SAP:registry http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.milestones.npm/
-                npm i
-                npm run build
-                '''
+              sh '''
+                  npm config set registry http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.milestones.npm/
+                  npm config set @SAP:registry http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.milestones.npm/
+                  npm i
+                  npm run build
+                  '''
 
-            sh "CHROME_DRIVER=/usr/bin/chromedriver npm run test:${test.area}:${test.name}"
+            withCredentials([sshUserPrivateKey(credentialsId: 'qmate-privatekey', keyFileVariable: 'QMATE_PRIVATE_KEY_FILE')]) {
+                //ugly hacky hack to load private key to env variable, otherwise has problems with \n chars
+                def key = readFile(QMATE_PRIVATE_KEY_FILE)
+                withEnv(["QMATE_PRIVATE_KEY=${key}"]) {
+                    sh "CHROME_DRIVER=/usr/bin/chromedriver npm run test:${test.area}:${test.name}"
+                }
+              }
+           }
+            
           } catch (err) {
             archiveArtifacts artifacts: "**/tests/${test.area}/${test.name}/results/**", allowEmptyArchive : true
                           error 'Pipeline failed!\n' + err.message
           } finally {
-           //publishResultReport( 'reuse util - PR', 'wdio-qmate-service/tests/reuse/util' )
+            publishHTML([
+                allowMissing: false,
+                alwaysLinkToLastBuild: false,
+                keepAll: true,
+                reportDir: 'results',
+                reportFiles: 'report.html',
+                reportName: "E2E Qmate Tests ${test.area} ${test.name}",
+                reportTitles: ''
+            ])
           }
         }
     }
@@ -49,3 +63,6 @@ tests.each { test ->
 }
 
 parallel closureBuilder
+
+
+

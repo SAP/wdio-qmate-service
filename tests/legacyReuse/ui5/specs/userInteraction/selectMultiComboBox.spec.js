@@ -8,7 +8,7 @@ describe("userInteraction - selectMultiComboBox", function () {
   let expectedValue;
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
+    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await handleCookiesConsent();
   });
 
@@ -33,7 +33,7 @@ describe("userInteraction - selectMultiComboBox", function () {
 describe("userInteraction - selectMultiComboBox (outside of a Viewport)", function () {
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
+    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await handleCookiesConsent();
   });
 
@@ -68,7 +68,7 @@ describe("userInteraction - selectMultiComboBox use wrong selector", function ()
   let value2;
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
+    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await handleCookiesConsent();
   });
 
@@ -93,7 +93,7 @@ describe("userInteraction - selectMultiComboBox use wrong value", function () {
   let value2;
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
+    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await handleCookiesConsent();
   });
 
@@ -121,7 +121,7 @@ describe("userInteraction - selectMultiComboBox with index > 0", function () {
   const secondIndex = 3;
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBoxSuggestionsAndValueState");
+    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBoxSuggestionsAndValueState");
     await utilities.browser.refresh();
     await handleCookiesConsent();
   });

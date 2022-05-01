@@ -54,7 +54,7 @@ describe("file - upload - without second param", function () {
 describe("file - upload - with second param as index", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection");
     await util.browser.refresh();
   });
 
@@ -72,7 +72,7 @@ describe("file - upload - with second param as index", function () {
 describe("file - upload - with second param as a selector", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection");
     await util.browser.refresh();
   });
 

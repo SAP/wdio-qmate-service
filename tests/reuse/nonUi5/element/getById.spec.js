@@ -3,12 +3,12 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("locator - getById + expectToBeVisible", function () {
+describe("element - getById + expectToBeVisible", function () {
 
   let downloadBtn;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
     await handleCookiesConsent();
   });
 
@@ -21,10 +21,10 @@ describe("locator - getById + expectToBeVisible", function () {
   });
 });
 
-describe("locator - getById and catch error", function () {
+describe("element - getById and catch error", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
     await handleCookiesConsent();
   });
 

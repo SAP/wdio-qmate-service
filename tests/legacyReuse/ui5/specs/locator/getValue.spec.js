@@ -76,7 +76,7 @@ describe("locator - getValue with wrong selector", function () {
 
 describe("locator - getValue for boolean attribute", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
   });
 
   it("Execution and Verification", async function () {

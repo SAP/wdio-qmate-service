@@ -115,20 +115,36 @@ describe("assertion - expectBindingPathToBe with wrong attribute (unhappy case)"
   });
 
   it("Execution and Verification", async function () {
-    await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, "itms", "/ProductCategories", 0, 5000))
-      .rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'parts')");
+    switch (browser.capabilities.browserName) {
+      case "Safari":
+        const safariErrorMessage = "A JavaScript exception occured: undefined is not an object";
+        await expectBindingPathToBeUnhappyCaseTest(safariErrorMessage);
+        break;
+      case "firefox":
+        const firefoxErrorMessage = "TypeError: oControl.getBindingInfo(...) is undefined";
+        await expectBindingPathToBeUnhappyCaseTest(firefoxErrorMessage);
+        break;
+      default: //chrome and edge
+        const defaultErrorMessage = "javascript error: Cannot read properties of undefined (reading 'parts')";
+        await expectBindingPathToBeUnhappyCaseTest(defaultErrorMessage);
+        break;
+    }
+    async function expectBindingPathToBeUnhappyCaseTest(errorMessage) {
+      await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, "itms", "/ProductCategories", 0, 5000))
+        .rejects.toThrow(errorMessage);
 
-    await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, 123, "/ProductCategories", 0, 5000))
-      .rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'parts')");
+      await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, 123, "/ProductCategories", 0, 5000))
+        .rejects.toThrow(errorMessage);
 
-    await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, false, "/ProductCategories", 0, 5000))
-      .rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'parts')");
+      await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, false, "/ProductCategories", 0, 5000))
+        .rejects.toThrow(errorMessage);
 
-    await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, null, "/ProductCategories", 0, 5000))
-      .rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'parts')");
+      await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, null, "/ProductCategories", 0, 5000))
+        .rejects.toThrow(errorMessage);
 
-    await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, undefined, "/ProductCategories", 0, 5000))
-      .rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'parts')");
+      await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, undefined, "/ProductCategories", 0, 5000))
+        .rejects.toThrow(errorMessage);
+    }
   });
 });
 

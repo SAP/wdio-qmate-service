@@ -3,7 +3,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 describe("chart tests", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.viz.ui5.controls.VizFrame/sample/sap.viz.sample.Donut");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.viz.ui5.controls.VizFrame/sample/sap.viz.sample.Donut");
     await handleCookiesConsent();
   });
 

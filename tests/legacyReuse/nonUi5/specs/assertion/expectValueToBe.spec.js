@@ -7,7 +7,7 @@ describe("assertion - getValue + expectValueToBe", function () {
   let currentValue;
 
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
     await handleCookiesConsent();
   });
 
@@ -22,7 +22,7 @@ describe("assertion - expectValueToBe and catch error", function () {
   let product;
 
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution and Verification", async function () {

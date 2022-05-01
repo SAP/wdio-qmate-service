@@ -23,7 +23,7 @@ const inputFieldWithCheckSelector = {
 
 describe("Expect input field 'valueState' not to be 'Error' (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
     await handleCookiesConsent();
   });
 
@@ -32,13 +32,13 @@ describe("Expect input field 'valueState' not to be 'Error' (unhappy case)", fun
   it("Verification", async function () {
     await ui5.assertion.expectToBeVisible(inputFieldWithCheckSelector);
     await expect(ui5.assertion.expectValidationError(inputFieldWithCheckSelector))
-      .rejects.toThrowError("Timeout while waiting for attribute valueState. Expected value: Error");
+      .rejects.toThrowError(/None/);
   });
 });
 
 describe("Expect input field 'valueState' to be 'Error'", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
     await handleCookiesConsent();
   });
 

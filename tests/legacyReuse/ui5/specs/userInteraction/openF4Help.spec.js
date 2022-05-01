@@ -3,7 +3,7 @@ const { handleCookiesConsent } = require("../../../../helper/utils");
 describe("userInteraction - openF4Help - use button", function () {
 
   it("Preparation", async function () {
-    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputAssisted");
+    await ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Input/sample/sap.m.sample.InputAssisted");
     await handleCookiesConsent();
   });
 

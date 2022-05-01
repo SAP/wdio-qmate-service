@@ -10,7 +10,7 @@ describe("userInteraction - clearAndFillActiveAndRetry", function () {
   let selector;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
     await util.browser.refresh();
     await handleCookiesConsent();
   });
@@ -54,7 +54,7 @@ describe("userInteraction - clearAndFillActiveAndRetry with invalid selector", f
   let value;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
     await util.browser.refresh();
     await handleCookiesConsent();
   });
@@ -79,7 +79,7 @@ describe("userInteraction - clearAndFillActiveAndRetry with wrong element", func
   let value;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.MenuButton/sample/sap.m.sample.MenuButton");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MenuButton/sample/sap.m.sample.MenuButton");
     await util.browser.refresh();
     await handleCookiesConsent();
   });
