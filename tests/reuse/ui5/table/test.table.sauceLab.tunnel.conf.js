@@ -1,6 +1,6 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfiguration = require("../../../helper/configurations/sauce.labs.conf");
+const qmateConfiguration = require("../../../helper/configurations/sauce.labs.tunnel.conf");
 
 exports.config = merge(qmateConfiguration.config, {
   user: "sso-sap-D056896",

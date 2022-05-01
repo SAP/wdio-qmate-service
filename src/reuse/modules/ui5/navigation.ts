@@ -16,9 +16,10 @@ export class Navigation {
    * @param {String} intent - The intent of the application.
    * @param {Boolean} [preventPopups=false] - Specifies if random popup appearance should be prevented.
    * @param {Boolean} [verify=false] - Specifies if the url should be asserted after the navigation.
+   * @param {Boolean} [refresh=false] - Refresh the page after navigation.
    * @example await ui5.navigation.navigateToApplication("PurchaseOrder-manage");
    */
-  async navigateToApplication (intent: string, preventPopups = false, verify = false) {
+  async navigateToApplication (intent: string, preventPopups = false, verify = false, refresh = true) {
     let urlParams = "";
     if (preventPopups) {
       urlParams = this._generateUrlParams();
@@ -31,7 +32,9 @@ export class Navigation {
       if (url && url.indexOf(intent) === -1 && verify) {
         throw new Error("Verification of function 'navigateToApplication' failed. For retrying use 'navigateToApplicationAndRetry'.");
       }
-      await browser.refresh();
+      if (refresh) {
+        await util.browser.refresh();
+      }
     } catch (error) {
       throw new Error(this.errorText + error);
     }

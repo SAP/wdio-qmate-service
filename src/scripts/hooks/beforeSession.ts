@@ -1,5 +1,6 @@
 import reuseLibrary from '../../reuse/index';
 import dataExchangeCommands from "./utils/dataExchangeCommands";
+import decryption from './utils/decryption';
 /**
  * Gets executed just before initializing the webdriver session and test framework. It allows you
  * to manipulate configurations depending on the capability or spec.
@@ -12,4 +13,5 @@ export default async function (config: object, capabilities: object[], specs: st
   reuseLibrary.load();
   // import data into browser.params.import
   await dataExchangeCommands.readParams();
+  decryption.initDecryptFunction();
 };
