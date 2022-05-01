@@ -3,7 +3,8 @@ const baseConfig = require("./base.conf.js");
 const defaultBrowserSauceOptions = {
   build: `SauceLab test. Build-${new Date().getTime()}`,
   screenResolution: "1600x1200",
-  tunnelIdentifier: "sso-sap-C5264545_tunnel_name" // Note: name, not an ID
+  tunnelIdentifier: "sap-intranet", // Note: name, not an ID
+  parentTunnel: "S-A-P"
 };
 exports.config = merge(baseConfig.config, {
   services: ["sauce", "shared-store"],
