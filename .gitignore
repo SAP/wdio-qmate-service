@@ -50,4 +50,4 @@ coverage
 # mkdocs for GitPages
 docs-gen
 
-dist/
+lib/
