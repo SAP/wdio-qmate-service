@@ -5,7 +5,8 @@
     "name": "Georgios Treska",
     "email": "georgios.treska@sap.com"
   },
-  "types": "./@types/qmate-service/index.d.ts",
+  "types": "./@types/index.d.ts",
+  "main": "./lib/index.js",
   "maintainers": [
     {
       "name": "Georgios Treska",
@@ -24,11 +25,12 @@
     "update-chromedriver": "npm install chromedriver@latest --chromedriver-force-download",
     "before_install": "npm config set chromedriver_skip_download=true && npm install chromedriver@latest --chromedriver_skip_download=true",
     "after_install": "npm config set chromedriver_skip_download=false",
+    "postinstall": "npm run build",
     "lint": "eslint .",
     "lint:fix": "npx eslint . --fix",
     "generate-docs": "node reuse/helper/jsDocGen",
     "update-legacy": "node reuse/helper/legacySupport/legacyReplacer.js",
-    "build": "npx tsc && ./extract.sh",
+    "build": "npx tsc",
     "test:authenticator:staticLogin:custom": "npx wdio ./tests/authenticator/staticLogin/configCustom.js",
     "test:authenticator:staticLogin:customViaConfig": "npx wdio ./tests/authenticator/staticLogin/configCustomViaConfig.js",
     "test:authenticator:staticLogin:fiori": "npx wdio ./tests/authenticator/staticLogin/configFiori.js",
@@ -158,7 +160,6 @@
     "path": "^0.12.7",
     "pdf-parse": "^1.1.1",
     "query-string": "^7.1.0",
-    "supa-restapi": "^2.0.0",
     "supertest": "^6.1.6",
     "yargs": "^17.1.1"
   },
