@@ -6,7 +6,7 @@ const {
 describe("errorDialog - expectToBeVisible", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Dialog/sample/sap.m.sample.DialogMessage");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Dialog/sample/sap.m.sample.DialogMessage");
     await handleCookiesConsent();
   });
 

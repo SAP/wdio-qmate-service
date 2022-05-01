@@ -7,7 +7,7 @@ const AuthHandler = function () {
 
     if (browser.config.params && browser.config.params.auth) {
       const formType = browser.config.params.auth.formType;
-      if (formType) {
+      if (formType && formType !== "skip") {
         if (!authConfig[formType] || !authConfig[formType].name || !path.resolve(authConfig[formType].name)) {
           throw new Error(`Please provide a valid 'formType' instead of '${formType}'.`);
         }

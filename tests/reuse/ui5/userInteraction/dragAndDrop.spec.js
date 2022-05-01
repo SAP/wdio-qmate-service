@@ -19,7 +19,7 @@ describe("userInteraction - dragAndDrop", function () {
   };
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/sdk/#/entity/sap.f.GridList/sample/sap.f.sample.GridListDragAndDrop");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/sdk/#/entity/sap.f.GridList/sample/sap.f.sample.GridListDragAndDrop");
     await handleCookiesConsent();
   });
 

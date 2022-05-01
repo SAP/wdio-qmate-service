@@ -1,7 +1,7 @@
 "use strict";
 
 describe("locator - getCurrentWindow", function () {
-  const sapWindowUrl = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories";
+  const sapWindowUrl = "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories";
   let sapWindowHandleNative;
   let sapWindowHandleCustom;
 
@@ -20,7 +20,7 @@ describe("locator - getCurrentWindow", function () {
 });
 
 describe("locator - getCurrentWindow (unhappy case)", function () {
-  const sapWindowUrl = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories";
+  const sapWindowUrl = "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories";
   let sapWindowHandleCustom;
 
   const wdioWindowUrl = "https://webdriver.io/";

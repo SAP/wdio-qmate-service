@@ -17,7 +17,7 @@ const selectorForDialog = {
 
 describe("confirmationDialog - clickYes", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBoxInitialFocus");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBoxInitialFocus");
     await handleCookiesConsent();
 
     const openDialogButton = {

@@ -10,6 +10,7 @@ import navigation, { Navigation } from "./navigation";
 import navigationBar, { NavigationBar } from "./navigationBar";
 import qunit, { QUnit } from "./qunit";
 import session, { Session } from "./session";
+import table, { Table } from "./table";
 import userInteraction, { UserInteraction } from "./userInteraction";
 
 export class Ui5 {
@@ -25,6 +26,7 @@ export class Ui5 {
   navigationBar: NavigationBar = navigationBar;
   qunit: QUnit = qunit;
   session: Session = session;
+  table: Table = table;
   userInteraction: UserInteraction = userInteraction;
   appIntents: any;
   authenticators: any;

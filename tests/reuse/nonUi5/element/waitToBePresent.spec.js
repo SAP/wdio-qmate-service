@@ -1,28 +1,32 @@
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+"use strict";
 
-describe("locator - waitToBePresent", function () {
-
+describe("element - waitToBePresent", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
-    await handleCookiesConsent();
+    await common.navigation.navigateToUrl("http://localhost:34005/waitForElements.html");
   });
 
-  it("Execution and Verification", async function () {
-    await nonUi5.element.waitToBePresent("[id='sdk---app--changeVersionButton-BDI-content']", 40000);
+  it("Execution & Verification", async function () {
+    await nonUi5.element.waitToBePresent("BUTTON", 30000);
   });
 });
 
-describe("locator - waitToBePresent with wrong selector (unhappy case)", function () {
-
+describe("element - waitToBePresent - wrong selector (error case)", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
-    await handleCookiesConsent();
+    await common.navigation.navigateToUrl("http://localhost:34005/waitForElements.html");
   });
 
-  it("Execution and Verification", async function () {
-    await expect(nonUi5.element.waitToBePresent("[class='sapMBtnBase sapMBtn sapMBtnInverted sapMDialogBeginButton sapMBarChild']", 1000))
+  it("Execution & Verification", async function () {
+    await expect(nonUi5.element.waitToBePresent("BUTTON[class='wrong']", 1000))
       .rejects.toThrow("Function 'waitToBePresent' failed");
+  });
+});
+
+describe("element - waitToBePresent - invisible element", function () {
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("http://localhost:34005/hiddenAndVisible.html");
+  });
+
+  it("Execution & Verification", async function () {
+    await nonUi5.element.waitToBePresent("P[id='hiddenParagraph']", 30000);
   });
 });

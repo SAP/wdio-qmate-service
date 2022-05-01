@@ -6,7 +6,7 @@ const {
 describe("assertion - expectValueToBeDefined", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
     await handleCookiesConsent();
   });
 
@@ -26,6 +26,10 @@ describe("assertion - expectValueToBeDefined", function () {
 
     await ui5.userInteraction.clearAndFill(selector, "");
     await common.userInteraction.pressEnter();
+
+    // Note: failing here for macOS - value is undefined for selector:
+    // [Safari 14.1 macOS #2-8] Received promise resolved instead of rejected
+    // [Safari 14.1 macOS #2-8] Resolved to value: undefined
     await expect(ui5.assertion.expectValueToBeDefined(selector)).rejects.toThrow(/Expect\w*|\d*not\w*|\d*""/);
   });
 });

@@ -1,11 +1,11 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfig = require("../../../helper/configurations/chrome.headless.conf.js");
+const qmateConfig = require("../../../helper/configurations/report.headless.conf.js");
 exports.config = merge(qmateConfig.config, {
   maxInstances: 1,
   bail: 1,
 
-  baseUrl: "https://sapui5.hana.ondemand.com/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection", //ui#CloudSolution-startActivityTransaction?p_guid=E41D2DE53D801EE9BACD7F060DB1C610
+  baseUrl: "https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection", //ui#CloudSolution-startActivityTransaction?p_guid=E41D2DE53D801EE9BACD7F060DB1C610
 
   //
   // ==================

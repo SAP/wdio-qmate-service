@@ -1,6 +1,6 @@
 var path = require("path");
 var merge = require("deepmerge");
-var qmateConfig = require("../../../helper/configurations/chrome.headless.conf.js");
+var qmateConfig = require("../../../helper/configurations/report.headless.conf.js");
 
 exports.config = merge(qmateConfig.config, {
   maxInstances: 6,
@@ -28,5 +28,5 @@ exports.config = merge(qmateConfig.config, {
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html"
+  baseUrl: "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html"
 });

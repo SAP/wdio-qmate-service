@@ -8,7 +8,7 @@ describe("userInteraction - clearAndFill", function () {
   let elem;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
     await handleCookiesConsent();
   });
 
@@ -50,7 +50,7 @@ describe("userInteraction - clearAndFill 'NumericInput' with 0.000 template insi
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.StepInput/sample/sap.m.sample.StepInput");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.StepInput/sample/sap.m.sample.StepInput");
     await handleCookiesConsent();
     await utilities.browser.refresh();
   });
@@ -75,7 +75,7 @@ describe("userInteraction - clearAndFill with invalid selector", function () {
   let value;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
     await handleCookiesConsent();
   });
 

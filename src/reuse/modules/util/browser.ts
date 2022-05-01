@@ -340,6 +340,17 @@ export class Browser {
   async getCurrentWindow(): Promise<any> {
     return browser.getWindowHandle();
   }
+
+  /**
+   * @function back
+   * @memberOf util.browser
+   * @description Go one step back in browser history.
+   * @example await util.browser.back();
+   */
+   async back () {
+    return browser.back();
+  };
+
 }
 
 export default new Browser();

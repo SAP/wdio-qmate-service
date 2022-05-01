@@ -1,6 +1,6 @@
 describe("navigateToUrl", function () {
 
-  const url = "https://sapui5.hana.ondemand.com/";
+  const url = "https://sapui5.hana.ondemand.com/1.99.0/";
 
   it("Execution", async function () {
     await non_ui5.common.navigation.navigateToUrl(url);

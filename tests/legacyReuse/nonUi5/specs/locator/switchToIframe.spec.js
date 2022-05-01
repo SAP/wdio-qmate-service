@@ -6,7 +6,7 @@ describe("locator - switchToIframe + expectToBeVisible", function () {
   let elem;
 
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.92.0/");
+    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/1.92.0/");
     await handleCookiesConsent();
   });
 
@@ -19,7 +19,7 @@ describe("locator - switchToIframe + expectToBeVisible", function () {
 
 describe("locator - switchToIframe and catch error", function () {
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.92.0/");
+    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/1.92.0/");
     await handleCookiesConsent();
   });
 

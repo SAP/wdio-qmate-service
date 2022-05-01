@@ -133,19 +133,24 @@ export class Formatter {
    * @memberOf util.formatter
    * @description formats date.
    * @param {Date} date - The date object to be formatted.
-   * @param {String} format - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object").
+   * @param {String} format - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object").
+   * @param {String} [locale="en-US"] - The locale format of the date. E.g. "en-US", "de-DE", etc.
    * @returns {String} The formatted date as string.
    * @example const date = new Date(2020, 0, 17);
    * const formattedDate = util.formatter.formatDate(date, "mm/dd/yyyy");
    * // returns "01/17/2020"
+   * @example const date = new Date(2022, 3, 12);
+   * const formattedDate = util.formatter.formatDate(date, "mmm dd, yyyy");
+   * // returns "Apr 03, 2022"
    */
-  formatDate (date: Date, format: DateFormatsType): string | Date {
+  formatDate (date: Date, format: DateFormatsType, locale = "en-US"): string | Date {
     let formattedDate: Date | string = date;
     let hour: number | string = date.getHours();
     let min: number | string = date.getMinutes();
     let sec: number | string = date.getSeconds();
     let dd: number | string = date.getDate();
     let mm: number | string = date.getMonth() + 1;
+    const month = date.toLocaleString(locale, { month: "short" });
     const yyyy = date.getFullYear();
 
     if (sec < 10) {
@@ -189,6 +194,9 @@ export class Formatter {
           break;
         case DateFormats.DAY_MONTH_YEAR_TIME_DOT:
           formattedDate = `${dd}.${mm}.${yyyy}.${hour}.${min}`;
+          break;
+        case DateFormats.MONTH_DAY_YEAR_COMMA:
+          formattedDate = `${month} ${dd}, ${yyyy}`;
           break;
         case DateFormats.DATETIME:
           formattedDate = `datetime'${yyyy}-${mm}-${dd}T${hour}:${min}:${sec}'`;

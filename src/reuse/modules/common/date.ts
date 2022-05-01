@@ -153,7 +153,11 @@ export class DateModule {
         calculatedDate = this.getPreviousYear(format);
         break;
       default:
-        calculatedDate = this.getSpecific(date, format);
+        try {
+          calculatedDate = this.getSpecific(date, format);
+        } catch (error) {
+          throw new Error("Function 'calculate' failed: Please provide a valid date string as first argument.")
+        }
     }
     return calculatedDate;
   };

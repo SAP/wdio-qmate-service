@@ -7,7 +7,7 @@ describe("assertion - isPresentByXPath", function () {
   let linkBtn;
 
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
     await handleCookiesConsent();
   });
 
@@ -20,7 +20,7 @@ describe("assertion - isPresentByXPath", function () {
 
 describe("assertion - isPresentByXPath with wrong selector and catch error", function () {
   it("Preparation", async function () {
-    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await non_ui5.common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
     await handleCookiesConsent();
   });
 

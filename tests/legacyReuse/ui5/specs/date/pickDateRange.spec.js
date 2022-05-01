@@ -32,7 +32,7 @@ describe("date - pickDateRange", function () {
   };
 
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.m.DateRangeSelection/sample/sap.m.sample.DateRangeSelectionValueState");
+    await browser.url("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.DateRangeSelection/sample/sap.m.sample.DateRangeSelectionValueState");
     await handleCookiesConsent();
   });
 
@@ -53,7 +53,7 @@ describe("date - pickDateRange", function () {
 
 describe("date - pickDateRange without datePiker (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await browser.url("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution and Verification", async function () {

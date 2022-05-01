@@ -18,7 +18,7 @@ describe("date - pickDate", function () {
   };
 
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.m.DatePicker/sample/sap.m.sample.DatePicker");
+    await browser.url("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.DatePicker/sample/sap.m.sample.DatePicker");
     await handleCookiesConsent();
   });
 
@@ -48,7 +48,7 @@ describe("date - pickDate without datePiker (unhappy case)", function () {
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
   it("Execution and Verification", async function () {

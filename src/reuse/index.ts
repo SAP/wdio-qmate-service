@@ -39,6 +39,7 @@ class ReuseLibrary {
     const util = {
       browser: utilQmate.browser,
       console: utilQmate.console,
+      data: utilQmate.data,
       file: utilQmate.file,
       formatter: utilQmate.formatter,
       function: utilQmate.function,
@@ -66,6 +67,7 @@ class ReuseLibrary {
       navigation: ui5Qmate.navigation,
       navigationBar: ui5Qmate.navigationBar,
       session: ui5Qmate.session,
+      table: ui5Qmate.table,
       userInteraction: ui5Qmate.userInteraction,
       qunit: ui5Qmate.qunit,
       // data
@@ -97,7 +99,8 @@ class ReuseLibrary {
      * @description Global namespace for service modules.
      */
     const service = {
-      odata: serviceQmate.odata
+      odata: serviceQmate.odata,
+      rest: serviceQmate.rest
     };
     global.service = {
       ...service,

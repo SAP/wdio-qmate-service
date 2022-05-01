@@ -1,6 +1,6 @@
 const path = require("path");
 const merge = require("deepmerge");
-const customConfig = require("../../helper/configurations/chrome.headless.conf.js");
+const customConfig = require("../../helper/configurations/report.headless.conf.js");
 exports.config = merge(customConfig.config, {
   maxInstances: 1,
   bail: 1,
