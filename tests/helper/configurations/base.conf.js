@@ -1,4 +1,4 @@
-const WdioQmateService = require("../../../index");
+const WdioQmateService = require("../../../lib/index.js");
 const chromedriverPath = require("chromedriver").path;
 const fs = require("fs");
 
