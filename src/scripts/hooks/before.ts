@@ -1,5 +1,5 @@
-const locatorCommands = require("./utils/addLocatorCommands");
-const authenticatorHandler = require("../../reuse/authenticator/authHandler");
+import locatorCommands from "./utils/addLocatorCommands";
+import authenticatorHandler from "../../reuse/authenticator/authHandler";
 /**
  * Gets executed before test execution begins. At this point you can access to all global
  * variables like `browser`. It is the perfect place to define custom commands.
