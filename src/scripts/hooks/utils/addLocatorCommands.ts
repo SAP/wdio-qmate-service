@@ -1,11 +1,12 @@
+// @ts-nocheck
 var qmateLocator = require("../../locators/qmateLocator");
 var uiveri5Locator = require("../../locators/uiveri5Locator");
 var lib = require("./lib");
-const { ui5ControlLocator, ui5ControlsLocators, getUI5Property,
+import { ui5ControlLocator, ui5ControlsLocators, getUI5Property,
   getUI5Aggregation, getUI5Association, getBindingContextPath,
   getBindingProperty, getAllUI5Properties, getAllUI5Aggregations,
   getAllUI5Associations
-} = require("./locatorCommands");
+} from "./locatorCommands";
 
 var AddLocatorCommands = function () {
   this.addControlCommands = async function () {
@@ -150,4 +151,4 @@ var AddLocatorCommands = function () {
   };
 
 };
-module.exports = new AddLocatorCommands();
+export default new AddLocatorCommands();

@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
+// @ts-nocheck
 var clientsidescripts = require("../../clientsideUI5scripts");
 
 function isEmptyObjectOrUndefined(obj) {

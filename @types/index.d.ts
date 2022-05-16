@@ -15,7 +15,6 @@ declare global {
   var common: Common;
   var service: Service;
 
-  // @ts-ignore
   var expect: any;
 
   var sap: any;
