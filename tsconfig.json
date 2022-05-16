@@ -7,11 +7,11 @@
       "*": ["./types/*"]
     },
     "typeRoots": [
-      "@types",
+      "./@types",
       "./node_modules/@types"
     ] /* Specify multiple folders that act like `./node_modules/@types`. */,
     "resolveJsonModule": true /* Enable importing .json files */,
-
+    "declaration": true /* Generates corresponding `.d.ts` file. */,
     "allowJs": true /* Allow JavaScript files to be a part of your program. Use the `checkJS` option to get errors from these files. */,
     "outDir": "./lib" /* Specify an output folder for all emitted files. */,
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */,
@@ -19,5 +19,6 @@
     "strict": true /* Enable all strict type-checking options. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": ["src/**/*.ts", "src/**/*.js", "@types/index.d.ts", "src/**/*.json"]
+  "include": ["src/**/*.ts", "src/**/*.js", "@types/index.d.ts", "src/**/*.json"],
+  "exclude": ["lib"]
 }

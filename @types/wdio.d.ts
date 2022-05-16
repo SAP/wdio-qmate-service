@@ -28,9 +28,6 @@ type MoveToOptions = { xOffset?: number; yOffset?: number };
 // react$$
 type ReactSelectorOptions = { props?: object; state?: any };
 
-// touchAction
-// type TouchActions =
-
 // waitFor
 type WaitForOptions = { timeout?: number = 500; reverse?: boolean = false; timeoutMsg?: string; interval?: number };
 
@@ -79,7 +76,6 @@ export interface Element {
   setValue(value: ValueType, options?: ValueOptions): Promise<void>;
   shadow$$(selector: string | Function): Promise<Element[]>;
   shadow$(selector: string | Function): Promise<Element>;
-  // touchAction(action: TouchActions)
   waitForClickable(options?: WaitForOptions);
   waitForDisplayed(options?: WaitForOptions);
   waitForEnabled(options?: WaitForOptions);
