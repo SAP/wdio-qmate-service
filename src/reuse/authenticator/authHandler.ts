@@ -1,18 +1,18 @@
-const AuthHandler = function () {
+class AuthHandler {
 
-  const path = require("path");
+  private path = require("path");
 
-  this.attachAuthHandling = async function () {
+  async attachAuthHandling () {
     const authConfig = require("./authConfig.js");
 
     if (browser.config.params && browser.config.params.auth) {
       const formType = browser.config.params.auth.formType;
       if (formType && formType !== "skip") {
-        if (!authConfig[formType] || !authConfig[formType].name || !path.resolve(authConfig[formType].name)) {
+        if (!authConfig[formType] || !authConfig[formType].name || !this.path.resolve(authConfig[formType].name)) {
           throw new Error(`Please provide a valid 'formType' instead of '${formType}'.`);
         }
         // eslint-disable-next-line no-console
-        console.log(path.resolve(authConfig[formType].name));
+        console.log(this.path.resolve(authConfig[formType].name));
         const execAuthenticator = require(authConfig[formType].name);
         await execAuthenticator();
       }
@@ -20,4 +20,4 @@ const AuthHandler = function () {
   };
 
 };
-module.exports = new AuthHandler();
+export default new AuthHandler();

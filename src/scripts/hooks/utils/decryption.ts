@@ -10,7 +10,7 @@ class Decryption {
       process.env.PRIVATEKEY_FOUND = true;
     }
 
-    global.util.data.decrypt = (input) => {
+    global.util.data.decrypt = (input: string) => {
       if (privateKey) {
         try {
           let decryptedData = this.decryptLocal(Buffer.from(input, "hex"));
