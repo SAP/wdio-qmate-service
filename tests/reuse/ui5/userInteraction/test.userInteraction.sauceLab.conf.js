@@ -27,10 +27,14 @@ exports.config = merge(qmateConfiguration.config, {
     path.resolve(__dirname, "fillAndRetry.spec.js"),
     path.resolve(__dirname, "openF4Help.spec.js"),
     path.resolve(__dirname, "searchFor.spec.js"),
-    path.resolve(__dirname, "scrollToElement.spec.js"), // error
+    path.resolve(__dirname, "scrollToElement.spec.js"),
     path.resolve(__dirname, "selectBox.spec.js"),
     path.resolve(__dirname, "selectComboBox.spec.js"),
-    path.resolve(__dirname, "selectMultiComboBox.spec.js")
+    path.resolve(__dirname, "selectMultiComboBox.spec.js"),
+    path.resolve(__dirname, "doubleClick.spec.js"),
+    path.resolve(__dirname, "rightClick.spec.js"),
+    path.resolve(__dirname, "mouseOverElement.spec.js"),
+    // path.resolve(__dirname, "dragAndDrop.spec.js")
   ],
 
   exclude: [],

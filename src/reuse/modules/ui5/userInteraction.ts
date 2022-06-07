@@ -384,7 +384,26 @@ export class UserInteraction {
   };
 
 
-  // =================================== OTHERS ===================================
+ // =================================== OTHERS ===================================
+  /**
+   * @function mouseOverElement
+   * @memberOf ui5.userInteraction
+   * @description Moves the cursor/focus to the element with the given selector.
+   * @param {Object} selector - The selector describing the element.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example await ui5.userInteraction.mouseOverElement(selector);
+   */
+   async mouseOverElement (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    let elem;
+    try {
+      elem = await ui5.element.getDisplayed(selector, index, timeout);
+    } catch (error) {
+      throw new Error(`Function: 'mouseOverElement' failed: No element found for selector ${selector}`);
+    }
+    await elem.moveTo();
+  };
+
   /**
    * @function scrollToElement
    * @memberOf ui5.userInteraction

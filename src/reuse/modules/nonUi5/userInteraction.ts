@@ -250,6 +250,25 @@ export class UserInteraction {
 
   // =================================== OTHERS ===================================
   /**
+   * @function mouseOverElement
+   * @memberOf nonUi5.userInteraction
+   * @description Moves the cursor/focus to the passed element.
+   * @param {Object} element - The selector describing the element.
+   * @param {Number} [xOffset] - X offset to move to, relative to the top-left corner of the element. If not specified, the mouse will move to the middle of the element.
+   * @param {Number} [yOffset] - Y offset to move to, relative to the top-left corner of the element. If not specified, the mouse will move to the middle of the element.
+   * @example const elem = await nonUi5.element.getById("dropdown42");
+   * await nonUi5.userInteraction.mouseOverElement(elem);
+   */
+   async mouseOverElement (elem: Element, xOffset: number, yOffset: number) {
+    try {
+      await elem.moveTo({ xOffset, yOffset });
+    } catch (error) {
+      // @ts-ignore
+      throw new Error("Function: 'mouseOverElement' failed: ", error);
+    }
+  };
+
+  /**
    * @function scrollToElement
    * @memberOf nonUi5.userInteraction
    * @description Scrolls to the passed element to get it into view.
@@ -323,6 +342,35 @@ export class UserInteraction {
   async moveCursorAndClick (element: Element) {
     await element.moveTo();
     await element.click();
+  };
+
+  /**
+   * @function clickElementInSvg
+   * @memberOf nonUi5.userInteraction
+   * @description Clicks on an inner element within a SVG element.
+   * @param {Object} svgElem - The SVG element.
+   * @param {String} innerSelector - The CSS selector describing the inner element to be clicked.
+   * @example const svgElem = await nonUi5.element.getByCss("svg");
+   * const innerSelector = "circle:nth-child(6)";
+   * await nonUi5.userInteraction.clickElementInSvg(svgElem, innerSelector);
+   */
+   async clickElementInSvg (svgElem: Element, innerSelector: string) {
+    const innerElem = await $(innerSelector);
+
+    const svgPos = await svgElem.getLocation();
+    const innerPos = await innerElem.getLocation();
+
+    const svgSize = await svgElem.getSize();
+    const innerSize = await innerElem.getSize();
+
+    const diffX = innerPos.x - svgPos.x;
+    const diffY = innerPos.y - svgPos.y;
+
+    const centerOffsetX = -(svgSize.width / 2) + diffX + (innerSize.width / 2);
+    const centerOffsetY = -(svgSize.height / 2) + diffY + (innerSize.height / 2);
+
+    // @ts-ignore
+    await svgElem.click({ x: parseInt(centerOffsetX), y: parseInt(centerOffsetY) });
   };
 
 };
