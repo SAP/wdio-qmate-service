@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const locatorCommands = require("../../../scripts/hooks/utils/locatorCommands");
+const locatorCommands = require("../../../lib/scripts/hooks/utils/locatorCommands");
 const { handleCookiesConsent } = require("../../helper/utils");
 
 describe("multi combo", function () {
