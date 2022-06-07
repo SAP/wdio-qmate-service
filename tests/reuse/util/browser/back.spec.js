@@ -1,6 +1,6 @@
 "use strict";
 
-const browser = require("../../../../reuse/modules/util/browser");
+const browser = require("../../../../lib/reuse/modules/util/browser");
 const {
   handleCookiesConsent
 } = require("../../../helper/utils");
