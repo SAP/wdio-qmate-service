@@ -30,7 +30,7 @@
     "clean": "npx rimraf lib",
     "lint": "eslint .",
     "lint:fix": "npx eslint . --fix",
-    "generate-docs": "node reuse/helper/jsDocGen",
+    "generate-docs": "node ./lib/reuse/helper/jsDocGen",
     "serve-docs": "mkdocs serve",
     "upload-docs": "mkdocs gh-deploy --force",
     "update-legacy": "node reuse/helper/legacySupport/legacyReplacer.js",

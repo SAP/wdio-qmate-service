@@ -76,7 +76,7 @@ export class Data {
       if (typeof data[key] === "object") {
         data[key] = this._decryptRecursively(data[key]);
       } else if (typeof data[key] === "string") {
-        data[key] = util.data.decrypt(data[key]);
+        data[key] = global.util.data.decrypt(data[key]);
       }
     }
     return data;
