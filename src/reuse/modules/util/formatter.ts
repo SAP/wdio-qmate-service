@@ -117,7 +117,7 @@ export class Formatter {
    * @param {String} number - The number to be formatted.
    * @param {Number} length - The required length of the number.
    * @returns {String} The formatted number.
-   * @example const itemNumber = await util.formatter.addRemoveLeadingZeros(10, 5);
+   * @example const itemNumber = util.formatter.addRemoveLeadingZeros(10, 5);
    */
   addRemoveLeadingZeros (number: string, length: number): string {
     const numberParsed = parseInt(number, 10);

@@ -17,7 +17,7 @@ export class DateModule {
    * @function getToday
    * @memberOf common.date
    * @description Returns the current day in the given format.
-   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object").
+   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object").
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getToday("mm/dd/yyyy");
    */
@@ -30,7 +30,7 @@ export class DateModule {
    * @function getTomorrow
    * @memberOf common.date
    * @description Returns tomorrows date in the given format.
-   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object").
+   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object").
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getTomorrow("mm/dd/yyyy");
    */
@@ -44,7 +44,7 @@ export class DateModule {
    * @function getNextMonth
    * @memberOf common.date
    * @description Returns the current day one month later in the given format.
-   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object").
+   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object").
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getNextMonth("mm/dd/yyyy");
    */
@@ -58,7 +58,7 @@ export class DateModule {
    * @function getPreviousMonth
    * @memberOf common.date
    * @description Returns the current day one month before in the given format.
-   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object").
+   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object").
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getPreviousMonth("mm/dd/yyyy");
    */
@@ -72,7 +72,7 @@ export class DateModule {
    * @function getNextYear
    * @memberOf common.date
    * @description Returns the current day one year later in the given format.
-   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object").
+   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object").
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getNextYear("mm/dd/yyyy");
    */
@@ -86,7 +86,7 @@ export class DateModule {
    * @function getPreviousYear
    * @memberOf common.date
    * @description Returns the current day one year before in the given format.
-   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object").
+   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object").
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getPreviousYear("mm/dd/yyyy");
    */
@@ -101,7 +101,7 @@ export class DateModule {
    * @memberOf common.date
    * @description Returns a specific date in the given format.
    * @param {String} date - A specific date string.
-   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object").
+   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object").
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getSpecific("2020, 0, 17", "mm/dd/yyyy");
    */
