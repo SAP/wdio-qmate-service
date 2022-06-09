@@ -28,7 +28,6 @@ export class Ui5 {
   session: Session = session;
   table: Table = table;
   userInteraction: UserInteraction = userInteraction;
-  appIntents: any;
   authenticators: any;
   users: any;
 }

@@ -40,10 +40,6 @@
     "new": "ui5"
   },
   {
-    "old": "ui5.common.appIntents",
-    "new": "ui5.appIntents"
-  },
-  {
     "old": "ui5.common.locator",
     "new": "ui5.element"
   },

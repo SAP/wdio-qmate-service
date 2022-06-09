@@ -110,7 +110,7 @@ export class Navigation {
    * @param {String} queryParams - [OPTIONAL] Add url query params.
    * @param {Boolean} [preventPopups=false] - Specifies if random popup appearance should be prevented.
    * @param {Boolean} [verify=false] - Specifies if the url should be asserted after the navigation.
-   * @example const intent = ui5.appIntents.managePurchaseOrders;
+   * @example const intent = "PurchaseOrder-manage"
    * const queryParams = "?sap-language=EN&responderOn=true";
    * await ui5.navigation.navigateToApplicationWithQueryParams(intent, queryParams);
    */
@@ -142,7 +142,7 @@ export class Navigation {
    * @param {Boolean} [verify=false] - Specifies if the url should be asserted after the navigation.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
-   * @example const intent = ui5.appIntents.managePurchaseOrders;
+   * @example const intent = "PurchaseOrder-manage"
    * const queryParams = "?sap-language=EN&responderOn=true";
    * await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
    */
