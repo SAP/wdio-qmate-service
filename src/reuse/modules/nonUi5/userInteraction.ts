@@ -280,7 +280,6 @@ export class UserInteraction {
   async dragAndDrop (element: Element, targetElem: Element) {
     // await element.dragAndDrop(targetElem);
 
-    // https://stackoverflow.com/questions/60378820/drag-and-drop-with-webdriver-io
     const sourceSize = await element.getSize();
     const targetSize = await targetElem.getSize();
     const sourceLocation = await element.getLocation();
