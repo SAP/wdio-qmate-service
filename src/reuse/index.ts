@@ -10,9 +10,7 @@ import nonUi5Qmate from './modules/nonUi5/NonUi5';
 import serviceQmate from './modules/service/Service'
 
 // data
-import appIntents from './data/appIntents.json';
 import authenticators from './data/authenticators.json'
-import users from './data/users.json'
 
 class ReuseLibrary {
   load() {
@@ -71,9 +69,7 @@ class ReuseLibrary {
       userInteraction: ui5Qmate.userInteraction,
       qunit: ui5Qmate.qunit,
       // data
-      appIntents,
       authenticators,
-      users
     };
     global.ui5 = {
       ...ui5,
