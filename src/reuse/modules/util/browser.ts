@@ -21,7 +21,7 @@ export class Browser {
    * @memberOf util.browser
    * @description Sets or overwrites the baseUrl in the configuration file.
    * @param {String} baseUrl: base URL to set
-   * @example await util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+   * @example await util.browser.setBaseUrl("https://www.sap.com");
    */
   setBaseUrl(baseUrl: string): void {
     browser.config.baseUrl = baseUrl;
