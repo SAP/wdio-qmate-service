@@ -1,11 +1,10 @@
 class Decryption {
-
   private path = require("path");
   private fs = require("fs");
   private crypto = require("crypto");
   private childProcess = require("child_process");
 
-  initDecryptFunction () {
+  initDecryptFunction() {
     try {
       const privateKey = this.retrievePrivateKey(this.path.resolve(__dirname, "../../.."));
       global.util.data.privateKeyFound = true;
@@ -17,9 +16,9 @@ class Decryption {
         throw new Error("Function 'decrypt' failed: No private key found.");
       };
     }
-  };
+  }
 
-  retrievePrivateKey (dirname: string) {
+  retrievePrivateKey(dirname: string) {
     let privateKey;
 
     try {
@@ -38,27 +37,28 @@ class Decryption {
 
     process.env.QMATE_PRIVATE_KEY = "";
     return privateKey;
-  };
+  }
 
-  decryptSecureData (privateKey: string, input: string) {
+  decryptSecureData(privateKey: string, input: string) {
     try {
       const decryptedDataByRepoName = Buffer.from(this._decryptDataWithRepoName(Buffer.from(input, "hex")), "base64");
 
-      const decryptedDataByKey = this.crypto.privateDecrypt({
-        key: privateKey,
-        padding: this.crypto.constants.RSA_PKCS1_OAEP_PADDING,
-        oaepHash: "sha256",
-      },
-      decryptedDataByRepoName
+      const decryptedDataByKey = this.crypto.privateDecrypt(
+        {
+          key: privateKey,
+          padding: this.crypto.constants.RSA_PKCS1_OAEP_PADDING,
+          oaepHash: "sha256",
+        },
+        decryptedDataByRepoName
       );
 
       return decryptedDataByKey.toString();
     } catch (error) {
       throw new Error(`Function 'decrypt' failed: ${error}`);
     }
-  };
+  }
 
-  private _decryptDataWithRepoName (data: Buffer) {
+  private _decryptDataWithRepoName(data: Buffer) {
     let repoUrl;
     try {
       repoUrl = this.childProcess.execSync("git config --get remote.origin.url").toString();
@@ -77,5 +77,5 @@ class Decryption {
 
     return decryptedData;
   }
-};
+}
 export default new Decryption();
