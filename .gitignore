@@ -51,3 +51,8 @@ coverage
 docs-gen
 
 lib/
+
+# crypto
+private.env
+*.local.json
+private.key
