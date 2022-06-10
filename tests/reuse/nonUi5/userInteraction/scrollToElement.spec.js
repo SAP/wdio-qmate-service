@@ -1,7 +1,7 @@
 "use strict";
 const { handleCookiesConsent } = require("../../../helper/utils");
 
-describe("locator - scrollToElement", function () {
+describe("userInteraction - scrollToElement", function () {
 
   let elem;
 
