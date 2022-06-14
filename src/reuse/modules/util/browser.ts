@@ -10,7 +10,7 @@ export class Browser {
    * @memberOf util.browser
    * @description Retrieves the baseUrl from the configuration file.
    * @returns {String} The baseUrl.
-   * @example const baseUrl = await util.browser.getBaseUrl();
+   * @example const baseUrl = util.browser.getBaseUrl();
    */
   getBaseUrl(): string {
     return browser.config.baseUrl;
@@ -21,7 +21,7 @@ export class Browser {
    * @memberOf util.browser
    * @description Sets or overwrites the baseUrl in the configuration file.
    * @param {String} baseUrl: base URL to set
-   * @example await util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+   * @example util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
    */
   setBaseUrl(baseUrl: string): void {
     browser.config.baseUrl = baseUrl;
@@ -145,7 +145,7 @@ export class Browser {
    * @memberOf util.browser
    * @description Retrieves the name of the current browser.
    * @returns {String} The browser name.
-   * @example const browserName = await util.browser.getBrowserName();
+   * @example const browserName = util.browser.getBrowserName();
    */
   getBrowserName(): string {
     return browser.capabilities.browserName;
