@@ -58,6 +58,19 @@ class Decryption {
     }
   }
 
+  decryptSauceConfig (config: Record<string, any>) {
+    try {
+      config.user = util.data.decrypt(config.user);
+    } catch (error) {
+      // do nothing, user was not encrypted
+    }
+    try {
+      config.key = util.data.decrypt(config.key);
+    } catch (error) {
+      // do nothing, key was not encrypted
+    }
+  };
+
   private _decryptDataWithRepoName(data: Buffer) {
     let repoUrl;
     try {

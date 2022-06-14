@@ -72,6 +72,36 @@ export class Table {
     }
   };
 
+  /**
+   * @function clickSettingsButton
+   * @memberOf ui5.table
+   * @description Opens the user Settings.
+   * @param {Object} [tableSelector] - The selector describing the table element (in case there are more then one).
+   * @example await ui5.table.clickSettingsButton();
+   * @example const glAccountItemsTable = {
+   *  "elementProperties": {
+   *     "viewName": "ui.s2p.mm.supplinvoice.manage.s1.view.S1",
+   *     "metadata": "sap.m.Table",
+   *     "id": "*idS2P.MM.MSI.TableGLAccountItems"
+   *  }
+   * };
+   * await ui5.table.clickSettingsButton(glAccountItemsTable);
+   */
+   async clickSettingsButton (tableSelector: any) {
+    const settingsButtonSelector = {
+      "elementProperties": {
+        "metadata": "sap.m.OverflowToolbarButton",
+        "id": "*btnPersonalisation"
+      }
+    };
+    if (!tableSelector) {
+      await ui5.userInteraction.click(settingsButtonSelector);
+    } else {
+      const selector = this._prepareAncestorSelector(settingsButtonSelector, tableSelector);
+      await ui5.userInteraction.click(selector);
+    }
+  };
+
 
   // =================================== HELPER ===================================
   private async _clickColumn(name: string, tableSelector: any) {
