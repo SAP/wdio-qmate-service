@@ -7,7 +7,7 @@ const path = require("path");
 const jsdoc2md = require("jsdoc-to-markdown");
 
 const readPath = path.join(__dirname, "../");
-const writePath = path.join(__dirname, "../../documentation");
+const writePath = path.join(__dirname, "../../../documentation");
 
 const filesToInclude = `{index.js,modules/**/*.js}`;
 
