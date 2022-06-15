@@ -4,6 +4,7 @@
  * @memberof util
  */
 export class Console {
+  private colorReset = "\x1b[0m";
   /**
    * @function log
    * @memberOf util.console
@@ -30,7 +31,7 @@ export class Console {
       colorValue = colorValue + brightnessValue;
     }
 
-    console.log(colorValue, message + "\x1b[0m");
+    console.log(colorValue, message + this.colorReset);
   }
 
   /**
@@ -42,7 +43,7 @@ export class Console {
    */
   error(message: string) {
     const colorValue = this.getColorValue("red");
-    console.error(colorValue, message + "\x1b[0m");
+    console.error(colorValue, message + this.colorReset);
   }
 
   /**
@@ -54,7 +55,7 @@ export class Console {
    */
   warn(message: string) {
     const colorValue = this.getColorValue("yellow");
-    console.warn(colorValue, message + "\x1b[0m");
+    console.warn(colorValue, message + this.colorReset);
   }
 
   /**
@@ -66,7 +67,7 @@ export class Console {
    */
   success(message: string) {
     const colorValue = this.getColorValue("green");
-    console.log(colorValue, message + "\x1b[0m");
+    console.log(colorValue, message + this.colorReset);
   }
 
   /**
@@ -78,7 +79,7 @@ export class Console {
    */
   info(message: string) {
     const colorValue = this.getColorValue("cyan");
-    console.log(colorValue, message + "\x1b[0m");
+    console.log(colorValue, message + this.colorReset);
   }
 
   private colors = [
