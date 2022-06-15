@@ -8,8 +8,11 @@ import decryption from './utils/decryption';
  * @param {Array.<Object>} capabilities list of capabilities details
  * @param {Array.<String>} specs List of spec file paths that are to be run
  */
-export default async function (config: object, capabilities: object[], specs: string[]) {
+export default async function (config: Record<string, any>, capabilities: object[], specs: string[]) {
   reuseLibrary.load();
-  await dataExchangeCommands.readParams();
   decryption.initDecryptFunction();
+  if (config.user || config.key) {
+    decryption.decryptSauceConfig(config);
+  }
+  await dataExchangeCommands.readParams();
 };
