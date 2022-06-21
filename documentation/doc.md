@@ -46,7 +46,6 @@ Global namespace for common modules.
     * [.navigation](#common.navigation)
         * [.navigateToUrl(url)](#common.navigation.navigateToUrl)
         * [.navigateToUrlAndRetry(url, [retries], [interval])](#common.navigation.navigateToUrlAndRetry)
-        * [.navigateToApplication(relativeReference, [refresh])](#common.navigation.navigateToApplication)
     * [.userInteraction](#common.userInteraction)
         * [.fillActive(value)](#common.userInteraction.fillActive)
         * [.fillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.fillActiveAndRetry)
@@ -330,7 +329,6 @@ const date = await common.date.calculate("today", "mm/dd/yyy");
 * [.navigation](#common.navigation)
     * [.navigateToUrl(url)](#common.navigation.navigateToUrl)
     * [.navigateToUrlAndRetry(url, [retries], [interval])](#common.navigation.navigateToUrlAndRetry)
-    * [.navigateToApplication(relativeReference, [refresh])](#common.navigation.navigateToApplication)
 
 <a name="common.navigation.navigateToUrl"></a>
 
@@ -363,22 +361,6 @@ Navigates to the passed url and retries the function in case of a failure.
 **Example**  
 ```js
 await common.navigation.navigateToUrlAndRetry("www.sap.com");
-```
-<a name="common.navigation.navigateToApplication"></a>
-
-#### navigation.navigateToApplication(relativeReference, [refresh])
-Navigates to the application via the passed relative reference. The path will be added to the baseUrl maintained in the config.
-
-**Kind**: static method of [<code>navigation</code>](#common.navigation)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| relativeReference | <code>String</code> |  | Relative reference of an application (path, query and fragment) |
-| [refresh] | <code>Boolean</code> | <code>true</code> | Refresh the page after navigation. |
-
-**Example**  
-```js
-await common.navigation.navigateToApplication("categories");
 ```
 <a name="common.userInteraction"></a>
 
@@ -3894,6 +3876,7 @@ Global namespace for non UI5 modules.
         * [.switchToIframe(selector)](#nonUi5.element.switchToIframe)
         * [.switchToDefaultContent()](#nonUi5.element.switchToDefaultContent)
     * [.navigation](#nonUi5.navigation)
+        * [.navigateToApplication(relativeReference, [refresh])](#nonUi5.navigation.navigateToApplication)
     * [.userInteraction](#nonUi5.userInteraction)
         * [.click(element, [timeout])](#nonUi5.userInteraction.click)
         * [.clickAndRetry(element, [timeout], [retries], [interval])](#nonUi5.userInteraction.clickAndRetry)
@@ -4476,6 +4459,22 @@ await nonUi5.element.switchToDefaultContent();
 
 ### nonUi5.navigation
 **Kind**: static class of [<code>nonUi5</code>](#nonUi5)  
+<a name="nonUi5.navigation.navigateToApplication"></a>
+
+#### navigation.navigateToApplication(relativeReference, [refresh])
+Navigates to the application via the passed relative reference. The path will be added to the baseUrl maintained in the config.
+
+**Kind**: static method of [<code>navigation</code>](#nonUi5.navigation)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| relativeReference | <code>String</code> |  | Relative reference of an application (path, query and fragment) |
+| [refresh] | <code>Boolean</code> | <code>true</code> | Refresh the page after navigation. |
+
+**Example**  
+```js
+await nonUi5.navigation.navigateToApplication("categories");
+```
 <a name="nonUi5.userInteraction"></a>
 
 ### nonUi5.userInteraction

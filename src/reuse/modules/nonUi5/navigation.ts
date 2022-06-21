@@ -8,11 +8,11 @@ export class Navigation {
 
   /**
    * @function navigateToApplication
-   * @memberOf common.navigation
+   * @memberOf nonUi5.navigation
    * @description Navigates to the application via the passed relative reference. The path will be added to the baseUrl maintained in the config.
    * @param {String} relativeReference - Relative reference of an application (path, query and fragment)
    * @param {Boolean} [refresh=true] - Refresh the page after navigation.
-   * @example await common.navigation.navigateToApplication("categories");
+   * @example await nonUi5.navigation.navigateToApplication("categories");
    */
    async navigateToApplication(relativeReference: string, refresh = true) {
     try {
