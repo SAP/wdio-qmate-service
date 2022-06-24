@@ -12,11 +12,11 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickBack();
    */
-  async clickBack (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async clickBack(timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const selector = {
       "elementProperties": {
         "metadata": "sap.ushell.ui.shell.ShellHeadItem",
-          "id": "backBtn"
+        "id": "backBtn"
       }
     };
     return ui5.userInteraction.click(selector, 0, timeout);
@@ -29,7 +29,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickSapLogo();
    */
-  async clickSapLogo (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async clickSapLogo(timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const selector = {
       "id": "shell-header-logo"
     };
@@ -43,7 +43,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickUserIcon();
    */
-  async clickUserIcon (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async clickUserIcon(timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const selector = {
       "elementProperties": {
         "id": "meAreaHeaderButton"
@@ -61,22 +61,19 @@ export class NavigationBar {
    * @param {String} compareValue - The compare value.
    * @example await ui5.navigationBar.expectPageTitle("Home");
    */
-  async expectPageTitle (compareValue: string) {
+  async expectPageTitle(compareValue: string) {
     const selector = {
       "elementProperties": {
         "metadata": "sap.ushell.ui.shell.ShellAppTitle",
         "mProperties": {
-          "text": compareValue,
-          "tooltip": [{
-            "path": "i18n>shellNavMenu_openMenuTooltip"
-          }]
+          "text": compareValue
         }
       }
     };
     try {
       await ui5.assertion.expectToBeVisibleInViewport(selector);
     } catch (error) {
-      throw new Error(`Function 'expectPageTitle' failed:${error}`);
+      throw new Error(`Function 'expectPageTitle' failed: ${error}`);
     }
   };
 
@@ -87,7 +84,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.expectShellHeader();
    */
-  async expectShellHeader (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+  async expectShellHeader(timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const selector = {
       "elementProperties": {
         "metadata": "sap.ushell.ui.ShellHeader",
