@@ -10,12 +10,20 @@ export class Table {
    * @function sortColumnAscending
    * @memberOf ui5.table
    * @description Sorts the given column "Ascending".
-   * @param {String} columnName The name of the column to sort.
-   * @param {Number} [index=0] - The index of the sort icon selector (in case there are more than one elements visible at the same time). 
+   * @param {String} columnName - The name of the column to sort.
+   * @param {Object} [tableSelector] - The selector describing the table element (in case there are more then one). 
    * @example await ui5.table.sortColumnAscending("Supplier");
+   * @example const glAccountItemsTable = {
+   *  "elementProperties": {
+   *     "viewName": "ui.s2p.mm.supplinvoice.manage.s1.view.S1",
+   *     "metadata": "sap.m.Table",
+   *     "id": "*idS2P.MM.MSI.TableGLAccountItems"
+   *  }
+   * };
+   * await ui5.table.sortColumnAscending("Amount", glAccountItemsTable);
    */
-  async sortColumnAscending (columnName: string, index = 0) {
-    const selector = {
+  async sortColumnAscending (columnName: string, tableSelector: any) {
+    const sortButtonSelector = {
       "elementProperties": {
         "metadata": "sap.m.Button",
         "icon": "sap-icon://sort-ascending"
@@ -24,9 +32,10 @@ export class Table {
         "metadata": "sap.m.Toolbar"
       }
     };
-    if (await this._getSortIndicatorValue(columnName, index) !== "Ascending") {
-      await this._clickColumn(columnName, index);
-      await ui5.userInteraction.click(selector);
+    const sort = await this._getSortIndicatorValue(columnName, tableSelector);
+    if (sort !== "Ascending") {
+      this._clickColumn(columnName, tableSelector);
+      await ui5.userInteraction.click(sortButtonSelector);
     }
   };
 
@@ -35,11 +44,19 @@ export class Table {
    * @memberOf ui5.table
    * @description Sorts the given column "Descending".
    * @param {String} columnName The name of the column to sort.
-   * @param {Number} [index=0] - The index of the sort icon selector (in case there are more than one elements visible at the same time). 
+   * @param {Object} [tableSelector] - The selector describing the table element (in case there are more then one).
    * @example await ui5.table.sortColumnDescending("Supplier");
+   * @example const glAccountItemsTable = {
+   *  "elementProperties": {
+   *     "viewName": "ui.s2p.mm.supplinvoice.manage.s1.view.S1",
+   *     "metadata": "sap.m.Table",
+   *     "id": "*idS2P.MM.MSI.TableGLAccountItems"
+   *  }
+   * };
+   * await ui5.table.sortColumnDescending("Amount", glAccountItemsTable);
    */
-  async sortColumnDescending (columnName: string, index = 0) {
-    const selector = {
+   async sortColumnDescending (columnName: string, tableSelector: any) {
+    const sortButtonSelector = {
       "elementProperties": {
         "metadata": "sap.m.Button",
         "icon": "sap-icon://sort-descending"
@@ -48,16 +65,47 @@ export class Table {
         "metadata": "sap.m.Toolbar"
       }
     };
-    if (await this._getSortIndicatorValue(columnName, index) !== "Descending") {
-      await this._clickColumn(columnName, index);
+    const sort = await this._getSortIndicatorValue(columnName, tableSelector);
+    if (sort !== "Descending") {
+      this._clickColumn(columnName, tableSelector);
+      await ui5.userInteraction.click(sortButtonSelector);
+    }
+  };
+
+  /**
+   * @function clickSettingsButton
+   * @memberOf ui5.table
+   * @description Opens the user Settings.
+   * @param {Object} [tableSelector] - The selector describing the table element (in case there are more then one).
+   * @example await ui5.table.clickSettingsButton();
+   * @example const glAccountItemsTable = {
+   *  "elementProperties": {
+   *     "viewName": "ui.s2p.mm.supplinvoice.manage.s1.view.S1",
+   *     "metadata": "sap.m.Table",
+   *     "id": "*idS2P.MM.MSI.TableGLAccountItems"
+   *  }
+   * };
+   * await ui5.table.clickSettingsButton(glAccountItemsTable);
+   */
+   async clickSettingsButton (tableSelector: any) {
+    const settingsButtonSelector = {
+      "elementProperties": {
+        "metadata": "sap.m.OverflowToolbarButton",
+        "id": "*btnPersonalisation"
+      }
+    };
+    if (!tableSelector) {
+      await ui5.userInteraction.click(settingsButtonSelector);
+    } else {
+      const selector = this._prepareAncestorSelector(settingsButtonSelector, tableSelector);
       await ui5.userInteraction.click(selector);
     }
   };
 
 
   // =================================== HELPER ===================================
-  private async _clickColumn(name: string, index: number) {
-    const selector = {
+  private async _clickColumn(name: string, tableSelector: any) {
+    const tableColumnSelector = {
       "elementProperties": {
         "metadata": "sap.m.Column"
       },
@@ -65,11 +113,21 @@ export class Table {
         "text": name
       }
     };
-    await ui5.userInteraction.click(selector, index);
+
+    if (!tableSelector) {
+      await ui5.userInteraction.click(tableColumnSelector);
+    }
+    if (typeof tableSelector == "number") {
+      util.console.warn(`Usage of argument 'index' in function ${arguments.callee.caller.name} is deprecated. Please pass a valid table selector instead.`);
+      await ui5.userInteraction.click(tableColumnSelector, tableSelector);
+    } else if (typeof tableSelector === "object") {
+      const selector = this._prepareAncestorSelector(tableColumnSelector, tableSelector);
+      await ui5.userInteraction.click(selector);
+    }
   }
 
-  private async _getSortIndicatorValue(name: string, index: number) {
-    const selector = {
+  private async _getSortIndicatorValue(name: string, tableSelector: any) {
+    const tableColumnSelector = {
       "elementProperties": {
         "metadata": "sap.m.Column"
       },
@@ -77,7 +135,33 @@ export class Table {
         "text": name
       }
     };
-    return ui5.element.getPropertyValue(selector, "sortIndicator", index);
+
+    if (!tableSelector) {
+      return ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator");
+    }
+    if (typeof tableSelector == "number") {
+      util.console.warn(`The usage of argument 'index' in function ${arguments.callee.caller.name} is deprecated. Please pass a valid table selector instead.`);
+      return ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator", tableSelector);
+    } else if (typeof tableSelector === "object") {
+      const selector = this._prepareAncestorSelector(tableColumnSelector, tableSelector);
+      return ui5.element.getPropertyValue(selector, "sortIndicator");
+    }
+  }
+
+  private _prepareAncestorSelector (selector: any, ancestorSelector: any) {
+    if ("elementProperties" in ancestorSelector) {
+      selector.ancestorProperties = ancestorSelector.elementProperties;
+    } else if (!("ancestorProperties" in selector)) {
+      selector.ancestorProperties = {};
+    }
+
+    const keys = Object.keys(ancestorSelector);
+    for (const key of keys) {
+      if (key !== "elementProperties") {
+        selector.ancestorProperties[key] = ancestorSelector[key];
+      }
+    }
+    return selector;
   }
   
 };
