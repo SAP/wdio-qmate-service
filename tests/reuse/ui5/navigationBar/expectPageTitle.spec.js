@@ -6,13 +6,18 @@ describe("navigationBar - expectPageTitle - Home QS9", function () {
   });
 
   it("Execution", async function () {
-    await ui5.navigation.navigateToApplication("Shell-home", false);
+    await ui5.navigation.navigateToApplication("Shell-home", true);
     await ui5.session.loginFiori("PURCHASER");
   });
 
   it("Verification", async function () {
     await ui5.navigationBar.expectPageTitle("Home");
   });
+
+  it("Clean Up", async function () {
+    await ui5.session.logout();
+  });
+
 });
 
 describe("navigationBar - expectPageTitle - Home QS9 - Error case", function () {
@@ -21,7 +26,7 @@ describe("navigationBar - expectPageTitle - Home QS9 - Error case", function () 
   });
 
   it("Execution", async function () {
-    await ui5.navigation.navigateToApplication("Shell-home", false);
+    await ui5.navigation.navigateToApplication("Shell-home", true);
     await ui5.session.loginFiori("PURCHASER");
   });
 
@@ -29,6 +34,11 @@ describe("navigationBar - expectPageTitle - Home QS9 - Error case", function () 
     await expect(ui5.navigationBar.expectPageTitle("Not Home"))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
+
+  it("Clean Up", async function () {
+    await ui5.session.logout();
+  });
+
 });
 
 describe("navigationBar - expectPageTitle - Home HBR", function () {
@@ -37,13 +47,18 @@ describe("navigationBar - expectPageTitle - Home HBR", function () {
   });
 
   it("Execution", async function () {
-    await ui5.navigation.navigateToApplication("Shell-home", false);
-    await ui5.session.loginFiori("PURCHASER");
+    await ui5.navigation.navigateToApplication("Shell-home", true);
+    await ui5.session.login("PURCHASER");
   });
 
   it("Verification", async function () {
     await ui5.navigationBar.expectPageTitle("Home");
   });
+
+  it("Clean Up", async function () {
+    await ui5.session.logout();
+  });
+
 });
 
 describe("navigationBar - expectPageTitle - Home HBR - Error case", function () {
@@ -52,12 +67,16 @@ describe("navigationBar - expectPageTitle - Home HBR - Error case", function () 
   });
 
   it("Execution", async function () {
-    await ui5.navigation.navigateToApplication("Shell-home", false);
-    await ui5.session.loginFiori("PURCHASER");
+    await ui5.navigation.navigateToApplication("Shell-home", true);
+    await ui5.session.login("PURCHASER");
   });
 
   it("Verification", async function () {
     await expect(ui5.navigationBar.expectPageTitle("Not Home"))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+  });
+
+  it("Clean Up", async function () {
+    await ui5.session.logout();
   });
 });

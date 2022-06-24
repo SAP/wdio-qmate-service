@@ -5,7 +5,7 @@ exports.config = merge(qmateConfiguration.config, {
   maxInstances: 6,
   specFileRetries: 2,
   bail: 1,
-  baseUrl: "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html",
+  baseUrl: "https://super-sensitive.domain.name/ui",
 
   specs: [
     path.resolve(__dirname, "clickBack.spec.js"),
