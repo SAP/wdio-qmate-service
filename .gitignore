@@ -6,11 +6,11 @@
 # git
 .git/
 
+# ts
+lib/
+
 # node modules
 node_modules/
-
-# results
-# skipped
 
 # logs
 *.log
@@ -18,11 +18,12 @@ logs
 results/
 reports/
 temp_out/
+debug.log
+coverage
+.nyc_output
  
 #desktop services store
 *DS_Store
-
-debug.log
 
 # Unix-based specific files
 Cache/
@@ -43,16 +44,9 @@ rapid_render.json
 storage.json
 TransportSecurity
 
-
-coverage
-.nyc_output
-
 # mkdocs for GitPages
 docs-gen
 
-lib/
-
-# crypto
-private.env
+# data privacy
 *.local.json
 private.key
