@@ -201,7 +201,7 @@ Returns the current day in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
 
 **Example**  
 ```js
@@ -217,7 +217,7 @@ Returns tomorrows date in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
 
 **Example**  
 ```js
@@ -233,7 +233,7 @@ Returns the current day one month later in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
 
 **Example**  
 ```js
@@ -249,7 +249,7 @@ Returns the current day one month before in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
 
 **Example**  
 ```js
@@ -265,7 +265,7 @@ Returns the current day one year later in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
 
 **Example**  
 ```js
@@ -281,7 +281,7 @@ Returns the current day one year before in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
 
 **Example**  
 ```js
@@ -298,7 +298,7 @@ Returns a specific date in the given format.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | date | <code>String</code> |  | A specific date string. |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "dd.mm.yyyy.HH.MM", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
 
 **Example**  
 ```js
@@ -314,7 +314,7 @@ Calculates the date based on the input parameter and returns it in the given for
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [date] | <code>String</code> | <code>&quot;today&quot;</code> | Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, lastYear |
+| [date] | <code>String</code> | <code>&quot;today&quot;</code> | Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, previousYear |
 | [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object"). |
 
 **Example**  
@@ -565,12 +565,17 @@ Global namespace for util modules.
         * [.switchToNewWindow(originalHandle, windowTitle)](#util.browser.switchToNewWindow)
         * [.switchToWindow(handle)](#util.browser.switchToWindow)
         * [.getCurrentWindow()](#util.browser.getCurrentWindow) ⇒ <code>Object</code>
+        * [.back()](#util.browser.back)
     * [.console](#util.console)
         * [.log(message, [textColor], [backgroundColor], [brightness])](#util.console.log)
         * [.error(message)](#util.console.error)
         * [.warn(message)](#util.console.warn)
         * [.success(message)](#util.console.success)
         * [.info(message)](#util.console.info)
+    * [.data](#util.data)
+        * [.getData(filename)](#util.data.getData) ⇒ <code>String</code>
+        * [.getSecureData(filename)](#util.data.getSecureData) ⇒ <code>String</code>
+        * [.decrypt(data)](#util.data.decrypt) ⇒ <code>String</code>
     * [.file](#util.file)
         * [.upload(files, [selector])](#util.file.upload)
         * [.parsePdf(pdfStream, renderingMethod)](#util.file.parsePdf) ⇒ <code>String</code>
@@ -583,7 +588,7 @@ Global namespace for util modules.
         * [.extractNumberFromString(input, [index])](#util.formatter.extractNumberFromString) ⇒ <code>String</code>
         * [.stringifyJSON(object)](#util.formatter.stringifyJSON) ⇒ <code>String</code>
         * [.addRemoveLeadingZeros(number, length)](#util.formatter.addRemoveLeadingZeros) ⇒ <code>String</code>
-        * [.formatDate(date, format)](#util.formatter.formatDate) ⇒ <code>String</code>
+        * [.formatDate(date, format, [locale])](#util.formatter.formatDate) ⇒ <code>String</code>
     * [.function](#util.function)
         * [.retry(fct, args, [retries], [interval], [scope])](#util.function.retry)
         * [.executeOptional(fct, args)](#util.function.executeOptional)
@@ -622,6 +627,7 @@ Global namespace for util modules.
     * [.switchToNewWindow(originalHandle, windowTitle)](#util.browser.switchToNewWindow)
     * [.switchToWindow(handle)](#util.browser.switchToWindow)
     * [.getCurrentWindow()](#util.browser.getCurrentWindow) ⇒ <code>Object</code>
+    * [.back()](#util.browser.back)
 
 <a name="util.browser.getBaseUrl"></a>
 
@@ -632,7 +638,7 @@ Retrieves the baseUrl from the configuration file.
 **Returns**: <code>String</code> - The baseUrl.  
 **Example**  
 ```js
-const baseUrl = await util.browser.getBaseUrl();
+const baseUrl = util.browser.getBaseUrl();
 ```
 <a name="util.browser.setBaseUrl"></a>
 
@@ -647,7 +653,7 @@ Sets or overwrites the baseUrl in the configuration file.
 
 **Example**  
 ```js
-await util.browser.setBaseUrl("https://cc3-721.wdf.sap.corp/ui");
+util.browser.setBaseUrl("https://cc3-721.wdf.sap.corp/ui");
 ```
 <a name="util.browser.logCurrentUrl"></a>
 
@@ -755,7 +761,7 @@ Retrieves the name of the current browser.
 **Returns**: <code>String</code> - The browser name.  
 **Example**  
 ```js
-const browserName = await util.browser.getBrowserName();
+const browserName = util.browser.getBrowserName();
 ```
 <a name="util.browser.getUI5Version"></a>
 
@@ -848,6 +854,16 @@ Returns the current window handle.
 ```js
 await util.browser.getCurrentWindow();
 ```
+<a name="util.browser.back"></a>
+
+#### browser.back()
+Go one step back in browser history.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Example**  
+```js
+await util.browser.back();
+```
 <a name="util.console"></a>
 
 ### util.console
@@ -937,6 +953,64 @@ Logs a info message to the console in cyan.
 **Example**  
 ```js
 util.console.success("The document has been saved.");
+```
+<a name="util.data"></a>
+
+### util.data
+**Kind**: static class of [<code>util</code>](#util)  
+
+* [.data](#util.data)
+    * [.getData(filename)](#util.data.getData) ⇒ <code>String</code>
+    * [.getSecureData(filename)](#util.data.getSecureData) ⇒ <code>String</code>
+    * [.decrypt(data)](#util.data.decrypt) ⇒ <code>String</code>
+
+<a name="util.data.getData"></a>
+
+#### data.getData(filename) ⇒ <code>String</code>
+Returns the data object with the given filename (JSON, stored in data folder).
+
+**Kind**: static method of [<code>data</code>](#util.data)  
+**Returns**: <code>String</code> - The data object.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| filename | <code>String</code> | The name of the data file. |
+
+**Example**  
+```js
+const data = util.data.getData("myTest");
+```
+<a name="util.data.getSecureData"></a>
+
+#### data.getSecureData(filename) ⇒ <code>String</code>
+Returns and encrypts the data object with the given filename (JSON, stored in data folder). Will return the local file object if private key is not accessible.
+
+**Kind**: static method of [<code>data</code>](#util.data)  
+**Returns**: <code>String</code> - The encrypted or local data object.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| filename | <code>String</code> | The name of the data file (without suffix '.secure' or '.local'). |
+
+**Example**  
+```js
+const secureData = util.data.getSecureData("myTest");
+```
+<a name="util.data.decrypt"></a>
+
+#### data.decrypt(data) ⇒ <code>String</code>
+Decrypts the passed input data.
+
+**Kind**: static method of [<code>data</code>](#util.data)  
+**Returns**: <code>String</code> - The decrypted data.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>String</code> | The encrypted data to decrypt. |
+
+**Example**  
+```js
+const decrypted = util.data.decrypt("d704004c262faa8ef4bdcf34c8a94883e15524872c7bef334d26a391a1934cf47338b749d99426980ee4cc7a81deaef21439c6894ab0324cdb29b9b6332635baca442651c5d37847f52bb90b8868e037271a7d456024b39b65fdf4dc62e8d82a3d5683a72e4324c59d339742fc79749f0ee74abef916d38e306218adc48e3547a2b346962249320c962d22cb46d9998de36d8219a2496c0997d0fc389f76fb1431a9b57c317886e9c9795c0a09ad98d9fa0b7687d10814dc7973397f3f72a227a04ead4c3d1d428c096a51922ffc4d7afc3952df1c130def5c5fb3e834605cbf1454885966cc65c77046343f4c678e74931fb2dd6cac8dae17837cf674f288d6550dd7fa6b01f5b7ea68aa6bd27d79dd5d53edb5fd4b4edce824bd31b3939352ad7a71a16bab8c54025c2bb92c54e022fcd23ff08bc54a17fc50d00dc3b884cadbfdefe1e75901fdf80e7324ad02a891f2c4863fa120ca238520b79126c65a03");
 ```
 <a name="util.file"></a>
 
@@ -1039,7 +1113,7 @@ await util.file.expectPdfNotContainsText(pdfStream, "abc");
     * [.extractNumberFromString(input, [index])](#util.formatter.extractNumberFromString) ⇒ <code>String</code>
     * [.stringifyJSON(object)](#util.formatter.stringifyJSON) ⇒ <code>String</code>
     * [.addRemoveLeadingZeros(number, length)](#util.formatter.addRemoveLeadingZeros) ⇒ <code>String</code>
-    * [.formatDate(date, format)](#util.formatter.formatDate) ⇒ <code>String</code>
+    * [.formatDate(date, format, [locale])](#util.formatter.formatDate) ⇒ <code>String</code>
 
 <a name="util.formatter.sliceStringAt"></a>
 
@@ -1053,7 +1127,7 @@ Slices the given string beginning at a specific substring.
 | --- | --- | --- |
 | input | <code>String</code> | The input string to slice. |
 | slicePoint | <code>String</code> | The substring at which the input string is being sliced. |
-| length | <code>Integer</code> | The required length of the returning string (starting at the index of the passed slice point). |
+| length | <code>number</code> | The required length of the returning string (starting at the index of the passed slice point). |
 
 **Example**  
 ```js
@@ -1071,7 +1145,7 @@ Slices the given string after a specific substring.
 | --- | --- | --- |
 | input | <code>String</code> | The input string to slice. |
 | slicePoint | <code>String</code> | The substring after which the input string is being sliced. |
-| length | <code>Integer</code> | The required length of the returning string (starting at the index after the passed slice point). |
+| length | <code>number</code> | The required length of the returning string (starting at the index after the passed slice point). |
 
 **Example**  
 ```js
@@ -1103,7 +1177,7 @@ Extracts all numbers from a string.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | input | <code>String</code> |  | The input string to extract the number. |
-| [index] | <code>Integer</code> | <code>0</code> | If there are multiple numbers in the string you can pass an index to return a specific number. |
+| [index] | <code>number</code> | <code>0</code> | If there are multiple numbers in the string you can pass an index to return a specific number. |
 
 **Example**  
 ```js
@@ -1144,24 +1218,29 @@ Adds or removes leading zeros to the passed number to format it to the required 
 
 **Example**  
 ```js
-const itemNumber = await util.formatter.addRemoveLeadingZeros(10, 5);
+const itemNumber = util.formatter.addRemoveLeadingZeros(10, 5);
 ```
 <a name="util.formatter.formatDate"></a>
 
-#### formatter.formatDate(date, format) ⇒ <code>String</code>
+#### formatter.formatDate(date, format, [locale]) ⇒ <code>String</code>
 formats date.
 
 **Kind**: static method of [<code>formatter</code>](#util.formatter)  
 **Returns**: <code>String</code> - The formatted date as string.  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| date | <code>Date</code> | The date object to be formatted. |
-| format | <code>String</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object"). |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| date | <code>Date</code> |  | The date object to be formatted. |
+| format | <code>String</code> |  | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
+| [locale] | <code>String</code> | <code>&quot;en-US&quot;</code> | The locale format of the date. E.g. "en-US", "de-DE", etc. |
 
 **Example**  
 ```js
 const date = new Date(2020, 0, 17);const formattedDate = util.formatter.formatDate(date, "mm/dd/yyyy");// returns "01/17/2020"
+```
+**Example**  
+```js
+const date = new Date(2022, 3, 12);const formattedDate = util.formatter.formatDate(date, "mmm dd, yyyy");// returns "Apr 03, 2022"
 ```
 <a name="util.function"></a>
 
@@ -1408,7 +1487,7 @@ Global namespace for UI5 modules.
         * [.getEntitySetData(mockServerPath, entitySetName)](#ui5.mockserver.getEntitySetData) ⇒ <code>Array</code>
         * [.setEntitySetData(mockServerPath, entitySetName, entries)](#ui5.mockserver.setEntitySetData)
     * [.navigation](#ui5.navigation)
-        * [.navigateToApplication(intent, [preventPopups], [verify])](#ui5.navigation.navigateToApplication)
+        * [.navigateToApplication(intent, [preventPopups], [verify], [refresh])](#ui5.navigation.navigateToApplication)
         * [.navigateToApplicationAndRetry(intent, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationAndRetry)
         * [.navigateToSystemAndApplication(system, intent, [closePopups], [verify])](#ui5.navigation.navigateToSystemAndApplication)
         * [.navigateToSystemAndApplicationAndRetry(system, intent, [closePopups], [verify], [retries], [interval])](#ui5.navigation.navigateToSystemAndApplicationAndRetry)
@@ -1433,6 +1512,10 @@ Global namespace for UI5 modules.
         * [.logout([verify])](#ui5.session.logout)
         * [.switchUser(username, [password], [authenticator], [wait])](#ui5.session.switchUser)
         * [.expectLogoutText()](#ui5.session.expectLogoutText)
+    * [.table](#ui5.table)
+        * [.sortColumnAscending(columnName, [tableSelector])](#ui5.table.sortColumnAscending)
+        * [.sortColumnDescending(columnName, [tableSelector])](#ui5.table.sortColumnDescending)
+        * [.clickSettingsButton([tableSelector])](#ui5.table.clickSettingsButton)
     * [.userInteraction](#ui5.userInteraction)
         * [.click(selector, [index], [timeout])](#ui5.userInteraction.click)
         * [.clickAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clickAndRetry)
@@ -1452,6 +1535,7 @@ Global namespace for UI5 modules.
         * [.selectMultiComboBox(selector, values, [index])](#ui5.userInteraction.selectMultiComboBox)
         * [.clickSelectArrow(selector, [index])](#ui5.userInteraction.clickSelectArrow)
         * [.clickSelectArrowAndRetry(selector, [index], [retries], [interval])](#ui5.userInteraction.clickSelectArrowAndRetry)
+        * [.mouseOverElement(selector, [index], [timeout])](#ui5.userInteraction.mouseOverElement)
         * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.userInteraction.scrollToElement)
         * [.selectAll([selector], [index], [timeout])](#ui5.userInteraction.selectAll)
         * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
@@ -1782,7 +1866,7 @@ Clicks the button with the given text at the confirmation dialog.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| text | <code>Number</code> |  | The text of the button. |
+| text | <code>String</code> |  | The text of the button. |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
@@ -2176,7 +2260,7 @@ const elementSelector = { "elementProperties": {...}};const childSelector = {
 <a name="ui5.element.getByParent"></a>
 
 #### element.getByParent(elementSelector, parentSelector, [index], [timeout]) ⇒ <code>Object</code>
-Gets an element by its selector and parent selector. Can be used as unique combination between element and parent properties when multiple elements have the same properties.Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
+Gets an element by its selector and parent selector.Can be used as unique combination between element and parent properties when multiple elements have the same properties.Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
 **Returns**: <code>Object</code> - The found element.  
@@ -2355,7 +2439,7 @@ Clicks the button with the given text at the footer bar.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| text | <code>Number</code> |  | The text of the button. |
+| text | <code>String</code> |  | The text of the button. |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
@@ -2750,7 +2834,7 @@ await ui5.mockserver.setEntitySetData("path/to/project/localService/main/mockser
 **Kind**: static class of [<code>ui5</code>](#ui5)  
 
 * [.navigation](#ui5.navigation)
-    * [.navigateToApplication(intent, [preventPopups], [verify])](#ui5.navigation.navigateToApplication)
+    * [.navigateToApplication(intent, [preventPopups], [verify], [refresh])](#ui5.navigation.navigateToApplication)
     * [.navigateToApplicationAndRetry(intent, [preventPopups], [verify], [retries], [interval])](#ui5.navigation.navigateToApplicationAndRetry)
     * [.navigateToSystemAndApplication(system, intent, [closePopups], [verify])](#ui5.navigation.navigateToSystemAndApplication)
     * [.navigateToSystemAndApplicationAndRetry(system, intent, [closePopups], [verify], [retries], [interval])](#ui5.navigation.navigateToSystemAndApplicationAndRetry)
@@ -2761,7 +2845,7 @@ await ui5.mockserver.setEntitySetData("path/to/project/localService/main/mockser
 
 <a name="ui5.navigation.navigateToApplication"></a>
 
-#### navigation.navigateToApplication(intent, [preventPopups], [verify])
+#### navigation.navigateToApplication(intent, [preventPopups], [verify], [refresh])
 Navigates to the application via the passed intent. The intent will be added to the baseUrl maintained in the config.
 
 **Kind**: static method of [<code>navigation</code>](#ui5.navigation)  
@@ -2771,6 +2855,7 @@ Navigates to the application via the passed intent. The intent will be added to 
 | intent | <code>String</code> |  | The intent of the application. |
 | [preventPopups] | <code>Boolean</code> | <code>false</code> | Specifies if random popup appearance should be prevented. |
 | [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the url should be asserted after the navigation. |
+| [refresh] | <code>Boolean</code> | <code>false</code> | Refresh the page after navigation. |
 
 **Example**  
 ```js
@@ -3114,27 +3199,27 @@ Login with specific username and password. The selectors will be taken from the 
 **Example**  
 ```js
 // config - SAMPLE 1
-    auth: {
-      formType: 'plain',
-      usernameFieldSelector: "#USERNAME_BLOCK input",
-      passwordFieldSelector: "#PASSWORD_BLOCK input",
-      logonButtonSelector: "#LOGIN_LINK"
-    },
-    // spec
-    await ui5.session.loginCustomViaConfig("JOHN_DOE", "abc123!");
-
-
-    // config - SAMPLE 2
-    auth: {
-      formType: "plain",
-      username: "PURCH_EXT",
-      password: "Welcome1!",
-      usernameFieldSelector: "#USERNAME_BLOCK input",
-      passwordFieldSelector: "#PASSWORD_BLOCK input",
-      logonButtonSelector: "#LOGIN_LINK"
-    },
-    // spec
-    await ui5.session.loginCustomViaConfig();
+      auth: {
+        formType: 'plain',
+        usernameFieldSelector: "#USERNAME_BLOCK input",
+        passwordFieldSelector: "#PASSWORD_BLOCK input",
+        logonButtonSelector: "#LOGIN_LINK"
+      },
+      // spec
+      await ui5.session.loginCustomViaConfig("JOHN_DOE", "abc123!");
+  
+  
+      // config - SAMPLE 2
+      auth: {
+        formType: "plain",
+        username: "PURCH_EXT",
+        password: "Welcome1!",
+        usernameFieldSelector: "#USERNAME_BLOCK input",
+        passwordFieldSelector: "#PASSWORD_BLOCK input",
+        logonButtonSelector: "#LOGIN_LINK"
+      },
+      // spec
+      await ui5.session.loginCustomViaConfig();
 ```
 <a name="ui5.session.logout"></a>
 
@@ -3183,6 +3268,75 @@ Expects the logout text after logout to be "You have been logged off.This is es
 ```js
 await ui5.session.expectLogoutText();
 ```
+<a name="ui5.table"></a>
+
+### ui5.table
+**Kind**: static class of [<code>ui5</code>](#ui5)  
+
+* [.table](#ui5.table)
+    * [.sortColumnAscending(columnName, [tableSelector])](#ui5.table.sortColumnAscending)
+    * [.sortColumnDescending(columnName, [tableSelector])](#ui5.table.sortColumnDescending)
+    * [.clickSettingsButton([tableSelector])](#ui5.table.clickSettingsButton)
+
+<a name="ui5.table.sortColumnAscending"></a>
+
+#### table.sortColumnAscending(columnName, [tableSelector])
+Sorts the given column "Ascending".
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| columnName | <code>String</code> | The name of the column to sort. |
+| [tableSelector] | <code>Object</code> | The selector describing the table element (in case there are more then one). |
+
+**Example**  
+```js
+await ui5.table.sortColumnAscending("Supplier");
+```
+**Example**  
+```js
+const glAccountItemsTable = { "elementProperties": {    "viewName": "ui.s2p.mm.supplinvoice.manage.s1.view.S1",    "metadata": "sap.m.Table",    "id": "*idS2P.MM.MSI.TableGLAccountItems" }};await ui5.table.sortColumnAscending("Amount", glAccountItemsTable);
+```
+<a name="ui5.table.sortColumnDescending"></a>
+
+#### table.sortColumnDescending(columnName, [tableSelector])
+Sorts the given column "Descending".
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| columnName | <code>String</code> | The name of the column to sort. |
+| [tableSelector] | <code>Object</code> | The selector describing the table element (in case there are more then one). |
+
+**Example**  
+```js
+await ui5.table.sortColumnDescending("Supplier");
+```
+**Example**  
+```js
+const glAccountItemsTable = { "elementProperties": {    "viewName": "ui.s2p.mm.supplinvoice.manage.s1.view.S1",    "metadata": "sap.m.Table",    "id": "*idS2P.MM.MSI.TableGLAccountItems" }};await ui5.table.sortColumnDescending("Amount", glAccountItemsTable);
+```
+<a name="ui5.table.clickSettingsButton"></a>
+
+#### table.clickSettingsButton([tableSelector])
+Opens the user Settings.
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [tableSelector] | <code>Object</code> | The selector describing the table element (in case there are more then one). |
+
+**Example**  
+```js
+await ui5.table.clickSettingsButton();
+```
+**Example**  
+```js
+const glAccountItemsTable = { "elementProperties": {    "viewName": "ui.s2p.mm.supplinvoice.manage.s1.view.S1",    "metadata": "sap.m.Table",    "id": "*idS2P.MM.MSI.TableGLAccountItems" }};await ui5.table.clickSettingsButton(glAccountItemsTable);
+```
 <a name="ui5.userInteraction"></a>
 
 ### ui5.userInteraction
@@ -3207,6 +3361,7 @@ await ui5.session.expectLogoutText();
     * [.selectMultiComboBox(selector, values, [index])](#ui5.userInteraction.selectMultiComboBox)
     * [.clickSelectArrow(selector, [index])](#ui5.userInteraction.clickSelectArrow)
     * [.clickSelectArrowAndRetry(selector, [index], [retries], [interval])](#ui5.userInteraction.clickSelectArrowAndRetry)
+    * [.mouseOverElement(selector, [index], [timeout])](#ui5.userInteraction.mouseOverElement)
     * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.userInteraction.scrollToElement)
     * [.selectAll([selector], [index], [timeout])](#ui5.userInteraction.selectAll)
     * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
@@ -3538,6 +3693,23 @@ Clicks the arrow icon at the passed selector (select box), and retries in case i
 ```js
 await ui5.userInteraction.clickSelectArrowAndRetry(selector);
 ```
+<a name="ui5.userInteraction.mouseOverElement"></a>
+
+#### userInteraction.mouseOverElement(selector, [index], [timeout])
+Moves the cursor/focus to the element with the given selector.
+
+**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.userInteraction.mouseOverElement(selector);
+```
 <a name="ui5.userInteraction.scrollToElement"></a>
 
 #### userInteraction.scrollToElement(selector, [index], [alignment], [timeout])
@@ -3699,9 +3871,12 @@ Global namespace for non UI5 modules.
         * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
         * [.getAttributeValue(elem, [attribute])](#nonUi5.element.getAttributeValue) ⇒ <code>String</code>
         * [.getValue(elem)](#nonUi5.element.getValue) ⇒ <code>String</code>
+        * [.setInnerHTML(elem)](#nonUi5.element.setInnerHTML) ⇒ <code>String</code>
         * [.highlight(elem, [duration], [color])](#nonUi5.element.highlight)
         * [.switchToIframe(selector)](#nonUi5.element.switchToIframe)
         * [.switchToDefaultContent()](#nonUi5.element.switchToDefaultContent)
+    * [.navigation](#nonUi5.navigation)
+        * [.navigateToApplication(relativeReference, [refresh])](#nonUi5.navigation.navigateToApplication)
     * [.userInteraction](#nonUi5.userInteraction)
         * [.click(element, [timeout])](#nonUi5.userInteraction.click)
         * [.clickAndRetry(element, [timeout], [retries], [interval])](#nonUi5.userInteraction.clickAndRetry)
@@ -3713,9 +3888,11 @@ Global namespace for non UI5 modules.
         * [.clearAndRetry(element, [retries], [interval])](#nonUi5.userInteraction.clearAndRetry)
         * [.clearAndFill(element, value)](#nonUi5.userInteraction.clearAndFill)
         * [.clearAndFillAndRetry(element, value, [retries], [interval], [verify])](#nonUi5.userInteraction.clearAndFillAndRetry)
+        * [.mouseOverElement(element, [xOffset], [yOffset])](#nonUi5.userInteraction.mouseOverElement)
         * [.scrollToElement(elem, alignment)](#nonUi5.userInteraction.scrollToElement)
         * [.dragAndDrop(element, targetElem)](#nonUi5.userInteraction.dragAndDrop)
         * [.moveCursorAndClick(element)](#nonUi5.userInteraction.moveCursorAndClick)
+        * [.clickElementInSvg(svgElem, innerSelector)](#nonUi5.userInteraction.clickElementInSvg)
 
 <a name="nonUi5.assertion"></a>
 
@@ -3840,6 +4017,7 @@ const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.ex
     * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
     * [.getAttributeValue(elem, [attribute])](#nonUi5.element.getAttributeValue) ⇒ <code>String</code>
     * [.getValue(elem)](#nonUi5.element.getValue) ⇒ <code>String</code>
+    * [.setInnerHTML(elem)](#nonUi5.element.setInnerHTML) ⇒ <code>String</code>
     * [.highlight(elem, [duration], [color])](#nonUi5.element.highlight)
     * [.switchToIframe(selector)](#nonUi5.element.switchToIframe)
     * [.switchToDefaultContent()](#nonUi5.element.switchToDefaultContent)
@@ -4215,6 +4393,22 @@ Returns the value of the passed element.
 ```js
 const elem = await nonUi5.element.getById("elem02");const innerHTML = await nonUi5.element.getValue(elem);
 ```
+<a name="nonUi5.element.setInnerHTML"></a>
+
+#### element.setInnerHTML(elem) ⇒ <code>String</code>
+Sets the innerHTML value of the given element.CAUTION: Only use this if filling the value in the normal way is not working and if it is unavoidable. Keep in mind, that a user is not able to perform such actions.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>String</code> - The value to set.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getById("text-editor");await nonUi5.element.setInnerHTML(elem, "Hello World!");
+```
 <a name="nonUi5.element.highlight"></a>
 
 #### element.highlight(elem, [duration], [color])
@@ -4261,6 +4455,26 @@ Switches to the default content of the HTML page.
 ```js
 await nonUi5.element.switchToDefaultContent();
 ```
+<a name="nonUi5.navigation"></a>
+
+### nonUi5.navigation
+**Kind**: static class of [<code>nonUi5</code>](#nonUi5)  
+<a name="nonUi5.navigation.navigateToApplication"></a>
+
+#### navigation.navigateToApplication(relativeReference, [refresh])
+Navigates to the application via the passed relative reference. The path will be added to the baseUrl maintained in the config.
+
+**Kind**: static method of [<code>navigation</code>](#nonUi5.navigation)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| relativeReference | <code>String</code> |  | Relative reference of an application (path, query and fragment) |
+| [refresh] | <code>Boolean</code> | <code>true</code> | Refresh the page after navigation. |
+
+**Example**  
+```js
+await nonUi5.navigation.navigateToApplication("categories");
+```
 <a name="nonUi5.userInteraction"></a>
 
 ### nonUi5.userInteraction
@@ -4277,9 +4491,11 @@ await nonUi5.element.switchToDefaultContent();
     * [.clearAndRetry(element, [retries], [interval])](#nonUi5.userInteraction.clearAndRetry)
     * [.clearAndFill(element, value)](#nonUi5.userInteraction.clearAndFill)
     * [.clearAndFillAndRetry(element, value, [retries], [interval], [verify])](#nonUi5.userInteraction.clearAndFillAndRetry)
+    * [.mouseOverElement(element, [xOffset], [yOffset])](#nonUi5.userInteraction.mouseOverElement)
     * [.scrollToElement(elem, alignment)](#nonUi5.userInteraction.scrollToElement)
     * [.dragAndDrop(element, targetElem)](#nonUi5.userInteraction.dragAndDrop)
     * [.moveCursorAndClick(element)](#nonUi5.userInteraction.moveCursorAndClick)
+    * [.clickElementInSvg(svgElem, innerSelector)](#nonUi5.userInteraction.clickElementInSvg)
 
 <a name="nonUi5.userInteraction.click"></a>
 
@@ -4448,6 +4664,23 @@ Clears and fills the passed input, retries in case it fails.
 ```js
 const elem = await nonUi5.element.getById("input01");await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
 ```
+<a name="nonUi5.userInteraction.mouseOverElement"></a>
+
+#### userInteraction.mouseOverElement(element, [xOffset], [yOffset])
+Moves the cursor/focus to the passed element.
+
+**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| element | <code>Object</code> | The selector describing the element. |
+| [xOffset] | <code>Number</code> | X offset to move to, relative to the top-left corner of the element. If not specified, the mouse will move to the middle of the element. |
+| [yOffset] | <code>Number</code> | Y offset to move to, relative to the top-left corner of the element. If not specified, the mouse will move to the middle of the element. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getById("dropdown42");await nonUi5.userInteraction.mouseOverElement(elem);
+```
 <a name="nonUi5.userInteraction.scrollToElement"></a>
 
 #### userInteraction.scrollToElement(elem, alignment)
@@ -4499,6 +4732,22 @@ Moves the cursor to the target element and clicks on it. Can be used for charts.
 ```js
 const elem = await nonUi5.element.getById("chartPartToClick");await nonUi5.userInteraction.moveCursorAndClick(elem);
 ```
+<a name="nonUi5.userInteraction.clickElementInSvg"></a>
+
+#### userInteraction.clickElementInSvg(svgElem, innerSelector)
+Clicks on an inner element within a SVG element.
+
+**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| svgElem | <code>Object</code> | The SVG element. |
+| innerSelector | <code>String</code> | The CSS selector describing the inner element to be clicked. |
+
+**Example**  
+```js
+const svgElem = await nonUi5.element.getByCss("svg");const innerSelector = "circle:nth-child(6)";await nonUi5.userInteraction.clickElementInSvg(svgElem, innerSelector);
+```
 <a name="service"></a>
 
 ## service
@@ -4518,6 +4767,12 @@ Global namespace for service modules.
         * [.callFunctionImport(service, functionImportName, options)](#service.odata.callFunctionImport)
         * [.getOutputManagementPdfStream(outputConf, url)](#service.odata.getOutputManagementPdfStream)
         * [.readPdfFromDirectUrl(url)](#service.odata.readPdfFromDirectUrl)
+    * [.rest](#service.rest)
+        * [.init([customConfig])](#service.rest.init) ⇒ <code>Object</code>
+        * [.get(uri, [options])](#service.rest.get) ⇒ <code>Object</code>
+        * [.post(uri, payload)](#service.rest.post) ⇒ <code>Object</code>
+        * [.delete(uri, options)](#service.rest.delete) ⇒ <code>Object</code>
+        * [.patch(uri, options)](#service.rest.patch) ⇒ <code>Object</code>
 
 <a name="service.odata"></a>
 
@@ -4550,7 +4805,7 @@ Initializes The service to work with.XCSRF-Token will be automatically fetched 
 | username | <code>username</code> |  | The username. |
 | password | <code>password</code> |  | The password of the username. |
 | [loggingEnabled] | <code>boolean</code> | <code>false</code> | The boolean param to control whether user wants to see logs during build run |
-| [params] | <code>Object</code> | <code>{}</code> | JSON object with key-value pairs of parameter names and corresponding values  by default we send {  "client": "715",  "documentation": ["heading", "quickinfo"],  "language": "EN" } These can be overridden by sending params as JSON object with additional params as shown in example |
+| [params] | <code>Object</code> | <code>{}</code> | JSON object with key-value pairs of parameter names and corresponding values by default we send {  "client": "715",  "documentation": ["heading", "quickinfo"],  "language": "EN" } These can be overridden by sending params as JSON object with additional params as shown in example |
 
 **Example**  
 ```js
@@ -4659,11 +4914,11 @@ makes a DELETE request.
 **Example**  
 ```js
 let options = {
-                "PurchaseOrder": "",
-                "DraftUUID": draftUUID,
-                "IsActiveEntity": false
-              };
-              await service.odata.delete(service, "C_PurchaseOrderTP", options);
+                  "PurchaseOrder": "",
+                  "DraftUUID": draftUUID,
+                  "IsActiveEntity": false
+                };
+                await service.odata.delete(service, "C_PurchaseOrderTP", options);
 ```
 <a name="service.odata.callFunctionImport"></a>
 
@@ -4681,10 +4936,10 @@ makes a function import request on an OData service.
 **Example**  
 ```js
 const options = {
-    CentralRequestForQuotation : "7500000026",
-    Supplier : "100006"
-  };
-  const res = await service.odata.callFunctionImport(service, functionImportName, options);
+      CentralRequestForQuotation : "7500000026",
+      Supplier : "100006"
+    };
+    const res = await service.odata.callFunctionImport(service, functionImportName, options);
 ```
 <a name="service.odata.getOutputManagementPdfStream"></a>
 
@@ -4703,11 +4958,11 @@ returns a stream of output management pdf file.
 **Example**  
 ```js
 const outputConf = {
-                ApplObjectType: "REQUEST_FOR_QUOTATION",
-                ApplObjectId: "7000002653",
-                ItemId: "1"
-              };
-              const pdfStream = await service.odata.getOutputManagementPdfStream(outputConf, url, user, password);
+                  ApplObjectType: "REQUEST_FOR_QUOTATION",
+                  ApplObjectId: "7000002653",
+                  ItemId: "1"
+                };
+                const pdfStream = await service.odata.getOutputManagementPdfStream(outputConf, url, user, password);
 ```
 <a name="service.odata.readPdfFromDirectUrl"></a>
 
@@ -4725,5 +4980,106 @@ returns a stream of pdf file which is part of attachment.
 **Example**  
 ```js
 const url = "https://domain.com/getPdfFile";
-      const pdfStream = await service.odata.readPdfFromDirectUrl(url, "username", "Password");
+        const pdfStream = await service.odata.readPdfFromDirectUrl(url, "username", "Password");
+```
+<a name="service.rest"></a>
+
+### service.rest
+**Kind**: static class of [<code>service</code>](#service)  
+
+* [.rest](#service.rest)
+    * [.init([customConfig])](#service.rest.init) ⇒ <code>Object</code>
+    * [.get(uri, [options])](#service.rest.get) ⇒ <code>Object</code>
+    * [.post(uri, payload)](#service.rest.post) ⇒ <code>Object</code>
+    * [.delete(uri, options)](#service.rest.delete) ⇒ <code>Object</code>
+    * [.patch(uri, options)](#service.rest.patch) ⇒ <code>Object</code>
+
+<a name="service.rest.init"></a>
+
+#### rest.init([customConfig]) ⇒ <code>Object</code>
+Returns an axios instance for custom axios handling.
+
+**Kind**: static method of [<code>rest</code>](#service.rest)  
+**Returns**: <code>Object</code> - The axios instance.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [customConfig] | <code>Object</code> | <code>{}</code> | Custom config for axios. If not specified axios defaults will be taken. |
+
+**Example**  
+```js
+const customConfig = {
+      baseURL: 'https://some-domain.com/api/',
+      timeout: 1000,
+      headers: {
+        'X-Custom-Header': 'foobar'
+      }const axios = service.rest.init(customConfig);
+```
+<a name="service.rest.get"></a>
+
+#### rest.get(uri, [options]) ⇒ <code>Object</code>
+makes a GET request.
+
+**Kind**: static method of [<code>rest</code>](#service.rest)  
+**Returns**: <code>Object</code> - The response of the GET request.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| uri | <code>String</code> |  | The uri to the data source you want to GET. |
+| [options] | <code>Object</code> | <code>{}</code> | The options you want to specify for GET. |
+
+**Example**  
+```js
+const uri = https://api.predic8.de/shop/products/";let res = await service.rest.get(uri);
+```
+<a name="service.rest.post"></a>
+
+#### rest.post(uri, payload) ⇒ <code>Object</code>
+makes a POST request.
+
+**Kind**: static method of [<code>rest</code>](#service.rest)  
+**Returns**: <code>Object</code> - The response of the POST request.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| uri | <code>String</code> | The uri to the data source you want to POST against. |
+| payload | <code>Object</code> | The data you want to POST against your entity set. |
+
+**Example**  
+```js
+let res = await service.rest.delete(`${browser.config.baseUrl}/posts/99`);
+```
+<a name="service.rest.delete"></a>
+
+#### rest.delete(uri, options) ⇒ <code>Object</code>
+makes a DELETE request.
+
+**Kind**: static method of [<code>rest</code>](#service.rest)  
+**Returns**: <code>Object</code> - The response of the DELETE request.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| uri | <code>String</code> | The uri to the data source you want to DELETE. |
+| options | <code>Object</code> | The options you want to specify for DELETE. |
+
+**Example**  
+```js
+let res = await service.rest.delete(`${browser.config.baseUrl}/posts/99`);
+```
+<a name="service.rest.patch"></a>
+
+#### rest.patch(uri, options) ⇒ <code>Object</code>
+makes a PATCH request.
+
+**Kind**: static method of [<code>rest</code>](#service.rest)  
+**Returns**: <code>Object</code> - The response of the PATCH request.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| uri | <code>String</code> | The uri to the data source you want to PATCH. |
+| options | <code>Object</code> | The options you want to specify for PATCH. |
+
+**Example**  
+```js
+let res = await service.rest.patch(`${browser.config.baseUrl}/posts/99`);
 ```

@@ -1,0 +1,65 @@
+<!--
+- SAP
+- (c) Copyright 2015 SAP SE or an SAP affiliate company.
+- Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+-->
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>UI5 Inspector</title>
+        <!-- Create a simple CodeMirror instance -->
+        <link rel="stylesheet" href="../../lib/codemirror.css">
+        <link rel="stylesheet" href="../../lib/addon/hint/show-hint.css">
+        <link rel="stylesheet" href="../../lib/theme/erlang-dark.css">
+        <script src="../../lib/beautify.js"></script>
+        <script src="../../lib/codemirror.js"></script>
+        <script src="../../lib/addon/hint/show-hint.js"></script>
+        <script src="../../lib/addon/hint/javascript-hint.js"></script>
+        <script scr="../../lib/addon/edit/closebrackets.js"></script>
+        <script scr="../../lib/addon/edit/matchbrackets.js"></script>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>
+                    Selector Alternatives:
+                    <select id="selectorAlt">
+                    </select>
+                    &nbsp;
+                    &nbsp;
+                    Action Type:
+                    <select id="selectAction">
+                        <option value="no action" selected>no action</option>
+                        <option value="click">click</option>
+                        <option value="clear">clear</option>
+                        <option value="fill">fill</option>
+                        <option value="clearAndFill">clearAndFill</option>
+                        <option value="clearAndFillAndRetry">clearAndFillAndRetry</option>
+                    </select>
+                    &nbsp;
+                    &nbsp;
+                    <span id="sumOfElems">  
+                    </span>
+                </td> 
+            </tr>
+            <tr>
+                <td>
+                    <textarea id="qmateNonUI5Area"></textarea>
+                    <script src="../../lib/qmateEditor_non_ui5.js">
+                    </script>
+                </td> 
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" id="runNonUI5Qmate" style="width: 40px;height: 20px;">Run</button> 
+                    <span id="success">
+                    </span>
+                    <span id="failed">
+                    </span>
+                </td> 
+            </tr> 
+        </table> 
+        <script src="/scripts/devtools/panel/non_ui5/main.js"></script>
+    </body>
+</html>

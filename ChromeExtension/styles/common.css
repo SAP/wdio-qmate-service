@@ -1,0 +1,95 @@
+/*!
+* SAP
+* (c) Copyright 2015 SAP SE or an SAP affiliate company.
+* Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+*/
+/*!
+* SAP
+* (c) Copyright 2015 SAP SE or an SAP affiliate company.
+* Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+*/
+/*!
+* SAP
+* (c) Copyright 2015 SAP SE or an SAP affiliate company.
+* Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+*/
+
+.copyButton {
+    width: 16px; 
+    height: 20px;
+    padding-top: 4px; 
+    margin-bottom: -3px;
+    cursor: pointer;
+}
+
+.copyText {
+    display: none;
+}
+
+.tableFixHead {
+  width: 100%;
+}
+.tableFixHead thead th {
+    position: sticky; 
+    top: 0;
+    z-index: 100; 
+    background: #ffffff;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 40px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    top: 135%;
+    left: 50%;
+    margin-left: -20px;
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #555 transparent
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .basket {
+    float: right;
+  }
+
+  .copyButton:active {
+    transform: scale(0.8);
+  }
+
+  .stepCount {
+    font-size: 10px;
+    position: absolute;
+    color: orange;
+  }
+
+  .sumOfElems {
+    padding-left : 10px;
+  }

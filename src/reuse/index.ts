@@ -83,6 +83,7 @@ class ReuseLibrary {
     const nonUi5 = {
       assertion: nonUi5Qmate.assertion,
       element: nonUi5Qmate.element,
+      navigation: nonUi5Qmate.navigation,
       userInteraction: nonUi5Qmate.userInteraction
     };
     global.nonUi5 = {

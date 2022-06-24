@@ -9,6 +9,7 @@ import system, {System} from './system';
 
 interface DataHooksExtended extends Data {
     decrypt: (input: string) => string;
+    privateKeyFound: boolean;
 }
 
 export class Util {
