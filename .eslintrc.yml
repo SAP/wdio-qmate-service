@@ -8,6 +8,12 @@ plugins: ["wdio"]
 extends: 'plugin:wdio/recommended'
 parserOptions:
   ecmaVersion: 2018
+globals:
+  ui5: readonly
+  nonUi5: readonly
+  common: readonly
+  util: readonly
+  service: readonly
 rules:
   keyword-spacing: 2
   indent: [2, 2, {ignoreComments: true, SwitchCase: 1}]
