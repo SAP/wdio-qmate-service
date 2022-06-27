@@ -23,13 +23,6 @@ const selectorTest2 = {
   }
 };
 
-const selectorFileUploader = {
-  "elementProperties": {
-    "viewName": "sap.m.sample.UploadCollection.Page",
-    "metadata": "sap.ui.unified.FileUploader"
-  }
-};
-
 const files = [];
 files.push(path.resolve(__dirname, "./testFiles/test.txt"), path.resolve(__dirname, "./testFiles/test2.txt"));
 
@@ -37,7 +30,6 @@ describe("file - upload - default selector", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(browser.config.baseUrl);
-    await ui5.element.getDisplayed(selectorFileUploader);
   });
 
   it("Execution", async function () {
@@ -50,7 +42,7 @@ describe("file - upload - default selector", function () {
   });
 });
 
-describe("file - upload - custom selector", function () {
+describe("file - upload - custom selector - UI5", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection");
@@ -58,7 +50,32 @@ describe("file - upload - custom selector", function () {
   });
 
   it("Execution", async function () {
-    await util.file.upload(files, selectorFileUploader);
+    const customSelector = {
+      "elementProperties": {
+        "viewName": "sap.m.sample.UploadCollection.Page",
+        "metadata": "sap.ui.unified.FileUploader"
+      }
+    };
+    await util.file.upload(files, customSelector);
+  });
+
+  it("Verification", async function () {
+    await ui5.element.getDisplayed(selectorTest);
+    await ui5.element.getDisplayed(selectorTest2);
+  });
+
+});
+
+describe("file - upload - custom selector - non UI5", function () {
+
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection");
+    await util.browser.refresh();
+  });
+
+  it("Execution", async function () {
+    const customSelector = "input[type='file']";
+    await util.file.upload(files, customSelector);
   });
 
   it("Verification", async function () {
