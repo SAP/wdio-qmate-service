@@ -33,7 +33,7 @@ const selectorFileUploader = {
 const files = [];
 files.push(path.resolve(__dirname, "./testFiles/test.txt"), path.resolve(__dirname, "./testFiles/test2.txt"));
 
-describe("file - upload - without second param", function () {
+describe("file - upload - default selector", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(browser.config.baseUrl);
@@ -45,31 +45,12 @@ describe("file - upload - without second param", function () {
   });
 
   it("Verification", async function () {
-
     await ui5.element.getDisplayed(selectorTest);
     await ui5.element.getDisplayed(selectorTest2);
   });
 });
 
-describe("file - upload - with second param as index", function () {
-
-  it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection");
-    await util.browser.refresh();
-  });
-
-  it("Execution", async function () {
-    await util.file.upload(files, 0);
-  });
-
-  it("Verification", async function () {
-    await ui5.element.getDisplayed(selectorTest);
-    await ui5.element.getDisplayed(selectorTest2);
-  });
-
-});
-
-describe("file - upload - with second param as a selector", function () {
+describe("file - upload - custom selector", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection");
