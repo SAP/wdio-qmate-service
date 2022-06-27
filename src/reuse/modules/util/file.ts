@@ -26,7 +26,7 @@ export class File {
       if (!isDisplayed) {
         await browser.execute(function (selector: any) {
           //@ts-ignore
-          document.querySelector(selector).style.visibility = 'visible';
+          document.querySelector(selector).style.visibility = "visible";
         }, selector);
         await elem.waitForDisplayed();
       }
