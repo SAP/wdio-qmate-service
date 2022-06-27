@@ -14,26 +14,32 @@ export class File {
    * @memberOf util.file
    * @description Uploads all the file/s by the paths given in the Array.
    * @param {String[]} files - Array with path/s of file/s to be uploaded.
-   * @param {Number | Object} [selector=0] - Index or custom selector of uploader control, in case there are more then one present. Default value is index 0.
+   * @param {String} [selector="input[type='file']"] - Custom selector of uploader control (in case there are more then one present). 
    * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"]); // uses the default uploader control
-   * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], 1); // upload to second file uploader control on UI screen
-   * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], selector); // upload to file uploader with matching selector
+   * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], "input[id='myUpload']"); // upload to file uploader with matching selector
    */
-  async upload(files: string[], selector: number | object = 0): Promise<void> {
-    let elem;
-    if (typeof selector === "number") {
-      elem = await nonUi5.element.getByCss('input[type="file"]', selector);
-    } else if (typeof selector === "object") {
-      const elemId = await ui5.element.getId(selector);
-      elem = await nonUi5.element.getByXPath(`.//input[contains(@id,'${elemId}')][@type='file']`);
+  async upload(files: Array<string>, selector: string = "input[type = 'file']") {   
+    try {
+      const elem = await $(selector);
+      const isDisplayed = await elem.isDisplayed();
+
+      if (!isDisplayed) {
+        await browser.execute(function (selector: any) {
+          //@ts-ignore
+          document.querySelector(selector).style.visibility = 'visible';
+        }, selector);
+        await elem.waitForDisplayed();
+      }
+
+      for (const file of files) {
+        const filePath = this.path.resolve(file);
+        const remoteFilePath = await browser.uploadFile(filePath);
+        await elem.setValue(remoteFilePath);
+      }
+    } catch (error) {
+      throw new Error(`Function 'upload' failed': ${error}`);
     }
-    if (!elem) {
-      throw new Error("No upload input element found with matching index or selector");
-    }
-    for (const file of files) {
-      await elem.setValue(this.path.resolve(file));
-    }
-  }
+  };
 
   // =================================== PDF ===================================
   /**
@@ -131,6 +137,6 @@ export class File {
     return pageData.getTextContent(render_options).then(_parseText);
   }
 
-  
+
 }
 export default new File();
