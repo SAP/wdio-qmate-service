@@ -19,16 +19,24 @@ export class File {
    * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], "input[id='myUpload']"); // upload to file uploader with matching selector
    */
   async upload(files: Array<string>, selector: string = "input[type = 'file']") {   
-    try {
-      const elem = await $(selector);
-      const isDisplayed = await elem.isDisplayed();
+    let elem;
 
-      if (!isDisplayed) {
-        await browser.execute(function (selector: any) {
-          //@ts-ignore
-          document.querySelector(selector).style.visibility = "visible";
-        }, selector);
-        await elem.waitForDisplayed();
+    try {
+      if (typeof selector === "string") {
+        elem = await $(selector);
+        const isDisplayed = await elem.isDisplayed();
+
+        if (!isDisplayed) {
+          await browser.execute(function (selector: string) {
+            // @ts-ignore
+            document.querySelector(selector).style.visibility = "visible";
+          }, selector);
+          await elem.waitForDisplayed();
+        }
+
+      } else if (typeof selector === "object") {
+        const elemId = await ui5.element.getId(selector);
+        elem = await nonUi5.element.getByXPath(`.//input[contains(@id,'${elemId}')][@type='file']`);
       }
 
       for (const file of files) {
@@ -36,6 +44,7 @@ export class File {
         const remoteFilePath = await browser.uploadFile(filePath);
         await elem.setValue(remoteFilePath);
       }
+
     } catch (error) {
       throw new Error(`Function 'upload' failed': ${error}`);
     }
