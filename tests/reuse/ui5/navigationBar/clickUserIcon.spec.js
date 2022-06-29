@@ -3,7 +3,7 @@
 describe("navigationBar - clickUserIcon", async function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/ui/demoapps/demokit/rta/fiori-elements/test/index.html#Shell-home");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/ui/demoapps/demokit/rta/fiori-elements/test/index.html#Shell-home");
   });
 
   it("Execution", async function () {
