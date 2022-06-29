@@ -1,4 +1,5 @@
 "use strict";
+
 /**
  * @class navigationBar
  * @memberof ui5
@@ -19,7 +20,11 @@ export class NavigationBar {
         "id": "backBtn"
       }
     };
-    return ui5.userInteraction.click(selector, 0, timeout);
+    try {
+      return ui5.userInteraction.click(selector, 0, timeout);
+    } catch (error) {
+      throw new Error(`Function 'clickBack' failed: ${error}`);
+    }
   };
 
   /**
@@ -33,7 +38,11 @@ export class NavigationBar {
     const selector = {
       "id": "shell-header-logo"
     };
-    return ui5.userInteraction.click(selector, 0, timeout);
+    try {
+      return ui5.userInteraction.click(selector, 0, timeout);
+    } catch (error) {
+      throw new Error(`Function 'clickSapLogo' failed: ${error}`);
+    }
   };
 
   /**
@@ -49,7 +58,11 @@ export class NavigationBar {
         "id": "meAreaHeaderButton"
       }
     };
-    return ui5.userInteraction.click(selector, 0, timeout);
+    try {
+      return ui5.userInteraction.click(selector, 0, timeout);
+    } catch (error) {
+      throw new Error(`Function 'clickUserIcon' failed: ${error}`);
+    }
   };
 
 
@@ -91,7 +104,11 @@ export class NavigationBar {
         "id": "shell-header"
       }
     };
-    return ui5.assertion.expectToBeVisible(selector, 0, timeout, loadPropertyTimeout);
+    try {
+      return ui5.assertion.expectToBeVisible(selector, 0, timeout, loadPropertyTimeout);
+    } catch (error) {
+      throw new Error(`Function 'expectPageTitle' failed: ${error}`);
+    }
   };
 
 };
