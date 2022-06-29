@@ -3,7 +3,7 @@
 describe("navigationBar - clickBack", async function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/ui/demoapps/demokit/rta/fiori-elements/test/index.html#Shell-home");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/ui/demoapps/demokit/rta/fiori-elements/test/index.html#Shell-home");
     const selector = {
       "elementProperties": {
         "viewName": "module:sap/ushell/components/homepage/DashboardContent.view",
@@ -19,7 +19,7 @@ describe("navigationBar - clickBack", async function () {
   });
 
   it("Verification", async function () {
-    await ui5.navigationBar.expectPageTitle("Manage Products");
+    await ui5.navigationBar.expectPageTitle("Home");
   });
 
 });
