@@ -1,82 +1,22 @@
 "use strict";
 
-describe("navigationBar - expectPageTitle - Home QS9", function () {
+describe("navigationBar - expectPageTitle", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/ui/demoapps/demokit/rta/fiori-elements/test/index.html#Shell-home");
   });
 
-  it("Execution", async function () {
-    await ui5.navigation.navigateToApplication("Shell-home", true);
-    await ui5.session.loginFiori("PURCHASER");
-  });
-
-  it("Verification", async function () {
+  it("Execution & Verification", async function () {
     await ui5.navigationBar.expectPageTitle("Home");
   });
-
-  it("Clean Up", async function () {
-    await ui5.session.logout();
-  });
-
 });
 
-describe("navigationBar - expectPageTitle - Home QS9 - Error case", function () {
+describe("navigationBar - expectPageTitle - error case", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    await common.navigation.navigateToUrl("https://www.sap.com");
   });
 
-  it("Execution", async function () {
-    await ui5.navigation.navigateToApplication("Shell-home", true);
-    await ui5.session.loginFiori("PURCHASER");
-  });
-
-  it("Verification", async function () {
-    await expect(ui5.navigationBar.expectPageTitle("Not Home"))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
-  });
-
-  it("Clean Up", async function () {
-    await ui5.session.logout();
-  });
-
-});
-
-describe("navigationBar - expectPageTitle - Home HBR", function () {
-  it("Preparation", async function () {
-    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
-  });
-
-  it("Execution", async function () {
-    await ui5.navigation.navigateToApplication("Shell-home", true);
-    await ui5.session.login("PURCHASER");
-  });
-
-  it("Verification", async function () {
-    await ui5.navigationBar.expectPageTitle("Home");
-  });
-
-  it("Clean Up", async function () {
-    await ui5.session.logout();
-  });
-
-});
-
-describe("navigationBar - expectPageTitle - Home HBR - Error case", function () {
-  it("Preparation", async function () {
-    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
-  });
-
-  it("Execution", async function () {
-    await ui5.navigation.navigateToApplication("Shell-home", true);
-    await ui5.session.login("PURCHASER");
-  });
-
-  it("Verification", async function () {
-    await expect(ui5.navigationBar.expectPageTitle("Not Home"))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
-  });
-
-  it("Clean Up", async function () {
-    await ui5.session.logout();
+  it("Execution & Verification", async function () {
+    await expect(ui5.navigationBar.expectPageTitle("Home"))
+      .rejects.toThrowError(/Function 'clickBack' failed:/);
   });
 });
