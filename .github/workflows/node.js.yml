@@ -28,5 +28,5 @@ jobs:
         cache: 'npm'
     - run: sudo apt-get install google-chrome-stable
     - run: npm ci
-    - run: npm run lint
     - run: npm test
+    - run: npm run lint
