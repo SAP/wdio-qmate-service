@@ -1,32 +1,22 @@
 "use strict";
 
-describe("navigationBar - expectShellHeader to be visible", function () {
+describe("navigationBar - expectPageTitle", function () {
   it("Preparation", async function () {
-    browser.config.baseUrl = "https://qs9-715.wdf.sap.corp/ui";
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/ui/demoapps/demokit/rta/fiori-elements/test/index.html#Shell-home");
   });
 
-  it("Execution", async function () {
-    await ui5.navigation.navigateToApplication("Shell-home", true);
-    await ui5.session.loginFiori("PURCHASER");
-  });
-
-  it("Verification", async function () {
+  it("Execution & Verification", async function () {
     await ui5.navigationBar.expectShellHeader();
-  });
-
-  it("Clean Up", async function () {
-    await ui5.session.logout();
   });
 });
 
-describe("navigationBar - expectShellHeader not to be visible (unhappy case)", function () {
+describe("navigationBar - expectPageTitle - error case", function () {
   it("Preparation", async function () {
-    browser.config.baseUrl = "https://qs9-715.wdf.sap.corp/ui";
-    await ui5.navigation.navigateToApplication("Shell-home", true);
+    await common.navigation.navigateToUrl("https://www.sap.com");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(ui5.navigationBar.expectShellHeader())
-      .rejects.toThrow("Function 'expectToBeVisible' failed:Error:");
+      .rejects.toThrowError(/Function 'expectToBeVisible' failed:/);
   });
 });

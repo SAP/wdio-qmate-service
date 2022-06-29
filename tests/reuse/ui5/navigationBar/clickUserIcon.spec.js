@@ -1,40 +1,36 @@
 "use strict";
 
-describe("navigationBar - click User Icon", function () {
-
-  const signoutButton = {
-    "elementProperties": {
-      "metadata": "sap.m.Popover",
-      "id": "sapUshellMeAreaPopover"
-    }
-  };
+describe("navigationBar - clickUserIcon", async function () {
 
   it("Preparation", async function () {
-    browser.config.baseUrl = "https://qs9-715.wdf.sap.corp/ui";
-    await browser.navigateTo("https://qs9-715.wdf.sap.corp/ui");
-    await ui5.session.login("PURCHASER");
-    await ui5.navigation.navigateToApplication("Shell-home", true);
-    await ui5.navigation.closePopups();
-    await ui5.navigationBar.expectShellHeader();
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/ui/demoapps/demokit/rta/fiori-elements/test/index.html#Shell-home");
   });
 
-  it("Execution and Verification", async function () {
-    await expect(ui5.assertion.expectToBeVisible(signoutButton))
-      .rejects.toThrow(/No visible elements found/);
-
+  it("Execution", async function () {
     await ui5.navigationBar.clickUserIcon();
-    await ui5.assertion.expectToBeVisible(signoutButton, 0, 60000);
   });
+
+  it("Verification", async function () {
+    const selector = {
+      "elementProperties": {
+        "metadata": "sap.ui.core.Icon",
+        "bindingContextPath": "/actions/4"
+      }
+    };
+    await ui5.assertion.expectToBeVisible(selector);
+  });
+
 });
 
-describe("navigationBar - click User Icon (wrong case)", function () {
+describe("navigationBar - clickUserIcon - error case", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://www.sap.com/index.html");
+    await common.navigation.navigateToUrl("https://www.sap.com");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(ui5.navigationBar.clickUserIcon())
-      .rejects.toThrowError("waitUntil condition failed with the following reason:");
+      .rejects.toThrowError(/Function 'clickUserIcon' failed:/);
   });
+
 });
