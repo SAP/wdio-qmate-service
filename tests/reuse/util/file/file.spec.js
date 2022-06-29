@@ -1,4 +1,5 @@
 const path = require("path");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 const selectorTest = {
   "elementProperties": {
@@ -23,21 +24,14 @@ const selectorTest2 = {
   }
 };
 
-const selectorFileUploader = {
-  "elementProperties": {
-    "viewName": "sap.m.sample.UploadCollection.Page",
-    "metadata": "sap.ui.unified.FileUploader"
-  }
-};
-
 const files = [];
 files.push(path.resolve(__dirname, "./testFiles/test.txt"), path.resolve(__dirname, "./testFiles/test2.txt"));
 
-describe("file - upload - without second param", function () {
+describe("file - upload - default selector", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(browser.config.baseUrl);
-    await ui5.element.getDisplayed(selectorFileUploader);
+    await handleCookiesConsent();
   });
 
   it("Execution", async function () {
@@ -45,21 +39,27 @@ describe("file - upload - without second param", function () {
   });
 
   it("Verification", async function () {
-
     await ui5.element.getDisplayed(selectorTest);
     await ui5.element.getDisplayed(selectorTest2);
   });
 });
 
-describe("file - upload - with second param as index", function () {
+describe("file - upload - custom selector - UI5", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection");
     await util.browser.refresh();
+    await handleCookiesConsent();
   });
 
   it("Execution", async function () {
-    await util.file.upload(files, 0);
+    const customSelector = {
+      "elementProperties": {
+        "viewName": "sap.m.sample.UploadCollection.Page",
+        "metadata": "sap.ui.unified.FileUploader"
+      }
+    };
+    await util.file.upload(files, customSelector);
   });
 
   it("Verification", async function () {
@@ -69,15 +69,17 @@ describe("file - upload - with second param as index", function () {
 
 });
 
-describe("file - upload - with second param as a selector", function () {
+describe("file - upload - custom selector - non UI5", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection");
     await util.browser.refresh();
+    await handleCookiesConsent();
   });
 
   it("Execution", async function () {
-    await util.file.upload(files, selectorFileUploader);
+    const customSelector = "input[type='file']";
+    await util.file.upload(files, customSelector);
   });
 
   it("Verification", async function () {
