@@ -21,7 +21,7 @@ export class NavigationBar {
       }
     };
     try {
-      return ui5.userInteraction.click(selector, 0, timeout);
+      await ui5.userInteraction.click(selector, 0, timeout);
     } catch (error) {
       throw new Error(`Function 'clickBack' failed: ${error}`);
     }
@@ -39,7 +39,7 @@ export class NavigationBar {
       "id": "shell-header-logo"
     };
     try {
-      return ui5.userInteraction.click(selector, 0, timeout);
+      await ui5.userInteraction.click(selector, 0, timeout);
     } catch (error) {
       throw new Error(`Function 'clickSapLogo' failed: ${error}`);
     }
@@ -59,7 +59,7 @@ export class NavigationBar {
       }
     };
     try {
-      return ui5.userInteraction.click(selector, 0, timeout);
+      await ui5.userInteraction.click(selector, 0, timeout);
     } catch (error) {
       throw new Error(`Function 'clickUserIcon' failed: ${error}`);
     }
@@ -105,7 +105,7 @@ export class NavigationBar {
       }
     };
     try {
-      return ui5.assertion.expectToBeVisible(selector, 0, timeout, loadPropertyTimeout);
+      await ui5.assertion.expectToBeVisible(selector, 0, timeout, loadPropertyTimeout);
     } catch (error) {
       throw new Error(`Function 'expectPageTitle' failed: ${error}`);
     }
