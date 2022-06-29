@@ -143,7 +143,6 @@
     "path": "^0.12.7",
     "pdf-parse": "^1.1.1",
     "query-string": "^7.1.0",
-    "supa-restapi": "^2.0.0",
     "supertest": "^6.1.6",
     "yargs": "^17.1.1"
   },
