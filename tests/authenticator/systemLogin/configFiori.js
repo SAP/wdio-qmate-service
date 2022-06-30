@@ -1,6 +1,6 @@
 const path = require("path");
 const merge = require("deepmerge");
-const fioriConfig = require("../../helper/configurations/report.headless.conf.js");
+const fioriConfig = require("../../helper/configurations/chrome.headless.conf.js");
 exports.config = merge(fioriConfig.config, {
   maxInstances: 1,
   bail: 1,
