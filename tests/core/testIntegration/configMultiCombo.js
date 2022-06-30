@@ -1,6 +1,6 @@
 var merge = require("deepmerge");
 var path = require("path");
-var qmateConf = require("../../helper/configurations/report.headless.conf");
+var qmateConf = require("../../helper/configurations/chrome.headless.conf");
 
 // have main config file as default but overwrite environment specific information
 exports.config = merge(qmateConf.config, {
