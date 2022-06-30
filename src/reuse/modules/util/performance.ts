@@ -1,5 +1,6 @@
 "use strict";
-const SupaInterface = require("supa-restapi");
+//@TODO: decouple in standalone service since internal only
+// const SupaInterface = require("supa-restapi");
 
 /**
  * @class performance
