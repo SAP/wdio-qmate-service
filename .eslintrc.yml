@@ -9,6 +9,9 @@ extends: 'plugin:wdio/recommended'
 parserOptions:
   ecmaVersion: 2018
 globals:
+  jQuery: readonly
+  Atomics: readonly
+  SharedArrayBuffer: readonly
   ui5: readonly
   nonUi5: readonly
   common: readonly
