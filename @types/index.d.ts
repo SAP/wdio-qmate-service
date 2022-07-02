@@ -20,4 +20,10 @@ declare global {
   var sap: any;
 }
 
-export {};
+export {
+  Util,
+  Ui5,
+  NonUi5,
+  Common,
+  Service,
+};
