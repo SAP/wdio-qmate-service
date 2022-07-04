@@ -6,7 +6,7 @@ describe("navigation - navigateToSystemAndApplicationAndRetry", function () {
 
   it("Execution & Verification", async function () {
     await common.navigation.navigateToUrl(`https://${system}`);
-    await ui5.session.loginFiori("PURCHASER");
+    await ui5.session.loginFiori("PURCHASER", "Welcome2!");
 
     await ui5.navigation.navigateToSystemAndApplicationAndRetry(system, application, true);
   });
@@ -30,7 +30,7 @@ describe("navigation - navigateToSystemAndApplicationAndRetry wrong navigation i
 
   it("Execution & Verification", async function () {
     await ui5.navigation.navigateToSystemAndApplicationAndRetry(system, application, false);
-    await ui5.session.loginFiori("PURCHASER");
+    await ui5.session.loginFiori("PURCHASER", "Welcome2!");
 
     await ui5.navigation
       .navigateToSystemAndApplicationAndRetry(system, wrongApplication, false, false); // verify = false - no error during navigation
