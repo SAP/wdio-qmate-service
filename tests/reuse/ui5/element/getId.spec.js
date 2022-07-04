@@ -30,7 +30,7 @@ describe("element - getId by wrong selector (unhappy case)", function () {
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const wrongSelector = {
       "elementProperties": {
         "viewName": "sap.ui.demo.cart.view.Home",
@@ -47,7 +47,7 @@ describe("element - getId by wrong index (unhappy case)", function () {
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.ui.demo.cart.view.Home",
@@ -65,7 +65,7 @@ describe("element - getId should get element id by empty object selector(unhappy
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(ui5.element.getId({}, 0))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });

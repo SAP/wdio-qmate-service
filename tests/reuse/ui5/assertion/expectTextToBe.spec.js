@@ -5,7 +5,7 @@ describe("assertion - expectTextToBe", function () {
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.ui.demo.cart.view.Welcome",
@@ -24,7 +24,7 @@ describe("assertion - expectTextToBe with wrong selector", function () {
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     let wrongSelector = {
       "elementProperties": {
         "wrongData": "123"

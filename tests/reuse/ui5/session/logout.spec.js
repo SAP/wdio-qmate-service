@@ -41,7 +41,7 @@ describe("session - logout without login (unhappy case)", function () {
     await common.navigation.navigateToUrlAndRetry("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(ui5.session.logout())
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });

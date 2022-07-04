@@ -74,7 +74,7 @@ describe("confirmationDialog - clickNo without 'No' button (unhappy case)", func
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(ui5.confirmationDialog.clickNo())
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
@@ -85,7 +85,7 @@ describe("confirmationDialog - clickNo without confirmation dialog (unhappy case
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     // No Dialog window opened
     await expect(ui5.element.getDisplayed(selectorForPopup))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);

@@ -73,7 +73,7 @@ describe("navigation - expectUnsupportedNavigationPopup (unhappy case - no popup
     await ui5.session.loginFiori("PURCHASER", "super-duper-sensitive-pw", true);
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await ui5.navigation.navigateToApplication("PurchaseOrder-manage", false);
     await expect(ui5.navigation.expectUnsupportedNavigationPopup("#PurchaseOrder-manage"))
       .rejects.toThrow("uiControlExecuteLocator(): No visible elements found");

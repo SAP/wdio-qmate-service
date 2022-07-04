@@ -48,7 +48,7 @@ describe("element - getByChild - error case with wrong element", function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const elementSelector = ".wrongParent";
     const childSelector = ".wrongChild";
     await expect(nonUi5.element.getByChild(elementSelector, childSelector))
@@ -61,7 +61,7 @@ describe("element - getByChild - error case with wrong order of parent and child
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const elementSelector = "[id='container-cart---homeView--searchField-I']";
     const childSelector = "[id='container-cart---homeView--searchField-F']";
     await expect(nonUi5.element.getByChild(elementSelector, childSelector))

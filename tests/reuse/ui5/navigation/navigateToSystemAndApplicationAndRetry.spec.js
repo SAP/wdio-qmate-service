@@ -4,7 +4,7 @@ describe("navigation - navigateToSystemAndApplicationAndRetry", function () {
   const system = "super-sensitive.domain.name";
   const application = "PurchaseOrder-manage";
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await common.navigation.navigateToUrl(`https://${system}`);
     await ui5.session.loginFiori("PURCHASER");
 
@@ -28,7 +28,7 @@ describe("navigation - navigateToSystemAndApplicationAndRetry wrong navigation i
   };
   const application = "Shell-home";
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await ui5.navigation.navigateToSystemAndApplicationAndRetry(system, application, false);
     await ui5.session.loginFiori("PURCHASER");
 

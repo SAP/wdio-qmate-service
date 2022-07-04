@@ -23,7 +23,7 @@ describe("element - getByName and catch error", function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(nonUi5.element.getByName("wrong_name"))
       .rejects.toThrow("Function 'getByName' failed");
   });

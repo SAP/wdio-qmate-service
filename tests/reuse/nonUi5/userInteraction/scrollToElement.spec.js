@@ -28,7 +28,7 @@ describe("locator - scrollToElement with wrong element (unhappy case)", function
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(nonUi5.userInteraction.scrollToElement("*=Legal Disclosure"))
       .rejects.toThrow(/elem.scrollIntoView is not a function/);
   });

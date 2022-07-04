@@ -7,7 +7,7 @@ describe("assertion - expectUrlToBe - 'openui5.....'", function () {
     await browser.navigateTo(url);
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await common.assertion.expectUrlToBe(url);
   });
 });
@@ -17,7 +17,7 @@ describe("assertion - expectUrlToBe - error case", function () {
     util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(common.assertion.expectUrlToBe())
       .rejects.toThrow(/Expect\w+|\d+undefined\w+|\d+Received\w+|\d+"https:\/\/super-sensitive.domain.name\/ui"/);
 

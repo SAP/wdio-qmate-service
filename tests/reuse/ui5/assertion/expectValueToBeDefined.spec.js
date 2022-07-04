@@ -10,7 +10,7 @@ describe("assertion - expectValueToBeDefined", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.m.sample.InputDescription.V",

@@ -34,7 +34,7 @@ describe("userInteraction - clear with invalid selector", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "snputDescription.V",

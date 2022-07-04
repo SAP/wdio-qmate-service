@@ -34,7 +34,7 @@ describe("userInteraction - click and retry on not displayed element", function 
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.ui.documentation.sdk.view.ApiDetailInitial",
