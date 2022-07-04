@@ -106,7 +106,7 @@ const selectorForErrorPopupText = {
 describe.skip("assertion - expectUnsupportedNavigationPopup", function () {
   it("Preparation", async function () {
     await ui5.navigation.navigateToApplication("Shell-home", true);
-    await ui5.session.loginFiori("PURCHASER");
+    await ui5.session.loginFiori("PURCHASER", "super-duper-sensitive-pw");
   });
 
   it("Execution", async function () {
@@ -127,7 +127,7 @@ describe.skip("assertion - expectUnsupportedNavigationPopup", function () {
 describe.skip("assertion - expectUnsupportedNavigationPopup with '&' (unhappy case, another error popup)", function () {
   it("Preparation", async function () {
     await ui5.navigation.navigateToApplication("Shell-home", true);
-    await ui5.session.loginFiori("PURCHASER");
+    await ui5.session.loginFiori("PURCHASER", "super-duper-sensitive-pw");
   });
 
   it("Execution", async function () {
