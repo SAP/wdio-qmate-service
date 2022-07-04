@@ -39,7 +39,7 @@ describe("element - getDisplayed by wrong index (unhappy case)", function () {
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(ui5.element.getDisplayed(selectorForKeyboardsListElement, 111))
       .rejects.toThrow(/Index out of bound. Trying to access element at index: 111/);
   });
@@ -50,7 +50,7 @@ describe("element - getDisplayed by wrong selector (unhappy case)", function () 
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const wrongSelector = {
       "elementProperties": {
         "viewName": "sap.ui.demo.cart.view.Home",
@@ -68,7 +68,7 @@ describe("element - getDisplayed by index which is equal to the number of elemen
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const searchFieldSelector = {
       "elementProperties": {
         "viewName": "sap.ui.demo.cart.view.Home",

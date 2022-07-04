@@ -1,7 +1,7 @@
 "use strict";
 
 describe("navigation - navigateToApplication with preventPopups=false", function () {
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     // First navigation - to #Shell-home
     let urlExpected = `${await util.browser.getBaseUrl()}#Shell-home`; // http://localhost:34099/ui#Shell-home
 
@@ -34,7 +34,7 @@ describe("navigation - navigateToApplication with preventPopups=false", function
 });
 
 describe("navigation - navigateToApplication with preventPopups=true", function () {
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     // First navigation - to #Shell-home
     // "http://localhost:34099/ui?help-readCatalog=false&help-stateUACP=PRODUCTION#Shell-home" - as preventPopups=true
     const queryToClosePopups = "help-readCatalog=false&help-stateUACP=PRODUCTION"; // from private function 'generateUrlParams'
@@ -73,7 +73,7 @@ describe("navigation - navigateToApplication wrong navigation intent type with/w
   const wrongApplication = { strange: "intent" };
   const application = "Shell-home";
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await ui5.navigation.navigateToApplication(application, true);
 
     await ui5.navigation.navigateToApplication(wrongApplication, false); // verify=false - no verification

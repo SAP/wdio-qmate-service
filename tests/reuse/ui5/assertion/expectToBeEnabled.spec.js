@@ -24,7 +24,7 @@ describe("assertion - expectToBeEnabled", function () {
     await ui5.userInteraction.click(productSelector); // navigate to product
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const addToCartSelector = {
       "elementProperties": {
         "viewName": "sap.ui.demo.cart.view.Product",
@@ -52,7 +52,7 @@ describe("assertion - expectToBeEnabled when element not enabled (unhappy case)"
     await ui5.userInteraction.click(cartSelector); // Navigate to shopping cart
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selectorForNotEnabledElement = {
       "elementProperties": {
         "viewName": "sap.ui.demo.cart.view.Cart",
@@ -70,7 +70,7 @@ describe("assertion - expectToBeEnabled with wrong selector (unhappy case)", fun
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selectorForNonExistingElement = {
       "elementProperties": {
         "viewName": "sap.ui.demo.cart.view.Product",

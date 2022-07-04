@@ -15,7 +15,7 @@ describe("assertion - expectAttributeToContain", function () {
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await ui5.assertion.expectAttributeToContain(selector, "text", "to the Shopping Cart");
   });
 });
@@ -25,7 +25,7 @@ describe("assertion - expectAttributeToContain with wrong selector (unhappy case
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     // Selector for a list of elements?
     const selectorWithATypo = {
       "elementProperties": {
@@ -50,7 +50,7 @@ describe("assertion - expectAttributeToContain with wrong attribute (unhappy cas
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     // Error
     // In Chrome: javascript error: done is not a function
     // In Firefox: TypeError: done is not a function
@@ -71,7 +71,7 @@ describe("assertion - expectAttributeToContain with wrong compareValue (unhappy 
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(ui5.assertion.expectAttributeToContain(selector, "text", 123))
       .rejects.toThrow("Welcome to the Shopping Cart");
   });

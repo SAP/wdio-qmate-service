@@ -26,7 +26,7 @@ describe("element - switchToNewWindow", function () {
     await common.assertion.expectEqual(currentUrl, wdioWindowUrl);
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     // First switch to 'sap' window
     await util.browser.switchToNewWindow(currentWindowHandle, sapWindowHandle);
     await expect(browser.getTitle()).resolves.toEqual(sapTitle);
@@ -45,7 +45,7 @@ describe("element - switchToWindow (unhappy case)", function () {
     await common.navigation.navigateToUrl(sapWindowUrl);
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const currentWindowHandleBefore = await util.browser.getCurrentWindow();
 
     const windowHandles = await browser.getWindowHandles(); // returns array of handles

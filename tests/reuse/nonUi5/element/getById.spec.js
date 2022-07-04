@@ -28,7 +28,7 @@ describe("element - getById and catch error", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(nonUi5.element.getById("sdk---app--apiTab-text"))
       .rejects.toThrow("Function 'getById' failed");
   });

@@ -58,7 +58,7 @@ describe("element - getByCss and catch error", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(nonUi5.element.getByCss("[id='sdk--readMoreButton-BDI-content']"))
       .rejects.toThrow("Function 'getByCss' failed");
   });

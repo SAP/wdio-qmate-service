@@ -33,7 +33,7 @@ describe("session - loginFiori - invalid credentials", function () {
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(ui5.session.loginFiori("Caput", "Draconis"))
       .rejects.toThrow(/Login failed: "Client, name, or password is not correct; log on again"/);
   });
@@ -45,7 +45,7 @@ describe("session - loginFiori - error case", function () {
     await ui5.navigation.navigateToApplication("", true);
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(ui5.session.loginFiori("PURCHASER"))
       .rejects.toThrow(/Function 'loginFiori' failed/);
   });
