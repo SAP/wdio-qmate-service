@@ -73,7 +73,9 @@ describe("navigation - navigateToApplicationAndRetry with closePopups=false", fu
 });
 
 describe("navigation - navigateToApplicationAndRetry wrong navigation intent type with/without verification(unhappy case)", function () {
-  const wrongApplication = { strange: "intent" };
+  const wrongApplication = {
+    strange: "intent"
+  };
   const application = "Shell-home";
 
   it("Execution & Verification", async function () {
@@ -109,7 +111,7 @@ const selectorForErrorPopupText = {
 describe.skip("assertion - expectUnsupportedNavigationPopup", function () {
   it("Preparation", async function () {
     await ui5.navigation.navigateToApplicationAndRetry("Shell-home", true);
-    await ui5.session.loginFiori("PURCHASER");
+    await ui5.session.loginFiori("PURCHASER", "Welcome2!");
   });
 
   it("Execution", async function () {
@@ -130,7 +132,7 @@ describe.skip("assertion - expectUnsupportedNavigationPopup", function () {
 describe.skip("assertion - expectUnsupportedNavigationPopup with '&' (unhappy case, another error popup)", function () {
   it("Preparation", async function () {
     await ui5.navigation.navigateToApplicationAndRetry("Shell-home", true);
-    await ui5.session.loginFiori("PURCHASER");
+    await ui5.session.loginFiori("PURCHASER", "Welcome2!");
   });
 
   it("Execution", async function () {
