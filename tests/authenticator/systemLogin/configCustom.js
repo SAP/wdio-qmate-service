@@ -14,7 +14,7 @@ exports.config = merge(customConfig.config, {
     auth: {
       formType: "custom",
       username: "PURCHASER",
-      password: "Welcome1!",
+      password: "Welcome2!",
       usernameFieldSelector: "#USERNAME_BLOCK input",
       passwordFieldSelector: "#PASSWORD_BLOCK input",
       logonButtonSelector: "#LOGIN_LINK"

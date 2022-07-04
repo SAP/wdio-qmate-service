@@ -24,7 +24,7 @@ describe.skip("navigation - expectUnsupportedNavigationPopup", function () {
   it("Preparation", async function () {
     browser.config.baseUrl = "https://qs9-715.wdf.sap.corp/ui";
     await ui5.navigation.navigateToApplication("Shell-home", true);
-    await ui5.session.loginFiori("PURCHASER", "Welcome1!", true);
+    await ui5.session.loginFiori("PURCHASER", "Welcome2!", true);
   });
 
   it("Execution", async function () {
@@ -46,7 +46,7 @@ describe.skip("navigation - expectUnsupportedNavigationPopup with '&' (unhappy c
   it("Preparation", async function () {
     browser.config.baseUrl = "https://qs9-715.wdf.sap.corp/ui";
     await ui5.navigation.navigateToApplication("Shell-home", true);
-    await ui5.session.loginFiori("PURCHASER", "Welcome1!", true);
+    await ui5.session.loginFiori("PURCHASER", "Welcome2!", true);
   });
 
   it("Execution", async function () {
@@ -70,7 +70,7 @@ describe("navigation - expectUnsupportedNavigationPopup (unhappy case - no popup
   it("Preparation", async function () {
     browser.config.baseUrl = "https://qs9-715.wdf.sap.corp/ui";
     await ui5.navigation.navigateToApplication("Shell-home", true);
-    await ui5.session.loginFiori("PURCHASER", "Welcome1!", true);
+    await ui5.session.loginFiori("PURCHASER", "Welcome2!", true);
   });
 
   it("Execution & Verification", async function () {

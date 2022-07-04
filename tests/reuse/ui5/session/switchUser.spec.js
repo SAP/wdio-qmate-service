@@ -4,14 +4,14 @@ describe("session - switchUser in fiori", function () {
   it("Preparation", async function () {
     util.browser.setBaseUrl("https://qs9-715.wdf.sap.corp/ui");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
-    await ui5.session.login("PURCHASER");
+    await ui5.session.login("PURCHASER", "Welcome2!");
     await ui5.navigation.navigateToApplication("Shell-home", true);
     await ui5.navigation.closePopups();
     await ui5.navigationBar.expectShellHeader();
   });
 
   it("Execution", async function () {
-    await ui5.session.switchUser("AP_ACCOUNTANT");
+    await ui5.session.switchUser("AP_ACCOUNTANT", "Welcome2!");
     await ui5.navigation.navigateToApplication("Shell-home", true);
     await ui5.navigation.closePopups();
   });
@@ -29,7 +29,7 @@ describe("session - switchUser in sapCloud", function () {
   it("Preparation", async function () {
     util.browser.setBaseUrl("https://hbr-715.wdf.sap.corp/ui");
     await ui5.navigation.navigateToApplication("Shell-home", true);
-    await ui5.session.loginSapCloud("PURCHASER");
+    await ui5.session.loginSapCloud("PURCHASER", "Welcome2!");
     await ui5.navigationBar.expectShellHeader();
   });
 

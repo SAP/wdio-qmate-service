@@ -7,7 +7,7 @@ exports.config = merge(staticServerConfig.config, {
     auth: {
       formType: "custom",
       username: "PURCHASER",
-      password: "Welcome1!",
+      password: "Welcome2!",
       usernameFieldSelector: "#username",
       passwordFieldSelector: "#password",
       logonButtonSelector: "#logon"

@@ -7,7 +7,7 @@ exports.config = merge(staticServerConfig.config, {
     auth: {
       formType: "sapcloud-form",
       username: "PURCHASER",
-      password: "Welcome1!"
+      password: "Welcome2!"
     }
   },
   baseUrl: "http://localhost:34005/sapCloud.html",

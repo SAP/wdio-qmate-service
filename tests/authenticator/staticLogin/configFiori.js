@@ -7,7 +7,7 @@ exports.config = merge(staticServerConfig.config, {
     auth: {
       formType: "fiori-form",
       username: "PURCHASER",
-      password: "Welcome1!"
+      password: "Welcome2!"
     }
   },
 
