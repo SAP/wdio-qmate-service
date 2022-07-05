@@ -25,7 +25,7 @@ const {
 //     await ui5.userInteraction.clearAndRetry(selector, index, timeout, retries, interval);
 //   });
 
-//   it("Execution and Verification", async function () {
+//   it("Execution & Verification", async function () {
 //     await common.userInteraction.pressTab(); // Copy-pasted from vyperForAll tests
 //     const actualValue = await ui5.element.getValue(selector);
 //     common.assertion.expectEqual(actualValue, "");
@@ -39,7 +39,7 @@ describe("userInteraction - clearAndRetry with invalid selector", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "snputDescription.V",

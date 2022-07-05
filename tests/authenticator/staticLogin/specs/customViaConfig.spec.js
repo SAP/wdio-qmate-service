@@ -1,6 +1,6 @@
 describe("authenticator - customViaConfig", function () {
   it("Execution", async function () {
-    await ui5.session.loginCustomViaConfig("PURCHASER", "Welcome1!", false);
+    await ui5.session.loginCustomViaConfig("PURCHASER", "Welcome2!", false);
   });
 
   it("Verification", async function () {

@@ -21,7 +21,7 @@ describe("userInteraction - clickAndRetry on disabled button (unhappy case)", fu
     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const elem = await nonUi5.element.getById("Not-clickable", 10000);
     await expect(nonUi5.userInteraction.clickAndRetry(elem, 1))
       .rejects.toThrow("Retries done. Failed to execute the function: ");
@@ -33,7 +33,7 @@ describe("userInteraction - clickAndRetry for empty value", function () {
     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(nonUi5.userInteraction.clickAndRetry())
       .rejects.toThrow("Function 'clearAndRetry' failed. Please provide an element as first argument.");
   });

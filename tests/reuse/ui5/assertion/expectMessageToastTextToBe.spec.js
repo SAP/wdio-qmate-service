@@ -9,7 +9,7 @@ describe("assertion - expectMessageToastTextToBe - no message toast (unhappy cas
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy\r\n eirmod.";
     await browser.keys("Escape"); // To skip Cookie Consent
     await expect(ui5.assertion.expectMessageToastTextToBe(text, 3000))

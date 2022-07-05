@@ -30,7 +30,7 @@ describe("element - getByCssContainingText and catch error", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(nonUi5.element.getByCssContainingText("[id='sdk---welcome--readMoreButton-BDI-content']","Some Junk Text"))
       .rejects.toThrow(/getByCssContainingText(): Element \w*|\d* not found/);
   });

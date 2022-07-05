@@ -54,7 +54,7 @@ describe("userInteraction - clearAndFillActive with invalid selector", function 
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.m..InputDescription.V",
@@ -78,7 +78,7 @@ describe("userInteraction - clearAndFillActive with wrong element", function () 
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.m.sample.MenuButton.MB",

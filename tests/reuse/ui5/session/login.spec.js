@@ -33,7 +33,7 @@ describe("session - login - fiori - invalid credentials", function () {
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(ui5.session.login("Caput", "Draconis"))
       .rejects.toThrow(/Login failed: "Client, name, or password is not correct; log on again"/);
   });
@@ -71,7 +71,7 @@ describe("session - login - sapCloud - Invalid credentials", function () {
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(ui5.session.loginSapCloud("Caput", "Draconis"))
       .rejects.toThrow(/Login failed: "Sorry, we could not authenticate you. Try again."/);
   });

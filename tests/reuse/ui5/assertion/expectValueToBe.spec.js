@@ -5,7 +5,7 @@ describe("assertion - expectValueToBe", function () {
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const input = {
       "elementProperties": {
         "viewName": "sap.ui.demo.cart.view.Home",
@@ -23,7 +23,7 @@ describe("assertion - expectValueToBe with wrong value input (unhappy case)", fu
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const input = {
       "elementProperties": {
         "viewName": "sap.ui.demo.cart.view.Home",
@@ -42,7 +42,7 @@ describe("assertion - expectValueToBe with wrong selector (unhappy case)", funct
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     let wrongSelector = {
       "elementProperties": {
         "wrongData": "123"

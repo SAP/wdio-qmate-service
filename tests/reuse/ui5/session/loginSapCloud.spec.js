@@ -32,7 +32,7 @@ describe("session - loginSapCloud - Invalid credentials", function () {
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(ui5.session.loginSapCloud("Caput", "Draconis"))
       .rejects.toThrow(/Login failed: "Sorry, we could not authenticate you. Try again."/);
   });
@@ -44,7 +44,7 @@ describe("session - login - sapCloud for Fiori (error case)", function () {
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(ui5.session.loginSapCloud("PURCHASER"))
       .rejects.toThrow(/Login failed: Login page with the given authenticator not present./);
   });

@@ -55,7 +55,7 @@ describe("confirmationDialog - clickOk without confirmation dialog (unhappy case
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     // No dialog with "Ok" button
     await expect(ui5.element.getDisplayed(selectorForPopupOkButton))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);

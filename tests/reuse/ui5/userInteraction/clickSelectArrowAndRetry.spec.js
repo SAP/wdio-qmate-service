@@ -9,7 +9,7 @@ describe("userInteraction - clickSelectArrowAndRetry", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const retries = 3;
     const interval = 3000;
 
@@ -70,7 +70,7 @@ describe("userInteraction - clickSelectArrow and catch an error", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.m.sample.Select.Page",
@@ -94,7 +94,7 @@ describe("userInteraction - clickSelectArrowAndRetry with index > 0", function (
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const retries = 3;
     const interval = 3000;
 

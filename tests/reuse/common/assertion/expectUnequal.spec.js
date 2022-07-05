@@ -1,7 +1,7 @@
 "use strict";
 
 describe("assertion - expectUnequal", function () {
-  it("Execution and Verification", function () {
+  it("Execution & Verification", function () {
     common.assertion.expectUnequal(0, "0");
     common.assertion.expectUnequal(true, "true");
     common.assertion.expectUnequal(true, false);

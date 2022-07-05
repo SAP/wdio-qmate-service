@@ -46,7 +46,7 @@ describe("assertion - expectBindingPathToBe", function () {
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const category = {
       "elementProperties": {
         "metadata": "sap.m.StandardListItem",
@@ -78,7 +78,7 @@ describe("assertion - expectBindingPathToBe with loadPropertyTimeout", function 
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, "items", "/ProductCategories", 0, 40000, 1000);
   });
 });
@@ -88,7 +88,7 @@ describe("assertion - expectBindingPathToBe with wrong selector (unhappy case)",
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "wrongData": "123"
     };
@@ -114,7 +114,7 @@ describe("assertion - expectBindingPathToBe with wrong attribute (unhappy case)"
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     switch (browser.capabilities.browserName) {
       case "Safari":
         const safariErrorMessage = "A JavaScript exception occured: undefined is not an object";
@@ -153,7 +153,7 @@ describe("assertion - expectBindingPathToBe with wrong compareValue (unhappy cas
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     // Typo in compareValue
     await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, "items", "/ProductCategores", 0, 5000))
       .rejects.toThrow(/Expect\w+|\d+ProductCategores\w+|\d+Received\w+|\d+ProductCategories/);

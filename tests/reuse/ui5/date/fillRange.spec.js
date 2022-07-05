@@ -46,7 +46,7 @@ describe("date - fillRange: no such field on a screen (unhappy case)", function 
     await browser.url("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(ui5.date.fillRange(dataRangeSelector, range))
       .rejects.toThrow(/No visible elements found/);
   });

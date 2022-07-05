@@ -13,7 +13,7 @@ describe("assertion - getValue + expectValueToBe", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     product = await nonUi5.element.getByXPath("//div[contains(text(),'Laptops')]");
     await nonUi5.assertion.expectValueToBe(product, "Laptops");
   });
@@ -27,7 +27,7 @@ describe("assertion - expectValueToBe and catch error", function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(nonUi5.element.getValue())
       .rejects.toThrow("Please provide an element as first argument (must be of type 'object').");
   });

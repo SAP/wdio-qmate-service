@@ -39,7 +39,7 @@ describe("userInteraction - fillActive - element with invalid selector", functio
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.ui.demo.cart.view.Home",
@@ -222,7 +222,7 @@ describe("userInteraction - fillActive - empty value", function () {
 //     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
 //   });
 
-//   it("Execution and Verification", async function () {
+//   it("Execution & Verification", async function () {
 //     // Active element is random
 //     await expect(common.userInteraction.fillActive("New test value"))
 //       .rejects.toThrow("Function 'fillActive' failed: ");

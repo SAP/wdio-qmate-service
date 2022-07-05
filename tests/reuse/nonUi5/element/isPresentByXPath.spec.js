@@ -11,7 +11,7 @@ describe("element - isPresentByXPath", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     linkBtn = "//span[contains(text(),'API Reference')]";
     const isPresented = await nonUi5.element.isPresentByXPath(linkBtn);
     common.assertion.expectTrue(isPresented);
@@ -24,7 +24,7 @@ describe("element - isPresentByXPath with wrong selector and catch error", funct
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const isPresented = await nonUi5.element.isPresentByXPath("//span[contains(text(),'Wrong Text')]", 0, 1000);
     common.assertion.expectFalse(isPresented);
   });

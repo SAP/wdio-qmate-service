@@ -2,7 +2,7 @@
 
 describe("assertion - expectDefined", function () {
 
-  it("Execution and Verification", function () {
+  it("Execution & Verification", function () {
     common.assertion.expectDefined(0);
     common.assertion.expectDefined(null);
     common.assertion.expectDefined(false);

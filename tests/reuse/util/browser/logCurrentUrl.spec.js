@@ -6,7 +6,7 @@ describe("browser - printCurrentUrl", function () {
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     // rewrite global function for a while
     const variableToKeepConsoleLog = util.console.info;
 

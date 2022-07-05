@@ -21,7 +21,7 @@ describe("userInteraction - click on disabled button (unhappy case)", function (
     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const elem = await nonUi5.element.getById("Not-clickable", 10000);
     await expect(nonUi5.userInteraction.click(elem))
       .rejects.toThrow(/Timeout \w*|\d* by waiting for element is clickable/); // \w*|\d* - placeholder for timeout value
@@ -33,7 +33,7 @@ describe("userInteraction - click for empty value", function () {
     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(nonUi5.userInteraction.click())
       .rejects.toThrow(/not\w*|\d*clickable/);
   });

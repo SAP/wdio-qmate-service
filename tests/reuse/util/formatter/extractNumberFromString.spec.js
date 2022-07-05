@@ -54,7 +54,7 @@ describe("formatter - extractNumberFromString", function () {
       expectedError = "Function 'extractNumberFromString' failed: Incorrect or missing arguments.";
     });
 
-    it("Execution and Verification", async function () {
+    it("Execution & Verification", async function () {
       let error;
       try {
         util.formatter.extractNumberFromString();

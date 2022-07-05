@@ -10,7 +10,7 @@ describe("userInteraction - clearAndFill form field", function () {
     nonUi5.assertion.expectValueToBe(element, "", "value");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await nonUi5.userInteraction.clearAndFill(element, "First test value");
     await nonUi5.assertion.expectValueToBe(element, "First test value", "value");
 
@@ -43,7 +43,7 @@ describe("userInteraction - clearAndFill a button (unhappy case)", function () {
     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const elem = await nonUi5.element.getById("Default", 10000);
     await expect(nonUi5.userInteraction.clearAndFill(elem, "New test value"))
       .rejects.toThrow(/invalid element state/);

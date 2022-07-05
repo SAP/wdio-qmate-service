@@ -653,7 +653,7 @@ Sets or overwrites the baseUrl in the configuration file.
 
 **Example**  
 ```js
-util.browser.setBaseUrl("https://cc3-721.wdf.sap.corp/ui");
+await util.browser.setBaseUrl("https://www.sap.com");
 ```
 <a name="util.browser.logCurrentUrl"></a>
 
@@ -1033,7 +1033,7 @@ Uploads all the file/s by the paths given in the Array.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | files | <code>Array.&lt;String&gt;</code> |  | Array with path/s of file/s to be uploaded. |
-| [selector] | <code>Number</code> \| <code>Object</code> | <code>0</code> | Index or custom selector of uploader control, in case there are more then one present. Default value is index 0. |
+| [selector] | <code>String</code> | <code>&quot;input[type&#x3D;&#x27;file&#x27;]&quot;</code> | Custom selector of uploader control (in case there are more then one present). |
 
 **Example**  
 ```js
@@ -1041,11 +1041,7 @@ await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"]); // uses the 
 ```
 **Example**  
 ```js
-await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], 1); // upload to second file uploader control on UI screen
-```
-**Example**  
-```js
-await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], selector); // upload to file uploader with matching selector
+await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], "input[id='myUpload']"); // upload to file uploader with matching selector
 ```
 <a name="util.file.parsePdf"></a>
 
@@ -2896,7 +2892,7 @@ Navigates within the passed system to the application via the passed intent.
 
 **Example**  
 ```js
-await ui5.navigation.navigateToSystemAndApplication("cc2-715.wdf.sap.corp", "PurchaseOrder-manage");
+await ui5.navigation.navigateToSystemAndApplication("yourFioriLaunchpad.domain", "PurchaseOrder-manage");
 ```
 <a name="ui5.navigation.navigateToSystemAndApplicationAndRetry"></a>
 
@@ -2916,7 +2912,7 @@ Navigates within the passed system to the application via the passed intent, and
 
 **Example**  
 ```js
-await ui5.navigation.navigateToSystemAndApplicationAndRetry("cc2-715.wdf.sap.corp", "PurchaseOrder-manage");
+await ui5.navigation.navigateToSystemAndApplicationAndRetry("yourFioriLaunchpad.domain", "PurchaseOrder-manage");
 ```
 <a name="ui5.navigation.navigateToApplicationWithQueryParams"></a>
 
@@ -2934,7 +2930,7 @@ Navigates to the application with the passed queryParams via the passed intent.
 
 **Example**  
 ```js
-const intent = ui5.appIntents.managePurchaseOrders;const queryParams = "?sap-language=EN&responderOn=true";await ui5.navigation.navigateToApplicationWithQueryParams(intent, queryParams);
+const intent = "PurchaseOrder-manage"const queryParams = "?sap-language=EN&responderOn=true";await ui5.navigation.navigateToApplicationWithQueryParams(intent, queryParams);
 ```
 <a name="ui5.navigation.navigateToApplicationWithQueryParamsAndRetry"></a>
 
@@ -2954,7 +2950,7 @@ Navigates to the application via the passed intent, and retries in case it fails
 
 **Example**  
 ```js
-const intent = ui5.appIntents.managePurchaseOrders;const queryParams = "?sap-language=EN&responderOn=true";await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
+const intent = "PurchaseOrder-manage"const queryParams = "?sap-language=EN&responderOn=true";await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
 ```
 <a name="ui5.navigation.closePopups"></a>
 

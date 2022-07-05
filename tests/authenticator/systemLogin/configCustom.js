@@ -1,6 +1,6 @@
 const path = require("path");
 const merge = require("deepmerge");
-const customConfig = require("../../helper/configurations/report.headless.conf.js");
+const customConfig = require("../../helper/configurations/chrome.headless.conf.js");
 exports.config = merge(customConfig.config, {
   maxInstances: 1,
   bail: 1,
@@ -14,7 +14,7 @@ exports.config = merge(customConfig.config, {
     auth: {
       formType: "custom",
       username: "PURCHASER",
-      password: "Welcome1!",
+      password: "Welcome2!",
       usernameFieldSelector: "#USERNAME_BLOCK input",
       passwordFieldSelector: "#PASSWORD_BLOCK input",
       logonButtonSelector: "#LOGIN_LINK"

@@ -1,6 +1,6 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfiguration = require("../../../helper/configurations/report.headless.conf");
+const qmateConfiguration = require("../../../helper/configurations/chrome.conf");
 exports.config = merge(qmateConfiguration.config, {
   maxInstances: 3,
   bail: 1,
@@ -20,10 +20,10 @@ exports.config = merge(qmateConfiguration.config, {
   ],
 
   specs: [
-    path.resolve(__dirname, "navigateToApplication.spec.js"),
+    // path.resolve(__dirname, "navigateToApplication.spec.js"),
     path.resolve(__dirname, "navigateToApplicationAndRetry.spec.js"),
-    path.resolve(__dirname, "navigateToApplicationWithQueryParams.spec.js"),
-    path.resolve(__dirname, "navigateToApplicationWithQueryParamsAndRetry.spec.js")
+    // path.resolve(__dirname, "navigateToApplicationWithQueryParams.spec.js"),
+    // path.resolve(__dirname, "navigateToApplicationWithQueryParamsAndRetry.spec.js")
   ],
 
   exclude: [],

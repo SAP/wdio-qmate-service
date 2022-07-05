@@ -51,7 +51,7 @@ describe("element - getAttributeValue - error", function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(nonUi5.element.getAttributeValue())
       .rejects.toThrow("Function 'getAttributeValue' failed");
   });

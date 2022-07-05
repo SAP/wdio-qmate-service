@@ -7,7 +7,7 @@ describe("userInteraction - clickSelectArrow", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     // Execution
     const catalog = {
       "elementProperties": {
@@ -65,7 +65,7 @@ describe("userInteraction - clickSelectArrow and catch an error", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const catalog = {
       "elementProperties": {
         "viewName": "sap.m.sample.Select.Page",
