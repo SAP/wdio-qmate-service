@@ -95,7 +95,7 @@
     "test:reuse:common:navigation": "npx wdio ./tests/reuse/common/navigation/test.navigation.conf.js",
     "test:reuse:common:date": "npx wdio ./tests/reuse/common/date/test.date.conf.js",
     "test:reuse:common:userInteraction": "npx wdio ./tests/reuse/common/userInteraction/test.userInteraction.conf.js",
-    "test:reuse:common": "npm run test:reuse:common:assertion & npm run test:reuse:common:navigation && npm run test:reuse:common:date && npm run test:reuse:common:userInteraction",
+    "test:reuse:common": "npm run test:reuse:common:assertion && npm run test:reuse:common:date && npm run test:reuse:common:userInteraction",
     "test:reuse:service:rest:startJsonServer": "cd tests/reuse/service/rest && json-server --watch db.json",
     "test:reuse:service:rest": "npx wdio tests/reuse/service/rest/test.rest.conf.js",
     "test:reuse": "npm run test:reuse:common && npm run test:reuse:nonUi5 && npm run test:reuse:ui5 && npm run test:reuse:util",
