@@ -1,7 +1,7 @@
 "use strict";
 
 describe("formatter - addRemoveLeadingZeros - add zeros", function () {
-  it("Execution and Verification", function () {
+  it("Execution & Verification", function () {
     common.assertion.expectEqual(util.formatter.addRemoveLeadingZeros(10, 5), "00010");
     common.assertion.expectEqual(util.formatter.addRemoveLeadingZeros("12", 4), "0012");
     common.assertion.expectEqual(util.formatter.addRemoveLeadingZeros("0014", 5), "00014");
@@ -11,7 +11,7 @@ describe("formatter - addRemoveLeadingZeros - add zeros", function () {
 });
 
 describe("formatter - addRemoveLeadingZeros - remove zeros", function () {
-  it("Execution and Verification", function () {
+  it("Execution & Verification", function () {
     common.assertion.expectEqual(util.formatter.addRemoveLeadingZeros("0000010", 2), "10");
     common.assertion.expectEqual(util.formatter.addRemoveLeadingZeros("0000010", 1), "0");
   });

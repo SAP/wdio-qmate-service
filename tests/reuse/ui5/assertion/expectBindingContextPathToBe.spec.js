@@ -25,7 +25,7 @@ describe("assertion - expectBindingContextPathToBe", function () {
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await ui5.assertion.expectBindingContextPathToBe(categorySelector, "/ProductCategories('AC')"); // Equal
   });
 });
@@ -35,7 +35,7 @@ describe("assertion - expectBindingContextPathToBe with loadPropertyTimeout", fu
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await ui5.assertion.expectBindingContextPathToBe(categorySelector, "/ProductCategories('AC')", 0, 30000, 1000);
   });
 });
@@ -45,7 +45,7 @@ describe("assertion - expectBindingContextPathToBe with wrong selector (unhappy 
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const totallyWrongSelector = {
       "wrongData": "123"
     };
@@ -96,7 +96,7 @@ describe("assertion - expectBindingContextPathToBe wrong compareValue (unhappy c
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(ui5.assertion.expectBindingContextPathToBe(categorySelector, "/ProductCategores('AC')"))
       .rejects.toThrow(/Expect\w+|\d+ProductCategores\w+|\d+Received\w+|\d+ProductCategories/);
   });

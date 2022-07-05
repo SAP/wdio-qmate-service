@@ -11,7 +11,7 @@ describe("element - switchToIframe + expectToBeVisible", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     elem = await $("iframe[id='sampleFrame']");
     await nonUi5.userInteraction.scrollToElement(elem);
     await nonUi5.element.switchToIframe("iframe[id='sampleFrame']");
@@ -24,7 +24,7 @@ describe("element - switchToIframe and catch error", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(nonUi5.element.switchToIframe("iframe[id*='__uploader']"))
       .rejects.toThrow(/Expected element not visible for selector/);
   });

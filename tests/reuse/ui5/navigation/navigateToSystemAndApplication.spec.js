@@ -4,9 +4,9 @@ describe("navigation - navigateToSystemAndApplication (s4)", function () {
   const system = "super-sensitive.domain.name";
   const application = "PurchaseOrder-manage";
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await ui5.navigation.navigateToSystemAndApplication(system, "Shell-home", false);
-    await ui5.session.loginFiori("PURCHASER");
+    await ui5.session.loginFiori("PURCHASER", "super-duper-sensitive-pw");
 
     await ui5.navigation.navigateToSystemAndApplication(system, application, false);
   });
@@ -28,9 +28,9 @@ describe("navigation - navigateToSystemAndApplication wrong navigation intent ty
   };
   const application = "Shell-home";
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await ui5.navigation.navigateToSystemAndApplication(system, application, false);
-    await ui5.session.loginFiori("PURCHASER");
+    await ui5.session.loginFiori("PURCHASER", "super-duper-sensitive-pw");
 
     await ui5.navigation.navigateToSystemAndApplication(system, wrongApplication, false); // verify = false by default
     const currentUrl = await browser.getUrl();

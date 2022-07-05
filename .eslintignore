@@ -1,5 +1,2 @@
 node_modules/
-reports/
-tests/reuseApi/tests/qmate/functional/staticServer/supplIVList
 results/
-tests/legacyReuse

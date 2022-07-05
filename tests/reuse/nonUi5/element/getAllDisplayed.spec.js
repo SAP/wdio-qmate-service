@@ -6,7 +6,7 @@ describe("element - getAllDisplayed - error case", function () {
     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });
 
-  it("Execution and Verification", async function() {
+  it("Execution & Verification", async function() {
     await expect(nonUi5.element.getAllDisplayed("BUTTON[id='invalid']", 4000))
       .rejects.toThrow("Function 'waitForAll' failed");
   });

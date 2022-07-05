@@ -30,7 +30,7 @@ describe("element - getBindingValue for wrong attribute", function () {
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.ui.demo.cart.view.Home",
@@ -63,7 +63,7 @@ describe("element - getBindingValue for wrong selector", function () {
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sapfiori.cart.view.Home", // "sapfiori.cart.view.Home" instead of "sap.ui.demo.cart.view.Home"

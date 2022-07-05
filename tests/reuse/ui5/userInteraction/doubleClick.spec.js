@@ -30,7 +30,7 @@ describe("userInteraction - doubleClick on not displayed element", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.ui.documentation.sdk.view.ApiDetailInitial",
@@ -52,7 +52,7 @@ describe("userInteraction - doubleClick on invisible element", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
 
     const selector = {
       "elementProperties": {

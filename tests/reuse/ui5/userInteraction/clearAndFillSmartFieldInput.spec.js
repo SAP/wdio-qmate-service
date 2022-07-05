@@ -54,7 +54,7 @@ describe("userInteraction - clearAndFillSmartFieldInput with invalid selector", 
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     selector = {
       "elementProperties": {
         "viewName": "sap.ui.comp.sample.smartfield.Overview.Main",

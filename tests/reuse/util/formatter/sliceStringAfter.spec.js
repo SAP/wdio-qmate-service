@@ -31,7 +31,7 @@ describe("formatter - sliceStringAfter", function () {
       expectedError = `Char '${slicePoint}' not found in input '${input}'.`;
     });
 
-    it("Execution and Verification", async function () {
+    it("Execution & Verification", async function () {
       let error;
       try {
         util.formatter.sliceStringAfter(input, slicePoint, length);
@@ -49,7 +49,7 @@ describe("formatter - sliceStringAfter", function () {
       expectedError = `Function 'sliceStringAfter' failed: Incorrect or missing arguments.`;
     });
 
-    it("Execution and Verification", async function () {
+    it("Execution & Verification", async function () {
       let error;
       try {
         util.formatter.sliceStringAfter(input, slicePoint);

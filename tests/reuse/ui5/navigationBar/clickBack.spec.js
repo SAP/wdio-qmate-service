@@ -1,33 +1,38 @@
 "use strict";
 
-describe("navigationBar - click Back", async function () {
+describe("navigationBar - clickBack", async function () {
+
   it("Preparation", async function () {
-    browser.config.baseUrl = "https://super-sensitive.domain.name/ui";
-    await browser.navigateTo("https://super-sensitive.domain.name/ui");
-    await ui5.session.login("PURCHASER");
-    await ui5.navigation.navigateToApplication("Shell-home", true);
-    await ui5.navigation.closePopups();
-
-    await ui5.navigationBar.expectPageTitle("Home");
-
-    await ui5.navigation.navigateToApplication("PurchaseOrder-manage", true);
-    await ui5.navigationBar.expectPageTitle("Manage Purchase Orders");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/ui/demoapps/demokit/rta/fiori-elements/test/index.html#Shell-home");
+    const selector = {
+      "elementProperties": {
+        "viewName": "module:sap/ushell/components/homepage/DashboardContent.view",
+        "metadata": "sap.m.GenericTile",
+        "bindingContextPath": "/groups/0/tiles/0/content/0"
+      }
+    };
+    await ui5.userInteraction.click(selector);
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution", async function () {
     await ui5.navigationBar.clickBack();
+  });
+
+  it("Verification", async function () {
     await ui5.navigationBar.expectPageTitle("Home");
   });
+
 });
 
-describe("navigationBar - click Back and catch error", function () {
+describe("navigationBar - clickBack - error case", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://super-sensitive.domain.name/ui");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/ui/demoapps/demokit/rta/fiori-elements/test/index.html#Shell-home");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     await expect(ui5.navigationBar.clickBack())
-      .rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrowError(/Function 'clickBack' failed:/);
   });
+
 });

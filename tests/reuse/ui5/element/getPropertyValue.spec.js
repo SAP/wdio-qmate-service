@@ -53,7 +53,7 @@ describe("element - getPropertyValue - wrong selector", function () {
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "fdsadgmo.cart.view.Home",
@@ -74,7 +74,7 @@ describe("element - getPropertyValue - boolean property", function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.m.sample.CheckBox.CheckBoxGroup",

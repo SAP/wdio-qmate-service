@@ -9,7 +9,7 @@ describe("date - getNextMonth with wrong formats", function () {
   let withBackSpaces;
   let withStrangeDays;
 
-  it("Execution and Verification", function () {
+  it("Execution & Verification", function () {
     // expect e.g "2020-12-26T19:18:43.787Z"
     withReversedSlash = common.date.getNextMonth("mm\\dd\\yyyy");
     withDoubleDots = common.date.getNextMonth("mm..dd..yyyy");

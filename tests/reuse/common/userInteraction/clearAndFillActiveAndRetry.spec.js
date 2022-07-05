@@ -59,7 +59,7 @@ describe("userInteraction - clearAndFillActiveAndRetry with invalid selector", f
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.m.sample.InputDescription.V",
@@ -84,7 +84,7 @@ describe("userInteraction - clearAndFillActiveAndRetry with wrong element", func
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.m.sample.MenuButton.MB",

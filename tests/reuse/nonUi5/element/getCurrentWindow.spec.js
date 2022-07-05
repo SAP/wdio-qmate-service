@@ -10,7 +10,7 @@ describe("element - getCurrentWindow", function () {
     await expect(browser.getTitle()).resolves.toEqual("Shopping Cart");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     sapWindowHandleNative = await browser.getWindowHandle();
     sapWindowHandleCustom = await util.browser.getCurrentWindow();
 
@@ -30,7 +30,7 @@ describe("element - getCurrentWindow (unhappy case)", function () {
     await common.navigation.navigateToUrl(sapWindowUrl);
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     sapWindowHandleCustom = await util.browser.getCurrentWindow();
 
     await browser.newWindow(wdioWindowUrl);

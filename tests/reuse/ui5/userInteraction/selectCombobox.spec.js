@@ -40,7 +40,7 @@ describe("userInteraction - selectComboBox use wrong selector", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     selector = {
       "elementProperties": {
         "viewName": "sap.m.sample.mboBox.view.ComboBox",
@@ -63,7 +63,7 @@ describe("userInteraction - selectComboBox use wrong value", function () {
     await handleCookiesConsent();
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     selector = {
       "elementProperties": {
         "viewName": "sap.m.sample.ComboBox.view.ComboBox",

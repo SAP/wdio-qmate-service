@@ -78,7 +78,7 @@ describe("confirmationDialog - clickDelete without confirmation dialog (unhappy 
     await browser.url("#/categories");
   });
 
-  it("Execution and Verification", async function () {
+  it("Execution & Verification", async function () {
     // No popup to click
     await expect(ui5.element.getDisplayed(selectorForPopup))
       .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
