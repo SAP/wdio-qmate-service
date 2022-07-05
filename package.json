@@ -85,7 +85,7 @@
     "test:reuse:ui5:table": "npx wdio ./tests/reuse/ui5/table/test.table.conf.js",
     "test:reuse:ui5": "npm run test:reuse:ui5:pt1 && npm run test:reuse:ui5:pt2",
     "test:reuse:ui5:pt1": "npm run test:reuse:ui5:assertion && npm run test:reuse:ui5:confirmationDialog && npm run test:reuse:ui5:control && npm run test:reuse:ui5:date && npm run test:reuse:ui5:element && npm run test:reuse:ui5:errorDialog",
-    "test:reuse:ui5:pt2": "npm run test:reuse:ui5:navigation && npm run test:reuse:ui5:navigationBar && npm run test:reuse:ui5:table && npm run test:reuse:ui5:userInteraction",
+    "test:reuse:ui5:pt2": "npm run test:reuse:ui5:navigationBar && npm run test:reuse:ui5:table && npm run test:reuse:ui5:userInteraction",
     "test:reuse:util:browser": "npx wdio ./tests/reuse/util/browser/test.browser.conf.js",
     "test:reuse:util:data": "npx wdio ./tests/reuse/util/data/test.data.conf.js",
     "test:reuse:util:file": "npx wdio ./tests/reuse/util/file/test.file.conf.js",
