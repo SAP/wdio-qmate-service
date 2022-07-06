@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
 "use strict";
-// https://webdriver.io/docs/customservices.html
-// Worker service has access to all other hooks and is being executed for each worker.
 
 import qmateLoaderSession from "./scripts/hooks/beforeSession";
 import qmateLoader from "./scripts/hooks/before";
 import onPrepareHook from "./scripts/hooks/onPrepare";
 import onCompleteHook from "./scripts/hooks/onComplete";
 import afterHook from "./scripts/hooks/after";
+const pj = require("../package.json");
+
 module.exports = class CustomWorkerService {
   /**
    * `serviceOptions` contains all options specific to the service
@@ -20,7 +20,7 @@ module.exports = class CustomWorkerService {
    * the `serviceOptions` parameter will be: `{ foo: 'bar' }`
    */
   // @ts-ignore
-  constructor(serviceOptions, capabilities, config, browser) {}
+  constructor(serviceOptions, capabilities, config, browser) { }
 
   /**
    * Gets executed once before all workers get launched.
@@ -34,7 +34,7 @@ module.exports = class CustomWorkerService {
  / __ \`/ __ \`__ \\/ __ \`/ __/ _ \\
 / /_/ / / / / / / /_/ / /_/  __/
 \\__, /_/ /_/ /_/\__,_/\\__/\\___/ 
-  /_/   \x1b[3m test automation \x1b[0m                              
+  /_/   \x1b[3m test automation v.${pj.version}\x1b[0m                              
       `;
     console.log(logo);
     try {
