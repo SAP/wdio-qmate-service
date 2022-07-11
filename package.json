@@ -1,6 +1,6 @@
 {
   "name": "@wdio/qmate-service-ts",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "author": {
     "name": "Georgios Treska",
     "email": "georgios.treska@sap.com"
