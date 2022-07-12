@@ -1,6 +1,6 @@
 "use strict";
 
-describe("element - switchToWindow", function () {
+describe("browser - switchToWindow", function () {
   const sapWindowUrl = "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories";
   let sapWindowHandle;
   const wdioWindowUrl = "https://webdriver.io/";
@@ -16,7 +16,7 @@ describe("element - switchToWindow", function () {
     await expect(browser.getTitle()).resolves.toMatch(/WebdriverIO/);
   });
 
-  it("Execution & Verification", async function () {
+  it("Execution and Verification", async function () {
     // First 'sap' window
     await util.browser.switchToWindow(sapWindowHandle);
     await expect(browser.getTitle()).resolves.toEqual("Shopping Cart");
@@ -39,14 +39,14 @@ describe("element - switchToWindow", function () {
   });
 });
 
-describe("element - switchToWindow (unhappy case)", function () {
+describe("browser - switchToWindow (unhappy case)", function () {
   const sapWindowUrl = "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories";
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(sapWindowUrl);
   });
 
-  it("Execution & Verification", async function () {
+  it("Execution and Verification", async function () {
     const windowHandles = await browser.getWindowHandles(); // returns array of handles
 
     await util.browser.switchToWindow(windowHandles[0]);
@@ -55,5 +55,3 @@ describe("element - switchToWindow (unhappy case)", function () {
       .rejects.toThrow(/Malformed type for "handle" parameter of command switchToWindow/);
   });
 });
-
-
