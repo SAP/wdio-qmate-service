@@ -273,7 +273,7 @@ export class Browser {
     }
   }
 
-  async _findAndSwitchWindow(originalHandle: object, windowTitle: string) {
+  async _findAndSwitchWindow(originalHandle: object, windowTitle: string): Promise<boolean> {
     try {
       const windowHandles = await browser.getWindowHandles();
       for (const windowHandle of windowHandles) {
@@ -303,7 +303,7 @@ export class Browser {
    * @description Switches the window.
    * @param {String} windowTitle - window title to be expected
    * @param {Number} [retries = 50] - number of retries
-   * @param {Number} [waitInternal = 1000] - wait time in milliseconds between retries
+   * @param {Number} [waitInterval = 1000] - wait time in milliseconds between retries
    * @example await util.browser.switchToNewWindow("Supplier Invoice");
    */
   async switchToNewWindow(windowTitle: string, retries: number = 50, waitInterval: number = 1000) {
