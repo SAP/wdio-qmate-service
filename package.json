@@ -32,7 +32,7 @@
     "lint:fix": "npx eslint . --fix",
     "generate-docs": "node ./lib/reuse/helper/jsDocGen",
     "serve-docs": "mkdocs serve",
-    "upload-docs": "mkdocs gh-deploy --force",
+    "deploy-docs": "mkdocs gh-deploy --force",
     "update-legacy": "node reuse/helper/legacySupport/legacyReplacer.js",
     "build": "npx tsc",
     "test:authenticator:staticLogin:custom": "npx wdio ./tests/authenticator/staticLogin/configCustom.js",
