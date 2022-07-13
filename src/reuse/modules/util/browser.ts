@@ -316,7 +316,6 @@ export class Browser {
       } catch (err: any) {
         util.console.warn(err.message);
       }
-      util.console.warn("Retrying 'switchToNewWindow'");
     }
     // switch back to original window, if can't find the new window
     await browser.switchToWindow(originalHandle);
