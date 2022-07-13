@@ -255,68 +255,72 @@ export class Browser {
    * @memberOf util.browser
    * @example await util.browser.waitForWindows();
    */
-  async waitForWindows(expectedWindowsNumber: number, retries = 50, waitInternal = 1000): Promise<boolean | undefined> {
+  async waitForWindows(expectedWindowsNumber: number, retries = 50, waitInterval = 1000): Promise<boolean | undefined> {
     try {
       const windowHandles = await browser.getWindowHandles();
-      //if(!windowHandles) return await this.waitForWindow(expectedWindowsNumber, retries, waitInternal);
-      util.console.log("Windows length -->" + windowHandles.length);
       if (windowHandles.length === expectedWindowsNumber) {
-        return expect(true).toEqual(true); //@TODO: change to promise resolve
+        return expect(true).toEqual(true); //@TODO: change to promise resolve 
       }
       retries--;
-      await browser.pause(waitInternal);
+      await browser.pause(waitInterval);
       if (retries < 1) {
-        util.console.error(
-          "Function 'waitForWindows' failed: Timeout reached, increase the retries, window was not loaded fully."
-        );
-        return expect(true).toEqual(false); //@TODO: change to promise reject
+        util.console.error("Function 'waitForWindows' failed: Timeout reached, increase the retries, window was not loaded fully.");
+        return expect(true).toEqual(false); //@TODO: change to promise reject 
       }
-      return await this.waitForWindows(expectedWindowsNumber, retries, waitInternal);
+      return await this.waitForWindows(expectedWindowsNumber, retries, waitInterval);
     } catch (error) {
       util.console.error(`Function 'waitForWindows' failed: ${error}`);
     }
   }
 
-  // better to use this.switchToWindow
+  async _findAndSwitchWindow(originalHandle: object, windowTitle: string): Promise<boolean> {
+    try {
+      const windowHandles = await browser.getWindowHandles();
+      for (const windowHandle of windowHandles) {
+        if (windowHandle !== originalHandle) {
+          await browser.switchToWindow(windowHandle);
+          await browser.executeScript("window.focus();", []);
+          if (windowTitle) {
+            const title = await browser.getTitle();
+            if (title === windowTitle) {
+              return true;
+            }
+          } else {
+            return true;
+          }
+        }
+      }
+    } catch (error: any) {
+      util.console.warn(error.message);
+      throw error;
+    }
+    return false;
+  };
+
   /**
    * @function switchToNewWindow
    * @memberOf util.browser
    * @description Switches the window.
-   * @param {String} originalHandle - The main window handle.
-   * @param {String} windowTitle - Window Title to be expected
-   * @example await util.browser.switchToNewWindow(originalHandle,);
+   * @param {String} windowTitle - window title to be expected
+   * @param {Number} [retries = 50] - number of retries
+   * @param {Number} [waitInterval = 1000] - wait time in milliseconds between retries
+   * @example await util.browser.switchToNewWindow("Supplier Invoice");
    */
-  async switchToNewWindow(originalHandle: string, windowTitle: string) {
-    const windowHandles = await browser.getWindowHandles();
-
-    for (let i = 0; i < windowHandles.length; i++) {
-      await (async (idx) => {
-        try {
-          if (windowHandles[idx] !== originalHandle) {
-            try {
-              console.log("Switching window" + windowHandles[idx]);
-              await browser.switchToWindow(windowHandles[idx]);
-              await browser.executeScript("window.focus();", []);
-              if (windowTitle) {
-                const title = await browser.getTitle();
-                if (title === windowTitle) {
-                  // TODO: ???. Will change in another PR
-                  return expect(true).toEqual(true);
-                }
-                throw new Error("Function 'switchToNewWindow' failed.");
-              } else {
-                return expect(true).toEqual(true);
-              }
-            } catch (error) {
-              util.console.warn("Retrying 'switchToNewWindow'."); //@TODO: check for endeless recursion
-              return await this.switchToNewWindow(originalHandle, windowTitle);
-            }
-          }
-        } catch (e) {
-          util.console.warn("Function 'switchToNewWindow': Could not get Title. Window already closed.");
-        }
-      })(i);
+  async switchToNewWindow(windowTitle: string, retries: number = 50, waitInterval: number = 1000) {
+    const originalHandle = await this.getCurrentWindow();
+    for (let i = 0; i < retries; i++) {
+      try {
+        const foundWindow = await this._findAndSwitchWindow(originalHandle, windowTitle);
+        if (foundWindow) return true;
+        await browser.pause(waitInterval);
+      } catch (err: any) {
+        util.console.warn(err.message);
+      }
     }
+    // switch back to original window, if can't find the new window
+    await browser.switchToWindow(originalHandle);
+    await browser.executeScript("window.focus();", []);
+    throw new Error(`Function 'switchToNewWindow' failed after ${retries} retries.`);
   }
 
   /**
@@ -347,7 +351,7 @@ export class Browser {
    * @description Go one step back in browser history.
    * @example await util.browser.back();
    */
-   async back () {
+  async back() {
     return browser.back();
   };
 

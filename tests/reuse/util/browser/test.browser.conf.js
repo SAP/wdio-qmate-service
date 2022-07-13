@@ -16,6 +16,7 @@ exports.config = merge(qmateConfiguration.config, {
     path.resolve(__dirname, "refresh.spec.js"),
     path.resolve(__dirname, "executeScript.spec.js"),
     path.resolve(__dirname, "getCurrentWindow.spec.js"),
+    path.resolve(__dirname, "switchToWindow.spec.js"),
     path.resolve(__dirname, "switchToNewWindow.spec.js"),
     path.resolve(__dirname, "back.spec.js"),
 
