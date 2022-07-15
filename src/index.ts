@@ -34,7 +34,7 @@ module.exports = class CustomWorkerService {
  / __ \`/ __ \`__ \\/ __ \`/ __/ _ \\
 / /_/ / / / / / / /_/ / /_/  __/
 \\__, /_/ /_/ /_/\__,_/\\__/\\___/ 
-  /_/   \x1b[3m test automation v.${pj.version}\x1b[0m                              
+  /_/   \x1b[3m service v.${pj.version}\x1b[0m                              
       `;
     console.log(logo);
     try {
