@@ -512,9 +512,8 @@ export class ElementModule {
    * @example await nonUi5.element.switchToIframe("iframe[id='frame01']");
    */
   async switchToIframe (selector: any) {
-    await this.waitToBeVisible(selector);
-    const frame = await $(selector);
-    await browser.switchToFrame(frame);
+    util.console.warn(`⚠  "nonUi5.element.switchToIframe" is deprecated. Please use "util.browser.switchToIframe" instead.`);
+    await util.browser.switchToIframe(selector);
   };
 
   /**
@@ -524,7 +523,8 @@ export class ElementModule {
    * @example await nonUi5.element.switchToDefaultContent();
    */
   async switchToDefaultContent () {
-    await browser.switchToFrame(null);
+    util.console.warn(`⚠  "nonUi5.element.switchToDefaultContent" is deprecated. Please use "util.browser.switchToDefaultContent" instead.`);
+    await util.browser.switchToDefaultContent();
   };
 
 
