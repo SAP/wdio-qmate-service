@@ -297,7 +297,13 @@ export class Session {
     if (verify) {
       await ui5.navigationBar.expectShellHeader();
     }
-    await util.function.executeOptional(async () => { await util.browser.logUI5Version() }, []);
+    try {
+      await util.browser.logUI5Version();
+    } catch (error) {
+      if (error instanceof Error) {
+        util.console.warn(error.toString());
+      }
+    }
   }
 
   private async _clickSignOut() {
