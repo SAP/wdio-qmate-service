@@ -35,6 +35,7 @@
     "deploy-docs": "mkdocs gh-deploy --force",
     "update-legacy": "node reuse/helper/legacySupport/legacyReplacer.js",
     "build": "npx tsc",
+    "build:dev": "npx tsc --watch",
     "test:authenticator:staticLogin:custom": "npx wdio ./tests/authenticator/staticLogin/configCustom.js",
     "test:authenticator:staticLogin:customViaConfig": "npx wdio ./tests/authenticator/staticLogin/configCustomViaConfig.js",
     "test:authenticator:staticLogin:fiori": "npx wdio ./tests/authenticator/staticLogin/configFiori.js",
