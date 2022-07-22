@@ -1,6 +1,11 @@
 const merge = require("deepmerge");
 const baseConfig = require("./base.conf.js");
 
+const QmateHtmlReporter = require("wdio-qmate-reporter").default;
+const QmateJunitReporter = require("wdio-qmate-junit-reporter").default;
+
+const outputDir = "./results";
+
 exports.config = merge(baseConfig.config, {
   path: "/",
 
@@ -37,6 +42,22 @@ exports.config = merge(baseConfig.config, {
     ["chromedriver", {
       port: 4444,
       chromedriverCustomPath: process.env.CHROME_DRIVER
+    }]
+  ],
+
+  reporters: [
+    [QmateHtmlReporter, {
+      outputDir: outputDir,
+      filename: "report",
+      displayOnlyFailed: true,
+      collapsePassedSuites: true,
+      collapseSkippedSuites: true,
+      collapseFailedSuites: true,
+      collapseAllSuites: true,
+      entriesPerPage: 10
+    }],
+    [QmateJunitReporter, {
+      outputDir: outputDir
     }]
   ]
 });
