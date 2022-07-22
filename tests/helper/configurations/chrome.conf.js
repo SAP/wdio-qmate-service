@@ -2,7 +2,6 @@ const merge = require("deepmerge");
 const baseConfig = require("./base.conf.js");
 
 const QmateHtmlReporter = require("wdio-qmate-reporter").default;
-const QmateJunitReporter = require("wdio-qmate-junit-reporter").default;
 
 const outputDir = "./results";
 
@@ -55,9 +54,6 @@ exports.config = merge(baseConfig.config, {
       collapseFailedSuites: true,
       collapseAllSuites: true,
       entriesPerPage: 10
-    }],
-    [QmateJunitReporter, {
-      outputDir: outputDir
     }]
   ]
 });
