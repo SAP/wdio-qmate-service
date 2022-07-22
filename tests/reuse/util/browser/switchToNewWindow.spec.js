@@ -1,55 +1,115 @@
 "use strict";
 
-describe("browser - switchToNewWindow", function () {
-  const sapWindowUrl = "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories";
-  const sapTitle = "Shopping Cart";
+const { handleCookiesConsent } = require("../../../helper/utils");
 
-  const wdioWindowUrl = "https://webdriver.io/docs/gettingstarted/";
-  const wdioTitle = "Getting Started | WebdriverIO";
-
-  let currentWindowHandle;
-  let currentUrl;
+describe("browser - switchToNewWindow - title", function () {
+  const demoAppsTitle = "Demo Apps - Demo Kit - SAPUI5 SDK";
+  const shoppingCartTitle = "Shopping Cart";
 
   it("Preparation", async function () {
-    // Check titles to use them later
-    await common.navigation.navigateToUrl(sapWindowUrl);
-    await expect(browser.getTitle()).resolves.toEqual(sapTitle);
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/demoapps");
+    await handleCookiesConsent();
 
-    await browser.newWindow(wdioWindowUrl);
-    await expect(browser.getTitle()).resolves.toEqual(wdioTitle);
-
-    // First switch to 'sap' window. We assume that we are on WDIO page
-    currentWindowHandle = await util.browser.getCurrentWindow();
-    currentUrl = await browser.getUrl();
-    await common.assertion.expectEqual(currentUrl, wdioWindowUrl);
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.ui.documentation.sdk.view.DemoApps",
+        "metadata": "sap.ui.documentation.TitleLink",
+        "bindingContextPath": "/demoAppsByCategory/0/rows/0/0"
+      }
+    };
+    await ui5.userInteraction.click(selector);
   });
 
-  it("Execution and Verification", async function () {
-    // First switch to 'sap' window
-    await util.browser.switchToNewWindow();
-    await expect(browser.getTitle()).resolves.toEqual(sapTitle);
+  it("Execution 1", async function () {
+    await util.browser.switchToNewWindow(shoppingCartTitle);
+  });
 
-    // Check window handle
-    currentWindowHandle = await util.browser.getCurrentWindow();
-    await util.browser.switchToNewWindow();
-    await expect(browser.getTitle()).resolves.toEqual(wdioTitle);
+  it("Verification 1", async function () {
+    const currentTitle = await browser.getTitle();
+    await common.assertion.expectEqual(currentTitle, shoppingCartTitle);
+  });
+
+  it("Execution 2", async function () {
+    await util.browser.switchToNewWindow(demoAppsTitle);
+  });
+
+  it("Verification 2", async function () {
+    const currentTitle = await browser.getTitle();
+    await common.assertion.expectEqual(currentTitle, demoAppsTitle);
   });
 });
 
-describe("browser - switchToNewWindow (unhappy case)", function () {
-  const sapWindowUrl = "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories";
-
+describe("browser - switchToNewWindow - RegExp", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl(sapWindowUrl);
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/demoapps");
+    await handleCookiesConsent();
+
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.ui.documentation.sdk.view.DemoApps",
+        "metadata": "sap.ui.documentation.TitleLink",
+        "bindingContextPath": "/demoAppsByCategory/0/rows/0/0"
+      }
+    };
+    await ui5.userInteraction.click(selector);
   });
 
-  it("Execution and Verification", async function () {
-    const currentWindowHandleBefore = await util.browser.getCurrentWindow();
+  it("Execution 1", async function () {
+    const titleRegExp = /Shopping/;
+    await util.browser.switchToNewWindow(titleRegExp);
+  });
 
+  it("Verification 1", async function () {
+    const titleAct = await browser.getTitle();
+    const titleExp = "Shopping Cart";
+    await common.assertion.expectEqual(titleAct, titleExp);
+  });
+});
+
+describe("browser - switchToNewWindow - url", function () {
+  const shoppingCartUrl = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3";
+
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/demoapps");
+    await handleCookiesConsent();
+
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.ui.documentation.sdk.view.DemoApps",
+        "metadata": "sap.ui.documentation.TitleLink",
+        "bindingContextPath": "/demoAppsByCategory/0/rows/0/0"
+      }
+    };
+    await ui5.userInteraction.click(selector);
+  });
+
+  it("Execution", async function () {
+    await util.browser.switchToNewWindow(shoppingCartUrl);
+  });
+
+  it("Verification", async function () {
+    const currentUrl = await util.browser.getCurrentUrl();
+    await common.assertion.expectEqual(currentUrl, shoppingCartUrl);
+  });
+});
+
+describe("browser - switchToNewWindow - error case", function () {
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/demoapps");
+    await handleCookiesConsent();
+
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.ui.documentation.sdk.view.DemoApps",
+        "metadata": "sap.ui.documentation.TitleLink",
+        "bindingContextPath": "/demoAppsByCategory/0/rows/0/0"
+      }
+    };
+    await ui5.userInteraction.click(selector);
+  });
+
+  it("Execution & Verification", async function () {
     await expect(util.browser.switchToNewWindow("Wrong Title"))
-      .rejects.toThrow(/Function 'switchToNewWindow' failed after \d+ retries./);
-
-    const currentWindowHandleAfter = await util.browser.getCurrentWindow();
-    await common.assertion.expectEqual(currentWindowHandleAfter, currentWindowHandleBefore);
+      .rejects.toThrow(/Function 'switchToNewWindow' failed:/);
   });
 });
