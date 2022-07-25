@@ -510,11 +510,12 @@ export class ElementModule {
    * @description Switches to the passed iframe.
    * @param {String} selector - The CSS selector describing the iframe element.
    * @example await nonUi5.element.switchToIframe("iframe[id='frame01']");
+   * @deprecated please use util.browser.switchToIframe
+   * @see [util.browser.switchToIframe]{@link util.browser.switchToIframe}
    */
   async switchToIframe (selector: any) {
-    await this.waitToBeVisible(selector);
-    const frame = await $(selector);
-    await browser.switchToFrame(frame);
+    util.console.warn(`⚠  "nonUi5.element.switchToIframe" is deprecated. Please use "util.browser.switchToIframe" instead.`);
+    await util.browser.switchToIframe(selector);
   };
 
   /**
@@ -522,9 +523,12 @@ export class ElementModule {
    * @memberOf nonUi5.element
    * @description Switches to the default content of the HTML page.
    * @example await nonUi5.element.switchToDefaultContent();
+   * @deprecated please use util.browser.switchToDefaultContent
+   * @see [util.browser.switchToDefaultContent]{@link util.browser.switchToDefaultContent}
    */
   async switchToDefaultContent () {
-    await browser.switchToFrame(null);
+    util.console.warn(`⚠  "nonUi5.element.switchToDefaultContent" is deprecated. Please use "util.browser.switchToDefaultContent" instead.`);
+    await util.browser.switchToDefaultContent();
   };
 
 
