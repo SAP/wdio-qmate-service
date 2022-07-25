@@ -288,6 +288,29 @@ export class Browser {
   }
 
   /**
+   * @function switchToIframe
+   * @memberOf util.browser
+   * @description Switches to the passed iframe.
+   * @param {String} selector - The CSS selector describing the iframe element.
+   * @example await util.browser.switchToIframe("iframe[id='frame01']");
+   */
+  async switchToIframe(selector: string) {
+    await nonUi5.element.waitToBeVisible(selector);
+    const frame = await $(selector);
+    await browser.switchToFrame(frame);
+  };
+
+  /**
+   * @function switchToDefaultContent
+   * @memberOf util.browser
+   * @description Switches to the default content of the HTML page.
+   * @example await util.browser.switchToDefaultContent();
+   */
+  async switchToDefaultContent() {
+    await browser.switchToFrame(null);
+  };
+
+  /**
    * @function back
    * @memberOf util.browser
    * @description Go one step back in browser history.
