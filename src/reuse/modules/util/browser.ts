@@ -248,79 +248,21 @@ export class Browser {
   }
 
   // =================================== WINDOW HANDLING ===================================
-  //@TODO: refactor whole functions
-  //@TODO: need to be updated - would be good to return all handles getWindowHandles() in array
-  /**
-   * @function waitForWindows
-   * @memberOf util.browser
-   * @example await util.browser.waitForWindows();
-   */
-  async waitForWindows(expectedWindowsNumber: number, retries = 50, waitInterval = 1000): Promise<boolean | undefined> {
-    try {
-      const windowHandles = await browser.getWindowHandles();
-      if (windowHandles.length === expectedWindowsNumber) {
-        return expect(true).toEqual(true); //@TODO: change to promise resolve 
-      }
-      retries--;
-      await browser.pause(waitInterval);
-      if (retries < 1) {
-        util.console.error("Function 'waitForWindows' failed: Timeout reached, increase the retries, window was not loaded fully.");
-        return expect(true).toEqual(false); //@TODO: change to promise reject 
-      }
-      return await this.waitForWindows(expectedWindowsNumber, retries, waitInterval);
-    } catch (error) {
-      util.console.error(`Function 'waitForWindows' failed: ${error}`);
-    }
-  }
-
-  async _findAndSwitchWindow(originalHandle: object, windowTitle: string): Promise<boolean> {
-    try {
-      const windowHandles = await browser.getWindowHandles();
-      for (const windowHandle of windowHandles) {
-        if (windowHandle !== originalHandle) {
-          await browser.switchToWindow(windowHandle);
-          await browser.executeScript("window.focus();", []);
-          if (windowTitle) {
-            const title = await browser.getTitle();
-            if (title === windowTitle) {
-              return true;
-            }
-          } else {
-            return true;
-          }
-        }
-      }
-    } catch (error: any) {
-      util.console.warn(error.message);
-      throw error;
-    }
-    return false;
-  };
-
   /**
    * @function switchToNewWindow
    * @memberOf util.browser
-   * @description Switches the window.
-   * @param {String} windowTitle - window title to be expected
-   * @param {Number} [retries = 50] - number of retries
-   * @param {Number} [waitInterval = 1000] - wait time in milliseconds between retries
-   * @example await util.browser.switchToNewWindow("Supplier Invoice");
+   * @description Switches to the window or tab with the given title.
+   * @param {String|RegExp} titleOrUrl - Window title or url of the expected window or tab (can be either a string or part of it as regular expression).
+   * @example await util.browser.switchToNewWindow("SAP - Home");
+   * @example await util.browser.switchToNewWindow(/Home/);
+   * @example await util.browser.switchToNewWindow("www.sap.com");
    */
-  async switchToNewWindow(windowTitle: string, retries: number = 50, waitInterval: number = 1000) {
-    const originalHandle = await this.getCurrentWindow();
-    for (let i = 0; i < retries; i++) {
-      try {
-        const foundWindow = await this._findAndSwitchWindow(originalHandle, windowTitle);
-        if (foundWindow) return true;
-        await browser.pause(waitInterval);
-      } catch (err: any) {
-        util.console.warn(err.message);
-      }
+   async switchToNewWindow(titleOrUrl: string | RegExp) {
+    try {
+      await browser.switchWindow(titleOrUrl);
+    } catch (error) {
+      throw new Error(`Function 'switchToNewWindow' failed: ${error}`);
     }
-    // switch back to original window, if can't find the new window
-    await browser.switchToWindow(originalHandle);
-    await browser.executeScript("window.focus();", []);
-    throw new Error(`Function 'switchToNewWindow' failed after ${retries} retries.`);
   }
 
   /**
@@ -339,7 +281,7 @@ export class Browser {
    * @memberOf util.browser
    * @description Returns the current window handle.
    * @returns {Object} The window handle.
-   * @example await util.browser.getCurrentWindow();
+   * @example const originalWindowHandle = await util.browser.getCurrentWindow();
    */
   async getCurrentWindow(): Promise<any> {
     return browser.getWindowHandle();
@@ -376,7 +318,7 @@ export class Browser {
    */
   async back() {
     return browser.back();
-  };
+  }
 
 }
 
