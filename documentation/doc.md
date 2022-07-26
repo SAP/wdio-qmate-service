@@ -562,7 +562,7 @@ Global namespace for util modules.
         * [.logUI5Version()](#util.browser.logUI5Version)
         * [.executeScript(command)](#util.browser.executeScript) ⇒ <code>Any</code>
         * [.waitForWindows()](#util.browser.waitForWindows)
-        * [.switchToNewWindow(originalHandle, windowTitle)](#util.browser.switchToNewWindow)
+        * [.switchToNewWindow(windowTitle, [retries], [waitInterval])](#util.browser.switchToNewWindow)
         * [.switchToWindow(handle)](#util.browser.switchToWindow)
         * [.getCurrentWindow()](#util.browser.getCurrentWindow) ⇒ <code>Object</code>
         * [.back()](#util.browser.back)
@@ -624,7 +624,7 @@ Global namespace for util modules.
     * [.logUI5Version()](#util.browser.logUI5Version)
     * [.executeScript(command)](#util.browser.executeScript) ⇒ <code>Any</code>
     * [.waitForWindows()](#util.browser.waitForWindows)
-    * [.switchToNewWindow(originalHandle, windowTitle)](#util.browser.switchToNewWindow)
+    * [.switchToNewWindow(windowTitle, [retries], [waitInterval])](#util.browser.switchToNewWindow)
     * [.switchToWindow(handle)](#util.browser.switchToWindow)
     * [.getCurrentWindow()](#util.browser.getCurrentWindow) ⇒ <code>Object</code>
     * [.back()](#util.browser.back)
@@ -814,19 +814,20 @@ await util.browser.waitForWindows();
 ```
 <a name="util.browser.switchToNewWindow"></a>
 
-#### browser.switchToNewWindow(originalHandle, windowTitle)
+#### browser.switchToNewWindow(windowTitle, [retries], [waitInterval])
 Switches the window.
 
 **Kind**: static method of [<code>browser</code>](#util.browser)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| originalHandle | <code>String</code> | The main window handle. |
-| windowTitle | <code>String</code> | Window Title to be expected |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| windowTitle | <code>String</code> |  | window title to be expected |
+| [retries] | <code>Number</code> | <code>50</code> | number of retries |
+| [waitInterval] | <code>Number</code> | <code>1000</code> | wait time in milliseconds between retries |
 
 **Example**  
 ```js
-await util.browser.switchToNewWindow(originalHandle,);
+await util.browser.switchToNewWindow("Supplier Invoice");
 ```
 <a name="util.browser.switchToWindow"></a>
 
