@@ -17,7 +17,7 @@ export class Session {
    * @example await ui5.session.login("PURCHASER");
    * @example await ui5.session.login("JOHN_DOE", "abc123!", true);
    */
-  async login (username: string, password = "super-duper-sensitive-pw", verify = false, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async login(username: string, password = "super-duper-sensitive-pw", verify = false, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     if (browser.config && browser.config.params &&
       browser.config.params.auth && browser.config.params.auth.formType === "skip") {
       util.console.warn("Login is skipped since 'formType' is set to 'skip'");
@@ -69,7 +69,7 @@ export class Session {
    * @param {Boolean} [verify=false] - Specifies if the function will check the shell header after logging in.
    * @example await ui5.session.loginFiori("john", "abc123!");
    */
-  async loginFiori (username: string, password = "super-duper-sensitive-pw", verify = false) {
+  async loginFiori(username: string, password = "super-duper-sensitive-pw", verify = false) {
     if (!username) {
       throw new Error("Please provide a valid username.");
     }
@@ -77,7 +77,7 @@ export class Session {
     try {
       const authenticator = ui5.authenticators.fioriForm;
       const messageSelector = ui5.authenticators.fioriForm.messageSelector;
-      await this._loginWithUsernameAndPassword(username, password, authenticator, verify, messageSelector);
+      return await this._loginWithUsernameAndPassword(username, password, authenticator, verify, messageSelector);
     } catch (error) {
       throw new Error(`Function 'loginFiori' failed: ${error}`);
     }
@@ -92,7 +92,7 @@ export class Session {
    * @param {Boolean} [verify=false] - Specifies if the function will check the shell header after logging in.
    * @example await ui5.session.loginSapCloud("john", "abc123!");
    */
-  async loginSapCloud (username: string, password = "super-duper-sensitive-pw", verify = false) {
+  async loginSapCloud(username: string, password = "super-duper-sensitive-pw", verify = false) {
     if (!username) {
       throw new Error("Please provide a valid username.");
     }
@@ -118,7 +118,7 @@ export class Session {
    * @param {Boolean} [verify=false] - Specifies if the function will check the shell header after logging in.
    * @example await ui5.session.loginCustom("JOHN_DOE", "abc123!", "#username", #password, "#logon");
    */
-  async loginCustom (username: string, password = "super-duper-sensitive-pw", usernameFieldSelector: string, passwordFieldSelector: string, logonButtonSelector: string, verify = false) {
+  async loginCustom(username: string, password = "super-duper-sensitive-pw", usernameFieldSelector: string, passwordFieldSelector: string, logonButtonSelector: string, verify = false) {
     if (!username) {
       throw new Error("Please provide a valid username.");
     }
@@ -166,7 +166,7 @@ export class Session {
     await ui5.session.loginCustomViaConfig();
    */
 
-  async loginCustomViaConfig (username: string, password = "super-duper-sensitive-pw", verify = false) {
+  async loginCustomViaConfig(username: string, password = "super-duper-sensitive-pw", verify = false) {
     try {
       const baseUrl = browser.config.baseUrl;
       await browser.navigateTo(baseUrl);
@@ -206,7 +206,7 @@ export class Session {
    * Set this to false if the system does not show the text after logging out.
    * @example await ui5.session.logout();
    */
-  async logout (verify = true) {
+  async logout(verify = true) {
     if (browser.config && browser.config.params &&
       browser.config.params.auth && browser.config.params.auth.formType === "skip") {
       console.warn("Logout is skipped.");
@@ -235,14 +235,14 @@ export class Session {
    * @example const authenticator = ui5.authenticators.fioriForm;
    * await ui5.session.switchUser("PURCHASER", "super-duper-sensitive-pw", authenticator, 30000);
    */
-  async switchUser (username: string, password = "super-duper-sensitive-pw", authenticator: any, wait = 10000) {
+  async switchUser(username: string, password = "super-duper-sensitive-pw", authenticator: any, wait = 10000) {
     await this.logout();
     await util.browser.sleep(wait);
     await browser.navigateTo(browser.config.baseUrl);
     if (!authenticator) {
       this.login(username, password);
     } else {
-      this._loginWithUsernameAndPassword(username, password, authenticator);
+      await this._loginWithUsernameAndPassword(username, password, authenticator);
     }
   };
 
@@ -255,7 +255,7 @@ export class Session {
    * This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
    * @example await ui5.session.expectLogoutText();
    */
-  async expectLogoutText () {
+  async expectLogoutText() {
     const elem = await nonUi5.element.getById("msgText");
     await nonUi5.assertion.expectToBeVisible(elem);
   };
@@ -297,8 +297,13 @@ export class Session {
     if (verify) {
       await ui5.navigationBar.expectShellHeader();
     }
-
-    await util.browser.logUI5Version();
+    try {
+      await util.browser.logUI5Version();
+    } catch (error) {
+      if (error instanceof Error) {
+        util.console.warn(error.toString());
+      }
+    }
   }
 
   private async _clickSignOut() {

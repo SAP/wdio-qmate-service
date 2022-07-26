@@ -158,7 +158,7 @@ export class Browser {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await util.browser.getUI5Version();
    */
-  async getUI5Version(timeout: number = browser.config.waitForUI5Timeout || 30000) {
+  async getUI5Version(timeout: number = browser.config.waitForUI5Timeout || 5000) {
     await browser.waitUntil(
       async function () {
         // eslint-disable-next-line no-return-await
@@ -176,7 +176,7 @@ export class Browser {
       },
       {
         timeout: timeout,
-        timeoutMsg: `Page did not load within timeout ${timeout / 1000}s`,
+        timeoutMsg: `Can not retrieve UI5 version within timeout ${timeout / 1000}s`,
         interval: 400,
       }
     );
