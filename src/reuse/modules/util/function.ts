@@ -39,7 +39,7 @@ export class FunctionModule {
    *  await ui5.userInteraction.fill(selector, "ABC");
    * }, []);
    */
-  async executeOptional (fct: any, args: Array<any>) {
+  async executeOptional (fct: any, args: Array<any> = []) {
     try {
       await fct.apply(this, args);
     } catch (e) {
