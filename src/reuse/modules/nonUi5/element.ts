@@ -149,7 +149,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByCssContainingText(".input01", "Jack Jackson");
    */
-  async getByCssContainingText(selector: any, text: string = "", index = 0, timeout: number = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByCssContainingText(selector: any, text: string = "", index: number = 0, timeout: number = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
       await this.waitForAll(`${selector}=${text}`, timeout);
       const elements: Element[] = await $$(`${selector}=${text}`);
@@ -201,7 +201,7 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getByClass("button01");
    * const elem = await nonUi5.element.getByClass("sapMIBar sapMTB sapMTBNewFlex sapContrastPlus");
    */
-  async getByClass(elemClass: string, index = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByClass(elemClass: string, index: number = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
       const selector = `[class*='${elemClass}']`;
       return await this._getAndFilterElementBySelector(selector, index, timeout, includeHidden);
@@ -221,7 +221,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByName(".button01");
    */
-  async getByName(name: string, index = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByName(name: string, index: number = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
       const selector = `[name='${name}']`;
       return await this._getAndFilterElementBySelector(selector, index, timeout, includeHidden);
@@ -241,7 +241,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByXPath("//ul/li/a");
    */
-  async getByXPath(xpath: string, index = 0, timeout = customTimeout || 30000, includeHidden: boolean = false) {
+  async getByXPath(xpath: string, index: number = 0, timeout = customTimeout || 30000, includeHidden: boolean = false) {
     try {
       return await this.getByCss(xpath, index, timeout, includeHidden);
     } catch (error) {
@@ -261,7 +261,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByChild(".form01", ".input01");
    */
-  async getByChild(elementSelector: any, childSelector: any, index = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByChild(elementSelector: any, childSelector: any, index: number = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
     let elementsWithChild: Element[];
 
     try {
@@ -295,7 +295,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByParent(".form01", ".input01");
    */
-  async getByParent(elementSelector: any, parentSelector: any, index = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByParent(elementSelector: any, parentSelector: any, index: number = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
     let elementsWithParent: Element[];
 
     try {
@@ -364,7 +364,7 @@ export class ElementModule {
    * @returns {boolean} Returns true or false.
    * @example await nonUi5.element.isPresentByCss(".button01");
    */
-  async isPresentByCss(css: string, index = 0, timeout = customTimeout || 30000) {
+  async isPresentByCss(css: string, index: number = 0, timeout = customTimeout || 30000) {
     try {
       const elements = await this.getAll(css, timeout);
       return elements[index].isExisting();
@@ -383,64 +383,59 @@ export class ElementModule {
    * @returns {boolean}
    * @example await nonUi5.element.isPresentByXPath(".//*[text()='Create']");
    */
-  async isPresentByXPath(xpath: string, index = 0, timeout = customTimeout || 30000): Promise<boolean> {
+  async isPresentByXPath(xpath: string, index: number = 0, timeout = customTimeout || 30000): Promise<boolean> {
     return this.isPresentByCss(xpath, index, timeout);
   }
 
-  // /**
-  //  * @function getAttributeValue
-  //  * @memberOf nonUi5.element
-  //  * @description Returns the attributes value of the passed element.
-  //  * @param {Object} elem - The element.
-  //  * @param {String} [attribute] - The attribute of the element. Leave empty to return the inner HTML value of the element.
-  //  * @returns {String} The attributes value of the element.
-  //  * @example const elem = await nonUi5.element.getById("elem01");
-  //  * const text = await nonUi5.element.getAttributeValue(elem, "text");
-  //  * @example const elem = await nonUi5.element.getById("elem02");
-  //  * const innerHTML = await nonUi5.element.getAttributeValue(elem);
-  //  */
-  // async getAttributeValue(elem: Element, attribute?: string): Promise<string> {
-  //   if (typeof elem === "object" && elem !== null) {
-  //     const tagName = await elem.getTagName();
-  //     if (attribute === "value" && (tagName === "input" || tagName === "textarea")) {
-  //       // return the element value (and not element attribute value) for input and textarea "value" attribute
-  //       return elem.getValue();
-  //     } else if (attribute && attribute !== "textContent") {
-  //       return elem.getAttribute(attribute);
-  //     } else {
-  //       if (attribute === "textContent") {
-  //         // return attribute value if present
-  //         const attributeValue = await elem.getAttribute(attribute);
-  //         if (attributeValue !== null) return attributeValue;
-  //       }
-  //       const [value, text] = await Promise.all([
-  //         elem.getValue(),
-  //         elem.getText()
-  //       ]);
-  //       return value || text;
-  //     }
-  //   } else {
-  //     throw new Error(`Function 'getAttributeValue' failed. Please provide an element as first argument (must be of type 'object').`);
-  //   }
-  // };
+  /**
+   * @function getAttributeValue
+   * @memberOf nonUi5.element
+   * @description Returns the attributes value of the passed element.
+   * @param {Object} elem - The element.
+   * @param {String} [attribute] - The attribute of the element. Leave empty to return the inner HTML value of the element.
+   * @returns {String} The attributes value of the element.
+   * @example const elem = await nonUi5.element.getById("elem01");
+   * const text = await nonUi5.element.getAttributeValue(elem, "text");
+   * @example const elem = await nonUi5.element.getById("elem02");
+   * const innerHTML = await nonUi5.element.getAttributeValue(elem);
+   */
+  async getAttributeValue(elem: Element, attribute?: string): Promise<string> {
+    if (typeof elem === "object" && elem !== null) {
+      const tagName = await elem.getTagName();
+      if (attribute === "value" && (tagName === "input" || tagName === "textarea")) {
+        return elem.getValue();
+      } else if (attribute && attribute !== "textContent") {
+        return elem.getAttribute(attribute);
+      } else {
+        if (attribute === "textContent") {
+          const attributeValue = await elem.getAttribute(attribute);
+          if (attributeValue !== null) return attributeValue;
+        }
+        const [value, text] = await Promise.all([elem.getValue(), elem.getText()]);
+        return value || text;
+      }
+    } else {
+      throw new Error(`Function 'getAttributeValue' failed. Please provide an element as first argument (must be of type 'object').`);
+    }
+  }
 
-  // /**
-  //  * @function getValue
-  //  * @memberOf nonUi5.element
-  //  * @description Returns the value of the passed element.
-  //  * @param {Object} elem - The element.
-  //  * @returns {String} The value of the element.
-  //  * @example const elem = await nonUi5.element.getById("elem02");
-  //  * const innerHTML = await nonUi5.element.getValue(elem);
-  //  */
-  // async getValue(elem: Element): Promise<string> {
-  //   try {
-  //     // eslint-disable-next-line no-return-await
-  //     return await this.getAttributeValue(elem);
-  //   } catch (error) {
-  //     throw new Error(`Function 'getValue' failed: ${error}`);
-  //   }
-  // };
+  /**
+   * @function getValue
+   * @memberOf nonUi5.element
+   * @description Returns the value of the passed element.
+   * @param {Object} elem - The element.
+   * @returns {String} The value of the element.
+   * @example const elem = await nonUi5.element.getById("elem02");
+   * const innerHTML = await nonUi5.element.getValue(elem);
+   */
+  async getValue(elem: Element): Promise<string> {
+    try {
+      const [value, text] = await Promise.all([elem.getValue(), elem.getText()]);
+      return value || text;
+    } catch (error) {
+      throw new Error(`Function 'getValue' failed: ${error}`);
+    }
+  }
 
   // // =================================== SET VALUES ===================================
   // /**
