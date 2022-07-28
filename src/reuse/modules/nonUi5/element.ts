@@ -262,22 +262,18 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getByChild(".form01", ".input01");
    */
   async getByChild(elementSelector: any, childSelector: any, index = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
-    let elems: Element[], elementsWithChild: Element[];
+    let elementsWithChild: Element[];
 
     try {
       if (includeHidden) {
-        elems = await this.getAll(elementSelector, timeout);
+        const elems = await this.getAll(elementSelector, timeout);
+        elementsWithChild = elems.filter(async (elem) => await (await elem.$(childSelector)).isExisting());
       } else {
-        elems = await this.getAllDisplayed(elementSelector, timeout);
+        const elems = await this.getAllDisplayed(elementSelector, timeout);
+        elementsWithChild = elems.filter(async (elem) => await (await elem.$(childSelector)).isDisplayed());
       }
     } catch (error) {
       throw new Error(`Function 'getByChild' failed. No element found for selector: '${elementSelector}'.`);
-    }
-
-    if (includeHidden) {
-      elementsWithChild = elems.filter(async (elem) => await (await elem.$(childSelector)).isExisting());
-    } else {
-      elementsWithChild = elems.filter(async (elem) => await (await elem.$(childSelector)).isDisplayed());
     }
     
     if (elementsWithChild.length === 0) {
@@ -300,22 +296,18 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getByParent(".form01", ".input01");
    */
   async getByParent(elementSelector: any, parentSelector: any, index = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
-    let parentElems: Element[], elementsWithParent: Element[];
+    let elementsWithParent: Element[];
 
     try {
       if (includeHidden) {
-        parentElems = await this.getAll(elementSelector, timeout);
+        const parentElems = await this.getAll(elementSelector, timeout);
+        elementsWithParent = parentElems.filter(async (elem) => await (await elem.$(elementSelector)).isExisting());
       } else {
-        parentElems = await this.getAllDisplayed(elementSelector, timeout);
+        const parentElems = await this.getAllDisplayed(elementSelector, timeout);
+        elementsWithParent = parentElems.filter(async (elem) => await (await elem.$(elementSelector)).isDisplayed());
       }
     } catch (error) {
       throw new Error(`Function 'getByParent' failed. No parent element found for selector: '${parentSelector}'. ${error}`);
-    }
-
-    if (includeHidden) {
-      elementsWithParent = parentElems.filter(async (elem) => await (await elem.$(elementSelector)).isExisting());
-    } else {
-      elementsWithParent = parentElems.filter(async (elem) => await (await elem.$(elementSelector)).isDisplayed());
     }
 
     if (elementsWithParent.length === 0) {
