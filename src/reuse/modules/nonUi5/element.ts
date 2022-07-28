@@ -317,7 +317,7 @@ export class ElementModule {
     }
   }
 
-  // // =================================== GET VALUES ===================================
+  // =================================== GET VALUES ===================================
   /**
    * @function isVisible
    * @memberOf nonUi5.element
@@ -437,67 +437,67 @@ export class ElementModule {
     }
   }
 
-  // // =================================== SET VALUES ===================================
-  // /**
-  //  * @function setInnerHTML
-  //  * @memberOf nonUi5.element
-  //  * @description Sets the innerHTML value of the given element.
-  //  * CAUTION: Only use this if filling the value in the normal way is not working and if it is unavoidable. Keep in mind, that a user is not able to perform such actions.
-  //  * @param {Object} elem - The element.
-  //  * @returns {String} The value to set.
-  //  * @example const elem = await nonUi5.element.getById("text-editor");
-  //  * await nonUi5.element.setInnerHTML(elem, "Hello World!");
-  //  */
-  // async setInnerHTML(elem: Element, value: string): Promise<void> {
-  //   await browser.executeScript(`arguments[0].innerHTML = '${value}'`, [elem]);
-  // };
+  // =================================== SET VALUES ===================================
+  /**
+   * @function setInnerHTML
+   * @memberOf nonUi5.element
+   * @description Sets the innerHTML value of the given element.
+   * CAUTION: Only use this if filling the value in the normal way is not working and if it is unavoidable. Keep in mind, that a user is not able to perform such actions.
+   * @param {Object} elem - The element.
+   * @returns {String} The value to set.
+   * @example const elem = await nonUi5.element.getById("text-editor");
+   * await nonUi5.element.setInnerHTML(elem, "Hello World!");
+   */
+  async setInnerHTML(elem: Element, value: string): Promise<void> {
+    await browser.executeScript(`arguments[0].innerHTML = '${value}'`, [elem]);
+  }
 
-  // // =================================== ACTIONS ===================================
-  // /**
-  //  * @function highlight
-  //  * @memberOf nonUi5.element
-  //  * @description Highlights the passed element.
-  //  * @param {Object} elem - The element.
-  //  * @param {Integer} [duration=2000] - The duration of the highlighting (ms).
-  //  * @param {String} [color="red"] - The color of the highlighting (CSS value).
-  //  * @example const elem = await nonUi5.element.getById("text01");
-  //  * await nonUi5.element.highlight(elem);
-  //  * @example const elem = await nonUi5.element.getById("text01");
-  //  * await nonUi5.element.highlight(elem, 3000, "green");
-  //  */
-  // async highlight(elem: string, duration = 2000, color = "red") {
-  //   await browser.executeScript(`arguments[0].style.boxShadow = 'inset 0px 0px 0px 2px ${color}'`, [elem]);
-  //   await browser.pause(duration);
-  //   return browser.executeScript("arguments[0].style.boxShadow = 'inherit'", [elem]);
-  // };
+  // =================================== ACTIONS ===================================
+  /**
+   * @function highlight
+   * @memberOf nonUi5.element
+   * @description Highlights the passed element.
+   * @param {Object} elem - The element.
+   * @param {Integer} [duration=2000] - The duration of the highlighting (ms).
+   * @param {String} [color="red"] - The color of the highlighting (CSS value).
+   * @example const elem = await nonUi5.element.getById("text01");
+   * await nonUi5.element.highlight(elem);
+   * @example const elem = await nonUi5.element.getById("text01");
+   * await nonUi5.element.highlight(elem, 3000, "green");
+   */
+  async highlight(elem: string, duration: number = 2000, color: string = "red") {
+    await browser.executeScript(`arguments[0].style.boxShadow = 'inset 0px 0px 0px 2px ${color}'`, [elem]);
+    await browser.pause(duration);
+    return browser.executeScript("arguments[0].style.boxShadow = 'inherit'", [elem]);
+  }
 
-  // // =================================== FRAMES ===================================
-  // /**
-  //  * @function switchToIframe
-  //  * @memberOf nonUi5.element
-  //  * @description Switches to the passed iframe.
-  //  * @param {String} selector - The CSS selector describing the iframe element.
-  //  * @example await nonUi5.element.switchToIframe("iframe[id='frame01']");
-  //  * @deprecated please use util.browser.switchToIframe
-  //  * @see [util.browser.switchToIframe]{@link util.browser.switchToIframe}
-  //  */
-  // async switchToIframe(selector: any) {
-  //   util.console.warn(`⚠  "nonUi5.element.switchToIframe" is deprecated. Please use "util.browser.switchToIframe" instead.`);
-  //   await util.browser.switchToIframe(selector);
-  // };
+  // =================================== FRAMES (Deprecated) ===================================
+  /**
+   * @function switchToIframe
+   * @memberOf nonUi5.element
+   * @description Switches to the passed iframe.
+   * @param {String} selector - The CSS selector describing the iframe element.
+   * @example await nonUi5.element.switchToIframe("iframe[id='frame01']");
+   * @deprecated please use util.browser.switchToIframe
+   * @see [util.browser.switchToIframe]{@link util.browser.switchToIframe}
+   */
+  async switchToIframe(selector: any) {
+    util.console.warn(`⚠  "nonUi5.element.switchToIframe" is deprecated. Please use "util.browser.switchToIframe" instead.`);
+    await util.browser.switchToIframe(selector);
+  }
 
-  // /**
-  //  * @function switchToDefaultContent
-  //  * @memberOf nonUi5.element
-  //  * @description Switches to the default content of the HTML page.
-  //  * @example await nonUi5.element.switchToDefaultContent();
-  //  * @deprecated please use util.browser.switchToDefaultContent
-  //  * @see [util.browser.switchToDefaultContent]{@link util.browser.switchToDefaultContent}
-  //  */
-  // async switchToDefaultContent() {
-  //   util.console.warn(`⚠  "nonUi5.element.switchToDefaultContent" is deprecated. Please use "util.browser.switchToDefaultContent" instead.`);
-  //   await util.browser.switchToDefaultContent();
-  // };
+  /**
+   * @function switchToDefaultContent
+   * @memberOf nonUi5.element
+   * @description Switches to the default content of the HTML page.
+   * @example await nonUi5.element.switchToDefaultContent();
+   * @deprecated please use util.browser.switchToDefaultContent
+   * @see [util.browser.switchToDefaultContent]{@link util.browser.switchToDefaultContent}
+   */
+  async switchToDefaultContent() {
+    util.console.warn(`⚠  "nonUi5.element.switchToDefaultContent" is deprecated. Please use "util.browser.switchToDefaultContent" instead.`);
+    await util.browser.switchToDefaultContent();
+  }
 
   // =================================== HELPER ===================================
   private async _waitForStabilization(selector: object, timeout: number, stableIterationsRequired: number = 3): Promise<void> {
