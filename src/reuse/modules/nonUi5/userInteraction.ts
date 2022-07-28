@@ -3,6 +3,8 @@
 import { Element } from "../../../../@types/wdio";
 import { AlignmentValues } from "./constants/userInteraction.constants";
 
+const customTimeout = browser.config.params.qmateCustomTimeout;
+
 /**
  * @class userInteraction
  * @memberof nonUi5
@@ -19,7 +21,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.click(elem);
    */
-  async click (element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async click (element: Element, timeout: number = customTimeout || 30000) {
     await Promise.all([
       expect(element).toBeDisplayed({ //TODO: Reuse of internal functions?
         wait: timeout,
@@ -51,7 +53,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.clickAndRetry(elem);
    */
-  async clickAndRetry (element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
+  async clickAndRetry (element: Element, timeout: number = customTimeout || 30000, retries = 3, interval = 5000) {
     if (!element) {
       throw new Error("Function 'clearAndRetry' failed. Please provide an element as first argument.");
     }
@@ -67,7 +69,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.doubleClick(elem);
    */
-  async doubleClick (element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async doubleClick (element: Element, timeout: number = customTimeout || 30000) {
     await Promise.all([
       expect(element).toBeDisplayed({
         wait: timeout,
@@ -97,7 +99,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.rightClick(elem);
    */
-  async rightClick (element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async rightClick (element: Element, timeout: number = customTimeout || 30000) {
     await Promise.all([
       expect(element).toBeDisplayed({
         wait: timeout,

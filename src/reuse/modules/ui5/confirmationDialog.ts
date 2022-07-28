@@ -1,4 +1,7 @@
 "use strict";
+
+const customTimeout = browser.config.params.qmateCustomTimeout;
+
 /**
  * @class confirmationDialog
  * @memberof ui5
@@ -29,7 +32,7 @@ export class ConfirmationDialog {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.confirmationDialog.clickButton("Ok");
    */
-  async clickButton (text: string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async clickButton (text: string, timeout: number = customTimeout || 30000) {
     return ui5.userInteraction.click(this.selectors.genericButton(text), 0, timeout);
   };
 
@@ -40,7 +43,7 @@ export class ConfirmationDialog {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.confirmationDialog.clickOk();
    */
-  async clickOk (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async clickOk (timeout: number = customTimeout || 30000) {
     // @ts-ignore
     return this.clickButton(/ok/gi, timeout);
   };
@@ -52,7 +55,7 @@ export class ConfirmationDialog {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.confirmationDialog.clickCancel();
    */
-  async clickCancel (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async clickCancel (timeout: number = customTimeout || 30000) {
     return this.clickButton("Cancel", timeout);
   };
 
@@ -63,7 +66,7 @@ export class ConfirmationDialog {
    * @param {Number} [timeout] - The timeout to wait (default value: 30 sec).
    * @example await ui5.confirmationDialog.clickYes();
    */
-  async clickYes (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async clickYes (timeout: number = customTimeout || 30000) {
     return this.clickButton("Yes", timeout);
   };
 
@@ -74,7 +77,7 @@ export class ConfirmationDialog {
    * @param {Number} [timeout] - The timeout to wait (default value: 30 sec).
    * @example await ui5.confirmationDialog.clickNo();
    */
-  async clickNo (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async clickNo (timeout: number = customTimeout || 30000) {
     return this.clickButton("No", timeout);
   };
 
@@ -85,7 +88,7 @@ export class ConfirmationDialog {
    * @param {Number} [timeout] - The timeout to wait (default value: 30 sec).
    * @example await ui5.confirmationDialog.clickCreate();
    */
-  async clickCreate (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async clickCreate (timeout: number = customTimeout || 30000) {
     return this.clickButton("Create", timeout);
   };
 
@@ -96,7 +99,7 @@ export class ConfirmationDialog {
    * @param {Number} [timeout] - The timeout to wait (default value: 30 sec).
    * @example await ui5.confirmationDialog.clickDelete();
    */
-  async clickDelete (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async clickDelete (timeout: number = customTimeout || 30000) {
     return this.clickButton("Delete", timeout);
   };
 
@@ -107,7 +110,7 @@ export class ConfirmationDialog {
    * @param {Number} [timeout] - The timeout to wait (default value: 30 sec).
    * @example await ui5.confirmationDialog.clickRevokeApproval();
    */
-  async clickRevokeApproval (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async clickRevokeApproval (timeout: number = customTimeout || 30000) {
     return this.clickButton("Revoke Approval", timeout);
   };
 
