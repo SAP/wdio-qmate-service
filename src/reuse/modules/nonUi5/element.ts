@@ -156,8 +156,14 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByCssContainingText(".input01", "Jack Jackson");
    */
-  async getByCssContainingText(selector: any, text: string = "", index = 0, timeout: number = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
-     try {
+  async getByCssContainingText(
+    selector: any,
+    text: string = "",
+    index = 0,
+    timeout: number = customTimeout || 30000,
+    includeHidden: boolean = false
+  ): Promise<Element> {
+    try {
       await this.waitForAll(`${selector}=${text}`, timeout);
       const elements: Element[] = await $$(`${selector}=${text}`);
       if (includeHidden) {
@@ -169,7 +175,7 @@ export class ElementModule {
     } catch (error) {
       throw new Error(`Function 'getByCssContainingText' failed. Element with CSS '${selector}' not found. ${error}`);
     }
-  };
+  }
 
   /**
    * @function getById
@@ -177,7 +183,7 @@ export class ElementModule {
    * @description Gets the element with the given ID.
    * @param {String} id - The id of the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
+   * @param {Boolean} [includeHidden=false] - Specifies if the function will check for the elements visibility.
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getById("button01");
    */
@@ -194,64 +200,80 @@ export class ElementModule {
     } catch (error) {
       throw new Error(`Function 'getById' failed. Element with id '${id}' not found. ${error}`);
     }
-  };
+  }
 
-  // /**
-  //  * @function getByClass
-  //  * @memberOf nonUi5.element
-  //  * @description Gets the element with the given class.
-  //  * @param {String} elemClass - The class describing the element
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
-  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
-  //  * @returns {Object} The found element.
-  //  * @example const elem = await nonUi5.element.getByClass("button01");
-  //  * const elem = await nonUi5.element.getByClass("sapMIBar sapMTB sapMTBNewFlex sapContrastPlus");
-  //  */
-  // async getByClass(elemClass: string, index = 0, timeout = customTimeout || 30000): Promise<Element> {
-  //   try {
-  //     const selector = `[class*='${elemClass}']`;
-  //     return await this._filterDisplayed(selector, index, timeout);
-  //   } catch (error) {
-  //     throw new Error(`Function 'getByClass' failed. Element with class "${elemClass}" not found. ${error}`);
-  //   }
-  // };
+  /**
+   * @function getByClass
+   * @memberOf nonUi5.element
+   * @description Gets the element with the given class.
+   * @param {String} elemClass - The class describing the element
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} [includeHidden=false] - Specifies if the function will check for the elements visibility.
+   * @returns {Object} The found element.
+   * @example const elem = await nonUi5.element.getByClass("button01");
+   * const elem = await nonUi5.element.getByClass("sapMIBar sapMTB sapMTBNewFlex sapContrastPlus");
+   */
+  async getByClass(elemClass: string, index = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
+    try {
+      const selector = `[class*='${elemClass}']`;
+      await this.waitForAll(selector, timeout);
+      const elements: Element[] = await $$(selector);
+      if (includeHidden) {
+        return elements[index];
+      } else {
+        const visibleElements = elements.filter(async (elem) => await elem.isDisplayed());
+        return visibleElements[index];
+      }
+    } catch (error) {
+      throw new Error(`Function 'getByClass' failed. Element with id '${elemClass}' not found. ${error}`);
+    }
+  }
 
-  // /**
-  //  * @function getByName
-  //  * @memberOf nonUi5.element
-  //  * @description Gets the element with the given name.
-  //  * @param {String} name - The name attribute of the element.
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
-  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
-  //  * @returns {Object} The found element.
-  //  * @example const elem = await nonUi5.element.getByName(".button01");
-  //  */
-  // async getByName(name: string, index = 0, timeout = customTimeout || 30000): Promise<Element> {
-  //   try {
-  //     const selector = `[name='${name}']`;
-  //     return await this._filterDisplayed(selector, index, timeout);
-  //   } catch (error) {
-  //     throw new Error(`Function 'getByName' failed. Element with name "${name}" not found. ${error}`);
-  //   }
-  // };
+  /**
+   * @function getByName
+   * @memberOf nonUi5.element
+   * @description Gets the element with the given name.
+   * @param {String} name - The name attribute of the element.
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} [includeHidden=false] - Specifies if the function will check for the elements visibility.
+   * @returns {Object} The found element.
+   * @example const elem = await nonUi5.element.getByName(".button01");
+   */
+  async getByName(name: string, index = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
+    try {
+      const selector = `[name='${name}']`;
+      await this.waitForAll(selector, timeout);
+      const elements: Element[] = await $$(selector);
+      if (includeHidden) {
+        return elements[index];
+      } else {
+        const visibleElements = elements.filter(async (elem) => await elem.isDisplayed());
+        return visibleElements[index];
+      }
+    } catch (error) {
+      throw new Error(`Function 'getByName' failed. Element with name '${name}' not found. ${error}`);
+    }
+  }
 
-  // /**
-  //  * @function getByXPath
-  //  * @memberOf nonUi5.element
-  //  * @description Gets the element with the given XPath.
-  //  * @param {String} xpath - The XPath describing the element.
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
-  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
-  //  * @returns {Object} The found element.
-  //  * @example const elem = await nonUi5.element.getByXPath("//ul/li/a");
-  //  */
-  // async getByXPath(xpath: string, index = 0, timeout = customTimeout || 30000) {
-  //   try {
-  //     return await this.getByCss(xpath, index, timeout);
-  //   } catch (error) {
-  //     throw new Error(`Function 'getByXPath' failed. Element with XPath "${xpath}" not found. ${error}`);
-  //   }
-  // };
+  /**
+   * @function getByXPath
+   * @memberOf nonUi5.element
+   * @description Gets the element with the given XPath.
+   * @param {String} xpath - The XPath describing the element.
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @returns {Object} The found element.
+   * @example const elem = await nonUi5.element.getByXPath("//ul/li/a");
+   */
+  async getByXPath(xpath: string, index = 0, timeout = customTimeout || 30000) {
+    try {
+      return await this.getByCss(xpath, index, timeout);
+    } catch (error) {
+      throw new Error(`Function 'getByXPath' failed. Element with XPath '${xpath}' not found. ${error}`);
+    }
+  }
 
   // /**
   //  * @function getByChild
