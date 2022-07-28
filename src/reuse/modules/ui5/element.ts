@@ -2,8 +2,6 @@
 
 import { Element } from "../../../../@types/wdio";
 
-const customTimeout = browser.config.params.qmateCustomTimeout;
-
 /**
  * @class element
  * @memberof ui5
@@ -19,7 +17,7 @@ export class ElementModule {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.element.waitForAll(selector);
    */
-  async waitForAll (selector: any, timeout: number = customTimeout || 30000) {
+  async waitForAll (selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     if (!selector) {
       this._throwSelectorError("waitForAll");
     }
@@ -41,7 +39,7 @@ export class ElementModule {
    * @returns {Object[]} - The found elements.
    * @example const elem = await ui5.element.getAllDisplayed(selector);
    */
-  async getAllDisplayed (selector: any, timeout: number = customTimeout || 30000): Promise<Element[]> {
+  async getAllDisplayed (selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element[]> {
     if (!selector) {
       this._throwSelectorError("getAllDisplayed");
     }
@@ -62,7 +60,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await ui5.element.getDisplayed(selector);
    */
-  async getDisplayed (selector: any, index = 0, timeout: number = customTimeout || 30000): Promise<Element> {
+  async getDisplayed (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
     if (!selector || typeof selector !== "object") {
       this._throwSelectorError("getDisplayed");
     }
@@ -85,7 +83,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await ui5.element.getByText(selector, "Home");
    */
-  async getByText (selector: any, value: string, index = 0, timeout: number = customTimeout || 30000): Promise<Element> {
+  async getByText (selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
     const elements = await this.getAllDisplayed(selector, timeout);
     const elementsWithText = [];
     try {
@@ -128,7 +126,7 @@ export class ElementModule {
    * };
    * const elem = await ui5.element.getByChild(elementSelector, childSelector);
    */
-  async getByChild (elementSelector: any, childSelector: any, index = 0, timeout: number = customTimeout || 30000): Promise<Element> {
+  async getByChild (elementSelector: any, childSelector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
     const selector = {
       "elementProperties": elementSelector.elementProperties,
       "descendantProperties": childSelector.elementProperties
@@ -159,7 +157,7 @@ export class ElementModule {
    * };
    * const elem = await ui5.element.getByParent(elementSelector, parentSelector);
    */
-  async getByParent (elementSelector: any, parentSelector: any, index = 0, timeout: number = customTimeout || 30000): Promise<Element> {
+  async getByParent (elementSelector: any, parentSelector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
     const selector = {
       "elementProperties": elementSelector.elementProperties,
       "ancestorProperties": parentSelector.elementProperties
@@ -183,7 +181,7 @@ export class ElementModule {
    * @returns {String} The id of the element.
    * @example const elemId = await ui5.element.getId(selector);
    */
-  async getId (selector: any, index = 0, timeout: number = customTimeout || 30000): Promise<string> {
+  async getId (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<string> {
     const elem = await this.getDisplayed(selector, index, timeout);
     return elem.getAttribute("id");
   };
@@ -199,7 +197,7 @@ export class ElementModule {
    * @returns {String} The property value of the element.
    * @example const elemValue = await ui5.element.getPropertyValue(selector, "text");
    */
-  async getPropertyValue (selector: any, property: string, index = 0, timeout: number = customTimeout || 30000): Promise<string> {
+  async getPropertyValue (selector: any, property: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<string> {
     let attrValue;
     try {
       let elem = await this.getDisplayed(selector, index, timeout);
@@ -240,7 +238,7 @@ export class ElementModule {
    * @returns {String} The value of the element.
    * @example const elemValue = await ui5.element.getValue(selector);
    */
-  async getValue (selector: any, index = 0, timeout: number = customTimeout || 30000): Promise<string> {
+  async getValue (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<string> {
     try {
       return await this.getPropertyValue(selector, "value", index, timeout);
     } catch (error) {
@@ -259,7 +257,7 @@ export class ElementModule {
    * @returns {String} The binding property value.
    * @example const elemBindingValue = await ui5.element.getBindingValue(selector, "InvoiceGrossAmount");
    */
-  async getBindingValue (selector: any, bindingContext: string, index = 0, timeout: number = customTimeout || 30000): Promise<string> {
+  async getBindingValue (selector: any, bindingContext: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<string> {
     const elem = await this.getDisplayed(selector, index, timeout);
     return browser.controlActionInBrowser(function (control: any, property: string, done: Function) {
       done(control.getBinding(property).getValue());
@@ -276,7 +274,7 @@ export class ElementModule {
    * @returns {Boolean} The bool value 'true' or 'false' if the element is visible or not.
    * @example const isVisible = await ui5.element.isVisible(selector);
    */
-  async isVisible (selector: any, index = 0, timeout: number = customTimeout || 30000): Promise<boolean> {
+  async isVisible (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<boolean> {
     try {
       const elem = await ui5.element.getDisplayed(selector, index, timeout);
       return await elem.isDisplayed();

@@ -2,8 +2,6 @@
 
 import { Element } from "../../../../@types/wdio";
 
-const customTimeout = browser.config.params.qmateCustomTimeout;
-
 /**
  * @class assertion
  * @memberof nonUi5
@@ -92,7 +90,7 @@ export class Assertion {
  * @example const elem = await nonUi5.element.getById("button01");
  * await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
  */
-  async expectToBeNotVisible (element: Element, timeout: number = customTimeout || 30000): Promise<void> {
+  async expectToBeNotVisible (element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<void> {
     if (!element) {
       throw new Error("Function 'expectToBeNotVisible' failed. Please provide an element as argument.");
     }
