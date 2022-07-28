@@ -35,7 +35,7 @@ export class ElementModule {
    * @example await nonUi5.element.waitToBePresent("#button12");
    * @example await nonUi5.element.waitToBePresent("p:first-child");
    */
-  async waitToBePresent(selector: any, timeout = customTimeout || 30000): Promise<void> {
+  async waitToBePresent(selector: any, timeout: number = customTimeout || 30000): Promise<void> {
     try {
       await $(selector).waitForExist({ timeout: timeout });
     } catch (error) {
@@ -53,7 +53,7 @@ export class ElementModule {
    * @example await nonUi5.element.waitToBeVisible("#button12");
    * @example await nonUi5.element.waitToBeVisible("p:first-child");
    */
-  async waitToBeVisible(selector: any, timeout = customTimeout || 30000) {
+  async waitToBeVisible(selector: any, timeout: number = customTimeout || 30000) {
     try {
       await $(selector).waitForDisplayed({ timeout: timeout });
     } catch (error) {
@@ -71,138 +71,130 @@ export class ElementModule {
    * @example await nonUi5.element.waitToBeClickable("#button12");
    * @example await nonUi5.element.waitToBeClickable("p:first-child");
    */
-  async waitToBeClickable(selector: any, timeout = customTimeout || 30000) {
+  async waitToBeClickable(selector: any, timeout: number = customTimeout || 30000) {
     try {
       await $(selector).waitForClickable({ timeout: timeout });
     } catch (error) {
       throw new Error(`Function 'waitToBeClickable' failed: ${error}`);
     }
+  }
+
+  // =================================== GET ELEMENTS ===================================
+  /**
+   * @function getAllDisplayed
+   * @memberOf nonUi5.element
+   * @description Gets all visible elements with the passed selector.
+   * @param {Object} selector - The CSS selector describing the element.
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @returns {Object[]} The array of elements.
+   * @example await nonUi5.element.getAllDisplayed(".inputField");
+   */
+  async getAllDisplayed(selector: any, timeout: number = customTimeout || 30000): Promise<Element[]> {
+    try {
+      await this.waitForAll(selector, timeout);
+      const elements: Element[] = await $$(selector);
+      return elements.filter(async (elem) => await elem.isDisplayed());
+    } catch (error) {
+      throw new Error(`Function 'getAllDisplayed' failed. No visible element(s) found for selector '${selector}' after ${timeout / 1000}s. ` + error);
+    }
+  }
+
+  /**
+   * @function getAll
+   * @memberOf nonUi5.element
+   * @description Returns all elements found by the given selector despite visible or not.
+   * @param {Object} selector - The CSS selector describing the element.
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example const hiddenElements = await nonUi5.element.getAll(".sapUiInvisibleText");
+   * const isPresent = await nonUi5.element.isPresent(hiddenElements[0]);
+   * await common.assertion.expectTrue(isPresent);
+   */
+  async getAll(selector: any, timeout: number = customTimeout || 30000): Promise<Element[]> {
+    try {
+      await this.waitForAll(selector, timeout);
+      return await $$(selector);
+    } catch (error) {
+      throw new Error(`Function 'getAll' failed. No element(s) found for selector '${selector}' after ${timeout / 1000}s. ` + error);
+    }
+  }
+
+  /**
+   * @function getByCss
+   * @memberOf nonUi5.element
+   * @description Gets the element with the given CSS selector.
+   * @param {Object} selector - The CSS selector describing the element.
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
+   * @returns {Object} The found element.
+   * @example const elem = await nonUi5.element.getByCss(".button01");
+   */
+  async getByCss(selector: any, index: number = 0, timeout: number = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
+    try {
+      await this.waitForAll(selector, timeout);
+      const elements: Element[] = await $$(selector);
+      if (includeHidden) {
+        return elements[index];
+      } else {
+        const visibleElements = elements.filter(async (elem) => await elem.isDisplayed());
+        return visibleElements[index];
+      }
+    } catch (error) {
+      throw new Error(`Function 'getByCss' failed. Element with CSS '${selector}' not found. ${error}`);
+    }
+  }
+
+  /**
+   * @function getByCssContainingText
+   * @memberOf nonUi5.element
+   * @description Gets the element with the given CSS selector containing the given text value.
+   * @param {Object} selector - The CSS selector describing the element.
+   * @param {String} [text=""] - The containing text value of the element.
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
+   * @returns {Object} The found element.
+   * @example const elem = await nonUi5.element.getByCssContainingText(".input01", "Jack Jackson");
+   */
+  async getByCssContainingText(selector: any, text: string = "", index = 0, timeout: number = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
+     try {
+      await this.waitForAll(`${selector}=${text}`, timeout);
+      const elements: Element[] = await $$(`${selector}=${text}`);
+      if (includeHidden) {
+        return elements[index];
+      } else {
+        const visibleElements = elements.filter(async (elem) => await elem.isDisplayed());
+        return visibleElements[index];
+      }
+    } catch (error) {
+      throw new Error(`Function 'getByCssContainingText' failed. Element with CSS '${selector}' not found. ${error}`);
+    }
   };
 
-  // // =================================== GET ELEMENTS ===================================
-  // /**
-  //  * @function getAllDisplayed
-  //  * @memberOf nonUi5.element
-  //  * @description Gets all visible elements with the passed selector.
-  //  * @param {Object} selector - The CSS selector describing the element.
-  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
-  //  * @returns {Object[]} The array of elements.
-  //  * @example await nonUi5.element.getAllDisplayed(".inputField");
-  //  */
-  // async getAllDisplayed(selector: any, timeout = customTimeout || 30000): Promise<Element[]> {
-  //   try {
-  //     await this.waitForAll(selector, timeout);
-  //     const elements: Element[] = await $$(selector);
-  //     const displayedElements: Element[] = [];
-  //     for (const element of elements) {
-  //       if (element) {
-  //         const isElementDisplayed = await element.isDisplayed();
-  //         if (isElementDisplayed) {
-  //           displayedElements.push(element);
-  //         }
-  //       }
-  //     }
-  //     return displayedElements;
-  //   } catch (error) {
-  //     throw new Error(`Function 'getAllDisplayed' failed. No visible element found for selector '${selector}' after ${+timeout / 1000}s. ` + error);
-  //   }
-  // };
-
-  // /**
-  //  * @function getAll
-  //  * @memberOf nonUi5.element
-  //  * @description Returns all elements found by the given selector despite visible or not.
-  //  * @param {Object} selector - The CSS selector describing the element.
-  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
-  //  * @example const hiddenElements = await nonUi5.element.getAll(".sapUiInvisibleText");
-  //  * const isPresent = await nonUi5.element.isPresent(hiddenElements[0]);
-  //  * await common.assertion.expectTrue(isPresent);
-  //  */
-  // async getAll(selector: any, timeout = customTimeout || 30000): Promise<Element[]> {
-  //   let elems: Element[] | null = null;
-  //   let count = null;
-  //   try {
-  //     await browser.waitUntil(async function () {
-  //       elems = await $$(selector);
-  //       if (!elems) return false;
-  //       count = elems.length;
-  //       return count > 0;
-  //     }, {
-  //       timeout: timeout,
-  //       timeoutMsg: `No elements found for selector '${selector}' after ${+timeout / 1000}s`
-  //     });
-  //   } catch (error) {
-  //     throw new Error("Function 'getAll' failed. Browser wait exception. " + error);
-  //   }
-  //   return elems!;
-  // };
-
-  // /**
-  //  * @function getByCss
-  //  * @memberOf nonUi5.element
-  //  * @description Gets the element with the given CSS selector.
-  //  * @param {Object} selector - The CSS selector describing the element.
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
-  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
-  //  * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
-  //  * @returns {Object} The found element.
-  //  * @example const elem = await nonUi5.element.getByCss(".button01");
-  //  */
-  // async getByCss(selector: any, index = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
-  //   try {
-  //     await this.waitForAll(selector, timeout);
-  //     if (includeHidden) {
-  //       return await $$(selector)[index];
-  //     } else {
-  //       return await this._filterDisplayed(selector, index, 5000);
-  //     }
-  //   } catch (error) {
-  //     throw new Error(`Function 'getByCss' failed. Element with CSS "${selector}" not found. ${error}`);
-  //   }
-  // };
-
-  // /**
-  //  * @function getByCssContainingText
-  //  * @memberOf nonUi5.element
-  //  * @description Gets the element with the given CSS selector containing the given text value.
-  //  * @param {Object} selector - The CSS selector describing the element.
-  //  * @param {String} [text=""] - The containing text value of the element.
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
-  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
-  //  * @returns {Object} The found element.
-  //  * @example const elem = await nonUi5.element.getByCssContainingText(".input01", "Jack Jackson");
-  //  */
-  // async getByCssContainingText(selector: any, text = "", index = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
-  //   console.log(`-----------> ${selector}=${text}`);
-  //   try {
-  //     await this.waitForAll(`${selector}=${text}`, timeout);
-  //     if (includeHidden) {
-  //       return await $$(`${selector}=${text}`)[index];
-  //     } else {
-  //       return await this._filterDisplayed(selector, index, 5000);
-  //     }
-  //   } catch (error) {
-  //     throw new Error(`Function 'getByCssContainingText' failed. Element with CSS "${selector}" and text value "${text}" not found. ${error}`);
-  //   }
-  // };
-
-  // /**
-  //  * @function getById
-  //  * @memberOf nonUi5.element
-  //  * @description Gets the element with the given ID.
-  //  * @param {String} id - The id of the element.
-  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
-  //  * @returns {Object} The found element.
-  //  * @example const elem = await nonUi5.element.getById("button01");
-  //  */
-  // async getById(id: string, timeout = customTimeout || 30000): Promise<Element> {
-  //   try {
-  //     const selector = `[id='${id}']`;
-  //     return await this._filterDisplayed(selector, 0, timeout);
-  //   } catch (error) {
-  //     throw new Error(`Function 'getById' failed. Element with id "${id}" not found. ${error}`);
-  //   }
-  // };
+  /**
+   * @function getById
+   * @memberOf nonUi5.element
+   * @description Gets the element with the given ID.
+   * @param {String} id - The id of the element.
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
+   * @returns {Object} The found element.
+   * @example const elem = await nonUi5.element.getById("button01");
+   */
+  async getById(id: string, timeout: number = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
+    try {
+      const selector = `[id='${id}']`;
+      if (includeHidden) {
+        await this.waitToBePresent(selector, timeout);
+        return await $(selector);
+      } else {
+        await this.waitToBeVisible(selector, timeout);
+        return await $(selector);
+      }
+    } catch (error) {
+      throw new Error(`Function 'getById' failed. Element with id '${id}' not found. ${error}`);
+    }
+  };
 
   // /**
   //  * @function getByClass
@@ -517,11 +509,7 @@ export class ElementModule {
   // };
 
   // =================================== HELPER ===================================
-  private async _waitForStabilization(
-    selector: object,
-    timeout: number,
-    stableIterationsRequired: number = 3
-  ): Promise<void> {
+  private async _waitForStabilization(selector: object, timeout: number, stableIterationsRequired: number = 3): Promise<void> {
     let elemsCount: number = 0;
     let stableIterations: number = 0;
 
