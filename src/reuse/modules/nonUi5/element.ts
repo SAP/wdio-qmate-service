@@ -92,8 +92,8 @@ export class ElementModule {
   async getAllDisplayed(selector: any, timeout: number = customTimeout || 30000): Promise<Element[]> {
     try {
       await this.waitForAll(selector, timeout);
-      const elements: Element[] = await $$(selector);
-      return elements.filter(async (elem) => await elem.isDisplayed());
+      const elems: Element[] = await $$(selector);
+      return elems.filter(async (elem) => await elem.isDisplayed());
     } catch (error) {
       throw new Error(`Function 'getAllDisplayed' failed. No visible element(s) found for selector '${selector}' after ${timeout / 1000}s. ` + error);
     }
@@ -152,12 +152,12 @@ export class ElementModule {
   async getByCssContainingText(selector: any, text: string = "", index: number = 0, timeout: number = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
       await this.waitForAll(`${selector}=${text}`, timeout);
-      const elements: Element[] = await $$(`${selector}=${text}`);
+      const elems: Element[] = await $$(`${selector}=${text}`);
       if (includeHidden) {
-        return elements[index];
+        return elems[index];
       } else {
-        const visibleElements = elements.filter(async (elem) => await elem.isDisplayed());
-        return visibleElements[index];
+        const visibleElems = elems.filter(async (elem) => await elem.isDisplayed());
+        return visibleElems[index];
       }
     } catch (error) {
       throw new Error(`Function 'getByCssContainingText' failed. Element with CSS '${selector}' not found. ${error}`);
@@ -262,24 +262,24 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getByChild(".form01", ".input01");
    */
   async getByChild(elementSelector: any, childSelector: any, index: number = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
-    let elementsWithChild: Element[];
+    let elemsWithChild: Element[];
 
     try {
       if (includeHidden) {
         const elems = await this.getAll(elementSelector, timeout);
-        elementsWithChild = elems.filter(async (elem) => await (await elem.$(childSelector)).isExisting());
+        elemsWithChild = elems.filter(async (elem) => await (await elem.$(childSelector)).isExisting());
       } else {
         const elems = await this.getAllDisplayed(elementSelector, timeout);
-        elementsWithChild = elems.filter(async (elem) => await (await elem.$(childSelector)).isDisplayed());
+        elemsWithChild = elems.filter(async (elem) => await (await elem.$(childSelector)).isDisplayed());
       }
     } catch (error) {
       throw new Error(`Function 'getByChild' failed. No element found for selector: '${elementSelector}'.`);
     }
 
-    if (elementsWithChild.length === 0) {
+    if (elemsWithChild.length === 0) {
       throw new Error(`Function 'getByChild' failed. The found element(s) with the given selector do(es) not have any child with selector '${childSelector}'.`);
     } else {
-      return elementsWithChild[index];
+      return elemsWithChild[index];
     }
   }
 
@@ -296,24 +296,24 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getByParent(".form01", ".input01");
    */
   async getByParent(elementSelector: any, parentSelector: any, index: number = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
-    let elementsWithParent: Element[];
+    let elemsWithParent: Element[];
 
     try {
       if (includeHidden) {
         const parentElems = await this.getAll(elementSelector, timeout);
-        elementsWithParent = parentElems.filter(async (elem) => await (await elem.$(elementSelector)).isExisting());
+        elemsWithParent = parentElems.filter(async (elem) => await (await elem.$(elementSelector)).isExisting());
       } else {
         const parentElems = await this.getAllDisplayed(elementSelector, timeout);
-        elementsWithParent = parentElems.filter(async (elem) => await (await elem.$(elementSelector)).isDisplayed());
+        elemsWithParent = parentElems.filter(async (elem) => await (await elem.$(elementSelector)).isDisplayed());
       }
     } catch (error) {
       throw new Error(`Function 'getByParent' failed. No parent element found for selector: '${parentSelector}'. ${error}`);
     }
 
-    if (elementsWithParent.length === 0) {
+    if (elemsWithParent.length === 0) {
       throw new Error(`Function 'getByParent' failed. No visible elements found for selector '${elementSelector}' and parent selector '${parentSelector}'.`);
     } else {
-      return elementsWithParent[index];
+      return elemsWithParent[index];
     }
   }
 
@@ -366,8 +366,8 @@ export class ElementModule {
    */
   async isPresentByCss(css: string, index: number = 0, timeout = customTimeout || 30000) {
     try {
-      const elements = await this.getAll(css, timeout);
-      return elements[index].isExisting();
+      const elems = await this.getAll(css, timeout);
+      return elems[index].isExisting();
     } catch (error) {
       return false;
     }
@@ -529,12 +529,12 @@ export class ElementModule {
 
   private async _getAndFilterElementBySelector(selector: string, index: number = 0, timeout: number = 30000, includeHidden: boolean = false): Promise<Element> {
     await this.waitForAll(selector, timeout);
-    const elements: Element[] = await $$(selector);
+    const elems: Element[] = await $$(selector);
     if (includeHidden) {
-      return elements[index];
+      return elems[index];
     } else {
-      const visibleElements = elements.filter(async (elem) => await elem.isDisplayed());
-      return visibleElements[index];
+      const visibleElems = elems.filter(async (elem) => await elem.isDisplayed());
+      return visibleElems[index];
     }
   }
 }
