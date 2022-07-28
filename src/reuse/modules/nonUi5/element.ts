@@ -11,15 +11,15 @@ export class ElementModule {
   /**
    * @function waitForAll
    * @memberOf nonUi5.element
-   * @description Waits until all elements with the given selector are rendered.
+   * @description Waits until all elements with the given selector are rendered. Will fail if no element is found.
    * @param {Object} selector - The CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await nonUi5.element.waitForAll(".inputField");
    */
   async waitForAll(selector: any, timeout: number = customTimeout || 30000): Promise<void> {
     try {
-      await $(selector).waitForExist({ timeout: timeout });
       await this._waitForStabilization(selector, timeout);
+      await $(selector).waitForExist();
     } catch (error) {
       throw new Error(`Function 'waitForAll' failed: ${error}`);
     }
@@ -275,7 +275,7 @@ export class ElementModule {
     } catch (error) {
       throw new Error(`Function 'getByChild' failed. No element found for selector: '${elementSelector}'.`);
     }
-    
+
     if (elementsWithChild.length === 0) {
       throw new Error(`Function 'getByChild' failed. The found element(s) with the given selector do(es) not have any child with selector '${childSelector}'.`);
     } else {
@@ -318,72 +318,74 @@ export class ElementModule {
   }
 
   // // =================================== GET VALUES ===================================
-  // /**
-  //  * @function isVisible
-  //  * @memberOf nonUi5.element
-  //  * @description Returns a boolean if the element is visible to the user.
-  //  * @param {Object} element - The element.
-  //  * @returns {Boolean} Returns true or false.
-  //  * @example const elem = await nonUi5.element.getById("button01");
-  //  * await nonUi5.element.isVisible(elem);
-  //  */
-  // async isVisible(element: Element): Promise<boolean> {
-  //   return element.isDisplayedInViewport();
-  // };
+  /**
+   * @function isVisible
+   * @memberOf nonUi5.element
+   * @description Returns a boolean if the element is visible to the user.
+   * @param {Object} element - The element.
+   * @param {Boolean} [strict=true] - If strict mode is enabled it will only return "true" if the element is visible on the page and within the viewport.
+   * If disabled, it will be sufficient if the element is visible on the page but not inside the current viewport.
+   * @returns {Boolean} Returns true or false.
+   * @example const elem = await nonUi5.element.getById("button01");
+   * await nonUi5.element.isVisible(elem);
+   */
+  async isVisible(element: Element, strict: boolean = true): Promise<boolean> {
+    try {
+      if (strict) {
+        return element.isDisplayedInViewport();
+      } else {
+        return element.isDisplayed();
+      }
+    } catch (error) {
+      throw new Error(`Function 'isVisible' failed: ${error}`);
+    }
+  }
 
-  // /**
-  //  * @function isPresent
-  //  * @memberOf nonUi5.element
-  //  * @description Returns a boolean if the element is present at the DOM or not.
-  //  * @param {Object} elem - The element.
-  //  * @returns {Boolean} Returns true or false.
-  //  * @example const elem = await nonUi5.element.getById("button01");
-  //  * await nonUi5.element.isPresent(elem);
-  //  */
-  // async isPresent(elem: Element): Promise<boolean> {
-  //   return elem.isExisting();
-  // };
+  /**
+   * @function isPresent
+   * @memberOf nonUi5.element
+   * @description Returns a boolean if the element is present at the DOM or not. It might be hidden.
+   * @param {Object} elem - The element.
+   * @returns {Boolean} Returns true or false.
+   * @example const elem = await nonUi5.element.getById("button01");
+   * await nonUi5.element.isPresent(elem);
+   */
+  async isPresent(elem: Element): Promise<boolean> {
+    return elem.isExisting();
+  }
 
-  // /**
-  //  * @function isPresentByCss
-  //  * @memberOf nonUi5.element
-  //  * @description Returns a boolean if the element is present at the DOM or not.
-  //  * @param {String} css - The CSS selector describing the element.
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
-  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
-  //  * @returns {boolean} Returns true or false.
-  //  * @example await nonUi5.element.isPresentByCss(".button01");
-  //  */
-  // async isPresentByCss(css: string, index = 0, timeout = customTimeout || 30000) {
-  //   try {
-  //     let elements: Element[];
+  /**
+   * @function isPresentByCss
+   * @memberOf nonUi5.element
+   * @description Returns a boolean if the element is present at the DOM or not.
+   * @param {String} css - The CSS selector describing the element.
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @returns {boolean} Returns true or false.
+   * @example await nonUi5.element.isPresentByCss(".button01");
+   */
+  async isPresentByCss(css: string, index = 0, timeout = customTimeout || 30000) {
+    try {
+      const elements = await this.getAll(css, timeout);
+      return elements[index].isExisting();
+    } catch (error) {
+      return false;
+    }
+  }
 
-  //     await browser.waitUntil(async function () {
-  //       elements = await $$(css);
-  //       return elements.length > index;
-  //     }, {
-  //       timeout: timeout
-  //     });
-
-  //     return elements![index].isExisting();
-  //   } catch (error) {
-  //     return false;
-  //   }
-  // };
-
-  // /**
-  //  * @function isPresentByXPath
-  //  * @memberOf nonUi5.element
-  //  * @description returns a boolean if the element is present at the DOM or not.
-  //  * @param {String} xpath - The XPath describing the element.
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
-  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
-  //  * @returns {boolean}
-  //  * @example await nonUi5.element.isPresentByXPath(".//*[text()='Create']");
-  //  */
-  // async isPresentByXPath(xpath: string, index = 0, timeout = customTimeout || 30000): Promise<boolean> {
-  //   return this.isPresentByCss(xpath, index, timeout);
-  // };
+  /**
+   * @function isPresentByXPath
+   * @memberOf nonUi5.element
+   * @description returns a boolean if the element is present at the DOM or not.
+   * @param {String} xpath - The XPath describing the element.
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @returns {boolean}
+   * @example await nonUi5.element.isPresentByXPath(".//*[text()='Create']");
+   */
+  async isPresentByXPath(xpath: string, index = 0, timeout = customTimeout || 30000): Promise<boolean> {
+    return this.isPresentByCss(xpath, index, timeout);
+  }
 
   // /**
   //  * @function getAttributeValue
