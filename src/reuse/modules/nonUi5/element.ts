@@ -1,4 +1,4 @@
-import { Element } from '../../../../@types/wdio'
+import { Element } from "../../../../@types/wdio";
 
 const customTimeout = browser.config.params.qmateCustomTimeout;
 
@@ -23,76 +23,61 @@ export class ElementModule {
     } catch (error) {
       throw new Error(`Function 'waitForAll' failed: ${error}`);
     }
+  }
+
+  /**
+   * @function waitToBePresent
+   * @memberOf nonUi5.element
+   * @description Waits until the element with the given selector is present.
+   * @param {Object} selector - The CSS selector describing the element.
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example await nonUi5.element.waitToBePresent(".input01");
+   * @example await nonUi5.element.waitToBePresent("#button12");
+   * @example await nonUi5.element.waitToBePresent("p:first-child");
+   */
+  async waitToBePresent(selector: any, timeout = customTimeout || 30000): Promise<void> {
+    try {
+      await $(selector).waitForExist({ timeout: timeout });
+    } catch (error) {
+      throw new Error(`Function 'waitToBePresent' failed: ${error}`);
+    }
+  }
+
+  /**
+   * @function waitToBeVisible
+   * @memberOf nonUi5.element
+   * @description Waits until the element with the given selector is visible.
+   * @param {Object} selector - The CSS selector describing the element.
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example await nonUi5.element.waitToBeVisible(".input01");
+   * @example await nonUi5.element.waitToBeVisible("#button12");
+   * @example await nonUi5.element.waitToBeVisible("p:first-child");
+   */
+  async waitToBeVisible(selector: any, timeout = customTimeout || 30000) {
+    try {
+      await $(selector).waitForDisplayed({ timeout: timeout });
+    } catch (error) {
+      throw new Error(`Function 'waitToBeVisible' failed: ${error}`);
+    }
+  }
+
+  /**
+   * @function waitToBeClickable
+   * @memberOf nonUi5.element
+   * @description Waits until the element with the given selector is clickable.
+   * @param {Object} selector - The CSS selector describing the element.
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example await nonUi5.element.waitToBeClickable(".input01");
+   * @example await nonUi5.element.waitToBeClickable("#button12");
+   * @example await nonUi5.element.waitToBeClickable("p:first-child");
+   */
+  async waitToBeClickable(selector: any, timeout = customTimeout || 30000) {
+    try {
+      await $(selector).waitForClickable({ timeout: timeout });
+    } catch (error) {
+      throw new Error(`Function 'waitToBeClickable' failed: ${error}`);
+    }
   };
-
-  // /**
-  //  * @function waitToBePresent
-  //  * @memberOf nonUi5.element
-  //  * @description Waits until the element with the given selector is present.
-  //  * @param {Object} selector - The CSS selector describing the element.
-  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
-  //  * @example await nonUi5.element.waitToBePresent(".input01");
-  //  * @example await nonUi5.element.waitToBePresent("#button12");
-  //  * @example await nonUi5.element.waitToBePresent("p:first-child");
-  //  */
-  // async waitToBePresent(selector: any, timeout = customTimeout || 30000): Promise<void> {
-  //   let elem: Element | null = null;
-  //   await browser.waitUntil(async function () {
-  //     elem = await $(selector);
-  //     if (!elem) return false;
-  //     // eslint-disable-next-line no-return-await
-  //     return await elem.isExisting();
-  //   }, {
-  //     timeout,
-  //     timeoutMsg: `Function 'waitToBePresent' failed. Timeout by waiting for element for selector '${selector}' is present at the DOM.`
-  //   });
-  // };
-
-  // /**
-  //  * @function waitToBeVisible
-  //  * @memberOf nonUi5.element
-  //  * @description Waits until the element with the given selector is visible.
-  //  * @param {Object} selector - The CSS selector describing the element.
-  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
-  //  * @example await nonUi5.element.waitToBeVisible(".input01");
-  //  * @example await nonUi5.element.waitToBeVisible("#button12");
-  //  * @example await nonUi5.element.waitToBeVisible("p:first-child");
-  //  */
-  // async waitToBeVisible(selector: any, timeout = customTimeout || 30000) {
-  //   let elem: Element | null = null;
-  //   await browser.waitUntil(async function () {
-  //     elem = await $(selector);
-  //     if (!elem) return false;
-  //     return elem.isDisplayed();
-  //   }, {
-  //     timeout,
-  //     timeoutMsg: `Function 'waitToBeVisible' failed. Expected element not visible for selector '${selector}' after ${+timeout / 1000}s`
-  //   });
-  // };
-
-  // /**
-  //  * @function waitToBeClickable
-  //  * @memberOf nonUi5.element
-  //  * @description Waits until the element with the given selector is clickable.
-  //  * @param {Object} selector - The CSS selector describing the element.
-  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
-  //  * @example await nonUi5.element.waitToBeClickable(".input01");
-  //  * @example await nonUi5.element.waitToBeClickable("#button12");
-  //  * @example await nonUi5.element.waitToBeClickable("p:first-child");
-  //  */
-  // async waitToBeClickable(selector: any, timeout = customTimeout || 30000) {
-  //   let elem: Element | null = null;
-  //   await browser.waitUntil(async function () {
-  //     elem = await $(selector);
-  //     if (!elem) return false;
-  //     // eslint-disable-next-line no-return-await
-  //     return await elem.isClickable();
-  //   }, {
-  //     timeout,
-  //     timeoutMsg: `Function 'waitToBeClickable' failed. Timeout by waiting for element for selector '${selector}' to be clickable.`
-  //   });
-  // };
-
 
   // // =================================== GET ELEMENTS ===================================
   // /**
@@ -157,7 +142,7 @@ export class ElementModule {
   //  * @memberOf nonUi5.element
   //  * @description Gets the element with the given CSS selector.
   //  * @param {Object} selector - The CSS selector describing the element.
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
   //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
   //  * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
   //  * @returns {Object} The found element.
@@ -182,7 +167,7 @@ export class ElementModule {
   //  * @description Gets the element with the given CSS selector containing the given text value.
   //  * @param {Object} selector - The CSS selector describing the element.
   //  * @param {String} [text=""] - The containing text value of the element.
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
   //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
   //  * @returns {Object} The found element.
   //  * @example const elem = await nonUi5.element.getByCssContainingText(".input01", "Jack Jackson");
@@ -224,7 +209,7 @@ export class ElementModule {
   //  * @memberOf nonUi5.element
   //  * @description Gets the element with the given class.
   //  * @param {String} elemClass - The class describing the element
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
   //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
   //  * @returns {Object} The found element.
   //  * @example const elem = await nonUi5.element.getByClass("button01");
@@ -244,7 +229,7 @@ export class ElementModule {
   //  * @memberOf nonUi5.element
   //  * @description Gets the element with the given name.
   //  * @param {String} name - The name attribute of the element.
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
   //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
   //  * @returns {Object} The found element.
   //  * @example const elem = await nonUi5.element.getByName(".button01");
@@ -263,7 +248,7 @@ export class ElementModule {
   //  * @memberOf nonUi5.element
   //  * @description Gets the element with the given XPath.
   //  * @param {String} xpath - The XPath describing the element.
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
   //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
   //  * @returns {Object} The found element.
   //  * @example const elem = await nonUi5.element.getByXPath("//ul/li/a");
@@ -282,7 +267,7 @@ export class ElementModule {
   //  * @description Gets an element by its selector and child selector. Can be used when multiple elements have the same properties.
   //  * @param {String} elementSelector - The CSS selector describing the element.
   //  * @param {String} childSelector - The CSS selector describing the child element.
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
   //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
   //  * @returns {Object} The found element.
   //  * @example const elem = await nonUi5.element.getByChild(".form01", ".input01");
@@ -316,7 +301,7 @@ export class ElementModule {
   //  * @description Gets an element by its selector and parent selector. Can be used when multiple elements have the same properties.
   //  * @param {String} elementSelector - The CSS selector describing the element.
   //  * @param {String} parentSelector - The CSS selector describing the parent element.
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
   //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
   //  * @returns {Object} The found element.
   //  * @example const elem = await nonUi5.element.getByParent(".form01", ".input01");
@@ -345,7 +330,6 @@ export class ElementModule {
   //     return elementsWithParent[index];
   //   }
   // };
-
 
   // // =================================== GET VALUES ===================================
   // /**
@@ -379,7 +363,7 @@ export class ElementModule {
   //  * @memberOf nonUi5.element
   //  * @description Returns a boolean if the element is present at the DOM or not.
   //  * @param {String} css - The CSS selector describing the element.
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
   //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
   //  * @returns {boolean} Returns true or false.
   //  * @example await nonUi5.element.isPresentByCss(".button01");
@@ -406,7 +390,7 @@ export class ElementModule {
   //  * @memberOf nonUi5.element
   //  * @description returns a boolean if the element is present at the DOM or not.
   //  * @param {String} xpath - The XPath describing the element.
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
   //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
   //  * @returns {boolean}
   //  * @example await nonUi5.element.isPresentByXPath(".//*[text()='Create']");
@@ -431,7 +415,7 @@ export class ElementModule {
   //   if (typeof elem === "object" && elem !== null) {
   //     const tagName = await elem.getTagName();
   //     if (attribute === "value" && (tagName === "input" || tagName === "textarea")) {
-  //       // return the element value (and not element attribute value) for input and textarea "value" attribute 
+  //       // return the element value (and not element attribute value) for input and textarea "value" attribute
   //       return elem.getValue();
   //     } else if (attribute && attribute !== "textContent") {
   //       return elem.getAttribute(attribute);
@@ -474,7 +458,7 @@ export class ElementModule {
   // /**
   //  * @function setInnerHTML
   //  * @memberOf nonUi5.element
-  //  * @description Sets the innerHTML value of the given element. 
+  //  * @description Sets the innerHTML value of the given element.
   //  * CAUTION: Only use this if filling the value in the normal way is not working and if it is unavoidable. Keep in mind, that a user is not able to perform such actions.
   //  * @param {Object} elem - The element.
   //  * @returns {String} The value to set.
@@ -484,7 +468,6 @@ export class ElementModule {
   // async setInnerHTML(elem: Element, value: string): Promise<void> {
   //   await browser.executeScript(`arguments[0].innerHTML = '${value}'`, [elem]);
   // };
-
 
   // // =================================== ACTIONS ===================================
   // /**
@@ -504,7 +487,6 @@ export class ElementModule {
   //   await browser.pause(duration);
   //   return browser.executeScript("arguments[0].style.boxShadow = 'inherit'", [elem]);
   // };
-
 
   // // =================================== FRAMES ===================================
   // /**
@@ -534,32 +516,36 @@ export class ElementModule {
   //   await util.browser.switchToDefaultContent();
   // };
 
-
   // =================================== HELPER ===================================
-  private async _waitForStabilization(selector: object, timeout: number, stableIterationsRequired: number = 3): Promise<void> {
+  private async _waitForStabilization(
+    selector: object,
+    timeout: number,
+    stableIterationsRequired: number = 3
+  ): Promise<void> {
     let elemsCount: number = 0;
     let stableIterations: number = 0;
 
-    await browser.waitUntil(async function () {
-      const currentElemsCount = await $$(selector).length;
-      
-      if (currentElemsCount === elemsCount) {
-        stableIterations++;
-      } else {
-        stableIterations = 0;
-      }
+    await browser.waitUntil(
+      async function () {
+        const currentElemsCount = await $$(selector).length;
 
-      elemsCount = currentElemsCount;
+        if (currentElemsCount === elemsCount) {
+          stableIterations++;
+        } else {
+          stableIterations = 0;
+        }
 
-      if (stableIterations === stableIterationsRequired) {
-        return true;
+        elemsCount = currentElemsCount;
+
+        if (stableIterations === stableIterationsRequired) {
+          return true;
+        }
+      },
+      {
+        timeout: timeout,
+        timeoutMsg: `No elements found for selector '${selector}' after ${+timeout / 1000}s.`,
       }
-    }, {
-      timeout: timeout,
-      timeoutMsg: `No elements found for selector '${selector}' after ${+timeout / 1000}s.`
-    });
+    );
   }
-
-
 }
 export default new ElementModule();
