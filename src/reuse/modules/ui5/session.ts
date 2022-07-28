@@ -1,7 +1,4 @@
 "use strict";
-
-const customTimeout = browser.config.params.qmateCustomTimeout;
-
 /**
  * @class session
  * @memberof ui5
@@ -20,7 +17,7 @@ export class Session {
    * @example await ui5.session.login("PURCHASER");
    * @example await ui5.session.login("JOHN_DOE", "abc123!", true);
    */
-  async login (username: string, password = "super-duper-sensitive-pw", verify = false, timeout: number = customTimeout || 30000) {
+  async login (username: string, password = "super-duper-sensitive-pw", verify = false, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     if (browser.config && browser.config.params &&
       browser.config.params.auth && browser.config.params.auth.formType === "skip") {
       util.console.warn("Login is skipped since 'formType' is set to 'skip'");

@@ -1,8 +1,5 @@
 "use strict";
 
-const customTimeout = browser.config.params.qmateCustomTimeout;
-const customLoadPropertyTimeout = browser.config.params.loadPropertyTimeout;
-
 /**
  * @class navigationBar
  * @memberof ui5
@@ -16,7 +13,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickBack();
    */
-  async clickBack(timeout: number = customTimeout || 30000) {
+  async clickBack(timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const selector = {
       "elementProperties": {
         "metadata": "sap.ushell.ui.shell.ShellHeadItem",
@@ -37,7 +34,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickSapLogo();
    */
-  async clickSapLogo(timeout: number = customTimeout || 30000) {
+  async clickSapLogo(timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const selector = {
       "id": "shell-header-logo"
     };
@@ -55,7 +52,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickUserIcon();
    */
-  async clickUserIcon(timeout: number = customTimeout || 30000) {
+  async clickUserIcon(timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const selector = {
       "elementProperties": {
         "id": "meAreaHeaderButton"
@@ -100,7 +97,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.expectShellHeader();
    */
-  async expectShellHeader(timeout: number = customTimeout || 30000, loadPropertyTimeout = customLoadPropertyTimeout || 10000) {
+  async expectShellHeader(timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const selector = {
       "elementProperties": {
         "metadata": "sap.ushell.ui.ShellHeader",
