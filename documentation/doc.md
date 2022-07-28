@@ -562,7 +562,7 @@ Global namespace for util modules.
         * [.logUI5Version()](#util.browser.logUI5Version)
         * [.executeScript(command)](#util.browser.executeScript) ⇒ <code>Any</code>
         * [.waitForWindows()](#util.browser.waitForWindows)
-        * [.switchToNewWindow(originalHandle, windowTitle)](#util.browser.switchToNewWindow)
+        * [.switchToNewWindow(windowTitle, [retries], [waitInterval])](#util.browser.switchToNewWindow)
         * [.switchToWindow(handle)](#util.browser.switchToWindow)
         * [.getCurrentWindow()](#util.browser.getCurrentWindow) ⇒ <code>Object</code>
         * [.back()](#util.browser.back)
@@ -624,7 +624,7 @@ Global namespace for util modules.
     * [.logUI5Version()](#util.browser.logUI5Version)
     * [.executeScript(command)](#util.browser.executeScript) ⇒ <code>Any</code>
     * [.waitForWindows()](#util.browser.waitForWindows)
-    * [.switchToNewWindow(originalHandle, windowTitle)](#util.browser.switchToNewWindow)
+    * [.switchToNewWindow(windowTitle, [retries], [waitInterval])](#util.browser.switchToNewWindow)
     * [.switchToWindow(handle)](#util.browser.switchToWindow)
     * [.getCurrentWindow()](#util.browser.getCurrentWindow) ⇒ <code>Object</code>
     * [.back()](#util.browser.back)
@@ -814,19 +814,20 @@ await util.browser.waitForWindows();
 ```
 <a name="util.browser.switchToNewWindow"></a>
 
-#### browser.switchToNewWindow(originalHandle, windowTitle)
+#### browser.switchToNewWindow(windowTitle, [retries], [waitInterval])
 Switches the window.
 
 **Kind**: static method of [<code>browser</code>](#util.browser)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| originalHandle | <code>String</code> | The main window handle. |
-| windowTitle | <code>String</code> | Window Title to be expected |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| windowTitle | <code>String</code> |  | window title to be expected |
+| [retries] | <code>Number</code> | <code>50</code> | number of retries |
+| [waitInterval] | <code>Number</code> | <code>1000</code> | wait time in milliseconds between retries |
 
 **Example**  
 ```js
-await util.browser.switchToNewWindow(originalHandle,);
+await util.browser.switchToNewWindow("Supplier Invoice");
 ```
 <a name="util.browser.switchToWindow"></a>
 
@@ -3186,7 +3187,7 @@ Login with specific username and password. This function works for both fiori an
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | username | <code>String</code> |  | The username. |
-| [password] | <code>String</code> | <code>&quot;Welcome2!&quot;</code> | The password. |
+| [password] | <code>String</code> | <code>&quot;Welcome1!&quot;</code> | The password. |
 | [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the function will check the shell header after logging in. |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
@@ -3208,7 +3209,7 @@ Login with fioriForm and specific username and password.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | username | <code>String</code> |  | The username. |
-| [password] | <code>String</code> | <code>&quot;Welcome2!&quot;</code> | The password. |
+| [password] | <code>String</code> | <code>&quot;Welcome1!&quot;</code> | The password. |
 | [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the function will check the shell header after logging in. |
 
 **Example**  
@@ -3225,7 +3226,7 @@ Login with sapCloud form and specific username and password.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | username | <code>String</code> |  | The username. |
-| [password] | <code>String</code> | <code>&quot;Welcome2!&quot;</code> | The password. |
+| [password] | <code>String</code> | <code>&quot;Welcome1!&quot;</code> | The password. |
 | [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the function will check the shell header after logging in. |
 
 **Example**  
@@ -3242,7 +3243,7 @@ Login with custom form and specific username and password.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | username | <code>String</code> |  | The username. |
-| [password] | <code>String</code> | <code>&quot;Welcome2!&quot;</code> | The password. |
+| [password] | <code>String</code> | <code>&quot;Welcome1!&quot;</code> | The password. |
 | usernameFieldSelector | <code>String</code> |  | The CSS selector of the username field. |
 | passwordFieldSelector | <code>String</code> |  | The CSS selector of the password field. |
 | logonButtonSelector | <code>String</code> |  | The CSS selector of the login button. |
@@ -3262,7 +3263,7 @@ Login with specific username and password. The selectors will be taken from the 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | username | <code>String</code> |  | The username. Can be specified in spec or config. If specified in both credentials will be taken from config. |
-| password | <code>String</code> | <code>&quot;Welcome2!&quot;</code> | The password. Can be specified in spec or config. If specified in both credentials will be taken from config. |
+| password | <code>String</code> | <code>&quot;Welcome1!&quot;</code> | The password. Can be specified in spec or config. If specified in both credentials will be taken from config. |
 | [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the function will check the shell header after logging in. |
 
 **Example**  
@@ -3282,7 +3283,7 @@ Login with specific username and password. The selectors will be taken from the 
       auth: {
         formType: "plain",
         username: "PURCH_EXT",
-        password: "Welcome2!",
+        password: "Welcome1!",
         usernameFieldSelector: "#USERNAME_BLOCK input",
         passwordFieldSelector: "#PASSWORD_BLOCK input",
         logonButtonSelector: "#LOGIN_LINK"
@@ -3315,7 +3316,7 @@ switches the user according to the passed username and password.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | username | <code>String</code> |  | The username. |
-| [password] | <code>String</code> | <code>&quot;Welcome2!&quot;</code> | The password. |
+| [password] | <code>String</code> | <code>&quot;Welcome1!&quot;</code> | The password. |
 | [authenticator] | <code>Object</code> |  | The login form type. Set to null to use generic login. |
 | [wait] | <code>Number</code> | <code>10000</code> | The waiting time between logout and login (ms). |
 
@@ -3326,7 +3327,7 @@ await ui5.session.switchUser("PURCHASER");
 **Example**  
 ```js
 const authenticator = ui5.authenticators.fioriForm;
-await ui5.session.switchUser("PURCHASER", "Welcome2!", authenticator, 30000);
+await ui5.session.switchUser("PURCHASER", "Welcome1!", authenticator, 30000);
 ```
 <a name="ui5.session.expectLogoutText"></a>
 
