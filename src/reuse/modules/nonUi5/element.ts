@@ -131,14 +131,7 @@ export class ElementModule {
    */
   async getByCss(selector: any, index: number = 0, timeout: number = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
-      await this.waitForAll(selector, timeout);
-      const elements: Element[] = await $$(selector);
-      if (includeHidden) {
-        return elements[index];
-      } else {
-        const visibleElements = elements.filter(async (elem) => await elem.isDisplayed());
-        return visibleElements[index];
-      }
+      return await this._getAndFilterElementBySelector(selector, index, timeout, includeHidden);
     } catch (error) {
       throw new Error(`Function 'getByCss' failed. Element with CSS '${selector}' not found. ${error}`);
     }
@@ -217,14 +210,7 @@ export class ElementModule {
   async getByClass(elemClass: string, index = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
       const selector = `[class*='${elemClass}']`;
-      await this.waitForAll(selector, timeout);
-      const elements: Element[] = await $$(selector);
-      if (includeHidden) {
-        return elements[index];
-      } else {
-        const visibleElements = elements.filter(async (elem) => await elem.isDisplayed());
-        return visibleElements[index];
-      }
+      return await this._getAndFilterElementBySelector(selector, index, timeout, includeHidden);
     } catch (error) {
       throw new Error(`Function 'getByClass' failed. Element with id '${elemClass}' not found. ${error}`);
     }
@@ -244,14 +230,7 @@ export class ElementModule {
   async getByName(name: string, index = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
       const selector = `[name='${name}']`;
-      await this.waitForAll(selector, timeout);
-      const elements: Element[] = await $$(selector);
-      if (includeHidden) {
-        return elements[index];
-      } else {
-        const visibleElements = elements.filter(async (elem) => await elem.isDisplayed());
-        return visibleElements[index];
-      }
+      return await this._getAndFilterElementBySelector(selector, index, timeout, includeHidden);
     } catch (error) {
       throw new Error(`Function 'getByName' failed. Element with name '${name}' not found. ${error}`);
     }
@@ -556,6 +535,17 @@ export class ElementModule {
         timeoutMsg: `No elements found for selector '${selector}' after ${+timeout / 1000}s.`,
       }
     );
+  }
+
+  private async _getAndFilterElementBySelector(selector: string, index: number = 0, timeout: number = 30000, includeHidden: boolean = false): Promise<Element> {
+    await this.waitForAll(selector, timeout);
+    const elements: Element[] = await $$(selector);
+    if (includeHidden) {
+      return elements[index];
+    } else {
+      const visibleElements = elements.filter(async (elem) => await elem.isDisplayed());
+      return visibleElements[index];
+    }
   }
 }
 export default new ElementModule();
