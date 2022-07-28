@@ -149,13 +149,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByCssContainingText(".input01", "Jack Jackson");
    */
-  async getByCssContainingText(
-    selector: any,
-    text: string = "",
-    index = 0,
-    timeout: number = customTimeout || 30000,
-    includeHidden: boolean = false
-  ): Promise<Element> {
+  async getByCssContainingText(selector: any, text: string = "", index = 0, timeout: number = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
       await this.waitForAll(`${selector}=${text}`, timeout);
       const elements: Element[] = await $$(`${selector}=${text}`);
@@ -202,7 +196,7 @@ export class ElementModule {
    * @param {String} elemClass - The class describing the element
    * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Boolean} [includeHidden=false] - Specifies if the function will check for the elements visibility.
+   * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByClass("button01");
    * const elem = await nonUi5.element.getByClass("sapMIBar sapMTB sapMTBNewFlex sapContrastPlus");
@@ -223,7 +217,7 @@ export class ElementModule {
    * @param {String} name - The name attribute of the element.
    * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Boolean} [includeHidden=false] - Specifies if the function will check for the elements visibility.
+   * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByName(".button01");
    */
@@ -243,86 +237,93 @@ export class ElementModule {
    * @param {String} xpath - The XPath describing the element.
    * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByXPath("//ul/li/a");
    */
-  async getByXPath(xpath: string, index = 0, timeout = customTimeout || 30000) {
+  async getByXPath(xpath: string, index = 0, timeout = customTimeout || 30000, includeHidden: boolean = false) {
     try {
-      return await this.getByCss(xpath, index, timeout);
+      return await this.getByCss(xpath, index, timeout, includeHidden);
     } catch (error) {
       throw new Error(`Function 'getByXPath' failed. Element with XPath '${xpath}' not found. ${error}`);
     }
   }
 
-  // /**
-  //  * @function getByChild
-  //  * @memberOf nonUi5.element
-  //  * @description Gets an element by its selector and child selector. Can be used when multiple elements have the same properties.
-  //  * @param {String} elementSelector - The CSS selector describing the element.
-  //  * @param {String} childSelector - The CSS selector describing the child element.
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
-  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
-  //  * @returns {Object} The found element.
-  //  * @example const elem = await nonUi5.element.getByChild(".form01", ".input01");
-  //  */
-  // async getByChild(elementSelector: any, childSelector: any, index = 0, timeout = customTimeout || 30000): Promise<Element> {
-  //   let elems;
-  //   try {
-  //     elems = await this.getAllDisplayed(elementSelector, timeout);
-  //   } catch (error) {
-  //     throw new Error(`Function 'getByChild' failed. No element found for selector: "${elementSelector}".`);
-  //   }
+  /**
+   * @function getByChild
+   * @memberOf nonUi5.element
+   * @description Gets an element by its selector and child selector. Can be used when multiple elements have the same properties.
+   * @param {String} elementSelector - The CSS selector describing the element.
+   * @param {String} childSelector - The CSS selector describing the child element.
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
+   * @returns {Object} The found element.
+   * @example const elem = await nonUi5.element.getByChild(".form01", ".input01");
+   */
+  async getByChild(elementSelector: any, childSelector: any, index = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
+    let elems: Element[], elementsWithChild: Element[];
 
-  //   const elementsWithChild = [];
-  //   for (const element of elems) {
-  //     const isDisplayed = await (await element.$(childSelector)).isDisplayed();
-  //     if (isDisplayed) {
-  //       elementsWithChild.push(element);
-  //     }
-  //   }
+    try {
+      if (includeHidden) {
+        elems = await this.getAll(elementSelector, timeout);
+      } else {
+        elems = await this.getAllDisplayed(elementSelector, timeout);
+      }
+    } catch (error) {
+      throw new Error(`Function 'getByChild' failed. No element found for selector: '${elementSelector}'.`);
+    }
 
-  //   if (elementsWithChild.length === 0) {
-  //     throw new Error(`Function 'getByChild' failed. The found element(s) with the given selector do(es) not have any child with selector ${childSelector}.`);
-  //   } else {
-  //     return elementsWithChild[index];
-  //   }
-  // };
+    if (includeHidden) {
+      elementsWithChild = elems.filter(async (elem) => await (await elem.$(childSelector)).isExisting());
+    } else {
+      elementsWithChild = elems.filter(async (elem) => await (await elem.$(childSelector)).isDisplayed());
+    }
+    
+    if (elementsWithChild.length === 0) {
+      throw new Error(`Function 'getByChild' failed. The found element(s) with the given selector do(es) not have any child with selector '${childSelector}'.`);
+    } else {
+      return elementsWithChild[index];
+    }
+  }
 
-  // /**
-  //  * @function getByParent
-  //  * @memberOf nonUi5.element
-  //  * @description Gets an element by its selector and parent selector. Can be used when multiple elements have the same properties.
-  //  * @param {String} elementSelector - The CSS selector describing the element.
-  //  * @param {String} parentSelector - The CSS selector describing the parent element.
-  //  * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
-  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
-  //  * @returns {Object} The found element.
-  //  * @example const elem = await nonUi5.element.getByParent(".form01", ".input01");
-  //  */
-  // async getByParent(elementSelector: any, parentSelector: any, index = 0, timeout = customTimeout || 30000) {
-  //   let parentElems = [];
-  //   try {
-  //     parentElems = await this.getAllDisplayed(parentSelector, timeout);
-  //   } catch (error) {
-  //     // @ts-ignore
-  //     throw new Error(`Function 'getByParent' failed. No parent element found for selector: ${parentSelector}.`, error);
-  //   }
+  /**
+   * @function getByParent
+   * @memberOf nonUi5.element
+   * @description Gets an element by its selector and parent selector. Can be used when multiple elements have the same properties.
+   * @param {String} elementSelector - The CSS selector describing the element.
+   * @param {String} parentSelector - The CSS selector describing the parent element.
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
+   * @returns {Object} The found element.
+   * @example const elem = await nonUi5.element.getByParent(".form01", ".input01");
+   */
+  async getByParent(elementSelector: any, parentSelector: any, index = 0, timeout = customTimeout || 30000, includeHidden: boolean = false): Promise<Element> {
+    let parentElems: Element[], elementsWithParent: Element[];
 
-  //   const elementsWithParent = [];
-  //   for (const parentElement of parentElems) {
-  //     const elem = await parentElement.$(elementSelector);
-  //     const isDisplayed = await elem.isDisplayed();
-  //     if (isDisplayed) {
-  //       elementsWithParent.push(elem);
-  //     }
-  //   }
+    try {
+      if (includeHidden) {
+        parentElems = await this.getAll(elementSelector, timeout);
+      } else {
+        parentElems = await this.getAllDisplayed(elementSelector, timeout);
+      }
+    } catch (error) {
+      throw new Error(`Function 'getByParent' failed. No parent element found for selector: '${parentSelector}'. ${error}`);
+    }
 
-  //   if (elementsWithParent.length === 0) {
-  //     throw new Error(`Function 'getByParent' failed. No visible elements found for selector '${elementSelector}' and parent selector '${parentSelector}'`);
-  //   } else {
-  //     return elementsWithParent[index];
-  //   }
-  // };
+    if (includeHidden) {
+      elementsWithParent = parentElems.filter(async (elem) => await (await elem.$(elementSelector)).isExisting());
+    } else {
+      elementsWithParent = parentElems.filter(async (elem) => await (await elem.$(elementSelector)).isDisplayed());
+    }
+
+    if (elementsWithParent.length === 0) {
+      throw new Error(`Function 'getByParent' failed. No visible elements found for selector '${elementSelector}' and parent selector '${parentSelector}'.`);
+    } else {
+      return elementsWithParent[index];
+    }
+  }
 
   // // =================================== GET VALUES ===================================
   // /**
