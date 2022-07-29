@@ -151,7 +151,7 @@ export class ElementModule {
     try {
       await this.waitForAll(selector, timeout);
       const elems: Element[] = await $$(selector);
-      const filteredElems = elems.filter(async (elem) => await (await elem.getText()).includes(text));
+      const filteredElems = await this._filterByText(elems, text);
       if (includeHidden) {
         return filteredElems[index];
       } else {
@@ -536,5 +536,18 @@ export class ElementModule {
       return visibleElems[index];
     }
   }
+
+  private async _filterByText(elems: Element[], text: string) {
+    const filteredElems = [];
+    for (const elem of elems) {
+      const elementText = await elem.getText();
+      if (elementText.indexOf(text) !== -1) {
+        filteredElems.push(elem);
+      }
+    }
+    return filteredElems;
+  }
 }
 export default new ElementModule();
+
+
