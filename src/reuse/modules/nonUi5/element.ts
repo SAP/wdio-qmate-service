@@ -149,16 +149,17 @@ export class ElementModule {
    */
   async getByCssContainingText(selector: any, text: string = "", index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
-      await this.waitForAll(`${selector}=${text}`, timeout);
-      const elems: Element[] = await $$(`${selector}=${text}`);
+      await this.waitForAll(selector, timeout);
+      const elems: Element[] = await $$(selector);
+      const filteredElems = elems.filter(async (elem) => await (await elem.getText()).includes(text));
       if (includeHidden) {
-        return elems[index];
+        return filteredElems[index];
       } else {
-        const visibleElems = elems.filter(async (elem) => await elem.isDisplayed());
+        const visibleElems = filteredElems.filter(async (elem) => await elem.isDisplayed());
         return visibleElems[index];
       }
     } catch (error) {
-      throw new Error(`Function 'getByCssContainingText' failed. Element with CSS '${selector}' not found. ${error}`);
+      throw new Error(`Function 'getByCssContainingText' failed. Element with CSS '${selector}' and text '${text}' not found. ${error}`);
     }
   }
 
