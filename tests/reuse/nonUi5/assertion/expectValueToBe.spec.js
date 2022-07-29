@@ -20,6 +20,6 @@ describe("assertion - expectValueToBe - error case", function () {
 
   it("Execution & Verification", async function () {
     const product = await nonUi5.element.getByXPath("//div[contains(text(),'Laptops')]");
-    await expect(nonUi5.assertion.expectValueToBe(product, "Wrong Value")).rejects.toThrow(/expect(received).toEqual(expected)/);
+    await expect(nonUi5.assertion.expectValueToBe(product, "Wrong Value")).rejects.toThrow("expect(received).toEqual(expected)");
   });
 });
