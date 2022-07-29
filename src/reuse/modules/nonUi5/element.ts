@@ -91,7 +91,7 @@ export class ElementModule {
     try {
       await this.waitForAll(selector, timeout);
       const elems: Element[] = await $$(selector);
-      return elems.filter(async (elem) => await elem.isDisplayed());
+      return await this._filterDisplayed(elems);
     } catch (error) {
       throw new Error(`Function 'getAllDisplayed' failed. No visible element(s) found for selector '${selector}' after ${+timeout / 1000}s. ` + error);
     }
@@ -155,7 +155,7 @@ export class ElementModule {
       if (includeHidden) {
         return filteredElems[index];
       } else {
-        const visibleElems = filteredElems.filter(async (elem) => await elem.isDisplayed());
+        const visibleElems = await this._filterDisplayed(filteredElems);
         return visibleElems[index];
       }
     } catch (error) {
@@ -261,15 +261,25 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getByChild(".form01", ".input01");
    */
   async getByChild(elementSelector: any, childSelector: any, index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
-    let elemsWithChild: Element[];
+    let elemsWithChild: Element[] = [];
 
     try {
       if (includeHidden) {
         const elems = await this.getAll(elementSelector, timeout);
-        elemsWithChild = elems.filter(async (elem) => await (await elem.$(childSelector)).isExisting());
+        for (const element of elems) {
+          const isDisplayed = await (await element.$(childSelector)).isExisting();
+          if (isDisplayed) {
+            elemsWithChild.push(element);
+          }
+        }
       } else {
         const elems = await this.getAllDisplayed(elementSelector, timeout);
-        elemsWithChild = elems.filter(async (elem) => await (await elem.$(childSelector)).isDisplayed());
+        for (const element of elems) {
+          const isDisplayed = await (await element.$(childSelector)).isDisplayed();
+          if (isDisplayed) {
+            elemsWithChild.push(element);
+          }
+        }
       }
     } catch (error) {
       throw new Error(`Function 'getByChild' failed. No element found for selector: '${elementSelector}'.`);
@@ -295,15 +305,27 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getByParent(".form01", ".input01");
    */
   async getByParent(elementSelector: any, parentSelector: any, index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
-    let elemsWithParent: Element[];
+    let elemsWithParent: Element[] = [];
 
     try {
       if (includeHidden) {
         const parentElems = await this.getAll(elementSelector, timeout);
-        elemsWithParent = parentElems.filter(async (elem) => await (await elem.$(elementSelector)).isExisting());
+        for (const parentElement of parentElems) {
+          const elem = await parentElement.$(elementSelector);
+          const isDisplayed = await elem.isExisting();
+          if (isDisplayed) {
+            elemsWithParent.push(elem);
+          }
+        }
       } else {
         const parentElems = await this.getAllDisplayed(elementSelector, timeout);
-        elemsWithParent = parentElems.filter(async (elem) => await (await elem.$(elementSelector)).isDisplayed());
+        for (const parentElement of parentElems) {
+          const elem = await parentElement.$(elementSelector);
+          const isDisplayed = await elem.isDisplayed();
+          if (isDisplayed) {
+            elemsWithParent.push(elem);
+          }
+        }
       }
     } catch (error) {
       throw new Error(`Function 'getByParent' failed. No parent element found for selector: '${parentSelector}'. ${error}`);
@@ -532,7 +554,7 @@ export class ElementModule {
     if (includeHidden) {
       return elems[index];
     } else {
-      const visibleElems = elems.filter(async (elem) => await elem.isDisplayed());
+      const visibleElems = await this._filterDisplayed(elems);
       return visibleElems[index];
     }
   }
@@ -541,7 +563,17 @@ export class ElementModule {
     const filteredElems = [];
     for (const elem of elems) {
       const elementText = await elem.getText();
-      if (elementText.indexOf(text) !== -1) {
+      if (elementText.includes(text)) {
+        filteredElems.push(elem);
+      }
+    }
+    return filteredElems;
+  }
+
+  private async _filterDisplayed(elems: Element[]) {
+    const filteredElems = [];
+    for (const elem of elems) {
+      if (await elem.isDisplayed()) {
         filteredElems.push(elem);
       }
     }
@@ -549,5 +581,3 @@ export class ElementModule {
   }
 }
 export default new ElementModule();
-
-
