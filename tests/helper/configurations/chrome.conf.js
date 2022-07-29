@@ -87,5 +87,5 @@ exports.config = merge(baseConfig.config, {
     } catch (error) {
       throw new Error(`Could not generate report. ${error}`);
     }
-  },
+  }
 });
