@@ -17,7 +17,6 @@ export class ElementModule {
   async waitForAll(selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<void> {
     try {
       await this._waitForStabilization(selector, timeout);
-      await $(selector).waitForExist();
     } catch (error) {
       throw new Error(`Function 'waitForAll' failed: ${error}`);
     }
@@ -526,7 +525,7 @@ export class ElementModule {
     let stableIterations: number = 0;
 
     await browser.waitUntil(
-      async function () {
+      async () => {
         const currentElemsCount = await $$(selector).length;
 
         if (currentElemsCount === elemsCount) {
@@ -543,9 +542,13 @@ export class ElementModule {
       },
       {
         timeout: timeout,
-        timeoutMsg: `No elements found for selector '${selector}' after ${+timeout / 1000}s.`,
+        timeoutMsg: `Timeout reached. Page is still loading after ${+timeout / 1000}s.`,
       }
     );
+
+    if (elemsCount === 0) {
+      throw new Error(`No element(s) found for selector '${selector}' after ${+timeout / 1000}s.`)
+    }
   }
 
   private async _getAndFilterElementBySelector(selector: string, index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
