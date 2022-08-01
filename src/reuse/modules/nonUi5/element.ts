@@ -126,7 +126,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByCss(".button01");
    */
-  async getByCss(selector: any, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 40000, includeHidden: boolean = false): Promise<Element> {
+  async getByCss(selector: any, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
       return await this._getAndFilterElementBySelector(selector, index, timeout, includeHidden);
     } catch (error) {

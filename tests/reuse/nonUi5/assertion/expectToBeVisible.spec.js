@@ -1,7 +1,5 @@
 "use strict";
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("assertion - expectToBeVisible", function () {
   let visibleElement;
@@ -19,7 +17,7 @@ describe("assertion - expectToBeVisible", function () {
   });
 });
 
-describe("assertion - expectToBeVisible for element out of viewpoint", function () {
+describe("assertion - expectToBeVisible - element out of viewpoint", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await handleCookiesConsent();
@@ -27,25 +25,21 @@ describe("assertion - expectToBeVisible for element out of viewpoint", function 
 
   it("Execution", async function () {
     const selectorForDropdownList = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MultiComboBox.view.MultiComboBox",
-        "metadata": "sap.m.MultiComboBox"
-      }
+      elementProperties: {
+        viewName: "sap.m.sample.MultiComboBox.view.MultiComboBox",
+        metadata: "sap.m.MultiComboBox",
+      },
     };
-
-    // Expand dropdown list
     await ui5.userInteraction.clickSelectArrow(selectorForDropdownList);
   });
 
   it("Verification", async function () {
-    // Get id of an element at the end of dropdown list
     const elem = await nonUi5.element.getByCssContainingText(".sapMMultiComboBoxItem", "Smart Games");
     await nonUi5.assertion.expectToBeVisible(elem);
   });
 });
 
-describe("assertion - expectToBeVisible and catch error", function () {
-
+describe("assertion - expectToBeVisible - error case", function () {
   let hiddenElement;
 
   it("Preparation", async function () {
@@ -53,9 +47,7 @@ describe("assertion - expectToBeVisible and catch error", function () {
   });
 
   it("Execution", async function () {
-    // Get hidden elements (cannot use 'getByCss' here as element with id=hiddenParagraph is being hidden)
-    await nonUi5.element.waitForAll("#hiddenParagraph");
-    const hiddenElements = await $$("#hiddenParagraph");
+    const hiddenElements = await nonUi5.element.getAll("#hiddenParagraph");
 
     common.assertion.expectDefined(hiddenElements);
     common.assertion.expectDefined(hiddenElements.length);
@@ -65,10 +57,7 @@ describe("assertion - expectToBeVisible and catch error", function () {
   });
 
   it("Verification", async function () {
-    await expect(nonUi5.assertion.expectToBeVisible(hiddenElement))
-      .rejects.toThrow("Timeout by waiting for element to be visible.");
-
-    await expect(nonUi5.assertion.expectToBeVisible(undefined))
-      .rejects.toThrow("Function 'expectToBeVisible' failed. Please provide an element as argument.");
+    await expect(nonUi5.assertion.expectToBeVisible(hiddenElement)).rejects.toThrow("Timeout by waiting for element to be visible.");
+    await expect(nonUi5.assertion.expectToBeVisible(undefined)).rejects.toThrow("Function 'expectToBeVisible' failed. Please provide an element as argument.");
   });
 });
