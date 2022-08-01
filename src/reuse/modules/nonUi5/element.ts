@@ -520,7 +520,7 @@ export class ElementModule {
   }
 
   // =================================== HELPER ===================================
-  private async _waitForStabilization(selector: object, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, stableIterationsRequired: number = 3): Promise<void> {
+  private async _waitForStabilization(selector: object, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, stableIterationsRequired: number = 10): Promise<void> {
     let elemsCount: number = 0;
     let stableIterations: number = 0;
 
