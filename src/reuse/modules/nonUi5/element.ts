@@ -260,34 +260,26 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getByChild(".form01", ".input01");
    */
   async getByChild(elementSelector: any, childSelector: any, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
-    let elemsWithChild: Element[] = [];
-
+    let elems;
     try {
-      if (includeHidden) {
-        const elems = await this.getAll(elementSelector, timeout);
-        for (const element of elems) {
-          const isDisplayed = await (await element.$(childSelector)).isExisting();
-          if (isDisplayed) {
-            elemsWithChild.push(element);
-          }
-        }
-      } else {
-        const elems = await this.getAllDisplayed(elementSelector, timeout);
-        for (const element of elems) {
-          const isDisplayed = await (await element.$(childSelector)).isDisplayed();
-          if (isDisplayed) {
-            elemsWithChild.push(element);
-          }
-        }
-      }
+      elems = includeHidden ? await this.getAll(elementSelector, timeout) : await this.getAllDisplayed(elementSelector, timeout);
     } catch (error) {
-      throw new Error(`Function 'getByChild' failed. No element found for selector: '${elementSelector}'.`);
+      throw new Error(`Function 'getByChild' failed. No element found for selector: "${elementSelector}".`);
     }
 
-    if (elemsWithChild.length === 0) {
-      throw new Error(`Function 'getByChild' failed. The found element(s) with the given selector do(es) not have any child with selector '${childSelector}'.`);
+    const elementsWithChild: Element[] = [];
+    for (const element of elems) {
+      const elem = await element.$(childSelector);
+      const toBeIncluded = includeHidden ? await elem.isExisting() : await elem.isDisplayed();
+      if (toBeIncluded) {
+        elementsWithChild.push(element);
+      }
+    }
+
+    if (elementsWithChild.length === 0) {
+      throw new Error(`Function 'getByChild' failed. The found element(s) with the given selector do(es) not have any child with selector ${childSelector}.`);
     } else {
-      return elemsWithChild[index];
+      return elementsWithChild[index];
     }
   }
 
@@ -304,36 +296,26 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getByParent(".form01", ".input01");
    */
   async getByParent(elementSelector: any, parentSelector: any, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
-    let elemsWithParent: Element[] = [];
-
+    let parentElems: Element[] = [];
     try {
-      if (includeHidden) {
-        const parentElems = await this.getAll(elementSelector, timeout);
-        for (const parentElement of parentElems) {
-          const elem = await parentElement.$(elementSelector);
-          const isDisplayed = await elem.isExisting();
-          if (isDisplayed) {
-            elemsWithParent.push(elem);
-          }
-        }
-      } else {
-        const parentElems = await this.getAllDisplayed(elementSelector, timeout);
-        for (const parentElement of parentElems) {
-          const elem = await parentElement.$(elementSelector);
-          const isDisplayed = await elem.isDisplayed();
-          if (isDisplayed) {
-            elemsWithParent.push(elem);
-          }
-        }
-      }
+      parentElems = includeHidden ? await this.getAll(parentSelector, timeout) : await this.getAllDisplayed(parentSelector, timeout);
     } catch (error) {
-      throw new Error(`Function 'getByParent' failed. No parent element found for selector: '${parentSelector}'. ${error}`);
+      throw new Error(`Function 'getByParent' failed. No parent element found for selector: ${parentSelector}: ${error}`);
     }
 
-    if (elemsWithParent.length === 0) {
-      throw new Error(`Function 'getByParent' failed. No visible elements found for selector '${elementSelector}' and parent selector '${parentSelector}'.`);
+    const elementsWithParent = [];
+    for (const parentElement of parentElems) {
+      const elem = await parentElement.$(elementSelector);
+      const toBeIncluded = includeHidden ? await elem.isExisting() : await elem.isDisplayed();
+      if (toBeIncluded) {
+        elementsWithParent.push(elem);
+      }
+    }
+
+    if (elementsWithParent.length === 0) {
+      throw new Error(`Function 'getByParent' failed. No visible elements found for selector '${elementSelector}' and parent selector '${parentSelector}'`);
     } else {
-      return elemsWithParent[index];
+      return elementsWithParent[index];
     }
   }
 
@@ -485,7 +467,7 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getById("text01");
    * await nonUi5.element.highlight(elem, 3000, "green");
    */
-  async highlight(elem: string, duration: number = 2000, color: string = "red") {
+  async highlight(elem: Element, duration: number = 2000, color: string = "red") {
     await browser.executeScript(`arguments[0].style.boxShadow = 'inset 0px 0px 0px 2px ${color}'`, [elem]);
     await browser.pause(duration);
     return browser.executeScript("arguments[0].style.boxShadow = 'inherit'", [elem]);
@@ -566,7 +548,11 @@ export class ElementModule {
         filteredElems.push(elem);
       }
     }
-    return filteredElems;
+    if (filteredElems.length > 0) {
+      return filteredElems;
+    } else {
+      throw new Error(`No element with text ${text} found.`)
+    }
   }
 
   private async _filterDisplayed(elems: Element[]) {
@@ -576,7 +562,11 @@ export class ElementModule {
         filteredElems.push(elem);
       }
     }
-    return filteredElems;
+    if (filteredElems.length > 0) {
+      return filteredElems;
+    } else {
+      throw new Error(`No displayed element found.`)
+    }
   }
 }
 export default new ElementModule();
