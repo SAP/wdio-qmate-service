@@ -14,7 +14,7 @@ export class ElementModule {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await nonUi5.element.waitForAll(".inputField");
    */
-  async waitForAll(selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<void> {
+  async waitForAll(selector: any, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<void> {
     try {
       await this._waitForStabilization(selector, timeout);
     } catch (error) {
@@ -32,7 +32,7 @@ export class ElementModule {
    * @example await nonUi5.element.waitToBePresent("#button12");
    * @example await nonUi5.element.waitToBePresent("p:first-child");
    */
-  async waitToBePresent(selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<void> {
+  async waitToBePresent(selector: any, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<void> {
     try {
       await $(selector).waitForExist({ timeout: timeout });
     } catch (error) {
@@ -50,7 +50,7 @@ export class ElementModule {
    * @example await nonUi5.element.waitToBeVisible("#button12");
    * @example await nonUi5.element.waitToBeVisible("p:first-child");
    */
-  async waitToBeVisible(selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async waitToBeVisible(selector: any, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     try {
       await $(selector).waitForDisplayed({ timeout: timeout });
     } catch (error) {
@@ -68,7 +68,7 @@ export class ElementModule {
    * @example await nonUi5.element.waitToBeClickable("#button12");
    * @example await nonUi5.element.waitToBeClickable("p:first-child");
    */
-  async waitToBeClickable(selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async waitToBeClickable(selector: any, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     try {
       await $(selector).waitForClickable({ timeout: timeout });
     } catch (error) {
@@ -86,7 +86,7 @@ export class ElementModule {
    * @returns {Object[]} The array of elements.
    * @example await nonUi5.element.getAllDisplayed(".inputField");
    */
-  async getAllDisplayed(selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element[]> {
+  async getAllDisplayed(selector: any, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element[]> {
     try {
       await this.waitForAll(selector, timeout);
       const elems: Element[] = await $$(selector);
@@ -106,7 +106,7 @@ export class ElementModule {
    * const isPresent = await nonUi5.element.isPresent(hiddenElements[0]);
    * await common.assertion.expectTrue(isPresent);
    */
-  async getAll(selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element[]> {
+  async getAll(selector: any, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element[]> {
     try {
       await this.waitForAll(selector, timeout);
       return await $$(selector);
@@ -126,7 +126,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByCss(".button01");
    */
-  async getByCss(selector: any, index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByCss(selector: any, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 40000, includeHidden: boolean = false): Promise<Element> {
     try {
       return await this._getAndFilterElementBySelector(selector, index, timeout, includeHidden);
     } catch (error) {
@@ -146,7 +146,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByCssContainingText(".input01", "Jack Jackson");
    */
-  async getByCssContainingText(selector: any, text: string = "", index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByCssContainingText(selector: any, text: string = "", index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
       await this.waitForAll(selector, timeout);
       const elems: Element[] = await $$(selector);
@@ -172,7 +172,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getById("button01");
    */
-  async getById(id: string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getById(id: string, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
       const selector = `[id='${id}']`;
       if (includeHidden) {
@@ -199,7 +199,7 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getByClass("button01");
    * const elem = await nonUi5.element.getByClass("sapMIBar sapMTB sapMTBNewFlex sapContrastPlus");
    */
-  async getByClass(elemClass: string, index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByClass(elemClass: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
       const selector = `[class*='${elemClass}']`;
       return await this._getAndFilterElementBySelector(selector, index, timeout, includeHidden);
@@ -219,7 +219,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByName(".button01");
    */
-  async getByName(name: string, index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByName(name: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
       const selector = `[name='${name}']`;
       return await this._getAndFilterElementBySelector(selector, index, timeout, includeHidden);
@@ -239,7 +239,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByXPath("//ul/li/a");
    */
-  async getByXPath(xpath: string, index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false) {
+  async getByXPath(xpath: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false) {
     try {
       return await this.getByCss(xpath, index, timeout, includeHidden);
     } catch (error) {
@@ -259,7 +259,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByChild(".form01", ".input01");
    */
-  async getByChild(elementSelector: any, childSelector: any, index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByChild(elementSelector: any, childSelector: any, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
     let elemsWithChild: Element[] = [];
 
     try {
@@ -303,7 +303,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByParent(".form01", ".input01");
    */
-  async getByParent(elementSelector: any, parentSelector: any, index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByParent(elementSelector: any, parentSelector: any, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
     let elemsWithParent: Element[] = [];
 
     try {
@@ -384,7 +384,7 @@ export class ElementModule {
    * @returns {boolean} Returns true or false.
    * @example await nonUi5.element.isPresentByCss(".button01");
    */
-  async isPresentByCss(css: string, index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async isPresentByCss(css: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     try {
       const elems = await this.getAll(css, timeout);
       return elems[index].isExisting();
@@ -403,7 +403,7 @@ export class ElementModule {
    * @returns {boolean}
    * @example await nonUi5.element.isPresentByXPath(".//*[text()='Create']");
    */
-  async isPresentByXPath(xpath: string, index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<boolean> {
+  async isPresentByXPath(xpath: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<boolean> {
     return this.isPresentByCss(xpath, index, timeout);
   }
 
@@ -520,7 +520,7 @@ export class ElementModule {
   }
 
   // =================================== HELPER ===================================
-  private async _waitForStabilization(selector: object, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, stableIterationsRequired: number = 10): Promise<void> {
+  private async _waitForStabilization(selector: object, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, stableIterationsRequired: number = 3): Promise<void> {
     let elemsCount: number = 0;
     let stableIterations: number = 0;
 
@@ -536,22 +536,18 @@ export class ElementModule {
 
         elemsCount = currentElemsCount;
 
-        if (stableIterations === stableIterationsRequired) {
+        if (elemsCount !== 0 && stableIterations === stableIterationsRequired) {
           return true;
         }
       },
       {
         timeout: timeout,
-        timeoutMsg: `Timeout reached. Page is still loading after ${+timeout / 1000}s.`,
+        timeoutMsg: elemsCount === 0 ? `Timeout reached. No element with passed selector found after ${+timeout / 1000}s.` : `Timeout reached. Page is still loading after ${+timeout / 1000}s.`,
       }
     );
-
-    if (elemsCount === 0) {
-      throw new Error(`No element(s) found for selector '${selector}' after ${+timeout / 1000}s.`)
-    }
   }
 
-  private async _getAndFilterElementBySelector(selector: string, index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+  private async _getAndFilterElementBySelector(selector: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
     await this.waitForAll(selector, timeout);
     const elems: Element[] = await $$(selector);
     if (includeHidden) {
