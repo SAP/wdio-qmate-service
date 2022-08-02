@@ -161,7 +161,7 @@ export class Navigation {
    * @param {Integer} [timeout=15000] - The timeout to wait.
    * @example await ui5.navigation.closePopups();
    */
-    this.closePopups = async function (timeout = 15000) {
+  async closePopups (timeout = 15000) {
     const handleFirstPopup = new Promise(async (resolve, reject) => {
       try {
         const popUp1 = await nonUi5.element.getByCss(".help4-wrapper button", 0, timeout);
