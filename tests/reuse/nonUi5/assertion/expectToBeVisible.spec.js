@@ -17,7 +17,7 @@ describe("assertion - expectToBeVisible", function () {
   });
 });
 
-describe("assertion - expectToBeVisible - element out of viewpoint", function () {
+describe("assertion - expectToBeVisible - element out of viewport", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await handleCookiesConsent();
