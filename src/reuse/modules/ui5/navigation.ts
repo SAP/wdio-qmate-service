@@ -162,11 +162,11 @@ export class Navigation {
    * @example await ui5.navigation.closePopups();
    */
   async closePopups (timeout = 15000) {
-    function reverse(promise: Promise) {  
+    function reverse(promise: Promise<any>) {  
       return new Promise((resolve, reject) => Promise.resolve(promise).then(reject, resolve));
     }
 
-    function promiseAny(iterable: Iterable<Promise>) {
+    function promiseAny(iterable: Iterable<Promise<any>>) {
       return reverse(Promise.all([...iterable].map(reverse)));
     };
     
