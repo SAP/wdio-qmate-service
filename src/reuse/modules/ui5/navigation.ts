@@ -162,7 +162,15 @@ export class Navigation {
    * @example await ui5.navigation.closePopups();
    */
   async closePopups (timeout = 15000) {
-    const handleFirstPopup = new Promise(async (resolve, reject) => {
+    function reverse(promise) {  
+      return new Promise((resolve, reject) => Promise.resolve(promise).then(reject, resolve));
+    }
+
+    function promiseAny(iterable) {
+      return reverse(Promise.all([...iterable].map(reverse)));
+    };
+    
+    const handleFirstPopup = new Promise<void>(async (resolve, reject) => {
       try {
         const popUp1 = await nonUi5.element.getByCss(".help4-wrapper button", 0, timeout);
         await popUp1.click();
@@ -171,9 +179,9 @@ export class Navigation {
         util.console.log("First Popup not found.");
         reject();
       }
-      });
+    });
 
-    const handleSecondPopup = new Promise(async (resolve, reject) => {
+    const handleSecondPopup = new Promise<void>(async (resolve, reject) => {
       try {
         const popUp2 = await nonUi5.element.getById("SAMLDialog", timeout);
         await popUp2.click();
@@ -184,7 +192,7 @@ export class Navigation {
       }
     });
 
-    const handleThirdPopup = new Promise(async (resolve, reject) => {
+    const handleThirdPopup = new Promise<void>(async (resolve, reject) => {
       try {
         const selector = {
           "elementProperties": {
@@ -204,7 +212,7 @@ export class Navigation {
       }
     });
 
-    return Promise.any([handleFirstPopup, handleSecondPopup, handleThirdPopup]);
+    return promiseAny([handleFirstPopup, handleSecondPopup, handleThirdPopup]);
   };
 
 
