@@ -561,10 +561,11 @@ Global namespace for util modules.
         * [.getUI5Version([timeout])](#util.browser.getUI5Version)
         * [.logUI5Version()](#util.browser.logUI5Version)
         * [.executeScript(command)](#util.browser.executeScript) ⇒ <code>Any</code>
-        * [.waitForWindows()](#util.browser.waitForWindows)
-        * [.switchToNewWindow(windowTitle, [retries], [waitInterval])](#util.browser.switchToNewWindow)
+        * [.switchToNewWindow(titleOrUrl)](#util.browser.switchToNewWindow)
         * [.switchToWindow(handle)](#util.browser.switchToWindow)
         * [.getCurrentWindow()](#util.browser.getCurrentWindow) ⇒ <code>Object</code>
+        * [.switchToIframe(selector)](#util.browser.switchToIframe)
+        * [.switchToDefaultContent()](#util.browser.switchToDefaultContent)
         * [.back()](#util.browser.back)
     * [.console](#util.console)
         * [.log(message, [textColor], [backgroundColor], [brightness])](#util.console.log)
@@ -592,14 +593,6 @@ Global namespace for util modules.
     * [.function](#util.function)
         * [.retry(fct, args, [retries], [interval], [scope])](#util.function.retry)
         * [.executeOptional(fct, args)](#util.function.executeOptional)
-    * [.performance](#util.performance)
-        * [.configureSupa(configuration)](#util.performance.configureSupa)
-        * [.startMeasurement(stepName)](#util.performance.startMeasurement)
-        * [.stopMeasurement()](#util.performance.stopMeasurement)
-        * [.finishMeasurement()](#util.performance.finishMeasurement)
-        * [.generateResultsInExcel()](#util.performance.generateResultsInExcel)
-        * [.uploadToIpa()](#util.performance.uploadToIpa)
-        * [.stopSupa()](#util.performance.stopSupa)
     * [.system](#util.system)
         * [.getOS()](#util.system.getOS) ⇒ <code>String</code>
 
@@ -623,10 +616,11 @@ Global namespace for util modules.
     * [.getUI5Version([timeout])](#util.browser.getUI5Version)
     * [.logUI5Version()](#util.browser.logUI5Version)
     * [.executeScript(command)](#util.browser.executeScript) ⇒ <code>Any</code>
-    * [.waitForWindows()](#util.browser.waitForWindows)
-    * [.switchToNewWindow(windowTitle, [retries], [waitInterval])](#util.browser.switchToNewWindow)
+    * [.switchToNewWindow(titleOrUrl)](#util.browser.switchToNewWindow)
     * [.switchToWindow(handle)](#util.browser.switchToWindow)
     * [.getCurrentWindow()](#util.browser.getCurrentWindow) ⇒ <code>Object</code>
+    * [.switchToIframe(selector)](#util.browser.switchToIframe)
+    * [.switchToDefaultContent()](#util.browser.switchToDefaultContent)
     * [.back()](#util.browser.back)
 
 <a name="util.browser.getBaseUrl"></a>
@@ -804,30 +798,28 @@ Executes the specified JavaScript command.
 ```js
 await util.browser.executeScript(command);
 ```
-<a name="util.browser.waitForWindows"></a>
-
-#### browser.waitForWindows()
-**Kind**: static method of [<code>browser</code>](#util.browser)  
-**Example**  
-```js
-await util.browser.waitForWindows();
-```
 <a name="util.browser.switchToNewWindow"></a>
 
-#### browser.switchToNewWindow(windowTitle, [retries], [waitInterval])
-Switches the window.
+#### browser.switchToNewWindow(titleOrUrl)
+Switches to the window or tab with the given title.
 
 **Kind**: static method of [<code>browser</code>](#util.browser)  
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| windowTitle | <code>String</code> |  | window title to be expected |
-| [retries] | <code>Number</code> | <code>50</code> | number of retries |
-| [waitInterval] | <code>Number</code> | <code>1000</code> | wait time in milliseconds between retries |
+| Param | Type | Description |
+| --- | --- | --- |
+| titleOrUrl | <code>String</code> \| <code>RegExp</code> | Window title or url of the expected window or tab (can be either a string or part of it as regular expression). |
 
 **Example**  
 ```js
-await util.browser.switchToNewWindow("Supplier Invoice");
+await util.browser.switchToNewWindow("SAP - Home");
+```
+**Example**  
+```js
+await util.browser.switchToNewWindow(/Home/);
+```
+**Example**  
+```js
+await util.browser.switchToNewWindow("www.sap.com");
 ```
 <a name="util.browser.switchToWindow"></a>
 
@@ -853,7 +845,32 @@ Returns the current window handle.
 **Returns**: <code>Object</code> - The window handle.  
 **Example**  
 ```js
-await util.browser.getCurrentWindow();
+const originalWindowHandle = await util.browser.getCurrentWindow();
+```
+<a name="util.browser.switchToIframe"></a>
+
+#### browser.switchToIframe(selector)
+Switches to the passed iframe.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>String</code> | The CSS selector describing the iframe element. |
+
+**Example**  
+```js
+await util.browser.switchToIframe("iframe[id='frame01']");
+```
+<a name="util.browser.switchToDefaultContent"></a>
+
+#### browser.switchToDefaultContent()
+Switches to the default content of the HTML page.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Example**  
+```js
+await util.browser.switchToDefaultContent();
 ```
 <a name="util.browser.back"></a>
 
@@ -1303,111 +1320,6 @@ await util.function.executeOptional(ui5.userInteraction.fill, [selector, value])
 await util.function.executeOptional(async () => {
  await ui5.userInteraction.fill(selector, "ABC");
 }, []);
-```
-<a name="util.performance"></a>
-
-### util.performance
-**Kind**: static class of [<code>util</code>](#util)  
-
-* [.performance](#util.performance)
-    * [.configureSupa(configuration)](#util.performance.configureSupa)
-    * [.startMeasurement(stepName)](#util.performance.startMeasurement)
-    * [.stopMeasurement()](#util.performance.stopMeasurement)
-    * [.finishMeasurement()](#util.performance.finishMeasurement)
-    * [.generateResultsInExcel()](#util.performance.generateResultsInExcel)
-    * [.uploadToIpa()](#util.performance.uploadToIpa)
-    * [.stopSupa()](#util.performance.stopSupa)
-
-<a name="util.performance.configureSupa"></a>
-
-#### performance.configureSupa(configuration)
-Sends new configuration to an existing instance of SUPA with published REST API
-
-**Kind**: static method of [<code>performance</code>](#util.performance)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| configuration | <code>Object</code> | object with configuration. Mandatory is property config with path to supa properties file |
-
-**Example**  
-```js
-const configuration = {
-   config: "./test/supa-config/F5549RepostLineItems.properties",
-   ipaConfig: {
-     project: "FXUBRQ24",
-     scenario: "F5549 - Repost Line Items",
-     variant: "Performance",
-     release: "CE2202",
-     comment: "Test automation",
-     username: "fxubrq24",
-     password: "Oqk2"
-};
-await util.performance.configureSupa(configuration);
-```
-<a name="util.performance.startMeasurement"></a>
-
-#### performance.startMeasurement(stepName)
-SUPA starts the measurement of given step
-
-**Kind**: static method of [<code>performance</code>](#util.performance)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| stepName | <code>String</code> | Name of the step as specified in properties file |
-
-**Example**  
-```js
-await util.performance.startMeasurement("Step 1");
-```
-<a name="util.performance.stopMeasurement"></a>
-
-#### performance.stopMeasurement()
-SUPA stops current measurement
-
-**Kind**: static method of [<code>performance</code>](#util.performance)  
-**Example**  
-```js
-await util.performance.stopMeasurement();
-```
-<a name="util.performance.finishMeasurement"></a>
-
-#### performance.finishMeasurement()
-When all measurements all done, it is necessary to call function finishMeasurement that stores SUPA results locally
-
-**Kind**: static method of [<code>performance</code>](#util.performance)  
-**Example**  
-```js
-await util.performance.finishMeasurement();
-```
-<a name="util.performance.generateResultsInExcel"></a>
-
-#### performance.generateResultsInExcel()
-SUPA generates an Excel file with measurement results
-
-**Kind**: static method of [<code>performance</code>](#util.performance)  
-**Example**  
-```js
-await util.performance.generateResultsInExcel();
-```
-<a name="util.performance.uploadToIpa"></a>
-
-#### performance.uploadToIpa()
-SUPA uploads stored results to IPA
-
-**Kind**: static method of [<code>performance</code>](#util.performance)  
-**Example**  
-```js
-await util.performance.uploadToIpa();
-```
-<a name="util.performance.stopSupa"></a>
-
-#### performance.stopSupa()
-Kills running SUPA instance
-
-**Kind**: static method of [<code>performance</code>](#util.performance)  
-**Example**  
-```js
-await util.performance.stopSupa();
 ```
 <a name="util.system"></a>
 
@@ -3961,15 +3873,15 @@ Global namespace for non UI5 modules.
         * [.waitToBeClickable(selector, [timeout])](#nonUi5.element.waitToBeClickable)
         * [.getAllDisplayed(selector, [timeout])](#nonUi5.element.getAllDisplayed) ⇒ <code>Array.&lt;Object&gt;</code>
         * [.getAll(selector, [timeout])](#nonUi5.element.getAll)
-        * [.getByCss(selector, [index], [timeout])](#nonUi5.element.getByCss) ⇒ <code>Object</code>
-        * [.getByCssContainingText(selector, [text], [index], [timeout])](#nonUi5.element.getByCssContainingText) ⇒ <code>Object</code>
-        * [.getById(id, [timeout])](#nonUi5.element.getById) ⇒ <code>Object</code>
-        * [.getByClass(elemClass, [index], [timeout])](#nonUi5.element.getByClass) ⇒ <code>Object</code>
-        * [.getByName(name, [index], [timeout])](#nonUi5.element.getByName) ⇒ <code>Object</code>
-        * [.getByXPath(xpath, [index], [timeout])](#nonUi5.element.getByXPath) ⇒ <code>Object</code>
-        * [.getByChild(elementSelector, childSelector, [index], [timeout])](#nonUi5.element.getByChild) ⇒ <code>Object</code>
-        * [.getByParent(elementSelector, parentSelector, [index], [timeout])](#nonUi5.element.getByParent) ⇒ <code>Object</code>
-        * [.isVisible(element)](#nonUi5.element.isVisible) ⇒ <code>Boolean</code>
+        * [.getByCss(selector, [index], [timeout], [includeHidden])](#nonUi5.element.getByCss) ⇒ <code>Object</code>
+        * [.getByCssContainingText(selector, [text], [index], [timeout], [includeHidden])](#nonUi5.element.getByCssContainingText) ⇒ <code>Object</code>
+        * [.getById(id, [timeout], [includeHidden])](#nonUi5.element.getById) ⇒ <code>Object</code>
+        * [.getByClass(elemClass, [index], [timeout], [includeHidden])](#nonUi5.element.getByClass) ⇒ <code>Object</code>
+        * [.getByName(name, [index], [timeout], [includeHidden])](#nonUi5.element.getByName) ⇒ <code>Object</code>
+        * [.getByXPath(xpath, [index], [timeout], [includeHidden])](#nonUi5.element.getByXPath) ⇒ <code>Object</code>
+        * [.getByChild(elementSelector, childSelector, [index], [timeout], [includeHidden])](#nonUi5.element.getByChild) ⇒ <code>Object</code>
+        * [.getByParent(elementSelector, parentSelector, [index], [timeout], [includeHidden])](#nonUi5.element.getByParent) ⇒ <code>Object</code>
+        * [.isVisible(element, [strict])](#nonUi5.element.isVisible) ⇒ <code>Boolean</code>
         * [.isPresent(elem)](#nonUi5.element.isPresent) ⇒ <code>Boolean</code>
         * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
         * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
@@ -3977,8 +3889,8 @@ Global namespace for non UI5 modules.
         * [.getValue(elem)](#nonUi5.element.getValue) ⇒ <code>String</code>
         * [.setInnerHTML(elem)](#nonUi5.element.setInnerHTML) ⇒ <code>String</code>
         * [.highlight(elem, [duration], [color])](#nonUi5.element.highlight)
-        * [.switchToIframe(selector)](#nonUi5.element.switchToIframe)
-        * [.switchToDefaultContent()](#nonUi5.element.switchToDefaultContent)
+        * ~~[.switchToIframe(selector)](#nonUi5.element.switchToIframe)~~
+        * ~~[.switchToDefaultContent()](#nonUi5.element.switchToDefaultContent)~~
     * [.navigation](#nonUi5.navigation)
         * [.navigateToApplication(relativeReference, [refresh])](#nonUi5.navigation.navigateToApplication)
     * [.userInteraction](#nonUi5.userInteraction)
@@ -4113,15 +4025,15 @@ await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
     * [.waitToBeClickable(selector, [timeout])](#nonUi5.element.waitToBeClickable)
     * [.getAllDisplayed(selector, [timeout])](#nonUi5.element.getAllDisplayed) ⇒ <code>Array.&lt;Object&gt;</code>
     * [.getAll(selector, [timeout])](#nonUi5.element.getAll)
-    * [.getByCss(selector, [index], [timeout])](#nonUi5.element.getByCss) ⇒ <code>Object</code>
-    * [.getByCssContainingText(selector, [text], [index], [timeout])](#nonUi5.element.getByCssContainingText) ⇒ <code>Object</code>
-    * [.getById(id, [timeout])](#nonUi5.element.getById) ⇒ <code>Object</code>
-    * [.getByClass(elemClass, [index], [timeout])](#nonUi5.element.getByClass) ⇒ <code>Object</code>
-    * [.getByName(name, [index], [timeout])](#nonUi5.element.getByName) ⇒ <code>Object</code>
-    * [.getByXPath(xpath, [index], [timeout])](#nonUi5.element.getByXPath) ⇒ <code>Object</code>
-    * [.getByChild(elementSelector, childSelector, [index], [timeout])](#nonUi5.element.getByChild) ⇒ <code>Object</code>
-    * [.getByParent(elementSelector, parentSelector, [index], [timeout])](#nonUi5.element.getByParent) ⇒ <code>Object</code>
-    * [.isVisible(element)](#nonUi5.element.isVisible) ⇒ <code>Boolean</code>
+    * [.getByCss(selector, [index], [timeout], [includeHidden])](#nonUi5.element.getByCss) ⇒ <code>Object</code>
+    * [.getByCssContainingText(selector, [text], [index], [timeout], [includeHidden])](#nonUi5.element.getByCssContainingText) ⇒ <code>Object</code>
+    * [.getById(id, [timeout], [includeHidden])](#nonUi5.element.getById) ⇒ <code>Object</code>
+    * [.getByClass(elemClass, [index], [timeout], [includeHidden])](#nonUi5.element.getByClass) ⇒ <code>Object</code>
+    * [.getByName(name, [index], [timeout], [includeHidden])](#nonUi5.element.getByName) ⇒ <code>Object</code>
+    * [.getByXPath(xpath, [index], [timeout], [includeHidden])](#nonUi5.element.getByXPath) ⇒ <code>Object</code>
+    * [.getByChild(elementSelector, childSelector, [index], [timeout], [includeHidden])](#nonUi5.element.getByChild) ⇒ <code>Object</code>
+    * [.getByParent(elementSelector, parentSelector, [index], [timeout], [includeHidden])](#nonUi5.element.getByParent) ⇒ <code>Object</code>
+    * [.isVisible(element, [strict])](#nonUi5.element.isVisible) ⇒ <code>Boolean</code>
     * [.isPresent(elem)](#nonUi5.element.isPresent) ⇒ <code>Boolean</code>
     * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
     * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
@@ -4129,13 +4041,13 @@ await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
     * [.getValue(elem)](#nonUi5.element.getValue) ⇒ <code>String</code>
     * [.setInnerHTML(elem)](#nonUi5.element.setInnerHTML) ⇒ <code>String</code>
     * [.highlight(elem, [duration], [color])](#nonUi5.element.highlight)
-    * [.switchToIframe(selector)](#nonUi5.element.switchToIframe)
-    * [.switchToDefaultContent()](#nonUi5.element.switchToDefaultContent)
+    * ~~[.switchToIframe(selector)](#nonUi5.element.switchToIframe)~~
+    * ~~[.switchToDefaultContent()](#nonUi5.element.switchToDefaultContent)~~
 
 <a name="nonUi5.element.waitForAll"></a>
 
 #### element.waitForAll(selector, [timeout])
-Waits until all elements with the given selector are rendered.
+Waits until all elements with the given selector are rendered. Will fail if no element is found.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
 
@@ -4257,7 +4169,7 @@ await common.assertion.expectTrue(isPresent);
 ```
 <a name="nonUi5.element.getByCss"></a>
 
-#### element.getByCss(selector, [index], [timeout]) ⇒ <code>Object</code>
+#### element.getByCss(selector, [index], [timeout], [includeHidden]) ⇒ <code>Object</code>
 Gets the element with the given CSS selector.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -4268,6 +4180,7 @@ Gets the element with the given CSS selector.
 | selector | <code>Object</code> |  | The CSS selector describing the element. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+| [includeHidden] | <code>Boolean</code> | <code>false</code> | Specifies if hidden elements are also considered. By default it checks only for visible ones. |
 
 **Example**  
 ```js
@@ -4275,7 +4188,7 @@ const elem = await nonUi5.element.getByCss(".button01");
 ```
 <a name="nonUi5.element.getByCssContainingText"></a>
 
-#### element.getByCssContainingText(selector, [text], [index], [timeout]) ⇒ <code>Object</code>
+#### element.getByCssContainingText(selector, [text], [index], [timeout], [includeHidden]) ⇒ <code>Object</code>
 Gets the element with the given CSS selector containing the given text value.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -4287,6 +4200,7 @@ Gets the element with the given CSS selector containing the given text value.
 | [text] | <code>String</code> | <code>&quot;&quot;</code> | The containing text value of the element. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+| [includeHidden] | <code>Boolean</code> | <code>false</code> | Specifies if hidden elements are also considered. By default it checks only for visible ones. |
 
 **Example**  
 ```js
@@ -4294,7 +4208,7 @@ const elem = await nonUi5.element.getByCssContainingText(".input01", "Jack Jacks
 ```
 <a name="nonUi5.element.getById"></a>
 
-#### element.getById(id, [timeout]) ⇒ <code>Object</code>
+#### element.getById(id, [timeout], [includeHidden]) ⇒ <code>Object</code>
 Gets the element with the given ID.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -4304,6 +4218,7 @@ Gets the element with the given ID.
 | --- | --- | --- | --- |
 | id | <code>String</code> |  | The id of the element. |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+| [includeHidden] | <code>Boolean</code> | <code>false</code> | Specifies if the function will check for the elements visibility. |
 
 **Example**  
 ```js
@@ -4311,7 +4226,7 @@ const elem = await nonUi5.element.getById("button01");
 ```
 <a name="nonUi5.element.getByClass"></a>
 
-#### element.getByClass(elemClass, [index], [timeout]) ⇒ <code>Object</code>
+#### element.getByClass(elemClass, [index], [timeout], [includeHidden]) ⇒ <code>Object</code>
 Gets the element with the given class.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -4322,6 +4237,7 @@ Gets the element with the given class.
 | elemClass | <code>String</code> |  | The class describing the element |
 | [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+| [includeHidden] | <code>Boolean</code> | <code>false</code> | Specifies if hidden elements are also considered. By default it checks only for visible ones. |
 
 **Example**  
 ```js
@@ -4330,7 +4246,7 @@ const elem = await nonUi5.element.getByClass("sapMIBar sapMTB sapMTBNewFlex sapC
 ```
 <a name="nonUi5.element.getByName"></a>
 
-#### element.getByName(name, [index], [timeout]) ⇒ <code>Object</code>
+#### element.getByName(name, [index], [timeout], [includeHidden]) ⇒ <code>Object</code>
 Gets the element with the given name.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -4341,6 +4257,7 @@ Gets the element with the given name.
 | name | <code>String</code> |  | The name attribute of the element. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+| [includeHidden] | <code>Boolean</code> | <code>false</code> | Specifies if hidden elements are also considered. By default it checks only for visible ones. |
 
 **Example**  
 ```js
@@ -4348,7 +4265,7 @@ const elem = await nonUi5.element.getByName(".button01");
 ```
 <a name="nonUi5.element.getByXPath"></a>
 
-#### element.getByXPath(xpath, [index], [timeout]) ⇒ <code>Object</code>
+#### element.getByXPath(xpath, [index], [timeout], [includeHidden]) ⇒ <code>Object</code>
 Gets the element with the given XPath.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -4359,6 +4276,7 @@ Gets the element with the given XPath.
 | xpath | <code>String</code> |  | The XPath describing the element. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+| [includeHidden] | <code>Boolean</code> | <code>false</code> | Specifies if hidden elements are also considered. By default it checks only for visible ones. |
 
 **Example**  
 ```js
@@ -4366,7 +4284,7 @@ const elem = await nonUi5.element.getByXPath("//ul/li/a");
 ```
 <a name="nonUi5.element.getByChild"></a>
 
-#### element.getByChild(elementSelector, childSelector, [index], [timeout]) ⇒ <code>Object</code>
+#### element.getByChild(elementSelector, childSelector, [index], [timeout], [includeHidden]) ⇒ <code>Object</code>
 Gets an element by its selector and child selector. Can be used when multiple elements have the same properties.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -4378,6 +4296,7 @@ Gets an element by its selector and child selector. Can be used when multiple el
 | childSelector | <code>String</code> |  | The CSS selector describing the child element. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+| [includeHidden] | <code>Boolean</code> | <code>false</code> | Specifies if hidden elements are also considered. By default it checks only for visible ones. |
 
 **Example**  
 ```js
@@ -4385,7 +4304,7 @@ const elem = await nonUi5.element.getByChild(".form01", ".input01");
 ```
 <a name="nonUi5.element.getByParent"></a>
 
-#### element.getByParent(elementSelector, parentSelector, [index], [timeout]) ⇒ <code>Object</code>
+#### element.getByParent(elementSelector, parentSelector, [index], [timeout], [includeHidden]) ⇒ <code>Object</code>
 Gets an element by its selector and parent selector. Can be used when multiple elements have the same properties.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -4397,6 +4316,7 @@ Gets an element by its selector and parent selector. Can be used when multiple e
 | parentSelector | <code>String</code> |  | The CSS selector describing the parent element. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+| [includeHidden] | <code>Boolean</code> | <code>false</code> | Specifies if hidden elements are also considered. By default it checks only for visible ones. |
 
 **Example**  
 ```js
@@ -4404,15 +4324,16 @@ const elem = await nonUi5.element.getByParent(".form01", ".input01");
 ```
 <a name="nonUi5.element.isVisible"></a>
 
-#### element.isVisible(element) ⇒ <code>Boolean</code>
+#### element.isVisible(element, [strict]) ⇒ <code>Boolean</code>
 Returns a boolean if the element is visible to the user.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
 **Returns**: <code>Boolean</code> - Returns true or false.  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| element | <code>Object</code> | The element. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| element | <code>Object</code> |  | The element. |
+| [strict] | <code>Boolean</code> | <code>true</code> | If strict mode is enabled it will only return "true" if the element is visible on the page and within the viewport. If disabled, it will be sufficient if the element is visible on the page but not inside the current viewport. |
 
 **Example**  
 ```js
@@ -4422,7 +4343,7 @@ await nonUi5.element.isVisible(elem);
 <a name="nonUi5.element.isPresent"></a>
 
 #### element.isPresent(elem) ⇒ <code>Boolean</code>
-Returns a boolean if the element is present at the DOM or not.
+Returns a boolean if the element is present at the DOM or not. It might be hidden.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
 **Returns**: <code>Boolean</code> - Returns true or false.  
@@ -4554,10 +4475,13 @@ await nonUi5.element.highlight(elem, 3000, "green");
 ```
 <a name="nonUi5.element.switchToIframe"></a>
 
-#### element.switchToIframe(selector)
+#### ~~element.switchToIframe(selector)~~
+***Deprecated***
+
 Switches to the passed iframe.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**See**: [switchToIframe](#util.browser.switchToIframe)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -4569,10 +4493,13 @@ await nonUi5.element.switchToIframe("iframe[id='frame01']");
 ```
 <a name="nonUi5.element.switchToDefaultContent"></a>
 
-#### element.switchToDefaultContent()
+#### ~~element.switchToDefaultContent()~~
+***Deprecated***
+
 Switches to the default content of the HTML page.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**See**: [switchToDefaultContent](#util.browser.switchToDefaultContent)  
 **Example**  
 ```js
 await nonUi5.element.switchToDefaultContent();
