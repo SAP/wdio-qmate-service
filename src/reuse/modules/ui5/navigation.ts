@@ -169,7 +169,7 @@ export class Navigation {
         resolve();
       } catch (e) {
         util.console.log("First Popup not found.");
-        reject();
+        resolve();
       }
     });
 
@@ -180,7 +180,7 @@ export class Navigation {
         resolve();
       } catch (e) {
         util.console.log("Second Popup not found.");
-        reject();
+        resolve();
       }
     });
 
@@ -200,7 +200,7 @@ export class Navigation {
         resolve();
       } catch (e) {
         util.console.log("Third Popup not found.");
-        reject();
+        resolve();
       }
     });
 
