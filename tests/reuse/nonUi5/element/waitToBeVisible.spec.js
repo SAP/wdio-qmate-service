@@ -1,6 +1,6 @@
 "use strict";
 
-describe("element - waitToBePresent", function () {
+describe("element - waitToBeVisible", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/waitForElements.html");
@@ -11,7 +11,7 @@ describe("element - waitToBePresent", function () {
   });
 });
 
-describe("element - waitToBePresent - wrong selector (error case)", function () {
+describe("element - waitToBeVisible - wrong selector (error case)", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/waitForElements.html");
@@ -23,7 +23,7 @@ describe("element - waitToBePresent - wrong selector (error case)", function () 
   });
 });
 
-describe("element - waitToBePresent - invisible selector (error case)", function () {
+describe("element - waitToBeVisible - invisible selector (error case)", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/hiddenAndVisible.html");

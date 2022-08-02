@@ -53,5 +53,45 @@ exports.config = merge(baseConfig.config, {
       collapseAllSuites: true,
       entriesPerPage: 10
     }]
-  ]
+  ],
+
+  reporters: [
+    [
+      QmateHtmlReporter,
+      {
+        outputDir: outputDir,
+        filename: "report",
+        displayOnlyFailed: true,
+        collapsePassedSuites: true,
+        collapseSkippedSuites: true,
+        collapseFailedSuites: true,
+        collapseAllSuites: true,
+        entriesPerPage: 10,
+      },
+    ],
+  ],
+
+  onPrepare: (config, capabilities) => {
+    try {
+      QmateHtmlReporter.clearDirSync(outputDir);
+    } catch (error) {
+      throw new Error(`Could not clear output dir. ${error}`);
+    }
+  },
+
+  afterTest: async (test, context, { error, _result, _duration, _passed, _retries }) => {
+    try {
+      await QmateHtmlReporter.triggerBrowserLogsCollection();
+    } catch (error) {
+      throw new Error(`Could not collect browser logs. ${error}`);
+    }
+  },
+
+  onComplete: async (exitCode, config, capabilities, results) => {
+    try {
+      QmateHtmlReporter.writeSpecsData(outputDir);
+    } catch (error) {
+      throw new Error(`Could not generate report. ${error}`);
+    }
+  },
 });

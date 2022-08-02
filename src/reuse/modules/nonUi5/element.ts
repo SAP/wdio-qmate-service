@@ -1,36 +1,26 @@
-import { Element } from '../../../../@types/wdio'
+import { Element } from "../../../../@types/wdio";
+
 /**
  * @class element
  * @memberof nonUi5
  */
 export class ElementModule {
-
   // =================================== WAIT ===================================
   /**
    * @function waitForAll
    * @memberOf nonUi5.element
-   * @description Waits until all elements with the given selector are rendered.
+   * @description Waits until all elements with the given selector are rendered. Will fail if no element is found.
    * @param {Object} selector - The CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await nonUi5.element.waitForAll(".inputField");
    */
-  async waitForAll (selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element[]> {
-    let elems: Element[] | null = null;
+  async waitForAll(selector: any, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<void> {
     try {
-      await browser.waitUntil(async function () {
-        elems = await $$(selector);
-        if (!elems) return false;
-        const count = elems.length;
-        return count > 0;
-      }, {
-        timeout: timeout,
-        timeoutMsg: `No visible elements found for selector '${selector}' after ${+timeout / 1000}s`
-      });
+      await this._waitForStabilization(selector, timeout);
     } catch (error) {
-      throw new Error("Function 'waitForAll' failed. Browser wait exception. " + error);
+      throw new Error(`Function 'waitForAll' failed: ${error}`);
     }
-    return elems!;
-  };
+  }
 
   /**
    * @function waitToBePresent
@@ -42,18 +32,13 @@ export class ElementModule {
    * @example await nonUi5.element.waitToBePresent("#button12");
    * @example await nonUi5.element.waitToBePresent("p:first-child");
    */
-  async waitToBePresent (selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<void> {
-    let elem: Element | null = null;
-    await browser.waitUntil(async function () {
-      elem = await $(selector);
-      if (!elem) return false;
-      // eslint-disable-next-line no-return-await
-      return await elem.isExisting();
-    }, {
-      timeout,
-      timeoutMsg: `Function 'waitToBePresent' failed. Timeout by waiting for element for selector '${selector}' is present at the DOM.`
-    });
-  };
+  async waitToBePresent(selector: any, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<void> {
+    try {
+      await $(selector).waitForExist({ timeout: timeout });
+    } catch (error) {
+      throw new Error(`Function 'waitToBePresent' failed: ${error}`);
+    }
+  }
 
   /**
    * @function waitToBeVisible
@@ -65,17 +50,13 @@ export class ElementModule {
    * @example await nonUi5.element.waitToBeVisible("#button12");
    * @example await nonUi5.element.waitToBeVisible("p:first-child");
    */
-  async waitToBeVisible (selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    let elem: Element | null = null;
-    await browser.waitUntil(async function () {
-      elem = await $(selector);
-      if (!elem) return false;
-      return elem.isDisplayed();
-    }, {
-      timeout,
-      timeoutMsg: `Function 'waitToBeVisible' failed. Expected element not visible for selector '${selector}' after ${+timeout / 1000}s`
-    });
-  };
+  async waitToBeVisible(selector: any, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    try {
+      await $(selector).waitForDisplayed({ timeout: timeout });
+    } catch (error) {
+      throw new Error(`Function 'waitToBeVisible' failed: ${error}`);
+    }
+  }
 
   /**
    * @function waitToBeClickable
@@ -87,19 +68,13 @@ export class ElementModule {
    * @example await nonUi5.element.waitToBeClickable("#button12");
    * @example await nonUi5.element.waitToBeClickable("p:first-child");
    */
-  async waitToBeClickable (selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    let elem: Element | null = null;
-    await browser.waitUntil(async function () {
-      elem = await $(selector);
-      if (!elem) return false;
-      // eslint-disable-next-line no-return-await
-      return await elem.isClickable();
-    }, {
-      timeout,
-      timeoutMsg: `Function 'waitToBeClickable' failed. Timeout by waiting for element for selector '${selector}' to be clickable.`
-    });
-  };
-
+  async waitToBeClickable(selector: any, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    try {
+      await $(selector).waitForClickable({ timeout: timeout });
+    } catch (error) {
+      throw new Error(`Function 'waitToBeClickable' failed: ${error}`);
+    }
+  }
 
   // =================================== GET ELEMENTS ===================================
   /**
@@ -111,24 +86,15 @@ export class ElementModule {
    * @returns {Object[]} The array of elements.
    * @example await nonUi5.element.getAllDisplayed(".inputField");
    */
-  async getAllDisplayed (selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element[]> {
+  async getAllDisplayed(selector: any, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element[]> {
     try {
       await this.waitForAll(selector, timeout);
-      const elements: Element[] = await $$(selector);
-      const displayedElements: Element[] = [];
-      for (const element of elements) {
-        if (element) {
-          const isElementDisplayed = await element.isDisplayed();
-          if (isElementDisplayed) {
-            displayedElements.push(element);
-          }
-        }
-      }
-      return displayedElements;
+      const elems: Element[] = await $$(selector);
+      return await this._filterDisplayed(elems);
     } catch (error) {
-      throw new Error(`Function 'getAllDisplayed' failed. No visible element found for selector '${selector}' after ${+timeout / 1000}s. ` + error);
+      throw new Error(`Function 'getAllDisplayed' failed. No visible element(s) found for selector '${selector}' after ${+timeout / 1000}s. ` + error);
     }
-  };
+  }
 
   /**
    * @function getAll
@@ -140,43 +106,33 @@ export class ElementModule {
    * const isPresent = await nonUi5.element.isPresent(hiddenElements[0]);
    * await common.assertion.expectTrue(isPresent);
    */
-  async getAll (selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element[]> {
-    let elems: Element[] | null = null;
-    let count = null;
+  async getAll(selector: any, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element[]> {
     try {
-      await browser.waitUntil(async function () {
-        elems = await $$(selector);
-        if (!elems) return false;
-        count = elems.length;
-        return count > 0;
-      }, {
-        timeout: timeout,
-        timeoutMsg: `No elements found for selector '${selector}' after ${+timeout / 1000}s`
-      });
+      await this.waitForAll(selector, timeout);
+      return await $$(selector);
     } catch (error) {
-      throw new Error("Function 'getAll' failed. Browser wait exception. " + error);
+      throw new Error(`Function 'getAll' failed. No element(s) found for selector '${selector}' after ${+timeout / 1000}s. ` + error);
     }
-    return elems!;
-  };
+  }
 
   /**
    * @function getByCss
    * @memberOf nonUi5.element
    * @description Gets the element with the given CSS selector.
    * @param {Object} selector - The CSS selector describing the element.
-   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByCss(".button01");
    */
-  async getByCss (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
+  async getByCss(selector: any, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
-      await this.waitForAll(selector, timeout);
-      return await this._filterDisplayed(selector, index, timeout);
+      return await this._getAndFilterElementBySelector(selector, index, timeout, includeHidden);
     } catch (error) {
-      throw new Error(`Function 'getByCss' failed. Element with CSS "${selector}" not found. ${error}`);
+      throw new Error(`Function 'getByCss' failed. Element with CSS '${selector}' not found. ${error}`);
     }
-  };
+  }
 
   /**
    * @function getByCssContainingText
@@ -184,19 +140,27 @@ export class ElementModule {
    * @description Gets the element with the given CSS selector containing the given text value.
    * @param {Object} selector - The CSS selector describing the element.
    * @param {String} [text=""] - The containing text value of the element.
-   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByCssContainingText(".input01", "Jack Jackson");
    */
-  async getByCssContainingText (selector: any, text = "", index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
+  async getByCssContainingText(selector: any, text: string = "", index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
-      const elems = await this.getAllDisplayed(selector, timeout);
-      return await this._filterWithText(elems, text, index);
+      await this.waitForAll(selector, timeout);
+      const elems: Element[] = await $$(selector);
+      const filteredElems = await this._filterByText(elems, text);
+      if (includeHidden) {
+        return filteredElems[index];
+      } else {
+        const visibleElems = await this._filterDisplayed(filteredElems);
+        return visibleElems[index];
+      }
     } catch (error) {
-      throw new Error(`Function 'getByCssContainingText' failed. Element with CSS "${selector}" and text value "${text}" not found. ${error}`);
+      throw new Error(`Function 'getByCssContainingText' failed. Element with CSS '${selector}' and text '${text}' not found. ${error}`);
     }
-  };
+  }
 
   /**
    * @function getById
@@ -204,74 +168,84 @@ export class ElementModule {
    * @description Gets the element with the given ID.
    * @param {String} id - The id of the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} [includeHidden=false] - Specifies if the function will check for the elements visibility.
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getById("button01");
    */
-  async getById (id: string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
+  async getById(id: string, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
       const selector = `[id='${id}']`;
-      return await this._filterDisplayed(selector, 0, timeout);
+      if (includeHidden) {
+        await this.waitToBePresent(selector, timeout);
+        return await $(selector);
+      } else {
+        await this.waitToBeVisible(selector, timeout);
+        return await $(selector);
+      }
     } catch (error) {
-      throw new Error(`Function 'getById' failed. Element with id "${id}" not found. ${error}`);
+      throw new Error(`Function 'getById' failed. Element with id '${id}' not found. ${error}`);
     }
-  };
+  }
 
   /**
    * @function getByClass
    * @memberOf nonUi5.element
    * @description Gets the element with the given class.
    * @param {String} elemClass - The class describing the element
-   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByClass("button01");
    * const elem = await nonUi5.element.getByClass("sapMIBar sapMTB sapMTBNewFlex sapContrastPlus");
    */
-  async getByClass (elemClass: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
+  async getByClass(elemClass: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
       const selector = `[class*='${elemClass}']`;
-      return await this._filterDisplayed(selector, index, timeout);
+      return await this._getAndFilterElementBySelector(selector, index, timeout, includeHidden);
     } catch (error) {
-      throw new Error(`Function 'getByClass' failed. Element with class "${elemClass}" not found. ${error}`);
+      throw new Error(`Function 'getByClass' failed. Element with id '${elemClass}' not found. ${error}`);
     }
-  };
+  }
 
   /**
    * @function getByName
    * @memberOf nonUi5.element
    * @description Gets the element with the given name.
    * @param {String} name - The name attribute of the element.
-   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByName(".button01");
    */
-  async getByName (name: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
+  async getByName(name: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
     try {
       const selector = `[name='${name}']`;
-      return await this._filterDisplayed(selector, index, timeout);
+      return await this._getAndFilterElementBySelector(selector, index, timeout, includeHidden);
     } catch (error) {
-      throw new Error(`Function 'getByName' failed. Element with name "${name}" not found. ${error}`);
+      throw new Error(`Function 'getByName' failed. Element with name '${name}' not found. ${error}`);
     }
-  };
+  }
 
   /**
    * @function getByXPath
    * @memberOf nonUi5.element
    * @description Gets the element with the given XPath.
    * @param {String} xpath - The XPath describing the element.
-   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByXPath("//ul/li/a");
    */
-  async getByXPath (xpath: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async getByXPath(xpath: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false) {
     try {
-      return await this._filterDisplayed(xpath, index, timeout);
+      return await this.getByCss(xpath, index, timeout, includeHidden);
     } catch (error) {
-      throw new Error(`Function 'getByXPath' failed. Element with XPath "${xpath}" not found. ${error}`);
+      throw new Error(`Function 'getByXPath' failed. Element with XPath '${xpath}' not found. ${error}`);
     }
-  };
+  }
 
   /**
    * @function getByChild
@@ -279,33 +253,35 @@ export class ElementModule {
    * @description Gets an element by its selector and child selector. Can be used when multiple elements have the same properties.
    * @param {String} elementSelector - The CSS selector describing the element.
    * @param {String} childSelector - The CSS selector describing the child element.
-   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByChild(".form01", ".input01");
    */
-  async getByChild (elementSelector: any, childSelector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
+  async getByChild(elementSelector: any, childSelector: any, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
     let elems;
     try {
-      elems = await this.getAllDisplayed(elementSelector, timeout);
+      elems = includeHidden ? await this.getAll(elementSelector, timeout) : await this.getAllDisplayed(elementSelector, timeout);
     } catch (error) {
       throw new Error(`Function 'getByChild' failed. No element found for selector: "${elementSelector}".`);
     }
 
-    const elementsWithChild = [];
+    const elementsWithChild: Element[] = [];
     for (const element of elems) {
-      const isDisplayed = await (await element.$(childSelector)).isDisplayed();
-      if (isDisplayed) {
+      const elem = await element.$(childSelector);
+      const toBeIncluded = includeHidden ? await elem.isExisting() : await elem.isDisplayed();
+      if (toBeIncluded) {
         elementsWithChild.push(element);
       }
     }
-   
+
     if (elementsWithChild.length === 0) {
       throw new Error(`Function 'getByChild' failed. The found element(s) with the given selector do(es) not have any child with selector ${childSelector}.`);
     } else {
       return elementsWithChild[index];
     }
-  };
+  }
 
   /**
    * @function getByParent
@@ -313,25 +289,25 @@ export class ElementModule {
    * @description Gets an element by its selector and parent selector. Can be used when multiple elements have the same properties.
    * @param {String} elementSelector - The CSS selector describing the element.
    * @param {String} parentSelector - The CSS selector describing the parent element.
-   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByParent(".form01", ".input01");
    */
-  async getByParent (elementSelector: any, parentSelector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    let parentElems = [];
+  async getByParent(elementSelector: any, parentSelector: any, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+    let parentElems: Element[] = [];
     try {
-      parentElems = await this.getAllDisplayed(parentSelector, timeout);
+      parentElems = includeHidden ? await this.getAll(parentSelector, timeout) : await this.getAllDisplayed(parentSelector, timeout);
     } catch (error) {
-      // @ts-ignore
-      throw new Error(`Function 'getByParent' failed. No parent element found for selector: ${parentSelector}.`, error);
+      throw new Error(`Function 'getByParent' failed. No parent element found for selector: ${parentSelector}: ${error}`);
     }
 
     const elementsWithParent = [];
     for (const parentElement of parentElems) {
       const elem = await parentElement.$(elementSelector);
-      const isDisplayed = await elem.isDisplayed();
-      if (isDisplayed) {
+      const toBeIncluded = includeHidden ? await elem.isExisting() : await elem.isDisplayed();
+      if (toBeIncluded) {
         elementsWithParent.push(elem);
       }
     }
@@ -341,8 +317,7 @@ export class ElementModule {
     } else {
       return elementsWithParent[index];
     }
-  };
-
+  }
 
   // =================================== GET VALUES ===================================
   /**
@@ -350,67 +325,69 @@ export class ElementModule {
    * @memberOf nonUi5.element
    * @description Returns a boolean if the element is visible to the user.
    * @param {Object} element - The element.
+   * @param {Boolean} [strict=true] - If strict mode is enabled it will only return "true" if the element is visible on the page and within the viewport.
+   * If disabled, it will be sufficient if the element is visible on the page but not inside the current viewport.
    * @returns {Boolean} Returns true or false.
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.element.isVisible(elem);
    */
-  async isVisible (element: Element): Promise<boolean> {
-    return element.isDisplayedInViewport();
-  };
+  async isVisible(element: Element, strict: boolean = true): Promise<boolean> {
+    try {
+      if (strict) {
+        return element.isDisplayedInViewport();
+      } else {
+        return element.isDisplayed();
+      }
+    } catch (error) {
+      throw new Error(`Function 'isVisible' failed: ${error}`);
+    }
+  }
 
   /**
    * @function isPresent
    * @memberOf nonUi5.element
-   * @description Returns a boolean if the element is present at the DOM or not.
+   * @description Returns a boolean if the element is present at the DOM or not. It might be hidden.
    * @param {Object} elem - The element.
    * @returns {Boolean} Returns true or false.
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.element.isPresent(elem);
    */
-  async isPresent (elem: Element): Promise<boolean> {
+  async isPresent(elem: Element): Promise<boolean> {
     return elem.isExisting();
-  };
+  }
 
   /**
    * @function isPresentByCss
    * @memberOf nonUi5.element
    * @description Returns a boolean if the element is present at the DOM or not.
    * @param {String} css - The CSS selector describing the element.
-   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {boolean} Returns true or false.
    * @example await nonUi5.element.isPresentByCss(".button01");
    */
-  async isPresentByCss (css: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async isPresentByCss(css: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     try {
-      let elements: Element[];
-
-      await browser.waitUntil(async function () {
-        elements = await $$(css);
-        return elements.length > index;
-      }, {
-        timeout: timeout
-      });
-
-      return elements![index].isExisting();
+      const elems = await this.getAll(css, timeout);
+      return elems[index].isExisting();
     } catch (error) {
       return false;
     }
-  };
+  }
 
   /**
    * @function isPresentByXPath
    * @memberOf nonUi5.element
    * @description returns a boolean if the element is present at the DOM or not.
    * @param {String} xpath - The XPath describing the element.
-   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {boolean}
    * @example await nonUi5.element.isPresentByXPath(".//*[text()='Create']");
    */
-  async isPresentByXPath (xpath: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<boolean> {
+  async isPresentByXPath(xpath: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<boolean> {
     return this.isPresentByCss(xpath, index, timeout);
-  };
+  }
 
   /**
    * @function getAttributeValue
@@ -424,30 +401,25 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getById("elem02");
    * const innerHTML = await nonUi5.element.getAttributeValue(elem);
    */
-  async getAttributeValue (elem: Element, attribute?: string): Promise<string> {
+  async getAttributeValue(elem: Element, attribute?: string): Promise<string> {
     if (typeof elem === "object" && elem !== null) {
       const tagName = await elem.getTagName();
       if (attribute === "value" && (tagName === "input" || tagName === "textarea")) {
-        // return the element value (and not element attribute value) for input and textarea "value" attribute 
         return elem.getValue();
       } else if (attribute && attribute !== "textContent") {
         return elem.getAttribute(attribute);
       } else {
         if (attribute === "textContent") {
-          // return attribute value if present
           const attributeValue = await elem.getAttribute(attribute);
           if (attributeValue !== null) return attributeValue;
         }
-        const [value, text] = await Promise.all([
-          elem.getValue(),
-          elem.getText()
-        ]);
+        const [value, text] = await Promise.all([elem.getValue(), elem.getText()]);
         return value || text;
       }
     } else {
       throw new Error(`Function 'getAttributeValue' failed. Please provide an element as first argument (must be of type 'object').`);
     }
-  };
+  }
 
   /**
    * @function getValue
@@ -458,20 +430,20 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getById("elem02");
    * const innerHTML = await nonUi5.element.getValue(elem);
    */
-  async getValue (elem: Element): Promise<string> {
+  async getValue(elem: Element): Promise<string> {
     try {
-      // eslint-disable-next-line no-return-await
-      return await this.getAttributeValue(elem);
+      const [value, text] = await Promise.all([elem.getValue(), elem.getText()]);
+      return value || text;
     } catch (error) {
       throw new Error(`Function 'getValue' failed: ${error}`);
     }
-  };
+  }
 
   // =================================== SET VALUES ===================================
   /**
    * @function setInnerHTML
    * @memberOf nonUi5.element
-   * @description Sets the innerHTML value of the given element. 
+   * @description Sets the innerHTML value of the given element.
    * CAUTION: Only use this if filling the value in the normal way is not working and if it is unavoidable. Keep in mind, that a user is not able to perform such actions.
    * @param {Object} elem - The element.
    * @returns {String} The value to set.
@@ -480,8 +452,7 @@ export class ElementModule {
    */
   async setInnerHTML(elem: Element, value: string): Promise<void> {
     await browser.executeScript(`arguments[0].innerHTML = '${value}'`, [elem]);
-  };
-
+  }
 
   // =================================== ACTIONS ===================================
   /**
@@ -496,14 +467,13 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getById("text01");
    * await nonUi5.element.highlight(elem, 3000, "green");
    */
-  async highlight (elem: string, duration = 2000, color = "red") {
+  async highlight(elem: Element, duration: number = 2000, color: string = "red") {
     await browser.executeScript(`arguments[0].style.boxShadow = 'inset 0px 0px 0px 2px ${color}'`, [elem]);
     await browser.pause(duration);
     return browser.executeScript("arguments[0].style.boxShadow = 'inherit'", [elem]);
-  };
+  }
 
-
-  // =================================== FRAMES ===================================
+  // =================================== FRAMES (Deprecated) ===================================
   /**
    * @function switchToIframe
    * @memberOf nonUi5.element
@@ -513,10 +483,10 @@ export class ElementModule {
    * @deprecated please use util.browser.switchToIframe
    * @see [util.browser.switchToIframe]{@link util.browser.switchToIframe}
    */
-  async switchToIframe (selector: any) {
+  async switchToIframe(selector: any) {
     util.console.warn(`⚠  "nonUi5.element.switchToIframe" is deprecated. Please use "util.browser.switchToIframe" instead.`);
     await util.browser.switchToIframe(selector);
-  };
+  }
 
   /**
    * @function switchToDefaultContent
@@ -526,61 +496,77 @@ export class ElementModule {
    * @deprecated please use util.browser.switchToDefaultContent
    * @see [util.browser.switchToDefaultContent]{@link util.browser.switchToDefaultContent}
    */
-  async switchToDefaultContent () {
+  async switchToDefaultContent() {
     util.console.warn(`⚠  "nonUi5.element.switchToDefaultContent" is deprecated. Please use "util.browser.switchToDefaultContent" instead.`);
     await util.browser.switchToDefaultContent();
-  };
-
-
+  }
 
   // =================================== HELPER ===================================
-  private async _filterWithText(elems: Element[], text: string, index: number) {
-    const elemsWithTxt = [];
-    for (const elem of elems) {
-      const elementText = await elem.getText();
-      if (elementText.indexOf(text) !== -1) {
-        elemsWithTxt.push(elem);
+  private async _waitForStabilization(selector: object, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, stableIterationsRequired: number = 3): Promise<void> {
+    let elemsCount: number = 0;
+    let stableIterations: number = 0;
+
+    await browser.waitUntil(
+      async () => {
+        const currentElemsCount = await $$(selector).length;
+
+        if (currentElemsCount === elemsCount) {
+          stableIterations++;
+        } else {
+          stableIterations = 0;
+        }
+
+        elemsCount = currentElemsCount;
+
+        if (elemsCount !== 0 && stableIterations === stableIterationsRequired) {
+          return true;
+        }
+      },
+      {
+        timeout: timeout,
+        timeoutMsg: elemsCount === 0 ? `Timeout reached. No element with passed selector found after ${+timeout / 1000}s.` : `Timeout reached. Page is still loading after ${+timeout / 1000}s.`,
       }
-    }
-    if (elemsWithTxt.length > 0 && index < elemsWithTxt.length) {
-      return elemsWithTxt[index];
+    );
+  }
+
+  private async _getAndFilterElementBySelector(selector: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+    await this.waitForAll(selector, timeout);
+    const elems: Element[] = await $$(selector);
+    if (includeHidden) {
+      return elems[index];
     } else {
-      throw new Error(`No elements containing text ${text} and index ${index}`);
+      const visibleElems = await this._filterDisplayed(elems);
+      return visibleElems[index];
     }
   }
 
-  private async _filterDisplayed(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
-    let elems: Element[] | null = null;
-    let selectedElement: Element | null = null;
-    try {
-      await browser.waitUntil(async function () {
-        elems = await $$(selector);
-        if (!elems) return false;
-        const displayedElements = [];
-        for (const element of elems) {
-          if (element) {
-            const isElementDisplayed = await element.isDisplayed();
-            if (isElementDisplayed) {
-              displayedElements.push(element);
-            }
-          }
-        }
-        const count = displayedElements.length;
-        if (count > 0 && count > index) {
-          selectedElement = displayedElements[index];
-          return true;
-        } else {
-          return false;
-        }
-      }, {
-        timeout: timeout,
-        timeoutMsg: `No visible element found for selector '${selector}' after ${+timeout / 1000}s`
-      });
-      return selectedElement!;
-    } catch (error) {
-      throw new Error("Function '_filterDisplayed' failed. Browser wait exception. " + error);
+  private async _filterByText(elems: Element[], text: string) {
+    const filteredElems = [];
+    for (const elem of elems) {
+      const elementText = await elem.getText();
+      if (elementText.includes(text)) {
+        filteredElems.push(elem);
+      }
+    }
+    if (filteredElems.length > 0) {
+      return filteredElems;
+    } else {
+      throw new Error(`No element with text ${text} found.`)
+    }
+  }
+
+  private async _filterDisplayed(elems: Element[]) {
+    const filteredElems = [];
+    for (const elem of elems) {
+      if (await elem.isDisplayed()) {
+        filteredElems.push(elem);
+      }
+    }
+    if (filteredElems.length > 0) {
+      return filteredElems;
+    } else {
+      throw new Error(`No displayed element found.`)
     }
   }
 }
-
 export default new ElementModule();

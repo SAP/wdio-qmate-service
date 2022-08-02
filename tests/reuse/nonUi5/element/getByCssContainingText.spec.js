@@ -1,10 +1,7 @@
 "use strict";
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
-describe("element - getByCssContainingText + expectToBeVisible", function () {
-
+describe("element - getByCssContainingText", function () {
   let downloadBtn;
 
   it("Preparation", async function () {
@@ -23,15 +20,13 @@ describe("element - getByCssContainingText + expectToBeVisible", function () {
   });
 });
 
-describe("element - getByCssContainingText and catch error", function () {
-
+describe("element - getByCssContainingText - error case", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
     await handleCookiesConsent();
   });
 
   it("Execution & Verification", async function () {
-    await expect(nonUi5.element.getByCssContainingText("[id='sdk---welcome--readMoreButton-BDI-content']","Some Junk Text"))
-      .rejects.toThrow(/getByCssContainingText(): Element \w*|\d* not found/);
+    await expect(nonUi5.element.getByCssContainingText("[id='sdk---welcome--readMoreButton-BDI-content']", "Some Junk Text")).rejects.toThrow(/getByCssContainingText(): Element \w*|\d* not found/);
   });
 });
