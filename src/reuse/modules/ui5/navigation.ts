@@ -162,14 +162,6 @@ export class Navigation {
    * @example await ui5.navigation.closePopups();
    */
   async closePopups (timeout = 15000) {
-    function reverse(promise: Promise<any>) {  
-      return new Promise((resolve, reject) => Promise.resolve(promise).then(reject, resolve));
-    }
-
-    function promiseAny(iterable: Iterable<Promise<any>>) {
-      return reverse(Promise.all([...iterable].map(reverse)));
-    };
-    
     const handleFirstPopup = new Promise<void>(async (resolve, reject) => {
       try {
         const popUp1 = await nonUi5.element.getByCss(".help4-wrapper button", 0, timeout);
@@ -212,7 +204,7 @@ export class Navigation {
       }
     });
 
-    return promiseAny([handleFirstPopup, handleSecondPopup, handleThirdPopup]);
+    return Promise.all([handleFirstPopup, handleSecondPopup, handleThirdPopup]);
   };
 
 
