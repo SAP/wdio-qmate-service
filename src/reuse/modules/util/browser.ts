@@ -77,11 +77,7 @@ export class Browser {
    * @example await util.browser.collectCoverage();
    */
   async collectCoverage(): Promise<void> {
-    if (
-      browser.config.params &&
-      browser.config.params.coverage &&
-      (browser.config.params.coverage.status === true || browser.config.params.coverage.status === "true")
-    ) {
+    if (browser.config.params && browser.config.params.coverage && (browser.config.params.coverage.status === true || browser.config.params.coverage.status === "true")) {
       await browser.collectCoverage();
     } else {
       util.console.warn("Coverage is disabled. Please enable coverage in config file.");
@@ -96,11 +92,7 @@ export class Browser {
    * @example await util.browser.sleepAndCollectCoverage(3000);
    */
   async sleepAndCollectCoverage(duration: number = 5000): Promise<void> {
-    if (
-      browser.config.params &&
-      browser.config.params.coverage &&
-      (browser.config.params.coverage.status === true || browser.config.params.coverage.status === "true")
-    ) {
+    if (browser.config.params && browser.config.params.coverage && (browser.config.params.coverage.status === true || browser.config.params.coverage.status === "true")) {
       await this.sleep(duration);
       await browser.collectCoverage();
     } else {
@@ -253,13 +245,23 @@ export class Browser {
    * @memberOf util.browser
    * @description Switches to the window or tab with the given title.
    * @param {String|RegExp} titleOrUrl - Window title or url of the expected window or tab (can be either a string or part of it as regular expression).
+   * @param {Number} [timeout=10000] - The timeout to wait (ms).
    * @example await util.browser.switchToNewWindow("SAP - Home");
    * @example await util.browser.switchToNewWindow(/Home/);
    * @example await util.browser.switchToNewWindow("www.sap.com");
    */
-   async switchToNewWindow(titleOrUrl: string | RegExp) {
+  async switchToNewWindow(titleOrUrl: string | RegExp, timeout: number = 10000) {
     try {
-      await browser.switchWindow(titleOrUrl);
+      await browser.waitUntil(
+        async () => {
+          await browser.switchWindow(titleOrUrl);
+          return this._verifyTitleOrUrl(titleOrUrl);
+        },
+        {
+          timeout: timeout,
+          timeoutMsg: `Could not verify successful switch after ${timeout / 10000}s.`,
+        }
+      );
     } catch (error) {
       throw new Error(`Function 'switchToNewWindow' failed: ${error}`);
     }
@@ -298,7 +300,7 @@ export class Browser {
     await nonUi5.element.waitToBeVisible(selector);
     const frame = await $(selector);
     await browser.switchToFrame(frame);
-  };
+  }
 
   /**
    * @function switchToDefaultContent
@@ -308,7 +310,7 @@ export class Browser {
    */
   async switchToDefaultContent() {
     await browser.switchToFrame(null);
-  };
+  }
 
   /**
    * @function back
@@ -320,6 +322,19 @@ export class Browser {
     return browser.back();
   }
 
+  // =================================== HELPER ===================================
+  private async _verifyTitleOrUrl(titleOrUrl: string | RegExp): Promise<boolean> {
+    const title: string = await browser.getTitle();
+
+    if (titleOrUrl instanceof RegExp) {
+      if (titleOrUrl.test(title)) return true;
+    } else {
+      const url: string = await util.browser.getCurrentUrl();
+      if (titleOrUrl === title || titleOrUrl === url) return true;
+    }
+
+    return false;
+  }
 }
 
 export default new Browser();
