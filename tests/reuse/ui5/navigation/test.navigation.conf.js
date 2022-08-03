@@ -15,6 +15,7 @@ exports.config = merge(qmateConfiguration.config, {
     path.resolve(__dirname, "navigateToSystemAndApplication.spec.js"),
     path.resolve(__dirname, "navigateToSystemAndApplicationAndRetry.spec.js"),
     path.resolve(__dirname, "expectUnsupportedNavigationPopup.spec.js"),
+    path.resolve(__dirname, "closePopups.spec.js"),
   ],
 
   exclude: [],
