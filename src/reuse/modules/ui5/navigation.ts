@@ -162,49 +162,34 @@ export class Navigation {
    * @example await ui5.navigation.closePopups();
    */
   async closePopups (timeout = 15000) {
-    const handleFirstPopup = new Promise<void>(async (resolve, reject) => {
-      try {
-        const popUp1 = await nonUi5.element.getByCss(".help4-wrapper button", 0, timeout);
-        await popUp1.click();
-        resolve();
-      } catch (e) {
-        util.console.log("First Popup not found.");
-        resolve();
-      }
-    });
-
-    const handleSecondPopup = new Promise<void>(async (resolve, reject) => {
-      try {
-        const popUp2 = await nonUi5.element.getById("SAMLDialog", timeout);
-        await popUp2.click();
-        resolve();
-      } catch (e) {
-        util.console.log("Second Popup not found.");
-        resolve();
-      }
-    });
-
-    const handleThirdPopup = new Promise<void>(async (resolve, reject) => {
-      try {
-        const selector = {
-          "elementProperties": {
-            "metadata": "sap.m.Button",
-            "text": "Close"
-          },
-          "ancestorProperties": {
-            "metadata": "sap.m.Dialog",
-            "id": "*SAMLDialog*"
-          }
-        };
-        await ui5.userInteraction.click(selector, 0, timeout);
-        resolve();
-      } catch (e) {
-        util.console.log("Third Popup not found.");
-        resolve();
-      }
-    });
-
-    return Promise.all([handleFirstPopup, handleSecondPopup, handleThirdPopup]);
+    await browser.pause(timeout);
+    try {
+      const popUp1 = await nonUi5.element.getByCss(".help4-wrapper button", 0, 2500);
+      await popUp1.click();
+    } catch (e) {
+      util.console.log("First Popup not found.");
+    }
+    try {
+      const popUp2 = await nonUi5.element.getById("SAMLDialog", 2500);
+      await popUp2.click();
+    } catch (e) {
+      util.console.log("Second Popup not found.");
+    }
+    try {
+      const selector = {
+        "elementProperties": {
+          "metadata": "sap.m.Button",
+          "text": "Close"
+        },
+        "ancestorProperties": {
+          "metadata": "sap.m.Dialog",
+          "id": "*SAMLDialog*"
+        }
+      };
+      await ui5.userInteraction.click(selector, 0, 2500);
+    } catch (e) {
+      util.console.log("Third Popup not found.");
+    }
   };
 
 
