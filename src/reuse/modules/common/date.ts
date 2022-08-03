@@ -121,7 +121,7 @@ export class DateModule {
    * @param {String} [date="today"] - Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, previousYear
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object").
    * @returns {String} The calculated date in the given format.
-   * @example const date = await common.date.calculate("today", "mm/dd/yyy");
+   * @example const date = await common.date.calculate("today", "mm/dd/yyyy");
    */
   calculate (date: CalculateDatesType = CalculateDates.TODAY, format: DateFormatsType = DateFormats.OBJECT): Date | string {
     if (date === null) {
