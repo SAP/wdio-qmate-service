@@ -1,6 +1,6 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfiguration = require("../../../helper/configurations/chrome.headless.conf");
+const qmateConfiguration = require("../../../helper/configurations/chrome.conf");
 exports.config = merge(qmateConfiguration.config, {
   maxInstances: 3,
   bail: 1,
@@ -12,9 +12,9 @@ exports.config = merge(qmateConfiguration.config, {
   ],
 
   specs: [
-    path.resolve(__dirname, "navigateToSystemAndApplication.spec.js"),
-    path.resolve(__dirname, "navigateToSystemAndApplicationAndRetry.spec.js"),
-    path.resolve(__dirname, "expectUnsupportedNavigationPopup.spec.js"),
+    // path.resolve(__dirname, "navigateToSystemAndApplication.spec.js"),
+    // path.resolve(__dirname, "navigateToSystemAndApplicationAndRetry.spec.js"),
+    // path.resolve(__dirname, "expectUnsupportedNavigationPopup.spec.js"),
     path.resolve(__dirname, "closePopups.spec.js"),
   ],
 
