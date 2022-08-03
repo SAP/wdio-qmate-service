@@ -561,7 +561,7 @@ Global namespace for util modules.
         * [.getUI5Version([timeout])](#util.browser.getUI5Version)
         * [.logUI5Version()](#util.browser.logUI5Version)
         * [.executeScript(command)](#util.browser.executeScript) ⇒ <code>Any</code>
-        * [.switchToNewWindow(titleOrUrl)](#util.browser.switchToNewWindow)
+        * [.switchToNewWindow(titleOrUrl, [timeout])](#util.browser.switchToNewWindow)
         * [.switchToWindow(handle)](#util.browser.switchToWindow)
         * [.getCurrentWindow()](#util.browser.getCurrentWindow) ⇒ <code>Object</code>
         * [.switchToIframe(selector)](#util.browser.switchToIframe)
@@ -616,7 +616,7 @@ Global namespace for util modules.
     * [.getUI5Version([timeout])](#util.browser.getUI5Version)
     * [.logUI5Version()](#util.browser.logUI5Version)
     * [.executeScript(command)](#util.browser.executeScript) ⇒ <code>Any</code>
-    * [.switchToNewWindow(titleOrUrl)](#util.browser.switchToNewWindow)
+    * [.switchToNewWindow(titleOrUrl, [timeout])](#util.browser.switchToNewWindow)
     * [.switchToWindow(handle)](#util.browser.switchToWindow)
     * [.getCurrentWindow()](#util.browser.getCurrentWindow) ⇒ <code>Object</code>
     * [.switchToIframe(selector)](#util.browser.switchToIframe)
@@ -800,14 +800,15 @@ await util.browser.executeScript(command);
 ```
 <a name="util.browser.switchToNewWindow"></a>
 
-#### browser.switchToNewWindow(titleOrUrl)
+#### browser.switchToNewWindow(titleOrUrl, [timeout])
 Switches to the window or tab with the given title.
 
 **Kind**: static method of [<code>browser</code>](#util.browser)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| titleOrUrl | <code>String</code> \| <code>RegExp</code> | Window title or url of the expected window or tab (can be either a string or part of it as regular expression). |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| titleOrUrl | <code>String</code> \| <code>RegExp</code> |  | Window title or url of the expected window or tab (can be either a string or part of it as regular expression). |
+| [timeout] | <code>Number</code> | <code>10000</code> | The timeout to wait (ms). |
 
 **Example**  
 ```js
