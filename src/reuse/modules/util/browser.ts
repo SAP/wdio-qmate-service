@@ -252,10 +252,10 @@ export class Browser {
    */
   async switchToNewWindow(titleOrUrl: string | RegExp, timeout: number = 10000) {
     try {
-      browser.waitUntil(
+      await browser.waitUntil(
         async () => {
           await browser.switchWindow(titleOrUrl);
-          await this._verifyTitleOrUrl(titleOrUrl);
+          return this._verifyTitleOrUrl(titleOrUrl);
         },
         {
           timeout: timeout,
@@ -323,13 +323,13 @@ export class Browser {
   }
 
   // =================================== HELPER ===================================
-  private async _verifyTitleOrUrl(titleOrUrl: string | RegExp) {
-    const title = await browser.getTitle();
+  private async _verifyTitleOrUrl(titleOrUrl: string | RegExp): Promise<boolean> {
+    const title: string = await browser.getTitle();
 
     if (titleOrUrl instanceof RegExp) {
       if (titleOrUrl.test(title)) return true;
     } else {
-      const url = await util.browser.getCurrentUrl();
+      const url: string = await util.browser.getCurrentUrl();
       if (titleOrUrl === title || titleOrUrl === url) return true;
     }
 
