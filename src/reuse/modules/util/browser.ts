@@ -259,7 +259,7 @@ export class Browser {
         },
         {
           timeout: timeout,
-          timeoutMsg: `Could not verify successful switch after ${timeout / 10000}s.`,
+          timeoutMsg: `Could not verify successful switch after ${timeout / 1000}s.`,
         }
       );
     } catch (error) {
@@ -325,11 +325,12 @@ export class Browser {
   // =================================== HELPER ===================================
   private async _verifyTitleOrUrl(titleOrUrl: string | RegExp): Promise<boolean> {
     const title: string = await browser.getTitle();
+    const url: string = await util.browser.getCurrentUrl();
 
     if (titleOrUrl instanceof RegExp) {
       if (titleOrUrl.test(title)) return true;
+      if (titleOrUrl.test(url)) return true;
     } else {
-      const url: string = await util.browser.getCurrentUrl();
       if (titleOrUrl === title || titleOrUrl === url) return true;
     }
 
