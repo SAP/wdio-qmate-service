@@ -1,4 +1,10 @@
 "use strict";
+
+interface Popup {
+  name: string;
+  selector: string | object;
+}
+
 /**
  * @class navigation
  * @memberof ui5
@@ -172,26 +178,32 @@ export class Navigation {
    * @function closePopups
    * @memberOf ui5.navigation
    * @description Closes all popups if they occur after navigating to a specific page.
-   * @param {Integer} [timeout=15000] - The timeout to wait.
+   * @param {Number} [timeout=30000] - The timeout to wait.
    * @example await ui5.navigation.closePopups();
    */
-  async closePopups(timeout = 15000) {
-    const handlePopup1 = this._closePopup(".help4-wrapper button", timeout);
-    const handlePopup2 = this._closePopup("#SAMLDialog", timeout);
-
-    const selector = {
-      elementProperties: {
-        metadata: "sap.m.Button",
-        text: "Close"
+  async closePopups(timeout = 30000) {
+    const popups = [
+      {
+        name: "Help Dialog",
+        selector: ".help4-wrapper button"
       },
-      ancestorProperties: {
-        metadata: "sap.m.Dialog",
-        id: "*SAMLDialog*"
+      {
+        name: "SAML Dialog",
+        selector: {
+          elementProperties: {
+            metadata: "sap.m.Button",
+            text: "Close"
+          },
+          ancestorProperties: {
+            metadata: "sap.m.Dialog",
+            id: "*SAMLDialog*"
+          }
+        }
       }
-    };
-    const handlePopup3 = this._closePopup(selector, timeout);
-
-    return Promise.all([handlePopup1, handlePopup2, handlePopup3]);
+    ];
+    const handlePopup1 = this._closePopup(popups[0], timeout);
+    const handlePopup2 = this._closePopup(popups[1], timeout);
+    return await Promise.all([handlePopup1, handlePopup2]);
   }
 
   // =================================== ASSERTION ===================================
@@ -208,24 +220,24 @@ export class Navigation {
       elementProperties: {
         metadata: "sap.m.Dialog",
         type: "Message",
-        state: "Error",
-      },
+        state: "Error"
+      }
     };
     await ui5.assertion.expectToBeVisible(unsupportedNavigationPopup);
 
     const moreDetailsButton = {
       elementProperties: {
         metadata: "sap.m.Link",
-        ancestor: unsupportedNavigationPopup,
-      },
+        ancestor: unsupportedNavigationPopup
+      }
     };
     await ui5.userInteraction.click(moreDetailsButton);
 
     const selector = {
       elementProperties: {
         metadata: "sap.m.FormattedText",
-        ancestorProperties: unsupportedNavigationPopup,
-      },
+        ancestorProperties: unsupportedNavigationPopup
+      }
     };
     const detailsTextElement = await ui5.element.getDisplayed(selector);
     const dataHtmlText = await detailsTextElement.getAttribute("data-htmltext");
@@ -260,20 +272,18 @@ export class Navigation {
     return prefix + urlParams;
   }
 
-  private async _closePopup(selector: string | object, timeout: number = 15000): Promise<void> {
-    return new Promise<void>(async (resolve, reject) => {
-      try {
-        if (typeof selector === "object") {
-          await ui5.userInteraction.click(selector, 0, timeout);
-        } else {
-          const popUp = await nonUi5.element.getByCss(selector, 0, timeout);
-          await popUp.click();
-        }
-        resolve();
-      } catch (e) {
-        resolve();
+  private async _closePopup(popup: Popup, timeout: number = 30000): Promise<void> {
+    try {
+      if (typeof popup.selector === "object") {
+        await ui5.userInteraction.click(popup.selector, 0, timeout);
+      } else {
+        const popUp = await nonUi5.element.getByCss(popup.selector, 0, timeout);
+        await popUp.click();
       }
-    });
+      util.console.log(`${popup.name} was closed.`);
+    } catch (error) {
+      return Promise.resolve();
+    }
   }
 }
 export default new Navigation();
