@@ -2,7 +2,7 @@
 
 interface Popup {
   name: string;
-  selector: string | object;
+  selector: string;
 }
 
 /**
@@ -189,21 +189,12 @@ export class Navigation {
       },
       {
         name: "SAML Dialog",
-        selector: {
-          elementProperties: {
-            metadata: "sap.m.Button",
-            text: "Close"
-          },
-          ancestorProperties: {
-            metadata: "sap.m.Dialog",
-            id: "*SAMLDialog*"
-          }
-        }
+        selector: "BUTTON[class='sapMBtnBase sapMBtn sapMDialogEndButton sapMBarChild']"
       }
     ];
     const handlePopup1 = this._closePopup(popups[0], timeout);
     const handlePopup2 = this._closePopup(popups[1], timeout);
-    return await Promise.all([handlePopup1, handlePopup2]);
+    return Promise.all([handlePopup1, handlePopup2]);
   }
 
   // =================================== ASSERTION ===================================
@@ -273,17 +264,16 @@ export class Navigation {
   }
 
   private async _closePopup(popup: Popup, timeout: number = 30000): Promise<void> {
-    try {
-      if (typeof popup.selector === "object") {
-        await ui5.userInteraction.click(popup.selector, 0, timeout);
-      } else {
-        const popUp = await nonUi5.element.getByCss(popup.selector, 0, timeout);
-        await popUp.click();
+    new Promise<void>(async (resolve, reject) => {
+      try {
+        const elem = await nonUi5.element.getByCss(popup.selector, 0, timeout);
+        await nonUi5.userInteraction.click(elem);
+        util.console.log(`${popup.name} was closed.`);
+        resolve();
+      } catch (error) {
+        resolve();
       }
-      util.console.log(`${popup.name} was closed.`);
-    } catch (error) {
-      return Promise.resolve();
-    }
+    });
   }
 }
 export default new Navigation();
