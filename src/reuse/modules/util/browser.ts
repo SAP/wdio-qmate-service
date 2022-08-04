@@ -259,7 +259,7 @@ export class Browser {
         },
         {
           timeout: timeout,
-          timeoutMsg: `Could not verify successful switch after ${timeout / 10000}s.`,
+          timeoutMsg: `Could not verify successful switch after ${timeout / 1000}s.`,
         }
       );
     } catch (error) {
