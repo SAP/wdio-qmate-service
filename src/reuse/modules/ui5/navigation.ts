@@ -264,16 +264,13 @@ export class Navigation {
   }
 
   private async _closePopup(popup: Popup, timeout: number = 30000): Promise<void> {
-    new Promise<void>(async (resolve, reject) => {
-      try {
-        const elem = await nonUi5.element.getByCss(popup.selector, 0, timeout);
-        await nonUi5.userInteraction.click(elem);
-        util.console.log(`${popup.name} was closed.`);
-        resolve();
-      } catch (error) {
-        resolve();
-      }
-    });
+    try {
+      const elem = await nonUi5.element.getByCss(popup.selector, 0, timeout);
+      await nonUi5.userInteraction.click(elem);
+      util.console.log(`${popup.name} was closed.`);
+    } catch (error) {
+      util.console.log(`${popup.name} not found.`);
+    }
   }
 }
 export default new Navigation();
