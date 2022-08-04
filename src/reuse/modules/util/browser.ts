@@ -328,8 +328,7 @@ export class Browser {
     const url: string = await util.browser.getCurrentUrl();
 
     if (titleOrUrl instanceof RegExp) {
-      if (titleOrUrl.test(title)) return true;
-      if (titleOrUrl.test(url)) return true;
+      if (titleOrUrl.test(title) || titleOrUrl.test(url)) return true;
     } else {
       if (titleOrUrl === title || titleOrUrl === url) return true;
     }
