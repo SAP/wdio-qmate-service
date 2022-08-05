@@ -108,7 +108,7 @@ export class ElementModule {
    */
   async getAll(selector: any, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element[]> {
     try {
-      await this.waitForAll(selector, timeout);
+      await this.waitForAll(selector, timeout, true);
       return await $$(selector);
     } catch (error) {
       throw new Error(`Function 'getAll' failed. No element(s) found for selector '${selector}' after ${+timeout / 1000}s. ` + error);
