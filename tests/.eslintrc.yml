@@ -1,6 +1,0 @@
-globals: 
-  common: readonly
-  ui5: readonly
-  nonUi5: readonly
-  util: readonly
-  service: readonly
