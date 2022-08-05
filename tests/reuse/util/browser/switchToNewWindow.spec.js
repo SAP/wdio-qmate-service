@@ -39,7 +39,7 @@ describe("browser - switchToNewWindow - title", function () {
   });
 });
 
-describe("browser - switchToNewWindow - RegExp", function () {
+describe("browser - switchToNewWindow - title (RegExp)", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/demoapps");
     await handleCookiesConsent();
@@ -90,6 +90,33 @@ describe("browser - switchToNewWindow - url", function () {
   it("Verification", async function () {
     const currentUrl = await util.browser.getCurrentUrl();
     await common.assertion.expectEqual(currentUrl, shoppingCartUrl);
+  });
+});
+
+describe("browser - switchToNewWindow - url (RegExp)", function () {
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/demoapps");
+    await handleCookiesConsent();
+
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.ui.documentation.sdk.view.DemoApps",
+        "metadata": "sap.ui.documentation.TitleLink",
+        "bindingContextPath": "/demoAppsByCategory/0/rows/0/0"
+      }
+    };
+    await ui5.userInteraction.click(selector);
+  });
+
+  it("Execution", async function () {
+    const urlRegExp = /demokit\/cart/;
+    await util.browser.switchToNewWindow(urlRegExp);
+  });
+
+  it("Verification", async function () {
+    const urlExp = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3";
+    const urlAct = await util.browser.getCurrentUrl();
+    await common.assertion.expectEqual(urlAct, urlExp);
   });
 });
 
