@@ -2,7 +2,7 @@
 
 describe("navigation - closePopups", function () {
   it("Preparation", async function () {
-    await ui5.navigation.navigateToSystemAndApplication("super-sensitive.domain.name", "SupplierInvoice-create", false);
+    await ui5.navigation.navigateToSystemAndApplication("super-sensitive.domain.name", "Shell-Home", false);
     await ui5.session.login("AP_ACCOUNTANT");
   });
 

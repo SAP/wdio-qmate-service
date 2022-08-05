@@ -14,9 +14,9 @@ export class ElementModule {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await nonUi5.element.waitForAll(".inputField");
    */
-  async waitForAll(selector: any, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<void> {
+  async waitForAll(selector: any, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<void> {
     try {
-      await this._waitForStabilization(selector, timeout);
+      await this._waitForStabilization(selector, timeout, includeHidden);
     } catch (error) {
       throw new Error(`Function 'waitForAll' failed: ${error}`);
     }
@@ -502,12 +502,16 @@ export class ElementModule {
   }
 
   // =================================== HELPER ===================================
-  private async _waitForStabilization(selector: object, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, stableIterationsRequired: number = 3): Promise<void> {
+  private async _waitForStabilization(selector: object, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false, stableIterationsRequired: number = 3): Promise<void> {
     let elemsCount: number = 0;
     let stableIterations: number = 0;
 
     await browser.waitUntil(
       async () => {
+        let currentElems = await $$(selector);
+        if(!includeHidden) {
+          currentElems = await this._filterDisplayed(currentElems);
+        }
         const currentElemsCount = await $$(selector).length;
 
         if (currentElemsCount === elemsCount) {
@@ -530,7 +534,7 @@ export class ElementModule {
   }
 
   private async _getAndFilterElementBySelector(selector: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
-    await this.waitForAll(selector, timeout);
+    await this.waitForAll(selector, timeout, includeHidden);
     const elems: Element[] = await $$(selector);
     if (includeHidden) {
       return elems[index];
