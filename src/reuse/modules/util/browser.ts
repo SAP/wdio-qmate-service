@@ -325,11 +325,11 @@ export class Browser {
   // =================================== HELPER ===================================
   private async _verifyTitleOrUrl(titleOrUrl: string | RegExp): Promise<boolean> {
     const title: string = await browser.getTitle();
+    const url: string = await util.browser.getCurrentUrl();
 
     if (titleOrUrl instanceof RegExp) {
-      if (titleOrUrl.test(title)) return true;
+      if (titleOrUrl.test(title) || titleOrUrl.test(url)) return true;
     } else {
-      const url: string = await util.browser.getCurrentUrl();
       if (titleOrUrl === title || titleOrUrl === url) return true;
     }
 
