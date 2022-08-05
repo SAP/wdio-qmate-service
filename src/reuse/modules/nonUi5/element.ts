@@ -512,7 +512,7 @@ export class ElementModule {
         if(!includeHidden) {
           currentElems = await this._filterDisplayed(currentElems);
         }
-        const currentElemsCount = await $$(selector).length;
+        const currentElemsCount = currentElems.length;
 
         if (currentElemsCount === elemsCount) {
           stableIterations++;
