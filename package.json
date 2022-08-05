@@ -1,6 +1,6 @@
 {
   "name": "@wdio/qmate-service-ts",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": {
     "name": "Georgios Treska",
     "email": "georgios.treska@sap.com"
@@ -136,7 +136,6 @@
     "@wdio/sauce-service": "^7.16.16",
     "@wdio/selenium-standalone-service": "^7.12.5",
     "@wdio/shared-store-service": "^7.16.16",
-    "@wdio/spec-reporter": "^7.10.1",
     "@wdio/static-server-service": "^7.10.1",
     "chai": "^4.3.4",
     "chromedriver": "^103.0.0",
