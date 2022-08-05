@@ -1,0 +1,48 @@
+site_name: Wdio Qmate Service TS
+site_author: I503232
+nav:
+  - Home: index.md
+  - ☰ Reuse API: doc.md
+theme:
+  name: 'material'
+  features:
+    - content.code.annotate 
+    - content.tabs.link
+    - navigation.top
+  palette:
+    - scheme: qmate-light
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      toggle: 
+        icon: material/weather-sunny
+        name: Switch to light mode
+extra_css:
+  - style/custom.css
+markdown_extensions:
+  - attr_list
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true 
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - codehilite:
+      guess_lang: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+      clickable_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.details
+docs_dir: documentation
+site_dir: docs-gen
+repo_url: https://github.tools.sap/sProcurement/wdio-qmate-service-ts.git/
+site_url: https://pages.github.tools.sap/sProcurement/wdio-qmate-service-ts/
+edit_uri: edit/main/documentation/
