@@ -24,6 +24,6 @@ Disclaimer: The code in this project may include calls to APIs ("API Calls") of
  you any rights to use or access any SAP External Product, or provide any third
  parties the right to use of access any SAP External Product, through API Calls.
 
-Files: lib/* test/* docs/* README.md CHANGELOG.md .js index.js package-lock.json package.json .eslintrc .gitignore .npmrc
+Files: lib/* test/* docs/* README.md CHANGELOG.md .js index.ts package-lock.json package.json .eslintrc .gitignore .npmrc
 Copyright:  2022 SAP SE or an SAP affiliate company and wdio-qmate-service contributors
 License: Apache-2.0
