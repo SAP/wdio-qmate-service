@@ -16,7 +16,7 @@ exports.config = merge(baseConfig.config, {
       platformName: "Windows 10",
       browserVersion: "latest",
       "sauce:options": {
-        ...defaultBrowserSauceOptions,
+        ...defaultBrowserSauceOptions
       }
     },
     {
@@ -24,7 +24,7 @@ exports.config = merge(baseConfig.config, {
       platformName: "Windows 10",
       browserVersion: "latest",
       "sauce:options": {
-        ...defaultBrowserSauceOptions,
+        ...defaultBrowserSauceOptions
       }
     },
     {
@@ -34,5 +34,6 @@ exports.config = merge(baseConfig.config, {
       "sauce:options": {
         ...defaultBrowserSauceOptions
       }
-    }]
+    }
+  ]
 });
