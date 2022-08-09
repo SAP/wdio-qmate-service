@@ -1,5 +1,4 @@
-!!! warning "Important Information"
-    In case of questions or issues, please use our [Official Channels](https://pages.github.tools.sap/sProcurement/qmate/topics/support/channels/) to reach out to us.
+In case of questions or issues, please feel free to reach out to us or open an [issue](https://github.com/SAP/wdio-qmate-service/issues) on our [GitHub Page](https://github.com/SAP/wdio-qmate-service).
 
 ### Benjamin Warth
 :octicons-location-16: Walldorf - Germany  
