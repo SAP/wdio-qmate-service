@@ -192,9 +192,8 @@ export class Navigation {
         selector: "BUTTON[class='sapMBtnBase sapMBtn sapMDialogEndButton sapMBarChild']"
       }
     ];
-    const handlePopup1 = this._closePopup(popups[0], timeout);
-    const handlePopup2 = this._closePopup(popups[1], timeout);
-    return Promise.all([handlePopup1, handlePopup2]);
+    const popupHandlers = popups.map(popup => this._closePopup(popup, timeout));
+    return Promise.all(popupHandlers);
   }
 
   // =================================== ASSERTION ===================================
