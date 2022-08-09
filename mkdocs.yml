@@ -1,8 +1,11 @@
-site_name: Wdio Qmate Service TS
+site_name: Qmate Service
 site_author: I503232
 nav:
-  - Home: index.md
+  - About: index.md
   - ☰ Reuse API: doc.md
+  - Getting Started:
+    - Setup: gettingStarted/setup.md
+  - Contact: contact.md
 theme:
   name: 'material'
   features:
@@ -41,7 +44,7 @@ markdown_extensions:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.details
-docs_dir: documentation
+docs_dir: docs
 site_dir: docs-gen
 repo_url: https://github.tools.sap/sProcurement/wdio-qmate-service-ts.git/
 site_url: https://pages.github.tools.sap/sProcurement/wdio-qmate-service-ts/
