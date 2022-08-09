@@ -1,6 +1,6 @@
 {
-  "name": "@wdio/qmate-service-ts",
-  "version": "0.1.5",
+  "name": "@wdio/qmate-service",
+  "version": "1.0.0",
   "author": {
     "name": "Georgios Treska",
     "email": "georgios.treska@sap.com"
@@ -8,10 +8,6 @@
   "types": "./@types/index.d.ts",
   "main": "./lib/index.js",
   "maintainers": [
-    {
-      "name": "Georgios Treska",
-      "email": "georgios.treska@sap.com"
-    },
     {
       "name": "Marvin Grüssinger",
       "email": "marvin.gruessinger@sap.com"
@@ -126,7 +122,6 @@
     "pdf-parse": "^1.1.1",
     "query-string": "^7.1.0",
     "supertest": "^6.1.6",
-    "wdio-qmate-reporter": "^0.1.1",
     "yargs": "^17.1.1"
   },
   "devDependencies": {
