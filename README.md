@@ -1,3 +1,3 @@
-# wdio-qmate-service
+# Qmate Service
 
-Docs: https://pages.github.tools.sap/sProcurement/wdio-qmate-service-ts/
+Please find our official Documentation [here](https://symmetrical-sniffle-f0ef6d2c.pages.github.io/);
