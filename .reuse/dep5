@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: wdio-qmate-service
+Upstream-Contact: Marvin Grüßinger <marvin.gruessinger@sap.com>
+Source: https://github.com/SAP/wdio-qmate-service
+
+Files: lib/* test/* docs/* README.md CHANGELOG.md .js index.js package-lock.json package.json .eslintrc .gitignore .npmrc
+Copyright: 2022 Marvin Grüßinger, Benjamin Warth
+License: Apache-2.0
