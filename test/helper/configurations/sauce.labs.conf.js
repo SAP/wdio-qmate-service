@@ -8,29 +8,30 @@ const defaultBrowserSauceOptions = {
 
 exports.config = merge(baseConfig.config, {
   services: ["sauce", "shared-store"],
-  capabilities: [{
-    browserName: "firefox",
-    platformName: "Windows 10",
-    browserVersion: "latest",
-    "sauce:options": {
-      ...defaultBrowserSauceOptions,
+  capabilities: [
+    {
+      browserName: "firefox",
+      platformName: "Windows 10",
+      browserVersion: "latest",
+      "sauce:options": {
+        ...defaultBrowserSauceOptions
+      }
+    },
+    {
+      browserName: "MicrosoftEdge",
+      platformName: "Windows 10",
+      browserVersion: "latest",
+      "sauce:options": {
+        ...defaultBrowserSauceOptions
+      }
+    },
+    {
+      browserName: "safari",
+      platformName: "macOS 11",
+      browserVersion: "latest",
+      "sauce:options": {
+        ...defaultBrowserSauceOptions
+      }
     }
-  },
-  {
-    browserName: "MicrosoftEdge",
-    platformName: "Windows 10",
-    browserVersion: "latest",
-    "sauce:options": {
-      ...defaultBrowserSauceOptions,
-    }
-  },
-  {
-    browserName: "safari",
-    platformName: "macOS 11",
-    browserVersion: "latest",
-    "sauce:options": {
-      ...defaultBrowserSauceOptions
-    }
-  }
   ]
 });
