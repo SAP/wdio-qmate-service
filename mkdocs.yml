@@ -46,6 +46,6 @@ markdown_extensions:
   - pymdownx.details
 docs_dir: docs
 site_dir: docs-gen
-repo_url: https://github.tools.sap/sProcurement/wdio-qmate-service-ts.git/
-site_url: https://pages.github.tools.sap/sProcurement/wdio-qmate-service-ts/
+repo_url: https://github.com/SAP/wdio-qmate-service
+site_url: https://github.com/SAP/wdio-qmate-service/SAP/wdio-qmate-service
 edit_uri: edit/main/documentation/
