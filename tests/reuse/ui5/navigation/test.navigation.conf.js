@@ -1,25 +1,15 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfiguration = require("../../../helper/configurations/chrome.headless.conf");
-exports.config = merge(qmateConfiguration.config, {
-  maxInstances: 3,
-  bail: 1,
+const profile = require("../../../helper/configurations/chrome.headless.conf");
 
-  services: [
-    ["chromedriver", {
-      port: 4444
-    }]
-  ],
+exports.config = merge(profile.config, {
+  maxInstances: 3,
+  // baseUrl: "https://super-sensitive.domain.name/ui",
 
   specs: [
     path.resolve(__dirname, "navigateToSystemAndApplication.spec.js"),
     path.resolve(__dirname, "navigateToSystemAndApplicationAndRetry.spec.js"),
     path.resolve(__dirname, "expectUnsupportedNavigationPopup.spec.js"),
-  ],
-
-  exclude: [],
-
-  mochaOpts: {
-    timeout: 2000000,
-  },
+    path.resolve(__dirname, "closePopups.spec.js"),
+  ]
 });

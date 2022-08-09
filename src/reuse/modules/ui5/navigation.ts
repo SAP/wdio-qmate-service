@@ -1,12 +1,16 @@
 "use strict";
+
+interface Popup {
+  name: string;
+  selector: string;
+}
+
 /**
  * @class navigation
  * @memberof ui5
  */
 export class Navigation {
-
-  errorText = "Navigation failed because page didn't load, possible reasons: " +
-    "Site is down, or you are using a wrong address. For retrying use 'navigateToApplicationAndRetry'.\n";
+  errorText = "Navigation failed because page didn't load, possible reasons: " + "Site is down, or you are using a wrong address. For retrying use 'navigateToApplicationAndRetry'.\n";
 
   // =================================== MAIN ===================================
   /**
@@ -19,7 +23,7 @@ export class Navigation {
    * @param {Boolean} [refresh=false] - Refresh the page after navigation.
    * @example await ui5.navigation.navigateToApplication("PurchaseOrder-manage");
    */
-  async navigateToApplication (intent: string, preventPopups = false, verify = false, refresh = true) {
+  async navigateToApplication(intent: string, preventPopups = false, verify = false, refresh = true) {
     let urlParams = "";
     if (preventPopups) {
       urlParams = this._generateUrlParams();
@@ -38,7 +42,7 @@ export class Navigation {
     } catch (error) {
       throw new Error(this.errorText + error);
     }
-  };
+  }
 
   /**
    * @function navigateToApplicationAndRetry
@@ -51,11 +55,17 @@ export class Navigation {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await ui5.navigation.navigateToApplicationAndRetry("PurchaseOrder-manage");
    */
-  async navigateToApplicationAndRetry (intent: string, preventPopups = true, verify = true, retries = 3, interval = 5000) {
-    await util.function.retry(async (intent: string, preventPopups: boolean) => {
-      await this.navigateToApplication(intent, preventPopups, verify);
-    }, [intent, preventPopups, verify], retries, interval, this);
-  };
+  async navigateToApplicationAndRetry(intent: string, preventPopups = true, verify = true, retries = 3, interval = 5000) {
+    await util.function.retry(
+      async (intent: string, preventPopups: boolean) => {
+        await this.navigateToApplication(intent, preventPopups, verify);
+      },
+      [intent, preventPopups, verify],
+      retries,
+      interval,
+      this
+    );
+  }
 
   /**
    * @function navigateToSystemAndApplication
@@ -67,7 +77,7 @@ export class Navigation {
    * @param {Boolean} [verify=false] - Specifies if the url should be asserted after the navigation.
    * @example await ui5.navigation.navigateToSystemAndApplication("yourFioriLaunchpad.domain", "PurchaseOrder-manage");
    */
-  async navigateToSystemAndApplication (system: string, intent: string, closePopups = true, verify = false) {
+  async navigateToSystemAndApplication(system: string, intent: string, closePopups = true, verify = false) {
     try {
       await browser.navigateTo(`https://${system}/ui#${intent}`);
       const url = await browser.getUrl();
@@ -81,7 +91,7 @@ export class Navigation {
     } catch (error) {
       throw new Error(this.errorText + error);
     }
-  };
+  }
 
   /**
    * @function navigateToSystemAndApplicationAndRetry
@@ -95,12 +105,17 @@ export class Navigation {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await ui5.navigation.navigateToSystemAndApplicationAndRetry("yourFioriLaunchpad.domain", "PurchaseOrder-manage");
    */
-  async navigateToSystemAndApplicationAndRetry (system: string, intent: string, closePopups = true, verify = true, retries = 3, interval = 5000) {
-    await util.function.retry(async (system: string, intent: string, closePopups: boolean) => {
-      await this.navigateToSystemAndApplication(system, intent, closePopups, verify);
-    }, [system, intent, closePopups, verify], retries, interval, this);
-  };
-
+  async navigateToSystemAndApplicationAndRetry(system: string, intent: string, closePopups = true, verify = true, retries = 3, interval = 5000) {
+    await util.function.retry(
+      async (system: string, intent: string, closePopups: boolean) => {
+        await this.navigateToSystemAndApplication(system, intent, closePopups, verify);
+      },
+      [system, intent, closePopups, verify],
+      retries,
+      interval,
+      this
+    );
+  }
 
   /**
    * @function navigateToApplicationWithQueryParams
@@ -114,7 +129,7 @@ export class Navigation {
    * const queryParams = "?sap-language=EN&responderOn=true";
    * await ui5.navigation.navigateToApplicationWithQueryParams(intent, queryParams);
    */
-  async navigateToApplicationWithQueryParams (intent: string, queryParams = "", closePopups = true, verify = false) {
+  async navigateToApplicationWithQueryParams(intent: string, queryParams = "", closePopups = true, verify = false) {
     let url;
     try {
       await browser.url(`${browser.config.baseUrl}${queryParams}#${intent}`);
@@ -130,7 +145,7 @@ export class Navigation {
     } catch (error) {
       throw new Error(this.errorText + error);
     }
-  };
+  }
 
   /**
    * @function navigateToApplicationWithQueryParamsAndRetry
@@ -146,52 +161,40 @@ export class Navigation {
    * const queryParams = "?sap-language=EN&responderOn=true";
    * await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
    */
-  async navigateToApplicationWithQueryParamsAndRetry (intent: string, queryParams: string, closePopups = true, verify = true, retries = 3, interval = 5000) {
-    await util.function.retry(async (intent: string, queryParams: string, closePopups: boolean, verify: boolean) => {
-      await this.navigateToApplicationWithQueryParams(intent, queryParams, closePopups, verify);
-    }, [intent, queryParams, closePopups, verify], retries, interval, this);
-  };
-
+  async navigateToApplicationWithQueryParamsAndRetry(intent: string, queryParams: string, closePopups = true, verify = true, retries = 3, interval = 5000) {
+    await util.function.retry(
+      async (intent: string, queryParams: string, closePopups: boolean, verify: boolean) => {
+        await this.navigateToApplicationWithQueryParams(intent, queryParams, closePopups, verify);
+      },
+      [intent, queryParams, closePopups, verify],
+      retries,
+      interval,
+      this
+    );
+  }
 
   // =================================== POPUPS ===================================
   /**
    * @function closePopups
    * @memberOf ui5.navigation
    * @description Closes all popups if they occur after navigating to a specific page.
-   * @param {Integer} [timeout=15000] - The timeout to wait.
+   * @param {Number} [timeout=30000] - The timeout to wait.
    * @example await ui5.navigation.closePopups();
    */
-  async closePopups (timeout = 15000) {
-    await browser.pause(timeout);
-    try {
-      const popUp1 = await nonUi5.element.getByCss(".help4-wrapper button", 0, 2500);
-      await popUp1.click();
-    } catch (e) {
-      util.console.log("First Popup not found.");
-    }
-    try {
-      const popUp2 = await nonUi5.element.getById("SAMLDialog", 2500);
-      await popUp2.click();
-    } catch (e) {
-      util.console.log("Second Popup not found.");
-    }
-    try {
-      const selector = {
-        "elementProperties": {
-          "metadata": "sap.m.Button",
-          "text": "Close"
-        },
-        "ancestorProperties": {
-          "metadata": "sap.m.Dialog",
-          "id": "*SAMLDialog*"
-        }
-      };
-      await ui5.userInteraction.click(selector, 0, 2500);
-    } catch (e) {
-      util.console.log("Third Popup not found.");
-    }
-  };
-
+  async closePopups(timeout = 30000) {
+    const popups = [
+      {
+        name: "Help Dialog",
+        selector: ".help4-wrapper button"
+      },
+      {
+        name: "SAML Dialog",
+        selector: "BUTTON[class='sapMBtnBase sapMBtn sapMDialogEndButton sapMBarChild']"
+      }
+    ];
+    const popupHandlers = popups.map(popup => this._closePopup(popup, timeout));
+    return Promise.all(popupHandlers);
+  }
 
   // =================================== ASSERTION ===================================
   /**
@@ -202,28 +205,28 @@ export class Navigation {
    * @param {String} navigationTarget - The selector describing the element.
    * @example await ui5.navigation.expectUnsupportedNavigationPopup("#SupplierInvoice-display?FiscalYear=1234&SupplierInvoice=1234567890");
    */
-  async expectUnsupportedNavigationPopup (navigationTarget: string) {
+  async expectUnsupportedNavigationPopup(navigationTarget: string) {
     const unsupportedNavigationPopup = {
-      "elementProperties": {
-        "metadata": "sap.m.Dialog",
-        "type": "Message",
-        "state": "Error"
+      elementProperties: {
+        metadata: "sap.m.Dialog",
+        type: "Message",
+        state: "Error"
       }
     };
     await ui5.assertion.expectToBeVisible(unsupportedNavigationPopup);
 
     const moreDetailsButton = {
-      "elementProperties": {
-        "metadata": "sap.m.Link",
-        "ancestor": unsupportedNavigationPopup
+      elementProperties: {
+        metadata: "sap.m.Link",
+        ancestor: unsupportedNavigationPopup
       }
     };
     await ui5.userInteraction.click(moreDetailsButton);
 
     const selector = {
-      "elementProperties": {
-        "metadata": "sap.m.FormattedText",
-        "ancestorProperties": unsupportedNavigationPopup
+      elementProperties: {
+        metadata: "sap.m.FormattedText",
+        ancestorProperties: unsupportedNavigationPopup
       }
     };
     const detailsTextElement = await ui5.element.getDisplayed(selector);
@@ -231,10 +234,9 @@ export class Navigation {
     const stringExists = await dataHtmlText.includes(navigationTarget.replace(/&/g, "&amp;"));
 
     return common.assertion.expectTrue(stringExists);
-  };
+  }
 
-
-  // =================================== PRIVATE ===================================
+  // =================================== HELPER ===================================
   private _generateUrlParams() {
     let urlParams;
     let prefix;
@@ -260,5 +262,14 @@ export class Navigation {
     return prefix + urlParams;
   }
 
-};
+  private async _closePopup(popup: Popup, timeout: number = 30000): Promise<void> {
+    try {
+      const elem = await nonUi5.element.getByCss(popup.selector, 0, timeout);
+      await nonUi5.userInteraction.click(elem);
+      util.console.log(`${popup.name} was closed.`);
+    } catch (error) {
+      util.console.log(`${popup.name} not found.`);
+    }
+  }
+}
 export default new Navigation();

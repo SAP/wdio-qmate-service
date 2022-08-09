@@ -21,7 +21,7 @@ exports.config = merge(baseConfig.config, {
           "--window-size=1920,1200",
           "--whitelisted-ips",
           "--disable-dev-shm-usage",
-          // "--incognito",
+          "--incognito",
           "--disable-gpu",
           "--disable-web-security",
           "--disable-infobars",
