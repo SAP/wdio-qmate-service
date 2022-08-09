@@ -1,5 +1,5 @@
 # Qmate Service
-**Qmate Service** is a custom [WebdriverIO](https://webdriver.io/) Service for testing web applications and APIs built with TypeScript. It replaces the former [JavaScript version](https://pages.github.tools.sap/sProcurement/wdio-qmate-service/) of the service and enhances it with many improvements and new features.
+**Qmate Service** is a custom [WebdriverIO](https://webdriver.io/) service built in TypeScript for testing web applications and APIs. It replaces the former [JavaScript version](https://pages.github.tools.sap/sProcurement/wdio-qmate-service/) of the service and enhances it with many improvements and new features.
 
 !!! tip 
     Qmate Service is part of the **standalone** tool [Qmate](https://pages.github.tools.sap/sProcurement/qmate/) but can also be used **as custom service** for WebdriverIO. However, if you want to make use of all our features, we **recommend to use the standalone** version enabling all our custom services out of the box.
