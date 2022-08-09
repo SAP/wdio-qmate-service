@@ -3,6 +3,9 @@ site_author: I503232
 nav:
   - About: index.md
   - ☰ Reuse API: doc.md
+  - Getting Started:
+    - Setup: gettingStarted/setup.md
+  - Contact: contact.md
 theme:
   name: 'material'
   features:
