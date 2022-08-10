@@ -1,6 +1,11 @@
 # Qmate Service
-
 Please find our official Documentation [here](https://symmetrical-sniffle-f0ef6d2c.pages.github.io/).
+
+## Installation
+To install the latest version of the service, simply execute the following command:
+```bash
+npm install @wdio/qmate-service-ts@latest
+```
 
 # Contact
 - Marvin Grüßinger <marvin.gruessinger@sap.com>
