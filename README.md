@@ -6,7 +6,8 @@ To install the latest version of the service, simply execute the following comma
 ```bash
 npm install @wdio/qmate-service-ts@latest
 ```
-
+# Reuse API
+Find our reuse functions for ui5; nonUi5; service; common & util; in the [Reuse API](./docs/doc.md)
 # Contact
 - Marvin Grüßinger <marvin.gruessinger@sap.com>
 - Benjamin Warth <benjamin.warth@sap.com>
