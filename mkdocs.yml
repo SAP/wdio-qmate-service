@@ -48,5 +48,5 @@ markdown_extensions:
 docs_dir: docs
 site_dir: docs-gen
 repo_url: https://github.com/SAP/wdio-qmate-service
-site_url: https://github.com/SAP/wdio-qmate-service/SAP/wdio-qmate-service
+site_url: https://sap.github.io/wdio-qmate-service
 edit_uri: edit/main/documentation/
