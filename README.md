@@ -1,13 +1,12 @@
 # Qmate Service
-Please find our official Documentation [here](https://symmetrical-sniffle-f0ef6d2c.pages.github.io/).
+Please find our official and more detailed documentation [here](https://symmetrical-sniffle-f0ef6d2c.pages.github.io/).
 
 ## Installation
 To install the latest version of the service, simply execute the following command:
 ```bash
 npm install @wdio/qmate-service-ts@latest
 ```
-# Reuse API
-Find our reuse functions for ui5; nonUi5; service; common & util; in the [Reuse API](./docs/doc.md)
+
 # Contact
 - Marvin Grüßinger <marvin.gruessinger@sap.com>
 - Benjamin Warth <benjamin.warth@sap.com>
