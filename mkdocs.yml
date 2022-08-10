@@ -5,6 +5,7 @@ nav:
   - ☰ Reuse API: doc.md
   - Getting Started:
     - Setup: gettingStarted/setup.md
+    - Selectors: gettingStarted/selectors.md
   - Contact: contact.md
 theme:
   name: 'material'
