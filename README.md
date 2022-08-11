@@ -3,7 +3,7 @@
 Qmate Service is a custom WebdriverIO service built in TypeScript for testing web applications and APIs.
 
 ## Pages
-Please find our official and more detailed documentation [here](https://sap.github.io/wdio-qmate-service).
+Please find our official and more detailed documentation [here](https://sap.github.io/wdio-qmate-service/).
 
 ## Installation
 To install the latest version of the service, simply execute the following command:
