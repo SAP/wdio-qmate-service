@@ -50,4 +50,4 @@ site_dir: docs-gen
 repo_url: https://github.com/SAP/wdio-qmate-service
 site_url: https://sap.github.io/wdio-qmate-service
 edit_uri: edit/main/documentation/
-copyright: © Copyright 2022, SAP SE & Qmate Migrator Contributors
+copyright: © Copyright 2022, SAP SE & Qmate Service Contributors
