@@ -114,3 +114,6 @@ function getNumberOfNamespaceParts(namespace) {
 function fileOrFolderPathIncludesIgnoredPath(fileOrFolderPath) {
   return pathsToIgnore.some(folderName => fileOrFolderPath.includes(folderName));
 }
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

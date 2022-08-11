@@ -92,3 +92,6 @@ class Decryption {
   }
 }
 export default new Decryption();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

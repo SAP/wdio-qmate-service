@@ -11,3 +11,6 @@ export class NonUi5 {
 }
 
 export default new NonUi5()
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

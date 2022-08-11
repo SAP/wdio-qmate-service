@@ -83,3 +83,6 @@ export class Data {
   }
 }
 export default new Data();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

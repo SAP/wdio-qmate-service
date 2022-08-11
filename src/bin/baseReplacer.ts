@@ -8,3 +8,6 @@ export async function replace(source: string, target: string) {
     const indexTypesToLib = indexTypesContent.split(source).join(target);
     await writeFile(indexTypesPath, indexTypesToLib);
 }
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

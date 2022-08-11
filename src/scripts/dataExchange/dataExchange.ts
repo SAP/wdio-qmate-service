@@ -212,3 +212,6 @@ class DataExchange {
 
 };
 module.exports = new DataExchange();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

@@ -374,3 +374,6 @@ export class UserInteraction {
 
 };
 export default new UserInteraction();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

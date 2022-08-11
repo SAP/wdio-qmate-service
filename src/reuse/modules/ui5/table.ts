@@ -166,3 +166,6 @@ export class Table {
   
 };
 export default new Table();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

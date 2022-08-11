@@ -308,3 +308,6 @@ for (var fnName in functions) {
 
 exports.installInBrowser = (util.format(
   "window.clientSideScripts = {%s};", scriptsList.join(", ")));
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

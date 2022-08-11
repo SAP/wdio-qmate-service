@@ -31,3 +31,5 @@ rules:
   quotes: [2, 'double', {avoidEscape: true, allowTemplateLiterals: true}]
   prefer-const: 1
   semi: [2, 'always']
+# © 2021-2022 SAP SE or an SAP affiliate company. All rights reserved.
+

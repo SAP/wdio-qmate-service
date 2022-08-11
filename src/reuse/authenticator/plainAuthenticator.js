@@ -5,3 +5,6 @@ async function PlainAuthenticator() {
   }
 }
 module.exports = PlainAuthenticator;
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

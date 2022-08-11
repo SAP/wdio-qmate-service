@@ -113,3 +113,6 @@ export class ConfirmationDialog {
 
 };
 export default new ConfirmationDialog();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

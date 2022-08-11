@@ -39,3 +39,6 @@ export class System {
 
 };
 export default new System();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

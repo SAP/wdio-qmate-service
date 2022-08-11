@@ -183,3 +183,6 @@ class DataExchangeUtil {
 export default new DataExchangeUtil();
 // JS SUPPORT
 module.exports = new DataExchangeUtil();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

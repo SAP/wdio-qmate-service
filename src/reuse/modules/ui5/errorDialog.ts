@@ -45,3 +45,6 @@ export class ErrorDialog {
 
 };
 export default new ErrorDialog();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

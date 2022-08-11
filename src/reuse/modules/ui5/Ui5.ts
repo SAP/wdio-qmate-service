@@ -33,3 +33,6 @@ export class Ui5 {
 }
 
 export default new Ui5();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

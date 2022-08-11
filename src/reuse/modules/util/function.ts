@@ -131,3 +131,6 @@ export class FunctionModule {
 };
 
 export default new FunctionModule();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

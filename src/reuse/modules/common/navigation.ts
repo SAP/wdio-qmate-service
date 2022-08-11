@@ -37,3 +37,6 @@ export class Navigation {
 
 };
 export default new Navigation();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

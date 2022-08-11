@@ -6,3 +6,6 @@ export enum CalculateDates {
   NEXT_YEAR = "nextYear",
   PREVIOUS_YEAR = "previousYear",
 }
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

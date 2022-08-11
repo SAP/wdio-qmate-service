@@ -104,3 +104,6 @@ export class Assertion {
 
 };
 export default new Assertion();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

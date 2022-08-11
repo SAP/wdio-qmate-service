@@ -11,3 +11,6 @@ export class Common {
 }
 
 export default new Common()
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

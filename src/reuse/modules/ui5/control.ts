@@ -106,3 +106,6 @@ export class Control {
 
 };
 export default new Control();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

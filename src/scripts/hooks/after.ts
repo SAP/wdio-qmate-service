@@ -11,3 +11,6 @@ export default async function (result: number, capabilities: any, specs: any) {
   // write export data in tmp files
   await dataExchangeCommands.writeExportDataInTmpFile();
 }
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

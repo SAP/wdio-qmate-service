@@ -135,3 +135,6 @@ export class Rest {
 
 };
 export default new Rest();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

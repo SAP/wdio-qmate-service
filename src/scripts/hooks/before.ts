@@ -19,3 +19,6 @@ export default async function (capabilities: object[], specs: string[], browser:
   await authenticatorHandler.attachAuthHandling();
 
 };
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

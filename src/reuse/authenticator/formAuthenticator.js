@@ -47,3 +47,6 @@ async function FormAuthenticator() {
   await logonField.click();
 }
 module.exports = FormAuthenticator;
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

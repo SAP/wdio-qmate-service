@@ -338,3 +338,6 @@ export class Session {
 
 };
 export default new Session();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

@@ -24,3 +24,6 @@ async function BasicUrlAuthenticator() {
   await browser.url(urlWithAuth);
 }
 module.exports = BasicUrlAuthenticator;
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

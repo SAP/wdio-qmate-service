@@ -214,3 +214,6 @@ export class Formatter {
 
 };
 export default new Formatter();
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

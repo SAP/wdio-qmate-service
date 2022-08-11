@@ -16,3 +16,6 @@ export default async function (config: Record<string, any>, capabilities: object
   }
   await dataExchangeCommands.readParams();
 };
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+

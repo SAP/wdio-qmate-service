@@ -17,3 +17,6 @@ export default async function (config: any, capabilities: Array<object>) {
   }
   await dataExchangeCommands.createTmpDataFolder();
 };
+// © 2022 SAP SE or an SAP affiliate company. All rights reserved.
+
+
