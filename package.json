@@ -95,7 +95,7 @@
     "test:reuse:service:rest:startJsonServer": "cd tests/reuse/service/rest && json-server --watch db.json",
     "test:reuse:service:rest": "npx wdio tests/reuse/service/rest/test.rest.conf.js",
     "test:reuse": "npm run test:reuse:common && npm run test:reuse:nonUi5 && npm run test:reuse:ui5 && npm run test:reuse:util",
-    "test": "npm run test:authenticator:staticLogin && npm run test:core && npm run test:reuse"
+    "test": "npm run prepublishOnly && npm run postpublish && test:authenticator:staticLogin && npm run test:core && npm run test:reuse"
   },
   "homepage": "https://github.tools.sap/sProcurement/wdio-qmate-service",
   "repository": {
