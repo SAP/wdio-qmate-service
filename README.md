@@ -8,7 +8,7 @@ Please find our official and more detailed documentation [here](https://sap.gith
 ## Installation
 To install the latest version of the service, simply execute the following command:
 ```bash
-npm install @wdio/qmate-service-ts@latest
+npm install @wdio/qmate-service@latest
 ```
 
 ## Contact
