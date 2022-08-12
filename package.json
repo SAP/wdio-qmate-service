@@ -22,6 +22,7 @@
     "before_install": "npm config set chromedriver_skip_download=true && npm install chromedriver@latest --chromedriver_skip_download=true",
     "after_install": "npm config set chromedriver_skip_download=false",
     "prepublishOnly": "npm run build && node ./lib/bin/srcToLib.js",
+    "prepublish": "npm run build && node ./lib/bin/srcToLib.js",
     "postpublish": "node ./lib/bin/libToSrc.js",
     "clean": "npx rimraf lib",
     "lint": "eslint .",
