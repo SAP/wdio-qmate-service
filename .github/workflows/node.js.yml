@@ -58,7 +58,7 @@ jobs:
       - run: |
           sudo apt-get install google-chrome-stable
           npm ci
-          npm run test:authenticator
+          npm run test:authenticator:staticLogin
 
   test-common:
     runs-on: ubuntu-latest
