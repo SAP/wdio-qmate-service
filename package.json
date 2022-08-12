@@ -29,7 +29,6 @@
     "generate-docs": "npm run build && node ./lib/reuse/helper/jsDocGen",
     "serve-docs": "mkdocs serve",
     "deploy-docs": "mkdocs gh-deploy --force",
-    "update-legacy": "node reuse/helper/legacySupport/legacyReplacer.js",
     "build": "npx tsc",
     "build:dev": "npx tsc --watch",
     "test:authenticator:staticLogin:custom": "npx wdio ./tests/authenticator/staticLogin/configCustom.js",

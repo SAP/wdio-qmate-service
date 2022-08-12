@@ -1,7 +1,5 @@
 "use strict";
 
-const legacyMapper = require("./helper/legacySupport/legacyMapper.js");
-
 // modules
 import utilQmate from './modules/util/Util'
 import commonQmate from './modules/common/Common'
@@ -102,8 +100,6 @@ class ReuseLibrary {
       ...service,
       ...global.service
     };
-
-    legacyMapper();
   };
 };
 
