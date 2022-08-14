@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest    
     steps:
       - id: build
-        uses: ../actions/build@v1
+        uses: .github/actions/build@v1
       - run: npm run lint
   test-common:
     runs-on: ubuntu-latest
@@ -20,7 +20,7 @@ jobs:
         node-version: [16.x]
     steps:
       - id: build
-        uses: ../actions/build@v1
+        uses: .github/actions/build@v1
       - run: npm run test:reuse:common
   test-ui5:
     runs-on: ubuntu-latest
@@ -29,7 +29,7 @@ jobs:
         node-version: [16.x]
     steps:
       - id: build
-        uses: ../actions/build@v1
+        uses: .github/actions/build@v1
       - run: npm run test:reuse:ui5
   
 
