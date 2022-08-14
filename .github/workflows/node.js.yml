@@ -8,52 +8,28 @@ on:
     branches: [ "main" ]
 jobs:
   lint:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    runs-on: ubuntu-latest    
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: sudo apt-get install google-chrome-stable
-      - run: npm ci
+      - id: build
+        uses: ../actions/build
       - run: npm run lint
   test-common:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: sudo apt-get install google-chrome-stable
-      - run: npm ci
+      - id: build
+        uses: ../actions/build
       - run: npm run test:reuse:common
   test-ui5:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: sudo apt-get install google-chrome-stable
-      - run: npm ci
+      - id: build
+        uses: ../actions/build
       - run: npm run test:reuse:ui5
   
 
