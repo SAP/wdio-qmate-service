@@ -1,9 +1,11 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfiguration = require("../../../helper/configurations/chrome.headless.conf");
-exports.config = merge(qmateConfiguration.config, {
+const profile = require("../../../helper/configurations/chrome.headless.conf");
+exports.config = merge(profile.config, {
   maxInstances: 6,
-  bail: 1,
+  specFileRetries: 2,
+
+  baseUrl: "https://sapui5.hana.ondemand.com/1.99.0/",
 
   specs: [
     path.resolve(__dirname, "logCurrentUrl.spec.js"),
@@ -20,9 +22,6 @@ exports.config = merge(qmateConfiguration.config, {
     path.resolve(__dirname, "switchToNewWindow.spec.js"),
     path.resolve(__dirname, "switchToIframe.spec.js"),
     path.resolve(__dirname, "switchToDefaultContent.spec.js"),
-    path.resolve(__dirname, "back.spec.js"),
-
-  ],
-
-  baseUrl: "https://sapui5.hana.ondemand.com/1.99.0/",
+    path.resolve(__dirname, "back.spec.js")
+  ]
 });

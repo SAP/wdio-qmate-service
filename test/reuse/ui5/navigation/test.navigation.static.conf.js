@@ -1,7 +1,7 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfiguration = require("../../../helper/configurations/chrome.conf");
-exports.config = merge(qmateConfiguration.config, {
+const profile = require("../../../helper/configurations/chrome.conf");
+exports.config = merge(profile.config, {
   maxInstances: 3,
   bail: 1,
   baseUrl: "http://localhost:34099/ui",

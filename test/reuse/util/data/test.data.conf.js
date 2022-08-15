@@ -1,9 +1,11 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfig = require("../../../helper/configurations/chrome.headless.conf");
-exports.config = merge(qmateConfig.config, {
+const profile = require("../../../helper/configurations/chrome.headless.conf");
+
+exports.config = merge(profile.config, {
   maxInstances: 6,
-  bail: 1,
+  specFileRetries: 2,
+
   baseUrl: "https://sapui5.hana.ondemand.com/",
 
   params: {
