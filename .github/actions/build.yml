@@ -1,0 +1,15 @@
+name: 'build'
+description: 'Build'
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: sudo apt-get install google-chrome-stable
+      shell: bash
+    - run: npm ci
+      shell: bash
