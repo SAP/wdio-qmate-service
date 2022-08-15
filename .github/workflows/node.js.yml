@@ -3,9 +3,9 @@
 name: Node.js CI
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "parallelTestExec" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "parallelTestExec" ]
 
 jobs:
   lint:
