@@ -14,12 +14,12 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - name: checkout actions
-        uses: actions/checkout@v3
-      - name: build
-        uses: ./.github/actions/build
-      - name: run test  
-        run: npm run lint
+      - uses: actions/checkout@v3
+        name: checkout actions
+      - uses: ./.github/actions/build
+        name: build  
+      - run: npm run lint
+        name: run test
 
   test-core:
     runs-on: ubuntu-latest
@@ -27,12 +27,12 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - name: checkout actions
-        uses: actions/checkout@v3
-      - name: build
-        uses: ./.github/actions/build
-      - name: run test  
-        run: npm run test:core
+      - uses: actions/checkout@v3
+        name: checkout actions
+      - uses: ./.github/actions/build
+        name: build  
+      - run: npm run test
+        name: run test:core
 
   test-authenticator:
     runs-on: ubuntu-latest
@@ -40,12 +40,12 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - name: checkout actions
-        uses: actions/checkout@v3
-      - name: build
-        uses: ./.github/actions/build
-      - name: run test  
-        run: npm run test:authenticator:staticLogin
+      - uses: actions/checkout@v3
+        name: checkout actions
+      - uses: ./.github/actions/build
+        name: build  
+      - run: npm run test
+        name: run test:authenticator:staticLogin
 
   test-common:
     runs-on: ubuntu-latest
@@ -53,12 +53,12 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - name: checkout actions
-        uses: actions/checkout@v3
-      - name: build
-        uses: ./.github/actions/build
-      - name: run test  
-        run: npm run test:reuse:common
+      - uses: actions/checkout@v3
+        name: checkout actions
+      - uses: ./.github/actions/build
+        name: build  
+      - run: npm run test
+        name: run test:reuse:common
 
   test-ui5-1:
     runs-on: ubuntu-latest
@@ -75,12 +75,12 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - name: checkout actions
-        uses: actions/checkout@v3
-      - name: build
-        uses: ./.github/actions/build
-      - name: run test  
-        run: npm run test:reuse:ui5:pt2
+      - uses: actions/checkout@v3
+        name: checkout actions
+      - uses: ./.github/actions/build
+        name: build  
+      - run: npm run test
+        name: run test:reuse:ui5:pt2
 
   test-non-ui5:
     runs-on: ubuntu-latest
@@ -88,12 +88,12 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - name: checkout actions
-        uses: actions/checkout@v3
-      - name: build
-        uses: ./.github/actions/build
-      - name: run test  
-        run: npm run test:reuse:nonUi5
+      - uses: actions/checkout@v3
+        name: checkout actions
+      - uses: ./.github/actions/build
+        name: build  
+      - run: npm run test
+        name: run test:reuse:nonUi5
 
   test-util:
     runs-on: ubuntu-latest
@@ -101,9 +101,9 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - name: checkout actions
-        uses: actions/checkout@v3
-      - name: build
-        uses: ./.github/actions/build
-      - name: run test  
-        run: npm run test:reuse:util
+      - uses: actions/checkout@v3
+        name: checkout actions
+      - uses: ./.github/actions/build
+        name: build  
+      - run: npm run test
+        name: run test:reuse:util
