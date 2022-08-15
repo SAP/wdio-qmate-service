@@ -14,8 +14,8 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: ./.github/actions/action.yml
-        run: npm run lint
+      - uses: ./.github/actions
+      - run: npm run lint
 
   test-core:
     runs-on: ubuntu-latest
@@ -23,8 +23,8 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: ./.github/actions/action.yml
-        run: npm run test:core
+      - uses: ./.github/actions
+      - run: npm run test:core
 
   test-authenticator:
     runs-on: ubuntu-latest
@@ -32,8 +32,8 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: ./.github/actions/action.yml
-        run: npm run test:authenticator:staticLogin
+      - uses: ./.github/actions
+      - run: npm run test:authenticator:staticLogin
 
   test-common:
     runs-on: ubuntu-latest
@@ -41,8 +41,8 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: ./.github/actions/action.yml
-        run: npm run test:reuse:common
+      - uses: ./.github/actions
+      - run: npm run test:reuse:common
 
   test-ui5-1:
     runs-on: ubuntu-latest
@@ -50,8 +50,8 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: /.github/actions/action.yml
-        run: npm run test:reuse:ui5:pt1
+      - uses: /.github/actions
+      - run: npm run test:reuse:ui5:pt1
 
   test-ui5-2:
     runs-on: ubuntu-latest
@@ -59,8 +59,8 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: ./.github/actions/action.yml
-        run: npm run test:reuse:ui5:pt2
+      - uses: ./.github/actions
+      - run: npm run test:reuse:ui5:pt2
 
   test-non-ui5:
     runs-on: ubuntu-latest
@@ -68,8 +68,8 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: ./.github/actions/action.yml
-        run: npm run test:reuse:nonUi5
+      - uses: ./.github/actions
+      - run: npm run test:reuse:nonUi5
 
   test-util:
     runs-on: ubuntu-latest
@@ -77,7 +77,7 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: ./.github/actions/action.yml
-        run: npm run test:reuse:util
+      - uses: ./.github/actions
+      - run: npm run test:reuse:util
 
       
