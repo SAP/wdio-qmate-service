@@ -1,12 +1,13 @@
 const path = require("path");
 const merge = require("deepmerge");
-const qmateConfiguration = require("../../../helper/configurations/chrome.headless.conf");
-exports.config = merge(qmateConfiguration.config, {
+const profile = require("../../../helper/configurations/chrome.headless.conf");
+
+exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
-  bail: 1,
+
   baseUrl: "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html",
-  
+
   specs: [
     path.resolve(__dirname, "expectAttributeToBe.spec.js"),
     path.resolve(__dirname, "expectValidationError.spec.js"),
@@ -23,11 +24,5 @@ exports.config = merge(qmateConfiguration.config, {
     path.resolve(__dirname, "expectToBeNotVisible.spec.js"),
     path.resolve(__dirname, "expectToBeVisibleInViewport.spec.js"),
     path.resolve(__dirname, "expectMessageToastTextToBe.spec.js")
-  ],
-
-  exclude: [],
-
-  mochaOpts: {
-    timeout: 2000000
-  }
+  ]
 });
