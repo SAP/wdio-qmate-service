@@ -148,4 +148,4 @@ jobs:
           sudo apt-get install -y --only-upgrade openssl
           sudo apt-get install google-chrome-stable
           npm ci
-          npm run test:reuse:util
+          npm run test:reuse:util:temp
