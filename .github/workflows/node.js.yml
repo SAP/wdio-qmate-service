@@ -29,7 +29,6 @@ jobs:
       - name: checkout actions
         uses: actions/checkout@v3
       - name: use local action
-      - name: use local action
         uses: ./.github/actions
       - run: npm run test:core
 
@@ -51,6 +50,8 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
+      - name: checkout actions
+        uses: actions/checkout@v3
       - name: use local action
         uses: ./.github/actions
       - run: npm run test:reuse:common
@@ -63,7 +64,8 @@ jobs:
     steps:
       - name: checkout actions
         uses: actions/checkout@v3
-      - uses: /.github/actions
+      - name: use local action
+        uses: /.github/actions
       - run: npm run test:reuse:ui5:pt1
 
   test-ui5-2:
