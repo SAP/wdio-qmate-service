@@ -10,7 +10,9 @@ runs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: sudo apt-get install google-chrome-stable
+    - name: install stable chrome version
+      run: sudo apt-get install google-chrome-stable
       shell: bash
-    - run: npm ci
+    - name: clean install node modules
+      run: npm ci
       shell: bash
