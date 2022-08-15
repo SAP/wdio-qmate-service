@@ -16,7 +16,8 @@ jobs:
     steps:
       - name: checkout actions
         uses: actions/checkout@v3
-      - uses: ./.github/actions
+      - name: use local action
+        uses: ./.github/actions
       - run: npm run lint
 
   test-core:
@@ -27,7 +28,9 @@ jobs:
     steps:
       - name: checkout actions
         uses: actions/checkout@v3
-      - uses: ./.github/actions
+      - name: use local action
+      - name: use local action
+        uses: ./.github/actions
       - run: npm run test:core
 
   test-authenticator:
@@ -38,7 +41,8 @@ jobs:
     steps:
       - name: checkout actions
         uses: actions/checkout@v3
-      - uses: ./.github/actions
+      - name: use local action
+        uses: ./.github/actions
       - run: npm run test:authenticator:staticLogin
 
   test-common:
@@ -47,7 +51,8 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: ./.github/actions
+      - name: use local action
+        uses: ./.github/actions
       - run: npm run test:reuse:common
 
   test-ui5-1:
@@ -69,7 +74,8 @@ jobs:
     steps:
       - name: checkout actions
         uses: actions/checkout@v3
-      - uses: ./.github/actions
+      - name: use local action
+        uses: ./.github/actions
       - run: npm run test:reuse:ui5:pt2
 
   test-non-ui5:
@@ -80,7 +86,8 @@ jobs:
     steps:
       - name: checkout actions
         uses: actions/checkout@v3
-      - uses: ./.github/actions
+      - name: use local action
+        uses: ./.github/actions
       - run: npm run test:reuse:nonUi5
 
   test-util:
@@ -91,7 +98,8 @@ jobs:
     steps:
       - name: checkout actions
         uses: actions/checkout@v3
-      - uses: ./.github/actions
+      - name: use local action
+        uses: ./.github/actions
       - run: npm run test:reuse:util
 
       
