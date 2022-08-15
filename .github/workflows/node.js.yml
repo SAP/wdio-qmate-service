@@ -14,7 +14,6 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - id: build
       - uses: actions/checkout@v3
       - uses: ./.github/actions/action.yml
       - run: npm run lint
@@ -25,7 +24,6 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - id: build
       - uses: actions/checkout@v3
       - uses: ./.github/actions/action.yml
       - run: npm run test:core
@@ -36,7 +34,6 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - id: build
       - uses: actions/checkout@v3
       - uses: ./.github/actions/action.yml
       - run: npm run test:authenticator:staticLogin
@@ -47,7 +44,6 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - id: build
       - uses: actions/checkout@v3
       - uses: ./.github/actions/action.yml
       - run: npm run test:reuse:common
@@ -58,7 +54,6 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - id: build
       - uses: actions/checkout@v3
       - uses: /.github/actions/action.yml
       - run: npm run test:reuse:ui5:pt1
@@ -69,7 +64,6 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - id: build
       - uses: actions/checkout@v3
       - uses: ./.github/actions/action.yml
       - run: npm run test:reuse:ui5:pt2
@@ -80,7 +74,6 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - id: build
       - uses: actions/checkout@v3
       - uses: ./.github/actions/action.yml
       - run: npm run test:reuse:nonUi5
@@ -91,7 +84,6 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - id: build
       - uses: actions/checkout@v3
       - uses: ./.github/actions/action.yml
       - run: npm run test:reuse:util
