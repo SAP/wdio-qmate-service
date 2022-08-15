@@ -16,8 +16,9 @@ jobs:
     steps:
       - name: checkout actions
         uses: actions/checkout@v3
-      - uses: ./.github/actions/build
-      - run: npm run lint
+      - name: run test
+        uses: ./.github/actions/build
+        run: npm run lint
 
   test-core:
     runs-on: ubuntu-latest
@@ -27,8 +28,9 @@ jobs:
     steps:
       - name: checkout actions
         uses: actions/checkout@v3
-      - uses: ./.github/actions/build
-      - run: npm run test:core
+      - name: run test
+        uses: ./.github/actions/build
+        run: npm run test:core
 
   test-authenticator:
     runs-on: ubuntu-latest
@@ -38,8 +40,9 @@ jobs:
     steps:
       - name: checkout actions
         uses: actions/checkout@v3
-      - uses: ./.github/actions/build
-      - run: npm run test:authenticator:staticLogin
+      - name: run test
+        uses: ./.github/actions/build
+        run: npm run test:authenticator:staticLogin
 
   test-common:
     runs-on: ubuntu-latest
@@ -49,8 +52,9 @@ jobs:
     steps:
       - name: checkout actions
         uses: actions/checkout@v3
-      - uses: ./.github/actions/build
-      - run: npm run test:reuse:common
+      - name: run test
+        uses: ./.github/actions/build
+        run: npm run test:reuse:common
 
   test-ui5-1:
     runs-on: ubuntu-latest
@@ -69,8 +73,9 @@ jobs:
     steps:
       - name: checkout actions
         uses: actions/checkout@v3
-      - uses: ./.github/actions/build
-      - run: npm run test:reuse:ui5:pt2
+      - name: run test
+        uses: ./.github/actions/build
+        run: npm run test:reuse:ui5:pt2
 
   test-non-ui5:
     runs-on: ubuntu-latest
@@ -80,8 +85,9 @@ jobs:
     steps:
       - name: checkout actions
         uses: actions/checkout@v3
-      - uses: ./.github/actions/build
-      - run: npm run test:reuse:nonUi5
+      - name: run test
+        uses: ./.github/actions/build
+        run: npm run test:reuse:nonUi5
 
   test-util:
     runs-on: ubuntu-latest
@@ -91,5 +97,6 @@ jobs:
     steps:
       - name: checkout actions
         uses: actions/checkout@v3
-      - uses: ./.github/actions/build
-      - run: npm run test:reuse:util
+      - name: run test
+        uses: ./.github/actions/build
+        run: npm run test:reuse:util
