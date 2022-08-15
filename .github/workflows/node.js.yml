@@ -13,18 +13,9 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: |
-          sudo apt-get install google-chrome-stable
-          npm ci
-          npm run lint
+      - uses: ./.github/actions/build
+      - run: npm run lint
 
   test-core:
     runs-on: ubuntu-latest
@@ -32,16 +23,8 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: |
-          sudo apt-get install google-chrome-stable
-          npm ci
-          npm run test:core
+      - uses: ./.github/actions/build
+      - run: npm run test:core
 
   test-authenticator:
     runs-on: ubuntu-latest
@@ -49,16 +32,8 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: |
-          sudo apt-get install google-chrome-stable
-          npm ci
-          npm run test:authenticator:staticLogin
+      - uses: ./.github/actions/build
+      - run: npm run test:authenticator:staticLogin
 
   test-common:
     runs-on: ubuntu-latest
@@ -66,16 +41,8 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: |
-          sudo apt-get install google-chrome-stable
-          npm ci
-          npm run test:reuse:common
+      - uses: ./.github/actions/build
+      - run: npm run test:reuse:common
 
   test-ui5-1:
     runs-on: ubuntu-latest
@@ -83,16 +50,8 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: |
-          sudo apt-get install google-chrome-stable
-          npm ci
-          npm run test:reuse:ui5:pt1
+      - uses: /.github/actions/build
+      - run: npm run test:reuse:ui5:pt1
 
   test-ui5-2:
     runs-on: ubuntu-latest
@@ -100,16 +59,8 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: |
-          sudo apt-get install google-chrome-stable
-          npm ci
-          npm run test:reuse:ui5:pt2
+      - uses: ./.github/actions/build
+      - run: npm run test:reuse:ui5:pt2
 
   test-non-ui5:
     runs-on: ubuntu-latest
@@ -117,16 +68,8 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: |
-          sudo apt-get install google-chrome-stable
-          npm ci
-          npm run test:reuse:nonUi5
+      - uses: ./.github/actions/build
+      - run: npm run test:reuse:nonUi5
 
   test-util:
     runs-on: ubuntu-latest
@@ -134,13 +77,5 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: |
-          sudo apt-get install google-chrome-stable
-          npm ci
-          npm run test:reuse:util
+      - uses: ./.github/actions/build
+      - run: npm run test:reuse:util
