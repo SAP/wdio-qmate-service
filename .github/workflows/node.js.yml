@@ -15,7 +15,7 @@ jobs:
         node-version: [16.x]
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/action.yml
+      - uses: ./.github/actions
       - run: npm run lint
 
   test-core:
@@ -25,7 +25,7 @@ jobs:
         node-version: [16.x]
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/action.yml
+      - uses: ./.github/actions
       - run: npm run test:core
 
   test-authenticator:
@@ -35,7 +35,7 @@ jobs:
         node-version: [16.x]
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/action.yml
+      - uses: ./.github/actions
       - run: npm run test:authenticator:staticLogin
 
   test-common:
@@ -45,7 +45,7 @@ jobs:
         node-version: [16.x]
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/action.yml
+      - uses: ./.github/actions
       - run: npm run test:reuse:common
 
   test-ui5-1:
@@ -55,7 +55,7 @@ jobs:
         node-version: [16.x]
     steps:
       - uses: actions/checkout@v3
-      - uses: /.github/actions/action.yml
+      - uses: /.github/actions
       - run: npm run test:reuse:ui5:pt1
 
   test-ui5-2:
@@ -65,7 +65,7 @@ jobs:
         node-version: [16.x]
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/action.yml
+      - uses: ./.github/actions
       - run: npm run test:reuse:ui5:pt2
 
   test-non-ui5:
@@ -75,7 +75,7 @@ jobs:
         node-version: [16.x]
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/action.yml
+      - uses: ./.github/actions
       - run: npm run test:reuse:nonUi5
 
   test-util:
@@ -85,7 +85,7 @@ jobs:
         node-version: [16.x]
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/action.yml
+      - uses: ./.github/actions
       - run: npm run test:reuse:util
 
       
