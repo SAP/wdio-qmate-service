@@ -16,4 +16,4 @@
 ## Request a Feature
 If you want to request a feature, please make sure that it will add a common value to *Qmate Service*.  
 
-[Request a Feature :fontawesome-solid-puzzle-piece:](<todo-add-link-to-feature-request-template>){  .md-button .md-button--primary }
+[Request a Feature :fontawesome-solid-puzzle-piece:](https://github.com/SAP/wdio-qmate-service/issues/new?assignees=Templada%2C+DIFSRIP&labels=feature&template=feature_request.md&title=%5BFeatureRequest%5D+-+Title+of+desired+feature){  .md-button .md-button--primary }
