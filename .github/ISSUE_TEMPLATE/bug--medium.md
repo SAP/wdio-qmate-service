@@ -1,6 +1,6 @@
 ---
 name: Bug report (Low Priority)
-about: You fond a lightweight bug? We still want to know!
+about: You found a lightweight bug? We still want to know!
 title: "[BUG][MEDIUM] - Title of bug"
 labels: bug
 assignees: Templada, DIFSRIP
