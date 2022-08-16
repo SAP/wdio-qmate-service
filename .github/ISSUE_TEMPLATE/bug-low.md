@@ -3,7 +3,7 @@ name: Bug LOW
 about: Create a report to help us improve
 title: '[BUG][LOW] - Title of bug'
 labels: bug
-assignees: DIFSRIP, Templada
+assignees: Templada, DIFSRIP
 
 ---
 
