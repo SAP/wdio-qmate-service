@@ -6,6 +6,10 @@ nav:
   - Getting Started:
     - Setup: gettingStarted/setup.md
     - Selectors: gettingStarted/selectors.md
+  - Support: 
+    - Issues & Feature Requests: IssuesAndFeatureRequests/bugReporting.md
+    - Troubleshooting: IssuesAndFeatureRequests/troubleshooting.md
+    - Known Issues & Limitations: IssuesAndFeatureRequests/knownIssuesAndLimitations.md
   - Contact: contact.md
 theme:
   name: 'material'

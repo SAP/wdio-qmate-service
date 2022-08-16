@@ -1,11 +1,11 @@
 # Bug Reporting & Feature Requests
-> Related Topics: [Troubleshooting](troubleshooting.md) | [Known Issues](knownIssues.md)
+> Related Topics: [Troubleshooting](troubleshooting.md) | [Known Issues & Limitations](knownIssuesAndLimitations.md)
 
 ## Report a Bug
 !!! bug "Important Information"
     **Before** you open an [issue](https://github.com/SAP/wdio-qmate-service/issues), please go through the checklist below.
 
-- [ ] Have a look at the **[trouble shooting](troubleshooting.md)** and **[knownIssues](knownIssues.md)** section first, and check if a solution for your issue already exists.
+- [ ] Have a look at the **[trouble shooting](troubleshooting.md)** and **[known Issues & Limitations](knownIssuesAndLimitations.md)** section first, and check if a solution for your issue already exists.
 - [ ] Be sure that there is **no syntactical** error displayed in the error log.
 - [ ] Provide **links** to pipelines/gh-actions and/or specs/files of your repository.
 - [ ] Provide a **detailed analysis** and add **screenshots** if possible.
