@@ -1,24 +1,24 @@
 ---
-name: Bug report (High Priority)
-about: You found a severe bug? Let us know!
-title: "[BUG][HIGH] - Title of bug"
+name: Bug HIGH
+about: Create a report to help us improve
+title: '[BUG][HIGH] - Title of bug'
 labels: bug
 assignees: Templada, DIFSRIP
 
 ---
 
-**Describe the issue**
-A clear and concise description of the bug.
+**Describe the bug**
+A clear and concise description of what the bug is.
 
-**Error message / console output**
-All relevant console outputs including the error message(s).
-
-**Steps to reproduce**
+**To Reproduce**
 Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
+
+**Expected behavior**
+A clear and concise description of what you expected to happen.
 
 **Executable code snippet**
 
@@ -54,16 +54,13 @@ describe("01_yourScript - describe the test", function () {
 });
 ```
 
-**Expected behavior**
-A clear and concise description of the expected behavior.
-
 **Screenshots**
-If applicable, add screenshots to help describing the issue.
+If applicable, add screenshots to help explain your problem.
 
 **System information:**
  - OS: [e.g. Windows, Mac, Linux]
  - Browser [e.g. Chrome - Version 96.0.4664.93]
- - Qmate Service Version [e.g. 1.0.1]
+ - Qmate Version [e.g. 1.0.1]
 
-**Additional comments**
-Any other relevant infromation about the issue.
+**Additional context**
+Add any other context about the problem here.
