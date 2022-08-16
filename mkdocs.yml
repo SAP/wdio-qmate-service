@@ -6,6 +6,8 @@ nav:
   - Getting Started:
     - Setup: gettingStarted/setup.md
     - Selectors: gettingStarted/selectors.md
+  - Best Practices:
+    - Authentication: bestPractices/authentication.md
   - Support: 
     - Issues & Feature Requests: IssuesAndFeatureRequests/bugReporting.md
     - Troubleshooting: IssuesAndFeatureRequests/troubleshooting.md
