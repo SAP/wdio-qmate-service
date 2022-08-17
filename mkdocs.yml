@@ -5,7 +5,8 @@ nav:
   - ☰ Reuse API: doc.md
   - Getting Started:
     - Setup: sections/gettingStarted/setup.md
-    - Selectors: sections/gettingStarted/selectors.md
+  - Features:
+    - Selectors: sections/features/selectors.md
   - Best Practices:
     - Authentication: sections/bestPractices/authentication.md
   - Support: 
