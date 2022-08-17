@@ -5,9 +5,14 @@ nav:
   - ☰ Reuse API: doc.md
   - Getting Started:
     - Setup: gettingStarted/setup.md
+    - Config: gettingStarted/config.md
+    - Spec: gettingStarted/spec.md
+    - Execution: gettingStarted/execution.md
     - Selectors: gettingStarted/selectors.md
   - Best Practices:
+    - Selectors: bestPractices/selectors.md
     - Authentication: bestPractices/authentication.md
+    - Data Handling: bestPractices/dataHandling.md
   - Support: 
     - Issues & Feature Requests: IssuesAndFeatureRequests/bugReporting.md
     - Troubleshooting: IssuesAndFeatureRequests/troubleshooting.md
