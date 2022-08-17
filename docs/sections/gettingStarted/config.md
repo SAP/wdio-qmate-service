@@ -2,7 +2,7 @@
 
 ## Enable Qmate Service
 
-To use our service you have to enable `wdio-qmate-service` in your `config.js`;
+To use our service you have to enable `@wdio/qmate-service` in your *config.js*.
 
 ```js title="config.js"
 const QmateService = require("@wdio/qmate-service");
