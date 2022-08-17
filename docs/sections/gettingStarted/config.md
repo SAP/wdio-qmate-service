@@ -2,17 +2,17 @@
 
 ## Enable Qmate Service
 
-To use our service you have to enable `wdio-qmate-service`in your `config.js`
+To use our service you have to enable `wdio-qmate-service` in your `config.js`;
 
-```js
-const qmateService = require("@wdio/qmate-service");
+```js title="config.js"
+const QmateService = require("@wdio/qmate-service");
 
 exports.config = {
-    //...
-  services: [[qmateService]],
-    //...
+    // ...
+  services: [[QmateService]],
+    // ...
 };
 ```
 
-!!!info "WebdriverIO Parameters"
-    For more information about how to setup your config please see the official [documentation](https://webdriver.io/docs/configurationfile/) from WebdriverIO.
+!!! info "WebdriverIO Parameters"
+    For more information about **how to setup your config**, please see the official [documentation](https://webdriver.io/docs/configurationfile/) from WebdriverIO.
