@@ -1,5 +1,5 @@
 # Data Handling
-> Related Topics: [Best Practices - Data Handling](../bestPractices/dataHandling.md) | [Advanced Data Handling](../furtherTopics/advancedDataHandling.md) | [Data Privacy](../furtherTopics/dataPrivacy.md)
+> Related Topics: [Best Practices - Data Handling](../bestPractices/dataHandling.md) | [Advanced Data Handling](./advancedDataHandling.md)
 
 ## Data Types
 There are basically two different types of data being used within your test execution.
@@ -44,7 +44,7 @@ params: {
 },
 ```
 !!! tip
-    For some special cases, you might require to defined multiple and more advanced data paths. Please find further information under [Advanced Data Handling](../furtherTopics/advancedDataHandling.md).
+    For some special cases, you might require to defined multiple and more advanced data paths. Please find further information under [Advanced Data Handling](./advancedDataHandling.md).
 
 ### Load data
 To import data inside your spec, add the following code at the top of your test / describe block:
@@ -66,7 +66,7 @@ To store any value inside the imported file and make it available for other spec
 references.documentNumber = "4500012345";
 ```
 !!! warning
-    To be able to share data between different scripts, the specs need to be grouped together inside the configuration file. Please find more information under [Configuration - Specs](https://pages.github.tools.sap/sProcurement/qmate-profiles/sections/parameters/main/#specs). Please consider, that the data is only stored during the runtime of the test execution. To store data persistently, please see chapter [Advanced Data Handling](../furtherTopics/advancedDataHandling.md).
+    To be able to share data between different scripts, the specs need to be grouped together inside the configuration file. Please find more information under [Configuration - Specs](https://pages.github.tools.sap/sProcurement/qmate-profiles/sections/parameters/main/#specs). Please consider, that the data is only stored during the runtime of the test execution. To store data persistently, please see chapter [Advanced Data Handling](./advancedDataHandling.md).
 
 ### Read data
 To read data from the input data or reference file, use the following code **inside a step (it block)**:

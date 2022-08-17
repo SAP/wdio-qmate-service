@@ -143,9 +143,9 @@ it("Step XX: logout", async function () {
 ## Finding the right login form
 Please use the screenshots to find the proper login form.
 === "Fiori Login Screen"
-    ![fiori-form](../sources/images/fiori_form.PNG)
+    ![fiori-form](../../sources/images/fiori_form.PNG)
 
 === "SAP Cloud Login Screen"
-    ![sapcloud-form](../sources/images/sapCloud_form.PNG)
+    ![sapcloud-form](../../sources/images/sapCloud_form.PNG)
 
 

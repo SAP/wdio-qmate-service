@@ -1,5 +1,5 @@
 # Best Practices - Selectors
-> Related Topics: [Selectors](../gettingStarted/selectors.md)
+> Related Topics: [Selectors](../features/selectors.md)
 
 - Try to avoid text dependencies in selectors. Texts are more likely to change on the UI and if you want to enable your specs for LAT (Language Acceptance Tests) it will break your test. 
 

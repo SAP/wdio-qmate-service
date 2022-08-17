@@ -1,5 +1,5 @@
 # Best Practices - Data Handling
-> Related Topics: [Data Handling](../gettingStarted/dataHandling.md) | [Advanced Data Handling](../features/advancedDataHandling.md)
+> Related Topics: [Data Handling](../features/dataHandling.md) | [Advanced Data Handling](../features/advancedDataHandling.md)
 
 - Always decouple the data from the spec. The maintenance of data will become very handy also more transparent. 
 
@@ -11,7 +11,7 @@
 
 - Structure your data according to the related section of the UI.
 
-- To pass data between different specs, use the [*references.json*](../gettingStarted/dataHandling.md#reference_data) file and [group](<todo-add-link-to-config-grouped-and-file>) the specs inside the config.
+- To pass data between different specs, use the [*references.json*](../features/dataHandling.md#reference_data) file and [group](<todo-add-link-to-config-grouped-and-file>) the specs inside the config.
 
 - Use meaningful key names for import and export parameters, and use meaningful names for data folders, subfolders, and *JSON* files.
   ```js title="config.js"

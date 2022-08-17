@@ -1,5 +1,4 @@
 Data can be imported from *JSON* files and used in the tests. Data obtained during the test run can also be saved or exported to *JSON* files.
-A sample project is available [here](../../../downloads/samples/importExportData.zip).
 
 ## Importing Data
 
