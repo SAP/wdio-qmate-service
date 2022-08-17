@@ -1,4 +1,4 @@
-# Qmate Service
+# **Qmate** Service
 **Qmate Service** is a custom [WebdriverIO](https://webdriver.io/) service built in TypeScript for testing web applications and APIs.
 
 ## Main features
