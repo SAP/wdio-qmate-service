@@ -9,6 +9,7 @@ nav:
     - Spec: sections/gettingStarted/spec.md
     - Execution: sections/gettingStarted/execution.md
   - Features:
+    - Config: sections/features/config.md
     - Selectors: sections/features/selectors.md
   - Best Practices:
     - Selectors: sections/bestPractices/selectors.md
