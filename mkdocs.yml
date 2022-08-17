@@ -4,22 +4,16 @@ nav:
   - About: index.md
   - ☰ Reuse API: doc.md
   - Getting Started:
-<<<<<<< HEAD
-    - Setup: gettingStarted/setup.md
-    - Config: gettingStarted/config.md
-    - Spec: gettingStarted/spec.md
-    - Execution: gettingStarted/execution.md
-    - Selectors: gettingStarted/selectors.md
-  - Best Practices:
-    - Selectors: bestPractices/selectors.md
-    - Authentication: bestPractices/authentication.md
-    - Data Handling: bestPractices/dataHandling.md
-=======
     - Setup: sections/gettingStarted/setup.md
-    - Selectors: sections/gettingStarted/selectors.md
+    - Config: sections/gettingStarted/config.md
+    - Spec: sections/gettingStarted/spec.md
+    - Execution: sections/gettingStarted/execution.md
+  - Features:
+    - Selectors: sections/features/selectors.md
   - Best Practices:
+    - Selectors: sections/bestPractices/selectors.md
     - Authentication: sections/bestPractices/authentication.md
->>>>>>> c488172baf7edb7b3569a0800452cf54fad01a83
+    - Data Handling: sections/bestPractices/dataHandling.md
   - Support: 
     - Issues & Feature Requests: sections/support/bugReporting.md
     - Troubleshooting: sections/support/troubleshooting.md
