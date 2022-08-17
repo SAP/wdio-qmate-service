@@ -16,8 +16,7 @@ nav:
     - Data Handling: bestPractices/dataHandling.md
 =======
     - Setup: sections/gettingStarted/setup.md
-  - Features:
-    - Selectors: sections/features/selectors.md
+    - Selectors: sections/gettingStarted/selectors.md
   - Best Practices:
     - Authentication: sections/bestPractices/authentication.md
 >>>>>>> c488172baf7edb7b3569a0800452cf54fad01a83
