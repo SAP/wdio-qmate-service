@@ -146,11 +146,11 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByCssContainingText(".input01", "Jack Jackson");
    */
-  async getByCssContainingText(selector: any, text: string = "", index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByCssContainingText(selector: any, text: string = "", index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false, strict: boolean = false): Promise<Element> {
     try {
       await this.waitForAll(selector, timeout);
       const elems: Element[] = await $$(selector);
-      const filteredElems = await this._filterByText(elems, text);
+      const filteredElems = await this._filterByText(elems, text, strict);
       if (includeHidden) {
         return filteredElems[index];
       } else {
@@ -544,11 +544,13 @@ export class ElementModule {
     }
   }
 
-  private async _filterByText(elems: Element[], text: string) {
+  private async _filterByText(elems: Element[], text: string, strict: boolean = false) {
     const filteredElems = [];
     for (const elem of elems) {
       const elementText = await elem.getText();
-      if (elementText.includes(text)) {
+      const strictEquasion = strict && elementText === text;
+      const nonStrictEquasion = !strict && elementText.includes(text.trim());
+      if (strictEquasion || nonStrictEquasion) {
         filteredElems.push(elem);
       }
     }
