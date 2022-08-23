@@ -8,20 +8,6 @@ on:
     types: [created]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - run: |
-          sudo apt-get update
-          sudo apt-get install -y --only-upgrade openssl
-          sudo apt-get install google-chrome-stable
-          npm ci
-      - run: npm test
-
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
