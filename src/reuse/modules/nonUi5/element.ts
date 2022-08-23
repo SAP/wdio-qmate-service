@@ -143,6 +143,7 @@ export class ElementModule {
    * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Boolean} [includeHidden=false] - Specifies if hidden elements are also considered. By default it checks only for visible ones.
+   * @param {Boolean} [strict=false] - Specifies if the values match should be exact
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByCssContainingText(".input01", "Jack Jackson");
    */
