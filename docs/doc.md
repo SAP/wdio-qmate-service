@@ -319,7 +319,7 @@ Calculates the date based on the input parameter and returns it in the given for
 
 **Example**  
 ```js
-const date = await common.date.calculate("today", "mm/dd/yyy");
+const date = await common.date.calculate("today", "mm/dd/yyyy");
 ```
 <a name="common.navigation"></a>
 
@@ -2947,7 +2947,7 @@ Closes all popups if they occur after navigating to a specific page.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [timeout] | <code>Integer</code> | <code>15000</code> | The timeout to wait. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait. |
 
 **Example**  
 ```js
@@ -3875,7 +3875,7 @@ Global namespace for non UI5 modules.
         * [.getAllDisplayed(selector, [timeout])](#nonUi5.element.getAllDisplayed) ⇒ <code>Array.&lt;Object&gt;</code>
         * [.getAll(selector, [timeout])](#nonUi5.element.getAll)
         * [.getByCss(selector, [index], [timeout], [includeHidden])](#nonUi5.element.getByCss) ⇒ <code>Object</code>
-        * [.getByCssContainingText(selector, [text], [index], [timeout], [includeHidden])](#nonUi5.element.getByCssContainingText) ⇒ <code>Object</code>
+        * [.getByCssContainingText(selector, [text], [index], [timeout], [includeHidden], [strict])](#nonUi5.element.getByCssContainingText) ⇒ <code>Object</code>
         * [.getById(id, [timeout], [includeHidden])](#nonUi5.element.getById) ⇒ <code>Object</code>
         * [.getByClass(elemClass, [index], [timeout], [includeHidden])](#nonUi5.element.getByClass) ⇒ <code>Object</code>
         * [.getByName(name, [index], [timeout], [includeHidden])](#nonUi5.element.getByName) ⇒ <code>Object</code>
@@ -4027,7 +4027,7 @@ await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
     * [.getAllDisplayed(selector, [timeout])](#nonUi5.element.getAllDisplayed) ⇒ <code>Array.&lt;Object&gt;</code>
     * [.getAll(selector, [timeout])](#nonUi5.element.getAll)
     * [.getByCss(selector, [index], [timeout], [includeHidden])](#nonUi5.element.getByCss) ⇒ <code>Object</code>
-    * [.getByCssContainingText(selector, [text], [index], [timeout], [includeHidden])](#nonUi5.element.getByCssContainingText) ⇒ <code>Object</code>
+    * [.getByCssContainingText(selector, [text], [index], [timeout], [includeHidden], [strict])](#nonUi5.element.getByCssContainingText) ⇒ <code>Object</code>
     * [.getById(id, [timeout], [includeHidden])](#nonUi5.element.getById) ⇒ <code>Object</code>
     * [.getByClass(elemClass, [index], [timeout], [includeHidden])](#nonUi5.element.getByClass) ⇒ <code>Object</code>
     * [.getByName(name, [index], [timeout], [includeHidden])](#nonUi5.element.getByName) ⇒ <code>Object</code>
@@ -4189,7 +4189,7 @@ const elem = await nonUi5.element.getByCss(".button01");
 ```
 <a name="nonUi5.element.getByCssContainingText"></a>
 
-#### element.getByCssContainingText(selector, [text], [index], [timeout], [includeHidden]) ⇒ <code>Object</code>
+#### element.getByCssContainingText(selector, [text], [index], [timeout], [includeHidden], [strict]) ⇒ <code>Object</code>
 Gets the element with the given CSS selector containing the given text value.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
@@ -4202,6 +4202,7 @@ Gets the element with the given CSS selector containing the given text value.
 | [index] | <code>Number</code> | <code>0</code> | The index of the element (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 | [includeHidden] | <code>Boolean</code> | <code>false</code> | Specifies if hidden elements are also considered. By default it checks only for visible ones. |
+| [strict] | <code>Boolean</code> | <code>false</code> | Specifies if the values match should be exact |
 
 **Example**  
 ```js
