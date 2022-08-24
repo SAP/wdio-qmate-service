@@ -128,7 +128,7 @@ export class OData {
    * };
    * let res = await service.odata.getEntitySet(srv, "A_PurchaseOrder", filterString, select, queryParams);
    */
-  async getEntitySet (srv: any, entitySet: any, filterString = "", selectionFields = "", queryParams: any = {}) {
+  async getEntitySet (srv: any, entitySet: string, filterString: string = "", selectionFields: string = "", queryParams: any = {}) {
     if (!srv) {
       throw new Error("Service is not defined. Please make sure to initialize and pass the service.");
     } else {
@@ -189,7 +189,7 @@ export class OData {
    * };
    * let res = await service.odata.post(srv, "A_PurchaseOrder", payload);
    */
-  async post (srv: any, entitySet: any, payload: any) {
+  async post (srv: any, entitySet: string, payload: any) {
     return srv[entitySet].post(payload);
   };
 
@@ -208,7 +208,7 @@ export class OData {
    *  "ScheduleLineDeliveryDate": new Date()
    * };
    */
-  async merge (srv: any, entitySet: any, payload: any) {
+  async merge (srv: any, entitySet: string, payload: any) {
     const res = await srv[entitySet].merge(payload);
     return res;
   };
@@ -219,7 +219,7 @@ export class OData {
    * @description makes a DELETE request.
    * @param {Object} srv - Instance of the service
    * @param {String} entitySet - The entitySet you want to DELETE.
-   * @param {options} options - The options for the DELETE-request.
+   * @param {Object} options - The options for the DELETE-request.
    * @example 
    * let options = {
    *  "PurchaseOrder": "",
@@ -228,7 +228,7 @@ export class OData {
    * };
    * await service.odata.delete(srv, "C_PurchaseOrderTP", options);
    */
-  async delete (srv: any, entitySet: any, options: any) {
+  async delete (srv: any, entitySet: string, options: any) {
     const res = await srv[entitySet].delete(options);
     return res;
   };
@@ -237,17 +237,17 @@ export class OData {
    * @function callFunctionImport
    * @memberOf service.odata
    * @description makes a function import request on an OData service.
-   * @param {service} srv - Instance of the service
-   * @param {entitySet} functionImportName - Name of Function Import
-   * @param {options} options - parameters for function import
+   * @param {Object} srv - Instance of the service
+   * @param {String} functionImportName - Name of Function Import
+   * @param {Object} options - parameters for function import
    * @example 
    * const options = {
    *  CentralRequestForQuotation : "7500000026",
    *  Supplier : "100006"
    * };
-   * const res = await service.odata.callFunctionImport(srv, functionImportName, options);
+   * const res = await service.odata.callFunctionImport(srv, "Cancel", options);
    */
-  async callFunctionImport (srv: any, functionImportName: any, options: any) {
+  async callFunctionImport (srv: any, functionImportName: string, options: any) {
     const functionImport = srv.functionImports[functionImportName];
 
     const res = await functionImport.call(options);
