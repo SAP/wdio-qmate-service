@@ -29,7 +29,7 @@ type MoveToOptions = { xOffset?: number; yOffset?: number };
 type ReactSelectorOptions = { props?: object; state?: any };
 
 // waitFor
-type WaitForOptions = { timeout?: number = 500; reverse?: boolean = false; timeoutMsg?: string; interval?: number };
+type WaitForOptions = { timeout?: number; reverse?: boolean; timeoutMsg?: string; interval?: number };
 
 export interface Element {
   $(selector: any): Promise<Element>;
