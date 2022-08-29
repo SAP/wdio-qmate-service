@@ -35,7 +35,8 @@ export class OData {
    * }
    * These can be overridden by sending params as JSON object with additional params as shown in example 
    * @param {String} [authType] - authentication type, in case you want to override the default
-   * SAML authentication. Set this to "basic", to use basic authentication for communication users for whom SAML login doesn't work. 
+   * SAML authentication. Set this to "basic", to use basic authentication for communication users for whom SAML login doesn't work.
+   * Or "none" for no authentication. 
    * @returns {Object} The initialized service object.
    * @example const url = "https://hbr-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
    * const params = {
@@ -59,7 +60,7 @@ export class OData {
       "language": "EN"
     };
 
-    if (params){
+    if (params) {
       // @ts-ignore
       Object.keys(params).forEach((key) => parameters[key] = params[key]);
     }
@@ -99,7 +100,11 @@ export class OData {
    * const res = await service.odata.get(srv, "A_PurchaseOrder", keys);
    */
   async get (srv: any, entitySet: string, keys: any): Promise<any> {
-    return srv[entitySet].get(keys);
+    const entity = srv[entitySet];
+    if (!entity) {
+      throw new Error(`No entity set '${entitySet}' available in service`);
+    }
+    return entity.get(keys);
   };
 
   /**
@@ -133,14 +138,17 @@ export class OData {
       throw new Error("Service is not defined. Please make sure to initialize and pass the service.");
     } else {
       let entity = srv[entitySet];
-      if (filterString){
+      if (!entity) {
+        throw new Error(`No entity set '${entitySet}' available in service`);
+      }
+      if (filterString) {
         entity = entity.filter(filterString);
       }
-      if (selectionFields){
+      if (selectionFields) {
         entity = entity.select(selectionFields.split(","));
       }
-      if (queryParams){
-        Object.keys(queryParams).forEach((key)=>{
+      if (queryParams) {
+        Object.keys(queryParams).forEach((key) => {
           entity = entity.queryParameter(key, queryParams[key]);
         });
       }
@@ -190,7 +198,11 @@ export class OData {
    * let res = await service.odata.post(srv, "A_PurchaseOrder", payload);
    */
   async post (srv: any, entitySet: string, payload: any) {
-    return srv[entitySet].post(payload);
+    const entity = srv[entitySet];
+    if (!entity) {
+      throw new Error(`No entity set '${entitySet}' available in service`);
+    }
+    return entity.post(payload);
   };
 
   /**
@@ -209,7 +221,11 @@ export class OData {
    * };
    */
   async merge (srv: any, entitySet: string, payload: any) {
-    const res = await srv[entitySet].merge(payload);
+    const entity = srv[entitySet];
+    if (!entity) {
+      throw new Error(`No entity set '${entitySet}' available in service`);
+    }
+    const res = await entity.merge(payload);
     return res;
   };
 
@@ -229,7 +245,11 @@ export class OData {
    * await service.odata.delete(srv, "C_PurchaseOrderTP", options);
    */
   async delete (srv: any, entitySet: string, options: any) {
-    const res = await srv[entitySet].delete(options);
+    const entity = srv[entitySet];
+    if (!entity) {
+      throw new Error(`No entity set '${entitySet}' available in service`);
+    }
+    const res = await entity.delete(options);
     return res;
   };
 
