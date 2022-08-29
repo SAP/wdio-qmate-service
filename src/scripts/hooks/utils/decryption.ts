@@ -23,12 +23,14 @@ class Decryption {
 
     try {
       privateKey = this.fs.readFileSync(this.path.resolve(process.cwd(), "private.key"), "utf8");
+      console.log("\n[private key is used from current working directory]\n");
     } catch (error) {
       privateKey = process.env.QMATE_PRIVATE_KEY;
 
       if (!privateKey) {
         try {
           privateKey = this.fs.readFileSync(this.path.resolve(dirname, "private.key"), "utf8");
+          console.log("\n[private key is used from qmate module]\n");
         } catch (error) {
           throw new Error(`Decryption failed: ${error}`);
         }
