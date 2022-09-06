@@ -1,16 +1,21 @@
 {
-  "name": "@wdio/qmate-service",
+  "name": "@sap_oss/wdio-qmate-service",
   "version": "1.0.0",
-  "author": {
-    "name": "Georgios Treska",
-    "email": "georgios.treska@sap.com"
-  },
+  "author": "SAP SE",
   "types": "./@types/index.d.ts",
   "main": "./lib/index.js",
   "maintainers": [
     {
       "name": "Marvin Grüssinger",
       "email": "marvin.gruessinger@sap.com"
+    },
+    {
+      "name": "Georgios Treska",
+      "email": "georgios.treska@sap.com"
+    },
+    {
+      "name": "Tomas Hartmann",
+      "email": "tomas.hartmann@sap.com"
     },
     {
       "name": "Benjamin Warth",
@@ -21,8 +26,7 @@
     "update-chromedriver": "npm install chromedriver@latest --chromedriver-force-download",
     "before_install": "npm config set chromedriver_skip_download=true && npm install chromedriver@latest --chromedriver_skip_download=true",
     "after_install": "npm config set chromedriver_skip_download=false",
-    "prepare": "npm run build && node ./lib/bin/srcToLib.js",
-    "postpack": "node ./lib/bin/libToSrc.js",
+    "prepare": "npm run build",
     "clean": "npx rimraf lib",
     "lint": "eslint .",
     "lint:fix": "npx eslint . --fix",
@@ -97,10 +101,10 @@
     "test:reuse": "npm run test:reuse:common && npm run test:reuse:nonUi5 && npm run test:reuse:ui5 && npm run test:reuse:util",
     "test": "npm run test:authenticator:staticLogin && npm run test:core && npm run test:reuse"
   },
-  "homepage": "https://github.tools.sap/sProcurement/wdio-qmate-service",
+  "homepage": "https://github.com/SAP/wdio-qmate-service",
   "repository": {
     "type": "git",
-    "url": "https://github.tools.sap/sProcurement/wdio-qmate-service.git"
+    "url": "https://github.com/SAP/wdio-qmate-service.git"
   },
   "keywords": [
     "wdio",
@@ -111,7 +115,7 @@
     "wdio-plugin",
     "wdio-service"
   ],
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "@sap_oss/odata-library": "^1.0.2",
     "axios": "^0.24.0",
