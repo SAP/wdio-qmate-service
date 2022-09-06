@@ -6,7 +6,7 @@ class Decryption {
 
   initDecryptFunction() {
     try {
-      const privateKey = this.retrievePrivateKey(this.path.resolve(__dirname, "../../.."));
+      const privateKey = this.retrievePrivateKey(this.path.resolve(__dirname, "../../../.."));
       global.util.data.privateKeyFound = true;
       global.util.data.decrypt = (input) => {
         return this.decryptSecureData(privateKey, input);
@@ -31,7 +31,7 @@ class Decryption {
       } else {
         try {
           privateKey = this.fs.readFileSync(this.path.resolve(dirname, "private.key"), "utf8");
-          console.log("\n[private key is used from default location]\n");
+          console.log("\n[default private key is used]\n");
         } catch (error) {
           throw new Error(`No private key found: ${error}`);
         }
