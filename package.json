@@ -95,9 +95,10 @@
     "test:reuse:common:date": "npx wdio ./test/reuse/common/date/test.date.conf.js",
     "test:reuse:common:userInteraction": "npx wdio ./test/reuse/common/userInteraction/test.userInteraction.conf.js",
     "test:reuse:common": "npm run test:reuse:common:assertion && npm run test:reuse:common:navigation && npm run test:reuse:common:date && npm run test:reuse:common:userInteraction",
-    "test:reuse:service:rest:startJsonServer": "cd tests/reuse/service/rest && json-server --watch db.json",
-    "test:reuse:service:rest": "npx wdio tests/reuse/service/rest/test.rest.conf.js",
-    "test:reuse": "npm run test:reuse:common && npm run test:reuse:nonUi5 && npm run test:reuse:ui5 && npm run test:reuse:util",
+    "test:reuse:service:rest:startJsonServer": "cd test/reuse/service/rest && json-server --watch db.json",
+    "test:reuse:service:rest": "npx wdio test/reuse/service/rest/test.rest.conf.js",
+    "test:reuse:service:odata": "npx wdio test/reuse/service/odata/test.odata.conf.js",
+    "test:reuse": "npm run test:reuse:common && npm run test:reuse:nonUi5 && npm run test:reuse:ui5 && npm run test:reuse:util && npm run test:reuse:service:odata",
     "test": "npm run test:authenticator:staticLogin && npm run test:core && npm run test:reuse"
   },
   "homepage": "https://github.com/SAP/wdio-qmate-service",
@@ -116,7 +117,7 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "@sap_oss/odata-library": "^1.0.2",
+    "@sap_oss/odata-library": "^1.0.6",
     "axios": "^0.24.0",
     "curl": "^0.1.4",
     "fs-extra": "^10.0.0",
