@@ -6,7 +6,7 @@ class Decryption {
 
   initDecryptFunction() {
     try {
-      const privateKey = this.retrievePrivateKey(this.path.resolve(__dirname, "../../.."));
+      const privateKey = this.retrievePrivateKey(this.path.resolve(__dirname, "../../../.."));
       global.util.data.privateKeyFound = true;
       global.util.data.decrypt = (input) => {
         return this.decryptSecureData(privateKey, input);
@@ -23,14 +23,17 @@ class Decryption {
 
     try {
       privateKey = this.fs.readFileSync(this.path.resolve(process.cwd(), "private.key"), "utf8");
+      console.log("\n[private key is used from current working directory]\n");
     } catch (error) {
-      privateKey = process.env.QMATE_PRIVATE_KEY;
-
-      if (!privateKey) {
+      if (process.env.QMATE_PRIVATE_KEY) {
+        privateKey = process.env.QMATE_PRIVATE_KEY;
+        console.log("\n[private key is used from env var]\n");
+      } else {
         try {
           privateKey = this.fs.readFileSync(this.path.resolve(dirname, "private.key"), "utf8");
+          console.log("\n[default private key is used]\n");
         } catch (error) {
-          throw new Error(`Decryption failed: ${error}`);
+          throw new Error(`No private key found: ${error}`);
         }
       }
     }
@@ -39,26 +42,40 @@ class Decryption {
     return privateKey;
   }
 
-  decryptSecureData(privateKey: string, input: string) {
-    try {
-      const decryptedDataByRepoName = Buffer.from(this._decryptDataWithRepoName(Buffer.from(input, "hex")), "base64");
+  decryptSecureData(privateKey: string, input: string | Array<string>) {
+    // input data can either be as single value or array of values for different keys
+    if (typeof input === "string") {
+      input = [input];
+    }
 
-      const decryptedDataByKey = this.crypto.privateDecrypt(
-        {
-          key: privateKey,
-          padding: this.crypto.constants.RSA_PKCS1_OAEP_PADDING,
-          oaepHash: "sha256",
-        },
-        decryptedDataByRepoName
-      );
+    let decryptedDataByKey: any;
+    let decryptError: any;
 
+    for (const data of input) {
+      try {
+        const decryptedDataByRepoName = Buffer.from(this._decryptDataWithRepoName(Buffer.from(data, "hex")), "base64");
+
+        decryptedDataByKey = this.crypto.privateDecrypt(
+          {
+            key: privateKey,
+            padding: this.crypto.constants.RSA_PKCS1_OAEP_PADDING,
+            oaepHash: "sha256"
+          },
+          decryptedDataByRepoName
+        );
+      } catch (error) {
+        decryptError = error;
+      }
+    }
+
+    if (decryptedDataByKey) {
       return decryptedDataByKey.toString();
-    } catch (error) {
-      throw new Error(`Function 'decrypt' failed: ${error}`);
+    } else {
+      throw new Error(`Function 'decrypt' failed: ${decryptError}`);
     }
   }
 
-  decryptSauceConfig (config: Record<string, any>) {
+  decryptSauceConfig(config: Record<string, any>) {
     try {
       config.user = util.data.decrypt(config.user);
     } catch (error) {
@@ -69,7 +86,7 @@ class Decryption {
     } catch (error) {
       // do nothing, key was not encrypted
     }
-  };
+  }
 
   private _decryptDataWithRepoName(data: Buffer) {
     let repoUrl;
