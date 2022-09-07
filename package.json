@@ -23,7 +23,9 @@
     }
   ],
   "scripts": {
-    "update-chromedriver": "npm install chromedriver --save-dev",
+    "update-chromedriver": "npm install chromedriver --chromedriver-force-download",
+    "before_install": "npm config set chromedriver_skip_download=true && npm install chromedriver@latest --chromedriver_skip_download=true",
+    "after_install": "npm config set chromedriver_skip_download=false",
     "prepare": "npm run build",
     "clean": "npx rimraf lib",
     "lint": "eslint .",
