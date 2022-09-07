@@ -4,9 +4,22 @@ nav:
   - About: index.md
   - ☰ Reuse API: doc.md
   - Getting Started:
-    - Setup: gettingStarted/setup.md
-    - Selectors: gettingStarted/selectors.md
-  - Contact: contact.md
+    - Setup: sections/gettingStarted/setup.md
+    - Config: sections/gettingStarted/config.md
+    - Spec: sections/gettingStarted/spec.md
+    - Execution: sections/gettingStarted/execution.md
+  - Features:
+    - Config: sections/features/config.md
+    - Selectors: sections/features/selectors.md
+  - Best Practices:
+    - Selectors: sections/bestPractices/selectors.md
+    - Authentication: sections/bestPractices/authentication.md
+    - Data Handling: sections/bestPractices/dataHandling.md
+  - Support: 
+    - Issues & Feature Requests: sections/support/bugReporting.md
+    - Troubleshooting: sections/support/troubleshooting.md
+    - Known Issues & Limitations: sections/support/knownIssuesAndLimitations.md
+  - Contact: sections/contact.md
 theme:
   name: 'material'
   features:
