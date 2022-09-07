@@ -39,6 +39,7 @@ export class Data {
     if (privateKeyFound) {
       filename = `${filename}.secure`;
     } else {
+      util.console.info("getSecureData: No private key found. Continue using local file.");
       filename = `${filename}.local`;
     }
 
@@ -73,9 +74,9 @@ export class Data {
 
   private _decryptRecursively(data: any): any {
     for (const key in data) {
-      if (typeof data[key] === "object") {
+      if (typeof data[key] === "object" && !Array.isArray(data[key])) {
         data[key] = this._decryptRecursively(data[key]);
-      } else if (typeof data[key] === "string") {
+      } else if (typeof data[key] === "string" || Array.isArray(data[key])) {
         data[key] = global.util.data.decrypt(data[key]);
       }
     }
