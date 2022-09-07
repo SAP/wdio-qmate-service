@@ -1,29 +1,55 @@
 const path = require("path");
+const fs = require("fs");
 
 describe("PDF Parser", function () {
 
-  describe("PDF from URL", function () {
-    it("Verify text", async function () {
+  describe("parsePdf - from file", function () {
+    let text;
+    it("Execution", async function () {
+      const pdfPath = path.resolve(__dirname, "./testFiles/sample.pdf");
+      text = await util.file.parsePdf(pdfPath);
+    });
+    it("Verification", async function () {
+      await common.assertion.expectDefined(text);
+    });
+  });
+
+  describe("parsePdf - from buffer", function () {
+    let text;
+    it("Execution", async function () {
+      const pdfPath = path.resolve(__dirname, "./testFiles/sample.pdf");
+      const buffer = fs.readFileSync(pdfPath);
+      text = await util.file.parsePdf(buffer);
+    });
+    it("Verification", async function () {
+      await common.assertion.expectDefined(text);
+    });
+  });
+
+  describe("expectPdfContainsText - from URL", function () {
+    it("Execution and Verification", async function () {
       const pdfPath = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
       // await util.file.expectPdfContainsText(pdfPath, "Dummy PDF file");
       await util.file.expectPdfContainsText(pdfPath, "Dumm y   PDF  fi le");
     });
   });
 
-  describe("Local PDF file", function () {
-    it("Verify text is present", async function () {
+  describe("expectPdfContainsText - local PDF file", function () {
+    it("Execution and Verification", async function () {
       const pdfPath = path.resolve(__dirname, "./testFiles/sample.pdf");
       await util.file.expectPdfContainsText(pdfPath, "A Simple PDF File");
     });
-    it("Verify text is absent", async function () {
+  });
+  describe("expectPdfNotContainsText - local PDF file", function () {
+    it("Execution and Verification", async function () {
       const pdfPath = path.resolve(__dirname, "./testFiles/sample.pdf");
       await util.file.expectPdfNotContainsText(pdfPath, "Some random text");
     });
   });
 
-  describe("Local PDF file with custom parser", function () {
+  describe("expectPdfContainsText - local PDF file with custom parser", function () {
 
-    it("Verify text", async function () {
+    it("Execution and Verification", async function () {
       const pdfPath = path.resolve(__dirname, "./testFiles/sample.pdf");
       function customParser(pageData) {
         const render_options = {
@@ -35,7 +61,6 @@ describe("PDF Parser", function () {
 
         return pageData.getTextContent(render_options)
           .then(function (textContent) {
-            //console.log(JSON.stringify(textContent));
             let lastY, text = "";
             for (const item of textContent.items) {
               if (lastY == item.transform[5] || !lastY) {
