@@ -41,6 +41,7 @@ jobs:
       - run: |
           sudo apt-get install google-chrome-stable
           npm ci
+          npm run update-chromedriver
           npm run test:core
 
   test-authenticator:
@@ -58,6 +59,7 @@ jobs:
       - run: |
           sudo apt-get install google-chrome-stable
           npm ci
+          npm run update-chromedriver
           npm run test:authenticator:staticLogin
 
   test-common:
@@ -75,6 +77,7 @@ jobs:
       - run: |
           sudo apt-get install google-chrome-stable
           npm ci
+          npm run update-chromedriver
           npm run test:reuse:common
 
   test-ui5-1:
@@ -92,6 +95,7 @@ jobs:
       - run: |
           sudo apt-get install google-chrome-stable
           npm ci
+          npm run update-chromedriver
           npm run test:reuse:ui5:pt1
 
   test-ui5-2:
@@ -109,6 +113,7 @@ jobs:
       - run: |
           sudo apt-get install google-chrome-stable
           npm ci
+          npm run update-chromedriver
           npm run test:reuse:ui5:pt2
 
   test-non-ui5:
@@ -126,6 +131,7 @@ jobs:
       - run: |
           sudo apt-get install google-chrome-stable
           npm ci
+          npm run update-chromedriver
           npm run test:reuse:nonUi5
 
   test-util:
@@ -148,4 +154,5 @@ jobs:
           sudo apt-get install -y --only-upgrade openssl
           sudo apt-get install google-chrome-stable
           npm ci
+          npm run update-chromedriver
           npm run test:reuse:util:temp
