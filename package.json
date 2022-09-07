@@ -23,9 +23,7 @@
     }
   ],
   "scripts": {
-    "update-chromedriver": "npm install chromedriver@latest --chromedriver-force-download",
-    "before_install": "npm config set chromedriver_skip_download=true && npm install chromedriver@latest --chromedriver_skip_download=true",
-    "after_install": "npm config set chromedriver_skip_download=false",
+    "update-chromedriver": "npm install chromedriver --chromedriver-force-download --detect_chromedriver_version",
     "prepare": "npm run build",
     "clean": "npx rimraf lib",
     "lint": "eslint .",
@@ -137,7 +135,7 @@
     "@wdio/spec-reporter": "^7.20.8",
     "@wdio/static-server-service": "^7.10.1",
     "chai": "^4.3.4",
-    "chromedriver": "^103.0.0",
+    "chromedriver": "^105.0.0",
     "deepmerge": "^4.2.2",
     "eslint": "^6.8.0",
     "eslint-plugin-wdio": "^6.0.12",
