@@ -194,10 +194,10 @@ export class ElementModule {
    * @param {String} property - The property of the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @returns {String} The property value of the element.
+   * @returns {any} The property value of the element.
    * @example const elemValue = await ui5.element.getPropertyValue(selector, "text");
    */
-  async getPropertyValue (selector: any, property: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<string> {
+  async getPropertyValue (selector: any, property: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<any> {
     let attrValue;
     try {
       let elem = await this.getDisplayed(selector, index, timeout);

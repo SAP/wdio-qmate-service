@@ -7,12 +7,13 @@ const path = require("path");
 const jsdoc2md = require("jsdoc-to-markdown");
 
 const readPath = path.join(__dirname, "../");
-const writePath = path.join(__dirname, "../../../documentation");
+const readPosixPath = readPath.replace(/\\/g,"/");
+const writePath = path.join(__dirname, "../../../docs");
 
 const filesToInclude = `{index.js,modules/**/*.js}`;
 
 function generateDoc() {
-  glob(readPath + filesToInclude, async (err, files) => {
+  glob(readPosixPath + filesToInclude, async (err, files) => {
 
     if (err) {
       throw err;

@@ -1,5 +1,6 @@
 # Qmate Service
-[![REUSE status](https://api.reuse.software/badge/github.com/SAP/wdio-qmate-service)](https://api.reuse.software/info/github.com/SAP/wdio-qmate-service)  
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP/wdio-qmate-service)](https://api.reuse.software/info/github.com/SAP/wdio-qmate-service)[![Node.js CI](https://github.com/SAP/wdio-qmate-service/actions/workflows/node.js.yml/badge.svg)](https://github.com/SAP/wdio-qmate-service/actions/workflows/node.js.yml)
+
 Qmate Service is a custom WebdriverIO service built in TypeScript for testing web applications and APIs.
 
 ## Pages
@@ -8,7 +9,7 @@ Please find our official and more detailed documentation [here](https://sap.gith
 ## Installation
 To install the latest version of the service, simply execute the following command:
 ```bash
-npm install @wdio/qmate-service@latest
+npm install @sap_oss/wdio-qmate-service@latest
 ```
 
 ## Contact

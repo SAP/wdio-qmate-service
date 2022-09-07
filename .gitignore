@@ -50,3 +50,6 @@ docs-gen
 # data privacy
 *.local.json
 private.key
+
+# typesGeneration
+typesTmp

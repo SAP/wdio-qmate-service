@@ -67,7 +67,7 @@ describe("browser - switchToNewWindow - title (RegExp)", function () {
 });
 
 describe("browser - switchToNewWindow - url", function () {
-  const shoppingCartUrl = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3";
+  const shoppingCartUrl = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_horizon";
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/demoapps");
@@ -114,7 +114,7 @@ describe("browser - switchToNewWindow - url (RegExp)", function () {
   });
 
   it("Verification", async function () {
-    const urlExp = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3";
+    const urlExp = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_horizon";
     const urlAct = await util.browser.getCurrentUrl();
     await common.assertion.expectEqual(urlAct, urlExp);
   });
