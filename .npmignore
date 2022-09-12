@@ -3,4 +3,4 @@ src
 .github
 .vscode
 @types
-typesRepoUpdater.sh
+lib/bin
