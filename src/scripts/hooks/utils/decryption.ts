@@ -102,7 +102,7 @@ class Decryption {
     const iv = "203efccd80e94d9f";
     const decipher = this.crypto.createDecipheriv("aes-256-cbc", secretKey, iv);
 
-    let decryptedData = decipher.update(data, "hex", "utf-8");
+    let decryptedData = decipher.update(data, "hex", "utf8");
     decryptedData += decipher.final("utf8");
 
     return decryptedData;
