@@ -1,5 +1,5 @@
 ---
-name: Bug report (Low Priority)
+name: Bug report (Medium Priority)
 about: You fond a lightweight bug? We still want to know!
 title: "[BUG][MEDIUM] - Title of bug"
 labels: bug
