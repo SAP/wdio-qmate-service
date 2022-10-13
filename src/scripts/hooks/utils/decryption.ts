@@ -39,6 +39,7 @@ class Decryption {
     }
 
     process.env.QMATE_PRIVATE_KEY = "";
+    privateKey = privateKey.replace(/\\n/gm, "\n");
     return privateKey;
   }
 
