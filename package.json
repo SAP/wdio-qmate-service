@@ -147,7 +147,7 @@
     "glob-promise": "^5.0.0",
     "jsdoc-to-markdown": "^7.1.1",
     "json-server": "^0.17.0",
-    "npx": "^3.0.0",
+    "npx": "^10.2.2",
     "rimraf": "^3.0.2",
     "typescript": "^4.6.3",
     "wdio-chromedriver-service": "^7.3.2"
