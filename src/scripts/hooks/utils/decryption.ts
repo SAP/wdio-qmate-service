@@ -53,7 +53,7 @@ class Decryption {
 
     for (const data of input) {
       try {
-        const decryptedDataByRepoName = Buffer.from(this._decryptDataWithRepoName(Buffer.from(data, "hex")), "base64");
+        const decryptedDataByPassword = Buffer.from(this._decryptDataWithPassword(Buffer.from(data, "hex")), "base64");
 
         decryptedDataByKey = this.crypto.privateDecrypt(
           {
@@ -61,7 +61,7 @@ class Decryption {
             padding: this.crypto.constants.RSA_PKCS1_OAEP_PADDING,
             oaepHash: "sha256"
           },
-          decryptedDataByRepoName
+          decryptedDataByPassword
         );
       } catch (error) {
         decryptError = error;
@@ -88,16 +88,12 @@ class Decryption {
     }
   }
 
-  private _decryptDataWithRepoName(data: Buffer) {
-    let repoUrl;
-    try {
-      repoUrl = this.childProcess.execSync("git config --get remote.origin.url").toString();
-    } catch (error) {
-      throw new Error("Please execute from a valid git repository.");
-    }
+  private _decryptDataWithPassword(data: Buffer) {
+
+    const pw = process.env.QMATE_PASSWORD || 'dfltpw'
 
     const salt = "72hdh393987f0hdc";
-    const secretKey = this.crypto.pbkdf2Sync(repoUrl, salt, 100000, 32, "sha512");
+    const secretKey = this.crypto.pbkdf2Sync(pw, salt, 100000, 32, "sha512");
 
     const iv = "203efccd80e94d9f";
     const decipher = this.crypto.createDecipheriv("aes-256-cbc", secretKey, iv);
