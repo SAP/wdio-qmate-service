@@ -42,7 +42,7 @@ class Decryption {
     return privateKey;
   }
 
-  decryptSecureData(privateKey: string, input: string | Array<string>) {
+  decryptSecureData(privateKey: string, input: string | Array<string>, options?: {base64Key: boolean, base64Output: boolean, base64Input: boolean}) {
     // input data can either be as single value or array of values for different keys
     if (typeof input === "string") {
       input = [input];
@@ -53,11 +53,12 @@ class Decryption {
 
     for (const data of input) {
       try {
-        const decryptedDataByRepoName = Buffer.from(this._decryptDataWithRepoName(Buffer.from(data, "hex")), "base64");
+        const dataEncoded = options?.base64Input ? Buffer.from(data, "base64").toString("utf8") : data;
+        const decryptedDataByRepoName = Buffer.from(this._decryptDataWithRepoName(Buffer.from(dataEncoded, "hex")), "base64");
 
         decryptedDataByKey = this.crypto.privateDecrypt(
           {
-            key: privateKey,
+            key: options?.base64Key ? Buffer.from(privateKey, "base64").toString("utf8") : privateKey,
             padding: this.crypto.constants.RSA_PKCS1_OAEP_PADDING,
             oaepHash: "sha256",
           },
@@ -69,7 +70,7 @@ class Decryption {
     }
 
     if (decryptedDataByKey) {
-      return decryptedDataByKey.toString();
+      return options?.base64Output? Buffer.from(decryptedDataByKey.toString(), "base64").toString("utf-8") : decryptedDataByKey.toString();
     } else {
       throw new Error(`Function 'decrypt' failed: ${decryptError}`);
     }
@@ -97,7 +98,6 @@ class Decryption {
     }
 
     const repoUrlContractHashed = this._unifyRepoUrl(repoUrl);
-    console.log(repoUrlContractHashed)
 
     const salt = "72hdh393987f0hdc";
     const secretKey = this.crypto.pbkdf2Sync(repoUrlContractHashed, salt, 100000, 32, "sha512");
