@@ -97,6 +97,7 @@ class Decryption {
     }
 
     const repoUrlContract = this._unifyRepoUrl(repoUrl);
+    console.log(repoUrlContract)
 
     const salt = "72hdh393987f0hdc";
     const secretKey = this.crypto.pbkdf2Sync(repoUrlContract, salt, 100000, 32, "sha512");
