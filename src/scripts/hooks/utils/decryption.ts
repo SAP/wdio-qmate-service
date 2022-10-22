@@ -96,12 +96,10 @@ class Decryption {
       throw new Error("Please execute from a valid git repository.");
     }
 
-    const repoUrlContractHashed = this._unifyRepoUrl(repoUrl);
-
-    console.log(repoUrlContractHashed)
+    const repoUrlContract = this._unifyRepoUrl(repoUrl);
 
     const salt = "72hdh393987f0hdc";
-    const secretKey = this.crypto.pbkdf2Sync(repoUrlContractHashed, salt, 100000, 32, "sha512");
+    const secretKey = this.crypto.pbkdf2Sync(repoUrlContract, salt, 100000, 32, "sha512");
 
     const iv = "203efccd80e94d9f";
     const decipher = this.crypto.createDecipheriv("aes-256-cbc", secretKey, iv);
@@ -128,19 +126,14 @@ class Decryption {
   private _unifySSHUrl(url: string) {
     const [hostAndAccount, repo] = url.replace("git@", "").split("/");
     const [host, account] = hostAndAccount.split(":");
-    console.log(host,account,repo);
-    return this._hashHostAccountAndRepo(host, account, repo);
+    return `${host}${account}${repo}`;
   }
 
   private _unifyHTTPUrl(url: string) {
     const urlWithoutProtocol = url.replace(/((\bhttp\b)|(\bhttps\b)):\/\//, "");
     const [host, account, repo] = urlWithoutProtocol.split("/");
-    console.log(host,account,repo);
-    return this._hashHostAccountAndRepo(host, account, repo);
+    return `${host}${account}${repo}`;
   }
 
-  private _hashHostAccountAndRepo(host: string, account: string, repo: string) {
-    return this.crypto.createHash("sha256").update(`${host}${account}${repo}`).digest("hex");
-  }
 }
 export default new Decryption();
