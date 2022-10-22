@@ -98,6 +98,8 @@ class Decryption {
 
     const repoUrlContractHashed = this._unifyRepoUrl(repoUrl);
 
+    console.log(repoUrlContractHashed)
+
     const salt = "72hdh393987f0hdc";
     const secretKey = this.crypto.pbkdf2Sync(repoUrlContractHashed, salt, 100000, 32, "sha512");
 
@@ -126,12 +128,14 @@ class Decryption {
   private _unifySSHUrl(url: string) {
     const [hostAndAccount, repo] = url.replace("git@", "").split("/");
     const [host, account] = hostAndAccount.split(":");
+    console.log(host,account,repo);
     return this._hashHostAccountAndRepo(host, account, repo);
   }
 
   private _unifyHTTPUrl(url: string) {
     const urlWithoutProtocol = url.replace(/((\bhttp\b)|(\bhttps\b)):\/\//, "");
     const [host, account, repo] = urlWithoutProtocol.split("/");
+    console.log(host,account,repo);
     return this._hashHostAccountAndRepo(host, account, repo);
   }
 
