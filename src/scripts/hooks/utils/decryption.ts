@@ -53,7 +53,7 @@ class Decryption {
 
     for (const data of input) {
       try {
-        const dataEncoded = options?.base64Input ? this._utf8ToBase64(data) : data;
+        const dataEncoded = options?.base64Input ? this._base64ToUtf8(data) : data;
         const decryptedDataByRepoName = Buffer.from(this._decryptDataWithRepoName(Buffer.from(dataEncoded, "hex")), "base64");
 
         decryptedDataByKey = this.crypto.privateDecrypt(
@@ -148,12 +148,16 @@ class Decryption {
       return key;
     } else {
       console.log("Key was processed in base64 format");
-      return this._utf8ToBase64(key);
+      return this._base64ToUtf8(key);
     }
   }
 
-  private _utf8ToBase64(string: string): string {
+  private _base64ToUtf8(string: string): string {
     return Buffer.from(string, "base64").toString("utf-8");
+  }
+
+  private _utf8ToBase64(string: string): string {
+    return Buffer.from(string, "utf-8").toString("base64");
   }
 
 }
