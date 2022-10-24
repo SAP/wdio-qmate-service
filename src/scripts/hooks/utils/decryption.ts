@@ -53,12 +53,12 @@ class Decryption {
 
     for (const data of input) {
       try {
-        const dataEncoded = options?.base64Input ? Buffer.from(data, "base64").toString("utf8") : data;
+        const dataEncoded = options?.base64Input ? this._utf8ToBase64(data) : data;
         const decryptedDataByRepoName = Buffer.from(this._decryptDataWithRepoName(Buffer.from(dataEncoded, "hex")), "base64");
 
         decryptedDataByKey = this.crypto.privateDecrypt(
           {
-            key: options?.base64Key ? Buffer.from(privateKey, "base64").toString("utf8") : privateKey,
+            key: this._parseKeyByEncoding(privateKey),
             padding: this.crypto.constants.RSA_PKCS1_OAEP_PADDING,
             oaepHash: "sha256",
           },
@@ -70,7 +70,7 @@ class Decryption {
     }
 
     if (decryptedDataByKey) {
-      return options?.base64Output? Buffer.from(decryptedDataByKey.toString(), "base64").toString("utf-8") : decryptedDataByKey.toString();
+      return options?.base64Output ? this._utf8ToBase64(decryptedDataByKey.toString()) : decryptedDataByKey.toString();
     } else {
       throw new Error(`Function 'decrypt' failed: ${decryptError}`);
     }
@@ -140,6 +140,20 @@ class Decryption {
 
   private _hashHostAccountAndRepo(host: string, account: string, repo: string) {
     return this.crypto.createHash("sha256").update(`${host}${account}${repo}`).digest("hex");
+  }
+
+  private _parseKeyByEncoding(key: string): string {
+    const utf8Regex = /-*(BEGIN|END)\s\w*\s(PRIVATE|PUBLIC)\sKEY-*/gm;
+    if (utf8Regex.test(key)) {
+      return key;
+    } else {
+      console.log("Key was processed in base64 format");
+      return this._utf8ToBase64(key);
+    }
+  }
+
+  private _utf8ToBase64(string: string): string {
+    return Buffer.from(string, "base64").toString("utf-8");
   }
 
 }
