@@ -42,7 +42,7 @@ class Decryption {
     return privateKey;
   }
 
-  decryptSecureData(privateKey: string, input: string | Array<string>, options?: {base64Key: boolean, base64Output: boolean, base64Input: boolean}) {
+  decryptSecureData(privateKey: string, input: string | Array<string>, options?: {base64Output: boolean, base64Input: boolean}) {
     // input data can either be as single value or array of values for different keys
     if (typeof input === "string") {
       input = [input];
