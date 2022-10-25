@@ -149,7 +149,6 @@ jobs:
         env: 
           QMATE_PRIVATE_KEY: ${{ secrets.QMATE_PRIVATE_KEY }}
         run: |
-          echo "$QMATE_PRIVATE_KEY" > private.key
           npm ci
           npm run update-chromedriver
           npm run test:reuse:util:data
