@@ -145,14 +145,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
       - name: run tests
         env: 
           QMATE_PRIVATE_KEY: ${{ secrets.QMATE_PRIVATE_KEY }}
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --only-upgrade openssl
-          sudo apt-get install google-chrome-stable
           npm ci
           npm run update-chromedriver
-          npm run test:reuse:util:temp
+          npm run test:reuse:util:data
