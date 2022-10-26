@@ -45,7 +45,7 @@ class Decryption {
     return privateKey;
   }
 
-  decryptSecureData(privateKey: string, input: string | Array<string>) {
+  decryptSecureData(privateKey: string, input: string | Array<string>, options?: {base64Output: boolean, base64Input: boolean}) {
     // input data can either be as single value or array of values for different keys
     if (typeof input === "string") {
       input = [input];
@@ -56,13 +56,14 @@ class Decryption {
 
     for (const data of input) {
       try {
-        const decryptedDataByRepoName = Buffer.from(this._decryptDataWithRepoName(Buffer.from(data, "hex")), "base64");
+        const dataEncoded = options?.base64Input ? this._base64ToUtf8(data) : data;
+        const decryptedDataByRepoName = Buffer.from(this._decryptDataWithRepoName(Buffer.from(dataEncoded, "hex")), "base64");
 
         decryptedDataByKey = this.crypto.privateDecrypt(
           {
-            key: privateKey,
+            key: this._parseKeyByEncoding(privateKey),
             padding: this.crypto.constants.RSA_PKCS1_OAEP_PADDING,
-            oaepHash: "sha256"
+            oaepHash: "sha256",
           },
           decryptedDataByRepoName
         );
@@ -72,7 +73,7 @@ class Decryption {
     }
 
     if (decryptedDataByKey) {
-      return decryptedDataByKey.toString();
+      return options?.base64Output ? this._utf8ToBase64(decryptedDataByKey.toString()) : decryptedDataByKey.toString();
     } else {
       throw new Error(`Function 'decrypt' failed: ${decryptError}`);
     }
@@ -99,16 +100,68 @@ class Decryption {
       throw new Error("Please execute from a valid git repository.");
     }
 
+    const repoUrlContractHashed = this._unifyRepoUrl(repoUrl);
+
     const salt = "72hdh393987f0hdc";
-    const secretKey = this.crypto.pbkdf2Sync(repoUrl, salt, 100000, 32, "sha512");
+    const secretKey = this.crypto.pbkdf2Sync(repoUrlContractHashed, salt, 100000, 32, "sha512");
 
     const iv = "203efccd80e94d9f";
     const decipher = this.crypto.createDecipheriv("aes-256-cbc", secretKey, iv);
 
-    let decryptedData = decipher.update(data, "hex", "utf-8");
+    let decryptedData = decipher.update(data, "hex", "utf8");
     decryptedData += decipher.final("utf8");
 
     return decryptedData;
   }
+
+  private _unifyRepoUrl(url: string): string {
+    const httpsRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gm;
+    const sshRegex = /git@.*:.*\/.*.git/gm;
+
+    if (url.match(httpsRegex)) {
+      return this._unifyHTTPUrl(url);
+    } else if (url.match(sshRegex)) {
+      return this._unifySSHUrl(url);
+    } else {
+      throw new Error("Repo url is not valid");
+    }
+  }
+
+  private _unifySSHUrl(url: string) {
+    const [hostAndAccount, repo] = url.replace("git@", "").trim().split("/");
+    const [host, account] = hostAndAccount.split(":");
+    const repoTrimmed = repo.endsWith(".git") ? repo.slice(0, -4): repo;
+    return this._hashHostAccountAndRepo(host, account, repoTrimmed);
+  }
+
+  private _unifyHTTPUrl(url: string) {
+    const urlWithoutProtocol = url.replace(/((\bhttp\b)|(\bhttps\b)):\/\//, "").trim();
+    const [host, account, repo] = urlWithoutProtocol.split("/");
+    const repoTrimmed = repo.endsWith(".git") ? repo.slice(0, -4): repo;
+    return this._hashHostAccountAndRepo(host, account, repoTrimmed);
+  }
+
+  private _hashHostAccountAndRepo(host: string, account: string, repo: string) {
+    return this.crypto.createHash("sha256").update(`${host}${account}${repo}`).digest("hex");
+  }
+
+  private _parseKeyByEncoding(key: string): string {
+    const utf8Regex = /-*(BEGIN|END)\s\w*\s(PRIVATE|PUBLIC)\sKEY-*/gm;
+    if (utf8Regex.test(key)) {
+      return key;
+    } else {
+      console.log("Key was processed in base64 format");
+      return this._base64ToUtf8(key);
+    }
+  }
+
+  private _base64ToUtf8(string: string): string {
+    return Buffer.from(string, "base64").toString("utf-8");
+  }
+
+  private _utf8ToBase64(string: string): string {
+    return Buffer.from(string, "utf-8").toString("base64");
+  }
+
 }
 export default new Decryption();
