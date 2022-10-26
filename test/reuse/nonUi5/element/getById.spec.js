@@ -33,3 +33,20 @@ describe("element - getById and catch error", function () {
       .rejects.toThrow("Function 'getById' failed");
   });
 });
+
+describe("element - getById - error case, verify error stack", function () {
+
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
+    await handleCookiesConsent();
+  });
+
+  it("Execution & Verification", async function () {
+    try {
+      await nonUi5.element.getById("sdk---app--apiTab-text");
+    } catch (error) {
+      await expect(error.stack).toMatch(/at.*getById\.spec\.js/);
+    }
+
+  });
+});

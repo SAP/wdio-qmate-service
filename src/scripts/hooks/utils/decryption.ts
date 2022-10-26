@@ -27,6 +27,8 @@ class Decryption {
     } catch (error) {
       if (process.env.QMATE_PRIVATE_KEY) {
         privateKey = process.env.QMATE_PRIVATE_KEY;
+        privateKey = privateKey.replace(/\\n/gm, "\n");
+        privateKey = privateKey.replace(/\\s/gm, " ");
         console.log("\n[private key is used from env var]\n");
       } else {
         try {
@@ -39,6 +41,7 @@ class Decryption {
     }
 
     process.env.QMATE_PRIVATE_KEY = "";
+
     return privateKey;
   }
 
