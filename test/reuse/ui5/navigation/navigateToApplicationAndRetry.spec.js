@@ -84,7 +84,7 @@ describe("navigation - navigateToApplicationAndRetry wrong navigation intent typ
     await ui5.navigation.navigateToApplicationAndRetry(wrongApplication, false, false); // closePopups=false, verify=false - no verification
     const currentUrl = await browser.getUrl();
 
-    // system first navigates to 'https://qs9-715.wdf.sap.corp/ui#%5Bobject%20Object%5D'
+    // system first navigates to '<urlToSystem>#%5Bobject%20Object%5D'
     expect(currentUrl).toContain(browser.config.baseUrl + "#[object%20Object]");
 
     await expect(ui5.navigation.navigateToApplicationAndRetry(wrongApplication, false, true)) // verify = true,

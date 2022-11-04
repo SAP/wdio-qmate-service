@@ -14,14 +14,14 @@ describe("assertion - expectUrlToBe - 'openui5.....'", function () {
 
 describe("assertion - expectUrlToBe - error case", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://qs9-715.wdf.sap.corp/ui");
+    util.browser.setBaseUrl("https://sap.com");
   });
 
   it("Execution & Verification", async function () {
     await expect(common.assertion.expectUrlToBe())
-      .rejects.toThrow(/Expect\w+|\d+undefined\w+|\d+Received\w+|\d+"https:\/\/qs9-715.wdf.sap.corp\/ui"/);
+      .rejects.toThrow(/Expect\w+|\d+undefined\w+|\d+Received\w+|\d+"https:\/\/sap.com"/);
 
-    await expect(common.assertion.expectUrlToBe("https://qs9-715.wdf.sap.corp"))
-      .rejects.toThrow(/Expect\w+|\d+"https:\/\/qs9-715.wdf.sap.corp"\w+|\d+Received\w+|\d+"https:\/\/qs9-715.wdf.sap.corp\/ui"/);
+    await expect(common.assertion.expectUrlToBe("https://sap.com"))
+      .rejects.toThrow(/Expect\w+|\d+"https:\/\/sap.com"\w+|\d+Received\w+|\d+"https:\/\/sap.com\/index"/);
   });
 });

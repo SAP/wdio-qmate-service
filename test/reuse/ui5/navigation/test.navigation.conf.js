@@ -6,7 +6,7 @@ exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
   
-  // baseUrl: "https://qs9-702.wdf.sap.corp/ui",
+  // baseUrl: "<urlToSystem",
 
   specs: [
     path.resolve(__dirname, "navigateToSystemAndApplication.spec.js"),

@@ -19,6 +19,6 @@ exports.config = merge(fioriConfig.config, {
     }
   },
 
-  baseUrl: "https://qs9-715.wdf.sap.corp/ui"
+  baseUrl: "<urlToSystem"
 
 });

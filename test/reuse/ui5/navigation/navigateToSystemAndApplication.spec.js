@@ -1,7 +1,7 @@
 "use strict";
 
 describe("navigation - navigateToSystemAndApplication (s4)", function () {
-  const system = "qs9-715.wdf.sap.corp";
+  const system = "<systemUrl>";
   const application = "PurchaseOrder-manage";
 
   it("Execution & Verification", async function () {
@@ -22,7 +22,7 @@ describe("navigation - navigateToSystemAndApplication (s4)", function () {
 });
 
 describe("navigation - navigateToSystemAndApplication wrong navigation intent type in demo url with/without verification(unhappy case)", function () {
-  const system = "qs9-715.wdf.sap.corp";
+  const system = "<systemUrl>";
   const wrongApplication = {
     strange: "intent"
   };
@@ -34,8 +34,8 @@ describe("navigation - navigateToSystemAndApplication wrong navigation intent ty
 
     await ui5.navigation.navigateToSystemAndApplication(system, wrongApplication, false); // verify = false by default
     const currentUrl = await browser.getUrl();
-    // first navigate to 'https://qs9-715.wdf.sap.corp/ui#%5Bobject%20Object%5D'
-    // later, in a second, navigate to 'https://qs9-715.wdf.sap.corp/ui#Shell-home'
+    // first navigate to '<urlToSystem#%5Bobject%20Object%5D'
+    // later, in a second, navigate to '<urlToSystem#Shell-home'
     // Cannot test the intent inside the url, because it changes too fast in case of wrong intent
     expect(currentUrl).toContain(system); // check you are still at the qs9-715 page
 

@@ -20,5 +20,5 @@ exports.config = merge(plainConfig.config, {
     }
   },
   
-  baseUrl: "https://hbr-715.wdf.sap.corp/ui"
+  baseUrl: "<urlToSystem>"
 });

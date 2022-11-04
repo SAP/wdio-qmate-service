@@ -38,7 +38,7 @@ export class OData {
    * SAML authentication. Set this to "basic", to use basic authentication for communication users for whom SAML login doesn't work.
    * Or "none" for no authentication. 
    * @returns {Object} The initialized service object.
-   * @example const url = "https://hbr-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
+   * @example const url = "<urlToSystem>/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
    * const params = {
    *  "saml2": "disabled",
    *  "language": "de"
@@ -92,7 +92,7 @@ export class OData {
    * @param {Object} srv - Instance of the service
    * @param {String} entitySet - The entitySet you want to GET from.
    * @param {Object} keys - The required keys for the GET-request.
-   * @example const url = "https://qs9-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
+   * @example const url = "<baseUrl>/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
    * srv = await service.odata.init(url, user, password);
    * const keys = {
    *   PurchaseOrder: "4100000000"
@@ -118,7 +118,7 @@ export class OData {
    * @param {Object} [queryParams] - JSON object of key value pairs of custom query parameters.
    * @returns {Array} - Result set array
    * @example 
-   * const url = "https://qs9-715.wdf.sap.corp/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
+   * const url = "<baseUrl>/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
    * srv = await service.odata.init(url, user, password);
    * 
    * let filterString = "Status eq '01'";

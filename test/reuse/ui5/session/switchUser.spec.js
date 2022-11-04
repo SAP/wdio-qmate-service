@@ -2,7 +2,7 @@
 
 describe("session - switchUser in fiori", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://qs9-715.wdf.sap.corp/ui");
+    util.browser.setBaseUrl("<urlToSystem");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
     await ui5.session.login("PURCHASER", "Welcome2!");
     await ui5.navigation.navigateToApplication("Shell-home", true);
@@ -27,7 +27,7 @@ describe("session - switchUser in fiori", function () {
 
 describe("session - switchUser in sapCloud", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://hbr-715.wdf.sap.corp/ui");
+    util.browser.setBaseUrl("<urlToSystem>");
     await ui5.navigation.navigateToApplication("Shell-home", true);
     await ui5.session.loginSapCloud("PURCHASER", "Welcome2!");
     await ui5.navigationBar.expectShellHeader();

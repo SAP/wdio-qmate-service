@@ -2,7 +2,7 @@
 
 describe("session - login - fiori", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://qs9-715.wdf.sap.corp/ui");
+    util.browser.setBaseUrl("<urlToSystem>");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
@@ -29,7 +29,7 @@ describe("session - login - fiori", function () {
 
 describe("session - login - fiori - invalid credentials", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://qs9-715.wdf.sap.corp/ui");
+    util.browser.setBaseUrl("<urlToSystem>");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
@@ -41,7 +41,7 @@ describe("session - login - fiori - invalid credentials", function () {
 
 describe("session - login - sapCloud", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://hbr-715.wdf.sap.corp/ui");
+    util.browser.setBaseUrl("<urlToSystem>");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
@@ -67,7 +67,7 @@ describe("session - login - sapCloud", function () {
 
 describe("session - login - sapCloud - Invalid credentials", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://hbr-715.wdf.sap.corp/ui");
+    util.browser.setBaseUrl("<urlToSystem>");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
