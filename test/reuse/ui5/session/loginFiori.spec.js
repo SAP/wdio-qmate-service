@@ -2,7 +2,7 @@
 
 describe("session - loginFiori", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    util.browser.setBaseUrl("<urlToSystem>");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
@@ -29,7 +29,7 @@ describe("session - loginFiori", function () {
 
 describe("session - loginFiori - invalid credentials", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    util.browser.setBaseUrl("<urlToSystem>");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 

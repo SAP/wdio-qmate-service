@@ -79,7 +79,7 @@ describe("navigation - navigateToApplication wrong navigation intent type with/w
     await ui5.navigation.navigateToApplication(wrongApplication, false); // verify=false - no verification
     const currentUrl = await browser.getUrl();
 
-    // system first navigates to 'https://super-sensitive.domain.name/ui#%5Bobject%20Object%5D'
+    // system first navigates to '<urlToSystem>#%5Bobject%20Object%5D'
     expect(currentUrl).toContain(browser.config.baseUrl + "#[object%20Object]");
 
     await expect(ui5.navigation.navigateToApplication(wrongApplication, false, true)) // verify = true,

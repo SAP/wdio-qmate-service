@@ -19,6 +19,6 @@ exports.config = merge(fioriConfig.config, {
     }
   },
 
-  baseUrl: "https://super-sensitive.domain.name/ui"
+  baseUrl: "<urlToSystem"
 
 });

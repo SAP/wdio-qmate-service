@@ -14,14 +14,14 @@ describe("assertion - expectUrlToBe - 'openui5.....'", function () {
 
 describe("assertion - expectUrlToBe - error case", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    util.browser.setBaseUrl("https://sap.com");
   });
 
   it("Execution & Verification", async function () {
     await expect(common.assertion.expectUrlToBe())
-      .rejects.toThrow(/Expect\w+|\d+undefined\w+|\d+Received\w+|\d+"https:\/\/super-sensitive.domain.name\/ui"/);
+      .rejects.toThrow(/Expect\w+|\d+undefined\w+|\d+Received\w+|\d+"https:\/\/sap.com"/);
 
-    await expect(common.assertion.expectUrlToBe("https://super-sensitive.domain.name"))
-      .rejects.toThrow(/Expect\w+|\d+"https:\/\/super-sensitive.domain.name"\w+|\d+Received\w+|\d+"https:\/\/super-sensitive.domain.name\/ui"/);
+    await expect(common.assertion.expectUrlToBe("https://sap.com"))
+      .rejects.toThrow(/Expect\w+|\d+"https:\/\/sap.com"\w+|\d+Received\w+|\d+"https:\/\/sap.com\/index"/);
   });
 });

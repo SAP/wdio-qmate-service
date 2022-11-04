@@ -19,7 +19,7 @@ params: {
 ```
 
 !!! info
-    The folders or *JSON* files are specified as key-value pair. In this sample, ``yourPrefixSpecName`` is the key which points to a *JSON* file ``./data/my/folder/data/qs9/data.json``. Similarly, the key ``myFolder2`` points to a folder ``data/another/folder/data/anotherFolder``.
+    The folders or *JSON* files are specified as key-value pair. In this sample, ``yourPrefixSpecName`` is the key which points to a *JSON* file ``./data/my/folder/data/<systemName>/data.json``. Similarly, the key ``myFolder2`` points to a folder ``data/another/folder/data/anotherFolder``.
 
 
 !!! tip

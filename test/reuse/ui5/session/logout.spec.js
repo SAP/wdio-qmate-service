@@ -2,7 +2,7 @@
 
 describe("session - logout with inner verification", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    util.browser.setBaseUrl("<urlToSystem");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
     await ui5.session.loginFiori("PURCHASER");
     await ui5.navigation.navigateToApplication("Shell-home", true);
@@ -20,7 +20,7 @@ describe("session - logout with inner verification", function () {
 
 describe("session - logout without inner verification", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    util.browser.setBaseUrl("<urlToSystem");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
     await ui5.session.loginFiori("PURCHASER");
     await ui5.navigation.navigateToApplication("Shell-home", true);

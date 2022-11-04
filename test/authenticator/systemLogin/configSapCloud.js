@@ -20,5 +20,5 @@ exports.config = merge(plainConfig.config, {
     }
   },
   
-  baseUrl: "https://super-sensitive.domain.name/ui"
+  baseUrl: "<urlToSystem>"
 });

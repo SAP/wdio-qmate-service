@@ -2,7 +2,7 @@
 
 describe("session - switchUser in fiori", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    util.browser.setBaseUrl("<urlToSystem");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
     await ui5.session.login("PURCHASER", "super-duper-sensitive-pw");
     await ui5.navigation.navigateToApplication("Shell-home", true);
@@ -27,7 +27,7 @@ describe("session - switchUser in fiori", function () {
 
 describe("session - switchUser in sapCloud", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    util.browser.setBaseUrl("<urlToSystem>");
     await ui5.navigation.navigateToApplication("Shell-home", true);
     await ui5.session.loginSapCloud("PURCHASER", "super-duper-sensitive-pw");
     await ui5.navigationBar.expectShellHeader();

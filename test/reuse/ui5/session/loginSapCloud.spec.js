@@ -2,7 +2,7 @@
 
 describe("session - loginSapCloud", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    util.browser.setBaseUrl("<urlToSystem>");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
@@ -28,7 +28,7 @@ describe("session - loginSapCloud", function () {
 
 describe("session - loginSapCloud - Invalid credentials", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    util.browser.setBaseUrl("<urlToSystem>");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
@@ -40,7 +40,7 @@ describe("session - loginSapCloud - Invalid credentials", function () {
 
 describe("session - login - sapCloud for Fiori (error case)", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("https://super-sensitive.domain.name/ui");
+    util.browser.setBaseUrl("<urlToSystem>");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 

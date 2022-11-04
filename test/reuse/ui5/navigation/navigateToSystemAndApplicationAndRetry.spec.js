@@ -1,7 +1,7 @@
 "use strict";
 
 describe("navigation - navigateToSystemAndApplicationAndRetry", function () {
-  const system = "super-sensitive.domain.name";
+  const system = "<systemUrl>";
   const application = "PurchaseOrder-manage";
 
   it("Execution & Verification", async function () {
@@ -22,7 +22,7 @@ describe("navigation - navigateToSystemAndApplicationAndRetry", function () {
 });
 
 describe("navigation - navigateToSystemAndApplicationAndRetry wrong navigation intent type in demo url with/without verification(unhappy case)", function () {
-  const system = "super-sensitive.domain.name";
+  const system = "<systemUrl>";
   const wrongApplication = {
     strange: "intent"
   };

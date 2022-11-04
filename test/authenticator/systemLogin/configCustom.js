@@ -22,5 +22,5 @@ exports.config = merge(customConfig.config, {
   },
   
   reporters: ["spec"],
-  baseUrl: "https://super-sensitive.domain.name/ui"
+  baseUrl: "<urlToSystem"
 });
