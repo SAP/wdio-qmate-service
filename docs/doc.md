@@ -1146,7 +1146,8 @@ Slices the given string beginning at a specific substring.
 
 **Example**  
 ```js
-const sliced = util.formatter.sliceStringAt("prefixNR12345postfix", "NR", 7);// returns "NR12345"
+const sliced = util.formatter.sliceStringAt("prefixNR12345postfix", "NR", 7);
+// returns "NR12345"
 ```
 <a name="util.formatter.sliceStringAfter"></a>
 
@@ -1164,7 +1165,8 @@ Slices the given string after a specific substring.
 
 **Example**  
 ```js
-const sliced = util.formatter.sliceStringAfter("prefixNR12345postfix", "NR", 5);// returns "12345"
+const sliced = util.formatter.sliceStringAfter("prefixNR12345postfix", "NR", 5);
+// returns "12345"
 ```
 <a name="util.formatter.trimString"></a>
 
@@ -1179,7 +1181,8 @@ Removes whitespace from both sides of the given string.
 
 **Example**  
 ```js
-const trimmed = util.formatter.trimString("   value ");// returns "value"
+const trimmed = util.formatter.trimString("   value ");
+// returns "value"
 ```
 <a name="util.formatter.extractNumberFromString"></a>
 
@@ -1196,11 +1199,13 @@ Extracts all numbers from a string.
 
 **Example**  
 ```js
-const extracted = util.formatter.extractNumberFromString("prefixNR12345postfix");// returns "12345"
+const extracted = util.formatter.extractNumberFromString("prefixNR12345postfix");
+// returns "12345"
 ```
 **Example**  
 ```js
-const extracted = util.formatter.extractNumberFromString("first12345 someText second 20 abc", 1);// returns "20"
+const extracted = util.formatter.extractNumberFromString("first12345 someText second 20 abc", 1);
+// returns "20"
 ```
 <a name="util.formatter.stringifyJSON"></a>
 
@@ -1251,11 +1256,15 @@ formats date.
 
 **Example**  
 ```js
-const date = new Date(2020, 0, 17);const formattedDate = util.formatter.formatDate(date, "mm/dd/yyyy");// returns "01/17/2020"
+const date = new Date(2020, 0, 17);
+const formattedDate = util.formatter.formatDate(date, "mm/dd/yyyy");
+// returns "01/17/2020"
 ```
 **Example**  
 ```js
-const date = new Date(2022, 3, 12);const formattedDate = util.formatter.formatDate(date, "mmm dd, yyyy");// returns "Apr 03, 2022"
+const date = new Date(2022, 3, 12);
+const formattedDate = util.formatter.formatDate(date, "mmm dd, yyyy");
+// returns "Apr 03, 2022"
 ```
 <a name="util.function"></a>
 
@@ -1287,7 +1296,9 @@ await util.function.retry(ui5.userInteraction.fill, [selector, value], 4, 10000)
 ```
 **Example**  
 ```js
-await util.function.retry(async () => { await ui5.userInteraction.fill(selector, "ABC");}, [], 2, 30000);
+await util.function.retry(async () => {
+ await ui5.userInteraction.fill(selector, "ABC");
+}, [], 2, 30000);
 ```
 <a name="util.function.executeOptional"></a>
 
@@ -1307,7 +1318,9 @@ await util.function.executeOptional(ui5.userInteraction.fill, [selector, value])
 ```
 **Example**  
 ```js
-await util.function.executeOptional(async () => { await ui5.userInteraction.fill(selector, "ABC");}, []);
+await util.function.executeOptional(async () => {
+ await ui5.userInteraction.fill(selector, "ABC");
+}, []);
 ```
 <a name="util.system"></a>
 
@@ -1929,7 +1942,11 @@ Executes a native UI5 action as callback function in the browser on the given UI
 
 **Example**  
 ```js
-const selector = {"elementProperties":{"metadata":"sap.m.StandardListItem", "id": "*categoryList-7"}};const args = {"property": "text"};const title = await ui5.control.execute(function (control, args, done) {  done(control.getProperty(args.property));}, selector, args);
+const selector = {"elementProperties":{"metadata":"sap.m.StandardListItem", "id": "*categoryList-7"}};
+const args = {"property": "text"};
+const title = await ui5.control.execute(function (control, args, done) {
+  done(control.getProperty(args.property));
+}, selector, args);
 ```
 <a name="ui5.control.getProperty"></a>
 
@@ -1945,7 +1962,10 @@ Gets the UI5 control property of the given element.
 
 **Example**  
 ```js
-const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};const elem = await ui5.control.locator.getDisplayedElement(selector);const propertyName = "title";const val = await ui5.control.getProperty(elem, propertyName);
+const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};
+const elem = await ui5.control.locator.getDisplayedElement(selector);
+const propertyName = "title";
+const val = await ui5.control.getProperty(elem, propertyName);
 ```
 <a name="ui5.control.getAggregationProperty"></a>
 
@@ -1961,7 +1981,10 @@ Gets the UI5 control aggregation property  of the given element.
 
 **Example**  
 ```js
-const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "items":[{"path":"/Categories"}] }};const elem = await ui5.control.locator.getDisplayedElement(selector);const propertyName = "tooltip";const val = await ui5.control.getAggregationProperty(elem, propertyName);
+const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "items":[{"path":"/Categories"}] }};
+const elem = await ui5.control.locator.getDisplayedElement(selector);
+const propertyName = "tooltip";
+const val = await ui5.control.getAggregationProperty(elem, propertyName);
 ```
 <a name="ui5.control.getAssociationProperty"></a>
 
@@ -1977,7 +2000,10 @@ Get UI control property
 
 **Example**  
 ```js
-const selector = { "elementProperties":{"metadata":"sap.m.MultiComboBox","mProperties":{}};const elem = await ui5.control.locator.getDisplayedElement(selector);const propertyName = "selectedItems";const propertyValue = await ui5.control.getAssociationProperty(elem, propertyName);
+const selector = { "elementProperties":{"metadata":"sap.m.MultiComboBox","mProperties":{}};
+const elem = await ui5.control.locator.getDisplayedElement(selector);
+const propertyName = "selectedItems";
+const propertyValue = await ui5.control.getAssociationProperty(elem, propertyName);
 ```
 <a name="ui5.control.getBindingContextPathProperty"></a>
 
@@ -1992,7 +2018,9 @@ Get UI control binding context path
 
 **Example**  
 ```js
-const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{"title":[{"path":"CategoryName"}] }};const elem = await ui5.control.locator.getDisplayedElement(selector);const context = await ui5.control.getBindingContextPathProperty(elem);
+const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{"title":[{"path":"CategoryName"}] }};
+const elem = await ui5.control.locator.getDisplayedElement(selector);
+const context = await ui5.control.getBindingContextPathProperty(elem);
 ```
 <a name="ui5.control.getPropertyBinding"></a>
 
@@ -2009,7 +2037,10 @@ Get UI control property
 
 **Example**  
 ```js
-const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};const elem = await ui5.control.locator.getDisplayedElement(selector);const propertyName = "title";const binding = await ui5.control.getPropertyBinding(elem, propertyName);
+const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};
+const elem = await ui5.control.locator.getDisplayedElement(selector);
+const propertyName = "title";
+const binding = await ui5.control.getPropertyBinding(elem, propertyName);
 ```
 <a name="ui5.date"></a>
 
@@ -2036,12 +2067,14 @@ Picks the passed date using the "DatePicker" with the given selector.
 
 **Example**  
 ```js
-const today = await common.date.calculate("today");await ui5.date.pick(selector, date);
+const today = await common.date.calculate("today");
+await ui5.date.pick(selector, date);
 ```
 <a name="ui5.date.pickRange"></a>
 
 #### date.pickRange(selector, range, [index])
-Picks the passed date range using the "DatePicker" with the given selector.Note that this will only work within the current month!
+Picks the passed date range using the "DatePicker" with the given selector.
+Note that this will only work within the current month!
 
 **Kind**: static method of [<code>date</code>](#ui5.date)  
 
@@ -2053,7 +2086,10 @@ Picks the passed date range using the "DatePicker" with the given selector.Note
 
 **Example**  
 ```js
-const start = await common.date.calculate("2020, 9, 20");const end = await common.date.calculate("2021, 1, 3");const range = [start, end];await ui5.date.pickRange(selector, range);
+const start = await common.date.calculate("2020, 9, 20");
+const end = await common.date.calculate("2021, 1, 3");
+const range = [start, end];
+await ui5.date.pickRange(selector, range);
 ```
 <a name="ui5.date.fillRange"></a>
 
@@ -2070,7 +2106,10 @@ Enters the passed date range to the date input with the given selector by provid
 
 **Example**  
 ```js
-const start = await common.date.calculate("2020, 9, 20", "dd.mm.yyyy");const end = await common.date.calculate("2021, 1, 3", "dd.mm.yyyy");const range = [start, end];await ui5.date.fillRange(selector, range);
+const start = await common.date.calculate("2020, 9, 20", "dd.mm.yyyy");
+const end = await common.date.calculate("2021, 1, 3", "dd.mm.yyyy");
+const range = [start, end];
+await ui5.date.fillRange(selector, range);
 ```
 <a name="ui5.element"></a>
 
@@ -2164,7 +2203,9 @@ const elem = await ui5.element.getByText(selector, "Home");
 <a name="ui5.element.getByChild"></a>
 
 #### element.getByChild(elementSelector, childSelector, [index], [timeout]) ⇒ <code>Object</code>
-Gets an element by its selector and child selector.Can be used as unique combination between element and child properties when multiple elements have the same properties.Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
+Gets an element by its selector and child selector.
+Can be used as unique combination between element and child properties when multiple elements have the same properties.
+Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
 **Returns**: <code>Object</code> - The found element.  
@@ -2178,12 +2219,20 @@ Gets an element by its selector and child selector.Can be used as unique combin
 
 **Example**  
 ```js
-const elementSelector = { "elementProperties": {...}};const childSelector = { "elementProperties": {...}};const elem = await ui5.element.getByChild(elementSelector, childSelector);
+const elementSelector = {
+ "elementProperties": {...}
+};
+const childSelector = {
+ "elementProperties": {...}
+};
+const elem = await ui5.element.getByChild(elementSelector, childSelector);
 ```
 <a name="ui5.element.getByParent"></a>
 
 #### element.getByParent(elementSelector, parentSelector, [index], [timeout]) ⇒ <code>Object</code>
-Gets an element by its selector and parent selector.Can be used as unique combination between element and parent properties when multiple elements have the same properties.Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
+Gets an element by its selector and parent selector.
+Can be used as unique combination between element and parent properties when multiple elements have the same properties.
+Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
 **Returns**: <code>Object</code> - The found element.  
@@ -2197,7 +2246,13 @@ Gets an element by its selector and parent selector.Can be used as unique combi
 
 **Example**  
 ```js
-const elementSelector = { "elementProperties": {...}};const parentSelector = { "elementProperties": {...}};const elem = await ui5.element.getByParent(elementSelector, parentSelector);
+const elementSelector = {
+ "elementProperties": {...}
+};
+const parentSelector = {
+ "elementProperties": {...}
+};
+const elem = await ui5.element.getByParent(elementSelector, parentSelector);
 ```
 <a name="ui5.element.getId"></a>
 
@@ -2857,7 +2912,9 @@ Navigates to the application with the passed queryParams via the passed intent.
 
 **Example**  
 ```js
-const intent = "PurchaseOrder-manage"const queryParams = "?sap-language=EN&responderOn=true";await ui5.navigation.navigateToApplicationWithQueryParams(intent, queryParams);
+const intent = "PurchaseOrder-manage"
+const queryParams = "?sap-language=EN&responderOn=true";
+await ui5.navigation.navigateToApplicationWithQueryParams(intent, queryParams);
 ```
 <a name="ui5.navigation.navigateToApplicationWithQueryParamsAndRetry"></a>
 
@@ -2877,7 +2934,9 @@ Navigates to the application via the passed intent, and retries in case it fails
 
 **Example**  
 ```js
-const intent = "PurchaseOrder-manage"const queryParams = "?sap-language=EN&responderOn=true";await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
+const intent = "PurchaseOrder-manage"
+const queryParams = "?sap-language=EN&responderOn=true";
+await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
 ```
 <a name="ui5.navigation.closePopups"></a>
 
@@ -2897,7 +2956,8 @@ await ui5.navigation.closePopups();
 <a name="ui5.navigation.expectUnsupportedNavigationPopup"></a>
 
 #### navigation.expectUnsupportedNavigationPopup(navigationTarget)
-Expects navigation to an app that is not supported.This can be the case for Mocked tests when the application does not exist or when the app is not included in a role.
+Expects navigation to an app that is not supported.
+This can be the case for Mocked tests when the application does not exist or when the app is not included in a role.
 
 **Kind**: static method of [<code>navigation</code>](#ui5.navigation)  
 
@@ -3179,12 +3239,14 @@ await ui5.session.switchUser("PURCHASER");
 ```
 **Example**  
 ```js
-const authenticator = ui5.authenticators.fioriForm;await ui5.session.switchUser("PURCHASER", "super-duper-sensitive-pw", authenticator, 30000);
+const authenticator = ui5.authenticators.fioriForm;
+await ui5.session.switchUser("PURCHASER", "super-duper-sensitive-pw", authenticator, 30000);
 ```
 <a name="ui5.session.expectLogoutText"></a>
 
 #### session.expectLogoutText()
-Expects the logout text after logout to be "You have been logged off.This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
+Expects the logout text after logout to be "You have been logged off.
+This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
 
 **Kind**: static method of [<code>session</code>](#ui5.session)  
 **Example**  
@@ -3219,7 +3281,14 @@ await ui5.table.sortColumnAscending("Supplier");
 ```
 **Example**  
 ```js
-const glAccountItemsTable = { "elementProperties": {    "viewName": "ui.s2p.mm.supplinvoice.manage.s1.view.S1",    "metadata": "sap.m.Table",    "id": "*idS2P.MM.MSI.TableGLAccountItems" }};await ui5.table.sortColumnAscending("Amount", glAccountItemsTable);
+const glAccountItemsTable = {
+ "elementProperties": {
+    "viewName": "ui.s2p.mm.supplinvoice.manage.s1.view.S1",
+    "metadata": "sap.m.Table",
+    "id": "*idS2P.MM.MSI.TableGLAccountItems"
+ }
+};
+await ui5.table.sortColumnAscending("Amount", glAccountItemsTable);
 ```
 <a name="ui5.table.sortColumnDescending"></a>
 
@@ -3239,7 +3308,14 @@ await ui5.table.sortColumnDescending("Supplier");
 ```
 **Example**  
 ```js
-const glAccountItemsTable = { "elementProperties": {    "viewName": "ui.s2p.mm.supplinvoice.manage.s1.view.S1",    "metadata": "sap.m.Table",    "id": "*idS2P.MM.MSI.TableGLAccountItems" }};await ui5.table.sortColumnDescending("Amount", glAccountItemsTable);
+const glAccountItemsTable = {
+ "elementProperties": {
+    "viewName": "ui.s2p.mm.supplinvoice.manage.s1.view.S1",
+    "metadata": "sap.m.Table",
+    "id": "*idS2P.MM.MSI.TableGLAccountItems"
+ }
+};
+await ui5.table.sortColumnDescending("Amount", glAccountItemsTable);
 ```
 <a name="ui5.table.clickSettingsButton"></a>
 
@@ -3258,7 +3334,14 @@ await ui5.table.clickSettingsButton();
 ```
 **Example**  
 ```js
-const glAccountItemsTable = { "elementProperties": {    "viewName": "ui.s2p.mm.supplinvoice.manage.s1.view.S1",    "metadata": "sap.m.Table",    "id": "*idS2P.MM.MSI.TableGLAccountItems" }};await ui5.table.clickSettingsButton(glAccountItemsTable);
+const glAccountItemsTable = {
+ "elementProperties": {
+    "viewName": "ui.s2p.mm.supplinvoice.manage.s1.view.S1",
+    "metadata": "sap.m.Table",
+    "id": "*idS2P.MM.MSI.TableGLAccountItems"
+ }
+};
+await ui5.table.clickSettingsButton(glAccountItemsTable);
 ```
 <a name="ui5.userInteraction"></a>
 
@@ -3332,7 +3415,8 @@ await ui5.userInteraction.clickAndRetry(selector);
 <a name="ui5.userInteraction.clickTab"></a>
 
 #### userInteraction.clickTab(selector, [index], [timeout])
-Clicks on the tab with the given selector and checks if the tab got selected successfully.The function retries the click for maximal 3 times if the selection of the tab (blue underline) was not successful.
+Clicks on the tab with the given selector and checks if the tab got selected successfully.
+The function retries the click for maximal 3 times if the selection of the tab (blue underline) was not successful.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3349,7 +3433,9 @@ await ui5.userInteraction.clickTab(selector);
 <a name="ui5.userInteraction.clickListItem"></a>
 
 #### userInteraction.clickListItem(selector, [index], [timeout])
-Clicks or opens the list item with the given selector (e.g. ColumnListItem, StandardListItem).In some cases the default click function is not working correctly (clicks an element within the list item).Therefore we recommend to use this function to open a specific list item.
+Clicks or opens the list item with the given selector (e.g. ColumnListItem, StandardListItem).
+In some cases the default click function is not working correctly (clicks an element within the list item).
+Therefore we recommend to use this function to open a specific list item.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3534,7 +3620,9 @@ await ui5.userInteraction.clearAndFillSmartFieldInputAndRetry(selector, "My Valu
 <a name="ui5.userInteraction.selectBox"></a>
 
 #### userInteraction.selectBox(selector, value, [index])
-Selects the passed value of the Select box.Please note that the function will only work for the default select Box.In special cases, please use the clickSelectArrow function.
+Selects the passed value of the Select box.
+Please note that the function will only work for the default select Box.
+In special cases, please use the clickSelectArrow function.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3551,7 +3639,9 @@ await ui5.userInteraction.selectBox(selector, "Germany");
 <a name="ui5.userInteraction.selectComboBox"></a>
 
 #### userInteraction.selectComboBox(selector, value, [index])
-Selects the passed value from the ComboBox with the given selector.Please note that the function will only work for the default ComboBox.In special cases you need to use the 'clickSelectArrow' function.
+Selects the passed value from the ComboBox with the given selector.
+Please note that the function will only work for the default ComboBox.
+In special cases you need to use the 'clickSelectArrow' function.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3568,7 +3658,9 @@ await ui5.userInteraction.selectComboBox(selector, "Germany");
 <a name="ui5.userInteraction.selectMultiComboBox"></a>
 
 #### userInteraction.selectMultiComboBox(selector, values, [index])
-Selects the passed values of the MultiComboBox with the given selector.Please note that the function will only work for the default MultiComboBox.In special cases, please use the clickSelectArrow function.
+Selects the passed values of the MultiComboBox with the given selector.
+Please note that the function will only work for the default MultiComboBox.
+In special cases, please use the clickSelectArrow function.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3693,7 +3785,8 @@ await ui5.userInteraction.openF4Help(selector, 0, 30000, false);
 <a name="ui5.userInteraction.searchFor"></a>
 
 #### userInteraction.searchFor(selector, [index], [timeout], useEnter)
-Searches for the passed value and executes the search.In case that the search is already filled, it will reset the field first.
+Searches for the passed value and executes the search.
+In case that the search is already filled, it will reset the field first.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -3757,7 +3850,8 @@ Right Clicks on the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");await ui5.userInteraction.rightClick(elem);
+const elem = await nonUi5.element.getById("button01");
+await ui5.userInteraction.rightClick(elem);
 ```
 <a name="nonUi5"></a>
 
@@ -3844,11 +3938,13 @@ Expects the attributes value of the passed element to be the compare value.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.expectAttributeToBe(elem, "Save");
+const elem = await nonUi5.element.getById("button01");
+await nonUi5.assertion.expectAttributeToBe(elem, "Save");
 ```
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.expectAttributeToBe(element, "Save", "title");
+const elem = await nonUi5.element.getById("button01");
+await nonUi5.assertion.expectAttributeToBe(element, "Save", "title");
 ```
 <a name="nonUi5.assertion.expectAttributeToContain"></a>
 
@@ -3865,7 +3961,8 @@ Expects the attributes value of the passed element to contain the compare value.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.expectAttributeToContain(element, "Save", "title");
+const elem = await nonUi5.element.getById("button01");
+await nonUi5.assertion.expectAttributeToContain(element, "Save", "title");
 ```
 <a name="nonUi5.assertion.expectValueToBe"></a>
 
@@ -3881,7 +3978,8 @@ Expects the attributes value of the passed element to be the compare value.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.expectValueToBe(elem, "Save");
+const elem = await nonUi5.element.getById("button01");
+await nonUi5.assertion.expectValueToBe(elem, "Save");
 ```
 <a name="nonUi5.assertion.expectToBeVisible"></a>
 
@@ -3896,7 +3994,8 @@ Expects that the element is visible to the user.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.expectToBeVisible(elem);
+const elem = await nonUi5.element.getById("button01");
+await nonUi5.assertion.expectToBeVisible(elem);
 ```
 <a name="nonUi5.assertion.expectToBeNotVisible"></a>
 
@@ -3912,7 +4011,8 @@ Expects that the element is not visible to the user.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
+const elem = await nonUi5.element.getById("button01");
+await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
 ```
 <a name="nonUi5.element"></a>
 
@@ -4064,7 +4164,9 @@ Returns all elements found by the given selector despite visible or not.
 
 **Example**  
 ```js
-const hiddenElements = await nonUi5.element.getAll(".sapUiInvisibleText");const isPresent = await nonUi5.element.isPresent(hiddenElements[0]);await common.assertion.expectTrue(isPresent);
+const hiddenElements = await nonUi5.element.getAll(".sapUiInvisibleText");
+const isPresent = await nonUi5.element.isPresent(hiddenElements[0]);
+await common.assertion.expectTrue(isPresent);
 ```
 <a name="nonUi5.element.getByCss"></a>
 
@@ -4141,7 +4243,8 @@ Gets the element with the given class.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getByClass("button01");const elem = await nonUi5.element.getByClass("sapMIBar sapMTB sapMTBNewFlex sapContrastPlus");
+const elem = await nonUi5.element.getByClass("button01");
+const elem = await nonUi5.element.getByClass("sapMIBar sapMTB sapMTBNewFlex sapContrastPlus");
 ```
 <a name="nonUi5.element.getByName"></a>
 
@@ -4236,7 +4339,8 @@ Returns a boolean if the element is visible to the user.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");await nonUi5.element.isVisible(elem);
+const elem = await nonUi5.element.getById("button01");
+await nonUi5.element.isVisible(elem);
 ```
 <a name="nonUi5.element.isPresent"></a>
 
@@ -4252,7 +4356,8 @@ Returns a boolean if the element is present at the DOM or not. It might be hidde
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");await nonUi5.element.isPresent(elem);
+const elem = await nonUi5.element.getById("button01");
+await nonUi5.element.isPresent(elem);
 ```
 <a name="nonUi5.element.isPresentByCss"></a>
 
@@ -4304,11 +4409,13 @@ Returns the attributes value of the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("elem01");const text = await nonUi5.element.getAttributeValue(elem, "text");
+const elem = await nonUi5.element.getById("elem01");
+const text = await nonUi5.element.getAttributeValue(elem, "text");
 ```
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("elem02");const innerHTML = await nonUi5.element.getAttributeValue(elem);
+const elem = await nonUi5.element.getById("elem02");
+const innerHTML = await nonUi5.element.getAttributeValue(elem);
 ```
 <a name="nonUi5.element.getValue"></a>
 
@@ -4324,12 +4431,14 @@ Returns the value of the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("elem02");const innerHTML = await nonUi5.element.getValue(elem);
+const elem = await nonUi5.element.getById("elem02");
+const innerHTML = await nonUi5.element.getValue(elem);
 ```
 <a name="nonUi5.element.setInnerHTML"></a>
 
 #### element.setInnerHTML(elem) ⇒ <code>String</code>
-Sets the innerHTML value of the given element.CAUTION: Only use this if filling the value in the normal way is not working and if it is unavoidable. Keep in mind, that a user is not able to perform such actions.
+Sets the innerHTML value of the given element.
+CAUTION: Only use this if filling the value in the normal way is not working and if it is unavoidable. Keep in mind, that a user is not able to perform such actions.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
 **Returns**: <code>String</code> - The value to set.  
@@ -4340,7 +4449,8 @@ Sets the innerHTML value of the given element.CAUTION: Only use this if filling
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("text-editor");await nonUi5.element.setInnerHTML(elem, "Hello World!");
+const elem = await nonUi5.element.getById("text-editor");
+await nonUi5.element.setInnerHTML(elem, "Hello World!");
 ```
 <a name="nonUi5.element.highlight"></a>
 
@@ -4357,11 +4467,13 @@ Highlights the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("text01");await nonUi5.element.highlight(elem);
+const elem = await nonUi5.element.getById("text01");
+await nonUi5.element.highlight(elem);
 ```
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("text01");await nonUi5.element.highlight(elem, 3000, "green");
+const elem = await nonUi5.element.getById("text01");
+await nonUi5.element.highlight(elem, 3000, "green");
 ```
 <a name="nonUi5.element.switchToIframe"></a>
 
@@ -4450,7 +4562,8 @@ Clicks on the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");await nonUi5.userInteraction.click(elem);
+const elem = await nonUi5.element.getById("button01");
+await nonUi5.userInteraction.click(elem);
 ```
 <a name="nonUi5.userInteraction.clickAndRetry"></a>
 
@@ -4468,7 +4581,8 @@ Clicks on the passed element, retries in case it fails.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");await nonUi5.userInteraction.clickAndRetry(elem);
+const elem = await nonUi5.element.getById("button01");
+await nonUi5.userInteraction.clickAndRetry(elem);
 ```
 <a name="nonUi5.userInteraction.doubleClick"></a>
 
@@ -4484,7 +4598,8 @@ Double Clicks on the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");await nonUi5.userInteraction.doubleClick(elem);
+const elem = await nonUi5.element.getById("button01");
+await nonUi5.userInteraction.doubleClick(elem);
 ```
 <a name="nonUi5.userInteraction.rightClick"></a>
 
@@ -4500,7 +4615,8 @@ Right Clicks on the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");await nonUi5.userInteraction.rightClick(elem);
+const elem = await nonUi5.element.getById("button01");
+await nonUi5.userInteraction.rightClick(elem);
 ```
 <a name="nonUi5.userInteraction.fill"></a>
 
@@ -4516,7 +4632,8 @@ Fills the given value into the passed input.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("input01");await nonUi5.userInteraction.fill(elem, "Service 01");
+const elem = await nonUi5.element.getById("input01");
+await nonUi5.userInteraction.fill(elem, "Service 01");
 ```
 <a name="nonUi5.userInteraction.fillAndRetry"></a>
 
@@ -4534,7 +4651,8 @@ Fills the given value into the passed input, retries in case of a failure.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("input01");await nonUi5.userInteraction.fillAndRetry(elem, "Service 01");
+const elem = await nonUi5.element.getById("input01");
+await nonUi5.userInteraction.fillAndRetry(elem, "Service 01");
 ```
 <a name="nonUi5.userInteraction.clear"></a>
 
@@ -4549,7 +4667,8 @@ Clears the passed input element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("input01");await nonUi5.userInteraction.clear(elem);
+const elem = await nonUi5.element.getById("input01");
+await nonUi5.userInteraction.clear(elem);
 ```
 <a name="nonUi5.userInteraction.clearAndRetry"></a>
 
@@ -4566,7 +4685,8 @@ Clears the passed input element, retries in case of a failure.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("input01", 10000);await nonUi5.userInteraction.clearAndRetry(elem);
+const elem = await nonUi5.element.getById("input01", 10000);
+await nonUi5.userInteraction.clearAndRetry(elem);
 ```
 <a name="nonUi5.userInteraction.clearAndFill"></a>
 
@@ -4582,7 +4702,8 @@ Clears and fills the passed input element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("input01");await nonUi5.userInteraction.clearAndFill(elem, "Service 01");
+const elem = await nonUi5.element.getById("input01");
+await nonUi5.userInteraction.clearAndFill(elem, "Service 01");
 ```
 <a name="nonUi5.userInteraction.clearAndFillAndRetry"></a>
 
@@ -4601,7 +4722,8 @@ Clears and fills the passed input, retries in case it fails.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("input01");await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
+const elem = await nonUi5.element.getById("input01");
+await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
 ```
 <a name="nonUi5.userInteraction.mouseOverElement"></a>
 
@@ -4618,7 +4740,8 @@ Moves the cursor/focus to the passed element.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("dropdown42");await nonUi5.userInteraction.mouseOverElement(elem);
+const elem = await nonUi5.element.getById("dropdown42");
+await nonUi5.userInteraction.mouseOverElement(elem);
 ```
 <a name="nonUi5.userInteraction.scrollToElement"></a>
 
@@ -4634,7 +4757,8 @@ Scrolls to the passed element to get it into view.
 
 **Example**  
 ```js
-const elem = await nonUi5.userInteraction.getElementById("footer01");await nonUi5.userInteraction.scrollToElement(elem);
+const elem = await nonUi5.userInteraction.getElementById("footer01");
+await nonUi5.userInteraction.scrollToElement(elem);
 ```
 <a name="nonUi5.userInteraction.dragAndDrop"></a>
 
@@ -4654,7 +4778,8 @@ const elem = await nonUi5.element.getById("drag01");
 ```
 **Example**  
 ```js
-const targetElem = await nonUi5.element.getById("drop02");await nonUi5.userInteraction.dragAndDrop(elem, targetElem);
+const targetElem = await nonUi5.element.getById("drop02");
+await nonUi5.userInteraction.dragAndDrop(elem, targetElem);
 ```
 <a name="nonUi5.userInteraction.moveCursorAndClick"></a>
 
@@ -4669,7 +4794,8 @@ Moves the cursor to the target element and clicks on it. Can be used for charts.
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("chartPartToClick");await nonUi5.userInteraction.moveCursorAndClick(elem);
+const elem = await nonUi5.element.getById("chartPartToClick");
+await nonUi5.userInteraction.moveCursorAndClick(elem);
 ```
 <a name="nonUi5.userInteraction.clickElementInSvg"></a>
 
@@ -4685,7 +4811,9 @@ Clicks on an inner element within a SVG element.
 
 **Example**  
 ```js
-const svgElem = await nonUi5.element.getByCss("svg");const innerSelector = "circle:nth-child(6)";await nonUi5.userInteraction.clickElementInSvg(svgElem, innerSelector);
+const svgElem = await nonUi5.element.getByCss("svg");
+const innerSelector = "circle:nth-child(6)";
+await nonUi5.userInteraction.clickElementInSvg(svgElem, innerSelector);
 ```
 <a name="service"></a>
 
@@ -4733,7 +4861,9 @@ Global namespace for service modules.
 <a name="service.odata.init"></a>
 
 #### odata.init(url, username, password, [loggingEnabled], [params], [authType]) ⇒ <code>Object</code>
-Initializes The service to work with.XCSRF-Token will be automatically fetched and stored in the service instance.Cookies will also automatically assembled and stored in the service instance.
+Initializes The service to work with.
+XCSRF-Token will be automatically fetched and stored in the service instance.
+Cookies will also automatically assembled and stored in the service instance.
 
 **Kind**: static method of [<code>odata</code>](#service.odata)  
 **Returns**: <code>Object</code> - The initialized service object.  
@@ -4749,7 +4879,12 @@ Initializes The service to work with.XCSRF-Token will be automatically fetched 
 
 **Example**  
 ```js
-const url = "https://super-sensitive.domain.name/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";const params = { "saml2": "disabled", "language": "de"}srv = await service.odata.init(url, user, password, false, params);
+const url = "<urlToSystem>/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
+const params = {
+ "saml2": "disabled",
+ "language": "de"
+}
+srv = await service.odata.init(url, user, password, false, params);
 ```
 <a name="service.odata.get"></a>
 
@@ -4766,7 +4901,12 @@ makes a GET request.
 
 **Example**  
 ```js
-const url = "https://super-sensitive.domain.name/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";srv = await service.odata.init(url, user, password);const keys = {  PurchaseOrder: "4100000000"};const res = await service.odata.get(srv, "A_PurchaseOrder", keys);
+const url = "<baseUrl>/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
+srv = await service.odata.init(url, user, password);
+const keys = {
+  PurchaseOrder: "4100000000"
+};
+const res = await service.odata.get(srv, "A_PurchaseOrder", keys);
 ```
 <a name="service.odata.getEntitySet"></a>
 
@@ -4786,7 +4926,20 @@ GET's the EntitySet collection.
 
 **Example**  
 ```js
-const url = "https://super-sensitive.domain.name/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";srv = await service.odata.init(url, user, password);let filterString = "Status eq '01'";let res = await service.odata.getEntitySet(srv, "A_PurchaseOrder", filterString);let select = "CentralPurchaseContract,PurchasingProcessingStatus" ;let res = await service.odata.getEntitySet(srv, "A_PurchaseOrder", filterString, select);let queryParams = { "$top" : 5, "$skip" : 10,};let res = await service.odata.getEntitySet(srv, "A_PurchaseOrder", filterString, select, queryParams);
+const url = "<baseUrl>/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
+srv = await service.odata.init(url, user, password);
+
+let filterString = "Status eq '01'";
+let res = await service.odata.getEntitySet(srv, "A_PurchaseOrder", filterString);
+
+let select = "CentralPurchaseContract,PurchasingProcessingStatus" ;
+let res = await service.odata.getEntitySet(srv, "A_PurchaseOrder", filterString, select);
+
+let queryParams = {
+ "$top" : 5,
+ "$skip" : 10,
+};
+let res = await service.odata.getEntitySet(srv, "A_PurchaseOrder", filterString, select, queryParams);
 ```
 <a name="service.odata.isFeatureToggleActivated"></a>
 
@@ -4802,7 +4955,9 @@ checks if a feature toggle is switched on or off
 
 **Example**  
 ```js
-const url = browser.params.systemUrl + "/sap/opu/odata/SAP/CA_FM_FEATURE_TOGGLE_STATUS_SRV/";const srv = await service.odata.init(url, user, password);let isFeatureActive = await service.odata.isFeatureToggleActivated(srv, "MM_PUR_PO_BATCHES_IN_MANAGE_PO");
+const url = browser.params.systemUrl + "/sap/opu/odata/SAP/CA_FM_FEATURE_TOGGLE_STATUS_SRV/";
+const srv = await service.odata.init(url, user, password);
+let isFeatureActive = await service.odata.isFeatureToggleActivated(srv, "MM_PUR_PO_BATCHES_IN_MANAGE_PO");
 ```
 <a name="service.odata.post"></a>
 
@@ -4819,7 +4974,12 @@ makes a POST request.
 
 **Example**  
 ```js
-let payload = { "PurchaseOrder": "4500007108", "DraftUUID": "00000000-0000-0000-0000-000000000000", "IsActiveEntity": "true"};let res = await service.odata.post(srv, "A_PurchaseOrder", payload);
+let payload = {
+ "PurchaseOrder": "4500007108",
+ "DraftUUID": "00000000-0000-0000-0000-000000000000",
+ "IsActiveEntity": "true"
+};
+let res = await service.odata.post(srv, "A_PurchaseOrder", payload);
 ```
 <a name="service.odata.merge"></a>
 
@@ -4836,7 +4996,12 @@ makes a MERGE request.
 
 **Example**  
 ```js
-let res = await service.odata.merge(srv, "A_PurchaseOrderScheduleLine", { "PurchasingDocument": "4500007108", "PurchasingDocumentItem": "10", "ScheduleLine": "1", "ScheduleLineDeliveryDate": new Date()};
+let res = await service.odata.merge(srv, "A_PurchaseOrderScheduleLine", {
+ "PurchasingDocument": "4500007108",
+ "PurchasingDocumentItem": "10",
+ "ScheduleLine": "1",
+ "ScheduleLineDeliveryDate": new Date()
+};
 ```
 <a name="service.odata.delete"></a>
 
@@ -4853,7 +5018,12 @@ makes a DELETE request.
 
 **Example**  
 ```js
-let options = { "PurchaseOrder": "", "DraftUUID": draftUUID, "IsActiveEntity": false};await service.odata.delete(srv, "C_PurchaseOrderTP", options);
+let options = {
+ "PurchaseOrder": "",
+ "DraftUUID": draftUUID,
+ "IsActiveEntity": false
+};
+await service.odata.delete(srv, "C_PurchaseOrderTP", options);
 ```
 <a name="service.odata.callFunctionImport"></a>
 
@@ -4870,7 +5040,11 @@ makes a function import request on an OData service.
 
 **Example**  
 ```js
-const options = { CentralRequestForQuotation : "7500000026", Supplier : "100006"};const res = await service.odata.callFunctionImport(srv, "Cancel", options);
+const options = {
+ CentralRequestForQuotation : "7500000026",
+ Supplier : "100006"
+};
+const res = await service.odata.callFunctionImport(srv, "Cancel", options);
 ```
 <a name="service.odata.getOutputManagementPdfStream"></a>
 
@@ -4888,7 +5062,12 @@ returns a stream of output management pdf file.
 
 **Example**  
 ```js
-const outputConf = ApplObjectType: "REQUEST_FOR_QUOTATION", ApplObjectId: "7000002653", ItemId: "1"};const pdfStream = await service.odata.getOutputManagementPdfStream(outputConf, url, user, password);
+const outputConf =
+ ApplObjectType: "REQUEST_FOR_QUOTATION",
+ ApplObjectId: "7000002653",
+ ItemId: "1"
+};
+const pdfStream = await service.odata.getOutputManagementPdfStream(outputConf, url, user, password);
 ```
 <a name="service.odata.readPdfFromDirectUrl"></a>
 
@@ -4906,7 +5085,8 @@ returns a stream of pdf file which is part of attachment.
 
 **Example**  
 ```js
-const url = "https://domain.com/getPdfFile";const pdfStream = await service.odata.readPdfFromDirectUrl(url, "username", "Password");
+const url = "https://domain.com/getPdfFile";
+const pdfStream = await service.odata.readPdfFromDirectUrl(url, "username", "Password");
 ```
 <a name="service.rest"></a>
 
@@ -4939,7 +5119,8 @@ const customConfig = {
       timeout: 1000,
       headers: {
         'X-Custom-Header': 'foobar'
-      }const axios = service.rest.init(customConfig);
+      }
+const axios = service.rest.init(customConfig);
 ```
 <a name="service.rest.get"></a>
 
@@ -4956,7 +5137,8 @@ makes a GET request.
 
 **Example**  
 ```js
-const uri = https://api.predic8.de/shop/products/";let res = await service.rest.get(uri);
+const uri = https://api.predic8.de/shop/products/";
+let res = await service.rest.get(uri);
 ```
 <a name="service.rest.post"></a>
 

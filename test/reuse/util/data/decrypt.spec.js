@@ -8,7 +8,7 @@ describe("data - decrypt", function() {
   });
 
   it("Verification", function () {
-    const dataExp = "super-duper-sensitive-pw";
+    const dataExp = "<password>";
     common.assertion.expectEqual(decrypted, dataExp);
   });
 

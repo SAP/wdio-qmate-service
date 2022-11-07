@@ -34,7 +34,7 @@ describe("session - switchUser in sapCloud", function () {
   });
 
   it("Execution", async function () {
-    await ui5.session.switchUser("AP_ACCOUNTANT", "super-duper-sensitive-pw", ui5.authenticators.sapCloudForm);
+    await ui5.session.switchUser("<username>", "<password>", ui5.authenticators.sapCloudForm);
     await ui5.navigation.navigateToApplication("Shell-home", true);
   });
 

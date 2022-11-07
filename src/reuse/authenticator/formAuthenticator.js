@@ -25,16 +25,16 @@ async function FormAuthenticator() {
     throw new Error("Please provide a 'baseUrl' in the config.");
   }
 
-  let userNameField = null;
+  let usernameField = null;
   let passwordField = null;
   let logonField = null;
 
   await browser.url(url);
   await browser.waitUntil(async function () {
-    userNameField = await $(usernameFieldSelector);
+    usernameField = await $(usernameFieldSelector);
     passwordField = await $(passwordFieldSelector);
     logonField = await $(logonButtonSelector);
-    return await userNameField.isDisplayedInViewport() &&
+    return await usernameField.isDisplayedInViewport() &&
       await passwordField.isDisplayedInViewport() &&
       await logonField.isDisplayedInViewport();
   }, {
@@ -42,7 +42,7 @@ async function FormAuthenticator() {
     timeoutMsg: "Expected user name field to be present after 60s"
   });
 
-  await userNameField.setValue(username);
+  await usernameField.setValue(username);
   await passwordField.setValue(password);
   await logonField.click();
 }
