@@ -32,7 +32,6 @@ You can use one of the following methods:
 === "Fiori Login"
     Use this configuration for the [Fiori Login Screen](#Fiori-Login-Screen).
     Define the step (on top of your script) and pass at least a valid user to the method. 
-    If the password for this user differs from the default password *Welcome1!*, you can additionally pass the password as second argument.
 
     ```js
     it("Step 01: login fiori", async function () {
@@ -43,7 +42,6 @@ You can use one of the following methods:
 === "SAP Cloud Login"
     Use this configuration for the [SAP Cloud Login Screen](#SAP-Cloud-Login-Screen).
     Define the step (on top of your script) and pass at least a valid user to the method. 
-    If the password for this user differs from the default password *Welcome1!*, you can additionally pass the password as second argument.
 
     ```js
     it("Step 01: login sap cloud", async function () {

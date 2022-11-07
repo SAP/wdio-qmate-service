@@ -8,7 +8,7 @@ describe("data - decrypt", function() {
   });
 
   it("Verification", function () {
-    const dataExp = "Welcome1!";
+    const dataExp = "<password>";
     common.assertion.expectEqual(decrypted, dataExp);
   });
 

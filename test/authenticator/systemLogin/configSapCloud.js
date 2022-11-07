@@ -15,8 +15,8 @@ exports.config = merge(plainConfig.config, {
   params: {
     auth: {
       formType: "sapcloud-form",
-      username: "PURCHASER",
-      password: "Welcome1!"
+      username: "<username>",
+      password: "<password>"
     }
   },
   

@@ -16,7 +16,7 @@ const utilsMethods = {
    *    have been imported under the specified key.
    * @param {string} folderPath - the folder to read
    * @param {string} paramName - the key to check against
-   * @example const myFolder1 = "./data/my/folder/data/qs9";
+   * @example const myFolder1 = "./data/my/folder/data/<systemName>";
    * await utils.checkImportFolder(myFolder1, "myFolder1");
    *  
    */
@@ -63,12 +63,12 @@ const utilsMethods = {
   /**
    * @function checkImportedData - check if data from json file specified by jsonFilePrefix under
    * folderPath has been added using the params key. In the example below data from 
-   * "./data/my/folder/data/qs9/subfolder/LimitPurchaseOrder.json" is checked if present in
+   * "./data/my/folder/data/<systemName>/subfolder/LimitPurchaseOrder.json" is checked if present in
    * browser.params.import.myFolder1.subfolder.LimitPurchaseOrder
    * @param {string} folderPath - the folder path
    * @param {string[]} params - array of keys
    * @param {string} jsonFilePrefix - the prefix of json file.
-   * @example const myFolder1 = "./data/my/folder/data/qs9";
+   * @example const myFolder1 = "./data/my/folder/data/<systemName>";
    * await utils.checkImportedData(myFolder1, ["myFolder1","subfolder"], "LimitPurchaseOrder");
    */
   checkImportedData: async function (folderPath, params, jsonFilePrefix) {
@@ -103,7 +103,7 @@ const utilsMethods = {
    * the specified key
    * @param {string} fileWithPath - file with path
    * @param {string} paramName - the key to use
-   * @example const yourPrefixSpecName = "./data/my/folder/data/qs9/data.json";
+   * @example const yourPrefixSpecName = "./data/my/folder/data/<systemName>/data.json";
    * await await utils.checkImportedDataFromFile(yourPrefixSpecName, "yourPrefixSpecName");
    */
   checkImportedDataFromFile: async function (fileWithPath, paramName) {

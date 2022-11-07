@@ -37,7 +37,7 @@ describe("navigation - navigateToSystemAndApplication wrong navigation intent ty
     // first navigate to '<urlToSystem#%5Bobject%20Object%5D'
     // later, in a second, navigate to '<urlToSystem#Shell-home'
     // Cannot test the intent inside the url, because it changes too fast in case of wrong intent
-    expect(currentUrl).toContain(system); // check you are still at the qs9-715 page
+    expect(currentUrl).toContain(system); // check you are still at the <system> page
 
     await expect(ui5.navigation.navigateToSystemAndApplication(system, wrongApplication, false, true)) // verify = true
       .rejects.toThrow(/Navigation failed/);

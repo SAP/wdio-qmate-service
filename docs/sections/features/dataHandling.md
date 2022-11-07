@@ -8,8 +8,8 @@ Input data is the data defined by the scenario to perform all types of user inpu
 ```json title="data/createSupplierInvoice.json"
 {
   "session": {
-    "username": "AP_ACCOUNTANT",
-    "password": "Welcome1!"
+    "username": "<username",
+    "password": "<password>"
   },
   "generalInformation": {
     "companyCode": "1010",

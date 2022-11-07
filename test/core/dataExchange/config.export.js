@@ -7,14 +7,14 @@ exports.config = merge(chromeConfig.config, {
   params: {
 
     import: {            // Directory path
-      myFolder1: "./data/my/folder/data/qs9",
+      myFolder1: "./data/my/folder/data/<systemName>",
       myFolder2: "./data/another/folder/data/anotherFolder",
       myMissingFolder: "./data/my/folder/missing",
       // File path (Best Practice should be the same as the script) .....             
-      yourPrefixSpecName: "./data/my/folder/data/qs9/data.json",
+      yourPrefixSpecName: "./data/my/folder/data/<systemName>/data.json",
       missingFile: "./data/my/folder/missingFile.json",
       invalidJsonFile: "./data/my/folder/invalid.json",
-      uiUser: "./data/my/folder/data/qs9/webUser.json",
+      uiUser: "./data/my/folder/data/<systemName>/webUser.json",
     },
     export: {             //Export             
       exportData: "./data/my/folder/path/in/exportFile.json",
