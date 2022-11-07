@@ -14,8 +14,8 @@ exports.config = merge(fioriConfig.config, {
   params: {
     auth: {
       formType: "fiori-form",
-      username: "PURCHASER",
-      password: "super-duper-sensitive-pw"
+      username: "<username>",
+      password: "<password>"
     }
   },
 
