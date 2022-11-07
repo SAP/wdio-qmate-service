@@ -7,7 +7,7 @@ describe("data - getSecureData", function() {
   });
 
   it("Verification 1 - hashed value", function () {
-    const dataExp = "<password>";
+    const dataExp = "Welcome1!";
     const dataAct = data.session.password;
     common.assertion.expectEqual(dataAct, dataExp);
   });
@@ -25,7 +25,7 @@ describe("data - getSecureData", function() {
   });
 
   it("Verification 4 - alternatives from different keys", function () {
-    const dataExp = "<password>";
+    const dataExp = "Welcome1!";
     const dataAct = data.alternatives;
     common.assertion.expectEqual(dataAct, dataExp);
   });
@@ -38,7 +38,7 @@ describe("data - getSecureData", function() {
 // test.local.json
 // {
 //   "session": {
-//     "password": "<password>"
+//     "password": "Welcome1!"
 //   }
 // }
 
@@ -55,7 +55,7 @@ describe("data - getSecureData", function() {
 //   });
 
 //   it("Verification", function () {
-//     const dataExp = "<password>";
+//     const dataExp = "Welcome1!";
 //     const dataAct = data.session.password;
 //     common.assertion.expectEqual(dataAct, dataExp);
 //   });
