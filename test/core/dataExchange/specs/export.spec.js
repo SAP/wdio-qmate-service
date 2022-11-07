@@ -8,7 +8,7 @@ const utils = require("../utils.js");
 describe("Export Data", function () {
 
   //load the actual files 
-  const myFolder1 = "./data/my/folder/data/<systemName>";
+  const myFolder1 = "./data/my/folder/data/qs9";
   const subfolder = "./data/another/folder/data/anotherFolder/subfolder";
 
   // config.export.js
@@ -25,7 +25,7 @@ describe("Export Data", function () {
     // this test reads data from a file, and puts in browser.params.export
     // so that it gets written to the export file at completion of test
     // data to be read should be in file "purchaseRequisition.json" within 
-    // myFolder1 (i.e. within "./data/my/folder/data/<systemName>")
+    // myFolder1 (i.e. within "./data/my/folder/data/qs9")
     // "exportData"  in config, points to the json file that will get overwritten 
     // with data from "purchaseRequisition.json"
     // export: {             //Export             

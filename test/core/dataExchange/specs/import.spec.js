@@ -16,21 +16,21 @@ describe("Import Data", function () {
   // Refer to config.import.js
   // params : {
   //   import: {            // Verzeichnis Pfad             
-  //     myFolder1: "./data/my/folder/data/<systemName>",
+  //     myFolder1: "./data/my/folder/data/qs9",
   //     myFolder2: "data/another/folder/data/anotherFolder",
   //     myMissingFolder: "./data/my/folder/missing",
   //     // Eine Datei Pfad (Best Practice should be the same as the script) .....             
-  //     yourPrefixSpecName: "./data/my/folder/data/<systemName>/data.json",
+  //     yourPrefixSpecName: "./data/my/folder/data/qs9/data.json",
   //     missingFile: "./data/my/folder/missingFile.json",
   //     invalidJsonFile: "./data/my/folder/invalid.json",
-  //     uiUser: "./data/my/folder/data/<systemName>/webUser.json",
-  //     emptyObject: "./data/my/folder/data/<systemName>/empty.json"
+  //     uiUser: "./data/my/folder/data/qs9/webUser.json",
+  //     emptyObject: "./data/my/folder/data/qs9/empty.json"
   //   },
   // }
-  const myFolder1 = "./data/my/folder/data/<systemName>";
+  const myFolder1 = "./data/my/folder/data/qs9";
   const myFolder2 = "data/another/folder/data/anotherFolder";
-  const yourPrefixSpecName = "./data/my/folder/data/<systemName>/data.json";
-  const uiUser = "./data/my/folder/data/<systemName>/webUser.json";
+  const yourPrefixSpecName = "./data/my/folder/data/qs9/data.json";
+  const uiUser = "./data/my/folder/data/qs9/webUser.json";
 
   // regression test to check that data has been imported in 
   // beforeSession hook
@@ -55,7 +55,7 @@ describe("Import Data", function () {
   });
 
   it("step 2: check if files in 'myFolder1' folder are read", async function () {
-    // check if json files and subfolders in myFolder1 (i.e. "./data/my/folder/data/<systemName>")
+    // check if json files and subfolders in myFolder1 (i.e. "./data/my/folder/data/qs9")
     // are read and added to browser.params.import.myFolder1
     await utils.checkImportFolder(myFolder1, "myFolder1");
 
@@ -68,7 +68,7 @@ describe("Import Data", function () {
 
   });
   it("step 4: check imported data from 'myFolder1'", async function () {
-    // check if json data in  file purchaseRequisition.json in myFolder1 (i.e. "./data/my/folder/data/<systemName>")
+    // check if json data in  file purchaseRequisition.json in myFolder1 (i.e. "./data/my/folder/data/qs9")
     // has been read and added to browser.params.import.myFolder1.purchaseRequisition
     await utils.checkImportedData(myFolder1, ["myFolder1"], "purchaseRequisition");
 
@@ -80,13 +80,13 @@ describe("Import Data", function () {
 
   });
   it("step 6: check imported data for file 'yourPrefixSpecName'", async function () {
-    // check if json data in  file pointed to by "yourPrefixSpecName" (i.e. "./data/my/folder/data/<systemName>/data.json")
+    // check if json data in  file pointed to by "yourPrefixSpecName" (i.e. "./data/my/folder/data/qs9/data.json")
     // has been read and added to browser.params.import.yourPrefixSpecName
     await utils.checkImportedDataFromFile(yourPrefixSpecName, "yourPrefixSpecName");
 
   });
   it("step 7: check imported data for file 'uiUser'", async function () {
-    // check if json data in  file pointed to by "uiUser" (i.e. "./data/my/folder/data/<systemName>/webUser.json")
+    // check if json data in  file pointed to by "uiUser" (i.e. "./data/my/folder/data/qs9/webUser.json")
     // has been read and added to browser.params.import.uiUser
     await utils.checkImportedDataFromFile(uiUser, "uiUser");
 
