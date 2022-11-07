@@ -4,7 +4,7 @@ describe("authenticator (plain) - fiori", function () {
   });
 
   it("Execution", async function () {
-    await ui5.session.login("PURCHASER", "Welcome1!", false);
+    await ui5.session.login("<username>", "<password>", false);
   });
 
   it("Verification", async function () {
@@ -20,7 +20,7 @@ describe("authenticator (plain) - sapCloud", function () {
   });
 
   it("Execution", async function () {
-    await ui5.session.login("PURCHASER", "Welcome1!", false);
+    await ui5.session.login("<username>", "<password>", false);
   });
 
   it("Verification", async function () {
@@ -36,7 +36,7 @@ describe("authenticator (plain) - loginFiori", function () {
   });
 
   it("Execution", async function () {
-    await ui5.session.loginFiori("PURCHASER", "Welcome1!", false);
+    await ui5.session.loginFiori("<username>", "<password>", false);
   });
 
   it("Verification", async function () {
@@ -52,7 +52,7 @@ describe("authenticator (plain) - loginSapCloud", function () {
   });
 
   it("Execution", async function () {
-    await ui5.session.loginSapCloud("PURCHASER", "Welcome1!", false);
+    await ui5.session.loginSapCloud("<username>", "<password>", false);
   });
 
   it("Verification", async function () {
