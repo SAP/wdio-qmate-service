@@ -1,6 +1,6 @@
 const { handleCookiesConsent } = require("../../../helper/utils");
 
-describe("userInteraction - click Tab", function () {
+describe("userInteraction - clickTab - simple tab", function () {
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/api/sap.m.IconTabBar");
     await handleCookiesConsent();
@@ -31,7 +31,7 @@ describe("userInteraction - click Tab", function () {
   });
 });
 
-describe("userInteraction - click multi-select Tab", function () {
+describe("userInteraction - clickTab - multiple select values", function () {
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/api/sap.m.IconTabBar");
     await util.browser.refresh();
@@ -66,7 +66,7 @@ describe("userInteraction - click multi-select Tab", function () {
   });
 });
 
-describe("userInteraction - click on non Tab element", function () {
+describe("userInteraction - clickTab - non tab element", function () {
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/api/sap.m.IconTabBar");
     await util.browser.refresh();

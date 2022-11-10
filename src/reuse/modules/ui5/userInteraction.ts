@@ -59,6 +59,73 @@ export class UserInteraction {
   }
 
   /**
+   * @function doubleClick
+   * @memberOf ui5.userInteraction
+   * @description Double Clicks on the passed element.
+   * @param {Object} selector - The selector describing the element.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example await ui5.userInteraction.doubleClick(selector);
+   */
+  async doubleClick(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    let elem = null;
+    await browser.waitUntil(
+      async function () {
+        elem = await ui5.element.getDisplayed(selector, index, timeout);
+        if (!elem) return false;
+        return elem.isClickable();
+      },
+      {
+        timeout,
+        timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
+      }
+    );
+    try {
+      // @ts-ignore
+      await elem.doubleClick();
+    } catch (error) {
+      // @ts-ignore
+      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "doubleClick");
+      throw new Error(errorMessage);
+    }
+  }
+
+  /**
+   * @function rightClick
+   * @memberOf ui5.userInteraction
+   * @description Right Clicks on the passed element.
+   * @param {Object} selector - The selector describing the element.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example const elem = await nonUi5.element.getById("button01");
+   * await ui5.userInteraction.rightClick(elem);
+   */
+  async rightClick(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    let elem = null;
+    await browser.waitUntil(
+      async function () {
+        elem = await ui5.element.getDisplayed(selector, index, timeout);
+        if (!elem) return false;
+        return elem.isClickable();
+      },
+      {
+        timeout,
+        timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
+      }
+    );
+    try {
+      // @ts-ignore
+      await elem.click({
+        button: "right"
+      });
+    } catch (error) {
+      // @ts-ignore
+      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "rightClick");
+      throw new Error(errorMessage);
+    }
+  }
+
+  /**
    * @function clickTab
    * @memberOf ui5.userInteraction
    * @description Clicks on the tab with the given selector and checks if the tab got selected successfully.
@@ -70,31 +137,55 @@ export class UserInteraction {
    */
   async clickTab(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     await util.function.retry(
-      async function (selector: any, index: number, timeout: number) {
-        await ui5.userInteraction.click(selector);
-
-        const tabElem = await ui5.element.getDisplayed(selector, index, timeout);;
-        const tabClassList = await tabElem.getAttribute("class");
-        const tabElemTextValue = await ui5.control.getProperty(tabElem, "text");
-
-        let tabParentClassList: string = "";
-        try {
-          const tabParentSelector = {
-            elementProperties: {
-              metadata: "sap.m.MenuButton",
-              text: tabElemTextValue,
-              descendentProperties: selector
-            }
-          };
-          const tabParentElem = await ui5.element.getDisplayed(tabParentSelector, 0, 5000);
-          tabParentClassList = await tabParentElem.getAttribute("class");
-        } catch (error) {
-          // do nothing -> not a tab wit multiple selectable values
-        }
-
-        // check if main or parent element has "selected" indicator
-        if (!tabClassList.includes("sapUxAPAnchorBarButtonSelected") && !tabParentClassList.includes("sapUxAPAnchorBarButtonSelected")) {
+      async (selector: any, index: number, timeout: number) => {
+        await ui5.userInteraction.click(selector, index, timeout);
+        const tabSwitchedSuccessfully: boolean = await this._verifyTabSwitch(selector);
+        if (tabSwitchedSuccessfully === false) {
           throw new Error("Function 'clickTab': Could not verify successful tab switch.");
+        }
+      },
+      [selector, index, timeout],
+      3,
+      5000,
+      this
+    );
+  }
+
+  /**
+   * @function selectFromTab
+   * @memberOf ui5.userInteraction
+   * @description Selects the passed value on the tab with the given selector and checks if the tab got selected successfully.
+   * The function retries the click for maximal 3 times if the selection of the tab (blue underline) was not successful.
+   * @param {Object} selector - The selector describing the element.
+   * @param {String} value - The value to select.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example await ui5.userInteraction.selectFromTab(selector);
+   */
+  async selectFromTab(selector: any, value: string, index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    await util.function.retry(
+      async (selector: any, index: number, timeout: number) => {
+        const arrowSelector = {
+          elementProperties: {
+            metadata: "sap.ui.core.Icon",
+            src: "sap-icon://slim-arrow-down"
+          },
+          ancestorProperties: selector
+        };
+        await ui5.userInteraction.click(arrowSelector, index, timeout);
+
+        const menuItemSelector = {
+          elementProperties: {
+            viewName: "sap.ui.documentation.sdk.view.SubApiDetail",
+            metadata: "sap.ui.unified.MenuItem",
+            text: value
+          }
+        };
+        await ui5.userInteraction.click(menuItemSelector, index, timeout);
+
+        const tabSwitchedSuccessfully: boolean = await this._verifyTabSwitch(selector);
+        if (tabSwitchedSuccessfully === false) {
+          throw new Error("Function 'selectFromTab': Could not verify successful tab switch.");
         }
       },
       [selector, index, timeout],
@@ -579,70 +670,35 @@ export class UserInteraction {
       await common.userInteraction.pressBackspace();
     }
   }
-  /**
-   * @function doubleClick
-   * @memberOf ui5.userInteraction
-   * @description Double Clicks on the passed element.
-   * @param {Object} selector - The selector describing the element.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
-   * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await ui5.userInteraction.doubleClick(selector);
-   */
-  async doubleClick(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    let elem = null;
-    await browser.waitUntil(
-      async function () {
-        elem = await ui5.element.getDisplayed(selector, index, timeout);
-        if (!elem) return false;
-        return elem.isClickable();
-      },
-      {
-        timeout,
-        timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
-      }
-    );
-    try {
-      // @ts-ignore
-      await elem.doubleClick();
-    } catch (error) {
-      // @ts-ignore
-      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "doubleClick");
-      throw new Error(errorMessage);
-    }
-  }
 
-  /**
-   * @function rightClick
-   * @memberOf ui5.userInteraction
-   * @description Right Clicks on the passed element.
-   * @param {Object} selector - The selector describing the element.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
-   * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example const elem = await nonUi5.element.getById("button01");
-   * await ui5.userInteraction.rightClick(elem);
-   */
-  async rightClick(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    let elem = null;
-    await browser.waitUntil(
-      async function () {
-        elem = await ui5.element.getDisplayed(selector, index, timeout);
-        if (!elem) return false;
-        return elem.isClickable();
-      },
-      {
-        timeout,
-        timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
+  private async _verifyTabSwitch(selector: any): Promise<boolean> {
+    const indicatorClass = "sapUxAPAnchorBarButtonSelected";
+
+    // check for simple tab type
+    const tabElem = await ui5.element.getDisplayed(selector);
+    const tabClassList = await tabElem.getAttribute("class");
+    if (tabClassList.includes(indicatorClass)) {
+      return true;
+    }
+
+    // check for multiple value tab type
+    const tabElemTextValue = await ui5.control.getProperty(tabElem, "text");
+
+    const tabParentSelector = {
+      elementProperties: {
+        metadata: "sap.m.MenuButton",
+        text: tabElemTextValue,
+        descendentProperties: selector
       }
-    );
-    try {
-      // @ts-ignore
-      await elem.click({
-        button: "right"
-      });
-    } catch (error) {
-      // @ts-ignore
-      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "rightClick");
-      throw new Error(errorMessage);
+    };
+    const tabParentElem = await ui5.element.getDisplayed(tabParentSelector, 0, 5000);
+
+    const tabParentClassList = await tabParentElem.getAttribute("class");
+
+    if (tabParentClassList.includes(indicatorClass)) {
+      return true;
+    } else {
+      return false;
     }
   }
 
