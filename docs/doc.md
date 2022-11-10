@@ -1455,7 +1455,10 @@ Global namespace for UI5 modules.
     * [.userInteraction](#ui5.userInteraction)
         * [.click(selector, [index], [timeout])](#ui5.userInteraction.click)
         * [.clickAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clickAndRetry)
+        * [.doubleClick(selector, [index], [timeout])](#ui5.userInteraction.doubleClick)
+        * [.rightClick(selector, [index], [timeout])](#ui5.userInteraction.rightClick)
         * [.clickTab(selector, [index], [timeout])](#ui5.userInteraction.clickTab)
+        * [.selectFromTab(selector, value, [index], [timeout])](#ui5.userInteraction.selectFromTab)
         * [.clickListItem(selector, [index], [timeout])](#ui5.userInteraction.clickListItem)
         * [.fill(selector, value, [index], [timeout])](#ui5.userInteraction.fill)
         * [.fillAndRetry(selector, value, [index], [timeout], [retries], [interval])](#ui5.userInteraction.fillAndRetry)
@@ -1477,8 +1480,6 @@ Global namespace for UI5 modules.
         * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
         * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
         * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
-        * [.doubleClick(selector, [index], [timeout])](#ui5.userInteraction.doubleClick)
-        * [.rightClick(selector, [index], [timeout])](#ui5.userInteraction.rightClick)
 
 <a name="ui5.assertion"></a>
 
@@ -1963,7 +1964,7 @@ Gets the UI5 control property of the given element.
 **Example**  
 ```js
 const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};
-const elem = await ui5.control.locator.getDisplayedElement(selector);
+const elem = await ui5.element.getDisplayedElement(selector);
 const propertyName = "title";
 const val = await ui5.control.getProperty(elem, propertyName);
 ```
@@ -1982,7 +1983,7 @@ Gets the UI5 control aggregation property  of the given element.
 **Example**  
 ```js
 const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "items":[{"path":"/Categories"}] }};
-const elem = await ui5.control.locator.getDisplayedElement(selector);
+const elem = await ui5.element.getDisplayedElement(selector);
 const propertyName = "tooltip";
 const val = await ui5.control.getAggregationProperty(elem, propertyName);
 ```
@@ -2001,7 +2002,7 @@ Get UI control property
 **Example**  
 ```js
 const selector = { "elementProperties":{"metadata":"sap.m.MultiComboBox","mProperties":{}};
-const elem = await ui5.control.locator.getDisplayedElement(selector);
+const elem = await ui5.element.getDisplayedElement(selector);
 const propertyName = "selectedItems";
 const propertyValue = await ui5.control.getAssociationProperty(elem, propertyName);
 ```
@@ -2019,7 +2020,7 @@ Get UI control binding context path
 **Example**  
 ```js
 const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{"title":[{"path":"CategoryName"}] }};
-const elem = await ui5.control.locator.getDisplayedElement(selector);
+const elem = await ui5.element.getDisplayedElement(selector);
 const context = await ui5.control.getBindingContextPathProperty(elem);
 ```
 <a name="ui5.control.getPropertyBinding"></a>
@@ -2038,7 +2039,7 @@ Get UI control property
 **Example**  
 ```js
 const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};
-const elem = await ui5.control.locator.getDisplayedElement(selector);
+const elem = await ui5.element.getDisplayedElement(selector);
 const propertyName = "title";
 const binding = await ui5.control.getPropertyBinding(elem, propertyName);
 ```
@@ -3351,7 +3352,10 @@ await ui5.table.clickSettingsButton(glAccountItemsTable);
 * [.userInteraction](#ui5.userInteraction)
     * [.click(selector, [index], [timeout])](#ui5.userInteraction.click)
     * [.clickAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clickAndRetry)
+    * [.doubleClick(selector, [index], [timeout])](#ui5.userInteraction.doubleClick)
+    * [.rightClick(selector, [index], [timeout])](#ui5.userInteraction.rightClick)
     * [.clickTab(selector, [index], [timeout])](#ui5.userInteraction.clickTab)
+    * [.selectFromTab(selector, value, [index], [timeout])](#ui5.userInteraction.selectFromTab)
     * [.clickListItem(selector, [index], [timeout])](#ui5.userInteraction.clickListItem)
     * [.fill(selector, value, [index], [timeout])](#ui5.userInteraction.fill)
     * [.fillAndRetry(selector, value, [index], [timeout], [retries], [interval])](#ui5.userInteraction.fillAndRetry)
@@ -3373,8 +3377,6 @@ await ui5.table.clickSettingsButton(glAccountItemsTable);
     * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
     * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
     * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
-    * [.doubleClick(selector, [index], [timeout])](#ui5.userInteraction.doubleClick)
-    * [.rightClick(selector, [index], [timeout])](#ui5.userInteraction.rightClick)
 
 <a name="ui5.userInteraction.click"></a>
 
@@ -3412,6 +3414,41 @@ Clicks on the element with the given selector and retries the action in case of 
 ```js
 await ui5.userInteraction.clickAndRetry(selector);
 ```
+<a name="ui5.userInteraction.doubleClick"></a>
+
+#### userInteraction.doubleClick(selector, [index], [timeout])
+Double Clicks on the passed element.
+
+**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.userInteraction.doubleClick(selector);
+```
+<a name="ui5.userInteraction.rightClick"></a>
+
+#### userInteraction.rightClick(selector, [index], [timeout])
+Right Clicks on the passed element.
+
+**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getById("button01");
+await ui5.userInteraction.rightClick(elem);
+```
 <a name="ui5.userInteraction.clickTab"></a>
 
 #### userInteraction.clickTab(selector, [index], [timeout])
@@ -3429,6 +3466,25 @@ The function retries the click for maximal 3 times if the selection of the tab (
 **Example**  
 ```js
 await ui5.userInteraction.clickTab(selector);
+```
+<a name="ui5.userInteraction.selectFromTab"></a>
+
+#### userInteraction.selectFromTab(selector, value, [index], [timeout])
+Selects the passed value on the tab with the given selector and checks if the tab got selected successfully.
+The function retries the click for maximal 3 times if the selection of the tab (blue underline) was not successful.
+
+**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| value | <code>String</code> |  | The value to select. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.userInteraction.selectFromTab(selector);
 ```
 <a name="ui5.userInteraction.clickListItem"></a>
 
@@ -3817,41 +3873,6 @@ Resets the search field.
 **Example**  
 ```js
 await ui5.userInteraction.resetSearch(selector);
-```
-<a name="ui5.userInteraction.doubleClick"></a>
-
-#### userInteraction.doubleClick(selector, [index], [timeout])
-Double Clicks on the passed element.
-
-**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| selector | <code>Object</code> |  | The selector describing the element. |
-| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
-| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-
-**Example**  
-```js
-await ui5.userInteraction.doubleClick(selector);
-```
-<a name="ui5.userInteraction.rightClick"></a>
-
-#### userInteraction.rightClick(selector, [index], [timeout])
-Right Clicks on the passed element.
-
-**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| selector | <code>Object</code> |  | The selector describing the element. |
-| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
-| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-
-**Example**  
-```js
-const elem = await nonUi5.element.getById("button01");
-await ui5.userInteraction.rightClick(elem);
 ```
 <a name="nonUi5"></a>
 
