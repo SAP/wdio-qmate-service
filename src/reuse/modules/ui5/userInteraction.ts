@@ -89,9 +89,10 @@ export class UserInteraction {
           const tabParentElem = await ui5.element.getDisplayed(tabParentSelector, 0, 5000);
           tabParentClassList = await tabParentElem.getAttribute("class");
         } catch (error) {
-          // do nothing
+          // do nothing -> not a tab wit multiple selectable values
         }
 
+        // check if main or parent element has "selected" indicator
         if (!tabClassList.includes("sapUxAPAnchorBarButtonSelected") && !tabParentClassList.includes("sapUxAPAnchorBarButtonSelected")) {
           throw new Error("Function 'clickTab': Could not verify successful tab switch.");
         }
