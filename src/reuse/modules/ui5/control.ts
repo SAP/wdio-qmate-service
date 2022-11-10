@@ -1,4 +1,7 @@
 "use strict";
+
+import { Element } from "../../../../@types/wdio";
+
 /**
  * @class control
  * @memberof ui5
@@ -36,7 +39,7 @@ export class Control {
    * @param {Object} elem - The element.
    * @param {String} propertyName - The property name of the control to retrieve the value from.
    * @example const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};
-   * const elem = await ui5.control.locator.getDisplayedElement(selector);
+   * const elem = await ui5.element.getDisplayedElement(selector);
    * const propertyName = "title";
    * const val = await ui5.control.getProperty(elem, propertyName);
    **/
@@ -51,7 +54,7 @@ export class Control {
    * @param {Object} elem - The element.
    * @param {String} propertyName - The aggregation property name of the control to retrieve the value from.
    * @example const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "items":[{"path":"/Categories"}] }};
-   * const elem = await ui5.control.locator.getDisplayedElement(selector);
+   * const elem = await ui5.element.getDisplayedElement(selector);
    * const propertyName = "tooltip";
    * const val = await ui5.control.getAggregationProperty(elem, propertyName);
    **/
@@ -66,7 +69,7 @@ export class Control {
    * @param {Object} elem - The element.
    * @param {String} propertyName - The association property name of the control to retrieve the value from.
    * @example const selector = { "elementProperties":{"metadata":"sap.m.MultiComboBox","mProperties":{}};
-   * const elem = await ui5.control.locator.getDisplayedElement(selector);
+   * const elem = await ui5.element.getDisplayedElement(selector);
    * const propertyName = "selectedItems";
    * const propertyValue = await ui5.control.getAssociationProperty(elem, propertyName);
    **/
@@ -80,7 +83,7 @@ export class Control {
    * @description Get UI control binding context path
    * @param {Object} elem - The element.
    * @example const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{"title":[{"path":"CategoryName"}] }};
-   * const elem = await ui5.control.locator.getDisplayedElement(selector);
+   * const elem = await ui5.element.getDisplayedElement(selector);
    * const context = await ui5.control.getBindingContextPathProperty(elem);
    **/
   async getBindingContextPathProperty (elem: Element) {
@@ -96,7 +99,7 @@ export class Control {
    * @param {String} propertyName - The property name to retrieve from the control binding
    * @returns {Array} Array of bindings for the specific property
    * @example const selector = { "elementProperties":{"metadata":"sap.m.StandardListItem","mProperties":{ "title":[{"path":"CategoryName"}] }};
-   * const elem = await ui5.control.locator.getDisplayedElement(selector);
+   * const elem = await ui5.element.getDisplayedElement(selector);
    * const propertyName = "title";
    * const binding = await ui5.control.getPropertyBinding(elem, propertyName);
    **/
