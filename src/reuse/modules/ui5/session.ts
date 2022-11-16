@@ -4,7 +4,6 @@
  * @memberof ui5
  */
 export class Session {
-
   // =================================== LOGIN ===================================
   /**
    * @function login
@@ -18,8 +17,7 @@ export class Session {
    * @example await ui5.session.login("JOHN_DOE", "abc123!", true);
    */
   async login(username: string, password?: string, verify = false, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    if (browser.config && browser.config.params &&
-      browser.config.params.auth && browser.config.params.auth.formType === "skip") {
+    if (browser.config && browser.config.params && browser.config.params.auth && browser.config.params.auth.formType === "skip") {
       util.console.warn("Login is skipped since 'formType' is set to 'skip'");
       return true;
     }
@@ -29,8 +27,7 @@ export class Session {
     }
 
     if (!password) {
-      this._checkForPwdEnvVar();
-      password = process.env.QMATE_DEFAULT_PASSWORD as string
+      password = this._getDefaultPassword();
     }
 
     let authenticator;
@@ -63,7 +60,7 @@ export class Session {
     }
 
     await this._loginWithUsernameAndPassword(username, password, authenticator, verify, messageSelector);
-  };
+  }
 
   /**
    * @function loginFiori
@@ -80,8 +77,7 @@ export class Session {
     }
 
     if (!password) {
-      this._checkForPwdEnvVar();
-      password = process.env.QMATE_DEFAULT_PASSWORD as string
+      password = this._getDefaultPassword();
     }
 
     try {
@@ -91,7 +87,7 @@ export class Session {
     } catch (error) {
       throw new Error(`Function 'loginFiori' failed: ${error}`);
     }
-  };
+  }
 
   /**
    * @function loginSapCloud
@@ -108,10 +104,8 @@ export class Session {
     }
 
     if (!password) {
-      this._checkForPwdEnvVar();
-      password = process.env.QMATE_DEFAULT_PASSWORD as string
+      password = this._getDefaultPassword();
     }
-
 
     try {
       const authenticator = await ui5.authenticators.sapCloudForm;
@@ -120,7 +114,7 @@ export class Session {
     } catch (error) {
       throw new Error(`Function 'loginSapCloud' failed: ${error}`);
     }
-  };
+  }
 
   /**
    * @function loginCustom
@@ -140,21 +134,20 @@ export class Session {
     }
 
     if (!password) {
-      this._checkForPwdEnvVar();
-      password = process.env.QMATE_DEFAULT_PASSWORD as string
+      password = this._getDefaultPassword();
     }
 
     try {
       const authenticator = {
-        "usernameFieldSelector": usernameFieldSelector,
-        "passwordFieldSelector": passwordFieldSelector,
-        "logonButtonSelector": logonButtonSelector
+        usernameFieldSelector: usernameFieldSelector,
+        passwordFieldSelector: passwordFieldSelector,
+        logonButtonSelector: logonButtonSelector
       };
       return await this._loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
       throw new Error(`Function 'loginCustom' failed: ${error}`);
     }
-  };
+  }
 
   /**
    * @function loginCustomViaConfig
@@ -189,17 +182,13 @@ export class Session {
 
   async loginCustomViaConfig(username: string, password?: string, verify = false) {
     if (!password) {
-      this._checkForPwdEnvVar();
-      password = process.env.QMATE_DEFAULT_PASSWORD as string
+      password = this._getDefaultPassword();
     }
 
     try {
       const baseUrl = browser.config.baseUrl;
       await browser.navigateTo(baseUrl);
-      if (browser.config.params &&
-        browser.config.params.auth &&
-        browser.config.params.auth.username &&
-        browser.config.params.auth.password) {
+      if (browser.config.params && browser.config.params.auth && browser.config.params.auth.username && browser.config.params.auth.password) {
         username = browser.config.params.auth.username;
         password = browser.config.params.auth.password;
         // @ts-ignore
@@ -212,16 +201,15 @@ export class Session {
     }
     try {
       const authenticator = {
-        "usernameFieldSelector": browser.config.params.auth.usernameFieldSelector,
-        "passwordFieldSelector": browser.config.params.auth.passwordFieldSelector,
-        "logonButtonSelector": browser.config.params.auth.logonButtonSelector
+        usernameFieldSelector: browser.config.params.auth.usernameFieldSelector,
+        passwordFieldSelector: browser.config.params.auth.passwordFieldSelector,
+        logonButtonSelector: browser.config.params.auth.logonButtonSelector
       };
       return await this._loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
       throw new Error("Function 'loginCustomViaConfig' failed. Please maintain the auth values in your config.");
     }
-  };
-
+  }
 
   // =================================== LOGOUT / SWITCH ===================================
   /**
@@ -233,8 +221,7 @@ export class Session {
    * @example await ui5.session.logout();
    */
   async logout(verify = true) {
-    if (browser.config && browser.config.params &&
-      browser.config.params.auth && browser.config.params.auth.formType === "skip") {
+    if (browser.config && browser.config.params && browser.config.params.auth && browser.config.params.auth.formType === "skip") {
       console.warn("Logout is skipped.");
       await browser.reloadSession(); // Clean cache
       return true;
@@ -247,7 +234,7 @@ export class Session {
     if (verify) {
       await ui5.session.expectLogoutText();
     }
-  };
+  }
 
   /**
    * @function switchUser
@@ -263,8 +250,7 @@ export class Session {
    */
   async switchUser(username: string, password = "", authenticator: any, wait = 10000) {
     if (!password) {
-      this._checkForPwdEnvVar();
-      password = process.env.QMATE_DEFAULT_PASSWORD as string
+      password = this._getDefaultPassword();
     }
     await this.logout();
     await util.browser.sleep(wait);
@@ -274,8 +260,7 @@ export class Session {
     } else {
       await this._loginWithUsernameAndPassword(username, password, authenticator);
     }
-  };
-
+  }
 
   // =================================== ASSERTION ===================================
   /**
@@ -288,31 +273,34 @@ export class Session {
   async expectLogoutText() {
     const elem = await nonUi5.element.getById("msgText");
     await nonUi5.assertion.expectToBeVisible(elem);
-  };
-
+  }
 
   // =================================== HELPER ===================================
   private async _loginWithUsernameAndPassword(username: string, password?: string, authenticator = ui5.authenticators.fioriForm, verify = false, messageSelector?: string) {
     if (!password) {
-      this._checkForPwdEnvVar();
-      password = process.env.QMATE_DEFAULT_PASSWORD as string
+      password = this._getDefaultPassword();
     }
     let usernameField = null;
     let passwordField = null;
     let logonField = null;
     try {
-      await browser.waitUntil(async function () {
-        usernameField = await $(authenticator.usernameFieldSelector);
-        passwordField = await $(authenticator.passwordFieldSelector);
-        logonField = await $(authenticator.logonButtonSelector);
-        return await usernameField.isDisplayedInViewport() &&
-          await passwordField.isDisplayedInViewport() &&
-          // eslint-disable-next-line no-return-await
-          await logonField.isDisplayedInViewport();
-      }, {
-        timeout: 30000,
-        timeoutMsg: "Login failed: Login page with the given authenticator not present."
-      });
+      await browser.waitUntil(
+        async function () {
+          usernameField = await $(authenticator.usernameFieldSelector);
+          passwordField = await $(authenticator.passwordFieldSelector);
+          logonField = await $(authenticator.logonButtonSelector);
+          return (
+            (await usernameField.isDisplayedInViewport()) &&
+            (await passwordField.isDisplayedInViewport()) &&
+            // eslint-disable-next-line no-return-await
+            (await logonField.isDisplayedInViewport())
+          );
+        },
+        {
+          timeout: 30000,
+          timeoutMsg: "Login failed: Login page with the given authenticator not present."
+        }
+      );
 
       // @ts-ignore
       await usernameField.setValue(username);
@@ -342,10 +330,10 @@ export class Session {
 
   private async _clickSignOut() {
     const selector = {
-      "elementProperties": {
-        "metadata": "sap.m.StandardListItem",
-        "mProperties": {
-          "id": "*logoutBtn"
+      elementProperties: {
+        metadata: "sap.m.StandardListItem",
+        mProperties: {
+          id: "*logoutBtn"
         }
       }
     };
@@ -370,11 +358,12 @@ export class Session {
     }
   }
 
-  private _checkForPwdEnvVar() {
-    if (!process.env.QMATE_DEFAULT_PASSWORD) {
-      throw new Error("Password was not provided neither in method nor in env variable.")
+  private _getDefaultPassword() {
+    if (process.env.QMATE_DEFAULT_PASSWORD) {
+      return process.env.QMATE_DEFAULT_PASSWORD as string;
+    } else {
+      throw new Error("Password was not provided neither in method nor in env variable.");
     }
   }
-
-};
+}
 export default new Session();
