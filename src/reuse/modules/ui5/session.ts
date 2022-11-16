@@ -11,13 +11,13 @@ export class Session {
    * @memberOf ui5.session
    * @description Login with specific username and password. This function works for both fiori and sap-cloud login.
    * @param {String} username - The username.
-   * @param {String} [password="super-duper-sensitive-pw"] - The password.
+   * @param {String} [password] - The password.
    * @param {Boolean} [verify=false] - Specifies if the function will check the shell header after logging in.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.session.login("PURCHASER");
    * @example await ui5.session.login("JOHN_DOE", "abc123!", true);
    */
-  async login(username: string, password = process.env.QMATE_DEFAULT_PASSWORD, verify = false, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async login(username: string, password?: string, verify = false, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     if (browser.config && browser.config.params &&
       browser.config.params.auth && browser.config.params.auth.formType === "skip") {
       util.console.warn("Login is skipped since 'formType' is set to 'skip'");
@@ -26,6 +26,11 @@ export class Session {
 
     if (!username) {
       throw new Error("Please provide a valid username.");
+    }
+
+    if (!password) {
+      this._checkForPwdEnvVar();
+      password = process.env.QMATE_DEFAULT_PASSWORD as string
     }
 
     let authenticator;
@@ -65,13 +70,18 @@ export class Session {
    * @memberOf ui5.session
    * @description Login with fioriForm and specific username and password.
    * @param {String} username - The username.
-   * @param {String} [password="super-duper-sensitive-pw"] - The password.
+   * @param {String} [password] - The password.
    * @param {Boolean} [verify=false] - Specifies if the function will check the shell header after logging in.
    * @example await ui5.session.loginFiori("john", "abc123!");
    */
-  async loginFiori(username: string, password = process.env.QMATE_DEFAULT_PASSWORD, verify = false) {
+  async loginFiori(username: string, password?: string, verify = false) {
     if (!username) {
       throw new Error("Please provide a valid username.");
+    }
+
+    if (!password) {
+      this._checkForPwdEnvVar();
+      password = process.env.QMATE_DEFAULT_PASSWORD as string
     }
 
     try {
@@ -88,14 +98,20 @@ export class Session {
    * @memberOf ui5.session
    * @description Login with sapCloud form and specific username and password.
    * @param {String} username - The username.
-   * @param {String} [password="super-duper-sensitive-pw"] - The password.
+   * @param {String} [password] - The password.
    * @param {Boolean} [verify=false] - Specifies if the function will check the shell header after logging in.
    * @example await ui5.session.loginSapCloud("john", "abc123!");
    */
-  async loginSapCloud(username: string, password = process.env.QMATE_DEFAULT_PASSWORD, verify = false) {
+  async loginSapCloud(username: string, password?: string, verify = false) {
     if (!username) {
       throw new Error("Please provide a valid username.");
     }
+
+    if (!password) {
+      this._checkForPwdEnvVar();
+      password = process.env.QMATE_DEFAULT_PASSWORD as string
+    }
+
 
     try {
       const authenticator = await ui5.authenticators.sapCloudForm;
@@ -118,9 +134,14 @@ export class Session {
    * @param {Boolean} [verify=false] - Specifies if the function will check the shell header after logging in.
    * @example await ui5.session.loginCustom("JOHN_DOE", "abc123!", "#username", #password, "#logon");
    */
-  async loginCustom(username: string, password = process.env.QMATE_DEFAULT_PASSWORD, usernameFieldSelector: string, passwordFieldSelector: string, logonButtonSelector: string, verify = false) {
+  async loginCustom(username: string, password = "", usernameFieldSelector: string, passwordFieldSelector: string, logonButtonSelector: string, verify = false) {
     if (!username) {
       throw new Error("Please provide a valid username.");
+    }
+
+    if (!password) {
+      this._checkForPwdEnvVar();
+      password = process.env.QMATE_DEFAULT_PASSWORD as string
     }
 
     try {
@@ -140,7 +161,7 @@ export class Session {
    * @memberOf ui5.session
    * @description Login with specific username and password. The selectors will be taken from the config.
    * @param {String} username - The username. Can be specified in spec or config. If specified in both credentials will be taken from config.
-   * @param {String} [password="super-duper-sensitive-pw" - The password. Can be specified in spec or config. If specified in both credentials will be taken from config.
+   * @param {String} [password] - The password. Can be specified in spec or config. If specified in both credentials will be taken from config.
    * @param {Boolean} [verify=false] - Specifies if the function will check the shell header after logging in.
    * @example // config - SAMPLE 1
     auth: {
@@ -166,7 +187,12 @@ export class Session {
     await ui5.session.loginCustomViaConfig();
    */
 
-  async loginCustomViaConfig(username: string, password = process.env.QMATE_DEFAULT_PASSWORD, verify = false) {
+  async loginCustomViaConfig(username: string, password?: string, verify = false) {
+    if (!password) {
+      this._checkForPwdEnvVar();
+      password = process.env.QMATE_DEFAULT_PASSWORD as string
+    }
+
     try {
       const baseUrl = browser.config.baseUrl;
       await browser.navigateTo(baseUrl);
@@ -228,14 +254,18 @@ export class Session {
    * @memberOf ui5.session
    * @description switches the user according to the passed username and password.
    * @param {String} username - The username.
-   * @param {String} [password="super-duper-sensitive-pw"] - The password.
+   * @param {String} [password] - The password.
    * @param {Object} [authenticator] - The login form type. Set to null to use generic login.
    * @param {Number} [wait=10000] - The waiting time between logout and login (ms).
    * @example await ui5.session.switchUser("PURCHASER");
    * @example const authenticator = ui5.authenticators.fioriForm;
    * await ui5.session.switchUser("PURCHASER", "super-duper-sensitive-pw", authenticator, 30000);
    */
-  async switchUser(username: string, password = process.env.QMATE_DEFAULT_PASSWORD, authenticator: any, wait = 10000) {
+  async switchUser(username: string, password = "", authenticator: any, wait = 10000) {
+    if (!password) {
+      this._checkForPwdEnvVar();
+      password = process.env.QMATE_DEFAULT_PASSWORD as string
+    }
     await this.logout();
     await util.browser.sleep(wait);
     await browser.navigateTo(browser.config.baseUrl);
@@ -262,7 +292,11 @@ export class Session {
 
 
   // =================================== HELPER ===================================
-  private async _loginWithUsernameAndPassword(username: string, password = process.env.QMATE_DEFAULT_PASSWORD, authenticator = ui5.authenticators.fioriForm, verify = false, messageSelector?: string) {
+  private async _loginWithUsernameAndPassword(username: string, password?: string, authenticator = ui5.authenticators.fioriForm, verify = false, messageSelector?: string) {
+    if (!password) {
+      this._checkForPwdEnvVar();
+      password = process.env.QMATE_DEFAULT_PASSWORD as string
+    }
     let usernameField = null;
     let passwordField = null;
     let logonField = null;
@@ -333,6 +367,12 @@ export class Session {
     }
     if (uiErrorMessagesFound) {
       throw new Error(`Login failed: "${messageText}"`);
+    }
+  }
+
+  private _checkForPwdEnvVar() {
+    if (!process.env.QMATE_DEFAULT_PASSWORD) {
+      throw new Error("Password was not provided neither in method nor in env variable.")
     }
   }
 
