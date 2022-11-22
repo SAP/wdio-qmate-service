@@ -1,5 +1,6 @@
 "use strict";
 const lib = require("./lib");
+const cycle = require("./cycle.js");
 
 module.exports = {
   ui5ControlLocator: async function (ui5Selector, index = 0, timeout = 60000, rootElement, returnAllDomElements = false) {
@@ -25,15 +26,24 @@ module.exports = {
   },
 
   getUI5Aggregation: async function (propName, selectorOrElement) {
-    return lib.controlActionInBrowser(function (control, propName, done) {
+    const aggregation = await lib.controlActionInBrowser(function (control, propName, decycle, done) {
       let value = null;
       try {
         value = control.getAggregation(propName);
       } catch (error) {
         // exception ignore it for now, need to check further
       }
+      eval(decycle);
+      if (typeof value === "object" && value !== null) {
+        value = decycle(value);
+      }
       done(value);
-    }, selectorOrElement, propName);
+    }, selectorOrElement, propName, cycle.decycle.toString());
+    if (aggregation) {
+      return cycle.retrocycle(aggregation);
+    } else {
+      return aggregation;
+    }
   },
 
   getUI5Association: async function (propName, selectorOrElement) {

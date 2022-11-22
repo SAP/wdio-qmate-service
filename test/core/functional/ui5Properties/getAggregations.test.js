@@ -1,5 +1,6 @@
 "use strict";
 const { handleCookiesConsent } = require("../../../helper/utils");
+const countries = require("./countries.json");
 
 describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both element and browser levels", function () {
 
@@ -40,10 +41,12 @@ describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both eleme
     await expect(browser.getUI5Aggregation("tooltip", element)).resolves.toEqual(tooltipOnElementLever);
 
     // Aggregation array - test in controlActionInBrowser
-    // This is not working, fails with an error "javascript error: circular reference" - maybe an infinite loop?
-    // content is an array of objects
-    await expect(element.getUI5Aggregation("items")).rejects.toThrow("javascript error: circular reference");
-    await expect(browser.getUI5Aggregation("items", element)).rejects.toThrow("javascript error: circular reference");
+    let items = await element.getUI5Aggregation("items");
+    let itemProperties = items.map(item => item.mProperties);
+    await expect(itemProperties).toMatchObject(countries);
+    items = await browser.getUI5Aggregation("items", element);
+    itemProperties = items.map(item => item.mProperties);
+    await expect(itemProperties).toMatchObject(countries);
   });
 
   it("should get List Item aggregations on both element and browser levels and access tooltip aggregation", async function () {
