@@ -34,26 +34,42 @@ export class Session {
     let messageSelector;
     try {
       await browser.waitUntil(async function () {
+        const fioriForm = new Promise<void>(async (res, rej) => {
+          try {
+            const fioriFormId = ui5.authenticators.fioriForm.formId;
+            const elem = await nonUi5.element.getByCss(fioriFormId, 0, 7500);
+            await nonUi5.element.isVisible(elem);
+            authenticator = ui5.authenticators.fioriForm;
+            messageSelector = ui5.authenticators.fioriForm.messageSelector;
+            res();
+          } catch {
+            rej();
+          }
+        })
+          
+        const sapCloudForm = new Promise<void>(async (res, rej) => {
+          try {
+            const sapCloudFormId = ui5.authenticators.sapCloudForm.formId;
+            const elem = await nonUi5.element.getByCss(sapCloudFormId, 0, 7500);
+            await nonUi5.element.isVisible(elem);
+            authenticator = ui5.authenticators.sapCloudForm;
+            messageSelector = ui5.authenticators.sapCloudForm.messageSelector;
+            res();
+          } catch {
+            rej();
+          }
+        })
+
         try {
-          const fioriFormId = ui5.authenticators.fioriForm.formId;
-          const elem = await nonUi5.element.getByCss(fioriFormId, 0, 7500);
-          await nonUi5.element.isVisible(elem);
-          authenticator = ui5.authenticators.fioriForm;
-          messageSelector = ui5.authenticators.fioriForm.messageSelector;
-          return true;
-        } catch (e) {
-          // continue
+          await Promise.any([
+            fioriForm,
+            sapCloudForm,
+          ])
+          return true
+        } catch {
+          return false
         }
-        try {
-          const sapCloudFormId = ui5.authenticators.sapCloudForm.formId;
-          const elem = await nonUi5.element.getByCss(sapCloudFormId, 0, 7500);
-          await nonUi5.element.isVisible(elem);
-          authenticator = ui5.authenticators.sapCloudForm;
-          messageSelector = ui5.authenticators.sapCloudForm.messageSelector;
-          return true;
-        } catch (e) {
-          return false;
-        }
+        
       }, timeout);
     } catch (error) {
       throw new Error("login failed. Could not find the login page within the given time. \n" + error);

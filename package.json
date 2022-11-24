@@ -29,6 +29,7 @@
     "lint": "eslint .",
     "lint:fix": "npx eslint . --fix",
     "generate-docs": "npm run build && node ./lib/reuse/helper/jsDocGen",
+    "generate-types": "ts-node ./src/bin/typesGenerator",
     "serve-docs": "mkdocs serve",
     "deploy-docs": "mkdocs gh-deploy --force",
     "build": "npx tsc",
@@ -148,6 +149,7 @@
     "json-server": "^0.17.0",
     "npx": "^10.2.2",
     "rimraf": "^3.0.2",
+    "ts-node": "^10.9.1",
     "typescript": "^4.6.3",
     "wdio-chromedriver-service": "^7.3.2"
   }

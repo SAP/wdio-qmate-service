@@ -135,7 +135,7 @@ var LibScripts = function () {
           throw new Error("Eval failed:" + e);
         }
         if (aCustomParams && aCustomParams.length) {
-          return userDefFunction(control, aCustomParams.toString(), callBack);
+          return userDefFunction(control, ...aCustomParams, callBack);
         }
         return userDefFunction(control, callBack);
       };
