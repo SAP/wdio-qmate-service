@@ -20,6 +20,8 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "fill.spec.js"),
     path.resolve(__dirname, "fillAndRetry.spec.js"),
     path.resolve(__dirname, "mouseOverElement.spec.js"),
+    path.resolve(__dirname, "mouseOverElementIframeZeroPosition.spec.js"),
+    path.resolve(__dirname, "mouseOverElementIframeNonZeroPosition.spec.js"),
     path.resolve(__dirname, "moveCursorAndClick.spec.js"),
     path.resolve(__dirname, "checkAttributeAndValue.spec.js"),
     path.resolve(__dirname, "scrollToElement.spec.js"),
@@ -31,40 +33,8 @@ exports.config = merge(profile.config, {
     ["static-server", {
       port: 34005,
       folders: [{
-        mount: "/waitForElements.html",
-        path: path.resolve(__dirname, "../../../helper/website/waitForElements.html")
-      },
-      {
-        mount: "/buttons.html",
-        path: path.resolve(__dirname, "../../../helper/website/buttons.html")
-      },
-      {
-        mount: "/checkBox.html",
-        path: path.resolve(__dirname, "../../../helper/website/checkBox.html")
-      },
-      {
-        mount: "/dropdown.html",
-        path: path.resolve(__dirname, "../../../helper/website/dropdown.html")
-      },
-      {
-        mount: "/forms.html",
-        path: path.resolve(__dirname, "../../../helper/website/forms.html")
-      },
-      {
-        mount: "/scrollPage.html",
-        path: path.resolve(__dirname, "../../../helper/website/scrollPage.html")
-      },
-      {
-        mount: "/tables.html",
-        path: path.resolve(__dirname, "../../../helper/website/tables.html")
-      },
-      {
-        mount: "/dragAndDropWdioExample.html",
-        path: path.resolve(__dirname, "../../../helper/website/dragAndDropWdioExample.html")
-      },
-      {
-        mount: "/dragAndDropFailing.html",
-        path: path.resolve(__dirname, "../../../helper/website/dragAndDropFailing.html")
+        mount: "/",
+        path: path.resolve(__dirname, "../../../helper/website")
       }
       ]
     }]

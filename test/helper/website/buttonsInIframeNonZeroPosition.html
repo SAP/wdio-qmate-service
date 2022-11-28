@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="main.css">
+
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-light ">
+    <a class="navbar-brand" href="#">Non ui5 testing inside iframe</a>
+  </nav>
+
+  <div class="container-fluid">
+    <div style="position: absolute; display: block; width: 100%; height: 800px;">
+      <!--this iframe is at a non-zero position, since the main page has other content-->
+      <iframe src="./buttons.html" title="Buttons" style="width: 100%; height: 100%;" id="buttonsIframe">
+      </iframe>
+    </div>
+  </div>
+</body>
+
+</html>
