@@ -167,6 +167,7 @@ export class UserInteraction {
       async (selector: any, index: number, timeout: number) => {
         const arrowSelector = {
           elementProperties: {
+            viewName: selector.elementProperties.viewName,
             metadata: "sap.ui.core.Icon",
             src: "sap-icon://slim-arrow-down"
           },
