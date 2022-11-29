@@ -177,12 +177,12 @@ export class UserInteraction {
 
         const menuItemSelector = {
           elementProperties: {
-            viewName: "sap.ui.documentation.sdk.view.SubApiDetail",
+            viewName: selector.elementProperties.viewName,
             metadata: "sap.ui.unified.MenuItem",
             text: value
           }
         };
-        await ui5.userInteraction.click(menuItemSelector, index, timeout);
+        await ui5.userInteraction.click(menuItemSelector, 0, timeout);
 
         const tabSwitchedSuccessfully: boolean = await this._verifyTabSwitch(selector);
         if (tabSwitchedSuccessfully === false) {
