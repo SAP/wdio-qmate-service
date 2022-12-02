@@ -25,7 +25,6 @@
 module.exports = {
   decycle: function decycle(object, replacer) {
     "use strict";
-    const MAX_DEPTH = 50;
     // Make a deep copy of an object or array, assuring that there is at most
     // one instance of each object or array in the resulting structure. The
     // duplicate references (which might be forming cycles) are replaced with
@@ -52,8 +51,7 @@ module.exports = {
 
     var objects = new WeakMap();     // object to path mappings
 
-    return (function derez(value, path, depth) {
-      if (depth > MAX_DEPTH) return null;
+    return (function derez(value, path) {
       // The derez function recurses through the object, producing the deep copy.
 
       var old_path;   // The path of an earlier occurance of value
@@ -96,7 +94,7 @@ module.exports = {
         if (Array.isArray(value)) {
           nu = [];
           value.forEach(function (element, i) {
-            nu[i] = derez(element, path + "[" + i + "]", depth ? depth + 1 : 1);
+            nu[i] = derez(element, path + "[" + i + "]");
           });
         } else {
 
@@ -104,11 +102,16 @@ module.exports = {
 
           nu = {};
           Object.keys(value).forEach(function (name) {
-            nu[name] = derez(
-              value[name],
-              path + "[" + JSON.stringify(name) + "]",
-              depth ? depth + 1 : 1
-            );
+            // remove unnecessary properties
+            if (name === "undefined" || name === "oPropagatedProperties" || name === "oParent") {
+              nu[name] = null;
+            }
+            else {
+              nu[name] = derez(
+                value[name],
+                path + "[" + JSON.stringify(name) + "]"
+              );
+            }
           });
         }
         return nu;
