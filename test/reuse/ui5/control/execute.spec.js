@@ -1,7 +1,7 @@
 "use strict";
 
-describe("execute - check name is Accessories - use element", async () => {
-  let title, titleSel, titleSelOptions;
+describe("execute - check updated title is 'whatsUp2' - pass element", async () => {
+  let title;
   const newTitle = "whatsUp2";
   it("Preparation", async () => {
     const url = await util.browser.getBaseUrl();
@@ -21,21 +21,13 @@ describe("execute - check name is Accessories - use element", async () => {
       control.setTitle(txt);
       done(control.getTitle());
     }, elem, newTitle);
-    titleSel = await ui5.control.execute(function (control, txt, done) {
-      control.setTitle(txt);
-      done(control.getTitle());
-    }, selector, newTitle);
-    titleSelOptions = await ui5.control.execute(function (control, txt, done) {
-      control.setTitle(txt);
-      done(control.getTitle());
-    }, {selector: selector, index: 0, timeout: 30000}, newTitle);
   });
 
   it("Verification", () => {
     common.assertion.expectEqual(title, newTitle);
   });
 });
-describe("execute - check name is Accessories - use selector", async () => {
+describe("execute - check updated title is 'whatsUp2' - pass selector", async () => {
   let title;
   const newTitle = "whatsUp2";
   it("Preparation", async () => {
@@ -61,7 +53,7 @@ describe("execute - check name is Accessories - use selector", async () => {
     common.assertion.expectEqual(title, newTitle);
   });
 });
-describe("execute - check name is Accessories - use selector with options", async () => {
+describe("execute - check updated title is 'whatsUp2' - pass selector with options", async () => {
   let title;
   const newTitle = "whatsUp2";
   it("Preparation", async () => {
