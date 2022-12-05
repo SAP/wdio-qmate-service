@@ -1,7 +1,7 @@
 "use strict";
 
 import { Element } from "../../../../@types/wdio";
-import { Ui5Selector, Ui5SelectorOptions } from "./types/control.types";
+import { Ui5Selector, Ui5SelectorOptions } from "./types/ui5.types";
 
 /**
  * @class control
