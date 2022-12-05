@@ -1,6 +1,6 @@
 "use strict";
 
-describe("getBindingContextPathProperty", async () => {
+describe("getBindingContextPathProperty - check binding context path is /ProductCategories('AC')", async () => {
   let bindingContextPath, bindingContextPathSelector, bindingContextPathSelectorOptions;
   it("Preparation", async () => {
     const url = await util.browser.getBaseUrl();

@@ -1,7 +1,7 @@
 "use strict";
 const { handleCookiesConsent } = require("../../../helper/utils");
 
-describe("getAggregationProperty - check name is Accessories", async () => {
+describe("getAggregationProperty - check tooltip property is 'Open category Accessories'", async () => {
   let val, valElem, valSelOptions;
   it("Preparation", async () => {
     const url = await util.browser.getBaseUrl();

@@ -1,6 +1,6 @@
 "use strict";
 
-describe("getProperty - check name is Accessories reuse", async () => {
+describe("getProperty - check title is Accessories", async () => {
   let val, valSelector, valSelectorOptions;
   it("Preparation", async () => {
     const url = await util.browser.getBaseUrl();
