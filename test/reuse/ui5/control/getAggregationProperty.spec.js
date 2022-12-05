@@ -2,7 +2,7 @@
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("getAggregationProperty - check name is Accessories", async () => {
-  let val;
+  let val, valElem, valSelOptions;
   it("Preparation", async () => {
     const url = await util.browser.getBaseUrl();
     await common.navigation.navigateToUrl(url);
@@ -22,10 +22,15 @@ describe("getAggregationProperty - check name is Accessories", async () => {
       }
     };
     val = await ui5.control.getAggregationProperty(selector, "tooltip");
+    const elem = await ui5.element.getDisplayed(selector);
+    valElem = await ui5.control.getAggregationProperty(elem, "tooltip");
+    valSelOptions = await ui5.control.getAggregationProperty({selector: selector, index: 0, timeout: 30000}, "tooltip");
   });
 
   it("Verification", () => {
     common.assertion.expectEqual(val, "Open category Accessories");
+    common.assertion.expectEqual(valElem, "Open category Accessories");
+    common.assertion.expectEqual(valSelOptions, "Open category Accessories");
   });
 });
 
