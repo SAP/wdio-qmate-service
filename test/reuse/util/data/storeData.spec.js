@@ -1,12 +1,13 @@
 describe("data - storeData", function () {
   it("Execution", function () {
     const data = { test: "TEST" };
-    const source = "store";
-    util.data.storeData(data, source);
+    const target = "store";
+    util.data.storeData(data, target);
   });
 
-  it("Verification", function () {
-    const dataAct = util.data.getData("store");
+  it("Verification", async function () {
+    await util.browser.sleep(5000); // wait for file stored
+    const dataAct = util.data.getData("store").test;
     const dataExp = "TEST";
     common.assertion.expectEqual(dataAct, dataExp);
   });
