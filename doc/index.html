@@ -772,15 +772,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#datagetdatafilename-string" class="md-nav__link">
-    data.getData(filename) ⇒ String
+  <a href="#datagetdatafilename-source-string" class="md-nav__link">
+    data.getData(filename, [source]) ⇒ String
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#datagetsecuredatafilename-string" class="md-nav__link">
-    data.getSecureData(filename) ⇒ String
+  <a href="#datagetsecuredatafilename-source-string" class="md-nav__link">
+    data.getSecureData(filename, [source]) ⇒ String
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datastoredatadata-source" class="md-nav__link">
+    data.storeData(data, source)
   </a>
   
 </li>
@@ -1163,36 +1170,36 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#controlgetpropertyelem-propertyname" class="md-nav__link">
-    control.getProperty(elem, propertyName)
+  <a href="#controlgetpropertyselectororelement-propertyname" class="md-nav__link">
+    control.getProperty(selectorOrElement, propertyName)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#controlgetaggregationpropertyelem-propertyname" class="md-nav__link">
-    control.getAggregationProperty(elem, propertyName)
+  <a href="#controlgetaggregationpropertyselectororelement-propertyname" class="md-nav__link">
+    control.getAggregationProperty(selectorOrElement, propertyName)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#controlgetassociationpropertyelem-propertyname" class="md-nav__link">
-    control.getAssociationProperty(elem, propertyName)
+  <a href="#controlgetassociationpropertyselectororelement-propertyname" class="md-nav__link">
+    control.getAssociationProperty(selectorOrElement, propertyName)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#controlgetbindingcontextpathpropertyelem" class="md-nav__link">
-    control.getBindingContextPathProperty(elem)
+  <a href="#controlgetbindingcontextpathpropertyselectororelement" class="md-nav__link">
+    control.getBindingContextPathProperty(selectorOrElement)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#controlgetpropertybindingelem-propertyname-array" class="md-nav__link">
-    control.getPropertyBinding(elem, propertyName) ⇒ Array
+  <a href="#controlgetpropertybindingselectororelement-propertyname-array" class="md-nav__link">
+    control.getPropertyBinding(selectorOrElement, propertyName) ⇒ Array
   </a>
   
 </li>
@@ -1722,7 +1729,7 @@
         
           <li class="md-nav__item">
   <a href="#sessionlogincustomviaconfigusername-password-verify" class="md-nav__link">
-    session.loginCustomViaConfig(username, password, [verify])
+    session.loginCustomViaConfig(username, [password], [verify])
   </a>
   
 </li>
@@ -1810,8 +1817,29 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#userinteractiondoubleclickselector-index-timeout" class="md-nav__link">
+    userInteraction.doubleClick(selector, [index], [timeout])
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userinteractionrightclickselector-index-timeout" class="md-nav__link">
+    userInteraction.rightClick(selector, [index], [timeout])
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#userinteractionclicktabselector-index-timeout" class="md-nav__link">
     userInteraction.clickTab(selector, [index], [timeout])
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userinteractionselectfromtabselector-value-index-timeout" class="md-nav__link">
+    userInteraction.selectFromTab(selector, value, [index], [timeout])
   </a>
   
 </li>
@@ -1959,20 +1987,6 @@
           <li class="md-nav__item">
   <a href="#userinteractionresetsearchselector-index-timeout" class="md-nav__link">
     userInteraction.resetSearch(selector, [index], [timeout])
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#userinteractiondoubleclickselector-index-timeout" class="md-nav__link">
-    userInteraction.doubleClick(selector, [index], [timeout])
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#userinteractionrightclickselector-index-timeout" class="md-nav__link">
-    userInteraction.rightClick(selector, [index], [timeout])
   </a>
   
 </li>
@@ -3355,15 +3369,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#datagetdatafilename-string" class="md-nav__link">
-    data.getData(filename) ⇒ String
+  <a href="#datagetdatafilename-source-string" class="md-nav__link">
+    data.getData(filename, [source]) ⇒ String
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#datagetsecuredatafilename-string" class="md-nav__link">
-    data.getSecureData(filename) ⇒ String
+  <a href="#datagetsecuredatafilename-source-string" class="md-nav__link">
+    data.getSecureData(filename, [source]) ⇒ String
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datastoredatadata-source" class="md-nav__link">
+    data.storeData(data, source)
   </a>
   
 </li>
@@ -3746,36 +3767,36 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#controlgetpropertyelem-propertyname" class="md-nav__link">
-    control.getProperty(elem, propertyName)
+  <a href="#controlgetpropertyselectororelement-propertyname" class="md-nav__link">
+    control.getProperty(selectorOrElement, propertyName)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#controlgetaggregationpropertyelem-propertyname" class="md-nav__link">
-    control.getAggregationProperty(elem, propertyName)
+  <a href="#controlgetaggregationpropertyselectororelement-propertyname" class="md-nav__link">
+    control.getAggregationProperty(selectorOrElement, propertyName)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#controlgetassociationpropertyelem-propertyname" class="md-nav__link">
-    control.getAssociationProperty(elem, propertyName)
+  <a href="#controlgetassociationpropertyselectororelement-propertyname" class="md-nav__link">
+    control.getAssociationProperty(selectorOrElement, propertyName)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#controlgetbindingcontextpathpropertyelem" class="md-nav__link">
-    control.getBindingContextPathProperty(elem)
+  <a href="#controlgetbindingcontextpathpropertyselectororelement" class="md-nav__link">
+    control.getBindingContextPathProperty(selectorOrElement)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#controlgetpropertybindingelem-propertyname-array" class="md-nav__link">
-    control.getPropertyBinding(elem, propertyName) ⇒ Array
+  <a href="#controlgetpropertybindingselectororelement-propertyname-array" class="md-nav__link">
+    control.getPropertyBinding(selectorOrElement, propertyName) ⇒ Array
   </a>
   
 </li>
@@ -4305,7 +4326,7 @@
         
           <li class="md-nav__item">
   <a href="#sessionlogincustomviaconfigusername-password-verify" class="md-nav__link">
-    session.loginCustomViaConfig(username, password, [verify])
+    session.loginCustomViaConfig(username, [password], [verify])
   </a>
   
 </li>
@@ -4393,8 +4414,29 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#userinteractiondoubleclickselector-index-timeout" class="md-nav__link">
+    userInteraction.doubleClick(selector, [index], [timeout])
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userinteractionrightclickselector-index-timeout" class="md-nav__link">
+    userInteraction.rightClick(selector, [index], [timeout])
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#userinteractionclicktabselector-index-timeout" class="md-nav__link">
     userInteraction.clickTab(selector, [index], [timeout])
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userinteractionselectfromtabselector-value-index-timeout" class="md-nav__link">
+    userInteraction.selectFromTab(selector, value, [index], [timeout])
   </a>
   
 </li>
@@ -4542,20 +4584,6 @@
           <li class="md-nav__item">
   <a href="#userinteractionresetsearchselector-index-timeout" class="md-nav__link">
     userInteraction.resetSearch(selector, [index], [timeout])
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#userinteractiondoubleclickselector-index-timeout" class="md-nav__link">
-    userInteraction.doubleClick(selector, [index], [timeout])
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#userinteractionrightclickselector-index-timeout" class="md-nav__link">
-    userInteraction.rightClick(selector, [index], [timeout])
   </a>
   
 </li>
@@ -5915,8 +5943,9 @@
 </ul>
 </li>
 <li><a href="#util.data">.data</a><ul>
-<li><a href="#util.data.getData">.getData(filename)</a> ⇒ <code>String</code></li>
-<li><a href="#util.data.getSecureData">.getSecureData(filename)</a> ⇒ <code>String</code></li>
+<li><a href="#util.data.getData">.getData(filename, [source])</a> ⇒ <code>String</code></li>
+<li><a href="#util.data.getSecureData">.getSecureData(filename, [source])</a> ⇒ <code>String</code></li>
+<li><a href="#util.data.storeData">.storeData(data, source)</a></li>
 <li><a href="#util.data.decrypt">.decrypt(data)</a> ⇒ <code>String</code></li>
 </ul>
 </li>
@@ -6447,14 +6476,15 @@
 <p><strong>Kind</strong>: static class of <a href="#util"><code>util</code></a>  </p>
 <ul>
 <li><a href="#util.data">.data</a><ul>
-<li><a href="#util.data.getData">.getData(filename)</a> ⇒ <code>String</code></li>
-<li><a href="#util.data.getSecureData">.getSecureData(filename)</a> ⇒ <code>String</code></li>
+<li><a href="#util.data.getData">.getData(filename, [source])</a> ⇒ <code>String</code></li>
+<li><a href="#util.data.getSecureData">.getSecureData(filename, [source])</a> ⇒ <code>String</code></li>
+<li><a href="#util.data.storeData">.storeData(data, source)</a></li>
 <li><a href="#util.data.decrypt">.decrypt(data)</a> ⇒ <code>String</code></li>
 </ul>
 </li>
 </ul>
 <p><a name="util.data.getData"></a></p>
-<h4 id="datagetdatafilename-string">data.getData(filename) ⇒ <code>String</code></h4>
+<h4 id="datagetdatafilename-source-string">data.getData(filename, [source]) ⇒ <code>String</code></h4>
 <p>Returns the data object with the given filename (JSON, stored in data folder).</p>
 <p><strong>Kind</strong>: static method of <a href="#util.data"><code>data</code></a><br />
 <strong>Returns</strong>: <code>String</code> - The data object.  </p>
@@ -6463,6 +6493,7 @@
 <tr>
 <th>Param</th>
 <th>Type</th>
+<th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -6470,7 +6501,14 @@
 <tr>
 <td>filename</td>
 <td><code>String</code></td>
+<td></td>
 <td>The name of the data file.</td>
+</tr>
+<tr>
+<td>[source]</td>
+<td><code>String</code></td>
+<td><code>data</code></td>
+<td>The source key defined under params.import of the config file.</td>
 </tr>
 </tbody>
 </table>
@@ -6478,10 +6516,41 @@
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">getData</span><span class="p">(</span><span class="s2">&quot;myTest&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="util.data.getSecureData"></a></p>
-<h4 id="datagetsecuredatafilename-string">data.getSecureData(filename) ⇒ <code>String</code></h4>
+<h4 id="datagetsecuredatafilename-source-string">data.getSecureData(filename, [source]) ⇒ <code>String</code></h4>
 <p>Returns and encrypts the data object with the given filename (JSON, stored in data folder). Will return the local file object if private key is not accessible.</p>
 <p><strong>Kind</strong>: static method of <a href="#util.data"><code>data</code></a><br />
 <strong>Returns</strong>: <code>String</code> - The encrypted or local data object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filename</td>
+<td><code>String</code></td>
+<td></td>
+<td>The name of the data file (without suffix '.secure' or '.local').</td>
+</tr>
+<tr>
+<td>[source]</td>
+<td><code>String</code></td>
+<td><code>data</code></td>
+<td>The source key defined under params.import of the config file.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">secureData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">getSecureData</span><span class="p">(</span><span class="s2">&quot;myTest&quot;</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<a name="util.data.storeData"></a></p>
+<h4 id="datastoredatadata-source">data.storeData(data, source)</h4>
+<p>Stores the passed data object persistently in a JSON file under the specified path.</p>
+<p><strong>Kind</strong>: static method of <a href="#util.data"><code>data</code></a>  </p>
 <table>
 <thead>
 <tr>
@@ -6492,14 +6561,22 @@
 </thead>
 <tbody>
 <tr>
-<td>filename</td>
+<td>data</td>
+<td><code>Object</code> | <code>Array</code></td>
+<td>The data object/array to write.</td>
+</tr>
+<tr>
+<td>source</td>
 <td><code>String</code></td>
-<td>The name of the data file (without suffix '.secure' or '.local').</td>
+<td>The source key of the filepath defined under params.export of the config file.</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">secureData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">getSecureData</span><span class="p">(</span><span class="s2">&quot;myTest&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w"> </span><span class="s2">&quot;purchaseOrderNumber&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;0123456789&quot;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+<span class="nx">util</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">storeData</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;myData&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="util.data.decrypt"></a></p>
 <h4 id="datadecryptdata-string">data.decrypt(data) ⇒ <code>String</code></h4>
@@ -7058,11 +7135,11 @@
 </li>
 <li><a href="#ui5.control">.control</a><ul>
 <li><a href="#ui5.control.execute">.execute(callbackFunction, selectorOrElement, args)</a></li>
-<li><a href="#ui5.control.getProperty">.getProperty(elem, propertyName)</a></li>
-<li><a href="#ui5.control.getAggregationProperty">.getAggregationProperty(elem, propertyName)</a></li>
-<li><a href="#ui5.control.getAssociationProperty">.getAssociationProperty(elem, propertyName)</a></li>
-<li><a href="#ui5.control.getBindingContextPathProperty">.getBindingContextPathProperty(elem)</a></li>
-<li><a href="#ui5.control.getPropertyBinding">.getPropertyBinding(elem, propertyName)</a> ⇒ <code>Array</code></li>
+<li><a href="#ui5.control.getProperty">.getProperty(selectorOrElement, propertyName)</a></li>
+<li><a href="#ui5.control.getAggregationProperty">.getAggregationProperty(selectorOrElement, propertyName)</a></li>
+<li><a href="#ui5.control.getAssociationProperty">.getAssociationProperty(selectorOrElement, propertyName)</a></li>
+<li><a href="#ui5.control.getBindingContextPathProperty">.getBindingContextPathProperty(selectorOrElement)</a></li>
+<li><a href="#ui5.control.getPropertyBinding">.getPropertyBinding(selectorOrElement, propertyName)</a> ⇒ <code>Array</code></li>
 </ul>
 </li>
 <li><a href="#ui5.date">.date</a><ul>
@@ -7148,7 +7225,7 @@
 <li><a href="#ui5.session.loginFiori">.loginFiori(username, [password], [verify])</a></li>
 <li><a href="#ui5.session.loginSapCloud">.loginSapCloud(username, [password], [verify])</a></li>
 <li><a href="#ui5.session.loginCustom">.loginCustom(username, [password], usernameFieldSelector, passwordFieldSelector, logonButtonSelector, [verify])</a></li>
-<li><a href="#ui5.session.loginCustomViaConfig">.loginCustomViaConfig(username, password, [verify])</a></li>
+<li><a href="#ui5.session.loginCustomViaConfig">.loginCustomViaConfig(username, [password], [verify])</a></li>
 <li><a href="#ui5.session.logout">.logout([verify])</a></li>
 <li><a href="#ui5.session.switchUser">.switchUser(username, [password], [authenticator], [wait])</a></li>
 <li><a href="#ui5.session.expectLogoutText">.expectLogoutText()</a></li>
@@ -7163,7 +7240,10 @@
 <li><a href="#ui5.userInteraction">.userInteraction</a><ul>
 <li><a href="#ui5.userInteraction.click">.click(selector, [index], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.clickAndRetry">.clickAndRetry(selector, [index], [timeout], [retries], [interval])</a></li>
+<li><a href="#ui5.userInteraction.doubleClick">.doubleClick(selector, [index], [timeout])</a></li>
+<li><a href="#ui5.userInteraction.rightClick">.rightClick(selector, [index], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.clickTab">.clickTab(selector, [index], [timeout])</a></li>
+<li><a href="#ui5.userInteraction.selectFromTab">.selectFromTab(selector, value, [index], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.clickListItem">.clickListItem(selector, [index], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.fill">.fill(selector, value, [index], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.fillAndRetry">.fillAndRetry(selector, value, [index], [timeout], [retries], [interval])</a></li>
@@ -7185,8 +7265,6 @@
 <li><a href="#ui5.userInteraction.openF4Help">.openF4Help(selector, [index], [timeout], useF4Key)</a></li>
 <li><a href="#ui5.userInteraction.searchFor">.searchFor(selector, [index], [timeout], useEnter)</a></li>
 <li><a href="#ui5.userInteraction.resetSearch">.resetSearch(selector, [index], [timeout])</a></li>
-<li><a href="#ui5.userInteraction.doubleClick">.doubleClick(selector, [index], [timeout])</a></li>
-<li><a href="#ui5.userInteraction.rightClick">.rightClick(selector, [index], [timeout])</a></li>
 </ul>
 </li>
 </ul>
@@ -8114,11 +8192,11 @@
 <ul>
 <li><a href="#ui5.control">.control</a><ul>
 <li><a href="#ui5.control.execute">.execute(callbackFunction, selectorOrElement, args)</a></li>
-<li><a href="#ui5.control.getProperty">.getProperty(elem, propertyName)</a></li>
-<li><a href="#ui5.control.getAggregationProperty">.getAggregationProperty(elem, propertyName)</a></li>
-<li><a href="#ui5.control.getAssociationProperty">.getAssociationProperty(elem, propertyName)</a></li>
-<li><a href="#ui5.control.getBindingContextPathProperty">.getBindingContextPathProperty(elem)</a></li>
-<li><a href="#ui5.control.getPropertyBinding">.getPropertyBinding(elem, propertyName)</a> ⇒ <code>Array</code></li>
+<li><a href="#ui5.control.getProperty">.getProperty(selectorOrElement, propertyName)</a></li>
+<li><a href="#ui5.control.getAggregationProperty">.getAggregationProperty(selectorOrElement, propertyName)</a></li>
+<li><a href="#ui5.control.getAssociationProperty">.getAssociationProperty(selectorOrElement, propertyName)</a></li>
+<li><a href="#ui5.control.getBindingContextPathProperty">.getBindingContextPathProperty(selectorOrElement)</a></li>
+<li><a href="#ui5.control.getPropertyBinding">.getPropertyBinding(selectorOrElement, propertyName)</a> ⇒ <code>Array</code></li>
 </ul>
 </li>
 </ul>
@@ -8142,8 +8220,8 @@
 </tr>
 <tr>
 <td>selectorOrElement</td>
-<td><code>String</code> | <code>Object</code></td>
-<td>The selector object or the dom element (retrieved from getDisplayedElement).</td>
+<td><code>Element</code> | <code>Ui5Selector</code> | <code>Ui5SelectorWithOptions</code></td>
+<td>The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed).</td>
 </tr>
 <tr>
 <td>args</td>
@@ -8160,7 +8238,7 @@
 <span class="p">},</span><span class="w"> </span><span class="nx">selector</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="ui5.control.getProperty"></a></p>
-<h4 id="controlgetpropertyelem-propertyname">control.getProperty(elem, propertyName)</h4>
+<h4 id="controlgetpropertyselectororelement-propertyname">control.getProperty(selectorOrElement, propertyName)</h4>
 <p>Gets the UI5 control property of the given element.</p>
 <p><strong>Kind</strong>: static method of <a href="#ui5.control"><code>control</code></a>  </p>
 <table>
@@ -8173,9 +8251,9 @@
 </thead>
 <tbody>
 <tr>
-<td>elem</td>
-<td><code>Object</code></td>
-<td>The element.</td>
+<td>selectorOrElement</td>
+<td><code>Element</code> | <code>Ui5Selector</code> | <code>Ui5SelectorWithOptions</code></td>
+<td>The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed)</td>
 </tr>
 <tr>
 <td>propertyName</td>
@@ -8186,12 +8264,12 @@
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">selector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;elementProperties&quot;</span><span class="o">:</span><span class="p">{</span><span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="s2">&quot;sap.m.StandardListItem&quot;</span><span class="p">,</span><span class="s2">&quot;mProperties&quot;</span><span class="o">:</span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="p">[{</span><span class="s2">&quot;path&quot;</span><span class="o">:</span><span class="s2">&quot;CategoryName&quot;</span><span class="p">}]</span><span class="w"> </span><span class="p">}};</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">locator</span><span class="p">.</span><span class="nx">getDisplayedElement</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getDisplayed</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">propertyName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;title&quot;</span><span class="p">;</span><span class="w"></span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">getProperty</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="nx">propertyName</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="ui5.control.getAggregationProperty"></a></p>
-<h4 id="controlgetaggregationpropertyelem-propertyname">control.getAggregationProperty(elem, propertyName)</h4>
+<h4 id="controlgetaggregationpropertyselectororelement-propertyname">control.getAggregationProperty(selectorOrElement, propertyName)</h4>
 <p>Gets the UI5 control aggregation property  of the given element.</p>
 <p><strong>Kind</strong>: static method of <a href="#ui5.control"><code>control</code></a>  </p>
 <table>
@@ -8204,9 +8282,9 @@
 </thead>
 <tbody>
 <tr>
-<td>elem</td>
-<td><code>Object</code></td>
-<td>The element.</td>
+<td>selectorOrElement</td>
+<td><code>Element</code> | <code>Ui5Selector</code> | <code>Ui5SelectorWithOptions</code></td>
+<td>The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed)</td>
 </tr>
 <tr>
 <td>propertyName</td>
@@ -8217,12 +8295,12 @@
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">selector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;elementProperties&quot;</span><span class="o">:</span><span class="p">{</span><span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="s2">&quot;sap.m.StandardListItem&quot;</span><span class="p">,</span><span class="s2">&quot;mProperties&quot;</span><span class="o">:</span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;items&quot;</span><span class="o">:</span><span class="p">[{</span><span class="s2">&quot;path&quot;</span><span class="o">:</span><span class="s2">&quot;/Categories&quot;</span><span class="p">}]</span><span class="w"> </span><span class="p">}};</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">locator</span><span class="p">.</span><span class="nx">getDisplayedElement</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getDisplayed</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">propertyName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tooltip&quot;</span><span class="p">;</span><span class="w"></span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">getAggregationProperty</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="nx">propertyName</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="ui5.control.getAssociationProperty"></a></p>
-<h4 id="controlgetassociationpropertyelem-propertyname">control.getAssociationProperty(elem, propertyName)</h4>
+<h4 id="controlgetassociationpropertyselectororelement-propertyname">control.getAssociationProperty(selectorOrElement, propertyName)</h4>
 <p>Get UI control property</p>
 <p><strong>Kind</strong>: static method of <a href="#ui5.control"><code>control</code></a>  </p>
 <table>
@@ -8235,9 +8313,9 @@
 </thead>
 <tbody>
 <tr>
-<td>elem</td>
-<td><code>Object</code></td>
-<td>The element.</td>
+<td>selectorOrElement</td>
+<td><code>Element</code> | <code>Ui5Selector</code> | <code>Ui5SelectorWithOptions</code></td>
+<td>The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed)</td>
 </tr>
 <tr>
 <td>propertyName</td>
@@ -8248,12 +8326,12 @@
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">selector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;elementProperties&quot;</span><span class="o">:</span><span class="p">{</span><span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="s2">&quot;sap.m.MultiComboBox&quot;</span><span class="p">,</span><span class="s2">&quot;mProperties&quot;</span><span class="o">:</span><span class="p">{}};</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">locator</span><span class="p">.</span><span class="nx">getDisplayedElement</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getDisplayed</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">propertyName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;selectedItems&quot;</span><span class="p">;</span><span class="w"></span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">propertyValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">getAssociationProperty</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="nx">propertyName</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="ui5.control.getBindingContextPathProperty"></a></p>
-<h4 id="controlgetbindingcontextpathpropertyelem">control.getBindingContextPathProperty(elem)</h4>
+<h4 id="controlgetbindingcontextpathpropertyselectororelement">control.getBindingContextPathProperty(selectorOrElement)</h4>
 <p>Get UI control binding context path</p>
 <p><strong>Kind</strong>: static method of <a href="#ui5.control"><code>control</code></a>  </p>
 <table>
@@ -8266,19 +8344,19 @@
 </thead>
 <tbody>
 <tr>
-<td>elem</td>
-<td><code>Object</code></td>
-<td>The element.</td>
+<td>selectorOrElement</td>
+<td><code>Element</code> | <code>Ui5Selector</code> | <code>Ui5SelectorWithOptions</code></td>
+<td>The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed)</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">selector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;elementProperties&quot;</span><span class="o">:</span><span class="p">{</span><span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="s2">&quot;sap.m.StandardListItem&quot;</span><span class="p">,</span><span class="s2">&quot;mProperties&quot;</span><span class="o">:</span><span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="p">[{</span><span class="s2">&quot;path&quot;</span><span class="o">:</span><span class="s2">&quot;CategoryName&quot;</span><span class="p">}]</span><span class="w"> </span><span class="p">}};</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">locator</span><span class="p">.</span><span class="nx">getDisplayedElement</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getDisplayed</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">getBindingContextPathProperty</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="ui5.control.getPropertyBinding"></a></p>
-<h4 id="controlgetpropertybindingelem-propertyname-array">control.getPropertyBinding(elem, propertyName) ⇒ <code>Array</code></h4>
+<h4 id="controlgetpropertybindingselectororelement-propertyname-array">control.getPropertyBinding(selectorOrElement, propertyName) ⇒ <code>Array</code></h4>
 <p>Get UI control property</p>
 <p><strong>Kind</strong>: static method of <a href="#ui5.control"><code>control</code></a><br />
 <strong>Returns</strong>: <code>Array</code> - Array of bindings for the specific property  </p>
@@ -8292,9 +8370,9 @@
 </thead>
 <tbody>
 <tr>
-<td>elem</td>
-<td><code>Object</code></td>
-<td>The element.</td>
+<td>selectorOrElement</td>
+<td><code>Element</code> | <code>Ui5Selector</code> | <code>Ui5SelectorWithOptions</code></td>
+<td>The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed)</td>
 </tr>
 <tr>
 <td>propertyName</td>
@@ -8305,7 +8383,7 @@
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">selector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;elementProperties&quot;</span><span class="o">:</span><span class="p">{</span><span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="s2">&quot;sap.m.StandardListItem&quot;</span><span class="p">,</span><span class="s2">&quot;mProperties&quot;</span><span class="o">:</span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="p">[{</span><span class="s2">&quot;path&quot;</span><span class="o">:</span><span class="s2">&quot;CategoryName&quot;</span><span class="p">}]</span><span class="w"> </span><span class="p">}};</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">locator</span><span class="p">.</span><span class="nx">getDisplayedElement</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getDisplayed</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">propertyName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;title&quot;</span><span class="p">;</span><span class="w"></span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">getPropertyBinding</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="nx">propertyName</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
@@ -10238,7 +10316,7 @@ This can be the case for Mocked tests when the application does not exist or whe
 <li><a href="#ui5.session.loginFiori">.loginFiori(username, [password], [verify])</a></li>
 <li><a href="#ui5.session.loginSapCloud">.loginSapCloud(username, [password], [verify])</a></li>
 <li><a href="#ui5.session.loginCustom">.loginCustom(username, [password], usernameFieldSelector, passwordFieldSelector, logonButtonSelector, [verify])</a></li>
-<li><a href="#ui5.session.loginCustomViaConfig">.loginCustomViaConfig(username, password, [verify])</a></li>
+<li><a href="#ui5.session.loginCustomViaConfig">.loginCustomViaConfig(username, [password], [verify])</a></li>
 <li><a href="#ui5.session.logout">.logout([verify])</a></li>
 <li><a href="#ui5.session.switchUser">.switchUser(username, [password], [authenticator], [wait])</a></li>
 <li><a href="#ui5.session.expectLogoutText">.expectLogoutText()</a></li>
@@ -10268,7 +10346,7 @@ This can be the case for Mocked tests when the application does not exist or whe
 <tr>
 <td>[password]</td>
 <td><code>String</code></td>
-<td><code>&quot;super-duper-sensitive-pw&quot;</code></td>
+<td></td>
 <td>The password.</td>
 </tr>
 <tr>
@@ -10314,7 +10392,7 @@ This can be the case for Mocked tests when the application does not exist or whe
 <tr>
 <td>[password]</td>
 <td><code>String</code></td>
-<td><code>&quot;super-duper-sensitive-pw&quot;</code></td>
+<td></td>
 <td>The password.</td>
 </tr>
 <tr>
@@ -10351,7 +10429,7 @@ This can be the case for Mocked tests when the application does not exist or whe
 <tr>
 <td>[password]</td>
 <td><code>String</code></td>
-<td><code>&quot;super-duper-sensitive-pw&quot;</code></td>
+<td></td>
 <td>The password.</td>
 </tr>
 <tr>
@@ -10421,7 +10499,7 @@ This can be the case for Mocked tests when the application does not exist or whe
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">loginCustom</span><span class="p">(</span><span class="s2">&quot;JOHN_DOE&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;abc123!&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;#username&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">#</span><span class="nx">password</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;#logon&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="ui5.session.loginCustomViaConfig"></a></p>
-<h4 id="sessionlogincustomviaconfigusername-password-verify">session.loginCustomViaConfig(username, password, [verify])</h4>
+<h4 id="sessionlogincustomviaconfigusername-password-verify">session.loginCustomViaConfig(username, [password], [verify])</h4>
 <p>Login with specific username and password. The selectors will be taken from the config.</p>
 <p><strong>Kind</strong>: static method of <a href="#ui5.session"><code>session</code></a>  </p>
 <table>
@@ -10441,9 +10519,9 @@ This can be the case for Mocked tests when the application does not exist or whe
 <td>The username. Can be specified in spec or config. If specified in both credentials will be taken from config.</td>
 </tr>
 <tr>
-<td>password</td>
+<td>[password]</td>
 <td><code>String</code></td>
-<td><code>&quot;super-duper-sensitive-pw&quot;</code></td>
+<td></td>
 <td>The password. Can be specified in spec or config. If specified in both credentials will be taken from config.</td>
 </tr>
 <tr>
@@ -10526,7 +10604,7 @@ This can be the case for Mocked tests when the application does not exist or whe
 <tr>
 <td>[password]</td>
 <td><code>String</code></td>
-<td><code>&quot;super-duper-sensitive-pw&quot;</code></td>
+<td></td>
 <td>The password.</td>
 </tr>
 <tr>
@@ -10685,7 +10763,10 @@ This is essential for chaining scripts, so that no static browser sleep in the s
 <li><a href="#ui5.userInteraction">.userInteraction</a><ul>
 <li><a href="#ui5.userInteraction.click">.click(selector, [index], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.clickAndRetry">.clickAndRetry(selector, [index], [timeout], [retries], [interval])</a></li>
+<li><a href="#ui5.userInteraction.doubleClick">.doubleClick(selector, [index], [timeout])</a></li>
+<li><a href="#ui5.userInteraction.rightClick">.rightClick(selector, [index], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.clickTab">.clickTab(selector, [index], [timeout])</a></li>
+<li><a href="#ui5.userInteraction.selectFromTab">.selectFromTab(selector, value, [index], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.clickListItem">.clickListItem(selector, [index], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.fill">.fill(selector, value, [index], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.fillAndRetry">.fillAndRetry(selector, value, [index], [timeout], [retries], [interval])</a></li>
@@ -10707,8 +10788,6 @@ This is essential for chaining scripts, so that no static browser sleep in the s
 <li><a href="#ui5.userInteraction.openF4Help">.openF4Help(selector, [index], [timeout], useF4Key)</a></li>
 <li><a href="#ui5.userInteraction.searchFor">.searchFor(selector, [index], [timeout], useEnter)</a></li>
 <li><a href="#ui5.userInteraction.resetSearch">.resetSearch(selector, [index], [timeout])</a></li>
-<li><a href="#ui5.userInteraction.doubleClick">.doubleClick(selector, [index], [timeout])</a></li>
-<li><a href="#ui5.userInteraction.rightClick">.rightClick(selector, [index], [timeout])</a></li>
 </ul>
 </li>
 </ul>
@@ -10798,6 +10877,81 @@ This is essential for chaining scripts, so that no static browser sleep in the s
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">clickAndRetry</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
+<a name="ui5.userInteraction.doubleClick"></a></p>
+<h4 id="userinteractiondoubleclickselector-index-timeout">userInteraction.doubleClick(selector, [index], [timeout])</h4>
+<p>Double Clicks on the passed element.</p>
+<p><strong>Kind</strong>: static method of <a href="#ui5.userInteraction"><code>userInteraction</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>selector</td>
+<td><code>Object</code></td>
+<td></td>
+<td>The selector describing the element.</td>
+</tr>
+<tr>
+<td>[index]</td>
+<td><code>Number</code></td>
+<td><code>0</code></td>
+<td>The index of the selector (in case there are more than one elements visible at the same time).</td>
+</tr>
+<tr>
+<td>[timeout]</td>
+<td><code>Number</code></td>
+<td><code>30000</code></td>
+<td>The timeout to wait (ms).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">doubleClick</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<a name="ui5.userInteraction.rightClick"></a></p>
+<h4 id="userinteractionrightclickselector-index-timeout">userInteraction.rightClick(selector, [index], [timeout])</h4>
+<p>Right Clicks on the passed element.</p>
+<p><strong>Kind</strong>: static method of <a href="#ui5.userInteraction"><code>userInteraction</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>selector</td>
+<td><code>Object</code></td>
+<td></td>
+<td>The selector describing the element.</td>
+</tr>
+<tr>
+<td>[index]</td>
+<td><code>Number</code></td>
+<td><code>0</code></td>
+<td>The index of the selector (in case there are more than one elements visible at the same time).</td>
+</tr>
+<tr>
+<td>[timeout]</td>
+<td><code>Number</code></td>
+<td><code>30000</code></td>
+<td>The timeout to wait (ms).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">rightClick</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
 <a name="ui5.userInteraction.clickTab"></a></p>
 <h4 id="userinteractionclicktabselector-index-timeout">userInteraction.clickTab(selector, [index], [timeout])</h4>
 <p>Clicks on the tab with the given selector and checks if the tab got selected successfully.
@@ -10835,6 +10989,50 @@ The function retries the click for maximal 3 times if the selection of the tab (
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">clickTab</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<a name="ui5.userInteraction.selectFromTab"></a></p>
+<h4 id="userinteractionselectfromtabselector-value-index-timeout">userInteraction.selectFromTab(selector, value, [index], [timeout])</h4>
+<p>Selects the passed value on the tab with the given selector and checks if the tab got selected successfully.
+The function retries the click for maximal 3 times if the selection of the tab (blue underline) was not successful.</p>
+<p><strong>Kind</strong>: static method of <a href="#ui5.userInteraction"><code>userInteraction</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>selector</td>
+<td><code>Object</code></td>
+<td></td>
+<td>The selector describing the element.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><code>String</code></td>
+<td></td>
+<td>The value to select.</td>
+</tr>
+<tr>
+<td>[index]</td>
+<td><code>Number</code></td>
+<td><code>0</code></td>
+<td>The index of the selector (in case there are more than one elements visible at the same time).</td>
+</tr>
+<tr>
+<td>[timeout]</td>
+<td><code>Number</code></td>
+<td><code>30000</code></td>
+<td>The timeout to wait (ms).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">selectFromTab</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="ui5.userInteraction.clickListItem"></a></p>
 <h4 id="userinteractionclicklistitemselector-index-timeout">userInteraction.clickListItem(selector, [index], [timeout])</h4>
@@ -11732,81 +11930,6 @@ In case that the search is already filled, it will reset the field first.</p>
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">resetSearch</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
-</code></pre></div>
-<a name="ui5.userInteraction.doubleClick"></a></p>
-<h4 id="userinteractiondoubleclickselector-index-timeout">userInteraction.doubleClick(selector, [index], [timeout])</h4>
-<p>Double Clicks on the passed element.</p>
-<p><strong>Kind</strong>: static method of <a href="#ui5.userInteraction"><code>userInteraction</code></a>  </p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>selector</td>
-<td><code>Object</code></td>
-<td></td>
-<td>The selector describing the element.</td>
-</tr>
-<tr>
-<td>[index]</td>
-<td><code>Number</code></td>
-<td><code>0</code></td>
-<td>The index of the selector (in case there are more than one elements visible at the same time).</td>
-</tr>
-<tr>
-<td>[timeout]</td>
-<td><code>Number</code></td>
-<td><code>30000</code></td>
-<td>The timeout to wait (ms).</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">doubleClick</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
-</code></pre></div>
-<a name="ui5.userInteraction.rightClick"></a></p>
-<h4 id="userinteractionrightclickselector-index-timeout">userInteraction.rightClick(selector, [index], [timeout])</h4>
-<p>Right Clicks on the passed element.</p>
-<p><strong>Kind</strong>: static method of <a href="#ui5.userInteraction"><code>userInteraction</code></a>  </p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>selector</td>
-<td><code>Object</code></td>
-<td></td>
-<td>The selector describing the element.</td>
-</tr>
-<tr>
-<td>[index]</td>
-<td><code>Number</code></td>
-<td><code>0</code></td>
-<td>The index of the selector (in case there are more than one elements visible at the same time).</td>
-</tr>
-<tr>
-<td>[timeout]</td>
-<td><code>Number</code></td>
-<td><code>30000</code></td>
-<td>The timeout to wait (ms).</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">rightClick</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5"></a></p>
 <h2 id="nonui5">nonUi5</h2>
