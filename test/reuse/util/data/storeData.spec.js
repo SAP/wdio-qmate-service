@@ -6,8 +6,7 @@ describe("data - storeData", function () {
   });
 
   it("Verification", function () {
-    const source = "customSourceData";
-    const dataAct = util.data.getData("store", source);
+    const dataAct = util.data.getData("store");
     const dataExp = "TEST";
     common.assertion.expectEqual(dataAct, dataExp);
   });

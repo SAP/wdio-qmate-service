@@ -14,7 +14,7 @@ exports.config = merge(profile.config, {
       customSourceData: "./customSourceData"
     },
     export: {
-      store: "./customSourceData/store.json"
+      store: "./data/store.json"
     }
   },
 
