@@ -574,8 +574,9 @@ Global namespace for util modules.
         * [.success(message)](#util.console.success)
         * [.info(message)](#util.console.info)
     * [.data](#util.data)
-        * [.getData(filename)](#util.data.getData) ⇒ <code>String</code>
-        * [.getSecureData(filename)](#util.data.getSecureData) ⇒ <code>String</code>
+        * [.getData(filename, [source])](#util.data.getData) ⇒ <code>String</code>
+        * [.getSecureData(filename, [source])](#util.data.getSecureData) ⇒ <code>String</code>
+        * [.storeData(data, source)](#util.data.storeData)
         * [.decrypt(data)](#util.data.decrypt) ⇒ <code>String</code>
     * [.file](#util.file)
         * [.upload(files, [selector])](#util.file.upload)
@@ -979,21 +980,23 @@ util.console.success("The document has been saved.");
 **Kind**: static class of [<code>util</code>](#util)  
 
 * [.data](#util.data)
-    * [.getData(filename)](#util.data.getData) ⇒ <code>String</code>
-    * [.getSecureData(filename)](#util.data.getSecureData) ⇒ <code>String</code>
+    * [.getData(filename, [source])](#util.data.getData) ⇒ <code>String</code>
+    * [.getSecureData(filename, [source])](#util.data.getSecureData) ⇒ <code>String</code>
+    * [.storeData(data, source)](#util.data.storeData)
     * [.decrypt(data)](#util.data.decrypt) ⇒ <code>String</code>
 
 <a name="util.data.getData"></a>
 
-#### data.getData(filename) ⇒ <code>String</code>
+#### data.getData(filename, [source]) ⇒ <code>String</code>
 Returns the data object with the given filename (JSON, stored in data folder).
 
 **Kind**: static method of [<code>data</code>](#util.data)  
 **Returns**: <code>String</code> - The data object.  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| filename | <code>String</code> | The name of the data file. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| filename | <code>String</code> |  | The name of the data file. |
+| [source] | <code>String</code> | <code>data</code> | The source key defined under params.import of the config file. |
 
 **Example**  
 ```js
@@ -1001,19 +1004,39 @@ const data = util.data.getData("myTest");
 ```
 <a name="util.data.getSecureData"></a>
 
-#### data.getSecureData(filename) ⇒ <code>String</code>
+#### data.getSecureData(filename, [source]) ⇒ <code>String</code>
 Returns and encrypts the data object with the given filename (JSON, stored in data folder). Will return the local file object if private key is not accessible.
 
 **Kind**: static method of [<code>data</code>](#util.data)  
 **Returns**: <code>String</code> - The encrypted or local data object.  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| filename | <code>String</code> | The name of the data file (without suffix '.secure' or '.local'). |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| filename | <code>String</code> |  | The name of the data file (without suffix '.secure' or '.local'). |
+| [source] | <code>String</code> | <code>data</code> | The source key defined under params.import of the config file. |
 
 **Example**  
 ```js
 const secureData = util.data.getSecureData("myTest");
+```
+<a name="util.data.storeData"></a>
+
+#### data.storeData(data, source)
+Stores the passed data object persistently in a JSON file under the specified path.
+
+**Kind**: static method of [<code>data</code>](#util.data)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>Object</code> \| <code>Array</code> | The data object/array to write. |
+| source | <code>String</code> | The source key of the filepath defined under params.export of the config file. |
+
+**Example**  
+```js
+const data = {
+ "purchaseOrderNumber": "0123456789"
+};
+util.data.storeData(data, "myData");
 ```
 <a name="util.data.decrypt"></a>
 
@@ -1444,7 +1467,7 @@ Global namespace for UI5 modules.
         * [.loginFiori(username, [password], [verify])](#ui5.session.loginFiori)
         * [.loginSapCloud(username, [password], [verify])](#ui5.session.loginSapCloud)
         * [.loginCustom(username, [password], usernameFieldSelector, passwordFieldSelector, logonButtonSelector, [verify])](#ui5.session.loginCustom)
-        * [.loginCustomViaConfig(username, password, [verify])](#ui5.session.loginCustomViaConfig)
+        * [.loginCustomViaConfig(username, [password], [verify])](#ui5.session.loginCustomViaConfig)
         * [.logout([verify])](#ui5.session.logout)
         * [.switchUser(username, [password], [authenticator], [wait])](#ui5.session.switchUser)
         * [.expectLogoutText()](#ui5.session.expectLogoutText)
@@ -3086,7 +3109,7 @@ await ui5.qunit.executeTests("path/to/qunit.html");
     * [.loginFiori(username, [password], [verify])](#ui5.session.loginFiori)
     * [.loginSapCloud(username, [password], [verify])](#ui5.session.loginSapCloud)
     * [.loginCustom(username, [password], usernameFieldSelector, passwordFieldSelector, logonButtonSelector, [verify])](#ui5.session.loginCustom)
-    * [.loginCustomViaConfig(username, password, [verify])](#ui5.session.loginCustomViaConfig)
+    * [.loginCustomViaConfig(username, [password], [verify])](#ui5.session.loginCustomViaConfig)
     * [.logout([verify])](#ui5.session.logout)
     * [.switchUser(username, [password], [authenticator], [wait])](#ui5.session.switchUser)
     * [.expectLogoutText()](#ui5.session.expectLogoutText)
@@ -3101,7 +3124,7 @@ Login with specific username and password. This function works for both fiori an
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | username | <code>String</code> |  | The username. |
-| [password] | <code>String</code> | <code>&quot;super-duper-sensitive-pw&quot;</code> | The password. |
+| [password] | <code>String</code> |  | The password. |
 | [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the function will check the shell header after logging in. |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
@@ -3123,7 +3146,7 @@ Login with fioriForm and specific username and password.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | username | <code>String</code> |  | The username. |
-| [password] | <code>String</code> | <code>&quot;super-duper-sensitive-pw&quot;</code> | The password. |
+| [password] | <code>String</code> |  | The password. |
 | [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the function will check the shell header after logging in. |
 
 **Example**  
@@ -3140,7 +3163,7 @@ Login with sapCloud form and specific username and password.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | username | <code>String</code> |  | The username. |
-| [password] | <code>String</code> | <code>&quot;super-duper-sensitive-pw&quot;</code> | The password. |
+| [password] | <code>String</code> |  | The password. |
 | [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the function will check the shell header after logging in. |
 
 **Example**  
@@ -3169,7 +3192,7 @@ await ui5.session.loginCustom("JOHN_DOE", "abc123!", "#username", #password, "#l
 ```
 <a name="ui5.session.loginCustomViaConfig"></a>
 
-#### session.loginCustomViaConfig(username, password, [verify])
+#### session.loginCustomViaConfig(username, [password], [verify])
 Login with specific username and password. The selectors will be taken from the config.
 
 **Kind**: static method of [<code>session</code>](#ui5.session)  
@@ -3177,7 +3200,7 @@ Login with specific username and password. The selectors will be taken from the 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | username | <code>String</code> |  | The username. Can be specified in spec or config. If specified in both credentials will be taken from config. |
-| password | <code>String</code> | <code>&quot;super-duper-sensitive-pw&quot;</code> | The password. Can be specified in spec or config. If specified in both credentials will be taken from config. |
+| [password] | <code>String</code> |  | The password. Can be specified in spec or config. If specified in both credentials will be taken from config. |
 | [verify] | <code>Boolean</code> | <code>false</code> | Specifies if the function will check the shell header after logging in. |
 
 **Example**  
@@ -3230,7 +3253,7 @@ switches the user according to the passed username and password.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | username | <code>String</code> |  | The username. |
-| [password] | <code>String</code> | <code>&quot;super-duper-sensitive-pw&quot;</code> | The password. |
+| [password] | <code>String</code> |  | The password. |
 | [authenticator] | <code>Object</code> |  | The login form type. Set to null to use generic login. |
 | [wait] | <code>Number</code> | <code>10000</code> | The waiting time between logout and login (ms). |
 
