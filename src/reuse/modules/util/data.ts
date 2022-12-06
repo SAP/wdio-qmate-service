@@ -4,13 +4,12 @@
  * @memberof util
  */
 export class Data {
-  
   /**
    * @function getData
    * @memberOf util.data
    * @description Returns the data object with the given filename (JSON, stored in data folder).
    * @param {String} filename - The name of the data file.
-   * @param {String} [source=data] - The source key defined in the params.import object of the config file.
+   * @param {String} [source=data] - The source key defined under params.import of the config file.
    * @returns {String} The data object.
    * @example const data = util.data.getData("myTest");
    */
@@ -31,7 +30,7 @@ export class Data {
    * @memberOf util.data
    * @description Returns and encrypts the data object with the given filename (JSON, stored in data folder). Will return the local file object if private key is not accessible.
    * @param {String} filename - The name of the data file (without suffix '.secure' or '.local').
-   * @param {String} [source=data] - The source key defined in the params.import object of the config file.
+   * @param {String} [source=data] - The source key defined under params.import of the config file.
    * @returns {String} The encrypted or local data object.
    * @example const secureData = util.data.getSecureData("myTest");
    */
@@ -59,6 +58,25 @@ export class Data {
       }
     } else {
       throw new Error(`Function 'getSecureData' failed. Data path '${source}' not defined in config.`);
+    }
+  }
+
+  /**
+   * @function storeData
+   * @memberOf util.data
+   * @description Stores the passed data object persistently in a JSON file under the specified path.
+   * @param {Object | Array} data - The data object/array to write.
+   * @param {String} source - The source key of the filepath defined under params.export of the config file.
+   * @example const data = {
+   *  "purchaseOrderNumber": "0123456789"
+   * };
+   * util.data.storeData(data, "myData");
+   */
+  storeData(data: object, source: string): void {
+    if (browser.config.params && browser.config.params.export && browser.config.params.export[source]) {
+        browser.config.params.export[source] = data;
+    } else {
+      throw new Error(`Function 'storeData' failed. No file path defined under '${source}' in config.`);
     }
   }
 
