@@ -19,7 +19,7 @@ export class Data {
       if (browser.config.params.import[source][filename]) {
         return browser.config.params.import[source][filename];
       } else {
-        throw new Error(`Function 'getData' failed. File '${filename}' empty or not defined under '${browser.config.params.import[source]}'`);
+        throw new Error(`Function 'getData' failed. File '${filename}' empty or not defined under '${source}'`);
       }
     } else {
       throw new Error(`Function 'getData' failed. No data path defined in config.`);
