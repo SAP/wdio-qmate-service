@@ -11,7 +11,7 @@ module.exports = {
     return lib.uiControlExecuteLocator(ui5Selector, null, timeout, rootElement);
   },
 
-  getUI5Property: async function (propName, element) {
+  getUI5Property: async function (propName, selectorOrElement) {
     return lib.controlActionInBrowser(function (control, propName, done) {
       let val = null;
       try {
@@ -22,7 +22,7 @@ module.exports = {
       // Need to stringify array values
       val = val && val.hasOwnProperty("length") ? val.toString() : val; // need to stringify arrays and objects
       done(val);
-    }, element, propName);
+    }, selectorOrElement, propName);
   },
 
   getUI5Aggregation: async function (propName, selectorOrElement) {

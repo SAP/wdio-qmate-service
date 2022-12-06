@@ -1938,7 +1938,7 @@ Executes a native UI5 action as callback function in the browser on the given UI
 | Param | Type | Description |
 | --- | --- | --- |
 | callbackFunction | <code>function</code> | The client script function to be used with the control instance. Caution: The first and last parameter is reserved for the mockserver instance and the promise resolve function - done. |
-| selectorOrElement | <code>Element</code> \| <code>Ui5Selector</code> \| <code>Ui5SelectorOptions</code> | The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed). |
+| selectorOrElement | <code>Element</code> \| <code>Ui5Selector</code> \| <code>Ui5SelectorWithOptions</code> | The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed). |
 | args | <code>Object</code> | An object containing the arguments to pass to the callback function. |
 
 **Example**  
@@ -1958,7 +1958,7 @@ Gets the UI5 control property of the given element.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| selectorOrElement | <code>Element</code> \| <code>Ui5Selector</code> \| <code>Ui5SelectorOptions</code> | The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed) |
+| selectorOrElement | <code>Element</code> \| <code>Ui5Selector</code> \| <code>Ui5SelectorWithOptions</code> | The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed) |
 | propertyName | <code>String</code> | The property name of the control to retrieve the value from. |
 
 **Example**  
@@ -1977,7 +1977,7 @@ Gets the UI5 control aggregation property  of the given element.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| selectorOrElement | <code>Element</code> \| <code>Ui5Selector</code> \| <code>Ui5SelectorOptions</code> | The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed) |
+| selectorOrElement | <code>Element</code> \| <code>Ui5Selector</code> \| <code>Ui5SelectorWithOptions</code> | The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed) |
 | propertyName | <code>String</code> | The aggregation property name of the control to retrieve the value from. |
 
 **Example**  
@@ -1996,7 +1996,7 @@ Get UI control property
 
 | Param | Type | Description |
 | --- | --- | --- |
-| selectorOrElement | <code>Element</code> \| <code>Ui5Selector</code> \| <code>Ui5SelectorOptions</code> | The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed) |
+| selectorOrElement | <code>Element</code> \| <code>Ui5Selector</code> \| <code>Ui5SelectorWithOptions</code> | The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed) |
 | propertyName | <code>String</code> | The association property name of the control to retrieve the value from. |
 
 **Example**  
@@ -2015,7 +2015,7 @@ Get UI control binding context path
 
 | Param | Type | Description |
 | --- | --- | --- |
-| selectorOrElement | <code>Element</code> \| <code>Ui5Selector</code> \| <code>Ui5SelectorOptions</code> | The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed) |
+| selectorOrElement | <code>Element</code> \| <code>Ui5Selector</code> \| <code>Ui5SelectorWithOptions</code> | The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed) |
 
 **Example**  
 ```js
@@ -2033,7 +2033,7 @@ Get UI control property
 
 | Param | Type | Description |
 | --- | --- | --- |
-| selectorOrElement | <code>Element</code> \| <code>Ui5Selector</code> \| <code>Ui5SelectorOptions</code> | The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed) |
+| selectorOrElement | <code>Element</code> \| <code>Ui5Selector</code> \| <code>Ui5SelectorWithOptions</code> | The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed) |
 | propertyName | <code>String</code> | The property name to retrieve from the control binding |
 
 **Example**  
