@@ -10,15 +10,16 @@ export class Data {
    * @memberOf util.data
    * @description Returns the data object with the given filename (JSON, stored in data folder).
    * @param {String} filename - The name of the data file.
+   * @param {String} [source=data] - The source key defined in the params.import object of the config file.
    * @returns {String} The data object.
    * @example const data = util.data.getData("myTest");
    */
-  getData(filename: string): string {
-    if (browser.config.params && browser.config.params.import && browser.config.params.import.data) {
-      if (browser.config.params.import.data[filename]) {
-        return browser.config.params.import.data[filename];
+  getData(filename: string, source: string = "data"): string {
+    if (browser.config.params && browser.config.params.import && browser.config.params.import[source]) {
+      if (browser.config.params.import[source][filename]) {
+        return browser.config.params.import[source][filename];
       } else {
-        throw new Error(`Function 'getData' failed. No file with name ${filename} found'`);
+        throw new Error(`Function 'getData' failed. File '${filename}' empty or not defined under '${browser.config.params.import[source]}'`);
       }
     } else {
       throw new Error(`Function 'getData' failed. No data path defined in config.`);
