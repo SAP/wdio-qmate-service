@@ -19,7 +19,7 @@ describe("data - getData - custom source", function() {
   let dataAct;
 
   it("Execution & Verification", function () {
-    const source = "customSource";
+    const source = "customSourceData";
     const data = util.data.getData("test", source);
     dataAct = data.test;
   });
