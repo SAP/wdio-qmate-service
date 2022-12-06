@@ -19,10 +19,10 @@ export class Data {
       if (browser.config.params.import[source][filename]) {
         return browser.config.params.import[source][filename];
       } else {
-        throw new Error(`Function 'getData' failed. File '${filename}' empty or not defined under '${source}'`);
+        throw new Error(`Function 'getData' failed. File '${filename}.json' empty or not defined under '${source}'`);
       }
     } else {
-      throw new Error(`Function 'getData' failed. No data path defined in config.`);
+      throw new Error(`Function 'getData' failed. Data path '${source}' not defined in config.`);
     }
   }
 
@@ -31,10 +31,11 @@ export class Data {
    * @memberOf util.data
    * @description Returns and encrypts the data object with the given filename (JSON, stored in data folder). Will return the local file object if private key is not accessible.
    * @param {String} filename - The name of the data file (without suffix '.secure' or '.local').
+   * @param {String} [source=data] - The source key defined in the params.import object of the config file.
    * @returns {String} The encrypted or local data object.
    * @example const secureData = util.data.getSecureData("myTest");
    */
-  getSecureData(filename: string): string {
+  getSecureData(filename: string, source: string = "data"): string {
     const privateKeyFound = global.util.data.privateKeyFound === true;
 
     if (privateKeyFound) {
@@ -44,9 +45,9 @@ export class Data {
       filename = `${filename}.local`;
     }
 
-    if (browser.config.params && browser.config.params.import && browser.config.params.import.data) {
-      if (browser.config.params.import.data[filename]) {
-        const data = browser.config.params.import.data[filename];
+    if (browser.config.params && browser.config.params.import && browser.config.params.import[source]) {
+      if (browser.config.params.import[source][filename]) {
+        const data = browser.config.params.import[source][filename];
 
         if (privateKeyFound) {
           this._decryptRecursively(data);
@@ -54,10 +55,10 @@ export class Data {
 
         return data;
       } else {
-        throw new Error(`Function 'getSecureData' failed. File '${filename}.json' not found'`);
+        throw new Error(`Function 'getSecureData' failed. File '${filename}.json' empty or not defined under '${source}'`);
       }
     } else {
-      throw new Error(`Function 'getSecureData' failed. No data path defined in config.`);
+      throw new Error(`Function 'getSecureData' failed. Data path '${source}' not defined in config.`);
     }
   }
 
