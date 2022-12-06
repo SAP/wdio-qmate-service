@@ -12,5 +12,5 @@ export type Ui5SelectorWithOptions = {
   selector: Ui5Selector,
   index?: number,
   timeout?: number,
-  returnAllDomElements?: boolean,
-}
+  returnAllDomElements?: boolean
+};
