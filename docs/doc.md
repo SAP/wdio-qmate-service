@@ -576,7 +576,7 @@ Global namespace for util modules.
     * [.data](#util.data)
         * [.getData(filename, [source])](#util.data.getData) ⇒ <code>String</code>
         * [.getSecureData(filename, [source])](#util.data.getSecureData) ⇒ <code>String</code>
-        * [.storeData(data, source)](#util.data.storeData)
+        * [.storeData(data, target)](#util.data.storeData)
         * [.decrypt(data)](#util.data.decrypt) ⇒ <code>String</code>
     * [.file](#util.file)
         * [.upload(files, [selector])](#util.file.upload)
@@ -982,7 +982,7 @@ util.console.success("The document has been saved.");
 * [.data](#util.data)
     * [.getData(filename, [source])](#util.data.getData) ⇒ <code>String</code>
     * [.getSecureData(filename, [source])](#util.data.getSecureData) ⇒ <code>String</code>
-    * [.storeData(data, source)](#util.data.storeData)
+    * [.storeData(data, target)](#util.data.storeData)
     * [.decrypt(data)](#util.data.decrypt) ⇒ <code>String</code>
 
 <a name="util.data.getData"></a>
@@ -1021,7 +1021,7 @@ const secureData = util.data.getSecureData("myTest");
 ```
 <a name="util.data.storeData"></a>
 
-#### data.storeData(data, source)
+#### data.storeData(data, target)
 Stores the passed data object persistently in a JSON file under the specified path.
 
 **Kind**: static method of [<code>data</code>](#util.data)  
@@ -1029,7 +1029,7 @@ Stores the passed data object persistently in a JSON file under the specified pa
 | Param | Type | Description |
 | --- | --- | --- |
 | data | <code>Object</code> \| <code>Array</code> | The data object/array to write. |
-| source | <code>String</code> | The source key of the filepath defined under params.export of the config file. |
+| target | <code>String</code> | The target filepath defined under params.export of the config file. |
 
 **Example**  
 ```js
