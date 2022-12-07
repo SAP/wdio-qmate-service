@@ -576,7 +576,6 @@ Global namespace for util modules.
     * [.data](#util.data)
         * [.getData(filename, [source])](#util.data.getData) ⇒ <code>String</code>
         * [.getSecureData(filename, [source])](#util.data.getSecureData) ⇒ <code>String</code>
-        * [.storeData(data, target)](#util.data.storeData)
         * [.decrypt(data)](#util.data.decrypt) ⇒ <code>String</code>
     * [.file](#util.file)
         * [.upload(files, [selector])](#util.file.upload)
@@ -982,7 +981,6 @@ util.console.success("The document has been saved.");
 * [.data](#util.data)
     * [.getData(filename, [source])](#util.data.getData) ⇒ <code>String</code>
     * [.getSecureData(filename, [source])](#util.data.getSecureData) ⇒ <code>String</code>
-    * [.storeData(data, target)](#util.data.storeData)
     * [.decrypt(data)](#util.data.decrypt) ⇒ <code>String</code>
 
 <a name="util.data.getData"></a>
@@ -1018,25 +1016,6 @@ Returns and encrypts the data object with the given filename (JSON, stored in da
 **Example**  
 ```js
 const secureData = util.data.getSecureData("myTest");
-```
-<a name="util.data.storeData"></a>
-
-#### data.storeData(data, target)
-Stores the passed data object persistently in a JSON file under the specified path.
-
-**Kind**: static method of [<code>data</code>](#util.data)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Object</code> \| <code>Array</code> | The data object/array to write. |
-| target | <code>String</code> | The target filepath defined under params.export of the config file. |
-
-**Example**  
-```js
-const data = {
- "purchaseOrderNumber": "0123456789"
-};
-util.data.storeData(data, "myData");
 ```
 <a name="util.data.decrypt"></a>
 

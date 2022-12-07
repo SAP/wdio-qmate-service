@@ -62,25 +62,6 @@ export class Data {
   }
 
   /**
-   * @function storeData
-   * @memberOf util.data
-   * @description Stores the passed data object persistently in a JSON file under the specified path.
-   * @param {Object | Array} data - The data object/array to write.
-   * @param {String} target - The target filepath defined under params.export of the config file.
-   * @example const data = {
-   *  "purchaseOrderNumber": "0123456789"
-   * };
-   * util.data.storeData(data, "myData");
-   */
-  storeData(data: object, target: string): void {
-    if (browser.config.params && browser.config.params.export && target in browser.config.params.export) {
-        browser.config.params.export[target] = data;
-    } else {
-      throw new Error(`Function 'storeData' failed. Target filepath '${target}' not set in config.`);
-    }
-  }
-
-  /**
    * @function decrypt
    * @memberOf util.data
    * @description Decrypts the passed input data.
