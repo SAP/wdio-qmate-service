@@ -786,13 +786,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#datastoredatadata-target" class="md-nav__link">
-    data.storeData(data, target)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#datadecryptdata-string" class="md-nav__link">
     data.decrypt(data) ⇒ String
   </a>
@@ -3383,13 +3376,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#datastoredatadata-target" class="md-nav__link">
-    data.storeData(data, target)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#datadecryptdata-string" class="md-nav__link">
     data.decrypt(data) ⇒ String
   </a>
@@ -5945,7 +5931,6 @@
 <li><a href="#util.data">.data</a><ul>
 <li><a href="#util.data.getData">.getData(filename, [source])</a> ⇒ <code>String</code></li>
 <li><a href="#util.data.getSecureData">.getSecureData(filename, [source])</a> ⇒ <code>String</code></li>
-<li><a href="#util.data.storeData">.storeData(data, target)</a></li>
 <li><a href="#util.data.decrypt">.decrypt(data)</a> ⇒ <code>String</code></li>
 </ul>
 </li>
@@ -6478,7 +6463,6 @@
 <li><a href="#util.data">.data</a><ul>
 <li><a href="#util.data.getData">.getData(filename, [source])</a> ⇒ <code>String</code></li>
 <li><a href="#util.data.getSecureData">.getSecureData(filename, [source])</a> ⇒ <code>String</code></li>
-<li><a href="#util.data.storeData">.storeData(data, target)</a></li>
 <li><a href="#util.data.decrypt">.decrypt(data)</a> ⇒ <code>String</code></li>
 </ul>
 </li>
@@ -6546,37 +6530,6 @@
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">secureData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">getSecureData</span><span class="p">(</span><span class="s2">&quot;myTest&quot;</span><span class="p">);</span><span class="w"></span>
-</code></pre></div>
-<a name="util.data.storeData"></a></p>
-<h4 id="datastoredatadata-target">data.storeData(data, target)</h4>
-<p>Stores the passed data object persistently in a JSON file under the specified path.</p>
-<p><strong>Kind</strong>: static method of <a href="#util.data"><code>data</code></a>  </p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>data</td>
-<td><code>Object</code> | <code>Array</code></td>
-<td>The data object/array to write.</td>
-</tr>
-<tr>
-<td>target</td>
-<td><code>String</code></td>
-<td>The target filepath defined under params.export of the config file.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w"> </span><span class="s2">&quot;purchaseOrderNumber&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;0123456789&quot;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-<span class="nx">util</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">storeData</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;myData&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="util.data.decrypt"></a></p>
 <h4 id="datadecryptdata-string">data.decrypt(data) ⇒ <code>String</code></h4>
