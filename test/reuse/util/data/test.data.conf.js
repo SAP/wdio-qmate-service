@@ -12,16 +12,12 @@ exports.config = merge(profile.config, {
     import: {
       data: "./data/",
       customSourceData: "./customSourceData"
-    },
-    export: {
-      store: "./data/store.json"
     }
   },
 
   specs: [
     path.resolve(__dirname, "getData.spec.js"),
     path.resolve(__dirname, "getSecureData.spec.js"),
-    path.resolve(__dirname, "storeData.spec.js"),
     path.resolve(__dirname, "decrypt.spec.js")
   ]
 });
