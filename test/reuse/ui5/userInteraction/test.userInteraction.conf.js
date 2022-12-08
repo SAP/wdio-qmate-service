@@ -20,6 +20,7 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "clickSelectArrow.spec.js"),
     path.resolve(__dirname, "clickSelectArrowAndRetry.spec.js"),
     path.resolve(__dirname, "clickTab.spec.js"),
+    path.resolve(__dirname, "clickListItem.spec.js"),
     path.resolve(__dirname, "selectFromTab.spec.js"),
     path.resolve(__dirname, "fill.spec.js"),
     path.resolve(__dirname, "fillAndRetry.spec.js"),
