@@ -32,6 +32,7 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "doubleClick.spec.js"),
     path.resolve(__dirname, "rightClick.spec.js"),
     path.resolve(__dirname, "mouseOverElement.spec.js"),
+    path.resolve(__dirname, "selectAll.spec.js"),
     // path.resolve(__dirname, "dragAndDrop.spec.js")
   ]
 });
