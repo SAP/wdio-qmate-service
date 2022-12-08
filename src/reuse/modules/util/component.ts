@@ -2,10 +2,18 @@
 import * as path from "path";
 
 /**
- * @class data
+ * @class component
  * @memberof util
+ * @description This class provides functions for writing component tests with qmate-proxy-service
  */
 export class Component {
+  /**
+   * @function loadEntryPoint
+   * @memberOf util.component
+   * @description Will be called in component test scripts. Returns a previously stored entry point object for sharing information (like a draft id) between preparation and the actual component tests.
+   * @returns {Object} The data object of the stored entry point.
+   * @example const entryPoint = util.component.loadEntryPoint();
+   */
   async loadEntryPoint(): Promise<any> {
     // Will be called in component scripts
     const componentSpec = runtime.specs.filter((spec: string) => {
@@ -16,8 +24,15 @@ export class Component {
     return await util.data.readDataFromFile(`${componentSpecIdentifier}.entrypoint.json`);
   }
 
+  /**
+   * @function storeEntryPoint
+   * @memberOf util.component
+   * @description Will be called in preparation scripts before component tests. Stores an entry point object for sharing information (like a draft id) between preparation and the actual component tests.
+   * @param {Object} The data object of the stored entry point.
+   * @example const entryPoint = util.component.storeEntryPoint({"draftId": "0123456789"});
+   */
   async storeEntryPoint(data: any): Promise<void> {
-    // Will be called in prep scripts
+    // Will be called in preparation scripts
     const componentSpec = runtime.specs.filter((spec: string) => {
       return !spec.includes("prep.");
     })[0];
