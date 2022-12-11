@@ -1,9 +1,15 @@
 "use strict";
+
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+
 /**
  * @class browser
  * @memberof util
  */
 export class Browser {
+  private vlf = new VerboseLoggerFactory("util", "browser")
+
+
   // =================================== URL ===================================
   /**
    * @function getBaseUrl
@@ -13,6 +19,7 @@ export class Browser {
    * @example const baseUrl = util.browser.getBaseUrl();
    */
   getBaseUrl(): string {
+    const vl = this.vlf.initLog(this.getBaseUrl)
     return browser.config.baseUrl;
   }
 
@@ -24,6 +31,7 @@ export class Browser {
    * @example await util.browser.setBaseUrl("https://www.sap.com");
    */
   setBaseUrl(baseUrl: string): void {
+    const vl = this.vlf.initLog(this.setBaseUrl)
     browser.config.baseUrl = baseUrl;
   }
 
@@ -34,6 +42,7 @@ export class Browser {
    * @example await util.browser.logCurrentUrl();
    */
   async logCurrentUrl(): Promise<void> {
+    const vl = this.vlf.initLog(this.logCurrentUrl)
     const url = await browser.getUrl();
     util.console.info("Current URL: " + url);
   }
@@ -45,6 +54,7 @@ export class Browser {
    * @example await util.browser.getCurrentUrl();
    */
   async getCurrentUrl(): Promise<string> {
+    const vl = this.vlf.initLog(this.getCurrentUrl)
     return browser.getUrl();
   }
 
@@ -56,6 +66,7 @@ export class Browser {
    * @example await util.browser.resetFocus();
    */
   async resetFocus(): Promise<void> {
+    const vl = this.vlf.initLog(this.resetFocus)
     await util.browser.executeScript("if (document.activeElement) { document.activeElement.blur(); }");
   }
 
@@ -67,6 +78,7 @@ export class Browser {
    * @example await util.browser.sleep(30000);
    */
   async sleep(duration: number = 10000): Promise<void> {
+    const vl = this.vlf.initLog(this.sleep)
     await browser.pause(duration);
   }
 
@@ -77,6 +89,7 @@ export class Browser {
    * @example await util.browser.collectCoverage();
    */
   async collectCoverage(): Promise<void> {
+    const vl = this.vlf.initLog(this.collectCoverage)
     if (browser.config.params && browser.config.params.coverage && (browser.config.params.coverage.status === true || browser.config.params.coverage.status === "true")) {
       await browser.collectCoverage();
     } else {
@@ -92,6 +105,7 @@ export class Browser {
    * @example await util.browser.sleepAndCollectCoverage(3000);
    */
   async sleepAndCollectCoverage(duration: number = 5000): Promise<void> {
+    const vl = this.vlf.initLog(this.sleepAndCollectCoverage)
     if (browser.config.params && browser.config.params.coverage && (browser.config.params.coverage.status === true || browser.config.params.coverage.status === "true")) {
       await this.sleep(duration);
       await browser.collectCoverage();
@@ -107,6 +121,7 @@ export class Browser {
    * @example await util.browser.refresh();
    */
   async refresh(): Promise<void> {
+    const vl = this.vlf.initLog(this.refresh)
     await browser.refresh();
   }
 
@@ -120,6 +135,7 @@ export class Browser {
    * @example await util.browser.clearBrowser();
    */
   async clearBrowser(clearLocal: boolean = true, clearSession: boolean = true, clearCookies: boolean = true): Promise<void> {
+    const vl = this.vlf.initLog(this.clearBrowser)
     if (clearLocal) {
       await browser.execute("window.localStorage.clear()");
     }
@@ -140,6 +156,7 @@ export class Browser {
    * @example const browserName = util.browser.getBrowserName();
    */
   getBrowserName(): string {
+    const vl = this.vlf.initLog(this.getBrowserName)
     return browser.capabilities.browserName;
   }
 
@@ -151,6 +168,7 @@ export class Browser {
    * @example await util.browser.getUI5Version();
    */
   async getUI5Version(timeout: number = browser.config.waitForUI5Timeout || 5000) {
+    const vl = this.vlf.initLog(this.getUI5Version)
     await browser.waitUntil(
       async function () {
         // eslint-disable-next-line no-return-await
@@ -205,6 +223,7 @@ export class Browser {
    * @example await util.browser.logUI5Version();
    */
   async logUI5Version() {
+    const vl = this.vlf.initLog(this.logUI5Version)
     let logUI5Version;
     if (browser.config.params && browser.config.params.logUI5Version !== undefined) {
       logUI5Version = browser.config.params.logUI5Version;
@@ -236,6 +255,7 @@ export class Browser {
    * @example await util.browser.executeScript(command);
    */
   async executeScript(command: string): Promise<any> {
+    const vl = this.vlf.initLog(this.executeScript)
     return browser.execute(command);
   }
 
@@ -251,6 +271,7 @@ export class Browser {
    * @example await util.browser.switchToNewWindow("www.sap.com");
    */
   async switchToNewWindow(titleOrUrl: string | RegExp, timeout: number = 10000) {
+    const vl = this.vlf.initLog(this.switchToNewWindow)
     try {
       await browser.waitUntil(
         async () => {
@@ -275,6 +296,7 @@ export class Browser {
    * @example await util.browser.switchToWindow(originalWindowHandle);
    */
   async switchToWindow(handle: object) {
+    const vl = this.vlf.initLog(this.switchToWindow)
     await browser.switchToWindow(handle);
   }
 
@@ -286,6 +308,7 @@ export class Browser {
    * @example const originalWindowHandle = await util.browser.getCurrentWindow();
    */
   async getCurrentWindow(): Promise<any> {
+    const vl = this.vlf.initLog(this.getCurrentWindow)
     return browser.getWindowHandle();
   }
 
@@ -297,6 +320,7 @@ export class Browser {
    * @example await util.browser.switchToIframe("iframe[id='frame01']");
    */
   async switchToIframe(selector: string) {
+    const vl = this.vlf.initLog(this.switchToIframe)
     await nonUi5.element.waitToBeVisible(selector);
     const frame = await $(selector);
     await browser.switchToFrame(frame);
@@ -309,6 +333,7 @@ export class Browser {
    * @example await util.browser.switchToDefaultContent();
    */
   async switchToDefaultContent() {
+    const vl = this.vlf.initLog(this.switchToDefaultContent)
     await browser.switchToFrame(null);
   }
 
@@ -319,11 +344,13 @@ export class Browser {
    * @example await util.browser.back();
    */
   async back() {
+    const vl = this.vlf.initLog(this.back)
     return browser.back();
   }
 
   // =================================== HELPER ===================================
   private async _verifyTitleOrUrl(titleOrUrl: string | RegExp): Promise<boolean> {
+    const vl = this.vlf.initLog(this._verifyTitleOrUrl)
     const title: string = await browser.getTitle();
     const url: string = await util.browser.getCurrentUrl();
 

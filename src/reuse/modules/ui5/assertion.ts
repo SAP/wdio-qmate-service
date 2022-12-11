@@ -1,12 +1,14 @@
 "use strict";
 
 import { Element } from "../../../../@types/wdio";
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 
 /**
  * @class assertion
  * @memberof ui5
  */
 export class Assertion {
+  private vlf = new VerboseLoggerFactory("ui5", "assertion")
 
   // =================================== PROPERTIES ===================================
   /**
@@ -22,6 +24,7 @@ export class Assertion {
    * @example await ui5.assertion.expectAttributeToBe(selector, "text", "Hello");
    */
   async expectAttributeToBe (selector: any, attribute: string, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+    const vl = this.vlf.initLog(this.expectAttributeToBe)
     let elem: Element, value;
     compareValue = String(compareValue)
 
@@ -55,6 +58,7 @@ export class Assertion {
     } catch (error) {
       value = ui5PropertyValue ? ui5PropertyValue : innerUI5PropertyValue;
     }
+    vl.log(`Expecting ${String(value)} to equal ${String(compareValue)}`)
     return expect(String(value)).toEqual(String(compareValue));
   };
 
@@ -71,6 +75,7 @@ export class Assertion {
    * @example await ui5.assertion.expectAttributeToContain(selector, "text", "abc");
    */
   async expectAttributeToContain (selector: any, attribute: string, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+    const vl = this.vlf.initLog(this.expectAttributeToContain)
     let elem: Element, value;
     compareValue = String(compareValue);
 
@@ -104,7 +109,7 @@ export class Assertion {
     } catch (error) {
       value = ui5PropertyValue ? ui5PropertyValue : innerUI5PropertyValue;
     }
-
+    vl.log(`Expecting ${value} to contain ${compareValue}`)
     return expect(value).toContain(compareValue);
   };
 
@@ -120,6 +125,7 @@ export class Assertion {
    * @example await ui5.assertion.expectTextToBe(selector, "Hello");
    */
   async expectTextToBe (selector: any, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+    const vl = this.vlf.initLog(this.expectTextToBe)
     return this.expectAttributeToBe(selector, "text", compareValue, index, timeout, loadPropertyTimeout);
   };
 
@@ -135,6 +141,7 @@ export class Assertion {
    * @example await ui5.assertion.expectValueToBe(selector, "123");
    */
   async expectValueToBe (selector: any, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+    const vl = this.vlf.initLog(this.expectValueToBe)
     return this.expectAttributeToBe(selector, "value", compareValue, index, timeout, loadPropertyTimeout);
   };
 
@@ -148,7 +155,9 @@ export class Assertion {
    * @example await ui5.assertion.expectValueToBeDefined(selector);
    */
   async expectValueToBeDefined (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.expectValueToBeDefined)
     const value = await ui5.element.getValue(selector, index, timeout);
+    vl.log(`Expecting ${value} to be defined`)
     common.assertion.expectDefined(value);
     common.assertion.expectUnequal(value, "");
   };
@@ -164,6 +173,7 @@ export class Assertion {
    * @example await ui5.assertion.expectToBeNotEnabled(selector);
    */
   async expectToBeNotEnabled (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+    const vl = this.vlf.initLog(this.expectToBeNotEnabled)
     await this.expectAttributeToBe(selector, "enabled", false, index, timeout, loadPropertyTimeout);
   };
 
@@ -178,6 +188,7 @@ export class Assertion {
    * @example await ui5.assertion.expectToBeEnabled(selector);
    */
   async expectToBeEnabled (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+    const vl = this.vlf.initLog(this.expectToBeEnabled)
     await this.expectAttributeToBe(selector, "enabled", true, index, timeout, loadPropertyTimeout);
   };
 
@@ -192,6 +203,7 @@ export class Assertion {
    * @example await ui5.assertion.expectValidationError(selector);
    */
   async expectValidationError (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+    const vl = this.vlf.initLog(this.expectValidationError)
     return this.expectAttributeToBe(selector, "valueState", "Error", index, timeout, loadPropertyTimeout);
   };
 
@@ -206,6 +218,7 @@ export class Assertion {
    * @example await ui5.assertion.expectValidationSuccess(selector);
    */
   async expectValidationSuccess (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+    const vl = this.vlf.initLog(this.expectValidationSuccess)
     return this.expectAttributeToBe(selector, "valueState", "None", index, timeout, loadPropertyTimeout);
   };
 
@@ -224,6 +237,7 @@ export class Assertion {
    * @example await ui5.assertion.expectBindingPathToBe(selector, "text", "Hello");
    */
   async expectBindingPathToBe (selector: any, attribute: string, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+    const vl = this.vlf.initLog(this.expectBindingPathToBe)
     let elem: Element;
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -247,9 +261,11 @@ export class Assertion {
     if (Array.isArray(compareValue)) {
       const mergedArrayOfValues = values.map((value: any) => mergeModelAndPath(value));
       for (let x = 0; x < compareValue.length; x++) {
+        vl.log(`Expecting ${mergedArrayOfValues} to contain ${compareValue[x]}`)
         expect(mergedArrayOfValues).toContain(compareValue[x]);
       }
     } else {
+      vl.log(`Expecting ${values[0]} to contain ${compareValue}`)
       expect(mergeModelAndPath(values[0])).toContain(compareValue);
     }
 
@@ -275,6 +291,7 @@ export class Assertion {
    * @example await ui5.assertion.expectBindingContextPathToBe(selector, "text", "Hello");
    */
   async expectBindingContextPathToBe (selector: any, compareValue: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+    const vl = this.vlf.initLog(this.expectBindingContextPathToBe)
     let elem: Element;
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -294,6 +311,7 @@ export class Assertion {
     } else {
       value = await elem.getBindingContextPath();
     }
+    vl.log(`Expecting ${value} to equal ${compareValue}`)
     expect(value).toEqual(compareValue);
   };
 

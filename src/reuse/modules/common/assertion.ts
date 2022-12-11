@@ -1,9 +1,13 @@
 "use strict";
+
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+
 /**
  * @class assertion
  * @memberof common
  */
 export class Assertion {
+  private vlf = new VerboseLoggerFactory("common", "assertion")
 
   /**
    * @function expectEqual
@@ -14,6 +18,8 @@ export class Assertion {
    * @example common.assertion.expectEqual(value1, value2);
    */
   expectEqual (value1: any, value2: any) {
+    const vl = this.vlf.initLog(this.expectEqual)
+    vl.log(`Expecting ${value1} to be equal to ${value2}`)
     expect(value1).toEqual(value2);
   };
 
@@ -26,6 +32,8 @@ export class Assertion {
    * @example common.assertion.expectUnequal(value1, value2);
    */
   expectUnequal (value1: any, value2: any) {
+    const vl = this.vlf.initLog(this.expectUnequal)
+    vl.log(`Expecting ${value1} not to be equal to ${value2}`)
     expect(value1).not.toEqual(value2);
   };
 
@@ -37,6 +45,8 @@ export class Assertion {
    * @example common.assertion.expectTrue(value);
    */
   expectTrue (value: any) {
+    const vl = this.vlf.initLog(this.expectUnequal)
+    vl.log(`Expecting ${value} to be true`)
     this.expectEqual(value, true);
   };
 
@@ -48,6 +58,8 @@ export class Assertion {
    * @example common.assertion.expectFalse(false);
    */
   expectFalse (value: any) {
+    const vl = this.vlf.initLog(this.expectFalse)
+    vl.log(`Expecting ${value} to be false`)
     this.expectEqual(value, false);
   };
 
@@ -59,6 +71,8 @@ export class Assertion {
    * @example common.assertion.expectDefined(value);
    */
   expectDefined (value: any) {
+    const vl = this.vlf.initLog(this.expectDefined)
+    vl.log(`Expecting ${value} to be defined`)
     expect(value).toBeDefined();
   };
 
@@ -70,6 +84,8 @@ export class Assertion {
    * @example common.assertion.expectUndefined(value);
    */
   expectUndefined (value: any) {
+    const vl = this.vlf.initLog(this.expectUndefined)
+    vl.log(`Expecting ${value} to be undefined`)
     expect(value).toBeUndefined();
   };
 
@@ -80,6 +96,8 @@ export class Assertion {
    * @example await common.assertion.expectUrlToBe("www.sap.com");
    */
   expectUrlToBe (urlExp: string) {
+    const vl = this.vlf.initLog(this.expectUrlToBe)
+    vl.log(`Expecting current url to be to be ${urlExp}`)
     return expect(browser.getUrl()).resolves.toBe(urlExp);
   };
 

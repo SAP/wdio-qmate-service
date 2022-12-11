@@ -1,5 +1,6 @@
 "use strict";
 
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { KeyCodes } from "./constants/userInteraction.constants";
 
 /**
@@ -7,6 +8,8 @@ import { KeyCodes } from "./constants/userInteraction.constants";
  * @memberof common 
  */
 export class UserInteraction {
+  private vlf = new VerboseLoggerFactory("common", "userInteraction")
+
 
   // =================================== FILL ===================================
   /**
@@ -17,6 +20,7 @@ export class UserInteraction {
    * @example await common.userInteraction.fillActive("My Value");
    */
   async fillActive (value: string) {
+    const vlf = this.vlf.initLog(this.fillActive)
     try {
       if (value !== null) {
         const elem = await $(await browser.getActiveElement());
@@ -41,6 +45,7 @@ export class UserInteraction {
    * @example await common.userInteraction.fillActiveAndRetry("My Value");
    */
   async fillActiveAndRetry (value: string, retries: number = 3, interval: number = 5000) {
+    const vlf = this.vlf.initLog(this.fillActiveAndRetry)
     await util.function.retry(this.fillActive, [value], retries, interval, this);
   };
 
@@ -53,6 +58,7 @@ export class UserInteraction {
    * @example await common.userInteraction.clearAndFillActive("My Value");
    */
   async clearAndFillActive (value: string) {
+    const vlf = this.vlf.initLog(this.clearAndFillActive)
     if (value !== null) {
       const elem = await $(await browser.getActiveElement());
       await elem.setValue(value);
@@ -71,6 +77,7 @@ export class UserInteraction {
    * @example await common.userInteraction.clearAndFillActiveAndRetry("My Value");
    */
   async clearAndFillActiveAndRetry (value: string, retries: number = 3, interval: number = 5000) {
+    const vlf = this.vlf.initLog(this.clearAndFillActiveAndRetry)
     await util.function.retry(this.clearAndFillActive, [value], retries, interval, this);
   };
 
@@ -86,6 +93,7 @@ export class UserInteraction {
    * @example await common.userInteraction.pressKey(["\uE009", "Alt"]);
    */
   async pressKey (keys: string | string[]) {
+    const vlf = this.vlf.initLog(this.pressKey)
     await browser.keys(keys);
   };
 
@@ -96,6 +104,7 @@ export class UserInteraction {
    * @example await common.userInteraction.pressEnter();
    */
   async pressEnter () {
+    const vlf = this.vlf.initLog(this.pressEnter)
     await browser.keys(KeyCodes.ENTER);
   };
 
@@ -106,6 +115,7 @@ export class UserInteraction {
    * @example await common.userInteraction.pressTab();
    */
   async pressTab () {
+    const vlf = this.vlf.initLog(this.pressTab)
     await browser.keys(KeyCodes.TAB);
   };
 
@@ -116,6 +126,7 @@ export class UserInteraction {
    * @example await common.userInteraction.pressF4();
    */
   async pressF4 () {
+    const vlf = this.vlf.initLog(this.pressF4)
     await browser.keys(KeyCodes.F4);
   };
 
@@ -126,6 +137,7 @@ export class UserInteraction {
    * @example await common.userInteraction.pressBackspace();
    */
   async pressBackspace () {
+    const vlf = this.vlf.initLog(this.pressBackspace)
     await browser.keys(KeyCodes.BACKSPACE);
   };
 
@@ -137,6 +149,7 @@ export class UserInteraction {
    * @example await common.userInteraction.pressEscape();
    */
   async pressEscape () {
+    const vlf = this.vlf.initLog(this.pressEscape)
     await browser.keys(KeyCodes.ESCAPE);
   };
 
@@ -147,6 +160,7 @@ export class UserInteraction {
    * @example await common.userInteraction.pressArrowLeft();
    */
   async pressArrowLeft () {
+    const vlf = this.vlf.initLog(this.pressArrowLeft)
     await browser.keys(KeyCodes.ARROW_LEFT);
   };
 
@@ -157,6 +171,7 @@ export class UserInteraction {
    * @example await common.userInteraction.pressArrowRight();
    */
   async pressArrowRight () {
+    const vlf = this.vlf.initLog(this.pressArrowRight)
     await browser.keys(KeyCodes.ARROW_RIGHT);
   };
 

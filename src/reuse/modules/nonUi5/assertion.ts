@@ -1,12 +1,14 @@
 "use strict";
 
 import { Element } from "../../../../@types/wdio";
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 
 /**
  * @class assertion
  * @memberof nonUi5
  */
 export class Assertion {
+  private vlf = new VerboseLoggerFactory("nonui5", "assertion")
 
   // =================================== PROPERTIES ===================================
   /**
@@ -22,6 +24,7 @@ export class Assertion {
    * await nonUi5.assertion.expectAttributeToBe(element, "Save", "title");
    */
   async expectAttributeToBe (elem: Element, compareValue: string, attribute: string): Promise<void> {
+    const vl = this.vlf.initLog(this.expectAttributeToBe)
     const value = await nonUi5.element.getAttributeValue(elem, attribute);
     return common.assertion.expectEqual(value, compareValue);
   };
@@ -37,7 +40,9 @@ export class Assertion {
    * await nonUi5.assertion.expectAttributeToContain(element, "Save", "title");
    */
   async expectAttributeToContain (elem: Element, compareValue: string, attribute: string) {
+    const vl = this.vlf.initLog(this.expectAttributeToContain)
     const value = await nonUi5.element.getAttributeValue(elem, attribute);
+    vl.log(`Expecting ${value} to contain ${compareValue}`)
     return expect(value).toContain(compareValue);
   };
 
@@ -51,6 +56,7 @@ export class Assertion {
    * await nonUi5.assertion.expectValueToBe(elem, "Save");
    */
   async expectValueToBe (elem: Element, compareValue: string): Promise<void> {
+    const vl = this.vlf.initLog(this.expectValueToBe)
     // Note: it is not required to send 'value' here, because 'expectAttributeToBe' is calling 'getValue' inside
     // @ts-ignore
     await this.expectAttributeToBe(elem, compareValue);
@@ -67,6 +73,7 @@ export class Assertion {
    * await nonUi5.assertion.expectToBeVisible(elem);
    */
   async expectToBeVisible (element: Element): Promise<void> {
+    const vl = this.vlf.initLog(this.expectToBeVisible)
     if (!element) {
       throw new Error("Function 'expectToBeVisible' failed. Please provide an element as argument.");
     }
@@ -91,6 +98,7 @@ export class Assertion {
  * await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
  */
   async expectToBeNotVisible (element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<void> {
+    const vl = this.vlf.initLog(this.expectToBeNotVisible)
     if (!element) {
       throw new Error("Function 'expectToBeNotVisible' failed. Please provide an element as argument.");
     }

@@ -1,10 +1,13 @@
 "use strict";
 
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+
 /**
  * @class navigation
  * @memberof nonUi5
  */
 export class Navigation {
+  private vlf = new VerboseLoggerFactory("nonui5", "navigation")
 
   /**
    * @function navigateToApplication
@@ -15,10 +18,12 @@ export class Navigation {
    * @example await nonUi5.navigation.navigateToApplication("categories");
    */
    async navigateToApplication(relativeReference: string, refresh = true) {
+    const vl = this.vlf.initLog(this.navigateToApplication)
     try {
       await browser.navigateTo(`${browser.config.baseUrl}/${relativeReference}`);
       await util.browser.logCurrentUrl();
       if (refresh) {
+        vl.log('Refreshing the page');
         await util.browser.refresh();
       }
     } catch (error) {

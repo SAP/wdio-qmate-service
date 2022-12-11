@@ -1,9 +1,13 @@
 "use strict";
+
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+
 /**
  * @class function
  * @memberof util
  */
 export class FunctionModule {
+  private vlf = new VerboseLoggerFactory("util", "function")
   overallRetries: number = 3;
 
   // =================================== MAIN ===================================
@@ -23,7 +27,9 @@ export class FunctionModule {
    */
   // NOTE: Don't set default values since they will be calculated with "_getRetryProperties".
   async retry (fct: Function, args: Array<any>, retries: number, interval: number, scope: any = null) {
+    const vl = this.vlf.initLog(this.retry)
     this.overallRetries = retries;
+    vl.log(`${retries} retries were configured`)
     const res = await this._getRetryProperties(retries, interval);
     await this._retry(fct, args, res.retries, res.interval, scope);
   };
@@ -40,6 +46,7 @@ export class FunctionModule {
    * }, []);
    */
   async executeOptional (fct: any, args: Array<any> = []) {
+    const vl = this.vlf.initLog(this.retry)
     try {
       await fct.apply(this, args);
     } catch (e) {
@@ -96,6 +103,7 @@ export class FunctionModule {
 
   // =================================== HELPER ===================================
   private async _getRetryProperties(retries: number, interval: number) {
+    const vl = this.vlf.initLog(this._getRetryProperties)
     const res = {
       retries: retries,
       interval: interval
@@ -112,11 +120,14 @@ export class FunctionModule {
         res.interval = 5000;
       }
     }
+    vl.log(`Got retry properties: ${res}`)
     return res;
   }
 
   private async _retry(fct: any, args: Array<any>, retries: number, interval: number, scope = null) {
+    const vl = this.vlf.initLog(this._retry)
     try {
+      vl.log(`Executing ${fct.name ? fct.name : 'anonymous'} function via retry mechanism`)
       return await fct.apply(scope, args);
     } catch (e) {
       retries = retries - 1;

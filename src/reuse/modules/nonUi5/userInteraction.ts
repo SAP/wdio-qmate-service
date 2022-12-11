@@ -1,6 +1,7 @@
 "use strict";
 
 import { Element } from "../../../../@types/wdio";
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { AlignmentValues } from "./constants/userInteraction.constants";
 
 /**
@@ -8,6 +9,7 @@ import { AlignmentValues } from "./constants/userInteraction.constants";
  * @memberof nonUi5
  */
 export class UserInteraction {
+  private vlf = new VerboseLoggerFactory("nonui5", "userInteraction")
 
   // =================================== CLICK ===================================
   /**
@@ -20,6 +22,8 @@ export class UserInteraction {
    * await nonUi5.userInteraction.click(elem);
    */
   async click (element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.click)
+    vl.log("Expecting element to be displayed and enabled")
     await Promise.all([
       expect(element).toBeDisplayed({ //TODO: Reuse of internal functions?
         wait: timeout,
@@ -33,6 +37,7 @@ export class UserInteraction {
       })
     ]);
     try {
+      vl.log("Clicking the element")
       await element.click();
     } catch (error) {
       const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error as Error, "click");
@@ -52,9 +57,11 @@ export class UserInteraction {
    * await nonUi5.userInteraction.clickAndRetry(elem);
    */
   async clickAndRetry (element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
+    const vl = this.vlf.initLog(this.click)
     if (!element) {
       throw new Error("Function 'clearAndRetry' failed. Please provide an element as first argument.");
     }
+    vl.log('Retrying...')
     return util.function.retry(this.click, [element, timeout], retries, interval, this);
   };
 
@@ -68,6 +75,8 @@ export class UserInteraction {
    * await nonUi5.userInteraction.doubleClick(elem);
    */
   async doubleClick (element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.doubleClick)
+    vl.log("Expecting element to be displayed and enabled")
     await Promise.all([
       expect(element).toBeDisplayed({
         wait: timeout,
@@ -81,6 +90,7 @@ export class UserInteraction {
       })
     ]);
     try {
+      vl.log("Clicking the element")
       await element.doubleClick();
     } catch (error) {
       const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error as Error, "doubleClick");
@@ -98,6 +108,8 @@ export class UserInteraction {
    * await nonUi5.userInteraction.rightClick(elem);
    */
   async rightClick (element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.rightClick)
+    vl.log("Expecting element to be displayed and enabled")
     await Promise.all([
       expect(element).toBeDisplayed({
         wait: timeout,
@@ -111,6 +123,7 @@ export class UserInteraction {
       })
     ]);
     try {
+      vl.log("Clicking the element")
       await element.click({
         button: "right"
       });
@@ -132,7 +145,9 @@ export class UserInteraction {
    * await nonUi5.userInteraction.fill(elem, "Service 01");
    */
   async fill (element: Element, value: string) {
+    const vl = this.vlf.initLog(this.fill)
     try {
+      vl.log(`Setting the value of element to ${value}`)
       await element.setValue(value);
     } catch (error) {
       // @ts-ignore
@@ -161,9 +176,11 @@ export class UserInteraction {
    * await nonUi5.userInteraction.fillAndRetry(elem, "Service 01");
    */
   async fillAndRetry (element: Element, value: string, retries: number = 3, interval: number = 5000) {
+    const vl = this.vlf.initLog(this.fillAndRetry)
     if (!element || (value === null || value === undefined || value === "")) {
       throw new Error("Function 'fillAndRetry' failed: Please provide an element and value as arguments.");
     } else {
+      vl.log("Retrying...")
       return util.function.retry(this.fill, [element, value], retries, interval, this);
     }
   };
@@ -179,6 +196,7 @@ export class UserInteraction {
    * await nonUi5.userInteraction.clear(elem);
    */
   async clear (element: Element) {
+    const vl = this.vlf.initLog(this.clear)
     if (!element) {
       throw new Error("Function 'clear' failed: Please provide an element as first argument.");
     }
@@ -196,6 +214,7 @@ export class UserInteraction {
    * await nonUi5.userInteraction.clearAndRetry(elem);
    */
   async clearAndRetry (element: Element, retries = 3, interval = 5000) {
+    const vl = this.vlf.initLog(this.clearAndRetry)
     if (!element) {
       throw new Error("Function 'clearAndRetry' failed: Please provide an element as first argument.");
     }
@@ -212,12 +231,15 @@ export class UserInteraction {
    * await nonUi5.userInteraction.clearAndFill(elem, "Service 01");
    */
   async clearAndFill (element: Element, value: string) {
+    const vl = this.vlf.initLog(this.clearAndFill)
     //arg. 'value' needs to be checked in case of numeric values. E.g.: 0 or 1 will be handled as boolean value in if.
     if (!element || (value === null || value === undefined || value === "")) {
       throw new Error("Function 'clearAndFill' failed: Please provide an element and value as arguments.");
     } else {
       try {
+        vl.log("Clearing the element")
         await this.clear(element);
+        vl.log(`Setting the value of element to ${value}`)
         await element.setValue(value);
       } catch (error) {
         throw new Error(`Function 'clearAndFill' failed: ${error}`);
@@ -238,6 +260,7 @@ export class UserInteraction {
    * await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
    */
   async clearAndFillAndRetry (element: Element, value: string, retries: number = 3, interval: number = 5000, verify: boolean = true) {
+    const vl = this.vlf.initLog(this.clearAndFillAndRetry)
     return util.function.retry(async (elem: Element, value: string) => {
       await this.clearAndFill(elem, value);
       if (verify) {
@@ -260,6 +283,7 @@ export class UserInteraction {
    * await nonUi5.userInteraction.mouseOverElement(elem);
    */
    async mouseOverElement (elem: Element, xOffset: number, yOffset: number) {
+    const vl = this.vlf.initLog(this.mouseOverElement)
     try {
       await elem.moveTo({ xOffset, yOffset });
     } catch (error) {
@@ -279,6 +303,7 @@ export class UserInteraction {
    * await nonUi5.userInteraction.scrollToElement(elem);
    */
   async scrollToElement (elem: Element, alignment: AlignmentValues = AlignmentValues.CENTER) {
+    const vl = this.vlf.initLog(this.scrollToElement)
     const options = {
       "block": alignment,
       "inline": alignment
@@ -297,6 +322,7 @@ export class UserInteraction {
    * await nonUi5.userInteraction.dragAndDrop(elem, targetElem);
    */
   async dragAndDrop (element: Element, targetElem: Element) {
+    const vl = this.vlf.initLog(this.dragAndDrop)
     // await element.dragAndDrop(targetElem);
 
     const sourceSize = await element.getSize();
@@ -339,6 +365,7 @@ export class UserInteraction {
    * await nonUi5.userInteraction.moveCursorAndClick(elem);
    */
   async moveCursorAndClick (element: Element) {
+    const vl = this.vlf.initLog(this.moveCursorAndClick)
     await element.moveTo();
     await element.click();
   };
@@ -354,6 +381,7 @@ export class UserInteraction {
    * await nonUi5.userInteraction.clickElementInSvg(svgElem, innerSelector);
    */
    async clickElementInSvg (svgElem: Element, innerSelector: string) {
+    const vl = this.vlf.initLog(this.clickElementInSvg)
     const innerElem = await $(innerSelector);
 
     const svgPos = await svgElem.getLocation();

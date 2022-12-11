@@ -1,10 +1,15 @@
 "use strict";
+
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+
 /**
  * @class file
  * @memberof util
  */
 
 export class File {
+  private vlf = new VerboseLoggerFactory("util", "file")
+
   path = require("path");
   pdf = require("pdf-parse");
 
@@ -18,7 +23,8 @@ export class File {
    * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"]); // uses the default uploader control
    * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], "input[id='myUpload']"); // upload to file uploader with matching selector
    */
-  async upload(files: Array<string>, selector: string = "input[type = 'file']") {   
+  async upload(files: Array<string>, selector: string = "input[type = 'file']") {
+    const vl = this.vlf.initLog(this.upload)
     let elem;
 
     try {
@@ -41,6 +47,7 @@ export class File {
 
       for (const file of files) {
         const filePath = this.path.resolve(file);
+        vl.log(`Uploading file with a path ${filePath}`);
         const remoteFilePath = await browser.uploadFile(filePath);
         await elem.setValue(remoteFilePath);
       }
@@ -62,6 +69,7 @@ export class File {
    * @example await util.file.parsePdf(pdfStream, customRenderingMethod);
    */
   async parsePdf(pdfStream: Buffer, renderingMethod: Function = this._renderPage): Promise<String> {
+    const vl = this.vlf.initLog(this.parsePdf)
     if (typeof renderingMethod !== "function") {
       throw new Error("Function 'parsePdf' failed: Please provide a custom rendering method as second parameter.");
     }
@@ -85,6 +93,7 @@ export class File {
    * @example await util.file.expectPdfContainsText(pdfStream, "abc");
    */
   async expectPdfContainsText(pdfStream: Buffer, text: string, renderingMethod: Function = this._renderPage) {
+    const vl = this.vlf.initLog(this.expectPdfContainsText)
     if (!text) {
       throw new Error("Function 'expectPdfContainsText' failed: Please provide a text as second parameter.");
     }
@@ -107,6 +116,7 @@ export class File {
     text: string,
     renderingMethod: Function = this._renderPage
   ): Promise<boolean> {
+    const vl = this.vlf.initLog(this.expectPdfNotContainsText)
     if (!text) {
       throw new Error("Function 'expectPdfNotContainsText' failed: Please provide a text as second parameter.");
     }
@@ -116,6 +126,7 @@ export class File {
 
   // =================================== HELPER ===================================
   private async _renderPage(pageData: any) {
+    const vl = this.vlf.initLog(this._renderPage)
 
     // should be in scope of render page due to library specific implementation
     const _parseText = function (textContent: any) {
