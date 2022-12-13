@@ -24,15 +24,6 @@ export class File {
     try {
       if (typeof selector === "string") {
         elem = await $(selector);
-        const isDisplayed = await elem.isDisplayed();
-
-        if (!isDisplayed) {
-          await browser.execute(function (selector: string) {
-            // @ts-ignore
-            document.querySelector(selector).style.visibility = "visible";
-          }, selector);
-          await elem.waitForDisplayed();
-        }
 
       } else if (typeof selector === "object") {
         const elemId = await ui5.element.getId(selector);
@@ -42,7 +33,7 @@ export class File {
       for (const file of files) {
         const filePath = this.path.resolve(file);
         const remoteFilePath = await browser.uploadFile(filePath);
-        await elem.setValue(remoteFilePath);
+        await elem.addValue(remoteFilePath);
       }
 
     } catch (error) {
