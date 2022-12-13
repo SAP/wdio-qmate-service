@@ -24,7 +24,6 @@ export class File {
     try {
       if (typeof selector === "string") {
         elem = await $(selector);
-
       } else if (typeof selector === "object") {
         const elemId = await ui5.element.getId(selector);
         elem = await nonUi5.element.getByXPath(`.//input[contains(@id,'${elemId}')][@type='file']`);
