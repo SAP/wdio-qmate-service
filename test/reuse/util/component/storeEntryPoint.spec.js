@@ -19,3 +19,12 @@ describe("component - storeEntryPoint", function () {
   });
 
 });
+
+describe("component - storeEntryPoint - error case", function () {
+
+  it("Execution and Verification", async function () {
+    await expect(util.component.storeEntryPoint())
+      .rejects.toThrow("Function 'writeDataToFile' failed:");
+  });
+
+});
