@@ -1,4 +1,4 @@
-describe("data - getSecureData", function() {
+describe("data - getSecureData - default source", function() {
 
   let data;
 
@@ -27,6 +27,23 @@ describe("data - getSecureData", function() {
   it("Verification 4 - alternatives from different keys", function () {
     const dataExp = "super-duper-sensitive-pw";
     const dataAct = data.alternatives;
+    common.assertion.expectEqual(dataAct, dataExp);
+  });
+
+});
+
+describe("data - getSecureData - custom source", function() {
+
+  let data;
+
+  it("Execution", function () {
+    const source = "customSourceData";
+    data = util.data.getSecureData("test", source);
+  });
+
+  it("Verification", function () {
+    const dataExp = "super-duper-sensitive-pw";
+    const dataAct = data.session.password;
     common.assertion.expectEqual(dataAct, dataExp);
   });
 

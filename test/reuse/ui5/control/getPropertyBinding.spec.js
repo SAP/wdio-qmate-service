@@ -1,14 +1,14 @@
 "use strict";
 
-describe("getPropertyBinding - check name is Accessories", async () => {
-  let aBindings;
+describe("getPropertyBinding - check title path is CategoryName", async () => {
+  let aBindings, aBindingsSelector, aBindingsSelectorOptions;
   it("Preparation", async () => {
     const url = await util.browser.getBaseUrl();
     await common.navigation.navigateToUrl(url);
   });
 
   it("Execution", async () => {
-    const ui5ControlProperties = {
+    const selector = {
       "elementProperties": {
         "metadata": "sap.m.StandardListItem",
         "mProperties": {
@@ -20,11 +20,15 @@ describe("getPropertyBinding - check name is Accessories", async () => {
         }
       }
     };
-    const elem = await ui5.element.getDisplayed(ui5ControlProperties);
+    const elem = await ui5.element.getDisplayed(selector);
     aBindings = await ui5.control.getPropertyBinding(elem, "title");
+    aBindingsSelector = await ui5.control.getPropertyBinding(selector, "title");
+    aBindingsSelectorOptions = await ui5.control.getPropertyBinding({selector: selector, index: 0, timeout: 30000}, "title");
   });
 
   it("Verification", () => {
     common.assertion.expectEqual(aBindings[0].path, "CategoryName");
+    common.assertion.expectEqual(aBindingsSelector[0].path, "CategoryName");
+    common.assertion.expectEqual(aBindingsSelectorOptions[0].path, "CategoryName");
   });
 });

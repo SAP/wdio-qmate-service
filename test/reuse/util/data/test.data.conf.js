@@ -10,7 +10,8 @@ exports.config = merge(profile.config, {
 
   params: {
     import: {
-      data: "./data/"
+      data: "./data/",
+      customSourceData: "./customSourceData"
     }
   },
 
