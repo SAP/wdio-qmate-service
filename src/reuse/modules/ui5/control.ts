@@ -1,12 +1,14 @@
 "use strict";
 
 import { Element } from "../../../../@types/wdio";
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 
 /**
  * @class control
  * @memberof ui5
  */
 export class Control {
+  private vlf = new VerboseLoggerFactory("ui5", "control")
 
   private lib = require("../../../scripts/hooks/utils/lib");
   private locatorCommands = require("../../../scripts/hooks/utils/locatorCommands");
@@ -27,6 +29,7 @@ export class Control {
    * }, selector, args);
    **/
   async execute (callbackFunction: Function, selectorOrElement: any, args?: any) {
+    const vl = this.vlf.initLog(this.execute)
     return this.lib.controlActionInBrowser(callbackFunction, selectorOrElement, args);
   };
 
@@ -44,6 +47,7 @@ export class Control {
    * const val = await ui5.control.getProperty(elem, propertyName);
    **/
   async getProperty (elem: Element, propertyName: string) {
+    const vl = this.vlf.initLog(this.getProperty)
     return this.locatorCommands.getUI5Property(propertyName, elem);
   };
 
@@ -59,6 +63,7 @@ export class Control {
    * const val = await ui5.control.getAggregationProperty(elem, propertyName);
    **/
   async getAggregationProperty (elem: Element, propertyName: string) {
+    const vl = this.vlf.initLog(this.getAggregationProperty)
     return this.locatorCommands.getUI5Aggregation(propertyName, elem);
   };
 
@@ -74,6 +79,7 @@ export class Control {
    * const propertyValue = await ui5.control.getAssociationProperty(elem, propertyName);
    **/
   async getAssociationProperty (elem: Element, propertyName: string) {
+    const vl = this.vlf.initLog(this.getAssociationProperty)
     return this.locatorCommands.getUI5Association(propertyName, elem);
   };
 
@@ -87,6 +93,7 @@ export class Control {
    * const context = await ui5.control.getBindingContextPathProperty(elem);
    **/
   async getBindingContextPathProperty (elem: Element) {
+    const vl = this.vlf.initLog(this.getBindingContextPathProperty)
     return this.locatorCommands.getBindingContextPath(elem);
   };
 
@@ -104,6 +111,7 @@ export class Control {
    * const binding = await ui5.control.getPropertyBinding(elem, propertyName);
    **/
   async getPropertyBinding (elem: Element, propertyName: string) {
+    const vl = this.vlf.initLog(this.getPropertyBinding)
     return this.locatorCommands.getBindingProperty(propertyName, elem);
   };
 

@@ -6,6 +6,7 @@
 
 "use strict";
 
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { RequestMethodType } from "./types/mockserver.types";
 
 /**
@@ -13,6 +14,7 @@ import { RequestMethodType } from "./types/mockserver.types";
  * @memberof ui5
  */
 export class Mockserver {
+  private vlf = new VerboseLoggerFactory("ui5", "mockserver")
 
   private lib = require("../../../scripts/hooks/utils/lib.js");
 
@@ -25,6 +27,7 @@ export class Mockserver {
    * @example await ui5.mockserver.waitForUi5ApplicationLoad(100);
    */
   async waitForUi5ApplicationLoad (interval = 100) {
+    const vl = this.vlf.initLog(this.waitForUi5ApplicationLoad)
     await this.lib.waitUI5ToStabilize(); // Note: interval is hardcoded in  lib.js
   };
 
@@ -39,6 +42,7 @@ export class Mockserver {
    * @example await ui5.mockserver.interactWithMockServer("path/to/project/localService/main/mockserver", fnCallback, oParams);
    */
   async interactWithMockServer (mockServerPath: string, fnCallback: any, oParams: string) {
+    const vl = this.vlf.initLog(this.interactWithMockServer)
     // fnCallback-> function(mockServerInstance, oParams, done){...}
     await this.lib.mockServerActionInBrowser(fnCallback, mockServerPath, oParams);
     return await ui5.mockserver.waitForUi5ApplicationLoad();
@@ -55,6 +59,7 @@ export class Mockserver {
    * @example await ui5.mockserver.attachFunctionBefore("GET", "path/to/project/localService/main/mockserver", fnBeforeCallback, oParams);
    */
   async attachFunctionBefore (method: RequestMethodType, mockServerPath: string, fnBeforeCallback: any, oParams: any) {
+    const vl = this.vlf.initLog(this.attachFunctionBefore)
     const fnBeforeCallbackString = fnBeforeCallback.toString();
     await this.lib.mockServerActionInBrowser(function (mockserver: any, method: RequestMethodType, fnBeforeCallbackString: any, oParams: any, done: any) {
       const mockServerInst = mockserver.getMockServer();
@@ -81,6 +86,7 @@ export class Mockserver {
    * @example await ui5.mockserver.attachFunctionAfter("GET", "path/to/project/localService/main/mockserver",  fnAfterCallback);
    */
   async attachFunctionAfter (method: RequestMethodType, mockServerPath: string, fnAfterCallback: any, oParams: any) {
+    const vl = this.vlf.initLog(this.attachFunctionAfter)
     const fnAfterCallbackString = fnAfterCallback.toString();
     await this.lib.mockServerActionInBrowser(function (mockserver: any, method: RequestMethodType, fnAfterCallbackString: any, oParams: any, done: any) {
       var mockServerInst = mockserver.getMockServer();
@@ -111,6 +117,7 @@ export class Mockserver {
    * @example await ui5.mockserver.addNewRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*", "path/to/project/localService/main/mockdata/test.json", 200, true, JSON.stringify(msg));
    */
   async addNewRequest (method: RequestMethodType, mockServerPath: string, urlPathRegex: string, responseJsonPath: string, returnCode: number, isText: boolean, responseMessages: any, responseLocation: any) {
+    const vl = this.vlf.initLog(this.addNewRequest)
     var responseData = responseJsonPath;
     try {
       if (typeof responseJsonPath !== "string" && typeof responseJsonPath === "object") {
@@ -238,6 +245,7 @@ export class Mockserver {
    * @example await ui5.mockserver.removeRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*");
    */
   async removeRequest (method: RequestMethodType, mockServerPath: string, urlPathRegex: string) {
+    const vl = this.vlf.initLog(this.removeRequest)
     await this.lib.mockServerActionInBrowser(function (mockserver: any, method: RequestMethodType, urlPathRegex: string, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
@@ -279,6 +287,7 @@ export class Mockserver {
    * @example await ui5.mockserver.addOrOverrideRequest("GET","path/to/project/localService/main/mockserver", "*.Headers.*", "path/to/project/localService/main/mockdata/test.json", 200, true, JSON.stringify(msg));
    */
   async addOrOverrideRequest (method: RequestMethodType, mockServerPath: string, urlPathRegex: string, responseJsonPath: string, returnCode: number, isText: any, responseMessages: any, responseLocation: any) {
+    const vl = this.vlf.initLog(this.addOrOverrideRequest)
     var responseData = responseJsonPath;
     try {
       if (typeof responseJsonPath !== "string" && typeof responseJsonPath === "object") {
@@ -403,6 +412,7 @@ export class Mockserver {
    * @example await ui5.mockserver.startMockServer("path/to/project/localService/main/mockserver");
    */
   async startMockServer (mockServerPath: string) {
+    const vl = this.vlf.initLog(this.startMockServer)
     await this.lib.mockServerActionInBrowser(function (mockserver: any, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
@@ -425,6 +435,7 @@ export class Mockserver {
    * @example await ui5.mockserver.initMockServer("path/to/project/localService/main/mockserver", mockServerOptions);
    */
   async initMockServer (mockServerPath: string, mockServerOptions: string) {
+    const vl = this.vlf.initLog(this.initMockServer)
     var mockServerOpts = JSON.stringify(mockServerOptions);
     return await this.lib.mockServerActionInBrowser(function (mockserver: any, mockServerOpts: string, done: any) {
       if (!mockserver) {
@@ -454,6 +465,7 @@ export class Mockserver {
    * @example await ui5.mockserver.initApplication("path/to/project/localService/main/mockserver");
    */
   async initApplication (mockServerPath: string) {
+    const vl = this.vlf.initLog(this.initApplication)
     await this.lib.mockServerActionInBrowser(function (mockserver: any, done: any) {
       if (!mockserver) {
         console.error("Mockserver file not yet loaded or is missing");
@@ -474,6 +486,7 @@ export class Mockserver {
    * @example await ui5.mockserver.stopMockServer("path/to/project/localService/main/mockserver");
    */
   async stopMockServer (mockServerPath: string) {
+    const vl = this.vlf.initLog(this.stopMockServer)
     return await this.lib.mockServerActionInBrowser(function (mockserver: any, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
@@ -495,6 +508,7 @@ export class Mockserver {
    * @example await ui5.mockserver.loadMockDataFile("path/to/project/mockData/myData.json", true);
    */
   async loadMockDataFile (filePath: string, isText: boolean) {
+    const vl = this.vlf.initLog(this.loadMockDataFile)
     return await this.lib.loadMockData(filePath, isText);
   };
 
@@ -508,6 +522,7 @@ export class Mockserver {
    * @example await ui5.mockserver.getEntitySetData("path/to/project/localService/main/mockserver", "Headers");
    */
   async getEntitySetData (mockServerPath: string, entitySetName: string) {
+    const vl = this.vlf.initLog(this.getEntitySetData)
     return await this.lib.mockServerActionInBrowser(function (mockserver: any, entitySetName: string, done: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
@@ -529,6 +544,7 @@ export class Mockserver {
    * @example await ui5.mockserver.setEntitySetData("path/to/project/localService/main/mockserver", "Headers", entries);
    */
   async setEntitySetData (mockServerPath: string, entitySetName: string, entries: string) {
+    const vl = this.vlf.initLog(this.setEntitySetData)
     var responseData = entries;
     try {
       if (typeof entries !== "string" && typeof entries === "object") {

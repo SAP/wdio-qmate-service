@@ -1,9 +1,13 @@
 "use strict";
+
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+
 /**
  * @class confirmationDialog
  * @memberof ui5
  */
 export class ConfirmationDialog {
+  private vlf = new VerboseLoggerFactory("ui5", "confirmationDialog")
 
   selectors = {
     genericButton: (text: string) => {
@@ -30,6 +34,8 @@ export class ConfirmationDialog {
    * @example await ui5.confirmationDialog.clickButton("Ok");
    */
   async clickButton (text: string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickButton)
+    vl.log(`Clicking button with text ${text}`)
     return ui5.userInteraction.click(this.selectors.genericButton(text), 0, timeout);
   };
 
@@ -41,6 +47,7 @@ export class ConfirmationDialog {
    * @example await ui5.confirmationDialog.clickOk();
    */
   async clickOk (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickOk)
     // @ts-ignore
     return this.clickButton(/ok/gi, timeout);
   };
@@ -53,6 +60,7 @@ export class ConfirmationDialog {
    * @example await ui5.confirmationDialog.clickCancel();
    */
   async clickCancel (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickCancel)
     return this.clickButton("Cancel", timeout);
   };
 
@@ -64,6 +72,7 @@ export class ConfirmationDialog {
    * @example await ui5.confirmationDialog.clickYes();
    */
   async clickYes (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickYes)
     return this.clickButton("Yes", timeout);
   };
 
@@ -75,6 +84,7 @@ export class ConfirmationDialog {
    * @example await ui5.confirmationDialog.clickNo();
    */
   async clickNo (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickNo)
     return this.clickButton("No", timeout);
   };
 
@@ -86,6 +96,7 @@ export class ConfirmationDialog {
    * @example await ui5.confirmationDialog.clickCreate();
    */
   async clickCreate (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickCreate)
     return this.clickButton("Create", timeout);
   };
 
@@ -97,6 +108,7 @@ export class ConfirmationDialog {
    * @example await ui5.confirmationDialog.clickDelete();
    */
   async clickDelete (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickDelete)
     return this.clickButton("Delete", timeout);
   };
 
@@ -108,6 +120,7 @@ export class ConfirmationDialog {
    * @example await ui5.confirmationDialog.clickRevokeApproval();
    */
   async clickRevokeApproval (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickRevokeApproval)
     return this.clickButton("Revoke Approval", timeout);
   };
 

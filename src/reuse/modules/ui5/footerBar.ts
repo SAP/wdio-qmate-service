@@ -1,9 +1,13 @@
 "use strict";
+
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+
 /**
  * @class footerBar
  * @memberof ui5
  */
 export class FooterBar {
+  private vlf = new VerboseLoggerFactory("ui5", "footerBar")
 
   selectors = {
     genericButton: (text: string) => {
@@ -62,6 +66,8 @@ export class FooterBar {
    * @example await ui5.footerBar.clickButton("Ok");
    */
   async clickButton (text: string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickButton)
+    vl.log(`Clicking button with text ${text}`)
     return ui5.userInteraction.click(this.selectors.genericButton(text), 0, timeout);
   };
 
@@ -73,6 +79,7 @@ export class FooterBar {
    * @example await ui5.footerBar.clickApply();
    */
   async clickApply (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickApply)
     return this.clickButton("Apply", timeout);
   };
 
@@ -84,6 +91,7 @@ export class FooterBar {
    * @example await ui5.footerBar.clickSave();
    */
   async clickSave (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickSave)
     return this.clickButton("Save", timeout);
   };
 
@@ -95,6 +103,7 @@ export class FooterBar {
    * @example await ui5.footerBar.clickCreate();
    */
   async clickCreate (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickCreate)
     return this.clickButton("Create", timeout);
   };
 
@@ -106,6 +115,7 @@ export class FooterBar {
    * @example await ui5.footerBar.clickCancel();
    */
   async clickCancel (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickCancel)
     return this.clickButton("Cancel", timeout);
   };
 
@@ -117,6 +127,7 @@ export class FooterBar {
    * @example await ui5.footerBar.clickCheck();
    */
   async clickCheck (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickCheck)
     return this.clickButton("Check", timeout);
   };
 
@@ -128,6 +139,7 @@ export class FooterBar {
    * @example await ui5.footerBar.clickOrder();
    */
   async clickOrder (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickOrder)
     return this.clickButton("Order", timeout);
   };
 
@@ -139,6 +151,7 @@ export class FooterBar {
    * @example await ui5.footerBar.clickPost();
    */
   async clickPost (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickPost)
     return this.clickButton("Post", timeout);
   };
 
@@ -150,6 +163,7 @@ export class FooterBar {
    * @example await ui5.footerBar.clickAdd();
    */
   async clickAdd (timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickAdd)
     return this.clickButton("Add", timeout);
   };
 
@@ -160,6 +174,7 @@ export class FooterBar {
    * @example await ui5.messageBox.clickMessageBoxButton();
    */
   async clickMessageBoxButton () {
+    const vl = this.vlf.initLog(this.clickMessageBoxButton)
     return ui5.userInteraction.click(this.selectors.messageBoxButton);
   };
 
@@ -170,6 +185,7 @@ export class FooterBar {
    * @example await ui5.messageBox.clickCloseMessageBox();
    */
   async clickCloseMessageBox () {
+    const vl = this.vlf.initLog(this.clickCloseMessageBox)
     return ui5.userInteraction.click(this.selectors.messageBoxCloseButton);
   };
 
@@ -182,6 +198,7 @@ export class FooterBar {
    * @example await ui5.messageBox.expectMessageBoxToBeVisible();
    */
   async expectMessageBoxToBeVisible () {
+    const vl = this.vlf.initLog(this.expectMessageBoxToBeVisible)
     return ui5.assertion.expectToBeVisible(this.selectors.messageBox);
   };
 
@@ -193,7 +210,7 @@ export class FooterBar {
    * @example await ui5.messageBox.isMessageBoxVisible();
    */
   async isMessageBoxVisible () {
-    // TODO: check
+    const vl = this.vlf.initLog(this.isMessageBoxVisible)
     //@ts-ignore
     return ui5.element.getValue(this.selectors.messageBox, "visible");
   };

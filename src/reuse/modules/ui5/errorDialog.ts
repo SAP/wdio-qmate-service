@@ -1,9 +1,13 @@
 "use strict";
+
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+
 /**
  * @class errorDialog
  * @memberof ui5
  */
 export class ErrorDialog {
+  private vlf = new VerboseLoggerFactory("ui5", "errorDialog")
 
   selectors = {
     errorDialog: {
@@ -30,6 +34,7 @@ export class ErrorDialog {
    * @example await ui5.errorDialog.expectToBeVisible();
    */
   async expectToBeVisible () {
+    const vl = this.vlf.initLog(this.expectToBeVisible)
     await ui5.assertion.expectToBeVisible(this.selectors.errorDialog);
   };
 
@@ -40,6 +45,7 @@ export class ErrorDialog {
    * @example await ui5.errorDialog.clickClose();
    */
   async clickClose () {
+    const vl = this.vlf.initLog(this.clickClose)
     await ui5.userInteraction.click(this.selectors.closeButton);
   };
 

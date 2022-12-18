@@ -1,5 +1,6 @@
 "use strict";
 
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { DateFormats } from "../util/constants/formatter.constants";
 
 /**
@@ -7,6 +8,7 @@ import { DateFormats } from "../util/constants/formatter.constants";
  * @memberof ui5
  */
 export class DateModule {
+  private vlf = new VerboseLoggerFactory("ui5", "date")
 
   // =================================== PICK ===================================
   /**
@@ -20,6 +22,8 @@ export class DateModule {
    * await ui5.date.pick(selector, date);
    */
   async pick (selector: any, date: Date, index: number = 0) {
+    const vl = this.vlf.initLog(this.pick)
+    vl.log(`Picking date ${date} for selector ${selector}`)
     let id = await ui5.element.getId(selector, index);
     if (selector.elementProperties.metadata === "sap.ui.core.Icon") {
       id = id.replace("-icon", "");
@@ -50,6 +54,8 @@ export class DateModule {
    * await ui5.date.pickRange(selector, range);
    */
   async pickRange (selector: any, range: Date[], index = 0) {
+    const vl = this.vlf.initLog(this.pickRange)
+    vl.log(`Picking date range ${range} for selector ${selector}`)
     let id = await ui5.element.getId(selector, index);
     if (selector.elementProperties.metadata === "sap.ui.core.Icon") {
       id = id.replace("-icon", "");
@@ -80,6 +86,7 @@ export class DateModule {
    * await ui5.date.fillRange(selector, range);
    */
   async fillRange (selector: any, range: Date[], index: number = 0) {
+    const vl = this.vlf.initLog(this.fillRange)
     const value = range[0] + " - " + range[1];
     await ui5.userInteraction.clearAndFill(selector, value, index);
   };
@@ -87,12 +94,14 @@ export class DateModule {
 
   // =================================== HELPER ===================================
   private async _openDatePicker(selector: any) {
+    const vl = this.vlf.initLog(this._openDatePicker)
     const id = selector.elementProperties.id;
     const icon = await nonUi5.element.getById(`${id}-icon`);
     await nonUi5.userInteraction.click(icon);
   }
 
   private async _selectDate(selector: any, date: Date) {
+    const vl = this.vlf.initLog(this._selectDate)
     const year = date.getFullYear();
     const month = date.getMonth();
     
