@@ -264,6 +264,7 @@ export class ElementModule {
    */
   async getByXPath(xpath: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false) {
     const vl = this.vlf.initLog(this.getByXPath)
+    vl.log(`XPath: ${xpath}`);
     try {
       return await this.getByCss(xpath, index, timeout, includeHidden);
     } catch (error) {

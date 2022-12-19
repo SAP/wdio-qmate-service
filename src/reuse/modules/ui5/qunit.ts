@@ -1,9 +1,13 @@
 "use strict";
+
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+
 /**
  * @class qunit  
  * @memberof ui5
  */
 export class QUnit {
+  private vlf = new VerboseLoggerFactory("ui5", "qunit")
 
   private clientsidescripts = require("../../helper/clientsideUI5scripts");
 
@@ -15,6 +19,7 @@ export class QUnit {
    * @example await ui5.qunit.executeTests("path/to/qunit.html");
    */
   async executeTests (path: string) {
+    const vl = this.vlf.initLog(this.executeTests)
     const url = await browser.getUrl();
     if (url.indexOf("4431") !== -1) {
       await browser.navigateTo(`http://localhost:4431/${path}`);

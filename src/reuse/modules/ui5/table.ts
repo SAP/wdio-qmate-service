@@ -1,9 +1,13 @@
 "use strict";
+
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+
 /**
  * @class table
  * @memberof ui5
  */
 export class Table {
+  private vlf = new VerboseLoggerFactory("ui5", "table")
 
   // =================================== SORTING ===================================
   /**
@@ -23,6 +27,7 @@ export class Table {
    * await ui5.table.sortColumnAscending("Amount", glAccountItemsTable);
    */
   async sortColumnAscending (columnName: string, tableSelector: any) {
+    const vl = this.vlf.initLog(this.sortColumnAscending)
     const sortButtonSelector = {
       "elementProperties": {
         "metadata": "sap.m.Button",
@@ -56,6 +61,7 @@ export class Table {
    * await ui5.table.sortColumnDescending("Amount", glAccountItemsTable);
    */
    async sortColumnDescending (columnName: string, tableSelector: any) {
+    const vl = this.vlf.initLog(this.sortColumnDescending)
     const sortButtonSelector = {
       "elementProperties": {
         "metadata": "sap.m.Button",
@@ -88,6 +94,7 @@ export class Table {
    * await ui5.table.clickSettingsButton(glAccountItemsTable);
    */
    async clickSettingsButton (tableSelector: any) {
+    const vl = this.vlf.initLog(this.clickSettingsButton)
     const settingsButtonSelector = {
       "elementProperties": {
         "metadata": "sap.m.OverflowToolbarButton",
@@ -105,6 +112,7 @@ export class Table {
 
   // =================================== HELPER ===================================
   private async _clickColumn(name: string, tableSelector: any) {
+    const vl = this.vlf.initLog(this._clickColumn)
     const tableColumnSelector = {
       "elementProperties": {
         "metadata": "sap.m.Column"
@@ -127,6 +135,7 @@ export class Table {
   }
 
   private async _getSortIndicatorValue(name: string, tableSelector: any) {
+    const vl = this.vlf.initLog(this._getSortIndicatorValue)
     const tableColumnSelector = {
       "elementProperties": {
         "metadata": "sap.m.Column"
@@ -149,6 +158,7 @@ export class Table {
   }
 
   private _prepareAncestorSelector (selector: any, ancestorSelector: any) {
+    const vl = this.vlf.initLog(this._prepareAncestorSelector)
     if ("elementProperties" in ancestorSelector) {
       selector.ancestorProperties = ancestorSelector.elementProperties;
     } else if (!("ancestorProperties" in selector)) {

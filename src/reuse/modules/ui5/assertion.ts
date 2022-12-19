@@ -328,6 +328,7 @@ export class Assertion {
    * @example await ui5.assertion.expectToBeVisible(selector);
    */
   async expectToBeVisible (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+    const vl = this.vlf.initLog(this.expectToBeVisible)
     let elem: Element;
 
     try {
@@ -354,7 +355,9 @@ export class Assertion {
       });
     } else {
       const isUi5Visible = await elem.getUI5Property("visible");
+      vl.log('Element is visible in Ui5');
       const isDomVisible = await elem.isDisplayed();
+      vl.log('Element is displayed in DOM');
       value = isUi5Visible || isDomVisible;
       common.assertion.expectTrue(value);
     }
@@ -371,6 +374,7 @@ export class Assertion {
    * @example await ui5.assertion.expectToBeVisibleInViewport(selector);
    */
   async expectToBeVisibleInViewport (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.expectToBeVisibleInViewport)
     let elem: Element;
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -399,6 +403,7 @@ export class Assertion {
    * @example await ui5.assertion.expectToBeNotVisible(selector, 0, 5000);
    */
   async expectToBeNotVisible (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.expectToBeNotVisible)
     try {
       const isVisible = await ui5.element.isVisible(selector, index, timeout);
       return common.assertion.expectFalse(isVisible);
@@ -418,6 +423,7 @@ export class Assertion {
    * @example await ui5.assertion.expectMessageToastTextToBe(text);
    */
   async expectMessageToastTextToBe (text: string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.expectMessageToastTextToBe)
     if (!text) {
       throw new Error("Function 'expectMessageToast' failed. Please provide the expected text as argument.");
     }
@@ -429,10 +435,12 @@ export class Assertion {
 
   // =================================== HELPER ===================================
   private async _getUI5Property(elem: Element, attribute: string) {
+    const vl = this.vlf.initLog(this._getUI5Property)
     let value = await elem.getUI5Property(attribute);
     if (typeof value === "string") {
       value = this._trimText(value);
     }
+    vl.log(`Got UI5 property valie: ${value}`)
     return value;
   }
 
