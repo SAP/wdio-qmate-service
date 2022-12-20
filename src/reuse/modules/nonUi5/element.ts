@@ -455,6 +455,19 @@ export class ElementModule {
     await browser.executeScript(`arguments[0].innerHTML = '${value}'`, [elem]);
   }
 
+  // =================================== SET VALUES ===================================
+  /**
+   * @function getInnerHTML
+   * @memberOf nonUi5.element
+   * @description Gets the innerHTML value of the given element.
+   * @param {Object} elem - The element.
+   * @example const elem = await nonUi5.element.getById("text-editor");
+   * const innerHTML = await nonUi5.element.getInnerHTML(elem);
+   */
+  async getInnerHTML(elem: Element): Promise<string> {
+    return browser.executeScript(`return arguments[0].innerHTML`, [elem]);
+  }
+
   // =================================== ACTIONS ===================================
   /**
    * @function highlight
@@ -510,7 +523,7 @@ export class ElementModule {
     await browser.waitUntil(
       async () => {
         let currentElems = await $$(selector);
-        if(!includeHidden) {
+        if (!includeHidden) {
           currentElems = await this._filterDisplayed(currentElems);
         }
         const currentElemsCount = currentElems.length;
