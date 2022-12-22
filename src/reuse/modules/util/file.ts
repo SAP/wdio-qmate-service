@@ -30,16 +30,6 @@ export class File {
     try {
       if (typeof selector === "string") {
         elem = await $(selector);
-        const isDisplayed = await elem.isDisplayed();
-
-        if (!isDisplayed) {
-          await browser.execute(function (selector: string) {
-            // @ts-ignore
-            document.querySelector(selector).style.visibility = "visible";
-          }, selector);
-          await elem.waitForDisplayed();
-        }
-
       } else if (typeof selector === "object") {
         const elemId = await ui5.element.getId(selector);
         elem = await nonUi5.element.getByXPath(`.//input[contains(@id,'${elemId}')][@type='file']`);
@@ -49,7 +39,7 @@ export class File {
         const filePath = this.path.resolve(file);
         vl.log(`Uploading file with a path ${filePath}`);
         const remoteFilePath = await browser.uploadFile(filePath);
-        await elem.setValue(remoteFilePath);
+        await elem.addValue(remoteFilePath);
       }
 
     } catch (error) {
