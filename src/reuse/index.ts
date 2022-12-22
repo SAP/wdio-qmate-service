@@ -1,18 +1,17 @@
 "use strict";
 
 // modules
-import utilQmate from './modules/util/Util'
-import commonQmate from './modules/common/Common'
-import ui5Qmate from './modules/ui5/Ui5';
-import nonUi5Qmate from './modules/nonUi5/NonUi5';
-import serviceQmate from './modules/service/Service'
+import utilQmate from "./modules/util/Util";
+import commonQmate from "./modules/common/Common";
+import ui5Qmate from "./modules/ui5/Ui5";
+import nonUi5Qmate from "./modules/nonUi5/NonUi5";
+import serviceQmate from "./modules/service/Service";
 
 // data
-import authenticators from './data/authenticators.json'
+import authenticators from "./data/authenticators.json";
 
 class ReuseLibrary {
   load() {
-
     /**
      * @global
      * @description Global namespace for common modules.
@@ -39,7 +38,8 @@ class ReuseLibrary {
       file: utilQmate.file,
       formatter: utilQmate.formatter,
       function: utilQmate.function,
-      system: utilQmate.system
+      system: utilQmate.system,
+      component: utilQmate.component
     };
     global.util = {
       ...util,
@@ -66,7 +66,7 @@ class ReuseLibrary {
       userInteraction: ui5Qmate.userInteraction,
       qunit: ui5Qmate.qunit,
       // data
-      authenticators,
+      authenticators
     };
     global.ui5 = {
       ...ui5,
@@ -100,7 +100,7 @@ class ReuseLibrary {
       ...service,
       ...global.service
     };
-  };
-};
+  }
+}
 
 export default new ReuseLibrary();

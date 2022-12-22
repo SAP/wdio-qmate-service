@@ -3,7 +3,7 @@ const merge = require("deepmerge");
 const profile = require("../../../helper/configurations/chrome.headless.conf");
 
 exports.config = merge(profile.config, {
-  maxInstances: 6,
+  maxInstances: 4,
   specFileRetries: 2,
 
   baseUrl: "https://sapui5.hana.ondemand.com/",
@@ -16,10 +16,7 @@ exports.config = merge(profile.config, {
   },
 
   specs: [
-    path.resolve(__dirname, "getData.spec.js"),
-    path.resolve(__dirname, "getSecureData.spec.js"),
-    path.resolve(__dirname, "decrypt.spec.js"),
-    path.resolve(__dirname, "readDataFromFile.spec.js"),
-    path.resolve(__dirname, "writeDataToFile.spec.js")
+    path.resolve(__dirname, "storeEntryPoint.spec.js"),
+    path.resolve(__dirname, "loadEntryPoint.spec.js"),
   ]
 });
