@@ -29,11 +29,7 @@ export class Control {
    *   done(control.getProperty(args.property));
    * }, selector, args);
    **/
-  async execute(
-    callbackFunction: Function,
-    selectorOrElement: Element | Ui5Selector | Ui5SelectorWithOptions,
-    args?: any
-  ) {
+  async execute(callbackFunction: Function, selectorOrElement: Element | Ui5Selector | Ui5SelectorWithOptions, args?: any) {
     const vl = this.vlf.initLog(this.execute);
     return this.lib.controlActionInBrowser(callbackFunction, selectorOrElement, args);
   }
@@ -66,10 +62,7 @@ export class Control {
    * const propertyName = "tooltip";
    * const val = await ui5.control.getAggregationProperty(elem, propertyName);
    **/
-  async getAggregationProperty(
-    selectorOrElement: Element | Ui5Selector | Ui5SelectorWithOptions,
-    propertyName: string
-  ) {
+  async getAggregationProperty(selectorOrElement: Element | Ui5Selector | Ui5SelectorWithOptions, propertyName: string) {
     const vl = this.vlf.initLog(this.getAggregationProperty);
     return this.locatorCommands.getUI5Aggregation(propertyName, selectorOrElement);
   }
@@ -85,10 +78,7 @@ export class Control {
    * const propertyName = "selectedItems";
    * const propertyValue = await ui5.control.getAssociationProperty(elem, propertyName);
    **/
-  async getAssociationProperty(
-    selectorOrElement: Element | Ui5Selector | Ui5SelectorWithOptions,
-    propertyName: string
-  ) {
+  async getAssociationProperty(selectorOrElement: Element | Ui5Selector | Ui5SelectorWithOptions, propertyName: string) {
     const vl = this.vlf.initLog(this.getAssociationProperty);
     return this.locatorCommands.getUI5Association(propertyName, selectorOrElement);
   }

@@ -7,7 +7,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  * @memberof util
  */
 export class FunctionModule {
-  private vlf = new VerboseLoggerFactory("util", "function")
+  private vlf = new VerboseLoggerFactory("util", "function");
   overallRetries: number = 3;
 
   // =================================== MAIN ===================================
@@ -26,13 +26,13 @@ export class FunctionModule {
    * }, [], 2, 30000);
    */
   // NOTE: Don't set default values since they will be calculated with "_getRetryProperties".
-  async retry (fct: Function, args: Array<any>, retries: number, interval: number, scope: any = null) {
-    const vl = this.vlf.initLog(this.retry)
+  async retry(fct: Function, args: Array<any>, retries: number, interval: number, scope: any = null) {
+    const vl = this.vlf.initLog(this.retry);
     this.overallRetries = retries;
-    vl.log(`${retries} retries were configured`)
+    vl.log(`${retries} retries were configured`);
     const res = await this._getRetryProperties(retries, interval);
     await this._retry(fct, args, res.retries, res.interval, scope);
-  };
+  }
 
   /**
    * @function executeOptional
@@ -45,8 +45,8 @@ export class FunctionModule {
    *  await ui5.userInteraction.fill(selector, "ABC");
    * }, []);
    */
-  async executeOptional (fct: any, args: Array<any> = []) {
-    const vl = this.vlf.initLog(this.retry)
+  async executeOptional(fct: any, args: Array<any> = []) {
+    const vl = this.vlf.initLog(this.retry);
     try {
       await fct.apply(this, args);
     } catch (e) {
@@ -57,7 +57,7 @@ export class FunctionModule {
       }
       return Promise.resolve();
     }
-  };
+  }
 
   // =================================== HELPER ===================================
   /**
@@ -69,7 +69,7 @@ export class FunctionModule {
    * @param {string} action - An action performed upon the element ("click", "fill")
    * @example await util.function.mapWdioErrorToQmateErrorMessage(error, "click");
    */
-  async mapWdioErrorToQmateErrorMessage (wdioError: Error, action: string) {
+  async mapWdioErrorToQmateErrorMessage(wdioError: Error, action: string) {
     const errorMessage = wdioError.message;
     let qmateMessage = "";
     if (action === "fill") {
@@ -98,12 +98,11 @@ export class FunctionModule {
       }
     }
     return qmateMessage;
-  };
-
+  }
 
   // =================================== HELPER ===================================
   private async _getRetryProperties(retries: number, interval: number) {
-    const vl = this.vlf.initLog(this._getRetryProperties)
+    const vl = this.vlf.initLog(this._getRetryProperties);
     const res = {
       retries: retries,
       interval: interval
@@ -120,14 +119,14 @@ export class FunctionModule {
         res.interval = 5000;
       }
     }
-    vl.log(`Got retry properties: ${res}`)
+    vl.log(`Got retry properties: ${res}`);
     return res;
   }
 
   private async _retry(fct: any, args: Array<any>, retries: number, interval: number, scope = null) {
-    const vl = this.vlf.initLog(this._retry)
+    const vl = this.vlf.initLog(this._retry);
     try {
-      vl.log(`Executing ${fct.name ? fct.name : 'anonymous'} function via retry mechanism`)
+      vl.log(`Executing ${fct.name ? fct.name : "anonymous"} function via retry mechanism`);
       return await fct.apply(scope, args);
     } catch (e) {
       retries = retries - 1;
@@ -139,6 +138,6 @@ export class FunctionModule {
       await this._retry(fct, args, retries, interval, scope);
     }
   }
-};
+}
 
 export default new FunctionModule();

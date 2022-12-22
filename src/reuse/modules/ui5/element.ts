@@ -8,7 +8,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  * @memberof ui5
  */
 export class ElementModule {
-  private vlf = new VerboseLoggerFactory("ui5", "element")
+  private vlf = new VerboseLoggerFactory("ui5", "element");
 
   // =================================== WAIT ===================================
   /**
@@ -19,8 +19,8 @@ export class ElementModule {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.element.waitForAll(selector);
    */
-  async waitForAll (selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.waitForAll)
+  async waitForAll(selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.waitForAll);
     if (!selector) {
       this._throwSelectorError("waitForAll");
     }
@@ -29,8 +29,7 @@ export class ElementModule {
     } catch (e) {
       throw new Error(`Function 'waitForAll' failed: ${e}`);
     }
-  };
-
+  }
 
   // =================================== GET ELEMENTS ===================================
   /**
@@ -42,8 +41,8 @@ export class ElementModule {
    * @returns {Object[]} - The found elements.
    * @example const elem = await ui5.element.getAllDisplayed(selector);
    */
-  async getAllDisplayed (selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element[]> {
-    const vl = this.vlf.initLog(this.getAllDisplayed)
+  async getAllDisplayed(selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element[]> {
+    const vl = this.vlf.initLog(this.getAllDisplayed);
     if (!selector) {
       this._throwSelectorError("getAllDisplayed");
     }
@@ -52,30 +51,29 @@ export class ElementModule {
     } catch (e) {
       throw new Error(`Function 'getAllDisplayed' failed: ${e}`);
     }
-  };
+  }
 
   /**
    * @function getDisplayed
    * @memberOf ui5.element
    * @description Returns the visible element.
    * @param {Object} selector - The selector describing the element.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
    * @example const elem = await ui5.element.getDisplayed(selector);
    */
-  async getDisplayed (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
-    const vl = this.vlf.initLog(this.getDisplayed)
+  async getDisplayed(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
+    const vl = this.vlf.initLog(this.getDisplayed);
     if (!selector || typeof selector !== "object") {
       this._throwSelectorError("getDisplayed");
     }
     const elems = await browser.uiControls(selector, timeout);
     if (index < 0 || elems.length <= index) {
-      throw new Error(`Index out of bound. Trying to access element at index: ${index}, ` +
-        `but there are only ${elems.length} element(s) that match locator ${JSON.stringify(selector)}`);
+      throw new Error(`Index out of bound. Trying to access element at index: ${index}, ` + `but there are only ${elems.length} element(s) that match locator ${JSON.stringify(selector)}`);
     }
     return elems[index];
-  };
+  }
 
   /**
    * @function getByText
@@ -83,14 +81,14 @@ export class ElementModule {
    * @description Returns the element with the given selector and text value.
    * @param {Object} selector - The selector describing the element.
    * @param {String} value - The text value of the element.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
    * @example const elem = await ui5.element.getByText(selector, "Home");
    */
-  async getByText (selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
-    const vl = this.vlf.initLog(this.getByText)
-    vl.log(`Getting element by text ${value}`)
+  async getByText(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
+    const vl = this.vlf.initLog(this.getByText);
+    vl.log(`Getting element by text ${value}`);
     const elements = await this.getAllDisplayed(selector, timeout);
     const elementsWithText = [];
     try {
@@ -112,7 +110,7 @@ export class ElementModule {
         There are only ${elementsWithText.length} elements with the given selector and text`);
     }
     return elementsWithText[index];
-  };
+  }
 
   /**
    * @function getByChild
@@ -122,7 +120,7 @@ export class ElementModule {
    * Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
    * @param {String} elementSelector - The selector describing the requested element.
    * @param {String} childSelector - The selector describing a child element of the requested element.
-   * @param {Number} [index=0] - The index of the element (in case the combination applies to more than one element). 
+   * @param {Number} [index=0] - The index of the element (in case the combination applies to more than one element).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
    * @example const elementSelector = {
@@ -133,28 +131,28 @@ export class ElementModule {
    * };
    * const elem = await ui5.element.getByChild(elementSelector, childSelector);
    */
-  async getByChild (elementSelector: any, childSelector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
-    const vl = this.vlf.initLog(this.getByText)
+  async getByChild(elementSelector: any, childSelector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
+    const vl = this.vlf.initLog(this.getByText);
     const selector = {
-      "elementProperties": elementSelector.elementProperties,
-      "descendantProperties": childSelector.elementProperties
+      elementProperties: elementSelector.elementProperties,
+      descendantProperties: childSelector.elementProperties
     };
     try {
       return await this.getDisplayed(selector, index, timeout);
     } catch (e) {
       throw new Error(`Function 'getByChild' failed: ${e}`);
     }
-  };
+  }
 
   /**
    * @function getByParent
    * @memberOf ui5.element
-   * @description Gets an element by its selector and parent selector. 
+   * @description Gets an element by its selector and parent selector.
    * Can be used as unique combination between element and parent properties when multiple elements have the same properties.
    * Note: For nested selectors, all properties except of the "elementProperties" are being ignored.
    * @param {String} elementSelector - The selector describing the requested element.
    * @param {String} parentSelector - The selector describing the parent element of the requested element.
-   * @param {Number} [index=0] - The index of the element (in case the combination applies to more than one element). 
+   * @param {Number} [index=0] - The index of the element (in case the combination applies to more than one element).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Object} The found element.
    * @example const elementSelector = {
@@ -165,19 +163,18 @@ export class ElementModule {
    * };
    * const elem = await ui5.element.getByParent(elementSelector, parentSelector);
    */
-  async getByParent (elementSelector: any, parentSelector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
-    const vl = this.vlf.initLog(this.getByParent)
+  async getByParent(elementSelector: any, parentSelector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
+    const vl = this.vlf.initLog(this.getByParent);
     const selector = {
-      "elementProperties": elementSelector.elementProperties,
-      "ancestorProperties": parentSelector.elementProperties
+      elementProperties: elementSelector.elementProperties,
+      ancestorProperties: parentSelector.elementProperties
     };
     try {
       return await this.getDisplayed(selector, index, timeout);
     } catch (e) {
       throw new Error(`Function 'getByParent' failed: ${e}`);
     }
-  };
-
+  }
 
   // =================================== GET VALUES ===================================
   /**
@@ -185,16 +182,16 @@ export class ElementModule {
    * @memberOf ui5.element
    * @description Returns the id of the element with the given selector.
    * @param {Object} selector - The selector describing the element.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {String} The id of the element.
    * @example const elemId = await ui5.element.getId(selector);
    */
-  async getId (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<string> {
-    const vl = this.vlf.initLog(this.getId)
+  async getId(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<string> {
+    const vl = this.vlf.initLog(this.getId);
     const elem = await this.getDisplayed(selector, index, timeout);
     return elem.getAttribute("id");
-  };
+  }
 
   /**
    * @function getPropertyValue
@@ -202,13 +199,13 @@ export class ElementModule {
    * @description Returns the UI5 property value of the passed element.
    * @param {Object} selector - The selector describing the element.
    * @param {String} property - The property of the element.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {any} The property value of the element.
    * @example const elemValue = await ui5.element.getPropertyValue(selector, "text");
    */
-  async getPropertyValue (selector: any, property: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<any> {
-    const vl = this.vlf.initLog(this.getPropertyValue)
+  async getPropertyValue(selector: any, property: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<any> {
+    const vl = this.vlf.initLog(this.getPropertyValue);
     let attrValue;
     try {
       let elem = await this.getDisplayed(selector, index, timeout);
@@ -224,40 +221,43 @@ export class ElementModule {
       throw new Error(`Function 'getPropertyValue' failed: ${error}`);
     }
     return attrValue;
-  };
+  }
 
-  async getInnerAttribute (elem: Element, name: string) {
-    const vl = this.vlf.initLog(this.getInnerAttribute)
-    return elem.getAttribute(name).then(value => {
+  async getInnerAttribute(elem: Element, name: string) {
+    const vl = this.vlf.initLog(this.getInnerAttribute);
+    return elem.getAttribute(name).then((value) => {
       if (value !== null) {
         return value;
       }
 
-      return browser.executeScript(`
+      return browser.executeScript(
+        `
         function getAttribute(webElement, attributeName) {
             return webElement.getAttribute(attributeName);        
-        }`, [elem, name]);
+        }`,
+        [elem, name]
+      );
     });
-  };
+  }
 
   /**
    * @function getValue
    * @memberOf ui5.element
    * @description Returns the inner value of the passed element.
    * @param {Object} selector - The selector describing the element.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {String} The value of the element.
    * @example const elemValue = await ui5.element.getValue(selector);
    */
-  async getValue (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<string> {
-    const vl = this.vlf.initLog(this.getValue)
+  async getValue(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<string> {
+    const vl = this.vlf.initLog(this.getValue);
     try {
       return await this.getPropertyValue(selector, "value", index, timeout);
     } catch (error) {
       throw new Error("getValue() failed with " + error);
     }
-  };
+  }
 
   /**
    * @function getBindingValue
@@ -265,39 +265,42 @@ export class ElementModule {
    * @description Returns the value of the given binding property for a specific element.
    * @param {Object} selector - The selector describing the element.
    * @param {String} bindingContext - The binding property to retrieve.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {String} The binding property value.
    * @example const elemBindingValue = await ui5.element.getBindingValue(selector, "InvoiceGrossAmount");
    */
-  async getBindingValue (selector: any, bindingContext: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<string> {
-    const vl = this.vlf.initLog(this.getBindingValue)
+  async getBindingValue(selector: any, bindingContext: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<string> {
+    const vl = this.vlf.initLog(this.getBindingValue);
     const elem = await this.getDisplayed(selector, index, timeout);
-    return browser.controlActionInBrowser(function (control: any, property: string, done: Function) {
-      done(control.getBinding(property).getValue());
-    }, elem, bindingContext);
-  };
+    return browser.controlActionInBrowser(
+      function (control: any, property: string, done: Function) {
+        done(control.getBinding(property).getValue());
+      },
+      elem,
+      bindingContext
+    );
+  }
 
   /**
    * @function isVisible
    * @memberOf ui5.element
    * @description Determines if the element is visible.
    * @param {Object} selector - The selector describing the element.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {Boolean} The bool value 'true' or 'false' if the element is visible or not.
    * @example const isVisible = await ui5.element.isVisible(selector);
    */
-  async isVisible (selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<boolean> {
-    const vl = this.vlf.initLog(this.isVisible)
+  async isVisible(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<boolean> {
+    const vl = this.vlf.initLog(this.isVisible);
     try {
       const elem = await ui5.element.getDisplayed(selector, index, timeout);
       return await elem.isDisplayed();
     } catch (err) {
       return false;
     }
-  };
-
+  }
 
   // =================================== ACTIONS ===================================
   /**
@@ -309,21 +312,19 @@ export class ElementModule {
    * @param {String} [color="red"] - The color of the highlighting (CSS color).
    * @example await ui5.element.highlight(selector, 3000, "green");
    */
-  async highlight (selector: any, duration = 2000, color = "red"): Promise<void> {
-    const vl = this.vlf.initLog(this.highlight)
+  async highlight(selector: any, duration = 2000, color = "red"): Promise<void> {
+    const vl = this.vlf.initLog(this.highlight);
     const elem = await this.getDisplayed(selector);
     if (elem) {
       await browser.executeScript(`arguments[0].style.boxShadow = 'inset 0px 0px 0px 2px ${color}'`, [elem]);
       await browser.pause(duration);
       await browser.executeScript("arguments[0].style.boxShadow = 'inherit'", [elem]);
     }
-  };
-
+  }
 
   // =================================== HELPER ===================================
   private _throwSelectorError(functionName: string): never {
     throw new Error(`Function '${functionName}' failed: Please provide a valid selector as argument.`);
   }
-
-};
+}
 export default new ElementModule();

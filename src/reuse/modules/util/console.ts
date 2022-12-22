@@ -86,43 +86,43 @@ export class Console {
     {
       key: "black",
       value: "\x1b[30m",
-      valueBg: "\x1b[40m",
+      valueBg: "\x1b[40m"
     },
     {
       key: "white",
       value: "\x1b[37m",
-      valueBg: "\x1b[47m",
+      valueBg: "\x1b[47m"
     },
     {
       key: "red",
       value: "\x1b[31m",
-      valueBg: "\x1b[41m",
+      valueBg: "\x1b[41m"
     },
     {
       key: "green",
       value: "\x1b[32m",
-      valueBg: "\x1b[42m",
+      valueBg: "\x1b[42m"
     },
     {
       key: "yellow",
       value: "\x1b[33m",
-      valueBg: "\x1b[30m\x1b[43m",
+      valueBg: "\x1b[30m\x1b[43m"
     },
     {
       key: "blue",
       value: "\x1b[34m",
-      valueBg: "\x1b[44m",
+      valueBg: "\x1b[44m"
     },
     {
       key: "magenta",
       value: "\x1b[35m",
-      valueBg: "\x1b[45m",
+      valueBg: "\x1b[45m"
     },
     {
       key: "cyan",
       value: "\x1b[36m",
-      valueBg: "\x1b[30m\x1b[46m",
-    },
+      valueBg: "\x1b[30m\x1b[46m"
+    }
   ];
 
   // =================================== HELPER ===================================

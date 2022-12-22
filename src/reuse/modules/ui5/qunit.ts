@@ -3,11 +3,11 @@
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 
 /**
- * @class qunit  
+ * @class qunit
  * @memberof ui5
  */
 export class QUnit {
-  private vlf = new VerboseLoggerFactory("ui5", "qunit")
+  private vlf = new VerboseLoggerFactory("ui5", "qunit");
 
   private clientsidescripts = require("../../helper/clientsideUI5scripts");
 
@@ -18,8 +18,8 @@ export class QUnit {
    * @param {String} path - Relative path to the QUnit/OPA5 html file.
    * @example await ui5.qunit.executeTests("path/to/qunit.html");
    */
-  async executeTests (path: string) {
-    const vl = this.vlf.initLog(this.executeTests)
+  async executeTests(path: string) {
+    const vl = this.vlf.initLog(this.executeTests);
     const url = await browser.getUrl();
     if (url.indexOf("4431") !== -1) {
       await browser.navigateTo(`http://localhost:4431/${path}`);
@@ -33,7 +33,6 @@ export class QUnit {
     await browser.executeAsync(this.clientsidescripts.waitForAngular, undefined, 10);
     const execRes = await browser.executeAsync(this.clientsidescripts.execQUnits, {});
     if (!execRes) throw new Error("QUnit tests failed, see log message for more details.");
-  };
-
-};
+  }
+}
 export default new QUnit();

@@ -12,7 +12,7 @@ interface Popup {
  * @memberof ui5
  */
 export class Navigation {
-  private vlf = new VerboseLoggerFactory("ui5", "navigation")
+  private vlf = new VerboseLoggerFactory("ui5", "navigation");
 
   errorText = "Navigation failed because page didn't load, possible reasons: " + "Site is down, or you are using a wrong address. For retrying use 'navigateToApplicationAndRetry'.\n";
 
@@ -28,7 +28,7 @@ export class Navigation {
    * @example await ui5.navigation.navigateToApplication("PurchaseOrder-manage");
    */
   async navigateToApplication(intent: string, preventPopups = false, verify = false, refresh = true) {
-    const vl = this.vlf.initLog(this.navigateToApplication)
+    const vl = this.vlf.initLog(this.navigateToApplication);
     let urlParams = "";
     if (preventPopups) {
       urlParams = this._generateUrlParams();
@@ -61,7 +61,7 @@ export class Navigation {
    * @example await ui5.navigation.navigateToApplicationAndRetry("PurchaseOrder-manage");
    */
   async navigateToApplicationAndRetry(intent: string, preventPopups = true, verify = true, retries = 3, interval = 5000) {
-    const vl = this.vlf.initLog(this.navigateToApplicationAndRetry)
+    const vl = this.vlf.initLog(this.navigateToApplicationAndRetry);
     await util.function.retry(
       async (intent: string, preventPopups: boolean) => {
         await this.navigateToApplication(intent, preventPopups, verify);
@@ -84,7 +84,7 @@ export class Navigation {
    * @example await ui5.navigation.navigateToSystemAndApplication("yourFioriLaunchpad.domain", "PurchaseOrder-manage");
    */
   async navigateToSystemAndApplication(system: string, intent: string, closePopups = true, verify = false) {
-    const vl = this.vlf.initLog(this.navigateToSystemAndApplication)
+    const vl = this.vlf.initLog(this.navigateToSystemAndApplication);
     try {
       await browser.navigateTo(`https://${system}/ui#${intent}`);
       const url = await browser.getUrl();
@@ -113,7 +113,7 @@ export class Navigation {
    * @example await ui5.navigation.navigateToSystemAndApplicationAndRetry("yourFioriLaunchpad.domain", "PurchaseOrder-manage");
    */
   async navigateToSystemAndApplicationAndRetry(system: string, intent: string, closePopups = true, verify = true, retries = 3, interval = 5000) {
-    const vl = this.vlf.initLog(this.navigateToSystemAndApplicationAndRetry)
+    const vl = this.vlf.initLog(this.navigateToSystemAndApplicationAndRetry);
     await util.function.retry(
       async (system: string, intent: string, closePopups: boolean) => {
         await this.navigateToSystemAndApplication(system, intent, closePopups, verify);
@@ -138,7 +138,7 @@ export class Navigation {
    * await ui5.navigation.navigateToApplicationWithQueryParams(intent, queryParams);
    */
   async navigateToApplicationWithQueryParams(intent: string, queryParams = "", closePopups = true, verify = false) {
-    const vl = this.vlf.initLog(this.navigateToApplicationWithQueryParams)
+    const vl = this.vlf.initLog(this.navigateToApplicationWithQueryParams);
     let url;
     try {
       await browser.url(`${browser.config.baseUrl}${queryParams}#${intent}`);
@@ -171,7 +171,7 @@ export class Navigation {
    * await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
    */
   async navigateToApplicationWithQueryParamsAndRetry(intent: string, queryParams: string, closePopups = true, verify = true, retries = 3, interval = 5000) {
-    const vl = this.vlf.initLog(this.navigateToApplicationWithQueryParamsAndRetry)
+    const vl = this.vlf.initLog(this.navigateToApplicationWithQueryParamsAndRetry);
     await util.function.retry(
       async (intent: string, queryParams: string, closePopups: boolean, verify: boolean) => {
         await this.navigateToApplicationWithQueryParams(intent, queryParams, closePopups, verify);
@@ -192,7 +192,7 @@ export class Navigation {
    * @example await ui5.navigation.closePopups();
    */
   async closePopups(timeout = 30000) {
-    const vl = this.vlf.initLog(this.closePopups)
+    const vl = this.vlf.initLog(this.closePopups);
     const popups = [
       {
         name: "Help Dialog",
@@ -203,7 +203,7 @@ export class Navigation {
         selector: "BUTTON[class='sapMBtnBase sapMBtn sapMDialogEndButton sapMBarChild']"
       }
     ];
-    const popupHandlers = popups.map(popup => this._closePopup(popup, timeout));
+    const popupHandlers = popups.map((popup) => this._closePopup(popup, timeout));
     return Promise.all(popupHandlers);
   }
 
@@ -217,7 +217,7 @@ export class Navigation {
    * @example await ui5.navigation.expectUnsupportedNavigationPopup("#SupplierInvoice-display?FiscalYear=1234&SupplierInvoice=1234567890");
    */
   async expectUnsupportedNavigationPopup(navigationTarget: string) {
-    const vl = this.vlf.initLog(this.expectUnsupportedNavigationPopup)
+    const vl = this.vlf.initLog(this.expectUnsupportedNavigationPopup);
     const unsupportedNavigationPopup = {
       elementProperties: {
         metadata: "sap.m.Dialog",

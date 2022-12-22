@@ -7,7 +7,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  * @memberof nonUi5
  */
 export class Navigation {
-  private vlf = new VerboseLoggerFactory("nonui5", "navigation")
+  private vlf = new VerboseLoggerFactory("nonui5", "navigation");
 
   /**
    * @function navigateToApplication
@@ -17,18 +17,18 @@ export class Navigation {
    * @param {Boolean} [refresh=true] - Refresh the page after navigation.
    * @example await nonUi5.navigation.navigateToApplication("categories");
    */
-   async navigateToApplication(relativeReference: string, refresh = true) {
-    const vl = this.vlf.initLog(this.navigateToApplication)
+  async navigateToApplication(relativeReference: string, refresh = true) {
+    const vl = this.vlf.initLog(this.navigateToApplication);
     try {
       await browser.navigateTo(`${browser.config.baseUrl}/${relativeReference}`);
       await util.browser.logCurrentUrl();
       if (refresh) {
-        vl.log('Refreshing the page');
+        vl.log("Refreshing the page");
         await util.browser.refresh();
       }
     } catch (error) {
       throw new Error("Function navigateToApplication failed: " + error);
     }
-  };
+  }
 }
 export default new Navigation();

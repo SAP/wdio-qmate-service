@@ -8,7 +8,7 @@ import { DateFormats } from "../util/constants/formatter.constants";
  * @memberof ui5
  */
 export class DateModule {
-  private vlf = new VerboseLoggerFactory("ui5", "date")
+  private vlf = new VerboseLoggerFactory("ui5", "date");
 
   // =================================== PICK ===================================
   /**
@@ -17,28 +17,28 @@ export class DateModule {
    * @description Picks the passed date using the "DatePicker" with the given selector.
    * @param {Selector} selector - The selector describing the element.
    * @param {Date} date - The date object.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @example const today = await common.date.calculate("today");
    * await ui5.date.pick(selector, date);
    */
-  async pick (selector: any, date: Date, index: number = 0) {
-    const vl = this.vlf.initLog(this.pick)
-    vl.log(`Picking date ${date} for selector ${selector}`)
+  async pick(selector: any, date: Date, index: number = 0) {
+    const vl = this.vlf.initLog(this.pick);
+    vl.log(`Picking date ${date} for selector ${selector}`);
     let id = await ui5.element.getId(selector, index);
     if (selector.elementProperties.metadata === "sap.ui.core.Icon") {
       id = id.replace("-icon", "");
     }
 
     const tempSelector = {
-      "elementProperties" : {
-        "metadata" : "sap.m.DatePicker",
-        "id" : id
+      elementProperties: {
+        metadata: "sap.m.DatePicker",
+        id: id
       }
     };
 
     await this._openDatePicker(tempSelector);
     await this._selectDate(tempSelector, date);
-  };
+  }
 
   /**
    * @function pickRange
@@ -47,30 +47,30 @@ export class DateModule {
    * Note that this will only work within the current month!
    * @param {Selector} selector - The selector describing the element.
    * @param {Object[]} range - The array of date objects containing start- and end date.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @example const start = await common.date.calculate("2020, 9, 20");
    * const end = await common.date.calculate("2021, 1, 3");
    * const range = [start, end];
    * await ui5.date.pickRange(selector, range);
    */
-  async pickRange (selector: any, range: Date[], index = 0) {
-    const vl = this.vlf.initLog(this.pickRange)
-    vl.log(`Picking date range ${range} for selector ${selector}`)
+  async pickRange(selector: any, range: Date[], index = 0) {
+    const vl = this.vlf.initLog(this.pickRange);
+    vl.log(`Picking date range ${range} for selector ${selector}`);
     let id = await ui5.element.getId(selector, index);
     if (selector.elementProperties.metadata === "sap.ui.core.Icon") {
       id = id.replace("-icon", "");
     }
 
     const tempSelector = {
-      "elementProperties" : {
-        "metadata" : "sap.m.DateRangeSelection",
-        "id" : id
+      elementProperties: {
+        metadata: "sap.m.DateRangeSelection",
+        id: id
       }
     };
     await this._openDatePicker(tempSelector);
     await this._selectDate(tempSelector, range[0]);
     await this._selectDate(tempSelector, range[1]);
-  };
+  }
 
   // =================================== FILL ===================================
   /**
@@ -79,32 +79,31 @@ export class DateModule {
    * @description Enters the passed date range to the date input with the given selector by providing the start- and end date.
    * @param {Selector} selector - The selector describing the element.
    * @param {Object[]} range - The array of date objects containing start- and end date.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time). 
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @example const start = await common.date.calculate("2020, 9, 20", "dd.mm.yyyy");
    * const end = await common.date.calculate("2021, 1, 3", "dd.mm.yyyy");
    * const range = [start, end];
    * await ui5.date.fillRange(selector, range);
    */
-  async fillRange (selector: any, range: Date[], index: number = 0) {
-    const vl = this.vlf.initLog(this.fillRange)
+  async fillRange(selector: any, range: Date[], index: number = 0) {
+    const vl = this.vlf.initLog(this.fillRange);
     const value = range[0] + " - " + range[1];
     await ui5.userInteraction.clearAndFill(selector, value, index);
-  };
-
+  }
 
   // =================================== HELPER ===================================
   private async _openDatePicker(selector: any) {
-    const vl = this.vlf.initLog(this._openDatePicker)
+    const vl = this.vlf.initLog(this._openDatePicker);
     const id = selector.elementProperties.id;
     const icon = await nonUi5.element.getById(`${id}-icon`);
     await nonUi5.userInteraction.click(icon);
   }
 
   private async _selectDate(selector: any, date: Date) {
-    const vl = this.vlf.initLog(this._selectDate)
+    const vl = this.vlf.initLog(this._selectDate);
     const year = date.getFullYear();
     const month = date.getMonth();
-    
+
     let found = false;
 
     const id = selector.elementProperties.id;
@@ -149,6 +148,5 @@ export class DateModule {
     const dayPick = await nonUi5.element.getByCss(`[id="${id}-cal"] .sapUiCalItem[data-sap-day="${util.formatter.formatDate(date, DateFormats.YEAR_MONTH_DAY_PLAIN)}"] .sapUiCalItemText`);
     await nonUi5.userInteraction.click(dayPick);
   }
-
-};
+}
 export default new DateModule();

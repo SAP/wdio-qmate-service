@@ -8,7 +8,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  * @memberof ui5
  */
 export class UserInteraction {
-  private vlf = new VerboseLoggerFactory("ui5", "click")
+  private vlf = new VerboseLoggerFactory("ui5", "click");
   // =================================== CLICK ===================================
   /**
    * @function click
@@ -20,7 +20,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.click(selector);
    */
   async click(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.click)
+    const vl = this.vlf.initLog(this.click);
     let elem = null;
     await browser.waitUntil(
       async function () {
@@ -58,7 +58,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.clickAndRetry(selector);
    */
   async clickAndRetry(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
-    const vl = this.vlf.initLog(this.clickAndRetry)
+    const vl = this.vlf.initLog(this.clickAndRetry);
     await util.function.retry(this.click, [selector, index, timeout], retries, interval, this);
   }
 
@@ -72,7 +72,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.doubleClick(selector);
    */
   async doubleClick(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.doubleClick)
+    const vl = this.vlf.initLog(this.doubleClick);
     let elem = null;
     await browser.waitUntil(
       async function () {
@@ -106,7 +106,7 @@ export class UserInteraction {
    * await ui5.userInteraction.rightClick(elem);
    */
   async rightClick(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.rightClick)
+    const vl = this.vlf.initLog(this.rightClick);
     let elem = null;
     await browser.waitUntil(
       async function () {
@@ -142,7 +142,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.clickTab(selector);
    */
   async clickTab(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.clickTab)
+    const vl = this.vlf.initLog(this.clickTab);
     await util.function.retry(
       async (selector: any, index: number, timeout: number) => {
         await ui5.userInteraction.click(selector, index, timeout);
@@ -170,7 +170,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.selectFromTab(selector);
    */
   async selectFromTab(selector: any, value: string, index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.selectFromTab)
+    const vl = this.vlf.initLog(this.selectFromTab);
     await util.function.retry(
       async (selector: any, index: number, timeout: number) => {
         const arrowSelector = {
@@ -216,7 +216,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.clickListItem(selector);
    */
   async clickListItem(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.clickListItem)
+    const vl = this.vlf.initLog(this.clickListItem);
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
     await ui5.control.execute(function (control: any, done: Function) {
       control.attachPress(function () {
@@ -238,8 +238,8 @@ export class UserInteraction {
    * @example await ui5.userInteraction.fill(selector, "My Value");
    */
   async fill(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.fill)
-    vl.log(`Filling with ${value}`)
+    const vl = this.vlf.initLog(this.fill);
+    vl.log(`Filling with ${value}`);
     if (value !== null) {
       const id = await ui5.element.getId(selector, index, timeout);
       let elem = null;
@@ -265,7 +265,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.fillAndRetry(selector, "My Value");
    */
   async fillAndRetry(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
-    const vl = this.vlf.initLog(this.fillAndRetry)
+    const vl = this.vlf.initLog(this.fillAndRetry);
     await util.function.retry(this.fill, [selector, value, index, timeout], retries, interval, this);
   }
 
@@ -282,7 +282,7 @@ export class UserInteraction {
 
   //TODO remove clearHelper and use clear
   async clear(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.clear)
+    const vl = this.vlf.initLog(this.clear);
     await this._clearHelper(selector, index, timeout);
   }
 
@@ -298,7 +298,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.clearAndRetry(selector);
    */
   async clearAndRetry(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
-    const vl = this.vlf.initLog(this.clearAndRetry)
+    const vl = this.vlf.initLog(this.clearAndRetry);
     await util.function.retry(this.clear, [selector, index, timeout], retries, interval, this);
   }
 
@@ -313,7 +313,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.clearAndFill(selector, "My Value");
    */
   async clearAndFill(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.clearAndFill)
+    const vl = this.vlf.initLog(this.clearAndFill);
     if (value !== null) {
       await this.clear(selector, index, timeout);
       await common.userInteraction.fillActive(value);
@@ -336,7 +336,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.clearAndFillAndRetry(selector, "My Value");
    */
   async clearAndFillAndRetry(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000, verify = true) {
-    const vl = this.vlf.initLog(this.clearAndFillAndRetry)
+    const vl = this.vlf.initLog(this.clearAndFillAndRetry);
     await util.function.retry(
       async (selector: any, value: string, index: number, timeout: number) => {
         await this.clearAndFill(selector, value, index, timeout);
@@ -370,7 +370,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.clearSmartFieldInput(selector);
    */
   async clearSmartFieldInput(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.clearSmartFieldInput)
+    const vl = this.vlf.initLog(this.clearSmartFieldInput);
     await ui5.userInteraction.clear(selector, index, timeout);
   }
 
@@ -385,7 +385,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.clearAndFillSmartFieldInput(selector, "My Value");
    */
   async clearAndFillSmartFieldInput(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.clearAndFillSmartFieldInput)
+    const vl = this.vlf.initLog(this.clearAndFillSmartFieldInput);
     const id = await ui5.element.getId(selector, index, timeout);
     const elem = await nonUi5.element.getByCss(`input[id*='${id}']`);
     await elem.click();
@@ -406,7 +406,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.clearAndFillSmartFieldInputAndRetry(selector, "My Value");
    */
   async clearAndFillSmartFieldInputAndRetry(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
-    const vl = this.vlf.initLog(this.clearAndFillSmartFieldInputAndRetry)
+    const vl = this.vlf.initLog(this.clearAndFillSmartFieldInputAndRetry);
     await util.function.retry(this.clearAndFillSmartFieldInput, [selector, value, index, timeout], retries, interval, this);
   }
 
@@ -423,7 +423,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.selectBox(selector, "Germany");
    */
   async selectBox(selector: any, value: string, index = 0) {
-    const vl = this.vlf.initLog(this.selectBox)
+    const vl = this.vlf.initLog(this.selectBox);
     await this.clickSelectArrow(selector, index);
     if (value) {
       const itemSelector = {
@@ -453,7 +453,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.selectComboBox(selector, "Germany");
    */
   async selectComboBox(selector: any, value: string, index = 0) {
-    const vl = this.vlf.initLog(this.selectComboBox)
+    const vl = this.vlf.initLog(this.selectComboBox);
     await this.clickSelectArrow(selector, index);
     if (value) {
       const selector = {
@@ -484,7 +484,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.selectMultiComboBox(selector, ["Option 1", "Option 2"]);
    */
   async selectMultiComboBox(selector: any, values: any[], index = 0) {
-    const vl = this.vlf.initLog(this.selectMultiComboBox)
+    const vl = this.vlf.initLog(this.selectMultiComboBox);
     await this.clickSelectArrow(selector, index);
     for (const v in values) {
       const ui5ControlProperties = {
@@ -514,7 +514,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.clickSelectArrow(selector);
    */
   async clickSelectArrow(selector: any, index = 0) {
-    const vl = this.vlf.initLog(this.clickSelectArrow)
+    const vl = this.vlf.initLog(this.clickSelectArrow);
     const id = await ui5.element.getId(selector, index);
     const arrow = await nonUi5.element.getByCss("[id='" + id + "-arrow']", 0, 3000);
     await arrow.click();
@@ -531,7 +531,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.clickSelectArrowAndRetry(selector);
    */
   async clickSelectArrowAndRetry(selector: any, index = 0, retries = 3, interval = 5000) {
-    const vl = this.vlf.initLog(this.clickSelectArrowAndRetry)
+    const vl = this.vlf.initLog(this.clickSelectArrowAndRetry);
     await util.function.retry(this.clickSelectArrow, [selector, index], retries, interval, this);
   }
 
@@ -546,7 +546,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.mouseOverElement(selector);
    */
   async mouseOverElement(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.mouseOverElement)
+    const vl = this.vlf.initLog(this.mouseOverElement);
     let elem;
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -569,7 +569,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.scrollToElement(selector, 0, "start", 5000);
    */
   async scrollToElement(selector: any, index = 0, alignment = "center", timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.scrollToElement)
+    const vl = this.vlf.initLog(this.scrollToElement);
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
     if (elem) {
       const options = {
@@ -590,7 +590,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.selectAll(selector);
    */
   async selectAll(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.selectAll)
+    const vl = this.vlf.initLog(this.selectAll);
     if (selector !== undefined) {
       await this.click(selector, index, timeout);
     } else {
@@ -611,7 +611,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.openF4Help(selector, 0, 30000, false);
    */
   async openF4Help(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, useF4Key = true) {
-    const vl = this.vlf.initLog(this.openF4Help)
+    const vl = this.vlf.initLog(this.openF4Help);
     await ui5.userInteraction.click(selector, index, timeout);
     if (useF4Key === true) {
       await common.userInteraction.pressF4();
@@ -635,8 +635,8 @@ export class UserInteraction {
    * @example await ui5.userInteraction.searchFor(selector, "My Value", 0, 30000, false);
    */
   async searchFor(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, useEnter = true) {
-    const vl = this.vlf.initLog(this.searchFor)
-    vl.log(`Searching for ${value}`)
+    const vl = this.vlf.initLog(this.searchFor);
+    vl.log(`Searching for ${value}`);
     await ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout);
     if (useEnter === true) {
       await common.userInteraction.pressEnter();
@@ -657,7 +657,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.resetSearch(selector);
    */
   async resetSearch(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.resetSearch)
+    const vl = this.vlf.initLog(this.resetSearch);
     const id = await ui5.element.getId(selector, index, timeout);
     const resetButton = await nonUi5.element.getByCss("[id='" + id + "-reset']", 0, timeout);
     await resetButton.click();

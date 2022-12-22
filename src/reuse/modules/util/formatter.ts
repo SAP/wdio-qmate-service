@@ -8,7 +8,6 @@ import { DateFormatsType } from "./types/formatter.types";
  * @memberof util
  */
 export class Formatter {
-
   // =================================== STRING ===================================
   /**
    * @function sliceStringAt
@@ -21,7 +20,7 @@ export class Formatter {
    * @example const sliced = util.formatter.sliceStringAt("prefixNR12345postfix", "NR", 7);
    * // returns "NR12345"
    */
-  sliceStringAt (input: string, slicePoint: string, length: number): string {
+  sliceStringAt(input: string, slicePoint: string, length: number): string {
     if (input && slicePoint && length) {
       const index = input.indexOf(slicePoint);
       if (index !== -1) {
@@ -32,7 +31,7 @@ export class Formatter {
     } else {
       throw new Error("Function 'sliceStringAt' failed: Incorrect or missing arguments.");
     }
-  };
+  }
 
   /**
    * @function sliceStringAfter
@@ -45,7 +44,7 @@ export class Formatter {
    * @example const sliced = util.formatter.sliceStringAfter("prefixNR12345postfix", "NR", 5);
    * // returns "12345"
    */
-  sliceStringAfter (input: string, slicePoint: string, length: number): string {
+  sliceStringAfter(input: string, slicePoint: string, length: number): string {
     if (input && slicePoint && length) {
       let index = input.indexOf(slicePoint);
       if (index !== -1) {
@@ -53,9 +52,9 @@ export class Formatter {
         return input.slice(index, index + length);
       }
       throw new Error(`Char '${slicePoint}' not found in input '${input}'.`);
-    } 
+    }
     throw new Error("Function 'sliceStringAfter' failed: Incorrect or missing arguments.");
-  };
+  }
 
   /**
    * @function trimString
@@ -65,12 +64,12 @@ export class Formatter {
    * @example const trimmed = util.formatter.trimString("   value ");
    * // returns "value"
    */
-  trimString (input: string): string {
+  trimString(input: string): string {
     if (input) {
       return input.trim();
     }
     throw new Error("Function 'trimString' failed: Incorrect or missing arguments.");
-  };
+  }
 
   /**
    * @function extractNumberFromString
@@ -84,13 +83,13 @@ export class Formatter {
    * @example const extracted = util.formatter.extractNumberFromString("first12345 someText second 20 abc", 1);
    * // returns "20"
    */
-  extractNumberFromString (input: string, index: number = 0): string {
+  extractNumberFromString(input: string, index: number = 0): string {
     if (input) {
       // @ts-ignore
       return input.match(/\d+/g).map(Number)[index].toString();
-    } 
+    }
     throw new Error("Function 'extractNumberFromString' failed: Incorrect or missing arguments.");
-  };
+  }
 
   /**
    * @function stringifyJSON
@@ -100,14 +99,13 @@ export class Formatter {
    * @returns {String} The converted JSON object.
    * @example console.log(`Printing the current selector: ${util.formatter.stringifyJSON(selector)}`);
    */
-  stringifyJSON (object: object): string {
+  stringifyJSON(object: object): string {
     try {
       return JSON.stringify(object);
     } catch (error) {
       throw new Error(`Function 'stringifyJSON' failed: Incorrect JSON object. ${error}`);
     }
-  };
-
+  }
 
   // =================================== NUMBER ===================================
   /**
@@ -119,13 +117,12 @@ export class Formatter {
    * @returns {String} The formatted number.
    * @example const itemNumber = util.formatter.addRemoveLeadingZeros(10, 5);
    */
-  addRemoveLeadingZeros (number: string, length: number): string {
+  addRemoveLeadingZeros(number: string, length: number): string {
     const numberParsed = parseInt(number, 10);
     const zero = "0";
     const char = zero.repeat(length) + numberParsed;
     return char.slice(-length);
-  };
-
+  }
 
   // =================================== DATE ===================================
   /**
@@ -143,7 +140,7 @@ export class Formatter {
    * const formattedDate = util.formatter.formatDate(date, "mmm dd, yyyy");
    * // returns "Apr 03, 2022"
    */
-  formatDate (date: Date, format: DateFormatsType, locale = "en-US"): string | Date {
+  formatDate(date: Date, format: DateFormatsType, locale = "en-US"): string | Date {
     let formattedDate: Date | string = date;
     let hour: number | string = date.getHours();
     let min: number | string = date.getMinutes();
@@ -210,7 +207,6 @@ export class Formatter {
     }
 
     return formattedDate;
-  };
-
-};
+  }
+}
 export default new Formatter();

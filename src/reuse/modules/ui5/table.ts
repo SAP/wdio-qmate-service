@@ -7,7 +7,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  * @memberof ui5
  */
 export class Table {
-  private vlf = new VerboseLoggerFactory("ui5", "table")
+  private vlf = new VerboseLoggerFactory("ui5", "table");
 
   // =================================== SORTING ===================================
   /**
@@ -15,7 +15,7 @@ export class Table {
    * @memberOf ui5.table
    * @description Sorts the given column "Ascending".
    * @param {String} columnName - The name of the column to sort.
-   * @param {Object} [tableSelector] - The selector describing the table element (in case there are more then one). 
+   * @param {Object} [tableSelector] - The selector describing the table element (in case there are more then one).
    * @example await ui5.table.sortColumnAscending("Supplier");
    * @example const glAccountItemsTable = {
    *  "elementProperties": {
@@ -26,15 +26,15 @@ export class Table {
    * };
    * await ui5.table.sortColumnAscending("Amount", glAccountItemsTable);
    */
-  async sortColumnAscending (columnName: string, tableSelector: any) {
-    const vl = this.vlf.initLog(this.sortColumnAscending)
+  async sortColumnAscending(columnName: string, tableSelector: any) {
+    const vl = this.vlf.initLog(this.sortColumnAscending);
     const sortButtonSelector = {
-      "elementProperties": {
-        "metadata": "sap.m.Button",
-        "icon": "sap-icon://sort-ascending"
+      elementProperties: {
+        metadata: "sap.m.Button",
+        icon: "sap-icon://sort-ascending"
       },
-      "ancestorProperties": {
-        "metadata": "sap.m.Toolbar"
+      ancestorProperties: {
+        metadata: "sap.m.Toolbar"
       }
     };
     const sort = await this._getSortIndicatorValue(columnName, tableSelector);
@@ -42,7 +42,7 @@ export class Table {
       this._clickColumn(columnName, tableSelector);
       await ui5.userInteraction.click(sortButtonSelector);
     }
-  };
+  }
 
   /**
    * @function sortColumnDescending
@@ -60,15 +60,15 @@ export class Table {
    * };
    * await ui5.table.sortColumnDescending("Amount", glAccountItemsTable);
    */
-   async sortColumnDescending (columnName: string, tableSelector: any) {
-    const vl = this.vlf.initLog(this.sortColumnDescending)
+  async sortColumnDescending(columnName: string, tableSelector: any) {
+    const vl = this.vlf.initLog(this.sortColumnDescending);
     const sortButtonSelector = {
-      "elementProperties": {
-        "metadata": "sap.m.Button",
-        "icon": "sap-icon://sort-descending"
+      elementProperties: {
+        metadata: "sap.m.Button",
+        icon: "sap-icon://sort-descending"
       },
-      "ancestorProperties": {
-        "metadata": "sap.m.Toolbar"
+      ancestorProperties: {
+        metadata: "sap.m.Toolbar"
       }
     };
     const sort = await this._getSortIndicatorValue(columnName, tableSelector);
@@ -76,7 +76,7 @@ export class Table {
       this._clickColumn(columnName, tableSelector);
       await ui5.userInteraction.click(sortButtonSelector);
     }
-  };
+  }
 
   /**
    * @function clickSettingsButton
@@ -93,12 +93,12 @@ export class Table {
    * };
    * await ui5.table.clickSettingsButton(glAccountItemsTable);
    */
-   async clickSettingsButton (tableSelector: any) {
-    const vl = this.vlf.initLog(this.clickSettingsButton)
+  async clickSettingsButton(tableSelector: any) {
+    const vl = this.vlf.initLog(this.clickSettingsButton);
     const settingsButtonSelector = {
-      "elementProperties": {
-        "metadata": "sap.m.OverflowToolbarButton",
-        "id": "*btnPersonalisation"
+      elementProperties: {
+        metadata: "sap.m.OverflowToolbarButton",
+        id: "*btnPersonalisation"
       }
     };
     if (!tableSelector) {
@@ -107,18 +107,17 @@ export class Table {
       const selector = this._prepareAncestorSelector(settingsButtonSelector, tableSelector);
       await ui5.userInteraction.click(selector);
     }
-  };
-
+  }
 
   // =================================== HELPER ===================================
   private async _clickColumn(name: string, tableSelector: any) {
-    const vl = this.vlf.initLog(this._clickColumn)
+    const vl = this.vlf.initLog(this._clickColumn);
     const tableColumnSelector = {
-      "elementProperties": {
-        "metadata": "sap.m.Column"
+      elementProperties: {
+        metadata: "sap.m.Column"
       },
-      "descendantProperties": {
-        "text": name
+      descendantProperties: {
+        text: name
       }
     };
 
@@ -135,13 +134,13 @@ export class Table {
   }
 
   private async _getSortIndicatorValue(name: string, tableSelector: any) {
-    const vl = this.vlf.initLog(this._getSortIndicatorValue)
+    const vl = this.vlf.initLog(this._getSortIndicatorValue);
     const tableColumnSelector = {
-      "elementProperties": {
-        "metadata": "sap.m.Column"
+      elementProperties: {
+        metadata: "sap.m.Column"
       },
-      "descendantProperties": {
-        "text": name
+      descendantProperties: {
+        text: name
       }
     };
 
@@ -157,8 +156,8 @@ export class Table {
     }
   }
 
-  private _prepareAncestorSelector (selector: any, ancestorSelector: any) {
-    const vl = this.vlf.initLog(this._prepareAncestorSelector)
+  private _prepareAncestorSelector(selector: any, ancestorSelector: any) {
+    const vl = this.vlf.initLog(this._prepareAncestorSelector);
     if ("elementProperties" in ancestorSelector) {
       selector.ancestorProperties = ancestorSelector.elementProperties;
     } else if (!("ancestorProperties" in selector)) {
@@ -173,6 +172,5 @@ export class Table {
     }
     return selector;
   }
-  
-};
+}
 export default new Table();

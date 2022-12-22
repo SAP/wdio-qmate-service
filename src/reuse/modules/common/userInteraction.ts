@@ -5,11 +5,10 @@ import { KeyCodes } from "./constants/userInteraction.constants";
 
 /**
  * @class userInteraction
- * @memberof common 
+ * @memberof common
  */
 export class UserInteraction {
-  private vlf = new VerboseLoggerFactory("common", "userInteraction")
-
+  private vlf = new VerboseLoggerFactory("common", "userInteraction");
 
   // =================================== FILL ===================================
   /**
@@ -19,8 +18,8 @@ export class UserInteraction {
    * @param {String} value - The value with witch the input should be filled.
    * @example await common.userInteraction.fillActive("My Value");
    */
-  async fillActive (value: string) {
-    const vlf = this.vlf.initLog(this.fillActive)
+  async fillActive(value: string) {
+    const vlf = this.vlf.initLog(this.fillActive);
     try {
       if (value !== null) {
         const elem = await $(await browser.getActiveElement());
@@ -32,8 +31,7 @@ export class UserInteraction {
       // @ts-ignore
       throw new Error("Function 'fillActive' failed: ", error);
     }
-
-  };
+  }
 
   /**
    * @function fillActiveAndRetry
@@ -41,14 +39,13 @@ export class UserInteraction {
    * @description Enters the given value to the active input field and retries the action in case it fails.
    * @param {String} value - The value with witch the input should be filled.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
-   * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. 
+   * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await common.userInteraction.fillActiveAndRetry("My Value");
    */
-  async fillActiveAndRetry (value: string, retries: number = 3, interval: number = 5000) {
-    const vlf = this.vlf.initLog(this.fillActiveAndRetry)
+  async fillActiveAndRetry(value: string, retries: number = 3, interval: number = 5000) {
+    const vlf = this.vlf.initLog(this.fillActiveAndRetry);
     await util.function.retry(this.fillActive, [value], retries, interval, this);
-  };
-
+  }
 
   /**
    * @function clearAndFillActive
@@ -57,15 +54,15 @@ export class UserInteraction {
    * @param {String} value - The value to fill.
    * @example await common.userInteraction.clearAndFillActive("My Value");
    */
-  async clearAndFillActive (value: string) {
-    const vlf = this.vlf.initLog(this.clearAndFillActive)
+  async clearAndFillActive(value: string) {
+    const vlf = this.vlf.initLog(this.clearAndFillActive);
     if (value !== null) {
       const elem = await $(await browser.getActiveElement());
       await elem.setValue(value);
     } else {
       throw new Error("Function 'clearAndFillActive' failed. Please provide a value as argument.");
     }
-  };
+  }
 
   /**
    * @function clearAndFillActiveAndRetry
@@ -76,11 +73,10 @@ export class UserInteraction {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await common.userInteraction.clearAndFillActiveAndRetry("My Value");
    */
-  async clearAndFillActiveAndRetry (value: string, retries: number = 3, interval: number = 5000) {
-    const vlf = this.vlf.initLog(this.clearAndFillActiveAndRetry)
+  async clearAndFillActiveAndRetry(value: string, retries: number = 3, interval: number = 5000) {
+    const vlf = this.vlf.initLog(this.clearAndFillActiveAndRetry);
     await util.function.retry(this.clearAndFillActive, [value], retries, interval, this);
-  };
-
+  }
 
   // =================================== KEYS ===================================
   /**
@@ -92,10 +88,10 @@ export class UserInteraction {
    * @example await common.userInteraction.pressKey("\uE004");
    * @example await common.userInteraction.pressKey(["\uE009", "Alt"]);
    */
-  async pressKey (keys: string | string[]) {
-    const vlf = this.vlf.initLog(this.pressKey)
+  async pressKey(keys: string | string[]) {
+    const vlf = this.vlf.initLog(this.pressKey);
     await browser.keys(keys);
-  };
+  }
 
   /**
    * @function pressEnter
@@ -103,10 +99,10 @@ export class UserInteraction {
    * @description Performs the Enter keypress.
    * @example await common.userInteraction.pressEnter();
    */
-  async pressEnter () {
-    const vlf = this.vlf.initLog(this.pressEnter)
+  async pressEnter() {
+    const vlf = this.vlf.initLog(this.pressEnter);
     await browser.keys(KeyCodes.ENTER);
-  };
+  }
 
   /**
    * @function pressTab
@@ -114,10 +110,10 @@ export class UserInteraction {
    * @description Performs the Tab keypress.
    * @example await common.userInteraction.pressTab();
    */
-  async pressTab () {
-    const vlf = this.vlf.initLog(this.pressTab)
+  async pressTab() {
+    const vlf = this.vlf.initLog(this.pressTab);
     await browser.keys(KeyCodes.TAB);
-  };
+  }
 
   /**
    * @function pressF4
@@ -125,10 +121,10 @@ export class UserInteraction {
    * @description Performs the F4 keypress.
    * @example await common.userInteraction.pressF4();
    */
-  async pressF4 () {
-    const vlf = this.vlf.initLog(this.pressF4)
+  async pressF4() {
+    const vlf = this.vlf.initLog(this.pressF4);
     await browser.keys(KeyCodes.F4);
-  };
+  }
 
   /**
    * @function pressBackspace
@@ -136,10 +132,10 @@ export class UserInteraction {
    * @description Performs the Backspace keypress.
    * @example await common.userInteraction.pressBackspace();
    */
-  async pressBackspace () {
-    const vlf = this.vlf.initLog(this.pressBackspace)
+  async pressBackspace() {
+    const vlf = this.vlf.initLog(this.pressBackspace);
     await browser.keys(KeyCodes.BACKSPACE);
-  };
+  }
 
   /**
    * @function pressEscape
@@ -148,10 +144,10 @@ export class UserInteraction {
    * @description Performs the Escape keypress.
    * @example await common.userInteraction.pressEscape();
    */
-  async pressEscape () {
-    const vlf = this.vlf.initLog(this.pressEscape)
+  async pressEscape() {
+    const vlf = this.vlf.initLog(this.pressEscape);
     await browser.keys(KeyCodes.ESCAPE);
-  };
+  }
 
   /**
    * @function pressArrowLeft
@@ -159,10 +155,10 @@ export class UserInteraction {
    * @description Performs the Arrow Left keypress.
    * @example await common.userInteraction.pressArrowLeft();
    */
-  async pressArrowLeft () {
-    const vlf = this.vlf.initLog(this.pressArrowLeft)
+  async pressArrowLeft() {
+    const vlf = this.vlf.initLog(this.pressArrowLeft);
     await browser.keys(KeyCodes.ARROW_LEFT);
-  };
+  }
 
   /**
    * @function pressArrowRight
@@ -170,10 +166,9 @@ export class UserInteraction {
    * @description Performs the Arrow Right keypress.
    * @example await common.userInteraction.pressArrowRight();
    */
-  async pressArrowRight () {
-    const vlf = this.vlf.initLog(this.pressArrowRight)
+  async pressArrowRight() {
+    const vlf = this.vlf.initLog(this.pressArrowRight);
     await browser.keys(KeyCodes.ARROW_RIGHT);
-  };
-
-};
+  }
+}
 export default new UserInteraction();

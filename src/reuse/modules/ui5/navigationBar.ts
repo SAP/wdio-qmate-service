@@ -7,7 +7,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  * @memberof ui5
  */
 export class NavigationBar {
-  private vlf = new VerboseLoggerFactory("ui5", "navigationBar")
+  private vlf = new VerboseLoggerFactory("ui5", "navigationBar");
 
   /**
    * @function clickBack
@@ -17,11 +17,11 @@ export class NavigationBar {
    * @example await ui5.navigationBar.clickBack();
    */
   async clickBack(timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.clickBack)
+    const vl = this.vlf.initLog(this.clickBack);
     const selector = {
-      "elementProperties": {
-        "metadata": "sap.ushell.ui.shell.ShellHeadItem",
-        "id": "backBtn"
+      elementProperties: {
+        metadata: "sap.ushell.ui.shell.ShellHeadItem",
+        id: "backBtn"
       }
     };
     try {
@@ -29,7 +29,7 @@ export class NavigationBar {
     } catch (error) {
       throw new Error(`Function 'clickBack' failed: ${error}`);
     }
-  };
+  }
 
   /**
    * @function clickSapLogo
@@ -39,16 +39,16 @@ export class NavigationBar {
    * @example await ui5.navigationBar.clickSapLogo();
    */
   async clickSapLogo(timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.clickSapLogo)
+    const vl = this.vlf.initLog(this.clickSapLogo);
     const selector = {
-      "id": "shell-header-logo"
+      id: "shell-header-logo"
     };
     try {
       await ui5.userInteraction.click(selector, 0, timeout);
     } catch (error) {
       throw new Error(`Function 'clickSapLogo' failed: ${error}`);
     }
-  };
+  }
 
   /**
    * @function clickUserIcon
@@ -58,10 +58,10 @@ export class NavigationBar {
    * @example await ui5.navigationBar.clickUserIcon();
    */
   async clickUserIcon(timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.clickUserIcon)
+    const vl = this.vlf.initLog(this.clickUserIcon);
     const selector = {
-      "elementProperties": {
-        "id": "meAreaHeaderButton"
+      elementProperties: {
+        id: "meAreaHeaderButton"
       }
     };
     try {
@@ -69,8 +69,7 @@ export class NavigationBar {
     } catch (error) {
       throw new Error(`Function 'clickUserIcon' failed: ${error}`);
     }
-  };
-
+  }
 
   // =================================== ASSERTION ===================================
   /**
@@ -81,12 +80,12 @@ export class NavigationBar {
    * @example await ui5.navigationBar.expectPageTitle("Home");
    */
   async expectPageTitle(compareValue: string) {
-    const vl = this.vlf.initLog(this.expectPageTitle)
+    const vl = this.vlf.initLog(this.expectPageTitle);
     const selector = {
-      "elementProperties": {
-        "metadata": "sap.ushell.ui.shell.ShellAppTitle",
-        "mProperties": {
-          "text": compareValue
+      elementProperties: {
+        metadata: "sap.ushell.ui.shell.ShellAppTitle",
+        mProperties: {
+          text: compareValue
         }
       }
     };
@@ -95,7 +94,7 @@ export class NavigationBar {
     } catch (error) {
       throw new Error(`Function 'expectPageTitle' failed: ${error}`);
     }
-  };
+  }
 
   /**
    * @function expectShellHeader
@@ -105,11 +104,11 @@ export class NavigationBar {
    * @example await ui5.navigationBar.expectShellHeader();
    */
   async expectShellHeader(timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
-    const vl = this.vlf.initLog(this.expectShellHeader)
+    const vl = this.vlf.initLog(this.expectShellHeader);
     const selector = {
-      "elementProperties": {
-        "metadata": "sap.ushell.ui.ShellHeader",
-        "id": "shell-header"
+      elementProperties: {
+        metadata: "sap.ushell.ui.ShellHeader",
+        id: "shell-header"
       }
     };
     try {
@@ -117,7 +116,6 @@ export class NavigationBar {
     } catch (error) {
       throw new Error(`Function 'expectPageTitle' failed: ${error}`);
     }
-  };
-
-};
+  }
+}
 export default new NavigationBar();
