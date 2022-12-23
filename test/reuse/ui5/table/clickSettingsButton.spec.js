@@ -56,3 +56,59 @@ describe("table - clickSettingsButton - smartTable with tableSelector", function
   });
 
 });
+
+describe("table - clickSettingsButton - smartTable - ui5 version > 1.99.0 ", function () {
+
+  it("Preparation", async function () {
+    await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+  });
+
+  it("Execution", async function () {
+    await ui5.table.clickSettingsButton();
+  });
+
+  it("Verification", async function () {
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        "metadata": "sap.m.Dialog",
+        "title": "View Settings"
+      }
+    };
+    await ui5.assertion.expectToBeVisible(selector);
+  });
+
+});
+
+describe("table - clickSettingsButton - smartTable with tableSelector - ui5 version > 1.99.0", function () {
+
+  const tableSelector = {
+    "elementProperties": {
+      "metadata": "sap.ui.comp.smarttable.SmartTable"
+    }
+  };
+
+  it("Preparation", async function () {
+    await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+  });
+
+  it("Execution", async function () {
+    await ui5.table.clickSettingsButton(tableSelector);
+  });
+
+  it("Verification", async function () {
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        "metadata": "sap.m.Dialog",
+        "title": "View Settings"
+      }
+    };
+    await ui5.assertion.expectToBeVisible(selector);
+  });
+
+});
