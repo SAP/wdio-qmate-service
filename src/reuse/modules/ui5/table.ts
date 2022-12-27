@@ -23,7 +23,7 @@ export class Table {
    * await ui5.table.sortColumnAscending("Amount", glAccountItemsTable);
    */
   async sortColumnAscending (columnName: string, tableSelector: any) {
-    const sortButtonSelector = {
+    const oldSortButtonSelector = {
       "elementProperties": {
         "metadata": "sap.m.Button",
         "icon": "sap-icon://sort-ascending"
@@ -32,10 +32,16 @@ export class Table {
         "metadata": "sap.m.Toolbar"
       }
     };
+    const newSortButtonSelector = {
+      "elementProperties": {
+        "metadata": "sap.m.ToggleButton",
+        "text": "Ascending"
+      }
+    };
     const sort = await this._getSortIndicatorValue(columnName, tableSelector);
     if (sort !== "Ascending") {
       this._clickColumn(columnName, tableSelector);
-      await ui5.userInteraction.click(sortButtonSelector);
+      await Promise.any([ui5.userInteraction.click(oldSortButtonSelector), ui5.userInteraction.click(newSortButtonSelector)]);
     }
   };
 
@@ -56,7 +62,7 @@ export class Table {
    * await ui5.table.sortColumnDescending("Amount", glAccountItemsTable);
    */
    async sortColumnDescending (columnName: string, tableSelector: any) {
-    const sortButtonSelector = {
+    const oldSortButtonSelector = {
       "elementProperties": {
         "metadata": "sap.m.Button",
         "icon": "sap-icon://sort-descending"
@@ -65,10 +71,16 @@ export class Table {
         "metadata": "sap.m.Toolbar"
       }
     };
+    const newSortButtonSelector = {
+      "elementProperties": {
+        "metadata": "sap.m.ToggleButton",
+        "text": "Descending"
+      }
+    };
     const sort = await this._getSortIndicatorValue(columnName, tableSelector);
     if (sort !== "Descending") {
       this._clickColumn(columnName, tableSelector);
-      await ui5.userInteraction.click(sortButtonSelector);
+      await Promise.any([ui5.userInteraction.click(oldSortButtonSelector), ui5.userInteraction.click(newSortButtonSelector)]);
     }
   };
 
