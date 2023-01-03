@@ -55,7 +55,8 @@ export class NavigationBar {
   async clickUserIcon(timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const selector = {
       "elementProperties": {
-        "id": "meAreaHeaderButton"
+        "metadata": "sap.m.Avatar",
+        "id": "*HeaderButton"
       }
     };
     try {
