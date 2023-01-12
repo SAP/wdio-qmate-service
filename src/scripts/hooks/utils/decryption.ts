@@ -23,17 +23,14 @@ class Decryption {
 
     try {
       privateKey = this.fs.readFileSync(this.path.resolve(process.cwd(), "private.key"), "utf8");
-      console.log("\n[private key is used from current working directory]\n");
     } catch (error) {
       if (process.env.QMATE_PRIVATE_KEY) {
         privateKey = process.env.QMATE_PRIVATE_KEY;
         privateKey = privateKey.replace(/\\n/gm, "\n");
         privateKey = privateKey.replace(/\\s/gm, " ");
-        console.log("\n[private key is used from env var]\n");
       } else {
         try {
           privateKey = this.fs.readFileSync(this.path.resolve(dirname, "private.key"), "utf8");
-          console.log("\n[default private key is used]\n");
         } catch (error) {
           throw new Error(`No private key found: ${error}`);
         }
