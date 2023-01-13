@@ -5,5 +5,5 @@
 ## Installation
 To install the latest version of the service, simply execute the following command:
 ```bash
-npm install @wdio/qmate-service
+npm install @sap_oss/wdio-qmate-service
 ```
