@@ -129,25 +129,6 @@ export class Session {
   }
 
   /**
- * @function loginNetWeaver
- * @memberOf ui5.session
- * @description Login with sap netweaver for WebGUI form and specific username and password.
- * @param {String} username - The username.
- * @param {String} [password] - The password.
- * @param {Boolean} [pressContinue=true] - Specifies if the function will press continue if applicable.
- * @example await ui5.session.loginNetWeaver("john", "abc123!");
- */
-  async loginNetWeaver(username: string, password?: string, pressContinue = true) {
-    await this.loginCustom(username, password, "#sap-user", "#sap-password", "#LOGON_BUTTON");
-    if (pressContinue) {
-      await util.function.executeOptional(async () => {
-        const continueButton = await nonUi5.element.getByCss("DIV[id*='CONTINUE_BUTTON']", 0, 5000);
-        await nonUi5.userInteraction.click(continueButton);
-      });
-    }
-  }
-
-  /**
    * @function loginCustom
    * @memberOf ui5.session
    * @description Login with custom form and specific username and password.
