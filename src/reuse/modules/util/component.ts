@@ -43,8 +43,8 @@ export class Component {
     })[0];
     const componentSpecIdentifier = path.basename(componentSpec).replaceAll(".spec.js", "");
 
-    if (!fs.existsSync(path.resolve(this._entryPointFolderPath))) {
-      fs.mkdirSync(path.resolve(this._entryPointFolderPath));
+    if (!fs.existsSync(path.resolve(folderPath))) {
+      fs.mkdirSync(path.resolve(folderPath));
     }
 
     await util.data.writeDataToFile(path.resolve(folderPath, `${componentSpecIdentifier}.entrypoint.json`), data);

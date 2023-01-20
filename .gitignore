@@ -53,3 +53,7 @@ private.key
 
 # typesGeneration
 typesTmp
+
+# qmate component tests
+entrypoints
+myEntrypoints
