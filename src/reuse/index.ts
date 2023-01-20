@@ -81,7 +81,8 @@ class ReuseLibrary {
       assertion: nonUi5Qmate.assertion,
       element: nonUi5Qmate.element,
       navigation: nonUi5Qmate.navigation,
-      userInteraction: nonUi5Qmate.userInteraction
+      userInteraction: nonUi5Qmate.userInteraction,
+      session: nonUi5Qmate.session
     };
     global.nonUi5 = {
       ...nonUi5,

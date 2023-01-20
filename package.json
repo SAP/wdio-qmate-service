@@ -140,7 +140,7 @@
     "@wdio/spec-reporter": "^7.20.8",
     "@wdio/static-server-service": "^7.10.1",
     "chai": "^4.3.4",
-    "chromedriver": "^107.0.0",
+    "chromedriver": "^109.0.0",
     "deepmerge": "^4.2.2",
     "eslint": "^6.8.0",
     "eslint-plugin-wdio": "^6.0.12",
