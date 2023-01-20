@@ -45,7 +45,7 @@ export class Session {
           } catch {
             rej();
           }
-        })
+        });
 
         const sapCloudForm = new Promise<void>(async (res, rej) => {
           try {
@@ -58,18 +58,14 @@ export class Session {
           } catch {
             rej();
           }
-        })
+        });
 
         try {
-          await Promise.any([
-            fioriForm,
-            sapCloudForm,
-          ])
-          return true
+          await Promise.any([fioriForm, sapCloudForm]);
+          return true;
         } catch {
-          return false
+          return false;
         }
-
       }, timeout);
     } catch (error) {
       throw new Error("login failed. Could not find the login page within the given time. \n" + error);
@@ -214,7 +210,6 @@ export class Session {
     // spec
     await ui5.session.loginCustomViaConfig();
    */
-
   async loginCustomViaConfig(username: string, password?: string, verify = false) {
     if (!password) {
       password = this._getDefaultPassword();
@@ -257,9 +252,8 @@ export class Session {
    */
   async logout(verify = true) {
     if (browser.config && browser.config.params && browser.config.params.auth && browser.config.params.auth.formType === "skip") {
-      console.warn("Logout is skipped.");
-      await browser.reloadSession(); // Clean cache
-      return true;
+      util.console.warn("Logout is skipped since 'formType' is set to 'skip'");
+      return await browser.reloadSession(); // Clean cache
     }
 
     await ui5.navigationBar.clickUserIcon();
