@@ -10,10 +10,9 @@ export class Session {
  * @memberOf nonUi5.session
  * @description Login for SAP NetWebGUI form and specific username and password.
  * @param {String} username - The username.
- * @param {String} [password] - The password.
- * @param {String} [iframeCssSelector] - The specific iframe selector the login form is contained.
-
+ * @param {String} password - The password.
  * @param {Boolean} [clickContinue=true] - Specifies if the function will press continue if applicable.
+ * @param {String} [iframeCssSelector="iframe"] - The specific iframe selector the login form is contained.
  * @example await nonUi5.session.loginSapNetWeaver("john", "abc123!");
  */
   async loginSapNetWeaver(username: string, password: string, clickContinue = true, iframeCssSelector = "iframe") {
