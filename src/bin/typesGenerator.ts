@@ -1,5 +1,5 @@
 import fs from "fs/promises";
-import fse from "fs-extra";
+const fse = require("fs-extra");
 import path from "path";
 import glob from "glob-promise";
 

@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import fs from 'fs-extra'
+const fs = require("fs-extra");
 import path from 'path'
 import os from 'os'
 const dataExchange = require("../../dataExchange/dataExchange");
