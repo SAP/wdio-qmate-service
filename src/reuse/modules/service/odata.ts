@@ -106,7 +106,7 @@ export class OData {
       throw new Error(`No entity set '${entitySet}' available in service`);
     }
     if (raw) {
-      return entity.raw.get(keys);
+      return entity.raw().get(keys);
     } else {
       return entity.get(keys);
     }
@@ -194,6 +194,7 @@ export class OData {
    * @param {Object} srv - Instance of the service
    * @param {String} entitySet - The entitySet you want to POST against.
    * @param {Object} payload - The payload for the POST-request.
+   * @param {Boolean} raw - Response includes all header contents.
    * @example 
    * let payload = {
    *  "PurchaseOrder": "4500007108",
@@ -202,14 +203,17 @@ export class OData {
    * };
    * let res = await service.odata.post(srv, "A_PurchaseOrder", payload);
    */
-  async post(srv: any, entitySet: string, payload: any) {
+  async post(srv: any, entitySet: string, payload: any, raw: boolean = false) {
     const entity = srv[entitySet];
     if (!entity) {
       throw new Error(`No entity set '${entitySet}' available in service`);
     }
-    return entity.post(payload);
+    if (raw) {
+      return entity.raw().post(payload);
+    } else {
+      return entity.post(payload);
+    }
   };
-
   /**
    * @function merge
    * @memberOf service.odata
@@ -354,6 +358,5 @@ export class OData {
       });
     });
   }
-
 };
 export default new OData();
