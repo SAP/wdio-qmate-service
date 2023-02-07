@@ -208,7 +208,7 @@ export class OData {
     if (!entity) {
       throw new Error(`No entity set '${entitySet}' available in service`);
     }
-    if (raw) {
+    if (raw === true) {
       return entity.raw().post(payload);
     } else {
       return entity.post(payload);
