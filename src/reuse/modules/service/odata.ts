@@ -45,9 +45,9 @@ export class OData {
    * }
    * srv = await service.odata.init(url, user, password, false, params);
    */
-  async init (url: string, username: string, password: string, loggingEnabled = false, params = {}, authType: string = ""): Promise<any> {
+  async init(url: string, username: string, password: string, loggingEnabled = false, params = {}, authType: string = ""): Promise<any> {
     const logger = {
-      "trace": () => {},
+      "trace": () => { },
       "debug": console.debug,
       "info": console.info,
       "warn": console.warn,
@@ -92,6 +92,7 @@ export class OData {
    * @param {Object} srv - Instance of the service
    * @param {String} entitySet - The entitySet you want to GET from.
    * @param {Object} keys - The required keys for the GET-request.
+   * @param {Boolean} raw - Response includes all header contents.
    * @example const url = "<baseUrl>/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
    * srv = await service.odata.init(url, user, password);
    * const keys = {
@@ -99,12 +100,16 @@ export class OData {
    * };
    * const res = await service.odata.get(srv, "A_PurchaseOrder", keys);
    */
-  async get (srv: any, entitySet: string, keys: any): Promise<any> {
+  async get(srv: any, entitySet: string, keys: any, raw: boolean = false): Promise<any> {
     const entity = srv[entitySet];
     if (!entity) {
       throw new Error(`No entity set '${entitySet}' available in service`);
     }
-    return entity.get(keys);
+    if (raw) {
+      return entity.raw.get(keys);
+    } else {
+      return entity.get(keys);
+    }
   };
 
   /**
@@ -133,7 +138,7 @@ export class OData {
    * };
    * let res = await service.odata.getEntitySet(srv, "A_PurchaseOrder", filterString, select, queryParams);
    */
-  async getEntitySet (srv: any, entitySet: string, filterString: string = "", selectionFields: string = "", queryParams: any = {}) {
+  async getEntitySet(srv: any, entitySet: string, filterString: string = "", selectionFields: string = "", queryParams: any = {}) {
     if (!srv) {
       throw new Error("Service is not defined. Please make sure to initialize and pass the service.");
     } else {
@@ -167,7 +172,7 @@ export class OData {
    * const srv = await service.odata.init(url, user, password);
    * let isFeatureActive = await service.odata.isFeatureToggleActivated(srv, "MM_PUR_PO_BATCHES_IN_MANAGE_PO");
    */
-  async isFeatureToggleActivated (srv: any, featureName: string): Promise<boolean> {
+  async isFeatureToggleActivated(srv: any, featureName: string): Promise<boolean> {
     const res = await this.getEntitySet(srv, "ToggleStatusSet");
     for (const featureEntity of Object.values(res)) {
       // @ts-ignore
@@ -197,7 +202,7 @@ export class OData {
    * };
    * let res = await service.odata.post(srv, "A_PurchaseOrder", payload);
    */
-  async post (srv: any, entitySet: string, payload: any) {
+  async post(srv: any, entitySet: string, payload: any) {
     const entity = srv[entitySet];
     if (!entity) {
       throw new Error(`No entity set '${entitySet}' available in service`);
@@ -220,7 +225,7 @@ export class OData {
    *  "ScheduleLineDeliveryDate": new Date()
    * };
    */
-  async merge (srv: any, entitySet: string, payload: any) {
+  async merge(srv: any, entitySet: string, payload: any) {
     const entity = srv[entitySet];
     if (!entity) {
       throw new Error(`No entity set '${entitySet}' available in service`);
@@ -244,7 +249,7 @@ export class OData {
    * };
    * await service.odata.delete(srv, "C_PurchaseOrderTP", options);
    */
-  async delete (srv: any, entitySet: string, options: any) {
+  async delete(srv: any, entitySet: string, options: any) {
     const entity = srv[entitySet];
     if (!entity) {
       throw new Error(`No entity set '${entitySet}' available in service`);
@@ -267,7 +272,7 @@ export class OData {
    * };
    * const res = await service.odata.callFunctionImport(srv, "Cancel", options);
    */
-  async callFunctionImport (srv: any, functionImportName: string, options: any) {
+  async callFunctionImport(srv: any, functionImportName: string, options: any) {
     const functionImport = srv.functionImports[functionImportName];
 
     const res = await functionImport.call(options);
@@ -290,7 +295,7 @@ export class OData {
    * };
    * const pdfStream = await service.odata.getOutputManagementPdfStream(outputConf, url, user, password);
    */
-  async getOutputManagementPdfStream (outputConf: any, url: string, username: string, password: string) {
+  async getOutputManagementPdfStream(outputConf: any, url: string, username: string, password: string) {
     if (arguments.length < 4) {
       throw new Error("getOutputManagementPdfStream Failed. Please send correct parameters");
     }
@@ -313,7 +318,7 @@ export class OData {
    * const url = "https://domain.com/getPdfFile";
    * const pdfStream = await service.odata.readPdfFromDirectUrl(url, "username", "Password");
    */
-  async readPdfFromDirectUrl (url: string, username: string, password: string, isSaml = false) {
+  async readPdfFromDirectUrl(url: string, username: string, password: string, isSaml = false) {
     if (url === undefined || url === null) {
       throw new Error("Function 'readPdfFromDirectUrl' Failed. Please provide valid url as first parameter");
     }
@@ -324,7 +329,7 @@ export class OData {
   // =================================== HELPER ===================================
   _doRequest(url: string, username: string, password: string, isSaml: boolean) {
     //const auth = new Buffer(username + ":" + password).toString("base64");
-    const options : any = {
+    const options: any = {
       encoding: null,
       "content-type": "application/pdf"
     };
