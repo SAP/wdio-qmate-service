@@ -136,7 +136,7 @@
     "@wdio/mocha-framework": "^8.3.0",
     "@wdio/sauce-service": "^8.3.3",
     "@wdio/selenium-standalone-service": "^8.3.2",
-    "@wdio/shared-store-service": "^8.3.3",
+    "@wdio/shared-store-service": "^8.3.5",
     "@wdio/spec-reporter": "^8.3.0",
     "@wdio/static-server-service": "^8.3.0",
     "chai": "^4.3.4",

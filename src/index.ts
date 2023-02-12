@@ -6,6 +6,7 @@ import qmateLoader from "./scripts/hooks/before";
 import onPrepareHook from "./scripts/hooks/onPrepare";
 import onCompleteHook from "./scripts/hooks/onComplete";
 import afterHook from "./scripts/hooks/after";
+import { setValue, getValue } from '@wdio/shared-store-service'
 const pj = require("../package.json");
 
 module.exports = class CustomWorkerService {
@@ -39,6 +40,7 @@ module.exports = class CustomWorkerService {
     console.log(logo);
     try {
       await onPrepareHook(config, capabilities);
+      await setValue("config", config);
     } catch (e) {
       console.error(`onPrepare hook failed: ${e}`);
     }
@@ -54,6 +56,7 @@ module.exports = class CustomWorkerService {
   // @ts-ignore
   async beforeSession(config, capabilities, specs) {
     try {
+      browser.config = config;
       await qmateLoaderSession(config, capabilities, specs);
     } catch (e) {
       if (specs && specs[0]) {
@@ -76,6 +79,7 @@ module.exports = class CustomWorkerService {
   async before(capabilities, specs, browser) {
     // Errors in WDIO hooks are suppressed by default => we call process.exit(1). It will mark all specs as failed
     try {
+      browser.config = await getValue("config");
       await qmateLoader(capabilities, specs, browser);
     } catch (e) {
       if (specs && specs[0]) {
