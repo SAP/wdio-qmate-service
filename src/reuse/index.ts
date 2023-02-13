@@ -1,5 +1,8 @@
 "use strict";
 
+// functions
+import { step, stepSkip, stepRecordMode } from "./modules/runner";
+
 // modules
 import utilQmate from "./modules/util/Util";
 import commonQmate from "./modules/common/Common";
@@ -12,6 +15,14 @@ import authenticators from "./data/authenticators.json";
 
 class ReuseLibrary {
   load() {
+    // Runner functions
+    // @ts-ignore
+    global.step = step;
+    // @ts-ignore
+    global.stepSkip = stepSkip;
+    // @ts-ignore
+    global.stepRecordMode = stepRecordMode;
+
     /**
      * @global
      * @description Global namespace for common modules.
