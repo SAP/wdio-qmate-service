@@ -126,7 +126,7 @@ module.exports = class CustomWorkerService {
    */
   async after(result: number, capabilities: any, specs: any) {
     try {
-      afterHook(result, capabilities, specs);
+      await afterHook(result, capabilities, specs);
     } catch (e) {
       util.console.error(`after hook failed: ${e}`);
     }

@@ -15,7 +15,7 @@ describe("userInteraction - clearAndFillAndRetry form field", function () {
     await nonUi5.assertion.expectValueToBe(element, "First test value", "value");
 
     await expect(nonUi5.userInteraction.clearAndFillAndRetry(element, ""))
-      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'clearAndFill' failed: Please provide an element and value as arguments.");
+      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'clearAndFill' failed: Please provide an element and value (datatype - number/string) as arguments.");
     await nonUi5.assertion.expectValueToBe(element, "First test value", "value");
 
     await nonUi5.userInteraction.clearAndFillAndRetry(element, "Second test value");
@@ -33,15 +33,15 @@ describe("userInteraction - clearAndFillAndRetry without value/with wrong value 
   it("Execution & Verification", async function () {
     // Negative case - empty value
     await expect(nonUi5.userInteraction.clearAndFillAndRetry(element, null, 1))
-      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'clearAndFill' failed: Please provide an element and value as arguments."); // undefined !== "" in the inner verification
+      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'clearAndFill' failed: Please provide an element and value (datatype - number/string) as arguments."); // undefined !== "" in the inner verification
 
     await expect(nonUi5.userInteraction.clearAndFillAndRetry(element))
-      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'clearAndFill' failed: Please provide an element and value as arguments."); // undefined !== "" in the inner verification
+      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'clearAndFill' failed: Please provide an element and value (datatype - number/string) as arguments."); // undefined !== "" in the inner verification
 
     await nonUi5.userInteraction.clearAndFillAndRetry(element, 1, 1); // Added 1, but then received "1" in the inner verification
 
     await expect(nonUi5.userInteraction.clearAndFillAndRetry(element, true, 1))
-      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'clearAndFillAndRetry' failed. Verification of value failed."); // Added true, but then received "true" in the inner verification
+      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'clearAndFill' failed: Please provide an element and value (datatype - number/string) as arguments.");
   });
 });
 

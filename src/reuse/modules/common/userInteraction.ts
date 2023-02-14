@@ -19,6 +19,7 @@ export class UserInteraction {
   async fillActive (value: string) {
     try {
       if (value !== null) {
+        value = value ?? "";
         const elem = await $(await browser.getActiveElement());
         await elem.addValue(value); //TODO: open issue on wdio github for different behavior in terms of the active element of addValue() and setValue()
       } else {

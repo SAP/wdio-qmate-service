@@ -213,8 +213,8 @@ export class UserInteraction {
    */
   async clearAndFill (element: Element, value: string) {
     //arg. 'value' needs to be checked in case of numeric values. E.g.: 0 or 1 will be handled as boolean value in if.
-    if (!element || (value === null || value === undefined || value === "")) {
-      throw new Error("Function 'clearAndFill' failed: Please provide an element and value as arguments.");
+    if (!element || (value === null || value === undefined || value === "" || typeof value === "boolean" || typeof value === "object")) {
+      throw new Error("Function 'clearAndFill' failed: Please provide an element and value (datatype - number/string) as arguments.");
     } else {
       try {
         await this.clear(element);
