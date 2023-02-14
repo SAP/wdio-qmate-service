@@ -21,7 +21,7 @@ module.exports = class CustomWorkerService {
    * the `serviceOptions` parameter will be: `{ foo: 'bar' }`
    */
   // @ts-ignore
-  constructor(serviceOptions, capabilities, config, browser) { }
+  constructor(serviceOptions, capabilities, config) { }
 
   /**
    * Gets executed once before all workers get launched.
@@ -58,6 +58,7 @@ module.exports = class CustomWorkerService {
     try {
       browser.config = config;
       await qmateLoaderSession(config, capabilities, specs);
+      await setValue("params", browser.params);
     } catch (e) {
       if (specs && specs[0]) {
         // `specs` variable is an array, but includes only one current spec
@@ -80,6 +81,7 @@ module.exports = class CustomWorkerService {
     // Errors in WDIO hooks are suppressed by default => we call process.exit(1). It will mark all specs as failed
     try {
       browser.config = await getValue("config");
+      browser.params = await getValue("params");
       await qmateLoader(capabilities, specs, browser);
     } catch (e) {
       if (specs && specs[0]) {
