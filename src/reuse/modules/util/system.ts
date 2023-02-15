@@ -13,7 +13,7 @@ export class System {
    * @returns {String} AIX | Android | MacOS | FreeBSD | Linux | OpenBSD | Windows | SunOS
    * @example const os = await util.system.getOS();
    */
-  async getOS (): Promise<string> {
+  async getOS(): Promise<string> {
     const platform = this.operatingSystem.platform();
     switch (platform) {
       case "aix":
@@ -35,7 +35,6 @@ export class System {
       default:
         return "unknown platform";
     }
-  };
-
-};
+  }
+}
 export default new System();

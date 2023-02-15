@@ -4,5 +4,5 @@ export enum CalculateDates {
   NEXT_MONTH = "nextMonth",
   PREVIOUS_MONTH = "previousMonth",
   NEXT_YEAR = "nextYear",
-  PREVIOUS_YEAR = "previousYear",
+  PREVIOUS_YEAR = "previousYear"
 }

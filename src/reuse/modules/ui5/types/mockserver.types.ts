@@ -1,3 +1,3 @@
 import { RequestMethod } from "../constants/mockserver.constants";
 
-export type RequestMethodType = `${RequestMethod}`
+export type RequestMethodType = `${RequestMethod}`;

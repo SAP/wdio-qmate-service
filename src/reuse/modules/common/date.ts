@@ -5,12 +5,14 @@ import { CalculateDatesType } from "./types/date.types";
 
 import { DateFormats } from "../util/constants/formatter.constants";
 import { DateFormatsType } from "../util/types/formatter.types";
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 
 /**
  * @class date
  * @memberof common
  */
 export class DateModule {
+  private vlf = new VerboseLoggerFactory("common", "date");
 
   // =================================== GET DATES ===================================
   /**
@@ -21,10 +23,12 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getToday("mm/dd/yyyy");
    */
-  getToday (format: DateFormatsType = DateFormats.OBJECT): Date | string {
+  getToday(format: DateFormatsType = DateFormats.OBJECT): Date | string {
+    const vl = this.vlf.initLog(this.getToday);
     const date = new Date();
+    vl.log(date.toISOString());
     return util.formatter.formatDate(date, format);
-  };
+  }
 
   /**
    * @function getTomorrow
@@ -34,11 +38,13 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getTomorrow("mm/dd/yyyy");
    */
-  getTomorrow (format: DateFormatsType = DateFormats.OBJECT): Date | string {
+  getTomorrow(format: DateFormatsType = DateFormats.OBJECT): Date | string {
+    const vl = this.vlf.initLog(this.getTomorrow);
     const date = new Date();
     date.setDate(date.getDate() + 1);
+    vl.log(date.toISOString());
     return util.formatter.formatDate(date, format);
-  };
+  }
 
   /**
    * @function getNextMonth
@@ -48,11 +54,13 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getNextMonth("mm/dd/yyyy");
    */
-  getNextMonth (format: DateFormatsType = DateFormats.OBJECT): Date | string {
+  getNextMonth(format: DateFormatsType = DateFormats.OBJECT): Date | string {
+    const vl = this.vlf.initLog(this.getTomorrow);
     const date = new Date();
     date.setMonth(date.getMonth() + 1);
+    vl.log(date.toISOString());
     return util.formatter.formatDate(date, format);
-  };
+  }
 
   /**
    * @function getPreviousMonth
@@ -62,11 +70,13 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getPreviousMonth("mm/dd/yyyy");
    */
-  getPreviousMonth (format: DateFormatsType = DateFormats.OBJECT): Date | string {
+  getPreviousMonth(format: DateFormatsType = DateFormats.OBJECT): Date | string {
+    const vl = this.vlf.initLog(this.getPreviousMonth);
     const date = new Date();
     date.setMonth(date.getMonth() - 1);
+    vl.log(date.toISOString());
     return util.formatter.formatDate(date, format);
-  };
+  }
 
   /**
    * @function getNextYear
@@ -76,11 +86,13 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getNextYear("mm/dd/yyyy");
    */
-  getNextYear (format: DateFormatsType = DateFormats.OBJECT): Date | string {
+  getNextYear(format: DateFormatsType = DateFormats.OBJECT): Date | string {
+    const vl = this.vlf.initLog(this.getNextYear);
     const date = new Date();
     date.setFullYear(date.getFullYear() + 1);
+    vl.log(date.toISOString());
     return util.formatter.formatDate(date, format);
-  };
+  }
 
   /**
    * @function getPreviousYear
@@ -90,11 +102,13 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getPreviousYear("mm/dd/yyyy");
    */
-  getPreviousYear (format: DateFormatsType = DateFormats.OBJECT): Date | string {
+  getPreviousYear(format: DateFormatsType = DateFormats.OBJECT): Date | string {
+    const vl = this.vlf.initLog(this.getPreviousYear);
     const date = new Date();
     date.setFullYear(date.getFullYear() - 1);
+    vl.log(date.toISOString());
     return util.formatter.formatDate(date, format);
-  };
+  }
 
   /**
    * @function getSpecific
@@ -105,14 +119,16 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getSpecific("2020, 0, 17", "mm/dd/yyyy");
    */
-  getSpecific (date: string, format: DateFormatsType = DateFormats.OBJECT): Date | string {
+  getSpecific(date: string, format: DateFormatsType = DateFormats.OBJECT): Date | string {
+    const vl = this.vlf.initLog(this.getSpecific);
     if (!date) {
       throw new Error("Function 'getSpecific' failed: Please provide a date string ('2020, 0, 17') as first argument.");
     }
     const parsedDate = Date.parse(date);
     const dateObject = new Date(parsedDate);
+    vl.log(dateObject.toISOString());
     return util.formatter.formatDate(dateObject, format);
-  };
+  }
 
   /**
    * @function calculate
@@ -123,7 +139,8 @@ export class DateModule {
    * @returns {String} The calculated date in the given format.
    * @example const date = await common.date.calculate("today", "mm/dd/yyyy");
    */
-  calculate (date: CalculateDatesType = CalculateDates.TODAY, format: DateFormatsType = DateFormats.OBJECT): Date | string {
+  calculate(date: CalculateDatesType = CalculateDates.TODAY, format: DateFormatsType = DateFormats.OBJECT): Date | string {
+    const vl = this.vlf.initLog(this.calculate);
     if (date === null) {
       date = CalculateDates.TODAY;
     }
@@ -156,10 +173,10 @@ export class DateModule {
         try {
           calculatedDate = this.getSpecific(date, format);
         } catch (error) {
-          throw new Error("Function 'calculate' failed: Please provide a valid date string as first argument.")
+          throw new Error("Function 'calculate' failed: Please provide a valid date string as first argument.");
         }
     }
     return calculatedDate;
-  };
-};
+  }
+}
 export default new DateModule();
