@@ -27,14 +27,13 @@ export class Table {
    * await ui5.table.sortColumnAscending("Amount", glAccountItemsTable);
    */
   async sortColumnAscending(columnName: string, tableSelector: any) {
-    const vl = this.vlf.initLog(this.sortColumnAscending);
-    const sortButtonSelector = {
-      elementProperties: {
-        metadata: "sap.m.Button",
-        icon: "sap-icon://sort-ascending"
+    const oldSortButtonSelector = {
+      "elementProperties": {
+        "metadata": "sap.m.Button",
+        "icon": "sap-icon://sort-ascending"
       },
-      ancestorProperties: {
-        metadata: "sap.m.Toolbar"
+      "ancestorProperties": {
+        "metadata": "sap.m.Toolbar"
       }
     };
     const newSortButtonSelector = {
@@ -67,14 +66,13 @@ export class Table {
    * await ui5.table.sortColumnDescending("Amount", glAccountItemsTable);
    */
   async sortColumnDescending(columnName: string, tableSelector: any) {
-    const vl = this.vlf.initLog(this.sortColumnDescending);
-    const sortButtonSelector = {
-      elementProperties: {
-        metadata: "sap.m.Button",
-        icon: "sap-icon://sort-descending"
+    const oldSortButtonSelector = {
+      "elementProperties": {
+        "metadata": "sap.m.Button",
+        "icon": "sap-icon://sort-descending"
       },
-      ancestorProperties: {
-        metadata: "sap.m.Toolbar"
+      "ancestorProperties": {
+        "metadata": "sap.m.Toolbar"
       }
     };
     const newSortButtonSelector = {
