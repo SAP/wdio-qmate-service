@@ -7,5 +7,5 @@ export enum DateFormats {
   DAY_MONTH_YEAR_TIME_DOT = "dd.mm.yyyy.hh.mm",
   MONTH_DAY_YEAR_COMMA = "mmm dd, yyyy",
   DATETIME = "datetime",
-  OBJECT = "object",
+  OBJECT = "object"
 }
