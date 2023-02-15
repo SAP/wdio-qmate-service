@@ -7,7 +7,7 @@ import { AxiosRequestConfig, AxiosResponse, AxiosStatic } from "axios";
  * @memberof service
  */
 export class Rest {
-    private axios: AxiosStatic = require("axios").default;
+  private axios: AxiosStatic = require("axios").default;
 
   /**
    * @function init
@@ -24,9 +24,9 @@ export class Rest {
    * const axios = service.rest.init(customConfig);
    */
 
-  init (customConfig: AxiosRequestConfig<any> | undefined = {}) {
+  init(customConfig: AxiosRequestConfig<any> | undefined = {}) {
     return this.axios.create(customConfig);
-  };
+  }
 
   /**
    * @function get
@@ -38,7 +38,7 @@ export class Rest {
    * @example const uri = https://api.predic8.de/shop/products/";
    * let res = await service.rest.get(uri);
    */
-  async get (uri: string, options: AxiosRequestConfig<any> | undefined  = {}): Promise<AxiosResponse<any, any>> {
+  async get(uri: string, options: AxiosRequestConfig<any> | undefined = {}): Promise<AxiosResponse<any, any>> {
     try {
       return await this.axios.get(uri, options);
     } catch (error: any) {
@@ -53,7 +53,7 @@ export class Rest {
         throw new Error(error.request);
       }
     }
-  };
+  }
 
   /**
    * @function post
@@ -64,7 +64,7 @@ export class Rest {
    * @returns {Object} The response of the POST request.
    * @example let res = await service.rest.delete(`${browser.config.baseUrl}/posts/99`);
    */
-  async post (uri: string, payload: any): Promise<AxiosResponse<any, any>> {
+  async post(uri: string, payload: any): Promise<AxiosResponse<any, any>> {
     try {
       return await this.axios.post(uri, payload);
     } catch (error: any) {
@@ -79,7 +79,7 @@ export class Rest {
         throw new Error(error.request);
       }
     }
-  };
+  }
 
   /**
    * @function delete
@@ -90,7 +90,7 @@ export class Rest {
    * @returns {Object} The response of the DELETE request.
    * @example let res = await service.rest.delete(`${browser.config.baseUrl}/posts/99`);
    */
-  async delete (uri: string, options: AxiosRequestConfig<any> | undefined): Promise<AxiosResponse<any, any>> {
+  async delete(uri: string, options: AxiosRequestConfig<any> | undefined): Promise<AxiosResponse<any, any>> {
     try {
       return await this.axios.delete(uri, options);
     } catch (error: any) {
@@ -105,7 +105,7 @@ export class Rest {
         throw new Error(error.request);
       }
     }
-  };
+  }
 
   /**
    * @function patch
@@ -116,7 +116,7 @@ export class Rest {
    * @returns {Object} The response of the PATCH request.
    * @example let res = await service.rest.patch(`${browser.config.baseUrl}/posts/99`);
    */
-  async patch (uri: string, options: AxiosRequestConfig<any> | undefined): Promise<AxiosResponse<any, any>> {
+  async patch(uri: string, options: AxiosRequestConfig<any> | undefined): Promise<AxiosResponse<any, any>> {
     try {
       return await this.axios.patch(uri, options);
     } catch (error: any) {
@@ -131,7 +131,6 @@ export class Rest {
         throw new Error(error.request);
       }
     }
-  };
-
-};
+  }
+}
 export default new Rest();

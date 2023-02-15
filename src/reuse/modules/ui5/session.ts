@@ -1,9 +1,13 @@
 "use strict";
+
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+
 /**
  * @class session
  * @memberof ui5
  */
 export class Session {
+  private vlf = new VerboseLoggerFactory("ui5", "session");
   // =================================== LOGIN ===================================
   /**
    * @function login
@@ -17,6 +21,7 @@ export class Session {
    * @example await ui5.session.login("JOHN_DOE", "abc123!", true);
    */
   async login(username: string, password?: string, verify = false, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.login);
     if (browser.config && browser.config.params && browser.config.params.auth && browser.config.params.auth.formType === "skip") {
       util.console.warn("Login is skipped since 'formType' is set to 'skip'");
       return true;
@@ -84,6 +89,7 @@ export class Session {
    * @example await ui5.session.loginFiori("john", "abc123!");
    */
   async loginFiori(username: string, password?: string, verify = false) {
+    const vl = this.vlf.initLog(this.loginFiori);
     if (!username) {
       throw new Error("Please provide a valid username.");
     }
@@ -111,6 +117,7 @@ export class Session {
    * @example await ui5.session.loginSapCloud("john", "abc123!");
    */
   async loginSapCloud(username: string, password?: string, verify = false) {
+    const vl = this.vlf.initLog(this.loginSapCloud);
     if (!username) {
       throw new Error("Please provide a valid username.");
     }
@@ -141,6 +148,7 @@ export class Session {
    * @example await ui5.session.loginCustom("JOHN_DOE", "abc123!", "#username", #password, "#logon");
    */
   async loginCustom(username: string, password = "", usernameFieldSelector: string, passwordFieldSelector: string, logonButtonSelector: string, verify = false) {
+    const vl = this.vlf.initLog(this.loginCustom);
     if (!username) {
       throw new Error("Please provide a valid username.");
     }
@@ -192,6 +200,7 @@ export class Session {
     await ui5.session.loginCustomViaConfig();
    */
   async loginCustomViaConfig(username: string, password?: string, verify = false) {
+    const vl = this.vlf.initLog(this.loginCustomViaConfig);
     if (!password) {
       password = this._getDefaultPassword();
     }
@@ -232,6 +241,7 @@ export class Session {
    * @example await ui5.session.logout();
    */
   async logout(verify = true) {
+    const vl = this.vlf.initLog(this.logout);
     if (browser.config && browser.config.params && browser.config.params.auth && browser.config.params.auth.formType === "skip") {
       util.console.warn("Logout is skipped since 'formType' is set to 'skip'");
       return await browser.reloadSession(); // Clean cache
@@ -259,6 +269,7 @@ export class Session {
    * await ui5.session.switchUser("PURCHASER", "super-duper-sensitive-pw", authenticator, 30000);
    */
   async switchUser(username: string, password = "", authenticator: any, wait = 10000) {
+    const vl = this.vlf.initLog(this.switchUser);
     if (!password) {
       password = this._getDefaultPassword();
     }
@@ -281,12 +292,14 @@ export class Session {
    * @example await ui5.session.expectLogoutText();
    */
   async expectLogoutText() {
+    const vl = this.vlf.initLog(this.expectLogoutText);
     const elem = await nonUi5.element.getById("msgText");
     await nonUi5.assertion.expectToBeVisible(elem);
   }
 
   // =================================== HELPER ===================================
   private async _loginWithUsernameAndPassword(username: string, password?: string, authenticator = ui5.authenticators.fioriForm, verify = false, messageSelector?: string) {
+    const vl = this.vlf.initLog(this._loginWithUsernameAndPassword);
     if (!password) {
       password = this._getDefaultPassword();
     }
@@ -339,6 +352,7 @@ export class Session {
   }
 
   private async _clickSignOut() {
+    const vl = this.vlf.initLog(this._clickSignOut);
     const selector = {
       elementProperties: {
         metadata: "sap.m.StandardListItem",
@@ -352,6 +366,7 @@ export class Session {
   }
 
   private async _checkForErrors(messageSelector: string) {
+    const vl = this.vlf.initLog(this._checkForErrors);
     let uiErrorMessagesFound = false;
     let messageText;
 
@@ -369,6 +384,7 @@ export class Session {
   }
 
   private _getDefaultPassword() {
+    const vl = this.vlf.initLog(this._getDefaultPassword);
     if (process.env.QMATE_DEFAULT_PASSWORD) {
       return process.env.QMATE_DEFAULT_PASSWORD as string;
     } else {

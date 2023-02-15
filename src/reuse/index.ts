@@ -1,5 +1,8 @@
 "use strict";
 
+// functions
+import { cit } from "./modules/runner";
+
 // modules
 import utilQmate from "./modules/util/Util";
 import commonQmate from "./modules/common/Common";
@@ -12,6 +15,10 @@ import authenticators from "./data/authenticators.json";
 
 class ReuseLibrary {
   load() {
+    // Runner functions
+    // @ts-ignore
+    global.cit = cit;
+
     /**
      * @global
      * @description Global namespace for common modules.
