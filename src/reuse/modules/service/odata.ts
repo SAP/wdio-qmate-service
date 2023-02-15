@@ -92,6 +92,7 @@ export class OData {
    * @param {Object} srv - Instance of the service
    * @param {String} entitySet - The entitySet you want to GET from.
    * @param {Object} keys - The required keys for the GET-request.
+   * @param {Boolean} raw - Response includes all header contents.
    * @example const url = "<baseUrl>/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
    * srv = await service.odata.init(url, user, password);
    * const keys = {
@@ -99,13 +100,17 @@ export class OData {
    * };
    * const res = await service.odata.get(srv, "A_PurchaseOrder", keys);
    */
-  async get(srv: any, entitySet: string, keys: any): Promise<any> {
+  async get(srv: any, entitySet: string, keys: any, raw: boolean = false): Promise<any> {
     const entity = srv[entitySet];
     if (!entity) {
       throw new Error(`No entity set '${entitySet}' available in service`);
     }
-    return entity.get(keys);
-  }
+    if (raw === true) {
+      return entity.raw().get(keys);
+    } else {
+      return entity.get(keys);
+    }
+  };
 
   /**
    * @function getEntitySet
@@ -189,7 +194,8 @@ export class OData {
    * @param {Object} srv - Instance of the service
    * @param {String} entitySet - The entitySet you want to POST against.
    * @param {Object} payload - The payload for the POST-request.
-   * @example
+   * @param {Boolean} raw - Response includes all header contents.
+   * @example 
    * let payload = {
    *  "PurchaseOrder": "4500007108",
    *  "DraftUUID": "00000000-0000-0000-0000-000000000000",
@@ -197,14 +203,17 @@ export class OData {
    * };
    * let res = await service.odata.post(srv, "A_PurchaseOrder", payload);
    */
-  async post(srv: any, entitySet: string, payload: any) {
+  async post(srv: any, entitySet: string, payload: any, raw: boolean = false) {
     const entity = srv[entitySet];
     if (!entity) {
       throw new Error(`No entity set '${entitySet}' available in service`);
     }
-    return entity.post(payload);
-  }
-
+    if (raw === true) {
+      return entity.raw().post(payload);
+    } else {
+      return entity.post(payload);
+    }
+  };
   /**
    * @function merge
    * @memberOf service.odata

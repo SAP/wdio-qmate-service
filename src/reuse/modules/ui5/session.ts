@@ -199,7 +199,6 @@ export class Session {
     // spec
     await ui5.session.loginCustomViaConfig();
    */
-
   async loginCustomViaConfig(username: string, password?: string, verify = false) {
     const vl = this.vlf.initLog(this.loginCustomViaConfig);
     if (!password) {
@@ -244,9 +243,8 @@ export class Session {
   async logout(verify = true) {
     const vl = this.vlf.initLog(this.logout);
     if (browser.config && browser.config.params && browser.config.params.auth && browser.config.params.auth.formType === "skip") {
-      console.warn("Logout is skipped.");
-      await browser.reloadSession(); // Clean cache
-      return true;
+      util.console.warn("Logout is skipped since 'formType' is set to 'skip'");
+      return await browser.reloadSession(); // Clean cache
     }
 
     await ui5.navigationBar.clickUserIcon();
