@@ -1,7 +1,7 @@
 "use strict";
 
 // functions
-import { step, stepSkip, stepRecordMode } from "./modules/runner";
+import { cit } from "./modules/runner";
 
 // modules
 import utilQmate from "./modules/util/Util";
@@ -17,11 +17,7 @@ class ReuseLibrary {
   load() {
     // Runner functions
     // @ts-ignore
-    global.step = step;
-    // @ts-ignore
-    global.stepSkip = stepSkip;
-    // @ts-ignore
-    global.stepRecordMode = stepRecordMode;
+    global.cit = cit;
 
     /**
      * @global
