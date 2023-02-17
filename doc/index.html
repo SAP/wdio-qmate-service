@@ -2466,8 +2466,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#odatagetsrv-entityset-keys" class="md-nav__link">
-    odata.get(srv, entitySet, keys)
+  <a href="#odatagetsrv-entityset-keys-raw" class="md-nav__link">
+    odata.get(srv, entitySet, keys, raw)
   </a>
   
 </li>
@@ -2487,8 +2487,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#odatapostsrv-entityset-payload" class="md-nav__link">
-    odata.post(srv, entitySet, payload)
+  <a href="#odatapostsrv-entityset-payload-raw" class="md-nav__link">
+    odata.post(srv, entitySet, payload, raw)
   </a>
   
 </li>
@@ -5124,8 +5124,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#odatagetsrv-entityset-keys" class="md-nav__link">
-    odata.get(srv, entitySet, keys)
+  <a href="#odatagetsrv-entityset-keys-raw" class="md-nav__link">
+    odata.get(srv, entitySet, keys, raw)
   </a>
   
 </li>
@@ -5145,8 +5145,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#odatapostsrv-entityset-payload" class="md-nav__link">
-    odata.post(srv, entitySet, payload)
+  <a href="#odatapostsrv-entityset-payload-raw" class="md-nav__link">
+    odata.post(srv, entitySet, payload, raw)
   </a>
   
 </li>
@@ -13914,10 +13914,10 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <li><a href="#service">service</a><ul>
 <li><a href="#service.odata">.odata</a><ul>
 <li><a href="#service.odata.init">.init(url, username, password, [loggingEnabled], [params], [authType])</a> ⇒ <code>Object</code></li>
-<li><a href="#service.odata.get">.get(srv, entitySet, keys)</a></li>
+<li><a href="#service.odata.get">.get(srv, entitySet, keys, raw)</a></li>
 <li><a href="#service.odata.getEntitySet">.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])</a> ⇒ <code>Array</code></li>
 <li><a href="#service.odata.isFeatureToggleActivated">.isFeatureToggleActivated(srv, featureName)</a></li>
-<li><a href="#service.odata.post">.post(srv, entitySet, payload)</a></li>
+<li><a href="#service.odata.post">.post(srv, entitySet, payload, raw)</a></li>
 <li><a href="#service.odata.merge">.merge(srv, entitySet, payload)</a></li>
 <li><a href="#service.odata.delete">.delete(srv, entitySet, options)</a></li>
 <li><a href="#service.odata.callFunctionImport">.callFunctionImport(srv, functionImportName, options)</a></li>
@@ -13942,10 +13942,10 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <ul>
 <li><a href="#service.odata">.odata</a><ul>
 <li><a href="#service.odata.init">.init(url, username, password, [loggingEnabled], [params], [authType])</a> ⇒ <code>Object</code></li>
-<li><a href="#service.odata.get">.get(srv, entitySet, keys)</a></li>
+<li><a href="#service.odata.get">.get(srv, entitySet, keys, raw)</a></li>
 <li><a href="#service.odata.getEntitySet">.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])</a> ⇒ <code>Array</code></li>
 <li><a href="#service.odata.isFeatureToggleActivated">.isFeatureToggleActivated(srv, featureName)</a></li>
-<li><a href="#service.odata.post">.post(srv, entitySet, payload)</a></li>
+<li><a href="#service.odata.post">.post(srv, entitySet, payload, raw)</a></li>
 <li><a href="#service.odata.merge">.merge(srv, entitySet, payload)</a></li>
 <li><a href="#service.odata.delete">.delete(srv, entitySet, options)</a></li>
 <li><a href="#service.odata.callFunctionImport">.callFunctionImport(srv, functionImportName, options)</a></li>
@@ -14018,7 +14018,7 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <span class="nx">srv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">user</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">params</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="service.odata.get"></a></p>
-<h4 id="odatagetsrv-entityset-keys">odata.get(srv, entitySet, keys)</h4>
+<h4 id="odatagetsrv-entityset-keys-raw">odata.get(srv, entitySet, keys, raw)</h4>
 <p>makes a GET request.</p>
 <p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a>  </p>
 <table>
@@ -14044,6 +14044,11 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <td>keys</td>
 <td><code>Object</code></td>
 <td>The required keys for the GET-request.</td>
+</tr>
+<tr>
+<td>raw</td>
+<td><code>Boolean</code></td>
+<td>Response includes all header contents.</td>
 </tr>
 </tbody>
 </table>
@@ -14143,7 +14148,7 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <span class="kd">let</span><span class="w"> </span><span class="nx">isFeatureActive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">isFeatureToggleActivated</span><span class="p">(</span><span class="nx">srv</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;MM_PUR_PO_BATCHES_IN_MANAGE_PO&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="service.odata.post"></a></p>
-<h4 id="odatapostsrv-entityset-payload">odata.post(srv, entitySet, payload)</h4>
+<h4 id="odatapostsrv-entityset-payload-raw">odata.post(srv, entitySet, payload, raw)</h4>
 <p>makes a POST request.</p>
 <p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a>  </p>
 <table>
@@ -14169,6 +14174,11 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <td>payload</td>
 <td><code>Object</code></td>
 <td>The payload for the POST-request.</td>
+</tr>
+<tr>
+<td>raw</td>
+<td><code>Boolean</code></td>
+<td>Response includes all header contents.</td>
 </tr>
 </tbody>
 </table>
