@@ -4,7 +4,7 @@
  * Utility functions to import data to be used in test specs from JSON files, or folders.
  * Export data to JSON files.
  */
-const fs = require("fs-extra");
+import fs from 'fs-extra'
 import path from 'path'
 
 class DataExchangeUtil {
