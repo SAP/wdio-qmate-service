@@ -315,19 +315,12 @@ export class UserInteraction {
       y: +Number(targetSize.height/2).toFixed(0) + +Number(targetLocation.y).toFixed(0) + 1
     };
 
-    await browser.performActions([
-      {
-        type: "pointer",
-        id: "finger1",
-        parameters: { pointerType: "mouse" },
-        actions: [
-          { type: "pointerMove", duration: 0, x: sourceCenterLocation.x, y: sourceCenterLocation.y},
-          { type: "pointerDown", button: 0 },
-          { type: "pointerMove", duration: 0, x: targetCenterLocation.x, y: targetCenterLocation.y},
-          { type: "pointerUp", button: 0 },
-        ],
-      },
-    ]);
+    await browser.action("pointer")
+      .move({duration: 0, x: sourceCenterLocation.x, y: sourceCenterLocation.y})
+      .down({button: 0}) //left button
+      .move({duration: 0, x: targetCenterLocation.x, y: targetCenterLocation.y})
+      .down({button: 0}) //left button
+      .perform();
   };
 
   /**
