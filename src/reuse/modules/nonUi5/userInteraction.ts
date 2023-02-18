@@ -147,19 +147,23 @@ export class UserInteraction {
    */
   async fill(element: Element, value: string) {
     const vl = this.vlf.initLog(this.fill);
-    try {
-      vl.log(`Setting the value of element to ${value}`);
-      await element.setValue(value);
-    } catch (error) {
-      // @ts-ignore
-      if (error.message && error.message.match(new RegExp(/(invalid element state|element not interactable)/))) {
-        const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error as Error, "fill");
-        throw new Error(errorMessage);
-      } else {
-        if (!value) {
-          throw new Error("Function 'fill' failed: Please provide a value as second argument: " + error);
+    if(!(typeof value === "number" || typeof value === "string")){
+      throw new Error("Function 'fill' failed: Please provide an element and value(datatype - number/string) as arguments")
+    } else {
+      try {
+        vl.log(`Setting the value of element to ${value}`);
+        await element.setValue(value);
+      } catch (error) {
+        // @ts-ignore
+        if (error.message && error.message.match(new RegExp(/(invalid element state|element not interactable)/))) {
+          const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error as Error, "fill");
+          throw new Error(errorMessage);
         } else {
-          throw error;
+          if (!value) {
+            throw new Error("Function 'fill' failed: Please provide a value as second argument: " + error);
+          } else {
+            throw error;
+          }
         }
       }
     }
