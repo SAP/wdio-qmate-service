@@ -233,8 +233,8 @@ export class UserInteraction {
   async clearAndFill(element: Element, value: string) {
     const vl = this.vlf.initLog(this.clearAndFill);
     //arg. 'value' needs to be checked in case of numeric values. E.g.: 0 or 1 will be handled as boolean value in if.
-    if (!element || value === null || value === undefined || value === "") {
-      throw new Error("Function 'clearAndFill' failed: Please provide an element and value as arguments.");
+    if (!element || !(typeof value === "number" || typeof value === "string")) {
+      throw new Error("Function 'clearAndFill' failed: Please provide an element and value(datatype - number/string) as arguments.");
     } else {
       try {
         vl.log("Clearing the element");
@@ -346,19 +346,12 @@ export class UserInteraction {
       y: +Number(targetSize.height / 2).toFixed(0) + +Number(targetLocation.y).toFixed(0) + 1
     };
 
-    await browser.performActions([
-      {
-        type: "pointer",
-        id: "finger1",
-        parameters: { pointerType: "mouse" },
-        actions: [
-          { type: "pointerMove", duration: 0, x: sourceCenterLocation.x, y: sourceCenterLocation.y },
-          { type: "pointerDown", button: 0 },
-          { type: "pointerMove", duration: 0, x: targetCenterLocation.x, y: targetCenterLocation.y },
-          { type: "pointerUp", button: 0 }
-        ]
-      }
-    ]);
+    await browser.action("pointer")
+      .move({duration: 0, x: sourceCenterLocation.x, y: sourceCenterLocation.y})
+      .down({button: 0}) //left button
+      .move({duration: 0, x: targetCenterLocation.x, y: targetCenterLocation.y})
+      .down({button: 0}) //left button
+      .perform();
   }
 
   /**
