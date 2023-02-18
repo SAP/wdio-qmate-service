@@ -77,9 +77,7 @@ class TypesGenerator {
     for (const file of files) {
       const src = `${srcPath}/${file}`;
       const dist = `${distPath}/${file}`;
-      await fse.copy(src, dist, {
-        recursive: true,
-      });
+      await fse.copy(src, dist);
       await this.replaceStringsInFile(dist, replacements);
     }
   }
@@ -127,9 +125,7 @@ class TypesGenerator {
     for (const file of files) {
       const src = `${srcPath}/${moduleName}/${file}`;
       const dist = `${distPath}/modules/${moduleName}/${file}`;
-      await fse.copy(src, dist, {
-        recursive: true,
-      });
+      await fse.copy(src, dist);
       await this.replaceStringsInFile(dist, replacements);
     }
   }
