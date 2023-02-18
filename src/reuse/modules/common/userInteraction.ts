@@ -20,16 +20,15 @@ export class UserInteraction {
    */
   async fillActive(value: string) {
     const vlf = this.vlf.initLog(this.fillActive);
-    try {
-      if (value !== null) {
+    if(!(typeof value === "number" || typeof value === "string")){
+      throw new Error("Function 'fillActive' failed: Please provide a value(datatype - number/string) as argument.");
+    }else{
+      try{
         const elem = await $(await browser.getActiveElement());
-        await elem.addValue(value); //TODO: open issue on wdio github for different behavior in terms of the active element of addValue() and setValue()
-      } else {
-        throw new Error("Function 'fillActive' failed: Please provide a value as argument.");
+        await elem.addValue(value);
+      } catch (error){
+        throw new Error(`Function 'fillActive' failed: ${error}`);
       }
-    } catch (error) {
-      // @ts-ignore
-      throw new Error("Function 'fillActive' failed: ", error);
     }
   }
 
@@ -56,11 +55,11 @@ export class UserInteraction {
    */
   async clearAndFillActive(value: string) {
     const vlf = this.vlf.initLog(this.clearAndFillActive);
-    if (value !== null) {
+    if (typeof value === "number" || typeof value === "string") {
       const elem = await $(await browser.getActiveElement());
       await elem.setValue(value);
     } else {
-      throw new Error("Function 'clearAndFillActive' failed. Please provide a value as argument.");
+      throw new Error("Function 'clearAndFillActive' failed. Please provide a value(datatype - number/string) as argument.");
     }
   }
 
