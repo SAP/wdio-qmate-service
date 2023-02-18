@@ -229,7 +229,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.fill(selector, "My Value");
    */
   async fill(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    if (value !== null) {
+    if (value !== null && value !== undefined) {
       const id = await ui5.element.getId(selector, index, timeout);
       let elem = null;
       if (selector.elementProperties.metadata === "sap.m.TextArea") {

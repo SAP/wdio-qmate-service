@@ -40,7 +40,6 @@ module.exports = class CustomWorkerService {
     console.log(logo);
     try {
       await onPrepareHook(config, capabilities);
-      await setValue("config", config);
     } catch (e) {
       console.error(`onPrepare hook failed: ${e}`);
     }
@@ -58,7 +57,7 @@ module.exports = class CustomWorkerService {
     try {
       browser.config = config;
       await qmateLoaderSession(config, capabilities, specs);
-      await setValue("params", browser.params);
+      await setValue("config", browser.config);
     } catch (e) {
       if (specs && specs[0]) {
         // `specs` variable is an array, but includes only one current spec
@@ -81,7 +80,7 @@ module.exports = class CustomWorkerService {
     // Errors in WDIO hooks are suppressed by default => we call process.exit(1). It will mark all specs as failed
     try {
       browser.config = await getValue("config");
-      browser.params = await getValue("params");
+      browser.params = browser.config.params;
       await qmateLoader(capabilities, specs, browser);
     } catch (e) {
       if (specs && specs[0]) {
