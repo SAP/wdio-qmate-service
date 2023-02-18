@@ -99,7 +99,7 @@ describe("userInteraction - fillAndRetry element with empty value", function () 
     await handleCookiesConsent();
   });
 
-  it("Execution", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.ui.demo.cart.view.Home",
@@ -110,11 +110,7 @@ describe("userInteraction - fillAndRetry element with empty value", function () 
     const index = 0;
     const timeout = 30000;
     const retries = 1;
-    await ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries);
-    actualValue = await ui5.element.getValue(selector, index, timeout);
-  });
-
-  it("Verification", function () {
-    common.assertion.expectEqual(actualValue, "");
+    await expect(ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries))
+      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'fill' failed: Please provide an element and value(datatype - number/string) as arguments.");
   });
 });
