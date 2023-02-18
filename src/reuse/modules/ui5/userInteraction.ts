@@ -240,7 +240,7 @@ export class UserInteraction {
   async fill(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.fill);
     vl.log(`Filling with ${value}`);
-    if (value !== null) {
+    if (typeof value === "number" || typeof value === "string") {
       const id = await ui5.element.getId(selector, index, timeout);
       let elem = null;
       if (selector.elementProperties.metadata === "sap.m.TextArea") {
@@ -249,6 +249,8 @@ export class UserInteraction {
         elem = await nonUi5.element.getByCss("[id='" + id + "'] input", index, timeout);
       }
       await elem.setValue(value);
+    }else{
+      throw new Error("Function 'fill' failed: Please provide an element and value(datatype - number/string) as arguments.");
     }
   }
 
@@ -314,11 +316,11 @@ export class UserInteraction {
    */
   async clearAndFill(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.clearAndFill);
-    if (value !== null) {
+    if (typeof value === "number" || typeof value === "string") {
       await this.clear(selector, index, timeout);
       await common.userInteraction.fillActive(value);
     } else {
-      throw new Error("Function 'clearAndFill' failed. Please provide a value as second parameter.");
+      throw new Error("Function 'clearAndFill' failed. Please provide a value(datatype - number/string) as second parameter.");
     }
   }
 
