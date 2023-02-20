@@ -249,7 +249,7 @@ export class UserInteraction {
         elem = await nonUi5.element.getByCss("[id='" + id + "'] input", index, timeout);
       }
       await elem.setValue(value);
-    }else{
+    } else {
       throw new Error("Function 'fill' failed: Please provide an element and value(datatype - number/string) as arguments.");
     }
   }
