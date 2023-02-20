@@ -147,8 +147,8 @@ export class UserInteraction {
    */
   async fill(element: Element, value: string) {
     const vl = this.vlf.initLog(this.fill);
-    if(!(typeof value === "number" || typeof value === "string")){
-      throw new Error("Function 'fill' failed: Please provide an element and value(datatype - number/string) as arguments")
+    if (!(typeof value === "number" || typeof value === "string")) {
+      throw new Error("Function 'fill' failed: Please provide an element and value(datatype - number/string) as arguments");
     } else {
       try {
         vl.log(`Setting the value of element to ${value}`);
@@ -350,11 +350,12 @@ export class UserInteraction {
       y: +Number(targetSize.height / 2).toFixed(0) + +Number(targetLocation.y).toFixed(0) + 1
     };
 
-    await browser.action("pointer")
-      .move({duration: 0, x: sourceCenterLocation.x, y: sourceCenterLocation.y})
-      .down({button: 0}) //left button
-      .move({duration: 0, x: targetCenterLocation.x, y: targetCenterLocation.y})
-      .down({button: 0}) //left button
+    await browser
+      .action("pointer")
+      .move({ duration: 0, x: sourceCenterLocation.x, y: sourceCenterLocation.y })
+      .down({ button: 0 }) //left button
+      .move({ duration: 0, x: targetCenterLocation.x, y: targetCenterLocation.y })
+      .down({ button: 0 }) //left button
       .perform();
   }
 

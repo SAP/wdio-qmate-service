@@ -20,13 +20,13 @@ export class UserInteraction {
    */
   async fillActive(value: string) {
     const vlf = this.vlf.initLog(this.fillActive);
-    if(!(typeof value === "number" || typeof value === "string")){
+    if (!(typeof value === "number" || typeof value === "string")) {
       throw new Error("Function 'fillActive' failed: Please provide a value(datatype - number/string) as argument.");
-    }else{
-      try{
+    } else {
+      try {
         const elem = await $(await browser.getActiveElement());
         await elem.addValue(value);
-      } catch (error){
+      } catch (error) {
         throw new Error(`Function 'fillActive' failed: ${error}`);
       }
     }

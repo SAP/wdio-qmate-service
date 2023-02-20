@@ -6,7 +6,7 @@ import qmateLoader from "./scripts/hooks/before";
 import onPrepareHook from "./scripts/hooks/onPrepare";
 import onCompleteHook from "./scripts/hooks/onComplete";
 import afterHook from "./scripts/hooks/after";
-import { setValue, getValue } from '@wdio/shared-store-service'
+import { setValue, getValue } from "@wdio/shared-store-service";
 const pj = require("../package.json");
 
 module.exports = class CustomWorkerService {
@@ -21,7 +21,7 @@ module.exports = class CustomWorkerService {
    * the `serviceOptions` parameter will be: `{ foo: 'bar' }`
    */
   // @ts-ignore
-  constructor(serviceOptions, capabilities, config) { }
+  constructor(serviceOptions, capabilities, config) {}
 
   /**
    * Gets executed once before all workers get launched.
