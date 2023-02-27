@@ -223,7 +223,9 @@ export class Mockserver {
               resHeader["location"] = responseLocation;
             }
             resHeader["Content-Type"] = "application/json;charset=utf-8";
-            oXhr.respond(parsedReturnCode, resHeader, JSON.stringify(oData));
+            const responseText = JSON.stringify(oData);
+            oXhr.response = responseText;
+            oXhr.respond(parsedReturnCode, resHeader, responseText);
           }
           return true;
         };
@@ -407,7 +409,9 @@ export class Mockserver {
               resHeader["location"] = responseLocation;
             }
             resHeader["Content-Type"] = "application/json;charset=utf-8";
-            oXhr.respond(parsedReturnCode, resHeader, JSON.stringify(oData));
+            const responseText = JSON.stringify(oData);
+            oXhr.response = responseText;
+            oXhr.respond(parsedReturnCode, resHeader, responseText);
           }
           return true;
         };
