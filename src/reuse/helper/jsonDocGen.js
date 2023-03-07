@@ -28,20 +28,30 @@ function generateNamespaceDoc(namespace) {
 
 function writeJsonDoc() {
   const resultString = JSON.stringify(reuseApiJson, null, 2);
-  fs.writeFileSync(`reuseApi.json`, resultString);
+  const jsonDocPath = "reuseApi.json";
+  fs.writeFileSync(jsonDocPath, resultString);
+  // eslint-disable-next-line no-console
+  console.log(`Saved generated result in '${jsonDocPath}'`);
 }
 
 function getModules(namespace) {
-  return fs.readdirSync(`${reuseRoot}/${namespace}`).filter(module => isValidModule(namespace, module));
+  return fs.readdirSync(`${reuseRoot}/${namespace}`)
+    .filter(module => isValidModule(namespace, module))
+    .map(module => removeJsFileExtension(module));
 }
 
 function generateModuleDoc(namespace, module) {
-  const fileContent = fs.readFileSync(`${reuseRoot}/${namespace}/${module}`, "utf-8");
+  const fileContent = fs.readFileSync(`${reuseRoot}/${namespace}/${module}.js`, "utf-8");
   const regex = new RegExp(/\/\*\*(?:(?!\*\/)[\s\S])*@function([\s\S]*?)\*\//, "g");
   const jsDocs = fileContent.match(regex);
+  reuseApiJson[namespace][module] = {};
   for (const jsDoc of jsDocs) {
     parseAndUpdateModuleDoc(namespace, module, jsDoc);
   }
+}
+
+function removeJsFileExtension(fileName) {
+  return fileName.slice(0, -3);
 }
 
 function parseAndUpdateModuleDoc(namespace, module, jsDoc) {
@@ -49,29 +59,37 @@ function parseAndUpdateModuleDoc(namespace, module, jsDoc) {
     parseAndWriteModuleDoc(namespace, module, jsDoc);
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.error(`Error while generating JSON doc: ${err}. Namespace: ${namespace}; module: ${module}`);
+    console.error(`Error while generating JSON doc for namespace: '${namespace}' and module '${module}': ${err}`);
   }
 }
 
 function parseAndWriteModuleDoc(namespace, module, jsDoc) {
   const ast = doctrine.parse(jsDoc, { unwrap: true, sloppy: true });
-  reuseApiJson[namespace][module.slice(0, -3)] = formatAst(ast);
+  const functionName = getFunctionName(ast);
+  if (functionName) {
+    reuseApiJson[namespace][module][functionName] = formatAst(functionName, ast);
+  }
 }
 
-function formatAst(ast) {
+function getFunctionName(ast) {
   const tags = ast["tags"];
-  const functionName = tags.find(tag => tag.title === "function").name;
+  if (!tags.length) {
+    return null;
+  }
+  return tags.find(tag => tag.title === "function").name;
+}
+
+function formatAst(functionName, ast) {
+  const tags = ast["tags"];
   return {
-    [functionName]: {
-      type: tags.find(tag => tag.title === "example").description.includes("await") ? "async" : "sync",
-      arguments: tags.filter(tag => tag.title === "param").map(tag => {
-        return {
-          name: tag.name,
-          type: (tag.type && tag.type.name && tag.type.name.toLowerCase()) || "string",
-          default: tag.default ? tag.default : null
-        };
-      })
-    }
+    type: tags.find(tag => tag.title === "example").description.includes("await") ? "async" : "sync",
+    arguments: tags.filter(tag => tag.title === "param").map(tag => {
+      return {
+        name: tag.name,
+        type: (tag.type && tag.type.name && tag.type.name.toLowerCase()) || "string",
+        default: tag.default ? tag.default : null
+      };
+    })
   };
 }
 
