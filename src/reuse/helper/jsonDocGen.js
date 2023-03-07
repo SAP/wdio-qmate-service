@@ -54,8 +54,25 @@ function parseAndUpdateModuleDoc(namespace, module, jsDoc) {
 }
 
 function parseAndWriteModuleDoc(namespace, module, jsDoc) {
-  const ast = doctrine.parse(jsDoc, { unwrap: true });
-  reuseApiJson[namespace][module.slice(0, -3)] = ast;
+  const ast = doctrine.parse(jsDoc, { unwrap: true, sloppy: true });
+  reuseApiJson[namespace][module.slice(0, -3)] = formatAst(ast);
+}
+
+function formatAst(ast) {
+  const tags = ast["tags"];
+  const functionName = tags.find(tag => tag.title === "function").name;
+  return {
+    [functionName]: {
+      type: tags.find(tag => tag.title === "example").description.includes("await") ? "async" : "sync",
+      arguments: tags.filter(tag => tag.title === "param").map(tag => {
+        return {
+          name: tag.name,
+          type: (tag.type && tag.type.name && tag.type.name.toLowerCase()) || "string",
+          default: tag.default ? tag.default : null
+        };
+      })
+    }
+  };
 }
 
 function isValidNamespace(namespace) {

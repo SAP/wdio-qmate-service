@@ -1,1045 +1,505 @@
 {
   "common": {
     "assertion": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "expectUrlToBe"
-        },
-        {
-          "title": "memberOf",
-          "description": "common.assertion"
-        },
-        {
-          "title": "description",
-          "description": "Expects the url to be the passed value."
-        },
-        {
-          "title": "example",
-          "description": "await common.assertion.expectUrlToBe(\"www.sap.com\");"
-        }
-      ]
+      "expectUrlToBe": {
+        "type": "async",
+        "arguments": []
+      }
     },
     "date": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "calculate"
-        },
-        {
-          "title": "memberOf",
-          "description": "common.date"
-        },
-        {
-          "title": "description",
-          "description": "Calculates the date based on the input parameter and returns it in the given format."
-        }
-      ]
+      "calculate": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "date",
+            "type": "string",
+            "default": "\"today\""
+          },
+          {
+            "name": "format",
+            "type": "string",
+            "default": "\"object\""
+          }
+        ]
+      }
     },
     "navigation": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "navigateToUrlAndRetry"
-        },
-        {
-          "title": "memberOf",
-          "description": "common.navigation"
-        },
-        {
-          "title": "description",
-          "description": "Navigates to the passed url and retries the function in case of a failure."
-        },
-        {
-          "title": "param",
-          "description": "The url to navigate to.",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
+      "navigateToUrlAndRetry": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "url",
+            "type": "string",
+            "default": null
           },
-          "name": "url"
-        }
-      ]
+          {
+            "name": "retries",
+            "type": "string",
+            "default": "3"
+          },
+          {
+            "name": "interval",
+            "type": "string",
+            "default": "5000"
+          }
+        ]
+      }
     },
     "userInteraction": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "pressArrowRight"
-        },
-        {
-          "title": "memberOf",
-          "description": "common.userInteraction"
-        },
-        {
-          "title": "description",
-          "description": "Performs the Arrow Right keypress."
-        },
-        {
-          "title": "example",
-          "description": "await common.userInteraction.pressArrowRight();"
-        }
-      ]
+      "pressArrowRight": {
+        "type": "async",
+        "arguments": []
+      }
     }
   },
   "nonUi5": {
     "assertion": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "expectToBeNotVisible"
-        },
-        {
-          "title": "memberOf",
-          "description": "nonUi5.assertion"
-        },
-        {
-          "title": "description",
-          "description": "Expects that the element is not visible to the user."
-        },
-        {
-          "title": "param",
-          "description": "The element.",
-          "type": {
-            "type": "NameExpression",
-            "name": "Object"
+      "expectToBeNotVisible": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "element",
+            "type": "object",
+            "default": null
           },
-          "name": "element"
-        }
-      ]
+          {
+            "name": "timeout",
+            "type": "string",
+            "default": "30000"
+          }
+        ]
+      }
     },
     "element": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "switchToDefaultContent"
-        },
-        {
-          "title": "memberOf",
-          "description": "nonUi5.element"
-        },
-        {
-          "title": "description",
-          "description": "Switches to the default content of the HTML page."
-        },
-        {
-          "title": "example",
-          "description": "await nonUi5.element.switchToDefaultContent();"
-        },
-        {
-          "title": "deprecated",
-          "description": "please use util.browser.switchToDefaultContent"
-        },
-        {
-          "title": "see",
-          "description": "[util.browser.switchToDefaultContent]{@link util.browser.switchToDefaultContent}"
-        }
-      ]
+      "switchToDefaultContent": {
+        "type": "async",
+        "arguments": []
+      }
     },
     "navigation": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "navigateToApplication"
-        },
-        {
-          "title": "memberOf",
-          "description": "nonUi5.navigation"
-        },
-        {
-          "title": "description",
-          "description": "Navigates to the application via the passed relative reference. The path will be added to the baseUrl maintained in the config."
-        },
-        {
-          "title": "param",
-          "description": "Relative reference of an application (path, query and fragment)",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
+      "navigateToApplication": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "relativeReference",
+            "type": "string",
+            "default": null
           },
-          "name": "relativeReference"
-        }
-      ]
+          {
+            "name": "refresh",
+            "type": "string",
+            "default": "true"
+          }
+        ]
+      }
     },
     "session": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "loginSapNetWeaver"
-        },
-        {
-          "title": "memberOf",
-          "description": "nonUi5.session"
-        },
-        {
-          "title": "description",
-          "description": "Login for SAP NetWebGUI form and specific username and password."
-        },
-        {
-          "title": "param",
-          "description": "The username.",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
+      "loginSapNetWeaver": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "username",
+            "type": "string",
+            "default": null
           },
-          "name": "username"
-        },
-        {
-          "title": "param",
-          "description": "The password.",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
+          {
+            "name": "password",
+            "type": "string",
+            "default": null
           },
-          "name": "password"
-        }
-      ]
+          {
+            "name": "clickContinue",
+            "type": "string",
+            "default": "true"
+          },
+          {
+            "name": "iframeCssSelector",
+            "type": "string",
+            "default": "\"iframe\""
+          }
+        ]
+      }
     },
     "userInteraction": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "clickElementInSvg"
-        },
-        {
-          "title": "memberOf",
-          "description": "nonUi5.userInteraction"
-        },
-        {
-          "title": "description",
-          "description": "Clicks on an inner element within a SVG element."
-        },
-        {
-          "title": "param",
-          "description": "The SVG element.",
-          "type": {
-            "type": "NameExpression",
-            "name": "Object"
+      "clickElementInSvg": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "svgElem",
+            "type": "object",
+            "default": null
           },
-          "name": "svgElem"
-        },
-        {
-          "title": "param",
-          "description": "The CSS selector describing the inner element to be clicked.",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
-          },
-          "name": "innerSelector"
-        },
-        {
-          "title": "example",
-          "description": "const svgElem = await nonUi5.element.getByCss(\"svg\");\nconst innerSelector = \"circle:nth-child(6)\";\nawait nonUi5.userInteraction.clickElementInSvg(svgElem, innerSelector);"
-        }
-      ]
+          {
+            "name": "innerSelector",
+            "type": "string",
+            "default": null
+          }
+        ]
+      }
     }
   },
   "service": {
     "odata": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "readPdfFromDirectUrl"
-        },
-        {
-          "title": "memberOf",
-          "description": "service.odata"
-        },
-        {
-          "title": "description",
-          "description": "returns a stream of pdf file which is part of attachment."
-        },
-        {
-          "title": "param",
-          "description": "system url",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
+      "readPdfFromDirectUrl": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "url",
+            "type": "string",
+            "default": null
           },
-          "name": "url"
-        }
-      ]
+          {
+            "name": "username",
+            "type": "string",
+            "default": null
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "default": null
+          },
+          {
+            "name": "isSaml",
+            "type": "string",
+            "default": "false"
+          }
+        ]
+      }
     },
     "rest": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "patch"
-        },
-        {
-          "title": "memberOf",
-          "description": "service.rest"
-        },
-        {
-          "title": "description",
-          "description": "makes a PATCH request."
-        },
-        {
-          "title": "param",
-          "description": "The uri to the data source you want to PATCH.",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
+      "patch": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "uri",
+            "type": "string",
+            "default": null
           },
-          "name": "uri"
-        },
-        {
-          "title": "param",
-          "description": "The options you want to specify for PATCH.",
-          "type": {
-            "type": "NameExpression",
-            "name": "Object"
-          },
-          "name": "options"
-        },
-        {
-          "title": "returns",
-          "description": "The response of the PATCH request.",
-          "type": {
-            "type": "NameExpression",
-            "name": "Object"
+          {
+            "name": "options",
+            "type": "object",
+            "default": null
           }
-        },
-        {
-          "title": "example",
-          "description": "let res = await service.rest.patch(`${browser.config.baseUrl}/posts/99`);"
-        }
-      ]
+        ]
+      }
     }
   },
   "ui5": {
     "assertion": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "expectMessageToastTextToBe"
-        },
-        {
-          "title": "memberOf",
-          "description": "ui5.assertion"
-        },
-        {
-          "title": "description",
-          "description": "Expects the message toast with the passed text."
-        },
-        {
-          "title": "param",
-          "description": "The expected text.",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
+      "expectMessageToastTextToBe": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "text",
+            "type": "string",
+            "default": null
           },
-          "name": "text"
-        }
-      ]
+          {
+            "name": "timeout",
+            "type": "string",
+            "default": "30000"
+          }
+        ]
+      }
     },
     "confirmationDialog": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "clickRevokeApproval"
-        },
-        {
-          "title": "memberOf",
-          "description": "ui5.confirmationDialog"
-        },
-        {
-          "title": "description",
-          "description": "Clicks the \"Revoke Approval\" button at the confirmation dialog."
-        }
-      ]
+      "clickRevokeApproval": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "timeout",
+            "type": "string",
+            "default": null
+          }
+        ]
+      }
     },
     "control": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "getPropertyBinding"
-        },
-        {
-          "title": "memberOf",
-          "description": "ui5.control"
-        },
-        {
-          "title": "description",
-          "description": "Get UI control property"
-        },
-        {
-          "title": "param",
-          "description": "The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed)",
-          "type": {
-            "type": "UnionType",
-            "elements": [
-              {
-                "type": "NameExpression",
-                "name": "Element"
-              },
-              {
-                "type": "NameExpression",
-                "name": "Ui5Selector"
-              },
-              {
-                "type": "NameExpression",
-                "name": "Ui5SelectorWithOptions"
-              }
-            ]
+      "getPropertyBinding": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "selectorOrElement",
+            "type": "string",
+            "default": null
           },
-          "name": "selectorOrElement"
-        },
-        {
-          "title": "param",
-          "description": "The property name to retrieve from the control binding",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
-          },
-          "name": "propertyName"
-        },
-        {
-          "title": "returns",
-          "description": "Array of bindings for the specific property",
-          "type": {
-            "type": "NameExpression",
-            "name": "Array"
+          {
+            "name": "propertyName",
+            "type": "string",
+            "default": null
           }
-        },
-        {
-          "title": "example",
-          "description": "const selector = { \"elementProperties\":{\"metadata\":\"sap.m.StandardListItem\",\"mProperties\":{ \"title\":[{\"path\":\"CategoryName\"}] }};\nconst elem = await ui5.element.getDisplayed(selector);\nconst propertyName = \"title\";\nconst binding = await ui5.control.getPropertyBinding(elem, propertyName);\n*"
-        }
-      ]
+        ]
+      }
     },
     "date": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "fillRange"
-        },
-        {
-          "title": "memberOf",
-          "description": "ui5.date"
-        },
-        {
-          "title": "description",
-          "description": "Enters the passed date range to the date input with the given selector by providing the start- and end date."
-        },
-        {
-          "title": "param",
-          "description": "The selector describing the element.",
-          "type": {
-            "type": "NameExpression",
-            "name": "Selector"
+      "fillRange": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "selector",
+            "type": "selector",
+            "default": null
           },
-          "name": "selector"
-        },
-        {
-          "title": "param",
-          "description": "The array of date objects containing start- and end date.",
-          "type": {
-            "type": "TypeApplication",
-            "expression": {
-              "type": "NameExpression",
-              "name": "Array"
-            },
-            "applications": [
-              {
-                "type": "NameExpression",
-                "name": "Object"
-              }
-            ]
+          {
+            "name": "range",
+            "type": "string",
+            "default": null
           },
-          "name": "range"
-        }
-      ]
+          {
+            "name": "index",
+            "type": "string",
+            "default": "0"
+          }
+        ]
+      }
     },
     "element": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "highlight"
-        },
-        {
-          "title": "memberOf",
-          "description": "ui5.element"
-        },
-        {
-          "title": "description",
-          "description": "Highlights the element with the given selector."
-        },
-        {
-          "title": "param",
-          "description": "The selector describing the element.",
-          "type": {
-            "type": "NameExpression",
-            "name": "Object"
+      "highlight": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "selector",
+            "type": "object",
+            "default": null
           },
-          "name": "selector"
-        }
-      ]
+          {
+            "name": "duration",
+            "type": "string",
+            "default": "2000"
+          },
+          {
+            "name": "color",
+            "type": "string",
+            "default": "\"red\""
+          }
+        ]
+      }
     },
     "errorDialog": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "clickClose"
-        },
-        {
-          "title": "memberOf",
-          "description": "ui5.errorDialog"
-        },
-        {
-          "title": "description",
-          "description": "Clicks the 'Close' button at the error dialog."
-        },
-        {
-          "title": "example",
-          "description": "await ui5.errorDialog.clickClose();"
-        }
-      ]
+      "clickClose": {
+        "type": "async",
+        "arguments": []
+      }
     },
     "footerBar": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "isMessageBoxVisible"
-        },
-        {
-          "title": "memberOf",
-          "description": "ui5.messageBox"
-        },
-        {
-          "title": "description",
-          "description": "Determines if the messageBox is visible."
-        },
-        {
-          "title": "returns",
-          "description": "Bool value if the element is visible or not.",
-          "type": {
-            "type": "NameExpression",
-            "name": "Boolean"
-          }
-        },
-        {
-          "title": "example",
-          "description": "await ui5.messageBox.isMessageBoxVisible();"
-        }
-      ]
+      "isMessageBoxVisible": {
+        "type": "async",
+        "arguments": []
+      }
     },
     "mockserver": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "setEntitySetData"
-        },
-        {
-          "title": "memberOf",
-          "description": "ui5.mockserver"
-        },
-        {
-          "title": "description",
-          "description": "Override entity data entries"
-        },
-        {
-          "title": "param",
-          "description": "The full path to your mockserver file [make sure you implemented getMockServer method in this file to return the mockserver instance].",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
+      "setEntitySetData": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "mockServerPath",
+            "type": "string",
+            "default": null
           },
-          "name": "mockServerPath"
-        },
-        {
-          "title": "param",
-          "description": "The entity name",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
+          {
+            "name": "entitySetName",
+            "type": "string",
+            "default": null
           },
-          "name": "entitySetName"
-        },
-        {
-          "title": "param",
-          "description": "The json object to be used as data to be inserted [use relative path from the html page started].",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
-          },
-          "name": "entries"
-        },
-        {
-          "title": "example",
-          "description": "await ui5.mockserver.setEntitySetData(\"path/to/project/localService/main/mockserver\", \"Headers\", entries);"
-        }
-      ]
+          {
+            "name": "entries",
+            "type": "string",
+            "default": null
+          }
+        ]
+      }
     },
     "navigation": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "expectUnsupportedNavigationPopup"
-        },
-        {
-          "title": "memberOf",
-          "description": "ui5.navigation"
-        },
-        {
-          "title": "description",
-          "description": "Expects navigation to an app that is not supported.\nThis can be the case for Mocked tests when the application does not exist or when the app is not included in a role."
-        },
-        {
-          "title": "param",
-          "description": "The selector describing the element.",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
-          },
-          "name": "navigationTarget"
-        },
-        {
-          "title": "example",
-          "description": "await ui5.navigation.expectUnsupportedNavigationPopup(\"#SupplierInvoice-display?FiscalYear=1234&SupplierInvoice=1234567890\");"
-        }
-      ]
+      "expectUnsupportedNavigationPopup": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "navigationTarget",
+            "type": "string",
+            "default": null
+          }
+        ]
+      }
     },
     "navigationBar": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "expectShellHeader"
-        },
-        {
-          "title": "memberOf",
-          "description": "ui5.navigationBar"
-        },
-        {
-          "title": "description",
-          "description": "Expects the shell header to be visible"
-        }
-      ]
+      "expectShellHeader": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "timeout",
+            "type": "string",
+            "default": "30000"
+          }
+        ]
+      }
     },
     "qunit": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "executeTests"
-        },
-        {
-          "title": "memberOf",
-          "description": "ui5.qunit"
-        },
-        {
-          "title": "description",
-          "description": "Executes QUnit & OPA5 tests. Qmate acts like a runner."
-        },
-        {
-          "title": "param",
-          "description": "Relative path to the QUnit/OPA5 html file.",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
-          },
-          "name": "path"
-        },
-        {
-          "title": "example",
-          "description": "await ui5.qunit.executeTests(\"path/to/qunit.html\");"
-        }
-      ]
+      "executeTests": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "path",
+            "type": "string",
+            "default": null
+          }
+        ]
+      }
     },
     "session": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "expectLogoutText"
-        },
-        {
-          "title": "memberOf",
-          "description": "ui5.session"
-        },
-        {
-          "title": "description",
-          "description": "Expects the logout text after logout to be \"You have been logged off.\nThis is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore."
-        },
-        {
-          "title": "example",
-          "description": "await ui5.session.expectLogoutText();"
-        }
-      ]
+      "expectLogoutText": {
+        "type": "async",
+        "arguments": []
+      }
     },
     "table": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "clickSettingsButton"
-        },
-        {
-          "title": "memberOf",
-          "description": "ui5.table"
-        },
-        {
-          "title": "description",
-          "description": "Opens the user Settings."
-        }
-      ]
+      "clickSettingsButton": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "tableSelector",
+            "type": "string",
+            "default": null
+          }
+        ]
+      }
     },
     "userInteraction": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "resetSearch"
-        },
-        {
-          "title": "memberOf",
-          "description": "ui5.userInteraction"
-        },
-        {
-          "title": "description",
-          "description": "Resets the search field."
-        },
-        {
-          "title": "param",
-          "description": "The selector describing the element.",
-          "type": {
-            "type": "NameExpression",
-            "name": "Object"
+      "resetSearch": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "selector",
+            "type": "object",
+            "default": null
           },
-          "name": "selector"
-        }
-      ]
+          {
+            "name": "index",
+            "type": "string",
+            "default": "0"
+          },
+          {
+            "name": "timeout",
+            "type": "string",
+            "default": "30000"
+          }
+        ]
+      }
     }
   },
   "util": {
     "browser": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "back"
-        },
-        {
-          "title": "memberOf",
-          "description": "util.browser"
-        },
-        {
-          "title": "description",
-          "description": "Go one step back in browser history."
-        },
-        {
-          "title": "example",
-          "description": "await util.browser.back();"
-        }
-      ]
+      "back": {
+        "type": "async",
+        "arguments": []
+      }
     },
     "component": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "storeEntryPoint"
-        },
-        {
-          "title": "memberOf",
-          "description": "util.component"
-        },
-        {
-          "title": "description",
-          "description": "Will be called in preparation scripts before component tests. Stores an entry point object for sharing information (like a draft id) between preparation and the actual component tests."
-        },
-        {
-          "title": "param",
-          "description": "The data object of the entry point to store.",
-          "type": {
-            "type": "NameExpression",
-            "name": "Object"
+      "storeEntryPoint": {
+        "type": "sync",
+        "arguments": [
+          {
+            "name": "data",
+            "type": "object",
+            "default": null
           },
-          "name": "data"
-        }
-      ]
+          {
+            "name": "folderPath",
+            "type": "string",
+            "default": "\"./entrypoints\""
+          }
+        ]
+      }
     },
     "console": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "info"
-        },
-        {
-          "title": "memberOf",
-          "description": "util.console"
-        },
-        {
-          "title": "description",
-          "description": "Logs a info message to the console in cyan."
-        },
-        {
-          "title": "param",
-          "description": "The message to log.",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
-          },
-          "name": "message"
-        },
-        {
-          "title": "example",
-          "description": "util.console.success(\"The document has been saved.\");"
-        }
-      ]
+      "info": {
+        "type": "sync",
+        "arguments": [
+          {
+            "name": "message",
+            "type": "string",
+            "default": null
+          }
+        ]
+      }
     },
     "data": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "decrypt"
-        },
-        {
-          "title": "memberOf",
-          "description": "util.data"
-        },
-        {
-          "title": "description",
-          "description": "Decrypts the passed input data."
-        },
-        {
-          "title": "param",
-          "description": "The encrypted data to decrypt.",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
-          },
-          "name": "data"
-        },
-        {
-          "title": "returns",
-          "description": "The decrypted data.",
-          "type": {
-            "type": "NameExpression",
-            "name": "Object"
+      "decrypt": {
+        "type": "sync",
+        "arguments": [
+          {
+            "name": "data",
+            "type": "string",
+            "default": null
           }
-        },
-        {
-          "title": "example",
-          "description": "const decrypted = util.data.decrypt(\"d704004c262faa8ef4bdcf34c8a94883e15524872c7bef334d26a391a1934cf47338b749d99426980ee4cc7a81deaef21439c6894ab0324cdb29b9b6332635baca442651c5d37847f52bb90b8868e037271a7d456024b39b65fdf4dc62e8d82a3d5683a72e4324c59d339742fc79749f0ee74abef916d38e306218adc48e3547a2b346962249320c962d22cb46d9998de36d8219a2496c0997d0fc389f76fb1431a9b57c317886e9c9795c0a09ad98d9fa0b7687d10814dc7973397f3f72a227a04ead4c3d1d428c096a51922ffc4d7afc3952df1c130def5c5fb3e834605cbf1454885966cc65c77046343f4c678e74931fb2dd6cac8dae17837cf674f288d6550dd7fa6b01f5b7ea68aa6bd27d79dd5d53edb5fd4b4edce824bd31b3939352ad7a71a16bab8c54025c2bb92c54e022fcd23ff08bc54a17fc50d00dc3b884cadbfdefe1e75901fdf80e7324ad02a891f2c4863fa120ca238520b79126c65a03\");"
-        }
-      ]
+        ]
+      }
     },
     "file": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "expectPdfNotContainsText"
-        },
-        {
-          "title": "memberOf",
-          "description": "util.file"
-        },
-        {
-          "title": "description",
-          "description": "Parses the PDF and checks for given text not to be contained in PDF."
-        },
-        {
-          "title": "param",
-          "description": "PDF stream to be downloaded",
-          "type": {
-            "type": "NameExpression",
-            "name": "Buffer"
+      "expectPdfNotContainsText": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "pdfStream",
+            "type": "buffer",
+            "default": null
           },
-          "name": "pdfStream"
-        },
-        {
-          "title": "param",
-          "description": "The text expected to be not contained in the PDF.",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
+          {
+            "name": "text",
+            "type": "string",
+            "default": null
           },
-          "name": "text"
-        },
-        {
-          "title": "param",
-          "description": "Function to customize the parsing process.",
-          "type": {
-            "type": "NameExpression",
-            "name": "Function"
-          },
-          "name": "renderingMethod"
-        },
-        {
-          "title": "see",
-          "description": "<a href=\"TODO\">Parse pdf</a>"
-        },
-        {
-          "title": "example",
-          "description": "await util.file.expectPdfNotContainsText(pdfStream, \"abc\");"
-        }
-      ]
+          {
+            "name": "renderingMethod",
+            "type": "function",
+            "default": null
+          }
+        ]
+      }
     },
     "formatter": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "formatDate"
-        },
-        {
-          "title": "memberOf",
-          "description": "util.formatter"
-        },
-        {
-          "title": "description",
-          "description": "formats date."
-        },
-        {
-          "title": "param",
-          "description": "The date object to be formatted.",
-          "type": {
-            "type": "NameExpression",
-            "name": "Date"
+      "formatDate": {
+        "type": "sync",
+        "arguments": [
+          {
+            "name": "date",
+            "type": "date",
+            "default": null
           },
-          "name": "date"
-        },
-        {
-          "title": "param",
-          "description": "The expected format (\"mm/dd/yyyy\", \"dd.mm.yyyy\", \"dd/mm/yyyy\", \"yyyymmdd\", \"yyyy/mm/dd\", \"mmm dd, yyyy\", \"datetime\", \"object\").",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
+          {
+            "name": "format",
+            "type": "string",
+            "default": null
           },
-          "name": "format"
-        }
-      ]
+          {
+            "name": "locale",
+            "type": "string",
+            "default": "\"en-US\""
+          }
+        ]
+      }
     },
     "function": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "mapWdioErrorToQmateErrorMessage"
-        },
-        {
-          "title": "memberOf",
-          "description": "util.function"
-        },
-        {
-          "title": "private",
-          "description": null,
-          "type": null
-        },
-        {
-          "title": "description",
-          "description": "Maps Wdio Error to Qmate Error Message"
-        },
-        {
-          "title": "param",
-          "description": "The wdio error",
-          "type": {
-            "type": "NameExpression",
-            "name": "Error"
+      "mapWdioErrorToQmateErrorMessage": {
+        "type": "async",
+        "arguments": [
+          {
+            "name": "wdioError",
+            "type": "error",
+            "default": null
           },
-          "name": "wdioError"
-        },
-        {
-          "title": "param",
-          "description": "An action performed upon the element (\"click\", \"fill\")",
-          "type": {
-            "type": "NameExpression",
-            "name": "string"
-          },
-          "name": "action"
-        },
-        {
-          "title": "example",
-          "description": "await util.function.mapWdioErrorToQmateErrorMessage(error, \"click\");"
-        }
-      ]
+          {
+            "name": "action",
+            "type": "string",
+            "default": null
+          }
+        ]
+      }
     },
     "system": {
-      "description": "",
-      "tags": [
-        {
-          "title": "function",
-          "description": null,
-          "name": "getOS"
-        },
-        {
-          "title": "memberOf",
-          "description": "util.system"
-        },
-        {
-          "title": "description",
-          "description": "Returns the current operating system."
-        },
-        {
-          "title": "returns",
-          "description": "AIX | Android | MacOS | FreeBSD | Linux | OpenBSD | Windows | SunOS",
-          "type": {
-            "type": "NameExpression",
-            "name": "String"
-          }
-        },
-        {
-          "title": "example",
-          "description": "const os = await util.system.getOS();"
-        }
-      ]
+      "getOS": {
+        "type": "async",
+        "arguments": []
+      }
     }
   }
 }
