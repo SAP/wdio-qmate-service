@@ -3,11 +3,12 @@ const basePath = require("app-root-path");
 const fs= require("fs");
 const doctrine = require("doctrine");
 
-const reuseRoot = `${basePath}/lib/reuse/modules`;
 const namespacesToExclude = ["runtime"];
 const modulesToExclude = ["soap.js"];
 
+const reuseRoot = `${basePath}/lib/reuse/modules`;
 const reuseApiJson = {};
+
 const namespaces = getNamespaces();
 for (const namespace of namespaces) {
   generateNamespaceDoc(namespace);
@@ -34,6 +35,11 @@ function writeJsonDoc() {
   console.log(`Saved generated result in '${jsonDocPath}'`);
 }
 
+function isValidNamespace(namespace) {
+  return fs.statSync(`${reuseRoot}/${namespace}`).isDirectory()
+    && !namespacesToExclude.includes(namespace);
+}
+
 function getModules(namespace) {
   return fs.readdirSync(`${reuseRoot}/${namespace}`)
     .filter(module => isValidModule(namespace, module))
@@ -50,6 +56,13 @@ function generateModuleDoc(namespace, module) {
   }
 }
 
+function isValidModule(namespace, module) {
+  return fs.statSync(`${reuseRoot}/${namespace}/${module}`).isFile()
+    && !modulesToExclude.includes(module)
+    && module.slice(-3) === ".js"
+    && !startsWithCapital(module);
+}
+
 function removeJsFileExtension(fileName) {
   return fileName.slice(0, -3);
 }
@@ -63,11 +76,15 @@ function parseAndUpdateModuleDoc(namespace, module, jsDoc) {
   }
 }
 
+function startsWithCapital(word){
+  return word.charAt(0) === word.charAt(0).toUpperCase();
+}
+
 function parseAndWriteModuleDoc(namespace, module, jsDoc) {
-  const ast = doctrine.parse(jsDoc, { unwrap: true, sloppy: true });
-  const functionName = getFunctionName(ast);
+  const functionAst = doctrine.parse(jsDoc, { unwrap: true, sloppy: true });
+  const functionName = getFunctionName(functionAst);
   if (functionName) {
-    reuseApiJson[namespace][module][functionName] = formatAst(functionName, ast);
+    reuseApiJson[namespace][module][functionName] = formatFunctionAst(functionAst);
   }
 }
 
@@ -79,32 +96,28 @@ function getFunctionName(ast) {
   return tags.find(tag => tag.title === "function").name;
 }
 
-function formatAst(functionName, ast) {
+function formatFunctionAst(ast) {
   const tags = ast["tags"];
   return {
-    type: tags.find(tag => tag.title === "example").description.includes("await") ? "async" : "sync",
-    arguments: tags.filter(tag => tag.title === "param").map(tag => {
-      return {
-        name: tag.name,
-        type: (tag.type && tag.type.name && tag.type.name.toLowerCase()) || "string",
-        default: tag.default ? tag.default : null
-      };
-    })
+    type: getFunctionType(tags),
+    arguments: getArguments(tags)
   };
 }
 
-function isValidNamespace(namespace) {
-  return fs.statSync(`${reuseRoot}/${namespace}`).isDirectory()
-    && !namespacesToExclude.includes(namespace);
+function getFunctionType(tags) {
+  return tags.find(tag => tag.title === "example").description.includes("await") ? "async" : "sync";
 }
 
-function isValidModule(namespace, module) {
-  return fs.statSync(`${reuseRoot}/${namespace}/${module}`).isFile()
-    && !modulesToExclude.includes(module)
-    && module.slice(-3) === ".js"
-    && !startsWithCapital(module);
+function getArguments(tags) {
+  return tags.filter(tag => tag.title === "param").map(tag => {
+    return mapTagToArgument(tag);
+  });
 }
 
-function startsWithCapital(word){
-  return word.charAt(0) === word.charAt(0).toUpperCase();
+function mapTagToArgument(tag) {
+  return {
+    name: tag.name,
+    type: (tag.type && tag.type.name && tag.type.name.toLowerCase()) || "string",
+    default: tag.default ? tag.default : null
+  };
 }

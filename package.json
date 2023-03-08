@@ -31,6 +31,7 @@
     "prettier": "npx prettier -c .",
     "prettier:fix": "npx prettier -w .",
     "generate-docs": "npm run build && node ./lib/reuse/helper/jsDocGen",
+    "generate-json-docs": "npm run build && node ./lib/reuse/helper/jsonDocGen",
     "generate-types": "ts-node ./src/bin/typesGenerator",
     "serve-docs": "npm run generate-docs && mkdocs serve",
     "deploy-docs": "npm run generate-docs && mkdocs gh-deploy --force",
