@@ -4959,10 +4959,10 @@ Global namespace for service modules.
 * [service](#service)
     * [.odata](#service.odata)
         * [.init(url, username, password, [loggingEnabled], [params], [authType])](#service.odata.init) ⇒ <code>Object</code>
-        * [.get(srv, entitySet, keys, raw)](#service.odata.get)
+        * [.get(srv, entitySet, keys)](#service.odata.get)
         * [.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])](#service.odata.getEntitySet) ⇒ <code>Array</code>
         * [.isFeatureToggleActivated(srv, featureName)](#service.odata.isFeatureToggleActivated)
-        * [.post(srv, entitySet, payload, raw)](#service.odata.post)
+        * [.post(srv, entitySet, payload)](#service.odata.post)
         * [.merge(srv, entitySet, payload)](#service.odata.merge)
         * [.delete(srv, entitySet, options)](#service.odata.delete)
         * [.callFunctionImport(srv, functionImportName, options)](#service.odata.callFunctionImport)
@@ -4982,10 +4982,10 @@ Global namespace for service modules.
 
 * [.odata](#service.odata)
     * [.init(url, username, password, [loggingEnabled], [params], [authType])](#service.odata.init) ⇒ <code>Object</code>
-    * [.get(srv, entitySet, keys, raw)](#service.odata.get)
+    * [.get(srv, entitySet, keys)](#service.odata.get)
     * [.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])](#service.odata.getEntitySet) ⇒ <code>Array</code>
     * [.isFeatureToggleActivated(srv, featureName)](#service.odata.isFeatureToggleActivated)
-    * [.post(srv, entitySet, payload, raw)](#service.odata.post)
+    * [.post(srv, entitySet, payload)](#service.odata.post)
     * [.merge(srv, entitySet, payload)](#service.odata.merge)
     * [.delete(srv, entitySet, options)](#service.odata.delete)
     * [.callFunctionImport(srv, functionImportName, options)](#service.odata.callFunctionImport)
@@ -5022,7 +5022,7 @@ srv = await service.odata.init(url, user, password, false, params);
 ```
 <a name="service.odata.get"></a>
 
-#### odata.get(srv, entitySet, keys, raw)
+#### odata.get(srv, entitySet, keys)
 makes a GET request.
 
 **Kind**: static method of [<code>odata</code>](#service.odata)  
@@ -5032,7 +5032,6 @@ makes a GET request.
 | srv | <code>Object</code> | Instance of the service |
 | entitySet | <code>String</code> | The entitySet you want to GET from. |
 | keys | <code>Object</code> | The required keys for the GET-request. |
-| raw | <code>Boolean</code> | Response includes all header contents. |
 
 **Example**  
 ```js
@@ -5096,7 +5095,7 @@ let isFeatureActive = await service.odata.isFeatureToggleActivated(srv, "MM_PUR_
 ```
 <a name="service.odata.post"></a>
 
-#### odata.post(srv, entitySet, payload, raw)
+#### odata.post(srv, entitySet, payload)
 makes a POST request.
 
 **Kind**: static method of [<code>odata</code>](#service.odata)  
@@ -5106,7 +5105,6 @@ makes a POST request.
 | srv | <code>Object</code> | Instance of the service |
 | entitySet | <code>String</code> | The entitySet you want to POST against. |
 | payload | <code>Object</code> | The payload for the POST-request. |
-| raw | <code>Boolean</code> | Response includes all header contents. |
 
 **Example**  
 ```js
