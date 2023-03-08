@@ -72,7 +72,7 @@ function parseAndUpdateModuleDoc(namespace, module, jsDoc) {
     parseAndWriteModuleDoc(namespace, module, jsDoc);
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.error(`Error while generating JSON doc for namespace: '${namespace}' and module '${module}': ${err}`);
+    console.error(`Error while generating JSON doc for namespace: '${namespace}' and module: '${module}': ${err}`);
   }
 }
 
