@@ -102,7 +102,7 @@ describe("formatter - formatDate", function () {
 
   describe("formatDate - format MMM dd, yyyy - 'en-us'", async function () {
     it("Preparation", function () {
-      date = new Date(2021, 09, 1, 8, 5);
+      date = new Date(2021, 9, 1, 8, 5);
       format = "MMM dd, yyyy";
       expected = "Oct 01, 2021";
     });
@@ -118,7 +118,7 @@ describe("formatter - formatDate", function () {
 
   describe("formatDate - format MMM dd, yyyy - 'de-DE'", async function () {
     it("Preparation", function () {
-      date = new Date(2021, 09, 1, 8, 5);
+      date = new Date(2021, 9, 1, 8, 5);
       format = "MMM dd, yyyy";
       expected = "Okt 01, 2021";
     });
@@ -134,7 +134,7 @@ describe("formatter - formatDate", function () {
 
   describe("formatDate - format MMM dd, yyyy - 'en-us' - short", async function () {
     it("Preparation", function () {
-      date = new Date(2021, 09, 1, 8, 5);
+      date = new Date(2021, 9, 1, 8, 5);
       format = "MMM d, yyyy";
       expected = "Oct 1, 2021";
     });
@@ -150,7 +150,7 @@ describe("formatter - formatDate", function () {
   
   describe("formatDate - format MMM dd, yyyy - 'de-DE' - short", async function () {
     it("Preparation", function () {
-      date = new Date(2021, 09, 1, 8, 5);
+      date = new Date(2021, 9, 1, 8, 5);
       format = "MMM d, yyyy";
       expected = "Okt 1, 2021";
     });
