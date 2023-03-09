@@ -315,7 +315,7 @@ Calculates the date based on the input parameter and returns it in the given for
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | [date] | <code>String</code> | <code>&quot;today&quot;</code> | Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, previousYear |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "mmm d, yyyy", "datetime", "object"). |
 
 **Example**  
 ```js
@@ -1340,7 +1340,7 @@ formats date.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | date | <code>Date</code> |  | The date object to be formatted. |
-| format | <code>String</code> |  | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
+| format | <code>String</code> |  | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "mmm d, yyyy", "datetime", "object"). |
 | [locale] | <code>String</code> | <code>&quot;en-US&quot;</code> | The locale format of the date. E.g. "en-US", "de-DE", etc. |
 
 **Example**  
@@ -4959,10 +4959,10 @@ Global namespace for service modules.
 * [service](#service)
     * [.odata](#service.odata)
         * [.init(url, username, password, [loggingEnabled], [params], [authType])](#service.odata.init) ⇒ <code>Object</code>
-        * [.get(srv, entitySet, keys)](#service.odata.get)
+        * [.get(srv, entitySet, keys, raw)](#service.odata.get)
         * [.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])](#service.odata.getEntitySet) ⇒ <code>Array</code>
         * [.isFeatureToggleActivated(srv, featureName)](#service.odata.isFeatureToggleActivated)
-        * [.post(srv, entitySet, payload)](#service.odata.post)
+        * [.post(srv, entitySet, payload, raw)](#service.odata.post)
         * [.merge(srv, entitySet, payload)](#service.odata.merge)
         * [.delete(srv, entitySet, options)](#service.odata.delete)
         * [.callFunctionImport(srv, functionImportName, options)](#service.odata.callFunctionImport)
@@ -4982,10 +4982,10 @@ Global namespace for service modules.
 
 * [.odata](#service.odata)
     * [.init(url, username, password, [loggingEnabled], [params], [authType])](#service.odata.init) ⇒ <code>Object</code>
-    * [.get(srv, entitySet, keys)](#service.odata.get)
+    * [.get(srv, entitySet, keys, raw)](#service.odata.get)
     * [.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])](#service.odata.getEntitySet) ⇒ <code>Array</code>
     * [.isFeatureToggleActivated(srv, featureName)](#service.odata.isFeatureToggleActivated)
-    * [.post(srv, entitySet, payload)](#service.odata.post)
+    * [.post(srv, entitySet, payload, raw)](#service.odata.post)
     * [.merge(srv, entitySet, payload)](#service.odata.merge)
     * [.delete(srv, entitySet, options)](#service.odata.delete)
     * [.callFunctionImport(srv, functionImportName, options)](#service.odata.callFunctionImport)
@@ -5022,7 +5022,7 @@ srv = await service.odata.init(url, user, password, false, params);
 ```
 <a name="service.odata.get"></a>
 
-#### odata.get(srv, entitySet, keys)
+#### odata.get(srv, entitySet, keys, raw)
 makes a GET request.
 
 **Kind**: static method of [<code>odata</code>](#service.odata)  
@@ -5032,6 +5032,7 @@ makes a GET request.
 | srv | <code>Object</code> | Instance of the service |
 | entitySet | <code>String</code> | The entitySet you want to GET from. |
 | keys | <code>Object</code> | The required keys for the GET-request. |
+| raw | <code>Boolean</code> | Response includes all header contents. |
 
 **Example**  
 ```js
@@ -5095,7 +5096,7 @@ let isFeatureActive = await service.odata.isFeatureToggleActivated(srv, "MM_PUR_
 ```
 <a name="service.odata.post"></a>
 
-#### odata.post(srv, entitySet, payload)
+#### odata.post(srv, entitySet, payload, raw)
 makes a POST request.
 
 **Kind**: static method of [<code>odata</code>](#service.odata)  
@@ -5105,6 +5106,7 @@ makes a POST request.
 | srv | <code>Object</code> | Instance of the service |
 | entitySet | <code>String</code> | The entitySet you want to POST against. |
 | payload | <code>Object</code> | The payload for the POST-request. |
+| raw | <code>Boolean</code> | Response includes all header contents. |
 
 **Example**  
 ```js
