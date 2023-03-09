@@ -141,7 +141,11 @@ export class Formatter {
    * // returns "Apr 03, 2022"
    */
   formatDate(date: Date, format: DateFormatsType, locale = "en-US"): string | Date {
+    if (format) {
+      format = format.toLowerCase() as DateFormats;
+    }
     let formattedDate: Date | string = date;
+
     let hour: number | string = date.getHours();
     let min: number | string = date.getMinutes();
     let sec: number | string = date.getSeconds();
@@ -171,8 +175,6 @@ export class Formatter {
     }
 
     if (format) {
-      format = format.toLowerCase() as DateFormats;
-
       switch (format) {
         case DateFormats.MONTH_DAY_YEAR_SLASH:
           formattedDate = `${mm}/${dd}/${yyyy}`;
