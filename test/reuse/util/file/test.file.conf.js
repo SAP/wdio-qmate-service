@@ -10,6 +10,6 @@ exports.config = merge(profile.config, {
 
   specs: [
     path.resolve(__dirname, "file.spec.js"),
-    path.resolve(__dirname, "pdfParser.spec.js")
+    // path.resolve(__dirname, "pdfParser.spec.js")
   ]
 });

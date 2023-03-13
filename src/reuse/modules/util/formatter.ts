@@ -130,7 +130,7 @@ export class Formatter {
    * @memberOf util.formatter
    * @description formats date.
    * @param {Date} date - The date object to be formatted.
-   * @param {String} format - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object").
+   * @param {String} format - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "mmm d, yyyy", "datetime", "object").
    * @param {String} [locale="en-US"] - The locale format of the date. E.g. "en-US", "de-DE", etc.
    * @returns {String} The formatted date as string.
    * @example const date = new Date(2020, 0, 17);
@@ -141,7 +141,11 @@ export class Formatter {
    * // returns "Apr 03, 2022"
    */
   formatDate(date: Date, format: DateFormatsType, locale = "en-US"): string | Date {
+    if (format) {
+      format = format.toLowerCase() as DateFormats;
+    }
     let formattedDate: Date | string = date;
+
     let hour: number | string = date.getHours();
     let min: number | string = date.getMinutes();
     let sec: number | string = date.getSeconds();
@@ -162,7 +166,7 @@ export class Formatter {
       hour = `0${hour}`;
     }
 
-    if (dd < 10) {
+    if (dd < 10 && format !== DateFormats.MONTH_DAY_YEAR_COMMA_SHORT) {
       dd = `0${dd}`;
     }
 
@@ -171,8 +175,6 @@ export class Formatter {
     }
 
     if (format) {
-      format = format.toLowerCase() as DateFormats;
-
       switch (format) {
         case DateFormats.MONTH_DAY_YEAR_SLASH:
           formattedDate = `${mm}/${dd}/${yyyy}`;
@@ -193,6 +195,9 @@ export class Formatter {
           formattedDate = `${dd}.${mm}.${yyyy}.${hour}.${min}`;
           break;
         case DateFormats.MONTH_DAY_YEAR_COMMA:
+          formattedDate = `${month} ${dd}, ${yyyy}`;
+          break;
+        case DateFormats.MONTH_DAY_YEAR_COMMA_SHORT:
           formattedDate = `${month} ${dd}, ${yyyy}`;
           break;
         case DateFormats.DATETIME:
