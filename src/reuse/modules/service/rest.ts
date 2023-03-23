@@ -33,14 +33,14 @@ export class Rest {
    * @memberOf service.rest
    * @description makes a GET request.
    * @param {String} uri - The uri to the data source you want to GET.
-   * @param {Object} [options={}] - The options you want to specify for GET.
+   * @param {Object} [config] - The config options for the request.
    * @returns {Object} The response of the GET request.
    * @example const uri = https://api.predic8.de/shop/products/";
    * let res = await service.rest.get(uri);
    */
-  async get(uri: string, options: AxiosRequestConfig<any> | undefined = {}): Promise<AxiosResponse<any, any>> {
+  async get(uri: string, config?: AxiosRequestConfig<any>): Promise<AxiosResponse<any, any>> {
     try {
-      return await this.axios.get(uri, options);
+      return await this.axios.get(uri, config);
     } catch (error: any) {
       if (error.message) {
         if (error.response && error.response.statusText) {
@@ -61,12 +61,13 @@ export class Rest {
    * @description makes a POST request.
    * @param {String} uri - The uri to the data source you want to POST against.
    * @param {Object} payload - The data you want to POST against your entity set.
+   * @param {Object} [config] - The config options for the request.
    * @returns {Object} The response of the POST request.
    * @example let res = await service.rest.delete(`${browser.config.baseUrl}/posts/99`);
    */
-  async post(uri: string, payload: any): Promise<AxiosResponse<any, any>> {
+  async post(uri: string, payload: any, config?: AxiosRequestConfig<any>): Promise<AxiosResponse<any, any>> {
     try {
-      return await this.axios.post(uri, payload);
+      return await this.axios.post(uri, payload, config);
     } catch (error: any) {
       if (error.message) {
         if (error.response && error.response.statusText) {
@@ -86,13 +87,13 @@ export class Rest {
    * @memberOf service.rest
    * @description makes a DELETE request.
    * @param {String} uri - The uri to the data source you want to DELETE.
-   * @param {Object} options - The options you want to specify for DELETE.
+   * @param {Object} [config] - The config options for the request.
    * @returns {Object} The response of the DELETE request.
    * @example let res = await service.rest.delete(`${browser.config.baseUrl}/posts/99`);
    */
-  async delete(uri: string, options: AxiosRequestConfig<any> | undefined): Promise<AxiosResponse<any, any>> {
+  async delete(uri: string, config?: AxiosRequestConfig<any>): Promise<AxiosResponse<any, any>> {
     try {
-      return await this.axios.delete(uri, options);
+      return await this.axios.delete(uri, config);
     } catch (error: any) {
       if (error.message) {
         if (error.response && error.response.statusText) {
@@ -112,13 +113,13 @@ export class Rest {
    * @memberOf service.rest
    * @description makes a PATCH request.
    * @param {String} uri - The uri to the data source you want to PATCH.
-   * @param {Object} options - The options you want to specify for PATCH.
+   * @param {Object} [config] - The config options for the request.
    * @returns {Object} The response of the PATCH request.
    * @example let res = await service.rest.patch(`${browser.config.baseUrl}/posts/99`);
    */
-  async patch(uri: string, options: AxiosRequestConfig<any> | undefined): Promise<AxiosResponse<any, any>> {
+  async patch(uri: string, config?: AxiosRequestConfig<any>): Promise<AxiosResponse<any, any>> {
     try {
-      return await this.axios.patch(uri, options);
+      return await this.axios.patch(uri, config);
     } catch (error: any) {
       if (error.message) {
         if (error.response && error.response.statusText) {
