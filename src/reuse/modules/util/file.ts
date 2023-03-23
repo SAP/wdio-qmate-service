@@ -111,7 +111,6 @@ export class File {
 
   // =================================== HELPER ===================================
   private async _renderPage(pageData: any) {
-    const vl = this.vlf.initLog(this._renderPage);
 
     // should be in scope of render page due to library specific implementation
     const _parseText = function (textContent: any) {

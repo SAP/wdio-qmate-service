@@ -1,9 +1,10 @@
 const fs = require("fs");
 const path = require("path");
+const os = require("os");
 
 describe("component - loadEntryPoint", function () {
   const filename = "loadEntryPoint.entrypoint.json";
-  const folderPath = path.resolve(__dirname, "entrypoints");
+  const folderPath = "entrypoints";
   const data = { purchaseOrder: "123456" };
   let entryPointData;
 
@@ -23,13 +24,13 @@ describe("component - loadEntryPoint", function () {
   });
 
   it("Cleanup", async function () {
-    fs.unlinkSync(path.resolve(folderPath, filename));
+    await fs.promises.rm(folderPath, {recursive: true, force: true});
   });
 });
 
 describe("component - loadEntryPoint - custom folder path", function () {
   const filename = "loadEntryPoint.entrypoint.json";
-  const folderPath = path.resolve(__dirname, "myEntrypoints");
+  const folderPath = path.resolve(os.tmpdir(), "entrypointsLoad");
   const data = { purchaseOrder: "123456" };
   let entryPointData;
 
@@ -49,27 +50,15 @@ describe("component - loadEntryPoint - custom folder path", function () {
   });
 
   it("Cleanup", async function () {
-    fs.unlinkSync(path.resolve(folderPath, filename));
+    await fs.promises.rm(folderPath, {recursive: true, force: true});
   });
 });
 
 describe("component - loadEntryPoint - error case", function () {
-  const filename = "loadEntryPoint.no-such-entrypoint.json";
-  const folderPath = path.resolve(__dirname, "entrypoints");
-  const data = { purchaseOrder: "123456" };
-
-  it("Preparation", async function () {
-    if (!fs.existsSync(folderPath)) {
-      fs.mkdirSync(folderPath);
-    }
-    fs.writeFileSync(path.resolve(folderPath, filename), JSON.stringify(data));
-  });
+  const folderPath = path.resolve(os.tmpdir(), "entrypointsLoad");
 
   it("Execution & Verification", async function () {
-    await expect(util.component.loadEntryPoint()).rejects.toThrow("Function 'readDataFromFile' failed:");
+    await expect(util.component.loadEntryPoint(folderPath)).rejects.toThrow("Function 'readDataFromFile' failed:");
   });
 
-  it("Cleanup", async function () {
-    fs.unlinkSync(path.resolve(folderPath, filename));
-  });
 });
