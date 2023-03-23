@@ -4970,10 +4970,10 @@ Global namespace for service modules.
         * [.readPdfFromDirectUrl(url, [username], [password], [isSaml])](#service.odata.readPdfFromDirectUrl)
     * [.rest](#service.rest)
         * [.init([customConfig])](#service.rest.init) ⇒ <code>Object</code>
-        * [.get(uri, [options])](#service.rest.get) ⇒ <code>Object</code>
-        * [.post(uri, payload)](#service.rest.post) ⇒ <code>Object</code>
-        * [.delete(uri, options)](#service.rest.delete) ⇒ <code>Object</code>
-        * [.patch(uri, options)](#service.rest.patch) ⇒ <code>Object</code>
+        * [.get(uri, [config])](#service.rest.get) ⇒ <code>Object</code>
+        * [.post(uri, payload, [config])](#service.rest.post) ⇒ <code>Object</code>
+        * [.delete(uri, [config])](#service.rest.delete) ⇒ <code>Object</code>
+        * [.patch(uri, [config])](#service.rest.patch) ⇒ <code>Object</code>
 
 <a name="service.odata"></a>
 
@@ -5231,10 +5231,10 @@ const pdfStream = await service.odata.readPdfFromDirectUrl(url, "username", "Pas
 
 * [.rest](#service.rest)
     * [.init([customConfig])](#service.rest.init) ⇒ <code>Object</code>
-    * [.get(uri, [options])](#service.rest.get) ⇒ <code>Object</code>
-    * [.post(uri, payload)](#service.rest.post) ⇒ <code>Object</code>
-    * [.delete(uri, options)](#service.rest.delete) ⇒ <code>Object</code>
-    * [.patch(uri, options)](#service.rest.patch) ⇒ <code>Object</code>
+    * [.get(uri, [config])](#service.rest.get) ⇒ <code>Object</code>
+    * [.post(uri, payload, [config])](#service.rest.post) ⇒ <code>Object</code>
+    * [.delete(uri, [config])](#service.rest.delete) ⇒ <code>Object</code>
+    * [.patch(uri, [config])](#service.rest.patch) ⇒ <code>Object</code>
 
 <a name="service.rest.init"></a>
 
@@ -5260,16 +5260,16 @@ const axios = service.rest.init(customConfig);
 ```
 <a name="service.rest.get"></a>
 
-#### rest.get(uri, [options]) ⇒ <code>Object</code>
+#### rest.get(uri, [config]) ⇒ <code>Object</code>
 makes a GET request.
 
 **Kind**: static method of [<code>rest</code>](#service.rest)  
 **Returns**: <code>Object</code> - The response of the GET request.  
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| uri | <code>String</code> |  | The uri to the data source you want to GET. |
-| [options] | <code>Object</code> | <code>{}</code> | The options you want to specify for GET. |
+| Param | Type | Description |
+| --- | --- | --- |
+| uri | <code>String</code> | The uri to the data source you want to GET. |
+| [config] | <code>Object</code> | The config options for the request. |
 
 **Example**  
 ```js
@@ -5278,7 +5278,7 @@ let res = await service.rest.get(uri);
 ```
 <a name="service.rest.post"></a>
 
-#### rest.post(uri, payload) ⇒ <code>Object</code>
+#### rest.post(uri, payload, [config]) ⇒ <code>Object</code>
 makes a POST request.
 
 **Kind**: static method of [<code>rest</code>](#service.rest)  
@@ -5288,6 +5288,7 @@ makes a POST request.
 | --- | --- | --- |
 | uri | <code>String</code> | The uri to the data source you want to POST against. |
 | payload | <code>Object</code> | The data you want to POST against your entity set. |
+| [config] | <code>Object</code> | The config options for the request. |
 
 **Example**  
 ```js
@@ -5295,7 +5296,7 @@ let res = await service.rest.delete(`${browser.config.baseUrl}/posts/99`);
 ```
 <a name="service.rest.delete"></a>
 
-#### rest.delete(uri, options) ⇒ <code>Object</code>
+#### rest.delete(uri, [config]) ⇒ <code>Object</code>
 makes a DELETE request.
 
 **Kind**: static method of [<code>rest</code>](#service.rest)  
@@ -5304,7 +5305,7 @@ makes a DELETE request.
 | Param | Type | Description |
 | --- | --- | --- |
 | uri | <code>String</code> | The uri to the data source you want to DELETE. |
-| options | <code>Object</code> | The options you want to specify for DELETE. |
+| [config] | <code>Object</code> | The config options for the request. |
 
 **Example**  
 ```js
@@ -5312,7 +5313,7 @@ let res = await service.rest.delete(`${browser.config.baseUrl}/posts/99`);
 ```
 <a name="service.rest.patch"></a>
 
-#### rest.patch(uri, options) ⇒ <code>Object</code>
+#### rest.patch(uri, [config]) ⇒ <code>Object</code>
 makes a PATCH request.
 
 **Kind**: static method of [<code>rest</code>](#service.rest)  
@@ -5321,7 +5322,7 @@ makes a PATCH request.
 | Param | Type | Description |
 | --- | --- | --- |
 | uri | <code>String</code> | The uri to the data source you want to PATCH. |
-| options | <code>Object</code> | The options you want to specify for PATCH. |
+| [config] | <code>Object</code> | The config options for the request. |
 
 **Example**  
 ```js
