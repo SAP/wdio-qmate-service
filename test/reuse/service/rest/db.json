@@ -1,5 +1,25 @@
 {
   "posts": [
+    {
+      "id": 99,
+      "title": "qmate-service",
+      "author": "marvin"
+    },
+    {
+      "id": 111,
+      "title": "qmate-service-patch",
+      "author": "m4rv1n"
+    },
+    {
+      "id": 222,
+      "title": "qmate-service-put",
+      "author": "m4rv1n"
+    },
+    {
+      "id": 444,
+      "title": "qmate-service-delete",
+      "author": "marvin"
+    }
   ],
   "comments": [],
   "profile": {

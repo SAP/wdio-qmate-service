@@ -1,10 +1,4 @@
 "use strict";
-
-const payload = {
-  id: 111,
-  title: "patched",
-  author: "m4rv1n"
-};
 const config = {
   auth: {
     username: "restuser",
@@ -17,14 +11,19 @@ const invalidConfig = {
     password: "restpassword-invalid"
   }
 };
-describe("service.rest.patch - PATCH 'title' and 'author'", function () {
+const payload = {
+  "id": 222,
+  "title": "qmate-service-updated-by-put",
+  "author": "m4rv1n"
+};
+describe("service.rest.put", function () {
   let originalPost;
   it("Preparation", async function () {
     const res = await service.rest.get(`${browser.config.baseUrl}/posts/${payload.id}`);
     originalPost = res.data;
   });
-  it("Execution & Validation", async function () {
-    const res = await service.rest.patch(`${browser.config.baseUrl}/posts/${payload.id}`, payload, config);
+  it("Execution & Validation", async function () {    
+    const res = await service.rest.put(`${browser.config.baseUrl}/posts/${payload.id}`, payload, config);
     common.assertion.expectEqual(res.status, 200);
     common.assertion.expectEqual(res.statusText, "OK");
     common.assertion.expectEqual(res.data.title, payload.title);
@@ -35,16 +34,16 @@ describe("service.rest.patch - PATCH 'title' and 'author'", function () {
   });
 });
 
-describe("service.rest.patch - PATCH against not existing entitySet", function () {
+describe("service.rest.patch - PUT against not existing entitySet", function () {
   it("Execution & Validation", async function () {
-    await expect(service.rest.patch(`${browser.config.baseUrl}/notExistingEntitySet`, {}, config))
+    await expect(service.rest.put(`${browser.config.baseUrl}/notExistingEntitySet`, {}, config))
       .rejects.toThrow("Not Found - Request failed with status code 404");
   });
 });
 
-describe("service.rest.patch - Expect PATCH request to fail with 'Unauthorized - Request failed with status code 401'", function () {
+describe("service.rest.put - Expect PUT request to fail with 'Unauthorized - Request failed with status code 401'", function () {
   it("Execution & Validation", async function () {
-    await expect(service.rest.patch(`${browser.config.baseUrl}/posts/${payload.id}`, payload, invalidConfig))
+    await expect(service.rest.put(`${browser.config.baseUrl}/posts/${payload.id}`, payload, invalidConfig))
       .rejects.toThrow("Unauthorized - Request failed with status code 401");
   });
 });
