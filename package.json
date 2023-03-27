@@ -104,6 +104,7 @@
     "test:reuse:service:restTests": "npx wdio test/reuse/service/rest/test.rest.conf.js",
     "test:reuse:service:rest": "concurrently \"npm run test:reuse:service:rest:startJsonServer\" \"npm run test:reuse:service:restTests\" -k",
     "test:reuse:service:odata": "npx wdio test/reuse/service/odata/test.odata.conf.js",
+    "test:reuse:service": "npm run test:reuse:service:rest && npm run test:reuse:service:odata",
     "test:reuse": "npm run test:reuse:common && npm run test:reuse:nonUi5 && npm run test:reuse:ui5 && npm run test:reuse:util && npm run test:reuse:service:odata",
     "test": "npm run test:authenticator:staticLogin && npm run test:core && npm run test:reuse"
   },
