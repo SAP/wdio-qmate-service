@@ -102,7 +102,7 @@
     "test:reuse:common": "npm run test:reuse:common:assertion && npm run test:reuse:common:navigation && npm run test:reuse:common:date && npm run test:reuse:common:userInteraction",
     "test:reuse:service:rest:startJsonServer": "cd test/reuse/service/rest && node rest-server.js",
     "test:reuse:service:restTests": "npx wdio test/reuse/service/rest/test.rest.conf.js",
-    "test:reuse:service:rest": "concurrently \"npm run test:reuse:service:rest:startJsonServer\" \"npm run test:reuse:service:restTests\" -k",
+    "test:reuse:service:rest": "concurrently \"npm run test:reuse:service:rest:startJsonServer\" \"npm run test:reuse:service:restTests\"",
     "test:reuse:service:odata": "npx wdio test/reuse/service/odata/test.odata.conf.js",
     "test:reuse:service": "npm run test:reuse:service:rest && npm run test:reuse:service:odata",
     "test:reuse": "npm run test:reuse:common && npm run test:reuse:nonUi5 && npm run test:reuse:ui5 && npm run test:reuse:util && npm run test:reuse:service:odata",

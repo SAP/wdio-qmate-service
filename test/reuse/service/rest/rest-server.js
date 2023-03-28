@@ -1,9 +1,34 @@
+/**
+ * Rest server used to test service.rest API
+ * GET calls don't require authentication
+ * All other calls accept basic authentication
+ * Server shuts down automatically if idle for 30 seconds
+ */
 const jsonServer = require("json-server");
 const server = jsonServer.create();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
+const process = require("node:process");
 const defaultUser = "restuser";
 const defaultPassword = "restpassword";
+
+function handle(signal) {
+  console.log(`Received ${signal}`);
+  process.exit();
+}
+
+let lastRequestTime = (new Date()).getTime();
+
+setInterval(() => {
+  // if there are no requests for 30 seconds, shutdown gracefully
+  const currentTime = (new Date()).getTime();
+  if ((currentTime - lastRequestTime) > 30000 && server.listenerCount() == 0) {
+    process.exit();
+  }
+}, 1000);
+
+process.on("SIGINT", handle);
+process.on("SIGTERM", handle);
 
 function isAuthorized(req, res) {
   if (req.method === "GET") {
@@ -16,7 +41,6 @@ function checkAuthHeader(req, res) {
   const { authorization } = req.headers;
 
   if (!authorization) {
-    console.log("Missing authorization header");
     res.status(401).jsonp("Missing authorization header");
     return false;
   }
@@ -24,19 +48,16 @@ function checkAuthHeader(req, res) {
   const [scheme, token] = authorization.split(" ");
 
   if (scheme !== "Basic") {
-    console.log("Incorrect authorization scheme "+scheme);
     res.status(401).jsonp("Incorrect authorization scheme");
     return false;
   }
 
   if (!token) {
-    console.log("Missing token");
     res.status(401).jsonp("Missing token");
     return false;
   }
   const [username, password] = Buffer.from(token, "base64").toString().split(":");
   if (username !== defaultUser && password !== defaultPassword) {
-    console.log(`${username},${password}`);
     res.status(401).jsonp("Invalid login credentials, please try again");
     return false;
   }
@@ -44,7 +65,8 @@ function checkAuthHeader(req, res) {
 }
 server.use(middlewares);
 server.use((req, res, next) => {
-  if (isAuthorized(req, res)) { // add your authorization logic here
+  lastRequestTime = (new Date()).getTime();
+  if (isAuthorized(req, res)) {
     next(); // continue to JSON Server router
   }
 });
