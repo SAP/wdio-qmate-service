@@ -130,10 +130,10 @@ function mapTagToArgument(tag) {
 
 function parseReturnTypeFromReturnTag(tag) {
   if (tag.type.name) {
-    return tag.type.name;
+    return tag.type.name.toLowerCase();
   }
   if (tag.type.expression) {
-    return tag.type.expression;
+    return tag.type.expression.name.toLowerCase();
   }
   return undefined;
 }
