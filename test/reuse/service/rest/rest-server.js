@@ -2,7 +2,7 @@
  * Rest server used to test service.rest API
  * GET calls don't require authentication
  * All other calls accept basic authentication
- * Server shuts down automatically if idle for 30 seconds
+ * Server shuts down automatically if idle for 60 seconds
  */
 const jsonServer = require("json-server");
 const server = jsonServer.create();
@@ -20,9 +20,9 @@ function handle(signal) {
 let lastRequestTime = (new Date()).getTime();
 
 setInterval(() => {
-  // if there are no requests for 30 seconds, shutdown gracefully
+  // if there are no requests for 60 seconds, shutdown gracefully
   const currentTime = (new Date()).getTime();
-  if ((currentTime - lastRequestTime) > 30000 && server.listenerCount() == 0) {
+  if ((currentTime - lastRequestTime) > 60000 && server.listenerCount() == 0) {
     process.exit();
   }
 }, 1000);
