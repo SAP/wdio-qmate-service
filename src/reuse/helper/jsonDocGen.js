@@ -1,10 +1,10 @@
+/* eslint-disable no-console */
 // get root folder
 const basePath = require("app-root-path");
-const fs= require("fs");
+const fs = require("fs");
 const doctrine = require("doctrine");
 
 const namespacesToExclude = ["runtime"];
-const modulesToExclude = ["soap.js"];
 
 const reuseRoot = `${basePath}/lib/reuse/modules`;
 const reuseApiJson = {};
@@ -31,7 +31,6 @@ function writeJsonDoc() {
   const resultString = JSON.stringify(reuseApiJson, null, 2);
   const jsonDocPath = "reuseApi.json";
   fs.writeFileSync(jsonDocPath, resultString);
-  // eslint-disable-next-line no-console
   console.log(`Saved generated result in '${jsonDocPath}'`);
 }
 
@@ -58,7 +57,6 @@ function generateModuleDoc(namespace, module) {
 
 function isValidModule(namespace, module) {
   return fs.statSync(`${reuseRoot}/${namespace}/${module}`).isFile()
-    && !modulesToExclude.includes(module)
     && module.slice(-3) === ".js"
     && !startsWithCapital(module);
 }
