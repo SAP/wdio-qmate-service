@@ -151,4 +151,23 @@ jobs:
         run: |
           npm ci
           npm run update-chromedriver
-          npm run test:reuse:util:data
+          npm run test:reuse:util
+          
+  test-service:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: |
+          sudo apt-get install google-chrome-stable
+          npm ci
+          npm run update-chromedriver
+          npm run test:reuse:service
+
