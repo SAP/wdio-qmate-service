@@ -135,7 +135,7 @@ export class DateModule {
    * @memberOf common.date
    * @description Calculates the date based on the input parameter and returns it in the given format.
    * @param {String} [date="today"] - Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, previousYear
-   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "datetime", "object").
+   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "mmm d, yyyy", "datetime", "object").
    * @returns {String} The calculated date in the given format.
    * @example const date = await common.date.calculate("today", "mm/dd/yyyy");
    */
