@@ -69,7 +69,6 @@ function parseAndUpdateModuleDoc(namespace, module, jsDoc) {
   try {
     parseAndWriteModuleDoc(namespace, module, jsDoc);
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.error(`Error while generating JSON doc for namespace: '${namespace}' and module: '${module}': ${err}`);
   }
 }
@@ -115,10 +114,10 @@ function getArguments(tags) {
 
 function getReturnType(tags) {
   const returnTags = tags.filter(tag => tag.title === "returns");
-  if (returnTags.length) {
-    return returnTags[0].type.name.toLowerCase();
+  if (!returnTags.length) {
+    return undefined;
   }
-  return undefined;
+  return parseReturnTypeFromReturnTag(returnTags[0]);
 }
 
 function mapTagToArgument(tag) {
@@ -127,4 +126,14 @@ function mapTagToArgument(tag) {
     type: (tag.type && tag.type.name && tag.type.name.toLowerCase()) || "string",
     default: tag.default ? tag.default : null
   };
+}
+
+function parseReturnTypeFromReturnTag(tag) {
+  if (tag.type.name) {
+    return tag.type.name;
+  }
+  if (tag.type.expression) {
+    return tag.type.expression;
+  }
+  return undefined;
 }
