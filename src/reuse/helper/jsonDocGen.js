@@ -98,7 +98,8 @@ function formatFunctionAst(ast) {
   const tags = ast["tags"];
   return {
     type: getFunctionType(tags),
-    arguments: getArguments(tags)
+    arguments: getArguments(tags),
+    returnType: getReturnType(tags)
   };
 }
 
@@ -110,6 +111,14 @@ function getArguments(tags) {
   return tags.filter(tag => tag.title === "param").map(tag => {
     return mapTagToArgument(tag);
   });
+}
+
+function getReturnType(tags) {
+  const returnTags = tags.filter(tag => tag.title === "returns");
+  if (returnTags.length) {
+    return returnTags[0].type.name.toLowerCase();
+  }
+  return undefined;
 }
 
 function mapTagToArgument(tag) {
