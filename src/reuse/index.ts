@@ -1,7 +1,7 @@
 "use strict";
 
 // functions
-import { cit } from "./modules/runner";
+import { cit } from "./runner/runner";
 
 // modules
 import utilQmate from "./modules/util/Util";
