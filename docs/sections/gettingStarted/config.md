@@ -2,14 +2,14 @@
 
 ## Enable Qmate Service
 
-To use our service you have to enable `@sap_oss/wdio-qmate-service` and `shared-store` in your *config.js*.
+To use our service you have to enable `@sap_oss/wdio-qmate-service` in your *config.js*.
 
 ```js title="config.js"
 const QmateService = require("@sap_oss/wdio-qmate-service");
 
 exports.config = {
     // ...
-  services: [[QmateService], "shared-store"],
+  services: [[QmateService]],
     // ...
 };
 ```
