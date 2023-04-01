@@ -12,7 +12,7 @@ if (!process.env.CHROME_DRIVER || !fs.existsSync(process.env.CHROME_DRIVER)) {
 }
 
 exports.config = {
-  services: [[WdioQmateService], "shared-store"],
+  services: [[WdioQmateService]],
 
   runner: "local",
   maxInstances: 1,

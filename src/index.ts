@@ -6,10 +6,10 @@ import qmateLoader from "./scripts/hooks/before";
 import onPrepareHook from "./scripts/hooks/onPrepare";
 import onCompleteHook from "./scripts/hooks/onComplete";
 import afterHook from "./scripts/hooks/after";
-import { setValue, getValue } from "@wdio/shared-store-service";
 const pj = require("../package.json");
 
 module.exports = class CustomWorkerService {
+  config: any;
   /**
    * `serviceOptions` contains all options specific to the service
    * e.g. if defined as follows:
@@ -21,7 +21,9 @@ module.exports = class CustomWorkerService {
    * the `serviceOptions` parameter will be: `{ foo: 'bar' }`
    */
   // @ts-ignore
-  constructor(serviceOptions, capabilities, config) {}
+  constructor(serviceOptions, capabilities, config) {
+    this.config = config;
+  }
 
   /**
    * Gets executed once before all workers get launched.
@@ -57,7 +59,7 @@ module.exports = class CustomWorkerService {
     try {
       browser.config = config;
       await qmateLoaderSession(config, capabilities, specs);
-      await setValue("config", browser.config);
+      this.config = browser.config;
     } catch (e) {
       if (specs && specs[0]) {
         // `specs` variable is an array, but includes only one current spec
@@ -79,7 +81,7 @@ module.exports = class CustomWorkerService {
   async before(capabilities, specs, browser) {
     // Errors in WDIO hooks are suppressed by default => we call process.exit(1). It will mark all specs as failed
     try {
-      browser.config = await getValue("config");
+      browser.config = this.config;
       browser.params = browser.config.params;
       await qmateLoader(capabilities, specs, browser);
     } catch (e) {

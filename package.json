@@ -132,8 +132,7 @@
     "pdf-parse": "^1.1.1",
     "query-string": "^7.1.0",
     "supertest": "^6.1.6",
-    "yargs": "^17.1.1",
-    "@wdio/shared-store-service": "^8.6.9"
+    "yargs": "^17.1.1"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
@@ -142,6 +141,7 @@
     "@wdio/mocha-framework": "^8.6.8",
     "@wdio/sauce-service": "^8.6.9",
     "@wdio/selenium-standalone-service": "^8.6.8",
+    "@wdio/shared-store-service": "^8.6.9",
     "@wdio/spec-reporter": "^8.6.8",
     "@wdio/static-server-service": "^8.6.8",
     "chai": "^4.3.4",
