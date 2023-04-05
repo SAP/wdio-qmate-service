@@ -1,13 +1,13 @@
 {
   "name": "@sap_oss/wdio-qmate-service",
-  "version": "1.5.2",
+  "version": "2.0.0-beta.1",
   "author": "SAP SE",
   "types": "./@types/index.d.ts",
   "main": "./lib/index.js",
   "maintainers": [
     {
-      "name": "Marvin Grüssinger",
-      "email": "marvin.gruessinger@sap.com"
+      "name": "Benjamin Warth",
+      "email": "benjamin.warth@sap.com"
     },
     {
       "name": "Georgios Treska",
@@ -18,8 +18,8 @@
       "email": "tomas.hartmann@sap.com"
     },
     {
-      "name": "Benjamin Warth",
-      "email": "benjamin.warth@sap.com"
+      "name": "Marvin Grüssinger",
+      "email": "marvin.gruessinger@sap.com"
     }
   ],
   "scripts": {
@@ -136,14 +136,15 @@
     "yargs": "^17.1.1"
   },
   "devDependencies": {
-    "@wdio/cli": "^7.16.16",
-    "@wdio/local-runner": "^7.12.4",
-    "@wdio/mocha-framework": "^7.12.4",
-    "@wdio/sauce-service": "^7.16.16",
-    "@wdio/selenium-standalone-service": "^7.12.5",
-    "@wdio/shared-store-service": "^7.16.16",
-    "@wdio/spec-reporter": "^7.20.8",
-    "@wdio/static-server-service": "^7.10.1",
+    "@types/fs-extra": "^11.0.1",
+    "@wdio/cli": "^8.6.9",
+    "@wdio/local-runner": "^8.6.9",
+    "@wdio/mocha-framework": "^8.6.8",
+    "@wdio/sauce-service": "^8.6.9",
+    "@wdio/selenium-standalone-service": "^8.6.8",
+    "@wdio/shared-store-service": "^8.6.9",
+    "@wdio/spec-reporter": "^8.6.8",
+    "@wdio/static-server-service": "^8.6.8",
     "app-root-path": "^3.1.0",
     "chai": "^4.3.4",
     "chromedriver": "^111.0.0",
@@ -161,6 +162,6 @@
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
     "typescript": "^4.6.3",
-    "wdio-chromedriver-service": "^7.3.2"
+    "wdio-chromedriver-service": "^8.1.1"
   }
 }

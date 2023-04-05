@@ -92,14 +92,13 @@ describe("userInteraction - fillActiveAndRetry - element with number", function 
 describe("userInteraction - fillActiveAndRetry - empty value", function () {
 
   let value;
-  let actualValue;
 
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
     await handleCookiesConsent();
   });
 
-  it("Execution", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.ui.demo.cart.view.Home",
@@ -112,14 +111,11 @@ describe("userInteraction - fillActiveAndRetry - empty value", function () {
     const retries = 1;
     const interval = 3000;
     await ui5.userInteraction.click(selector);
-    await common.userInteraction.fillActiveAndRetry(value, retries, interval);
-    actualValue = await ui5.element.getValue(selector, index, timeout);
-  });
-
-  it("Verification", function () {
-    common.assertion.expectEqual(actualValue, "");
+    await expect(common.userInteraction.fillActiveAndRetry(value))
+      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'fillActive' failed: Please provide a value(datatype - number/string) as argument.");
   });
 });
+
 
 describe("userInteraction - fillActiveAndRetry - form field", function () {
   let element;
@@ -159,14 +155,10 @@ describe("userInteraction - fillActiveAndRetry - empty value", function () {
     await nonUi5.assertion.expectValueToBe(element, "", "value");
   });
 
-  it("Execution", async function () {
+  it("Execution & Verification", async function () {
     // Make the form field active
     await nonUi5.userInteraction.click(element);
-    await common.userInteraction.fillActiveAndRetry();
-  });
-
-  it("Verification", async function () {
-    // Check the form field itself
-    await nonUi5.assertion.expectValueToBe(element, "", "value");
+    await expect(common.userInteraction.fillActiveAndRetry())
+      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'fillActive' failed: Please provide a value(datatype - number/string) as argument.");
   });
 });
