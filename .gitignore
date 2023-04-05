@@ -57,3 +57,6 @@ typesTmp
 # qmate component tests
 entrypoints
 myEntrypoints
+
+# JSON doc
+reuseApi.json
