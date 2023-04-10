@@ -174,6 +174,7 @@ export class Browser {
         // eslint-disable-next-line no-return-await
         return await browser.execute(function () {
           try {
+            // @ts-ignore
             if (window && window.sap && window.sap.ui) {
               return true;
             } else {
