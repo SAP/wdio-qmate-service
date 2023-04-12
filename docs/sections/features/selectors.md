@@ -2,7 +2,7 @@
 To perform any action on an element (e.g. clicking a button), you need to specify the element at which the action is being executed. This differs from the web technology you are using. Read the following instructions, depending on the UI technology of the application to be tested. 
 
 !!! info
-		Selectors are typically created using our Chrome Extension, but it is important to note that this tool is **only available for internal use**. For further information as **internal**, please refer to our official Qmate documentation.
+		Selectors are typically created using our Chrome Extension, but it is important to note that this tool is currently **only available for internal use at SAP**. For further information as **internal**, please refer to our official Qmate documentation.
 
 ## UI5
 
