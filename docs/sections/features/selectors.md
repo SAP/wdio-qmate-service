@@ -1,6 +1,9 @@
 # Selectors
 To perform any action on an element (e.g. clicking a button), you need to specify the element at which the action is being executed. This differs from the web technology you are using. Read the following instructions, depending on the UI technology of the application to be tested. 
 
+!!! info
+		Selectors are typically created using our Chrome Extension, but it is important to note that this tool is **only available for internal use**. For further information as **internal**, please refer to our official Qmate documentation.
+
 ## UI5
 
 ### Supported Selector Properties
@@ -26,7 +29,7 @@ The selector consists of one **mandatory** selector called **elementProperties**
 
 - **siblingProperties, prevSiblingProperties, nextSiblingProperties**: The `siblingProperties` can be any sibling, whereas the `prevSiblingProperties` can be only the direct previous sibling and `nextSiblingProperties` can be only the direct next sibling.
 
-You have to define at least one property in ```elementProperties```. This could be ```metadata``` or any other property of the [Overview](#Overview) below.
+You have to define at least one property in ```elementProperties```. This could be ```metadata``` or any other property of the [Overview](#overview) below.
 
 
 ### Sample
@@ -135,10 +138,7 @@ const elem = await nonUi5.element.getByCssContainingText(".button", "Save");
 ```
 !!! info
 		To get a complete overview about all possible methods, please see [nonUi5.element](https://pages.github.tools.sap/sProcurement/wdio-qmate-service-ts/doc/#nonUi5.element). 
- 
 
-### Getting the attributes with Spotlight
-The [Spotlight Chrome Extension](https://github.tools.sap/sProcurement/qmate-spotlight) also supports non UI5 applications to generate unique selectors. It is possible to use one of the alternatives generated from spotlight or to define them manually.
 
 ### Getting the attributes manually 
 To get the properties of an element manually, please follow the steps below:
