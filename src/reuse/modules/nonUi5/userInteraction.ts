@@ -147,19 +147,23 @@ export class UserInteraction {
    */
   async fill(element: Element, value: string) {
     const vl = this.vlf.initLog(this.fill);
-    try {
-      vl.log(`Setting the value of element to ${value}`);
-      await element.setValue(value);
-    } catch (error) {
-      // @ts-ignore
-      if (error.message && error.message.match(new RegExp(/(invalid element state|element not interactable)/))) {
-        const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error as Error, "fill");
-        throw new Error(errorMessage);
-      } else {
-        if (!value) {
-          throw new Error("Function 'fill' failed: Please provide a value as second argument: " + error);
+    if (!(typeof value === "number" || typeof value === "string")) {
+      throw new Error("Function 'fill' failed: Please provide an element and value(datatype - number/string) as arguments");
+    } else {
+      try {
+        vl.log(`Setting the value of element to ${value}`);
+        await element.setValue(value);
+      } catch (error) {
+        // @ts-ignore
+        if (error.message && error.message.match(new RegExp(/(invalid element state|element not interactable)/))) {
+          const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error as Error, "fill");
+          throw new Error(errorMessage);
         } else {
-          throw error;
+          if (!value) {
+            throw new Error("Function 'fill' failed: Please provide a value as second argument: " + error);
+          } else {
+            throw error;
+          }
         }
       }
     }
@@ -233,8 +237,8 @@ export class UserInteraction {
   async clearAndFill(element: Element, value: string) {
     const vl = this.vlf.initLog(this.clearAndFill);
     //arg. 'value' needs to be checked in case of numeric values. E.g.: 0 or 1 will be handled as boolean value in if.
-    if (!element || value === null || value === undefined || value === "") {
-      throw new Error("Function 'clearAndFill' failed: Please provide an element and value as arguments.");
+    if (!element || !(typeof value === "number" || typeof value === "string")) {
+      throw new Error("Function 'clearAndFill' failed: Please provide an element and value(datatype - number/string) as arguments.");
     } else {
       try {
         vl.log("Clearing the element");
@@ -346,19 +350,13 @@ export class UserInteraction {
       y: +Number(targetSize.height / 2).toFixed(0) + +Number(targetLocation.y).toFixed(0) + 1
     };
 
-    await browser.performActions([
-      {
-        type: "pointer",
-        id: "finger1",
-        parameters: { pointerType: "mouse" },
-        actions: [
-          { type: "pointerMove", duration: 0, x: sourceCenterLocation.x, y: sourceCenterLocation.y },
-          { type: "pointerDown", button: 0 },
-          { type: "pointerMove", duration: 0, x: targetCenterLocation.x, y: targetCenterLocation.y },
-          { type: "pointerUp", button: 0 }
-        ]
-      }
-    ]);
+    await browser
+      .action("pointer")
+      .move({ duration: 0, x: sourceCenterLocation.x, y: sourceCenterLocation.y })
+      .down({ button: 0 }) //left button
+      .move({ duration: 0, x: targetCenterLocation.x, y: targetCenterLocation.y })
+      .down({ button: 0 }) //left button
+      .perform();
   }
 
   /**

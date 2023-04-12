@@ -85,14 +85,13 @@ describe("userInteraction - fillActive - element with number", function () {
 describe("userInteraction - fillActive - element with empty value", function () {
 
   let value;
-  let actualValue;
 
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
     await handleCookiesConsent();
   });
 
-  it("Execution", async function () {
+  it("Execution & Verification", async function () {
     const selector = {
       "elementProperties": {
         "viewName": "sap.ui.demo.cart.view.Home",
@@ -103,12 +102,8 @@ describe("userInteraction - fillActive - element with empty value", function () 
     const index = 0;
     const timeout = 30000;
     await ui5.userInteraction.click(selector);
-    await common.userInteraction.fillActive(value);
-    actualValue = await ui5.element.getValue(selector, index, timeout);
-  });
-
-  it("Verification", function () {
-    common.assertion.expectEqual(actualValue, "");
+    await expect(common.userInteraction.fillActive(value))
+      .rejects.toThrow("Function 'fillActive' failed: Please provide a value(datatype - number/string) as argument.");
   });
 });
 
@@ -205,15 +200,12 @@ describe("userInteraction - fillActive - empty value", function () {
     await nonUi5.assertion.expectValueToBe(element, "", "value");
   });
 
-  it("Execution", async function () {
+  it("Execution & Verification", async function () {
     // Make the form field active
     await nonUi5.userInteraction.click(element);
-    await common.userInteraction.fillActive();
-  });
+    await expect(common.userInteraction.fillActive())
+      .rejects.toThrow("Function 'fillActive' failed: Please provide a value(datatype - number/string) as argument.");
 
-  it("Verification", async function () {
-    // Check the form field itself
-    await nonUi5.assertion.expectValueToBe(element, "", "value");
   });
 });
 

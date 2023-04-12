@@ -23,17 +23,17 @@ class TypesGenerator {
     maintainers: [
       {
         name: "Marvin Grüssinger",
-        email: "marvin.gruessinger@sap.com",
+        email: "marvin.gruessinger@sap.com"
       },
       {
         name: "Benjamin Warth",
-        email: "benjamin.warth@sap.com",
-      },
+        email: "benjamin.warth@sap.com"
+      }
     ],
     dependencies: {
       "@types/axios": "^0.14.0",
-      "@types/node": "^18.0.3",
-    },
+      "@types/node": "^18.0.3"
+    }
   };
 
   public async generateTypes() {
@@ -71,15 +71,13 @@ class TypesGenerator {
     const replacements = [
       {
         src: 'from "../src/reuse/modules',
-        replace: 'from "./modules',
-      },
+        replace: 'from "./modules'
+      }
     ];
     for (const file of files) {
       const src = `${srcPath}/${file}`;
       const dist = `${distPath}/${file}`;
-      await fse.copy(src, dist, {
-        recursive: true,
-      });
+      await fse.copy(src, dist);
       await this.replaceStringsInFile(dist, replacements);
     }
   }
@@ -121,15 +119,13 @@ class TypesGenerator {
     const replacements = [
       {
         src: 'import { Element } from "../../../../@types/wdio"',
-        replace: 'import { Element } from "../../../@types/wdio"',
-      },
+        replace: 'import { Element } from "../../../@types/wdio"'
+      }
     ];
     for (const file of files) {
       const src = `${srcPath}/${moduleName}/${file}`;
       const dist = `${distPath}/modules/${moduleName}/${file}`;
-      await fse.copy(src, dist, {
-        recursive: true,
-      });
+      await fse.copy(src, dist);
       await this.replaceStringsInFile(dist, replacements);
     }
   }
