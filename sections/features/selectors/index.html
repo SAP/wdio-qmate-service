@@ -494,13 +494,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#getting-the-attributes-with-spotlight" class="md-nav__link">
-    Getting the attributes with Spotlight
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#getting-the-attributes-manually" class="md-nav__link">
     Getting the attributes manually
   </a>
@@ -791,13 +784,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#getting-the-attributes-with-spotlight" class="md-nav__link">
-    Getting the attributes with Spotlight
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#getting-the-attributes-manually" class="md-nav__link">
     Getting the attributes manually
   </a>
@@ -836,6 +822,10 @@
 
 <h1 id="selectors">Selectors</h1>
 <p>To perform any action on an element (e.g. clicking a button), you need to specify the element at which the action is being executed. This differs from the web technology you are using. Read the following instructions, depending on the UI technology of the application to be tested. </p>
+<div class="admonition info">
+<p class="admonition-title">Info<p>Selectors are typically created using our Chrome Extension, but it is important to note that this tool is <strong>only available for internal use</strong>. For further information as <strong>internal</strong>, please refer to our official Qmate documentation.</p>
+</p>
+</div>
 <h2 id="ui5">UI5</h2>
 <h3 id="supported-selector-properties">Supported Selector Properties</h3>
 <p>The supported properties for any UI5 based application are the following:
@@ -862,7 +852,7 @@
 <p><strong>siblingProperties, prevSiblingProperties, nextSiblingProperties</strong>: The <code>siblingProperties</code> can be any sibling, whereas the <code>prevSiblingProperties</code> can be only the direct previous sibling and <code>nextSiblingProperties</code> can be only the direct next sibling.</p>
 </li>
 </ul>
-<p>You have to define at least one property in <code>elementProperties</code>. This could be <code>metadata</code> or any other property of the <a href="#Overview">Overview</a> below.</p>
+<p>You have to define at least one property in <code>elementProperties</code>. This could be <code>metadata</code> or any other property of the <a href="#overview">Overview</a> below.</p>
 <h3 id="sample">Sample</h3>
 <div class="highlight"><pre><span></span><code><span class="s2">&quot;elementProperties&quot;</span><span class="o">:</span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sap.m.Button&quot;</span><span class="p">,</span><span class="w"></span>
@@ -1029,8 +1019,6 @@
 <p class="admonition-title">Info<p>To get a complete overview about all possible methods, please see <a href="https://pages.github.tools.sap/sProcurement/wdio-qmate-service-ts/doc/#nonUi5.element">nonUi5.element</a>. </p>
 </p>
 </div>
-<h3 id="getting-the-attributes-with-spotlight">Getting the attributes with Spotlight</h3>
-<p>The <a href="https://github.tools.sap/sProcurement/qmate-spotlight">Spotlight Chrome Extension</a> also supports non UI5 applications to generate unique selectors. It is possible to use one of the alternatives generated from spotlight or to define them manually.</p>
 <h3 id="getting-the-attributes-manually">Getting the attributes manually</h3>
 <p>To get the properties of an element manually, please follow the steps below:</p>
 <ol>

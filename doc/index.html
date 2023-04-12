@@ -2549,29 +2549,36 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#restgeturi-options-object" class="md-nav__link">
-    rest.get(uri, [options]) ⇒ Object
+  <a href="#restgeturi-config-object" class="md-nav__link">
+    rest.get(uri, [config]) ⇒ Object
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#restposturi-payload-object" class="md-nav__link">
-    rest.post(uri, payload) ⇒ Object
+  <a href="#restposturi-payload-config-object" class="md-nav__link">
+    rest.post(uri, payload, [config]) ⇒ Object
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#restdeleteuri-options-object" class="md-nav__link">
-    rest.delete(uri, options) ⇒ Object
+  <a href="#restdeleteuri-config-object" class="md-nav__link">
+    rest.delete(uri, [config]) ⇒ Object
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#restpatchuri-options-object" class="md-nav__link">
-    rest.patch(uri, options) ⇒ Object
+  <a href="#restpatchuri-payload-config-object" class="md-nav__link">
+    rest.patch(uri, payload, [config]) ⇒ Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restputuri-payload-config-object" class="md-nav__link">
+    rest.put(uri, payload, [config]) ⇒ Object
   </a>
   
 </li>
@@ -5207,29 +5214,36 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#restgeturi-options-object" class="md-nav__link">
-    rest.get(uri, [options]) ⇒ Object
+  <a href="#restgeturi-config-object" class="md-nav__link">
+    rest.get(uri, [config]) ⇒ Object
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#restposturi-payload-object" class="md-nav__link">
-    rest.post(uri, payload) ⇒ Object
+  <a href="#restposturi-payload-config-object" class="md-nav__link">
+    rest.post(uri, payload, [config]) ⇒ Object
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#restdeleteuri-options-object" class="md-nav__link">
-    rest.delete(uri, options) ⇒ Object
+  <a href="#restdeleteuri-config-object" class="md-nav__link">
+    rest.delete(uri, [config]) ⇒ Object
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#restpatchuri-options-object" class="md-nav__link">
-    rest.patch(uri, options) ⇒ Object
+  <a href="#restpatchuri-payload-config-object" class="md-nav__link">
+    rest.patch(uri, payload, [config]) ⇒ Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restputuri-payload-config-object" class="md-nav__link">
+    rest.put(uri, payload, [config]) ⇒ Object
   </a>
   
 </li>
@@ -13927,10 +13941,11 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </li>
 <li><a href="#service.rest">.rest</a><ul>
 <li><a href="#service.rest.init">.init([customConfig])</a> ⇒ <code>Object</code></li>
-<li><a href="#service.rest.get">.get(uri, [options])</a> ⇒ <code>Object</code></li>
-<li><a href="#service.rest.post">.post(uri, payload)</a> ⇒ <code>Object</code></li>
-<li><a href="#service.rest.delete">.delete(uri, options)</a> ⇒ <code>Object</code></li>
-<li><a href="#service.rest.patch">.patch(uri, options)</a> ⇒ <code>Object</code></li>
+<li><a href="#service.rest.get">.get(uri, [config])</a> ⇒ <code>Object</code></li>
+<li><a href="#service.rest.post">.post(uri, payload, [config])</a> ⇒ <code>Object</code></li>
+<li><a href="#service.rest.delete">.delete(uri, [config])</a> ⇒ <code>Object</code></li>
+<li><a href="#service.rest.patch">.patch(uri, payload, [config])</a> ⇒ <code>Object</code></li>
+<li><a href="#service.rest.put">.put(uri, payload, [config])</a> ⇒ <code>Object</code></li>
 </ul>
 </li>
 </ul>
@@ -14396,10 +14411,11 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <ul>
 <li><a href="#service.rest">.rest</a><ul>
 <li><a href="#service.rest.init">.init([customConfig])</a> ⇒ <code>Object</code></li>
-<li><a href="#service.rest.get">.get(uri, [options])</a> ⇒ <code>Object</code></li>
-<li><a href="#service.rest.post">.post(uri, payload)</a> ⇒ <code>Object</code></li>
-<li><a href="#service.rest.delete">.delete(uri, options)</a> ⇒ <code>Object</code></li>
-<li><a href="#service.rest.patch">.patch(uri, options)</a> ⇒ <code>Object</code></li>
+<li><a href="#service.rest.get">.get(uri, [config])</a> ⇒ <code>Object</code></li>
+<li><a href="#service.rest.post">.post(uri, payload, [config])</a> ⇒ <code>Object</code></li>
+<li><a href="#service.rest.delete">.delete(uri, [config])</a> ⇒ <code>Object</code></li>
+<li><a href="#service.rest.patch">.patch(uri, payload, [config])</a> ⇒ <code>Object</code></li>
+<li><a href="#service.rest.put">.put(uri, payload, [config])</a> ⇒ <code>Object</code></li>
 </ul>
 </li>
 </ul>
@@ -14436,7 +14452,7 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <span class="kd">const</span><span class="w"> </span><span class="nx">axios</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">rest</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">customConfig</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="service.rest.get"></a></p>
-<h4 id="restgeturi-options-object">rest.get(uri, [options]) ⇒ <code>Object</code></h4>
+<h4 id="restgeturi-config-object">rest.get(uri, [config]) ⇒ <code>Object</code></h4>
 <p>makes a GET request.</p>
 <p><strong>Kind</strong>: static method of <a href="#service.rest"><code>rest</code></a><br />
 <strong>Returns</strong>: <code>Object</code> - The response of the GET request.  </p>
@@ -14445,7 +14461,6 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <tr>
 <th>Param</th>
 <th>Type</th>
-<th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -14453,23 +14468,22 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <tr>
 <td>uri</td>
 <td><code>String</code></td>
-<td></td>
 <td>The uri to the data source you want to GET.</td>
 </tr>
 <tr>
-<td>[options]</td>
+<td>[config]</td>
 <td><code>Object</code></td>
-<td><code>{}</code></td>
-<td>The options you want to specify for GET.</td>
+<td>The config options for the request.</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">https</span><span class="o">:</span><span class="c1">//api.predic8.de/shop/products/&quot;;</span><span class="w"></span>
 <span class="kd">let</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">rest</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">uri</span><span class="p">);</span><span class="w"></span>
+<span class="nx">common</span><span class="p">.</span><span class="nx">assertion</span><span class="p">.</span><span class="nx">expectEqual</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;qmate-service&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="service.rest.post"></a></p>
-<h4 id="restposturi-payload-object">rest.post(uri, payload) ⇒ <code>Object</code></h4>
+<h4 id="restposturi-payload-config-object">rest.post(uri, payload, [config]) ⇒ <code>Object</code></h4>
 <p>makes a POST request.</p>
 <p><strong>Kind</strong>: static method of <a href="#service.rest"><code>rest</code></a><br />
 <strong>Returns</strong>: <code>Object</code> - The response of the POST request.  </p>
@@ -14492,13 +14506,30 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <td><code>Object</code></td>
 <td>The data you want to POST against your entity set.</td>
 </tr>
+<tr>
+<td>[config]</td>
+<td><code>Object</code></td>
+<td>The config options for the request.</td>
+</tr>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">rest</span><span class="p">.</span><span class="ow">delete</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">baseUrl</span><span class="si">}</span><span class="sb">/posts/99`</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="mf">99</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;qmate-service&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nx">author</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;marvin&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">};</span><span class="w"></span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;X-CSRF-TOKEN&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&lt;CSRF TOKEN&gt;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;Cookie&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&lt;COOKIE&gt;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;application/json&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">};</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">rest</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">baseUrl</span><span class="si">}</span><span class="sb">/posts/99`</span><span class="p">,</span><span class="w"> </span><span class="nx">payload</span><span class="p">,</span><span class="w"> </span><span class="nx">config</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="service.rest.delete"></a></p>
-<h4 id="restdeleteuri-options-object">rest.delete(uri, options) ⇒ <code>Object</code></h4>
+<h4 id="restdeleteuri-config-object">rest.delete(uri, [config]) ⇒ <code>Object</code></h4>
 <p>makes a DELETE request.</p>
 <p><strong>Kind</strong>: static method of <a href="#service.rest"><code>rest</code></a><br />
 <strong>Returns</strong>: <code>Object</code> - The response of the DELETE request.  </p>
@@ -14517,17 +14548,23 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <td>The uri to the data source you want to DELETE.</td>
 </tr>
 <tr>
-<td>options</td>
+<td>[config]</td>
 <td><code>Object</code></td>
-<td>The options you want to specify for DELETE.</td>
+<td>The config options for the request.</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">rest</span><span class="p">.</span><span class="ow">delete</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">baseUrl</span><span class="si">}</span><span class="sb">/posts/99`</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nx">auth</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;username&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&lt;username&gt;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;password&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&lt;password&gt;&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">};</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">rest</span><span class="p">.</span><span class="ow">delete</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">baseUrl</span><span class="si">}</span><span class="sb">/posts/99`</span><span class="p">,</span><span class="w"> </span><span class="nx">config</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="service.rest.patch"></a></p>
-<h4 id="restpatchuri-options-object">rest.patch(uri, options) ⇒ <code>Object</code></h4>
+<h4 id="restpatchuri-payload-config-object">rest.patch(uri, payload, [config]) ⇒ <code>Object</code></h4>
 <p>makes a PATCH request.</p>
 <p><strong>Kind</strong>: static method of <a href="#service.rest"><code>rest</code></a><br />
 <strong>Returns</strong>: <code>Object</code> - The response of the PATCH request.  </p>
@@ -14546,14 +14583,74 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <td>The uri to the data source you want to PATCH.</td>
 </tr>
 <tr>
-<td>options</td>
+<td>payload</td>
 <td><code>Object</code></td>
-<td>The options you want to specify for PATCH.</td>
+<td>The data to be used for updating the entity.</td>
+</tr>
+<tr>
+<td>[config]</td>
+<td><code>Object</code></td>
+<td>The config options for the request.</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">rest</span><span class="p">.</span><span class="nx">patch</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">baseUrl</span><span class="si">}</span><span class="sb">/posts/99`</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nx">auth</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;username&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&lt;username&gt;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;password&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&lt;password&gt;&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">};</span><span class="w"></span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;patched-qmate-service&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="s2">&quot;author&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;qmate-tester&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">rest</span><span class="p">.</span><span class="nx">patch</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">baseUrl</span><span class="si">}</span><span class="sb">/posts/99`</span><span class="p">,</span><span class="w"> </span><span class="nx">payload</span><span class="p">,</span><span class="w"> </span><span class="nx">config</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<a name="service.rest.put"></a></p>
+<h4 id="restputuri-payload-config-object">rest.put(uri, payload, [config]) ⇒ <code>Object</code></h4>
+<p>makes a PUT request.</p>
+<p><strong>Kind</strong>: static method of <a href="#service.rest"><code>rest</code></a><br />
+<strong>Returns</strong>: <code>Object</code> - The response of the PUT request.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uri</td>
+<td><code>String</code></td>
+<td>The uri to the data source you want to PUT.</td>
+</tr>
+<tr>
+<td>payload</td>
+<td><code>Object</code></td>
+<td>The data to be used for updating the entity.</td>
+</tr>
+<tr>
+<td>[config]</td>
+<td><code>Object</code></td>
+<td>The config options for the request.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nx">auth</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;username&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&lt;username&gt;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;password&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&lt;password&gt;&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">99</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;put-qmate-service&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="s2">&quot;author&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;qmate-tester&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">rest</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">baseUrl</span><span class="si">}</span><span class="sb">/posts/99`</span><span class="p">,</span><span class="w"> </span><span class="nx">payload</span><span class="p">,</span><span class="w"> </span><span class="nx">config</span><span class="p">);</span><span class="w"></span>
 </code></pre></div></p>
 
               
