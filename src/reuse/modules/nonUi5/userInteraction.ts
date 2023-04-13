@@ -147,7 +147,7 @@ export class UserInteraction {
    */
   async fill(element: Element, value: string) {
     const vl = this.vlf.initLog(this.fill);
-    if (!(typeof value === "number" || typeof value === "string")) {
+    if (!(typeof value === "number" || typeof value === "string" || typeof value === "boolean")) {
       throw new Error("Function 'fill' failed: Please provide an element and value(datatype - number/string) as arguments");
     } else {
       try {
