@@ -227,7 +227,7 @@ export class UserInteraction {
         vl.log("Checkbox already unchecked.");
       }
     } catch (error) {
-      throw new Error(`Function 'check' failed with: ${error}`);
+      throw new Error(`Function 'uncheck' failed with: ${error}`);
     }
   }
 
