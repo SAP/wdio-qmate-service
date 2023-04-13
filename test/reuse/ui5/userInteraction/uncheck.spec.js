@@ -3,11 +3,9 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 describe("userInteraction - uncheck - checkbox (checked)", function () {
   const selector = {
     elementProperties: {
-      elementProperties: {
-        viewName: "sap.m.sample.CheckBox.CheckBoxGroup",
-        metadata: "sap.m.CheckBox",
-        text: "Option 2"
-      }
+      viewName: "sap.m.sample.CheckBox.CheckBoxGroup",
+      metadata: "sap.m.CheckBox",
+      text: "Option 2"
     }
   };
 
@@ -63,6 +61,6 @@ describe("userInteraction - uncheck - checkbox (error)", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.userInteraction.uncheck(selector, 0, 60000)).rejects.toThrow(/`Function 'uncheck' failed with:/);
+    await expect(ui5.userInteraction.uncheck(selector, 0, 60000)).rejects.toThrow(/Function 'uncheck' failed with:/);
   });
 });

@@ -26,11 +26,9 @@ describe("userInteraction - check - checkbox (unchecked)", function () {
 describe("userInteraction - check - checkbox (checked)", function () {
   const selector = {
     elementProperties: {
-      elementProperties: {
-        viewName: "sap.m.sample.CheckBox.CheckBoxGroup",
-        metadata: "sap.m.CheckBox",
-        text: "Option a"
-      }
+      viewName: "sap.m.sample.CheckBox.CheckBoxGroup",
+      metadata: "sap.m.CheckBox",
+      text: "Option a"
     }
   };
 
@@ -63,6 +61,6 @@ describe("userInteraction - check - checkbox (error)", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.userInteraction.check(selector, 0, 60000)).rejects.toThrow(/`Function 'check' failed with:/);
+    await expect(ui5.userInteraction.check(selector, 0, 60000)).rejects.toThrow(/Function 'check' failed with:/);
   });
 });
