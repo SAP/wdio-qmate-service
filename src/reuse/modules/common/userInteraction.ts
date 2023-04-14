@@ -15,20 +15,21 @@ export class UserInteraction {
    * @function fillActive
    * @memberOf common.userInteraction
    * @description Fills the active input with the given value.
-   * @param {String} value - The value with witch the input should be filled.
+   * @param {String | Number | Boolean} value - The value to enter.
    * @example await common.userInteraction.fillActive("My Value");
    */
-  async fillActive(value: string) {
+  async fillActive(value: string | number | boolean) {
     const vlf = this.vlf.initLog(this.fillActive);
-    if (!(typeof value === "number" || typeof value === "string")) {
-      throw new Error("Function 'fillActive' failed: Please provide a value(datatype - number/string) as argument.");
-    } else {
+
+    if (typeof value === "number" || typeof value === "string" || typeof value === "string") {
       try {
         const elem = await $(await browser.getActiveElement());
         await elem.addValue(value);
       } catch (error) {
         throw new Error(`Function 'fillActive' failed: ${error}`);
       }
+    } else {
+      throw new Error("Function 'fillActive' failed: Please provide a value(datatype - number/string) as argument.");
     }
   }
 
@@ -36,7 +37,7 @@ export class UserInteraction {
    * @function fillActiveAndRetry
    * @memberOf common.userInteraction
    * @description Enters the given value to the active input field and retries the action in case it fails.
-   * @param {String} value - The value with witch the input should be filled.
+   * @param {String} value - The value to enter.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await common.userInteraction.fillActiveAndRetry("My Value");

@@ -8,7 +8,9 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  * @memberof ui5
  */
 export class UserInteraction {
+  // =================================== LOGGER===================================
   private vlf = new VerboseLoggerFactory("ui5", "click");
+
   // =================================== CLICK ===================================
   /**
    * @function click
@@ -159,52 +161,6 @@ export class UserInteraction {
   }
 
   /**
-   * @function selectFromTab
-   * @memberOf ui5.userInteraction
-   * @description Selects the passed value on the tab with the given selector and checks if the tab got selected successfully.
-   * The function retries the click for maximal 3 times if the selection of the tab (blue underline) was not successful.
-   * @param {Object} selector - The selector describing the element.
-   * @param {String} value - The value to select.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
-   * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await ui5.userInteraction.selectFromTab(selector);
-   */
-  async selectFromTab(selector: any, value: string, index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.selectFromTab);
-    await util.function.retry(
-      async (selector: any, index: number, timeout: number) => {
-        const arrowSelector = {
-          elementProperties: {
-            viewName: selector.elementProperties.viewName,
-            metadata: "sap.ui.core.Icon",
-            src: "sap-icon://slim-arrow-down"
-          },
-          ancestorProperties: selector
-        };
-        await ui5.userInteraction.click(arrowSelector, index, timeout);
-
-        const menuItemSelector = {
-          elementProperties: {
-            viewName: selector.elementProperties.viewName,
-            metadata: "sap.ui.unified.MenuItem",
-            text: value
-          }
-        };
-        await ui5.userInteraction.click(menuItemSelector, 0, timeout);
-
-        const tabSwitchedSuccessfully: boolean = await this._verifyTabSwitch(selector);
-        if (tabSwitchedSuccessfully === false) {
-          throw new Error("Function 'selectFromTab': Could not verify successful tab switch.");
-        }
-      },
-      [selector, index, timeout],
-      3,
-      5000,
-      this
-    );
-  }
-
-  /**
    * @function clickListItem
    * @memberOf ui5.userInteraction
    * @description Clicks or opens the list item with the given selector (e.g. ColumnListItem, StandardListItem).
@@ -224,6 +180,55 @@ export class UserInteraction {
       });
       control.firePress();
     }, elem);
+  }
+
+  // =================================== CHECK ===================================
+  /**
+   * @function check
+   * @memberOf ui5.userInteraction
+   * @description Checks the checkbox with the given selector.
+   * @param {Object} selector - The selector describing the element.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example await ui5.userInteraction.check(selector);
+   */
+  async check(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickListItem);
+
+    try {
+      const isSelected: boolean = await ui5.element.getPropertyValue(selector, "selected", index, timeout);
+      if (!isSelected) {
+        await this.click(selector, index, timeout);
+      } else {
+        vl.log("Checkbox already selected.");
+      }
+    } catch (error) {
+      throw new Error(`Function 'check' failed with: ${error}`);
+    }
+  }
+
+  /**
+   * @function uncheck
+   * @memberOf ui5.userInteraction
+   * @description Unchecks the checkbox with the given selector.
+   * @param {Object} selector - The selector describing the element.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example await ui5.userInteraction.uncheck(selector);
+   */
+  async uncheck(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.clickListItem);
+
+    try {
+      const isSelected: boolean = await ui5.element.getPropertyValue(selector, "selected", index, timeout);
+      if (isSelected) {
+        await this.click(selector, index, timeout);
+      } else {
+        vl.log("Checkbox already unchecked.");
+      }
+    } catch (error) {
+      throw new Error(`Function 'uncheck' failed with: ${error}`);
+    }
   }
 
   // =================================== FILL ===================================
@@ -309,14 +314,15 @@ export class UserInteraction {
    * @memberOf ui5.userInteraction
    * @description Clears the input field with the given selector and fills the given value.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} value - The value to fill.
+   * @param {String | Number | Boolean} value - The value to fill.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clearAndFill(selector, "My Value");
    */
-  async clearAndFill(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async clearAndFill(selector: any, value: string | number | boolean, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.clearAndFill);
-    if (typeof value === "number" || typeof value === "string") {
+
+    if (typeof value === "number" || typeof value === "string" || typeof value === "boolean") {
       await this.clear(selector, index, timeout);
       await common.userInteraction.fillActive(value);
     } else {
@@ -535,6 +541,52 @@ export class UserInteraction {
   async clickSelectArrowAndRetry(selector: any, index = 0, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.clickSelectArrowAndRetry);
     await util.function.retry(this.clickSelectArrow, [selector, index], retries, interval, this);
+  }
+
+  /**
+   * @function selectFromTab
+   * @memberOf ui5.userInteraction
+   * @description Selects the passed value on the tab with the given selector and checks if the tab got selected successfully.
+   * The function retries the click for maximal 3 times if the selection of the tab (blue underline) was not successful.
+   * @param {Object} selector - The selector describing the element.
+   * @param {String} value - The value to select.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example await ui5.userInteraction.selectFromTab(selector);
+   */
+  async selectFromTab(selector: any, value: string, index: number = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const vl = this.vlf.initLog(this.selectFromTab);
+    await util.function.retry(
+      async (selector: any, index: number, timeout: number) => {
+        const arrowSelector = {
+          elementProperties: {
+            viewName: selector.elementProperties.viewName,
+            metadata: "sap.ui.core.Icon",
+            src: "sap-icon://slim-arrow-down"
+          },
+          ancestorProperties: selector
+        };
+        await ui5.userInteraction.click(arrowSelector, index, timeout);
+
+        const menuItemSelector = {
+          elementProperties: {
+            viewName: selector.elementProperties.viewName,
+            metadata: "sap.ui.unified.MenuItem",
+            text: value
+          }
+        };
+        await ui5.userInteraction.click(menuItemSelector, 0, timeout);
+
+        const tabSwitchedSuccessfully: boolean = await this._verifyTabSwitch(selector);
+        if (tabSwitchedSuccessfully === false) {
+          throw new Error("Function 'selectFromTab': Could not verify successful tab switch.");
+        }
+      },
+      [selector, index, timeout],
+      3,
+      5000,
+      this
+    );
   }
 
   // =================================== OTHERS ===================================

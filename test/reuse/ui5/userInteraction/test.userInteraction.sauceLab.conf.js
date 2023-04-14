@@ -34,13 +34,14 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "doubleClick.spec.js"),
     path.resolve(__dirname, "rightClick.spec.js"),
     path.resolve(__dirname, "mouseOverElement.spec.js"),
+    path.resolve(__dirname, "check.spec.js"),
+    path.resolve(__dirname, "uncheck.spec.js")
     // path.resolve(__dirname, "dragAndDrop.spec.js")
   ],
 
   exclude: [],
 
-
   mochaOpts: {
-    timeout: 2000000,
-  },
+    timeout: 2000000
+  }
 });
