@@ -427,7 +427,7 @@ export class UserInteraction {
   async selectBox(selector: any, value: string, index = 0) {
     const vl = this.vlf.initLog(this.selectBox);
     await this.clickSelectArrow(selector, index);
-    if (value) {
+    if (value !== undefined && value !== null) {
       const itemSelector = {
         elementProperties: {
           mProperties: {
