@@ -23,27 +23,30 @@ export class UserInteraction {
    */
   async click(element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.click);
-    vl.log("Expecting element to be displayed and enabled");
-    await Promise.all([
-      expect(element).toBeDisplayed({
-        //TODO: Reuse of internal functions?
-        wait: timeout,
-        interval: 100,
-        message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
-      }),
-      expect(element).toBeEnabled({
-        //TODO: Reuse of internal functions?
-        wait: timeout,
-        interval: 100,
-        message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
-      })
-    ]);
+
     try {
+      this._checkElement(element);
+
+      vl.log("Expecting element to be displayed and enabled");
+      await Promise.all([
+        expect(element).toBeDisplayed({
+          //TODO: Reuse of internal functions?
+          wait: timeout,
+          interval: 100,
+          message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
+        }),
+        expect(element).toBeEnabled({
+          //TODO: Reuse of internal functions?
+          wait: timeout,
+          interval: 100,
+          message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
+        })
+      ]);
+
       vl.log("Clicking the element");
       await element.click();
     } catch (error) {
-      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error as Error, "click");
-      throw new Error(errorMessage);
+      this._throwErrorForFunction("click", error);
     }
   }
 
@@ -60,11 +63,15 @@ export class UserInteraction {
    */
   async clickAndRetry(element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.click);
-    if (!element) {
-      throw new Error("Function 'clearAndRetry' failed. Please provide an element as first argument.");
+
+    try {
+      this._checkElement(element);
+
+      vl.log("Clicking the element");
+      return util.function.retry(this.click, [element, timeout], retries, interval, this);
+    } catch (error) {
+      this._throwErrorForFunction("clickAndRetry", error);
     }
-    vl.log("Retrying...");
-    return util.function.retry(this.click, [element, timeout], retries, interval, this);
   }
 
   /**
@@ -78,25 +85,28 @@ export class UserInteraction {
    */
   async doubleClick(element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.doubleClick);
-    vl.log("Expecting element to be displayed and enabled");
-    await Promise.all([
-      expect(element).toBeDisplayed({
-        wait: timeout,
-        interval: 100,
-        message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
-      }),
-      expect(element).toBeEnabled({
-        wait: timeout,
-        interval: 100,
-        message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
-      })
-    ]);
+
     try {
+      this._checkElement(element);
+
+      vl.log("Expecting element to be displayed and enabled");
+      await Promise.all([
+        expect(element).toBeDisplayed({
+          wait: timeout,
+          interval: 100,
+          message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
+        }),
+        expect(element).toBeEnabled({
+          wait: timeout,
+          interval: 100,
+          message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
+        })
+      ]);
+
       vl.log("Clicking the element");
       await element.doubleClick();
     } catch (error) {
-      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error as Error, "doubleClick");
-      throw new Error(errorMessage);
+      this._throwErrorForFunction("doubleClick", error);
     }
   }
 
@@ -111,27 +121,30 @@ export class UserInteraction {
    */
   async rightClick(element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.rightClick);
-    vl.log("Expecting element to be displayed and enabled");
-    await Promise.all([
-      expect(element).toBeDisplayed({
-        wait: timeout,
-        interval: 100,
-        message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
-      }),
-      expect(element).toBeEnabled({
-        wait: timeout,
-        interval: 100,
-        message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
-      })
-    ]);
+
     try {
+      this._checkElement(element);
+
+      vl.log("Expecting element to be displayed and enabled");
+      await Promise.all([
+        expect(element).toBeDisplayed({
+          wait: timeout,
+          interval: 100,
+          message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
+        }),
+        expect(element).toBeEnabled({
+          wait: timeout,
+          interval: 100,
+          message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
+        })
+      ]);
+
       vl.log("Clicking the element");
       await element.click({
         button: "right"
       });
     } catch (error) {
-      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error as Error, "rightClick");
-      throw new Error(errorMessage);
+      this._throwErrorForFunction("rightClick", error);
     }
   }
 
@@ -141,31 +154,21 @@ export class UserInteraction {
    * @memberOf nonUi5.userInteraction
    * @description Fills the given value into the passed input.
    * @param {Object} element - The element.
-   * @param {String} value - The value to be filled.
+   * @param {String |  Number} value - The value to enter.
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.fill(elem, "Service 01");
    */
-  async fill(element: Element, value: string) {
+  async fill(element: Element, value: string | number) {
     const vl = this.vlf.initLog(this.fill);
-    if (!(typeof value === "number" || typeof value === "string" || typeof value === "boolean")) {
-      throw new Error("Function 'fill' failed: Please provide an element and value(datatype - number/string) as arguments");
-    } else {
-      try {
-        vl.log(`Setting the value of element to ${value}`);
-        await element.setValue(value);
-      } catch (error) {
-        // @ts-ignore
-        if (error.message && error.message.match(new RegExp(/(invalid element state|element not interactable)/))) {
-          const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error as Error, "fill");
-          throw new Error(errorMessage);
-        } else {
-          if (!value) {
-            throw new Error("Function 'fill' failed: Please provide a value as second argument: " + error);
-          } else {
-            throw error;
-          }
-        }
-      }
+
+    try {
+      this._checkElement(element);
+      this._checkValue(value);
+
+      vl.log(`Setting the value of element to ${value}`);
+      await element.setValue(value);
+    } catch (error) {
+      this._throwErrorForFunction("fill", error);
     }
   }
 
@@ -174,19 +177,23 @@ export class UserInteraction {
    * @memberOf nonUi5.userInteraction
    * @description Fills the given value into the passed input, retries in case of a failure.
    * @param {Object} element - The element.
-   * @param {String} value - The value to be filled.
+   * @param {String | Number} value - The value to enter.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.fillAndRetry(elem, "Service 01");
    */
-  async fillAndRetry(element: Element, value: string, retries: number = 3, interval: number = 5000) {
+  async fillAndRetry(element: Element, value: string | number, retries: number = 3, interval: number = 5000) {
     const vl = this.vlf.initLog(this.fillAndRetry);
-    if (!element || value === null || value === undefined || value === "") {
-      throw new Error("Function 'fillAndRetry' failed: Please provide an element and value as arguments.");
-    } else {
-      vl.log("Retrying...");
+
+    try {
+      this._checkElement(element);
+      this._checkValue(value);
+
+      vl.log(`Setting the value of element to ${value}`);
       return util.function.retry(this.fill, [element, value], retries, interval, this);
+    } catch (error) {
+      this._throwErrorForFunction("fillAndRetry", error);
     }
   }
 
@@ -201,10 +208,15 @@ export class UserInteraction {
    */
   async clear(element: Element) {
     const vl = this.vlf.initLog(this.clear);
-    if (!element) {
-      throw new Error("Function 'clear' failed: Please provide an element as first argument.");
+
+    try {
+      this._checkElement(element);
+
+      vl.log(`Clearing the value of element`);
+      return element.clearValue();
+    } catch (error) {
+      this._throwErrorForFunction("clear", error);
     }
-    return element.clearValue();
   }
 
   /**
@@ -219,10 +231,15 @@ export class UserInteraction {
    */
   async clearAndRetry(element: Element, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.clearAndRetry);
-    if (!element) {
-      throw new Error("Function 'clearAndRetry' failed: Please provide an element as first argument.");
+
+    try {
+      this._checkElement(element);
+
+      vl.log(`Clearing the value of element`);
+      return util.function.retry(this.clear, [element], retries, interval, this);
+    } catch (error) {
+      this._throwErrorForFunction("clearAndRetry", error);
     }
-    return util.function.retry(this.clear, [element], retries, interval, this);
   }
 
   /**
@@ -230,24 +247,23 @@ export class UserInteraction {
    * @memberOf nonUi5.userInteraction
    * @description Clears and fills the passed input element.
    * @param {Object} element - The element.
-   * @param {String} value - The value to be filled in.
+   * @param {String | Number} value - The value to enter in.
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.clearAndFill(elem, "Service 01");
    */
-  async clearAndFill(element: Element, value: string) {
+  async clearAndFill(element: Element, value: string | string) {
     const vl = this.vlf.initLog(this.clearAndFill);
-    //arg. 'value' needs to be checked in case of numeric values. E.g.: 0 or 1 will be handled as boolean value in if.
-    if (!element || !(typeof value === "number" || typeof value === "string" || typeof value === "boolean")) {
-      throw new Error("Function 'clearAndFill' failed: Please provide an element and value(datatype - number/string) as arguments.");
-    } else {
-      try {
-        vl.log("Clearing the element");
-        await this.clear(element);
-        vl.log(`Setting the value of element to ${value}`);
-        await element.setValue(value);
-      } catch (error) {
-        throw new Error(`Function 'clearAndFill' failed: ${error}`);
-      }
+
+    try {
+      this._checkElement(element);
+      this._checkValue(value);
+
+      await this.clear(element);
+
+      vl.log(`Setting the value of element to ${value}`);
+      await element.setValue(value);
+    } catch (error) {
+      this._throwErrorForFunction("clearAndFill", error);
     }
   }
 
@@ -256,28 +272,37 @@ export class UserInteraction {
    * @memberOf nonUi5.userInteraction
    * @description Clears and fills the passed input, retries in case it fails.
    * @param {Object} element - The element.
-   * @param {String} value - The value to be filled in.
+   * @param {String | Number} value - The value to enter in.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @param {Boolean} [verify=true] - Specifies if the filled value should be verified.
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
    */
-  async clearAndFillAndRetry(element: Element, value: string, retries: number = 3, interval: number = 5000, verify: boolean = true) {
+  async clearAndFillAndRetry(element: Element, value: string | number, retries: number = 3, interval: number = 5000, verify: boolean = true) {
     const vl = this.vlf.initLog(this.clearAndFillAndRetry);
-    return util.function.retry(
-      async (elem: Element, value: string) => {
-        await this.clearAndFill(elem, value);
-        if (verify) {
-          const elemValue = await elem.getValue();
-          if (elemValue != value) throw new Error("Function 'clearAndFillAndRetry' failed. Verification of value failed.");
-        }
-      },
-      [element, value],
-      retries,
-      interval,
-      this
-    );
+
+    try {
+      this._checkElement(element);
+      this._checkValue(value);
+
+      return util.function.retry(
+        async (elem: Element, value: string) => {
+          await this.clearAndFill(elem, value);
+
+          if (verify) {
+            const elemValue = await elem.getValue();
+            if (elemValue != value) throw new Error("Verification of value failed.");
+          }
+        },
+        [element, value],
+        retries,
+        interval,
+        this
+      );
+    } catch (error) {
+      this._throwErrorForFunction("clearAndFillAndRetry", error);
+    }
   }
 
   // =================================== OTHERS ===================================
@@ -291,13 +316,16 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("dropdown42");
    * await nonUi5.userInteraction.mouseOverElement(elem);
    */
-  async mouseOverElement(elem: Element, xOffset: number, yOffset: number) {
+  async mouseOverElement(element: Element, xOffset: number, yOffset: number) {
     const vl = this.vlf.initLog(this.mouseOverElement);
+
     try {
-      await elem.moveTo({ xOffset, yOffset });
+      this._checkElement(element);
+
+      vl.log("Moving mouse to element");
+      await element.moveTo({ xOffset, yOffset });
     } catch (error) {
-      // @ts-ignore
-      throw new Error("Function: 'mouseOverElement' failed: ", error);
+      this._throwErrorForFunction("mouseOverElement", error);
     }
   }
 
@@ -311,13 +339,21 @@ export class UserInteraction {
    * @example const elem = await nonUi5.userInteraction.getElementById("footer01");
    * await nonUi5.userInteraction.scrollToElement(elem);
    */
-  async scrollToElement(elem: Element, alignment: AlignmentValues = AlignmentValues.CENTER) {
+  async scrollToElement(element: Element, alignment: AlignmentValues = AlignmentValues.CENTER) {
     const vl = this.vlf.initLog(this.scrollToElement);
-    const options = {
-      block: alignment,
-      inline: alignment
-    };
-    await elem.scrollIntoView(options);
+
+    try {
+      this._checkElement(element);
+
+      const options = {
+        block: alignment,
+        inline: alignment
+      };
+      vl.log("Scrolling to element");
+      await element.scrollIntoView(options);
+    } catch (error) {
+      this._throwErrorForFunction("scrollToElement", error);
+    }
   }
 
   /**
@@ -332,31 +368,36 @@ export class UserInteraction {
    */
   async dragAndDrop(element: Element, targetElem: Element) {
     const vl = this.vlf.initLog(this.dragAndDrop);
-    // await element.dragAndDrop(targetElem);
 
-    const sourceSize = await element.getSize();
-    const targetSize = await targetElem.getSize();
-    const sourceLocation = await element.getLocation();
-    const targetLocation = await targetElem.getLocation();
+    try {
+      this._checkElement(element);
 
-    // Get centers of elements to move from center to center (e.g. to avoid errors in rounded elements)
-    const sourceCenterLocation = {
-      x: +Number(sourceSize.width / 2).toFixed(0) + +Number(sourceLocation.x).toFixed(0) + 1,
-      y: +Number(sourceSize.height / 2).toFixed(0) + +Number(sourceLocation.y).toFixed(0) + 1
-    };
+      const sourceSize = await element.getSize();
+      const targetSize = await targetElem.getSize();
+      const sourceLocation = await element.getLocation();
+      const targetLocation = await targetElem.getLocation();
 
-    const targetCenterLocation = {
-      x: +Number(targetSize.width / 2).toFixed(0) + +Number(targetLocation.x).toFixed(0) + 1,
-      y: +Number(targetSize.height / 2).toFixed(0) + +Number(targetLocation.y).toFixed(0) + 1
-    };
+      // Get centers of elements to move from center to center (e.g. to avoid errors in rounded elements)
+      const sourceCenterLocation = {
+        x: +Number(sourceSize.width / 2).toFixed(0) + +Number(sourceLocation.x).toFixed(0) + 1,
+        y: +Number(sourceSize.height / 2).toFixed(0) + +Number(sourceLocation.y).toFixed(0) + 1
+      };
 
-    await browser
-      .action("pointer")
-      .move({ duration: 0, x: sourceCenterLocation.x, y: sourceCenterLocation.y })
-      .down({ button: 0 }) //left button
-      .move({ duration: 0, x: targetCenterLocation.x, y: targetCenterLocation.y })
-      .down({ button: 0 }) //left button
-      .perform();
+      const targetCenterLocation = {
+        x: +Number(targetSize.width / 2).toFixed(0) + +Number(targetLocation.x).toFixed(0) + 1,
+        y: +Number(targetSize.height / 2).toFixed(0) + +Number(targetLocation.y).toFixed(0) + 1
+      };
+
+      await browser
+        .action("pointer")
+        .move({ duration: 0, x: sourceCenterLocation.x, y: sourceCenterLocation.y })
+        .down({ button: 0 }) //left button
+        .move({ duration: 0, x: targetCenterLocation.x, y: targetCenterLocation.y })
+        .down({ button: 0 }) //left button
+        .perform();
+    } catch (error) {
+      this._throwErrorForFunction("dragAndDrop", error);
+    }
   }
 
   /**
@@ -369,8 +410,15 @@ export class UserInteraction {
    */
   async moveCursorAndClick(element: Element) {
     const vl = this.vlf.initLog(this.moveCursorAndClick);
-    await element.moveTo();
-    await element.click();
+
+    try {
+      this._checkElement(element);
+
+      await element.moveTo();
+      await element.click();
+    } catch (error) {
+      this._throwErrorForFunction("moveCursorAndClick", error);
+    }
   }
 
   /**
@@ -385,22 +433,50 @@ export class UserInteraction {
    */
   async clickElementInSvg(svgElem: Element, innerSelector: string) {
     const vl = this.vlf.initLog(this.clickElementInSvg);
-    const innerElem = await $(innerSelector);
 
-    const svgPos = await svgElem.getLocation();
-    const innerPos = await innerElem.getLocation();
+    try {
+      const innerElem = await $(innerSelector);
 
-    const svgSize = await svgElem.getSize();
-    const innerSize = await innerElem.getSize();
+      const svgPos = await svgElem.getLocation();
+      const innerPos = await innerElem.getLocation();
 
-    const diffX = innerPos.x - svgPos.x;
-    const diffY = innerPos.y - svgPos.y;
+      const svgSize = await svgElem.getSize();
+      const innerSize = await innerElem.getSize();
 
-    const centerOffsetX = -(svgSize.width / 2) + diffX + innerSize.width / 2;
-    const centerOffsetY = -(svgSize.height / 2) + diffY + innerSize.height / 2;
+      const diffX = innerPos.x - svgPos.x;
+      const diffY = innerPos.y - svgPos.y;
 
-    // @ts-ignore
-    await svgElem.click({ x: parseInt(centerOffsetX), y: parseInt(centerOffsetY) });
+      const centerOffsetX = -(svgSize.width / 2) + diffX + innerSize.width / 2;
+      const centerOffsetY = -(svgSize.height / 2) + diffY + innerSize.height / 2;
+
+      // @ts-ignore
+      await svgElem.click({ x: parseInt(centerOffsetX), y: parseInt(centerOffsetY) });
+    } catch (error) {
+      this._throwErrorForFunction("clickElementInSvg", error);
+    }
+  }
+
+  // =================================== HELPERS ===================================
+  // TODO: move to internal utility classes
+
+  private _throwErrorForFunction(functionName: string, error: unknown | Error): void {
+    if (error) {
+      throw new Error(`Function '${functionName}' failed with: ${error}`);
+    } else {
+      throw new Error(`Function ${functionName} failed.`);
+    }
+  }
+
+  private _checkElement(element: any) {
+    if (!element) {
+      throw new Error("Please provide an element as first argument.");
+    }
+  }
+
+  private _checkValue(value: any): void {
+    if (typeof value !== "string" || typeof value !== "number") {
+      throw new Error("value is invalid. It must be of type 'string' or 'number'");
+    }
   }
 }
 export default new UserInteraction();

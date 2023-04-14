@@ -237,15 +237,16 @@ export class UserInteraction {
    * @memberOf ui5.userInteraction
    * @description Fills the input field with the given selector.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} value - The value to fill.
+   * @param {String | Number} value - The value to enter.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.fill(selector, "My Value");
    */
-  async fill(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async fill(selector: any, value: string | number, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.fill);
     vl.log(`Filling with ${value}`);
-    if (typeof value === "number" || typeof value === "string") {
+
+    if (typeof value === "string" || typeof value === "number") {
       const id = await ui5.element.getId(selector, index, timeout);
       let elem = null;
       if (selector.elementProperties.metadata === "sap.m.TextArea") {
@@ -264,14 +265,14 @@ export class UserInteraction {
    * @memberOf ui5.userInteraction
    * @description Fills the input field with the given selector and retries the action in case of a failure.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} value - The value to fill.
+   * @param {String | Number} value - The value to enter.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await ui5.userInteraction.fillAndRetry(selector, "My Value");
    */
-  async fillAndRetry(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
+  async fillAndRetry(selector: any, value: string | number, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.fillAndRetry);
     await util.function.retry(this.fill, [selector, value, index, timeout], retries, interval, this);
   }
@@ -314,7 +315,7 @@ export class UserInteraction {
    * @memberOf ui5.userInteraction
    * @description Clears the input field with the given selector and fills the given value.
    * @param {Object} selector - The selector describing the element.
-   * @param {String | Number | Boolean} value - The value to fill.
+   * @param {String | Number | Boolean} value - The value to enter.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clearAndFill(selector, "My Value");
@@ -335,7 +336,7 @@ export class UserInteraction {
    * @memberOf ui5.userInteraction
    * @description Clears the input field with the given selector and fills the given value. Retries the action in case of a failure.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} value - The value to fill.
+   * @param {String} value - The value to enter.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
@@ -387,7 +388,7 @@ export class UserInteraction {
    * @memberOf ui5.userInteraction
    * @description Clears the smart filed with the given selector and fills the given value.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} value - The value to fill.
+   * @param {String} value - The value to enter.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clearAndFillSmartFieldInput(selector, "My Value");
@@ -406,7 +407,7 @@ export class UserInteraction {
    * @memberOf ui5.userInteraction
    * @description Clears the smart filed with the given selector and fills the given value and retries the action in case of a failure.
    * @param {Object} selector - The selector describing the element.
-   * @param {String} value - The value to fill.
+   * @param {String} value - The value to enter.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
