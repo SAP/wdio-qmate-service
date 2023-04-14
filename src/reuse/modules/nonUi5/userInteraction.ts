@@ -147,7 +147,7 @@ export class UserInteraction {
    */
   async fill(element: Element, value: string) {
     const vl = this.vlf.initLog(this.fill);
-    if (!(typeof value === "number" || typeof value === "string")) {
+    if (!(typeof value === "number" || typeof value === "string" || typeof value === "boolean")) {
       throw new Error("Function 'fill' failed: Please provide an element and value(datatype - number/string) as arguments");
     } else {
       try {
@@ -237,7 +237,7 @@ export class UserInteraction {
   async clearAndFill(element: Element, value: string) {
     const vl = this.vlf.initLog(this.clearAndFill);
     //arg. 'value' needs to be checked in case of numeric values. E.g.: 0 or 1 will be handled as boolean value in if.
-    if (!element || !(typeof value === "number" || typeof value === "string")) {
+    if (!element || !(typeof value === "number" || typeof value === "string" || typeof value === "boolean")) {
       throw new Error("Function 'clearAndFill' failed: Please provide an element and value(datatype - number/string) as arguments.");
     } else {
       try {
