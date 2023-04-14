@@ -89,13 +89,14 @@
     "test:reuse:ui5:pt1": "npm run test:reuse:ui5:assertion && npm run test:reuse:ui5:confirmationDialog && npm run test:reuse:ui5:control && npm run test:reuse:ui5:date && npm run test:reuse:ui5:element && npm run test:reuse:ui5:errorDialog",
     "test:reuse:ui5:pt2": "npm run test:reuse:ui5:navigationBar && npm run test:reuse:ui5:table && npm run test:reuse:ui5:userInteraction",
     "test:reuse:util:browser": "npx wdio ./test/reuse/util/browser/test.browser.conf.js",
+    "test:reuse:util:browserCmndLineArgs": "npx wdio ./test/reuse/util/browser/test.browserCmndLineArgs.conf.js --baseUrl=https://sapui5.hana.ondemand.com/1.99.0/",
     "test:reuse:util:data": "npx wdio ./test/reuse/util/data/test.data.conf.js",
     "test:reuse:util:component": "npx wdio ./test/reuse/util/component/test.component.conf.js",
     "test:reuse:util:file": "npx wdio ./test/reuse/util/file/test.file.conf.js",
     "test:reuse:util:console": "npx wdio ./test/reuse/util/console/test.console.conf.js",
     "test:reuse:util:system": "npx wdio ./test/reuse/util/system/test.system.conf.js",
     "test:reuse:util:formatter": "npx wdio ./test/reuse/util/formatter/test.formatter.conf.js",
-    "test:reuse:util": "npm run test:reuse:util:browser && npm run test:reuse:util:data && npm run test:reuse:util:file && npm run test:reuse:util:formatter && npm run test:reuse:util:system && npm run test:reuse:util:console && npm run test:reuse:util:component",
+    "test:reuse:util": "npm run test:reuse:util:browser && npm run test:reuse:util:browserCmndLineArgs && npm run test:reuse:util:data && npm run test:reuse:util:file && npm run test:reuse:util:formatter && npm run test:reuse:util:system && npm run test:reuse:util:console && npm run test:reuse:util:component",
     "test:reuse:common:assertion": "npx wdio ./test/reuse/common/assertion/test.assertion.conf.js",
     "test:reuse:common:navigation": "npx wdio ./test/reuse/common/navigation/test.navigation.conf.js",
     "test:reuse:common:date": "npx wdio ./test/reuse/common/date/test.date.conf.js",
@@ -133,7 +134,8 @@
     "pdf-parse": "^1.1.1",
     "query-string": "^7.1.0",
     "supertest": "^6.1.6",
-    "yargs": "^17.1.1"
+    "yargs": "^17.1.1",
+    "deepmerge": "^4.2.2"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
@@ -149,7 +151,6 @@
     "chai": "^4.3.4",
     "chromedriver": "^111.0.0",
     "concurrently": "^7.6.0",
-    "deepmerge": "^4.2.2",
     "doctrine": "^3.0.0",
     "eslint": "^6.8.0",
     "eslint-plugin-wdio": "^6.0.12",
