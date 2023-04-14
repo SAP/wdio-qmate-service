@@ -358,8 +358,8 @@ export class Browser {
    */
   async log(message: string = "") {
     const vl = this.vlf.initLog(this.log);
-    message = this.specLogPrefix + message.replace(/\"/g, "\\\"");
-    await browser.execute(`console.log("${message}");`);
+    message = this.specLogPrefix + message;
+    await browser.execute((message: string) => console.log(message), message);
   }
 
   /**
@@ -371,8 +371,8 @@ export class Browser {
    */
   async warn(message: string = "") {
     const vl = this.vlf.initLog(this.log);
-    message = this.specLogPrefix + message.replace(/\"/g, "\\\"");
-    await browser.execute(`console.warn("${message}");`);
+    message = this.specLogPrefix + message;
+    await browser.execute((message: string) => console.warn(message), message);
   }
 
   /**
@@ -384,8 +384,8 @@ export class Browser {
    */
   async error(message: string) {
     const vl = this.vlf.initLog(this.log);
-    message = this.specLogPrefix + message.replace(/\"/g, "\\\"");
-    await browser.execute(`console.error("${message}");`);
+    message = this.specLogPrefix + message;
+    await browser.execute((message: string) => console.error(message), message);
   }
 
   // =================================== HELPER ===================================
