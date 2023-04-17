@@ -349,6 +349,8 @@ export class Browser {
     return browser.back();
   }
 
+
+  // =================================== LOGGER ===================================
   /**
    * @function log
    * @memberOf util.browser
@@ -370,7 +372,7 @@ export class Browser {
    * @example await util.browser.warn("This is a warning message");
    */
   async warn(message: string = "") {
-    const vl = this.vlf.initLog(this.log);
+    const vl = this.vlf.initLog(this.warn);
     message = this.specLogPrefix + message;
     await browser.execute((message: string) => console.warn(message), message);
   }
@@ -383,7 +385,7 @@ export class Browser {
    * @example await util.browser.error("This is an error message");
    */
   async error(message: string) {
-    const vl = this.vlf.initLog(this.log);
+    const vl = this.vlf.initLog(this.error);
     message = this.specLogPrefix + message;
     await browser.execute((message: string) => console.error(message), message);
   }
