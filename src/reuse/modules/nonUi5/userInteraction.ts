@@ -459,11 +459,15 @@ export class UserInteraction {
   // =================================== HELPERS ===================================
   // TODO: move to internal utility classes
 
-  private _throwErrorForFunction(functionName: string, error: unknown | Error): void {
-    if (error) {
-      throw new Error(`Function '${functionName}' failed with: ${error}`);
+  private _throwErrorForFunction(functionName: string, error: unknown | Error): never {
+    if (error instanceof Error) {
+      if (error.message) {
+        throw new Error(`Function '${functionName}' failed with: ${error.message}`);
+      } else {
+        throw new Error(`Function '${functionName}' failed with ${error.message}`);
+      }
     } else {
-      throw new Error(`Function ${functionName} failed.`);
+      throw new Error(`Function '${functionName}' failed with an unknown error.`);
     }
   }
 
@@ -474,7 +478,7 @@ export class UserInteraction {
   }
 
   private _checkValue(value: any): void {
-    if (typeof value !== "string" || typeof value !== "number") {
+    if (typeof value !== "string" && typeof value !== "number") {
       throw new Error("value is invalid. It must be of type 'string' or 'number'");
     }
   }
