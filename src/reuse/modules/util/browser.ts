@@ -8,6 +8,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  */
 export class Browser {
   private vlf = new VerboseLoggerFactory("util", "browser");
+  private specLogPrefix = "@SPEC: ";
 
   // =================================== URL ===================================
   /**
@@ -173,6 +174,7 @@ export class Browser {
         // eslint-disable-next-line no-return-await
         return await browser.execute(function () {
           try {
+            // @ts-ignore
             if (window && window.sap && window.sap.ui) {
               return true;
             } else {
@@ -345,6 +347,45 @@ export class Browser {
   async back() {
     const vl = this.vlf.initLog(this.back);
     return browser.back();
+  }
+
+  /**
+   * @function log
+   * @memberOf util.browser
+   * @description add log message to browser logs, can be viewed in the html report
+   * @param {String} message string - The message to be logged.
+   * @example await util.browser.log("Created PO 123456");
+   */
+  async log(message: string = "") {
+    const vl = this.vlf.initLog(this.log);
+    message = this.specLogPrefix + message;
+    await browser.execute((message: string) => console.log(message), message);
+  }
+
+  /**
+   * @function warn
+   * @memberOf util.browser
+   * @description add warning message to browser logs, can be viewed in the html report
+   * @param {String} message string - The warning message to be logged.
+   * @example await util.browser.warn("This is a warning message");
+   */
+  async warn(message: string = "") {
+    const vl = this.vlf.initLog(this.log);
+    message = this.specLogPrefix + message;
+    await browser.execute((message: string) => console.warn(message), message);
+  }
+
+  /**
+   * @function error
+   * @memberOf util.browser
+   * @description add error message to browser logs, can be viewed in the html report
+   * @param {String} message string - The error message to be logged.
+   * @example await util.browser.error("This is an error message");
+   */
+  async error(message: string) {
+    const vl = this.vlf.initLog(this.log);
+    message = this.specLogPrefix + message;
+    await browser.execute((message: string) => console.error(message), message);
   }
 
   // =================================== HELPER ===================================
