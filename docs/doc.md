@@ -567,6 +567,9 @@ Global namespace for util modules.
         * [.switchToIframe(selector)](#util.browser.switchToIframe)
         * [.switchToDefaultContent()](#util.browser.switchToDefaultContent)
         * [.back()](#util.browser.back)
+        * [.log(message)](#util.browser.log)
+        * [.warn(message)](#util.browser.warn)
+        * [.error(message)](#util.browser.error)
     * [.component](#util.component)
         * [new component()](#new_util.component_new)
         * [.loadEntryPoint([folderPath])](#util.component.loadEntryPoint) ⇒ <code>Object</code>
@@ -628,6 +631,9 @@ Global namespace for util modules.
     * [.switchToIframe(selector)](#util.browser.switchToIframe)
     * [.switchToDefaultContent()](#util.browser.switchToDefaultContent)
     * [.back()](#util.browser.back)
+    * [.log(message)](#util.browser.log)
+    * [.warn(message)](#util.browser.warn)
+    * [.error(message)](#util.browser.error)
 
 <a name="util.browser.getBaseUrl"></a>
 
@@ -888,6 +894,51 @@ Go one step back in browser history.
 **Example**  
 ```js
 await util.browser.back();
+```
+<a name="util.browser.log"></a>
+
+#### browser.log(message)
+add log message to browser logs, can be viewed in the html report
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | string - The message to be logged. |
+
+**Example**  
+```js
+await util.browser.log("Created PO 123456");
+```
+<a name="util.browser.warn"></a>
+
+#### browser.warn(message)
+add warning message to browser logs, can be viewed in the html report
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | string - The warning message to be logged. |
+
+**Example**  
+```js
+await util.browser.warn("This is a warning message");
+```
+<a name="util.browser.error"></a>
+
+#### browser.error(message)
+add error message to browser logs, can be viewed in the html report
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | string - The error message to be logged. |
+
+**Example**  
+```js
+await util.browser.error("This is an error message");
 ```
 <a name="util.component"></a>
 
