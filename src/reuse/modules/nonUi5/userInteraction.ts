@@ -9,7 +9,7 @@ import { AlignmentValues } from "./constants/userInteraction.constants";
  * @memberof nonUi5
  */
 export class UserInteraction {
-  private vlf = new VerboseLoggerFactory("nonui5", "userInteraction");
+  private vlf = new VerboseLoggerFactory("nonUi5", "userInteraction");
 
   // =================================== CLICK ===================================
   /**
@@ -25,7 +25,7 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.click);
 
     try {
-      this._checkElement(element);
+      this._verifyElement(element);
 
       vl.log("Expecting element to be displayed and enabled");
       await Promise.all([
@@ -65,7 +65,7 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.click);
 
     try {
-      this._checkElement(element);
+      this._verifyElement(element);
 
       vl.log("Clicking the element");
       return util.function.retry(this.click, [element, timeout], retries, interval, this);
@@ -87,7 +87,7 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.doubleClick);
 
     try {
-      this._checkElement(element);
+      this._verifyElement(element);
 
       vl.log("Expecting element to be displayed and enabled");
       await Promise.all([
@@ -123,7 +123,7 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.rightClick);
 
     try {
-      this._checkElement(element);
+      this._verifyElement(element);
 
       vl.log("Expecting element to be displayed and enabled");
       await Promise.all([
@@ -148,6 +148,55 @@ export class UserInteraction {
     }
   }
 
+  // =================================== CHECK ===================================
+  /**
+   * @function check
+   * @memberOf nonUi5.userInteraction
+   * @description Checks the given checkbox.
+   * @param {Object} element - The element.
+   * @example await nonUi5.userInteraction.check(selector);
+   */
+  async check(element: Element) {
+    const vl = this.vlf.initLog(this.check);
+
+    try {
+      this._verifyElement(element);
+
+      const isSelected: boolean = await nonUi5.element.isSelected(elem);
+      if (!isSelected) {
+        await this.click(element);
+      } else {
+        vl.log("Checkbox already selected.");
+      }
+    } catch (error) {
+      this._throwErrorForFunction("check", error);
+    }
+  }
+
+  /**
+   * @function uncheck
+   * @memberOf nonUi5.userInteraction
+   * @description Unchecks the given checkbox.
+   * @param {Object} element - The element.
+   * @example await nonUi5.userInteraction.uncheck(selector);
+   */
+  async uncheck(element: Element) {
+    const vl = this.vlf.initLog(this.check);
+
+    try {
+      this._verifyElement(element);
+
+      const isSelected: boolean = await nonUi5.element.isSelected(elem);
+      if (isSelected) {
+        await this.click(element);
+      } else {
+        vl.log("Checkbox already unchecked.");
+      }
+    } catch (error) {
+      this._throwErrorForFunction("uncheck", error);
+    }
+  }
+
   // =================================== FILL ===================================
   /**
    * @function fill
@@ -162,8 +211,8 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.fill);
 
     try {
-      this._checkElement(element);
-      this._checkValue(value);
+      this._verifyElement(element);
+      this._verifyValue(value);
 
       vl.log(`Setting the value of element to ${value}`);
       await element.setValue(value);
@@ -187,8 +236,8 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.fillAndRetry);
 
     try {
-      this._checkElement(element);
-      this._checkValue(value);
+      this._verifyElement(element);
+      this._verifyValue(value);
 
       vl.log(`Setting the value of element to ${value}`);
       return util.function.retry(this.fill, [element, value], retries, interval, this);
@@ -210,7 +259,7 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.clear);
 
     try {
-      this._checkElement(element);
+      this._verifyElement(element);
 
       vl.log(`Clearing the value of element`);
       return element.clearValue();
@@ -233,7 +282,7 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.clearAndRetry);
 
     try {
-      this._checkElement(element);
+      this._verifyElement(element);
 
       vl.log(`Clearing the value of element`);
       return util.function.retry(this.clear, [element], retries, interval, this);
@@ -255,8 +304,8 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.clearAndFill);
 
     try {
-      this._checkElement(element);
-      this._checkValue(value);
+      this._verifyElement(element);
+      this._verifyValue(value);
 
       await this.clear(element);
 
@@ -283,8 +332,8 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.clearAndFillAndRetry);
 
     try {
-      this._checkElement(element);
-      this._checkValue(value);
+      this._verifyElement(element);
+      this._verifyValue(value);
 
       return util.function.retry(
         async (elem: Element, value: string) => {
@@ -310,7 +359,7 @@ export class UserInteraction {
    * @function mouseOverElement
    * @memberOf nonUi5.userInteraction
    * @description Moves the cursor/focus to the passed element.
-   * @param {Object} element - The selector describing the element.
+   * @param {Object} element - The element.
    * @param {Number} [xOffset] - X offset to move to, relative to the top-left corner of the element. If not specified, the mouse will move to the middle of the element.
    * @param {Number} [yOffset] - Y offset to move to, relative to the top-left corner of the element. If not specified, the mouse will move to the middle of the element.
    * @example const elem = await nonUi5.element.getById("dropdown42");
@@ -320,7 +369,7 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.mouseOverElement);
 
     try {
-      this._checkElement(element);
+      this._verifyElement(element);
 
       vl.log("Moving mouse to element");
       await element.moveTo({ xOffset, yOffset });
@@ -343,7 +392,7 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.scrollToElement);
 
     try {
-      this._checkElement(element);
+      this._verifyElement(element);
 
       const options = {
         block: alignment,
@@ -370,7 +419,7 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.dragAndDrop);
 
     try {
-      this._checkElement(element);
+      this._verifyElement(element);
 
       const sourceSize = await element.getSize();
       const targetSize = await targetElem.getSize();
@@ -412,7 +461,7 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.moveCursorAndClick);
 
     try {
-      this._checkElement(element);
+      this._verifyElement(element);
 
       await element.moveTo();
       await element.click();
@@ -471,13 +520,13 @@ export class UserInteraction {
     }
   }
 
-  private _checkElement(element: any) {
+  private _verifyElement(element: any) {
     if (!element) {
       throw new Error("Please provide an element as first argument.");
     }
   }
 
-  private _checkValue(value: any): void {
+  private _verifyValue(value: any): void {
     if (typeof value !== "string" && typeof value !== "number") {
       throw new Error("value is invalid. It must be of type 'string' or 'number'");
     }

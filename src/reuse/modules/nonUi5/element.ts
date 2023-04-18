@@ -411,7 +411,7 @@ export class ElementModule {
   /**
    * @function isPresentByXPath
    * @memberOf nonUi5.element
-   * @description returns a boolean if the element is present at the DOM or not.
+   * @description Returns a boolean if the element is present at the DOM or not.
    * @param {String} xpath - The XPath describing the element.
    * @param {Number} [index=0] - The index of the element (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
@@ -421,6 +421,20 @@ export class ElementModule {
   async isPresentByXPath(xpath: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<boolean> {
     const vl = this.vlf.initLog(this.isPresentByXPath);
     return this.isPresentByCss(xpath, index, timeout);
+  }
+
+  /**
+   * @function isSelected
+   * @memberOf nonUi5.element
+   * @description Returns a boolean if the element (e.g. checkbox) is selected.
+   * @param {Object} elem - The element.
+   * @returns {boolean}
+   * @example const elem = await nonUi5.element.getById("elem01");
+   * const isSelected = await nonUi5.element.isSelected(elem);
+   */
+  async isSelected(elem: Element): Promise<boolean> {
+    const vl = this.vlf.initLog(this.isSelected);
+    return this.isSelected(elem);
   }
 
   /**

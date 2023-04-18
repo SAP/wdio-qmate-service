@@ -193,14 +193,14 @@ export class UserInteraction {
    * @example await ui5.userInteraction.check(selector);
    */
   async check(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.clickListItem);
+    const vl = this.vlf.initLog(this.check);
 
     try {
       const isSelected: boolean = await ui5.element.getPropertyValue(selector, "selected", index, timeout);
       if (!isSelected) {
         await this.click(selector, index, timeout);
       } else {
-        vl.log("Checkbox already selected.");
+        vl.log("Checkbox already checked.");
       }
     } catch (error) {
       throw new Error(`Function 'check' failed with: ${error}`);
@@ -217,7 +217,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.uncheck(selector);
    */
   async uncheck(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
-    const vl = this.vlf.initLog(this.clickListItem);
+    const vl = this.vlf.initLog(this.uncheck);
 
     try {
       const isSelected: boolean = await ui5.element.getPropertyValue(selector, "selected", index, timeout);
