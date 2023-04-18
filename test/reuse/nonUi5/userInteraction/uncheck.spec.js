@@ -39,6 +39,6 @@ describe("userInteraction - uncheck - checkbox (error)", function () {
 
   it("Execution & Verification", async function () {
     const elem = undefined;
-    await expect(nonUi5.userInteraction.uncheck(elem, 0, 60000)).rejects.toThrow("aaa");
+    await expect(nonUi5.userInteraction.uncheck(elem, 0, 60000)).rejects.toThrow("Function 'uncheck' failed with: Please provide an element as first argument.");
   });
 });
