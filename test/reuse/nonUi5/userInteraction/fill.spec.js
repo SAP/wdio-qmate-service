@@ -1,7 +1,8 @@
 "use strict";
 
-describe("userInteraction - fill form field", function () {
+describe("userInteraction - fill - form field", function () {
   let element;
+
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
     element = await nonUi5.element.getById("ExampleValue1", 10000);
@@ -24,14 +25,13 @@ describe("userInteraction - fill form field", function () {
   });
 });
 
-describe.only("userInteraction - fill a button (unhappy case)", function () {
+describe.only("userInteraction - fill - button (error case)", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });
 
   it("Execution & Verification", async function () {
     const elem = await nonUi5.element.getById("Default", 10000);
-    await expect(nonUi5.userInteraction.fill(elem, "New test value"))
-      .rejects.toThrow(/Function fill failed. Element can not be filled - make sure that the selector matches input/);
+    await expect(nonUi5.userInteraction.fill(elem, "New test value")).rejects.toThrow(/Function 'fill' failed with: invalid element state/);
   });
 });

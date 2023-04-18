@@ -15,20 +15,23 @@ export class UserInteraction {
    * @function fillActive
    * @memberOf common.userInteraction
    * @description Fills the active input with the given value.
-   * @param {String} value - The value with witch the input should be filled.
+   * @param {String | Number} value - The value to enter.
    * @example await common.userInteraction.fillActive("My Value");
    */
-  async fillActive(value: string) {
-    const vlf = this.vlf.initLog(this.fillActive);
-    if (!(typeof value === "number" || typeof value === "string")) {
-      throw new Error("Function 'fillActive' failed: Please provide a value(datatype - number/string) as argument.");
-    } else {
+  async fillActive(value: string | number) {
+    const vl = this.vlf.initLog(this.fillActive);
+
+    if (typeof value === "number" || typeof value === "string") {
       try {
+        vl.log(`Setting the value of element to ${value}`);
+
         const elem = await $(await browser.getActiveElement());
         await elem.addValue(value);
       } catch (error) {
         throw new Error(`Function 'fillActive' failed: ${error}`);
       }
+    } else {
+      throw new Error("Function 'fillActive' failed: Please provide a value(datatype - number/string) as argument.");
     }
   }
 
@@ -36,13 +39,13 @@ export class UserInteraction {
    * @function fillActiveAndRetry
    * @memberOf common.userInteraction
    * @description Enters the given value to the active input field and retries the action in case it fails.
-   * @param {String} value - The value with witch the input should be filled.
+   * @param {String} value - The value to enter.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await common.userInteraction.fillActiveAndRetry("My Value");
    */
   async fillActiveAndRetry(value: string, retries: number = 3, interval: number = 5000) {
-    const vlf = this.vlf.initLog(this.fillActiveAndRetry);
+    const vl = this.vlf.initLog(this.fillActiveAndRetry);
     await util.function.retry(this.fillActive, [value], retries, interval, this);
   }
 
@@ -54,7 +57,7 @@ export class UserInteraction {
    * @example await common.userInteraction.clearAndFillActive("My Value");
    */
   async clearAndFillActive(value: string) {
-    const vlf = this.vlf.initLog(this.clearAndFillActive);
+    const vl = this.vlf.initLog(this.clearAndFillActive);
     if (typeof value === "number" || typeof value === "string") {
       const elem = await $(await browser.getActiveElement());
       await elem.setValue(value);
@@ -73,7 +76,7 @@ export class UserInteraction {
    * @example await common.userInteraction.clearAndFillActiveAndRetry("My Value");
    */
   async clearAndFillActiveAndRetry(value: string, retries: number = 3, interval: number = 5000) {
-    const vlf = this.vlf.initLog(this.clearAndFillActiveAndRetry);
+    const vl = this.vlf.initLog(this.clearAndFillActiveAndRetry);
     await util.function.retry(this.clearAndFillActive, [value], retries, interval, this);
   }
 
@@ -88,7 +91,7 @@ export class UserInteraction {
    * @example await common.userInteraction.pressKey(["\uE009", "Alt"]);
    */
   async pressKey(keys: string | string[]) {
-    const vlf = this.vlf.initLog(this.pressKey);
+    const vl = this.vlf.initLog(this.pressKey);
     await browser.keys(keys);
   }
 
@@ -99,7 +102,7 @@ export class UserInteraction {
    * @example await common.userInteraction.pressEnter();
    */
   async pressEnter() {
-    const vlf = this.vlf.initLog(this.pressEnter);
+    const vl = this.vlf.initLog(this.pressEnter);
     await browser.keys(KeyCodes.ENTER);
   }
 
@@ -110,7 +113,7 @@ export class UserInteraction {
    * @example await common.userInteraction.pressTab();
    */
   async pressTab() {
-    const vlf = this.vlf.initLog(this.pressTab);
+    const vl = this.vlf.initLog(this.pressTab);
     await browser.keys(KeyCodes.TAB);
   }
 
@@ -121,7 +124,7 @@ export class UserInteraction {
    * @example await common.userInteraction.pressF4();
    */
   async pressF4() {
-    const vlf = this.vlf.initLog(this.pressF4);
+    const vl = this.vlf.initLog(this.pressF4);
     await browser.keys(KeyCodes.F4);
   }
 
@@ -132,7 +135,7 @@ export class UserInteraction {
    * @example await common.userInteraction.pressBackspace();
    */
   async pressBackspace() {
-    const vlf = this.vlf.initLog(this.pressBackspace);
+    const vl = this.vlf.initLog(this.pressBackspace);
     await browser.keys(KeyCodes.BACKSPACE);
   }
 
@@ -144,7 +147,7 @@ export class UserInteraction {
    * @example await common.userInteraction.pressEscape();
    */
   async pressEscape() {
-    const vlf = this.vlf.initLog(this.pressEscape);
+    const vl = this.vlf.initLog(this.pressEscape);
     await browser.keys(KeyCodes.ESCAPE);
   }
 
@@ -155,7 +158,7 @@ export class UserInteraction {
    * @example await common.userInteraction.pressArrowLeft();
    */
   async pressArrowLeft() {
-    const vlf = this.vlf.initLog(this.pressArrowLeft);
+    const vl = this.vlf.initLog(this.pressArrowLeft);
     await browser.keys(KeyCodes.ARROW_LEFT);
   }
 
@@ -166,7 +169,7 @@ export class UserInteraction {
    * @example await common.userInteraction.pressArrowRight();
    */
   async pressArrowRight() {
-    const vlf = this.vlf.initLog(this.pressArrowRight);
+    const vl = this.vlf.initLog(this.pressArrowRight);
     await browser.keys(KeyCodes.ARROW_RIGHT);
   }
 }

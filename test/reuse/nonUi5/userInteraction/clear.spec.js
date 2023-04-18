@@ -1,6 +1,6 @@
 "use strict";
 
-describe("userInteraction - clear form field", function () {
+describe("userInteraction - clear - form field", function () {
   let element;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
@@ -19,18 +19,18 @@ describe("userInteraction - clear form field", function () {
   });
 });
 
-describe("userInteraction - clear without element (unhappy case)", function () {
+describe("userInteraction - clear - no element (error case)", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
   });
 
   it("Execution & Verification", async function () {
     await expect(nonUi5.userInteraction.clear())
-      .rejects.toThrow("Function 'clear' failed: Please provide an element as first argument.");
+      .rejects.toThrow("Function 'clear' failed with: Please provide an element as first argument.");
   });
 });
 
-describe("userInteraction - clear a button (unhappy case)", function () {
+describe("userInteraction - clear - button (error case)", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });

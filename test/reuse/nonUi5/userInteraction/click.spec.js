@@ -1,6 +1,6 @@
 "use strict";
 
-describe("userInteraction - click on 'Default' button", function () {
+describe("userInteraction - click - 'Default' button", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });
@@ -16,30 +16,28 @@ describe("userInteraction - click on 'Default' button", function () {
   });
 });
 
-describe("userInteraction - click on disabled button (unhappy case)", function () {
+describe("userInteraction - click - disabled button (unhappy case)", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });
 
   it("Execution & Verification", async function () {
     const elem = await nonUi5.element.getById("Not-clickable", 10000);
-    await expect(nonUi5.userInteraction.click(elem))
-      .rejects.toThrow(/Timeout \w*|\d* by waiting for element is clickable/); // \w*|\d* - placeholder for timeout value
+    await expect(nonUi5.userInteraction.click(elem)).rejects.toThrow(/Timeout \w*|\d* by waiting for element is clickable/); // \w*|\d* - placeholder for timeout value
   });
 });
 
-describe("userInteraction - click for empty value", function () {
+describe("userInteraction - click - empty value", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });
 
   it("Execution & Verification", async function () {
-    await expect(nonUi5.userInteraction.click())
-      .rejects.toThrow(/not\w*|\d*clickable/);
+    await expect(nonUi5.userInteraction.click()).rejects.toThrow("Function 'click' failed with: Please provide an element as first argument.");
   });
 });
 
-describe("userInteraction - click on field (make it active)", function () {
+describe("userInteraction - click - field (fillActive)", function () {
   let element;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");

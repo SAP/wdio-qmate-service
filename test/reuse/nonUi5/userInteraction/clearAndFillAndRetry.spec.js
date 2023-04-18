@@ -1,6 +1,8 @@
 "use strict";
 
-describe("userInteraction - clearAndFillAndRetry form field", function () {
+const errorNoValue = "Function 'clearAndFillAndRetry' failed with: value is invalid. It must be of type 'string' or 'number'";
+
+describe("userInteraction - clearAndFillAndRetry - form field", function () {
   let element;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
@@ -22,7 +24,7 @@ describe("userInteraction - clearAndFillAndRetry form field", function () {
   });
 });
 
-describe("userInteraction - clearAndFillAndRetry without value/with wrong value (unhappy case)", function () {
+describe("userInteraction - clearAndFillAndRetry - no value/with wrong value (error case)", function () {
   let element;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
@@ -31,27 +33,23 @@ describe("userInteraction - clearAndFillAndRetry without value/with wrong value 
 
   it("Execution & Verification", async function () {
     // Negative case - empty value
-    await expect(nonUi5.userInteraction.clearAndFillAndRetry(element, null, 1))
-      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'clearAndFill' failed: Please provide an element and value(datatype - number/string) as arguments."); // undefined !== "" in the inner verification
+    await expect(nonUi5.userInteraction.clearAndFillAndRetry(element, null, 1)).rejects.toThrow(errorNoValue);
 
-    await expect(nonUi5.userInteraction.clearAndFillAndRetry(element))
-      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'clearAndFill' failed: Please provide an element and value(datatype - number/string) as arguments."); // undefined !== "" in the inner verification
+    await expect(nonUi5.userInteraction.clearAndFillAndRetry(element)).rejects.toThrow(errorNoValue);
 
-    await nonUi5.userInteraction.clearAndFillAndRetry(element, 1, 1); // Added 1, but then received "1" in the inner verification
+    await nonUi5.userInteraction.clearAndFillAndRetry(element, 1, 1);
 
-    await expect(nonUi5.userInteraction.clearAndFillAndRetry(element, true, 1))
-      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'clearAndFill' failed: Please provide an element and value(datatype - number/string) as arguments.");
+    await expect(nonUi5.userInteraction.clearAndFillAndRetry(element, true, 1)).rejects.toThrow(errorNoValue);
   });
 });
 
-describe("userInteraction - clearAndFillAndRetry a button (unhappy case)", function () {
+describe("userInteraction - clearAndFillAndRetry - button (error case)", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });
 
   it("Execution & Verification", async function () {
     const elem = await nonUi5.element.getById("Default", 10000);
-    await expect(nonUi5.userInteraction.clearAndFillAndRetry(elem, "New test value", 1))
-      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'clearAndFill' failed: invalid element state: invalid element state");
+    await expect(nonUi5.userInteraction.clearAndFillAndRetry(elem, "New test value", 1)).rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'clearAndFill' failed with: invalid element state");
   });
 });
