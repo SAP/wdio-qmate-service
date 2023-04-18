@@ -300,7 +300,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.clearAndFill(elem, "Service 01");
    */
-  async clearAndFill(element: Element, value: string | string) {
+  async clearAndFill(element: Element, value: string | number) {
     const vl = this.vlf.initLog(this.clearAndFill);
 
     try {
