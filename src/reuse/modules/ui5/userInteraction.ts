@@ -315,12 +315,12 @@ export class UserInteraction {
    * @memberOf ui5.userInteraction
    * @description Clears the input field with the given selector and fills the given value.
    * @param {Object} selector - The selector describing the element.
-   * @param {String | Number | Boolean} value - The value to enter.
+   * @param {String | Number} value - The value to enter.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clearAndFill(selector, "My Value");
    */
-  async clearAndFill(selector: any, value: string | number | boolean, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async clearAndFill(selector: any, value: string | number, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.clearAndFill);
 
     if (typeof value === "number" || typeof value === "string" || typeof value === "boolean") {
