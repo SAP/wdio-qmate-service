@@ -434,7 +434,7 @@ export class ElementModule {
    */
   async isSelected(elem: Element): Promise<boolean> {
     const vl = this.vlf.initLog(this.isSelected);
-    return this.isSelected(elem);
+    return elem.isSelected();
   }
 
   /**
