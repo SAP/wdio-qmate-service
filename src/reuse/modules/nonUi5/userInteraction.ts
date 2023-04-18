@@ -162,7 +162,7 @@ export class UserInteraction {
     try {
       this._verifyElement(element);
 
-      const isSelected: boolean = await nonUi5.element.isSelected(elem);
+      const isSelected: boolean = await nonUi5.element.isSelected(element);
       if (!isSelected) {
         await this.click(element);
       } else {
@@ -186,7 +186,7 @@ export class UserInteraction {
     try {
       this._verifyElement(element);
 
-      const isSelected: boolean = await nonUi5.element.isSelected(elem);
+      const isSelected: boolean = await nonUi5.element.isSelected(element);
       if (isSelected) {
         await this.click(element);
       } else {
