@@ -390,7 +390,7 @@ Fills the active input with the given value.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| value | <code>String</code> | The value with witch the input should be filled. |
+| value | <code>String</code> \| <code>Number</code> | The value to enter. |
 
 **Example**  
 ```js
@@ -405,7 +405,7 @@ Enters the given value to the active input field and retries the action in case 
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| value | <code>String</code> |  | The value with witch the input should be filled. |
+| value | <code>String</code> |  | The value to enter. |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
 | [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
 
@@ -1598,8 +1598,9 @@ Global namespace for UI5 modules.
         * [.doubleClick(selector, [index], [timeout])](#ui5.userInteraction.doubleClick)
         * [.rightClick(selector, [index], [timeout])](#ui5.userInteraction.rightClick)
         * [.clickTab(selector, [index], [timeout])](#ui5.userInteraction.clickTab)
-        * [.selectFromTab(selector, value, [index], [timeout])](#ui5.userInteraction.selectFromTab)
         * [.clickListItem(selector, [index], [timeout])](#ui5.userInteraction.clickListItem)
+        * [.check(selector, [index], [timeout])](#ui5.userInteraction.check)
+        * [.uncheck(selector, [index], [timeout])](#ui5.userInteraction.uncheck)
         * [.fill(selector, value, [index], [timeout])](#ui5.userInteraction.fill)
         * [.fillAndRetry(selector, value, [index], [timeout], [retries], [interval])](#ui5.userInteraction.fillAndRetry)
         * [.clear(selector, [index], [timeout])](#ui5.userInteraction.clear)
@@ -1614,6 +1615,7 @@ Global namespace for UI5 modules.
         * [.selectMultiComboBox(selector, values, [index])](#ui5.userInteraction.selectMultiComboBox)
         * [.clickSelectArrow(selector, [index])](#ui5.userInteraction.clickSelectArrow)
         * [.clickSelectArrowAndRetry(selector, [index], [retries], [interval])](#ui5.userInteraction.clickSelectArrowAndRetry)
+        * [.selectFromTab(selector, value, [index], [timeout])](#ui5.userInteraction.selectFromTab)
         * [.mouseOverElement(selector, [index], [timeout])](#ui5.userInteraction.mouseOverElement)
         * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.userInteraction.scrollToElement)
         * [.selectAll([selector], [index], [timeout])](#ui5.userInteraction.selectAll)
@@ -3495,8 +3497,9 @@ await ui5.table.clickSettingsButton(glAccountItemsTable);
     * [.doubleClick(selector, [index], [timeout])](#ui5.userInteraction.doubleClick)
     * [.rightClick(selector, [index], [timeout])](#ui5.userInteraction.rightClick)
     * [.clickTab(selector, [index], [timeout])](#ui5.userInteraction.clickTab)
-    * [.selectFromTab(selector, value, [index], [timeout])](#ui5.userInteraction.selectFromTab)
     * [.clickListItem(selector, [index], [timeout])](#ui5.userInteraction.clickListItem)
+    * [.check(selector, [index], [timeout])](#ui5.userInteraction.check)
+    * [.uncheck(selector, [index], [timeout])](#ui5.userInteraction.uncheck)
     * [.fill(selector, value, [index], [timeout])](#ui5.userInteraction.fill)
     * [.fillAndRetry(selector, value, [index], [timeout], [retries], [interval])](#ui5.userInteraction.fillAndRetry)
     * [.clear(selector, [index], [timeout])](#ui5.userInteraction.clear)
@@ -3511,6 +3514,7 @@ await ui5.table.clickSettingsButton(glAccountItemsTable);
     * [.selectMultiComboBox(selector, values, [index])](#ui5.userInteraction.selectMultiComboBox)
     * [.clickSelectArrow(selector, [index])](#ui5.userInteraction.clickSelectArrow)
     * [.clickSelectArrowAndRetry(selector, [index], [retries], [interval])](#ui5.userInteraction.clickSelectArrowAndRetry)
+    * [.selectFromTab(selector, value, [index], [timeout])](#ui5.userInteraction.selectFromTab)
     * [.mouseOverElement(selector, [index], [timeout])](#ui5.userInteraction.mouseOverElement)
     * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.userInteraction.scrollToElement)
     * [.selectAll([selector], [index], [timeout])](#ui5.userInteraction.selectAll)
@@ -3607,25 +3611,6 @@ The function retries the click for maximal 3 times if the selection of the tab (
 ```js
 await ui5.userInteraction.clickTab(selector);
 ```
-<a name="ui5.userInteraction.selectFromTab"></a>
-
-#### userInteraction.selectFromTab(selector, value, [index], [timeout])
-Selects the passed value on the tab with the given selector and checks if the tab got selected successfully.
-The function retries the click for maximal 3 times if the selection of the tab (blue underline) was not successful.
-
-**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to select. |
-| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
-| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-
-**Example**  
-```js
-await ui5.userInteraction.selectFromTab(selector);
-```
 <a name="ui5.userInteraction.clickListItem"></a>
 
 #### userInteraction.clickListItem(selector, [index], [timeout])
@@ -3645,6 +3630,40 @@ Therefore we recommend to use this function to open a specific list item.
 ```js
 await ui5.userInteraction.clickListItem(selector);
 ```
+<a name="ui5.userInteraction.check"></a>
+
+#### userInteraction.check(selector, [index], [timeout])
+Checks the checkbox with the given selector.
+
+**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.userInteraction.check(selector);
+```
+<a name="ui5.userInteraction.uncheck"></a>
+
+#### userInteraction.uncheck(selector, [index], [timeout])
+Unchecks the checkbox with the given selector.
+
+**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.userInteraction.uncheck(selector);
+```
 <a name="ui5.userInteraction.fill"></a>
 
 #### userInteraction.fill(selector, value, [index], [timeout])
@@ -3655,7 +3674,7 @@ Fills the input field with the given selector.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to fill. |
+| value | <code>String</code> \| <code>Number</code> |  | The value to enter. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
@@ -3673,7 +3692,7 @@ Fills the input field with the given selector and retries the action in case of 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to fill. |
+| value | <code>String</code> \| <code>Number</code> |  | The value to enter. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
@@ -3729,7 +3748,7 @@ Clears the input field with the given selector and fills the given value.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to fill. |
+| value | <code>String</code> \| <code>Number</code> |  | The value to enter. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
@@ -3747,7 +3766,7 @@ Clears the input field with the given selector and fills the given value. Retrie
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to fill. |
+| value | <code>String</code> |  | The value to enter. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
@@ -3785,7 +3804,7 @@ Clears the smart filed with the given selector and fills the given value.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to fill. |
+| value | <code>String</code> |  | The value to enter. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
@@ -3803,7 +3822,7 @@ Clears the smart filed with the given selector and fills the given value and ret
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to fill. |
+| value | <code>String</code> |  | The value to enter. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
@@ -3903,6 +3922,25 @@ Clicks the arrow icon at the passed selector (select box), and retries in case i
 **Example**  
 ```js
 await ui5.userInteraction.clickSelectArrowAndRetry(selector);
+```
+<a name="ui5.userInteraction.selectFromTab"></a>
+
+#### userInteraction.selectFromTab(selector, value, [index], [timeout])
+Selects the passed value on the tab with the given selector and checks if the tab got selected successfully.
+The function retries the click for maximal 3 times if the selection of the tab (blue underline) was not successful.
+
+**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| value | <code>String</code> |  | The value to select. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.userInteraction.selectFromTab(selector);
 ```
 <a name="ui5.userInteraction.mouseOverElement"></a>
 
@@ -4047,6 +4085,7 @@ Global namespace for non UI5 modules.
         * [.isPresent(elem)](#nonUi5.element.isPresent) ⇒ <code>Boolean</code>
         * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
         * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
+        * [.isSelected(elem)](#nonUi5.element.isSelected) ⇒ <code>boolean</code>
         * [.getAttributeValue(elem, [attribute])](#nonUi5.element.getAttributeValue) ⇒ <code>String</code>
         * [.getValue(elem)](#nonUi5.element.getValue) ⇒ <code>String</code>
         * [.setInnerHTML(elem)](#nonUi5.element.setInnerHTML) ⇒ <code>String</code>
@@ -4062,6 +4101,8 @@ Global namespace for non UI5 modules.
         * [.clickAndRetry(element, [timeout], [retries], [interval])](#nonUi5.userInteraction.clickAndRetry)
         * [.doubleClick(element, [timeout])](#nonUi5.userInteraction.doubleClick)
         * [.rightClick(element, [timeout])](#nonUi5.userInteraction.rightClick)
+        * [.check(element)](#nonUi5.userInteraction.check)
+        * [.uncheck(element)](#nonUi5.userInteraction.uncheck)
         * [.fill(element, value)](#nonUi5.userInteraction.fill)
         * [.fillAndRetry(element, value, [retries], [interval])](#nonUi5.userInteraction.fillAndRetry)
         * [.clear(element)](#nonUi5.userInteraction.clear)
@@ -4201,6 +4242,7 @@ await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
     * [.isPresent(elem)](#nonUi5.element.isPresent) ⇒ <code>Boolean</code>
     * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
     * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
+    * [.isSelected(elem)](#nonUi5.element.isSelected) ⇒ <code>boolean</code>
     * [.getAttributeValue(elem, [attribute])](#nonUi5.element.getAttributeValue) ⇒ <code>String</code>
     * [.getValue(elem)](#nonUi5.element.getValue) ⇒ <code>String</code>
     * [.setInnerHTML(elem)](#nonUi5.element.setInnerHTML) ⇒ <code>String</code>
@@ -4543,7 +4585,7 @@ await nonUi5.element.isPresentByCss(".button01");
 <a name="nonUi5.element.isPresentByXPath"></a>
 
 #### element.isPresentByXPath(xpath, [index], [timeout]) ⇒ <code>boolean</code>
-returns a boolean if the element is present at the DOM or not.
+Returns a boolean if the element is present at the DOM or not.
 
 **Kind**: static method of [<code>element</code>](#nonUi5.element)  
 
@@ -4556,6 +4598,22 @@ returns a boolean if the element is present at the DOM or not.
 **Example**  
 ```js
 await nonUi5.element.isPresentByXPath(".//*[text()='Create']");
+```
+<a name="nonUi5.element.isSelected"></a>
+
+#### element.isSelected(elem) ⇒ <code>boolean</code>
+Returns a boolean if the element (e.g. checkbox) is selected.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getById("elem01");
+const isSelected = await nonUi5.element.isSelected(elem);
 ```
 <a name="nonUi5.element.getAttributeValue"></a>
 
@@ -4721,6 +4779,8 @@ await nonUi5.session.loginSapNetWeaver("john", "abc123!");
     * [.clickAndRetry(element, [timeout], [retries], [interval])](#nonUi5.userInteraction.clickAndRetry)
     * [.doubleClick(element, [timeout])](#nonUi5.userInteraction.doubleClick)
     * [.rightClick(element, [timeout])](#nonUi5.userInteraction.rightClick)
+    * [.check(element)](#nonUi5.userInteraction.check)
+    * [.uncheck(element)](#nonUi5.userInteraction.uncheck)
     * [.fill(element, value)](#nonUi5.userInteraction.fill)
     * [.fillAndRetry(element, value, [retries], [interval])](#nonUi5.userInteraction.fillAndRetry)
     * [.clear(element)](#nonUi5.userInteraction.clear)
@@ -4803,6 +4863,36 @@ Right Clicks on the passed element.
 const elem = await nonUi5.element.getById("button01");
 await nonUi5.userInteraction.rightClick(elem);
 ```
+<a name="nonUi5.userInteraction.check"></a>
+
+#### userInteraction.check(element)
+Checks the given checkbox.
+
+**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| element | <code>Object</code> | The element. |
+
+**Example**  
+```js
+await nonUi5.userInteraction.check(selector);
+```
+<a name="nonUi5.userInteraction.uncheck"></a>
+
+#### userInteraction.uncheck(element)
+Unchecks the given checkbox.
+
+**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| element | <code>Object</code> | The element. |
+
+**Example**  
+```js
+await nonUi5.userInteraction.uncheck(selector);
+```
 <a name="nonUi5.userInteraction.fill"></a>
 
 #### userInteraction.fill(element, value)
@@ -4813,7 +4903,7 @@ Fills the given value into the passed input.
 | Param | Type | Description |
 | --- | --- | --- |
 | element | <code>Object</code> | The element. |
-| value | <code>String</code> | The value to be filled. |
+| value | <code>String</code> \| <code>Number</code> | The value to enter. |
 
 **Example**  
 ```js
@@ -4830,7 +4920,7 @@ Fills the given value into the passed input, retries in case of a failure.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | element | <code>Object</code> |  | The element. |
-| value | <code>String</code> |  | The value to be filled. |
+| value | <code>String</code> \| <code>Number</code> |  | The value to enter. |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
 | [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
 
@@ -4883,7 +4973,7 @@ Clears and fills the passed input element.
 | Param | Type | Description |
 | --- | --- | --- |
 | element | <code>Object</code> | The element. |
-| value | <code>String</code> | The value to be filled in. |
+| value | <code>String</code> \| <code>Number</code> | The value to enter in. |
 
 **Example**  
 ```js
@@ -4900,7 +4990,7 @@ Clears and fills the passed input, retries in case it fails.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | element | <code>Object</code> |  | The element. |
-| value | <code>String</code> |  | The value to be filled in. |
+| value | <code>String</code> \| <code>Number</code> |  | The value to enter in. |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
 | [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
 | [verify] | <code>Boolean</code> | <code>true</code> | Specifies if the filled value should be verified. |
@@ -4919,7 +5009,7 @@ Moves the cursor/focus to the passed element.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| element | <code>Object</code> | The selector describing the element. |
+| element | <code>Object</code> | The element. |
 | [xOffset] | <code>Number</code> | X offset to move to, relative to the top-left corner of the element. If not specified, the mouse will move to the middle of the element. |
 | [yOffset] | <code>Number</code> | Y offset to move to, relative to the top-left corner of the element. If not specified, the mouse will move to the middle of the element. |
 
