@@ -31,7 +31,6 @@ class TypesGenerator {
       }
     ],
     dependencies: {
-      "@types/axios": "^0.14.0",
       "@types/node": "^18.0.3"
     }
   };
