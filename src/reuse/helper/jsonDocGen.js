@@ -150,7 +150,10 @@ function getArgumentType(tag) {
 }
 
 function getArgumentDefaultValue(tag) {
-  return tag.default ? tag.default : null;
+  if (!tag.default) {
+    return null;
+  }
+  return getArgumentDefaultValueBasedOnType(tag);
 }
 
 function cannotParseArgumentTypeFromTag(tag) {
@@ -177,4 +180,15 @@ function canParseArgumentTypeFromTagExpression(tag) {
 
 function parseArgumentTypeFromTagExpression(tag) {
   return tag.type.expression.name.toLowerCase();
+}
+
+function getArgumentDefaultValueBasedOnType(tag) {
+  const type = getArgumentType(tag);
+  if (type === "number") {
+    return parseInt(tag.default);
+  }
+  if (type === "boolean") {
+    return Boolean(tag.default);
+  }
+  return tag.default;
 }
