@@ -1,9 +1,8 @@
 # **Qmate** Service
 **Qmate Service** is a custom [WebdriverIO](https://webdriver.io/) service for testing web applications and APIs.
 
-!!! warning
-    The latest version of **WebdriverIO V8** is **not** yet supported. Support will follow soon.
-
+!!! note
+    The latest release of the Qmate Service is compatible with **WebdriverIO V8**.
 ## Main features
 The main features of this service are:
 
