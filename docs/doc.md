@@ -4090,8 +4090,6 @@ Global namespace for non UI5 modules.
         * [.getValue(elem)](#nonUi5.element.getValue) ⇒ <code>String</code>
         * [.setInnerHTML(elem)](#nonUi5.element.setInnerHTML) ⇒ <code>String</code>
         * [.highlight(elem, [duration], [color])](#nonUi5.element.highlight)
-        * ~~[.switchToIframe(selector)](#nonUi5.element.switchToIframe)~~
-        * ~~[.switchToDefaultContent()](#nonUi5.element.switchToDefaultContent)~~
     * [.navigation](#nonUi5.navigation)
         * [.navigateToApplication(relativeReference, [refresh])](#nonUi5.navigation.navigateToApplication)
     * [.session](#nonUi5.session)
@@ -4247,8 +4245,6 @@ await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
     * [.getValue(elem)](#nonUi5.element.getValue) ⇒ <code>String</code>
     * [.setInnerHTML(elem)](#nonUi5.element.setInnerHTML) ⇒ <code>String</code>
     * [.highlight(elem, [duration], [color])](#nonUi5.element.highlight)
-    * ~~[.switchToIframe(selector)](#nonUi5.element.switchToIframe)~~
-    * ~~[.switchToDefaultContent()](#nonUi5.element.switchToDefaultContent)~~
 
 <a name="nonUi5.element.waitForAll"></a>
 
@@ -4695,37 +4691,6 @@ await nonUi5.element.highlight(elem);
 ```js
 const elem = await nonUi5.element.getById("text01");
 await nonUi5.element.highlight(elem, 3000, "green");
-```
-<a name="nonUi5.element.switchToIframe"></a>
-
-#### ~~element.switchToIframe(selector)~~
-***Deprecated***
-
-Switches to the passed iframe.
-
-**Kind**: static method of [<code>element</code>](#nonUi5.element)  
-**See**: [switchToIframe](#util.browser.switchToIframe)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| selector | <code>String</code> | The CSS selector describing the iframe element. |
-
-**Example**  
-```js
-await nonUi5.element.switchToIframe("iframe[id='frame01']");
-```
-<a name="nonUi5.element.switchToDefaultContent"></a>
-
-#### ~~element.switchToDefaultContent()~~
-***Deprecated***
-
-Switches to the default content of the HTML page.
-
-**Kind**: static method of [<code>element</code>](#nonUi5.element)  
-**See**: [switchToDefaultContent](#util.browser.switchToDefaultContent)  
-**Example**  
-```js
-await nonUi5.element.switchToDefaultContent();
 ```
 <a name="nonUi5.navigation"></a>
 
