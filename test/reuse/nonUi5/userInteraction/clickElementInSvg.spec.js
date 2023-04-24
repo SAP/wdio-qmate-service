@@ -10,7 +10,7 @@ describe("userInteraction - clickElementInSvg - UI5 SVG Chart", function () {
   });
 
   it("Execution", async function () {
-    await nonUi5.element.switchToIframe("IFRAME[id='sampleFrame']");
+    await util.browser.switchToIframe("IFRAME[id='sampleFrame']");
     const svgElem = await nonUi5.element.getByCss("svg");
     const innerSelector = "g[data-id='4']";
     await nonUi5.userInteraction.clickElementInSvg(svgElem, innerSelector);
