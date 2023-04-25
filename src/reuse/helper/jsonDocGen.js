@@ -123,8 +123,8 @@ function getReturnType(tags) {
 function mapTagToArgument(tag) {
   return {
     name: tag.name,
-    type: (tag.type && tag.type.name && tag.type.name.toLowerCase()) || "string",
-    default: tag.default ? tag.default : null
+    type: getArgumentType(tag),
+    default: getArgumentDefaultValue(tag)
   };
 }
 
@@ -136,4 +136,59 @@ function parseReturnTypeFromReturnTag(tag) {
     return tag.type.expression.name.toLowerCase();
   }
   return undefined;
+}
+
+function getArgumentType(tag) {
+  if (cannotParseArgumentTypeFromTag(tag)) {
+    return "string";
+  }
+  if (canParseArgumentTypeFromTagName(tag)) {
+    return parseArgumentTypeFromTagName(tag);
+  } else if (canParseArgumentTypeFromTagExpression(tag)) {
+    return parseArgumentTypeFromTagExpression(tag);
+  }
+}
+
+function getArgumentDefaultValue(tag) {
+  if (!tag.default) {
+    return null;
+  }
+  return getArgumentDefaultValueBasedOnType(tag);
+}
+
+function cannotParseArgumentTypeFromTag(tag) {
+  return !canParseArgumentTypeFromTag(tag);
+}
+
+function canParseArgumentTypeFromTag(tag) {
+  return tag.type
+    && (canParseArgumentTypeFromTagName(tag)
+      || canParseArgumentTypeFromTagExpression(tag));
+}
+
+function canParseArgumentTypeFromTagName(tag) {
+  return !!tag.type.name;
+}
+
+function parseArgumentTypeFromTagName(tag) {
+  return tag.type.name.toLowerCase();
+}
+
+function canParseArgumentTypeFromTagExpression(tag) {
+  return tag.type.expression && tag.type.expression.name;
+}
+
+function parseArgumentTypeFromTagExpression(tag) {
+  return tag.type.expression.name.toLowerCase();
+}
+
+function getArgumentDefaultValueBasedOnType(tag) {
+  const type = getArgumentType(tag);
+  if (type === "number") {
+    return parseInt(tag.default);
+  }
+  if (type === "boolean") {
+    return Boolean(tag.default);
+  }
+  return tag.default;
 }
