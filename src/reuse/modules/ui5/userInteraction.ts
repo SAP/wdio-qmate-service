@@ -646,7 +646,7 @@ export class UserInteraction {
    */
   async focus(selector: any, index = 0) {
     const id = await elem.getAttribute("id");
-    const focused = await browser.execute(function (id) {
+    const focused = await browser.execute(function (id: string) {
         const elem = sap.ui.getCore().getElementById(id);
         if(elem && elem.focus){
             sap.ui.getCore().getElementById(id).focus();
