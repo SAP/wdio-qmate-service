@@ -636,6 +636,31 @@ export class UserInteraction {
   }
 
   /**
+   * @function focus
+   * @memberOf ui5.userInteraction
+   * @description Focuses on the element with the given selector to get it into view. If focus is not possible scrollToElement is used.
+   * @param {Object} selector - The selector describing the element.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+   * @example await ui5.userInteraction.focus(selector);
+   * @example await ui5.userInteraction.focus(selector, 0);
+   */
+  async focus(selector: any, index = 0) {
+    const id = await elem.getAttribute("id");
+    const focused = await browser.execute(function (id) {
+        const elem = sap.ui.getCore().getElementById(id);
+        if(elem && elem.focus){
+            sap.ui.getCore().getElementById(id).focus();
+            return true;
+        } else{
+            return false;
+        }
+    }, id);
+    if(!focused){
+        this.scrollToElement(selector, index, "center");
+    }
+  }
+
+  /**
    * @function selectAll
    * @memberOf ui5.userInteraction
    * @description Performs "select all" (ctrl + a) at the element with the given selector.
