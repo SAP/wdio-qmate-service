@@ -641,10 +641,12 @@ export class UserInteraction {
    * @description Focuses on the element with the given selector to get it into view. If focus is not possible scrollToElement is used.
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.focus(selector);
-   * @example await ui5.userInteraction.focus(selector, 0);
+   * @example await ui5.userInteraction.focus(selector, 0, 5000);
    */
-  async focus(selector: any, index = 0) {
+  async focus(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+    const elem = await ui5.element.getDisplayed(selector, index, timeout);
     const id = await elem.getAttribute("id");
     const focused = await browser.execute(function (id: string) {
         const elem = sap.ui.getCore().getElementById(id);
@@ -656,7 +658,7 @@ export class UserInteraction {
         }
     }, id);
     if(!focused){
-        this.scrollToElement(selector, index, "center");
+        this.scrollToElement(selector, index, "center", timeout);
     }
   }
 
