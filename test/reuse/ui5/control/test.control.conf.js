@@ -10,6 +10,7 @@ exports.config = merge(profile.config, {
 
   specs: [
     path.resolve(__dirname, "execute.spec.js"),
+    path.resolve(__dirname, "focus.spec.js"),
     path.resolve(__dirname, "getAggregationProperty.spec.js"),
     path.resolve(__dirname, "getAssociationProperty.spec.js"),
     path.resolve(__dirname, "getBindingContextPathProperty.spec.js"),
