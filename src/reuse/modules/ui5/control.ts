@@ -50,7 +50,7 @@ export class Control {
     const focused = await browser.execute(function (id: string) {
         const elem = sap.ui.getCore().getElementById(id);
         if(elem && elem.focus){
-            sap.ui.getCore().getElementById(id).focus();
+            elem.focus();
             return true;
         } else{
             return false;
