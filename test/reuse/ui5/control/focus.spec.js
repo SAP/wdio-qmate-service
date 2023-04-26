@@ -1,7 +1,7 @@
 "use strict";
 const { handleCookiesConsent } = require("../../../helper/utils");
 
-describe("focus - for a input field", function () {
+describe("control - focus - for a input field", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.TextInEditModeSource");
     await handleCookiesConsent();
@@ -20,7 +20,7 @@ describe("focus - for a input field", function () {
   });
 });
 
-describe("focus", function () {
+describe("control - focus", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.ActionSheet");
     await handleCookiesConsent();
@@ -39,7 +39,7 @@ describe("focus", function () {
   });
 });
 
-describe("focus - outside of viewpoint", function () {
+describe("control - focus - outside of viewpoint", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await handleCookiesConsent();
@@ -76,7 +76,7 @@ describe("focus - outside of viewpoint", function () {
   });
 });
 
-describe("focus - no selector found and catch error", function () {
+describe("control - focus - no selector found and catch error", function () {
 
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
