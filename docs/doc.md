@@ -1512,6 +1512,7 @@ Global namespace for UI5 modules.
         * [.clickRevokeApproval([timeout])](#ui5.confirmationDialog.clickRevokeApproval)
     * [.control](#ui5.control)
         * [.execute(callbackFunction, selectorOrElement, args)](#ui5.control.execute)
+        * [.focus(selector, [index], [timeout])](#ui5.control.focus)
         * [.getProperty(selectorOrElement, propertyName)](#ui5.control.getProperty)
         * [.getAggregationProperty(selectorOrElement, propertyName)](#ui5.control.getAggregationProperty)
         * [.getAssociationProperty(selectorOrElement, propertyName)](#ui5.control.getAssociationProperty)
@@ -2064,6 +2065,7 @@ await ui5.confirmationDialog.clickRevokeApproval();
 
 * [.control](#ui5.control)
     * [.execute(callbackFunction, selectorOrElement, args)](#ui5.control.execute)
+    * [.focus(selector, [index], [timeout])](#ui5.control.focus)
     * [.getProperty(selectorOrElement, propertyName)](#ui5.control.getProperty)
     * [.getAggregationProperty(selectorOrElement, propertyName)](#ui5.control.getAggregationProperty)
     * [.getAssociationProperty(selectorOrElement, propertyName)](#ui5.control.getAssociationProperty)
@@ -2090,6 +2092,27 @@ const args = {"property": "text"};
 const title = await ui5.control.execute(function (control, args, done) {
   done(control.getProperty(args.property));
 }, selector, args);
+```
+<a name="ui5.control.focus"></a>
+
+#### control.focus(selector, [index], [timeout])
+Focuses on the element with the given selector to get it into view. If focus is not possible scrollToElement is used.
+
+**Kind**: static method of [<code>control</code>](#ui5.control)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.control.focus(selector);
+```
+**Example**  
+```js
+await ui5.control.focus(selector, 0, 5000);
 ```
 <a name="ui5.control.getProperty"></a>
 
