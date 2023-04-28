@@ -525,33 +525,6 @@ export class ElementModule {
     return browser.executeScript("arguments[0].style.boxShadow = 'inherit'", [elem]);
   }
 
-  // =================================== FRAMES (Deprecated) ===================================
-  /**
-   * @function switchToIframe
-   * @memberOf nonUi5.element
-   * @description Switches to the passed iframe.
-   * @param {String} selector - The CSS selector describing the iframe element.
-   * @example await nonUi5.element.switchToIframe("iframe[id='frame01']");
-   * @deprecated please use util.browser.switchToIframe
-   * @see [util.browser.switchToIframe]{@link util.browser.switchToIframe}
-   */
-  async switchToIframe(selector: any) {
-    util.console.warn(`⚠  "nonUi5.element.switchToIframe" is deprecated. Please use "util.browser.switchToIframe" instead.`);
-    await util.browser.switchToIframe(selector);
-  }
-
-  /**
-   * @function switchToDefaultContent
-   * @memberOf nonUi5.element
-   * @description Switches to the default content of the HTML page.
-   * @example await nonUi5.element.switchToDefaultContent();
-   * @deprecated please use util.browser.switchToDefaultContent
-   * @see [util.browser.switchToDefaultContent]{@link util.browser.switchToDefaultContent}
-   */
-  async switchToDefaultContent() {
-    util.console.warn(`⚠  "nonUi5.element.switchToDefaultContent" is deprecated. Please use "util.browser.switchToDefaultContent" instead.`);
-    await util.browser.switchToDefaultContent();
-  }
 
   // =================================== HELPER ===================================
   private async _waitForStabilization(selector: object, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false, stableIterationsRequired: number = 3): Promise<void> {
