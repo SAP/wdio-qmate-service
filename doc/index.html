@@ -2309,20 +2309,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#elementswitchtoiframeselector" class="md-nav__link">
-    ~~element.switchToIframe(selector)~~
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#elementswitchtodefaultcontent" class="md-nav__link">
-    ~~element.switchToDefaultContent()~~
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -5033,20 +5019,6 @@
           <li class="md-nav__item">
   <a href="#elementhighlightelem-duration-color" class="md-nav__link">
     element.highlight(elem, [duration], [color])
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#elementswitchtoiframeselector" class="md-nav__link">
-    ~~element.switchToIframe(selector)~~
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#elementswitchtodefaultcontent" class="md-nav__link">
-    ~~element.switchToDefaultContent()~~
   </a>
   
 </li>
@@ -12526,8 +12498,6 @@ In case that the search is already filled, it will reset the field first.</p>
 <li><a href="#nonUi5.element.getValue">.getValue(elem)</a> ⇒ <code>String</code></li>
 <li><a href="#nonUi5.element.setInnerHTML">.setInnerHTML(elem)</a> ⇒ <code>String</code></li>
 <li><a href="#nonUi5.element.highlight">.highlight(elem, [duration], [color])</a></li>
-<li>~~<a href="#nonUi5.element.switchToIframe">.switchToIframe(selector)</a>~~</li>
-<li>~~<a href="#nonUi5.element.switchToDefaultContent">.switchToDefaultContent()</a>~~</li>
 </ul>
 </li>
 <li><a href="#nonUi5.navigation">.navigation</a><ul>
@@ -12759,8 +12729,6 @@ In case that the search is already filled, it will reset the field first.</p>
 <li><a href="#nonUi5.element.getValue">.getValue(elem)</a> ⇒ <code>String</code></li>
 <li><a href="#nonUi5.element.setInnerHTML">.setInnerHTML(elem)</a> ⇒ <code>String</code></li>
 <li><a href="#nonUi5.element.highlight">.highlight(elem, [duration], [color])</a></li>
-<li>~~<a href="#nonUi5.element.switchToIframe">.switchToIframe(selector)</a>~~</li>
-<li>~~<a href="#nonUi5.element.switchToDefaultContent">.switchToDefaultContent()</a>~~</li>
 </ul>
 </li>
 </ul>
@@ -13625,40 +13593,6 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;text01&quot;</span><span class="p">);</span><span class="w"></span>
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">highlight</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="mf">3000</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;green&quot;</span><span class="p">);</span><span class="w"></span>
-</code></pre></div>
-<a name="nonUi5.element.switchToIframe"></a></p>
-<h4 id="elementswitchtoiframeselector">~~element.switchToIframe(selector)~~</h4>
-<p><strong><em>Deprecated</em></strong></p>
-<p>Switches to the passed iframe.</p>
-<p><strong>Kind</strong>: static method of <a href="#nonUi5.element"><code>element</code></a><br />
-<strong>See</strong>: <a href="#util.browser.switchToIframe">switchToIframe</a>  </p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>selector</td>
-<td><code>String</code></td>
-<td>The CSS selector describing the iframe element.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">switchToIframe</span><span class="p">(</span><span class="s2">&quot;iframe[id=&#39;frame01&#39;]&quot;</span><span class="p">);</span><span class="w"></span>
-</code></pre></div>
-<a name="nonUi5.element.switchToDefaultContent"></a></p>
-<h4 id="elementswitchtodefaultcontent">~~element.switchToDefaultContent()~~</h4>
-<p><strong><em>Deprecated</em></strong></p>
-<p>Switches to the default content of the HTML page.</p>
-<p><strong>Kind</strong>: static method of <a href="#nonUi5.element"><code>element</code></a><br />
-<strong>See</strong>: <a href="#util.browser.switchToDefaultContent">switchToDefaultContent</a><br />
-<strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">switchToDefaultContent</span><span class="p">();</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.navigation"></a></p>
 <h3 id="nonui5navigation">nonUi5.navigation</h3>
