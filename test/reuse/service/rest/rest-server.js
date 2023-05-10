@@ -4,6 +4,7 @@
  * All other calls accept basic authentication
  * Server shuts down automatically if idle for 60 seconds
  */
+/* eslint-disable no-console */
 const jsonServer = require("json-server");
 const server = jsonServer.create();
 const router = jsonServer.router("db.json");

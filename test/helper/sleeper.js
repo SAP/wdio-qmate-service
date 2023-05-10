@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
 var args = process.argv.slice(2);
 var delay = args[0];
 

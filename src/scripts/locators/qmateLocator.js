@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 module.exports = {
   ui5All: function ui5All(ui5Selector, index, opt_parentElement) {
 

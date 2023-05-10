@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+/* eslint-disable no-console */
 module.exports = {
   ui5Veri5: function ui5Veri5(ui5Selector, index) {
     if (window.RecordReplay) {
