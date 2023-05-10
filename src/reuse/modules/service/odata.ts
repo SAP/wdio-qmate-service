@@ -11,7 +11,7 @@ export class OData {
   Service: any;
   constructor() {
     try {
-      this.Service = require("@sap_oss/odata-library/lib/Service.js");
+      this.Service = require("@sap_oss/odata-library").Service;
     } catch (error) {
       util.console.error("OData test client Service issue: Probably @sap_oss/odata-library was not installed as a npm module.");
     }
@@ -55,9 +55,9 @@ export class OData {
     };
 
     const parameters = {
-      client: "715",
-      documentation: ["heading", "quickinfo"],
-      language: "EN"
+      "sap-client": "715",
+      "sap-documentation": ["heading", "quickinfo"],
+      "sap-language": "EN"
     };
 
     if (params) {
