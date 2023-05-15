@@ -6,7 +6,6 @@ import qmateLoader from "./scripts/hooks/before";
 import onPrepareHook from "./scripts/hooks/onPrepare";
 import onCompleteHook from "./scripts/hooks/onComplete";
 import afterHook from "./scripts/hooks/after";
-import deepMerge from "deepmerge";
 const pj = require("../package.json");
 
 module.exports = class CustomWorkerService {
