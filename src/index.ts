@@ -58,7 +58,7 @@ module.exports = class CustomWorkerService {
   // @ts-ignore
   async beforeSession(config, capabilities, specs) {
     try {
-      browser.config = deepMerge(browser.options, config);
+      browser.config = config;
       await qmateLoaderSession(config, capabilities, specs);
       this.config = browser.config;
     } catch (e) {
