@@ -6,7 +6,6 @@ import qmateLoader from "./scripts/hooks/before";
 import onPrepareHook from "./scripts/hooks/onPrepare";
 import onCompleteHook from "./scripts/hooks/onComplete";
 import afterHook from "./scripts/hooks/after";
-import deepMerge from "deepmerge";
 const pj = require("../package.json");
 
 module.exports = class CustomWorkerService {
@@ -58,7 +57,7 @@ module.exports = class CustomWorkerService {
   // @ts-ignore
   async beforeSession(config, capabilities, specs) {
     try {
-      browser.config = deepMerge(browser.options, config);
+      browser.config = config;
       await qmateLoaderSession(config, capabilities, specs);
       this.config = browser.config;
     } catch (e) {
