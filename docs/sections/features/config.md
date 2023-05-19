@@ -81,7 +81,7 @@ The level of logging verbosity.
 
 Possible values are: ``trace`` | ``debug`` | ``info`` | ``warn`` | ``error`` | ``silent``
 ```javascript
-logLevel: warn
+logLevel: "warn"
 ```
 
 ___
