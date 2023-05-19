@@ -350,8 +350,8 @@ export class UserInteraction {
       async (selector: any, value: string, index: number, timeout: number) => {
         await this.clearAndFill(selector, value, index, timeout);
         if (verify) {
-          const elem = await ui5.element.getDisplayed(selector);
-          let elemValue = await ui5.element.getValue(selector, index);
+          const elem = await ui5.element.getDisplayed(selector, index, timeout);
+          let elemValue = await ui5.element.getValue(selector, index, timeout);
           if (elemValue != value) {
             // IMPORTANT: keep non-strict comparison for format changes after input (10 -> 10.00)
             elemValue = await ui5.element.getInnerAttribute(elem, "data-" + "value");
