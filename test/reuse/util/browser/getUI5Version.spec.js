@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 "use strict";
 
 describe("browser - getUI5Version", function () {

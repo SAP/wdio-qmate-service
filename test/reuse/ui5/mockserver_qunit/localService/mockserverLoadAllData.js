@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+/* eslint-disable no-console */
 sap.ui.define([
   "sap/ui/core/util/MockServer",
   "sap/ui/model/json/JSONModel",

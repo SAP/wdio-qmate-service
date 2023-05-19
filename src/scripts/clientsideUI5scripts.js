@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+/* eslint-disable no-console */
 var functions = {};
 
 functions.execQUnits = function (mScriptParams, done) {
