@@ -118,9 +118,9 @@ export class File {
    * @description - It returns the excel data based on the conversion type which is passed
    * @param {string} filePath - File path is required
    * @param {string} fileName - File Name is required
-   * @param {number} sheetIndex - sheetIndex is required
-   * @param {string} conversionType - Value for this are [json, csv, txt]
-   * @example await util.file.getExcelData('/Users/i553858/MyWork', 'test.xlx');
+   * @param {number} [sheetIndex] - sheetIndex is required
+   * @param {string} [conversionType] - Value for this are [json, csv, txt]
+   * @example const myTableContent = await util.file.getExcelData("/Users/path/myWork", "myTable.xlx");
    */
   async getExcelData(filePath: string, fileName: string, sheetIndex: number = 0, conversionType: string = "json"): Promise<any> {
     const vl = this.vlf.initLog(this.getExcelData);
