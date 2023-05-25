@@ -125,8 +125,7 @@ export class File {
   async getExcelData(filePath: string, fileName: string, sheetIndex: number = 0, conversionType: string = "json"): Promise<any> {
     const vl = this.vlf.initLog(this.getExcelData);
 
-    // doesn't make sense to check for fileName since outcome doesn't reflect further code execution
-    const downloadDir = filePath && fs.existsSync(filePath) ? filePath + path.sep : os.homedir() + path.sep + "Downloads"; // we can use a inline if
+    const downloadDir = filePath && fs.existsSync(filePath) ? filePath + path.sep : os.homedir() + path.sep + "Downloads";
     vl.log(`Download directory path: ${downloadDir}`);
 
     const fileNamePath = await this.findFilePathRecursively(downloadDir, fileName);
