@@ -1,8 +1,11 @@
 "use strict";
 
-import {
-  VerboseLoggerFactory
-} from "../../helper/verboseLogger";
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import * as path from "path";
+import pdfParse from "pdf-parse";
+import * as fs from "fs";
+import * as xlsx from "xlsx";
+import * as os from "os";
 
 /**
  * @class file
@@ -11,12 +14,6 @@ import {
 
 export class File {
   private vlf = new VerboseLoggerFactory("util", "file");
-
-  path = require("path");
-  pdf = require("pdf-parse");
-  fs = require("fs");
-  excelUtils = require('xlsx');
-  os = require("os");
 
   // =================================== UPLOAD ===================================
   /**
@@ -28,7 +25,7 @@ export class File {
    * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"]); // uses the default uploader control
    * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], "input[id='myUpload']"); // upload to file uploader with matching selector
    */
-  async upload(files: Array < string > , selector: string = "input[type = 'file']") {
+  async upload(files: Array<string>, selector: string = "input[type = 'file']") {
     const vl = this.vlf.initLog(this.upload);
     let elem;
 
@@ -41,7 +38,7 @@ export class File {
       }
 
       for (const file of files) {
-        const filePath = this.path.resolve(file);
+        const filePath = path.resolve(file);
         vl.log(`Uploading file with a path ${filePath}`);
         const remoteFilePath = await browser.uploadFile(filePath);
         await elem.addValue(remoteFilePath);
@@ -62,7 +59,7 @@ export class File {
    * @see <a href="TODO">Parse PDF</a>
    * @example await util.file.parsePdf(pdfStream, customRenderingMethod);
    */
-  async parsePdf(pdfStream: Buffer, renderingMethod: Function = this._renderPage): Promise < String > {
+  async parsePdf(pdfStream: Buffer, renderingMethod: Function = this._renderPage): Promise<String> {
     const vl = this.vlf.initLog(this.parsePdf);
     if (typeof renderingMethod !== "function") {
       throw new Error("Function 'parsePdf' failed: Please provide a custom rendering method as second parameter.");
@@ -72,7 +69,7 @@ export class File {
       pagerender: renderingMethod
     };
     // @ts-ignore
-    const data = await this.pdf(pdfStream, options);
+    const data = await pdfParse(pdfStream, options);
     return data.text;
   }
 
@@ -105,7 +102,7 @@ export class File {
    * @see <a href="TODO">Parse pdf</a>
    * @example await util.file.expectPdfNotContainsText(pdfStream, "abc");
    */
-  async expectPdfNotContainsText(pdfStream: Buffer, text: string, renderingMethod: Function = this._renderPage): Promise < boolean > {
+  async expectPdfNotContainsText(pdfStream: Buffer, text: string, renderingMethod: Function = this._renderPage): Promise<boolean> {
     const vl = this.vlf.initLog(this.expectPdfNotContainsText);
     if (!text) {
       throw new Error("Function 'expectPdfNotContainsText' failed: Please provide a text as second parameter.");
@@ -114,9 +111,82 @@ export class File {
     return expect(parsedText).not.toContain(text);
   }
 
+  // =================================== EXCEL ===================================
+  /**
+   * @function getExcelData
+   * @memberof util.file
+   * @description - It returns the excel data based on the conversion type which is passed
+   * @param {string} filePath - File path is required
+   * @param {string} fileName - File Name is required
+   * @param {number} sheetIndex - sheetIndex is required
+   * @param {string} conversionType - Value for this are [json, csv, txt]
+   * @example await util.file.getExcelData('/Users/i553858/MyWork', 'test.xlx');
+   */
+  async getExcelData(filePath: string, fileName: string, sheetIndex: number = 0, conversionType: string = "json"): Promise<any> {
+    const vl = this.vlf.initLog(this.getExcelData);
+
+    // doesn't make sense to check for fileName since outcome doesn't reflect further code execution
+    const downloadDir = filePath && fs.existsSync(filePath) ? filePath + path.sep : os.homedir() + path.sep + "Downloads"; // we can use a inline if
+    vl.log(`Download directory path: ${downloadDir}`);
+
+    const fileNamePath = await this.findFilePathRecursively(downloadDir, fileName);
+    if (!fileNamePath) {
+      throw new Error(`The specified file '${fileName}' doesn't exist in the directory: ${downloadDir}`);
+    }
+
+    const workbook = xlsx.readFile(fileNamePath);
+    const sheetList = workbook.SheetNames;
+    if (sheetIndex < 0 || sheetIndex > sheetList.length - 1) {
+      throw new Error(`The specified sheet index '${sheetIndex}' is invalid for the Excel file.`);
+    }
+
+    const sheetName = sheetList[sheetIndex];
+    const sheet = workbook.Sheets[sheetName];
+
+    return this._convertSheet(conversionType, sheet);
+  }
+
+  // =================================== FILEPATH ===================================
+  /**
+   * @function findFilePathRecursively
+   * @memberof util.file
+   * @description - Returns the absolute path of the file with the given filename. Searches Recursively for the file within the given directory.
+   * @param {string} directory - The name of the directory.
+   * @param {string} fileName - The name of the file.
+   * @example await util.file.findFilePathRecursively("/Users","test.xls");
+   */
+  async findFilePathRecursively(directory: string, fileName: string): Promise<any> {
+    const vl = this.vlf.initLog(this.findFilePathRecursively);
+
+    try {
+      const fileList = fs.readdirSync(directory);
+
+      for (const file of fileList) {
+        const filePath = path.join(directory, file);
+        const stats = fs.statSync(filePath);
+
+        if (stats.isDirectory()) {
+          const recursiveFilePath = await this.findFilePathRecursively(filePath, fileName);
+          if (recursiveFilePath !== null) {
+            return recursiveFilePath;
+          }
+        } else if (stats.isFile()) {
+          const parsedFileName = path.parse(filePath).base;
+
+          if (path.extname(parsedFileName).includes(".xls") && parsedFileName === fileName) {
+            return filePath;
+          }
+        }
+      }
+    } catch (error) {
+      throw new Error(`Error in getting the file path for the given directory and filename.\n${error}`);
+    }
+
+    return null;
+  }
+
   // =================================== HELPER ===================================
   private async _renderPage(pageData: any) {
-
     // should be in scope of render page due to library specific implementation
     const _parseText = function (textContent: any) {
       if (textContent === undefined || textContent === null || !textContent.items || !Array.isArray(textContent.items)) {
@@ -146,83 +216,24 @@ export class File {
     return pageData.getTextContent(render_options).then(_parseText);
   }
 
-  // =================================== Excel ===================================
-  /**
-   * @function getExcelData
-   * @memberof util.file
-   * @description - It returns the excel data based on the conversion type which is passed
-   * @param {string} filePath - File path is required
-   * @param {string} fileName - File Name is required
-   * @param {number} sheetIndex - sheetIndex is required
-   * @param {string} conversionType - Value for this are [json, csv, txt]
-   * @example await util.file.getExcelData('/Users/i553858/MyWork', 'test.xlx');
-   */
-  async getExcelData(filePath: string, fileName: string, sheetIndex: number = 0, conversionType: string = "json"): Promise < string > {
-    let downloadDir;
-    const vl = this.vlf.initLog(this.getExcelData);
-    if (this.fs.existsSync(filePath) && !(filePath == undefined && fileName == undefined))
-      downloadDir = filePath + this.path.sep;
-    else
-      downloadDir = this.os.homedir() + this.path.sep + "Downloads";
-    vl.log(`download directory path:${downloadDir}`)
-    let fileNamepath = await this.getAbsoluteFilePath(downloadDir, fileName);
-    if (fileNamepath === null)
-      throw new Error(`given file name doesn't exist in the directory:${downloadDir}${this.path.sep}${fileName}`)
-    let workbook = this.excelUtils.readFile(fileNamepath);
-    let sheetList = workbook.SheetNames;
-    if (sheetIndex > (sheetList.length - 1) || sheetIndex < 0)
-      throw new Error("Passed sheet index is not matched with the excel sheet")
-    var sheet = workbook.Sheets[sheetList[sheetIndex]]
-    return this.getConversionData(conversionType, sheet);
-  };
-
-  /**
-   * @function getFileAbsolutePath
-   * @memberof util.file
-   * @description - It is used to get the absolute file path for the given file
-   * @param {string} directory - Required directory name
-   * @param {string} fileName - Name of the file is required
-   * @example await util.file.getAbsoluteFilePath('/Users','test.xls');
-   */
-  async getAbsoluteFilePath(directory: string, fileName: string): Promise < any > {
-    try {
-      const vl = this.vlf.initLog(this.getAbsoluteFilePath);
-      var stats = this.fs.statSync(directory);
-      if (stats.isDirectory()) {
-        let fileList = this.fs.readdirSync(directory)
-        for (let i = 0; i < fileList.length; i++) {
-          let downloadDir = directory + this.path.sep + fileList[i]
-          let filePath = await this.getAbsoluteFilePath(downloadDir, fileName)
-          if (filePath !== null)
-            return filePath
-        }
-      } else {
-        let fileNameAfterParse = this.path.parse(directory).base;
-        if (stats.isFile() && (this.path.extname(fileNameAfterParse).includes(".xls") && fileNameAfterParse === fileName))
-          return directory;
-      }
-    } catch (error) {
-      throw new Error(`Error in getting the filepath for given file \n ${error}`)
-    }
-    return null;
-  }
-
-  private getConversionData(conversionType: string, sheet: string): string {
+  private _convertSheet(conversionType: string, sheet: xlsx.WorkSheet): string | Array<any> {
     let excelData;
+
     switch (conversionType.toLowerCase().trim()) {
       case "json":
-        excelData = this.excelUtils.utils.sheet_to_json(sheet)
+        excelData = xlsx.utils.sheet_to_json(sheet);
         break;
       case "csv":
-        excelData = this.excelUtils.utils.sheet_to_csv(sheet)
+        excelData = xlsx.utils.sheet_to_csv(sheet);
         break;
       case "txt":
-        excelData = this.excelUtils.utils.sheet_to_txt(sheet)
+        excelData = xlsx.utils.sheet_to_txt(sheet);
         break;
       default:
-        throw new Error("Passed conversion type is not supported")
+        throw new Error("Passed conversion type is not supported");
     }
-    return excelData
+
+    return excelData;
   }
 }
 export default new File();
