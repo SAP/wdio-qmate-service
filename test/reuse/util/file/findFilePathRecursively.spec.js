@@ -1,7 +1,8 @@
 const path = require("path");
 
-describe("file - getAbsoluteFilePath - It fetches the absolute file path", function () {
+describe("file - findFilePathRecursively - It fetches the absolute file path", function () {
   let value;
+  
   it("Execution", async function () {
     const xlsPath = path.resolve(__dirname, "./testFiles");
     value = await util.file.getAbsoluteFilePath(xlsPath, "test.xls");
