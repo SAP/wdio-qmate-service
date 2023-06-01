@@ -45,32 +45,28 @@ export class File {
       throw new Error(`Function 'upload' failed': ${error}`);
     }
   }
-  
+
   /**
    * @function uploadWebGui
    * @memberOf util.file
    * @description Uploads all the file/s by the paths given in the Array for SAP WebGUI apps.
    * @param {String[]} files - Array with path/s of file/s to be uploaded.
-   * @param {String | Object} selector - Custom selector of the input element
+   * @param {String} selector - Custom selector of the input element
    * @example await util.file.uploadWebGui(["path/to/text1.txt"], "INPUT[title='External file name']");
    */
-  async uploadWebGui(files: Array<string>, selector: any) {
+  async uploadWebGui(files: Array<string>, selector: string) {
     const vl = this.vlf.initLog(this.uploadWebGui);
     try {
-      if (typeof selector === "string") {
-        const elem = await nonUi5.element.getByCss(selector);
-        await nonUi5.userInteraction.click(elem);
-      } else if (typeof selector === "object") {
-        await ui5.userInteraction.click(selector);
-      }
+      const elem = await nonUi5.element.getByCss(selector);
+      await nonUi5.userInteraction.click(elem);
       await common.userInteraction.pressF4();
       const okButton = await nonUi5.element.getByCss("DIV[id='UpDownDialogChoose']")
       await nonUi5.assertion.expectToBeVisible(okButton);
-      const fileInput = await nonUi5.element.getByXPath(".//input[@id='webgui_filebrowser_file_upload'][@type='file']", 0, 30000, true);
+      const fileInput = await nonUi5.element.getByCss(".//input[@id='webgui_filebrowser_file_upload'][@type='file']", 0, 30000, true);
       let remoteFiles = "";
       for (const file of files) {
         const filePath = this.path.resolve(file);
-        vl.log(`Uploading file with a path ${filePath}`);
+        vl.log(`Uploading file with path ${filePath}`);
         const remoteFilePath = await browser.uploadFile(filePath);
         if (remoteFiles) {
           remoteFiles = remoteFiles + "\n";

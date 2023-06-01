@@ -1214,7 +1214,7 @@ Uploads all the file/s by the paths given in the Array for SAP WebGUI apps.
 | Param | Type | Description |
 | --- | --- | --- |
 | files | <code>Array.&lt;String&gt;</code> | Array with path/s of file/s to be uploaded. |
-| selector | <code>String</code> \| <code>Object</code> | Custom selector of the input element |
+| selector | <code>String</code> | Custom selector of the input element |
 
 **Example**  
 ```js
