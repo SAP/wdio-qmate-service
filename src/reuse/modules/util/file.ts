@@ -62,12 +62,12 @@ export class File {
       const elem = await nonUi5.element.getByCss(selector);
       await nonUi5.userInteraction.click(elem);
       await common.userInteraction.pressF4();
-      const okButton = await nonUi5.element.getByCss("DIV[id='UpDownDialogChoose']")
+      const okButton = await nonUi5.element.getByCss("DIV[id='UpDownDialogChoose']");
       await nonUi5.assertion.expectToBeVisible(okButton);
       const fileInput = await nonUi5.element.getByCss(".//input[@id='webgui_filebrowser_file_upload'][@type='file']", 0, 30000, true);
       let remoteFiles = "";
       for (const file of files) {
-        const filePath = this.path.resolve(file);
+        const filePath = path.resolve(file);
         vl.log(`Uploading file with path ${filePath}`);
         const remoteFilePath = await browser.uploadFile(filePath);
         if (remoteFiles) {
