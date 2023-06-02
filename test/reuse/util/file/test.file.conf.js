@@ -8,5 +8,10 @@ exports.config = merge(profile.config, {
 
   baseUrl: "https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection",
 
-  specs: [path.resolve(__dirname, "file.spec.js"), path.resolve(__dirname, "pdfParser.spec.js"), path.resolve(__dirname, "getExcelData.spec.js"), path.resolve(__dirname, "findFilePathRecursively.spec.js")]
+  specs: [
+    path.resolve(__dirname, "file.spec.js"), 
+    path.resolve(__dirname, "pdfParser.spec.js"), 
+    path.resolve(__dirname, "getExcelData.spec.js"), 
+    path.resolve(__dirname, "findFilePathRecursively.spec.js")
+  ]
 });
