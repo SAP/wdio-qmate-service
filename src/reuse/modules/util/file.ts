@@ -1,6 +1,11 @@
 "use strict";
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import * as path from "path";
+import pdfParse from "pdf-parse";
+import * as fs from "fs";
+import * as xlsx from "xlsx";
+import * as os from "os";
 
 /**
  * @class file
@@ -9,9 +14,6 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 
 export class File {
   private vlf = new VerboseLoggerFactory("util", "file");
-
-  path = require("path");
-  pdf = require("pdf-parse");
 
   // =================================== UPLOAD ===================================
   /**
@@ -36,7 +38,7 @@ export class File {
       }
 
       for (const file of files) {
-        const filePath = this.path.resolve(file);
+        const filePath = path.resolve(file);
         vl.log(`Uploading file with a path ${filePath}`);
         const remoteFilePath = await browser.uploadFile(filePath);
         await elem.addValue(remoteFilePath);
@@ -60,12 +62,12 @@ export class File {
       const elem = await nonUi5.element.getByCss(selector);
       await nonUi5.userInteraction.click(elem);
       await common.userInteraction.pressF4();
-      const okButton = await nonUi5.element.getByCss("DIV[id='UpDownDialogChoose']")
+      const okButton = await nonUi5.element.getByCss("DIV[id='UpDownDialogChoose']");
       await nonUi5.assertion.expectToBeVisible(okButton);
       const fileInput = await nonUi5.element.getByCss(".//input[@id='webgui_filebrowser_file_upload'][@type='file']", 0, 30000, true);
       let remoteFiles = "";
       for (const file of files) {
-        const filePath = this.path.resolve(file);
+        const filePath = path.resolve(file);
         vl.log(`Uploading file with path ${filePath}`);
         const remoteFilePath = await browser.uploadFile(filePath);
         if (remoteFiles) {
@@ -100,7 +102,7 @@ export class File {
       pagerender: renderingMethod
     };
     // @ts-ignore
-    const data = await this.pdf(pdfStream, options);
+    const data = await pdfParse(pdfStream, options);
     return data.text;
   }
 
@@ -142,9 +144,81 @@ export class File {
     return expect(parsedText).not.toContain(text);
   }
 
+  // =================================== EXCEL ===================================
+  /**
+   * @function getExcelData
+   * @memberof util.file
+   * @description - It returns the excel data based on the conversion type which is passed
+   * @param {string} filePath - File path is required
+   * @param {string} fileName - File Name is required
+   * @param {number} [sheetIndex] - sheetIndex is required
+   * @param {string} [conversionType] - Value for this are [json, csv, txt]
+   * @example const myTableContent = await util.file.getExcelData("/Users/path/myWork", "myTable.xlx");
+   */
+  async getExcelData(filePath: string, fileName: string, sheetIndex: number = 0, conversionType: string = "json"): Promise<any> {
+    const vl = this.vlf.initLog(this.getExcelData);
+
+    const downloadDir = filePath && fs.existsSync(filePath) ? filePath + path.sep : os.homedir() + path.sep + "Downloads";
+    vl.log(`Download directory path: ${downloadDir}`);
+
+    const fileNamePath = await this.findFilePathRecursively(downloadDir, fileName);
+    if (!fileNamePath) {
+      throw new Error(`The specified file '${fileName}' doesn't exist in the directory: ${downloadDir}`);
+    }
+
+    const workbook = xlsx.readFile(fileNamePath);
+    const sheetList = workbook.SheetNames;
+    if (sheetIndex < 0 || sheetIndex > sheetList.length - 1) {
+      throw new Error(`The specified sheet index '${sheetIndex}' is invalid for the Excel file.`);
+    }
+
+    const sheetName = sheetList[sheetIndex];
+    const sheet = workbook.Sheets[sheetName];
+
+    return this._convertSheet(conversionType, sheet);
+  }
+
+  // =================================== FILEPATH ===================================
+  /**
+   * @function findFilePathRecursively
+   * @memberof util.file
+   * @description - Returns the absolute path of the file with the given filename. Searches Recursively for the file within the given directory.
+   * @param {string} directory - The name of the directory.
+   * @param {string} fileName - The name of the file.
+   * @example await util.file.findFilePathRecursively("/Users","test.xls");
+   */
+  async findFilePathRecursively(directory: string, fileName: string): Promise<any> {
+    const vl = this.vlf.initLog(this.findFilePathRecursively);
+
+    try {
+      const fileList = fs.readdirSync(directory);
+
+      for (const file of fileList) {
+        const filePath = path.join(directory, file);
+        const stats = fs.statSync(filePath);
+
+        if (stats.isDirectory()) {
+          const recursiveFilePath = await this.findFilePathRecursively(filePath, fileName);
+          if (recursiveFilePath !== null) {
+            return recursiveFilePath;
+          }
+        } else if (stats.isFile()) {
+          const parsedFileName = path.parse(filePath).base;
+
+          if (path.extname(parsedFileName).includes(".xls") && parsedFileName === fileName) {
+            return filePath;
+          }
+        }
+      }
+    } catch (error) {
+      throw new Error(`Error in getting the file path for the given directory and filename.\n${error}`);
+    }
+
+    return null;
+  }
+
   // =================================== HELPER ===================================
   private async _renderPage(pageData: any) {
-
     // should be in scope of render page due to library specific implementation
     const _parseText = function (textContent: any) {
       if (textContent === undefined || textContent === null || !textContent.items || !Array.isArray(textContent.items)) {
@@ -172,6 +246,26 @@ export class File {
       disableCombineTextItems: false
     };
     return pageData.getTextContent(render_options).then(_parseText);
+  }
+
+  private _convertSheet(conversionType: string, sheet: xlsx.WorkSheet): string | Array<any> {
+    let excelData;
+
+    switch (conversionType.toLowerCase().trim()) {
+      case "json":
+        excelData = xlsx.utils.sheet_to_json(sheet);
+        break;
+      case "csv":
+        excelData = xlsx.utils.sheet_to_csv(sheet);
+        break;
+      case "txt":
+        excelData = xlsx.utils.sheet_to_txt(sheet);
+        break;
+      default:
+        throw new Error("Passed conversion type is not supported");
+    }
+
+    return excelData;
   }
 }
 export default new File();
