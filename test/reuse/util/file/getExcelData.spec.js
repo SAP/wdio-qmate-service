@@ -6,12 +6,11 @@ describe("file - getExcelData - Retrieve xls file data", function () {
   it("Execution", async function () {
     const xlsPath = path.resolve(__dirname, "./testFiles");
     value = await util.file.getExcelData(xlsPath, "test.xls", 1);
-    value = JSON.stringify(value);
   });
 
   it("Verification", async function () {
-    common.assertion.expectDefined(value);
-    common.assertion.expectTrue(value.includes("Supplier Part Id"));
+    const valueExp = [{ Number: "1.1", Name: "MAT7_XBOX_SHORT_7_019", Supplier: "BigBox Retail", "Price (USD)\n5/1/2023 - 5/31/2023": "111.0", "Price (USD)\n6/1/2023 - 6/30/2023": "111.0", "Lead Time": "96 Hr", "Manufacturer Name": "", "Manufacturer Part Id": "", "Supplier Part Id": "V00433" }];
+    common.assertion.expectEqual(value, valueExp);
   });
 });
 
@@ -21,11 +20,11 @@ describe("file - getExcelData - Retrieve xlsx file data", function () {
   it("Execution", async function () {
     const xlsxPath = path.resolve(__dirname, "./testFiles");
     value = await util.file.getExcelData(xlsxPath, "test1.xlsx", 1);
-    value = JSON.stringify(value);
   });
 
   it("Verification", async function () {
-    common.assertion.expectTrue(value.includes("Supplier Part Id"));
+    const valueExp = [{ Number: "1.1", Name: "MAT7_XBOX_SHORT_7_019", Supplier: "BigBox Retail", "Price (USD)\n5/1/2023 - 5/31/2023": "111.0", "Price (USD)\n6/1/2023 - 6/30/2023": "111.0", "Lead Time": "96 Hr", "Manufacturer Name": "", "Manufacturer Part Id": "", "Supplier Part Id": "V00433" }];
+    common.assertion.expectEqual(value, valueExp);
   });
 });
 
@@ -38,7 +37,11 @@ describe("file - getExcelData - test xls to csv file data", function () {
   });
 
   it("Verification", async function () {
-    common.assertion.expectTrue(value.includes("Supplier"));
+    const valueExp = `Number,Name,Supplier,"Price (USD)
+5/1/2023 - 5/31/2023","Price (USD)
+6/1/2023 - 6/30/2023",Incoterms,Lead Time,Manufacturer Name,Manufacturer Part Id,Supplier Part Id
+1.1,MAT7_XBOX_SHORT_7_019,BigBox Retail,111.0,111.0,,96 Hr,,,V00433`;
+    common.assertion.expectEqual(value, valueExp);
   });
 });
 
