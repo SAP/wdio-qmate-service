@@ -588,6 +588,7 @@ Global namespace for util modules.
         * [.decrypt(data)](#util.data.decrypt) ⇒ <code>Object</code>
     * [.file](#util.file)
         * [.upload(files, [selector])](#util.file.upload)
+        * [.uploadWebGui(files, selector)](#util.file.uploadWebGui)
         * [.parsePdf(pdfStream, renderingMethod)](#util.file.parsePdf) ⇒ <code>String</code>
         * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
         * [.expectPdfNotContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfNotContainsText)
@@ -1178,6 +1179,7 @@ const decrypted = util.data.decrypt("d704004c262faa8ef4bdcf34c8a94883e15524872c7
 
 * [.file](#util.file)
     * [.upload(files, [selector])](#util.file.upload)
+    * [.uploadWebGui(files, selector)](#util.file.uploadWebGui)
     * [.parsePdf(pdfStream, renderingMethod)](#util.file.parsePdf) ⇒ <code>String</code>
     * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
     * [.expectPdfNotContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfNotContainsText)
@@ -1201,6 +1203,22 @@ await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"]); // uses the 
 **Example**  
 ```js
 await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], "input[id='myUpload']"); // upload to file uploader with matching selector
+```
+<a name="util.file.uploadWebGui"></a>
+
+#### file.uploadWebGui(files, selector)
+Uploads all the file/s by the paths given in the Array for SAP WebGUI apps.
+
+**Kind**: static method of [<code>file</code>](#util.file)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| files | <code>Array.&lt;String&gt;</code> | Array with path/s of file/s to be uploaded. |
+| selector | <code>String</code> | Custom selector of the input element |
+
+**Example**  
+```js
+await util.file.uploadWebGui(["path/to/text1.txt"], "INPUT[title='External file name']");
 ```
 <a name="util.file.parsePdf"></a>
 
