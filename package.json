@@ -167,9 +167,6 @@
     "wdio-chromedriver-service": "^8.1.1"
   },
   "overrides": {
-    "got": "^11.8.5",
-    "@sap_oss/odata-library": {
-      "xml2js": "^0.5.0"
-    }
+    "got": "^11.8.5"
   }
 }
