@@ -3,6 +3,7 @@
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { AlignmentValues } from "./constants/userInteraction.constants";
+import elementHighlight from "../../helper/elementHighlight";
 
 /**
  * @class userInteraction
@@ -23,6 +24,7 @@ export class UserInteraction {
    */
   async click(element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.click);
+    const highlightConfig = await elementHighlight.getElementHighlightData("click");
 
     try {
       this._verifyElement(element);
@@ -44,6 +46,7 @@ export class UserInteraction {
       ]);
 
       vl.log("Clicking the element");
+      if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
       await element.click();
     } catch (error) {
       this._throwErrorForFunction("click", error);
@@ -209,12 +212,14 @@ export class UserInteraction {
    */
   async fill(element: Element, value: string | number) {
     const vl = this.vlf.initLog(this.fill);
+    let highlightConfig = await elementHighlight.getElementHighlightData("fill");
 
     try {
       this._verifyElement(element);
       this._verifyValue(value);
 
       vl.log(`Setting the value of element to ${value}`);
+      if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
       await element.setValue(value);
     } catch (error) {
       this._throwErrorForFunction("fill", error);
