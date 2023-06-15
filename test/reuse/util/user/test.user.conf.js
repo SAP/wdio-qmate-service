@@ -4,9 +4,9 @@ const qmateConfiguration = require("../../../helper/configurations/chrome.headle
 exports.config = merge(qmateConfiguration.config, {
   maxInstances: 1,
   params: {
-    systemUrl: "https://cc3-715.wdf.sap.corp/"
+    systemUrl: "<urlToSystem>"
   },
-  baseUrl: "https://cc3-715.wdf.sap.corp/ui",
+  baseUrl: "<urlToLaunchpad>",
 
   specs: [
     path.resolve(__dirname, "getLanguage.spec.js"),
