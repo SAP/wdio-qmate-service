@@ -9,10 +9,10 @@ exports.config = merge(qmateConfiguration.config, {
   baseUrl: "https://cc3-715.wdf.sap.corp/ui",
 
   specs: [
-    // path.resolve(__dirname, "getLanguage.spec.js"),
-    // path.resolve(__dirname, "getDateFormat.spec.js"),
-    // path.resolve(__dirname, "getTimeFormat.spec.js"),
-    // path.resolve(__dirname, "getTimeZone.spec.js"),
+    path.resolve(__dirname, "getLanguage.spec.js"),
+    path.resolve(__dirname, "getDateFormat.spec.js"),
+    path.resolve(__dirname, "getTimeFormat.spec.js"),
+    path.resolve(__dirname, "getTimeZone.spec.js"),
     path.resolve(__dirname, "getNumberFormat.spec.js")
   ]
 });
