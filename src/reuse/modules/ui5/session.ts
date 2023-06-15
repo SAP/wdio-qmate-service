@@ -20,7 +20,7 @@ export class Session {
    * @example await ui5.session.login("PURCHASER");
    * @example await ui5.session.login("JOHN_DOE", "abc123!", true);
    */
-  async login(username: string, password?: string, verify = false, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async login(username: string, password?: string, verify = false, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, setUserSettings: boolean = true) {
     const vl = this.vlf.initLog(this.login);
     if (browser.config && browser.config.params && browser.config.params.auth && browser.config.params.auth.formType === "skip") {
       util.console.warn("Login is skipped since 'formType' is set to 'skip'");
@@ -77,6 +77,9 @@ export class Session {
     }
 
     await this._loginWithUsernameAndPassword(username, password, authenticator, verify, messageSelector);
+    if (setUserSettings) {
+      await util.user.setUserSettings(username, password);
+    }
   }
 
   /**
