@@ -23,6 +23,7 @@ export class User {
     }
     const res = await service.odata.get(this._srvInstance, "UserProfileProperties", { id: "LANGUAGE", shellType: "FLP" });
     process.env.USER_SETTINGS_LANG_KEY = res.value;
+    vl.log(`Language Key: ${process.env.USER_SETTINGS_LANG_KEY} was set.`);
   }
 
   public async getDateFormat(user: string, password: string) {
@@ -33,6 +34,7 @@ export class User {
     const res = await service.odata.get(this._srvInstance, "UserProfileProperties", { id: "DATE_FORMAT", shellType: "FLP" });
     const resUserData = await service.odata.get(this._srvInstance, "UserProfilePropertyValues", { id: "DATE_FORMAT", shellType: "FLP", value: res.value });
     process.env.USER_SETTINGS_DATE_FORMAT = resUserData.description;
+    vl.log(`Date Format: ${process.env.USER_SETTINGS_DATE_FORMAT} was set.`);
   }
 
   public async getTimeFormat(user: string, password: string) {
@@ -43,6 +45,7 @@ export class User {
     const res = await service.odata.get(this._srvInstance, "UserProfileProperties", { id: "TIME_FORMAT", shellType: "FLP" });
     const resUserData = await service.odata.get(this._srvInstance, "UserProfilePropertyValues", { id: "TIME_FORMAT", shellType: "FLP", value: res.value });
     process.env.USER_SETTINGS_TIME_FORMAT = resUserData.description;
+    vl.log(`Time Format: ${process.env.USER_SETTINGS_TIME_FORMAT} was set.`);
   }
 
   public async getTimeZone(user: string, password: string) {
@@ -52,6 +55,7 @@ export class User {
     }
     const res = await service.odata.get(this._srvInstance, "UserProfileProperties", { id: "TIME_ZONE", shellType: "FLP" });
     process.env.USER_SETTINGS_TIME_ZONE = res.value.replace("/", ", ");
+    vl.log(`Time Zone: ${process.env.USER_SETTINGS_TIME_ZONE} was set.`);
   }
 
   public async getNumberFormat(user: string, password: string) {
@@ -62,10 +66,11 @@ export class User {
     const res = await service.odata.get(this._srvInstance, "UserProfileProperties", { id: "NUMBER_FORMAT", shellType: "FLP" });
     const resUserData = await service.odata.get(this._srvInstance, "UserProfilePropertyValues", { id: "NUMBER_FORMAT", shellType: "FLP", value: res.value });
     process.env.USER_SETTINGS_NUMBER_FORMAT = resUserData.description;
+    vl.log(`Number Format: ${process.env.USER_SETTINGS_NUMBER_FORMAT} was set.`);
   }
 
   public async setUserSettings(user: string, password: string) {
-    const vl = this.vlf.initLog(this.setUserSettings);
+    this.vlf.initLog(this.setUserSettings);
     try {
       await this.getDateFormat(user, password);
       await this.getLanguage(user, password);
@@ -73,9 +78,8 @@ export class User {
       await this.getTimeFormat(user, password);
       await this.getTimeZone(user, password);
     } catch (error) {
-      throw new Error("function: 'setUserSettings' failed: Unable to set the user settings.")
+      util.console.warn(`Function: 'setUserSettings' failed: Unable to set the UserSettings: ${error}`);
     }
-
   }
 }
 export default new User();
