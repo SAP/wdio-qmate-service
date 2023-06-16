@@ -23,7 +23,7 @@ export class Util {
   function: FunctionModule = functionModule;
   system: System = system;
   component: Component = component;
-  userSettings: User = userSettings;
+  userSettings: UserSettings = userSettings;
 }
 
 export default new Util();

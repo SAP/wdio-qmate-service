@@ -350,7 +350,7 @@ export class Session {
       }
     }
     if (browser.config.params.applyUserSettingsForS4) {
-      await util.userSettings.apply(username, password);
+      await util.userSettings.apply(username, password, true);
     }
   }
 
