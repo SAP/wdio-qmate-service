@@ -3,11 +3,11 @@
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 
 /**
- * @class user
+ * @class userSettings
  * @memberof util
  */
 
-export class User {
+export class UserSettings {
   private vlf = new VerboseLoggerFactory("util", "user");
   private _srvInstance = null;
 
@@ -69,17 +69,19 @@ export class User {
     vl.log(`Number Format: ${process.env.USER_SETTINGS_NUMBER_FORMAT} was set.`);
   }
 
-  public async setUserSettingsForS4(user: string, password: string) {
-    this.vlf.initLog(this.setUserSettingsForS4);
-    try {
-      await this.setDateFormatFromUserSettings(user, password);
-      await this.setLanguageFromUserSettings(user, password);
-      await this.setNumberFormatFromUserSettings(user, password);
-      await this.setTimeFormatFromUserSettings(user, password);
-      await this.setTimeZoneFromUserSettings(user, password);
-    } catch (error) {
-      util.console.warn(`Function: 'setUserSettingsForS4' failed: Unable to set the UserSettings: ${error}`);
+  public async apply(user: string, password: string, isS4: boolean) {
+    this.vlf.initLog(this.apply);
+    if (isS4) {
+      try {
+        await this.setDateFormatFromUserSettings(user, password);
+        await this.setLanguageFromUserSettings(user, password);
+        await this.setNumberFormatFromUserSettings(user, password);
+        await this.setTimeFormatFromUserSettings(user, password);
+        await this.setTimeZoneFromUserSettings(user, password);
+      } catch (error) {
+        util.console.warn(`Function: 'setUserSettingsForS4' failed: Unable to set the UserSettings: ${error}`);
+      }
     }
   }
 }
-export default new User();
+export default new UserSettings();

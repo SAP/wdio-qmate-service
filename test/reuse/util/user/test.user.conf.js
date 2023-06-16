@@ -5,7 +5,7 @@ exports.config = merge(qmateConfiguration.config, {
   maxInstances: 1,
   params: {
     systemUrl: "<systemUrl>",
-    setUserSettingsForS4: true
+    applyUserSettingsForS4: true
     //TODO: Add 'setUserSettingsForS4' to docs.
   },
   baseUrl: "<baseUrl>",

@@ -6,7 +6,7 @@ import formatter, { Formatter } from "./formatter";
 import functionModule, { FunctionModule } from "./function";
 import system, { System } from "./system";
 import component, { Component } from "./component";
-import user, { User } from "./user";
+import userSettings, { UserSettings } from "./userSettings";
 
 
 interface DataHooksExtended extends Data {
@@ -23,7 +23,7 @@ export class Util {
   function: FunctionModule = functionModule;
   system: System = system;
   component: Component = component;
-  user: User = user;
+  userSettings: User = userSettings;
 }
 
 export default new Util();

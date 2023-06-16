@@ -77,9 +77,6 @@ export class Session {
     }
 
     await this._loginWithUsernameAndPassword(username, password, authenticator, verify, messageSelector);
-    if (browser.config.params.setUserSettingsForS4) {
-      await util.user.setUserSettingsForS4(username, password);
-    }
   }
 
   /**
@@ -351,6 +348,9 @@ export class Session {
       if (error instanceof Error) {
         util.console.warn(error.toString());
       }
+    }
+    if (browser.config.params.applyUserSettingsForS4) {
+      await util.userSettings.apply(username, password);
     }
   }
 
