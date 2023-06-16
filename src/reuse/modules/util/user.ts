@@ -16,8 +16,8 @@ export class User {
     this._srvInstance = await service.odata.init(`${browser.config.params.systemUrl}/sap/opu/odata/UI2/INTEROP`, user, password);
   }
 
-  public async getLanguage(user: string, password: string) {
-    const vl = this.vlf.initLog(this.getLanguage);
+  public async setLanguageFromUserSettings(user: string, password: string) {
+    const vl = this.vlf.initLog(this.setLanguageFromUserSettings);
     if (!this._srvInstance) {
       await this._initForUserSetting(user, password);
     }
@@ -26,8 +26,8 @@ export class User {
     vl.log(`Language Key: ${process.env.USER_SETTINGS_LANG_KEY} was set.`);
   }
 
-  public async getDateFormat(user: string, password: string) {
-    const vl = this.vlf.initLog(this.getDateFormat);
+  public async setDateFormatFromUserSettings(user: string, password: string) {
+    const vl = this.vlf.initLog(this.setDateFormatFromUserSettings);
     if (!this._srvInstance) {
       await this._initForUserSetting(user, password);
     }
@@ -37,8 +37,8 @@ export class User {
     vl.log(`Date Format: ${process.env.USER_SETTINGS_DATE_FORMAT} was set.`);
   }
 
-  public async getTimeFormat(user: string, password: string) {
-    const vl = this.vlf.initLog(this.getTimeFormat);
+  public async setTimeFormatFromUserSettings(user: string, password: string) {
+    const vl = this.vlf.initLog(this.setTimeFormatFromUserSettings);
     if (!this._srvInstance) {
       await this._initForUserSetting(user, password);
     }
@@ -48,8 +48,8 @@ export class User {
     vl.log(`Time Format: ${process.env.USER_SETTINGS_TIME_FORMAT} was set.`);
   }
 
-  public async getTimeZone(user: string, password: string) {
-    const vl = this.vlf.initLog(this.getTimeZone);
+  public async setTimeZoneFromUserSettings(user: string, password: string) {
+    const vl = this.vlf.initLog(this.setTimeZoneFromUserSettings);
     if (!this._srvInstance) {
       await this._initForUserSetting(user, password);
     }
@@ -58,8 +58,8 @@ export class User {
     vl.log(`Time Zone: ${process.env.USER_SETTINGS_TIME_ZONE} was set.`);
   }
 
-  public async getNumberFormat(user: string, password: string) {
-    const vl = this.vlf.initLog(this.getNumberFormat);
+  public async setNumberFormatFromUserSettings(user: string, password: string) {
+    const vl = this.vlf.initLog(this.setNumberFormatFromUserSettings);
     if (!this._srvInstance) {
       await this._initForUserSetting(user, password);
     }
@@ -69,16 +69,16 @@ export class User {
     vl.log(`Number Format: ${process.env.USER_SETTINGS_NUMBER_FORMAT} was set.`);
   }
 
-  public async setUserSettings(user: string, password: string) {
-    this.vlf.initLog(this.setUserSettings);
+  public async setUserSettingsForS4(user: string, password: string) {
+    this.vlf.initLog(this.setUserSettingsForS4);
     try {
-      await this.getDateFormat(user, password);
-      await this.getLanguage(user, password);
-      await this.getNumberFormat(user, password);
-      await this.getTimeFormat(user, password);
-      await this.getTimeZone(user, password);
+      await this.setDateFormatFromUserSettings(user, password);
+      await this.setLanguageFromUserSettings(user, password);
+      await this.setNumberFormatFromUserSettings(user, password);
+      await this.setTimeFormatFromUserSettings(user, password);
+      await this.setTimeZoneFromUserSettings(user, password);
     } catch (error) {
-      util.console.warn(`Function: 'setUserSettings' failed: Unable to set the UserSettings: ${error}`);
+      util.console.warn(`Function: 'setUserSettingsForS4' failed: Unable to set the UserSettings: ${error}`);
     }
   }
 }

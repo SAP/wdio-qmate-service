@@ -4,15 +4,17 @@ const qmateConfiguration = require("../../../helper/configurations/chrome.headle
 exports.config = merge(qmateConfiguration.config, {
   maxInstances: 1,
   params: {
-    systemUrl: "<urlToSystem>"
+    systemUrl: "<systemUrl>",
+    setUserSettingsForS4: true
+    //TODO: Add 'setUserSettingsForS4' to docs.
   },
-  baseUrl: "<urlToLaunchpad>",
+  baseUrl: "<baseUrl>",
 
   specs: [
-    path.resolve(__dirname, "getLanguage.spec.js"),
-    path.resolve(__dirname, "getDateFormat.spec.js"),
-    path.resolve(__dirname, "getTimeFormat.spec.js"),
-    path.resolve(__dirname, "getTimeZone.spec.js"),
-    path.resolve(__dirname, "getNumberFormat.spec.js")
+    path.resolve(__dirname, "setLanguageFromUserSettings.spec.js"),
+    path.resolve(__dirname, "setDateFormatFromUserSettings.spec.js"),
+    path.resolve(__dirname, "setTimeFormatFromUserSettings.spec.js"),
+    path.resolve(__dirname, "setTimeZoneFromUserSettings.spec.js"),
+    path.resolve(__dirname, "setNumberFormatFromUserSettings.spec.js")
   ]
 });
