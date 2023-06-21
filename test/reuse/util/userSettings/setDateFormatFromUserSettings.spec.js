@@ -1,10 +1,10 @@
-const path = require("path");
-const fs = require("fs");
+const data = require("./data/data.json");
+
 
 describe("user", function () {
   describe("get user language", function () {
     it("Execution", async function () {
-      await util.user.setDateFormatFromUserSettings("<user>", "<pw>");
+      await util.user.setDateFormatFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
       console.log(process.env.USER_SETTINGS_DATE_FORMAT);
     });
   });

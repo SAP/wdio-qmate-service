@@ -140,105 +140,58 @@ export class Formatter {
    * const formattedDate = util.formatter.formatDate(date, "mmm dd, yyyy");
    * // returns "Apr 03, 2022"
    */
-  // formatDate(date: Date, format: DateFormatsType, locale = "en-US"): string | Date {
-  //   if (format) {
-  //     format = format.toLowerCase() as DateFormats;
-  //   }
-  //   let formattedDate: Date | string = date;
-
-  //   let hour: number | string = date.getHours();
-  //   let min: number | string = date.getMinutes();
-  //   let sec: number | string = date.getSeconds();
-  //   let dd: number | string = date.getDate();
-  //   let mm: number | string = date.getMonth() + 1;
-  //   const month = date.toLocaleString(locale, { month: "short" });
-  //   const yyyy = date.getFullYear();
-
-  //   if (sec < 10) {
-  //     sec = `0${sec}`;
-  //   }
-
-  //   if (min < 10) {
-  //     min = `0${min}`;
-  //   }
-
-  //   if (hour < 10) {
-  //     hour = `0${hour}`;
-  //   }
-
-  //   if (dd < 10 && format !== DateFormats.MONTH_DAY_YEAR_COMMA_SHORT) {
-  //     dd = `0${dd}`;
-  //   }
-
-  //   if (mm < 10) {
-  //     mm = `0${mm}`;
-  //   }
-
-  //   if (format) {
-  //     switch (format) {
-  //       case DateFormats.MONTH_DAY_YEAR_SLASH:
-  //         formattedDate = `${mm}/${dd}/${yyyy}`;
-  //         break;
-  //       case DateFormats.DAY_MONTH_YEAR_DOT:
-  //         formattedDate = `${dd}.${mm}.${yyyy}`;
-  //         break;
-  //       case DateFormats.DAY_MONTH_YEAR_SLASH:
-  //         formattedDate = `${dd}/${mm}/${yyyy}`;
-  //         break;
-  //       case DateFormats.YEAR_MONTH_DAY_PLAIN:
-  //         formattedDate = `${yyyy}${mm}${dd}`;
-  //         break;
-  //       case DateFormats.YEAR_MONTH_DAY_SLASH:
-  //         formattedDate = `${yyyy}/${mm}/${dd}`;
-  //         break;
-  //       case DateFormats.DAY_MONTH_YEAR_TIME_DOT:
-  //         formattedDate = `${dd}.${mm}.${yyyy}.${hour}.${min}`;
-  //         break;
-  //       case DateFormats.MONTH_DAY_YEAR_COMMA:
-  //         formattedDate = `${month} ${dd}, ${yyyy}`;
-  //         break;
-  //       case DateFormats.MONTH_DAY_YEAR_COMMA_SHORT:
-  //         formattedDate = `${month} ${dd}, ${yyyy}`;
-  //         break;
-  //       case DateFormats.DATETIME:
-  //         formattedDate = `datetime'${yyyy}-${mm}-${dd}T${hour}:${min}:${sec}'`;
-  //         break;
-  //       case DateFormats.OBJECT:
-  //         formattedDate = date;
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //   }
-
-  //   return formattedDate;
-  // }
-
-  formatDate(date: Date, format: string): string {
+  formatDate(date: Date, format: DateFormatsType, locale = "en-US"): string | Date {
     if (format) {
       format = format.toLowerCase() as DateFormats;
-      if (process.env.USER_SETTINGS_DATE_FORMAT !== undefined) {
-        format = process.env.USER_SETTINGS_DATE_FORMAT;
-      }
     }
+    let formattedDate: Date | string = date;
 
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const formatParts = format.split(/[^A-Z]+/i);
-    const dateParts: { [key: string]: number | string } = {
-      DD: day < 10 ? `0${day}` : day,
-      MM: month < 10 ? `0${month}` : month,
-      YYYY: year,
-      YY: year % 100,
-      D: day,
-      M: month
+    let hour: number | string = date.getHours();
+    let min: number | string = date.getMinutes();
+    let sec: number | string = date.getSeconds();
+    let dd: number | string = date.getDate();
+    let mm: number | string = date.getMonth() + 1;
+    const month = date.toLocaleString(locale, { month: "short" });
+    const yyyy = date.getFullYear();
+    let yy: number | string = yyyy % 100;
+
+    sec = sec.toString().padStart(2, "0");
+    min = min.toString().padStart(2, "0");
+    hour = hour.toString().padStart(2, "0");
+    dd = (dd < 10 && format !== DateFormats.MONTH_DAY_YEAR_COMMA_SHORT) ? dd.toString().padStart(2, "0") : dd;  
+    mm = mm.toString().padStart(2, "0");
+    yy = yy.toString().padStart(2, "0");
+
+
+    const formatMappings = {
+      [DateFormats.MONTH_DAY_YEAR_SLASH]: `${mm}/${dd}/${yyyy}`,
+      [DateFormats.DAY_MONTH_YEAR_DOT]: `${dd}.${mm}.${yyyy}`,
+      [DateFormats.DAY_MONTH_YEAR_SLASH]: `${dd}/${mm}/${yyyy}`,
+      [DateFormats.YEAR_MONTH_DAY_PLAIN]: `${yyyy}${mm}${dd}`,
+      [DateFormats.YEAR_MONTH_DAY_SLASH]: `${yyyy}/${mm}/${dd}`,
+      [DateFormats.DAY_MONTH_YEAR_TIME_DOT]: `${dd}.${mm}.${yyyy}.${hour}.${min}`,
+      [DateFormats.MONTH_DAY_YEAR_COMMA]: `${month} ${dd}, ${yyyy}`,
+      [DateFormats.MONTH_DAY_YEAR_COMMA_SHORT]: `${month} ${dd}, ${yyyy}`,
+      [DateFormats.DATETIME]: `datetime'${yyyy}-${mm}-${dd}T${hour}:${min}:${sec}'`,
+      [DateFormats.OBJECT]: date,
+      [DateFormats.GREGORIAN_DOT]: `${dd}.${mm}.${yyyy}`,
+      [DateFormats.GREGORIAN_SLASH]: `${mm}/${dd}/${yyyy}`,
+      [DateFormats.GREGORIAN_DASH]: `${mm}-${dd}-${yyyy}`,
+      [DateFormats.GREGORIAN_DOT_YEAR_FIRST]: `${yyyy}.${mm}.${dd}`,
+      [DateFormats.GREGORIAN_SLASH_YEAR_FIRST]: `${yyyy}/${mm}/${dd}`,
+      [DateFormats.GREGORIAN_ISO]: `${yyyy}-${mm}-${dd}`,
+      [DateFormats.JAPANESE_DOT]: `g.${yy}.${mm}.${dd}`,
+      [DateFormats.JAPANESE_SLASH]: `g/${yy}/${mm}/${dd}`,
+      [DateFormats.JAPANESE_DASH]: `g-${yy}-${mm}-${dd}`,
+      [DateFormats.ISLAMIC_1]: `${yyyy}/${mm}/${dd}`,
+      [DateFormats.ISLAMIC_2]: `${yyyy}/${mm}/${dd}`,
+      [DateFormats.IRANIAN]: `${yyyy}/${mm}/${dd}`
     };
-    let parsedDate = format;
-    for (const part of formatParts) {
-      parsedDate = parsedDate.replace(part, String(dateParts[part]));
+    
+    if (format && formatMappings[format]) {
+      formattedDate = formatMappings[format];
     }
-    return parsedDate;
+    return formattedDate;
   }
 }
 export default new Formatter();

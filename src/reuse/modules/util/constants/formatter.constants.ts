@@ -8,5 +8,17 @@ export enum DateFormats {
   MONTH_DAY_YEAR_COMMA = "mmm dd, yyyy",
   MONTH_DAY_YEAR_COMMA_SHORT = "mmm d, yyyy",
   DATETIME = "datetime",
-  OBJECT = "object"
+  OBJECT = "object",
+  GREGORIAN_DOT = "dd.mm.yyyy (Gregorian Date)",
+  GREGORIAN_SLASH = "mm/dd/yyyy (Gregorian Date)",
+  GREGORIAN_DASH = "mm-dd-yyyy (Gregorian Date)",
+  GREGORIAN_DOT_YEAR_FIRST = "yyyy.mm.dd (Gregorian Date)",
+  GREGORIAN_SLASH_YEAR_FIRST = "yyyy/mm/dd (Gregorian Date)",
+  GREGORIAN_ISO = "yyyy-mm-dd (Gregorian Date, ISO 8601)",
+  JAPANESE_DOT = "g.yy.mm.dd (Japanese Date)",
+  JAPANESE_SLASH = "g/yy/mm/dd (Japanese Date)",
+  JAPANESE_DASH = "g-yy-mm-dd (Japanese Date)",
+  ISLAMIC_1 = "yyyy/mm/dd (Islamic Date 1)",
+  ISLAMIC_2 = "yyyy/mm/dd (Islamic Date 2)",
+  IRANIAN = "yyyy/mm/dd (Iranian Date)"
 }

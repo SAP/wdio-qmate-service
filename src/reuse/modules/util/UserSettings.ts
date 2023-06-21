@@ -22,6 +22,7 @@ export class UserSettings {
       await this._initForUserSetting(user, password);
     }
     const res = await service.odata.get(this._srvInstance, "UserProfileProperties", { id: "LANGUAGE", shellType: "FLP" });
+    console.log(res);
     process.env.USER_SETTINGS_LANG_KEY = res.value;
     vl.log(`Language Key: ${process.env.USER_SETTINGS_LANG_KEY} was set.`);
   }
