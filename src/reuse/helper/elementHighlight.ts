@@ -47,13 +47,13 @@ export class ElementHighlight {
             if (!(typeof action == "string" && typeof actionName == "string"))
               throw new Error(`Please provide the method name '${action}/${actionName}' in string format`);
 
-            if (action.toLowerCase().trim().includes(actionName.trim())) {
+            if (action.toLowerCase().trim().includes(actionName.trim()) || action.includes("*")) {
               elementHighlightConfig = this._getElementHighlightColorAndDuration(elementHighlightConfig, elementHighlightDefaultConfig);
               return this._getElementHighlightConfig(true, elementHighlightConfig.color, elementHighlightConfig.duration);
             }
           }
         } else if (typeof actions === "string" && typeof actionName === "string") {
-          if (actions.toLowerCase().trim().includes(actionName.trim())) {
+          if (actions.toLowerCase().trim().includes(actionName.trim()) || actions.includes("*")) {
             elementHighlightConfig = this._getElementHighlightColorAndDuration(elementHighlightConfig, elementHighlightDefaultConfig);
             return this._getElementHighlightConfig(true, elementHighlightConfig.color, elementHighlightConfig.duration);
           }

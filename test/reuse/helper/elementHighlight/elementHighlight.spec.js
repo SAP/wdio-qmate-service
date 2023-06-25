@@ -4,6 +4,7 @@ const elementHighlight = require("../../../../lib/reuse/helper/elementHighlight"
 
 describe("elementHighlight - elementHighlight - 'Default' button to highlight", function () {
   let element;
+
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });
@@ -22,6 +23,7 @@ describe("elementHighlight - elementHighlight - 'Default' button to highlight", 
 
 describe("elementHighlight - elementHighlight - 'Default' button not to highlight", function () {
   let element;
+
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });
@@ -67,13 +69,60 @@ describe("elementHighlight - elementHighlight - actions key missing from highlig
   });
 });
 
+describe("elementHighlight - elementHighlight - Highlight the 'click' action just by specifying the actions as '*' in config", function () {
+  let element;
+
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
+  });
+
+  it("Execution", async function () {
+    const elementHighlightConfig = browser.config.params.highlightElements;
+    elementHighlightConfig["actions"] = ["*"];
+    browser.config.params.highlightElements = elementHighlightConfig;
+    element = await nonUi5.element.getById("Default", 2000);
+    const highlightConfig = await elementHighlight.getElementHighlightData("click");
+    if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
+  });
+
+  it("Verification", async function () {
+    await util.browser.sleep(3000);
+    const cssText = await nonUi5.element.getAttributeValue(element, "style");
+    common.assertion.expectTrue(cssText.includes("box-shadow: inherit"));
+  });
+});
+
+describe("elementHighlight - elementHighlight - Highlight the 'fill' action just by specifying the actions as '*' in config", function () {
+  let element;
+
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
+    element = await nonUi5.element.getById("ExampleValue1", 2000);
+    nonUi5.assertion.expectValueToBe(element, "", "value");
+  });
+
+  it("Execution & Verification", async function () {
+    const elementHighlightConfig = browser.config.params.highlightElements;
+    elementHighlightConfig["actions"] = ["*"];
+    browser.config.params.highlightElements = elementHighlightConfig;
+    const highlightConfig = await elementHighlight.getElementHighlightData("fill");
+    if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
+  });
+
+  it("Verification", async function () {
+    await util.browser.sleep(3000);
+    const cssText = await nonUi5.element.getAttributeValue(element, "style");
+    common.assertion.expectTrue(cssText.includes("box-shadow: inherit"));
+  });
+});
+
 describe("elementHighlight - elementHighlight - 'Default' button to highlight with default color red", function () {
   let element;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
   });
 
-  it("Execution & Verification", async function () {
+  it("Execution", async function () {
     const elementHighlightConfig = browser.config.params.highlightElements;
     elementHighlightConfig["actions"] = ["ui5.userInteraction.click", "ui5.userInteraction.fill"];
     delete elementHighlightConfig["color"];
