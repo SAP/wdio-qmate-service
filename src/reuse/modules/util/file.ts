@@ -6,6 +6,9 @@ import pdfParse from "pdf-parse";
 import * as fs from "fs";
 import * as xlsx from "xlsx";
 import * as os from "os";
+import * as xml2js from "xml2js";
+import { parsed } from "yargs";
+import { match } from "assert";
 
 /**
  * @class file
@@ -176,6 +179,73 @@ export class File {
     const sheet = workbook.Sheets[sheetName];
 
     return this._convertSheet(conversionType, sheet);
+  }
+
+  // =================================== TXT ===================================
+  /**
+   * @function expectTextDataToContain
+   * @memberof util.file
+   * @description - Reads the specified .txt file and asserts if it includes a specific string.
+   * @param {string} filePath - Path to the file.
+   * @example const myTableContent = await util.file.expectTextDataToContain("/Users/path/myWork", "supplierList.txt");
+   */
+  async expectTextDataToContain(filePath: string, searchString: string): Promise<any> {
+    const vl = this.vlf.initLog(this.expectTextDataToContain);
+
+    try {
+      const fileContent = fs.readFileSync(filePath, "utf-8");
+      common.assertion.expectTrue(fileContent.includes(searchString));
+    } catch (error) {
+      throw new Error("Function 'expectTextDataToContain' failed: Search String not included in .txt file.");
+    }
+  }
+
+  // =================================== XML ===================================
+  /**
+   * @function getXmlData
+   * @memberof util.file
+   * @description - Formats XML to JSON.
+   * @param {string} filePath - Path to the file.
+   * @example const xmlData = await util.file.getXmlData(path.resolve(__dirname, "./testFiles/test2.xml"));
+   */
+  async getXmlData(filePath: string, attribute?: string): Promise<any> {
+    const vl = this.vlf.initLog(this.getXmlData);
+    if (fs.existsSync(filePath)) {
+      try {
+        const xmlData = await fs.readFileSync(filePath);
+        const parser = new xml2js.Parser({ trim: true, normalize: true });
+        return await parser.parseStringPromise(xmlData);
+      } catch (error) {
+        throw new Error(`Function: 'getXmlData' failed: ${error}`);
+      }
+    }
+  }
+
+  // =================================== JSON ===================================
+  /**
+   * @function getAttributeFromJson
+   * @memberof util.file
+   * @description - Returns the searched attribute if available.
+   * @param {object} object - The JSON Object to search through.
+   * @example const attribute = util.file.getAttributeFromJson(xmlData, "CtrlSum");
+   */
+  public getAttributeFromJson(object: any, attributeName: string): any {
+    if (typeof object !== "object" || object === null) {
+      return null;
+    }
+
+    if (attributeName in object) {
+      return object[attributeName];
+    }
+
+    for (const key in object) {
+      const result = this.getAttributeFromJson(object[key], attributeName);
+      if (result !== null) {
+        return result;
+      }
+    }
+
+    return null;
   }
 
   // =================================== FILEPATH ===================================
