@@ -223,13 +223,13 @@ export class File {
 
   // =================================== JSON ===================================
   /**
-   * @function getAttributeFromJson
+   * @function getAttributeValueFromJson
    * @memberof util.file
    * @description - Returns the searched attribute if available.
    * @param {object} object - The JSON Object to search through.
-   * @example const attribute = util.file.getAttributeFromJson(xmlData, "CtrlSum");
+   * @example const attribute = util.file.getAttributeValueFromJson(xmlData, "CtrlSum");
    */
-  public getAttributeFromJson(object: any, attributeName: string): any {
+  public getAttributeValueFromJson(object: any, attributeName: string): any {
     if (typeof object !== "object" || object === null) {
       return null;
     }
@@ -239,7 +239,7 @@ export class File {
     }
 
     for (const key in object) {
-      const result = this.getAttributeFromJson(object[key], attributeName);
+      const result = this.getAttributeValueFromJson(object[key], attributeName);
       if (result !== null) {
         return result;
       }
