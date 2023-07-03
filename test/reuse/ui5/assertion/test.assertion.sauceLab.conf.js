@@ -9,7 +9,7 @@ exports.config = merge(profile.config, {
   maxInstances: 2, // note: for the SAP account, only 2 parallel instances is a max value
 
   bail: 1,
-  baseUrl: "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html",
+  baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_horizon_dark",
   
   specs: [
     path.resolve(__dirname, "expectAttributeToBe.spec.js"),

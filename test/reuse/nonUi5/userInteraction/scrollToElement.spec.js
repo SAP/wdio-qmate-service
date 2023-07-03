@@ -23,7 +23,7 @@ describe("userInteraction - scrollToElement", function () {
 
 describe("locator - scrollToElement - wrong element (error case)", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_horizon_dark#/categories");
     await handleCookiesConsent();
   });
 

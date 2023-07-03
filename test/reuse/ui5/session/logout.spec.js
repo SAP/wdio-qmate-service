@@ -38,7 +38,7 @@ describe("session - logout without inner verification", function () {
 
 describe("session - logout without login (unhappy case)", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrlAndRetry("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await common.navigation.navigateToUrlAndRetry("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_horizon_dark");
   });
 
   it("Execution & Verification", async function () {

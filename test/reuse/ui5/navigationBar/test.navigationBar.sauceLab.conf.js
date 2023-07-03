@@ -11,7 +11,7 @@ exports.config = merge(profile.config, {
 
 
   bail: 1,
-  baseUrl: "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html",
+  baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_horizon_dark",
 
   specs: [
     path.resolve(__dirname, "clickBack.spec.js"),
