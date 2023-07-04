@@ -208,9 +208,10 @@ export class File {
    * @param {string} filePath - Path to the file.
    * @example const xmlData = await util.file.getXmlData(path.resolve(__dirname, "./testFiles/test2.xml"));
    */
-  async getXmlData(filePath: string, attribute?: string): Promise<any> {
+  async getXmlData(filePath: string): Promise<any> {
     const vl = this.vlf.initLog(this.getXmlData);
-    if (fs.existsSync(filePath)) {
+
+    if (fs.existsSync(filePath) && this._checkFileEnding(filePath, "xml")) {
       try {
         const xmlData = await fs.readFileSync(filePath);
         const parser = new xml2js.Parser({ trim: true, normalize: true });
@@ -230,6 +231,8 @@ export class File {
    * @example const attribute = util.file.getAttributeValueFromJson(xmlData, "CtrlSum");
    */
   public getAttributeValueFromJson(object: any, attributeName: string): any {
+    const vl = this.vlf.initLog(this.getAttributeValueFromJson);
+
     if (typeof object !== "object" || object === null) {
       return null;
     }
@@ -246,6 +249,28 @@ export class File {
     }
 
     return null;
+  }
+
+  // =================================== XML ===================================
+  /**
+   * @function getTxtData
+   * @memberof util.file
+   * @description - Returns the content of a .txt file.
+   * @param {string} filePath - Path to the file.
+   * @example const txtData = await util.file.getTxtData(path.resolve(__dirname, "./testFiles/test3.txt"));
+   * const isDateIncluded = txt.includes("26.6.2023");
+   * common.assertion.expectEqual(isDateIncluded, true);
+   */
+  async getTxtData(filePath: string): Promise<any> {
+    const vl = this.vlf.initLog(this.getTxtData);
+
+    if (fs.existsSync(filePath) && this._checkFileEnding(filePath, "txt")) {
+      try {
+        return await fs.readFileSync(filePath, { encoding: "utf8" });
+      } catch (error) {
+        throw new Error(`Function: 'getTxtData' failed: ${error}`);
+      }
+    }
   }
 
   // =================================== FILEPATH ===================================
@@ -336,6 +361,17 @@ export class File {
     }
 
     return excelData;
+  }
+
+  private _checkFileEnding(filePath: string, expectedFileEnding: string): boolean {
+    const vl = this.vlf.initLog(this._checkFileEnding);
+
+    const fileEnding = path.extname(filePath).slice(1);
+    if (fileEnding.toLowerCase() === expectedFileEnding.toLowerCase()) {      
+      return true;
+    } else {
+      throw new Error(`Function 'checkFileEnding' failed: Wrong file format '${fileEnding}' was passed to function. Expected file format: ${expectedFileEnding}.`)
+    }
   }
 }
 export default new File();

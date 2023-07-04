@@ -15,5 +15,7 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "findFilePathRecursively.spec.js"),
     path.resolve(__dirname, "getXmlData.spec.js"),
     path.resolve(__dirname, "getAttributeValueFromJson.spec.js"),
+    path.resolve(__dirname, "getTxtData.spec.js"),
+
   ]
 });
