@@ -79,7 +79,7 @@ describe("control - focus - outside of viewpoint", function () {
 describe("control - focus - no selector found and catch error", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
   });
 
   it("Execution & Verification", async function () {

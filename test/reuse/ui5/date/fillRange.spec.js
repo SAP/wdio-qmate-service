@@ -43,7 +43,7 @@ describe("date - fillRange", function () {
 
 describe("date - fillRange: no such field on a screen (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.url("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
   });
 
   it("Execution & Verification", async function () {
