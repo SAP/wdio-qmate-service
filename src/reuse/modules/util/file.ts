@@ -182,6 +182,27 @@ export class File {
   }
 
   // =================================== TXT ===================================
+    /**
+   * @function getTxtData
+   * @memberof util.file
+   * @description - Returns the content of a .txt file.
+   * @param {string} filePath - Path to the file.
+   * @example const txtData = await util.file.getTxtData(path.resolve(__dirname, "./testFiles/test3.txt"));
+   * const isDateIncluded = txtData.includes("26.6.2023");
+   * common.assertion.expectEqual(isDateIncluded, true);
+   */
+    async getTxtData(filePath: string): Promise<any> {
+      const vl = this.vlf.initLog(this.getTxtData);
+  
+      if (fs.existsSync(filePath) && this._checkFileEnding(filePath, "txt")) {
+        try {
+          return await fs.readFileSync(filePath, { encoding: "utf8" });
+        } catch (error) {
+          throw new Error(`Function: 'getTxtData' failed: ${error}`);
+        }
+      }
+    }
+
   /**
    * @function expectTextDataToContain
    * @memberof util.file
@@ -192,11 +213,13 @@ export class File {
   async expectTextDataToContain(filePath: string, searchString: string): Promise<any> {
     const vl = this.vlf.initLog(this.expectTextDataToContain);
 
-    try {
-      const fileContent = fs.readFileSync(filePath, "utf-8");
-      common.assertion.expectTrue(fileContent.includes(searchString));
-    } catch (error) {
-      throw new Error("Function 'expectTextDataToContain' failed: Search String not included in .txt file.");
+    if (fs.existsSync(filePath) && this._checkFileEnding(filePath, "txt")) {
+      try {
+        const fileContent = fs.readFileSync(filePath, "utf-8");
+        common.assertion.expectTrue(fileContent.includes(searchString));
+      } catch (error) {
+        throw new Error("Function 'expectTextDataToContain' failed: Search String not included in .txt file.");
+      }
     }
   }
 
@@ -204,7 +227,7 @@ export class File {
   /**
    * @function getXmlData
    * @memberof util.file
-   * @description - Formats XML to JSON.
+   * @description - Returns the converted JSON object based on the passed XML file.
    * @param {string} filePath - Path to the file.
    * @example const xmlData = await util.file.getXmlData(path.resolve(__dirname, "./testFiles/test2.xml"));
    */
@@ -226,7 +249,7 @@ export class File {
   /**
    * @function getAttributeValueFromJson
    * @memberof util.file
-   * @description - Returns the searched attribute if available.
+   * @description - Traverses the passed JSON object and returns the value of the passed attribute if found.
    * @param {object} object - The JSON Object to search through.
    * @example const attribute = util.file.getAttributeValueFromJson(xmlData, "CtrlSum");
    */
@@ -249,28 +272,6 @@ export class File {
     }
 
     return null;
-  }
-
-  // =================================== XML ===================================
-  /**
-   * @function getTxtData
-   * @memberof util.file
-   * @description - Returns the content of a .txt file.
-   * @param {string} filePath - Path to the file.
-   * @example const txtData = await util.file.getTxtData(path.resolve(__dirname, "./testFiles/test3.txt"));
-   * const isDateIncluded = txt.includes("26.6.2023");
-   * common.assertion.expectEqual(isDateIncluded, true);
-   */
-  async getTxtData(filePath: string): Promise<any> {
-    const vl = this.vlf.initLog(this.getTxtData);
-
-    if (fs.existsSync(filePath) && this._checkFileEnding(filePath, "txt")) {
-      try {
-        return await fs.readFileSync(filePath, { encoding: "utf8" });
-      } catch (error) {
-        throw new Error(`Function: 'getTxtData' failed: ${error}`);
-      }
-    }
   }
 
   // =================================== FILEPATH ===================================

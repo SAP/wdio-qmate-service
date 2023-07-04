@@ -593,10 +593,10 @@ Global namespace for util modules.
         * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
         * [.expectPdfNotContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfNotContainsText)
         * [.getExcelData(filePath, fileName, [sheetIndex], [conversionType])](#util.file.getExcelData)
+        * [.getTxtData(filePath)](#util.file.getTxtData)
         * [.expectTextDataToContain(filePath)](#util.file.expectTextDataToContain)
         * [.getXmlData(filePath)](#util.file.getXmlData)
         * [.getAttributeValueFromJson(object)](#util.file.getAttributeValueFromJson)
-        * [.getTxtData(filePath)](#util.file.getTxtData)
         * [.findFilePathRecursively(directory, fileName)](#util.file.findFilePathRecursively)
     * [.formatter](#util.formatter)
         * [.sliceStringAt(input, slicePoint, length)](#util.formatter.sliceStringAt) ⇒ <code>String</code>
@@ -1190,10 +1190,10 @@ const decrypted = util.data.decrypt("d704004c262faa8ef4bdcf34c8a94883e15524872c7
     * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
     * [.expectPdfNotContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfNotContainsText)
     * [.getExcelData(filePath, fileName, [sheetIndex], [conversionType])](#util.file.getExcelData)
+    * [.getTxtData(filePath)](#util.file.getTxtData)
     * [.expectTextDataToContain(filePath)](#util.file.expectTextDataToContain)
     * [.getXmlData(filePath)](#util.file.getXmlData)
     * [.getAttributeValueFromJson(object)](#util.file.getAttributeValueFromJson)
-    * [.getTxtData(filePath)](#util.file.getTxtData)
     * [.findFilePathRecursively(directory, fileName)](#util.file.findFilePathRecursively)
 
 <a name="util.file.upload"></a>
@@ -1304,6 +1304,23 @@ await util.file.expectPdfNotContainsText(pdfStream, "abc");
 ```js
 const myTableContent = await util.file.getExcelData("/Users/path/myWork", "myTable.xlx");
 ```
+<a name="util.file.getTxtData"></a>
+
+#### file.getTxtData(filePath)
+- Returns the content of a .txt file.
+
+**Kind**: static method of [<code>file</code>](#util.file)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| filePath | <code>string</code> | Path to the file. |
+
+**Example**  
+```js
+const txtData = await util.file.getTxtData(path.resolve(__dirname, "./testFiles/test3.txt"));
+const isDateIncluded = txtData.includes("26.6.2023");
+common.assertion.expectEqual(isDateIncluded, true);
+```
 <a name="util.file.expectTextDataToContain"></a>
 
 #### file.expectTextDataToContain(filePath)
@@ -1322,7 +1339,7 @@ const myTableContent = await util.file.expectTextDataToContain("/Users/path/myWo
 <a name="util.file.getXmlData"></a>
 
 #### file.getXmlData(filePath)
-- Formats XML to JSON.
+- Returns the converted JSON object based on the passed XML file.
 
 **Kind**: static method of [<code>file</code>](#util.file)  
 
@@ -1337,7 +1354,7 @@ const xmlData = await util.file.getXmlData(path.resolve(__dirname, "./testFiles/
 <a name="util.file.getAttributeValueFromJson"></a>
 
 #### file.getAttributeValueFromJson(object)
-- Returns the searched attribute if available.
+- Traverses the passed JSON object and returns the value of the passed attribute if found.
 
 **Kind**: static method of [<code>file</code>](#util.file)  
 
@@ -1348,23 +1365,6 @@ const xmlData = await util.file.getXmlData(path.resolve(__dirname, "./testFiles/
 **Example**  
 ```js
 const attribute = util.file.getAttributeValueFromJson(xmlData, "CtrlSum");
-```
-<a name="util.file.getTxtData"></a>
-
-#### file.getTxtData(filePath)
-- Returns the content of a .txt file.
-
-**Kind**: static method of [<code>file</code>](#util.file)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| filePath | <code>string</code> | Path to the file. |
-
-**Example**  
-```js
-const txtData = await util.file.getTxtData(path.resolve(__dirname, "./testFiles/test3.txt"));
-const isDateIncluded = txt.includes("26.6.2023");
-common.assertion.expectEqual(isDateIncluded, true);
 ```
 <a name="util.file.findFilePathRecursively"></a>
 
