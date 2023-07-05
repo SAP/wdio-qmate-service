@@ -182,7 +182,7 @@ export class File {
   }
 
   // =================================== TXT ===================================
-    /**
+  /**
    * @function getTextData
    * @memberof util.file
    * @description - Returns the content of a .txt file.
@@ -191,17 +191,17 @@ export class File {
    * const isDateIncluded = txtData.includes("26.6.2023");
    * common.assertion.expectEqual(isDateIncluded, true);
    */
-    async getTextData(filePath: string): Promise<any> {
-      const vl = this.vlf.initLog(this.getTextData);
-  
-      if (fs.existsSync(filePath) && this._checkFileEnding(filePath, "txt")) {
-        try {
-          return await fs.readFileSync(filePath, { encoding: "utf8" });
-        } catch (error) {
-          throw new Error(`Function: 'getTextData' failed: ${error}`);
-        }
+  async getTextData(filePath: string): Promise<any> {
+    const vl = this.vlf.initLog(this.getTextData);
+
+    if (fs.existsSync(filePath) && this._checkFileEnding(filePath, "txt")) {
+      try {
+        return await fs.readFileSync(filePath, { encoding: "utf8" });
+      } catch (error) {
+        throw new Error(`Function: 'getTextData' failed: ${error}`);
       }
     }
+  }
 
   /**
    * @function expectTextDataToContain
@@ -247,31 +247,29 @@ export class File {
 
   // =================================== JSON ===================================
   /**
-   * @function getAttributeValueFromJson
+   * @function getAttributeValuesFromJson
    * @memberof util.file
-   * @description - Traverses the passed JSON object and returns the value of the passed attribute if found.
+   * @description - Traverses the passed JSON object and returns the value/s of the passed attribute if found. Else returns empty Array.
    * @param {object} object - The JSON Object to search through.
-   * @example const attribute = util.file.getAttributeValueFromJson(xmlData, "CtrlSum");
+   * @example const attribute = util.file.getAttributeValuesFromJson(xmlData, "CtrlSum");
    */
-  public getAttributeValueFromJson(object: any, attributeName: string): any {
-    const vl = this.vlf.initLog(this.getAttributeValueFromJson);
+  public getAttributeValuesFromJson(object: any, attributeName: string): any[] {
+    const values: any[] = [];
 
     if (typeof object !== "object" || object === null) {
-      return null;
+      return values;
     }
 
     if (attributeName in object) {
-      return object[attributeName];
+      values.push(object[attributeName]);
     }
 
     for (const key in object) {
-      const result = this.getAttributeValueFromJson(object[key], attributeName);
-      if (result !== null) {
-        return result;
-      }
+      const nestedValues = this.getAttributeValuesFromJson(object[key], attributeName);
+      values.push(...nestedValues);
     }
 
-    return null;
+    return values.flat();
   }
 
   // =================================== FILEPATH ===================================
@@ -368,10 +366,10 @@ export class File {
     const vl = this.vlf.initLog(this._checkFileEnding);
 
     const fileEnding = path.extname(filePath).slice(1);
-    if (fileEnding.toLowerCase() === expectedFileEnding.toLowerCase()) {      
+    if (fileEnding.toLowerCase() === expectedFileEnding.toLowerCase()) {
       return true;
     } else {
-      throw new Error(`Function 'checkFileEnding' failed: Wrong file format '${fileEnding}' was passed to function. Expected file format: ${expectedFileEnding}.`)
+      throw new Error(`Function 'checkFileEnding' failed: Wrong file format '${fileEnding}' was passed to function. Expected file format: ${expectedFileEnding}.`);
     }
   }
 }
