@@ -593,7 +593,7 @@ Global namespace for util modules.
         * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
         * [.expectPdfNotContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfNotContainsText)
         * [.getExcelData(filePath, fileName, [sheetIndex], [conversionType])](#util.file.getExcelData)
-        * [.getTxtData(filePath)](#util.file.getTxtData)
+        * [.getTextData(filePath)](#util.file.getTextData)
         * [.expectTextDataToContain(filePath)](#util.file.expectTextDataToContain)
         * [.getXmlData(filePath)](#util.file.getXmlData)
         * [.getAttributeValueFromJson(object)](#util.file.getAttributeValueFromJson)
@@ -1190,7 +1190,7 @@ const decrypted = util.data.decrypt("d704004c262faa8ef4bdcf34c8a94883e15524872c7
     * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
     * [.expectPdfNotContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfNotContainsText)
     * [.getExcelData(filePath, fileName, [sheetIndex], [conversionType])](#util.file.getExcelData)
-    * [.getTxtData(filePath)](#util.file.getTxtData)
+    * [.getTextData(filePath)](#util.file.getTextData)
     * [.expectTextDataToContain(filePath)](#util.file.expectTextDataToContain)
     * [.getXmlData(filePath)](#util.file.getXmlData)
     * [.getAttributeValueFromJson(object)](#util.file.getAttributeValueFromJson)
@@ -1304,9 +1304,9 @@ await util.file.expectPdfNotContainsText(pdfStream, "abc");
 ```js
 const myTableContent = await util.file.getExcelData("/Users/path/myWork", "myTable.xlx");
 ```
-<a name="util.file.getTxtData"></a>
+<a name="util.file.getTextData"></a>
 
-#### file.getTxtData(filePath)
+#### file.getTextData(filePath)
 - Returns the content of a .txt file.
 
 **Kind**: static method of [<code>file</code>](#util.file)  
@@ -1317,7 +1317,7 @@ const myTableContent = await util.file.getExcelData("/Users/path/myWork", "myTab
 
 **Example**  
 ```js
-const txtData = await util.file.getTxtData(path.resolve(__dirname, "./testFiles/test3.txt"));
+const txtData = await util.file.getTextData(path.resolve(__dirname, "./testFiles/test3.txt"));
 const isDateIncluded = txtData.includes("26.6.2023");
 common.assertion.expectEqual(isDateIncluded, true);
 ```
@@ -1334,7 +1334,7 @@ common.assertion.expectEqual(isDateIncluded, true);
 
 **Example**  
 ```js
-const myTableContent = await util.file.expectTextDataToContain("/Users/path/myWork", "supplierList.txt");
+await util.file.expectTextDataToContain("/Users/path/myWork", "supplierList.txt");
 ```
 <a name="util.file.getXmlData"></a>
 

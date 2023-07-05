@@ -183,22 +183,22 @@ export class File {
 
   // =================================== TXT ===================================
     /**
-   * @function getTxtData
+   * @function getTextData
    * @memberof util.file
    * @description - Returns the content of a .txt file.
    * @param {string} filePath - Path to the file.
-   * @example const txtData = await util.file.getTxtData(path.resolve(__dirname, "./testFiles/test3.txt"));
+   * @example const txtData = await util.file.getTextData(path.resolve(__dirname, "./testFiles/test3.txt"));
    * const isDateIncluded = txtData.includes("26.6.2023");
    * common.assertion.expectEqual(isDateIncluded, true);
    */
-    async getTxtData(filePath: string): Promise<any> {
-      const vl = this.vlf.initLog(this.getTxtData);
+    async getTextData(filePath: string): Promise<any> {
+      const vl = this.vlf.initLog(this.getTextData);
   
       if (fs.existsSync(filePath) && this._checkFileEnding(filePath, "txt")) {
         try {
           return await fs.readFileSync(filePath, { encoding: "utf8" });
         } catch (error) {
-          throw new Error(`Function: 'getTxtData' failed: ${error}`);
+          throw new Error(`Function: 'getTextData' failed: ${error}`);
         }
       }
     }
@@ -208,7 +208,7 @@ export class File {
    * @memberof util.file
    * @description - Reads the specified .txt file and asserts if it includes a specific string.
    * @param {string} filePath - Path to the file.
-   * @example const myTableContent = await util.file.expectTextDataToContain("/Users/path/myWork", "supplierList.txt");
+   * @example await util.file.expectTextDataToContain("/Users/path/myWork", "supplierList.txt");
    */
   async expectTextDataToContain(filePath: string, searchString: string): Promise<any> {
     const vl = this.vlf.initLog(this.expectTextDataToContain);
