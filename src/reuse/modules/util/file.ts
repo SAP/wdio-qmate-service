@@ -213,7 +213,7 @@ export class File {
   async expectTextDataToContain(filePath: string, searchString: string): Promise<any> {
     const vl = this.vlf.initLog(this.expectTextDataToContain);
 
-    if (fs.existsSync(filePath) && this._checkFileEnding(filePath, "txt")) {
+    if (fs.existsSync(filePath)) {
       try {
         const fileContent = fs.readFileSync(filePath, "utf-8");
         common.assertion.expectTrue(fileContent.includes(searchString));
