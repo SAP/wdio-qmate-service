@@ -12,7 +12,7 @@ describe("file - getAttributeValuesFromJson - Retrieve the Attribute from JSON f
 
   it("Execution & Verification - 'IBAN' - get multiple results", async () => {
     value = util.file.getAttributeValuesFromJson(jsonFile, "IBAN");
-    common.assertion.expectEqual(['AT925500011700006258' ,'AT816000000007654321'], value);
+    common.assertion.expectEqual(["AT925500011700006258" ,"AT816000000007654321"], value);
   });
 
   it("Execution & Verification - 'AdrLine'", async () => {
