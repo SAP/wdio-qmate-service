@@ -38,3 +38,15 @@ describe("file - getXmlData - Retrieve XML file data as JSON", function () {
     });
   });
 });
+
+describe("file - getXmlData - checkFileEnding - Assert correct file ending", function () {
+  let pathToFile = null;
+
+  it("Preperation", async function () {
+    pathToFile = path.resolve(__dirname, "./testFiles/test.txt");
+  });
+
+  it("Execution & Verification", async () => {
+    await expect(util.file.getXmlData(pathToFile)).rejects.toThrowError(/Function 'checkFileEnding' failed: Wrong file format 'txt' was passed to function. Expected file format: xml./);
+  });
+});

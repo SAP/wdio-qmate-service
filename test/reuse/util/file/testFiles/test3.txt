@@ -1,0 +1,13 @@
+0260623            0025100000204060044179798000441797980 3            0    1                                                    
+1000101260623930000003000    EUR C000000000100000 EUR      435411161155                                                         
+1000102COMPANY CODE 2510 - ADDRESS NAME 1 OLYMPIADENLAAN 2                                                                      
+1000103*BE  1140  BRUSSEL                                                                                                       
+1000104                                                                                KREDBEBB                           1     
+1000105                                   BANK STREET                        BANK CITY                       BE                 
+1000106BE30432401004211                  FICA payment formats PF_BE         FICA PAYMENT FORMATS               1BE              
+10001079QV4PU6C0G STREET 602              BP CITY               BE                     XBLNR                                    
+100010802-930000003000                    XBLNR/26.6.2023                                                                       
+1000109                                                                                                                         
+1000110                                          EUR      000000000000 BE                                                       
+9000010000001000000000100000                                                                                                    
+

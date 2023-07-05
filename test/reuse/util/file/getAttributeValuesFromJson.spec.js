@@ -1,7 +1,7 @@
 const assert = require("assert");
 const path = require("path");
 
-describe("file - getAttributeValueFromJson - Retrieve the Attribute from JSON file", function () {
+describe("file - getAttributeValuesFromJson - Retrieve the Attribute from JSON file", function () {
   let value;
   let jsonFile;
 
@@ -10,18 +10,18 @@ describe("file - getAttributeValueFromJson - Retrieve the Attribute from JSON fi
     jsonFile = require(pathToFile);
   });
 
-  it("Execution & Verification - 'IBAN'", async () => {
-    value = util.file.getAttributeValueFromJson(jsonFile, "IBAN");
-    common.assertion.expectEqual(["AT925500011700006258"], value);
+  it("Execution & Verification - 'IBAN' - get multiple results", async () => {
+    value = util.file.getAttributeValuesFromJson(jsonFile, "IBAN");
+    common.assertion.expectEqual(["AT925500011700006258" ,"AT816000000007654321"], value);
   });
 
   it("Execution & Verification - 'AdrLine'", async () => {
-    value = util.file.getAttributeValueFromJson(jsonFile, "AdrLine");
+    value = util.file.getAttributeValuesFromJson(jsonFile, "AdrLine");
     common.assertion.expectEqual(["Lassallestrasse 1", "1234 Wien"], value);
   });
 });
 
-describe("file - getAttributeValueFromJson - Search for not existing value", function () {
+describe("file - getAttributeValuesFromJson - Search for not existing value", function () {
   let value;
   let jsonFile;
 
@@ -31,7 +31,7 @@ describe("file - getAttributeValueFromJson - Search for not existing value", fun
   });
 
   it("Execution & Verification - 'valueNotInJson' - should return null", async () => {
-    value = util.file.getAttributeValueFromJson(jsonFile, "valueNotInJson");
-    common.assertion.expectEqual(null, value);
+    value = util.file.getAttributeValuesFromJson(jsonFile, "valueNotInJson");
+    common.assertion.expectEqual([], value);
   });
 });
