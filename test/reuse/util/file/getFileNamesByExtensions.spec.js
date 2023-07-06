@@ -2,7 +2,7 @@ const path = require("path");
 describe("file - getFileNamesByExtensions - get file name by extension", function () {
   let dirPath;
   it("Preparation", async function () {
-    dirPath = path.join(process.cwd(), "testFiles");
+    dirPath = path.join(process.cwd(), "/test/reuse/util/file/testFiles"); //root path taken in pipe
   });
 
   it("Execution & Verification - xml", async function () {
