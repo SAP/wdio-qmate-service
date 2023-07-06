@@ -2,7 +2,7 @@ const path = require("path");
 describe("file - getFileNamesByExtensions - get file name by extension", function () {
   let dirPath;
   it("Preparation", async function () {
-    dirPath = path.join(process.cwd(), "/test/reuse/util/file/testFiles"); //root path taken in pipe
+    dirPath = path.join(__dirname, "/testFiles"); //root path taken in pip
   });
 
   it("Execution & Verification - xml", async function () {
@@ -29,7 +29,7 @@ describe("file - getFileNamesByExtensions - get file name by extension", functio
 describe("file - getFileNamesByExtensions - get file name by extension - error path", function () {
   let dirPath;
   it("Preparation", async function () {
-    dirPath = path.join(process.cwd(), "testFiles");
+    dirPath = path.join(__dirname, "/testFiles");
   });
 
   it("Execution & Verification - not existing file - empty array", async function () {
