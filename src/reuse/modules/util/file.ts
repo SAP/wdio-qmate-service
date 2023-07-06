@@ -311,6 +311,29 @@ export class File {
     return null;
   }
 
+  // =================================== FILENAME ===================================
+  /**
+   * @function getFileNamesByExtensions
+   * @memberof util.file
+   * @description - Returns the filename/s of the given directory filtered by the given extensions.
+   * @param {string} dirPath - The path to the directory.
+   * @param {string | string[]} fileExtensions - The file extension as string or multiple as string array.
+   * @example const fileName = await util.file.getFileNamesByExtensions("regression/downloads", "xml");
+   * const fileNames = await util.file.getFileNamesByExtensions("regression/downloads", "["xml", "txt"]");
+   */
+  getFileNamesByExtensions(dirPath: string, fileExtensions: string | string[]): string[] {
+    const files = fs.readdirSync(dirPath);
+
+    if (!Array.isArray(fileExtensions)) {
+      fileExtensions = [fileExtensions];
+    }
+
+    return files.filter((file) => {
+      const extension = path.extname(file).toLowerCase();
+      return (fileExtensions as string[]).some((ext) => ext.toLowerCase() === extension.slice(1));
+    });
+  }
+
   // =================================== HELPER ===================================
   private async _renderPage(pageData: any) {
     // should be in scope of render page due to library specific implementation
