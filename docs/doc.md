@@ -596,8 +596,9 @@ Global namespace for util modules.
         * [.getTextData(filePath)](#util.file.getTextData)
         * [.expectTextDataToContain(filePath)](#util.file.expectTextDataToContain)
         * [.getXmlData(filePath)](#util.file.getXmlData)
-        * [.getAttributeValueFromJson(object)](#util.file.getAttributeValueFromJson)
+        * [.getAttributeValuesFromJson(object)](#util.file.getAttributeValuesFromJson)
         * [.findFilePathRecursively(directory, fileName)](#util.file.findFilePathRecursively)
+        * [.getFileNamesByExtensions(dirPath, fileExtensions)](#util.file.getFileNamesByExtensions)
     * [.formatter](#util.formatter)
         * [.sliceStringAt(input, slicePoint, length)](#util.formatter.sliceStringAt) ⇒ <code>String</code>
         * [.sliceStringAfter(input, slicePoint, length)](#util.formatter.sliceStringAfter) ⇒ <code>String</code>
@@ -1193,8 +1194,9 @@ const decrypted = util.data.decrypt("d704004c262faa8ef4bdcf34c8a94883e15524872c7
     * [.getTextData(filePath)](#util.file.getTextData)
     * [.expectTextDataToContain(filePath)](#util.file.expectTextDataToContain)
     * [.getXmlData(filePath)](#util.file.getXmlData)
-    * [.getAttributeValueFromJson(object)](#util.file.getAttributeValueFromJson)
+    * [.getAttributeValuesFromJson(object)](#util.file.getAttributeValuesFromJson)
     * [.findFilePathRecursively(directory, fileName)](#util.file.findFilePathRecursively)
+    * [.getFileNamesByExtensions(dirPath, fileExtensions)](#util.file.getFileNamesByExtensions)
 
 <a name="util.file.upload"></a>
 
@@ -1351,10 +1353,10 @@ await util.file.expectTextDataToContain("/Users/path/myWork", "supplierList.txt"
 ```js
 const xmlData = await util.file.getXmlData(path.resolve(__dirname, "./testFiles/test2.xml"));
 ```
-<a name="util.file.getAttributeValueFromJson"></a>
+<a name="util.file.getAttributeValuesFromJson"></a>
 
-#### file.getAttributeValueFromJson(object)
-- Traverses the passed JSON object and returns the value of the passed attribute if found.
+#### file.getAttributeValuesFromJson(object)
+- Traverses the passed JSON object and returns the value/s of the passed attribute if found. Else returns empty Array.
 
 **Kind**: static method of [<code>file</code>](#util.file)  
 
@@ -1364,7 +1366,7 @@ const xmlData = await util.file.getXmlData(path.resolve(__dirname, "./testFiles/
 
 **Example**  
 ```js
-const attribute = util.file.getAttributeValueFromJson(xmlData, "CtrlSum");
+const attribute = util.file.getAttributeValuesFromJson(xmlData, "CtrlSum");
 ```
 <a name="util.file.findFilePathRecursively"></a>
 
@@ -1381,6 +1383,23 @@ const attribute = util.file.getAttributeValueFromJson(xmlData, "CtrlSum");
 **Example**  
 ```js
 await util.file.findFilePathRecursively("/Users","test.xls");
+```
+<a name="util.file.getFileNamesByExtensions"></a>
+
+#### file.getFileNamesByExtensions(dirPath, fileExtensions)
+- Returns the filename/s of the given directory filtered by the given extensions.
+
+**Kind**: static method of [<code>file</code>](#util.file)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| dirPath | <code>string</code> | The path to the directory. |
+| fileExtensions | <code>string</code> \| <code>Array.&lt;string&gt;</code> | The file extension as string or multiple as string array. |
+
+**Example**  
+```js
+const fileName = await util.file.getFileNamesByExtensions("regression/downloads", "xml");
+const fileNames = await util.file.getFileNamesByExtensions("regression/downloads", "["xml", "txt"]");
 ```
 <a name="util.formatter"></a>
 
