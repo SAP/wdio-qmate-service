@@ -131,18 +131,35 @@ export class Table {
       }
     };
 
+    const tableGridColumnSelector = {
+        elementProperties: {
+            metadata: "sap.ui.table.Column"
+        },
+        descendantProperties: {
+            text: name
+        }
+    };
+    
     if (!tableSelector) {
-      await ui5.userInteraction.click(tableColumnSelector);
+      await Promise.any([ui5.userInteraction.click(tableColumnSelector), 
+                         ui5.userInteraction.click(tableGridColumnSelector)]);
     }
     if (typeof tableSelector == "number") {
       util.console.warn(`Usage of argument 'index' in function ${arguments.callee.caller.name} is deprecated. Please pass a valid table selector instead.`);
-      await ui5.userInteraction.click(tableColumnSelector, tableSelector);
+      await Promise.any([ui5.userInteraction.click(tableColumnSelector, tableSelector), 
+                         ui5.userInteraction.click(tableGridColumnSelector, tableSelector)]); 
     } else if (typeof tableSelector === "object") {
-      const selector = this._prepareAncestorSelector(tableColumnSelector, tableSelector);
-      await ui5.userInteraction.click(selector);
+      await Promise.any([ui5.userInteraction.click(this._prepareAncestorSelector(tableColumnSelector, tableSelector)), 
+                         ui5.userInteraction.click(this._prepareAncestorSelector(tableGridColumnSelector, tableSelector))]); 
     }
   }
 
+  async _getSortValudGridTable(selector: any, ancestor: any) {
+      const sortOrder = await ui5.element.getPropertyValue(selector, "sortOrder", ancestor); 
+      const sorted = await ui5.element.getPropertyValue(selector, "sorted", ancestor);
+      return sorted ? sortOrder : "";
+  }
+  
   private async _getSortIndicatorValue(name: string, tableSelector: any) {
     const vl = this.vlf.initLog(this._getSortIndicatorValue);
     const tableColumnSelector = {
@@ -154,15 +171,27 @@ export class Table {
       }
     };
 
+    const tableGridColumnSelector = {
+        elementProperties: {
+            metadata: "sap.ui.table.Column"
+        },
+        descendantProperties: {
+            text: name
+        }
+    };
+    
     if (!tableSelector) {
-      return ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator");
+      return Promise.any([ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator"), 
+                          this._getSortValudGridTable(tableGridColumnSelector)]);
     }
     if (typeof tableSelector == "number") {
       util.console.warn(`The usage of argument 'index' in function ${arguments.callee.caller.name} is deprecated. Please pass a valid table selector instead.`);
-      return ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator", tableSelector);
+      return Promise.any([ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator", tableSelector), 
+                          this._getSortValudGridTable(tableGridColumnSelector, tableSelector)]);
     } else if (typeof tableSelector === "object") {
       const selector = this._prepareAncestorSelector(tableColumnSelector, tableSelector);
-      return ui5.element.getPropertyValue(selector, "sortIndicator");
+      return Promise.any([ui5.element.getPropertyValue(this._prepareAncestorSelector(tableColumnSelector, tableSelector), "sortIndicator"), 
+                          this._getSortValudGridTable(this._prepareAncestorSelector(tableGridColumnSelector, tableSelector))]);
     }
   }
 
