@@ -154,7 +154,7 @@ export class Table {
     }
   }
 
-  async _getSortValudGridTable(selector: any, ancestor?: any) {
+  private async _getSortValudGridTable(selector: any, ancestor?: any) {
       const sortOrder = await ui5.element.getPropertyValue(selector, "sortOrder", ancestor); 
       const sorted = await ui5.element.getPropertyValue(selector, "sorted", ancestor);
       return sorted ? sortOrder : "";
