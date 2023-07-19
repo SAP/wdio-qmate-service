@@ -1,5 +1,6 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+# undo fork fix
 name: Node.js CI
 on:
   push:
@@ -152,7 +153,7 @@ jobs:
           npm run test:reuse:util
 
   test-util-data-privacy:
-    if: ${{  !github.event.pull_request.head.repo.fork }}
+    if: github.repository == github.event.pull_request.base.repo.full_name
     runs-on: ubuntu-latest
     strategy:
       matrix:
