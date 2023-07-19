@@ -91,6 +91,7 @@
     "test:reuse:util:browser": "npx wdio ./test/reuse/util/browser/test.browser.conf.js",
     "test:reuse:util:browserCmndLineArgs": "npx wdio ./test/reuse/util/browser/test.browserCmndLineArgs.conf.js --baseUrl=https://sapui5.hana.ondemand.com/1.99.0/",
     "test:reuse:util:data": "npx wdio ./test/reuse/util/data/test.data.conf.js",
+    "test:reuse:util:data:privacy": "npx wdio ./test/reuse/util/data/test.data.privacy.conf.js",
     "test:reuse:util:component": "npx wdio ./test/reuse/util/component/test.component.conf.js",
     "test:reuse:util:file": "npx wdio ./test/reuse/util/file/test.file.conf.js",
     "test:reuse:util:console": "npx wdio ./test/reuse/util/console/test.console.conf.js",
