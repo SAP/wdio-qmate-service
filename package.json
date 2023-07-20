@@ -23,7 +23,7 @@
     }
   ],
   "scripts": {
-    "update-chromedriver": "npm install chromedriver --chromedriver-force-download --detect_chromedriver_version",
+    "update-chromedriver": "npm install chromedriver --chromedriver-force-download --detect_chromedriver_version --no-save",
     "prepare": "npm run build",
     "clean": "npx rimraf lib",
     "lint": "eslint .",
