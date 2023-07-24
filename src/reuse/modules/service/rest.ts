@@ -9,6 +9,32 @@ import { AxiosRequestConfig, AxiosResponse, AxiosStatic } from "axios";
 export class Rest {
   private axios: AxiosStatic = require("axios").default;
 
+  private _getError(error: any): Error {
+    let message = error.message;
+    let detailedMessage = "";
+    if (error.response && error.response.data) {
+      const errorData = error.response.data;
+      detailedMessage = errorData.errorMsg || errorData.message;
+      if (errorData.error) {
+        detailedMessage = `${errorData.error} - ${errorData.description}`;
+      } else if (typeof errorData === "string") {
+        detailedMessage = errorData;
+      }
+    }
+    if (error.message) {
+      if (error.response && error.response.statusText) {
+        message = `${error.response.statusText} - ${error.message}`;
+      }
+    } else if (error.response) {
+      message = `Status Code ${error.response.status}`;
+    }
+    if (detailedMessage) {
+      message = `${message}\n${detailedMessage}`;
+    }
+    const newError = new Error(message);
+    return Object.assign(error, { message, stack: newError.stack });
+  }
+
   /**
    * @function init
    * @memberOf service.rest
@@ -43,16 +69,7 @@ export class Rest {
     try {
       return await this.axios.get(uri, config);
     } catch (error: any) {
-      let message = error.message;
-      if (error.message) {
-        if (error.response && error.response.statusText) {
-          message = `${error.response.statusText} - ${error.message}`;
-        }
-      } else if (error.response) {
-        message = `Status Code ${error.response.status}, - ${error.response.data}`;
-      }
-      const newError = new Error(message);
-      throw Object.assign(error, {message, stack: newError.stack}); 
+      throw this._getError(error);
     }
   }
 
@@ -82,16 +99,7 @@ export class Rest {
     try {
       return await this.axios.post(uri, payload, config);
     } catch (error: any) {
-      let message = error.message;
-      if (error.message) {
-        if (error.response && error.response.statusText) {
-          message = `${error.response.statusText} - ${error.message}`;
-        }
-      } else if (error.response) {
-        message = `Status Code ${error.response.status}, - ${error.response.data}`;
-      }
-      const newError = new Error(message);
-      throw Object.assign(error, {message, stack: newError.stack}); 
+      throw this._getError(error);
     }
   }
 
@@ -115,16 +123,7 @@ export class Rest {
     try {
       return await this.axios.delete(uri, config);
     } catch (error: any) {
-      let message = error.message;
-      if (error.message) {
-        if (error.response && error.response.statusText) {
-          message = `${error.response.statusText} - ${error.message}`;
-        }
-      } else if (error.response) {
-        message = `Status Code ${error.response.status}, - ${error.response.data}`;
-      }
-      const newError = new Error(message);
-      throw Object.assign(error, {message, stack: newError.stack}); 
+      throw this._getError(error);
     }
   }
 
@@ -153,16 +152,7 @@ export class Rest {
     try {
       return await this.axios.patch(uri, payload, config);
     } catch (error: any) {
-      let message = error.message;
-      if (error.message) {
-        if (error.response && error.response.statusText) {
-          message = `${error.response.statusText} - ${error.message}`;
-        }
-      } else if (error.response) {
-        message = `Status Code ${error.response.status}, - ${error.response.data}`;
-      }
-      const newError = new Error(message);
-      throw Object.assign(error, {message, stack: newError.stack}); 
+      throw this._getError(error);
     }
   }
 
@@ -188,21 +178,12 @@ export class Rest {
       },
       let res = await service.rest.put(`${browser.config.baseUrl}/posts/99`, payload, config);
    */
-    async put(uri: string, payload: any, config?: AxiosRequestConfig<any> | undefined): Promise<AxiosResponse<any, any>> {
-      try {
-          return await this.axios.put(uri, payload, config);
-      } catch (error: any) {
-        let message = error.message;
-        if (error.message) {
-          if (error.response && error.response.statusText) {
-            message = `${error.response.statusText} - ${error.message}`;
-          }
-        } else if (error.response) {
-          message = `Status Code ${error.response.status}, - ${error.response.data}`;
-        }
-        const newError = new Error(message);
-        throw Object.assign(error, {message, stack: newError.stack}); 
-      }
+  async put(uri: string, payload: any, config?: AxiosRequestConfig<any> | undefined): Promise<AxiosResponse<any, any>> {
+    try {
+      return await this.axios.put(uri, payload, config);
+    } catch (error: any) {
+      throw this._getError(error);
     }
+  }
 }
 export default new Rest();
