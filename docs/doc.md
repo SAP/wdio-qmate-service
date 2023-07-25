@@ -592,6 +592,13 @@ Global namespace for util modules.
         * [.parsePdf(pdfStream, renderingMethod)](#util.file.parsePdf) ⇒ <code>String</code>
         * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
         * [.expectPdfNotContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfNotContainsText)
+        * [.getExcelData(filePath, fileName, [sheetIndex], [conversionType])](#util.file.getExcelData)
+        * [.getTextData(filePath)](#util.file.getTextData)
+        * [.expectTextDataToContain(filePath)](#util.file.expectTextDataToContain)
+        * [.getXmlData(filePath)](#util.file.getXmlData)
+        * [.getAttributeValuesFromJson(object)](#util.file.getAttributeValuesFromJson)
+        * [.findFilePathRecursively(directory, fileName)](#util.file.findFilePathRecursively)
+        * [.getFileNamesByExtensions(dirPath, fileExtensions)](#util.file.getFileNamesByExtensions)
     * [.formatter](#util.formatter)
         * [.sliceStringAt(input, slicePoint, length)](#util.formatter.sliceStringAt) ⇒ <code>String</code>
         * [.sliceStringAfter(input, slicePoint, length)](#util.formatter.sliceStringAfter) ⇒ <code>String</code>
@@ -1183,6 +1190,13 @@ const decrypted = util.data.decrypt("d704004c262faa8ef4bdcf34c8a94883e15524872c7
     * [.parsePdf(pdfStream, renderingMethod)](#util.file.parsePdf) ⇒ <code>String</code>
     * [.expectPdfContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfContainsText)
     * [.expectPdfNotContainsText(pdfStream, text, renderingMethod)](#util.file.expectPdfNotContainsText)
+    * [.getExcelData(filePath, fileName, [sheetIndex], [conversionType])](#util.file.getExcelData)
+    * [.getTextData(filePath)](#util.file.getTextData)
+    * [.expectTextDataToContain(filePath)](#util.file.expectTextDataToContain)
+    * [.getXmlData(filePath)](#util.file.getXmlData)
+    * [.getAttributeValuesFromJson(object)](#util.file.getAttributeValuesFromJson)
+    * [.findFilePathRecursively(directory, fileName)](#util.file.findFilePathRecursively)
+    * [.getFileNamesByExtensions(dirPath, fileExtensions)](#util.file.getFileNamesByExtensions)
 
 <a name="util.file.upload"></a>
 
@@ -1273,6 +1287,119 @@ Parses the PDF and checks for given text not to be contained in PDF.
 **Example**  
 ```js
 await util.file.expectPdfNotContainsText(pdfStream, "abc");
+```
+<a name="util.file.getExcelData"></a>
+
+#### file.getExcelData(filePath, fileName, [sheetIndex], [conversionType])
+- It returns the excel data based on the conversion type which is passed
+
+**Kind**: static method of [<code>file</code>](#util.file)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| filePath | <code>string</code> | File path is required |
+| fileName | <code>string</code> | File Name is required |
+| [sheetIndex] | <code>number</code> | sheetIndex is required |
+| [conversionType] | <code>string</code> | Value for this are [json, csv, txt] |
+
+**Example**  
+```js
+const myTableContent = await util.file.getExcelData("/Users/path/myWork", "myTable.xlx");
+```
+<a name="util.file.getTextData"></a>
+
+#### file.getTextData(filePath)
+- Returns the content of a .txt file.
+
+**Kind**: static method of [<code>file</code>](#util.file)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| filePath | <code>string</code> | Path to the file. |
+
+**Example**  
+```js
+const txtData = await util.file.getTextData(path.resolve(__dirname, "./testFiles/test3.txt"));
+const isDateIncluded = txtData.includes("26.6.2023");
+common.assertion.expectEqual(isDateIncluded, true);
+```
+<a name="util.file.expectTextDataToContain"></a>
+
+#### file.expectTextDataToContain(filePath)
+- Reads the specified .txt file and asserts if it includes a specific string.
+
+**Kind**: static method of [<code>file</code>](#util.file)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| filePath | <code>string</code> | Path to the file. |
+
+**Example**  
+```js
+await util.file.expectTextDataToContain("/Users/path/myWork", "supplierList.txt");
+```
+<a name="util.file.getXmlData"></a>
+
+#### file.getXmlData(filePath)
+- Returns the converted JSON object based on the passed XML file.
+
+**Kind**: static method of [<code>file</code>](#util.file)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| filePath | <code>string</code> | Path to the file. |
+
+**Example**  
+```js
+const xmlData = await util.file.getXmlData(path.resolve(__dirname, "./testFiles/test2.xml"));
+```
+<a name="util.file.getAttributeValuesFromJson"></a>
+
+#### file.getAttributeValuesFromJson(object)
+- Traverses the passed JSON object and returns the value/s of the passed attribute if found. Else returns empty Array.
+
+**Kind**: static method of [<code>file</code>](#util.file)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| object | <code>object</code> | The JSON Object to search through. |
+
+**Example**  
+```js
+const attribute = util.file.getAttributeValuesFromJson(xmlData, "CtrlSum");
+```
+<a name="util.file.findFilePathRecursively"></a>
+
+#### file.findFilePathRecursively(directory, fileName)
+- Returns the absolute path of the file with the given filename. Searches Recursively for the file within the given directory.
+
+**Kind**: static method of [<code>file</code>](#util.file)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| directory | <code>string</code> | The name of the directory. |
+| fileName | <code>string</code> | The name of the file. |
+
+**Example**  
+```js
+await util.file.findFilePathRecursively("/Users","test.xls");
+```
+<a name="util.file.getFileNamesByExtensions"></a>
+
+#### file.getFileNamesByExtensions(dirPath, fileExtensions)
+- Returns the filename/s of the given directory filtered by the given extensions.
+
+**Kind**: static method of [<code>file</code>](#util.file)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| dirPath | <code>string</code> | The path to the directory. |
+| fileExtensions | <code>string</code> \| <code>Array.&lt;string&gt;</code> | The file extension as string or multiple as string array. |
+
+**Example**  
+```js
+const fileName = await util.file.getFileNamesByExtensions("regression/downloads", "xml");
+const fileNames = await util.file.getFileNamesByExtensions("regression/downloads", "["xml", "txt"]");
 ```
 <a name="util.formatter"></a>
 

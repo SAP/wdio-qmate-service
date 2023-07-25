@@ -6,6 +6,9 @@ import pdfParse from "pdf-parse";
 import * as fs from "fs";
 import * as xlsx from "xlsx";
 import * as os from "os";
+import * as xml2js from "xml2js";
+import { parsed } from "yargs";
+import { match } from "assert";
 
 /**
  * @class file
@@ -178,6 +181,97 @@ export class File {
     return this._convertSheet(conversionType, sheet);
   }
 
+  // =================================== TXT ===================================
+  /**
+   * @function getTextData
+   * @memberof util.file
+   * @description - Returns the content of a .txt file.
+   * @param {string} filePath - Path to the file.
+   * @example const txtData = await util.file.getTextData(path.resolve(__dirname, "./testFiles/test3.txt"));
+   * const isDateIncluded = txtData.includes("26.6.2023");
+   * common.assertion.expectEqual(isDateIncluded, true);
+   */
+  async getTextData(filePath: string): Promise<any> {
+    const vl = this.vlf.initLog(this.getTextData);
+
+    if (fs.existsSync(filePath) && this._checkFileEnding(filePath, "txt")) {
+      try {
+        return await fs.readFileSync(filePath, { encoding: "utf8" });
+      } catch (error) {
+        throw new Error(`Function: 'getTextData' failed: ${error}`);
+      }
+    }
+  }
+
+  /**
+   * @function expectTextDataToContain
+   * @memberof util.file
+   * @description - Reads the specified .txt file and asserts if it includes a specific string.
+   * @param {string} filePath - Path to the file.
+   * @example await util.file.expectTextDataToContain("/Users/path/myWork", "supplierList.txt");
+   */
+  async expectTextDataToContain(filePath: string, searchString: string): Promise<any> {
+    const vl = this.vlf.initLog(this.expectTextDataToContain);
+
+    if (fs.existsSync(filePath)) {
+      try {
+        const fileContent = fs.readFileSync(filePath, "utf-8");
+        common.assertion.expectTrue(fileContent.includes(searchString));
+      } catch (error) {
+        throw new Error("Function 'expectTextDataToContain' failed: Search String not included in .txt file.");
+      }
+    }
+  }
+
+  // =================================== XML ===================================
+  /**
+   * @function getXmlData
+   * @memberof util.file
+   * @description - Returns the converted JSON object based on the passed XML file.
+   * @param {string} filePath - Path to the file.
+   * @example const xmlData = await util.file.getXmlData(path.resolve(__dirname, "./testFiles/test2.xml"));
+   */
+  async getXmlData(filePath: string): Promise<any> {
+    const vl = this.vlf.initLog(this.getXmlData);
+
+    if (fs.existsSync(filePath) && this._checkFileEnding(filePath, "xml")) {
+      try {
+        const xmlData = await fs.readFileSync(filePath);
+        const parser = new xml2js.Parser({ trim: true, normalize: true });
+        return await parser.parseStringPromise(xmlData);
+      } catch (error) {
+        throw new Error(`Function: 'getXmlData' failed: ${error}`);
+      }
+    }
+  }
+
+  // =================================== JSON ===================================
+  /**
+   * @function getAttributeValuesFromJson
+   * @memberof util.file
+   * @description - Traverses the passed JSON object and returns the value/s of the passed attribute if found. Else returns empty Array.
+   * @param {object} object - The JSON Object to search through.
+   * @example const attribute = util.file.getAttributeValuesFromJson(xmlData, "CtrlSum");
+   */
+  public getAttributeValuesFromJson(object: any, attributeName: string): any[] {
+    const values: any[] = [];
+
+    if (typeof object !== "object" || object === null) {
+      return values;
+    }
+
+    if (attributeName in object) {
+      values.push(object[attributeName]);
+    }
+
+    for (const key in object) {
+      const nestedValues = this.getAttributeValuesFromJson(object[key], attributeName);
+      values.push(...nestedValues);
+    }
+
+    return values.flat();
+  }
+
   // =================================== FILEPATH ===================================
   /**
    * @function findFilePathRecursively
@@ -215,6 +309,29 @@ export class File {
     }
 
     return null;
+  }
+
+  // =================================== FILENAME ===================================
+  /**
+   * @function getFileNamesByExtensions
+   * @memberof util.file
+   * @description - Returns the filename/s of the given directory filtered by the given extensions.
+   * @param {string} dirPath - The path to the directory.
+   * @param {string | string[]} fileExtensions - The file extension as string or multiple as string array.
+   * @example const fileName = await util.file.getFileNamesByExtensions("regression/downloads", "xml");
+   * const fileNames = await util.file.getFileNamesByExtensions("regression/downloads", "["xml", "txt"]");
+   */
+  getFileNamesByExtensions(dirPath: string, fileExtensions: string | string[]): string[] {
+    const files = fs.readdirSync(dirPath);
+
+    if (!Array.isArray(fileExtensions)) {
+      fileExtensions = [fileExtensions];
+    }
+
+    return files.filter((file) => {
+      const extension = path.extname(file).toLowerCase();
+      return (fileExtensions as string[]).some((ext) => ext.toLowerCase() === extension.slice(1));
+    });
   }
 
   // =================================== HELPER ===================================
@@ -266,6 +383,17 @@ export class File {
     }
 
     return excelData;
+  }
+
+  private _checkFileEnding(filePath: string, expectedFileEnding: string): boolean {
+    const vl = this.vlf.initLog(this._checkFileEnding);
+
+    const fileEnding = path.extname(filePath).slice(1);
+    if (fileEnding.toLowerCase() === expectedFileEnding.toLowerCase()) {
+      return true;
+    } else {
+      throw new Error(`Function 'checkFileEnding' failed: Wrong file format '${fileEnding}' was passed to function. Expected file format: ${expectedFileEnding}.`);
+    }
   }
 }
 export default new File();

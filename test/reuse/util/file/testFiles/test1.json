@@ -1,0 +1,169 @@
+{
+  "Document": {
+    "$": {
+      "xmlns": "urn:iso:std:iso:20022:tech:xsd:pain.001.001.03",
+      "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+      "xsi:schemaLocation": "urn:iso:std:iso:20022:tech:xsd:pain.001.001.03 ISO.pain.001.001.03.austrian.004.Korrigendum.xsd"
+    },
+    "CstmrCdtTrfInitn": [
+      {
+        "GrpHdr": [
+          {
+            "MsgId": [
+              "0000020305"
+            ],
+            "CreDtTm": [
+              "2023-06-26T14:50:21"
+            ],
+            "NbOfTxs": [
+              "1"
+            ],
+            "CtrlSum": [
+              "1000.00"
+            ],
+            "InitgPty": [
+              {
+                "Nm": [
+                  "COMPANY CODE 3910 - ADDRESS NAME 1"
+                ]
+              }
+            ]
+          }
+        ],
+        "PmtInf": [
+          {
+            "PmtInfId": [
+              "0000020305-000001"
+            ],
+            "PmtMtd": [
+              "TRF"
+            ],
+            "BtchBookg": [
+              "true"
+            ],
+            "NbOfTxs": [
+              "1"
+            ],
+            "CtrlSum": [
+              "1000.00"
+            ],
+            "PmtTpInf": [
+              {
+                "SvcLvl": [
+                  {
+                    "Cd": [
+                      "SEPA"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "ReqdExctnDt": [
+              "2023-06-26"
+            ],
+            "Dbtr": [
+              {
+                "Nm": [
+                  "Company Code 3910 - Address Name 1"
+                ],
+                "PstlAdr": [
+                  {
+                    "Ctry": [
+                      "AT"
+                    ],
+                    "AdrLine": [
+                      "Lassallestrasse 1",
+                      "1234 Wien"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "DbtrAcct": [
+              {
+                "Id": [
+                  {
+                    "IBAN": [
+                      "AT925500011700006258"
+                    ]
+                  }
+                ],
+                "Ccy": [
+                  "EUR"
+                ]
+              }
+            ],
+            "DbtrAgt": [
+              {
+                "FinInstnId": [
+                  {
+                    "BIC": [
+                      "SLHYAT2SXXX"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "ChrgBr": [
+              "SLEV"
+            ],
+            "CdtTrfTxInf": [
+              {
+                "PmtId": [
+                  {
+                    "InstrId": [
+                      "02-940000002993"
+                    ],
+                    "EndToEndId": [
+                      "02-940000002993"
+                    ]
+                  }
+                ],
+                "Amt": [
+                  {
+                    "InstdAmt": [
+                      {
+                        "_": "1000.00",
+                        "$": {
+                          "Ccy": "EUR"
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "ChrgBr": [
+                  "SLEV"
+                ],
+                "Cdtr": [
+                  {
+                    "Nm": [
+                      "FICA payment formats PFAT"
+                    ]
+                  }
+                ],
+                "CdtrAcct": [
+                  {
+                    "Id": [
+                      {
+                        "IBAN": [
+                          "AT816000000007654321"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "RmtInf": [
+                  {
+                    "Ustrd": [
+                      "940000002993XBLNR/26.6.2023"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
