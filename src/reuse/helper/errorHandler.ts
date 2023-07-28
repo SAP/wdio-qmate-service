@@ -1,47 +1,49 @@
 import chalk from "chalk";
 import { ErrorMessages } from "../helper/errorMessages";
 
-export interface LogException {
+export interface IErrorHandler {
   logException(error: Error): Promise<never>;
 }
 
 export class CustomError extends Error {
-  constructor(message: string) {
+  constructor(message: string, name: string, stack?: string) {
     super(message);
-    this.name = "ValidationError:";
-    this.stack = "";
+    this.message = message;
+    this.name = name;
+    this.stack = stack;
   }
 }
 
-export default class ErrorHandler implements LogException {
+export default class ErrorHandler implements IErrorHandler {
   private logStackTrace?: boolean;
 
   constructor(logStackTrace: boolean = true) {
     this.logStackTrace = logStackTrace;
   }
 
-  public async logException(errorDetails: Error): Promise<never> {
-    if (errorDetails) {
-      let functionName = this._retrieveFunctionNameFromStack(errorDetails);
-      let stackTrace = this._getFormattedStackTrace(errorDetails);
+  public async logException(errorObject: Error): Promise<never> {
+    if (errorObject) {
+      let stackTraceDefault = "";
+      let functionName = this._retrieveFunctionNameFromStack(errorObject);
+      let stackTrace = this._getFormattedStackTrace(errorObject);
 
-      stackTrace = this.logStackTrace === true ? stackTrace : "";
+      if (this.logStackTrace === true) stackTraceDefault = stackTrace;
 
-      if (errorDetails.message) {
-        throw new CustomError(ErrorMessages.customErrorWithMessage(functionName, errorDetails.message) + "\n" + stackTrace);
+      if (errorObject.message) {
+        throw new CustomError(ErrorMessages.customErrorWithMessage(functionName, errorObject.message), errorObject.name, stackTraceDefault);
       } else {
-        throw new CustomError(ErrorMessages.customErrorWithoutMessage(functionName) + "\n" + stackTrace);
+        throw new CustomError(ErrorMessages.customErrorWithoutMessage(functionName), errorObject.name, stackTraceDefault);
       }
     } else {
-      throw new CustomError(chalk.red(ErrorMessages.genericErrorMessage()));
+      throw new CustomError(ErrorMessages.genericErrorMessage(),"Error");
     }
   }
 
   // =================================== HELPER ===================================
 
-  private _retrieveFunctionNameFromStack(errorDetails: Error): string {
-    if (errorDetails.stack) {
-      var stack = errorDetails.stack.split("\n");
+  private _retrieveFunctionNameFromStack(errorObject: Error): string {
+    if (errorObject.stack) {
+      var stack = errorObject.stack.split("\n");
       const startIndex = stack[1].indexOf("at") + 2;
       const endIndex = stack[1].indexOf("(");
       var functionName = stack[1].substring(startIndex, endIndex).trim();
@@ -50,13 +52,13 @@ export default class ErrorHandler implements LogException {
     return "";
   }
 
-  private _getFormattedStackTrace(errorDetails: Error): string {
-    if (errorDetails.stack) {
-      var stack = errorDetails.stack
+  private _getFormattedStackTrace(errorObject: Error): string {
+    if (errorObject.stack) {
+      var stack = errorObject.stack
         .split("\n")
         .map((line: string) => line.replace(/\s+at\s+/, ""))
         .slice(1)
-        .join("\n");
+        .join("\n\r");
       return stack;
     }
     return "";
