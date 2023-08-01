@@ -23,19 +23,17 @@ export default class ErrorHandler implements IErrorHandler {
 
   public async logException(errorObject: Error): Promise<never> {
     if (errorObject) {
-      let stackTraceDefault = "";
       let functionName = this._retrieveFunctionNameFromStack(errorObject);
-      let stackTrace = this._getFormattedStackTrace(errorObject);
 
-      if (this.logStackTrace === true) stackTraceDefault = stackTrace;
+      const stackTrace = this.logStackTrace === true ? this._getFormattedStackTrace(errorObject) : "";
 
       if (errorObject.message) {
-        throw new CustomError(ErrorMessages.customErrorWithMessage(functionName, errorObject.message), errorObject.name, stackTraceDefault);
+        throw new CustomError(ErrorMessages.customErrorWithMessage(functionName, errorObject.message), errorObject.name, stackTrace);
       } else {
-        throw new CustomError(ErrorMessages.customErrorWithoutMessage(functionName), errorObject.name, stackTraceDefault);
+        throw new CustomError(ErrorMessages.customErrorWithoutMessage(functionName), errorObject.name, stackTrace);
       }
     } else {
-      throw new CustomError(ErrorMessages.genericErrorMessage(),"Error");
+      throw new CustomError(ErrorMessages.genericErrorMessage(), "Error");
     }
   }
 
@@ -48,8 +46,9 @@ export default class ErrorHandler implements IErrorHandler {
       const endIndex = stack[1].indexOf("(");
       var functionName = stack[1].substring(startIndex, endIndex).trim();
       return !functionName.toLowerCase().includes("context") ? functionName : "";
+    } else {
+      return "";
     }
-    return "";
   }
 
   private _getFormattedStackTrace(errorObject: Error): string {
@@ -60,7 +59,8 @@ export default class ErrorHandler implements IErrorHandler {
         .slice(1)
         .join("\n\r");
       return stack;
+    } else {
+      return "";
     }
-    return "";
   }
 }
