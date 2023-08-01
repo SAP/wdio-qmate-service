@@ -41,10 +41,10 @@ export default class ErrorHandler implements IErrorHandler {
 
   private _retrieveFunctionNameFromStack(errorObject: Error): string {
     if (errorObject.stack) {
-      var stack = errorObject.stack.split("\n");
-      const startIndex = stack[1].indexOf("at") + 2;
-      const endIndex = stack[1].indexOf("(");
-      var functionName = stack[1].substring(startIndex, endIndex).trim();
+      var stackTrace = errorObject.stack.split("\n");
+      const startIndex = stackTrace[1].indexOf("at") + 2;
+      const endIndex = stackTrace[1].indexOf("(");
+      var functionName = stackTrace[1].substring(startIndex, endIndex).trim();
       return !functionName.toLowerCase().includes("context") ? functionName : "";
     } else {
       return "";
@@ -53,12 +53,12 @@ export default class ErrorHandler implements IErrorHandler {
 
   private _getFormattedStackTrace(errorObject: Error): string {
     if (errorObject.stack) {
-      var stack = errorObject.stack
+      var stackTrace = errorObject.stack
         .split("\n")
         .map((line: string) => line.replace(/\s+at\s+/, ""))
         .slice(1)
         .join("\n\r");
-      return stack;
+      return stackTrace;
     } else {
       return "";
     }
