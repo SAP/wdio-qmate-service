@@ -21,7 +21,7 @@ export default class ErrorHandler implements IErrorHandler {
     this.logStackTrace = logStackTrace;
   }
 
-  public async logException(errorObject: Error): Promise<never> {
+  public logException(errorObject: Error): Promise<never> {
     if (errorObject) {
       let functionName = this._retrieveFunctionNameFromStack(errorObject);
 

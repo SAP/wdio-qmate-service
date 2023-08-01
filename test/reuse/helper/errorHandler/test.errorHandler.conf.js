@@ -3,7 +3,7 @@ const merge = require("deepmerge");
 const profile = require("../../../helper/configurations/chrome.headless.conf");
 
 exports.config = merge(profile.config, {
-  maxInstances: 6,
+  maxInstances: 1,
   specFileRetries: 1,
 
   baseUrl: "https://www.sap.com/",
