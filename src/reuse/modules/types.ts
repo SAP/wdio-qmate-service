@@ -4,3 +4,8 @@ export enum AlignmentValues {
   END = "end",
   NEAREST = "nearest"
 }
+
+export type AlignmentOptions = {
+  block: AlignmentValues;
+  inline: AlignmentValues;
+};

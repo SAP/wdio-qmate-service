@@ -2,6 +2,7 @@
 
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import { AlignmentOptions, AlignmentValues } from "../types";
 
 /**
  * @class userInteraction
@@ -420,6 +421,24 @@ export class UserInteraction {
   }
 
   // =================================== SELECT ===================================
+
+  /**
+     * @function select
+     * @memberOf ui5.userInteraction
+     * @description Selects the passed value of the Select box.
+     * Please note that the function will only work for the default select Box and select comboBox.
+     * In special cases, please use the clickSelectArrow function.
+     * @param {Object} selector - The selector describing the element.
+     * @param {String} value - The value to select.
+     * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+     * @example await ui5.userInteraction.select(selector, "Germany");
+     */
+  async select(selector: any, value: string, index = 0) {
+    const vl = this.vlf.initLog(this.select);
+    //await this.clickSelectArrow(selector, index);
+    await Promise.any([this.selectBox(selector,value), this.selectComboBox(selector,value)]);
+  }
+
   /**
    * @function selectBox
    * @memberOf ui5.userInteraction
@@ -432,6 +451,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.selectBox(selector, "Germany");
    */
   async selectBox(selector: any, value: string, index = 0) {
+    util.console.warn(`⚠  "ui5.userInteraction.selectBox" is deprecated. Please use "ui5.userInteraction.select" instead.`);
     const vl = this.vlf.initLog(this.selectBox);
     await this.clickSelectArrow(selector, index);
     if (value !== undefined && value !== null) {
@@ -449,6 +469,7 @@ export class UserInteraction {
       throw new Error("Function 'selectBox' failed: Please provide a value as second argument.");
     }
   }
+   
 
   /**
    * @function selectComboBox
@@ -462,6 +483,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.selectComboBox(selector, "Germany");
    */
   async selectComboBox(selector: any, value: string, index = 0) {
+    util.console.warn(`⚠  "ui5.userInteraction.selectComboBox" is deprecated. Please use "ui5.userInteraction.select" instead.`);
     const vl = this.vlf.initLog(this.selectComboBox);
     await this.clickSelectArrow(selector, index);
     if (value) {
@@ -623,14 +645,20 @@ export class UserInteraction {
    * @example await ui5.userInteraction.scrollToElement(selector);
    * @example await ui5.userInteraction.scrollToElement(selector, 0, "start", 5000);
    */
-  async scrollToElement(selector: any, index = 0, alignment = "center", timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async scrollToElement(selector: any, index = 0, alignment: AlignmentOptions | AlignmentValues = AlignmentValues.CENTER, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.scrollToElement);
+    let options = {};
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
     if (elem) {
-      const options = {
-        block: alignment,
-        inline: alignment
-      };
+      if(typeof alignment == "string") {
+        options = {
+          block: alignment,
+          inline: alignment
+        };
+      }
+      else if(typeof alignment === "object") {
+        options = alignment
+      }
       await elem.scrollIntoView(options);
     }
   }
@@ -787,6 +815,43 @@ export class UserInteraction {
     } else {
       return false;
     }
+  }
+
+  private async _selectBox(selector: any, value: string) {
+    util.console.log("in SelectBox "+ value)
+    if (value !== undefined && value !== null) {
+    const itemSelector = {
+      elementProperties: {
+        mProperties: {
+          text: value
+        },
+        ancestorProperties: selector.elementProperties
+      }
+    };
+    await this.scrollToElement(itemSelector);
+    await this.click(itemSelector);
+    } else {
+      throw new Error("Function 'selectBox' failed: Please provide a value as second argument.");
+    }
+  }
+
+  private async _selectComboBox(value: string) {
+    if (value) {
+      const selector = {
+        elementProperties: {
+          metadata: "sap.m.StandardListItem",
+          mProperties: {
+            title: value
+          }
+        },
+        parentProperties: {
+          metadata: "sap.m.List"
+        }
+      };
+      await this.scrollToElement(selector);
+      await this.click(selector);
+    }
+    throw new Error("_selectComboBox failed purposely");
   }
 
   // Disabled since it is not working correctly

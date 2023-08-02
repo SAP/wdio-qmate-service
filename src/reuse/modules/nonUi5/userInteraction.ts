@@ -1,8 +1,9 @@
 "use strict";
 
+import { string } from "yargs";
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
-import { AlignmentValues } from "./constants/userInteraction.constants";
+import { AlignmentOptions, AlignmentValues } from "../types";
 
 /**
  * @class userInteraction
@@ -386,18 +387,23 @@ export class UserInteraction {
    * @param {String} alignment="center" - Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest".
    * Affects the alignToTop parameter of scrollIntoView function. By default, it takes 'up'
    * @example const elem = await nonUi5.userInteraction.getElementById("footer01");
-   * await nonUi5.userInteraction.scrollToElement(elem);
+   * await nonUi5.userInteraction.scrollToElement(elem, "center");
    */
-  async scrollToElement(element: Element, alignment: AlignmentValues = AlignmentValues.CENTER) {
+  async scrollToElement(element: Element, alignment: AlignmentOptions | AlignmentValues = { "block": AlignmentValues.START , "inline" : AlignmentValues.NEAREST }) {
     const vl = this.vlf.initLog(this.scrollToElement);
+    let options = {};
 
     try {
       this._verifyElement(element);
-
-      const options = {
-        block: alignment,
-        inline: alignment
-      };
+      if(typeof alignment === "string") {
+        options = {
+          block: alignment,
+          inline: alignment
+        };
+      }
+      else if(typeof alignment === "object") {
+        options = alignment
+      }
       vl.log("Scrolling to element");
       await element.scrollIntoView(options);
     } catch (error) {
