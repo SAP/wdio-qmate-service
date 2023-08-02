@@ -511,7 +511,7 @@ export class UserInteraction {
       await this.scrollToElement(ui5ControlProperties);
       await this.click(ui5ControlProperties);
     }
-    await common.userInteraction.pressEnter();
+    await common.userInteraction.pressEscape();
   }
 
   /**
