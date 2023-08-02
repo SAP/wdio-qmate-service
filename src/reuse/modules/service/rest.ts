@@ -14,11 +14,12 @@ export class Rest {
     let detailedMessage = "";
     if (error.response && error.response.data) {
       const errorData = error.response.data;
-      detailedMessage = errorData.errorMsg || errorData.message;
       if (errorData.error) {
         detailedMessage = `${errorData.error} - ${errorData.description}`;
       } else if (typeof errorData === "string") {
         detailedMessage = errorData;
+      } else {
+        detailedMessage = errorData.errorMsg || errorData.message || JSON.stringify(errorData);
       }
     }
     if (error.message) {
