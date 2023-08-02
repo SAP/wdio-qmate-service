@@ -8,4 +8,4 @@ export enum AlignmentValues {
 export type AlignmentOptions = {
   block: AlignmentValues;
   inline: AlignmentValues;
-};
+}

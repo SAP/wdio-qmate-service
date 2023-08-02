@@ -389,7 +389,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.userInteraction.getElementById("footer01");
    * await nonUi5.userInteraction.scrollToElement(elem, "center");
    */
-  async scrollToElement(element: Element, alignment: AlignmentOptions | AlignmentValues = { "block": AlignmentValues.START , "inline" : AlignmentValues.NEAREST }) {
+  async scrollToElement(element: Element, alignment: AlignmentOptions | AlignmentValues = { "block": AlignmentValues.START , "inline" : AlignmentValues.NEAREST } ) {
     const vl = this.vlf.initLog(this.scrollToElement);
     let options = {};
 

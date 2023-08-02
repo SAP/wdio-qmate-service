@@ -645,7 +645,7 @@ export class UserInteraction {
    * @example await ui5.userInteraction.scrollToElement(selector);
    * @example await ui5.userInteraction.scrollToElement(selector, 0, "start", 5000);
    */
-  async scrollToElement(selector: any, index = 0, alignment: AlignmentOptions | AlignmentValues = AlignmentValues.CENTER, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async scrollToElement(selector: any, index = 0, alignment: AlignmentOptions | AlignmentValues = AlignmentValues.CENTER , timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.scrollToElement);
     let options = {};
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
