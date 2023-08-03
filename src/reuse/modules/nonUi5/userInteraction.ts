@@ -2,6 +2,7 @@
 
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import elementHighlight from "../../helper/elementHighlight";
 import { AlignmentOptions, AlignmentValues } from "../types";
 
 /**
@@ -23,6 +24,7 @@ export class UserInteraction {
    */
   async click(element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.click);
+    const highlightConfig = await elementHighlight.getElementHighlightData("click");
 
     try {
       this._verifyElement(element);
@@ -44,6 +46,7 @@ export class UserInteraction {
       ]);
 
       vl.log("Clicking the element");
+      if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
       await element.click();
     } catch (error) {
       this._throwErrorForFunction("click", error);
@@ -85,6 +88,7 @@ export class UserInteraction {
    */
   async doubleClick(element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.doubleClick);
+    const highlightConfig = await elementHighlight.getElementHighlightData("doubleClick");
 
     try {
       this._verifyElement(element);
@@ -104,6 +108,7 @@ export class UserInteraction {
       ]);
 
       vl.log("Clicking the element");
+      if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
       await element.doubleClick();
     } catch (error) {
       this._throwErrorForFunction("doubleClick", error);
@@ -121,6 +126,7 @@ export class UserInteraction {
    */
   async rightClick(element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.rightClick);
+    const highlightConfig = await elementHighlight.getElementHighlightData("rightClick");
 
     try {
       this._verifyElement(element);
@@ -140,6 +146,7 @@ export class UserInteraction {
       ]);
 
       vl.log("Clicking the element");
+      if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
       await element.click({
         button: "right"
       });
@@ -209,12 +216,14 @@ export class UserInteraction {
    */
   async fill(element: Element, value: string | number) {
     const vl = this.vlf.initLog(this.fill);
+    const highlightConfig = await elementHighlight.getElementHighlightData("fill");
 
     try {
       this._verifyElement(element);
       this._verifyValue(value);
 
       vl.log(`Setting the value of element to ${value}`);
+      if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
       await element.setValue(value);
     } catch (error) {
       this._throwErrorForFunction("fill", error);
@@ -257,11 +266,13 @@ export class UserInteraction {
    */
   async clear(element: Element) {
     const vl = this.vlf.initLog(this.clear);
+    const highlightConfig = await elementHighlight.getElementHighlightData("clear");
 
     try {
       this._verifyElement(element);
 
       vl.log(`Clearing the value of element`);
+      if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
       return element.clearValue();
     } catch (error) {
       this._throwErrorForFunction("clear", error);
@@ -302,6 +313,7 @@ export class UserInteraction {
    */
   async clearAndFill(element: Element, value: string | number) {
     const vl = this.vlf.initLog(this.clearAndFill);
+    const highlightConfig = await elementHighlight.getElementHighlightData("clearAndFill");
 
     try {
       this._verifyElement(element);
@@ -310,6 +322,7 @@ export class UserInteraction {
       await this.clear(element);
 
       vl.log(`Setting the value of element to ${value}`);
+      if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
       await element.setValue(value);
     } catch (error) {
       this._throwErrorForFunction("clearAndFill", error);
@@ -463,6 +476,7 @@ export class UserInteraction {
    */
   async moveCursorAndClick(element: Element) {
     const vl = this.vlf.initLog(this.moveCursorAndClick);
+    const highlightConfig = await elementHighlight.getElementHighlightData("moveCursorAndClick");
 
     try {
       this._verifyElement(element);
