@@ -2,6 +2,7 @@
 
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import { AlignmentOptions, AlignmentValues } from "../types";
 
 /**
  * @class userInteraction
@@ -511,7 +512,7 @@ export class UserInteraction {
       await this.scrollToElement(ui5ControlProperties);
       await this.click(ui5ControlProperties);
     }
-    await common.userInteraction.pressEnter();
+    await common.userInteraction.pressEscape();
   }
 
   /**
@@ -617,20 +618,25 @@ export class UserInteraction {
    * @description Scrolls to the element with the given selector to get it into view.
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
-   * @param {String} [alignment="center"] - Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest".
-   * Affects the alignToTop parameter of scrollIntoView function. By default, it takes 'up'
+   * @param {String | Object} [alignment="center"] - Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest".
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.scrollToElement(selector);
    * @example await ui5.userInteraction.scrollToElement(selector, 0, "start", 5000);
    */
-  async scrollToElement(selector: any, index = 0, alignment = "center", timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async scrollToElement(selector: any, index = 0, alignment: AlignmentOptions | AlignmentValues = "center" , timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.scrollToElement);
+    let options = {};
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
     if (elem) {
-      const options = {
-        block: alignment,
-        inline: alignment
-      };
+      if(typeof alignment == "string") {
+        options = {
+          block: alignment,
+          inline: alignment
+        };
+      }
+      else if(typeof alignment === "object") {
+        options = alignment
+      }
       await elem.scrollIntoView(options);
     }
   }
