@@ -44,7 +44,7 @@ export class File {
         const filePath = path.resolve(file);
         vl.log(`Uploading file with a path ${filePath}`);
         const remoteFilePath = await browser.uploadFile(filePath);
-        await elem.addValue(remoteFilePath);
+        await elem.setValue(remoteFilePath);
       }
     } catch (error) {
       throw new Error(`Function 'upload' failed': ${error}`);
