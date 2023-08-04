@@ -331,7 +331,7 @@ export class OData {
   }
 
   // =================================== HELPER ===================================
-  _doRequest(url: string, username: string, password: string, isSaml: boolean) {
+  async _doRequest(url: string, username: string, password: string, isSaml: boolean) {
     //const auth = new Buffer(username + ":" + password).toString("base64");
     const options: any = {
       encoding: null,
@@ -339,7 +339,16 @@ export class OData {
     };
     if (username && password) {
       if (isSaml) {
-        options.auth = username + ":" + password;
+        // works only for SAP odata services
+        const serviceUrl = url.match(/.*\/[a-zA-Z0-9_]+_SRV\//)?.[0];
+        if (serviceUrl) {
+          let relativePath = "/" + url.substring(serviceUrl.length);
+          const srv = await service.odata.init(serviceUrl, username, password);
+          const pdfResp = await srv.agent.get(relativePath);
+          return pdfResp.arrayBuffer();
+        } else {
+          throw new Error("SAML login option is available only for SAP ODATA services");
+        }
       } else {
         options.auth = {
           user: username,
