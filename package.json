@@ -1,6 +1,6 @@
 {
   "name": "@sap_oss/wdio-qmate-service",
-  "version": "2.5.2",
+  "version": "2.6.0",
   "author": "SAP SE",
   "types": "./@types/index.d.ts",
   "main": "./lib/index.js",
@@ -109,6 +109,7 @@
     "test:reuse:service:odata": "npx wdio test/reuse/service/odata/test.odata.conf.js",
     "test:reuse:service": "npm run test:reuse:service:rest && npm run test:reuse:service:odata",
     "test:reuse": "npm run test:reuse:common && npm run test:reuse:nonUi5 && npm run test:reuse:ui5 && npm run test:reuse:util && npm run test:reuse:service:odata",
+    "test:reuse:helper:elementHighlight": "npx wdio ./test/reuse/helper/elementHighlight/test.elementHighlight.conf.js",
     "test": "npm run test:authenticator:staticLogin && npm run test:core && npm run test:reuse"
   },
   "homepage": "https://github.com/SAP/wdio-qmate-service",

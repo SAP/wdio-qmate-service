@@ -1,7 +1,7 @@
 "use strict";
 const { handleCookiesConsent } = require("../../../helper/utils");
 
-describe("userInteraction - scrollToElement", function () {
+describe("userInteraction - scrollToElement - default alignment options", function () {
   let elem;
 
   it("Preparation", async function () {
@@ -14,6 +14,27 @@ describe("userInteraction - scrollToElement", function () {
     const isDisplayedInViewport = await elem.isDisplayedInViewport();
     await common.assertion.expectFalse(isDisplayedInViewport);
     await nonUi5.userInteraction.scrollToElement(elem);
+  });
+
+  it("Verification", async function () {
+    await nonUi5.assertion.expectToBeVisible(elem, 10000);
+  });
+});
+
+describe("userInteraction - scrollToElement - alignment is center", function () {
+  let elem, alignment;
+
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/api");
+    await handleCookiesConsent();
+  });
+
+  it("Execution", async function () {
+    elem = await $("*=Legal Disclosure");
+    alignment = "center";
+    const isDisplayedInViewport = await elem.isDisplayedInViewport();
+    await common.assertion.expectFalse(isDisplayedInViewport);
+    await nonUi5.userInteraction.scrollToElement(elem, alignment);
   });
 
   it("Verification", async function () {
