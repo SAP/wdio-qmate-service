@@ -6,11 +6,24 @@ export interface IErrorHandler {
 }
 
 export class CustomError extends Error {
-  constructor(message: string, name: string, stack?: string) {
+  constructor(message: string, stack?: string) {
     super(message);
+    this.name = this.constructor.name;
     this.message = message;
-    this.name = name;
-    this.stack = stack;
+    this.stack = stack ? (stack.length !== 0 ? this._getFormattedStackTrace(this.stack) : "") : "";
+  }
+
+  // =================================== HELPER ===================================
+  private _getFormattedStackTrace(stack?: string): string {
+    if (stack) {
+      var stackTrace = stack
+        .split("\n")
+        .map((line: string) => line.replace(/\s+at\s+/, ""))
+        .join("\n");
+      return stackTrace;
+    } else {
+      return "";
+    }
   }
 }
 
@@ -21,19 +34,19 @@ export default class ErrorHandler implements IErrorHandler {
     this.logStackTrace = logStackTrace;
   }
 
-  public logException(errorObject: Error): Promise<never> {
+  public logException(errorObject: Error): never {
     if (errorObject) {
       let functionName = this._retrieveFunctionNameFromStack(errorObject);
 
-      const stackTrace = this.logStackTrace === true ? this._getFormattedStackTrace(errorObject) : "";
+      const stackTrace = this.logStackTrace === true ? "displayStack" : undefined;
 
       if (errorObject.message) {
-        throw new CustomError(ErrorMessages.customErrorWithMessage(functionName, errorObject.message), errorObject.name, stackTrace);
+        throw new CustomError(ErrorMessages.customErrorWithMessage(functionName, errorObject.message), stackTrace);
       } else {
-        throw new CustomError(ErrorMessages.customErrorWithoutMessage(functionName), errorObject.name, stackTrace);
+        throw new CustomError(ErrorMessages.customErrorWithoutMessage(functionName), stackTrace);
       }
     } else {
-      throw new CustomError(ErrorMessages.genericErrorMessage(), "Error");
+      throw new CustomError(ErrorMessages.genericErrorMessage());
     }
   }
 
@@ -46,19 +59,6 @@ export default class ErrorHandler implements IErrorHandler {
       const endIndex = stackTrace[1].indexOf("(");
       var functionName = stackTrace[1].substring(startIndex, endIndex).trim();
       return !functionName.toLowerCase().includes("context") ? functionName : "";
-    } else {
-      return "";
-    }
-  }
-
-  private _getFormattedStackTrace(errorObject: Error): string {
-    if (errorObject.stack) {
-      var stackTrace = errorObject.stack
-        .split("\n")
-        .map((line: string) => line.replace(/\s+at\s+/, ""))
-        .slice(1)
-        .join("\n\r");
-      return stackTrace;
     } else {
       return "";
     }
