@@ -39,13 +39,17 @@ export class File {
         const elemId = await ui5.element.getId(selector);
         elem = await nonUi5.element.getByXPath(`.//input[contains(@id,'${elemId}')][@type='file']`);
       }
-
+      let remoteFiles = "";
       for (const file of files) {
         const filePath = path.resolve(file);
         vl.log(`Uploading file with a path ${filePath}`);
         const remoteFilePath = await browser.uploadFile(filePath);
-        await elem.setValue(remoteFilePath);
+        if (remoteFiles) {
+          remoteFiles = remoteFiles + "\n";
+        }
+        remoteFiles = remoteFiles + remoteFilePath;
       }
+      await elem.addValue(remoteFiles);
     } catch (error) {
       throw new Error(`Function 'upload' failed': ${error}`);
     }
