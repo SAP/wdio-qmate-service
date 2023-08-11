@@ -28,7 +28,7 @@ export class CustomError extends Error {
 }
 
 export default class ErrorHandler implements IErrorHandler {
-  private logStackTrace?: boolean;
+  private logStackTrace: boolean;
 
   constructor(logStackTrace: boolean = true) {
     this.logStackTrace = logStackTrace;
@@ -38,12 +38,10 @@ export default class ErrorHandler implements IErrorHandler {
     if (errorObject) {
       let functionName = this._retrieveFunctionNameFromStack(errorObject);
 
-      const displayStack = this.logStackTrace === true ? true : false;
-
       if (errorObject.message) {
-        throw new CustomError(ErrorMessages.customErrorWithMessage(functionName, errorObject.message), displayStack);
+        throw new CustomError(ErrorMessages.customErrorWithMessage(functionName, errorObject.message), this.logStackTrace);
       } else {
-        throw new CustomError(ErrorMessages.customErrorWithoutMessage(functionName), displayStack);
+        throw new CustomError(ErrorMessages.customErrorWithoutMessage(functionName), this.logStackTrace);
       }
     } else {
       throw new CustomError(ErrorMessages.genericErrorMessage(), true);

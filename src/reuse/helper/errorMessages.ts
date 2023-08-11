@@ -16,6 +16,6 @@ export class ErrorMessages {
   }
 
   public static genericErrorMessage(): string {
-    return `Failed due to the exception occurred at the block`;
+    return `Failed due to the exception occurred in the block`;
   }
 }
