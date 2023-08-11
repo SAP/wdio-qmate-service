@@ -1763,7 +1763,7 @@ Global namespace for UI5 modules.
         * [.clickSelectArrowAndRetry(selector, [index], [retries], [interval])](#ui5.userInteraction.clickSelectArrowAndRetry)
         * [.selectFromTab(selector, value, [index], [timeout])](#ui5.userInteraction.selectFromTab)
         * [.mouseOverElement(selector, [index], [timeout])](#ui5.userInteraction.mouseOverElement)
-        * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.userInteraction.scrollToElement)
+        * [.scrollToElement(selector, [index], [alignment])](#ui5.userInteraction.scrollToElement)
         * [.selectAll([selector], [index], [timeout])](#ui5.userInteraction.selectAll)
         * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
         * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
@@ -3684,7 +3684,7 @@ await ui5.table.clickSettingsButton(glAccountItemsTable);
     * [.clickSelectArrowAndRetry(selector, [index], [retries], [interval])](#ui5.userInteraction.clickSelectArrowAndRetry)
     * [.selectFromTab(selector, value, [index], [timeout])](#ui5.userInteraction.selectFromTab)
     * [.mouseOverElement(selector, [index], [timeout])](#ui5.userInteraction.mouseOverElement)
-    * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.userInteraction.scrollToElement)
+    * [.scrollToElement(selector, [index], [alignment])](#ui5.userInteraction.scrollToElement)
     * [.selectAll([selector], [index], [timeout])](#ui5.userInteraction.selectAll)
     * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
     * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
@@ -4129,8 +4129,8 @@ await ui5.userInteraction.mouseOverElement(selector);
 ```
 <a name="ui5.userInteraction.scrollToElement"></a>
 
-#### userInteraction.scrollToElement(selector, [index], [alignment], [timeout])
-Scrolls to the element with the given selector to get it into view.
+#### userInteraction.scrollToElement(selector, [index], [alignment])
+Scrolls the element with the given selector into view.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -4138,16 +4138,21 @@ Scrolls to the element with the given selector to get it into view.
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The selector describing the element. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
-| [alignment] | <code>String</code> | <code>&quot;center&quot;</code> | Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest". Affects the alignToTop parameter of scrollIntoView function. By default, it takes 'up' |
-| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+| [alignment] | <code>String</code> \| <code>Object</code> | <code>&quot;center&quot;</code> | The alignment option for scrolling.   Can be one of: "start", "center", "end", "nearest", or an object with properties:   - block: Vertical alignment ("start", "center", "end", "nearest").   - inline: Horizontal alignment ("start", "center", "end", "nearest"). |
 
 **Example**  
 ```js
-await ui5.userInteraction.scrollToElement(selector);
+// Scroll to element with center alignment.
+await nonUi5.userInteraction.scrollToElement(selector, 0, "center");
 ```
 **Example**  
 ```js
-await ui5.userInteraction.scrollToElement(selector, 0, "start", 5000);
+// Scroll to element with custom alignment.
+const alignment = {
+  block: "start",
+  inline: "center"
+};
+await nonUi5.userInteraction.scrollToElement(selector, 0, alignment);
 ```
 <a name="ui5.userInteraction.selectAll"></a>
 
@@ -4276,7 +4281,7 @@ Global namespace for non UI5 modules.
         * [.clearAndFill(element, value)](#nonUi5.userInteraction.clearAndFill)
         * [.clearAndFillAndRetry(element, value, [retries], [interval], [verify])](#nonUi5.userInteraction.clearAndFillAndRetry)
         * [.mouseOverElement(element, [xOffset], [yOffset])](#nonUi5.userInteraction.mouseOverElement)
-        * [.scrollToElement(elem, alignment)](#nonUi5.userInteraction.scrollToElement)
+        * [.scrollToElement(elem, [alignment])](#nonUi5.userInteraction.scrollToElement)
         * [.dragAndDrop(element, targetElem)](#nonUi5.userInteraction.dragAndDrop)
         * [.moveCursorAndClick(element)](#nonUi5.userInteraction.moveCursorAndClick)
         * [.clickElementInSvg(svgElem, innerSelector)](#nonUi5.userInteraction.clickElementInSvg)
@@ -4921,7 +4926,7 @@ await nonUi5.session.loginSapNetWeaver("john", "abc123!");
     * [.clearAndFill(element, value)](#nonUi5.userInteraction.clearAndFill)
     * [.clearAndFillAndRetry(element, value, [retries], [interval], [verify])](#nonUi5.userInteraction.clearAndFillAndRetry)
     * [.mouseOverElement(element, [xOffset], [yOffset])](#nonUi5.userInteraction.mouseOverElement)
-    * [.scrollToElement(elem, alignment)](#nonUi5.userInteraction.scrollToElement)
+    * [.scrollToElement(elem, [alignment])](#nonUi5.userInteraction.scrollToElement)
     * [.dragAndDrop(element, targetElem)](#nonUi5.userInteraction.dragAndDrop)
     * [.moveCursorAndClick(element)](#nonUi5.userInteraction.moveCursorAndClick)
     * [.clickElementInSvg(svgElem, innerSelector)](#nonUi5.userInteraction.clickElementInSvg)
@@ -5153,20 +5158,31 @@ await nonUi5.userInteraction.mouseOverElement(elem);
 ```
 <a name="nonUi5.userInteraction.scrollToElement"></a>
 
-#### userInteraction.scrollToElement(elem, alignment)
-Scrolls to the passed element to get it into view.
+#### userInteraction.scrollToElement(elem, [alignment])
+Scrolls an element into view.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| elem | <code>Object</code> |  | The element. |
-| alignment | <code>String</code> | <code>&quot;center&quot;</code> | Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest". Affects the alignToTop parameter of scrollIntoView function. By default, it takes 'up' |
+| elem | <code>Element</code> |  | The target element to scroll to. |
+| [alignment] | <code>String</code> \| <code>Object</code> | <code>&quot;center&quot;</code> | The alignment option for scrolling.   Can be one of: "start", "center", "end", "nearest", or an object with properties:   - block: Vertical alignment ("start", "center", "end", "nearest").   - inline: Horizontal alignment ("start", "center", "end", "nearest"). |
 
 **Example**  
 ```js
+// Scroll to element with center alignment.
 const elem = await nonUi5.userInteraction.getElementById("footer01");
-await nonUi5.userInteraction.scrollToElement(elem);
+await nonUi5.userInteraction.scrollToElement(elem, "center");
+```
+**Example**  
+```js
+// Scroll to element with custom alignment.
+const elem = await nonUi5.userInteraction.getElementById("footer01");
+const alignment = {
+  block: "start",
+  inline: "center"
+};
+await nonUi5.userInteraction.scrollToElement(elem, alignment);
 ```
 <a name="nonUi5.userInteraction.dragAndDrop"></a>
 
