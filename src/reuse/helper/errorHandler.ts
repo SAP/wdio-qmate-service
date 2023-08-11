@@ -6,11 +6,11 @@ export interface IErrorHandler {
 }
 
 export class CustomError extends Error {
-  constructor(message: string, stack?: string) {
+  constructor(message: string, displayStack: boolean) {
     super(message);
     this.name = this.constructor.name;
     this.message = message;
-    this.stack = stack ? (stack.length !== 0 ? this._getFormattedStackTrace(this.stack) : "") : "";
+    this.stack = displayStack ? this._getFormattedStackTrace(this.stack) : "";
   }
 
   // =================================== HELPER ===================================
@@ -38,15 +38,15 @@ export default class ErrorHandler implements IErrorHandler {
     if (errorObject) {
       let functionName = this._retrieveFunctionNameFromStack(errorObject);
 
-      const stackTrace = this.logStackTrace === true ? "displayStack" : undefined;
+      const displayStack = this.logStackTrace === true ? true : false;
 
       if (errorObject.message) {
-        throw new CustomError(ErrorMessages.customErrorWithMessage(functionName, errorObject.message), stackTrace);
+        throw new CustomError(ErrorMessages.customErrorWithMessage(functionName, errorObject.message), displayStack);
       } else {
-        throw new CustomError(ErrorMessages.customErrorWithoutMessage(functionName), stackTrace);
+        throw new CustomError(ErrorMessages.customErrorWithoutMessage(functionName), displayStack);
       }
     } else {
-      throw new CustomError(ErrorMessages.genericErrorMessage());
+      throw new CustomError(ErrorMessages.genericErrorMessage(), true);
     }
   }
 
