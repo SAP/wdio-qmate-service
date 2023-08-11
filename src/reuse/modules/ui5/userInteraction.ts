@@ -622,6 +622,7 @@ export class UserInteraction {
    *   Can be one of: "start", "center", "end", "nearest", or an object with properties:
    *   - block: Vertical alignment ("start", "center", "end", "nearest").
    *   - inline: Horizontal alignment ("start", "center", "end", "nearest").
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    *
    * @example
    * // Scroll to element with center alignment.

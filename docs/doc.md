@@ -1763,7 +1763,7 @@ Global namespace for UI5 modules.
         * [.clickSelectArrowAndRetry(selector, [index], [retries], [interval])](#ui5.userInteraction.clickSelectArrowAndRetry)
         * [.selectFromTab(selector, value, [index], [timeout])](#ui5.userInteraction.selectFromTab)
         * [.mouseOverElement(selector, [index], [timeout])](#ui5.userInteraction.mouseOverElement)
-        * [.scrollToElement(selector, [index], [alignment])](#ui5.userInteraction.scrollToElement)
+        * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.userInteraction.scrollToElement)
         * [.selectAll([selector], [index], [timeout])](#ui5.userInteraction.selectAll)
         * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
         * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
@@ -3684,7 +3684,7 @@ await ui5.table.clickSettingsButton(glAccountItemsTable);
     * [.clickSelectArrowAndRetry(selector, [index], [retries], [interval])](#ui5.userInteraction.clickSelectArrowAndRetry)
     * [.selectFromTab(selector, value, [index], [timeout])](#ui5.userInteraction.selectFromTab)
     * [.mouseOverElement(selector, [index], [timeout])](#ui5.userInteraction.mouseOverElement)
-    * [.scrollToElement(selector, [index], [alignment])](#ui5.userInteraction.scrollToElement)
+    * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.userInteraction.scrollToElement)
     * [.selectAll([selector], [index], [timeout])](#ui5.userInteraction.selectAll)
     * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
     * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
@@ -4129,7 +4129,7 @@ await ui5.userInteraction.mouseOverElement(selector);
 ```
 <a name="ui5.userInteraction.scrollToElement"></a>
 
-#### userInteraction.scrollToElement(selector, [index], [alignment])
+#### userInteraction.scrollToElement(selector, [index], [alignment], [timeout])
 Scrolls the element with the given selector into view.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
@@ -4139,6 +4139,7 @@ Scrolls the element with the given selector into view.
 | selector | <code>Object</code> |  | The selector describing the element. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [alignment] | <code>String</code> \| <code>Object</code> | <code>&quot;center&quot;</code> | The alignment option for scrolling.   Can be one of: "start", "center", "end", "nearest", or an object with properties:   - block: Vertical alignment ("start", "center", "end", "nearest").   - inline: Horizontal alignment ("start", "center", "end", "nearest"). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
 ```js
