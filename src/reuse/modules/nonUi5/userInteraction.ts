@@ -394,26 +394,41 @@ export class UserInteraction {
   /**
    * @function scrollToElement
    * @memberOf nonUi5.userInteraction
-   * @description Scrolls to the passed element to get it into view.
-   * @param {Object} elem - The element.
-   * @param {String | Object} [alignment = {"block": "start", "inline" : "nearest" }] - alignment="center" - Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest".
-   * @example const elem = await nonUi5.userInteraction.getElementById("footer01");
-   * await nonUi5.userInteraction.scrollToElement(elem);
+   * @description Scrolls an element into view.
+   * @param {Element} elem - The target element to scroll to.
+   * @param {String | Object} [alignment="center"] - The alignment option for scrolling.
+   *   Can be one of: "start", "center", "end", "nearest", or an object with properties:
+   *   - block: Vertical alignment ("start", "center", "end", "nearest").
+   *   - inline: Horizontal alignment ("start", "center", "end", "nearest").
+   *
+   * @example
+   * // Scroll to element with center alignment.
+   * const elem = await nonUi5.userInteraction.getElementById("footer01");
+   * await nonUi5.userInteraction.scrollToElement(elem, "center");
+   *
+   * @example
+   * // Scroll to element with custom alignment.
+   * const elem = await nonUi5.userInteraction.getElementById("footer01");
+   * const alignment = {
+   *   block: "start",
+   *   inline: "center"
+   * };
+   * await nonUi5.userInteraction.scrollToElement(elem, alignment);
    */
-  async scrollToElement(element: Element, alignment: AlignmentOptions | AlignmentValues = { "block": "start" , "inline" : "nearest" } ) {
+
+  async scrollToElement(element: Element, alignment: AlignmentOptions | AlignmentValues = "center") {
     const vl = this.vlf.initLog(this.scrollToElement);
     let options = {};
 
     try {
       this._verifyElement(element);
-      if(typeof alignment === "string") {
+      if (typeof alignment === "string") {
         options = {
           block: alignment,
           inline: alignment
         };
-      }
-      else if(typeof alignment === "object") {
-        options = alignment
+      } else if (typeof alignment === "object") {
+        options = alignment;
       }
       vl.log("Scrolling to element");
       await element.scrollIntoView(options);
