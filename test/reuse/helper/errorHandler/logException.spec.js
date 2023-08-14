@@ -2,7 +2,7 @@
 
 const ErrorHandler = require("../../../../lib/reuse/helper/errorHandler").default;
 
-describe("errorHandler - logException - displaying customized message without stacktrace", async function () {
+describe("errorHandler - logException - error message without stacktrace", async function () {
   it("Execution & Verification", async function () {
     const errorHandler = new ErrorHandler(false);
     await expect(async function display() {
@@ -11,7 +11,7 @@ describe("errorHandler - logException - displaying customized message without st
   });
 });
 
-describe("errorHandler - logException - displaying customized message with stacktrace by passing the constructor value", async function () {
+describe("errorHandler - logException - error message with stacktrace by passing constructor value true", async function () {
   const errorHandler = new ErrorHandler(true);
   it("Execution & Verification", async function () {
     await expect(async function display() {
@@ -20,7 +20,7 @@ describe("errorHandler - logException - displaying customized message with stack
   });
 });
 
-describe("errorHandler - logException - displaying customized message with stacktrace without default constructor value", async function () {
+describe("errorHandler - logException - error message with stacktrace by default constructor value", async function () {
   const errorHandler = new ErrorHandler();
   it("Execution & Verification", async function () {
     await expect(async function display() {
@@ -29,11 +29,29 @@ describe("errorHandler - logException - displaying customized message with stack
   });
 });
 
-describe("errorHandler - logException - displaying generic error message", async function () {
+describe("errorHandler - logException - generic error message", async function () {
   it("Execution & Verification", async function () {
     const errorHandler = new ErrorHandler(false);
     await expect(async () => {
       errorHandler.logException();
     }).rejects.toThrow("Failed due to exception in block");
+  });
+});
+
+describe("errorHandler - logException - Without message", async function () {
+  it("Execution & Verification", async function () {
+    const errorHandler = new ErrorHandler(false);
+    await expect(async function display() {
+      errorHandler.logException(new Error());
+    }).rejects.toThrow("Function 'display' failed with unknown error");
+  });
+});
+
+describe("errorHandler - logException - customized error message with stacktrace by having default constructor value", async function () {
+  const errorHandler = new ErrorHandler();
+  it("Execution & Verification", async function () {
+    await expect(async function display() {
+      errorHandler.logException(new Error(), "File not found in given path please pass the correct path");
+    }).rejects.toThrow(/Function 'display' failed with : File not found in given path please pass the correct path/);
   });
 });
