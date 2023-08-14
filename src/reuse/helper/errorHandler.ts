@@ -18,7 +18,10 @@ export class CustomError extends Error {
     if (stack) {
       var stackTrace = stack
         .split("\n")
-        .map((line: string) => line.replace(/\s+at\s+/, ""))
+        .map((line: string) => {
+          return line.includes("ErrorHandler.logException") ? "" : line;
+        })
+        .filter(Boolean)
         .join("\n");
       return stackTrace;
     } else {
