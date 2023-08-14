@@ -47,7 +47,7 @@ export default class ErrorHandler implements IErrorHandler {
         throw new CustomError(ErrorMessages.customErrorWithoutMessage(functionName), this.logStackTrace);
       }
     } else {
-      throw new CustomError(ErrorMessages.genericErrorMessage(), true);
+      throw new CustomError(ErrorMessages.genericErrorMessage(), this.logStackTrace);
     }
   }
 
