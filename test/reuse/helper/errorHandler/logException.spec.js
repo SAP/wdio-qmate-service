@@ -34,6 +34,6 @@ describe("errorHandler - logException - displaying generic error message", async
     const errorHandler = new ErrorHandler(false);
     await expect(async () => {
       errorHandler.logException();
-    }).rejects.toThrow("Failed due to the exception occurred in the block");
+    }).rejects.toThrow("Failed due to exception in block");
   });
 });
