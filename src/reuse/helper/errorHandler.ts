@@ -2,7 +2,7 @@ import chalk from "chalk";
 import { ErrorMessages } from "../helper/errorMessages";
 
 export interface IErrorHandler {
-  logException(error: Error): Promise<never>;
+  logException(error: unknown | Error, customErrorMessage?: string): Promise<never>;
 }
 
 export class CustomError extends Error {
@@ -37,11 +37,13 @@ export default class ErrorHandler implements IErrorHandler {
     this.logStackTrace = logStackTrace;
   }
 
-  public logException(errorObject: Error): never {
-    if (errorObject) {
+  public logException(errorObject: unknown | Error, customErrorMessage?: string): never {
+    if (errorObject instanceof Error) {
       let functionName = this._retrieveFunctionNameFromStack(errorObject);
 
-      if (errorObject.message) {
+      if (customErrorMessage) {
+        throw new CustomError(ErrorMessages.customErrorWithMessage(functionName, customErrorMessage), this.logStackTrace);
+      } else if (errorObject.message) {
         throw new CustomError(ErrorMessages.customErrorWithMessage(functionName, errorObject.message), this.logStackTrace);
       } else {
         throw new CustomError(ErrorMessages.customErrorWithoutMessage(functionName), this.logStackTrace);
@@ -53,8 +55,8 @@ export default class ErrorHandler implements IErrorHandler {
 
   // =================================== HELPER ===================================
 
-  private _retrieveFunctionNameFromStack(errorObject: Error): string {
-    if (errorObject.stack) {
+  private _retrieveFunctionNameFromStack(errorObject: unknown | Error): string {
+    if (errorObject instanceof Error && errorObject.stack) {
       var stackTrace = errorObject.stack.split("\n");
       const startIndex = stackTrace[1].indexOf("at") + 2;
       const endIndex = stackTrace[1].indexOf("(");
