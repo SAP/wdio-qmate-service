@@ -58,6 +58,7 @@ jobs:
       - run: |
           sudo apt-get install google-chrome-stable
           npm ci
+          sudo echo "127.0.0.1       googlechromelabs.github.io" | sudo tee -a /etc/hosts
           npm run test:authenticator:staticLogin
 
   test-common:
