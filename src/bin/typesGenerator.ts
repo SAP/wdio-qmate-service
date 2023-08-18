@@ -20,16 +20,6 @@ class TypesGenerator {
     version: "1.0.0",
     description: "Packaged types for wdio-qmate-service",
     author: "C5329190",
-    maintainers: [
-      {
-        name: "Marvin Grüssinger",
-        email: "marvin.gruessinger@sap.com"
-      },
-      {
-        name: "Benjamin Warth",
-        email: "benjamin.warth@sap.com"
-      }
-    ],
     dependencies: {
       "@types/node": "^18.0.3"
     }
