@@ -31,25 +31,27 @@ export class CustomError extends Error {
 }
 
 export default class ErrorHandler implements IErrorHandler {
-  private logStackTrace: boolean;
+  //private logStackTrace: boolean;
 
-  constructor(logStackTrace: boolean = true) {
-    this.logStackTrace = logStackTrace;
-  }
+  constructor() {}
 
-  public logException(errorObject: unknown | Error, customErrorMessage?: string): never {
+  public logException(errorObject: unknown | Error, customErrorMessage?: string, logStackTrace: boolean = true): never {
     if (errorObject instanceof Error) {
-      let functionName = this._retrieveFunctionNameFromStack(errorObject);
+      let functionName = this._retrieveLastLevelFunctionNameFromStack(errorObject);
 
       if (customErrorMessage) {
-        throw new CustomError(ErrorMessages.customErrorWithMessage(functionName, customErrorMessage), this.logStackTrace);
+        throw new CustomError(ErrorMessages.customErrorWithMessage(functionName, customErrorMessage), logStackTrace);
       } else if (errorObject.message) {
-        throw new CustomError(ErrorMessages.customErrorWithMessage(functionName, errorObject.message), this.logStackTrace);
+        let errorMessage = errorObject.message.trim();
+        errorMessage = errorMessage.includes(":") ? errorMessage.substring(errorMessage.lastIndexOf(":") + 1).trim() : errorMessage;
+        errorMessage = ErrorMessages.customErrorWithMessage(functionName, errorMessage);
+
+        throw new CustomError(errorMessage, logStackTrace);
       } else {
-        throw new CustomError(ErrorMessages.customErrorWithoutMessage(functionName), this.logStackTrace);
+        throw new CustomError(ErrorMessages.customErrorWithoutMessage(functionName), logStackTrace);
       }
     } else {
-      throw new CustomError(ErrorMessages.genericErrorMessage(), this.logStackTrace);
+      throw new CustomError(ErrorMessages.genericErrorMessage(), logStackTrace);
     }
   }
 
@@ -62,6 +64,39 @@ export default class ErrorHandler implements IErrorHandler {
       const endIndex = stackTrace[1].indexOf("(");
       var functionName = stackTrace[1].substring(startIndex, endIndex).trim();
       return !functionName.toLowerCase().includes("context") ? functionName : "";
+    } else {
+      return "";
+    }
+  }
+
+  private _retrieveLastLevelFunctionNameFromStack(errorObject: unknown | Error): string {
+    if (errorObject instanceof Error && errorObject.stack) {
+      const regex = /\bat\s*(.+?)\(/;
+      let functionName: string = "block";
+      let initFunctionArray: string[] = [];
+
+      let errorStackAfterSplit = errorObject.stack.split("\n");
+
+      for (let i = 0, index = 0; i < errorStackAfterSplit.length; i++) {
+        let matchedString = !errorStackAfterSplit[i].includes("node_modules") && errorStackAfterSplit[i].match(regex);
+
+        if (matchedString) {
+          initFunctionArray[index] = matchedString[1].trim();
+
+          if (initFunctionArray[index].includes("anonymous")) {
+            index = index - 1;
+            functionName =
+              index < 0
+                ? functionName
+                : initFunctionArray[index].includes(".")
+                ? initFunctionArray[index].substring(initFunctionArray[index].indexOf(".") + 1)
+                : initFunctionArray[index];
+            break;
+          }
+          index++;
+        }
+      }
+      return functionName;
     } else {
       return "";
     }

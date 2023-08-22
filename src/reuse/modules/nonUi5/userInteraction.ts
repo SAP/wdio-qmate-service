@@ -4,6 +4,7 @@ import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import elementHighlight from "../../helper/elementHighlight";
 import { AlignmentOptions, AlignmentValues } from "../../helper/types";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class userInteraction
@@ -11,6 +12,7 @@ import { AlignmentOptions, AlignmentValues } from "../../helper/types";
  */
 export class UserInteraction {
   private vlf = new VerboseLoggerFactory("nonUi5", "userInteraction");
+  private errorHandler = new ErrorHandler();
 
   // =================================== CLICK ===================================
   /**
@@ -49,7 +51,8 @@ export class UserInteraction {
       if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
       await element.click();
     } catch (error) {
-      this._throwErrorForFunction("click", error);
+      this.errorHandler.logException(error)
+      //this._throwErrorForFunction("click", error);
     }
   }
 

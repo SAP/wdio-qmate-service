@@ -12,7 +12,7 @@ export class ErrorMessages {
   }
 
   public static customErrorWithoutMessage(functionName: string): string {
-    return `Function '${functionName}' failed with unknown error`;
+    return `Function '${functionName}' failed with : unknown error`;
   }
 
   public static genericErrorMessage(): string {

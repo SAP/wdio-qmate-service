@@ -4,23 +4,23 @@ const ErrorHandler = require("../../../../lib/reuse/helper/errorHandler").defaul
 
 describe("errorHandler - logException - error message without stacktrace", async function () {
   it("Execution & Verification", async function () {
-    const errorHandler = new ErrorHandler(false);
+    const errorHandler = new ErrorHandler();
     await expect(async function display() {
-      errorHandler.logException(new Error("Divide by zero error."));
+      errorHandler.logException(new Error("Divide by zero error."), undefined, false);
     }).rejects.toThrow("Function 'display' failed with : Divide by zero error.");
   });
 });
 
-describe("errorHandler - logException - error message with stacktrace by passing constructor value true", async function () {
-  const errorHandler = new ErrorHandler(true);
+describe("errorHandler - logException - error message with stacktrace by passing stacktrace parameter value true", async function () {
+  const errorHandler = new ErrorHandler();
   it("Execution & Verification", async function () {
     await expect(async function display() {
-      errorHandler.logException(new Error("File not found exception"));
+      errorHandler.logException(new Error("File not found exception"), undefined, true);
     }).rejects.toThrow(/Function 'display' failed with : File not found exception/);
   });
 });
 
-describe("errorHandler - logException - error message with stacktrace by default constructor value", async function () {
+describe("errorHandler - logException - error message with stacktrace default value", async function () {
   const errorHandler = new ErrorHandler();
   it("Execution & Verification", async function () {
     await expect(async function display() {
@@ -31,19 +31,19 @@ describe("errorHandler - logException - error message with stacktrace by default
 
 describe("errorHandler - logException - generic error message", async function () {
   it("Execution & Verification", async function () {
-    const errorHandler = new ErrorHandler(false);
+    const errorHandler = new ErrorHandler();
     await expect(async () => {
-      errorHandler.logException();
+      errorHandler.logException(undefined, undefined, false);
     }).rejects.toThrow("Failed due to exception in block");
   });
 });
 
 describe("errorHandler - logException - Without message", async function () {
   it("Execution & Verification", async function () {
-    const errorHandler = new ErrorHandler(false);
+    const errorHandler = new ErrorHandler();
     await expect(async function display() {
-      errorHandler.logException(new Error());
-    }).rejects.toThrow("Function 'display' failed with unknown error");
+      errorHandler.logException(new Error(), undefined, false);
+    }).rejects.toThrow("Function 'display' failed with : unknown error");
   });
 });
 

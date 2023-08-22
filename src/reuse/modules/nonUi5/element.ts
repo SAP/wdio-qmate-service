@@ -1,11 +1,13 @@
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import ErrorHandler from "../../helper/errorHandler";
 /**
  * @class element
  * @memberof nonUi5
  */
 export class ElementModule {
   private vlf = new VerboseLoggerFactory("nonui5", "element");
+  private errorHandler = new ErrorHandler();
 
   // =================================== WAIT ===================================
   /**
@@ -61,7 +63,8 @@ export class ElementModule {
       vl.log(`wdio.waitForDisplayed invokation for selector ${selector}`);
       await $(selector).waitForDisplayed({ timeout: timeout });
     } catch (error) {
-      throw new Error(`Function 'waitToBeVisible' failed: ${error}`);
+      this.errorHandler.logException(error)
+      //throw new Error(`Function 'waitToBeVisible' failed: ${error}`);
     }
   }
 
@@ -204,7 +207,8 @@ export class ElementModule {
         return await $(selector);
       }
     } catch (error) {
-      throw new Error(`Function 'getById' failed. Element with id '${id}' not found. ${error}`);
+      return this.errorHandler.logException(error,`Element with id '${id}' not found`)
+      //throw new Error(`Function 'getById' failed. Element with id '${id}' not found. ${error}`);
     }
   }
 
