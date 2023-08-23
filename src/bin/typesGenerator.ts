@@ -135,10 +135,11 @@ class TypesGenerator {
     ];
     for (const file of files) {
       let src = `${srcPath}${path.sep}${moduleName}${path.sep}${file}`;
+      let dist = `${distPath}${path.sep}modules${path.sep}${moduleName}${path.sep}${file}`;
       if (!moduleName) {
         src = `${srcPath}${path.sep}${file}`;
+        dist = `${distPath}${path.sep}modules${path.sep}${file}`;
       }
-      const dist = `${distPath}${path.sep}modules${path.sep}${moduleName}${path.sep}${file}`;
       await fse.copy(src, dist);
       await this.replaceStringsInFile(dist, replacements);
     }
