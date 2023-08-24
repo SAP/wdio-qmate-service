@@ -7,7 +7,7 @@ import ErrorHandler from "../../helper/errorHandler";
  */
 export class ElementModule {
   private vlf = new VerboseLoggerFactory("nonui5", "element");
-  private errorHandler = new ErrorHandler();
+  private ErrorHandler = new ErrorHandler();
 
   // =================================== WAIT ===================================
   /**
@@ -63,7 +63,7 @@ export class ElementModule {
       vl.log(`wdio.waitForDisplayed invokation for selector ${selector}`);
       await $(selector).waitForDisplayed({ timeout: timeout });
     } catch (error) {
-      this.errorHandler.logException(error)
+      this.ErrorHandler.logException(error)
       //throw new Error(`Function 'waitToBeVisible' failed: ${error}`);
     }
   }
@@ -207,7 +207,7 @@ export class ElementModule {
         return await $(selector);
       }
     } catch (error) {
-      return this.errorHandler.logException(error,`Element with id '${id}' not found`)
+      return this.ErrorHandler.logException(error,`Element with id '${id}' not found`)
       //throw new Error(`Function 'getById' failed. Element with id '${id}' not found. ${error}`);
     }
   }

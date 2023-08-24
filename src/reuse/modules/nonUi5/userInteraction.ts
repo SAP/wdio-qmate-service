@@ -12,7 +12,7 @@ import ErrorHandler from "../../helper/errorHandler";
  */
 export class UserInteraction {
   private vlf = new VerboseLoggerFactory("nonUi5", "userInteraction");
-  private errorHandler = new ErrorHandler();
+  private ErrorHandler = new ErrorHandler();
 
   // =================================== CLICK ===================================
   /**
@@ -51,7 +51,7 @@ export class UserInteraction {
       if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
       await element.click();
     } catch (error) {
-      this.errorHandler.logException(error)
+      this.ErrorHandler.logException(error)
       //this._throwErrorForFunction("click", error);
     }
   }

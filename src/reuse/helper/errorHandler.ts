@@ -5,7 +5,13 @@ export interface IErrorHandler {
   logException(error: unknown | Error, customErrorMessage?: string): Promise<never>;
 }
 
-export class CustomError extends Error {
+enum Modules {
+  Node_modules = "node_modules",
+  Node = "node",
+  Mocha = "mocha"
+}
+
+export class QmateError extends Error {
   constructor(message: string, displayStack: boolean) {
     super(message);
     this.name = this.constructor.name;
@@ -31,27 +37,23 @@ export class CustomError extends Error {
 }
 
 export default class ErrorHandler implements IErrorHandler {
-  //private logStackTrace: boolean;
-
-  constructor() {}
-
   public logException(errorObject: unknown | Error, customErrorMessage?: string, logStackTrace: boolean = true): never {
     if (errorObject instanceof Error) {
       let functionName = this._retrieveLastLevelFunctionNameFromStack(errorObject);
 
       if (customErrorMessage) {
-        throw new CustomError(ErrorMessages.customErrorWithMessage(functionName, customErrorMessage), logStackTrace);
+        throw new QmateError(ErrorMessages.customErrorWithMessage(functionName, customErrorMessage), logStackTrace);
       } else if (errorObject.message) {
         let errorMessage = errorObject.message.trim();
         errorMessage = errorMessage.includes(":") ? errorMessage.substring(errorMessage.lastIndexOf(":") + 1).trim() : errorMessage;
         errorMessage = ErrorMessages.customErrorWithMessage(functionName, errorMessage);
 
-        throw new CustomError(errorMessage, logStackTrace);
+        throw new QmateError(errorMessage, logStackTrace);
       } else {
-        throw new CustomError(ErrorMessages.customErrorWithoutMessage(functionName), logStackTrace);
+        throw new QmateError(ErrorMessages.customErrorWithoutMessage(functionName), logStackTrace);
       }
     } else {
-      throw new CustomError(ErrorMessages.genericErrorMessage(), logStackTrace);
+      throw new QmateError(ErrorMessages.genericErrorMessage(), logStackTrace);
     }
   }
 
@@ -78,7 +80,7 @@ export default class ErrorHandler implements IErrorHandler {
       let errorStackAfterSplit = errorObject.stack.split("\n");
 
       for (let i = 0, index = 0; i < errorStackAfterSplit.length; i++) {
-        let matchedString = !errorStackAfterSplit[i].includes("node_modules") && errorStackAfterSplit[i].match(regex);
+        let matchedString = !this._isThirdPartyModuleExistInStack(errorStackAfterSplit[i]) && errorStackAfterSplit[i].match(regex);
 
         if (matchedString) {
           initFunctionArray[index] = matchedString[1].trim();
@@ -100,5 +102,17 @@ export default class ErrorHandler implements IErrorHandler {
     } else {
       return "";
     }
+  }
+
+  private _isThirdPartyModuleExistInStack(line: string): boolean {
+    if (line) {
+      let module = Object.values(Modules);
+      for (let i = 0; i < module.length; i++) {
+        if (line.toLowerCase().trim().includes(module[i])) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }
