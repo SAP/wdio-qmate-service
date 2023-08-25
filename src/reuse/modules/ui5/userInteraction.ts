@@ -2,7 +2,7 @@
 
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
-import { AlignmentOptions, AlignmentValues } from "../../helper/types";
+import { AlignmentOptions, AlignmentValues } from "../types";
 
 /**
  * @class userInteraction

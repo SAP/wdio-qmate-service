@@ -127,10 +127,6 @@ class TypesGenerator {
       {
         src: 'import { Element } from "../../../../@types/wdio"',
         replace: 'import { Element } from "../../../@types/wdio"'
-      },
-      {
-        src: "../../helper/types",
-        replace: "../types"
       }
     ];
     for (const file of files) {
