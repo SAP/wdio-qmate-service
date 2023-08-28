@@ -45,7 +45,9 @@ export default class ErrorHandler implements IErrorHandler {
         throw new QmateError(ErrorMessages.customErrorWithMessage(functionName, customErrorMessage), logStackTrace);
       } else if (errorObject.message) {
         let errorMessage = errorObject.message.trim();
-        errorMessage = errorMessage.includes(":") ? errorMessage.substring(errorMessage.lastIndexOf(":") + 1).trim() : errorMessage;
+        errorMessage = errorMessage.match(/\b(Function|function)\s*'([a-zA-Z_-]*)'\s*failed with\s*\b:/)
+          ? errorMessage.replaceAll(errorMessage.substring(0, errorMessage.indexOf(":") + 1), "").trim()
+          : errorMessage;
         errorMessage = ErrorMessages.customErrorWithMessage(functionName, errorMessage);
 
         throw new QmateError(errorMessage, logStackTrace);
