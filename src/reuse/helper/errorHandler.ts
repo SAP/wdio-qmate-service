@@ -82,7 +82,7 @@ export default class ErrorHandler implements IErrorHandler {
       let errorStackAfterSplit = errorObject.stack.split("\n");
 
       for (let i = 0, index = 0; i < errorStackAfterSplit.length; i++) {
-        let matchedString = !this._isThirdPartyModuleExistInStack(errorStackAfterSplit[i]) && errorStackAfterSplit[i].match(regex);
+        let matchedString = !this._isThirdPartyModuleIncludedStack(errorStackAfterSplit[i]) && errorStackAfterSplit[i].match(regex);
 
         if (matchedString) {
           initFunctionArray[index] = matchedString[1].trim();
@@ -106,7 +106,7 @@ export default class ErrorHandler implements IErrorHandler {
     }
   }
 
-  private _isThirdPartyModuleExistInStack(line: string): boolean {
+  private _isThirdPartyModuleIncludedStack(line: string): boolean {
     if (line) {
       let module = Object.values(Modules);
       for (let i = 0; i < module.length; i++) {
