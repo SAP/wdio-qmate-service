@@ -4,6 +4,7 @@ import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import elementHighlight from "../../helper/elementHighlight";
 import { AlignmentOptions, AlignmentValues } from "../../helper/types";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class userInteraction
@@ -11,6 +12,7 @@ import { AlignmentOptions, AlignmentValues } from "../../helper/types";
  */
 export class UserInteraction {
   private vlf = new VerboseLoggerFactory("nonUi5", "userInteraction");
+  private ErrorHandler = new ErrorHandler();
 
   // =================================== CLICK ===================================
   /**
@@ -49,7 +51,7 @@ export class UserInteraction {
       if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
       await element.click();
     } catch (error) {
-      this._throwErrorForFunction("click", error);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -73,7 +75,7 @@ export class UserInteraction {
       vl.log("Clicking the element");
       return util.function.retry(this.click, [element, timeout], retries, interval, this);
     } catch (error) {
-      this._throwErrorForFunction("clickAndRetry", error);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -111,7 +113,7 @@ export class UserInteraction {
       if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
       await element.doubleClick();
     } catch (error) {
-      this._throwErrorForFunction("doubleClick", error);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -151,7 +153,7 @@ export class UserInteraction {
         button: "right"
       });
     } catch (error) {
-      this._throwErrorForFunction("rightClick", error);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -176,7 +178,7 @@ export class UserInteraction {
         vl.log("Checkbox already selected.");
       }
     } catch (error) {
-      this._throwErrorForFunction("check", error);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -200,7 +202,7 @@ export class UserInteraction {
         vl.log("Checkbox already unchecked.");
       }
     } catch (error) {
-      this._throwErrorForFunction("uncheck", error);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -226,7 +228,7 @@ export class UserInteraction {
       if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
       await element.setValue(value);
     } catch (error) {
-      this._throwErrorForFunction("fill", error);
+      this.ErrorHandler.logException(new Error(), (error as Error).message);
     }
   }
 
@@ -251,7 +253,7 @@ export class UserInteraction {
       vl.log(`Setting the value of element to ${value}`);
       return util.function.retry(this.fill, [element, value], retries, interval, this);
     } catch (error) {
-      this._throwErrorForFunction("fillAndRetry", error);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -275,7 +277,7 @@ export class UserInteraction {
       if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
       return element.clearValue();
     } catch (error) {
-      this._throwErrorForFunction("clear", error);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -298,7 +300,7 @@ export class UserInteraction {
       vl.log(`Clearing the value of element`);
       return util.function.retry(this.clear, [element], retries, interval, this);
     } catch (error) {
-      this._throwErrorForFunction("clearAndRetry", error);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -325,7 +327,7 @@ export class UserInteraction {
       if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
       await element.setValue(value);
     } catch (error) {
-      this._throwErrorForFunction("clearAndFill", error);
+      this.ErrorHandler.logException(new Error(), (error as Error).message);
     }
   }
 
@@ -363,7 +365,7 @@ export class UserInteraction {
         this
       );
     } catch (error) {
-      this._throwErrorForFunction("clearAndFillAndRetry", error);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -387,7 +389,7 @@ export class UserInteraction {
       vl.log("Moving mouse to element");
       await element.moveTo({ xOffset, yOffset });
     } catch (error) {
-      this._throwErrorForFunction("mouseOverElement", error);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -433,7 +435,7 @@ export class UserInteraction {
       vl.log("Scrolling to element");
       await element.scrollIntoView(options);
     } catch (error) {
-      this._throwErrorForFunction("scrollToElement", error);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -477,7 +479,7 @@ export class UserInteraction {
         .down({ button: 0 }) //left button
         .perform();
     } catch (error) {
-      this._throwErrorForFunction("dragAndDrop", error);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -499,7 +501,7 @@ export class UserInteraction {
       await element.moveTo();
       await element.click();
     } catch (error) {
-      this._throwErrorForFunction("moveCursorAndClick", error);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -534,7 +536,7 @@ export class UserInteraction {
       // @ts-ignore
       await svgElem.click({ x: parseInt(centerOffsetX), y: parseInt(centerOffsetY) });
     } catch (error) {
-      this._throwErrorForFunction("clickElementInSvg", error);
+      this.ErrorHandler.logException(error);
     }
   }
 
