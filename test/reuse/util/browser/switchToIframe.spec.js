@@ -24,6 +24,6 @@ describe("browser - switchToIframe - error case", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(util.browser.switchToIframe("iframe[id*='__uploader']")).rejects.toThrow("Function 'waitToBeVisible' failed: Error: element (\"iframe[id*='__uploader']\") still not displayed after");
+    await expect(util.browser.switchToIframe("iframe[id*='__uploader']")).rejects.toThrow("Function 'switchToIframe' failed with: element (\"iframe[id*='__uploader']\") still not displayed after 30000ms");
   });
 });
