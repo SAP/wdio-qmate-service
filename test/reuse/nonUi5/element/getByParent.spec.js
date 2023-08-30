@@ -1,13 +1,13 @@
 "use strict";
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("element - getByParent", function () {
   let finalElement;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await common.navigation.navigateToUrl(
+      "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories"
+    );
     await handleCookiesConsent();
   });
 
@@ -15,7 +15,6 @@ describe("element - getByParent", function () {
     const elementSelector = "[id='container-cart---homeView--searchField-I']";
     const parentSelector = "[id='container-cart---homeView--searchField-F']";
     finalElement = await nonUi5.element.getByParent(elementSelector, parentSelector);
-
   });
 
   it("Verification", async function () {
@@ -46,26 +45,32 @@ describe("element - getByParent - with index", function () {
 
 describe("element - getByParent - error case with wrong element", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await common.navigation.navigateToUrl(
+      "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories"
+    );
   });
 
   it("Execution & Verification", async function () {
     const elementSelector = ".wrongParent";
     const parentSelector = ".wrongChild";
-    await expect(nonUi5.element.getByParent(elementSelector, parentSelector))
-      .rejects.toThrow("Function 'getByParent' failed. No parent element found for selector:");
+    await expect(nonUi5.element.getByParent(elementSelector, parentSelector)).rejects.toThrow(
+      "Function 'getByParent' failed with: No parent element found for selector:"
+    );
   });
 });
 
 describe("element - getByParent - error case with wrong order of parent and child", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await common.navigation.navigateToUrl(
+      "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories"
+    );
   });
 
   it("Execution & Verification", async function () {
     const elementSelector = "[id='container-cart---homeView--searchField-F']";
     const parentSelector = "[id='container-cart---homeView--searchField-I']";
-    await expect(nonUi5.element.getByParent(elementSelector, parentSelector))
-      .rejects.toThrow("Function 'getByParent' failed. No visible elements found for selector");
+    await expect(nonUi5.element.getByParent(elementSelector, parentSelector)).rejects.toThrow(
+      `Function 'getByParent' failed with: No visible elements found for selector '[id='container-cart---homeView--searchField-F']' and parent selector '[id='container-cart---homeView--searchField-I']`
+    );
   });
 });

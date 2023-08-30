@@ -1,6 +1,7 @@
 "use strict";
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class navigation
@@ -8,6 +9,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  */
 export class Navigation {
   private vlf = new VerboseLoggerFactory("nonui5", "navigation");
+  private ErrorHandler = new ErrorHandler();
 
   /**
    * @function navigateToApplication
@@ -27,7 +29,7 @@ export class Navigation {
         await util.browser.refresh();
       }
     } catch (error) {
-      throw new Error("Function navigateToApplication failed: " + error);
+      this.ErrorHandler.logException(error);
     }
   }
 }

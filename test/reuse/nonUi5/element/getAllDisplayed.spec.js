@@ -6,7 +6,7 @@ describe("element - getAllDisplayed - error case", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(nonUi5.element.getAllDisplayed("BUTTON[id='invalid']", 4000)).rejects.toThrow("Function 'waitForAll' failed");
+    await expect(nonUi5.element.getAllDisplayed("BUTTON[id='invalid']", 4000)).rejects.toThrow(`Function 'getAllDisplayed' failed with: No visible element(s) found for selector 'BUTTON[id='invalid']' after 4s.`);
   });
 });
 
@@ -34,6 +34,6 @@ describe("element - getAllDisplayed - invisible element (present in DOM)", funct
   });
 
   it("Execution & Verification", async function () {
-    await expect(nonUi5.element.getAllDisplayed("P[id='hiddenParagraph']")).rejects.toThrow(`Function 'getAllDisplayed' failed. No visible element(s) found for selector`);
+    await expect(nonUi5.element.getAllDisplayed("P[id='hiddenParagraph']")).rejects.toThrow(`Function 'getAllDisplayed' failed with: No visible element(s) found for selector 'P[id='hiddenParagraph']' after 30s.`);
   });
 });
