@@ -99,13 +99,13 @@ describe("assertion - expectBindingPathToBe with wrong selector (unhappy case)",
       .rejects.toThrow("Function 'expectBindingPathToBe' failed with:");
 
     await expect(ui5.assertion.expectBindingPathToBe(false, "items", "/ProductCategories", 0, 5000))
-      .rejects.toThrow("Function 'expectBindingPathToBe' failed with: Function 'expectBindingPathToBe' failed with: Please provide a valid selector as argument.");
+      .rejects.toThrow("Function 'expectBindingPathToBe' failed with: Please provide a valid selector as argument.");
 
     await expect(ui5.assertion.expectBindingPathToBe(null, "items", "/ProductCategories", 0, 5000))
-      .rejects.toThrow("Function 'expectBindingPathToBe' failed with: Function 'expectBindingPathToBe' failed with: Please provide a valid selector as argument.");
+      .rejects.toThrow("Function 'expectBindingPathToBe' failed with: Please provide a valid selector as argument.");
 
     await expect(ui5.assertion.expectBindingPathToBe(undefined, "items", "/ProductCategories", 0, 5000))
-      .rejects.toThrow("Function 'expectBindingPathToBe' failed with: Function 'expectBindingPathToBe' failed with: Please provide a valid selector as argument.");
+      .rejects.toThrow("Function 'expectBindingPathToBe' failed with: Please provide a valid selector as argument.");
   });
 });
 
