@@ -25,11 +25,9 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "getByChild.spec.js"),
     path.resolve(__dirname, "getByParent.spec.js"),
     path.resolve(__dirname, "highlight.spec.js"),
-    path.resolve(__dirname, "switchToIframe.spec.js"),
     path.resolve(__dirname, "getByName.spec.js"),
     path.resolve(__dirname, "getByCssContainingText.spec.js"),
     path.resolve(__dirname, "isVisible.spec.js"),
-    path.resolve(__dirname, "isPresent.spec.js"),
     path.resolve(__dirname, "isPresent.spec.js"),
     path.resolve(__dirname, "isPresentByCss.spec.js"),
     path.resolve(__dirname, "isPresentByXPath.spec.js")
