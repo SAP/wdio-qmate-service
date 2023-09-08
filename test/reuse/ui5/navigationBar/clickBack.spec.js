@@ -32,7 +32,7 @@ describe("navigationBar - clickBack - error case", function () {
 
   it("Execution & Verification", async function () {
     await expect(ui5.navigationBar.clickBack())
-      .rejects.toThrowError(/Function 'clickBack' failed:/);
+      .rejects.toThrowError("Function 'clickBack' failed with:");
   });
 
 });

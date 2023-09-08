@@ -103,6 +103,6 @@ describe("userInteraction - fill element with empty value", function () {
     const index = 0;
     const timeout = 30000;
     await expect(ui5.userInteraction.fill(selector))
-      .rejects.toThrow("Function 'fill' failed: Please provide an element and value(datatype - number/string) as arguments.");
+      .rejects.toThrow("Function 'fill' failed with: Please provide an element and value(datatype - number/string) as arguments.");
   });
 });

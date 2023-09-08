@@ -1,6 +1,6 @@
 "use strict";
 
-describe("navigationBar - expectPageTitle", function () {
+describe("navigationBar - expectShellHeader", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/ui/demoapps/demokit/rta/fiori-elements/test/index.html#Shell-home");
   });
@@ -10,13 +10,13 @@ describe("navigationBar - expectPageTitle", function () {
   });
 });
 
-describe("navigationBar - expectPageTitle - error case", function () {
+describe("navigationBar - expectShellHeader - error case", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://www.sap.com");
   });
 
   it("Execution & Verification", async function () {
     await expect(ui5.navigationBar.expectShellHeader())
-      .rejects.toThrowError(/Function 'expectToBeVisible' failed:/);
+      .rejects.toThrowError("Function 'expectShellHeader' failed with:");
   });
 });

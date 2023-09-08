@@ -1,6 +1,7 @@
 "use strict";
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class navigationBar
@@ -8,6 +9,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  */
 export class NavigationBar {
   private vlf = new VerboseLoggerFactory("ui5", "navigationBar");
+  private ErrorHandler = new ErrorHandler();
 
   /**
    * @function clickBack
@@ -27,7 +29,7 @@ export class NavigationBar {
     try {
       await ui5.userInteraction.click(selector, 0, timeout);
     } catch (error) {
-      throw new Error(`Function 'clickBack' failed: ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -46,7 +48,7 @@ export class NavigationBar {
     try {
       await ui5.userInteraction.click(selector, 0, timeout);
     } catch (error) {
-      throw new Error(`Function 'clickSapLogo' failed: ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -68,7 +70,7 @@ export class NavigationBar {
     try {
       await ui5.userInteraction.click(selector, 0, timeout);
     } catch (error) {
-      throw new Error(`Function 'clickUserIcon' failed: ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -93,7 +95,7 @@ export class NavigationBar {
     try {
       await ui5.assertion.expectToBeVisibleInViewport(selector);
     } catch (error) {
-      throw new Error(`Function 'expectPageTitle' failed: ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -115,7 +117,7 @@ export class NavigationBar {
     try {
       await ui5.assertion.expectToBeVisible(selector, 0, timeout, loadPropertyTimeout);
     } catch (error) {
-      throw new Error(`Function 'expectPageTitle' failed: ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 }

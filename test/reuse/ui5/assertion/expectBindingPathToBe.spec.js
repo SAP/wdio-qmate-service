@@ -93,19 +93,19 @@ describe("assertion - expectBindingPathToBe with wrong selector (unhappy case)",
       "wrongData": "123"
     };
     await expect(ui5.assertion.expectBindingPathToBe(selector, "items", "/ProductCategories", 0, 5000))
-      .rejects.toThrow("Function 'expectBindingPathToBe' failed:");
+      .rejects.toThrow(`Function 'expectBindingPathToBe' failed with: uiControlExecuteLocator(): No visible elements found with selector: {\"wrongData\":\"123\"} in 5s`);
 
     await expect(ui5.assertion.expectBindingPathToBe(123, "items", "/ProductCategories", 0, 5000))
-      .rejects.toThrow("Function 'expectBindingPathToBe' failed:");
+      .rejects.toThrow("Function 'expectBindingPathToBe' failed with:");
 
     await expect(ui5.assertion.expectBindingPathToBe(false, "items", "/ProductCategories", 0, 5000))
-      .rejects.toThrow("Function 'expectBindingPathToBe' failed:");
+      .rejects.toThrow("Function 'expectBindingPathToBe' failed with: Function 'expectBindingPathToBe' failed with: Please provide a valid selector as argument.");
 
     await expect(ui5.assertion.expectBindingPathToBe(null, "items", "/ProductCategories", 0, 5000))
-      .rejects.toThrow("Function 'expectBindingPathToBe' failed:");
+      .rejects.toThrow("Function 'expectBindingPathToBe' failed with: Function 'expectBindingPathToBe' failed with: Please provide a valid selector as argument.");
 
     await expect(ui5.assertion.expectBindingPathToBe(undefined, "items", "/ProductCategories", 0, 5000))
-      .rejects.toThrow("Function 'expectBindingPathToBe' failed:");
+      .rejects.toThrow("Function 'expectBindingPathToBe' failed with: Function 'expectBindingPathToBe' failed with: Please provide a valid selector as argument.");
   });
 });
 
