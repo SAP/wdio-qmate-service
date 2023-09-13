@@ -58,7 +58,7 @@ describe("component - loadEntryPoint - error case", function () {
   const folderPath = path.resolve(os.tmpdir(), "entrypointsLoad");
 
   it("Execution & Verification", async function () {
-    await expect(util.component.loadEntryPoint(folderPath)).rejects.toThrow("Function 'readDataFromFile' failed:");
+    await expect(util.component.loadEntryPoint(folderPath)).rejects.toThrow("Function 'readDataFromFile' failed with:");
   });
 
 });
