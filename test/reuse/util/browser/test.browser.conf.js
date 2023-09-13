@@ -2,8 +2,8 @@ const path = require("path");
 const merge = require("deepmerge");
 const profile = require("../../../helper/configurations/chrome.headless.conf");
 exports.config = merge(profile.config, {
-  maxInstances: 6,
-  specFileRetries: 2,
+  maxInstances: 1,
+  specFileRetries: 0,
 
   baseUrl: "https://sapui5.hana.ondemand.com/1.99.0/",
 

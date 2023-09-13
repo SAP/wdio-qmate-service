@@ -16,14 +16,10 @@ describe("data - readDataFromFile", function () {
   it("Verification", function () {
     common.assertion.expectEqual(dataAct, dataExp);
   });
-
 });
 
 describe("data - readDataFromFile - error case", function () {
-
   it("Execution and Verification", async function () {
-    await expect(util.data.readDataFromFile("data/no-such-file.json"))
-      .rejects.toThrow("Function 'readDataFromFile' failed:");
+    await expect(util.data.readDataFromFile("data/no-such-file.json")).rejects.toThrow("Function 'readDataFromFile' failed with:");
   });
-
 });

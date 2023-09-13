@@ -21,7 +21,7 @@ describe("formatter - trimString", function () {
 
   describe("trimString - unhappy case (call function with no arguments)", async function () {
     it("Preparation", function () {
-      expectedError = "Function 'trimString' failed: Incorrect or missing arguments.";
+      expectedError = "Function 'trimString' failed with: Incorrect or missing arguments.";
     });
 
     it("Execution & Verification", async function () {

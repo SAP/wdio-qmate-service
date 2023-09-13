@@ -9,6 +9,6 @@ describe("file - expectTextDataToContain - Expect the passed .txt file to contai
 describe("file - expectTextDataToContain - Expect the passed .txt file to not contain a certain value", function () {
   it("Preperation & Execution & Verification", async function () {
     const pathToFile = path.resolve(__dirname, "./testFiles/test3.txt");
-    await expect(util.file.expectTextDataToContain(pathToFile, "STREET 000")).rejects.toThrowError(/Function 'expectTextDataToContain' failed: Search String not included in .txt file./);
+    await expect(util.file.expectTextDataToContain(pathToFile, "STREET 000")).rejects.toThrowError("Function 'expectTextDataToContain' failed with: Search String not included in .txt file.");
   });
 });

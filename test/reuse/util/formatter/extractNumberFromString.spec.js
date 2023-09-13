@@ -51,7 +51,7 @@ describe("formatter - extractNumberFromString", function () {
 
   describe("extractNumberFromString - unhappy case (throws an error in case called with no arguments)", async function () {
     it("Preparation", function () {
-      expectedError = "Function 'extractNumberFromString' failed: Incorrect or missing arguments.";
+      expectedError = "Function 'extractNumberFromString' failed with: Incorrect or missing arguments.";
     });
 
     it("Execution & Verification", async function () {
