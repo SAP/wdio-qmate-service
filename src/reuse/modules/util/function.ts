@@ -133,7 +133,7 @@ export class FunctionModule {
     } catch (e) {
       retries = retries - 1;
       if (retries < 0) {
-        this.ErrorHandler.logException(e, "Retries done. Failed to execute the function");
+        throw new Error(`Retries done. Failed to execute the function: ${e}`);
       }
       await browser.pause(interval);
       util.console.log(`Retrying function again (${this.overallRetries - retries}/${this.overallRetries})`);

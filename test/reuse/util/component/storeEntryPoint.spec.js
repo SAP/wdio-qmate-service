@@ -27,7 +27,7 @@ describe("component - storeEntryPoint - error case", function () {
   
   it("Execution & Verification", async function () {
     await expect(util.component.storeEntryPoint(undefined, folderPath))
-      .rejects.toThrow("Function 'writeDataToFile' failed with:");
+      .rejects.toThrow("Function 'storeEntryPoint' failed with:");
   });
 
   it("Cleanup", async function () {
