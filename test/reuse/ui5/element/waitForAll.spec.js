@@ -41,6 +41,6 @@ describe("element - waitForAll - error case", function () {
 
   it("Execution and Verification", async function () {
     await expect(ui5.element.waitForAll(selector, 4000))
-      .rejects.toThrow("Function 'waitForAll' failed");
+      .rejects.toThrow("Function 'waitForAll' failed with:");
   });
 });

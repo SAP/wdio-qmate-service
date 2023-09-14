@@ -34,6 +34,7 @@ describe("session - loginFiori - invalid credentials", function () {
   });
 
   it("Execution & Verification", async function () {
+    await ui5.session.loginFiori("Caput", "Draconis");
     await expect(ui5.session.loginFiori("Caput", "Draconis"))
       .rejects.toThrow(/Login failed: "Client, name, or password is not correct; log on again"/);
   });

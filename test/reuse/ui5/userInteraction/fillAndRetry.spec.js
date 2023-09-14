@@ -111,6 +111,6 @@ describe("userInteraction - fillAndRetry element with empty value", function () 
     const timeout = 30000;
     const retries = 1;
     await expect(ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries))
-      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'fill' failed: Please provide an element and value(datatype - number/string) as arguments.");
+      .rejects.toThrow("Retries done. Failed to execute the function: QmateError: Function 'fillAndRetry' failed with: Please provide an element and value(datatype - number/string) as arguments.");
   });
 });

@@ -2,6 +2,7 @@
 
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class element
@@ -9,7 +10,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  */
 export class ElementModule {
   private vlf = new VerboseLoggerFactory("ui5", "element");
-
+  private ErrorHandler = new ErrorHandler();
   // =================================== WAIT ===================================
   /**
    * @function waitForAll
@@ -22,12 +23,12 @@ export class ElementModule {
   async waitForAll(selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.waitForAll);
     if (!selector) {
-      this._throwSelectorError("waitForAll");
+      this.ErrorHandler.logException(new Error(), `Please provide a valid selector as argument.`);
     }
     try {
       await browser.uiControls(selector, timeout);
     } catch (e) {
-      throw new Error(`Function 'waitForAll' failed: ${e}`);
+      this.ErrorHandler.logException(new Error(), (e as Error).message);
     }
   }
 
@@ -44,12 +45,12 @@ export class ElementModule {
   async getAllDisplayed(selector: any, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element[]> {
     const vl = this.vlf.initLog(this.getAllDisplayed);
     if (!selector) {
-      this._throwSelectorError("getAllDisplayed");
+      this.ErrorHandler.logException(new Error(), `Please provide a valid selector as argument.`);
     }
     try {
       return await browser.uiControls(selector, timeout);
     } catch (e) {
-      throw new Error(`Function 'getAllDisplayed' failed: ${e}`);
+      return this.ErrorHandler.logException(new Error(), (e as Error).message);
     }
   }
 
@@ -66,11 +67,15 @@ export class ElementModule {
   async getDisplayed(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<Element> {
     const vl = this.vlf.initLog(this.getDisplayed);
     if (!selector || typeof selector !== "object") {
-      this._throwSelectorError("getDisplayed");
+      this.ErrorHandler.logException(new Error(), `Please provide a valid selector as argument.`);
     }
     const elems = await browser.uiControls(selector, timeout);
     if (index < 0 || elems.length <= index) {
-      throw new Error(`Index out of bound. Trying to access element at index: ${index}, ` + `but there are only ${elems.length} element(s) that match locator ${JSON.stringify(selector)}`);
+      this.ErrorHandler.logException(
+        new Error(),
+        `Index out of bound. Trying to access element at index: ${index}, ` +
+          `but there are only ${elems.length} element(s) that match locator ${JSON.stringify(selector)}`
+      );
     }
     return elems[index];
   }
@@ -99,15 +104,18 @@ export class ElementModule {
         }
       }
     } catch (error) {
-      throw new Error("getByText(): No elements found for given text. " + error);
+      this.ErrorHandler.logException(error, `No elements found for given text.`);
     }
 
     if (!elementsWithText.length) {
-      throw new Error("getByText(): No elements found for given text.");
+      this.ErrorHandler.logException(new Error(), `No elements found for given text.`);
     }
     if (index >= elementsWithText.length) {
-      throw new Error(`getByText(): Index out of bound. Cannot get element by text ${value} at index ${index}.
-        There are only ${elementsWithText.length} elements with the given selector and text`);
+      this.ErrorHandler.logException(
+        new Error(),
+        `Index out of bound. Cannot get element by text ${value} at index ${index}.
+      There are only ${elementsWithText.length} elements with the given selector and text`
+      );
     }
     return elementsWithText[index];
   }
@@ -140,7 +148,7 @@ export class ElementModule {
     try {
       return await this.getDisplayed(selector, index, timeout);
     } catch (e) {
-      throw new Error(`Function 'getByChild' failed: ${e}`);
+      return this.ErrorHandler.logException(e);
     }
   }
 
@@ -172,7 +180,7 @@ export class ElementModule {
     try {
       return await this.getDisplayed(selector, index, timeout);
     } catch (e) {
-      throw new Error(`Function 'getByParent' failed: ${e}`);
+      return this.ErrorHandler.logException(e);
     }
   }
 
@@ -215,10 +223,10 @@ export class ElementModule {
         attrValue = await this.getInnerAttribute(elem, "data-" + property);
       }
       if (attrValue === null || attrValue === undefined) {
-        throw new Error("Function 'getPropertyValue' failed: Not existing property");
+        this.ErrorHandler.logException(new Error(), "Not existing property");
       }
     } catch (error) {
-      throw new Error(`Function 'getPropertyValue' failed: ${error}`);
+      this.ErrorHandler.logException(error);
     }
     return attrValue;
   }
@@ -255,7 +263,7 @@ export class ElementModule {
     try {
       return await this.getPropertyValue(selector, "value", index, timeout);
     } catch (error) {
-      throw new Error("getValue() failed with " + error);
+      return this.ErrorHandler.logException(error);
     }
   }
 
