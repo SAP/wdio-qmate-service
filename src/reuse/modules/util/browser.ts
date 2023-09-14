@@ -1,6 +1,7 @@
 "use strict";
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class browser
@@ -9,6 +10,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 export class Browser {
   private vlf = new VerboseLoggerFactory("util", "browser");
   private specLogPrefix = "@SPEC: ";
+  private ErrorHandler = new ErrorHandler();
 
   // =================================== URL ===================================
   /**
@@ -285,7 +287,7 @@ export class Browser {
         }
       );
     } catch (error) {
-      throw new Error(`Function 'switchToNewWindow' failed: ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 

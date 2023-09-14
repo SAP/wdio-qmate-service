@@ -52,7 +52,7 @@ describe("element - getByChild - error case with wrong element", function () {
     const elementSelector = ".wrongParent";
     const childSelector = ".wrongChild";
     await expect(nonUi5.element.getByChild(elementSelector, childSelector))
-      .rejects.toThrow("Function 'getByChild' failed. No element found for selector:");
+      .rejects.toThrow("Function 'getByChild' failed with: No element found for selector:");
   });
 });
 
@@ -65,6 +65,6 @@ describe("element - getByChild - error case with wrong order of parent and child
     const elementSelector = "[id='container-cart---homeView--searchField-I']";
     const childSelector = "[id='container-cart---homeView--searchField-F']";
     await expect(nonUi5.element.getByChild(elementSelector, childSelector))
-      .rejects.toThrow("Function 'getByChild' failed. The found element(s) with the given selector do(es) not have any child with selector");
+      .rejects.toThrow(`Function 'getByChild' failed with: The found element(s) with the given selector do(es) not have any child with selector [id='container-cart---homeView--searchField-F']`);
   });
 });
