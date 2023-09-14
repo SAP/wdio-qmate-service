@@ -1,6 +1,7 @@
 "use strict";
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class session
@@ -8,6 +9,8 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  */
 export class Session {
   private vlf = new VerboseLoggerFactory("ui5", "session");
+  private ErrorHandler = new ErrorHandler();
+
   // =================================== LOGIN ===================================
   /**
    * @function login
@@ -28,7 +31,7 @@ export class Session {
     }
 
     if (!username) {
-      throw new Error("Please provide a valid username.");
+      this.ErrorHandler.logException(new Error("Please provide a valid username."));
     }
 
     if (!password) {
@@ -73,7 +76,7 @@ export class Session {
         }
       }, timeout);
     } catch (error) {
-      throw new Error("login failed. Could not find the login page within the given time. \n" + error);
+      this.ErrorHandler.logException(error,"Could not find the login page within the given time.");
     }
 
     await this._loginWithUsernameAndPassword(username, password, authenticator, verify, messageSelector);
@@ -91,7 +94,7 @@ export class Session {
   async loginFiori(username: string, password?: string, verify = false) {
     const vl = this.vlf.initLog(this.loginFiori);
     if (!username) {
-      throw new Error("Please provide a valid username.");
+      this.ErrorHandler.logException(new Error("Please provide a valid username."));
     }
 
     if (!password) {
@@ -103,7 +106,7 @@ export class Session {
       const messageSelector = ui5.authenticators.fioriForm.messageSelector;
       return await this._loginWithUsernameAndPassword(username, password, authenticator, verify, messageSelector);
     } catch (error) {
-      throw new Error(`Function 'loginFiori' failed: ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -119,7 +122,7 @@ export class Session {
   async loginSapCloud(username: string, password?: string, verify = false) {
     const vl = this.vlf.initLog(this.loginSapCloud);
     if (!username) {
-      throw new Error("Please provide a valid username.");
+      this.ErrorHandler.logException(new Error("Please provide a valid username."));
     }
 
     if (!password) {
@@ -131,7 +134,7 @@ export class Session {
       const messageSelector = ui5.authenticators.sapCloudForm.messageSelector;
       return await this._loginWithUsernameAndPassword(username, password, authenticator, verify, messageSelector);
     } catch (error) {
-      throw new Error(`Function 'loginSapCloud' failed: ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -150,7 +153,7 @@ export class Session {
   async loginCustom(username: string, password = "", usernameFieldSelector: string, passwordFieldSelector: string, logonButtonSelector: string, verify = false) {
     const vl = this.vlf.initLog(this.loginCustom);
     if (!username) {
-      throw new Error("Please provide a valid username.");
+      this.ErrorHandler.logException(new Error("Please provide a valid username."));
     }
 
     if (!password) {
@@ -165,7 +168,7 @@ export class Session {
       };
       return await this._loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
-      throw new Error(`Function 'loginCustom' failed: ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -214,10 +217,10 @@ export class Session {
         // @ts-ignore
         util.console.info("\x1b[33m%s\x1b[0m", "Login credentials will be taken from config.");
       } else if (!username && !password) {
-        throw new Error("Username or password is missing. Check your parameters or config file.");
+        this.ErrorHandler.logException(new Error("Username or password is missing. Check your parameters or config file."));
       }
     } catch (error) {
-      throw new Error("Function 'loginCustomViaConfig' failed: Please maintain the credentials in your config or spec.: " + error);
+      this.ErrorHandler.logException(error,"Please maintain the credentials in your config or spec.");
     }
     try {
       const authenticator = {
@@ -227,7 +230,7 @@ export class Session {
       };
       return await this._loginWithUsernameAndPassword(username, password, authenticator, verify);
     } catch (error) {
-      throw new Error("Function 'loginCustomViaConfig' failed. Please maintain the auth values in your config.");
+      this.ErrorHandler.logException(error,"Please maintain the auth values in your config.");
     }
   }
 
@@ -332,7 +335,7 @@ export class Session {
       // @ts-ignore
       await logonField.click();
     } catch (error) {
-      throw new Error(`Login failed: Please check if you are already logged in or if the system is down \n. ${error}`);
+      this.ErrorHandler.logException(new Error("Please check if you are already logged in or if the system is down"))
     }
 
     if (messageSelector) {
@@ -388,7 +391,7 @@ export class Session {
     if (process.env.QMATE_DEFAULT_PASSWORD) {
       return process.env.QMATE_DEFAULT_PASSWORD as string;
     } else {
-      throw new Error("Password was not provided neither in method nor in env variable.");
+      return this.ErrorHandler.logException(new Error("Password was not provided neither in method nor in env variable."))
     }
   }
 }

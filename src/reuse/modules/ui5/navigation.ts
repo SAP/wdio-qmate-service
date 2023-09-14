@@ -1,6 +1,7 @@
 "use strict";
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import ErrorHandler from "../../helper/errorHandler";
 
 interface Popup {
   name: string;
@@ -13,8 +14,11 @@ interface Popup {
  */
 export class Navigation {
   private vlf = new VerboseLoggerFactory("ui5", "navigation");
+  private ErrorHandler = new ErrorHandler();
 
-  errorText = "Navigation failed because page didn't load, possible reasons: " + "Site is down, or you are using a wrong address. For retrying use 'navigateToApplicationAndRetry'.\n";
+  errorText =
+    "Navigation failed because page didn't load, possible reasons: " +
+    "Site is down, or you are using a wrong address. For retrying use 'navigateToApplicationAndRetry'.\n";
 
   // =================================== MAIN ===================================
   /**
@@ -39,13 +43,13 @@ export class Navigation {
       const url = await browser.getUrl();
       await util.browser.logCurrentUrl();
       if (url && url.indexOf(intent) === -1 && verify) {
-        throw new Error("Verification of function 'navigateToApplication' failed. For retrying use 'navigateToApplicationAndRetry'.");
+        this.ErrorHandler.logException(new Error("For retrying use 'navigateToSystemAndApplicationAndRetry'."));
       }
       if (refresh) {
         await util.browser.refresh();
       }
     } catch (error) {
-      throw new Error(this.errorText + error);
+      this.ErrorHandler.logException(error, this.errorText);
     }
   }
 
@@ -90,13 +94,13 @@ export class Navigation {
       const url = await browser.getUrl();
       await util.browser.logCurrentUrl();
       if (url && url.indexOf(intent) === -1 && verify) {
-        throw new Error("Verification of function 'navigateToSystemAndApplication' failed. For retrying use 'navigateToSystemAndApplicationAndRetry'.");
+        this.ErrorHandler.logException(new Error("For retrying use 'navigateToSystemAndApplicationAndRetry'."));
       }
       if (closePopups) {
         await this.closePopups();
       }
     } catch (error) {
-      throw new Error(this.errorText + error);
+      this.ErrorHandler.logException(error, this.errorText);
     }
   }
 
@@ -145,14 +149,14 @@ export class Navigation {
       url = await browser.getUrl();
       await util.browser.logCurrentUrl();
       if (url && url.indexOf(intent) === -1 && verify) {
-        throw new Error("Verification of function 'navigateToApplication' failed. For retrying use 'navigateToApplicationAndRetry'.");
+        this.ErrorHandler.logException(new Error("For retrying use 'navigateToSystemAndApplicationAndRetry'."));
       }
       if (closePopups) {
         await ui5.navigation.closePopups();
       }
       await browser.refresh();
     } catch (error) {
-      throw new Error(this.errorText + error);
+      this.ErrorHandler.logException(error, this.errorText);
     }
   }
 
@@ -170,7 +174,14 @@ export class Navigation {
    * const queryParams = "?sap-language=EN&responderOn=true";
    * await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
    */
-  async navigateToApplicationWithQueryParamsAndRetry(intent: string, queryParams: string, closePopups = true, verify = true, retries = 3, interval = 5000) {
+  async navigateToApplicationWithQueryParamsAndRetry(
+    intent: string,
+    queryParams: string,
+    closePopups = true,
+    verify = true,
+    retries = 3,
+    interval = 5000
+  ) {
     const vl = this.vlf.initLog(this.navigateToApplicationWithQueryParamsAndRetry);
     await util.function.retry(
       async (intent: string, queryParams: string, closePopups: boolean, verify: boolean) => {

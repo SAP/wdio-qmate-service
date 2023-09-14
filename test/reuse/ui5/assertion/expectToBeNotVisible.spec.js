@@ -30,7 +30,7 @@ describe("assertion - expectToBeNotVisible - visible element (negative case)", f
       }
     };
     await expect(ui5.assertion.expectToBeNotVisible(selectorForVisibleElement))
-      .rejects.toThrow("Function 'expectToBeNotVisible' failed");
+      .rejects.toThrow("Function 'expectToBeNotVisible' failed with:");
   });
 });
 
