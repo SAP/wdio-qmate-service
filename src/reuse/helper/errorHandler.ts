@@ -42,14 +42,10 @@ export default class ErrorHandler implements IErrorHandler {
       let functionName = this._retrieveLastLevelFunctionNameFromStack(errorObject);
 
       if (customErrorMessage) {
-        throw new QmateError(ErrorMessages.customErrorWithMessage(functionName, customErrorMessage), logStackTrace);
+        let errorMessage = ErrorMessages.customErrorWithMessage(functionName, this._formatStackMessage(customErrorMessage));
+        throw new QmateError(errorMessage, logStackTrace);
       } else if (errorObject.message) {
-        let errorMessage = errorObject.message.trim();
-        errorMessage = errorMessage.match(/\b(Function|function)\s*'([a-zA-Z_-]*)'\s*failed with\s*\b:/)
-          ? errorMessage.replaceAll(errorMessage.substring(0, errorMessage.indexOf(":") + 1), "").trim()
-          : errorMessage;
-        errorMessage = ErrorMessages.customErrorWithMessage(functionName, errorMessage);
-
+        let errorMessage = ErrorMessages.customErrorWithMessage(functionName, this._formatStackMessage(errorObject.message));
         throw new QmateError(errorMessage, logStackTrace);
       } else {
         throw new QmateError(ErrorMessages.customErrorWithoutMessage(functionName), logStackTrace);
@@ -60,18 +56,6 @@ export default class ErrorHandler implements IErrorHandler {
   }
 
   // =================================== HELPER ===================================
-
-  private _retrieveFunctionNameFromStack(errorObject: unknown | Error): string {
-    if (errorObject instanceof Error && errorObject.stack) {
-      var stackTrace = errorObject.stack.split("\n");
-      const startIndex = stackTrace[1].indexOf("at") + 2;
-      const endIndex = stackTrace[1].indexOf("(");
-      var functionName = stackTrace[1].substring(startIndex, endIndex).trim();
-      return !functionName.toLowerCase().includes("context") ? functionName : "";
-    } else {
-      return "";
-    }
-  }
 
   private _retrieveLastLevelFunctionNameFromStack(errorObject: unknown | Error): string {
     if (errorObject instanceof Error && errorObject.stack) {
@@ -116,5 +100,12 @@ export default class ErrorHandler implements IErrorHandler {
       }
     }
     return false;
+  }
+
+  private _formatStackMessage(errorMessage: string): string {
+    errorMessage = errorMessage.trim();
+    return errorMessage.match(/\b(Function|function)\s*'([a-zA-Z_-]*)'\s*failed with\s*\b:/)
+      ? errorMessage.replaceAll(errorMessage.substring(0, errorMessage.indexOf(":") + 1), "").trim()
+      : errorMessage;
   }
 }
