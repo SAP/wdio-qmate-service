@@ -1,7 +1,6 @@
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - fill and retry", function () {
-
   let value;
   let actualValue;
 
@@ -12,10 +11,10 @@ describe("userInteraction - fill and retry", function () {
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.SearchField",
-        "id": "*searchField"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.SearchField",
+        id: "*searchField"
       }
     };
 
@@ -33,7 +32,6 @@ describe("userInteraction - fill and retry", function () {
 });
 
 describe("userInteraction - fillAndRetry element with invalid selector", function () {
-
   let value;
 
   it("Preparation", async function () {
@@ -43,9 +41,9 @@ describe("userInteraction - fillAndRetry element with invalid selector", functio
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.eld"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.eld"
       }
     };
 
@@ -53,13 +51,13 @@ describe("userInteraction - fillAndRetry element with invalid selector", functio
     const index = 0;
     const timeout = 30000;
     const retries = 1;
-    await expect(ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries))
-      .rejects.toThrow("Retries done. Failed to execute the function");
+    await expect(ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries)).rejects.toThrow(
+      "Retries done. Failed to execute the function"
+    );
   });
 });
 
 describe("userInteraction - fillAndRetry element with number", function () {
-
   let value;
   let actualValue;
 
@@ -70,10 +68,10 @@ describe("userInteraction - fillAndRetry element with number", function () {
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.SearchField",
-        "id": "*searchField"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.SearchField",
+        id: "*searchField"
       }
     };
     value = 12;
@@ -90,7 +88,6 @@ describe("userInteraction - fillAndRetry element with number", function () {
 });
 
 describe("userInteraction - fillAndRetry element with empty value", function () {
-
   let value;
   let actualValue;
 
@@ -101,16 +98,17 @@ describe("userInteraction - fillAndRetry element with empty value", function () 
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.SearchField",
-        "id": "*searchField"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.SearchField",
+        id: "*searchField"
       }
     };
     const index = 0;
     const timeout = 30000;
     const retries = 1;
-    await expect(ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries))
-      .rejects.toThrow("Retries done. Failed to execute the function: QmateError: Function 'fillAndRetry' failed with: Please provide an element and value(datatype - number/string) as arguments.");
+    await expect(ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries)).rejects.toThrow(
+      "Function 'fillAndRetry' failed with: Retries done. Failed to execute the function: Please provide an element and value(datatype - number/string) as arguments"
+    );
   });
 });

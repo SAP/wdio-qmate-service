@@ -1,6 +1,7 @@
 "use strict";
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class navigation
@@ -8,6 +9,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  */
 export class Navigation {
   private vlf = new VerboseLoggerFactory("common", "navigation");
+  private ErrorHandler = new ErrorHandler();
 
   /**
    * @function navigateToUrl
@@ -22,7 +24,7 @@ export class Navigation {
       await browser.navigateTo(url);
       await util.browser.logCurrentUrl();
     } else {
-      throw new Error("Function 'navigateToUrl' failed: Please provide an url as argument.");
+      this.ErrorHandler.logException(new Error("Please provide an url as argument."))
     }
   }
 
@@ -36,8 +38,12 @@ export class Navigation {
    * @example await common.navigation.navigateToUrlAndRetry("www.sap.com");
    */
   async navigateToUrlAndRetry(url: string, retries: number = 3, interval: number = 5000): Promise<void> {
-    const vl = this.vlf.initLog(this.navigateToUrl);
-    await util.function.retry(this.navigateToUrl, [url], retries, interval, this);
+    try {
+      const vl = this.vlf.initLog(this.navigateToUrl);
+      await util.function.retry(this.navigateToUrl, [url], retries, interval, this);
+    } catch (error) {
+      return this.ErrorHandler.logException(error);
+    }
   }
 }
 export default new Navigation();

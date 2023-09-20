@@ -39,6 +39,6 @@ describe("userInteraction - clearAndRetry - button (unhappy case)", function () 
 
   it("Execution & Verification", async function () {
     const elem = await nonUi5.element.getById("Default", 10000);
-    await expect(nonUi5.userInteraction.clearAndRetry(elem, 1)).rejects.toThrow("Retries done. Failed to execute the function");
+    await expect(nonUi5.userInteraction.clearAndRetry(elem, 1)).rejects.toThrow("Function 'clearAndRetry' failed with: Retries done. Failed to execute the function:");
   });
 });

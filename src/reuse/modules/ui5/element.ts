@@ -223,10 +223,10 @@ export class ElementModule {
         attrValue = await this.getInnerAttribute(elem, "data-" + property);
       }
       if (attrValue === null || attrValue === undefined) {
-        this.ErrorHandler.logException(new Error(), "Not existing property");
+        return this.ErrorHandler.logException(new Error(), "Not existing property");
       }
     } catch (error) {
-      this.ErrorHandler.logException(error);
+      return this.ErrorHandler.logException(error);
     }
     return attrValue;
   }
