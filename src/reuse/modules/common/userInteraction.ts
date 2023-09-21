@@ -2,6 +2,7 @@
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { KeyCodes } from "./constants/userInteraction.constants";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class userInteraction
@@ -9,6 +10,7 @@ import { KeyCodes } from "./constants/userInteraction.constants";
  */
 export class UserInteraction {
   private vlf = new VerboseLoggerFactory("common", "userInteraction");
+  private ErrorHandler = new ErrorHandler();
 
   // =================================== FILL ===================================
   /**
@@ -28,10 +30,10 @@ export class UserInteraction {
         const elem = await $(await browser.getActiveElement());
         await elem.addValue(value);
       } catch (error) {
-        throw new Error(`Function 'fillActive' failed: ${error}`);
+        this.ErrorHandler.logException(error);
       }
     } else {
-      throw new Error("Function 'fillActive' failed: Please provide a value(datatype - number/string) as argument.");
+      this.ErrorHandler.logException(new Error("Please provide a value(datatype - number/string) as argument."));
     }
   }
 
@@ -45,8 +47,12 @@ export class UserInteraction {
    * @example await common.userInteraction.fillActiveAndRetry("My Value");
    */
   async fillActiveAndRetry(value: string, retries: number = 3, interval: number = 5000) {
-    const vl = this.vlf.initLog(this.fillActiveAndRetry);
-    await util.function.retry(this.fillActive, [value], retries, interval, this);
+    try {
+      const vl = this.vlf.initLog(this.fillActiveAndRetry);
+      await util.function.retry(this.fillActive, [value], retries, interval, this);
+    } catch (error) {
+      this.ErrorHandler.logException(error);
+    }
   }
 
   /**
@@ -62,7 +68,7 @@ export class UserInteraction {
       const elem = await $(await browser.getActiveElement());
       await elem.setValue(value);
     } else {
-      throw new Error("Function 'clearAndFillActive' failed. Please provide a value(datatype - number/string) as argument.");
+      this.ErrorHandler.logException(new Error("Please provide a value(datatype - number/string) as argument."));
     }
   }
 
@@ -76,8 +82,12 @@ export class UserInteraction {
    * @example await common.userInteraction.clearAndFillActiveAndRetry("My Value");
    */
   async clearAndFillActiveAndRetry(value: string, retries: number = 3, interval: number = 5000) {
-    const vl = this.vlf.initLog(this.clearAndFillActiveAndRetry);
-    await util.function.retry(this.clearAndFillActive, [value], retries, interval, this);
+    try {
+      const vl = this.vlf.initLog(this.clearAndFillActiveAndRetry);
+      await util.function.retry(this.clearAndFillActive, [value], retries, interval, this);
+    } catch (error) {
+      this.ErrorHandler.logException(error);
+    }
   }
 
   // =================================== KEYS ===================================

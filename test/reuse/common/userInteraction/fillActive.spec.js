@@ -1,15 +1,12 @@
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - fillActive", function () {
-
   let value;
   const selector = {
-    "elementProperties": {
-      "viewName": "sap.ui.demo.cart.view.Home",
-      "metadata": "sap.m.SearchField",
-      "id": "*searchField"
+    elementProperties: {
+      viewName: "sap.ui.demo.cart.view.Home",
+      metadata: "sap.m.SearchField",
+      id: "*searchField"
     }
   };
 
@@ -33,7 +30,6 @@ describe("userInteraction - fillActive", function () {
 });
 
 describe("userInteraction - fillActive - element with invalid selector", function () {
-
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
     await handleCookiesConsent();
@@ -41,18 +37,16 @@ describe("userInteraction - fillActive - element with invalid selector", functio
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.eld"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.eld"
       }
     };
-    await expect(ui5.userInteraction.click(selector))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+    await expect(ui5.userInteraction.click(selector)).rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
 
 describe("userInteraction - fillActive - element with number", function () {
-
   let value;
   let actualValue;
 
@@ -63,10 +57,10 @@ describe("userInteraction - fillActive - element with number", function () {
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.SearchField",
-        "id": "*searchField"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.SearchField",
+        id: "*searchField"
       }
     };
     value = 12;
@@ -83,7 +77,6 @@ describe("userInteraction - fillActive - element with number", function () {
 });
 
 describe("userInteraction - fillActive - element with empty value", function () {
-
   let value;
 
   it("Preparation", async function () {
@@ -93,22 +86,22 @@ describe("userInteraction - fillActive - element with empty value", function () 
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.SearchField",
-        "id": "*searchField"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.SearchField",
+        id: "*searchField"
       }
     };
     const index = 0;
     const timeout = 30000;
     await ui5.userInteraction.click(selector);
-    await expect(common.userInteraction.fillActive(value))
-      .rejects.toThrow("Function 'fillActive' failed: Please provide a value(datatype - number/string) as argument.");
+    await expect(common.userInteraction.fillActive(value)).rejects.toThrow(
+      "Function 'fillActive' failed with: Please provide a value(datatype - number/string) as argument."
+    );
   });
 });
 
 describe("userInteraction - fillActive - input", function () {
-
   let value;
   let actualValue;
 
@@ -120,9 +113,9 @@ describe("userInteraction - fillActive - input", function () {
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.InputAssisted.V",
-        "metadata": "sap.m.Input"
+      elementProperties: {
+        viewName: "sap.m.sample.InputAssisted.V",
+        metadata: "sap.m.Input"
       }
     };
     value = "Qmate Test";
@@ -140,7 +133,6 @@ describe("userInteraction - fillActive - input", function () {
 });
 
 describe("userInteraction - fillActive - textarea", function () {
-
   let value;
   let actualValue;
 
@@ -152,9 +144,9 @@ describe("userInteraction - fillActive - textarea", function () {
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.TextArea.view.TextArea",
-        "metadata": "sap.m.TextArea"
+      elementProperties: {
+        viewName: "sap.m.sample.TextArea.view.TextArea",
+        metadata: "sap.m.TextArea"
       }
     };
     value = "Qmate Test";
@@ -203,9 +195,9 @@ describe("userInteraction - fillActive - empty value", function () {
   it("Execution & Verification", async function () {
     // Make the form field active
     await nonUi5.userInteraction.click(element);
-    await expect(common.userInteraction.fillActive())
-      .rejects.toThrow("Function 'fillActive' failed: Please provide a value(datatype - number/string) as argument.");
-
+    await expect(common.userInteraction.fillActive()).rejects.toThrow(
+      "Function 'fillActive' failed with: Please provide a value(datatype - number/string) as argument."
+    );
   });
 });
 

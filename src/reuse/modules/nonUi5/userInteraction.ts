@@ -350,7 +350,7 @@ export class UserInteraction {
       this._verifyElement(element);
       this._verifyValue(value);
 
-      return util.function.retry(
+      return await util.function.retry(
         async (elem: Element, value: string) => {
           await this.clearAndFill(elem, value);
 
