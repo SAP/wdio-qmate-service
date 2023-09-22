@@ -358,7 +358,7 @@ export class Browser {
    * @example await util.browser.forward();
    */
   async forward() {
-    const vl = this.vlf.initLog(this.back);
+    const vl = this.vlf.initLog(this.forward);
     return browser.forward();
   }
 
