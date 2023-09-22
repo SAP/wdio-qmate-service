@@ -351,6 +351,17 @@ export class Browser {
     return browser.back();
   }
 
+  /**
+   * @function forward
+   * @memberOf util.browser
+   * @description Go one step ahead in browser history.
+   * @example await util.browser.forward();
+   */
+  async forward() {
+    const vl = this.vlf.initLog(this.forward);
+    return browser.forward();
+  }
+
 
   // =================================== LOGGER ===================================
   /**
