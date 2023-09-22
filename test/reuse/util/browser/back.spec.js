@@ -5,7 +5,7 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("browser - back - browser back", function () {
+describe("browser - back", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
     await handleCookiesConsent();
