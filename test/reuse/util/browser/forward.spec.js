@@ -3,7 +3,7 @@
 const browser = require("../../../../lib/reuse/modules/util/browser");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
-describe("browser - forward - browser forward", function () {
+describe("browser - forward", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
     await handleCookiesConsent();
