@@ -79,7 +79,6 @@ export default class ErrorHandler implements IErrorHandler {
                 : initFunctionArray[index].includes(".")
                 ? initFunctionArray[index].substring(initFunctionArray[index].indexOf(".") + 1)
                 : initFunctionArray[index];
-            break;
           }
           index++;
         }

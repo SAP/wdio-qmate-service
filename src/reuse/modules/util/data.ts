@@ -4,6 +4,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { promises as fs } from "fs";
 import * as path from "path";
 import importExportDataUtil from "../../../scripts/dataExchange/dataExchangeUtil";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class data
@@ -11,6 +12,7 @@ import importExportDataUtil from "../../../scripts/dataExchange/dataExchangeUtil
  */
 export class Data {
   private vlf = new VerboseLoggerFactory("util", "data");
+  private ErrorHandler = new ErrorHandler();
 
   /**
    * @function getData
@@ -27,10 +29,10 @@ export class Data {
       if (browser.config.params.import[source][filename]) {
         return browser.config.params.import[source][filename];
       } else {
-        throw new Error(`Function 'getData' failed. File '${filename}.json' empty or not defined under '${source}'`);
+        return this.ErrorHandler.logException(new Error(`File '${filename}.json' empty or not defined under '${source}'`));
       }
     } else {
-      throw new Error(`Function 'getData' failed. Data path '${source}' not defined in config.`);
+      return this.ErrorHandler.logException(new Error(`Data path '${source}' not defined in config.`));
     }
   }
 
@@ -64,10 +66,10 @@ export class Data {
 
         return data;
       } else {
-        throw new Error(`Function 'getSecureData' failed. File '${filename}.json' empty or not defined under '${source}'`);
+        return this.ErrorHandler.logException(new Error(`File '${filename}.json' empty or not defined under '${source}'`));
       }
     } else {
-      throw new Error(`Function 'getSecureData' failed. Data path '${source}' not defined in config.`);
+      return this.ErrorHandler.logException(new Error(`Data path '${source}' not defined in config.`));
     }
   }
 
@@ -83,13 +85,13 @@ export class Data {
     const relativeFilePath = importExportDataUtil.getFileAbsPath(filePath);
 
     if (!relativeFilePath) {
-      throw new Error("Function 'readDataFromFile' failed. Filepath could not be resolved.");
+      return this.ErrorHandler.logException(new Error("Filepath could not be resolved."));
     }
 
     try {
       return JSON.parse(await fs.readFile(path.resolve(relativeFilePath), "utf8"));
     } catch (error) {
-      throw new Error(`Function 'readDataFromFile' failed: ${error}`);
+      return this.ErrorHandler.logException(new Error(), (error as Error).message);
     }
   }
 
@@ -105,13 +107,13 @@ export class Data {
     const relativeFilePath = importExportDataUtil.getFileAbsPath(filePath);
 
     if (!relativeFilePath) {
-      throw new Error("Function 'writeDataToFile' failed. Filepath could not be resolved.");
+      return this.ErrorHandler.logException(new Error("Filepath could not be resolved."));
     }
 
     try {
       await fs.writeFile(path.resolve(relativeFilePath), JSON.stringify(data));
     } catch (error) {
-      throw new Error(`Function 'writeDataToFile' failed: ${error}`);
+      return this.ErrorHandler.logException(new Error(), (error as Error).message);
     }
   }
 

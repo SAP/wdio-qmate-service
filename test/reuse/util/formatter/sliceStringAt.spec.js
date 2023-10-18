@@ -28,7 +28,7 @@ describe("formatter - sliceStringAt", function () {
       input = "abcd1234xyz";
       slicePoint = "s";
       length = 4;
-      expectedError = `Char '${slicePoint}' not found in input '${input}'.`;
+      expectedError = `Function 'sliceStringAt' failed with: Char '${slicePoint}' not found in input '${input}'.`;
     });
 
     it("Execution & Verification", async function () {
@@ -46,7 +46,7 @@ describe("formatter - sliceStringAt", function () {
     it("Preparation", function () {
       input = "abcd1234xyz";
       slicePoint = "12";
-      expectedError = `Function 'sliceStringAt' failed: Incorrect or missing arguments.`;
+      expectedError = `Function 'sliceStringAt' failed with: Incorrect or missing arguments.`;
     });
 
     it("Execution & Verification", async function () {

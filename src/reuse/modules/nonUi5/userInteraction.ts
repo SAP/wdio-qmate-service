@@ -73,9 +73,9 @@ export class UserInteraction {
       this._verifyElement(element);
 
       vl.log("Clicking the element");
-      return util.function.retry(this.click, [element, timeout], retries, interval, this);
+      return await util.function.retry(this.click, [element, timeout], retries, interval, this);
     } catch (error) {
-      this.ErrorHandler.logException(error);
+      return this.ErrorHandler.logException(error);
     }
   }
 
@@ -298,7 +298,7 @@ export class UserInteraction {
       this._verifyElement(element);
 
       vl.log(`Clearing the value of element`);
-      return util.function.retry(this.clear, [element], retries, interval, this);
+      return await util.function.retry(this.clear, [element], retries, interval, this);
     } catch (error) {
       this.ErrorHandler.logException(error);
     }
@@ -350,7 +350,7 @@ export class UserInteraction {
       this._verifyElement(element);
       this._verifyValue(value);
 
-      return util.function.retry(
+      return await util.function.retry(
         async (elem: Element, value: string) => {
           await this.clearAndFill(elem, value);
 

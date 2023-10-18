@@ -1,5 +1,4 @@
 describe("navigateToUrl", function () {
-
   const url = "https://sapui5.hana.ondemand.com/1.99.0/";
 
   it("Execution", async function () {
@@ -12,17 +11,13 @@ describe("navigateToUrl", function () {
 });
 
 describe("navigateToUrl with wrong url", function () {
-
   it("Execution & Verification", async function () {
-    await expect(common.navigation.navigateToUrl("sd"))
-      .rejects.toThrow("invalid argument");
+    await expect(common.navigation.navigateToUrl("sd")).rejects.toThrow("invalid argument");
   });
 });
 
 describe("navigateToUrl with wrong parameter", function () {
-
   it("Execution & Verification", async function () {
-    await expect(common.navigation.navigateToUrl())
-      .rejects.toThrow("Function 'navigateToUrl' failed: Please provide an url as argument.");
+    await expect(common.navigation.navigateToUrl()).rejects.toThrow("Function 'navigateToUrl' failed with: Please provide an url as argument.");
   });
 });

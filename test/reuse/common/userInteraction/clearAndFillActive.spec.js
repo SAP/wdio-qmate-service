@@ -1,24 +1,23 @@
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - clearAndFillActive", function () {
-
   let value;
   let valueAct;
   let attribute;
   let selector;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
+    await browser.navigateTo(
+      "https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview"
+    );
     await handleCookiesConsent();
   });
 
   it("Execution", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smartfield.Overview.Main",
-        "metadata": "sap.m.TextArea"
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smartfield.Overview.Main",
+        metadata: "sap.m.TextArea"
       }
     };
     value = "My Value";
@@ -27,12 +26,14 @@ describe("userInteraction - clearAndFillActive", function () {
     await common.userInteraction.clearAndFillActive(value);
 
     const quantityInput = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smartfield.Overview.Main",
-        "metadata": "sap.m.Input",
-        "value": [{
-          "path": "Quantity"
-        }]
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smartfield.Overview.Main",
+        metadata: "sap.m.Input",
+        value: [
+          {
+            path: "Quantity"
+          }
+        ]
       }
     };
     await ui5.userInteraction.click(quantityInput);
@@ -45,7 +46,6 @@ describe("userInteraction - clearAndFillActive", function () {
 });
 
 describe("userInteraction - clearAndFillActive with invalid selector", function () {
-
   let value;
 
   it("Preparation", async function () {
@@ -56,20 +56,18 @@ describe("userInteraction - clearAndFillActive with invalid selector", function 
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m..InputDescription.V",
-        "metadata": "sap.ut",
-        "id": "__iut4"
+      elementProperties: {
+        viewName: "sap.m..InputDescription.V",
+        metadata: "sap.ut",
+        id: "__iut4"
       }
     };
     value = "My Value";
-    await expect(ui5.userInteraction.click(selector))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+    await expect(ui5.userInteraction.click(selector)).rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
 
 describe("userInteraction - clearAndFillActive with wrong element", function () {
-
   let value;
 
   it("Preparation", async function () {
@@ -80,21 +78,20 @@ describe("userInteraction - clearAndFillActive with wrong element", function () 
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MenuButton.MB",
-        "metadata": "sap.m.Button",
-        "text": "File Menu"
+      elementProperties: {
+        viewName: "sap.m.sample.MenuButton.MB",
+        metadata: "sap.m.Button",
+        text: "File Menu"
       },
-      "ancestorProperties": {
-        "metadata": "sap.m.SplitButton",
-        "viewName": "sap.m.sample.MenuButton.MB"
+      ancestorProperties: {
+        metadata: "sap.m.SplitButton",
+        viewName: "sap.m.sample.MenuButton.MB"
       }
     };
 
     value = "My Value";
     // Timeout was increased to avoid an error "Element not clickable after 30s"
     await ui5.userInteraction.click(selector, 0, 60000);
-    await expect(common.userInteraction.clearAndFillActive(value))
-      .rejects.toThrow("invalid element state");
+    await expect(common.userInteraction.clearAndFillActive(value)).rejects.toThrow("invalid element state");
   });
 });

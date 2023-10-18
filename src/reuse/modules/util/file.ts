@@ -9,6 +9,7 @@ import * as os from "os";
 import * as xml2js from "xml2js";
 import { parsed } from "yargs";
 import { match } from "assert";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class file
@@ -17,6 +18,7 @@ import { match } from "assert";
 
 export class File {
   private vlf = new VerboseLoggerFactory("util", "file");
+  private ErrorHandler = new ErrorHandler();
 
   // =================================== UPLOAD ===================================
   /**
@@ -51,7 +53,7 @@ export class File {
       }
       await elem.addValue(remoteFiles);
     } catch (error) {
-      throw new Error(`Function 'upload' failed': ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -84,7 +86,7 @@ export class File {
       }
       await fileInput.addValue(remoteFiles);
     } catch (error) {
-      throw new Error(`Function 'uploadWebGui' failed': ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -102,7 +104,7 @@ export class File {
   async parsePdf(pdfStream: Buffer, renderingMethod: Function = this._renderPage): Promise<String> {
     const vl = this.vlf.initLog(this.parsePdf);
     if (typeof renderingMethod !== "function") {
-      throw new Error("Function 'parsePdf' failed: Please provide a custom rendering method as second parameter.");
+      return this.ErrorHandler.logException(new Error("Please provide a custom rendering method as second parameter."));
     }
 
     const options = {
@@ -126,7 +128,7 @@ export class File {
   async expectPdfContainsText(pdfStream: Buffer, text: string, renderingMethod: Function = this._renderPage) {
     const vl = this.vlf.initLog(this.expectPdfContainsText);
     if (!text) {
-      throw new Error("Function 'expectPdfContainsText' failed: Please provide a text as second parameter.");
+      this.ErrorHandler.logException(new Error("Please provide a text as second parameter."));
     }
     const parsedText = await this.parsePdf(pdfStream, renderingMethod);
     return expect(parsedText).toContain(text);
@@ -145,7 +147,7 @@ export class File {
   async expectPdfNotContainsText(pdfStream: Buffer, text: string, renderingMethod: Function = this._renderPage): Promise<boolean> {
     const vl = this.vlf.initLog(this.expectPdfNotContainsText);
     if (!text) {
-      throw new Error("Function 'expectPdfNotContainsText' failed: Please provide a text as second parameter.");
+      return this.ErrorHandler.logException(new Error("Please provide a text as second parameter."));
     }
     const parsedText = await this.parsePdf(pdfStream, renderingMethod);
     return expect(parsedText).not.toContain(text);
@@ -170,13 +172,13 @@ export class File {
 
     const fileNamePath = await this.findFilePathRecursively(downloadDir, fileName);
     if (!fileNamePath) {
-      throw new Error(`The specified file '${fileName}' doesn't exist in the directory: ${downloadDir}`);
+      return this.ErrorHandler.logException(new Error(`The specified file '${fileName}' doesn't exist in the directory: ${downloadDir}`));
     }
 
     const workbook = xlsx.readFile(fileNamePath);
     const sheetList = workbook.SheetNames;
     if (sheetIndex < 0 || sheetIndex > sheetList.length - 1) {
-      throw new Error(`The specified sheet index '${sheetIndex}' is invalid for the Excel file.`);
+      return this.ErrorHandler.logException(new Error(`The specified sheet index '${sheetIndex}' is invalid for the Excel file.`));
     }
 
     const sheetName = sheetList[sheetIndex];
@@ -202,7 +204,7 @@ export class File {
       try {
         return await fs.readFileSync(filePath, { encoding: "utf8" });
       } catch (error) {
-        throw new Error(`Function: 'getTextData' failed: ${error}`);
+        return this.ErrorHandler.logException(error);
       }
     }
   }
@@ -222,7 +224,7 @@ export class File {
         const fileContent = fs.readFileSync(filePath, "utf-8");
         common.assertion.expectTrue(fileContent.includes(searchString));
       } catch (error) {
-        throw new Error("Function 'expectTextDataToContain' failed: Search String not included in .txt file.");
+        return this.ErrorHandler.logException(error, "Search String not included in .txt file.");
       }
     }
   }
@@ -244,7 +246,7 @@ export class File {
         const parser = new xml2js.Parser({ trim: true, normalize: true });
         return await parser.parseStringPromise(xmlData);
       } catch (error) {
-        throw new Error(`Function: 'getXmlData' failed: ${error}`);
+        return this.ErrorHandler.logException(error);
       }
     }
   }
@@ -309,7 +311,7 @@ export class File {
         }
       }
     } catch (error) {
-      throw new Error(`Error in getting the file path for the given directory and filename.\n${error}`);
+      return this.ErrorHandler.logException(new Error("Error in getting the file path for the given directory and filename."));
     }
 
     return null;
@@ -396,7 +398,9 @@ export class File {
     if (fileEnding.toLowerCase() === expectedFileEnding.toLowerCase()) {
       return true;
     } else {
-      throw new Error(`Function 'checkFileEnding' failed: Wrong file format '${fileEnding}' was passed to function. Expected file format: ${expectedFileEnding}.`);
+      return this.ErrorHandler.logException(
+        new Error(`Wrong file format '${fileEnding}' was passed to function. Expected file format: ${expectedFileEnding}.`)
+      );
     }
   }
 }
