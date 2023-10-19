@@ -1,10 +1,13 @@
 "use strict";
 
 import { Element } from "../../../../@types/wdio";
-import { VerboseLoggerFactory } from "../../helper/verboseLogger";
-import elementHighlight from "../../helper/elementHighlight";
 import { AlignmentOptions, AlignmentValues } from "../types";
+
+import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
+import elementHighlight from "../../helper/elementHighlight";
+import { resolveCssSelectorOrElement } from "../../helper/elementInteraction";
+import { validateValue } from "../../helper/inputValidation";
 
 /**
  * @class userInteraction
@@ -19,28 +22,26 @@ export class UserInteraction {
    * @function click
    * @memberOf nonUi5.userInteraction
    * @description Clicks on the passed element.
-   * @param {Object} element - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.click(elem);
    */
-  async click(element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async click(elementOrSelector: Element | string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.click);
     const highlightConfig = await elementHighlight.getElementHighlightData("click");
 
     try {
-      this._verifyElement(element);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
 
       vl.log("Expecting element to be displayed and enabled");
       await Promise.all([
         expect(element).toBeDisplayed({
-          //TODO: Reuse of internal functions?
           wait: timeout,
           interval: 100,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
         }),
         expect(element).toBeEnabled({
-          //TODO: Reuse of internal functions?
           wait: timeout,
           interval: 100,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
@@ -59,18 +60,18 @@ export class UserInteraction {
    * @function clickAndRetry
    * @memberOf nonUi5.userInteraction
    * @description Clicks on the passed element, retries in case it fails.
-   * @param {Object} element - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.clickAndRetry(elem);
    */
-  async clickAndRetry(element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
+  async clickAndRetry(elementOrSelector: Element | string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.click);
 
     try {
-      this._verifyElement(element);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
 
       vl.log("Clicking the element");
       return await util.function.retry(this.click, [element, timeout], retries, interval, this);
@@ -83,17 +84,17 @@ export class UserInteraction {
    * @function doubleClick
    * @memberOf nonUi5.userInteraction
    * @description Double Clicks on the passed element.
-   * @param {Object} element - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.doubleClick(elem);
    */
-  async doubleClick(element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async doubleClick(elementOrSelector: Element | string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.doubleClick);
     const highlightConfig = await elementHighlight.getElementHighlightData("doubleClick");
 
     try {
-      this._verifyElement(element);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
 
       vl.log("Expecting element to be displayed and enabled");
       await Promise.all([
@@ -121,17 +122,17 @@ export class UserInteraction {
    * @function rightClick
    * @memberOf nonUi5.userInteraction
    * @description Right Clicks on the passed element.
-   * @param {Object} element - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.rightClick(elem);
    */
-  async rightClick(element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async rightClick(elementOrSelector: Element | string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.rightClick);
     const highlightConfig = await elementHighlight.getElementHighlightData("rightClick");
 
     try {
-      this._verifyElement(element);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
 
       vl.log("Expecting element to be displayed and enabled");
       await Promise.all([
@@ -162,14 +163,14 @@ export class UserInteraction {
    * @function check
    * @memberOf nonUi5.userInteraction
    * @description Checks the given checkbox.
-   * @param {Object} element - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @example await nonUi5.userInteraction.check(selector);
    */
-  async check(element: Element) {
+  async check(elementOrSelector: Element | string) {
     const vl = this.vlf.initLog(this.check);
 
     try {
-      this._verifyElement(element);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
 
       const isSelected: boolean = await nonUi5.element.isSelected(element);
       if (!isSelected) {
@@ -186,14 +187,14 @@ export class UserInteraction {
    * @function uncheck
    * @memberOf nonUi5.userInteraction
    * @description Unchecks the given checkbox.
-   * @param {Object} element - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @example await nonUi5.userInteraction.uncheck(selector);
    */
-  async uncheck(element: Element) {
+  async uncheck(elementOrSelector: Element | string) {
     const vl = this.vlf.initLog(this.check);
 
     try {
-      this._verifyElement(element);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
 
       const isSelected: boolean = await nonUi5.element.isSelected(element);
       if (isSelected) {
@@ -211,18 +212,18 @@ export class UserInteraction {
    * @function fill
    * @memberOf nonUi5.userInteraction
    * @description Fills the given value into the passed input.
-   * @param {Object} element - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {String |  Number} value - The value to enter.
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.fill(elem, "Service 01");
    */
-  async fill(element: Element, value: string | number) {
+  async fill(elementOrSelector: Element | string, value: string | number) {
     const vl = this.vlf.initLog(this.fill);
     const highlightConfig = await elementHighlight.getElementHighlightData("fill");
 
     try {
-      this._verifyElement(element);
-      this._verifyValue(value);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
+      validateValue(value);
 
       vl.log(`Setting the value of element to ${value}`);
       if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
@@ -236,19 +237,19 @@ export class UserInteraction {
    * @function fillAndRetry
    * @memberOf nonUi5.userInteraction
    * @description Fills the given value into the passed input, retries in case of a failure.
-   * @param {Object} element - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {String | Number} value - The value to enter.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.fillAndRetry(elem, "Service 01");
    */
-  async fillAndRetry(element: Element, value: string | number, retries: number = 3, interval: number = 5000) {
+  async fillAndRetry(elementOrSelector: Element | string, value: string | number, retries: number = 3, interval: number = 5000) {
     const vl = this.vlf.initLog(this.fillAndRetry);
 
     try {
-      this._verifyElement(element);
-      this._verifyValue(value);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
+      validateValue(value);
 
       vl.log(`Setting the value of element to ${value}`);
       return util.function.retry(this.fill, [element, value], retries, interval, this);
@@ -262,16 +263,16 @@ export class UserInteraction {
    * @function clear
    * @memberOf nonUi5.userInteraction
    * @description Clears the passed input element.
-   * @param {Object} element - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.clear(elem);
    */
-  async clear(element: Element) {
+  async clear(elementOrSelector: Element | string) {
     const vl = this.vlf.initLog(this.clear);
     const highlightConfig = await elementHighlight.getElementHighlightData("clear");
 
     try {
-      this._verifyElement(element);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
 
       vl.log(`Clearing the value of element`);
       if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
@@ -285,17 +286,17 @@ export class UserInteraction {
    * @function clearAndRetry
    * @memberOf nonUi5.userInteraction
    * @description Clears the passed input element, retries in case of a failure.
-   * @param {Object} element - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example const elem = await nonUi5.element.getById("input01", 10000);
    * await nonUi5.userInteraction.clearAndRetry(elem);
    */
-  async clearAndRetry(element: Element, retries = 3, interval = 5000) {
+  async clearAndRetry(elementOrSelector: Element | string, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.clearAndRetry);
 
     try {
-      this._verifyElement(element);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
 
       vl.log(`Clearing the value of element`);
       return await util.function.retry(this.clear, [element], retries, interval, this);
@@ -308,18 +309,18 @@ export class UserInteraction {
    * @function clearAndFill
    * @memberOf nonUi5.userInteraction
    * @description Clears and fills the passed input element.
-   * @param {Object} element - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {String | Number} value - The value to enter in.
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.clearAndFill(elem, "Service 01");
    */
-  async clearAndFill(element: Element, value: string | number) {
+  async clearAndFill(elementOrSelector: Element | string, value: string | number) {
     const vl = this.vlf.initLog(this.clearAndFill);
     const highlightConfig = await elementHighlight.getElementHighlightData("clearAndFill");
 
     try {
-      this._verifyElement(element);
-      this._verifyValue(value);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
+      validateValue(value);
 
       await this.clear(element);
 
@@ -335,7 +336,7 @@ export class UserInteraction {
    * @function clearAndFillAndRetry
    * @memberOf nonUi5.userInteraction
    * @description Clears and fills the passed input, retries in case it fails.
-   * @param {Object} element - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {String | Number} value - The value to enter in.
    * @param {Number} [retries=3] - The number of retries, can be set in config for all functions under params stepsRetries.
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
@@ -343,12 +344,12 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("input01");
    * await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
    */
-  async clearAndFillAndRetry(element: Element, value: string | number, retries: number = 3, interval: number = 5000, verify: boolean = true) {
+  async clearAndFillAndRetry(elementOrSelector: Element | string, value: string | number, retries: number = 3, interval: number = 5000, verify: boolean = true) {
     const vl = this.vlf.initLog(this.clearAndFillAndRetry);
 
     try {
-      this._verifyElement(element);
-      this._verifyValue(value);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
+      validateValue(value);
 
       return await util.function.retry(
         async (elem: Element, value: string) => {
@@ -374,17 +375,17 @@ export class UserInteraction {
    * @function mouseOverElement
    * @memberOf nonUi5.userInteraction
    * @description Moves the cursor/focus to the passed element.
-   * @param {Object} element - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {Number} [xOffset] - X offset to move to, relative to the top-left corner of the element. If not specified, the mouse will move to the middle of the element.
    * @param {Number} [yOffset] - Y offset to move to, relative to the top-left corner of the element. If not specified, the mouse will move to the middle of the element.
    * @example const elem = await nonUi5.element.getById("dropdown42");
    * await nonUi5.userInteraction.mouseOverElement(elem);
    */
-  async mouseOverElement(element: Element, xOffset: number, yOffset: number) {
+  async mouseOverElement(elementOrSelector: Element | string, xOffset: number, yOffset: number) {
     const vl = this.vlf.initLog(this.mouseOverElement);
 
     try {
-      this._verifyElement(element);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
 
       vl.log("Moving mouse to element");
       await element.moveTo({ xOffset, yOffset });
@@ -418,12 +419,12 @@ export class UserInteraction {
    * await nonUi5.userInteraction.scrollToElement(elem, alignment);
    */
 
-  async scrollToElement(element: Element, alignment: AlignmentOptions | AlignmentValues = "center") {
+  async scrollToElement(elementOrSelector: Element | string, alignment: AlignmentOptions | AlignmentValues = "center") {
     const vl = this.vlf.initLog(this.scrollToElement);
     let options = {};
 
     try {
-      this._verifyElement(element);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
       if (typeof alignment === "string") {
         options = {
           block: alignment,
@@ -443,17 +444,17 @@ export class UserInteraction {
    * @function dragAndDrop
    * @memberOf nonUi5.userInteraction
    * @description Drags and drops the given element to the given target element.
-   * @param {Object} element - The element to drag.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {Object} targetElem - The target element to drop the element.
    * @example const elem = await nonUi5.element.getById("drag01");
    * @example const targetElem = await nonUi5.element.getById("drop02");
    * await nonUi5.userInteraction.dragAndDrop(elem, targetElem);
    */
-  async dragAndDrop(element: Element, targetElem: Element) {
+  async dragAndDrop(elementOrSelector: Element | string, targetElem: Element) {
     const vl = this.vlf.initLog(this.dragAndDrop);
 
     try {
-      this._verifyElement(element);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
 
       const sourceSize = await element.getSize();
       const targetSize = await targetElem.getSize();
@@ -487,16 +488,16 @@ export class UserInteraction {
    * @function moveCursorAndClick
    * @memberOf nonUi5.userInteraction
    * @description Moves the cursor to the target element and clicks on it. Can be used for charts.
-   * @param {Object} element - The element to be clicked.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @example const elem = await nonUi5.element.getById("chartPartToClick");
    * await nonUi5.userInteraction.moveCursorAndClick(elem);
    */
-  async moveCursorAndClick(element: Element) {
+  async moveCursorAndClick(elementOrSelector: Element | string) {
     const vl = this.vlf.initLog(this.moveCursorAndClick);
     const highlightConfig = await elementHighlight.getElementHighlightData("moveCursorAndClick");
 
     try {
-      this._verifyElement(element);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
 
       await element.moveTo();
       await element.click();
@@ -509,16 +510,18 @@ export class UserInteraction {
    * @function clickElementInSvg
    * @memberOf nonUi5.userInteraction
    * @description Clicks on an inner element within a SVG element.
-   * @param {Object} svgElem - The SVG element.
+   * @param {Object | string} elementOrSelector - The SVG element or CSS selector describing the element.
    * @param {String} innerSelector - The CSS selector describing the inner element to be clicked.
    * @example const svgElem = await nonUi5.element.getByCss("svg");
    * const innerSelector = "circle:nth-child(6)";
    * await nonUi5.userInteraction.clickElementInSvg(svgElem, innerSelector);
    */
-  async clickElementInSvg(svgElem: Element, innerSelector: string) {
+  async clickElementInSvg(elementOrSelector: Element | string, innerSelector: string) {
     const vl = this.vlf.initLog(this.clickElementInSvg);
 
     try {
+      const svgElem = await resolveCssSelectorOrElement(elementOrSelector);
+
       const innerElem = await $(innerSelector);
 
       const svgPos = await svgElem.getLocation();
@@ -537,33 +540,6 @@ export class UserInteraction {
       await svgElem.click({ x: parseInt(centerOffsetX), y: parseInt(centerOffsetY) });
     } catch (error) {
       this.ErrorHandler.logException(error);
-    }
-  }
-
-  // =================================== HELPERS ===================================
-  // TODO: move to internal utility classes
-
-  private _throwErrorForFunction(functionName: string, error: unknown | Error): never {
-    if (error instanceof Error) {
-      if (error.message) {
-        throw new Error(`Function '${functionName}' failed with: ${error.message}`);
-      } else {
-        throw new Error(`Function '${functionName}' failed with ${error.message}`);
-      }
-    } else {
-      throw new Error(`Function '${functionName}' failed with an unknown error.`);
-    }
-  }
-
-  private _verifyElement(element: any) {
-    if (!element) {
-      throw new Error("Please provide an element as first argument.");
-    }
-  }
-
-  private _verifyValue(value: any): void {
-    if (typeof value !== "string" && typeof value !== "number") {
-      throw new Error("value is invalid. It must be of type 'string' or 'number'");
     }
   }
 }

@@ -26,7 +26,7 @@ describe("userInteraction - clear - no element (error case)", function () {
 
   it("Execution & Verification", async function () {
     await expect(nonUi5.userInteraction.clear())
-      .rejects.toThrow("Function 'clear' failed with: Please provide an element as first argument.");
+      .rejects.toThrow("Function 'clear' failed with: Please provide an element or a CSS selector as first argument.");
   });
 });
 

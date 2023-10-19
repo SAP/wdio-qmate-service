@@ -27,7 +27,7 @@ describe("userInteraction - clearAndRetry - no element (unhappy case)", function
 
   it("Execution & Verification", async function () {
     await expect(nonUi5.userInteraction.clearAndRetry()).rejects.toThrow(
-      "Function 'clearAndRetry' failed with: Please provide an element as first argument."
+      "Function 'clearAndRetry' failed with: Please provide an element or a CSS selector as first argument."
     );
   });
 });

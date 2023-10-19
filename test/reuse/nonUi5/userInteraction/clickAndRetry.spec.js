@@ -36,7 +36,7 @@ describe("userInteraction - clickAndRetry - empty value", function () {
 
   it("Execution & Verification", async function () {
     await expect(nonUi5.userInteraction.clickAndRetry()).rejects.toThrow(
-      "Function 'clickAndRetry' failed with: Please provide an element as first argument."
+      "Function 'clickAndRetry' failed with: Please provide an element or a CSS selector as first argument."
     );
   });
 });
