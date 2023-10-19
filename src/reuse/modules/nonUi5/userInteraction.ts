@@ -6,7 +6,7 @@ import { AlignmentOptions, AlignmentValues } from "../types";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 import elementHighlight from "../../helper/elementHighlight";
-import { resolveCssSelectorOrElement } from "../../helper/elementInteraction";
+import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
 import { validateValue } from "../../helper/inputValidation";
 
 /**
