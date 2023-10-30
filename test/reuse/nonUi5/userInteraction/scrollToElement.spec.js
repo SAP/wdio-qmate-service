@@ -27,6 +27,7 @@ describe("userInteraction - scrollToElement - alignment is center", function () 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/api");
     await handleCookiesConsent();
+    await browser.setWindowSize(1200, 800);
   });
 
   it("Execution", async function () {
@@ -49,6 +50,6 @@ describe("locator - scrollToElement - wrong element (error case)", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(nonUi5.userInteraction.scrollToElement("*=Legal Disclosure")).rejects.toThrow("Function 'scrollToElement' failed with: element.scrollIntoView is not a function");
+    await expect(nonUi5.userInteraction.scrollToElement("*=Legal Disclosure")).rejects.toThrow("Function 'scrollToElement' failed with: Element with CSS '*=Legal Disclosure' not found.");
   });
 });
