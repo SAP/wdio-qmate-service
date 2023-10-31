@@ -4,6 +4,8 @@ var functions = {};
 
 functions.execQUnits = function (mScriptParams, done) {
   if (QUnit) {
+    // reset the QUnit config such that the test can run a second time
+    QUnit.config.current = undefined;
     QUnit.start();
     QUnit.done(function (details) {
       const msg = "Total: " + details.total + "," + " Failed: " + details.failed + "," + " Passed: " + details.passed + "," + " Runtime: " + details.runtime;
