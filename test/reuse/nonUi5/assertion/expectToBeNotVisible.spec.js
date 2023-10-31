@@ -32,6 +32,6 @@ describe("assertion - expectToBeNotVisible - visible element and catch error", f
       .rejects.toThrow("Function 'expectToBeNotVisible' failed. Element is visible but was expected to be not.");
 
     await expect(nonUi5.assertion.expectToBeNotVisible(undefined))
-      .rejects.toThrow("Function 'expectToBeNotVisible' failed. Please provide an element as argument.");
+      .rejects.toThrow("Function 'expectToBeNotVisible' failed with: Please provide an element or a CSS selector as first argument.");
   });
 });

@@ -58,6 +58,6 @@ describe("assertion - expectToBeVisible - error case", function () {
 
   it("Verification", async function () {
     await expect(nonUi5.assertion.expectToBeVisible(hiddenElement)).rejects.toThrow("Timeout by waiting for element to be visible.");
-    await expect(nonUi5.assertion.expectToBeVisible(undefined)).rejects.toThrow("Function 'expectToBeVisible' failed. Please provide an element as argument.");
+    await expect(nonUi5.assertion.expectToBeVisible(undefined)).rejects.toThrow("Function 'expectToBeVisible' failed with: Please provide an element or a CSS selector as first argument.");
   });
 });

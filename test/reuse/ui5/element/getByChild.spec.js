@@ -86,7 +86,7 @@ describe("element - getByChild - with ignored nested selectors", function () {
   });
 
   it("Verification", async function () {
-    await nonUi5.assertion.expectAttributeToContain(elem, "clone4", "id");
+    await nonUi5.assertion.expectAttributeToContain(elem, "clone2", "id");
   });
 
 });
@@ -118,7 +118,7 @@ describe("element - getByChild - with inner nested selectors and index", functio
   });
 
   it("Verification", async function () {
-    await nonUi5.assertion.expectAttributeToContain(elem, "clone84", "id");
+    await nonUi5.assertion.expectAttributeToContain(elem, "clone4", "id");
   });
 
 });

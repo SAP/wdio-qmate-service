@@ -3,6 +3,7 @@
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class assertion
@@ -10,7 +11,7 @@ import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
  */
 export class Assertion {
   private vlf = new VerboseLoggerFactory("nonUi5", "assertion");
-
+  private ErrorHandler = new ErrorHandler();
   // =================================== PROPERTIES ===================================
   /**
    * @function expectAttributeToBe
@@ -41,7 +42,7 @@ export class Assertion {
    * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectAttributeToContain(element, "Save", "title");
    */
-  async expectAttributeToContain(elementOrSelector: Element | string, compareValue: string, attribute: string) {
+  async expectAttributeToContain(elementOrSelector: Element | string, compareValue: string, attribute?: string) {
     const vl = this.vlf.initLog(this.expectAttributeToContain);
     const element = await resolveCssSelectorOrElement(elementOrSelector);
     const value = await nonUi5.element.getAttributeValue(element, attribute);
@@ -76,20 +77,24 @@ export class Assertion {
    */
   async expectToBeVisible(elementOrSelector: Element | string): Promise<void> {
     const vl = this.vlf.initLog(this.expectToBeVisible);
-    const element = await resolveCssSelectorOrElement(elementOrSelector);
+    try {
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
 
-    await browser.waitUntil(
-      async function () {
-        const isPresent = await element.isExisting();
-        const isDisplayed = await element.isDisplayed();
-        return isPresent && isDisplayed;
-      },
-      {
-        interval: 100,
-        timeout: 30000,
-        timeoutMsg: "Function 'expectToBeVisible' failed. Timeout by waiting for element to be visible."
-      }
-    );
+      await browser.waitUntil(
+        async function () {
+          const isPresent = await element.isExisting();
+          const isDisplayed = await element.isDisplayed();
+          return isPresent && isDisplayed;
+        },
+        {
+          interval: 100,
+          timeout: 30000,
+          timeoutMsg: "Function 'expectToBeVisible' failed. Timeout by waiting for element to be visible."
+        }
+      );
+    } catch (error) {
+      this.ErrorHandler.logException(error);
+    }
   }
 
   /**
@@ -103,13 +108,17 @@ export class Assertion {
    */
   async expectToBeNotVisible(elementOrSelector: Element | string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<void> {
     const vl = this.vlf.initLog(this.expectToBeNotVisible);
-    const element = await resolveCssSelectorOrElement(elementOrSelector);
-    await element.waitForDisplayed({
-      timeout: +timeout,
-      reverse: true,
-      timeoutMsg: "Function 'expectToBeNotVisible' failed. Element is visible but was expected to be not.",
-      interval: 100
-    });
+    try {
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
+      await element.waitForDisplayed({
+        timeout: +timeout,
+        reverse: true,
+        timeoutMsg: "Function 'expectToBeNotVisible' failed. Element is visible but was expected to be not.",
+        interval: 100
+      });
+    } catch (error) {
+      this.ErrorHandler.logException(error);
+    }
   }
 }
 export default new Assertion();
