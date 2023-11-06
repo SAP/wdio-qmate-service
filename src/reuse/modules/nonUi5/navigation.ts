@@ -8,7 +8,7 @@ import ErrorHandler from "../../helper/errorHandler";
  * @memberof nonUi5
  */
 export class Navigation {
-  private vlf = new VerboseLoggerFactory("nonui5", "navigation");
+  private vlf = new VerboseLoggerFactory("nonUi5", "navigation");
   private ErrorHandler = new ErrorHandler();
 
   /**

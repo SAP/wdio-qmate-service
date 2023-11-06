@@ -6,7 +6,7 @@ import ErrorHandler from "../../helper/errorHandler";
  * @memberof nonUi5
  */
 export class ElementModule {
-  private vlf = new VerboseLoggerFactory("nonui5", "element");
+  private vlf = new VerboseLoggerFactory("nonUi5", "element");
   private ErrorHandler = new ErrorHandler();
 
   // =================================== WAIT ===================================

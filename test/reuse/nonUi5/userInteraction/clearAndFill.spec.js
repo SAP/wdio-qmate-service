@@ -1,6 +1,6 @@
 "use strict";
 
-const errorNoElement = "Function 'clearAndFill' failed with: Please provide an element as first argument.";
+const errorNoElement = "Function 'clearAndFill' failed with: Please provide an element or a CSS selector as first argument.";
 const errorNoValue = "Function 'clearAndFill' failed with: value is invalid. It must be of type 'string' or 'number'";
 
 describe("userInteraction - clearAndFill - form field", function () {
