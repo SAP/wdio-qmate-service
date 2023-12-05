@@ -244,7 +244,7 @@ export class Session {
    * @example await ui5.session.logout();
    */
   async logout(verify = true) {
-    const vl = this.vlf.initLog(this.logout);
+        const vl = this.vlf.initLog(this.logout);
     if (browser.config && browser.config.params && browser.config.params.auth && browser.config.params.auth.formType === "skip") {
       util.console.warn("Logout is skipped since 'formType' is set to 'skip'");
       return await browser.reloadSession(); // Clean cache
@@ -364,7 +364,7 @@ export class Session {
         }
       }
     };
-    await ui5.userInteraction.scrollToElement(selector);
+    await ui5.userInteraction.scrollToElement(selector, 0, "end");
     return ui5.userInteraction.click(selector);
   }
 
