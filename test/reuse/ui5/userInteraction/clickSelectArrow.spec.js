@@ -3,7 +3,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 describe("userInteraction - clickSelectArrow", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Select/sample/sap.m.sample.Select");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.m.Select/sample/sap.m.sample.Select");
     await handleCookiesConsent();
   });
 
@@ -60,7 +60,7 @@ describe("userInteraction - clickSelectArrow", function () {
 describe("userInteraction - clickSelectArrow and catch an error", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Select/sample/sap.m.sample.Select");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.m.Select/sample/sap.m.sample.Select");
     await util.browser.refresh();
     await handleCookiesConsent();
   });

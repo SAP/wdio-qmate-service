@@ -28,7 +28,7 @@ describe("assertion - expectToBeVisibleInViewport with element in viewport", fun
 
 describe("assertion - expectToBeVisibleInViewport with element outside viewport (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/1.99.0/");
+    await browser.url("https://sapui5.hana.ondemand.com/1.120.1/");
     await handleCookiesConsent();
   });
 

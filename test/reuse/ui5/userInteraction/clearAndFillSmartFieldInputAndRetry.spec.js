@@ -4,7 +4,7 @@ const {
 
 describe("userInteraction - clearAndFillSmartFieldInputAndRetry", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
     await handleCookiesConsent();
   });
 

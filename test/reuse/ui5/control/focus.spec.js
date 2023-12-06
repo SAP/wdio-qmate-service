@@ -3,7 +3,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("control - focus - for a input field", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.TextInEditModeSource");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.TextInEditModeSource");
     await handleCookiesConsent();
   });
 
@@ -22,7 +22,7 @@ describe("control - focus - for a input field", function () {
 
 describe("control - focus", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.ActionSheet");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.m.ActionSheet");
     await handleCookiesConsent();
   });
 
@@ -41,7 +41,7 @@ describe("control - focus", function () {
 
 describe("control - focus - outside of viewpoint", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await handleCookiesConsent();
   });
 
@@ -79,7 +79,7 @@ describe("control - focus - outside of viewpoint", function () {
 describe("control - focus - no selector found and catch error", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
   });
 
   it("Execution & Verification", async function () {

@@ -5,7 +5,7 @@ const countries = require("./countries.json");
 describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both element and browser levels", function () {
 
   it("should get Dropdown aggregations on both element and browser levels, access unknown, empty and 'items' aggregations", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBox");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBox");
     await handleCookiesConsent();
 
     const dropdownProperties = {
@@ -50,7 +50,7 @@ describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both eleme
   });
 
   it("should get List Item aggregations on both element and browser levels and access tooltip aggregation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
 
     const listElementProperties = {
       "elementProperties": {
@@ -75,7 +75,7 @@ describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both eleme
   });
 
   it("should try to access non-existing/empty aggregation(s)", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
     const listElementProperties = {
       "elementProperties": {
         "metadata": "sap.m.StandardListItem", "mProperties": {

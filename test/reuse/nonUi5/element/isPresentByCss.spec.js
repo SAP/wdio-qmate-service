@@ -52,7 +52,7 @@ describe("element - isPresentByCss with wrong selector/hidden element and catch 
 
 describe("element - isPresent (by class) for list item element", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
   });
 
   it("Execution & Verification", async function () {
@@ -63,7 +63,7 @@ describe("element - isPresent (by class) for list item element", function () {
 
 describe("element - isPresent (by class) for hidden element", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
   });
 
   it("Execution & Verification", async function () {

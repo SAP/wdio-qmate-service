@@ -5,7 +5,7 @@ const {
 
 describe("assertion - expectMessageToastTextToBe - no message toast (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MessageToast/sample/sap.m.sample.MessageToast");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.m.MessageToast/sample/sap.m.sample.MessageToast");
     await handleCookiesConsent();
   });
 
@@ -19,7 +19,7 @@ describe("assertion - expectMessageToastTextToBe - no message toast (unhappy cas
 
 describe("assertion - expectMessageToastTextToBe", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MessageToast/sample/sap.m.sample.MessageToast");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.m.MessageToast/sample/sap.m.sample.MessageToast");
     await handleCookiesConsent();
   });
 

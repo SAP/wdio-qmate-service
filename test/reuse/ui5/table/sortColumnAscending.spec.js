@@ -6,7 +6,7 @@ const {
 describe("table - sortColumnAscending - smartTable", function () {
 
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await browser.url("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
     await handleCookiesConsent();
   });
 
@@ -36,7 +36,7 @@ describe("table - sortColumnAscending - smartTable with tableSelector", function
   };
 
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await browser.url("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
     await handleCookiesConsent();
   });
 
@@ -61,7 +61,7 @@ describe("table - sortColumnAscending - smartTable with tableSelector", function
 describe("table - sortColumnAscending - smartTable with index (legacy)", function () {
 
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await browser.url("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
     await handleCookiesConsent();
   });
 
