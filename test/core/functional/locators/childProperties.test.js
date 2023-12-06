@@ -4,7 +4,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 describe("webdriver.io page locator test", function () {
 
   this.beforeAll(async () => {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.m.Button/sample/sap.m.sample.Button");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Button/sample/sap.m.sample.Button");
     await handleCookiesConsent();
   });
 

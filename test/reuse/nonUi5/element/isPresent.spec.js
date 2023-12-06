@@ -1,7 +1,7 @@
 "use strict";
 // describe("element - isPresent - list item element", function () {
 //   it("Preparation", async function () {
-//     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+//     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
 //   });
 
 //   it("Execution & Verification", async function () {
@@ -14,7 +14,7 @@
 
 describe("element - isPresent - hidden element", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
   });
 
   it("Execution & Verification", async function () {
@@ -29,7 +29,7 @@ describe("element - isPresent - hidden element", function () {
 
 // describe("element - isPresent - wrong element", function () {
 //   it("Preparation", async function () {
-//     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+//     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
 //   });
 
 //   it("Execution & Verification", async function () {

@@ -1,5 +1,5 @@
 describe("navigateToUrlAndRetry", function () {
-  const url = "https://sapui5.hana.ondemand.com/1.120.1/";
+  const url = "https://sapui5.hana.ondemand.com/1.96.27/";
   const retries = 1;
   const interval = 500;
 

@@ -10,7 +10,7 @@ describe("userInteraction - uncheck - checkbox (checked)", function () {
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
     await handleCookiesConsent();
   });
 
@@ -33,7 +33,7 @@ describe("userInteraction - uncheck - checkbox (unchecked)", function () {
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
     await handleCookiesConsent();
   });
 
@@ -56,7 +56,7 @@ describe("userInteraction - uncheck - checkbox (error)", function () {
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
     await handleCookiesConsent();
   });
 

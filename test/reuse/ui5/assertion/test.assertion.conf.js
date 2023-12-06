@@ -6,7 +6,7 @@ exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
 
-  baseUrl: "https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3",
+  baseUrl: "https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3",
 
   specs: [
     path.resolve(__dirname, "expectAttributeToBe.spec.js"),

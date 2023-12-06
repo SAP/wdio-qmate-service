@@ -2,7 +2,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - rightClick", async function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.m.TextArea/sample/sap.m.sample.TextArea");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.TextArea/sample/sap.m.sample.TextArea");
     await handleCookiesConsent();
   });
 

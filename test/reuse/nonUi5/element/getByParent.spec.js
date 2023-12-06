@@ -6,7 +6,7 @@ describe("element - getByParent", function () {
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(
-      "https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories"
+      "https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories"
     );
     await handleCookiesConsent();
   });
@@ -26,7 +26,7 @@ describe("element - getByParent - with index", function () {
   let elemAct;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.120.1/#/entity/sap.m.Tree/sample/sap.m.sample.TreeExpandMulti");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Tree/sample/sap.m.sample.TreeExpandMulti");
     await handleCookiesConsent();
   });
 
@@ -46,7 +46,7 @@ describe("element - getByParent - with index", function () {
 describe("element - getByParent - error case with wrong element", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(
-      "https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories"
+      "https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories"
     );
   });
 
@@ -62,7 +62,7 @@ describe("element - getByParent - error case with wrong element", function () {
 describe("element - getByParent - error case with wrong order of parent and child", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(
-      "https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories"
+      "https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories"
     );
   });
 

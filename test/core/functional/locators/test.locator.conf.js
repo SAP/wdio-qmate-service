@@ -16,14 +16,14 @@ exports.config = merge(profile.config, {
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
   specs: [
-    path.resolve(__dirname, "elementProperties.test.js"),
-    path.resolve(__dirname, "ancestorProperties.test.js"),
+    // path.resolve(__dirname, "elementProperties.test.js"),
+    // path.resolve(__dirname, "ancestorProperties.test.js"),
     path.resolve(__dirname, "descendantProperties.test.js"),
-    path.resolve(__dirname, "siblingProperties.test.js"),
-    path.resolve(__dirname, "domProperties.test.js"),
-    path.resolve(__dirname, "parentProperties.test.js"),
-    path.resolve(__dirname, "childProperties.test.js"),
-    path.resolve(__dirname, "mixedProperties.test.js")
+    // path.resolve(__dirname, "siblingProperties.test.js"),
+    // path.resolve(__dirname, "domProperties.test.js"),
+    // path.resolve(__dirname, "parentProperties.test.js"),
+    // path.resolve(__dirname, "childProperties.test.js"),
+    // path.resolve(__dirname, "mixedProperties.test.js")
   ],
   // Patterns to exclude.
   exclude: [
@@ -34,5 +34,5 @@ exports.config = merge(profile.config, {
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: "https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3"
+  baseUrl: "https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3"
 });

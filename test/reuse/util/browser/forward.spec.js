@@ -5,7 +5,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("browser - forward", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.120.1/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/");
     await handleCookiesConsent();
     const selector = {
       elementProperties: {
