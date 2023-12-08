@@ -13,7 +13,7 @@ describe("userInteraction - clearAndRetry", function () {
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
     await handleCookiesConsent();
   });
 
@@ -35,7 +35,7 @@ describe("userInteraction - clearAndRetry", function () {
 describe("userInteraction - clearAndRetry with invalid selector", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
     await handleCookiesConsent();
   });
 

@@ -2,7 +2,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - clickSelectArrowAndRetry", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Select/sample/sap.m.sample.Select");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Select/sample/sap.m.sample.Select");
     await handleCookiesConsent();
   });
 
@@ -62,7 +62,7 @@ describe("userInteraction - clickSelectArrowAndRetry", function () {
 
 describe("userInteraction - clickSelectArrow and catch an error", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Select/sample/sap.m.sample.Select");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Select/sample/sap.m.sample.Select");
     await handleCookiesConsent();
   });
 
@@ -85,7 +85,7 @@ describe("userInteraction - clickSelectArrow and catch an error", function () {
 
 describe("userInteraction - clickSelectArrowAndRetry with index > 0", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Select/sample/sap.m.sample.SelectValueState");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Select/sample/sap.m.sample.SelectValueState");
     await util.browser.refresh();
     await handleCookiesConsent();
   });

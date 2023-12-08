@@ -38,7 +38,7 @@ describe("getAggregationProperty - columns of table", async () => {
   let val;
   const expectedColumns = ["Product", "Supplier", "Dimensions", "Weight", "Price"];
   it("Preparation", async () => {
-    const url = "https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Table/sample/sap.m.sample.Table";
+    const url = "https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Table/sample/sap.m.sample.Table";
     await common.navigation.navigateToUrl(url);
     await handleCookiesConsent();
   });
@@ -63,7 +63,7 @@ describe("getAggregationProperty - items in list", async () => {
   let val;
   const expectedItems = ["ITelO Vault", "Notebook Basic 15", "Notebook Basic 17", "Notebook Basic 18", "Notebook Basic 19"];
   it("Preparation", async () => {
-    const url = "https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Select/sample/sap.m.sample.Select";
+    const url = "https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Select/sample/sap.m.sample.Select";
     await common.navigation.navigateToUrl(url);
     await handleCookiesConsent();
   });

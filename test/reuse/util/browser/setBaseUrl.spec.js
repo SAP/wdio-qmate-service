@@ -1,9 +1,9 @@
 "use strict";
 
 describe("browser - setBaseUrl", function () {
-  const urlToSet = "https://sapui5.hana.ondemand.com/1.99.0/";
+  const urlToSet = "https://sapui5.hana.ondemand.com/1.96.27/";
   it("Execution", async function () {
-    await util.browser.setBaseUrl("https://sapui5.hana.ondemand.com/1.99.0/");
+    await util.browser.setBaseUrl("https://sapui5.hana.ondemand.com/1.96.27/");
   });
 
   it("Verification", async function() {

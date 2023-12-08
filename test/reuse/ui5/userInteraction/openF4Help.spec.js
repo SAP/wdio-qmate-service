@@ -22,7 +22,7 @@ const timeout = 30000;
 describe("userInteraction - openF4Help - use valuehelp icon button", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Input/sample/sap.m.sample.InputAssisted");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Input/sample/sap.m.sample.InputAssisted");
     await handleCookiesConsent();
   });
 
@@ -40,7 +40,7 @@ describe("userInteraction - openF4Help - use valuehelp icon button", function ()
 describe("userInteraction - openF4Help - use F4 Key press", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Input/sample/sap.m.sample.InputAssisted");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Input/sample/sap.m.sample.InputAssisted");
     await handleCookiesConsent();
   });
 

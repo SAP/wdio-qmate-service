@@ -5,7 +5,7 @@ describe("element - getByCssContainingText - non strict", function () {
   let downloadBtn;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/");
     await handleCookiesConsent();
   });
 
@@ -24,7 +24,7 @@ describe("element - getByCssContainingText - strict", function () {
   let downloadBtn;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/");
     await handleCookiesConsent();
   });
 
@@ -41,7 +41,7 @@ describe("element - getByCssContainingText - strict", function () {
 
 describe("element - getByCssContainingText - strict error case", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/");
     await handleCookiesConsent();
   });
 
@@ -54,7 +54,7 @@ describe("element - getByCssContainingText - strict error case", function () {
 
 describe("element - getByCssContainingText - error case", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/");
     await handleCookiesConsent();
   });
 

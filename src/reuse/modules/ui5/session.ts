@@ -364,7 +364,7 @@ export class Session {
         }
       }
     };
-    await ui5.userInteraction.scrollToElement(selector);
+    await ui5.userInteraction.scrollToElement(selector, 0, "end");
     return ui5.userInteraction.click(selector);
   }
 
