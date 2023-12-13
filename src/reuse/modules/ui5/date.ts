@@ -19,7 +19,7 @@ export class DateModule {
    * @param {Date} date - The date object.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @example const today = await common.date.calculate("today");
-   * await ui5.date.pick(selector, date);
+   * await ui5.date.pick(selector, today);
    */
   async pick(selector: any, date: Date, index: number = 0) {
     const vl = this.vlf.initLog(this.pick);
