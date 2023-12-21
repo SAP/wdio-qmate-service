@@ -125,7 +125,7 @@ it("Step 01: click on 'Save' button", async function () {
 For all non UI5 applications you can define the element in different ways. We provide all common functionalities to get an element by its ID, Class or any other CSS attribute. Hence, you can not pass any selector directly to the function performing an action. Instead, you have to define the element first with one of the provided methods.
 ```javascript
 // Get an element by its ID
-const elem = await nonUi5.element.getById("button-abc");
+const elem = await nonUi5.element.getById("button-xyz");
 
 // Get an element by its class (pass an index if there are more than one elements with the same class)
 const elem = await nonUi5.element.getByClass(".button", 0);
