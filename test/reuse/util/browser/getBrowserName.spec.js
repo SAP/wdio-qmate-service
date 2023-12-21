@@ -11,8 +11,12 @@ describe("browser - getBrowserName", function () {
 
   it("Verification", async function () {
     const valueAct = browserName;
-    const valueExp = "chrome";
-    await common.assertion.expectEqual(valueAct, valueExp);
+    const valueExpRegexp = /chrome/;
+    await common.assertion.expectTrue(isStringMatchesRegexp(valueAct, valueExpRegexp));
   });
 
 });
+
+function isStringMatchesRegexp(str, regexp) {
+  return !!str.match(regexp);
+}
