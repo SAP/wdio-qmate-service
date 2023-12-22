@@ -306,6 +306,9 @@ export class Assertion {
     }
 
     let values = null;
+    if(typeof loadPropertyTimeout === "string") {
+      loadPropertyTimeout = parseInt(loadPropertyTimeout);
+    }
     if (loadPropertyTimeout > 0) {
       await browser.waitUntil(
         async function () {
@@ -373,6 +376,9 @@ export class Assertion {
     }
 
     let value = null;
+    if(typeof loadPropertyTimeout === "string") {
+      loadPropertyTimeout = parseInt(loadPropertyTimeout);
+    }
     if (loadPropertyTimeout > 0) {
       await browser.waitUntil(
         async function () {
@@ -421,6 +427,9 @@ export class Assertion {
     }
 
     let value = null;
+    if(typeof loadPropertyTimeout === "string") {
+      loadPropertyTimeout = parseInt(loadPropertyTimeout);
+    }
     if (loadPropertyTimeout > 0) {
       await expect(elem).toBeDisplayed({
         wait: loadPropertyTimeout,
