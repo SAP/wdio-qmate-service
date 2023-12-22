@@ -2,18 +2,22 @@ name: Docs Deployment
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+    paths:
+      - "**.md"
+      - "mkdocs.yml"
+  workflow_dispatch:
 
 jobs:
-  deploy-docs:
+  docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v2
         with:
-          node-version: 18
-          registry-url: https://registry.npmjs.org/
-          cache: 'npm'
-      - run: |
-          npm ci
-          npm run deploy-docs
+          fetch-depth: 0
+      - uses: actions/setup-python@v2
+      - run: pip install --upgrade pip && pip install mkdocs mkdocs-gen-files
+      - run: git config user.name 'github-actions[bot]' && git config user.email 'github-actions[bot]@users.noreply.github.com'
+      - name: Publish docs
+        run: mkdocs gh-deploy
