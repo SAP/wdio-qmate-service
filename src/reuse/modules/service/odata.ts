@@ -1,4 +1,11 @@
 "use strict";
+
+// =================================== TYPES ====================================
+interface IHeaders {
+  [key: string]: string;
+}
+
+// =================================== MAIN =====================================
 /**
  * @class odata
  * @memberof service
@@ -100,17 +107,20 @@ export class OData {
    * };
    * const res = await service.odata.get(srv, "A_PurchaseOrder", keys);
    */
-  async get(srv: any, entitySet: string, keys: any, raw: boolean = false): Promise<any> {
-    const entity = srv[entitySet];
-    if (!entity) {
-      throw new Error(`No entity set '${entitySet}' available in service`);
+  async get(srv: any, entitySet: string, keys: any, raw: boolean = false, headers?: IHeaders): Promise<any> {
+    let entity = srv[entitySet];
+    if (!entity) throw new Error(`No entity set '${entitySet}' available in service`);
+
+    if (headers) {
+      entity = this._applyHeaders(entity, headers);
     }
+
     if (raw === true) {
       return entity.raw().get(keys);
     } else {
       return entity.get(keys);
     }
-  };
+  }
 
   /**
    * @function getEntitySet
@@ -195,7 +205,7 @@ export class OData {
    * @param {String} entitySet - The entitySet you want to POST against.
    * @param {Object} payload - The payload for the POST-request.
    * @param {Boolean} raw - Response includes all header contents.
-   * @example 
+   * @example
    * let payload = {
    *  "PurchaseOrder": "4500007108",
    *  "DraftUUID": "00000000-0000-0000-0000-000000000000",
@@ -213,7 +223,7 @@ export class OData {
     } else {
       return entity.post(payload);
     }
-  };
+  }
   /**
    * @function merge
    * @memberOf service.odata
@@ -369,6 +379,14 @@ export class OData {
         }
       });
     });
+  }
+
+  _applyHeaders(entity: any, headers: IHeaders): any {
+    for (const [key, value] of Object.entries(headers)) {
+      entity.header(key, value);
+    }
+
+    return entity;
   }
 }
 export default new OData();
