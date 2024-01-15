@@ -88,16 +88,16 @@ export class OData {
 
     const auth: any = {
       type: authType ?? "",
-      username: username,
-      password: password
+      username,
+      password
     };
     if (headers && Object.entries(headers).length > 0) auth.headers = headers;
 
     const srv = new this.Service({
       logger: loggingEnabled ? logger : "",
-      url: url,
-      auth: auth,
-      parameters: parameters, // Define initial request by $metadata?sap-client=<client-number>&sap-documentation=&sap-language=EN
+      url,
+      auth,
+      parameters, // Define initial request by $metadata?sap-client=<client-number>&sap-documentation=&sap-language=EN
       strict: false // ignore non critical errors, e.g. orphaned annotations
     });
 
