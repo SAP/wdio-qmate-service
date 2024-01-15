@@ -89,9 +89,9 @@ export class OData {
     const auth: any = {
       type: authType ?? "",
       username: username,
-      password: password,
-      headers: headers
+      password: password
     };
+    if (headers && Object.entries(headers).length > 0) auth.headers = headers;
 
     const srv = new this.Service({
       logger: loggingEnabled ? logger : "",
@@ -133,7 +133,7 @@ export class OData {
 
     if (raw) entity = entity.raw();
 
-    if (keys && Object.entries(keys).length !== 0) {
+    if (keys && Object.entries(keys).length > 0) {
       return entity.get(keys);
     } else {
       return entity.get();
