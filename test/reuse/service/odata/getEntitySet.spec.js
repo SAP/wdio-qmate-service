@@ -15,7 +15,6 @@ describe("odata - getEntitySet", function () {
     await common.assertion.expectTrue(res.length > 0);
     await common.assertion.expectDefined(res[0].UserName);
   });
-
 });
 
 describe("odata - getEntitySet with selected fields", function () {
@@ -34,7 +33,6 @@ describe("odata - getEntitySet with selected fields", function () {
     await common.assertion.expectDefined(res[0].FirstName);
     await common.assertion.expectUndefined(res[0].UserName);
   });
-
 });
 
 describe("odata - getEntitySet with filter", function () {
@@ -53,7 +51,6 @@ describe("odata - getEntitySet with filter", function () {
     await common.assertion.expectTrue(resBudgetLow.length > 0);
     await common.assertion.expectTrue(resBudgetHigh.length === 0);
   });
-
 });
 
 describe("odata - getEntitySet with params", function () {
@@ -64,13 +61,12 @@ describe("odata - getEntitySet with params", function () {
   });
 
   it("Execution", async function () {
-    res = await service.odata.getEntitySet(srv, "People", "", "", { "$top": 2 });
+    res = await service.odata.getEntitySet(srv, "People", "", "", { $top: 2 });
   });
 
   it("Verification", async function () {
     await common.assertion.expectTrue(res.length === 2);
   });
-
 });
 
 describe("odata - getEntitySet - wrong entity set", function () {
@@ -80,8 +76,6 @@ describe("odata - getEntitySet - wrong entity set", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(service.odata.getEntitySet(srv, "WrongEntitySet"))
-      .rejects.toThrow(/No entity set .* available in service/);
+    await expect(service.odata.getEntitySet(srv, "WrongEntitySet")).rejects.toThrow(/Entity Set .* not found in service./);
   });
-
 });
