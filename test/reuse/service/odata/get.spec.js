@@ -8,13 +8,12 @@ describe("odata - get", function () {
   });
 
   it("Execution", async function () {
-    res = await service.odata.get(srv, "People", {"UserName": "willieashmore", "LastName": "Ashmore"});
+    res = await service.odata.get(srv, "People", { UserName: "willieashmore", LastName: "Ashmore" });
   });
 
   it("Verification", async function () {
     await common.assertion.expectDefined(res);
   });
-
 });
 
 describe("odata - get - wrong value", function () {
@@ -25,13 +24,12 @@ describe("odata - get - wrong value", function () {
   });
 
   it("Execution", async function () {
-    res = await service.odata.get(srv, "People", {"UserName": "wrongvalue"});
+    res = await service.odata.get(srv, "People", { UserName: "wrongvalue" });
   });
 
   it("Verification", async function () {
     await common.assertion.expectTrue(res === null);
   });
-
 });
 
 describe("odata - get - wrong key", function () {
@@ -41,10 +39,8 @@ describe("odata - get - wrong key", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(service.odata.get(srv, "People", {"WrongKey": "SomeValue"}))
-      .rejects.toThrow(/Key property UserName is not defined/);
+    await expect(service.odata.get(srv, "People", { WrongKey: "SomeValue" })).rejects.toThrow(/Key property UserName is not defined/);
   });
-  
 });
 
 describe("odata - get - wrong entity set", function () {
@@ -54,8 +50,6 @@ describe("odata - get - wrong entity set", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(service.odata.get(srv, "WrongEntitySet", {"UserName": "willieashmore"}))
-      .rejects.toThrow(/No entity set .* available in service/);
+    await expect(service.odata.get(srv, "WrongEntitySet", { UserName: "willieashmore" })).rejects.toThrow(/Entity Set .* not found in service./);
   });
-  
 });
