@@ -114,7 +114,7 @@ export class OData {
    * @param {String} entitySet - The entity set from which data is to be retrieved.
    * @param {Object} keys - The required keys for the GET request.
    * @param {Boolean} [raw=false] - Specifies whether the response should include all header contents.
-   * @param {Object} headers - Optional headers to be included in the request.
+   * @param {Object} [headers] - Optional headers to be included in the request.
    * @returns {Promise} A Promise that resolves to the response data.
    * @example const url = "<baseUrl>/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
    * const srv = await service.odata.init(url, user, password);
@@ -129,13 +129,9 @@ export class OData {
     let entity = srv[entitySet];
     if (!entity) throw new Error(entitySetError(entitySet));
 
-    if (headers) {
-      entity = this._applyHeaders(entity, headers);
-    }
+    if (headers) entity = this._applyHeaders(entity, headers);
 
-    if (raw) {
-      entity = entity.raw();
-    }
+    if (raw) entity = entity.raw();
 
     if (keys && Object.entries(keys).length !== 0) {
       return entity.get(keys);
@@ -176,17 +172,123 @@ export class OData {
     let entity = srv[entitySet];
     if (!entity) throw new Error(entitySetError(entitySet));
 
-    if (filterString) {
-      entity = entity.filter(filterString);
-    }
-    if (selectionFields) {
-      entity = entity.select(selectionFields.split(","));
-    }
-    if (queryParams) {
-      entity = this._applyQueryParameters(entity, queryParams);
-    }
+    if (filterString) entity = entity.filter(filterString);
+
+    if (selectionFields) entity = entity.select(selectionFields.split(","));
+
+    if (queryParams) entity = this._applyQueryParameters(entity, queryParams);
 
     return entity.get();
+  }
+
+  /**
+   * @function post
+   * @memberOf service.odata
+   * @description Sends a POST request to retrieve data from the specified OData entity set for the given payload.
+   * @param {Object} srv - Instance of the service
+   * @param {String} entitySet - The entitySet you want to POST against.
+   * @param {Object} payload - The payload of the POST request.
+   * @param {Boolean} [raw=false] - Specifies whether the response should include all header contents.
+   * @param {Object} [headers] - Optional headers to be included in the request.
+   * @returns {Promise} A Promise that resolves to the response data.
+   * @example
+   * const payload = {
+   *  "PurchaseOrder": "4500007108",
+   *  "DraftUUID": "00000000-0000-0000-0000-000000000000",
+   *  "IsActiveEntity": "true"
+   * };
+   * const res = await service.odata.post(srv, "A_PurchaseOrder", payload);
+   */
+  async post(srv: any, entitySet: string, payload: any, raw: boolean = false, headers?: IHeaders): Promise<any> {
+    if (!srv) throw new Error(SERVICE_INIT_ERROR);
+
+    let entity = srv[entitySet];
+    if (!entity) throw new Error(entitySetError(entitySet));
+
+    if (headers) entity = this._applyHeaders(entity, headers);
+
+    if (raw) entity = entity.raw();
+
+    return entity.post(payload);
+  }
+
+  /**
+   * @function merge
+   * @memberOf service.odata
+   * @description @description Sends a MERGE request to merge data from the specified OData entity set for the given payload.
+   * @param {Object} srv - Instance of the service
+   * @param {String} entitySet - The entitySet you want to MERGE in.
+   * @param {Object} payload - The payload of the MERGE request.
+   * @param {Object} [headers] - Optional headers to be included in the request.
+   * @returns {Promise} A Promise that resolves to the response data.
+   * @example
+   * const res = await service.odata.merge(srv, "A_PurchaseOrderScheduleLine", {
+   *  "PurchasingDocument": "4500007108",
+   *  "PurchasingDocumentItem": "10",
+   *  "ScheduleLine": "1",
+   *  "ScheduleLineDeliveryDate": new Date()
+   * };
+   */
+  async merge(srv: any, entitySet: string, payload: any, headers?: IHeaders): Promise<any> {
+    if (!srv) throw new Error(SERVICE_INIT_ERROR);
+
+    let entity = srv[entitySet];
+    if (!entity) throw new Error(entitySetError(entitySet));
+
+    if (headers) entity = this._applyHeaders(entity, headers);
+
+    return await entity.merge(payload);
+  }
+
+  /**
+   * @function delete
+   * @memberOf service.odata
+   * @description Sends a DELETE request to the specified OData entity set.
+   * @param {Object} srv - Instance of the service.
+   * @param {String} entitySet - The entitySet you want to DELETE.
+   * @param {Object} options - The options for the DELETE request.
+   * @param {Object} [headers] - Optional headers to be included in the request.
+   * @returns {Promise} A Promise that resolves to the response data.
+   * @example
+   * const options = {
+   *  "PurchaseOrder": "",
+   *  "DraftUUID": draftUUID,
+   *  "IsActiveEntity": false
+   * };
+   * const res = await service.odata.delete(srv, "C_PurchaseOrderTP", options);
+   */
+  async delete(srv: any, entitySet: string, options: any, headers?: IHeaders): Promise<any> {
+    if (!srv) throw new Error(SERVICE_INIT_ERROR);
+
+    let entity = srv[entitySet];
+    if (!entity) throw new Error(entitySetError(entitySet));
+
+    if (headers) entity = this._applyHeaders(entity, headers);
+
+    return await entity.delete(options);
+  }
+
+  /**
+   * @function callFunctionImport
+   * @memberOf service.odata
+   * @description Sends a function import request to the OData service instance.
+   * @param {Object} srv - Instance of the service.
+   * @param {String} functionImportName - Name of Function Import.
+   * @param {Object} options - Parameters for function import.
+   * @returns {Promise} A Promise that resolves to the response data.
+   * @example
+   * const options = {
+   *  CentralRequestForQuotation : "7500000026",
+   *  Supplier : "100006"
+   * };
+   * const res = await service.odata.callFunctionImport(srv, "Cancel", options);
+   */
+  async callFunctionImport(srv: any, functionImportName: string, options: any): Promise<any> {
+    if (!srv) throw new Error(SERVICE_INIT_ERROR);
+
+    const functionImport = srv.functionImports[functionImportName];
+
+    return await functionImport.call(options);
   }
 
   /**
@@ -217,109 +319,6 @@ export class OData {
     //feature toggle is enabled if NOT found
     util.console.info(`Feature Toggle "${featureName}" is enabled.`);
     return true;
-  }
-
-  /**
-   * @function post
-   * @memberOf service.odata
-   * @description Sends a POST request to retrieve data from the specified OData entity set for the given payload.
-   * @param {Object} srv - Instance of the service
-   * @param {String} entitySet - The entitySet you want to POST against.
-   * @param {Object} payload - The payload of the POST request.
-   * @param {Boolean} [raw=false] - Specifies whether the response should include all header contents.
-   * @returns {Promise} A Promise that resolves to the response data.
-   * @example
-   * const payload = {
-   *  "PurchaseOrder": "4500007108",
-   *  "DraftUUID": "00000000-0000-0000-0000-000000000000",
-   *  "IsActiveEntity": "true"
-   * };
-   * const res = await service.odata.post(srv, "A_PurchaseOrder", payload);
-   */
-  async post(srv: any, entitySet: string, payload: any, raw: boolean = false): Promise<any> {
-    if (!srv) throw new Error(SERVICE_INIT_ERROR);
-
-    const entity = srv[entitySet];
-    if (!entity) throw new Error(entitySetError(entitySet));
-
-    if (raw === true) {
-      return entity.raw().post(payload);
-    } else {
-      return entity.post(payload);
-    }
-  }
-
-  /**
-   * @function merge
-   * @memberOf service.odata
-   * @description @description Sends a MERGE request to merge data from the specified OData entity set for the given payload.
-   * @param {Object} srv - Instance of the service
-   * @param {String} entitySet - The entitySet you want to MERGE in.
-   * @param {Object} payload - The payload of the MERGE request.
-   * @returns {Promise} A Promise that resolves to the response data.
-   * @example
-   * const res = await service.odata.merge(srv, "A_PurchaseOrderScheduleLine", {
-   *  "PurchasingDocument": "4500007108",
-   *  "PurchasingDocumentItem": "10",
-   *  "ScheduleLine": "1",
-   *  "ScheduleLineDeliveryDate": new Date()
-   * };
-   */
-  async merge(srv: any, entitySet: string, payload: any): Promise<any> {
-    if (!srv) throw new Error(SERVICE_INIT_ERROR);
-
-    const entity = srv[entitySet];
-    if (!entity) throw new Error(entitySetError(entitySet));
-
-    return await entity.merge(payload);
-  }
-
-  /**
-   * @function delete
-   * @memberOf service.odata
-   * @description Sends a DELETE request to the specified OData entity set.
-   * @param {Object} srv - Instance of the service.
-   * @param {String} entitySet - The entitySet you want to DELETE.
-   * @param {Object} options - The options for the DELETE request.
-   * @returns {Promise} A Promise that resolves to the response data.
-   * @example
-   * const options = {
-   *  "PurchaseOrder": "",
-   *  "DraftUUID": draftUUID,
-   *  "IsActiveEntity": false
-   * };
-   * const res = await service.odata.delete(srv, "C_PurchaseOrderTP", options);
-   */
-  async delete(srv: any, entitySet: string, options: any): Promise<any> {
-    if (!srv) throw new Error(SERVICE_INIT_ERROR);
-
-    const entity = srv[entitySet];
-    if (!entity) throw new Error(entitySetError(entitySet));
-
-    return await entity.delete(options);
-  }
-
-  /**
-   * @function callFunctionImport
-   * @memberOf service.odata
-   * @description Sends a function import request to the OData service instance.
-   * @param {Object} srv - Instance of the service.
-   * @param {String} functionImportName - Name of Function Import.
-   * @param {Object} options - Parameters for function import.
-   * @returns {Promise} A Promise that resolves to the response data.
-   * @example
-   * const options = {
-   *  CentralRequestForQuotation : "7500000026",
-   *  Supplier : "100006"
-   * };
-   * const res = await service.odata.callFunctionImport(srv, "Cancel", options);
-   */
-  async callFunctionImport(srv: any, functionImportName: string, options: any): Promise<any> {
-    if (!srv) throw new Error(SERVICE_INIT_ERROR);
-
-    const functionImport = srv.functionImports[functionImportName];
-
-    return await functionImport.call(options);
   }
 
   // =================================== PDF ======================================
