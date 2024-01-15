@@ -44,6 +44,7 @@ export class OData {
    * @param {String} [authType] - authentication type, in case you want to override the default
    * SAML authentication. Set this to "basic", to use basic authentication for communication users for whom SAML login doesn't work.
    * Or "none" for no authentication.
+   * @param {Object} [headers=undefined] - JSON object with key-value pairs of optional headers.
    * @returns {Object} The initialized service object.
    * @example const url = "<urlToSystem>/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
    * const params = {
@@ -52,7 +53,7 @@ export class OData {
    * }
    * srv = await service.odata.init(url, user, password, false, params);
    */
-  async init(url: string, username: string, password: string, loggingEnabled = false, params = {}, authType: string = ""): Promise<any> {
+  async init(url: string, username: string, password: string, loggingEnabled = false, params = {}, authType: string = "", headers?: any): Promise<any> {
     const logger = {
       trace: () => {},
       debug: console.debug,
@@ -62,31 +63,29 @@ export class OData {
     };
 
     const parameters = {
-      "sap-client": "715",
-      "sap-documentation": ["heading", "quickinfo"],
-      "sap-language": "EN"
+      ...params,
+      ...{
+        "sap-client": "715",
+        "sap-documentation": ["heading", "quickinfo"],
+        "sap-language": "EN"
+      }
     };
-
-    if (params) {
-      // @ts-ignore
-      Object.keys(params).forEach((key) => (parameters[key] = params[key]));
-    }
 
     const auth: any = {
+      type: authType ?? "",
       username: username,
-      password: password
+      password: password,
+      headers: headers
     };
 
-    if (authType) {
-      auth["type"] = authType;
-    }
     const srv = new this.Service({
       logger: loggingEnabled ? logger : "",
       url: url,
       auth: auth,
-      parameters: parameters, //Define initial request by $metadata?sap-client=<client-number>&sap-documentation=&sap-language=EN
+      parameters: parameters, // Define initial request by $metadata?sap-client=<client-number>&sap-documentation=&sap-language=EN
       strict: false // ignore non critical errors, e.g. orphaned annotations
     });
+
     await srv.init;
 
     return srv;
@@ -100,6 +99,7 @@ export class OData {
    * @param {String} entitySet - The entitySet you want to GET from.
    * @param {Object} keys - The required keys for the GET-request.
    * @param {Boolean} raw - Response includes all header contents.
+   * @param {Object} headers - Optional headers.
    * @example const url = "<baseUrl>/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
    * srv = await service.odata.init(url, user, password);
    * const keys = {
@@ -115,10 +115,14 @@ export class OData {
       entity = this._applyHeaders(entity, headers);
     }
 
-    if (raw === true) {
-      return entity.raw().get(keys);
-    } else {
+    if (raw) {
+      entity = entity.raw();
+    }
+
+    if (keys && Object.entries(keys).length !== 0) {
       return entity.get(keys);
+    } else {
+      return entity.get();
     }
   }
 
