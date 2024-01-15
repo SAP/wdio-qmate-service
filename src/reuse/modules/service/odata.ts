@@ -5,6 +5,14 @@ interface IHeaders {
   [key: string]: string;
 }
 
+interface IParams {
+  [key: string]: string;
+}
+
+// =================================== CONSTANTS ================================
+const SERVICE_INIT_ERROR = "Service instance not found. Make sure the service is initialized and passed to the request.";
+const entitySetError = (entitySet: any) => `Entity Set "${entitySet}" not found in service.`;
+
 // =================================== MAIN =====================================
 /**
  * @class odata
@@ -27,20 +35,20 @@ export class OData {
   /**
    * @function init
    * @memberOf service.odata
-   * @description Initializes The service to work with.
+   * @description Initializes the OData Service.
    * XCSRF-Token will be automatically fetched and stored in the service instance.
    * Cookies will also automatically assembled and stored in the service instance.
-   * @param {String} url - The base url of the service
-   * @param {String} username - The username.
+   * @param {String} url - The base url of the service.
+   * @param {String} username - The username to authenticate the service.
    * @param {String} password - The password of the username.
-   * @param {boolean}  [loggingEnabled=false] - The boolean param to control whether user wants to see logs during build run
-   * @param {Object} [params={}] - JSON object with key-value pairs of parameter names and corresponding values
-   * by default we send {
+   * @param {Boolean}  [loggingEnabled=false] - The boolean param to control whether user wants to see logs during build run.
+   * @param {Object} [params={}] - JSON object with key-value pairs of parameter names and corresponding values.
+   * By default we send {
    *  "client": "715",
    *  "documentation": ["heading", "quickinfo"],
    *  "language": "EN"
    * }
-   * These can be overridden by sending params as JSON object with additional params as shown in example
+   * These can be overridden by sending params as JSON object with additional params as shown in example.
    * @param {String} [authType] - authentication type, in case you want to override the default
    * SAML authentication. Set this to "basic", to use basic authentication for communication users for whom SAML login doesn't work.
    * Or "none" for no authentication.
@@ -51,7 +59,14 @@ export class OData {
    *  "saml2": "disabled",
    *  "language": "de"
    * }
-   * srv = await service.odata.init(url, user, password, false, params);
+   * const srv = await service.odata.init(url, user, password, false, params);
+   * @example const base64Credentials = Buffer.from(`${user}:${password}`).toString("base64");
+   * const authHeaders = {
+   *   "Authorization": `Basic ${base64Credentials}`,
+   *   "DwC-Tenant": tenant
+   * };
+   *
+   * const srv = await service.odata.init(url, user, password, true, params, "headers", authHeaders);
    */
   async init(url: string, username: string, password: string, loggingEnabled = false, params = {}, authType: string = "", headers?: any): Promise<any> {
     const logger = {
@@ -94,22 +109,25 @@ export class OData {
   /**
    * @function get
    * @memberOf service.odata
-   * @description makes a GET request.
-   * @param {Object} srv - Instance of the service
-   * @param {String} entitySet - The entitySet you want to GET from.
-   * @param {Object} keys - The required keys for the GET-request.
-   * @param {Boolean} raw - Response includes all header contents.
-   * @param {Object} headers - Optional headers.
+   * @description Sends a GET request to retrieve data from the specified OData entity set.
+   * @param {Object} srv - An instance of the service.
+   * @param {String} entitySet - The entity set from which data is to be retrieved.
+   * @param {Object} keys - The required keys for the GET request.
+   * @param {Boolean} [raw=false] - Specifies whether the response should include all header contents.
+   * @param {Object} headers - Optional headers to be included in the request.
+   * @returns {Promise} A Promise that resolves to the response data.
    * @example const url = "<baseUrl>/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
-   * srv = await service.odata.init(url, user, password);
+   * const srv = await service.odata.init(url, user, password);
    * const keys = {
    *   PurchaseOrder: "4100000000"
    * };
    * const res = await service.odata.get(srv, "A_PurchaseOrder", keys);
    */
   async get(srv: any, entitySet: string, keys: any, raw: boolean = false, headers?: IHeaders): Promise<any> {
+    if (!srv) throw new Error(SERVICE_INIT_ERROR);
+
     let entity = srv[entitySet];
-    if (!entity) throw new Error(`No entity set '${entitySet}' available in service`);
+    if (!entity) throw new Error(entitySetError(entitySet));
 
     if (headers) {
       entity = this._applyHeaders(entity, headers);
@@ -135,7 +153,7 @@ export class OData {
    * @param {String} [filterString] - The filters to be applied on get query
    * @param {String} [selectionFields] - comma separated list of fields to be selected
    * @param {Object} [queryParams] - JSON object of key value pairs of custom query parameters.
-   * @returns {Array} - Result set array
+   * @returns {Promise} A Promise that resolves to the response data.
    * @example
    * const url = "<baseUrl>/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
    * srv = await service.odata.init(url, user, password);
@@ -152,42 +170,41 @@ export class OData {
    * };
    * let res = await service.odata.getEntitySet(srv, "A_PurchaseOrder", filterString, select, queryParams);
    */
-  async getEntitySet(srv: any, entitySet: string, filterString: string = "", selectionFields: string = "", queryParams: any = {}) {
-    if (!srv) {
-      throw new Error("Service is not defined. Please make sure to initialize and pass the service.");
-    } else {
-      let entity = srv[entitySet];
-      if (!entity) {
-        throw new Error(`No entity set '${entitySet}' available in service`);
-      }
-      if (filterString) {
-        entity = entity.filter(filterString);
-      }
-      if (selectionFields) {
-        entity = entity.select(selectionFields.split(","));
-      }
-      if (queryParams) {
-        Object.keys(queryParams).forEach((key) => {
-          entity = entity.queryParameter(key, queryParams[key]);
-        });
-      }
-      const res = entity.get();
-      return res;
+  async getEntitySet(srv: any, entitySet: string, filterString: string = "", selectionFields: string = "", queryParams?: any): Promise<any> {
+    if (!srv) throw new Error(SERVICE_INIT_ERROR);
+
+    let entity = srv[entitySet];
+    if (!entity) throw new Error(entitySetError(entitySet));
+
+    if (filterString) {
+      entity = entity.filter(filterString);
     }
+    if (selectionFields) {
+      entity = entity.select(selectionFields.split(","));
+    }
+    if (queryParams) {
+      entity = this._applyQueryParameters(entity, queryParams);
+    }
+
+    return entity.get();
   }
 
   /**
    * @function isFeatureToggleActivated
    * @memberOf service.odata
-   * @description checks if a feature toggle is switched on or off
+   * @description Checks if a feature toggle is switched on or off.
    * @param {Object} srv - Instance of the service
    * @param {String} featureName - The name of the feature you want know the status of.
+   * @returns {Promise} A Promise that resolves to a bool value.
    * @example const url = browser.params.systemUrl + "/sap/opu/odata/SAP/CA_FM_FEATURE_TOGGLE_STATUS_SRV/";
    * const srv = await service.odata.init(url, user, password);
    * let isFeatureActive = await service.odata.isFeatureToggleActivated(srv, "MM_PUR_PO_BATCHES_IN_MANAGE_PO");
    */
   async isFeatureToggleActivated(srv: any, featureName: string): Promise<boolean> {
+    if (!srv) throw new Error(SERVICE_INIT_ERROR);
+
     const res = await this.getEntitySet(srv, "ToggleStatusSet");
+
     for (const featureEntity of Object.values(res)) {
       // @ts-ignore
       if (featureEntity.Featureid === featureName) {
@@ -196,6 +213,7 @@ export class OData {
         return false;
       }
     }
+
     //feature toggle is enabled if NOT found
     util.console.info(`Feature Toggle "${featureName}" is enabled.`);
     return true;
@@ -204,85 +222,91 @@ export class OData {
   /**
    * @function post
    * @memberOf service.odata
-   * @description makes a POST request.
+   * @description Sends a POST request to retrieve data from the specified OData entity set for the given payload.
    * @param {Object} srv - Instance of the service
    * @param {String} entitySet - The entitySet you want to POST against.
-   * @param {Object} payload - The payload for the POST-request.
-   * @param {Boolean} raw - Response includes all header contents.
+   * @param {Object} payload - The payload of the POST request.
+   * @param {Boolean} [raw=false] - Specifies whether the response should include all header contents.
+   * @returns {Promise} A Promise that resolves to the response data.
    * @example
-   * let payload = {
+   * const payload = {
    *  "PurchaseOrder": "4500007108",
    *  "DraftUUID": "00000000-0000-0000-0000-000000000000",
    *  "IsActiveEntity": "true"
    * };
-   * let res = await service.odata.post(srv, "A_PurchaseOrder", payload);
+   * const res = await service.odata.post(srv, "A_PurchaseOrder", payload);
    */
-  async post(srv: any, entitySet: string, payload: any, raw: boolean = false) {
+  async post(srv: any, entitySet: string, payload: any, raw: boolean = false): Promise<any> {
+    if (!srv) throw new Error(SERVICE_INIT_ERROR);
+
     const entity = srv[entitySet];
-    if (!entity) {
-      throw new Error(`No entity set '${entitySet}' available in service`);
-    }
+    if (!entity) throw new Error(entitySetError(entitySet));
+
     if (raw === true) {
       return entity.raw().post(payload);
     } else {
       return entity.post(payload);
     }
   }
+
   /**
    * @function merge
    * @memberOf service.odata
-   * @description makes a MERGE request.
+   * @description @description Sends a MERGE request to merge data from the specified OData entity set for the given payload.
    * @param {Object} srv - Instance of the service
    * @param {String} entitySet - The entitySet you want to MERGE in.
-   * @param {Object} payload - The payload for the MERGE-request.
+   * @param {Object} payload - The payload of the MERGE request.
+   * @returns {Promise} A Promise that resolves to the response data.
    * @example
-   * let res = await service.odata.merge(srv, "A_PurchaseOrderScheduleLine", {
+   * const res = await service.odata.merge(srv, "A_PurchaseOrderScheduleLine", {
    *  "PurchasingDocument": "4500007108",
    *  "PurchasingDocumentItem": "10",
    *  "ScheduleLine": "1",
    *  "ScheduleLineDeliveryDate": new Date()
    * };
    */
-  async merge(srv: any, entitySet: string, payload: any) {
+  async merge(srv: any, entitySet: string, payload: any): Promise<any> {
+    if (!srv) throw new Error(SERVICE_INIT_ERROR);
+
     const entity = srv[entitySet];
-    if (!entity) {
-      throw new Error(`No entity set '${entitySet}' available in service`);
-    }
-    const res = await entity.merge(payload);
-    return res;
+    if (!entity) throw new Error(entitySetError(entitySet));
+
+    return await entity.merge(payload);
   }
 
   /**
    * @function delete
    * @memberOf service.odata
-   * @description makes a DELETE request.
-   * @param {Object} srv - Instance of the service
+   * @description Sends a DELETE request to the specified OData entity set.
+   * @param {Object} srv - Instance of the service.
    * @param {String} entitySet - The entitySet you want to DELETE.
-   * @param {Object} options - The options for the DELETE-request.
+   * @param {Object} options - The options for the DELETE request.
+   * @returns {Promise} A Promise that resolves to the response data.
    * @example
-   * let options = {
+   * const options = {
    *  "PurchaseOrder": "",
    *  "DraftUUID": draftUUID,
    *  "IsActiveEntity": false
    * };
-   * await service.odata.delete(srv, "C_PurchaseOrderTP", options);
+   * const res = await service.odata.delete(srv, "C_PurchaseOrderTP", options);
    */
-  async delete(srv: any, entitySet: string, options: any) {
+  async delete(srv: any, entitySet: string, options: any): Promise<any> {
+    if (!srv) throw new Error(SERVICE_INIT_ERROR);
+
     const entity = srv[entitySet];
-    if (!entity) {
-      throw new Error(`No entity set '${entitySet}' available in service`);
-    }
-    const res = await entity.delete(options);
-    return res;
+    if (!entity) throw new Error(entitySetError(entitySet));
+
+    return await entity.delete(options);
   }
 
   /**
    * @function callFunctionImport
    * @memberOf service.odata
-   * @description makes a function import request on an OData service.
-   * @param {Object} srv - Instance of the service
-   * @param {String} functionImportName - Name of Function Import
-   * @param {Object} options - parameters for function import
+   * @description Sends a function import request to the OData service instance.
+   * @param {Object} srv - Instance of the service.
+   * @param {String} functionImportName - Name of Function Import.
+   * @param {Object} options - Parameters for function import.
+   * @returns {Promise} A Promise that resolves to the response data.
    * @example
    * const options = {
    *  CentralRequestForQuotation : "7500000026",
@@ -290,13 +314,15 @@ export class OData {
    * };
    * const res = await service.odata.callFunctionImport(srv, "Cancel", options);
    */
-  async callFunctionImport(srv: any, functionImportName: string, options: any) {
+  async callFunctionImport(srv: any, functionImportName: string, options: any): Promise<any> {
+    if (!srv) throw new Error(SERVICE_INIT_ERROR);
+
     const functionImport = srv.functionImports[functionImportName];
 
-    const res = await functionImport.call(options);
-    return res;
+    return await functionImport.call(options);
   }
 
+  // =================================== PDF ======================================
   /**
    * @function getOutputManagementPdfStream
    * @memberOf service.odata
@@ -340,8 +366,7 @@ export class OData {
     if (url === undefined || url === null) {
       throw new Error("Function 'readPdfFromDirectUrl' Failed. Please provide valid url as first parameter");
     }
-    const res = await this._doRequest(url, username, password, isSaml);
-    return res;
+    return await this._doRequest(url, username, password, isSaml);
   }
 
   // =================================== HELPER ===================================
@@ -385,9 +410,17 @@ export class OData {
     });
   }
 
-  _applyHeaders(entity: any, headers: IHeaders): any {
+  _applyHeaders(entity: any, headers: IHeaders) {
     for (const [key, value] of Object.entries(headers)) {
       entity.header(key, value);
+    }
+
+    return entity;
+  }
+
+  _applyQueryParameters(entity: any, params: IParams) {
+    for (const [key, value] of Object.entries(params)) {
+      entity.queryParameter(key, value);
     }
 
     return entity;
