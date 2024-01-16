@@ -185,9 +185,7 @@ export class Session {
   async loginCustomViaConfig(username: string, password?: string, verify = false) {
     const vl = this.vlf.initLog(this.loginCustomViaConfig);
 
-    if (!password) {
-      password = this._getDefaultPassword();
-    }
+    ({ username, password } = this._getUsernameAndPassword(vl, username, password));
 
     try {
       const baseUrl = browser.config.baseUrl;
@@ -365,10 +363,12 @@ export class Session {
     }
   }
 
+  // Checks if username and password is defined as env var and will overwrite the passed user in that case.
+  // Password is using fallback if default password is set as env var.
   private _getUsernameAndPassword(vl: InactiveLogger | ActiveLogger, username: string, password: string | undefined) {
-    if (process.env.USERNAME) {
+    if (process.env.QMATE_SESSION_USERNAME) {
       vl.log("Using user from environment variable.");
-      username = process.env.USERNAME;
+      username = process.env.QMATE_SESSION_USERNAME;
     }
     if (!username) {
       this.ErrorHandler.logException(new Error("Please provide a valid username."));
@@ -376,21 +376,17 @@ export class Session {
 
     if (process.env.QMATE_SESSION_PASSWORD) {
       vl.log("Using password from environment variable.");
-      username = process.env.QMATE_SESSION_PASSWORD;
+      password = process.env.QMATE_SESSION_PASSWORD;
     }
     if (!password) {
-      password = this._getDefaultPassword();
+      if (process.env.QMATE_DEFAULT_PASSWORD) {
+        password = process.env.QMATE_DEFAULT_PASSWORD;
+      } else {
+        return this.ErrorHandler.logException(new Error("Password was not provided neither in method nor in env variable."));
+      }
     }
-    return { username, password };
-  }
 
-  private _getDefaultPassword(): string {
-    const vl = this.vlf.initLog(this._getDefaultPassword);
-    if (process.env.QMATE_DEFAULT_PASSWORD) {
-      return process.env.QMATE_DEFAULT_PASSWORD as string;
-    } else {
-      return this.ErrorHandler.logException(new Error("Password was not provided neither in method nor in env variable."));
-    }
+    return { username, password };
   }
 }
 export default new Session();
