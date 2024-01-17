@@ -567,6 +567,7 @@ Global namespace for util modules.
         * [.switchToIframe(selector)](#util.browser.switchToIframe)
         * [.switchToDefaultContent()](#util.browser.switchToDefaultContent)
         * [.back()](#util.browser.back)
+        * [.forward()](#util.browser.forward)
         * [.log(message)](#util.browser.log)
         * [.warn(message)](#util.browser.warn)
         * [.error(message)](#util.browser.error)
@@ -585,7 +586,7 @@ Global namespace for util modules.
         * [.getSecureData(filename, [source])](#util.data.getSecureData) ⇒ <code>Object</code>
         * [.readDataFromFile(filePath)](#util.data.readDataFromFile) ⇒ <code>Object</code>
         * [.writeDataToFile(filePath, data)](#util.data.writeDataToFile)
-        * [.decrypt(data)](#util.data.decrypt) ⇒ <code>Object</code>
+        * [.decrypt(data)](#util.data.decrypt) ⇒ <code>String</code>
     * [.file](#util.file)
         * [.upload(files, [selector])](#util.file.upload)
         * [.uploadWebGui(files, selector)](#util.file.uploadWebGui)
@@ -639,6 +640,7 @@ Global namespace for util modules.
     * [.switchToIframe(selector)](#util.browser.switchToIframe)
     * [.switchToDefaultContent()](#util.browser.switchToDefaultContent)
     * [.back()](#util.browser.back)
+    * [.forward()](#util.browser.forward)
     * [.log(message)](#util.browser.log)
     * [.warn(message)](#util.browser.warn)
     * [.error(message)](#util.browser.error)
@@ -903,6 +905,16 @@ Go one step back in browser history.
 ```js
 await util.browser.back();
 ```
+<a name="util.browser.forward"></a>
+
+#### browser.forward()
+Go one step ahead in browser history.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Example**  
+```js
+await util.browser.forward();
+```
 <a name="util.browser.log"></a>
 
 #### browser.log(message)
@@ -1095,7 +1107,7 @@ util.console.success("The document has been saved.");
     * [.getSecureData(filename, [source])](#util.data.getSecureData) ⇒ <code>Object</code>
     * [.readDataFromFile(filePath)](#util.data.readDataFromFile) ⇒ <code>Object</code>
     * [.writeDataToFile(filePath, data)](#util.data.writeDataToFile)
-    * [.decrypt(data)](#util.data.decrypt) ⇒ <code>Object</code>
+    * [.decrypt(data)](#util.data.decrypt) ⇒ <code>String</code>
 
 <a name="util.data.getData"></a>
 
@@ -1165,11 +1177,11 @@ const data = util.data.writeDataToFile("myTest");
 ```
 <a name="util.data.decrypt"></a>
 
-#### data.decrypt(data) ⇒ <code>Object</code>
+#### data.decrypt(data) ⇒ <code>String</code>
 Decrypts the passed input data.
 
 **Kind**: static method of [<code>data</code>](#util.data)  
-**Returns**: <code>Object</code> - The decrypted data.  
+**Returns**: <code>String</code> - The decrypted data.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2379,7 +2391,7 @@ Picks the passed date using the "DatePicker" with the given selector.
 **Example**  
 ```js
 const today = await common.date.calculate("today");
-await ui5.date.pick(selector, date);
+await ui5.date.pick(selector, today);
 ```
 <a name="ui5.date.pickRange"></a>
 
@@ -4235,11 +4247,11 @@ Global namespace for non UI5 modules.
 
 * [nonUi5](#nonUi5)
     * [.assertion](#nonUi5.assertion)
-        * [.expectAttributeToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
-        * [.expectAttributeToContain(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToContain)
-        * [.expectValueToBe(elem, compareValue)](#nonUi5.assertion.expectValueToBe)
-        * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible)
-        * [.expectToBeNotVisible(element, [timeout])](#nonUi5.assertion.expectToBeNotVisible)
+        * [.expectAttributeToBe(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
+        * [.expectAttributeToContain(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToContain)
+        * [.expectValueToBe(elementOrSelector, compareValue)](#nonUi5.assertion.expectValueToBe)
+        * [.expectToBeVisible(elementOrSelector)](#nonUi5.assertion.expectToBeVisible)
+        * [.expectToBeNotVisible(elementOrSelector, [timeout])](#nonUi5.assertion.expectToBeNotVisible)
     * [.element](#nonUi5.element)
         * [.waitForAll(selector, [timeout])](#nonUi5.element.waitForAll)
         * [.waitToBePresent(selector, [timeout])](#nonUi5.element.waitToBePresent)
@@ -4269,23 +4281,23 @@ Global namespace for non UI5 modules.
     * [.session](#nonUi5.session)
         * [.loginSapNetWeaver(username, password, [clickContinue], [iframeCssSelector])](#nonUi5.session.loginSapNetWeaver)
     * [.userInteraction](#nonUi5.userInteraction)
-        * [.click(element, [timeout])](#nonUi5.userInteraction.click)
-        * [.clickAndRetry(element, [timeout], [retries], [interval])](#nonUi5.userInteraction.clickAndRetry)
-        * [.doubleClick(element, [timeout])](#nonUi5.userInteraction.doubleClick)
-        * [.rightClick(element, [timeout])](#nonUi5.userInteraction.rightClick)
-        * [.check(element)](#nonUi5.userInteraction.check)
-        * [.uncheck(element)](#nonUi5.userInteraction.uncheck)
-        * [.fill(element, value)](#nonUi5.userInteraction.fill)
-        * [.fillAndRetry(element, value, [retries], [interval])](#nonUi5.userInteraction.fillAndRetry)
-        * [.clear(element)](#nonUi5.userInteraction.clear)
-        * [.clearAndRetry(element, [retries], [interval])](#nonUi5.userInteraction.clearAndRetry)
-        * [.clearAndFill(element, value)](#nonUi5.userInteraction.clearAndFill)
-        * [.clearAndFillAndRetry(element, value, [retries], [interval], [verify])](#nonUi5.userInteraction.clearAndFillAndRetry)
-        * [.mouseOverElement(element, [xOffset], [yOffset])](#nonUi5.userInteraction.mouseOverElement)
+        * [.click(elementOrSelector, [timeout])](#nonUi5.userInteraction.click)
+        * [.clickAndRetry(elementOrSelector, [timeout], [retries], [interval])](#nonUi5.userInteraction.clickAndRetry)
+        * [.doubleClick(elementOrSelector, [timeout])](#nonUi5.userInteraction.doubleClick)
+        * [.rightClick(elementOrSelector, [timeout])](#nonUi5.userInteraction.rightClick)
+        * [.check(elementOrSelector)](#nonUi5.userInteraction.check)
+        * [.uncheck(elementOrSelector)](#nonUi5.userInteraction.uncheck)
+        * [.fill(elementOrSelector, value)](#nonUi5.userInteraction.fill)
+        * [.fillAndRetry(elementOrSelector, value, [retries], [interval])](#nonUi5.userInteraction.fillAndRetry)
+        * [.clear(elementOrSelector)](#nonUi5.userInteraction.clear)
+        * [.clearAndRetry(elementOrSelector, [retries], [interval])](#nonUi5.userInteraction.clearAndRetry)
+        * [.clearAndFill(elementOrSelector, value)](#nonUi5.userInteraction.clearAndFill)
+        * [.clearAndFillAndRetry(elementOrSelector, value, [retries], [interval], [verify])](#nonUi5.userInteraction.clearAndFillAndRetry)
+        * [.mouseOverElement(elementOrSelector, [xOffset], [yOffset])](#nonUi5.userInteraction.mouseOverElement)
         * [.scrollToElement(elem, [alignment])](#nonUi5.userInteraction.scrollToElement)
-        * [.dragAndDrop(element, targetElem)](#nonUi5.userInteraction.dragAndDrop)
-        * [.moveCursorAndClick(element)](#nonUi5.userInteraction.moveCursorAndClick)
-        * [.clickElementInSvg(svgElem, innerSelector)](#nonUi5.userInteraction.clickElementInSvg)
+        * [.dragAndDrop(elementOrSelector, targetElem)](#nonUi5.userInteraction.dragAndDrop)
+        * [.moveCursorAndClick(elementOrSelector)](#nonUi5.userInteraction.moveCursorAndClick)
+        * [.clickElementInSvg(elementOrSelector, innerSelector)](#nonUi5.userInteraction.clickElementInSvg)
 
 <a name="nonUi5.assertion"></a>
 
@@ -4293,102 +4305,102 @@ Global namespace for non UI5 modules.
 **Kind**: static class of [<code>nonUi5</code>](#nonUi5)  
 
 * [.assertion](#nonUi5.assertion)
-    * [.expectAttributeToBe(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
-    * [.expectAttributeToContain(elem, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToContain)
-    * [.expectValueToBe(elem, compareValue)](#nonUi5.assertion.expectValueToBe)
-    * [.expectToBeVisible(element)](#nonUi5.assertion.expectToBeVisible)
-    * [.expectToBeNotVisible(element, [timeout])](#nonUi5.assertion.expectToBeNotVisible)
+    * [.expectAttributeToBe(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
+    * [.expectAttributeToContain(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToContain)
+    * [.expectValueToBe(elementOrSelector, compareValue)](#nonUi5.assertion.expectValueToBe)
+    * [.expectToBeVisible(elementOrSelector)](#nonUi5.assertion.expectToBeVisible)
+    * [.expectToBeNotVisible(elementOrSelector, [timeout])](#nonUi5.assertion.expectToBeNotVisible)
 
 <a name="nonUi5.assertion.expectAttributeToBe"></a>
 
-#### assertion.expectAttributeToBe(elem, compareValue, [attribute])
+#### assertion.expectAttributeToBe(elementOrSelector, compareValue, [attribute])
 Expects the attributes value of the passed element to be the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| elem | <code>Object</code> | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
 | compareValue | <code>String</code> | The compare value. |
 | [attribute] | <code>String</code> | The attribute to compare. If not passed, it will compare the inner HTML content of the element. |
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");
-await nonUi5.assertion.expectAttributeToBe(elem, "Save");
+const element = await nonUi5.element.getById("button01");
+await nonUi5.assertion.expectAttributeToBe(element, "Save");
 ```
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");
+const element = await nonUi5.element.getById("button01");
 await nonUi5.assertion.expectAttributeToBe(element, "Save", "title");
 ```
 <a name="nonUi5.assertion.expectAttributeToContain"></a>
 
-#### assertion.expectAttributeToContain(elem, compareValue, [attribute])
+#### assertion.expectAttributeToContain(elementOrSelector, compareValue, [attribute])
 Expects the attributes value of the passed element to contain the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| elem | <code>Object</code> | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
 | compareValue | <code>String</code> | The compare value. |
 | [attribute] | <code>String</code> | The attribute to compare. If not passed, it will compare the inner HTML content of the element. |
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");
+const element = await nonUi5.element.getById("button01");
 await nonUi5.assertion.expectAttributeToContain(element, "Save", "title");
 ```
 <a name="nonUi5.assertion.expectValueToBe"></a>
 
-#### assertion.expectValueToBe(elem, compareValue)
+#### assertion.expectValueToBe(elementOrSelector, compareValue)
 Expects the attributes value of the passed element to be the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| elem | <code>Object</code> | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
 | compareValue | <code>String</code> | The compare value. |
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");
-await nonUi5.assertion.expectValueToBe(elem, "Save");
+const element = await nonUi5.element.getById("button01");
+await nonUi5.assertion.expectValueToBe(element, "Save");
 ```
 <a name="nonUi5.assertion.expectToBeVisible"></a>
 
-#### assertion.expectToBeVisible(element)
+#### assertion.expectToBeVisible(elementOrSelector)
 Expects that the element is visible to the user.
 
 **Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| element | <code>Object</code> | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");
+const element = await nonUi5.element.getById("button01");
 await nonUi5.assertion.expectToBeVisible(elem);
 ```
 <a name="nonUi5.assertion.expectToBeNotVisible"></a>
 
-#### assertion.expectToBeNotVisible(element, [timeout])
+#### assertion.expectToBeNotVisible(elementOrSelector, [timeout])
 Expects that the element is not visible to the user.
 
 **Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| element | <code>Object</code> |  | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element or CSS selector describing the element. |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). Recommendation is to lower the timeout since the element is not expected to show up. |
 
 **Example**  
 ```js
-const elem = await nonUi5.element.getById("button01");
-await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
+const element = await nonUi5.element.getById("button01");
+await nonUi5.assertion.expectToBeNotVisible(element, 5000);
 ```
 <a name="nonUi5.element"></a>
 
@@ -4914,34 +4926,34 @@ await nonUi5.session.loginSapNetWeaver("john", "abc123!");
 **Kind**: static class of [<code>nonUi5</code>](#nonUi5)  
 
 * [.userInteraction](#nonUi5.userInteraction)
-    * [.click(element, [timeout])](#nonUi5.userInteraction.click)
-    * [.clickAndRetry(element, [timeout], [retries], [interval])](#nonUi5.userInteraction.clickAndRetry)
-    * [.doubleClick(element, [timeout])](#nonUi5.userInteraction.doubleClick)
-    * [.rightClick(element, [timeout])](#nonUi5.userInteraction.rightClick)
-    * [.check(element)](#nonUi5.userInteraction.check)
-    * [.uncheck(element)](#nonUi5.userInteraction.uncheck)
-    * [.fill(element, value)](#nonUi5.userInteraction.fill)
-    * [.fillAndRetry(element, value, [retries], [interval])](#nonUi5.userInteraction.fillAndRetry)
-    * [.clear(element)](#nonUi5.userInteraction.clear)
-    * [.clearAndRetry(element, [retries], [interval])](#nonUi5.userInteraction.clearAndRetry)
-    * [.clearAndFill(element, value)](#nonUi5.userInteraction.clearAndFill)
-    * [.clearAndFillAndRetry(element, value, [retries], [interval], [verify])](#nonUi5.userInteraction.clearAndFillAndRetry)
-    * [.mouseOverElement(element, [xOffset], [yOffset])](#nonUi5.userInteraction.mouseOverElement)
+    * [.click(elementOrSelector, [timeout])](#nonUi5.userInteraction.click)
+    * [.clickAndRetry(elementOrSelector, [timeout], [retries], [interval])](#nonUi5.userInteraction.clickAndRetry)
+    * [.doubleClick(elementOrSelector, [timeout])](#nonUi5.userInteraction.doubleClick)
+    * [.rightClick(elementOrSelector, [timeout])](#nonUi5.userInteraction.rightClick)
+    * [.check(elementOrSelector)](#nonUi5.userInteraction.check)
+    * [.uncheck(elementOrSelector)](#nonUi5.userInteraction.uncheck)
+    * [.fill(elementOrSelector, value)](#nonUi5.userInteraction.fill)
+    * [.fillAndRetry(elementOrSelector, value, [retries], [interval])](#nonUi5.userInteraction.fillAndRetry)
+    * [.clear(elementOrSelector)](#nonUi5.userInteraction.clear)
+    * [.clearAndRetry(elementOrSelector, [retries], [interval])](#nonUi5.userInteraction.clearAndRetry)
+    * [.clearAndFill(elementOrSelector, value)](#nonUi5.userInteraction.clearAndFill)
+    * [.clearAndFillAndRetry(elementOrSelector, value, [retries], [interval], [verify])](#nonUi5.userInteraction.clearAndFillAndRetry)
+    * [.mouseOverElement(elementOrSelector, [xOffset], [yOffset])](#nonUi5.userInteraction.mouseOverElement)
     * [.scrollToElement(elem, [alignment])](#nonUi5.userInteraction.scrollToElement)
-    * [.dragAndDrop(element, targetElem)](#nonUi5.userInteraction.dragAndDrop)
-    * [.moveCursorAndClick(element)](#nonUi5.userInteraction.moveCursorAndClick)
-    * [.clickElementInSvg(svgElem, innerSelector)](#nonUi5.userInteraction.clickElementInSvg)
+    * [.dragAndDrop(elementOrSelector, targetElem)](#nonUi5.userInteraction.dragAndDrop)
+    * [.moveCursorAndClick(elementOrSelector)](#nonUi5.userInteraction.moveCursorAndClick)
+    * [.clickElementInSvg(elementOrSelector, innerSelector)](#nonUi5.userInteraction.clickElementInSvg)
 
 <a name="nonUi5.userInteraction.click"></a>
 
-#### userInteraction.click(element, [timeout])
+#### userInteraction.click(elementOrSelector, [timeout])
 Clicks on the passed element.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| element | <code>Object</code> |  | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element or CSS selector describing the element. |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
@@ -4951,14 +4963,14 @@ await nonUi5.userInteraction.click(elem);
 ```
 <a name="nonUi5.userInteraction.clickAndRetry"></a>
 
-#### userInteraction.clickAndRetry(element, [timeout], [retries], [interval])
+#### userInteraction.clickAndRetry(elementOrSelector, [timeout], [retries], [interval])
 Clicks on the passed element, retries in case it fails.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| element | <code>Object</code> |  | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element or CSS selector describing the element. |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
 | [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
@@ -4970,14 +4982,14 @@ await nonUi5.userInteraction.clickAndRetry(elem);
 ```
 <a name="nonUi5.userInteraction.doubleClick"></a>
 
-#### userInteraction.doubleClick(element, [timeout])
+#### userInteraction.doubleClick(elementOrSelector, [timeout])
 Double Clicks on the passed element.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| element | <code>Object</code> |  | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element or CSS selector describing the element. |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
@@ -4987,14 +4999,14 @@ await nonUi5.userInteraction.doubleClick(elem);
 ```
 <a name="nonUi5.userInteraction.rightClick"></a>
 
-#### userInteraction.rightClick(element, [timeout])
+#### userInteraction.rightClick(elementOrSelector, [timeout])
 Right Clicks on the passed element.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| element | <code>Object</code> |  | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element or CSS selector describing the element. |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
@@ -5004,14 +5016,14 @@ await nonUi5.userInteraction.rightClick(elem);
 ```
 <a name="nonUi5.userInteraction.check"></a>
 
-#### userInteraction.check(element)
+#### userInteraction.check(elementOrSelector)
 Checks the given checkbox.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| element | <code>Object</code> | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
 
 **Example**  
 ```js
@@ -5019,14 +5031,14 @@ await nonUi5.userInteraction.check(selector);
 ```
 <a name="nonUi5.userInteraction.uncheck"></a>
 
-#### userInteraction.uncheck(element)
+#### userInteraction.uncheck(elementOrSelector)
 Unchecks the given checkbox.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| element | <code>Object</code> | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
 
 **Example**  
 ```js
@@ -5034,14 +5046,14 @@ await nonUi5.userInteraction.uncheck(selector);
 ```
 <a name="nonUi5.userInteraction.fill"></a>
 
-#### userInteraction.fill(element, value)
+#### userInteraction.fill(elementOrSelector, value)
 Fills the given value into the passed input.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| element | <code>Object</code> | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
 | value | <code>String</code> \| <code>Number</code> | The value to enter. |
 
 **Example**  
@@ -5051,14 +5063,14 @@ await nonUi5.userInteraction.fill(elem, "Service 01");
 ```
 <a name="nonUi5.userInteraction.fillAndRetry"></a>
 
-#### userInteraction.fillAndRetry(element, value, [retries], [interval])
+#### userInteraction.fillAndRetry(elementOrSelector, value, [retries], [interval])
 Fills the given value into the passed input, retries in case of a failure.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| element | <code>Object</code> |  | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element or CSS selector describing the element. |
 | value | <code>String</code> \| <code>Number</code> |  | The value to enter. |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
 | [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
@@ -5070,14 +5082,14 @@ await nonUi5.userInteraction.fillAndRetry(elem, "Service 01");
 ```
 <a name="nonUi5.userInteraction.clear"></a>
 
-#### userInteraction.clear(element)
+#### userInteraction.clear(elementOrSelector)
 Clears the passed input element.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| element | <code>Object</code> | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
 
 **Example**  
 ```js
@@ -5086,14 +5098,14 @@ await nonUi5.userInteraction.clear(elem);
 ```
 <a name="nonUi5.userInteraction.clearAndRetry"></a>
 
-#### userInteraction.clearAndRetry(element, [retries], [interval])
+#### userInteraction.clearAndRetry(elementOrSelector, [retries], [interval])
 Clears the passed input element, retries in case of a failure.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| element | <code>Object</code> |  | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element or CSS selector describing the element. |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
 | [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
 
@@ -5104,14 +5116,14 @@ await nonUi5.userInteraction.clearAndRetry(elem);
 ```
 <a name="nonUi5.userInteraction.clearAndFill"></a>
 
-#### userInteraction.clearAndFill(element, value)
+#### userInteraction.clearAndFill(elementOrSelector, value)
 Clears and fills the passed input element.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| element | <code>Object</code> | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
 | value | <code>String</code> \| <code>Number</code> | The value to enter in. |
 
 **Example**  
@@ -5121,14 +5133,14 @@ await nonUi5.userInteraction.clearAndFill(elem, "Service 01");
 ```
 <a name="nonUi5.userInteraction.clearAndFillAndRetry"></a>
 
-#### userInteraction.clearAndFillAndRetry(element, value, [retries], [interval], [verify])
+#### userInteraction.clearAndFillAndRetry(elementOrSelector, value, [retries], [interval], [verify])
 Clears and fills the passed input, retries in case it fails.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| element | <code>Object</code> |  | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element or CSS selector describing the element. |
 | value | <code>String</code> \| <code>Number</code> |  | The value to enter in. |
 | [retries] | <code>Number</code> | <code>3</code> | The number of retries, can be set in config for all functions under params stepsRetries. |
 | [interval] | <code>Number</code> | <code>5000</code> | The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals. |
@@ -5141,14 +5153,14 @@ await nonUi5.userInteraction.clearAndFillAndRetry(elem, "Service 01");
 ```
 <a name="nonUi5.userInteraction.mouseOverElement"></a>
 
-#### userInteraction.mouseOverElement(element, [xOffset], [yOffset])
+#### userInteraction.mouseOverElement(elementOrSelector, [xOffset], [yOffset])
 Moves the cursor/focus to the passed element.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| element | <code>Object</code> | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
 | [xOffset] | <code>Number</code> | X offset to move to, relative to the top-left corner of the element. If not specified, the mouse will move to the middle of the element. |
 | [yOffset] | <code>Number</code> | Y offset to move to, relative to the top-left corner of the element. If not specified, the mouse will move to the middle of the element. |
 
@@ -5187,14 +5199,14 @@ await nonUi5.userInteraction.scrollToElement(elem, alignment);
 ```
 <a name="nonUi5.userInteraction.dragAndDrop"></a>
 
-#### userInteraction.dragAndDrop(element, targetElem)
+#### userInteraction.dragAndDrop(elementOrSelector, targetElem)
 Drags and drops the given element to the given target element.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| element | <code>Object</code> | The element to drag. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
 | targetElem | <code>Object</code> | The target element to drop the element. |
 
 **Example**  
@@ -5208,14 +5220,14 @@ await nonUi5.userInteraction.dragAndDrop(elem, targetElem);
 ```
 <a name="nonUi5.userInteraction.moveCursorAndClick"></a>
 
-#### userInteraction.moveCursorAndClick(element)
+#### userInteraction.moveCursorAndClick(elementOrSelector)
 Moves the cursor to the target element and clicks on it. Can be used for charts.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| element | <code>Object</code> | The element to be clicked. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
 
 **Example**  
 ```js
@@ -5224,14 +5236,14 @@ await nonUi5.userInteraction.moveCursorAndClick(elem);
 ```
 <a name="nonUi5.userInteraction.clickElementInSvg"></a>
 
-#### userInteraction.clickElementInSvg(svgElem, innerSelector)
+#### userInteraction.clickElementInSvg(elementOrSelector, innerSelector)
 Clicks on an inner element within a SVG element.
 
 **Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| svgElem | <code>Object</code> | The SVG element. |
+| elementOrSelector | <code>Object</code> \| <code>string</code> | The SVG element or CSS selector describing the element. |
 | innerSelector | <code>String</code> | The CSS selector describing the inner element to be clicked. |
 
 **Example**  
@@ -5249,14 +5261,14 @@ Global namespace for service modules.
 
 * [service](#service)
     * [.odata](#service.odata)
-        * [.init(url, username, password, [loggingEnabled], [params], [authType])](#service.odata.init) ⇒ <code>Object</code>
-        * [.get(srv, entitySet, keys, raw)](#service.odata.get)
-        * [.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])](#service.odata.getEntitySet) ⇒ <code>Array</code>
-        * [.isFeatureToggleActivated(srv, featureName)](#service.odata.isFeatureToggleActivated)
-        * [.post(srv, entitySet, payload, raw)](#service.odata.post)
-        * [.merge(srv, entitySet, payload)](#service.odata.merge)
-        * [.delete(srv, entitySet, options)](#service.odata.delete)
-        * [.callFunctionImport(srv, functionImportName, options)](#service.odata.callFunctionImport)
+        * [.init(url, username, password, [loggingEnabled], [params], [authType], [headers])](#service.odata.init) ⇒ <code>Object</code>
+        * [.get(srv, entitySet, keys, [raw], [headers])](#service.odata.get) ⇒ <code>Promise</code>
+        * [.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])](#service.odata.getEntitySet) ⇒ <code>Promise</code>
+        * [.post(srv, entitySet, payload, [raw], [headers])](#service.odata.post) ⇒ <code>Promise</code>
+        * [.merge(srv, entitySet, payload, [headers])](#service.odata.merge) ⇒ <code>Promise</code>
+        * [.delete(srv, entitySet, options, [headers])](#service.odata.delete) ⇒ <code>Promise</code>
+        * [.callFunctionImport(srv, functionImportName, options)](#service.odata.callFunctionImport) ⇒ <code>Promise</code>
+        * [.isFeatureToggleActivated(srv, featureName)](#service.odata.isFeatureToggleActivated) ⇒ <code>Promise</code>
         * [.getOutputManagementPdfStream(outputConf, url, username, password)](#service.odata.getOutputManagementPdfStream)
         * [.readPdfFromDirectUrl(url, [username], [password], [isSaml])](#service.odata.readPdfFromDirectUrl)
     * [.rest](#service.rest)
@@ -5273,21 +5285,21 @@ Global namespace for service modules.
 **Kind**: static class of [<code>service</code>](#service)  
 
 * [.odata](#service.odata)
-    * [.init(url, username, password, [loggingEnabled], [params], [authType])](#service.odata.init) ⇒ <code>Object</code>
-    * [.get(srv, entitySet, keys, raw)](#service.odata.get)
-    * [.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])](#service.odata.getEntitySet) ⇒ <code>Array</code>
-    * [.isFeatureToggleActivated(srv, featureName)](#service.odata.isFeatureToggleActivated)
-    * [.post(srv, entitySet, payload, raw)](#service.odata.post)
-    * [.merge(srv, entitySet, payload)](#service.odata.merge)
-    * [.delete(srv, entitySet, options)](#service.odata.delete)
-    * [.callFunctionImport(srv, functionImportName, options)](#service.odata.callFunctionImport)
+    * [.init(url, username, password, [loggingEnabled], [params], [authType], [headers])](#service.odata.init) ⇒ <code>Object</code>
+    * [.get(srv, entitySet, keys, [raw], [headers])](#service.odata.get) ⇒ <code>Promise</code>
+    * [.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])](#service.odata.getEntitySet) ⇒ <code>Promise</code>
+    * [.post(srv, entitySet, payload, [raw], [headers])](#service.odata.post) ⇒ <code>Promise</code>
+    * [.merge(srv, entitySet, payload, [headers])](#service.odata.merge) ⇒ <code>Promise</code>
+    * [.delete(srv, entitySet, options, [headers])](#service.odata.delete) ⇒ <code>Promise</code>
+    * [.callFunctionImport(srv, functionImportName, options)](#service.odata.callFunctionImport) ⇒ <code>Promise</code>
+    * [.isFeatureToggleActivated(srv, featureName)](#service.odata.isFeatureToggleActivated) ⇒ <code>Promise</code>
     * [.getOutputManagementPdfStream(outputConf, url, username, password)](#service.odata.getOutputManagementPdfStream)
     * [.readPdfFromDirectUrl(url, [username], [password], [isSaml])](#service.odata.readPdfFromDirectUrl)
 
 <a name="service.odata.init"></a>
 
-#### odata.init(url, username, password, [loggingEnabled], [params], [authType]) ⇒ <code>Object</code>
-Initializes The service to work with.
+#### odata.init(url, username, password, [loggingEnabled], [params], [authType], [headers]) ⇒ <code>Object</code>
+Initializes the OData Service.
 XCSRF-Token will be automatically fetched and stored in the service instance.
 Cookies will also automatically assembled and stored in the service instance.
 
@@ -5296,12 +5308,13 @@ Cookies will also automatically assembled and stored in the service instance.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| url | <code>String</code> |  | The base url of the service |
-| username | <code>String</code> |  | The username. |
+| url | <code>String</code> |  | The base url of the service. |
+| username | <code>String</code> |  | The username to authenticate the service. |
 | password | <code>String</code> |  | The password of the username. |
-| [loggingEnabled] | <code>boolean</code> | <code>false</code> | The boolean param to control whether user wants to see logs during build run |
-| [params] | <code>Object</code> | <code>{}</code> | JSON object with key-value pairs of parameter names and corresponding values by default we send {  "client": "715",  "documentation": ["heading", "quickinfo"],  "language": "EN" } These can be overridden by sending params as JSON object with additional params as shown in example |
+| [loggingEnabled] | <code>Boolean</code> | <code>false</code> | The boolean param to control whether user wants to see logs during build run. |
+| [params] | <code>Object</code> | <code>{}</code> | JSON object with key-value pairs of parameter names and corresponding values. By default we send {  "client": "715",  "documentation": ["heading", "quickinfo"],  "language": "EN" } These can be overridden by sending params as JSON object with additional params as shown in example. |
 | [authType] | <code>String</code> |  | authentication type, in case you want to override the default SAML authentication. Set this to "basic", to use basic authentication for communication users for whom SAML login doesn't work. Or "none" for no authentication. |
+| [headers] | <code>Object</code> |  | JSON object with key-value pairs of optional headers. |
 
 **Example**  
 ```js
@@ -5310,26 +5323,38 @@ const params = {
  "saml2": "disabled",
  "language": "de"
 }
-srv = await service.odata.init(url, user, password, false, params);
+const srv = await service.odata.init(url, user, password, false, params);
+```
+**Example**  
+```js
+const base64Credentials = Buffer.from(`${user}:${password}`).toString("base64");
+const authHeaders = {
+  "Authorization": `Basic ${base64Credentials}`,
+  "DwC-Tenant": tenant
+};
+
+const srv = await service.odata.init(url, user, password, true, params, "headers", authHeaders);
 ```
 <a name="service.odata.get"></a>
 
-#### odata.get(srv, entitySet, keys, raw)
-makes a GET request.
+#### odata.get(srv, entitySet, keys, [raw], [headers]) ⇒ <code>Promise</code>
+Sends a GET request to retrieve data from the specified OData entity set.
 
 **Kind**: static method of [<code>odata</code>](#service.odata)  
+**Returns**: <code>Promise</code> - A Promise that resolves to the response data.  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| srv | <code>Object</code> | Instance of the service |
-| entitySet | <code>String</code> | The entitySet you want to GET from. |
-| keys | <code>Object</code> | The required keys for the GET-request. |
-| raw | <code>Boolean</code> | Response includes all header contents. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| srv | <code>Object</code> |  | An instance of the service. |
+| entitySet | <code>String</code> |  | The entity set from which data is to be retrieved. |
+| keys | <code>Object</code> |  | The required keys for the GET request. |
+| [raw] | <code>Boolean</code> | <code>false</code> | Specifies whether the response should include all header contents. |
+| [headers] | <code>Object</code> |  | Optional headers to be included in the request. |
 
 **Example**  
 ```js
 const url = "<baseUrl>/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
-srv = await service.odata.init(url, user, password);
+const srv = await service.odata.init(url, user, password);
 const keys = {
   PurchaseOrder: "4100000000"
 };
@@ -5337,11 +5362,11 @@ const res = await service.odata.get(srv, "A_PurchaseOrder", keys);
 ```
 <a name="service.odata.getEntitySet"></a>
 
-#### odata.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams]) ⇒ <code>Array</code>
+#### odata.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams]) ⇒ <code>Promise</code>
 GET's the EntitySet collection.
 
 **Kind**: static method of [<code>odata</code>](#service.odata)  
-**Returns**: <code>Array</code> - - Result set array  
+**Returns**: <code>Promise</code> - A Promise that resolves to the response data.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -5368,12 +5393,108 @@ let queryParams = {
 };
 let res = await service.odata.getEntitySet(srv, "A_PurchaseOrder", filterString, select, queryParams);
 ```
-<a name="service.odata.isFeatureToggleActivated"></a>
+<a name="service.odata.post"></a>
 
-#### odata.isFeatureToggleActivated(srv, featureName)
-checks if a feature toggle is switched on or off
+#### odata.post(srv, entitySet, payload, [raw], [headers]) ⇒ <code>Promise</code>
+Sends a POST request to retrieve data from the specified OData entity set for the given payload.
 
 **Kind**: static method of [<code>odata</code>](#service.odata)  
+**Returns**: <code>Promise</code> - A Promise that resolves to the response data.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| srv | <code>Object</code> |  | Instance of the service |
+| entitySet | <code>String</code> |  | The entitySet you want to POST against. |
+| payload | <code>Object</code> |  | The payload of the POST request. |
+| [raw] | <code>Boolean</code> | <code>false</code> | Specifies whether the response should include all header contents. |
+| [headers] | <code>Object</code> |  | Optional headers to be included in the request. |
+
+**Example**  
+```js
+const payload = {
+ "PurchaseOrder": "4500007108",
+ "DraftUUID": "00000000-0000-0000-0000-000000000000",
+ "IsActiveEntity": "true"
+};
+const res = await service.odata.post(srv, "A_PurchaseOrder", payload);
+```
+<a name="service.odata.merge"></a>
+
+#### odata.merge(srv, entitySet, payload, [headers]) ⇒ <code>Promise</code>
+@description Sends a MERGE request to merge data from the specified OData entity set for the given payload.
+
+**Kind**: static method of [<code>odata</code>](#service.odata)  
+**Returns**: <code>Promise</code> - A Promise that resolves to the response data.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| srv | <code>Object</code> | Instance of the service |
+| entitySet | <code>String</code> | The entitySet you want to MERGE in. |
+| payload | <code>Object</code> | The payload of the MERGE request. |
+| [headers] | <code>Object</code> | Optional headers to be included in the request. |
+
+**Example**  
+```js
+const res = await service.odata.merge(srv, "A_PurchaseOrderScheduleLine", {
+ "PurchasingDocument": "4500007108",
+ "PurchasingDocumentItem": "10",
+ "ScheduleLine": "1",
+ "ScheduleLineDeliveryDate": new Date()
+};
+```
+<a name="service.odata.delete"></a>
+
+#### odata.delete(srv, entitySet, options, [headers]) ⇒ <code>Promise</code>
+Sends a DELETE request to the specified OData entity set.
+
+**Kind**: static method of [<code>odata</code>](#service.odata)  
+**Returns**: <code>Promise</code> - A Promise that resolves to the response data.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| srv | <code>Object</code> | Instance of the service. |
+| entitySet | <code>String</code> | The entitySet you want to DELETE. |
+| options | <code>Object</code> | The options for the DELETE request. |
+| [headers] | <code>Object</code> | Optional headers to be included in the request. |
+
+**Example**  
+```js
+const options = {
+ "PurchaseOrder": "",
+ "DraftUUID": draftUUID,
+ "IsActiveEntity": false
+};
+const res = await service.odata.delete(srv, "C_PurchaseOrderTP", options);
+```
+<a name="service.odata.callFunctionImport"></a>
+
+#### odata.callFunctionImport(srv, functionImportName, options) ⇒ <code>Promise</code>
+Sends a function import request to the OData service instance.
+
+**Kind**: static method of [<code>odata</code>](#service.odata)  
+**Returns**: <code>Promise</code> - A Promise that resolves to the response data.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| srv | <code>Object</code> | Instance of the service. |
+| functionImportName | <code>String</code> | Name of Function Import. |
+| options | <code>Object</code> | Parameters for function import. |
+
+**Example**  
+```js
+const options = {
+ CentralRequestForQuotation : "7500000026",
+ Supplier : "100006"
+};
+const res = await service.odata.callFunctionImport(srv, "Cancel", options);
+```
+<a name="service.odata.isFeatureToggleActivated"></a>
+
+#### odata.isFeatureToggleActivated(srv, featureName) ⇒ <code>Promise</code>
+Checks if a feature toggle is switched on or off.
+
+**Kind**: static method of [<code>odata</code>](#service.odata)  
+**Returns**: <code>Promise</code> - A Promise that resolves to a bool value.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -5385,94 +5506,6 @@ checks if a feature toggle is switched on or off
 const url = browser.params.systemUrl + "/sap/opu/odata/SAP/CA_FM_FEATURE_TOGGLE_STATUS_SRV/";
 const srv = await service.odata.init(url, user, password);
 let isFeatureActive = await service.odata.isFeatureToggleActivated(srv, "MM_PUR_PO_BATCHES_IN_MANAGE_PO");
-```
-<a name="service.odata.post"></a>
-
-#### odata.post(srv, entitySet, payload, raw)
-makes a POST request.
-
-**Kind**: static method of [<code>odata</code>](#service.odata)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| srv | <code>Object</code> | Instance of the service |
-| entitySet | <code>String</code> | The entitySet you want to POST against. |
-| payload | <code>Object</code> | The payload for the POST-request. |
-| raw | <code>Boolean</code> | Response includes all header contents. |
-
-**Example**  
-```js
-let payload = {
- "PurchaseOrder": "4500007108",
- "DraftUUID": "00000000-0000-0000-0000-000000000000",
- "IsActiveEntity": "true"
-};
-let res = await service.odata.post(srv, "A_PurchaseOrder", payload);
-```
-<a name="service.odata.merge"></a>
-
-#### odata.merge(srv, entitySet, payload)
-makes a MERGE request.
-
-**Kind**: static method of [<code>odata</code>](#service.odata)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| srv | <code>Object</code> | Instance of the service |
-| entitySet | <code>String</code> | The entitySet you want to MERGE in. |
-| payload | <code>Object</code> | The payload for the MERGE-request. |
-
-**Example**  
-```js
-let res = await service.odata.merge(srv, "A_PurchaseOrderScheduleLine", {
- "PurchasingDocument": "4500007108",
- "PurchasingDocumentItem": "10",
- "ScheduleLine": "1",
- "ScheduleLineDeliveryDate": new Date()
-};
-```
-<a name="service.odata.delete"></a>
-
-#### odata.delete(srv, entitySet, options)
-makes a DELETE request.
-
-**Kind**: static method of [<code>odata</code>](#service.odata)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| srv | <code>Object</code> | Instance of the service |
-| entitySet | <code>String</code> | The entitySet you want to DELETE. |
-| options | <code>Object</code> | The options for the DELETE-request. |
-
-**Example**  
-```js
-let options = {
- "PurchaseOrder": "",
- "DraftUUID": draftUUID,
- "IsActiveEntity": false
-};
-await service.odata.delete(srv, "C_PurchaseOrderTP", options);
-```
-<a name="service.odata.callFunctionImport"></a>
-
-#### odata.callFunctionImport(srv, functionImportName, options)
-makes a function import request on an OData service.
-
-**Kind**: static method of [<code>odata</code>](#service.odata)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| srv | <code>Object</code> | Instance of the service |
-| functionImportName | <code>String</code> | Name of Function Import |
-| options | <code>Object</code> | parameters for function import |
-
-**Example**  
-```js
-const options = {
- CentralRequestForQuotation : "7500000026",
- Supplier : "100006"
-};
-const res = await service.odata.callFunctionImport(srv, "Cancel", options);
 ```
 <a name="service.odata.getOutputManagementPdfStream"></a>
 
