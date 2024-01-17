@@ -193,8 +193,8 @@ export class Session {
       if (browser.config.params && browser.config.params.auth && browser.config.params.auth.username && browser.config.params.auth.password) {
         username = browser.config.params.auth.username;
         password = browser.config.params.auth.password;
-        // @ts-ignore
-        util.console.info("\x1b[33m%s\x1b[0m", "Login credentials will be taken from config.");
+      
+        util.console.info("Login credentials will be taken from config.");
       } else if (!username && !password) {
         this.ErrorHandler.logException(new Error("Username or password is missing. Check your parameters or config file."));
       }
@@ -224,6 +224,7 @@ export class Session {
    */
   async logout(verify = true) {
     const vl = this.vlf.initLog(this.logout);
+
     if (browser.config && browser.config.params && browser.config.params.auth && browser.config.params.auth.formType === "skip") {
       util.console.warn("Logout is skipped since 'formType' is set to 'skip'");
       return await browser.reloadSession(); // Clean cache
@@ -295,7 +296,6 @@ export class Session {
           return (
             (await usernameField.isDisplayedInViewport()) &&
             (await passwordField.isDisplayedInViewport()) &&
-            // eslint-disable-next-line no-return-await
             (await logonField.isDisplayedInViewport())
           );
         },
@@ -380,6 +380,7 @@ export class Session {
     }
     if (!password) {
       if (process.env.QMATE_DEFAULT_PASSWORD) {
+        vl.log("Using default password from environment variable.");
         password = process.env.QMATE_DEFAULT_PASSWORD;
       } else {
         return this.ErrorHandler.logException(new Error("Password was not provided neither in method nor in env variable."));
