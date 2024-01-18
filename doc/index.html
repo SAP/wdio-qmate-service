@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://sap.github.io/wdio-qmate-service/doc/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-8.3.9">
     
     
       
@@ -711,6 +711,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#browserforward" class="md-nav__link">
+    browser.forward()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#browserlogmessage" class="md-nav__link">
     browser.log(message)
   </a>
@@ -855,8 +862,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#datadecryptdata-object" class="md-nav__link">
-    data.decrypt(data) ⇒ Object
+  <a href="#datadecryptdata-string" class="md-nav__link">
+    data.decrypt(data) ⇒ String
   </a>
   
 </li>
@@ -2157,36 +2164,36 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#assertionexpectattributetobeelem-comparevalue-attribute" class="md-nav__link">
-    assertion.expectAttributeToBe(elem, compareValue, [attribute])
+  <a href="#assertionexpectattributetobeelementorselector-comparevalue-attribute" class="md-nav__link">
+    assertion.expectAttributeToBe(elementOrSelector, compareValue, [attribute])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#assertionexpectattributetocontainelem-comparevalue-attribute" class="md-nav__link">
-    assertion.expectAttributeToContain(elem, compareValue, [attribute])
+  <a href="#assertionexpectattributetocontainelementorselector-comparevalue-attribute" class="md-nav__link">
+    assertion.expectAttributeToContain(elementOrSelector, compareValue, [attribute])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#assertionexpectvaluetobeelem-comparevalue" class="md-nav__link">
-    assertion.expectValueToBe(elem, compareValue)
+  <a href="#assertionexpectvaluetobeelementorselector-comparevalue" class="md-nav__link">
+    assertion.expectValueToBe(elementOrSelector, compareValue)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#assertionexpecttobevisibleelement" class="md-nav__link">
-    assertion.expectToBeVisible(element)
+  <a href="#assertionexpecttobevisibleelementorselector" class="md-nav__link">
+    assertion.expectToBeVisible(elementOrSelector)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#assertionexpecttobenotvisibleelement-timeout" class="md-nav__link">
-    assertion.expectToBeNotVisible(element, [timeout])
+  <a href="#assertionexpecttobenotvisibleelementorselector-timeout" class="md-nav__link">
+    assertion.expectToBeNotVisible(elementOrSelector, [timeout])
   </a>
   
 </li>
@@ -2419,92 +2426,92 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#userinteractionclickelement-timeout" class="md-nav__link">
-    userInteraction.click(element, [timeout])
+  <a href="#userinteractionclickelementorselector-timeout" class="md-nav__link">
+    userInteraction.click(elementOrSelector, [timeout])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionclickandretryelement-timeout-retries-interval" class="md-nav__link">
-    userInteraction.clickAndRetry(element, [timeout], [retries], [interval])
+  <a href="#userinteractionclickandretryelementorselector-timeout-retries-interval" class="md-nav__link">
+    userInteraction.clickAndRetry(elementOrSelector, [timeout], [retries], [interval])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractiondoubleclickelement-timeout" class="md-nav__link">
-    userInteraction.doubleClick(element, [timeout])
+  <a href="#userinteractiondoubleclickelementorselector-timeout" class="md-nav__link">
+    userInteraction.doubleClick(elementOrSelector, [timeout])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionrightclickelement-timeout" class="md-nav__link">
-    userInteraction.rightClick(element, [timeout])
+  <a href="#userinteractionrightclickelementorselector-timeout" class="md-nav__link">
+    userInteraction.rightClick(elementOrSelector, [timeout])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractioncheckelement" class="md-nav__link">
-    userInteraction.check(element)
+  <a href="#userinteractioncheckelementorselector" class="md-nav__link">
+    userInteraction.check(elementOrSelector)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionuncheckelement" class="md-nav__link">
-    userInteraction.uncheck(element)
+  <a href="#userinteractionuncheckelementorselector" class="md-nav__link">
+    userInteraction.uncheck(elementOrSelector)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionfillelement-value" class="md-nav__link">
-    userInteraction.fill(element, value)
+  <a href="#userinteractionfillelementorselector-value" class="md-nav__link">
+    userInteraction.fill(elementOrSelector, value)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionfillandretryelement-value-retries-interval" class="md-nav__link">
-    userInteraction.fillAndRetry(element, value, [retries], [interval])
+  <a href="#userinteractionfillandretryelementorselector-value-retries-interval" class="md-nav__link">
+    userInteraction.fillAndRetry(elementOrSelector, value, [retries], [interval])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionclearelement" class="md-nav__link">
-    userInteraction.clear(element)
+  <a href="#userinteractionclearelementorselector" class="md-nav__link">
+    userInteraction.clear(elementOrSelector)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionclearandretryelement-retries-interval" class="md-nav__link">
-    userInteraction.clearAndRetry(element, [retries], [interval])
+  <a href="#userinteractionclearandretryelementorselector-retries-interval" class="md-nav__link">
+    userInteraction.clearAndRetry(elementOrSelector, [retries], [interval])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionclearandfillelement-value" class="md-nav__link">
-    userInteraction.clearAndFill(element, value)
+  <a href="#userinteractionclearandfillelementorselector-value" class="md-nav__link">
+    userInteraction.clearAndFill(elementOrSelector, value)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionclearandfillandretryelement-value-retries-interval-verify" class="md-nav__link">
-    userInteraction.clearAndFillAndRetry(element, value, [retries], [interval], [verify])
+  <a href="#userinteractionclearandfillandretryelementorselector-value-retries-interval-verify" class="md-nav__link">
+    userInteraction.clearAndFillAndRetry(elementOrSelector, value, [retries], [interval], [verify])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionmouseoverelementelement-xoffset-yoffset" class="md-nav__link">
-    userInteraction.mouseOverElement(element, [xOffset], [yOffset])
+  <a href="#userinteractionmouseoverelementelementorselector-xoffset-yoffset" class="md-nav__link">
+    userInteraction.mouseOverElement(elementOrSelector, [xOffset], [yOffset])
   </a>
   
 </li>
@@ -2517,22 +2524,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractiondraganddropelement-targetelem" class="md-nav__link">
-    userInteraction.dragAndDrop(element, targetElem)
+  <a href="#userinteractiondraganddropelementorselector-targetelem" class="md-nav__link">
+    userInteraction.dragAndDrop(elementOrSelector, targetElem)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionmovecursorandclickelement" class="md-nav__link">
-    userInteraction.moveCursorAndClick(element)
+  <a href="#userinteractionmovecursorandclickelementorselector" class="md-nav__link">
+    userInteraction.moveCursorAndClick(elementOrSelector)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionclickelementinsvgsvgelem-innerselector" class="md-nav__link">
-    userInteraction.clickElementInSvg(svgElem, innerSelector)
+  <a href="#userinteractionclickelementinsvgelementorselector-innerselector" class="md-nav__link">
+    userInteraction.clickElementInSvg(elementOrSelector, innerSelector)
   </a>
   
 </li>
@@ -2564,57 +2571,57 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#odatainiturl-username-password-loggingenabled-params-authtype-object" class="md-nav__link">
-    odata.init(url, username, password, [loggingEnabled], [params], [authType]) ⇒ Object
+  <a href="#odatainiturl-username-password-loggingenabled-params-authtype-headers-object" class="md-nav__link">
+    odata.init(url, username, password, [loggingEnabled], [params], [authType], [headers]) ⇒ Object
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#odatagetsrv-entityset-keys-raw" class="md-nav__link">
-    odata.get(srv, entitySet, keys, raw)
+  <a href="#odatagetsrv-entityset-keys-raw-headers-promise" class="md-nav__link">
+    odata.get(srv, entitySet, keys, [raw], [headers]) ⇒ Promise
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#odatagetentitysetsrv-entityset-filterstring-selectionfields-queryparams-array" class="md-nav__link">
-    odata.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams]) ⇒ Array
+  <a href="#odatagetentitysetsrv-entityset-filterstring-selectionfields-queryparams-promise" class="md-nav__link">
+    odata.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams]) ⇒ Promise
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#odataisfeaturetoggleactivatedsrv-featurename" class="md-nav__link">
-    odata.isFeatureToggleActivated(srv, featureName)
+  <a href="#odatapostsrv-entityset-payload-raw-headers-promise" class="md-nav__link">
+    odata.post(srv, entitySet, payload, [raw], [headers]) ⇒ Promise
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#odatapostsrv-entityset-payload-raw" class="md-nav__link">
-    odata.post(srv, entitySet, payload, raw)
+  <a href="#odatamergesrv-entityset-payload-headers-promise" class="md-nav__link">
+    odata.merge(srv, entitySet, payload, [headers]) ⇒ Promise
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#odatamergesrv-entityset-payload" class="md-nav__link">
-    odata.merge(srv, entitySet, payload)
+  <a href="#odatadeletesrv-entityset-options-headers-promise" class="md-nav__link">
+    odata.delete(srv, entitySet, options, [headers]) ⇒ Promise
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#odatadeletesrv-entityset-options" class="md-nav__link">
-    odata.delete(srv, entitySet, options)
+  <a href="#odatacallfunctionimportsrv-functionimportname-options-promise" class="md-nav__link">
+    odata.callFunctionImport(srv, functionImportName, options) ⇒ Promise
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#odatacallfunctionimportsrv-functionimportname-options" class="md-nav__link">
-    odata.callFunctionImport(srv, functionImportName, options)
+  <a href="#odataisfeaturetoggleactivatedsrv-featurename-promise" class="md-nav__link">
+    odata.isFeatureToggleActivated(srv, featureName) ⇒ Promise
   </a>
   
 </li>
@@ -3481,6 +3488,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#browserforward" class="md-nav__link">
+    browser.forward()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#browserlogmessage" class="md-nav__link">
     browser.log(message)
   </a>
@@ -3625,8 +3639,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#datadecryptdata-object" class="md-nav__link">
-    data.decrypt(data) ⇒ Object
+  <a href="#datadecryptdata-string" class="md-nav__link">
+    data.decrypt(data) ⇒ String
   </a>
   
 </li>
@@ -4927,36 +4941,36 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#assertionexpectattributetobeelem-comparevalue-attribute" class="md-nav__link">
-    assertion.expectAttributeToBe(elem, compareValue, [attribute])
+  <a href="#assertionexpectattributetobeelementorselector-comparevalue-attribute" class="md-nav__link">
+    assertion.expectAttributeToBe(elementOrSelector, compareValue, [attribute])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#assertionexpectattributetocontainelem-comparevalue-attribute" class="md-nav__link">
-    assertion.expectAttributeToContain(elem, compareValue, [attribute])
+  <a href="#assertionexpectattributetocontainelementorselector-comparevalue-attribute" class="md-nav__link">
+    assertion.expectAttributeToContain(elementOrSelector, compareValue, [attribute])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#assertionexpectvaluetobeelem-comparevalue" class="md-nav__link">
-    assertion.expectValueToBe(elem, compareValue)
+  <a href="#assertionexpectvaluetobeelementorselector-comparevalue" class="md-nav__link">
+    assertion.expectValueToBe(elementOrSelector, compareValue)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#assertionexpecttobevisibleelement" class="md-nav__link">
-    assertion.expectToBeVisible(element)
+  <a href="#assertionexpecttobevisibleelementorselector" class="md-nav__link">
+    assertion.expectToBeVisible(elementOrSelector)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#assertionexpecttobenotvisibleelement-timeout" class="md-nav__link">
-    assertion.expectToBeNotVisible(element, [timeout])
+  <a href="#assertionexpecttobenotvisibleelementorselector-timeout" class="md-nav__link">
+    assertion.expectToBeNotVisible(elementOrSelector, [timeout])
   </a>
   
 </li>
@@ -5189,92 +5203,92 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#userinteractionclickelement-timeout" class="md-nav__link">
-    userInteraction.click(element, [timeout])
+  <a href="#userinteractionclickelementorselector-timeout" class="md-nav__link">
+    userInteraction.click(elementOrSelector, [timeout])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionclickandretryelement-timeout-retries-interval" class="md-nav__link">
-    userInteraction.clickAndRetry(element, [timeout], [retries], [interval])
+  <a href="#userinteractionclickandretryelementorselector-timeout-retries-interval" class="md-nav__link">
+    userInteraction.clickAndRetry(elementOrSelector, [timeout], [retries], [interval])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractiondoubleclickelement-timeout" class="md-nav__link">
-    userInteraction.doubleClick(element, [timeout])
+  <a href="#userinteractiondoubleclickelementorselector-timeout" class="md-nav__link">
+    userInteraction.doubleClick(elementOrSelector, [timeout])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionrightclickelement-timeout" class="md-nav__link">
-    userInteraction.rightClick(element, [timeout])
+  <a href="#userinteractionrightclickelementorselector-timeout" class="md-nav__link">
+    userInteraction.rightClick(elementOrSelector, [timeout])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractioncheckelement" class="md-nav__link">
-    userInteraction.check(element)
+  <a href="#userinteractioncheckelementorselector" class="md-nav__link">
+    userInteraction.check(elementOrSelector)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionuncheckelement" class="md-nav__link">
-    userInteraction.uncheck(element)
+  <a href="#userinteractionuncheckelementorselector" class="md-nav__link">
+    userInteraction.uncheck(elementOrSelector)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionfillelement-value" class="md-nav__link">
-    userInteraction.fill(element, value)
+  <a href="#userinteractionfillelementorselector-value" class="md-nav__link">
+    userInteraction.fill(elementOrSelector, value)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionfillandretryelement-value-retries-interval" class="md-nav__link">
-    userInteraction.fillAndRetry(element, value, [retries], [interval])
+  <a href="#userinteractionfillandretryelementorselector-value-retries-interval" class="md-nav__link">
+    userInteraction.fillAndRetry(elementOrSelector, value, [retries], [interval])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionclearelement" class="md-nav__link">
-    userInteraction.clear(element)
+  <a href="#userinteractionclearelementorselector" class="md-nav__link">
+    userInteraction.clear(elementOrSelector)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionclearandretryelement-retries-interval" class="md-nav__link">
-    userInteraction.clearAndRetry(element, [retries], [interval])
+  <a href="#userinteractionclearandretryelementorselector-retries-interval" class="md-nav__link">
+    userInteraction.clearAndRetry(elementOrSelector, [retries], [interval])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionclearandfillelement-value" class="md-nav__link">
-    userInteraction.clearAndFill(element, value)
+  <a href="#userinteractionclearandfillelementorselector-value" class="md-nav__link">
+    userInteraction.clearAndFill(elementOrSelector, value)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionclearandfillandretryelement-value-retries-interval-verify" class="md-nav__link">
-    userInteraction.clearAndFillAndRetry(element, value, [retries], [interval], [verify])
+  <a href="#userinteractionclearandfillandretryelementorselector-value-retries-interval-verify" class="md-nav__link">
+    userInteraction.clearAndFillAndRetry(elementOrSelector, value, [retries], [interval], [verify])
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionmouseoverelementelement-xoffset-yoffset" class="md-nav__link">
-    userInteraction.mouseOverElement(element, [xOffset], [yOffset])
+  <a href="#userinteractionmouseoverelementelementorselector-xoffset-yoffset" class="md-nav__link">
+    userInteraction.mouseOverElement(elementOrSelector, [xOffset], [yOffset])
   </a>
   
 </li>
@@ -5287,22 +5301,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractiondraganddropelement-targetelem" class="md-nav__link">
-    userInteraction.dragAndDrop(element, targetElem)
+  <a href="#userinteractiondraganddropelementorselector-targetelem" class="md-nav__link">
+    userInteraction.dragAndDrop(elementOrSelector, targetElem)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionmovecursorandclickelement" class="md-nav__link">
-    userInteraction.moveCursorAndClick(element)
+  <a href="#userinteractionmovecursorandclickelementorselector" class="md-nav__link">
+    userInteraction.moveCursorAndClick(elementOrSelector)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionclickelementinsvgsvgelem-innerselector" class="md-nav__link">
-    userInteraction.clickElementInSvg(svgElem, innerSelector)
+  <a href="#userinteractionclickelementinsvgelementorselector-innerselector" class="md-nav__link">
+    userInteraction.clickElementInSvg(elementOrSelector, innerSelector)
   </a>
   
 </li>
@@ -5334,57 +5348,57 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#odatainiturl-username-password-loggingenabled-params-authtype-object" class="md-nav__link">
-    odata.init(url, username, password, [loggingEnabled], [params], [authType]) ⇒ Object
+  <a href="#odatainiturl-username-password-loggingenabled-params-authtype-headers-object" class="md-nav__link">
+    odata.init(url, username, password, [loggingEnabled], [params], [authType], [headers]) ⇒ Object
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#odatagetsrv-entityset-keys-raw" class="md-nav__link">
-    odata.get(srv, entitySet, keys, raw)
+  <a href="#odatagetsrv-entityset-keys-raw-headers-promise" class="md-nav__link">
+    odata.get(srv, entitySet, keys, [raw], [headers]) ⇒ Promise
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#odatagetentitysetsrv-entityset-filterstring-selectionfields-queryparams-array" class="md-nav__link">
-    odata.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams]) ⇒ Array
+  <a href="#odatagetentitysetsrv-entityset-filterstring-selectionfields-queryparams-promise" class="md-nav__link">
+    odata.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams]) ⇒ Promise
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#odataisfeaturetoggleactivatedsrv-featurename" class="md-nav__link">
-    odata.isFeatureToggleActivated(srv, featureName)
+  <a href="#odatapostsrv-entityset-payload-raw-headers-promise" class="md-nav__link">
+    odata.post(srv, entitySet, payload, [raw], [headers]) ⇒ Promise
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#odatapostsrv-entityset-payload-raw" class="md-nav__link">
-    odata.post(srv, entitySet, payload, raw)
+  <a href="#odatamergesrv-entityset-payload-headers-promise" class="md-nav__link">
+    odata.merge(srv, entitySet, payload, [headers]) ⇒ Promise
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#odatamergesrv-entityset-payload" class="md-nav__link">
-    odata.merge(srv, entitySet, payload)
+  <a href="#odatadeletesrv-entityset-options-headers-promise" class="md-nav__link">
+    odata.delete(srv, entitySet, options, [headers]) ⇒ Promise
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#odatadeletesrv-entityset-options" class="md-nav__link">
-    odata.delete(srv, entitySet, options)
+  <a href="#odatacallfunctionimportsrv-functionimportname-options-promise" class="md-nav__link">
+    odata.callFunctionImport(srv, functionImportName, options) ⇒ Promise
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#odatacallfunctionimportsrv-functionimportname-options" class="md-nav__link">
-    odata.callFunctionImport(srv, functionImportName, options)
+  <a href="#odataisfeaturetoggleactivatedsrv-featurename-promise" class="md-nav__link">
+    odata.isFeatureToggleActivated(srv, featureName) ⇒ Promise
   </a>
   
 </li>
@@ -6278,6 +6292,7 @@
 <li><a href="#util.browser.switchToIframe">.switchToIframe(selector)</a></li>
 <li><a href="#util.browser.switchToDefaultContent">.switchToDefaultContent()</a></li>
 <li><a href="#util.browser.back">.back()</a></li>
+<li><a href="#util.browser.forward">.forward()</a></li>
 <li><a href="#util.browser.log">.log(message)</a></li>
 <li><a href="#util.browser.warn">.warn(message)</a></li>
 <li><a href="#util.browser.error">.error(message)</a></li>
@@ -6302,7 +6317,7 @@
 <li><a href="#util.data.getSecureData">.getSecureData(filename, [source])</a> ⇒ <code>Object</code></li>
 <li><a href="#util.data.readDataFromFile">.readDataFromFile(filePath)</a> ⇒ <code>Object</code></li>
 <li><a href="#util.data.writeDataToFile">.writeDataToFile(filePath, data)</a></li>
-<li><a href="#util.data.decrypt">.decrypt(data)</a> ⇒ <code>Object</code></li>
+<li><a href="#util.data.decrypt">.decrypt(data)</a> ⇒ <code>String</code></li>
 </ul>
 </li>
 <li><a href="#util.file">.file</a><ul>
@@ -6367,6 +6382,7 @@
 <li><a href="#util.browser.switchToIframe">.switchToIframe(selector)</a></li>
 <li><a href="#util.browser.switchToDefaultContent">.switchToDefaultContent()</a></li>
 <li><a href="#util.browser.back">.back()</a></li>
+<li><a href="#util.browser.forward">.forward()</a></li>
 <li><a href="#util.browser.log">.log(message)</a></li>
 <li><a href="#util.browser.warn">.warn(message)</a></li>
 <li><a href="#util.browser.error">.error(message)</a></li>
@@ -6695,6 +6711,13 @@
 <strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">back</span><span class="p">();</span><span class="w"></span>
 </code></pre></div>
+<a name="util.browser.forward"></a></p>
+<h4 id="browserforward">browser.forward()</h4>
+<p>Go one step ahead in browser history.</p>
+<p><strong>Kind</strong>: static method of <a href="#util.browser"><code>browser</code></a><br />
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">forward</span><span class="p">();</span><span class="w"></span>
+</code></pre></div>
 <a name="util.browser.log"></a></p>
 <h4 id="browserlogmessage">browser.log(message)</h4>
 <p>add log message to browser logs, can be viewed in the html report</p>
@@ -6987,7 +7010,7 @@
 <li><a href="#util.data.getSecureData">.getSecureData(filename, [source])</a> ⇒ <code>Object</code></li>
 <li><a href="#util.data.readDataFromFile">.readDataFromFile(filePath)</a> ⇒ <code>Object</code></li>
 <li><a href="#util.data.writeDataToFile">.writeDataToFile(filePath, data)</a></li>
-<li><a href="#util.data.decrypt">.decrypt(data)</a> ⇒ <code>Object</code></li>
+<li><a href="#util.data.decrypt">.decrypt(data)</a> ⇒ <code>String</code></li>
 </ul>
 </li>
 </ul>
@@ -7108,10 +7131,10 @@
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">writeDataToFile</span><span class="p">(</span><span class="s2">&quot;myTest&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="util.data.decrypt"></a></p>
-<h4 id="datadecryptdata-object">data.decrypt(data) ⇒ <code>Object</code></h4>
+<h4 id="datadecryptdata-string">data.decrypt(data) ⇒ <code>String</code></h4>
 <p>Decrypts the passed input data.</p>
 <p><strong>Kind</strong>: static method of <a href="#util.data"><code>data</code></a><br />
-<strong>Returns</strong>: <code>Object</code> - The decrypted data.  </p>
+<strong>Returns</strong>: <code>String</code> - The decrypted data.  </p>
 <table>
 <thead>
 <tr>
@@ -9246,7 +9269,7 @@
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">today</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">calculate</span><span class="p">(</span><span class="s2">&quot;today&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">pick</span><span class="p">(</span><span class="nx">selector</span><span class="p">,</span><span class="w"> </span><span class="nx">date</span><span class="p">);</span><span class="w"></span>
+<span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">pick</span><span class="p">(</span><span class="nx">selector</span><span class="p">,</span><span class="w"> </span><span class="nx">today</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="ui5.date.pickRange"></a></p>
 <h4 id="datepickrangeselector-range-index">date.pickRange(selector, range, [index])</h4>
@@ -12832,11 +12855,11 @@ In case that the search is already filled, it will reset the field first.</p>
 <ul>
 <li><a href="#nonUi5">nonUi5</a><ul>
 <li><a href="#nonUi5.assertion">.assertion</a><ul>
-<li><a href="#nonUi5.assertion.expectAttributeToBe">.expectAttributeToBe(elem, compareValue, [attribute])</a></li>
-<li><a href="#nonUi5.assertion.expectAttributeToContain">.expectAttributeToContain(elem, compareValue, [attribute])</a></li>
-<li><a href="#nonUi5.assertion.expectValueToBe">.expectValueToBe(elem, compareValue)</a></li>
-<li><a href="#nonUi5.assertion.expectToBeVisible">.expectToBeVisible(element)</a></li>
-<li><a href="#nonUi5.assertion.expectToBeNotVisible">.expectToBeNotVisible(element, [timeout])</a></li>
+<li><a href="#nonUi5.assertion.expectAttributeToBe">.expectAttributeToBe(elementOrSelector, compareValue, [attribute])</a></li>
+<li><a href="#nonUi5.assertion.expectAttributeToContain">.expectAttributeToContain(elementOrSelector, compareValue, [attribute])</a></li>
+<li><a href="#nonUi5.assertion.expectValueToBe">.expectValueToBe(elementOrSelector, compareValue)</a></li>
+<li><a href="#nonUi5.assertion.expectToBeVisible">.expectToBeVisible(elementOrSelector)</a></li>
+<li><a href="#nonUi5.assertion.expectToBeNotVisible">.expectToBeNotVisible(elementOrSelector, [timeout])</a></li>
 </ul>
 </li>
 <li><a href="#nonUi5.element">.element</a><ul>
@@ -12874,23 +12897,23 @@ In case that the search is already filled, it will reset the field first.</p>
 </ul>
 </li>
 <li><a href="#nonUi5.userInteraction">.userInteraction</a><ul>
-<li><a href="#nonUi5.userInteraction.click">.click(element, [timeout])</a></li>
-<li><a href="#nonUi5.userInteraction.clickAndRetry">.clickAndRetry(element, [timeout], [retries], [interval])</a></li>
-<li><a href="#nonUi5.userInteraction.doubleClick">.doubleClick(element, [timeout])</a></li>
-<li><a href="#nonUi5.userInteraction.rightClick">.rightClick(element, [timeout])</a></li>
-<li><a href="#nonUi5.userInteraction.check">.check(element)</a></li>
-<li><a href="#nonUi5.userInteraction.uncheck">.uncheck(element)</a></li>
-<li><a href="#nonUi5.userInteraction.fill">.fill(element, value)</a></li>
-<li><a href="#nonUi5.userInteraction.fillAndRetry">.fillAndRetry(element, value, [retries], [interval])</a></li>
-<li><a href="#nonUi5.userInteraction.clear">.clear(element)</a></li>
-<li><a href="#nonUi5.userInteraction.clearAndRetry">.clearAndRetry(element, [retries], [interval])</a></li>
-<li><a href="#nonUi5.userInteraction.clearAndFill">.clearAndFill(element, value)</a></li>
-<li><a href="#nonUi5.userInteraction.clearAndFillAndRetry">.clearAndFillAndRetry(element, value, [retries], [interval], [verify])</a></li>
-<li><a href="#nonUi5.userInteraction.mouseOverElement">.mouseOverElement(element, [xOffset], [yOffset])</a></li>
+<li><a href="#nonUi5.userInteraction.click">.click(elementOrSelector, [timeout])</a></li>
+<li><a href="#nonUi5.userInteraction.clickAndRetry">.clickAndRetry(elementOrSelector, [timeout], [retries], [interval])</a></li>
+<li><a href="#nonUi5.userInteraction.doubleClick">.doubleClick(elementOrSelector, [timeout])</a></li>
+<li><a href="#nonUi5.userInteraction.rightClick">.rightClick(elementOrSelector, [timeout])</a></li>
+<li><a href="#nonUi5.userInteraction.check">.check(elementOrSelector)</a></li>
+<li><a href="#nonUi5.userInteraction.uncheck">.uncheck(elementOrSelector)</a></li>
+<li><a href="#nonUi5.userInteraction.fill">.fill(elementOrSelector, value)</a></li>
+<li><a href="#nonUi5.userInteraction.fillAndRetry">.fillAndRetry(elementOrSelector, value, [retries], [interval])</a></li>
+<li><a href="#nonUi5.userInteraction.clear">.clear(elementOrSelector)</a></li>
+<li><a href="#nonUi5.userInteraction.clearAndRetry">.clearAndRetry(elementOrSelector, [retries], [interval])</a></li>
+<li><a href="#nonUi5.userInteraction.clearAndFill">.clearAndFill(elementOrSelector, value)</a></li>
+<li><a href="#nonUi5.userInteraction.clearAndFillAndRetry">.clearAndFillAndRetry(elementOrSelector, value, [retries], [interval], [verify])</a></li>
+<li><a href="#nonUi5.userInteraction.mouseOverElement">.mouseOverElement(elementOrSelector, [xOffset], [yOffset])</a></li>
 <li><a href="#nonUi5.userInteraction.scrollToElement">.scrollToElement(elem, [alignment])</a></li>
-<li><a href="#nonUi5.userInteraction.dragAndDrop">.dragAndDrop(element, targetElem)</a></li>
-<li><a href="#nonUi5.userInteraction.moveCursorAndClick">.moveCursorAndClick(element)</a></li>
-<li><a href="#nonUi5.userInteraction.clickElementInSvg">.clickElementInSvg(svgElem, innerSelector)</a></li>
+<li><a href="#nonUi5.userInteraction.dragAndDrop">.dragAndDrop(elementOrSelector, targetElem)</a></li>
+<li><a href="#nonUi5.userInteraction.moveCursorAndClick">.moveCursorAndClick(elementOrSelector)</a></li>
+<li><a href="#nonUi5.userInteraction.clickElementInSvg">.clickElementInSvg(elementOrSelector, innerSelector)</a></li>
 </ul>
 </li>
 </ul>
@@ -12901,16 +12924,16 @@ In case that the search is already filled, it will reset the field first.</p>
 <p><strong>Kind</strong>: static class of <a href="#nonUi5"><code>nonUi5</code></a>  </p>
 <ul>
 <li><a href="#nonUi5.assertion">.assertion</a><ul>
-<li><a href="#nonUi5.assertion.expectAttributeToBe">.expectAttributeToBe(elem, compareValue, [attribute])</a></li>
-<li><a href="#nonUi5.assertion.expectAttributeToContain">.expectAttributeToContain(elem, compareValue, [attribute])</a></li>
-<li><a href="#nonUi5.assertion.expectValueToBe">.expectValueToBe(elem, compareValue)</a></li>
-<li><a href="#nonUi5.assertion.expectToBeVisible">.expectToBeVisible(element)</a></li>
-<li><a href="#nonUi5.assertion.expectToBeNotVisible">.expectToBeNotVisible(element, [timeout])</a></li>
+<li><a href="#nonUi5.assertion.expectAttributeToBe">.expectAttributeToBe(elementOrSelector, compareValue, [attribute])</a></li>
+<li><a href="#nonUi5.assertion.expectAttributeToContain">.expectAttributeToContain(elementOrSelector, compareValue, [attribute])</a></li>
+<li><a href="#nonUi5.assertion.expectValueToBe">.expectValueToBe(elementOrSelector, compareValue)</a></li>
+<li><a href="#nonUi5.assertion.expectToBeVisible">.expectToBeVisible(elementOrSelector)</a></li>
+<li><a href="#nonUi5.assertion.expectToBeNotVisible">.expectToBeNotVisible(elementOrSelector, [timeout])</a></li>
 </ul>
 </li>
 </ul>
 <p><a name="nonUi5.assertion.expectAttributeToBe"></a></p>
-<h4 id="assertionexpectattributetobeelem-comparevalue-attribute">assertion.expectAttributeToBe(elem, compareValue, [attribute])</h4>
+<h4 id="assertionexpectattributetobeelementorselector-comparevalue-attribute">assertion.expectAttributeToBe(elementOrSelector, compareValue, [attribute])</h4>
 <p>Expects the attributes value of the passed element to be the compare value.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.assertion"><code>assertion</code></a>  </p>
 <table>
@@ -12923,9 +12946,9 @@ In case that the search is already filled, it will reset the field first.</p>
 </thead>
 <tbody>
 <tr>
-<td>elem</td>
-<td><code>Object</code></td>
-<td>The element.</td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 <tr>
 <td>compareValue</td>
@@ -12940,15 +12963,15 @@ In case that the search is already filled, it will reset the field first.</p>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">assertion</span><span class="p">.</span><span class="nx">expectAttributeToBe</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Save&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">assertion</span><span class="p">.</span><span class="nx">expectAttributeToBe</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Save&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span><span class="w"></span>
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">assertion</span><span class="p">.</span><span class="nx">expectAttributeToBe</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Save&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;title&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.assertion.expectAttributeToContain"></a></p>
-<h4 id="assertionexpectattributetocontainelem-comparevalue-attribute">assertion.expectAttributeToContain(elem, compareValue, [attribute])</h4>
+<h4 id="assertionexpectattributetocontainelementorselector-comparevalue-attribute">assertion.expectAttributeToContain(elementOrSelector, compareValue, [attribute])</h4>
 <p>Expects the attributes value of the passed element to contain the compare value.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.assertion"><code>assertion</code></a>  </p>
 <table>
@@ -12961,9 +12984,9 @@ In case that the search is already filled, it will reset the field first.</p>
 </thead>
 <tbody>
 <tr>
-<td>elem</td>
-<td><code>Object</code></td>
-<td>The element.</td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 <tr>
 <td>compareValue</td>
@@ -12978,11 +13001,11 @@ In case that the search is already filled, it will reset the field first.</p>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span><span class="w"></span>
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">assertion</span><span class="p">.</span><span class="nx">expectAttributeToContain</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Save&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;title&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.assertion.expectValueToBe"></a></p>
-<h4 id="assertionexpectvaluetobeelem-comparevalue">assertion.expectValueToBe(elem, compareValue)</h4>
+<h4 id="assertionexpectvaluetobeelementorselector-comparevalue">assertion.expectValueToBe(elementOrSelector, compareValue)</h4>
 <p>Expects the attributes value of the passed element to be the compare value.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.assertion"><code>assertion</code></a>  </p>
 <table>
@@ -12995,9 +13018,9 @@ In case that the search is already filled, it will reset the field first.</p>
 </thead>
 <tbody>
 <tr>
-<td>elem</td>
-<td><code>Object</code></td>
-<td>The element.</td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 <tr>
 <td>compareValue</td>
@@ -13007,11 +13030,11 @@ In case that the search is already filled, it will reset the field first.</p>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">assertion</span><span class="p">.</span><span class="nx">expectValueToBe</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Save&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">assertion</span><span class="p">.</span><span class="nx">expectValueToBe</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Save&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.assertion.expectToBeVisible"></a></p>
-<h4 id="assertionexpecttobevisibleelement">assertion.expectToBeVisible(element)</h4>
+<h4 id="assertionexpecttobevisibleelementorselector">assertion.expectToBeVisible(elementOrSelector)</h4>
 <p>Expects that the element is visible to the user.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.assertion"><code>assertion</code></a>  </p>
 <table>
@@ -13024,18 +13047,18 @@ In case that the search is already filled, it will reset the field first.</p>
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
-<td>The element.</td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span><span class="w"></span>
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">assertion</span><span class="p">.</span><span class="nx">expectToBeVisible</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.assertion.expectToBeNotVisible"></a></p>
-<h4 id="assertionexpecttobenotvisibleelement-timeout">assertion.expectToBeNotVisible(element, [timeout])</h4>
+<h4 id="assertionexpecttobenotvisibleelementorselector-timeout">assertion.expectToBeNotVisible(elementOrSelector, [timeout])</h4>
 <p>Expects that the element is not visible to the user.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.assertion"><code>assertion</code></a>  </p>
 <table>
@@ -13049,10 +13072,10 @@ In case that the search is already filled, it will reset the field first.</p>
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
 <td></td>
-<td>The element.</td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 <tr>
 <td>[timeout]</td>
@@ -13063,8 +13086,8 @@ In case that the search is already filled, it will reset the field first.</p>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">assertion</span><span class="p">.</span><span class="nx">expectToBeNotVisible</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="mf">5000</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">assertion</span><span class="p">.</span><span class="nx">expectToBeNotVisible</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="mf">5000</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.element"></a></p>
 <h3 id="nonui5element">nonUi5.element</h3>
@@ -14044,28 +14067,28 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <p><strong>Kind</strong>: static class of <a href="#nonUi5"><code>nonUi5</code></a>  </p>
 <ul>
 <li><a href="#nonUi5.userInteraction">.userInteraction</a><ul>
-<li><a href="#nonUi5.userInteraction.click">.click(element, [timeout])</a></li>
-<li><a href="#nonUi5.userInteraction.clickAndRetry">.clickAndRetry(element, [timeout], [retries], [interval])</a></li>
-<li><a href="#nonUi5.userInteraction.doubleClick">.doubleClick(element, [timeout])</a></li>
-<li><a href="#nonUi5.userInteraction.rightClick">.rightClick(element, [timeout])</a></li>
-<li><a href="#nonUi5.userInteraction.check">.check(element)</a></li>
-<li><a href="#nonUi5.userInteraction.uncheck">.uncheck(element)</a></li>
-<li><a href="#nonUi5.userInteraction.fill">.fill(element, value)</a></li>
-<li><a href="#nonUi5.userInteraction.fillAndRetry">.fillAndRetry(element, value, [retries], [interval])</a></li>
-<li><a href="#nonUi5.userInteraction.clear">.clear(element)</a></li>
-<li><a href="#nonUi5.userInteraction.clearAndRetry">.clearAndRetry(element, [retries], [interval])</a></li>
-<li><a href="#nonUi5.userInteraction.clearAndFill">.clearAndFill(element, value)</a></li>
-<li><a href="#nonUi5.userInteraction.clearAndFillAndRetry">.clearAndFillAndRetry(element, value, [retries], [interval], [verify])</a></li>
-<li><a href="#nonUi5.userInteraction.mouseOverElement">.mouseOverElement(element, [xOffset], [yOffset])</a></li>
+<li><a href="#nonUi5.userInteraction.click">.click(elementOrSelector, [timeout])</a></li>
+<li><a href="#nonUi5.userInteraction.clickAndRetry">.clickAndRetry(elementOrSelector, [timeout], [retries], [interval])</a></li>
+<li><a href="#nonUi5.userInteraction.doubleClick">.doubleClick(elementOrSelector, [timeout])</a></li>
+<li><a href="#nonUi5.userInteraction.rightClick">.rightClick(elementOrSelector, [timeout])</a></li>
+<li><a href="#nonUi5.userInteraction.check">.check(elementOrSelector)</a></li>
+<li><a href="#nonUi5.userInteraction.uncheck">.uncheck(elementOrSelector)</a></li>
+<li><a href="#nonUi5.userInteraction.fill">.fill(elementOrSelector, value)</a></li>
+<li><a href="#nonUi5.userInteraction.fillAndRetry">.fillAndRetry(elementOrSelector, value, [retries], [interval])</a></li>
+<li><a href="#nonUi5.userInteraction.clear">.clear(elementOrSelector)</a></li>
+<li><a href="#nonUi5.userInteraction.clearAndRetry">.clearAndRetry(elementOrSelector, [retries], [interval])</a></li>
+<li><a href="#nonUi5.userInteraction.clearAndFill">.clearAndFill(elementOrSelector, value)</a></li>
+<li><a href="#nonUi5.userInteraction.clearAndFillAndRetry">.clearAndFillAndRetry(elementOrSelector, value, [retries], [interval], [verify])</a></li>
+<li><a href="#nonUi5.userInteraction.mouseOverElement">.mouseOverElement(elementOrSelector, [xOffset], [yOffset])</a></li>
 <li><a href="#nonUi5.userInteraction.scrollToElement">.scrollToElement(elem, [alignment])</a></li>
-<li><a href="#nonUi5.userInteraction.dragAndDrop">.dragAndDrop(element, targetElem)</a></li>
-<li><a href="#nonUi5.userInteraction.moveCursorAndClick">.moveCursorAndClick(element)</a></li>
-<li><a href="#nonUi5.userInteraction.clickElementInSvg">.clickElementInSvg(svgElem, innerSelector)</a></li>
+<li><a href="#nonUi5.userInteraction.dragAndDrop">.dragAndDrop(elementOrSelector, targetElem)</a></li>
+<li><a href="#nonUi5.userInteraction.moveCursorAndClick">.moveCursorAndClick(elementOrSelector)</a></li>
+<li><a href="#nonUi5.userInteraction.clickElementInSvg">.clickElementInSvg(elementOrSelector, innerSelector)</a></li>
 </ul>
 </li>
 </ul>
 <p><a name="nonUi5.userInteraction.click"></a></p>
-<h4 id="userinteractionclickelement-timeout">userInteraction.click(element, [timeout])</h4>
+<h4 id="userinteractionclickelementorselector-timeout">userInteraction.click(elementOrSelector, [timeout])</h4>
 <p>Clicks on the passed element.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -14079,10 +14102,10 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
 <td></td>
-<td>The element.</td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 <tr>
 <td>[timeout]</td>
@@ -14097,7 +14120,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.userInteraction.clickAndRetry"></a></p>
-<h4 id="userinteractionclickandretryelement-timeout-retries-interval">userInteraction.clickAndRetry(element, [timeout], [retries], [interval])</h4>
+<h4 id="userinteractionclickandretryelementorselector-timeout-retries-interval">userInteraction.clickAndRetry(elementOrSelector, [timeout], [retries], [interval])</h4>
 <p>Clicks on the passed element, retries in case it fails.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -14111,10 +14134,10 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
 <td></td>
-<td>The element.</td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 <tr>
 <td>[timeout]</td>
@@ -14141,7 +14164,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">clickAndRetry</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.userInteraction.doubleClick"></a></p>
-<h4 id="userinteractiondoubleclickelement-timeout">userInteraction.doubleClick(element, [timeout])</h4>
+<h4 id="userinteractiondoubleclickelementorselector-timeout">userInteraction.doubleClick(elementOrSelector, [timeout])</h4>
 <p>Double Clicks on the passed element.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -14155,10 +14178,10 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
 <td></td>
-<td>The element.</td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 <tr>
 <td>[timeout]</td>
@@ -14173,7 +14196,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">doubleClick</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.userInteraction.rightClick"></a></p>
-<h4 id="userinteractionrightclickelement-timeout">userInteraction.rightClick(element, [timeout])</h4>
+<h4 id="userinteractionrightclickelementorselector-timeout">userInteraction.rightClick(elementOrSelector, [timeout])</h4>
 <p>Right Clicks on the passed element.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -14187,10 +14210,10 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
 <td></td>
-<td>The element.</td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 <tr>
 <td>[timeout]</td>
@@ -14205,7 +14228,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">rightClick</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.userInteraction.check"></a></p>
-<h4 id="userinteractioncheckelement">userInteraction.check(element)</h4>
+<h4 id="userinteractioncheckelementorselector">userInteraction.check(elementOrSelector)</h4>
 <p>Checks the given checkbox.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -14218,9 +14241,9 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
-<td>The element.</td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 </tbody>
 </table>
@@ -14228,7 +14251,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">check</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.userInteraction.uncheck"></a></p>
-<h4 id="userinteractionuncheckelement">userInteraction.uncheck(element)</h4>
+<h4 id="userinteractionuncheckelementorselector">userInteraction.uncheck(elementOrSelector)</h4>
 <p>Unchecks the given checkbox.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -14241,9 +14264,9 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
-<td>The element.</td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 </tbody>
 </table>
@@ -14251,7 +14274,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">uncheck</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.userInteraction.fill"></a></p>
-<h4 id="userinteractionfillelement-value">userInteraction.fill(element, value)</h4>
+<h4 id="userinteractionfillelementorselector-value">userInteraction.fill(elementOrSelector, value)</h4>
 <p>Fills the given value into the passed input.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -14264,9 +14287,9 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
-<td>The element.</td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 <tr>
 <td>value</td>
@@ -14280,7 +14303,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">fill</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Service 01&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.userInteraction.fillAndRetry"></a></p>
-<h4 id="userinteractionfillandretryelement-value-retries-interval">userInteraction.fillAndRetry(element, value, [retries], [interval])</h4>
+<h4 id="userinteractionfillandretryelementorselector-value-retries-interval">userInteraction.fillAndRetry(elementOrSelector, value, [retries], [interval])</h4>
 <p>Fills the given value into the passed input, retries in case of a failure.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -14294,10 +14317,10 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
 <td></td>
-<td>The element.</td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 <tr>
 <td>value</td>
@@ -14324,7 +14347,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">fillAndRetry</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Service 01&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.userInteraction.clear"></a></p>
-<h4 id="userinteractionclearelement">userInteraction.clear(element)</h4>
+<h4 id="userinteractionclearelementorselector">userInteraction.clear(elementOrSelector)</h4>
 <p>Clears the passed input element.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -14337,9 +14360,9 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
-<td>The element.</td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 </tbody>
 </table>
@@ -14348,7 +14371,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">clear</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.userInteraction.clearAndRetry"></a></p>
-<h4 id="userinteractionclearandretryelement-retries-interval">userInteraction.clearAndRetry(element, [retries], [interval])</h4>
+<h4 id="userinteractionclearandretryelementorselector-retries-interval">userInteraction.clearAndRetry(elementOrSelector, [retries], [interval])</h4>
 <p>Clears the passed input element, retries in case of a failure.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -14362,10 +14385,10 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
 <td></td>
-<td>The element.</td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 <tr>
 <td>[retries]</td>
@@ -14386,7 +14409,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">clearAndRetry</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.userInteraction.clearAndFill"></a></p>
-<h4 id="userinteractionclearandfillelement-value">userInteraction.clearAndFill(element, value)</h4>
+<h4 id="userinteractionclearandfillelementorselector-value">userInteraction.clearAndFill(elementOrSelector, value)</h4>
 <p>Clears and fills the passed input element.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -14399,9 +14422,9 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
-<td>The element.</td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 <tr>
 <td>value</td>
@@ -14415,7 +14438,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">clearAndFill</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Service 01&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.userInteraction.clearAndFillAndRetry"></a></p>
-<h4 id="userinteractionclearandfillandretryelement-value-retries-interval-verify">userInteraction.clearAndFillAndRetry(element, value, [retries], [interval], [verify])</h4>
+<h4 id="userinteractionclearandfillandretryelementorselector-value-retries-interval-verify">userInteraction.clearAndFillAndRetry(elementOrSelector, value, [retries], [interval], [verify])</h4>
 <p>Clears and fills the passed input, retries in case it fails.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -14429,10 +14452,10 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
 <td></td>
-<td>The element.</td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 <tr>
 <td>value</td>
@@ -14465,7 +14488,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">clearAndFillAndRetry</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Service 01&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.userInteraction.mouseOverElement"></a></p>
-<h4 id="userinteractionmouseoverelementelement-xoffset-yoffset">userInteraction.mouseOverElement(element, [xOffset], [yOffset])</h4>
+<h4 id="userinteractionmouseoverelementelementorselector-xoffset-yoffset">userInteraction.mouseOverElement(elementOrSelector, [xOffset], [yOffset])</h4>
 <p>Moves the cursor/focus to the passed element.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -14478,9 +14501,9 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
-<td>The element.</td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 <tr>
 <td>[xOffset]</td>
@@ -14541,7 +14564,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">scrollToElement</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="nx">alignment</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.userInteraction.dragAndDrop"></a></p>
-<h4 id="userinteractiondraganddropelement-targetelem">userInteraction.dragAndDrop(element, targetElem)</h4>
+<h4 id="userinteractiondraganddropelementorselector-targetelem">userInteraction.dragAndDrop(elementOrSelector, targetElem)</h4>
 <p>Drags and drops the given element to the given target element.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -14554,9 +14577,9 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
-<td>The element to drag.</td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 <tr>
 <td>targetElem</td>
@@ -14573,7 +14596,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">dragAndDrop</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="nx">targetElem</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.userInteraction.moveCursorAndClick"></a></p>
-<h4 id="userinteractionmovecursorandclickelement">userInteraction.moveCursorAndClick(element)</h4>
+<h4 id="userinteractionmovecursorandclickelementorselector">userInteraction.moveCursorAndClick(elementOrSelector)</h4>
 <p>Moves the cursor to the target element and clicks on it. Can be used for charts.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -14586,9 +14609,9 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Object</code></td>
-<td>The element to be clicked.</td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td>The element or CSS selector describing the element.</td>
 </tr>
 </tbody>
 </table>
@@ -14597,7 +14620,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">moveCursorAndClick</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="nonUi5.userInteraction.clickElementInSvg"></a></p>
-<h4 id="userinteractionclickelementinsvgsvgelem-innerselector">userInteraction.clickElementInSvg(svgElem, innerSelector)</h4>
+<h4 id="userinteractionclickelementinsvgelementorselector-innerselector">userInteraction.clickElementInSvg(elementOrSelector, innerSelector)</h4>
 <p>Clicks on an inner element within a SVG element.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -14610,9 +14633,9 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </thead>
 <tbody>
 <tr>
-<td>svgElem</td>
-<td><code>Object</code></td>
-<td>The SVG element.</td>
+<td>elementOrSelector</td>
+<td><code>Object</code> | <code>string</code></td>
+<td>The SVG element or CSS selector describing the element.</td>
 </tr>
 <tr>
 <td>innerSelector</td>
@@ -14633,14 +14656,14 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <ul>
 <li><a href="#service">service</a><ul>
 <li><a href="#service.odata">.odata</a><ul>
-<li><a href="#service.odata.init">.init(url, username, password, [loggingEnabled], [params], [authType])</a> ⇒ <code>Object</code></li>
-<li><a href="#service.odata.get">.get(srv, entitySet, keys, raw)</a></li>
-<li><a href="#service.odata.getEntitySet">.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])</a> ⇒ <code>Array</code></li>
-<li><a href="#service.odata.isFeatureToggleActivated">.isFeatureToggleActivated(srv, featureName)</a></li>
-<li><a href="#service.odata.post">.post(srv, entitySet, payload, raw)</a></li>
-<li><a href="#service.odata.merge">.merge(srv, entitySet, payload)</a></li>
-<li><a href="#service.odata.delete">.delete(srv, entitySet, options)</a></li>
-<li><a href="#service.odata.callFunctionImport">.callFunctionImport(srv, functionImportName, options)</a></li>
+<li><a href="#service.odata.init">.init(url, username, password, [loggingEnabled], [params], [authType], [headers])</a> ⇒ <code>Object</code></li>
+<li><a href="#service.odata.get">.get(srv, entitySet, keys, [raw], [headers])</a> ⇒ <code>Promise</code></li>
+<li><a href="#service.odata.getEntitySet">.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])</a> ⇒ <code>Promise</code></li>
+<li><a href="#service.odata.post">.post(srv, entitySet, payload, [raw], [headers])</a> ⇒ <code>Promise</code></li>
+<li><a href="#service.odata.merge">.merge(srv, entitySet, payload, [headers])</a> ⇒ <code>Promise</code></li>
+<li><a href="#service.odata.delete">.delete(srv, entitySet, options, [headers])</a> ⇒ <code>Promise</code></li>
+<li><a href="#service.odata.callFunctionImport">.callFunctionImport(srv, functionImportName, options)</a> ⇒ <code>Promise</code></li>
+<li><a href="#service.odata.isFeatureToggleActivated">.isFeatureToggleActivated(srv, featureName)</a> ⇒ <code>Promise</code></li>
 <li><a href="#service.odata.getOutputManagementPdfStream">.getOutputManagementPdfStream(outputConf, url, username, password)</a></li>
 <li><a href="#service.odata.readPdfFromDirectUrl">.readPdfFromDirectUrl(url, [username], [password], [isSaml])</a></li>
 </ul>
@@ -14662,22 +14685,22 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <p><strong>Kind</strong>: static class of <a href="#service"><code>service</code></a>  </p>
 <ul>
 <li><a href="#service.odata">.odata</a><ul>
-<li><a href="#service.odata.init">.init(url, username, password, [loggingEnabled], [params], [authType])</a> ⇒ <code>Object</code></li>
-<li><a href="#service.odata.get">.get(srv, entitySet, keys, raw)</a></li>
-<li><a href="#service.odata.getEntitySet">.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])</a> ⇒ <code>Array</code></li>
-<li><a href="#service.odata.isFeatureToggleActivated">.isFeatureToggleActivated(srv, featureName)</a></li>
-<li><a href="#service.odata.post">.post(srv, entitySet, payload, raw)</a></li>
-<li><a href="#service.odata.merge">.merge(srv, entitySet, payload)</a></li>
-<li><a href="#service.odata.delete">.delete(srv, entitySet, options)</a></li>
-<li><a href="#service.odata.callFunctionImport">.callFunctionImport(srv, functionImportName, options)</a></li>
+<li><a href="#service.odata.init">.init(url, username, password, [loggingEnabled], [params], [authType], [headers])</a> ⇒ <code>Object</code></li>
+<li><a href="#service.odata.get">.get(srv, entitySet, keys, [raw], [headers])</a> ⇒ <code>Promise</code></li>
+<li><a href="#service.odata.getEntitySet">.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])</a> ⇒ <code>Promise</code></li>
+<li><a href="#service.odata.post">.post(srv, entitySet, payload, [raw], [headers])</a> ⇒ <code>Promise</code></li>
+<li><a href="#service.odata.merge">.merge(srv, entitySet, payload, [headers])</a> ⇒ <code>Promise</code></li>
+<li><a href="#service.odata.delete">.delete(srv, entitySet, options, [headers])</a> ⇒ <code>Promise</code></li>
+<li><a href="#service.odata.callFunctionImport">.callFunctionImport(srv, functionImportName, options)</a> ⇒ <code>Promise</code></li>
+<li><a href="#service.odata.isFeatureToggleActivated">.isFeatureToggleActivated(srv, featureName)</a> ⇒ <code>Promise</code></li>
 <li><a href="#service.odata.getOutputManagementPdfStream">.getOutputManagementPdfStream(outputConf, url, username, password)</a></li>
 <li><a href="#service.odata.readPdfFromDirectUrl">.readPdfFromDirectUrl(url, [username], [password], [isSaml])</a></li>
 </ul>
 </li>
 </ul>
 <p><a name="service.odata.init"></a></p>
-<h4 id="odatainiturl-username-password-loggingenabled-params-authtype-object">odata.init(url, username, password, [loggingEnabled], [params], [authType]) ⇒ <code>Object</code></h4>
-<p>Initializes The service to work with.
+<h4 id="odatainiturl-username-password-loggingenabled-params-authtype-headers-object">odata.init(url, username, password, [loggingEnabled], [params], [authType], [headers]) ⇒ <code>Object</code></h4>
+<p>Initializes the OData Service.
 XCSRF-Token will be automatically fetched and stored in the service instance.
 Cookies will also automatically assembled and stored in the service instance.</p>
 <p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a><br />
@@ -14696,13 +14719,13 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <td>url</td>
 <td><code>String</code></td>
 <td></td>
-<td>The base url of the service</td>
+<td>The base url of the service.</td>
 </tr>
 <tr>
 <td>username</td>
 <td><code>String</code></td>
 <td></td>
-<td>The username.</td>
+<td>The username to authenticate the service.</td>
 </tr>
 <tr>
 <td>password</td>
@@ -14712,21 +14735,27 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </tr>
 <tr>
 <td>[loggingEnabled]</td>
-<td><code>boolean</code></td>
+<td><code>Boolean</code></td>
 <td><code>false</code></td>
-<td>The boolean param to control whether user wants to see logs during build run</td>
+<td>The boolean param to control whether user wants to see logs during build run.</td>
 </tr>
 <tr>
 <td>[params]</td>
 <td><code>Object</code></td>
 <td><code>{}</code></td>
-<td>JSON object with key-value pairs of parameter names and corresponding values by default we send {  "client": "715",  "documentation": ["heading", "quickinfo"],  "language": "EN" } These can be overridden by sending params as JSON object with additional params as shown in example</td>
+<td>JSON object with key-value pairs of parameter names and corresponding values. By default we send {  "client": "715",  "documentation": ["heading", "quickinfo"],  "language": "EN" } These can be overridden by sending params as JSON object with additional params as shown in example.</td>
 </tr>
 <tr>
 <td>[authType]</td>
 <td><code>String</code></td>
 <td></td>
 <td>authentication type, in case you want to override the default SAML authentication. Set this to "basic", to use basic authentication for communication users for whom SAML login doesn't work. Or "none" for no authentication.</td>
+</tr>
+<tr>
+<td>[headers]</td>
+<td><code>Object</code></td>
+<td></td>
+<td>JSON object with key-value pairs of optional headers.</td>
 </tr>
 </tbody>
 </table>
@@ -14736,17 +14765,28 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <span class="w"> </span><span class="s2">&quot;saml2&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;disabled&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w"> </span><span class="s2">&quot;language&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;de&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-<span class="nx">srv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">user</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">params</span><span class="p">);</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">srv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">user</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">params</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">base64Credentials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Buffer</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">user</span><span class="si">}</span><span class="sb">:</span><span class="si">${</span><span class="nx">password</span><span class="si">}</span><span class="sb">`</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="s2">&quot;base64&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">authHeaders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="s2">&quot;Authorization&quot;</span><span class="o">:</span><span class="w"> </span><span class="sb">`Basic </span><span class="si">${</span><span class="nx">base64Credentials</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="s2">&quot;DwC-Tenant&quot;</span><span class="o">:</span><span class="w"> </span><span class="nx">tenant</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">srv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">user</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nx">params</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;headers&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">authHeaders</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="service.odata.get"></a></p>
-<h4 id="odatagetsrv-entityset-keys-raw">odata.get(srv, entitySet, keys, raw)</h4>
-<p>makes a GET request.</p>
-<p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a>  </p>
+<h4 id="odatagetsrv-entityset-keys-raw-headers-promise">odata.get(srv, entitySet, keys, [raw], [headers]) ⇒ <code>Promise</code></h4>
+<p>Sends a GET request to retrieve data from the specified OData entity set.</p>
+<p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - A Promise that resolves to the response data.  </p>
 <table>
 <thead>
 <tr>
 <th>Param</th>
 <th>Type</th>
+<th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -14754,38 +14794,48 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <tr>
 <td>srv</td>
 <td><code>Object</code></td>
-<td>Instance of the service</td>
+<td></td>
+<td>An instance of the service.</td>
 </tr>
 <tr>
 <td>entitySet</td>
 <td><code>String</code></td>
-<td>The entitySet you want to GET from.</td>
+<td></td>
+<td>The entity set from which data is to be retrieved.</td>
 </tr>
 <tr>
 <td>keys</td>
 <td><code>Object</code></td>
-<td>The required keys for the GET-request.</td>
+<td></td>
+<td>The required keys for the GET request.</td>
 </tr>
 <tr>
-<td>raw</td>
+<td>[raw]</td>
 <td><code>Boolean</code></td>
-<td>Response includes all header contents.</td>
+<td><code>false</code></td>
+<td>Specifies whether the response should include all header contents.</td>
+</tr>
+<tr>
+<td>[headers]</td>
+<td><code>Object</code></td>
+<td></td>
+<td>Optional headers to be included in the request.</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&lt;baseUrl&gt;/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="nx">srv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">user</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">);</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">srv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">user</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">);</span><span class="w"></span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="nx">PurchaseOrder</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;4100000000&quot;</span><span class="w"></span>
 <span class="p">};</span><span class="w"></span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">srv</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;A_PurchaseOrder&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">keys</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="service.odata.getEntitySet"></a></p>
-<h4 id="odatagetentitysetsrv-entityset-filterstring-selectionfields-queryparams-array">odata.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams]) ⇒ <code>Array</code></h4>
+<h4 id="odatagetentitysetsrv-entityset-filterstring-selectionfields-queryparams-promise">odata.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams]) ⇒ <code>Promise</code></h4>
 <p>GET's the EntitySet collection.</p>
 <p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a><br />
-<strong>Returns</strong>: <code>Array</code> - - Result set array  </p>
+<strong>Returns</strong>: <code>Promise</code> - A Promise that resolves to the response data.  </p>
 <table>
 <thead>
 <tr>
@@ -14838,10 +14888,192 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <span class="p">};</span><span class="w"></span>
 <span class="kd">let</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">getEntitySet</span><span class="p">(</span><span class="nx">srv</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;A_PurchaseOrder&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">filterString</span><span class="p">,</span><span class="w"> </span><span class="nx">select</span><span class="p">,</span><span class="w"> </span><span class="nx">queryParams</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
+<a name="service.odata.post"></a></p>
+<h4 id="odatapostsrv-entityset-payload-raw-headers-promise">odata.post(srv, entitySet, payload, [raw], [headers]) ⇒ <code>Promise</code></h4>
+<p>Sends a POST request to retrieve data from the specified OData entity set for the given payload.</p>
+<p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - A Promise that resolves to the response data.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>srv</td>
+<td><code>Object</code></td>
+<td></td>
+<td>Instance of the service</td>
+</tr>
+<tr>
+<td>entitySet</td>
+<td><code>String</code></td>
+<td></td>
+<td>The entitySet you want to POST against.</td>
+</tr>
+<tr>
+<td>payload</td>
+<td><code>Object</code></td>
+<td></td>
+<td>The payload of the POST request.</td>
+</tr>
+<tr>
+<td>[raw]</td>
+<td><code>Boolean</code></td>
+<td><code>false</code></td>
+<td>Specifies whether the response should include all header contents.</td>
+</tr>
+<tr>
+<td>[headers]</td>
+<td><code>Object</code></td>
+<td></td>
+<td>Optional headers to be included in the request.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w"> </span><span class="s2">&quot;PurchaseOrder&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;4500007108&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w"> </span><span class="s2">&quot;DraftUUID&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;00000000-0000-0000-0000-000000000000&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w"> </span><span class="s2">&quot;IsActiveEntity&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;true&quot;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">srv</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;A_PurchaseOrder&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">payload</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<a name="service.odata.merge"></a></p>
+<h4 id="odatamergesrv-entityset-payload-headers-promise">odata.merge(srv, entitySet, payload, [headers]) ⇒ <code>Promise</code></h4>
+<p>@description Sends a MERGE request to merge data from the specified OData entity set for the given payload.</p>
+<p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - A Promise that resolves to the response data.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>srv</td>
+<td><code>Object</code></td>
+<td>Instance of the service</td>
+</tr>
+<tr>
+<td>entitySet</td>
+<td><code>String</code></td>
+<td>The entitySet you want to MERGE in.</td>
+</tr>
+<tr>
+<td>payload</td>
+<td><code>Object</code></td>
+<td>The payload of the MERGE request.</td>
+</tr>
+<tr>
+<td>[headers]</td>
+<td><code>Object</code></td>
+<td>Optional headers to be included in the request.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">srv</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;A_PurchaseOrderScheduleLine&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w"> </span><span class="s2">&quot;PurchasingDocument&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;4500007108&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w"> </span><span class="s2">&quot;PurchasingDocumentItem&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;10&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w"> </span><span class="s2">&quot;ScheduleLine&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w"> </span><span class="s2">&quot;ScheduleLineDeliveryDate&quot;</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">()</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<a name="service.odata.delete"></a></p>
+<h4 id="odatadeletesrv-entityset-options-headers-promise">odata.delete(srv, entitySet, options, [headers]) ⇒ <code>Promise</code></h4>
+<p>Sends a DELETE request to the specified OData entity set.</p>
+<p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - A Promise that resolves to the response data.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>srv</td>
+<td><code>Object</code></td>
+<td>Instance of the service.</td>
+</tr>
+<tr>
+<td>entitySet</td>
+<td><code>String</code></td>
+<td>The entitySet you want to DELETE.</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
+<td>The options for the DELETE request.</td>
+</tr>
+<tr>
+<td>[headers]</td>
+<td><code>Object</code></td>
+<td>Optional headers to be included in the request.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w"> </span><span class="s2">&quot;PurchaseOrder&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w"> </span><span class="s2">&quot;DraftUUID&quot;</span><span class="o">:</span><span class="w"> </span><span class="nx">draftUUID</span><span class="p">,</span><span class="w"></span>
+<span class="w"> </span><span class="s2">&quot;IsActiveEntity&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="ow">delete</span><span class="p">(</span><span class="nx">srv</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;C_PurchaseOrderTP&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<a name="service.odata.callFunctionImport"></a></p>
+<h4 id="odatacallfunctionimportsrv-functionimportname-options-promise">odata.callFunctionImport(srv, functionImportName, options) ⇒ <code>Promise</code></h4>
+<p>Sends a function import request to the OData service instance.</p>
+<p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - A Promise that resolves to the response data.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>srv</td>
+<td><code>Object</code></td>
+<td>Instance of the service.</td>
+</tr>
+<tr>
+<td>functionImportName</td>
+<td><code>String</code></td>
+<td>Name of Function Import.</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
+<td>Parameters for function import.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w"> </span><span class="nx">CentralRequestForQuotation</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;7500000026&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w"> </span><span class="nx">Supplier</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;100006&quot;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">callFunctionImport</span><span class="p">(</span><span class="nx">srv</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Cancel&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
 <a name="service.odata.isFeatureToggleActivated"></a></p>
-<h4 id="odataisfeaturetoggleactivatedsrv-featurename">odata.isFeatureToggleActivated(srv, featureName)</h4>
-<p>checks if a feature toggle is switched on or off</p>
-<p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a>  </p>
+<h4 id="odataisfeaturetoggleactivatedsrv-featurename-promise">odata.isFeatureToggleActivated(srv, featureName) ⇒ <code>Promise</code></h4>
+<p>Checks if a feature toggle is switched on or off.</p>
+<p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - A Promise that resolves to a bool value.  </p>
 <table>
 <thead>
 <tr>
@@ -14867,162 +15099,6 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">systemUrl</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;/sap/opu/odata/SAP/CA_FM_FEATURE_TOGGLE_STATUS_SRV/&quot;</span><span class="p">;</span><span class="w"></span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">srv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">user</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">);</span><span class="w"></span>
 <span class="kd">let</span><span class="w"> </span><span class="nx">isFeatureActive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">isFeatureToggleActivated</span><span class="p">(</span><span class="nx">srv</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;MM_PUR_PO_BATCHES_IN_MANAGE_PO&quot;</span><span class="p">);</span><span class="w"></span>
-</code></pre></div>
-<a name="service.odata.post"></a></p>
-<h4 id="odatapostsrv-entityset-payload-raw">odata.post(srv, entitySet, payload, raw)</h4>
-<p>makes a POST request.</p>
-<p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a>  </p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>srv</td>
-<td><code>Object</code></td>
-<td>Instance of the service</td>
-</tr>
-<tr>
-<td>entitySet</td>
-<td><code>String</code></td>
-<td>The entitySet you want to POST against.</td>
-</tr>
-<tr>
-<td>payload</td>
-<td><code>Object</code></td>
-<td>The payload for the POST-request.</td>
-</tr>
-<tr>
-<td>raw</td>
-<td><code>Boolean</code></td>
-<td>Response includes all header contents.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w"> </span><span class="s2">&quot;PurchaseOrder&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;4500007108&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w"> </span><span class="s2">&quot;DraftUUID&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;00000000-0000-0000-0000-000000000000&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w"> </span><span class="s2">&quot;IsActiveEntity&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;true&quot;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-<span class="kd">let</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">srv</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;A_PurchaseOrder&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">payload</span><span class="p">);</span><span class="w"></span>
-</code></pre></div>
-<a name="service.odata.merge"></a></p>
-<h4 id="odatamergesrv-entityset-payload">odata.merge(srv, entitySet, payload)</h4>
-<p>makes a MERGE request.</p>
-<p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a>  </p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>srv</td>
-<td><code>Object</code></td>
-<td>Instance of the service</td>
-</tr>
-<tr>
-<td>entitySet</td>
-<td><code>String</code></td>
-<td>The entitySet you want to MERGE in.</td>
-</tr>
-<tr>
-<td>payload</td>
-<td><code>Object</code></td>
-<td>The payload for the MERGE-request.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">srv</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;A_PurchaseOrderScheduleLine&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w"> </span><span class="s2">&quot;PurchasingDocument&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;4500007108&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w"> </span><span class="s2">&quot;PurchasingDocumentItem&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;10&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w"> </span><span class="s2">&quot;ScheduleLine&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w"> </span><span class="s2">&quot;ScheduleLineDeliveryDate&quot;</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">()</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-</code></pre></div>
-<a name="service.odata.delete"></a></p>
-<h4 id="odatadeletesrv-entityset-options">odata.delete(srv, entitySet, options)</h4>
-<p>makes a DELETE request.</p>
-<p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a>  </p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>srv</td>
-<td><code>Object</code></td>
-<td>Instance of the service</td>
-</tr>
-<tr>
-<td>entitySet</td>
-<td><code>String</code></td>
-<td>The entitySet you want to DELETE.</td>
-</tr>
-<tr>
-<td>options</td>
-<td><code>Object</code></td>
-<td>The options for the DELETE-request.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w"> </span><span class="s2">&quot;PurchaseOrder&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w"> </span><span class="s2">&quot;DraftUUID&quot;</span><span class="o">:</span><span class="w"> </span><span class="nx">draftUUID</span><span class="p">,</span><span class="w"></span>
-<span class="w"> </span><span class="s2">&quot;IsActiveEntity&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-<span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="ow">delete</span><span class="p">(</span><span class="nx">srv</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;C_PurchaseOrderTP&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">);</span><span class="w"></span>
-</code></pre></div>
-<a name="service.odata.callFunctionImport"></a></p>
-<h4 id="odatacallfunctionimportsrv-functionimportname-options">odata.callFunctionImport(srv, functionImportName, options)</h4>
-<p>makes a function import request on an OData service.</p>
-<p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a>  </p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>srv</td>
-<td><code>Object</code></td>
-<td>Instance of the service</td>
-</tr>
-<tr>
-<td>functionImportName</td>
-<td><code>String</code></td>
-<td>Name of Function Import</td>
-</tr>
-<tr>
-<td>options</td>
-<td><code>Object</code></td>
-<td>parameters for function import</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w"> </span><span class="nx">CentralRequestForQuotation</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;7500000026&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w"> </span><span class="nx">Supplier</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;100006&quot;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">callFunctionImport</span><span class="p">(</span><span class="nx">srv</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Cancel&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <a name="service.odata.getOutputManagementPdfStream"></a></p>
 <h4 id="odatagetoutputmanagementpdfstreamoutputconf-url-username-password">odata.getOutputManagementPdfStream(outputConf, url, username, password)</h4>

@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://sap.github.io/wdio-qmate-service/sections/bestPractices/authentication/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-8.3.9">
     
     
       
@@ -493,16 +493,43 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#via-reuse-methods" class="md-nav__link">
-    Via reuse methods
+  <a href="#login-via-reuse-methods" class="md-nav__link">
+    Login via Reuse Methods
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#via-configuration-file" class="md-nav__link">
-    Via configuration file
+  <a href="#login-via-configuration-file" class="md-nav__link">
+    Login via Configuration File
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#login-via-environment-variables" class="md-nav__link">
+    Login via Environment Variables
+  </a>
+  
+    <nav class="md-nav" aria-label="Login via Environment Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overwriting-credentials" class="md-nav__link">
+    Overwriting Credentials
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-password-fallback" class="md-nav__link">
+    Default Password Fallback
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -667,16 +694,43 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#via-reuse-methods" class="md-nav__link">
-    Via reuse methods
+  <a href="#login-via-reuse-methods" class="md-nav__link">
+    Login via Reuse Methods
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#via-configuration-file" class="md-nav__link">
-    Via configuration file
+  <a href="#login-via-configuration-file" class="md-nav__link">
+    Login via Configuration File
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#login-via-environment-variables" class="md-nav__link">
+    Login via Environment Variables
+  </a>
+  
+    <nav class="md-nav" aria-label="Login via Environment Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overwriting-credentials" class="md-nav__link">
+    Overwriting Credentials
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-password-fallback" class="md-nav__link">
+    Default Password Fallback
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -714,17 +768,18 @@
 
 <h1 id="best-practices-authentication">Best Practices - Authentication</h1>
 <p>For the standard Fiori and Cloud login Pages, we provide some configuration parameters and reuse methods to enable you an easy way of system authentication.</p>
-<p>There are two different approaches to log into the system:</p>
+<p>There are different approaches to log into the system:</p>
 <ul>
-<li><a href="#via-reuse-methods">Via reuse methods</a> (recommended)</li>
-<li><a href="#via-configuration-file">Via configuration file</a></li>
+<li><a href="#login-via-reuse-methods">Login via Reuse Methods</a> (recommended)</li>
+<li><a href="#login-via-configuration-file">Login via Configuration File</a></li>
+<li><a href="#login-via-environment-variables">Login via Environment Variables</a></li>
 </ul>
 <p>Which way to choose depends on your needs and preferences. If you are testing a scenario which goes through various systems (especially non UI5 systems) it is not recommended/possible to use a global authentication via the configuration file. If there is only one login during the script execution, it is up to you, to do the authentication via the configuration file. </p>
 <div class="admonition info">
-<p class="admonition-title">Info<p>For consistency reasons we recommend to use the login via reuse methods only.</p>
-</p>
+<p class="admonition-title">Info</p>
+<p>For consistency reasons we recommend to use the login via reuse methods if possible.</p>
 </div>
-<h2 id="via-reuse-methods">Via reuse methods</h2>
+<h2 id="login-via-reuse-methods">Login via <strong>Reuse Methods</strong></h2>
 <p>The other way of system authentication, is to use the specific <a href="https://sap.github.io/wdio-qmate-service/doc/#ui5.session">reuse method</a>. 
 This is commonly recommended, especially if you are switching between multiple users or systems during the test execution. 
 With this approach, you handle the login within a step of your script/s. 
@@ -736,7 +791,7 @@ With that, you are able to use the login/logout multiple times during the test e
 <div class="tabbed-block">
 <p>There is a generic login function which can be used for both types of forms (fiori &amp; sap-cloud) to authenticate. This function will automatically determine the right login form and call the proper function.</p>
 <div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step 01: login generic&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">login</span><span class="p">(</span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;abc123&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">login</span><span class="p">(</span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;abc123&quot;</span><span class="p">);</span><span class="w"></span>
 <span class="p">});</span><span class="w"></span>
 </code></pre></div>
 </div>
@@ -744,7 +799,7 @@ With that, you are able to use the login/logout multiple times during the test e
 <p>Use this configuration for the <a href="#Fiori-Login-Screen">Fiori Login Screen</a>.
 Define the step (on top of your script) and pass at least a valid user to the method. </p>
 <div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step 01: login fiori&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">loginFiori</span><span class="p">(</span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;abc123&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">loginFiori</span><span class="p">(</span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;abc123&quot;</span><span class="p">);</span><span class="w"></span>
 <span class="p">});</span><span class="w"></span>
 </code></pre></div>
 </div>
@@ -752,7 +807,7 @@ Define the step (on top of your script) and pass at least a valid user to the me
 <p>Use this configuration for the <a href="#SAP-Cloud-Login-Screen">SAP Cloud Login Screen</a>.
 Define the step (on top of your script) and pass at least a valid user to the method. </p>
 <div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step 01: login sap cloud&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">loginSapCloud</span><span class="p">(</span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;abc123&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">loginSapCloud</span><span class="p">(</span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;abc123&quot;</span><span class="p">);</span><span class="w"></span>
 <span class="p">});</span><span class="w"></span>
 </code></pre></div>
 </div>
@@ -761,45 +816,64 @@ Define the step (on top of your script) and pass at least a valid user to the me
 <p>Define the step (on top of your script) and pass the <code>username</code>, <code>password</code>, <code>usernameFieldSelector</code>, <code>passwordFieldSelector</code> 
 and <code>logonButtonSelector</code>. Therefore, you need to define the CSS selectors of the corresponding elements.</p>
 <div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step 01: login Custom&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Greetings1!&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">usernameSelector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#USERNAME_BLOCK input&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">passwordSelector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#PASSWORD_BLOCK input&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">loginButtonSelector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#LOGIN_LINK&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">loginCustom</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">,</span><span class="w"> </span><span class="nx">usernameSelector</span><span class="p">,</span><span class="w"> </span><span class="nx">passwordSelector</span><span class="p">,</span><span class="w"> </span><span class="nx">loginButtonSelector</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Greetings1!&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">usernameSelector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#USERNAME_BLOCK input&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">passwordSelector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#PASSWORD_BLOCK input&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">loginButtonSelector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#LOGIN_LINK&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">loginCustom</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">,</span><span class="w"> </span><span class="nx">usernameSelector</span><span class="p">,</span><span class="w"> </span><span class="nx">passwordSelector</span><span class="p">,</span><span class="w"> </span><span class="nx">loginButtonSelector</span><span class="p">);</span><span class="w"></span>
 <span class="p">});</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
 </div>
-<div class="admonition tip">
-<p class="admonition-title">Tip<p>You can disable the login centrally without touching your specs by setting the <code>formType</code> to <code>"skip"</code> inside your configuration file.</p>
-</p>
+<div class="admonition info">
+<p class="admonition-title">Best Practices</p>
+<ul>
+<li>
+<p>For a better maintainability and reusability of your specs, we highly recommend to decouple you user data inside the data file assigned to your spec.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="err">sessio</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="err">user</span><span class="kc">na</span><span class="err">me</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;JOHN_DOE&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="err">password</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abc123#&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// further test data ...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</li>
+<li>
+<p>To store your credential securely, you can refer to our main documentation under section <a href="https://pages.github.tools.sap/sProcurement/qmate/sections/furtherTopics/dataPrivacy/">Data Privacy</a>.</p>
+</li>
+</ul>
 </div>
-<h2 id="via-configuration-file">Via configuration file</h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can disable the login centrally without touching your specs by setting the <code>formType</code> to <code>"skip"</code> inside your configuration file.</p>
+</div>
+<h2 id="login-via-configuration-file">Login via <strong>Configuration File</strong></h2>
 <p>Inside the <em>conf.js</em> file You can specify how the script will automatically log into the system. This will only be executed once before the first script gets executed. Hence, we recommend to use this only if you are not switching between multiple users or systems during the test execution.</p>
 <p>There are multiple options, based on the login screen to set the <code>formType</code> of the <a href="todo-add-configuration-md">Configuration</a>.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:5"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Fiori Login</label><label for="__tabbed_2_2">SAP Cloud Login</label><label for="__tabbed_2_3">Others</label><label for="__tabbed_2_4">Custom Login</label><label for="__tabbed_2_5">Skip Login</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Use this configuration for the <a href="#Fiori-Login-Screen">Fiori Login Screen</a>.
-You only need to specify the <code>username</code> and <code>password</code>.
+You only need to specify the <code>username</code> and <code>password</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="nx">auth</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;fiori-form&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Greetings1!&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;fiori-form&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Greetings1!&quot;</span><span class="w"></span>
 <span class="p">},</span><span class="w"></span>
-</code></pre></div></p>
+</code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>Use this configuration for the <a href="#SAP-Cloud-Login-Screen">SAP Cloud Login Screen</a>.
-You only need to specify the <code>username</code> and <code>password</code>.
+You only need to specify the <code>username</code> and <code>password</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="nx">auth</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sapcloud-form&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Greetings1!&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sapcloud-form&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Greetings1!&quot;</span><span class="w"></span>
 <span class="p">},</span><span class="w"></span>
-</code></pre></div></p>
+</code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>The following options for <code>formType</code> are also available. You need to specify the <code>username</code> and <code>password</code> for this configuration.</p>
@@ -814,33 +888,50 @@ You only need to specify the <code>username</code> and <code>password</code>.
 <p>If you want to define your own custom form, you can use the following configuration.
 Additionally to the <code>username</code> and <code>password</code>, you need to specify the <code>usernameFieldSelector</code>, <code>passwordFieldSelector</code> and <code>logonButtonSelector</code>. Therefore set the CSS selectors of the corresponding elements.</p>
 <div class="highlight"><pre><span></span><code><span class="nx">auth</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;custom-form&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Greetings1!&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">usernameFieldSelector</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;#USERNAME_BLOCK input&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">passwordFieldSelector</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;#PASSWORD_BLOCK input&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">logonButtonSelector</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;#LOGIN_LINK&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;custom-form&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Greetings1!&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">usernameFieldSelector</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;#USERNAME_BLOCK input&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">passwordFieldSelector</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;#PASSWORD_BLOCK input&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">logonButtonSelector</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;#LOGIN_LINK&quot;</span><span class="w"></span>
 <span class="p">},</span><span class="w"></span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>Use this configuration to skip the login and logout inside the specs.
 <div class="highlight"><pre><span></span><code><span class="nx">auth</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;skip&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;skip&quot;</span><span class="w"></span>
 <span class="p">},</span><span class="w"></span>
 </code></pre></div></p>
 </div>
 </div>
 </div>
+<h2 id="login-via-environment-variables">Login via <strong>Environment Variables</strong></h2>
+<h3 id="overwriting-credentials">Overwriting Credentials</h3>
+<p>Qmate offers a convenient feature to centrally override session credentials using environment variables. This functionality is especially beneficial in environments like the STEP platform or other execution environments, where dynamic overwriting of specified users is required, eliminating the need for manual intervention in existing scripts.</p>
+<p>The following environment variables are recognized as <strong>username</strong> and <strong>password</strong>, with priority across all different login reuse functions if set:</p>
+<ul>
+<li><code>QMATE_SESSION_USERNAME</code></li>
+<li><code>QMATE_SESSION_PASSWORD</code></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Please Note</p>
+<p>The username and password provided to the login functions will be ignored if the corresponding variables are set.</p>
+</div>
+<h3 id="default-password-fallback">Default Password Fallback</h3>
+<p>Another environment variable can be set to act as a default password or fallback in case no password is provided to the reuse function. Unlike the variables mentioned above, this will only be considered if no password is provided and will not overwrite any existing value.</p>
+<ul>
+<li><code>QMATE_DEFAULT_PASSWORD</code></li>
+</ul>
 <h2 id="logout">Logout</h2>
 <p>To logout from a S/4 system, please use the following method.
 <div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step XX: logout&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">logout</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">logout</span><span class="p">();</span><span class="w"></span>
 <span class="p">});</span><span class="w"></span>
 </code></pre></div></p>
 <div class="admonition info">
-<p class="admonition-title">Info<p>Please note, if <code>formType</code> is set to <code>"skip"</code>, the logout will be skipped as well.</p>
-</p>
+<p class="admonition-title">Info</p>
+<p>Please note, if <code>formType</code> is set to <code>"skip"</code>, the logout will be skipped as well.</p>
 </div>
 <h2 id="finding-the-right-login-form">Finding the right login form</h2>
 <p>Please use the screenshots to find the proper login form.</p>
