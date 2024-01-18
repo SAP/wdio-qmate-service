@@ -9,7 +9,7 @@ There are different approaches to log into the system:
 
 Which way to choose depends on your needs and preferences. If you are testing a scenario which goes through various systems (especially non UI5 systems) it is not recommended/possible to use a global authentication via the configuration file. If there is only one login during the script execution, it is up to you, to do the authentication via the configuration file. 
 !!! info
-        For consistency reasons we recommend to use the login via reuse methods if possible.
+    For consistency reasons we recommend to use the login via reuse methods if possible.
 
 
 ## Login via **Reuse Methods**
@@ -82,7 +82,7 @@ You can use one of the following methods:
     - To store your credential securely, you can refer to our main documentation under section [Data Privacy](https://pages.github.tools.sap/sProcurement/qmate/sections/furtherTopics/dataPrivacy/).
 
 !!! tip
-        You can disable the login centrally without touching your specs by setting the `formType` to `"skip"` inside your configuration file.
+    You can disable the login centrally without touching your specs by setting the `formType` to `"skip"` inside your configuration file.
 
 ## Login via **Configuration File**
 Inside the *conf.js* file You can specify how the script will automatically log into the system. This will only be executed once before the first script gets executed. Hence, we recommend to use this only if you are not switching between multiple users or systems during the test execution.
@@ -154,7 +154,7 @@ The following environment variables are recognized as **username** and **passwor
 - `QMATE_SESSION_PASSWORD`
 
 !!! warning "Please Note"
-        The username and password provided to the login functions will be ignored if the corresponding variables are set.
+    The username and password provided to the login functions will be ignored if the corresponding variables are set.
 
 ### Default Password Fallback
 Another environment variable can be set to act as a default password or fallback in case no password is provided to the reuse function. Unlike the variables mentioned above, this will only be considered if no password is provided and will not overwrite any existing value.
@@ -170,7 +170,7 @@ it("Step XX: logout", async function () {
 ```
 
 !!! info
-        Please note, if `formType` is set to `"skip"`, the logout will be skipped as well.
+    Please note, if `formType` is set to `"skip"`, the logout will be skipped as well.
 
 ## Finding the right login form
 Please use the screenshots to find the proper login form.
