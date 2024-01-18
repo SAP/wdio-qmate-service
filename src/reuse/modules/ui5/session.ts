@@ -1,6 +1,6 @@
 "use strict";
 
-import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import { VerboseLoggerFactory, InactiveLogger, ActiveLogger } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 
 /**
@@ -25,18 +25,13 @@ export class Session {
    */
   async login(username: string, password?: string, verify = false, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.login);
+
     if (browser.config && browser.config.params && browser.config.params.auth && browser.config.params.auth.formType === "skip") {
       util.console.warn("Login is skipped since 'formType' is set to 'skip'");
       return true;
     }
 
-    if (!username) {
-      this.ErrorHandler.logException(new Error("Please provide a valid username."));
-    }
-
-    if (!password) {
-      password = this._getDefaultPassword();
-    }
+    ({ username, password } = this._getUsernameAndPassword(vl, username, password));
 
     let authenticator;
     let messageSelector;
@@ -76,7 +71,7 @@ export class Session {
         }
       }, timeout);
     } catch (error) {
-      this.ErrorHandler.logException(error,"Could not find the login page within the given time.");
+      this.ErrorHandler.logException(error, "Could not find the login page within the given time.");
     }
 
     await this._loginWithUsernameAndPassword(username, password, authenticator, verify, messageSelector);
@@ -93,13 +88,8 @@ export class Session {
    */
   async loginFiori(username: string, password?: string, verify = false) {
     const vl = this.vlf.initLog(this.loginFiori);
-    if (!username) {
-      this.ErrorHandler.logException(new Error("Please provide a valid username."));
-    }
 
-    if (!password) {
-      password = this._getDefaultPassword();
-    }
+    ({ username, password } = this._getUsernameAndPassword(vl, username, password));
 
     try {
       const authenticator = ui5.authenticators.fioriForm;
@@ -121,13 +111,8 @@ export class Session {
    */
   async loginSapCloud(username: string, password?: string, verify = false) {
     const vl = this.vlf.initLog(this.loginSapCloud);
-    if (!username) {
-      this.ErrorHandler.logException(new Error("Please provide a valid username."));
-    }
 
-    if (!password) {
-      password = this._getDefaultPassword();
-    }
+    ({ username, password } = this._getUsernameAndPassword(vl, username, password));
 
     try {
       const authenticator = await ui5.authenticators.sapCloudForm;
@@ -152,13 +137,8 @@ export class Session {
    */
   async loginCustom(username: string, password = "", usernameFieldSelector: string, passwordFieldSelector: string, logonButtonSelector: string, verify = false) {
     const vl = this.vlf.initLog(this.loginCustom);
-    if (!username) {
-      this.ErrorHandler.logException(new Error("Please provide a valid username."));
-    }
 
-    if (!password) {
-      password = this._getDefaultPassword();
-    }
+    ({ username, password } = this._getUsernameAndPassword(vl, username, password));
 
     try {
       const authenticator = {
@@ -204,9 +184,8 @@ export class Session {
    */
   async loginCustomViaConfig(username: string, password?: string, verify = false) {
     const vl = this.vlf.initLog(this.loginCustomViaConfig);
-    if (!password) {
-      password = this._getDefaultPassword();
-    }
+
+    ({ username, password } = this._getUsernameAndPassword(vl, username, password));
 
     try {
       const baseUrl = browser.config.baseUrl;
@@ -214,13 +193,13 @@ export class Session {
       if (browser.config.params && browser.config.params.auth && browser.config.params.auth.username && browser.config.params.auth.password) {
         username = browser.config.params.auth.username;
         password = browser.config.params.auth.password;
-        // @ts-ignore
-        util.console.info("\x1b[33m%s\x1b[0m", "Login credentials will be taken from config.");
+      
+        util.console.info("Login credentials will be taken from config.");
       } else if (!username && !password) {
         this.ErrorHandler.logException(new Error("Username or password is missing. Check your parameters or config file."));
       }
     } catch (error) {
-      this.ErrorHandler.logException(error,"Please maintain the credentials in your config or spec.");
+      this.ErrorHandler.logException(error, "Please maintain the credentials in your config or spec.");
     }
     try {
       const authenticator = {
@@ -228,9 +207,9 @@ export class Session {
         passwordFieldSelector: browser.config.params.auth.passwordFieldSelector,
         logonButtonSelector: browser.config.params.auth.logonButtonSelector
       };
-      return await this._loginWithUsernameAndPassword(username, password, authenticator, verify);
+      return await this._loginWithUsernameAndPassword(username, password!, authenticator, verify);
     } catch (error) {
-      this.ErrorHandler.logException(error,"Please maintain the auth values in your config.");
+      this.ErrorHandler.logException(error, "Please maintain the auth values in your config.");
     }
   }
 
@@ -245,6 +224,7 @@ export class Session {
    */
   async logout(verify = true) {
     const vl = this.vlf.initLog(this.logout);
+
     if (browser.config && browser.config.params && browser.config.params.auth && browser.config.params.auth.formType === "skip") {
       util.console.warn("Logout is skipped since 'formType' is set to 'skip'");
       return await browser.reloadSession(); // Clean cache
@@ -273,9 +253,9 @@ export class Session {
    */
   async switchUser(username: string, password = "", authenticator: any, wait = 10000) {
     const vl = this.vlf.initLog(this.switchUser);
-    if (!password) {
-      password = this._getDefaultPassword();
-    }
+
+    ({ username, password } = this._getUsernameAndPassword(vl, username, password));
+
     await this.logout();
     await util.browser.sleep(wait);
     await browser.navigateTo(browser.config.baseUrl);
@@ -301,11 +281,9 @@ export class Session {
   }
 
   // =================================== HELPER ===================================
-  private async _loginWithUsernameAndPassword(username: string, password?: string, authenticator = ui5.authenticators.fioriForm, verify = false, messageSelector?: string) {
+  private async _loginWithUsernameAndPassword(username: string, password: string, authenticator = ui5.authenticators.fioriForm, verify = false, messageSelector?: string) {
     const vl = this.vlf.initLog(this._loginWithUsernameAndPassword);
-    if (!password) {
-      password = this._getDefaultPassword();
-    }
+
     let usernameField = null;
     let passwordField = null;
     let logonField = null;
@@ -318,7 +296,6 @@ export class Session {
           return (
             (await usernameField.isDisplayedInViewport()) &&
             (await passwordField.isDisplayedInViewport()) &&
-            // eslint-disable-next-line no-return-await
             (await logonField.isDisplayedInViewport())
           );
         },
@@ -335,7 +312,7 @@ export class Session {
       // @ts-ignore
       await logonField.click();
     } catch (error) {
-      this.ErrorHandler.logException(new Error("Please check if you are already logged in or if the system is down"))
+      this.ErrorHandler.logException(new Error("Please check if you are already logged in or if the system is down"));
     }
 
     if (messageSelector) {
@@ -386,13 +363,31 @@ export class Session {
     }
   }
 
-  private _getDefaultPassword() {
-    const vl = this.vlf.initLog(this._getDefaultPassword);
-    if (process.env.QMATE_DEFAULT_PASSWORD) {
-      return process.env.QMATE_DEFAULT_PASSWORD as string;
-    } else {
-      return this.ErrorHandler.logException(new Error("Password was not provided neither in method nor in env variable."))
+  // Checks if username and password is defined as env var and will overwrite the passed user in that case.
+  // Password is using fallback if default password is set as env var.
+  private _getUsernameAndPassword(vl: InactiveLogger | ActiveLogger, username: string, password: string | undefined) {
+    if (process.env.QMATE_SESSION_USERNAME) {
+      vl.log("Using user from environment variable.");
+      username = process.env.QMATE_SESSION_USERNAME;
     }
+    if (!username) {
+      this.ErrorHandler.logException(new Error("Please provide a valid username."));
+    }
+
+    if (process.env.QMATE_SESSION_PASSWORD) {
+      vl.log("Using password from environment variable.");
+      password = process.env.QMATE_SESSION_PASSWORD;
+    }
+    if (!password) {
+      if (process.env.QMATE_DEFAULT_PASSWORD) {
+        vl.log("Using default password from environment variable.");
+        password = process.env.QMATE_DEFAULT_PASSWORD;
+      } else {
+        return this.ErrorHandler.logException(new Error("Password was not provided neither in method nor in env variable."));
+      }
+    }
+
+    return { username, password };
   }
 }
 export default new Session();
