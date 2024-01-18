@@ -68,7 +68,7 @@ export class OData {
    *
    * const srv = await service.odata.init(url, user, password, true, params, "headers", authHeaders);
    */
-  async init(url: string, username: string, password: string, loggingEnabled = false, params = {}, authType: string = "", headers?: any): Promise<any> {
+  async init(url: string, username: string, password: string, loggingEnabled = false, params = {}, authType?: string, headers?: any): Promise<any> {
     const logger = {
       trace: () => {},
       debug: console.debug,
@@ -87,10 +87,10 @@ export class OData {
     };
 
     const auth: any = {
-      type: authType ?? "",
       username,
       password
     };
+    if (authType) auth.type = authType;
     if (headers && Object.entries(headers).length > 0) auth.headers = headers;
 
     const srv = new this.Service({
