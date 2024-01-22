@@ -5262,9 +5262,9 @@ Global namespace for service modules.
 * [service](#service)
     * [.odata](#service.odata)
         * [.init(url, username, password, [loggingEnabled], [params], [authType], [headers])](#service.odata.init) ⇒ <code>Object</code>
-        * [.get(srv, entitySet, keys, [raw], [headers])](#service.odata.get) ⇒ <code>Promise</code>
+        * [.get(srv, entitySet, keys, [raw], [headers], [queryParams])](#service.odata.get) ⇒ <code>Promise</code>
         * [.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])](#service.odata.getEntitySet) ⇒ <code>Promise</code>
-        * [.post(srv, entitySet, payload, [raw], [headers])](#service.odata.post) ⇒ <code>Promise</code>
+        * [.post(srv, entitySet, payload, [raw], [headers], [queryParams])](#service.odata.post) ⇒ <code>Promise</code>
         * [.merge(srv, entitySet, payload, [headers])](#service.odata.merge) ⇒ <code>Promise</code>
         * [.delete(srv, entitySet, options, [headers])](#service.odata.delete) ⇒ <code>Promise</code>
         * [.callFunctionImport(srv, functionImportName, options)](#service.odata.callFunctionImport) ⇒ <code>Promise</code>
@@ -5286,9 +5286,9 @@ Global namespace for service modules.
 
 * [.odata](#service.odata)
     * [.init(url, username, password, [loggingEnabled], [params], [authType], [headers])](#service.odata.init) ⇒ <code>Object</code>
-    * [.get(srv, entitySet, keys, [raw], [headers])](#service.odata.get) ⇒ <code>Promise</code>
+    * [.get(srv, entitySet, keys, [raw], [headers], [queryParams])](#service.odata.get) ⇒ <code>Promise</code>
     * [.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])](#service.odata.getEntitySet) ⇒ <code>Promise</code>
-    * [.post(srv, entitySet, payload, [raw], [headers])](#service.odata.post) ⇒ <code>Promise</code>
+    * [.post(srv, entitySet, payload, [raw], [headers], [queryParams])](#service.odata.post) ⇒ <code>Promise</code>
     * [.merge(srv, entitySet, payload, [headers])](#service.odata.merge) ⇒ <code>Promise</code>
     * [.delete(srv, entitySet, options, [headers])](#service.odata.delete) ⇒ <code>Promise</code>
     * [.callFunctionImport(srv, functionImportName, options)](#service.odata.callFunctionImport) ⇒ <code>Promise</code>
@@ -5337,7 +5337,7 @@ const srv = await service.odata.init(url, user, password, true, params, "headers
 ```
 <a name="service.odata.get"></a>
 
-#### odata.get(srv, entitySet, keys, [raw], [headers]) ⇒ <code>Promise</code>
+#### odata.get(srv, entitySet, keys, [raw], [headers], [queryParams]) ⇒ <code>Promise</code>
 Sends a GET request to retrieve data from the specified OData entity set.
 
 **Kind**: static method of [<code>odata</code>](#service.odata)  
@@ -5350,6 +5350,7 @@ Sends a GET request to retrieve data from the specified OData entity set.
 | keys | <code>Object</code> |  | The required keys for the GET request. |
 | [raw] | <code>Boolean</code> | <code>false</code> | Specifies whether the response should include all header contents. |
 | [headers] | <code>Object</code> |  | Optional headers to be included in the request. |
+| [queryParams] | <code>Object</code> |  | JSON object of key value pairs of custom query parameters. |
 
 **Example**  
 ```js
@@ -5358,7 +5359,14 @@ const srv = await service.odata.init(url, user, password);
 const keys = {
   PurchaseOrder: "4100000000"
 };
-const res = await service.odata.get(srv, "A_PurchaseOrder", keys);
+const queryParams = {
+ "$top" : 5,
+ "$skip" : 10,
+};
+const headers = {
+  'X-Custom-Header': 'foobar'
+}
+const res = await service.odata.get(srv, "A_PurchaseOrder", keys, false, headers, queryParams);
 ```
 <a name="service.odata.getEntitySet"></a>
 
@@ -5395,7 +5403,7 @@ let res = await service.odata.getEntitySet(srv, "A_PurchaseOrder", filterString,
 ```
 <a name="service.odata.post"></a>
 
-#### odata.post(srv, entitySet, payload, [raw], [headers]) ⇒ <code>Promise</code>
+#### odata.post(srv, entitySet, payload, [raw], [headers], [queryParams]) ⇒ <code>Promise</code>
 Sends a POST request to retrieve data from the specified OData entity set for the given payload.
 
 **Kind**: static method of [<code>odata</code>](#service.odata)  
@@ -5408,6 +5416,7 @@ Sends a POST request to retrieve data from the specified OData entity set for th
 | payload | <code>Object</code> |  | The payload of the POST request. |
 | [raw] | <code>Boolean</code> | <code>false</code> | Specifies whether the response should include all header contents. |
 | [headers] | <code>Object</code> |  | Optional headers to be included in the request. |
+| [queryParams] | <code>Object</code> |  | JSON object of key value pairs of custom query parameters. |
 
 **Example**  
 ```js
