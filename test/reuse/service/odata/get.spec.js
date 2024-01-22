@@ -53,3 +53,21 @@ describe("odata - get - wrong entity set", function () {
     await expect(service.odata.get(srv, "WrongEntitySet", { UserName: "willieashmore" })).rejects.toThrow(/Entity Set .* not found in service./);
   });
 });
+
+describe("odata - get with query parameters", function () {
+  let srv;
+  let res;
+  const numberOfResultsToFetch = 3;
+  it("Preparation", async function () {
+    srv = await service.odata.init(browser.config.baseUrl, "", "", false, {}, "none");
+  });
+
+  it("Execution", async function () {
+    res = await service.odata.get(srv, "People", null, false, null, { $top: numberOfResultsToFetch, $skip: 3 });
+  });
+
+  it("Verification", async function () {
+    common.assertion.expectDefined(res);
+    common.assertion.expectEqual(res.length, numberOfResultsToFetch);
+  });
+});
