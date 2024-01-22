@@ -1,11 +1,13 @@
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import ErrorHandler from "../../helper/errorHandler";
 /**
  * @class element
  * @memberof nonUi5
  */
 export class ElementModule {
-  private vlf = new VerboseLoggerFactory("nonui5", "element");
+  private vlf = new VerboseLoggerFactory("nonUi5", "element");
+  private ErrorHandler = new ErrorHandler();
 
   // =================================== WAIT ===================================
   /**
@@ -21,7 +23,7 @@ export class ElementModule {
     try {
       await this._waitForStabilization(selector, timeout, includeHidden);
     } catch (error) {
-      throw new Error(`Function 'waitForAll' failed: ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -41,7 +43,7 @@ export class ElementModule {
       vl.log(`wdio.waitForExist invokation for selector ${selector}`);
       await $(selector).waitForExist({ timeout: timeout });
     } catch (error) {
-      throw new Error(`Function 'waitToBePresent' failed: ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -61,7 +63,7 @@ export class ElementModule {
       vl.log(`wdio.waitForDisplayed invokation for selector ${selector}`);
       await $(selector).waitForDisplayed({ timeout: timeout });
     } catch (error) {
-      throw new Error(`Function 'waitToBeVisible' failed: ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -81,7 +83,7 @@ export class ElementModule {
       vl.log(`wdio.waitForClickable invokation for selector ${selector}`);
       await $(selector).waitForClickable({ timeout: timeout });
     } catch (error) {
-      throw new Error(`Function 'waitToBeClickable' failed: ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -103,7 +105,7 @@ export class ElementModule {
       const elems: Element[] = await $$(selector);
       return await this._filterDisplayed(elems);
     } catch (error) {
-      throw new Error(`Function 'getAllDisplayed' failed. No visible element(s) found for selector '${selector}' after ${+timeout / 1000}s. ` + error);
+      return this.ErrorHandler.logException(error, `No visible element(s) found for selector '${selector}' after ${+timeout / 1000}s.`);
     }
   }
 
@@ -124,7 +126,7 @@ export class ElementModule {
       vl.log(`Getting elements by selector ${selector}`);
       return await $$(selector);
     } catch (error) {
-      throw new Error(`Function 'getAll' failed. No element(s) found for selector '${selector}' after ${+timeout / 1000}s. ` + error);
+      return this.ErrorHandler.logException(error, `No element(s) found for selector '${selector}' after ${+timeout / 1000}s.`);
     }
   }
 
@@ -139,12 +141,17 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByCss(".button01");
    */
-  async getByCss(selector: any, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByCss(
+    selector: any,
+    index: number = 0,
+    timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    includeHidden: boolean = false
+  ): Promise<Element> {
     const vl = this.vlf.initLog(this.getByCss);
     try {
       return await this._getAndFilterElementBySelector(selector, index, timeout, includeHidden);
     } catch (error) {
-      throw new Error(`Function 'getByCss' failed. Element with CSS '${selector}' not found. ${error}`);
+      return this.ErrorHandler.logException(error, `Element with CSS '${selector}' not found.`);
     }
   }
 
@@ -161,7 +168,14 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByCssContainingText(".input01", "Jack Jackson");
    */
-  async getByCssContainingText(selector: any, text: string = "", index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false, strict: boolean = false): Promise<Element> {
+  async getByCssContainingText(
+    selector: any,
+    text: string = "",
+    index: number = 0,
+    timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    includeHidden: boolean = false,
+    strict: boolean = false
+  ): Promise<Element> {
     const vl = this.vlf.initLog(this.getByCssContainingText);
     try {
       await this.waitForAll(selector, timeout);
@@ -178,7 +192,7 @@ export class ElementModule {
         return visibleElems[index];
       }
     } catch (error) {
-      throw new Error(`Function 'getByCssContainingText' failed. Element with CSS '${selector}' and text '${text}' not found. ${error}`);
+      return this.ErrorHandler.logException(error, `Element with CSS '${selector}' and text '${text}' not found.`);
     }
   }
 
@@ -204,7 +218,7 @@ export class ElementModule {
         return await $(selector);
       }
     } catch (error) {
-      throw new Error(`Function 'getById' failed. Element with id '${id}' not found. ${error}`);
+      return this.ErrorHandler.logException(error, `Element with id '${id}' not found.`);
     }
   }
 
@@ -220,13 +234,18 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getByClass("button01");
    * const elem = await nonUi5.element.getByClass("sapMIBar sapMTB sapMTBNewFlex sapContrastPlus");
    */
-  async getByClass(elemClass: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByClass(
+    elemClass: string,
+    index: number = 0,
+    timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    includeHidden: boolean = false
+  ): Promise<Element> {
     const vl = this.vlf.initLog(this.getByClass);
     try {
       const selector = `[class*='${elemClass}']`;
       return await this._getAndFilterElementBySelector(selector, index, timeout, includeHidden);
     } catch (error) {
-      throw new Error(`Function 'getByClass' failed. Element with id '${elemClass}' not found. ${error}`);
+      return this.ErrorHandler.logException(error, `Element with class '${elemClass}' not found.`);
     }
   }
 
@@ -241,13 +260,18 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByName(".button01");
    */
-  async getByName(name: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByName(
+    name: string,
+    index: number = 0,
+    timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    includeHidden: boolean = false
+  ): Promise<Element> {
     const vl = this.vlf.initLog(this.getByName);
     try {
       const selector = `[name='${name}']`;
       return await this._getAndFilterElementBySelector(selector, index, timeout, includeHidden);
     } catch (error) {
-      throw new Error(`Function 'getByName' failed. Element with name '${name}' not found. ${error}`);
+      return this.ErrorHandler.logException(error, `Element with name '${name}' not found.`);
     }
   }
 
@@ -268,7 +292,7 @@ export class ElementModule {
     try {
       return await this.getByCss(xpath, index, timeout, includeHidden);
     } catch (error) {
-      throw new Error(`Function 'getByXPath' failed. Element with XPath '${xpath}' not found. ${error}`);
+      return this.ErrorHandler.logException(error, `Element with XPath '${xpath}' not found.`);
     }
   }
 
@@ -284,14 +308,20 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByChild(".form01", ".input01");
    */
-  async getByChild(elementSelector: any, childSelector: any, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByChild(
+    elementSelector: any,
+    childSelector: any,
+    index: number = 0,
+    timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    includeHidden: boolean = false
+  ): Promise<Element> {
     const vl = this.vlf.initLog(this.getByChild);
     let elems;
     try {
       elems = includeHidden ? await this.getAll(elementSelector, timeout) : await this.getAllDisplayed(elementSelector, timeout);
       vl.log(`Found ${elems.length} elements by parent selector`);
     } catch (error) {
-      throw new Error(`Function 'getByChild' failed. No element found for selector: "${elementSelector}".`);
+      return this.ErrorHandler.logException(error, `No element found for selector: "${elementSelector}".`);
     }
 
     const elementsWithChild: Element[] = [];
@@ -304,7 +334,10 @@ export class ElementModule {
     }
     vl.log(`Found ${elementsWithChild.length} by child selector`);
     if (elementsWithChild.length === 0) {
-      throw new Error(`Function 'getByChild' failed. The found element(s) with the given selector do(es) not have any child with selector ${childSelector}.`);
+      return this.ErrorHandler.logException(
+        new Error(),
+        `The found element(s) with the given selector do(es) not have any child with selector ${childSelector}.`
+      );
     } else {
       return elementsWithChild[index];
     }
@@ -322,14 +355,20 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByParent(".form01", ".input01");
    */
-  async getByParent(elementSelector: any, parentSelector: any, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+  async getByParent(
+    elementSelector: any,
+    parentSelector: any,
+    index: number = 0,
+    timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    includeHidden: boolean = false
+  ): Promise<Element> {
     const vl = this.vlf.initLog(this.getByParent);
     let parentElems: Element[] = [];
     try {
       parentElems = includeHidden ? await this.getAll(parentSelector, timeout) : await this.getAllDisplayed(parentSelector, timeout);
       vl.log(`Found ${parentElems.length} elements by parent selector`);
     } catch (error) {
-      throw new Error(`Function 'getByParent' failed. No parent element found for selector: ${parentSelector}: ${error}`);
+      return this.ErrorHandler.logException(error, `No parent element found for selector: ${parentSelector}`);
     }
 
     const elementsWithParent = [];
@@ -343,7 +382,10 @@ export class ElementModule {
     vl.log(`Found ${elementsWithParent.length} elements with parent`);
 
     if (elementsWithParent.length === 0) {
-      throw new Error(`Function 'getByParent' failed. No visible elements found for selector '${elementSelector}' and parent selector '${parentSelector}'`);
+      return this.ErrorHandler.logException(
+        new Error(),
+        `No visible elements found for selector '${elementSelector}' and parent selector '${parentSelector}'`
+      );
     } else {
       return elementsWithParent[index];
     }
@@ -370,7 +412,7 @@ export class ElementModule {
         return element.isDisplayed();
       }
     } catch (error) {
-      throw new Error(`Function 'isVisible' failed: ${error}`);
+      return this.ErrorHandler.logException(error);
     }
   }
 
@@ -466,7 +508,7 @@ export class ElementModule {
         return value || text;
       }
     } else {
-      throw new Error(`Function 'getAttributeValue' failed. Please provide an element as first argument (must be of type 'object').`);
+      return this.ErrorHandler.logException(new Error(), `Please provide an element as first argument (must be of type 'object').`);
     }
   }
 
@@ -485,7 +527,7 @@ export class ElementModule {
       const [value, text] = await Promise.all([elem.getValue(), elem.getText()]);
       return value || text;
     } catch (error) {
-      throw new Error(`Function 'getValue' failed: ${error}`);
+      return this.ErrorHandler.logException(error);
     }
   }
 
@@ -525,9 +567,13 @@ export class ElementModule {
     return browser.executeScript("arguments[0].style.boxShadow = 'inherit'", [elem]);
   }
 
-
   // =================================== HELPER ===================================
-  private async _waitForStabilization(selector: object, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false, stableIterationsRequired: number = 3): Promise<void> {
+  private async _waitForStabilization(
+    selector: object,
+    timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    includeHidden: boolean = false,
+    stableIterationsRequired: number = 3
+  ): Promise<void> {
     const vl = this.vlf.initLog(this._waitForStabilization);
     let elemsCount: number = 0;
     let stableIterations: number = 0;
@@ -557,12 +603,20 @@ export class ElementModule {
       },
       {
         timeout: timeout,
-        timeoutMsg: elemsCount === 0 ? `Timeout reached. No element with passed selector found after ${+timeout / 1000}s.` : `Timeout reached. Page is still loading after ${+timeout / 1000}s.`
+        timeoutMsg:
+          elemsCount === 0
+            ? `Timeout reached. No element with passed selector found after ${+timeout / 1000}s.`
+            : `Timeout reached. Page is still loading after ${+timeout / 1000}s.`
       }
     );
   }
 
-  private async _getAndFilterElementBySelector(selector: string, index: number = 0, timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000, includeHidden: boolean = false): Promise<Element> {
+  private async _getAndFilterElementBySelector(
+    selector: string,
+    index: number = 0,
+    timeout: any = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    includeHidden: boolean = false
+  ): Promise<Element> {
     const vl = this.vlf.initLog(this._getAndFilterElementBySelector);
     await this.waitForAll(selector, timeout, includeHidden);
     const elems: Element[] = await $$(selector);

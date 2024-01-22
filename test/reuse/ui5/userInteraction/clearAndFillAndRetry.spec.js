@@ -1,24 +1,24 @@
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
-
-
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - clearAndFillAndRetry - smartField", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
+    await browser.navigateTo(
+      "https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview"
+    );
     await handleCookiesConsent();
   });
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smartfield.Overview.Main",
-        "metadata": "sap.ui.comp.smartfield.SmartField",
-        "id": "*idQuantity",
-        "value": [{
-          "path": "Quantity"
-        }]
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smartfield.Overview.Main",
+        metadata: "sap.ui.comp.smartfield.SmartField",
+        id: "*idQuantity",
+        value: [
+          {
+            path: "Quantity"
+          }
+        ]
       }
     };
 
@@ -34,15 +34,17 @@ describe("userInteraction - clearAndFillAndRetry - smartField", function () {
 
 describe("userInteraction - clearAndFillAndRetry - textarea", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
+    await browser.navigateTo(
+      "https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview"
+    );
     await handleCookiesConsent();
   });
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smartfield.Overview.Main",
-        "metadata": "sap.m.TextArea"
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smartfield.Overview.Main",
+        metadata: "sap.m.TextArea"
       }
     };
     const value = "My Value";
@@ -57,16 +59,16 @@ describe("userInteraction - clearAndFillAndRetry - textarea", function () {
 
 describe("userInteraction - clearAndFillAndRetry - input field", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
     await handleCookiesConsent();
   });
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.InputDescription.V",
-        "metadata": "sap.m.Input",
-        "description": "IT Laptops"
+      elementProperties: {
+        viewName: "sap.m.sample.InputDescription.V",
+        metadata: "sap.m.Input",
+        description: "IT Laptops"
       }
     };
     const value = "My Value";
@@ -81,16 +83,16 @@ describe("userInteraction - clearAndFillAndRetry - input field", function () {
 
 describe("userInteraction - clearAndFillAndRetry - invalid selector", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
     await handleCookiesConsent();
   });
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.samplputDescription.V",
-        "metadata": "sap.put",
-        "id": "__input4"
+      elementProperties: {
+        viewName: "sap.m.samplputDescription.V",
+        metadata: "sap.put",
+        id: "__input4"
       }
     };
     const value = "My Value";
@@ -98,27 +100,28 @@ describe("userInteraction - clearAndFillAndRetry - invalid selector", function (
     const timeout = 30000;
     const retries = 1;
     const interval = 2000;
-    await expect(ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout, retries, interval))
-      .rejects.toThrow("Retries done. Failed to execute the function");
+    await expect(ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout, retries, interval)).rejects.toThrow(
+      "Retries done. Failed to execute the function"
+    );
   });
 });
 
 describe("userInteraction - clearAndFillAndRetry - wrong element", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MenuButton/sample/sap.m.sample.MenuButton");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.MenuButton/sample/sap.m.sample.MenuButton");
     await handleCookiesConsent();
   });
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MenuButton.MB",
-        "metadata": "sap.m.Button",
-        "text": "File Menu"
+      elementProperties: {
+        viewName: "sap.m.sample.MenuButton.MB",
+        metadata: "sap.m.Button",
+        text: "File Menu"
       },
-      "ancestorProperties": {
-        "metadata": "sap.m.SplitButton",
-        "viewName": "sap.m.sample.MenuButton.MB"
+      ancestorProperties: {
+        metadata: "sap.m.SplitButton",
+        viewName: "sap.m.sample.MenuButton.MB"
       }
     };
     const value = "My Value";
@@ -126,7 +129,8 @@ describe("userInteraction - clearAndFillAndRetry - wrong element", function () {
     const timeout = 30000;
     const retries = 1;
     const interval = 2000;
-    await expect(ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout, retries, interval))
-      .rejects.toThrow("Retries done. Failed to execute the function");
+    await expect(ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout, retries, interval)).rejects.toThrow(
+      "Function 'clearAndFillAndRetry' failed with: Retries done. Failed to execute the function:"
+    );
   });
 });

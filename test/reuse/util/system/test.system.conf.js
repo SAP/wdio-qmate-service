@@ -4,7 +4,7 @@ const qmateConfiguration = require("../../../helper/configurations/chrome.headle
 exports.config = merge(qmateConfiguration.config, {
   maxInstances: 1,
 
-  baseUrl: "https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection", 
+  baseUrl: "https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection", 
 
   specs: [
     path.resolve(__dirname, "system.spec.js"),

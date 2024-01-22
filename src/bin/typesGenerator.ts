@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import fse from "fs-extra";
+import os from "os";
 import path from "path";
 import glob from "glob-promise";
 
@@ -15,21 +16,13 @@ class TypesGenerator {
   private SRC_INDEX_FOLDER_PATH = process.cwd();
   private SRC_INDEX_FOLDER_NAME = "@types";
 
+  private FOLDER_FOR_TYPE_DECLARATION_FILES = "typeDeclarationFiles";
+
   private PACKAGE_JSON_BASE_CONTENT = {
     name: "@types/wdio-qmate-service",
     version: "1.0.0",
     description: "Packaged types for wdio-qmate-service",
     author: "C5329190",
-    maintainers: [
-      {
-        name: "Marvin Grüssinger",
-        email: "marvin.gruessinger@sap.com"
-      },
-      {
-        name: "Benjamin Warth",
-        email: "benjamin.warth@sap.com"
-      }
-    ],
     dependencies: {
       "@types/node": "^18.0.3"
     }
@@ -55,13 +48,13 @@ class TypesGenerator {
 
   private async copyIndexTypes(srcPath: string, distPath: string) {
     const content = await this.getFolderContent(srcPath, ".d.ts");
-    const contentLean = await this.replaceBasePath(content, `${srcPath}/`);
+    const contentLean = await this.replaceBasePath(content, `${srcPath}${path.sep}`);
     await this.writeIndex(contentLean, srcPath, distPath);
   }
 
   private async copyModulesTypes(srcPath: string, distPath: string) {
     const content = await this.getFolderContent(srcPath, ".d.ts");
-    const contentLean = await this.replaceBasePath(content, `${srcPath}/`);
+    const contentLean = await this.replaceBasePath(content, `${srcPath}${path.sep}`);
     const contentSplitted = await this.splitToModules(contentLean);
     await this.writeModules(contentSplitted, distPath, srcPath);
   }
@@ -87,7 +80,15 @@ class TypesGenerator {
   }
 
   private async getFolderContent(folderPath: string, ext?: string): Promise<string[]> {
-    return glob(`${folderPath}/**/*${ext ? ext : ""}`);
+    const globOptions: any = {};
+    if (os.platform() === "win32") {
+      globOptions.windowsPathsNoEscape = true;
+    }
+    const foldersPath = await glob(`${folderPath}/**/*${ext ? ext : ""}`, globOptions);
+    if (os.platform() === "win32") {
+      return foldersPath.map((folderPath) => folderPath.replaceAll("/", "\\"));
+    }
+    return foldersPath;
   }
 
   private async replaceBasePath(content: string[], srcPath: string): Promise<string[]> {
@@ -96,9 +97,16 @@ class TypesGenerator {
 
   private async splitToModules(content: string[]) {
     return content.reduce((acc, cur) => {
-      const slashIndex = cur.indexOf("/");
-      const moduleName = cur.slice(0, slashIndex);
-      const file = cur.slice(slashIndex + 1);
+      const slashIndex = cur.indexOf(path.sep);
+      let moduleName;
+      let file;
+      if (slashIndex !== -1) {
+        moduleName = cur.slice(0, slashIndex);
+        file = cur.slice(slashIndex + 1);
+      } else {
+        moduleName = this.FOLDER_FOR_TYPE_DECLARATION_FILES;
+        file = cur;
+      }
       if (Array.isArray(acc[moduleName])) {
         acc[moduleName].push(file);
       } else {
@@ -110,7 +118,7 @@ class TypesGenerator {
 
   private async writeModules(content: { [key: string]: string[] }, distPath: string, srcPath: string) {
     for (const moduleName in content) {
-      await this.writeSingleModule(moduleName, content[moduleName], distPath, srcPath);
+      await this.writeSingleModule(moduleName === this.FOLDER_FOR_TYPE_DECLARATION_FILES ? "" : moduleName, content[moduleName], distPath, srcPath);
     }
   }
 
@@ -122,8 +130,12 @@ class TypesGenerator {
       }
     ];
     for (const file of files) {
-      const src = `${srcPath}/${moduleName}/${file}`;
-      const dist = `${distPath}/modules/${moduleName}/${file}`;
+      let src = `${srcPath}${path.sep}${moduleName}${path.sep}${file}`;
+      let dist = `${distPath}${path.sep}modules${path.sep}${moduleName}${path.sep}${file}`;
+      if (!moduleName) {
+        src = `${srcPath}${path.sep}${file}`;
+        dist = `${distPath}${path.sep}modules${path.sep}${file}`;
+      }
       await fse.copy(src, dist);
       await this.replaceStringsInFile(dist, replacements);
     }

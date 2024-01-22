@@ -39,6 +39,6 @@ describe("userInteraction - check - checkbox (error)", function () {
 
   it("Execution & Verification", async function () {
     const elem = undefined;
-    await expect(nonUi5.userInteraction.check(elem, 0, 60000)).rejects.toThrow("Function 'check' failed with: Please provide an element as first argument.");
+    await expect(nonUi5.userInteraction.check(elem, 0, 60000)).rejects.toThrow("Function 'check' failed with: Please provide an element or a CSS selector as first argument.");
   });
 });

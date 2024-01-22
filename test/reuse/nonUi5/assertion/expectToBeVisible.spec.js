@@ -19,7 +19,7 @@ describe("assertion - expectToBeVisible", function () {
 
 describe("assertion - expectToBeVisible - element out of viewport", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await handleCookiesConsent();
   });
 
@@ -58,6 +58,6 @@ describe("assertion - expectToBeVisible - error case", function () {
 
   it("Verification", async function () {
     await expect(nonUi5.assertion.expectToBeVisible(hiddenElement)).rejects.toThrow("Timeout by waiting for element to be visible.");
-    await expect(nonUi5.assertion.expectToBeVisible(undefined)).rejects.toThrow("Function 'expectToBeVisible' failed. Please provide an element as argument.");
+    await expect(nonUi5.assertion.expectToBeVisible(undefined)).rejects.toThrow("Function 'expectToBeVisible' failed with: Please provide an element or a CSS selector as first argument.");
   });
 });

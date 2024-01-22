@@ -41,4 +41,4 @@
         const SupplierPartyId = childrenArray[5].getElementsByTagName("SPAN")[1].innerText;
         ```
 
-- Always check for a stable IDs or for other unique properties/attributes. Even if spotlight doesn't offer it to you.
+- Always check for a stable IDs or for other unique properties/attributes. Even if Qmate Suite doesn't offer it to you.

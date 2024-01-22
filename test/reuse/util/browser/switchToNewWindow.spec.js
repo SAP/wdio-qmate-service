@@ -137,6 +137,6 @@ describe("browser - switchToNewWindow - error case", function () {
 
   it("Execution & Verification", async function () {
     await expect(util.browser.switchToNewWindow("Wrong Title"))
-      .rejects.toThrow(/Function 'switchToNewWindow' failed:/);
+      .rejects.toThrow(/Function 'switchToNewWindow' failed with/);
   });
 });

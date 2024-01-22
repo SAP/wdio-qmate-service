@@ -12,7 +12,7 @@ describe("element - waitForAll", function () {
     }
   };
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.tnt.NavigationList/sample/sap.tnt.sample.NavigationList");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.tnt.NavigationList/sample/sap.tnt.sample.NavigationList");
     await handleCookiesConsent();
   });
 
@@ -35,12 +35,12 @@ describe("element - waitForAll - error case", function () {
     }
   };
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.tnt.NavigationList/sample/sap.tnt.sample.NavigationList");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.tnt.NavigationList/sample/sap.tnt.sample.NavigationList");
     await handleCookiesConsent();
   });
 
   it("Execution and Verification", async function () {
     await expect(ui5.element.waitForAll(selector, 4000))
-      .rejects.toThrow("Function 'waitForAll' failed");
+      .rejects.toThrow("Function 'waitForAll' failed with:");
   });
 });

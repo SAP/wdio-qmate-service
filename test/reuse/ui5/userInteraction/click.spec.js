@@ -3,7 +3,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 describe("userInteraction - click", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/");
     await handleCookiesConsent();
   });
 
@@ -19,14 +19,14 @@ describe("userInteraction - click", function () {
   });
 
   it("Verification", async function () {
-    await common.assertion.expectUrlToBe("https://sapui5.hana.ondemand.com/1.99.0/#/api");
+    await common.assertion.expectUrlToBe("https://sapui5.hana.ondemand.com/1.96.27/#/api");
   });
 });
 
 describe("userInteraction - click on not displayed element", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/");
     await handleCookiesConsent();
   });
 
@@ -48,7 +48,7 @@ describe("userInteraction - click on not displayed element", function () {
 describe("userInteraction - click on invisible element", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/category/AC/product/HT-6111");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/category/AC/product/HT-2000");
     await handleCookiesConsent();
   });
 

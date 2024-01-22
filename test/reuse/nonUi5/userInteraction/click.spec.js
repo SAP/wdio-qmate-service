@@ -23,7 +23,9 @@ describe("userInteraction - click - disabled button (unhappy case)", function ()
 
   it("Execution & Verification", async function () {
     const elem = await nonUi5.element.getById("Not-clickable", 10000);
-    await expect(nonUi5.userInteraction.click(elem)).rejects.toThrow(/Timeout \w*|\d* by waiting for element is clickable/); // \w*|\d* - placeholder for timeout value
+    await expect(nonUi5.userInteraction.click(elem)).rejects.toThrow(
+      /Function 'click' failed with: Timeout \w*|\d* by waiting for element is clickable/
+    ); // \w*|\d* - placeholder for timeout value
   });
 });
 
@@ -33,7 +35,7 @@ describe("userInteraction - click - empty value", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(nonUi5.userInteraction.click()).rejects.toThrow("Function 'click' failed with: Please provide an element as first argument.");
+    await expect(nonUi5.userInteraction.click()).rejects.toThrow("Function 'click' failed with: Please provide an element or a CSS selector as first argument.");
   });
 });
 

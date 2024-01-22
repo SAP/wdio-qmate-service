@@ -7,7 +7,7 @@ describe("element - getByChild", function () {
   let elemAct;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
     await handleCookiesConsent();
   });
 
@@ -26,7 +26,7 @@ describe("element - getByChild - with index", function () {
   let elemAct;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/#/entity/sap.m.Tree/sample/sap.m.sample.TreeExpandMulti");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Tree/sample/sap.m.sample.TreeExpandMulti");
     await handleCookiesConsent();
   });
 
@@ -45,26 +45,26 @@ describe("element - getByChild - with index", function () {
 
 describe("element - getByChild - error case with wrong element", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
   });
 
   it("Execution & Verification", async function () {
     const elementSelector = ".wrongParent";
     const childSelector = ".wrongChild";
     await expect(nonUi5.element.getByChild(elementSelector, childSelector))
-      .rejects.toThrow("Function 'getByChild' failed. No element found for selector:");
+      .rejects.toThrow("Function 'getByChild' failed with: No element found for selector:");
   });
 });
 
 describe("element - getByChild - error case with wrong order of parent and child", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
   });
 
   it("Execution & Verification", async function () {
     const elementSelector = "[id='container-cart---homeView--searchField-I']";
     const childSelector = "[id='container-cart---homeView--searchField-F']";
     await expect(nonUi5.element.getByChild(elementSelector, childSelector))
-      .rejects.toThrow("Function 'getByChild' failed. The found element(s) with the given selector do(es) not have any child with selector");
+      .rejects.toThrow(`Function 'getByChild' failed with: The found element(s) with the given selector do(es) not have any child with selector [id='container-cart---homeView--searchField-F']`);
   });
 });

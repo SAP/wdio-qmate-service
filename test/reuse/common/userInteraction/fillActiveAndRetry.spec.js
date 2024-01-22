@@ -1,23 +1,20 @@
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - fillActiveAndRetry", function () {
-
   let value;
   let actualValue;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
     await handleCookiesConsent();
   });
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.SearchField",
-        "id": "*searchField"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.SearchField",
+        id: "*searchField"
       }
     };
 
@@ -37,41 +34,38 @@ describe("userInteraction - fillActiveAndRetry", function () {
 });
 
 describe("userInteraction - fillActiveAndRetry - invalid selector", function () {
-
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
     await handleCookiesConsent();
   });
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.eld"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.eld"
       }
     };
 
-    await expect(ui5.userInteraction.click(selector))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+    await expect(ui5.userInteraction.click(selector)).rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
 
 describe("userInteraction - fillActiveAndRetry - element with number", function () {
-
   let value;
   let actualValue;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
     await handleCookiesConsent();
   });
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.SearchField",
-        "id": "*searchField"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.SearchField",
+        id: "*searchField"
       }
     };
     value = 12;
@@ -90,20 +84,19 @@ describe("userInteraction - fillActiveAndRetry - element with number", function 
 });
 
 describe("userInteraction - fillActiveAndRetry - empty value", function () {
-
   let value;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
     await handleCookiesConsent();
   });
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.SearchField",
-        "id": "*searchField"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.SearchField",
+        id: "*searchField"
       }
     };
     const index = 0;
@@ -111,11 +104,11 @@ describe("userInteraction - fillActiveAndRetry - empty value", function () {
     const retries = 1;
     const interval = 3000;
     await ui5.userInteraction.click(selector);
-    await expect(common.userInteraction.fillActiveAndRetry(value))
-      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'fillActive' failed: Please provide a value(datatype - number/string) as argument.");
+    await expect(common.userInteraction.fillActiveAndRetry(value)).rejects.toThrow(
+      "Function 'fillActiveAndRetry' failed with: Retries done. Failed to execute the function: Please provide a value(datatype - number/string) as argument."
+    );
   });
 });
-
 
 describe("userInteraction - fillActiveAndRetry - form field", function () {
   let element;
@@ -158,7 +151,8 @@ describe("userInteraction - fillActiveAndRetry - empty value", function () {
   it("Execution & Verification", async function () {
     // Make the form field active
     await nonUi5.userInteraction.click(element);
-    await expect(common.userInteraction.fillActiveAndRetry())
-      .rejects.toThrow("Retries done. Failed to execute the function: Error: Function 'fillActive' failed: Please provide a value(datatype - number/string) as argument.");
+    await expect(common.userInteraction.fillActiveAndRetry()).rejects.toThrow(
+      "Function 'fillActiveAndRetry' failed with: Retries done. Failed to execute the function: Please provide a value(datatype - number/string) as argument."
+    );
   });
 });

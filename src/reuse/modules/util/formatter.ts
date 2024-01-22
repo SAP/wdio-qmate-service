@@ -2,12 +2,15 @@
 
 import { DateFormats } from "./constants/formatter.constants";
 import { DateFormatsType } from "./types/formatter.types";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class formatter
  * @memberof util
  */
 export class Formatter {
+  private ErrorHandler = new ErrorHandler();
+
   // =================================== STRING ===================================
   /**
    * @function sliceStringAt
@@ -26,10 +29,10 @@ export class Formatter {
       if (index !== -1) {
         return input.slice(index, index + length);
       } else {
-        throw new Error(`Char '${slicePoint}' not found in input '${input}'.`);
+        return this.ErrorHandler.logException(new Error(`Char '${slicePoint}' not found in input '${input}'.`));
       }
     } else {
-      throw new Error("Function 'sliceStringAt' failed: Incorrect or missing arguments.");
+      return this.ErrorHandler.logException(new Error("Incorrect or missing arguments."));
     }
   }
 
@@ -51,9 +54,9 @@ export class Formatter {
         index = index + slicePoint.length;
         return input.slice(index, index + length);
       }
-      throw new Error(`Char '${slicePoint}' not found in input '${input}'.`);
+      return this.ErrorHandler.logException(new Error(`Char '${slicePoint}' not found in input '${input}'.`));
     }
-    throw new Error("Function 'sliceStringAfter' failed: Incorrect or missing arguments.");
+    return this.ErrorHandler.logException(new Error("Incorrect or missing arguments."));
   }
 
   /**
@@ -68,7 +71,7 @@ export class Formatter {
     if (input) {
       return input.trim();
     }
-    throw new Error("Function 'trimString' failed: Incorrect or missing arguments.");
+    return this.ErrorHandler.logException(new Error("Incorrect or missing arguments."));
   }
 
   /**
@@ -88,7 +91,7 @@ export class Formatter {
       // @ts-ignore
       return input.match(/\d+/g).map(Number)[index].toString();
     }
-    throw new Error("Function 'extractNumberFromString' failed: Incorrect or missing arguments.");
+    return this.ErrorHandler.logException(new Error("Incorrect or missing arguments."));
   }
 
   /**
@@ -103,7 +106,7 @@ export class Formatter {
     try {
       return JSON.stringify(object);
     } catch (error) {
-      throw new Error(`Function 'stringifyJSON' failed: Incorrect JSON object. ${error}`);
+      return this.ErrorHandler.logException(error, "Incorrect JSON object.");
     }
   }
 

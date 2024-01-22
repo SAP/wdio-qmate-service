@@ -6,6 +6,10 @@ import pdfParse from "pdf-parse";
 import * as fs from "fs";
 import * as xlsx from "xlsx";
 import * as os from "os";
+import * as xml2js from "xml2js";
+import { parsed } from "yargs";
+import { match } from "assert";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class file
@@ -14,6 +18,7 @@ import * as os from "os";
 
 export class File {
   private vlf = new VerboseLoggerFactory("util", "file");
+  private ErrorHandler = new ErrorHandler();
 
   // =================================== UPLOAD ===================================
   /**
@@ -36,15 +41,19 @@ export class File {
         const elemId = await ui5.element.getId(selector);
         elem = await nonUi5.element.getByXPath(`.//input[contains(@id,'${elemId}')][@type='file']`);
       }
-
+      let remoteFiles = "";
       for (const file of files) {
         const filePath = path.resolve(file);
         vl.log(`Uploading file with a path ${filePath}`);
         const remoteFilePath = await browser.uploadFile(filePath);
-        await elem.addValue(remoteFilePath);
+        if (remoteFiles) {
+          remoteFiles = remoteFiles + "\n";
+        }
+        remoteFiles = remoteFiles + remoteFilePath;
       }
+      await elem.addValue(remoteFiles);
     } catch (error) {
-      throw new Error(`Function 'upload' failed': ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -77,7 +86,7 @@ export class File {
       }
       await fileInput.addValue(remoteFiles);
     } catch (error) {
-      throw new Error(`Function 'uploadWebGui' failed': ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -95,7 +104,7 @@ export class File {
   async parsePdf(pdfStream: Buffer, renderingMethod: Function = this._renderPage): Promise<String> {
     const vl = this.vlf.initLog(this.parsePdf);
     if (typeof renderingMethod !== "function") {
-      throw new Error("Function 'parsePdf' failed: Please provide a custom rendering method as second parameter.");
+      return this.ErrorHandler.logException(new Error("Please provide a custom rendering method as second parameter."));
     }
 
     const options = {
@@ -119,7 +128,7 @@ export class File {
   async expectPdfContainsText(pdfStream: Buffer, text: string, renderingMethod: Function = this._renderPage) {
     const vl = this.vlf.initLog(this.expectPdfContainsText);
     if (!text) {
-      throw new Error("Function 'expectPdfContainsText' failed: Please provide a text as second parameter.");
+      this.ErrorHandler.logException(new Error("Please provide a text as second parameter."));
     }
     const parsedText = await this.parsePdf(pdfStream, renderingMethod);
     return expect(parsedText).toContain(text);
@@ -138,7 +147,7 @@ export class File {
   async expectPdfNotContainsText(pdfStream: Buffer, text: string, renderingMethod: Function = this._renderPage): Promise<boolean> {
     const vl = this.vlf.initLog(this.expectPdfNotContainsText);
     if (!text) {
-      throw new Error("Function 'expectPdfNotContainsText' failed: Please provide a text as second parameter.");
+      return this.ErrorHandler.logException(new Error("Please provide a text as second parameter."));
     }
     const parsedText = await this.parsePdf(pdfStream, renderingMethod);
     return expect(parsedText).not.toContain(text);
@@ -163,19 +172,110 @@ export class File {
 
     const fileNamePath = await this.findFilePathRecursively(downloadDir, fileName);
     if (!fileNamePath) {
-      throw new Error(`The specified file '${fileName}' doesn't exist in the directory: ${downloadDir}`);
+      return this.ErrorHandler.logException(new Error(`The specified file '${fileName}' doesn't exist in the directory: ${downloadDir}`));
     }
 
     const workbook = xlsx.readFile(fileNamePath);
     const sheetList = workbook.SheetNames;
     if (sheetIndex < 0 || sheetIndex > sheetList.length - 1) {
-      throw new Error(`The specified sheet index '${sheetIndex}' is invalid for the Excel file.`);
+      return this.ErrorHandler.logException(new Error(`The specified sheet index '${sheetIndex}' is invalid for the Excel file.`));
     }
 
     const sheetName = sheetList[sheetIndex];
     const sheet = workbook.Sheets[sheetName];
 
     return this._convertSheet(conversionType, sheet);
+  }
+
+  // =================================== TXT ===================================
+  /**
+   * @function getTextData
+   * @memberof util.file
+   * @description - Returns the content of a .txt file.
+   * @param {string} filePath - Path to the file.
+   * @example const txtData = await util.file.getTextData(path.resolve(__dirname, "./testFiles/test3.txt"));
+   * const isDateIncluded = txtData.includes("26.6.2023");
+   * common.assertion.expectEqual(isDateIncluded, true);
+   */
+  async getTextData(filePath: string): Promise<any> {
+    const vl = this.vlf.initLog(this.getTextData);
+
+    if (fs.existsSync(filePath) && this._checkFileEnding(filePath, "txt")) {
+      try {
+        return await fs.readFileSync(filePath, { encoding: "utf8" });
+      } catch (error) {
+        return this.ErrorHandler.logException(error);
+      }
+    }
+  }
+
+  /**
+   * @function expectTextDataToContain
+   * @memberof util.file
+   * @description - Reads the specified .txt file and asserts if it includes a specific string.
+   * @param {string} filePath - Path to the file.
+   * @example await util.file.expectTextDataToContain("/Users/path/myWork", "supplierList.txt");
+   */
+  async expectTextDataToContain(filePath: string, searchString: string): Promise<any> {
+    const vl = this.vlf.initLog(this.expectTextDataToContain);
+
+    if (fs.existsSync(filePath)) {
+      try {
+        const fileContent = fs.readFileSync(filePath, "utf-8");
+        common.assertion.expectTrue(fileContent.includes(searchString));
+      } catch (error) {
+        return this.ErrorHandler.logException(error, "Search String not included in .txt file.");
+      }
+    }
+  }
+
+  // =================================== XML ===================================
+  /**
+   * @function getXmlData
+   * @memberof util.file
+   * @description - Returns the converted JSON object based on the passed XML file.
+   * @param {string} filePath - Path to the file.
+   * @example const xmlData = await util.file.getXmlData(path.resolve(__dirname, "./testFiles/test2.xml"));
+   */
+  async getXmlData(filePath: string): Promise<any> {
+    const vl = this.vlf.initLog(this.getXmlData);
+
+    if (fs.existsSync(filePath) && this._checkFileEnding(filePath, "xml")) {
+      try {
+        const xmlData = await fs.readFileSync(filePath);
+        const parser = new xml2js.Parser({ trim: true, normalize: true });
+        return await parser.parseStringPromise(xmlData);
+      } catch (error) {
+        return this.ErrorHandler.logException(error);
+      }
+    }
+  }
+
+  // =================================== JSON ===================================
+  /**
+   * @function getAttributeValuesFromJson
+   * @memberof util.file
+   * @description - Traverses the passed JSON object and returns the value/s of the passed attribute if found. Else returns empty Array.
+   * @param {object} object - The JSON Object to search through.
+   * @example const attribute = util.file.getAttributeValuesFromJson(xmlData, "CtrlSum");
+   */
+  public getAttributeValuesFromJson(object: any, attributeName: string): any[] {
+    const values: any[] = [];
+
+    if (typeof object !== "object" || object === null) {
+      return values;
+    }
+
+    if (attributeName in object) {
+      values.push(object[attributeName]);
+    }
+
+    for (const key in object) {
+      const nestedValues = this.getAttributeValuesFromJson(object[key], attributeName);
+      values.push(...nestedValues);
+    }
+
+    return values.flat();
   }
 
   // =================================== FILEPATH ===================================
@@ -211,10 +311,33 @@ export class File {
         }
       }
     } catch (error) {
-      throw new Error(`Error in getting the file path for the given directory and filename.\n${error}`);
+      return this.ErrorHandler.logException(new Error("Error in getting the file path for the given directory and filename."));
     }
 
     return null;
+  }
+
+  // =================================== FILENAME ===================================
+  /**
+   * @function getFileNamesByExtensions
+   * @memberof util.file
+   * @description - Returns the filename/s of the given directory filtered by the given extensions.
+   * @param {string} dirPath - The path to the directory.
+   * @param {string | string[]} fileExtensions - The file extension as string or multiple as string array.
+   * @example const fileName = await util.file.getFileNamesByExtensions("regression/downloads", "xml");
+   * const fileNames = await util.file.getFileNamesByExtensions("regression/downloads", "["xml", "txt"]");
+   */
+  getFileNamesByExtensions(dirPath: string, fileExtensions: string | string[]): string[] {
+    const files = fs.readdirSync(dirPath);
+
+    if (!Array.isArray(fileExtensions)) {
+      fileExtensions = [fileExtensions];
+    }
+
+    return files.filter((file) => {
+      const extension = path.extname(file).toLowerCase();
+      return (fileExtensions as string[]).some((ext) => ext.toLowerCase() === extension.slice(1));
+    });
   }
 
   // =================================== HELPER ===================================
@@ -266,6 +389,19 @@ export class File {
     }
 
     return excelData;
+  }
+
+  private _checkFileEnding(filePath: string, expectedFileEnding: string): boolean {
+    const vl = this.vlf.initLog(this._checkFileEnding);
+
+    const fileEnding = path.extname(filePath).slice(1);
+    if (fileEnding.toLowerCase() === expectedFileEnding.toLowerCase()) {
+      return true;
+    } else {
+      return this.ErrorHandler.logException(
+        new Error(`Wrong file format '${fileEnding}' was passed to function. Expected file format: ${expectedFileEnding}.`)
+      );
+    }
   }
 }
 export default new File();

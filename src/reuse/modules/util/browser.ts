@@ -1,6 +1,7 @@
 "use strict";
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class browser
@@ -9,6 +10,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 export class Browser {
   private vlf = new VerboseLoggerFactory("util", "browser");
   private specLogPrefix = "@SPEC: ";
+  private ErrorHandler = new ErrorHandler();
 
   // =================================== URL ===================================
   /**
@@ -285,7 +287,7 @@ export class Browser {
         }
       );
     } catch (error) {
-      throw new Error(`Function 'switchToNewWindow' failed: ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -347,6 +349,17 @@ export class Browser {
   async back() {
     const vl = this.vlf.initLog(this.back);
     return browser.back();
+  }
+
+  /**
+   * @function forward
+   * @memberOf util.browser
+   * @description Go one step ahead in browser history.
+   * @example await util.browser.forward();
+   */
+  async forward() {
+    const vl = this.vlf.initLog(this.forward);
+    return browser.forward();
   }
 
 

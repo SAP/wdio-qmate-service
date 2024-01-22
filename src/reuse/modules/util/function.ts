@@ -1,6 +1,7 @@
 "use strict";
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class function
@@ -8,6 +9,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  */
 export class FunctionModule {
   private vlf = new VerboseLoggerFactory("util", "function");
+  private ErrorHandler = new ErrorHandler();
   overallRetries: number = 3;
 
   // =================================== MAIN ===================================
@@ -129,9 +131,15 @@ export class FunctionModule {
       vl.log(`Executing ${fct.name ? fct.name : "anonymous"} function via retry mechanism`);
       return await fct.apply(scope, args);
     } catch (e) {
+      let errorMessage = (e as Error).message;
+      errorMessage = errorMessage
+        ? errorMessage.trim().includes("failed with:")
+          ? errorMessage.substring(errorMessage.search("failed with:") + 12)
+          : errorMessage
+        : "";
       retries = retries - 1;
       if (retries < 0) {
-        throw new Error(`Retries done. Failed to execute the function: ${e}`);
+        this.ErrorHandler.logException(e, `Retries done. Failed to execute the function:${errorMessage}`);
       }
       await browser.pause(interval);
       util.console.log(`Retrying function again (${this.overallRetries - retries}/${this.overallRetries})`);

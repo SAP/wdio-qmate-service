@@ -2,6 +2,8 @@
 
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import { AlignmentOptions, AlignmentValues } from "../types";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class userInteraction
@@ -10,6 +12,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 export class UserInteraction {
   // =================================== LOGGER===================================
   private vlf = new VerboseLoggerFactory("ui5", "click");
+  private ErrorHandler = new ErrorHandler();
 
   // =================================== CLICK ===================================
   /**
@@ -40,11 +43,7 @@ export class UserInteraction {
       await elem.click();
     } catch (error) {
       // @ts-ignore
-      if (error.message && error.message.match(new RegExp(/is not clickable at point/))) {
-        // @ts-ignore
-        const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "click");
-        throw new Error(errorMessage);
-      }
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -92,8 +91,7 @@ export class UserInteraction {
       await elem.doubleClick();
     } catch (error) {
       // @ts-ignore
-      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "doubleClick");
-      throw new Error(errorMessage);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -128,8 +126,7 @@ export class UserInteraction {
       });
     } catch (error) {
       // @ts-ignore
-      const errorMessage = await util.function.mapWdioErrorToQmateErrorMessage(error, "rightClick");
-      throw new Error(errorMessage);
+     this.ErrorHandler.logException(error);
     }
   }
 
@@ -150,7 +147,7 @@ export class UserInteraction {
         await ui5.userInteraction.click(selector, index, timeout);
         const tabSwitchedSuccessfully: boolean = await this._verifyTabSwitch(selector);
         if (tabSwitchedSuccessfully === false) {
-          throw new Error("Function 'clickTab': Could not verify successful tab switch.");
+          this.ErrorHandler.logException(new Error("Could not verify successful tab switch."));
         }
       },
       [selector, index, timeout],
@@ -203,7 +200,7 @@ export class UserInteraction {
         vl.log("Checkbox already checked.");
       }
     } catch (error) {
-      throw new Error(`Function 'check' failed with: ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -227,7 +224,7 @@ export class UserInteraction {
         vl.log("Checkbox already unchecked.");
       }
     } catch (error) {
-      throw new Error(`Function 'uncheck' failed with: ${error}`);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -256,7 +253,7 @@ export class UserInteraction {
       }
       await elem.setValue(value);
     } else {
-      throw new Error("Function 'fill' failed: Please provide an element and value(datatype - number/string) as arguments.");
+      this.ErrorHandler.logException(new Error("Please provide an element and value(datatype - number/string) as arguments."));
     }
   }
 
@@ -272,7 +269,14 @@ export class UserInteraction {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await ui5.userInteraction.fillAndRetry(selector, "My Value");
    */
-  async fillAndRetry(selector: any, value: string | number, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
+  async fillAndRetry(
+    selector: any,
+    value: string | number,
+    index = 0,
+    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    retries = 3,
+    interval = 5000
+  ) {
     const vl = this.vlf.initLog(this.fillAndRetry);
     await util.function.retry(this.fill, [selector, value, index, timeout], retries, interval, this);
   }
@@ -322,12 +326,11 @@ export class UserInteraction {
    */
   async clearAndFill(selector: any, value: string | number, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.clearAndFill);
-
     if (typeof value === "number" || typeof value === "string" || typeof value === "boolean") {
       await this.clear(selector, index, timeout);
       await common.userInteraction.fillActive(value);
     } else {
-      throw new Error("Function 'clearAndFill' failed. Please provide a value(datatype - number/string) as second parameter.");
+      this.ErrorHandler.logException(new Error("Please provide a value(datatype - number/string) as second parameter."));
     }
   }
 
@@ -344,7 +347,15 @@ export class UserInteraction {
    * @param {Boolean} [verify=true] - Specifies if the filled value should be verified.
    * @example await ui5.userInteraction.clearAndFillAndRetry(selector, "My Value");
    */
-  async clearAndFillAndRetry(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000, verify = true) {
+  async clearAndFillAndRetry(
+    selector: any,
+    value: string,
+    index = 0,
+    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    retries = 3,
+    interval = 5000,
+    verify = true
+  ) {
     const vl = this.vlf.initLog(this.clearAndFillAndRetry);
     await util.function.retry(
       async (selector: any, value: string, index: number, timeout: number) => {
@@ -414,7 +425,14 @@ export class UserInteraction {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await ui5.userInteraction.clearAndFillSmartFieldInputAndRetry(selector, "My Value");
    */
-  async clearAndFillSmartFieldInputAndRetry(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
+  async clearAndFillSmartFieldInputAndRetry(
+    selector: any,
+    value: string,
+    index = 0,
+    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    retries = 3,
+    interval = 5000
+  ) {
     const vl = this.vlf.initLog(this.clearAndFillSmartFieldInputAndRetry);
     await util.function.retry(this.clearAndFillSmartFieldInput, [selector, value, index, timeout], retries, interval, this);
   }
@@ -446,7 +464,7 @@ export class UserInteraction {
       await this.scrollToElement(itemSelector);
       await this.click(itemSelector);
     } else {
-      throw new Error("Function 'selectBox' failed: Please provide a value as second argument.");
+      this.ErrorHandler.logException(new Error("Please provide a value as second argument."));
     }
   }
 
@@ -511,7 +529,7 @@ export class UserInteraction {
       await this.scrollToElement(ui5ControlProperties);
       await this.click(ui5ControlProperties);
     }
-    await common.userInteraction.pressEnter();
+    await common.userInteraction.pressEscape();
   }
 
   /**
@@ -580,7 +598,7 @@ export class UserInteraction {
 
         const tabSwitchedSuccessfully: boolean = await this._verifyTabSwitch(selector);
         if (tabSwitchedSuccessfully === false) {
-          throw new Error("Function 'selectFromTab': Could not verify successful tab switch.");
+          this.ErrorHandler.logException(new Error("Could not verify successful tab switch."));
         }
       },
       [selector, index, timeout],
@@ -606,7 +624,7 @@ export class UserInteraction {
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
-      throw new Error(`Function: 'mouseOverElement' failed: No element found for selector ${selector}`);
+      return this.ErrorHandler.logException(new Error(),`No element found for selector ${selector}`);
     }
     await elem.moveTo();
   }
@@ -614,23 +632,45 @@ export class UserInteraction {
   /**
    * @function scrollToElement
    * @memberOf ui5.userInteraction
-   * @description Scrolls to the element with the given selector to get it into view.
+   * @description Scrolls the element with the given selector into view.
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
-   * @param {String} [alignment="center"] - Defines vertical/horizontal alignment. One of "start", "center", "end", or "nearest".
-   * Affects the alignToTop parameter of scrollIntoView function. By default, it takes 'up'
+   * @param {String | Object} [alignment="center"] - The alignment option for scrolling.
+   *   Can be one of: "start", "center", "end", "nearest", or an object with properties:
+   *   - block: Vertical alignment ("start", "center", "end", "nearest").
+   *   - inline: Horizontal alignment ("start", "center", "end", "nearest").
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await ui5.userInteraction.scrollToElement(selector);
-   * @example await ui5.userInteraction.scrollToElement(selector, 0, "start", 5000);
+   *
+   * @example
+   * // Scroll to element with center alignment.
+   * await nonUi5.userInteraction.scrollToElement(selector, 0, "center");
+   *
+   * @example
+   * // Scroll to element with custom alignment.
+   * const alignment = {
+   *   block: "start",
+   *   inline: "center"
+   * };
+   * await nonUi5.userInteraction.scrollToElement(selector, 0, alignment);
    */
-  async scrollToElement(selector: any, index = 0, alignment = "center", timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async scrollToElement(
+    selector: any,
+    index = 0,
+    alignment: AlignmentOptions | AlignmentValues = "center",
+    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000
+  ) {
     const vl = this.vlf.initLog(this.scrollToElement);
+    let options = {};
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
     if (elem) {
-      const options = {
-        block: alignment,
-        inline: alignment
-      };
+      if (typeof alignment == "string") {
+        options = {
+          block: alignment,
+          inline: alignment
+        };
+      } else if (typeof alignment === "object") {
+        options = alignment;
+      }
       await elem.scrollIntoView(options);
     }
   }

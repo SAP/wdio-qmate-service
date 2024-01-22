@@ -2,30 +2,33 @@
 
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class assertion
  * @memberof nonUi5
  */
 export class Assertion {
-  private vlf = new VerboseLoggerFactory("nonui5", "assertion");
-
+  private vlf = new VerboseLoggerFactory("nonUi5", "assertion");
+  private ErrorHandler = new ErrorHandler();
   // =================================== PROPERTIES ===================================
   /**
    * @function expectAttributeToBe
    * @memberOf nonUi5.assertion
    * @description Expects the attributes value of the passed element to be the compare value.
-   * @param {Object} elem - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {String} compareValue - The compare value.
    * @param {String} [attribute] - The attribute to compare. If not passed, it will compare the inner HTML content of the element.
-   * @example const elem = await nonUi5.element.getById("button01");
-   * await nonUi5.assertion.expectAttributeToBe(elem, "Save");
-   * @example const elem = await nonUi5.element.getById("button01");
+   * @example const element = await nonUi5.element.getById("button01");
+   * await nonUi5.assertion.expectAttributeToBe(element, "Save");
+   * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectAttributeToBe(element, "Save", "title");
    */
-  async expectAttributeToBe(elem: Element, compareValue: string, attribute: string): Promise<void> {
+  async expectAttributeToBe(elementOrSelector: Element | string, compareValue: string, attribute?: string): Promise<void> {
     const vl = this.vlf.initLog(this.expectAttributeToBe);
-    const value = await nonUi5.element.getAttributeValue(elem, attribute);
+    const element = await resolveCssSelectorOrElement(elementOrSelector);
+    const value = await nonUi5.element.getAttributeValue(element, attribute);
     return common.assertion.expectEqual(value, compareValue);
   }
 
@@ -33,15 +36,16 @@ export class Assertion {
    * @function expectAttributeToContain
    * @memberOf nonUi5.assertion
    * @description Expects the attributes value of the passed element to contain the compare value.
-   * @param {Object} elem - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {String} compareValue - The compare value.
    * @param {String} [attribute] - The attribute to compare. If not passed, it will compare the inner HTML content of the element.
-   * @example const elem = await nonUi5.element.getById("button01");
+   * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectAttributeToContain(element, "Save", "title");
    */
-  async expectAttributeToContain(elem: Element, compareValue: string, attribute: string) {
+  async expectAttributeToContain(elementOrSelector: Element | string, compareValue: string, attribute?: string) {
     const vl = this.vlf.initLog(this.expectAttributeToContain);
-    const value = await nonUi5.element.getAttributeValue(elem, attribute);
+    const element = await resolveCssSelectorOrElement(elementOrSelector);
+    const value = await nonUi5.element.getAttributeValue(element, attribute);
     vl.log(`Expecting ${value} to contain ${compareValue}`);
     return expect(value).toContain(compareValue);
   }
@@ -50,16 +54,16 @@ export class Assertion {
    * @function expectValueToBe
    * @memberOf nonUi5.assertion
    * @description Expects the attributes value of the passed element to be the compare value.
-   * @param {Object} elem - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {String} compareValue - The compare value.
-   * @example const elem = await nonUi5.element.getById("button01");
-   * await nonUi5.assertion.expectValueToBe(elem, "Save");
+   * @example const element = await nonUi5.element.getById("button01");
+   * await nonUi5.assertion.expectValueToBe(element, "Save");
    */
-  async expectValueToBe(elem: Element, compareValue: string): Promise<void> {
+  async expectValueToBe(elementOrSelector: Element | string, compareValue: string): Promise<void> {
     const vl = this.vlf.initLog(this.expectValueToBe);
     // Note: it is not required to send 'value' here, because 'expectAttributeToBe' is calling 'getValue' inside
-    // @ts-ignore
-    await this.expectAttributeToBe(elem, compareValue);
+    const element = await resolveCssSelectorOrElement(elementOrSelector);
+    await this.expectAttributeToBe(element, compareValue);
   }
 
   // =================================== VISIBILITY ===================================
@@ -67,49 +71,54 @@ export class Assertion {
    * @function expectToBeVisible
    * @memberOf nonUi5.assertion
    * @description Expects that the element is visible to the user.
-   * @param {Object} element - The element.
-   * @example const elem = await nonUi5.element.getById("button01");
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
+   * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectToBeVisible(elem);
    */
-  async expectToBeVisible(element: Element): Promise<void> {
+  async expectToBeVisible(elementOrSelector: Element | string): Promise<void> {
     const vl = this.vlf.initLog(this.expectToBeVisible);
-    if (!element) {
-      throw new Error("Function 'expectToBeVisible' failed. Please provide an element as argument.");
+    try {
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
+
+      await browser.waitUntil(
+        async function () {
+          const isPresent = await element.isExisting();
+          const isDisplayed = await element.isDisplayed();
+          return isPresent && isDisplayed;
+        },
+        {
+          interval: 100,
+          timeout: 30000,
+          timeoutMsg: "Function 'expectToBeVisible' failed. Timeout by waiting for element to be visible."
+        }
+      );
+    } catch (error) {
+      this.ErrorHandler.logException(error);
     }
-    await browser.waitUntil(
-      async function () {
-        const isPresent = await element.isExisting();
-        const isDisplayed = await element.isDisplayed();
-        return isPresent && isDisplayed;
-      },
-      {
-        interval: 100,
-        timeout: 30000,
-        timeoutMsg: "Function 'expectToBeVisible' failed. Timeout by waiting for element to be visible."
-      }
-    );
   }
 
   /**
    * @function expectToBeNotVisible
    * @memberOf nonUi5.assertion
    * @description Expects that the element is not visible to the user.
-   * @param {Object} element - The element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms). Recommendation is to lower the timeout since the element is not expected to show up.
-   * @example const elem = await nonUi5.element.getById("button01");
-   * await nonUi5.assertion.expectToBeNotVisible(elem, 5000);
+   * @example const element = await nonUi5.element.getById("button01");
+   * await nonUi5.assertion.expectToBeNotVisible(element, 5000);
    */
-  async expectToBeNotVisible(element: Element, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<void> {
+  async expectToBeNotVisible(elementOrSelector: Element | string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000): Promise<void> {
     const vl = this.vlf.initLog(this.expectToBeNotVisible);
-    if (!element) {
-      throw new Error("Function 'expectToBeNotVisible' failed. Please provide an element as argument.");
+    try {
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
+      await element.waitForDisplayed({
+        timeout: +timeout,
+        reverse: true,
+        timeoutMsg: "Function 'expectToBeNotVisible' failed. Element is visible but was expected to be not.",
+        interval: 100
+      });
+    } catch (error) {
+      this.ErrorHandler.logException(error);
     }
-    await element.waitForDisplayed({
-      timeout: +timeout,
-      reverse: true,
-      timeoutMsg: "Function 'expectToBeNotVisible' failed. Element is visible but was expected to be not.",
-      interval: 100
-    });
   }
 }
 export default new Assertion();

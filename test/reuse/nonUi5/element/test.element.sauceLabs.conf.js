@@ -8,7 +8,7 @@ exports.config = merge(profile.config, {
 
   maxInstances: 5,
   bail: 1,
-  baseUrl: "https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html",
+  baseUrl: "https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3",
 
   specs: [
     path.resolve(__dirname, "waitToBePresent.spec.js"),
@@ -25,11 +25,9 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "getByChild.spec.js"),
     path.resolve(__dirname, "getByParent.spec.js"),
     path.resolve(__dirname, "highlight.spec.js"),
-    path.resolve(__dirname, "switchToIframe.spec.js"),
     path.resolve(__dirname, "getByName.spec.js"),
     path.resolve(__dirname, "getByCssContainingText.spec.js"),
     path.resolve(__dirname, "isVisible.spec.js"),
-    path.resolve(__dirname, "isPresent.spec.js"),
     path.resolve(__dirname, "isPresent.spec.js"),
     path.resolve(__dirname, "isPresentByCss.spec.js"),
     path.resolve(__dirname, "isPresentByXPath.spec.js")

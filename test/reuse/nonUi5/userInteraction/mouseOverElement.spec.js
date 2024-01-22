@@ -26,6 +26,6 @@ describe("userInteraction - mouseOverElement - wrong selector", function () {
   it("Execution & Verification", async function () {
     const elem = undefined;
     const index = 0;
-    await expect(nonUi5.userInteraction.mouseOverElement(elem, index)).rejects.toThrow("Function 'mouseOverElement' failed with: Please provide an element as first argument.");
+    await expect(nonUi5.userInteraction.mouseOverElement(elem, index)).rejects.toThrow("Function 'mouseOverElement' failed with: Please provide an element or a CSS selector as first argument.");
   });
 });

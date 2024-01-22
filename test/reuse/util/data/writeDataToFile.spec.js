@@ -17,16 +17,12 @@ describe("data - writeDataToFile", function () {
   it("Cleanup", async function () {
     fs.unlinkSync(path.resolve(__dirname, filename));
   });
-
 });
 
 describe("data - writeDataToFile - error case", function () {
-
   const data = { purchaseOrder: "123456" };
 
   it("Execution and Verification", async function () {
-    await expect(util.data.writeDataToFile("no-such-folder/test-out.json", data))
-      .rejects.toThrow("Function 'writeDataToFile' failed:");
+    await expect(util.data.writeDataToFile("no-such-folder/test-out.json", data)).rejects.toThrow("Function 'writeDataToFile' failed with:");
   });
-
 });

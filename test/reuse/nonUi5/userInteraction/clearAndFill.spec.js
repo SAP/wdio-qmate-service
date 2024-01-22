@@ -1,6 +1,6 @@
 "use strict";
 
-const errorNoElement = "Function 'clearAndFill' failed with: Please provide an element as first argument.";
+const errorNoElement = "Function 'clearAndFill' failed with: Please provide an element or a CSS selector as first argument.";
 const errorNoValue = "Function 'clearAndFill' failed with: value is invalid. It must be of type 'string' or 'number'";
 
 describe("userInteraction - clearAndFill - form field", function () {
@@ -50,6 +50,6 @@ describe("userInteraction - clearAndFill - a button (error case)", function () {
 
   it("Execution & Verification", async function () {
     const elem = await nonUi5.element.getById("Default", 10000);
-    await expect(nonUi5.userInteraction.clearAndFill(elem, "New test value")).rejects.toThrow(/invalid element state/);
+    await expect(nonUi5.userInteraction.clearAndFill(elem, "New test value")).rejects.toThrow(/Function 'clearAndFill' failed with: invalid element state/);
   });
 });

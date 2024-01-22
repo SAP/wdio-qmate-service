@@ -3,7 +3,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("assertion - expectValueToBe", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
     await handleCookiesConsent();
   });
 
@@ -15,7 +15,7 @@ describe("assertion - expectValueToBe", function () {
 
 describe("assertion - expectValueToBe - error case", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/m/demokit/cart/webapp/index.html#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
   });
 
   it("Execution & Verification", async function () {

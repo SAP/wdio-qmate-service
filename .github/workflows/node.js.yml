@@ -41,7 +41,6 @@ jobs:
       - run: |
           sudo apt-get install google-chrome-stable
           npm ci
-          npm run update-chromedriver
           npm run test:core
 
   test-authenticator:
@@ -59,7 +58,6 @@ jobs:
       - run: |
           sudo apt-get install google-chrome-stable
           npm ci
-          npm run update-chromedriver
           npm run test:authenticator:staticLogin
 
   test-common:
@@ -77,7 +75,6 @@ jobs:
       - run: |
           sudo apt-get install google-chrome-stable
           npm ci
-          npm run update-chromedriver
           npm run test:reuse:common
 
   test-ui5-1:
@@ -95,7 +92,6 @@ jobs:
       - run: |
           sudo apt-get install google-chrome-stable
           npm ci
-          npm run update-chromedriver
           npm run test:reuse:ui5:pt1
 
   test-ui5-2:
@@ -113,7 +109,6 @@ jobs:
       - run: |
           sudo apt-get install google-chrome-stable
           npm ci
-          npm run update-chromedriver
           npm run test:reuse:ui5:pt2
 
   test-non-ui5:
@@ -131,10 +126,26 @@ jobs:
       - run: |
           sudo apt-get install google-chrome-stable
           npm ci
-          npm run update-chromedriver
           npm run test:reuse:nonUi5
 
   test-util:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: run tests
+        run: |
+          npm ci
+          npm run test:reuse:util
+
+  test-util-data-privacy:
+    if: ${{ !github.event.pull_request.head.repo.fork }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -150,8 +161,7 @@ jobs:
           QMATE_PRIVATE_KEY: ${{ secrets.QMATE_PRIVATE_KEY }}
         run: |
           npm ci
-          npm run update-chromedriver
-          npm run test:reuse:util
+          npm run test:reuse:util:data:privacy
           
   test-service:
     runs-on: ubuntu-latest
@@ -168,6 +178,5 @@ jobs:
       - run: |
           sudo apt-get install google-chrome-stable
           npm ci
-          npm run update-chromedriver
           npm run test:reuse:service
 
