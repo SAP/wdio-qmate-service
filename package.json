@@ -129,6 +129,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@sap_oss/odata-library": "^2.2.2",
+    "ansi-regex": "^6.0.1",
     "axios": "^1.6.0",
     "curl": "^0.1.4",
     "deepmerge": "^4.2.2",
@@ -137,7 +138,7 @@
     "pdf-parse": "^1.1.1",
     "query-string": "^7.1.0",
     "supertest": "^6.1.6",
-    "xlsx": "^0.19.3",
+    "xlsx": "^0.18.5",
     "xml2js": "^0.6.0",
     "yargs": "^17.1.1"
   },
