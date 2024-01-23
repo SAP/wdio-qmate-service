@@ -78,12 +78,12 @@ export class OData {
     };
 
     const parameters = {
-      ...params,
       ...{
         "sap-client": "715",
         "sap-documentation": ["heading", "quickinfo"],
         "sap-language": "EN"
-      }
+      },
+      ...params
     };
 
     const auth: any = {
@@ -219,7 +219,7 @@ export class OData {
     if (headers) entity = this._applyHeaders(entity, headers);
 
     if (queryParams) entity = this._applyQueryParameters(entity, queryParams);
-    
+
     if (raw) entity = entity.raw();
 
     return entity.post(payload);
