@@ -128,7 +128,7 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "@sap_oss/odata-library": "^2.3.1",
+    "@sap_oss/odata-library": "2.2.4",
     "axios": "^1.6.0",
     "curl": "^0.1.4",
     "deepmerge": "^4.2.2",
