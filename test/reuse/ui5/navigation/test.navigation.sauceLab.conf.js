@@ -10,22 +10,13 @@ exports.config = merge(profile.config, {
   logLevel: "silent", // too many error logs wyen tunnel is opened
   maxInstances: 2, // note: for the SAP account, only 2 parallel instances is a max value
 
-
   bail: 1,
-
-  services: [
-    ["chromedriver", {
-      port: 4444
-    }]
-  ],
 
   specs: [
     // path.resolve(__dirname, "navigateToSystemAndApplication.spec.js"),
     path.resolve(__dirname, "navigateToSystemAndApplicationAndRetry.spec.js"),
     path.resolve(__dirname, "expectUnsupportedNavigationPopup.spec.js"),
   ],
-
-  exclude: [],
 
   mochaOpts: {
     timeout: 2000000,

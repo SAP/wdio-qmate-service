@@ -7,9 +7,6 @@ exports.config = merge(profile.config, {
   baseUrl: "http://localhost:34099/ui",
 
   services: [
-    ["chromedriver", {
-      port: 4444
-    }],
     ["static-server", {
       port: 34099,
       folders: [{
