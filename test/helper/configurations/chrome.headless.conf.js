@@ -2,11 +2,10 @@ const merge = require("deepmerge");
 const baseConfig = require("./base.conf.js");
 
 exports.config = merge(baseConfig.config, {
-  path: "/",
-
   capabilities: [
     {
       browserName: "chrome",
+      browserVersion: "120.0.6099.35",
       acceptInsecureCerts: true,
       "goog:chromeOptions": {
         args: [
@@ -31,15 +30,5 @@ exports.config = merge(baseConfig.config, {
         }
       }
     }
-  ],
-
-  services: [
-    [
-      "chromedriver",
-      {
-        port: 4444,
-        chromedriverCustomPath: process.env.CHROME_DRIVER
-      }
-    ]
   ]
 });

@@ -21,9 +21,6 @@ exports.config = merge(profile.config, {
   exclude: [],
 
   services: [
-    ["chromedriver", {
-      port: 4444
-    }],
     ["static-server", {
       port: 34005,
       folders: [{

@@ -6,7 +6,6 @@ exports.config = merge(customConfig.config, {
   bail: 1,
 
   services: [
-    ["chromedriver", { port: 4444 }],
     ["static-server", {
       port: 34005,
       folders: [
