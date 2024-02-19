@@ -22,7 +22,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
-          sudo apt-get install google-chrome-stable
           npm ci
           npm run lint
 
@@ -39,7 +38,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
-          sudo apt-get install google-chrome-stable
           npm ci
           npm run test:core
 
@@ -56,7 +54,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
-          sudo apt-get install google-chrome-stable
           npm ci
           npm run test:authenticator:staticLogin
 
@@ -73,7 +70,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
-          sudo apt-get install google-chrome-stable
           npm ci
           npm run test:reuse:common
 
@@ -90,7 +86,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
-          sudo apt-get install google-chrome-stable
           npm ci
           npm run test:reuse:ui5:pt1
 
@@ -107,7 +102,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
-          sudo apt-get install google-chrome-stable
           npm ci
           npm run test:reuse:ui5:pt2
 
@@ -124,7 +118,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
-          sudo apt-get install google-chrome-stable
           npm ci
           npm run test:reuse:nonUi5
 
@@ -176,7 +169,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
-          sudo apt-get install google-chrome-stable
           npm ci
           npm run test:reuse:service
 
