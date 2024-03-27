@@ -16,7 +16,7 @@ for (const namespace of namespaces) {
 writeJsonDoc();
 
 function getNamespaces() {
-  return fs.readdirSync(reuseRoot).filter(namespace => isValidNamespace(namespace));
+  return fs.readdirSync(reuseRoot).filter((namespace) => isValidNamespace(namespace));
 }
 
 function generateNamespaceDoc(namespace) {
@@ -35,14 +35,14 @@ function writeJsonDoc() {
 }
 
 function isValidNamespace(namespace) {
-  return fs.statSync(`${reuseRoot}/${namespace}`).isDirectory()
-    && !namespacesToExclude.includes(namespace);
+  return fs.statSync(`${reuseRoot}/${namespace}`).isDirectory() && !namespacesToExclude.includes(namespace);
 }
 
 function getModules(namespace) {
-  return fs.readdirSync(`${reuseRoot}/${namespace}`)
-    .filter(module => isValidModule(namespace, module))
-    .map(module => removeJsFileExtension(module));
+  return fs
+    .readdirSync(`${reuseRoot}/${namespace}`)
+    .filter((module) => isValidModule(namespace, module))
+    .map((module) => removeJsFileExtension(module));
 }
 
 function generateModuleDoc(namespace, module) {
@@ -56,9 +56,7 @@ function generateModuleDoc(namespace, module) {
 }
 
 function isValidModule(namespace, module) {
-  return fs.statSync(`${reuseRoot}/${namespace}/${module}`).isFile()
-    && module.slice(-3) === ".js"
-    && !startsWithCapital(module);
+  return fs.statSync(`${reuseRoot}/${namespace}/${module}`).isFile() && module.slice(-3) === ".js" && !startsWithCapital(module);
 }
 
 function removeJsFileExtension(fileName) {
@@ -73,7 +71,7 @@ function parseAndUpdateModuleDoc(namespace, module, jsDoc) {
   }
 }
 
-function startsWithCapital(word){
+function startsWithCapital(word) {
   return word.charAt(0) === word.charAt(0).toUpperCase();
 }
 
@@ -90,30 +88,42 @@ function getFunctionName(ast) {
   if (!tags.length) {
     return null;
   }
-  return tags.find(tag => tag.title === "function").name;
+  return tags.find((tag) => tag.title === "function").name;
 }
 
 function formatFunctionAst(ast) {
   const tags = ast["tags"];
   return {
     type: getFunctionType(tags),
+    description: getDescription(tags),
     arguments: getArguments(tags),
     returnType: getReturnType(tags)
   };
 }
 
 function getFunctionType(tags) {
-  return tags.find(tag => tag.title === "example").description.includes("await") ? "async" : "sync";
+  return tags.find((tag) => tag.title === "example").description.includes("await") ? "async" : "sync";
 }
 
 function getArguments(tags) {
-  return tags.filter(tag => tag.title === "param").map(tag => {
-    return mapTagToArgument(tag);
-  });
+  return tags
+    .filter((tag) => tag.title === "param")
+    .map((tag) => {
+      return mapTagToArgument(tag);
+    });
+}
+
+function getDescription(tags) {
+  const description = tags.filter((tag) => tag.title === "description");
+  if (description) {
+    return description[0].description;
+  } else {
+    return null;
+  }
 }
 
 function getReturnType(tags) {
-  const returnTags = tags.filter(tag => tag.title === "returns");
+  const returnTags = tags.filter((tag) => tag.title === "returns");
   if (!returnTags.length) {
     return undefined;
   }
@@ -161,9 +171,7 @@ function cannotParseArgumentTypeFromTag(tag) {
 }
 
 function canParseArgumentTypeFromTag(tag) {
-  return tag.type
-    && (canParseArgumentTypeFromTagName(tag)
-      || canParseArgumentTypeFromTagExpression(tag));
+  return tag.type && (canParseArgumentTypeFromTagName(tag) || canParseArgumentTypeFromTagExpression(tag));
 }
 
 function canParseArgumentTypeFromTagName(tag) {
