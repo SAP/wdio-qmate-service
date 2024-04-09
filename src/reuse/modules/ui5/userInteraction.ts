@@ -126,7 +126,7 @@ export class UserInteraction {
       });
     } catch (error) {
       // @ts-ignore
-     this.ErrorHandler.logException(error);
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -269,14 +269,7 @@ export class UserInteraction {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await ui5.userInteraction.fillAndRetry(selector, "My Value");
    */
-  async fillAndRetry(
-    selector: any,
-    value: string | number,
-    index = 0,
-    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
-    retries = 3,
-    interval = 5000
-  ) {
+  async fillAndRetry(selector: any, value: string | number, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.fillAndRetry);
     await util.function.retry(this.fill, [selector, value, index, timeout], retries, interval, this);
   }
@@ -347,15 +340,7 @@ export class UserInteraction {
    * @param {Boolean} [verify=true] - Specifies if the filled value should be verified.
    * @example await ui5.userInteraction.clearAndFillAndRetry(selector, "My Value");
    */
-  async clearAndFillAndRetry(
-    selector: any,
-    value: string,
-    index = 0,
-    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
-    retries = 3,
-    interval = 5000,
-    verify = true
-  ) {
+  async clearAndFillAndRetry(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000, verify = true) {
     const vl = this.vlf.initLog(this.clearAndFillAndRetry);
     await util.function.retry(
       async (selector: any, value: string, index: number, timeout: number) => {
@@ -425,14 +410,7 @@ export class UserInteraction {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await ui5.userInteraction.clearAndFillSmartFieldInputAndRetry(selector, "My Value");
    */
-  async clearAndFillSmartFieldInputAndRetry(
-    selector: any,
-    value: string,
-    index = 0,
-    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
-    retries = 3,
-    interval = 5000
-  ) {
+  async clearAndFillSmartFieldInputAndRetry(selector: any, value: string, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.clearAndFillSmartFieldInputAndRetry);
     await util.function.retry(this.clearAndFillSmartFieldInput, [selector, value, index, timeout], retries, interval, this);
   }
@@ -457,6 +435,36 @@ export class UserInteraction {
         elementProperties: {
           mProperties: {
             text: value
+          },
+          ancestorProperties: selector.elementProperties
+        }
+      };
+      await this.scrollToElement(itemSelector);
+      await this.click(itemSelector);
+    } else {
+      this.ErrorHandler.logException(new Error("Please provide a value as second argument."));
+    }
+  }
+
+  /**
+   * @function selectBoxByKey
+   * @memberOf ui5.userInteraction
+   * @description Selects the passed value of the Select box.
+   * Please note that the function will only work for the default select Box.
+   * In special cases, please use the clickSelectArrow function.
+   * @param {Object} selector - The selector describing the element.
+   * @param {String} keyValue - The value to select.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+   * @example await ui5.userInteraction.selectBox(selector, "DE");
+   */
+  async selectBoxByKey(selector: any, keyValue: string, index = 0) {
+    const vl = this.vlf.initLog(this.selectBoxByKey);
+    await this.clickSelectArrow(selector, index);
+    if (keyValue !== undefined && keyValue !== null) {
+      const itemSelector = {
+        elementProperties: {
+          mProperties: {
+            key: keyValue
           },
           ancestorProperties: selector.elementProperties
         }
@@ -624,7 +632,7 @@ export class UserInteraction {
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
-      return this.ErrorHandler.logException(new Error(),`No element found for selector ${selector}`);
+      return this.ErrorHandler.logException(new Error(), `No element found for selector ${selector}`);
     }
     await elem.moveTo();
   }
@@ -653,12 +661,7 @@ export class UserInteraction {
    * };
    * await nonUi5.userInteraction.scrollToElement(selector, 0, alignment);
    */
-  async scrollToElement(
-    selector: any,
-    index = 0,
-    alignment: AlignmentOptions | AlignmentValues = "center",
-    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000
-  ) {
+  async scrollToElement(selector: any, index = 0, alignment: AlignmentOptions | AlignmentValues = "center", timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
     const vl = this.vlf.initLog(this.scrollToElement);
     let options = {};
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
