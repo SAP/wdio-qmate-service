@@ -3,118 +3,134 @@
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("browser - switchToNewWindow - title", function () {
-  const demoAppsTitle = "Demo Apps - Demo Kit - SAPUI5 SDK";
-  const shoppingCartTitle = "Shopping Cart";
+  const resourcesTitle = "Resources - Demo Kit - SAPUI5 SDK";
+  const iconExplorerTitle = "Icon Explorer";
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/demoapps");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/resources");
     await handleCookiesConsent();
 
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.DemoApps",
-        "metadata": "sap.ui.documentation.TitleLink",
-        "bindingContextPath": "/demoAppsByCategory/0/rows/0/0"
+      elementProperties: {
+        viewName: "sap.ui.documentation.sdk.view.Resources",
+        metadata: "sap.m.Button",
+        text: [
+          {
+            path: "i18n>RESOURCES_CARD_LINK_ICON_EXPLORER"
+          }
+        ]
       }
     };
     await ui5.userInteraction.click(selector);
   });
 
   it("Execution 1", async function () {
-    await util.browser.switchToNewWindow(shoppingCartTitle);
+    await util.browser.switchToNewWindow(iconExplorerTitle);
   });
 
   it("Verification 1", async function () {
     const currentTitle = await browser.getTitle();
-    await common.assertion.expectEqual(currentTitle, shoppingCartTitle);
+    await common.assertion.expectEqual(currentTitle, iconExplorerTitle);
   });
 
   it("Execution 2", async function () {
-    await util.browser.switchToNewWindow(demoAppsTitle);
+    await util.browser.switchToNewWindow(resourcesTitle);
   });
 
   it("Verification 2", async function () {
     const currentTitle = await browser.getTitle();
-    await common.assertion.expectEqual(currentTitle, demoAppsTitle);
+    await common.assertion.expectEqual(currentTitle, resourcesTitle);
   });
 });
 
 describe("browser - switchToNewWindow - title (RegExp)", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/demoapps");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/resources");
     await handleCookiesConsent();
 
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.DemoApps",
-        "metadata": "sap.ui.documentation.TitleLink",
-        "bindingContextPath": "/demoAppsByCategory/0/rows/0/0"
+      elementProperties: {
+        viewName: "sap.ui.documentation.sdk.view.Resources",
+        metadata: "sap.m.Button",
+        text: [
+          {
+            path: "i18n>RESOURCES_CARD_LINK_ICON_EXPLORER"
+          }
+        ]
       }
     };
     await ui5.userInteraction.click(selector);
   });
 
   it("Execution 1", async function () {
-    const titleRegExp = /Shopping/;
+    const titleRegExp = /Icon/;
     await util.browser.switchToNewWindow(titleRegExp);
   });
 
   it("Verification 1", async function () {
     const titleAct = await browser.getTitle();
-    const titleExp = "Shopping Cart";
+    const titleExp = "Icon Explorer";
     await common.assertion.expectEqual(titleAct, titleExp);
   });
 });
 
 describe("browser - switchToNewWindow - url", function () {
-  const shoppingCartUrl = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_horizon";
+  const iconExplorerUrl = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html";
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/demoapps");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/resources");
     await handleCookiesConsent();
 
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.DemoApps",
-        "metadata": "sap.ui.documentation.TitleLink",
-        "bindingContextPath": "/demoAppsByCategory/0/rows/0/0"
+      elementProperties: {
+        viewName: "sap.ui.documentation.sdk.view.Resources",
+        metadata: "sap.m.Button",
+        text: [
+          {
+            path: "i18n>RESOURCES_CARD_LINK_ICON_EXPLORER"
+          }
+        ]
       }
     };
     await ui5.userInteraction.click(selector);
   });
 
   it("Execution", async function () {
-    await util.browser.switchToNewWindow(shoppingCartUrl);
+    await util.browser.switchToNewWindow(iconExplorerUrl);
   });
 
   it("Verification", async function () {
     const currentUrl = await util.browser.getCurrentUrl();
-    await common.assertion.expectEqual(currentUrl, shoppingCartUrl);
+    await common.assertion.expectEqual(currentUrl, iconExplorerUrl);
   });
 });
 
 describe("browser - switchToNewWindow - url (RegExp)", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/demoapps");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/resources");
     await handleCookiesConsent();
 
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.DemoApps",
-        "metadata": "sap.ui.documentation.TitleLink",
-        "bindingContextPath": "/demoAppsByCategory/0/rows/0/0"
+      elementProperties: {
+        viewName: "sap.ui.documentation.sdk.view.Resources",
+        metadata: "sap.m.Button",
+        text: [
+          {
+            path: "i18n>RESOURCES_CARD_LINK_ICON_EXPLORER"
+          }
+        ]
       }
     };
     await ui5.userInteraction.click(selector);
   });
 
   it("Execution", async function () {
-    const urlRegExp = /demokit\/cart/;
+    const urlRegExp = /icon/;
     await util.browser.switchToNewWindow(urlRegExp);
   });
 
   it("Verification", async function () {
-    const urlExp = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_horizon";
+    const urlExp = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html";
     const urlAct = await util.browser.getCurrentUrl();
     await common.assertion.expectEqual(urlAct, urlExp);
   });
@@ -122,21 +138,24 @@ describe("browser - switchToNewWindow - url (RegExp)", function () {
 
 describe("browser - switchToNewWindow - error case", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/demoapps");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/resources");
     await handleCookiesConsent();
 
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.DemoApps",
-        "metadata": "sap.ui.documentation.TitleLink",
-        "bindingContextPath": "/demoAppsByCategory/0/rows/0/0"
+      elementProperties: {
+        viewName: "sap.ui.documentation.sdk.view.Resources",
+        metadata: "sap.m.Button",
+        text: [
+          {
+            path: "i18n>RESOURCES_CARD_LINK_ICON_EXPLORER"
+          }
+        ]
       }
     };
     await ui5.userInteraction.click(selector);
   });
 
   it("Execution & Verification", async function () {
-    await expect(util.browser.switchToNewWindow("Wrong Title"))
-      .rejects.toThrow(/Function 'switchToNewWindow' failed with/);
+    await expect(util.browser.switchToNewWindow("Wrong Title")).rejects.toThrow(/Function 'switchToNewWindow' failed with/);
   });
 });
