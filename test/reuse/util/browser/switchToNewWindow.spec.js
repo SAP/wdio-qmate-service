@@ -11,10 +11,11 @@ describe("browser - switchToNewWindow - title", function () {
     await handleCookiesConsent();
 
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.DemoApps",
-        "metadata": "sap.ui.documentation.TitleLink",
-        "bindingContextPath": "/demoAppsByCategory/0/rows/0/0"
+      elementProperties: {
+        viewName: "sap.ui.documentation.sdk.view.DemoApps",
+        metadata: "sap.m.Text",
+        bindingContextPath: "/demoAppsByCategory/0/rows/0",
+        text: "Shopping Cart"
       }
     };
     await ui5.userInteraction.click(selector);
@@ -45,10 +46,11 @@ describe("browser - switchToNewWindow - title (RegExp)", function () {
     await handleCookiesConsent();
 
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.DemoApps",
-        "metadata": "sap.ui.documentation.TitleLink",
-        "bindingContextPath": "/demoAppsByCategory/0/rows/0/0"
+      elementProperties: {
+        viewName: "sap.ui.documentation.sdk.view.DemoApps",
+        metadata: "sap.m.Text",
+        bindingContextPath: "/demoAppsByCategory/0/rows/0",
+        text: "Shopping Cart"
       }
     };
     await ui5.userInteraction.click(selector);
@@ -74,10 +76,11 @@ describe("browser - switchToNewWindow - url", function () {
     await handleCookiesConsent();
 
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.DemoApps",
-        "metadata": "sap.ui.documentation.TitleLink",
-        "bindingContextPath": "/demoAppsByCategory/0/rows/0/0"
+      elementProperties: {
+        viewName: "sap.ui.documentation.sdk.view.DemoApps",
+        metadata: "sap.m.Text",
+        bindingContextPath: "/demoAppsByCategory/0/rows/0",
+        text: "Shopping Cart"
       }
     };
     await ui5.userInteraction.click(selector);
@@ -99,10 +102,11 @@ describe("browser - switchToNewWindow - url (RegExp)", function () {
     await handleCookiesConsent();
 
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.DemoApps",
-        "metadata": "sap.ui.documentation.TitleLink",
-        "bindingContextPath": "/demoAppsByCategory/0/rows/0/0"
+      elementProperties: {
+        viewName: "sap.ui.documentation.sdk.view.DemoApps",
+        metadata: "sap.m.Text",
+        bindingContextPath: "/demoAppsByCategory/0/rows/0",
+        text: "Shopping Cart"
       }
     };
     await ui5.userInteraction.click(selector);
@@ -126,17 +130,17 @@ describe("browser - switchToNewWindow - error case", function () {
     await handleCookiesConsent();
 
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.DemoApps",
-        "metadata": "sap.ui.documentation.TitleLink",
-        "bindingContextPath": "/demoAppsByCategory/0/rows/0/0"
+      elementProperties: {
+        viewName: "sap.ui.documentation.sdk.view.DemoApps",
+        metadata: "sap.m.Text",
+        bindingContextPath: "/demoAppsByCategory/0/rows/0",
+        text: "Shopping Cart"
       }
     };
     await ui5.userInteraction.click(selector);
   });
 
   it("Execution & Verification", async function () {
-    await expect(util.browser.switchToNewWindow("Wrong Title"))
-      .rejects.toThrow(/Function 'switchToNewWindow' failed with/);
+    await expect(util.browser.switchToNewWindow("Wrong Title")).rejects.toThrow(/Function 'switchToNewWindow' failed with/);
   });
 });
