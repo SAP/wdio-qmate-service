@@ -21,7 +21,7 @@ const entitySetError = (entitySet: any) => `Entity Set "${entitySet}" not found 
 export class OData {
   readonly utilModule = require("util");
   readonly urlLib = require("url").URL;
-  readonly curl = require("curl");
+  readonly axios = require("axios");
 
   Service: any;
   constructor() {
@@ -408,17 +408,9 @@ export class OData {
       }
     }
     return new Promise((resolve, reject) => {
-      this.curl.get(url, options, function (error: any, res: any, body: any) {
-        if (!error) {
-          if (res.statusCode >= 400) {
-            reject(`${res.statusCode} - ${res.statusMessage}`);
-          } else {
-            resolve(body);
-          }
-        } else {
-          reject(error);
-        }
-      });
+      this.axios.get(url, options)
+        .then((response: any) => resolve(response.data))
+        .catch((error: any) => reject(error));
     });
   }
 

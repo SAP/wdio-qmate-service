@@ -1,6 +1,6 @@
 {
   "name": "@sap_oss/wdio-qmate-service",
-  "version": "2.8.4",
+  "version": "2.9.0",
   "author": "SAP SE",
   "types": "./@types/index.d.ts",
   "main": "./lib/index.js",
@@ -129,7 +129,6 @@
   "dependencies": {
     "@sap_oss/odata-library": "2.3.3",
     "axios": "^1.6.0",
-    "curl": "^0.1.4",
     "deepmerge": "^4.2.2",
     "fs-extra": "^10.0.0",
     "path": "^0.12.7",
