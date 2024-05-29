@@ -134,7 +134,7 @@
     "path": "^0.12.7",
     "pdf-parse": "^1.1.1",
     "query-string": "^7.1.0",
-    "supertest": "^6.1.6",
+    "supertest": "^7.0.0",
     "xlsx": "^0.18.5",
     "xml2js": "^0.6.0",
     "yargs": "^17.1.1"
