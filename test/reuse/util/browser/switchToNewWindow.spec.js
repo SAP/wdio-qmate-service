@@ -1,158 +1,92 @@
 "use strict";
 
-const { handleCookiesConsent } = require("../../../helper/utils");
+const initialUrl = "https://sap.github.io/wdio-qmate-service/";
+const newUrl = "https://squidfunk.github.io/mkdocs-material/";
+const initialPageTitle = "Qmate Service";
+const newPagTitle = "Material for MkDocs";
+const selector = "a[href='https://squidfunk.github.io/mkdocs-material/']";
 
 describe("browser - switchToNewWindow - title", function () {
-  const resourcesTitle = "Resources - Demo Kit - SAPUI5 SDK";
-  const iconExplorerTitle = "Icon Explorer";
-
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/resources");
-    await handleCookiesConsent();
-
-    const selector = {
-      elementProperties: {
-        viewName: "sap.ui.documentation.sdk.view.Resources",
-        metadata: "sap.m.Button",
-        text: [
-          {
-            path: "i18n>RESOURCES_CARD_LINK_ICON_EXPLORER"
-          }
-        ]
-      }
-    };
-    await ui5.userInteraction.click(selector);
+    await common.navigation.navigateToUrl(initialUrl);
+    await nonUi5.userInteraction.click(selector);
   });
 
   it("Execution 1", async function () {
-    await util.browser.switchToNewWindow(iconExplorerTitle);
+    await util.browser.switchToNewWindow(newPagTitle);
   });
 
   it("Verification 1", async function () {
     const currentTitle = await browser.getTitle();
-    await common.assertion.expectEqual(currentTitle, iconExplorerTitle);
+    common.assertion.expectEqual(currentTitle, newPagTitle);
   });
 
   it("Execution 2", async function () {
-    await util.browser.switchToNewWindow(resourcesTitle);
+    await util.browser.switchToNewWindow(initialPageTitle);
   });
 
   it("Verification 2", async function () {
     const currentTitle = await browser.getTitle();
-    await common.assertion.expectEqual(currentTitle, resourcesTitle);
+    common.assertion.expectEqual(currentTitle, initialPageTitle);
   });
 });
 
 describe("browser - switchToNewWindow - title (RegExp)", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/resources");
-    await handleCookiesConsent();
-
-    const selector = {
-      elementProperties: {
-        viewName: "sap.ui.documentation.sdk.view.Resources",
-        metadata: "sap.m.Button",
-        text: [
-          {
-            path: "i18n>RESOURCES_CARD_LINK_ICON_EXPLORER"
-          }
-        ]
-      }
-    };
-    await ui5.userInteraction.click(selector);
+    await common.navigation.navigateToUrl(initialUrl);
+    await nonUi5.userInteraction.click(selector);
   });
 
   it("Execution 1", async function () {
-    const titleRegExp = /Icon/;
+    const titleRegExp = /Material/;
     await util.browser.switchToNewWindow(titleRegExp);
   });
 
   it("Verification 1", async function () {
     const titleAct = await browser.getTitle();
-    const titleExp = "Icon Explorer";
-    await common.assertion.expectEqual(titleAct, titleExp);
+    const titleExp = newPagTitle;
+    common.assertion.expectEqual(titleAct, titleExp);
   });
 });
 
 describe("browser - switchToNewWindow - url", function () {
-  const iconExplorerUrl = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html";
-
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/resources");
-    await handleCookiesConsent();
-
-    const selector = {
-      elementProperties: {
-        viewName: "sap.ui.documentation.sdk.view.Resources",
-        metadata: "sap.m.Button",
-        text: [
-          {
-            path: "i18n>RESOURCES_CARD_LINK_ICON_EXPLORER"
-          }
-        ]
-      }
-    };
-    await ui5.userInteraction.click(selector);
+    await common.navigation.navigateToUrl(initialUrl);
+    await nonUi5.userInteraction.click(selector);
   });
 
   it("Execution", async function () {
-    await util.browser.switchToNewWindow(iconExplorerUrl);
+    await util.browser.switchToNewWindow(newUrl);
   });
 
   it("Verification", async function () {
     const currentUrl = await util.browser.getCurrentUrl();
-    await common.assertion.expectEqual(currentUrl, iconExplorerUrl);
+    common.assertion.expectEqual(currentUrl, newUrl);
   });
 });
 
 describe("browser - switchToNewWindow - url (RegExp)", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/resources");
-    await handleCookiesConsent();
-
-    const selector = {
-      elementProperties: {
-        viewName: "sap.ui.documentation.sdk.view.Resources",
-        metadata: "sap.m.Button",
-        text: [
-          {
-            path: "i18n>RESOURCES_CARD_LINK_ICON_EXPLORER"
-          }
-        ]
-      }
-    };
-    await ui5.userInteraction.click(selector);
+    await common.navigation.navigateToUrl(initialUrl);
+    await nonUi5.userInteraction.click(selector);
   });
 
   it("Execution", async function () {
-    const urlRegExp = /icon/;
+    const urlRegExp = /squidfunk/;
     await util.browser.switchToNewWindow(urlRegExp);
   });
 
   it("Verification", async function () {
-    const urlExp = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html";
+    const urlExp = newUrl;
     const urlAct = await util.browser.getCurrentUrl();
-    await common.assertion.expectEqual(urlAct, urlExp);
+    common.assertion.expectEqual(urlAct, urlExp);
   });
 });
 
 describe("browser - switchToNewWindow - error case", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/resources");
-    await handleCookiesConsent();
-
-    const selector = {
-      elementProperties: {
-        viewName: "sap.ui.documentation.sdk.view.Resources",
-        metadata: "sap.m.Button",
-        text: [
-          {
-            path: "i18n>RESOURCES_CARD_LINK_ICON_EXPLORER"
-          }
-        ]
-      }
-    };
-    await ui5.userInteraction.click(selector);
+    await common.navigation.navigateToUrl(initialUrl);
+    await nonUi5.userInteraction.click(selector);
   });
 
   it("Execution & Verification", async function () {
