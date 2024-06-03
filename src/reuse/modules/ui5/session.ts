@@ -23,7 +23,7 @@ export class Session {
    * @example await ui5.session.login("PURCHASER");
    * @example await ui5.session.login("JOHN_DOE", "abc123!", true);
    */
-  async login(username: string, password?: string, verify = false, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000) {
+  async login(username: string, password?: string, verify = false, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.login);
 
     if (browser.config && browser.config.params && browser.config.params.auth && browser.config.params.auth.formType === "skip") {

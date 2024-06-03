@@ -18,7 +18,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickBack();
    */
-  async clickBack(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000) {
+  async clickBack(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.clickBack);
     const selector = {
       elementProperties: {
@@ -40,7 +40,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickSapLogo();
    */
-  async clickSapLogo(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000) {
+  async clickSapLogo(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.clickSapLogo);
     const selector = {
       id: "shell-header-logo"
@@ -59,7 +59,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickUserIcon();
    */
-  async clickUserIcon(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000) {
+  async clickUserIcon(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.clickUserIcon);
     const selector = {
       "elementProperties": {
@@ -106,7 +106,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.expectShellHeader();
    */
-  async expectShellHeader(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+  async expectShellHeader(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const vl = this.vlf.initLog(this.expectShellHeader);
     const selector = {
       elementProperties: {
