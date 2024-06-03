@@ -30,7 +30,7 @@ export class Assertion {
     attribute: string,
     compareValue: any,
     index = 0,
-    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000,
     loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
   ) {
     const vl = this.vlf.initLog(this.expectAttributeToBe);
@@ -92,7 +92,7 @@ export class Assertion {
     attribute: string,
     compareValue: any,
     index = 0,
-    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000,
     loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
   ) {
     const vl = this.vlf.initLog(this.expectAttributeToContain);
@@ -150,7 +150,7 @@ export class Assertion {
     selector: any,
     compareValue: any,
     index = 0,
-    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000,
     loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
   ) {
     const vl = this.vlf.initLog(this.expectTextToBe);
@@ -172,7 +172,7 @@ export class Assertion {
     selector: any,
     compareValue: any,
     index = 0,
-    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000,
     loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
   ) {
     const vl = this.vlf.initLog(this.expectValueToBe);
@@ -188,7 +188,7 @@ export class Assertion {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.assertion.expectValueToBeDefined(selector);
    */
-  async expectValueToBeDefined(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async expectValueToBeDefined(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000) {
     const vl = this.vlf.initLog(this.expectValueToBeDefined);
     const value = await ui5.element.getValue(selector, index, timeout);
     vl.log(`Expecting ${value} to be defined`);
@@ -209,7 +209,7 @@ export class Assertion {
   async expectToBeNotEnabled(
     selector: any,
     index = 0,
-    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000,
     loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
   ) {
     const vl = this.vlf.initLog(this.expectToBeNotEnabled);
@@ -229,7 +229,7 @@ export class Assertion {
   async expectToBeEnabled(
     selector: any,
     index = 0,
-    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000,
     loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
   ) {
     const vl = this.vlf.initLog(this.expectToBeEnabled);
@@ -249,7 +249,7 @@ export class Assertion {
   async expectValidationError(
     selector: any,
     index = 0,
-    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000,
     loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
   ) {
     const vl = this.vlf.initLog(this.expectValidationError);
@@ -269,7 +269,7 @@ export class Assertion {
   async expectValidationSuccess(
     selector: any,
     index = 0,
-    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000,
     loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
   ) {
     const vl = this.vlf.initLog(this.expectValidationSuccess);
@@ -294,7 +294,7 @@ export class Assertion {
     attribute: string,
     compareValue: any,
     index = 0,
-    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000,
     loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
   ) {
     const vl = this.vlf.initLog(this.expectBindingPathToBe);
@@ -360,7 +360,7 @@ export class Assertion {
     selector: any,
     compareValue: any,
     index = 0,
-    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000,
     loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
   ) {
     const vl = this.vlf.initLog(this.expectBindingContextPathToBe);
@@ -411,7 +411,7 @@ export class Assertion {
   async expectToBeVisible(
     selector: any,
     index = 0,
-    timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000,
+    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000,
     loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
   ) {
     const vl = this.vlf.initLog(this.expectToBeVisible);
@@ -467,7 +467,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeVisibleInViewport(selector);
    */
-  async expectToBeVisibleInViewport(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async expectToBeVisibleInViewport(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000) {
     const vl = this.vlf.initLog(this.expectToBeVisibleInViewport);
     let elem: Element;
     try {
@@ -502,7 +502,7 @@ export class Assertion {
    * @param {Number} [timeout=30000] - The timeout to wait (ms). Recommendation is to lower the timeout since the element is not expected to show up.
    * @example await ui5.assertion.expectToBeNotVisible(selector, 0, 5000);
    */
-  async expectToBeNotVisible(selector: any, index = 0, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async expectToBeNotVisible(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000) {
     const vl = this.vlf.initLog(this.expectToBeNotVisible);
     try {
       const isVisible = await ui5.element.isVisible(selector, index, timeout);
@@ -521,7 +521,7 @@ export class Assertion {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.assertion.expectMessageToastTextToBe(text);
    */
-  async expectMessageToastTextToBe(text: string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async expectMessageToastTextToBe(text: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000) {
     const vl = this.vlf.initLog(this.expectMessageToastTextToBe);
     if (!text) {
       this.ErrorHandler.logException(new Error("Please provide the expected text as argument."));
