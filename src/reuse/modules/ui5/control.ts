@@ -44,7 +44,7 @@ export class Control {
    * @example await ui5.control.focus(selector);
    * @example await ui5.control.focus(selector, 0, 5000);
    */
-  async focus(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000) {
+  async focus(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
     const id = await elem.getAttribute("id");
     const focused = await browser.execute(function (id: string) {

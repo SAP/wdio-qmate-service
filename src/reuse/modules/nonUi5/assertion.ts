@@ -106,7 +106,7 @@ export class Assertion {
    * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectToBeNotVisible(element, 5000);
    */
-  async expectToBeNotVisible(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!)  || 30000): Promise<void> {
+  async expectToBeNotVisible(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<void> {
     const vl = this.vlf.initLog(this.expectToBeNotVisible);
     try {
       const element = await resolveCssSelectorOrElement(elementOrSelector);
