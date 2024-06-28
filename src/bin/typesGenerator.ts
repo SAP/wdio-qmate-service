@@ -22,7 +22,6 @@ class TypesGenerator {
     name: "@types/wdio-qmate-service",
     version: "1.0.0",
     description: "Packaged types for wdio-qmate-service",
-    author: "C5329190",
     dependencies: {
       "@types/node": "^18.0.3"
     }
