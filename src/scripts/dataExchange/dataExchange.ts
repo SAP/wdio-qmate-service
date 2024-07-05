@@ -16,16 +16,13 @@ class DataExchange {
    * @example await readParams();
    */
 
-  async readParams () {
+  async readParams (config: Record<string, any>) {
 
-    if (!browser.config.params) {
+    if (!config.params) {
       //nothing to do
       return;
     }
-    if (!browser.params) {
-      browser.params = browser.config.params;
-    }
-    const importParams = browser.params.import || {};
+    const importParams = config.params.import || {};
 
     // import
     // read folders, and subfolders if directory, otherwise read file
@@ -38,7 +35,7 @@ class DataExchange {
       const isFileReadable = await importExportDataUtil.isReadable(fileOrDir);
       if (isFileReadable) {
         // @ts-ignore
-        await importExportDataUtil.readData(fileOrDir, [param]);
+        await importExportDataUtil.readData(fileOrDir, [param], config);
       } else {
         delete importParams[param];
         console.warn(
@@ -49,20 +46,20 @@ class DataExchange {
 
     // for export, create folders and files if not present
 
-    // copy filenames, since the user will overwrite browser.params.export with data
+    // copy filenames, since the user will overwrite config.params.export with data
     // the filenames are required to write the json data at end of session
-    const exportParams = browser.params.export;
+    const exportParams = config.params.export;
     if (!exportParams) {
       // nothing to export
       return;
     }
 
-    browser.params.exportDataFiles = { ...exportParams };
+    config.params.exportDataFiles = { ...exportParams };
 
     // if export file has data, should that be used?
 
     Object.keys(exportParams).forEach((param) => {
-      browser.params.export[param] = null;
+      config.params.export[param] = null;
     });
 
   };

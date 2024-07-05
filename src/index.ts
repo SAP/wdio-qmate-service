@@ -57,9 +57,8 @@ module.exports = class CustomWorkerService {
   // @ts-ignore
   async beforeSession(config, capabilities, specs) {
     try {
-      browser.config = config;
       await qmateLoaderSession(config, capabilities, specs);
-      this.config = browser.config;
+      this.config = config;
     } catch (e) {
       if (specs && specs[0]) {
         // `specs` variable is an array, but includes only one current spec
@@ -82,7 +81,7 @@ module.exports = class CustomWorkerService {
     // Errors in WDIO hooks are suppressed by default => we call process.exit(1). It will mark all specs as failed
     try {
       browser.config = this.config;
-      browser.params = browser.config.params;
+      browser.params = this.config.params;
       await qmateLoader(capabilities, specs, browser);
     } catch (e) {
       if (specs && specs[0]) {
