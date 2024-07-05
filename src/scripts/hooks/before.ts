@@ -7,7 +7,7 @@ import authenticatorHandler from "../../reuse/authenticator/authHandler";
  * @param {Array.<String>} specs        List of spec file paths that are to be run
  * @param {Object}         browser      instance of created browser/device session
  */
-export default async function (capabilities: object[], specs: string[], config: Record<string, any>) {
+export default async function (capabilities: object[], specs: string[], browser: object) {
   // Add ui control selector & properties
   await locatorCommands.addControlCommands();
   await locatorCommands.addGetControlProperties();
