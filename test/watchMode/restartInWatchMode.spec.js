@@ -1,7 +1,4 @@
 describe("watchMode - test case runs after being restarted in watch mode", function() {
-
-    simulateRestartInWatchMode();
-
     it("Step 01: Navigate to URL", async function() {
         await common.navigation.navigateToUrl(browser.config.baseUrl);
     });
@@ -17,7 +14,3 @@ describe("watchMode - test case runs after being restarted in watch mode", funct
         await ui5.userInteraction.click(selector);
     });
 });
-
-function simulateRestartInWatchMode() {
-    browser = undefined;
-}

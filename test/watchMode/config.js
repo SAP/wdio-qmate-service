@@ -7,5 +7,12 @@ exports.config = merge(profile.config, {
   baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_horizon",
   specs: [
     path.resolve(__dirname, "restartInWatchMode.spec.js")
-  ]
+  ],
+  beforeSession: () => {
+    simulateRestartInWatchMode()
+  }
 });
+
+function simulateRestartInWatchMode() {
+    browser = undefined;
+}
