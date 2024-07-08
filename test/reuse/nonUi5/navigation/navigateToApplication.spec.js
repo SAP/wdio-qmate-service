@@ -1,10 +1,6 @@
 describe("navigateToApplication: test with SAP website", function () {
-  let url = null;  
+  const url = browser.config.baseUrl;
   const relativeReference = "products.html";
-
-  before(() => {
-    url = browser.config.baseUrl;
-  });
 
   it("Execution", async function () {
     await common.navigation.navigateToUrl(url);
