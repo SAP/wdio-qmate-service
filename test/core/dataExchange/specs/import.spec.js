@@ -35,6 +35,8 @@ describe("Import Data", function () {
   // regression test to check that data has been imported in 
   // beforeSession hook
   // check if data is available in "describe" and not in "it" block
+  assert(browser.params.import.myFolder1, "myFolder1 not imported");
+  assert(browser.params.import.myFolder2, "myFolder2 not imported");
 
   it("step 1: check presence of import config params", async function () {
 
