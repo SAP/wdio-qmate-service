@@ -2,7 +2,7 @@
 
 describe("navigationBar - expectPageTitle", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/ui/demoapps/demokit/rta/fiori-elements/test/index.html#Shell-home");
+    await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
   it("Execution & Verification", async function () {
