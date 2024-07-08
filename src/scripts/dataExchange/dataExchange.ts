@@ -7,61 +7,37 @@
 import fs from 'fs-extra'
 import path from "path";
 import importExportDataUtil from "./dataExchangeUtil";
+import { isBrowserDefined } from '../hooks/utils/isBrowserDefined';
 
 class DataExchange {
 
   /**
    * @function readParams
    * @description read the import and export params in the config file
-   * @example await readParams();
+   * @example await readParams(config);
    */
 
   async readParams (config: Record<string, any>) {
-
     if (!config.params) {
       //nothing to do
       return;
     }
+    if (isBrowserDefined() && !browser.params) {
+      browser.params = browser.config.params;
+    }
     const importParams = config.params.import || {};
-
-    // import
-    // read folders, and subfolders if directory, otherwise read file
-    const params = Object.keys(importParams);
-    for (let i = 0; i < params.length; i++) {
-      const param = params[i];
-      // adjust file path if relative
-      const fileOrDir = importExportDataUtil.getFileAbsPath(importParams[param]);
-      // @ts-ignore
-      const isFileReadable = await importExportDataUtil.isReadable(fileOrDir);
-      if (isFileReadable) {
-        // @ts-ignore
-        await importExportDataUtil.readData(fileOrDir, [param], config);
-      } else {
-        delete importParams[param];
-        console.warn(
-          `"${fileOrDir}" does not exist or is not readable. Please check path or permissions.`
-        );
-      }
+    if (importParams) {
+      await readImportParams(config, importParams);
     }
 
     // for export, create folders and files if not present
 
-    // copy filenames, since the user will overwrite config.params.export with data
+    // copy filenames, since the user will overwrite browser.params.export with data
     // the filenames are required to write the json data at end of session
-    const exportParams = config.params.export;
-    if (!exportParams) {
-      // nothing to export
-      return;
+    const exportParams = browser.params.export;
+    if (exportParams) {
+      await readExportParams(config, exportParams);
     }
-
-    config.params.exportDataFiles = { ...exportParams };
-
-    // if export file has data, should that be used?
-
-    Object.keys(exportParams).forEach((param) => {
-      config.params.export[param] = null;
-    });
-
   };
   /**
    * @function writeExportDataInTmpFile
@@ -209,3 +185,51 @@ class DataExchange {
 
 };
 module.exports = new DataExchange();
+
+async function readImportParams(config: Record<string, any>, importParams: any) {
+    // import
+    // read folders, and subfolders if directory, otherwise read file
+    const params = Object.keys(importParams);
+    for (let i = 0; i < params.length; i++) {
+      const param = params[i];
+      // adjust file path if relative
+      const fileOrDir = importExportDataUtil.getFileAbsPath(importParams[param]);
+      // @ts-ignore
+      const isFileReadable = await importExportDataUtil.isReadable(fileOrDir);
+      if (isFileReadable) {
+        // @ts-ignore
+        await importExportDataUtil.readData(fileOrDir, [param], config);
+      } else {
+        delete importParams[param];
+        console.warn(
+          `"${fileOrDir}" does not exist or is not readable. Please check path or permissions.`
+        );
+      }
+    } 
+}
+
+async function readExportParams(config: Record<string, any>, exportParams: any) {
+  if (!exportParams) {
+    // nothing to export
+    return;
+  }
+  if (isBrowserDefined()) {
+    copyExportParamsToBrowser(exportParams)
+  }
+  copyExportParamsToConfig(config, exportParams); 
+}
+
+function copyExportParamsToBrowser(exportParams: any) {
+  browser.params.exportDataFiles = { ...exportParams };
+  Object.keys(exportParams).forEach((param) => {
+    browser.params.export[param] = null;
+  });
+}
+
+function copyExportParamsToConfig(config: Record<string, any>, exportParams: any) {
+  config.params.exportDataFiles = { ...exportParams };
+  // if export file has data, should that be used?
+  Object.keys(exportParams).forEach((param) => {
+    config.params.export[param] = null;
+  });
+}
