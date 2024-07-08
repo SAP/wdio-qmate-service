@@ -85,7 +85,7 @@ module.exports = class CustomWorkerService {
     // Errors in WDIO hooks are suppressed by default => we call process.exit(1). It will mark all specs as failed
     try {
       browser.config = this.config;
-      browser.params = this.config.params;
+      browser.params = browser.config.params;
       await qmateLoader(capabilities, specs, browser);
     } catch (e) {
       if (specs && specs[0]) {
