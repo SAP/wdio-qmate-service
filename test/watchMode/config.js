@@ -9,10 +9,10 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "navigateToUrlAndClick.spec.js")
   ],
   beforeSession: () => {
-    simulateRestartInWatchMode()
+    simulateRestartInWatchMode();
   }
 });
 
 function simulateRestartInWatchMode() {
-    browser = undefined;
+  browser = undefined;
 }
