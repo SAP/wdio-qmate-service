@@ -37,38 +37,25 @@ export class Navigation {
   async navigateToApplication(intent: string, preventPopups = false, verify = false, refresh = true) {
     const vl = this.vlf.initLog(this.navigateToApplication);
 
-    let baseUrl = browser.config.baseUrl;
+    const baseUrlNormalized = this._normalizeQueryString(browser.config.baseUrl);
+    const intentNormalized = this._normalizeQueryString(intent);
+
     let queryParams: Array<QueryParam> = [];
 
-    // Check if intent has query params and separate them from the intent
-    const intentParts = intent.split("?");
-    if (intentParts.length > 1) {
-      queryParams = queryParams.concat(this._mapQueryParams(intentParts[1]));
-      vl.log(`Query Params from passed intent: ${JSON.stringify(queryParams)}`);
+    // Check if intent has query params and extract them from the intent
+    queryParams = queryParams.concat(this._extractQueryParams(intent));
 
-      intent = intentParts[0];
-      vl.log(`Intent: ${intent}`);
-    }
-
-    // Check if baseUrl has query params and separate them from the baseUrl
-    const baseUrlParts = baseUrl.split("?");
-    if (baseUrlParts.length > 1) {
-      queryParams = queryParams.concat(this._mapQueryParams(baseUrlParts[1]));
-      vl.log(`Query Params from baseUrl: ${JSON.stringify(queryParams)}`);
-
-      baseUrl = baseUrlParts[0];
-      vl.log(`BaseUrl: ${baseUrl}`);
-    }
+    // Check if baseUrl has query params and extract them from the baseUrl
+    queryParams = queryParams.concat(this._extractQueryParams(browser.config.baseUrl));
 
     // Add prevent popup url params if not already present
     if (preventPopups) {
       queryParams = queryParams.concat(this._getPreventPopupParams(queryParams));
-      vl.log(`Query Params with prevent popup: ${JSON.stringify(queryParams)}`);
     }
 
     // Construct the url with the intent and query params
-    const urlParams = queryParams.map((param) => `${param.key}=${param.value}`).join("&");
-    const urlWithParams = `${baseUrl}?${urlParams}#${intent}`;
+    const constructedParams = this._constructUrlParams(queryParams);
+    const urlWithParams = `${baseUrlNormalized}?${constructedParams}#${intentNormalized}`;
     vl.log(`Url with params: ${urlWithParams}`);
 
     try {
@@ -78,7 +65,7 @@ export class Navigation {
       await util.browser.logCurrentUrl();
 
       if (url && !url.includes(intent) && verify) {
-        this.ErrorHandler.logException(new Error("For retrying use 'navigateToApplicationAndRetry'."));
+        new Error("Failed to verify successful navigation.");
       }
 
       if (refresh) {
@@ -289,6 +276,26 @@ export class Navigation {
   }
 
   // =================================== HELPER ===================================
+  private _extractQueryParams(input: string): Array<QueryParam> {
+    const queryParams: Array<QueryParam> = [];
+    const queryParts = input.split("?");
+
+    if (queryParts.length > 1) {
+      queryParams.push(...this._mapQueryParams(queryParts[1]));
+    }
+
+    return queryParams;
+  }
+
+  private _normalizeQueryString(input: string): string {
+    const queryParts = input.split("?");
+    return queryParts[0];
+  }
+
+  private _constructUrlParams(queryParams: QueryParam[]): string {
+    return queryParams.map((param) => `${param.key}=${param.value}`).join("&");
+  }
+
   private _getPreventPopupParams(queryParams: Array<QueryParam>): Array<QueryParam> {
     const combinedQueryParams: Array<QueryParam> = [];
 
