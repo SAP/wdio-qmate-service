@@ -54,8 +54,9 @@ export class Navigation {
     }
 
     // Construct the url with the intent and query params
-    const constructedParams = this._constructUrlParams(queryParams);
-    const urlWithParams = `${baseUrlNormalized}?${constructedParams}#${intentNormalized}`;
+    let constructedParams = this._constructUrlParams(queryParams);
+    if (constructedParams !== "") constructedParams = `?${constructedParams}`;
+    const urlWithParams = `${baseUrlNormalized}${constructedParams}#${intentNormalized}`;
     vl.log(`Url with params: ${urlWithParams}`);
 
     try {
@@ -168,7 +169,16 @@ export class Navigation {
     const vl = this.vlf.initLog(this.navigateToApplicationWithQueryParams);
     let url;
     try {
-      await browser.url(`${browser.config.baseUrl}${queryParams}#${intent}`);
+      let parsedQueryParams = "";
+      if (queryParams) {
+        if (queryParams.startsWith("?")) {
+          parsedQueryParams = queryParams;
+        } else {
+          parsedQueryParams = `?${queryParams}`;
+        }
+      }
+
+      await browser.url(`${browser.config.baseUrl}${parsedQueryParams}#${intent}`);
       url = await browser.getUrl();
       await util.browser.logCurrentUrl();
       if (url && url.indexOf(intent) === -1 && verify) {
