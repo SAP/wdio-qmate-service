@@ -2,12 +2,12 @@
 
 describe("navigationBar - clickBack", async function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/ui/demoapps/demokit/rta/fiori-elements/test/index.html#Shell-home");
+    await common.navigation.navigateToUrl(browser.config.baseUrl);
     const selector = {
-      elementProperties: {
-        viewName: "sap.ushell.components.tiles.cdm.applauncher.StaticTile",
-        metadata: "sap.m.GenericTile",
-        bindingContextPath: "/pages/0/sections/0/visualizations/0"
+      "elementProperties": {
+        "viewName": "sap.ushell.components.homepage.DashboardContent",
+        "metadata": "sap.m.GenericTile",
+        "bindingContextPath": "/groups/1/tiles/1/content/0"
       }
     };
     await ui5.userInteraction.click(selector);
@@ -24,7 +24,7 @@ describe("navigationBar - clickBack", async function () {
 
 describe("navigationBar - clickBack - error case", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/ui/demoapps/demokit/rta/fiori-elements/test/index.html#Shell-home");
+    await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
   it("Execution & Verification", async function () {
