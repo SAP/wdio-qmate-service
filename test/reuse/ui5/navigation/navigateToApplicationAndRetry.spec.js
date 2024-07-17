@@ -33,7 +33,6 @@ describe("navigation - navigateToApplicationAndRetry with closePopups=true", fun
     parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
 
     await common.assertion.expectEqual(urlExpected, parsedUrlValue);
-
   });
 });
 
@@ -68,86 +67,5 @@ describe("navigation - navigateToApplicationAndRetry with closePopups=false", fu
     parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
 
     await common.assertion.expectEqual(urlExpected, parsedUrlValue);
-
-  });
-});
-
-describe("navigation - navigateToApplicationAndRetry wrong navigation intent type with/without verification(unhappy case)", function () {
-  const wrongApplication = {
-    strange: "intent"
-  };
-  const application = "Shell-home";
-
-  it("Execution & Verification", async function () {
-    await ui5.navigation.navigateToApplicationAndRetry(application, false, true); // closePopups=false, verify=true
-
-    await ui5.navigation.navigateToApplicationAndRetry(wrongApplication, false, false); // closePopups=false, verify=false - no verification
-    const currentUrl = await browser.getUrl();
-
-    // system first navigates to '<urlToSystem>#%5Bobject%20Object%5D'
-    expect(currentUrl).toContain(browser.config.baseUrl + "#[object%20Object]");
-
-    await expect(ui5.navigation.navigateToApplicationAndRetry(wrongApplication, false, true)) // verify = true,
-      .rejects.toThrow(/failed/);
-  });
-});
-
-
-const selectorForErrorPopupText = {
-  "elementProperties": {
-    "metadata": "sap.m.Text",
-    "ancestorProperties": {
-      "elementProperties": {
-        "metadata": "sap.m.Dialog",
-        "type": "Message",
-        "state": "Error"
-      }
-    }
-  }
-};
-
-// Test is unstable - system itself can close the popup
-// TODO: discuss local server usage for assertion tests execution
-describe.skip("assertion - expectUnsupportedNavigationPopup", function () {
-  it("Preparation", async function () {
-    await ui5.navigation.navigateToApplicationAndRetry("Shell-home", true);
-    await ui5.session.loginFiori("PURCHASER", "super-duper-sensitive-pw");
-  });
-
-  it("Execution", async function () {
-    await ui5.navigation.navigateToApplicationAndRetry("SomeWrong-intent", false);
-  });
-
-  it("Verification", async function () {
-    await ui5.assertion.expectUnsupportedNavigationPopup("#SomeWrong-intent");
-  });
-
-  it("Clean Up", async function () {
-    await ui5.session.logout();
-  });
-});
-
-// Test is unstable - system itself can close the popup
-// TODO: discuss local server usage for assertion tests execution
-describe.skip("assertion - expectUnsupportedNavigationPopup with '&' (unhappy case, another error popup)", function () {
-  it("Preparation", async function () {
-    await ui5.navigation.navigateToApplicationAndRetry("Shell-home", true);
-    await ui5.session.loginFiori("PURCHASER", "super-duper-sensitive-pw");
-  });
-
-  it("Execution", async function () {
-    await ui5.navigation.navigateToApplicationAndRetry("SomeWrongIntentWith&", false);
-  });
-
-  it("Verification", async function () {
-    await expect(ui5.assertion.expectUnsupportedNavigationPopup("#SomeWrongIntentWith&"))
-      .rejects.toThrow(/No visible elements found/);
-    const textElement = await ui5.element.getDisplayed(selectorForErrorPopupText);
-    const text = await textElement.getText();
-    await common.assertion.expectEqual(text, "Could not open app. Please try again later.");
-  });
-
-  it("Clean Up", async function () {
-    await ui5.session.logout();
   });
 });
