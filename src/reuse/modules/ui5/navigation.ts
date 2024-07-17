@@ -8,6 +8,11 @@ interface Popup {
   selector: string;
 }
 
+interface QueryParam {
+  key: string;
+  value: string;
+}
+
 /**
  * @class navigation
  * @memberof ui5
@@ -16,9 +21,7 @@ export class Navigation {
   private vlf = new VerboseLoggerFactory("ui5", "navigation");
   private ErrorHandler = new ErrorHandler();
 
-  errorText =
-    "Navigation failed because page didn't load, possible reasons: " +
-    "Site is down, or you are using a wrong address. For retrying use 'navigateToApplicationAndRetry'.\n";
+  errorText = "Navigation failed because page didn't load, possible reasons: " + "Site is down, or you are using a wrong address. For retrying use 'navigateToApplicationAndRetry'.\n";
 
   // =================================== MAIN ===================================
   /**
@@ -33,18 +36,51 @@ export class Navigation {
    */
   async navigateToApplication(intent: string, preventPopups = false, verify = false, refresh = true) {
     const vl = this.vlf.initLog(this.navigateToApplication);
-    let urlParams = "";
-    if (preventPopups) {
-      urlParams = this._generateUrlParams();
+
+    let baseUrl = browser.config.baseUrl;
+    let queryParams: Array<QueryParam> = [];
+
+    // Check if intent has query params and separate them from the intent
+    const intentParts = intent.split("?");
+    if (intentParts.length > 1) {
+      queryParams = queryParams.concat(this._mapQueryParams(intentParts[1]));
+      vl.log(`Query Params from passed intent: ${JSON.stringify(queryParams)}`);
+
+      intent = intentParts[0];
+      vl.log(`Intent: ${intent}`);
     }
 
+    // Check if baseUrl has query params and separate them from the baseUrl
+    const baseUrlParts = baseUrl.split("?");
+    if (baseUrlParts.length > 1) {
+      queryParams = queryParams.concat(this._mapQueryParams(baseUrlParts[1]));
+      vl.log(`Query Params from baseUrl: ${JSON.stringify(queryParams)}`);
+
+      baseUrl = baseUrlParts[0];
+      vl.log(`BaseUrl: ${baseUrl}`);
+    }
+
+    // Add prevent popup url params if not already present
+    if (preventPopups) {
+      queryParams = queryParams.concat(this._getPreventPopupParams(queryParams));
+      vl.log(`Query Params with prevent popup: ${JSON.stringify(queryParams)}`);
+    }
+
+    // Construct the url with the intent and query params
+    const urlParams = queryParams.map((param) => `${param.key}=${param.value}`).join("&");
+    const urlWithParams = `${baseUrl}?${urlParams}#${intent}`;
+    vl.log(`Url with params: ${urlWithParams}`);
+
     try {
-      await browser.navigateTo(`${browser.config.baseUrl.split("#")[0] + urlParams}#${intent}`);
+      await browser.navigateTo(urlWithParams);
+
       const url = await browser.getUrl();
       await util.browser.logCurrentUrl();
-      if (url && url.indexOf(intent) === -1 && verify) {
-        this.ErrorHandler.logException(new Error("For retrying use 'navigateToSystemAndApplicationAndRetry'."));
+
+      if (url && !url.includes(intent) && verify) {
+        this.ErrorHandler.logException(new Error("For retrying use 'navigateToApplicationAndRetry'."));
       }
+
       if (refresh) {
         await util.browser.refresh();
       }
@@ -174,14 +210,7 @@ export class Navigation {
    * const queryParams = "?sap-language=EN&responderOn=true";
    * await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
    */
-  async navigateToApplicationWithQueryParamsAndRetry(
-    intent: string,
-    queryParams: string,
-    closePopups = true,
-    verify = true,
-    retries = 3,
-    interval = 5000
-  ) {
+  async navigateToApplicationWithQueryParamsAndRetry(intent: string, queryParams: string, closePopups = true, verify = true, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.navigateToApplicationWithQueryParamsAndRetry);
     await util.function.retry(
       async (intent: string, queryParams: string, closePopups: boolean, verify: boolean) => {
@@ -260,29 +289,30 @@ export class Navigation {
   }
 
   // =================================== HELPER ===================================
-  private _generateUrlParams() {
-    let urlParams;
-    let prefix;
+  private _getPreventPopupParams(queryParams: Array<QueryParam>): Array<QueryParam> {
+    const combinedQueryParams: Array<QueryParam> = [];
 
-    if (browser.config.baseUrl.includes("ui?")) {
-      prefix = "&";
-    } else {
-      prefix = "?";
+    const READ_CATALOG_PARAM = "help-readCatalog";
+    const STATE_UACP_PARAM = "help-stateUACP";
+
+    const hasReadCatalog = queryParams.some((param) => param.key === READ_CATALOG_PARAM);
+    const hasStateUACP = queryParams.some((param) => param.key === STATE_UACP_PARAM);
+
+    if (!hasReadCatalog) {
+      combinedQueryParams.push({ key: READ_CATALOG_PARAM, value: "false" });
+    }
+    if (!hasStateUACP) {
+      combinedQueryParams.push({ key: STATE_UACP_PARAM, value: "PRODUCTION" });
     }
 
-    if (browser.config.baseUrl.includes("help-readCatalog=false") && browser.config.baseUrl.includes("help-stateUACP=PRODUCTION")) {
-      urlParams = "";
-    } else {
-      if (browser.config.baseUrl.includes("help-readCatalog=false") && !browser.config.baseUrl.includes("help-stateUACP=PRODUCTION")) {
-        urlParams = "help-stateUACP=PRODUCTION";
-      } else if (!browser.config.baseUrl.includes("help-readCatalog=false") && browser.config.baseUrl.includes("help-stateUACP=PRODUCTION")) {
-        urlParams = "help-readCatalog=false";
-      } else {
-        urlParams = "help-readCatalog=false&help-stateUACP=PRODUCTION";
-      }
-    }
+    return combinedQueryParams;
+  }
 
-    return prefix + urlParams;
+  private _mapQueryParams(params: string): Array<QueryParam> {
+    return params.split("&").map((param) => {
+      const [key, value] = param.split("=");
+      return { key, value };
+    });
   }
 
   private async _closePopup(popup: Popup, timeout: number = 30000): Promise<void> {
