@@ -10,7 +10,8 @@
 
 const BASE_URL = `http://localhost:34099/ui`;
 const INTENT = "Shell-home";
-const DUMMY_QUERY_PARAM = "dummyQueryParam=dummyValue";
+const DUMMY_QUERY_PARAM_1 = "dummyQueryParam1=dummyValue1";
+const DUMMY_QUERY_PARAM_2 = "dummyQueryParam2=dummyValue2";
 const PREVENT_POPUP_QUERY_PARAMS = "help-readCatalog=false&help-stateUACP=PRODUCTION";
 
 describe("navigation - navigateToApplication - preventPopups=false", function () {
@@ -60,7 +61,7 @@ describe("navigation - navigateToApplication - baseUrl with closePopup query par
 
 describe("navigation - navigateToApplication - baseUrl with dummy query parameters", function () {
   it("Preparation", async function () {
-    browser.config.baseUrl = `${BASE_URL}?${DUMMY_QUERY_PARAM}`;
+    browser.config.baseUrl = `${BASE_URL}?${DUMMY_QUERY_PARAM_1}`;
   });
 
   it("Execution", async function () {
@@ -68,29 +69,44 @@ describe("navigation - navigateToApplication - baseUrl with dummy query paramete
   });
 
   it("Verification", async function () {
-    const urlExp = `${BASE_URL}?${DUMMY_QUERY_PARAM}#Shell-home`;
+    const urlExp = `${BASE_URL}?${DUMMY_QUERY_PARAM_1}#Shell-home`;
     await common.assertion.expectUrlToBe(urlExp);
   });
 });
 
-describe("navigation - navigateToApplication - intent with dummy query parameters", function () {
+describe("navigation - navigateToApplication - intent and baseUrl with query parameters", function () {
+  it("Preparation", async function () {
+    browser.config.baseUrl = `${BASE_URL}?${DUMMY_QUERY_PARAM_1}`;
+  });
+
+  it("Execution", async function () {
+    await ui5.navigation.navigateToApplication(`${INTENT}?${DUMMY_QUERY_PARAM_2}`, false);
+  });
+
+  it("Verification", async function () {
+    const urlExp = `${BASE_URL}?${DUMMY_QUERY_PARAM_1}#Shell-home?${DUMMY_QUERY_PARAM_2}`;
+    await common.assertion.expectUrlToBe(urlExp);
+  });
+});
+
+describe("navigation - navigateToApplication - intent with multiple query parameters", function () {
   it("Preparation", async function () {
     browser.config.baseUrl = BASE_URL;
   });
 
   it("Execution", async function () {
-    await ui5.navigation.navigateToApplication(`${INTENT}?${DUMMY_QUERY_PARAM}`, false);
+    await ui5.navigation.navigateToApplication(`${INTENT}?${DUMMY_QUERY_PARAM_1}&${DUMMY_QUERY_PARAM_2}`, false);
   });
 
   it("Verification", async function () {
-    const urlExp = `${BASE_URL}?${DUMMY_QUERY_PARAM}#Shell-home`;
+    const urlExp = `${BASE_URL}#Shell-home?${DUMMY_QUERY_PARAM_1}&${DUMMY_QUERY_PARAM_2}`;
     await common.assertion.expectUrlToBe(urlExp);
   });
 });
 
 describe("navigation - navigateToApplication - baseUrl with multiple query parameters", function () {
   it("Preparation", async function () {
-    browser.config.baseUrl = `${BASE_URL}?${DUMMY_QUERY_PARAM}&${PREVENT_POPUP_QUERY_PARAMS}`;
+    browser.config.baseUrl = `${BASE_URL}?${DUMMY_QUERY_PARAM_1}&${PREVENT_POPUP_QUERY_PARAMS}`;
   });
 
   it("Execution", async function () {
@@ -98,7 +114,7 @@ describe("navigation - navigateToApplication - baseUrl with multiple query param
   });
 
   it("Verification", async function () {
-    const urlExp = `${BASE_URL}?${DUMMY_QUERY_PARAM}&${PREVENT_POPUP_QUERY_PARAMS}#Shell-home`;
+    const urlExp = `${BASE_URL}?${DUMMY_QUERY_PARAM_1}&${PREVENT_POPUP_QUERY_PARAMS}#Shell-home`;
     await common.assertion.expectUrlToBe(urlExp);
   });
 });
