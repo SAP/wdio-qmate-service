@@ -20,5 +20,5 @@ export default async function (config: Record<string, any>, capabilities: object
   if (config.user || config.key) {
     decryption.decryptSauceConfig(config);
   }
-  await dataExchangeCommands.readParams();
+  await dataExchangeCommands.readParams(config);
 }
