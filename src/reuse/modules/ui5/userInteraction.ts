@@ -566,18 +566,18 @@ export class UserInteraction {
         await ui5.userInteraction.click(arrowSelector, index, timeout);
 
         const menuItemSelectorOldUI5 = {
-            elementProperties: {
-                viewName: selector.elementProperties.viewName,
-                metadata: "sap.ui.unified.MenuItem",
-                text: value
-            }
+          elementProperties: {
+            viewName: selector.elementProperties.viewName,
+            metadata: "sap.ui.unified.MenuItem",
+            text: value
+          }
         };
         const menuItemSelectorNewUI5 = {
-            elementProperties: {
-                viewName: selector.elementProperties.viewName,
-                metadata: "sap.m.IconTabFilter",
-                text: value
-            }
+          elementProperties: {
+            viewName: selector.elementProperties.viewName,
+            metadata: "sap.m.IconTabFilter",
+            text: value
+          }
         };
         await Promise.any([ui5.userInteraction.click(menuItemSelectorNewUI5, 0, timeout), 
                            ui5.userInteraction.click(menuItemSelectorOldUI5, 0, timeout)]);
