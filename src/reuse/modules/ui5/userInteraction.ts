@@ -804,7 +804,7 @@ export class UserInteraction {
 
     const tabParentClassList = await tabParentElem.getAttribute("class");
 
-    if (tabParentClassList.includes(indicatorClass)) {
+    if (indicatorClasses.some(indicatorClass => tabParentClassList.includes(indicatorClass))) {
       return true;
     } else {
       return false;
