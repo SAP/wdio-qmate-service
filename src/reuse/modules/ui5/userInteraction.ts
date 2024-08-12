@@ -778,7 +778,7 @@ export class UserInteraction {
     // check for simple tab type
     const tabElem = await ui5.element.getDisplayed(selector);
     const tabClassList = await tabElem.getAttribute("class");
-    if (indicatorClasses.some(indicatorClass => tabClassList.includes(indicatorClass)) {
+    if (indicatorClasses.some(indicatorClass => tabClassList.includes(indicatorClass))) {
       return true;
     }
 
