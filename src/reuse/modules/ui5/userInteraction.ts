@@ -772,12 +772,13 @@ export class UserInteraction {
   }
 
   private async _verifyTabSwitch(selector: any): Promise<boolean> {
-    const indicatorClass = "sapUxAPAnchorBarButtonSelected";
+    // two classes required to handle old and new UI5 versions
+    const indicatorClasses = ["sapUxAPAnchorBarButtonSelected", "sapMITBSelected"];
 
     // check for simple tab type
     const tabElem = await ui5.element.getDisplayed(selector);
     const tabClassList = await tabElem.getAttribute("class");
-    if (tabClassList.includes(indicatorClass)) {
+    if (indicatorClasses.some(indicatorClass => tabClassList.includes(indicatorClass)) {
       return true;
     }
 
