@@ -115,7 +115,9 @@ class ReuseLibrary {
      * @description Global namespace for mobile modules.
      */
      const mobile = {
-      element: mobileQmate.locator
+      element: mobileQmate.element,
+      userInteraction: mobileQmate.userInteraction,
+      gestures: mobileQmate.gestures
     };
     global.mobile = {
       ...mobile,

@@ -13,31 +13,29 @@ export class UserInteraction {
    * @function click
    * @memberOf mobile.userInteraction
    * @description Tap's on the passed element.
-   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
+   * @param {Element | string} element - The element or CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example const elem = await mobile.userInteraction.tap(elem);
    */
-   async tap(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+   async tap(element: Element, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.tap);
-
     try {
       vl.log("Expecting element to be displayed and enabled");
       await Promise.all([
-        expect(elementOrSelector).toBeDisplayed({
+        expect(element).toBeDisplayed({
           wait: timeout,
           interval: 100,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
         }),
-        expect(elementOrSelector).toBeEnabled({
+        expect(element).toBeEnabled({
           wait: timeout,
           interval: 100,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
         })
       ]);
-
       vl.log("Clicking the element");
-      await elementOrSelector.click();
-      vl.log("given element is successfully taped");
+      await element.click();
+      vl.log("Given element is successfully taped on the mobile UI");
     } catch (error) {
       this.ErrorHandler.logException(error);
     }

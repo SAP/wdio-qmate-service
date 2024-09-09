@@ -55,6 +55,7 @@ export interface Element {
   getText(): Promise<string>;
   getValue(): Promise<string>;
   isClickable(): Promise<boolean>;
+  isVisible(): Promise<boolean>;
   isDisplayed(): Promise<boolean>;
   isDisplayedInViewport(): Promise<boolean>;
   isEnabled(): Promise<boolean>;
