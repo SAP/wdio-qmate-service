@@ -171,7 +171,7 @@
     "prettier": "^2.8.1",
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.4"
+    "typescript": "^5.3.3"
   },
   "overrides": {
     "got": "^11.8.5"
