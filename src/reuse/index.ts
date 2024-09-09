@@ -9,6 +9,7 @@ import commonQmate from "./modules/common/Common";
 import ui5Qmate from "./modules/ui5/Ui5";
 import nonUi5Qmate from "./modules/nonUi5/NonUi5";
 import serviceQmate from "./modules/service/Service";
+import mobileQmate from "./modules/mobile/Mobile";
 
 // data
 import authenticators from "./data/authenticators.json";
@@ -107,6 +108,18 @@ class ReuseLibrary {
     global.service = {
       ...service,
       ...global.service
+    };
+
+     /**
+     * @global
+     * @description Global namespace for mobile modules.
+     */
+     const mobile = {
+      element: mobileQmate.locator
+    };
+    global.mobile = {
+      ...mobile,
+      ...global.mobile
     };
   }
 }

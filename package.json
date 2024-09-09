@@ -109,7 +109,9 @@
     "test:reuse:service": "npm run test:reuse:service:rest && npm run test:reuse:service:odata",
     "test:reuse": "npm run test:reuse:common && npm run test:reuse:nonUi5 && npm run test:reuse:ui5 && npm run test:reuse:util && npm run test:reuse:service:odata",
     "test:reuse:helper:elementHighlight": "npx wdio ./test/reuse/helper/elementHighlight/test.elementHighlight.conf.js",
-    "test": "npm run test:authenticator:staticLogin && npm run test:core && npm run test:reuse"
+    "test": "npm run test:authenticator:staticLogin && npm run test:core && npm run test:reuse",
+    "device:local": "npx wdio wdio.local.android.device.conf.js",
+    "device:config": "npx wdio ./test/reuse/mobile/element/test.locator.local.android.device.conf.js"
   },
   "homepage": "https://github.com/SAP/wdio-qmate-service",
   "repository": {
@@ -128,6 +130,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@sap_oss/odata-library": "^2.3.5",
+    "appium": "2.11.2",
+    "appium-uiautomator2-driver": "^3.7.4",
+    "appium-xcuitest-driver": "^7.24.3",
     "axios": "^1.6.0",
     "deepmerge": "^4.2.2",
     "fs-extra": "^10.0.0",
@@ -135,6 +140,7 @@
     "pdf-parse": "^1.1.1",
     "query-string": "^7.1.0",
     "supertest": "^7.0.0",
+    "wdio-chromedriver-service": "^8.0.0",
     "xlsx": "^0.18.5",
     "xml2js": "^0.6.0",
     "yargs": "^17.1.1"
@@ -143,6 +149,7 @@
     "@types/fs-extra": "^11.0.1",
     "@types/pdf-parse": "^1.1.1",
     "@types/xml2js": "^0.4.11",
+    "@wdio/appium-service": "^8.39.1",
     "@wdio/cli": "^8.29.7",
     "@wdio/local-runner": "^8.29.7",
     "@wdio/mocha-framework": "^8.29.3",
@@ -164,7 +171,7 @@
     "prettier": "^2.8.1",
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.5.4"
   },
   "overrides": {
     "got": "^11.8.5"
