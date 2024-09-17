@@ -110,8 +110,7 @@
     "test:reuse": "npm run test:reuse:common && npm run test:reuse:nonUi5 && npm run test:reuse:ui5 && npm run test:reuse:util && npm run test:reuse:service:odata",
     "test:reuse:helper:elementHighlight": "npx wdio ./test/reuse/helper/elementHighlight/test.elementHighlight.conf.js",
     "test": "npm run test:authenticator:staticLogin && npm run test:core && npm run test:reuse",
-    "android:local": "npx wdio wdio.local.android.device.conf.js",
-    "android:config": "npx wdio ./test/reuse/mobile/element/test.locator.local.android.device.conf.js"
+    "android:local": "npx wdio ./test/reuse/mobile/element/test.locator.local.android.device.conf.js"
   },
   "homepage": "https://github.com/SAP/wdio-qmate-service",
   "repository": {
