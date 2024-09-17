@@ -445,18 +445,17 @@ export class Browser {
   }
 
   /**
-   * @function isIOS
+   * @function isiOS
    * @memberOf util.browser
    * @description Indicates an iOS session
    * @returns {boolean} Return true if its a iOS session driver.
-   * @example await util.browser.isIOS();
+   * @example await util.browser.isiOS();
    */
-  async isIOS(): Promise<boolean> {
+  async isiOS(): Promise<boolean> {
     const vl = this.vlf.initLog(this.isIOS);
     vl.log('Indicates is a iOS session? or Android session');
     return browser.isIOS();
   }
 
 }
-
 export default new Browser();
