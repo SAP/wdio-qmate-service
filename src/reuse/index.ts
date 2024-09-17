@@ -119,7 +119,6 @@ class ReuseLibrary {
       userInteraction: mobileQmate.userInteraction,
       gestures: mobileQmate.gestures,
       device: mobileQmate.device
-
     };
     global.mobile = {
       ...mobile,

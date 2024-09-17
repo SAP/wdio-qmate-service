@@ -8,7 +8,6 @@ export class Mobile {
   userInteraction: UserInteraction = userInteraction;
   element: ElementModule = element;
   device: Device = device;
-
 }
 
 export default new Mobile();

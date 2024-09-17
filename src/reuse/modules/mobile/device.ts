@@ -112,8 +112,5 @@ async pressKeyByNameInAndroid(keyName: string): Promise<void> {
   }
 }
 
-
-
 }
-
 export default new Device();

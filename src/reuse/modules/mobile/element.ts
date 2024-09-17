@@ -122,5 +122,4 @@ export class ElementModule {
 }
 
 }
-
 export default new ElementModule();
