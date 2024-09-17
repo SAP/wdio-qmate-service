@@ -452,7 +452,7 @@ export class Browser {
    * @example await util.browser.isiOS();
    */
   async isiOS(): Promise<boolean> {
-    const vl = this.vlf.initLog(this.isIOS);
+    const vl = this.vlf.initLog(this.isiOS);
     vl.log('Indicates is a iOS session? or Android session');
     return browser.isIOS();
   }
