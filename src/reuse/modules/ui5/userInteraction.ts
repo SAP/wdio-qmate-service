@@ -565,15 +565,23 @@ export class UserInteraction {
         };
         await ui5.userInteraction.click(arrowSelector, index, timeout);
 
-        const menuItemSelector = {
+        const menuItemSelectorOldUI5 = {
           elementProperties: {
             viewName: selector.elementProperties.viewName,
             metadata: "sap.ui.unified.MenuItem",
             text: value
           }
         };
-        await ui5.userInteraction.click(menuItemSelector, 0, timeout);
-
+        const menuItemSelectorNewUI5 = {
+          elementProperties: {
+            viewName: selector.elementProperties.viewName,
+            metadata: "sap.m.IconTabFilter",
+            text: value
+          }
+        };
+        await Promise.any([ui5.userInteraction.click(menuItemSelectorNewUI5, 0, timeout), 
+                           ui5.userInteraction.click(menuItemSelectorOldUI5, 0, timeout)]);
+        
         const tabSwitchedSuccessfully: boolean = await this._verifyTabSwitch(selector);
         if (tabSwitchedSuccessfully === false) {
           this.ErrorHandler.logException(new Error("Could not verify successful tab switch."));
@@ -772,12 +780,13 @@ export class UserInteraction {
   }
 
   private async _verifyTabSwitch(selector: any): Promise<boolean> {
-    const indicatorClass = "sapUxAPAnchorBarButtonSelected";
+    // two classes required to handle old and new UI5 versions
+    const indicatorClasses = ["sapUxAPAnchorBarButtonSelected", "sapMITBSelected"];
 
     // check for simple tab type
     const tabElem = await ui5.element.getDisplayed(selector);
     const tabClassList = await tabElem.getAttribute("class");
-    if (tabClassList.includes(indicatorClass)) {
+    if (indicatorClasses.some(indicatorClass => tabClassList.includes(indicatorClass))) {
       return true;
     }
 
@@ -795,7 +804,7 @@ export class UserInteraction {
 
     const tabParentClassList = await tabParentElem.getAttribute("class");
 
-    if (tabParentClassList.includes(indicatorClass)) {
+    if (indicatorClasses.some(indicatorClass => tabParentClassList.includes(indicatorClass))) {
       return true;
     } else {
       return false;

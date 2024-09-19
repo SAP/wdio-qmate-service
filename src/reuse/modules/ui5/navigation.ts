@@ -43,9 +43,9 @@ export class Navigation {
     let queryParams: Array<QueryParam> = [];
 
     // Check if intent has query params and extract them from the intent
-    queryParams = queryParams.concat(this._extractQueryParams(intent));
+    const intentQueryParams = this._extractQueryParams(intent);
 
-    // Check if baseUrl has query params and extract them from the baseUrl
+    // Check if baseUrl has query params, extract them from the baseUrl and merge them with the existing params
     queryParams = queryParams.concat(this._extractQueryParams(browser.config.baseUrl));
 
     // Add prevent popup url params if not already present
@@ -53,10 +53,16 @@ export class Navigation {
       queryParams = queryParams.concat(this._getPreventPopupParams(queryParams));
     }
 
-    // Construct the url with the intent and query params
+    // Construct the url params
     let constructedParams = this._constructUrlParams(queryParams);
     if (constructedParams !== "") constructedParams = `?${constructedParams}`;
-    const urlWithParams = `${baseUrlNormalized}${constructedParams}#${intentNormalized}`;
+
+    // Construct the intent params
+    let constructedIntentParams = this._constructUrlParams(intentQueryParams);
+    if (constructedIntentParams !== "") constructedIntentParams = `?${constructedIntentParams}`;
+
+    // Construct the final url
+    const urlWithParams = `${baseUrlNormalized}${constructedParams}#${intentNormalized}${constructedIntentParams}`;
     vl.log(`Url with params: ${urlWithParams}`);
 
     try {
