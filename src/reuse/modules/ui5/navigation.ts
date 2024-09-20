@@ -8,6 +8,11 @@ interface Popup {
   selector: string;
 }
 
+interface QueryParam {
+  key: string;
+  value: string;
+}
+
 /**
  * @class navigation
  * @memberof ui5
@@ -16,9 +21,7 @@ export class Navigation {
   private vlf = new VerboseLoggerFactory("ui5", "navigation");
   private ErrorHandler = new ErrorHandler();
 
-  errorText =
-    "Navigation failed because page didn't load, possible reasons: " +
-    "Site is down, or you are using a wrong address. For retrying use 'navigateToApplicationAndRetry'.\n";
+  errorText = "Navigation failed because page didn't load, possible reasons: " + "Site is down, or you are using a wrong address. For retrying use 'navigateToApplicationAndRetry'.\n";
 
   // =================================== MAIN ===================================
   /**
@@ -33,18 +36,45 @@ export class Navigation {
    */
   async navigateToApplication(intent: string, preventPopups = false, verify = false, refresh = true) {
     const vl = this.vlf.initLog(this.navigateToApplication);
-    let urlParams = "";
+
+    const baseUrlNormalized = this._normalizeQueryString(browser.config.baseUrl);
+    const intentNormalized = this._normalizeQueryString(intent);
+
+    let queryParams: Array<QueryParam> = [];
+
+    // Check if intent has query params and extract them from the intent
+    const intentQueryParams = this._extractQueryParams(intent);
+
+    // Check if baseUrl has query params, extract them from the baseUrl and merge them with the existing params
+    queryParams = queryParams.concat(this._extractQueryParams(browser.config.baseUrl));
+
+    // Add prevent popup url params if not already present
     if (preventPopups) {
-      urlParams = this._generateUrlParams();
+      queryParams = queryParams.concat(this._getPreventPopupParams(queryParams));
     }
 
+    // Construct the url params
+    let constructedParams = this._constructUrlParams(queryParams);
+    if (constructedParams !== "") constructedParams = `?${constructedParams}`;
+
+    // Construct the intent params
+    let constructedIntentParams = this._constructUrlParams(intentQueryParams);
+    if (constructedIntentParams !== "") constructedIntentParams = `?${constructedIntentParams}`;
+
+    // Construct the final url
+    const urlWithParams = `${baseUrlNormalized}${constructedParams}#${intentNormalized}${constructedIntentParams}`;
+    vl.log(`Url with params: ${urlWithParams}`);
+
     try {
-      await browser.navigateTo(`${browser.config.baseUrl.split("#")[0] + urlParams}#${intent}`);
+      await browser.navigateTo(urlWithParams);
+
       const url = await browser.getUrl();
       await util.browser.logCurrentUrl();
-      if (url && url.indexOf(intent) === -1 && verify) {
-        this.ErrorHandler.logException(new Error("For retrying use 'navigateToSystemAndApplicationAndRetry'."));
+
+      if (url && !url.includes(intent) && verify) {
+        new Error("Failed to verify successful navigation.");
       }
+
       if (refresh) {
         await util.browser.refresh();
       }
@@ -145,7 +175,16 @@ export class Navigation {
     const vl = this.vlf.initLog(this.navigateToApplicationWithQueryParams);
     let url;
     try {
-      await browser.url(`${browser.config.baseUrl}${queryParams}#${intent}`);
+      let parsedQueryParams = "";
+      if (queryParams) {
+        if (queryParams.startsWith("?")) {
+          parsedQueryParams = queryParams;
+        } else {
+          parsedQueryParams = `?${queryParams}`;
+        }
+      }
+
+      await browser.url(`${browser.config.baseUrl}${parsedQueryParams}#${intent}`);
       url = await browser.getUrl();
       await util.browser.logCurrentUrl();
       if (url && url.indexOf(intent) === -1 && verify) {
@@ -174,14 +213,7 @@ export class Navigation {
    * const queryParams = "?sap-language=EN&responderOn=true";
    * await ui5.navigation.navigateToApplicationWithQueryParamsAndRetry(intent, queryParams);
    */
-  async navigateToApplicationWithQueryParamsAndRetry(
-    intent: string,
-    queryParams: string,
-    closePopups = true,
-    verify = true,
-    retries = 3,
-    interval = 5000
-  ) {
+  async navigateToApplicationWithQueryParamsAndRetry(intent: string, queryParams: string, closePopups = true, verify = true, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.navigateToApplicationWithQueryParamsAndRetry);
     await util.function.retry(
       async (intent: string, queryParams: string, closePopups: boolean, verify: boolean) => {
@@ -260,29 +292,50 @@ export class Navigation {
   }
 
   // =================================== HELPER ===================================
-  private _generateUrlParams() {
-    let urlParams;
-    let prefix;
+  private _extractQueryParams(input: string): Array<QueryParam> {
+    const queryParams: Array<QueryParam> = [];
+    const queryParts = input.split("?");
 
-    if (browser.config.baseUrl.includes("ui?")) {
-      prefix = "&";
-    } else {
-      prefix = "?";
+    if (queryParts.length > 1) {
+      queryParams.push(...this._mapQueryParams(queryParts[1]));
     }
 
-    if (browser.config.baseUrl.includes("help-readCatalog=false") && browser.config.baseUrl.includes("help-stateUACP=PRODUCTION")) {
-      urlParams = "";
-    } else {
-      if (browser.config.baseUrl.includes("help-readCatalog=false") && !browser.config.baseUrl.includes("help-stateUACP=PRODUCTION")) {
-        urlParams = "help-stateUACP=PRODUCTION";
-      } else if (!browser.config.baseUrl.includes("help-readCatalog=false") && browser.config.baseUrl.includes("help-stateUACP=PRODUCTION")) {
-        urlParams = "help-readCatalog=false";
-      } else {
-        urlParams = "help-readCatalog=false&help-stateUACP=PRODUCTION";
-      }
+    return queryParams;
+  }
+
+  private _normalizeQueryString(input: string): string {
+    const queryParts = input.split("?");
+    return queryParts[0];
+  }
+
+  private _constructUrlParams(queryParams: QueryParam[]): string {
+    return queryParams.map((param) => `${param.key}=${param.value}`).join("&");
+  }
+
+  private _getPreventPopupParams(queryParams: Array<QueryParam>): Array<QueryParam> {
+    const combinedQueryParams: Array<QueryParam> = [];
+
+    const READ_CATALOG_PARAM = "help-readCatalog";
+    const STATE_UACP_PARAM = "help-stateUACP";
+
+    const hasReadCatalog = queryParams.some((param) => param.key === READ_CATALOG_PARAM);
+    const hasStateUACP = queryParams.some((param) => param.key === STATE_UACP_PARAM);
+
+    if (!hasReadCatalog) {
+      combinedQueryParams.push({ key: READ_CATALOG_PARAM, value: "false" });
+    }
+    if (!hasStateUACP) {
+      combinedQueryParams.push({ key: STATE_UACP_PARAM, value: "PRODUCTION" });
     }
 
-    return prefix + urlParams;
+    return combinedQueryParams;
+  }
+
+  private _mapQueryParams(params: string): Array<QueryParam> {
+    return params.split("&").map((param) => {
+      const [key, value] = param.split("=");
+      return { key, value };
+    });
   }
 
   private async _closePopup(popup: Popup, timeout: number = 30000): Promise<void> {
