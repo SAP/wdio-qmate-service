@@ -136,7 +136,7 @@ export class Data {
     for (const key in data) {
       if (typeof data[key] === "object" && !Array.isArray(data[key])) {
         data[key] = this._decryptRecursively(data[key]);
-      } else if (typeof data[key] === "string") {
+      } else if (typeof data[key] === "string" || Array.isArray(data[key])) {
         data[key] = global.util.data.decrypt(data[key]);
       }
     }
