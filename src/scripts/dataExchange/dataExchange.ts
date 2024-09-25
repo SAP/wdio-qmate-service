@@ -26,9 +26,7 @@ class DataExchange {
       browser.params = browser.config.params;
     }
     const importParams = config.params.import || {};
-    if (importParams) {
-      await readImportParams(config, importParams);
-    }
+    await readImportParams(config, importParams);
 
     // for export, create folders and files if not present
 
@@ -209,10 +207,6 @@ async function readImportParams(config: Record<string, any>, importParams: any) 
 }
 
 async function readExportParams(config: Record<string, any>, exportParams: any) {
-  if (!exportParams) {
-    // nothing to export
-    return;
-  }
   if (isBrowserDefined()) {
     copyExportParamsToBrowser(exportParams)
   }
