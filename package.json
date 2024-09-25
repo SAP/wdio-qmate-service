@@ -129,7 +129,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@sap_oss/odata-library": "^2.4.0",
-    "axios": "^1.6.0",
+    "axios": "^1.7.7",
     "deepmerge": "^4.2.2",
     "fs-extra": "^10.0.0",
     "path": "^0.12.7",
