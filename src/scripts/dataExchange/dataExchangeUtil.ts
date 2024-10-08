@@ -79,13 +79,13 @@ class DataExchangeUtil {
    * @param {string} fileOrDir - file or directory with full path
    * @param {string[]} params - the keys under which data should be stored
    */
-  async readData (fileOrDir: string, params: string[]): Promise<void> {
+  async readData (fileOrDir: string, params: string[], config: Record<string, any>): Promise<void> {
     const stat = await fs.stat(fileOrDir);
 
     if (stat.isDirectory()) {
-      await this.readFolder(fileOrDir, params);
+      await this.readFolder(fileOrDir, params, config);
     } else if (stat.isFile()) {
-      await this.readFile(fileOrDir, params);
+      await this.readFile(fileOrDir, params, config);
     }
   };
 
@@ -100,12 +100,12 @@ class DataExchangeUtil {
    * @param {string} folder - folder with complete path
    * @param {string[]} params - the keys hierarchy under which data should be stored
    */
-  async readFolder (folder: string, params: string[]): Promise<void> {
+  async readFolder (folder: string, params: string[], config: Record<string, any>): Promise<void> {
     const files = await fs.readdir(folder, { withFileTypes: true });
     for (const file of files) {
       if (file.isDirectory()) {
         // recursively add subfolders using the subfolder name as key
-        await this.readFolder(path.resolve(folder, file.name), [...params, file.name]);
+        await this.readFolder(path.resolve(folder, file.name), [...params, file.name], config);
       } else if (file.isFile()) {
         const filename = file.name;
         const fileWithPath = path.resolve(folder, file.name);
@@ -114,7 +114,7 @@ class DataExchangeUtil {
         }
         else if (filename.match(/\.json$/)) {
           const filePrefix = filename.replace(/(.*)\.json$/, "$1");
-          await this.readFile(fileWithPath, [...params, filePrefix]);
+          await this.readFile(fileWithPath, [...params, filePrefix], config);
         } else {
           console.warn(
             `Only json data files are read. ${fileWithPath} does not have json file suffix`
@@ -132,15 +132,15 @@ class DataExchangeUtil {
    * @param {string} filename - file to be read, includes path
    * @param {string[]} params - the keys hierarchy under which data should be stored
    */
-  async readFile (filename: string, params: string[]): Promise<void> {
+  async readFile (filename: string, params: string[], config: Record<string, any>): Promise<void> {
     try {
       if (!params || params.length <= 0) {
         console.warn("Invalid key params sent, key array is empty");
         return;
       }
-      let browserImport = browser.params.import;
+      let browserImport = config.params.import;
       if (!browserImport) {
-        console.warn("Unexpected error encountered. 'browser.params.import' is null");
+        console.warn("Unexpected error encountered. 'config.params.import' is null");
         return;
       }
 
@@ -162,7 +162,7 @@ class DataExchangeUtil {
         }
       });
     } catch (err) {
-      let browserImport = browser.params.import;
+      let browserImport = config.params.import;
       params.forEach((p, idx) => {
         if (browserImport && idx != (params.length - 1)) {
           browserImport = browserImport[p];
