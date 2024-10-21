@@ -13,6 +13,8 @@ import mobileQmate from "./modules/mobile/Mobile";
 
 // data
 import authenticators from "./data/authenticators.json";
+import android from "./modules/mobile/android";
+import ios from "./modules/mobile/ios";
 
 class ReuseLibrary {
   load() {
@@ -110,15 +112,17 @@ class ReuseLibrary {
       ...global.service
     };
 
-     /**
+    /**
      * @global
      * @description Global namespace for mobile modules.
      */
-     const mobile = {
+    const mobile = {
       element: mobileQmate.element,
       userInteraction: mobileQmate.userInteraction,
       gestures: mobileQmate.gestures,
-      device: mobileQmate.device
+      device: mobileQmate.device,
+      android: mobileQmate.android,
+      ios: mobileQmate.ios
     };
     global.mobile = {
       ...mobile,

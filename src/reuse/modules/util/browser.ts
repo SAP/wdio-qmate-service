@@ -362,7 +362,6 @@ export class Browser {
     return browser.forward();
   }
 
-
   // =================================== LOGGER ===================================
   /**
    * @function log
@@ -427,35 +426,34 @@ export class Browser {
    */
   async isMobile(): Promise<boolean> {
     const vl = this.vlf.initLog(this.isMobile);
-    vl.log('Indicates is a mobile session? or browser session');
+    vl.log("Indicates is a mobile session? or browser session");
     return browser.isMobile();
   }
 
-   /**
+  /**
    * @function isAndroid
    * @memberOf util.browser
    * @description Indicates a mobile session
    * @returns {boolean} Return true if its a Android session driver.
    * @example await util.browser.isAndroid();
    */
-   async isAndroid(): Promise<boolean> {
+  async isAndroid(): Promise<boolean> {
     const vl = this.vlf.initLog(this.isAndroid);
-    vl.log('Indicates is a Android session? or iOS session');
+    vl.log("Indicates is a Android session? or iOS session");
     return browser.isAndroid();
   }
 
   /**
-   * @function isiOS
+   * @function isIos
    * @memberOf util.browser
    * @description Indicates an iOS session
    * @returns {boolean} Return true if its a iOS session driver.
-   * @example await util.browser.isiOS();
+   * @example await util.browser.isIos();
    */
-  async isiOS(): Promise<boolean> {
-    const vl = this.vlf.initLog(this.isiOS);
-    vl.log('Indicates is a iOS session? or Android session');
+  async isIos(): Promise<boolean> {
+    const vl = this.vlf.initLog(this.isIos);
+    vl.log("Indicates is a iOS session? or Android session");
     return browser.isIOS();
   }
-
 }
 export default new Browser();
