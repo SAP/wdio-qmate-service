@@ -6,10 +6,10 @@ import ErrorHandler from "../../helper/errorHandler";
  * @memberof Mobile
  */
 export class UserInteraction {
-  private vlf = new VerboseLoggerFactory("mobile", "gestures");
+  private vlf = new VerboseLoggerFactory("mobile", "UserInteraction");
   private ErrorHandler = new ErrorHandler();
 
-   /**
+  /**
    * @function tap
    * @memberOf mobile.userInteraction
    * @description Tap's on the mobile element.
@@ -17,7 +17,7 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example const elem = await mobile.userInteraction.tap(elem);
    */
-   async tap(element: Element, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async tap(element: Element, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.tap);
 
     try {
@@ -63,6 +63,5 @@ export class UserInteraction {
       this.ErrorHandler.logException(error);
     }
   }
-  
 }
 export default new UserInteraction();
