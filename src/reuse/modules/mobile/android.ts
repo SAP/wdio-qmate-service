@@ -37,6 +37,7 @@ export class Android {
       home: 3,
       volumeUp: 24,
       volumeDown: 25,
+      VolumeMute: 164,
       power: 26,
       enter: 66,
       space: 62,
@@ -45,7 +46,11 @@ export class Android {
       search: 84,
       camera: 27,
       focus: 80,
-      notification: 83
+      notification: 83,
+      call: 5,
+      calendar: 208,
+      recent: 312,
+      settings: 176
     };
 
     try {
