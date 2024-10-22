@@ -41,17 +41,15 @@ export class Device {
    */
   async installApp(appPath: string): Promise<void> {
     const vl = this.vlf.initLog(this.installApp);
-    const platform = await browser.capabilities.platformName;
+    const platform: String = await browser.capabilities.platformName;
     try {
-      vl.log(`Installing ${platform.toLowercase()} app...`);
-      if (["android", "ios"].includes(platform.toLowerCase())) {
-        browser.installApp(appPath);
-        vl.log(`${platform.toLowercase()} app installed successfully.`);
-      } else {
-        vl.log("Unsupported platform while installing app on the mobile device");
+      vl.log(`Installing ${platform.toLowerCase()} app...`);
+      if (["android", "ios"].includes(platform.toLowerCase().trim())) {
+        await browser.installApp(appPath);
+        vl.log(`${platform.toLowerCase()} app installed successfully.`);
       }
     } catch (error) {
-      this.ErrorHandler.logException(error, `Error: Unsupported platform while installing the app: ${platform}`, true);
+      this.ErrorHandler.logException(error, `Error: Unsupported platform while installing the app: ${platform.toLowerCase().trim()}`, true);
     }
   }
 }
