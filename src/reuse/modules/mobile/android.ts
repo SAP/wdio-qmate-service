@@ -19,6 +19,7 @@ export class Android {
    * await mobile.device.pressKeyByName("home");
    * await mobile.device.pressKeyByName("volumeUp");
    * await mobile.device.pressKeyByName("volumeDown");
+   * await mobile.device.pressKeyByName("volumeMute");
    * await mobile.device.pressKeyByName("power");
    * await mobile.device.pressKeyByName("enter");
    * await mobile.device.pressKeyByName("space");
@@ -28,6 +29,10 @@ export class Android {
    * await mobile.device.pressKeyByName("camera");
    * await mobile.device.pressKeyByName("focus");
    * await mobile.device.pressKeyByName("notification");
+   * await mobile.device.pressKeyByName("call");
+   * await mobile.device.pressKeyByName("calendar");
+   * await mobile.device.pressKeyByName("recent");
+   * await mobile.device.pressKeyByName("settings");
    */
   async pressKeyByName(keyName: string): Promise<void> {
     const vl = this.vlf.initLog(this.pressKeyByName);
