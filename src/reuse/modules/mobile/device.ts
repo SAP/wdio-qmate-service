@@ -1,5 +1,4 @@
 "use strict";
-import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 
@@ -15,7 +14,7 @@ export class Device {
    * @function isAppInstalled
    * @memberof mobile.device
    * @description Check wether given package/bundle app is installed or not in the device.
-   * @param {string} packageIdorBundleId - Android package Id, or iOS bundle Id.
+   * @param {string} packageIdOrBundleId - Android package Id, or iOS bundle Id.
    * @returns {boolean} Returns true if specified app package/bundled installed in the device, or false.
    * @example await mobile.device.isAppInstalled("com.google.android.apps.maps");
    */

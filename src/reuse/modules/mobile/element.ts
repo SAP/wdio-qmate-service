@@ -1,15 +1,16 @@
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
+
 /**
  * @class element
  * @memberof mobile
  */
 export class ElementModule {
-    private vlf = new VerboseLoggerFactory("mobile", "element");
-    private ErrorHandler = new ErrorHandler();
+  private vlf = new VerboseLoggerFactory("mobile", "element");
+  private ErrorHandler = new ErrorHandler();
 
-    /**
+  /**
    * @function isVisible
    * @memberof mobile.element
    * @description Returns a boolean if the mobile element is visible to the user.
@@ -67,7 +68,7 @@ export class ElementModule {
     }
   }
 
-   /**
+  /**
    * @function waitToBeVisible
    * @memberof mobile.element
    * @description Waits until the element with the given selector is visible.
@@ -77,7 +78,7 @@ export class ElementModule {
    * @example await mobile.element.waitToBeVisible("#button12");
    * @example await mobile.element.waitToBeVisible("p:first-child");
    */
-   async waitToBeVisible(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async waitToBeVisible(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.waitToBeVisible);
     try {
       vl.log(`wdio.waitForDisplayed invocation for selector ${selector}`);
@@ -107,7 +108,7 @@ export class ElementModule {
     }
   }
 
- /**
+  /**
    * @function isSelected
    * @memberof mobile.element
    * @description Returns a boolean if the element (e.g. checkbox) is selected.
@@ -116,10 +117,9 @@ export class ElementModule {
    * @example const elem = await mobile.element.getById("elem01");
    * const isSelected = await mobile.element.isSelected(elem);
    */
- async isSelected(elem: Element): Promise<boolean> {
-  const vl = this.vlf.initLog(this.isSelected);
-  return elem.isSelected();
-}
-
+  async isSelected(elem: Element): Promise<boolean> {
+    const vl = this.vlf.initLog(this.isSelected);
+    return elem.isSelected();
+  }
 }
 export default new ElementModule();

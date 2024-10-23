@@ -1,6 +1,6 @@
-import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
+
 /**
  * @class gestures
  * @memberof mobile
