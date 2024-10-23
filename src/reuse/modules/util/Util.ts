@@ -8,7 +8,7 @@ import system, { System } from "./system";
 import component, { Component } from "./component";
 
 interface DataHooksExtended extends Data {
-  decrypt: (input: string) => string;
+  decrypt: (input: string | Array<string>) => string;
   privateKeyFound: boolean;
 }
 
