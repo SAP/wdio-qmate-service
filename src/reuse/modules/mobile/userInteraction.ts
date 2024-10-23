@@ -3,7 +3,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 /**
  * @class userInteraction
- * @memberof Mobile
+ * @memberof mobile
  */
 export class UserInteraction {
   private vlf = new VerboseLoggerFactory("mobile", "UserInteraction");
@@ -11,7 +11,7 @@ export class UserInteraction {
 
   /**
    * @function tap
-   * @memberOf mobile.userInteraction
+   * @memberof mobile.userInteraction
    * @description Tap's on the mobile element.
    * @param {Element | string} element - The element or CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
@@ -44,7 +44,7 @@ export class UserInteraction {
 
   /**
    * @function check
-   * @memberOf mobile.userInteraction
+   * @memberof mobile.userInteraction
    * @description Checks the given checkbox.
    * @param {Element} element - The element or CSS selector describing the element.
    * @example await mobile.userInteraction.check(selector);

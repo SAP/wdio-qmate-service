@@ -11,7 +11,7 @@ export class ElementModule {
 
     /**
    * @function isVisible
-   * @memberOf mobile.element
+   * @memberof mobile.element
    * @description Returns a boolean if the mobile element is visible to the user.
    * @param {Object} element - The Mobile Ui element.
    * @param {Boolean} [strict=true] - If strict mode is enabled it will only return "true" if the element is visible on the mobile view and within the viewport.
@@ -35,7 +35,7 @@ export class ElementModule {
 
   /**
    * @function isPresent
-   * @memberOf mobile.element
+   * @memberof mobile.element
    * @description Returns a boolean if the element is present at the DOM or not. It might be hidden.
    * @param {Object} elem - The element.
    * @returns {Boolean} Returns true or false.
@@ -49,7 +49,7 @@ export class ElementModule {
 
   /**
    * @function waitToBePresent
-   * @memberOf mobile.element
+   * @memberof mobile.element
    * @description Waits until the element with the given selector is present.
    * @param {Object} selector - The CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
@@ -69,7 +69,7 @@ export class ElementModule {
 
    /**
    * @function waitToBeVisible
-   * @memberOf mobile.element
+   * @memberof mobile.element
    * @description Waits until the element with the given selector is visible.
    * @param {Object} selector - The CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
@@ -89,7 +89,7 @@ export class ElementModule {
 
   /**
    * @function waitToBeClickable
-   * @memberOf mobile.element
+   * @memberof mobile.element
    * @description Waits until the element with the given selector is clickable.
    * @param {Object} selector - The CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
@@ -109,7 +109,7 @@ export class ElementModule {
 
  /**
    * @function isSelected
-   * @memberOf mobile.element
+   * @memberof mobile.element
    * @description Returns a boolean if the element (e.g. checkbox) is selected.
    * @param {Object} elem - The element.
    * @returns {boolean}

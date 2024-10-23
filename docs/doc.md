@@ -16,6 +16,9 @@
 <dt><a href="#service">service</a></dt>
 <dd><p>Global namespace for service modules.</p>
 </dd>
+<dt><a href="#mobile">mobile</a></dt>
+<dd><p>Global namespace for mobile modules.</p>
+</dd>
 </dl>
 
 <a name="common"></a>
@@ -571,6 +574,9 @@ Global namespace for util modules.
         * [.log(message)](#util.browser.log)
         * [.warn(message)](#util.browser.warn)
         * [.error(message)](#util.browser.error)
+        * [.isMobile()](#util.browser.isMobile) ⇒ <code>boolean</code>
+        * [.isAndroid()](#util.browser.isAndroid) ⇒ <code>boolean</code>
+        * [.isIos()](#util.browser.isIos) ⇒ <code>boolean</code>
     * [.component](#util.component)
         * [new component()](#new_util.component_new)
         * [.loadEntryPoint([folderPath])](#util.component.loadEntryPoint) ⇒ <code>Object</code>
@@ -644,6 +650,9 @@ Global namespace for util modules.
     * [.log(message)](#util.browser.log)
     * [.warn(message)](#util.browser.warn)
     * [.error(message)](#util.browser.error)
+    * [.isMobile()](#util.browser.isMobile) ⇒ <code>boolean</code>
+    * [.isAndroid()](#util.browser.isAndroid) ⇒ <code>boolean</code>
+    * [.isIos()](#util.browser.isIos) ⇒ <code>boolean</code>
 
 <a name="util.browser.getBaseUrl"></a>
 
@@ -960,6 +969,39 @@ add error message to browser logs, can be viewed in the html report
 ```js
 await util.browser.error("This is an error message");
 ```
+<a name="util.browser.isMobile"></a>
+
+#### browser.isMobile() ⇒ <code>boolean</code>
+Indicates a mobile session
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Returns**: <code>boolean</code> - Return true if its a mobile session driver.  
+**Example**  
+```js
+await util.browser.isMobile();
+```
+<a name="util.browser.isAndroid"></a>
+
+#### browser.isAndroid() ⇒ <code>boolean</code>
+Indicates a mobile session
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Returns**: <code>boolean</code> - Return true if its a Android session driver.  
+**Example**  
+```js
+await util.browser.isAndroid();
+```
+<a name="util.browser.isIos"></a>
+
+#### browser.isIos() ⇒ <code>boolean</code>
+Indicates an iOS session
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Returns**: <code>boolean</code> - Return true if its a iOS session driver.  
+**Example**  
+```js
+await util.browser.isIos();
+```
 <a name="util.component"></a>
 
 ### util.component
@@ -1185,7 +1227,7 @@ Decrypts the passed input data.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| data | <code>String</code> | The encrypted data to decrypt. |
+| data | <code>String</code> \| <code>Array.&lt;String&gt;</code> | The encrypted data to decrypt. Single value or array of values for different keys. |
 
 **Example**  
 ```js
@@ -5721,4 +5763,378 @@ const config = {
           "author": "qmate-tester"
         },
         let res = await service.rest.put(`${browser.config.baseUrl}/posts/99`, payload, config);
+```
+<a name="mobile"></a>
+
+## mobile
+Global namespace for mobile modules.
+
+**Kind**: global constant  
+
+* [mobile](#mobile)
+    * [.android](#mobile.android)
+        * [.pressKeyByName(keyName)](#mobile.android.pressKeyByName)
+        * [.pressKeyByCode(keyCode)](#mobile.android.pressKeyByCode)
+    * [.device](#mobile.device)
+        * [.isAppInstalled(packageIdorBundleId)](#mobile.device.isAppInstalled) ⇒ <code>boolean</code>
+        * [.installApp(appPath)](#mobile.device.installApp)
+    * [.element](#mobile.element)
+        * [.isVisible(element, [strict])](#mobile.element.isVisible) ⇒ <code>Boolean</code>
+        * [.isPresent(elem)](#mobile.element.isPresent) ⇒ <code>Boolean</code>
+        * [.waitToBePresent(selector, [timeout])](#mobile.element.waitToBePresent)
+        * [.waitToBeVisible(selector, [timeout])](#mobile.element.waitToBeVisible)
+        * [.waitToBeClickable(selector, [timeout])](#mobile.element.waitToBeClickable)
+        * [.isSelected(elem)](#mobile.element.isSelected) ⇒ <code>boolean</code>
+    * [.gestures](#mobile.gestures)
+        * [.waitToBeClickable(startX, startY, endX, endY, duration)](#mobile.gestures.waitToBeClickable) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.ios](#mobile.ios)
+    * [.userInteraction](#mobile.userInteraction)
+        * [.tap(element, [timeout])](#mobile.userInteraction.tap)
+        * [.check(element)](#mobile.userInteraction.check)
+
+<a name="mobile.android"></a>
+
+### mobile.android
+**Kind**: static class of [<code>mobile</code>](#mobile)  
+
+* [.android](#mobile.android)
+    * [.pressKeyByName(keyName)](#mobile.android.pressKeyByName)
+    * [.pressKeyByCode(keyCode)](#mobile.android.pressKeyByCode)
+
+<a name="mobile.android.pressKeyByName"></a>
+
+#### android.pressKeyByName(keyName)
+Simulate pressing a hardware key on the android device (e.g., back button, home button, etc.),
+
+**Kind**: static method of [<code>android</code>](#mobile.android)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| keyName | <code>string</code> | The name of the key (e.g., "back", "home", "volumeUp", etc.) |
+
+**Example**  
+```js
+await mobile.device.pressKeyByName("back");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("home");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("volumeUp");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("volumeDown");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("volumeMute");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("power");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("enter");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("space");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("delete");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("menu");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("search");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("camera");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("focus");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("notification");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("call");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("calendar");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("recent");
+```
+**Example**  
+```js
+await mobile.device.pressKeyByName("settings");
+```
+<a name="mobile.android.pressKeyByCode"></a>
+
+#### android.pressKeyByCode(keyCode)
+Simulate pressing a hardware key on the android device (e.g., back button, home button, etc.),
+
+**Kind**: static method of [<code>android</code>](#mobile.android)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| keyCode | <code>string</code> | The code of the key (e.g., 4 (back), 3 (home) , etc.) |
+
+**Example**  
+```js
+await mobile.android.pressKeyByCode(4);
+```
+<a name="mobile.device"></a>
+
+### mobile.device
+**Kind**: static class of [<code>mobile</code>](#mobile)  
+
+* [.device](#mobile.device)
+    * [.isAppInstalled(packageIdorBundleId)](#mobile.device.isAppInstalled) ⇒ <code>boolean</code>
+    * [.installApp(appPath)](#mobile.device.installApp)
+
+<a name="mobile.device.isAppInstalled"></a>
+
+#### device.isAppInstalled(packageIdorBundleId) ⇒ <code>boolean</code>
+Check wether given package/bundle app is installed or not in the device.
+
+**Kind**: static method of [<code>device</code>](#mobile.device)  
+**Returns**: <code>boolean</code> - Returns true if specified app package/bundled installed in the device, or false.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| packageIdorBundleId | <code>string</code> | Android package Id, or iOS bundle Id. |
+
+**Example**  
+```js
+await mobile.device.isAppInstalled("com.google.android.apps.maps");
+```
+<a name="mobile.device.installApp"></a>
+
+#### device.installApp(appPath)
+Install the appropriate app based on the platform the test is being executed on.
+
+**Kind**: static method of [<code>device</code>](#mobile.device)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| appPath | <code>string</code> | Path of the app(.apk, .ipa) |
+
+**Example**  
+```js
+await mobile.device.installApp("/path/to/your/app.apk");
+await mobile.device.installApp("/path/to/your/app.ipa");
+```
+<a name="mobile.element"></a>
+
+### mobile.element
+**Kind**: static class of [<code>mobile</code>](#mobile)  
+
+* [.element](#mobile.element)
+    * [.isVisible(element, [strict])](#mobile.element.isVisible) ⇒ <code>Boolean</code>
+    * [.isPresent(elem)](#mobile.element.isPresent) ⇒ <code>Boolean</code>
+    * [.waitToBePresent(selector, [timeout])](#mobile.element.waitToBePresent)
+    * [.waitToBeVisible(selector, [timeout])](#mobile.element.waitToBeVisible)
+    * [.waitToBeClickable(selector, [timeout])](#mobile.element.waitToBeClickable)
+    * [.isSelected(elem)](#mobile.element.isSelected) ⇒ <code>boolean</code>
+
+<a name="mobile.element.isVisible"></a>
+
+#### element.isVisible(element, [strict]) ⇒ <code>Boolean</code>
+Returns a boolean if the mobile element is visible to the user.
+
+**Kind**: static method of [<code>element</code>](#mobile.element)  
+**Returns**: <code>Boolean</code> - Returns true or false.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| element | <code>Object</code> |  | The Mobile Ui element. |
+| [strict] | <code>Boolean</code> | <code>true</code> | If strict mode is enabled it will only return "true" if the element is visible on the mobile view and within the viewport. If "false", it will be sufficient if the element is visible on the view but not inside the current viewport. |
+
+**Example**  
+```js
+const elem = await mobile.element.isVisible("button01");
+await mobile.element.isVisible(elem);
+```
+<a name="mobile.element.isPresent"></a>
+
+#### element.isPresent(elem) ⇒ <code>Boolean</code>
+Returns a boolean if the element is present at the DOM or not. It might be hidden.
+
+**Kind**: static method of [<code>element</code>](#mobile.element)  
+**Returns**: <code>Boolean</code> - Returns true or false.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+
+**Example**  
+```js
+await mobile.element.isPresent(elem);
+```
+<a name="mobile.element.waitToBePresent"></a>
+
+#### element.waitToBePresent(selector, [timeout])
+Waits until the element with the given selector is present.
+
+**Kind**: static method of [<code>element</code>](#mobile.element)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The CSS selector describing the element. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await mobile.element.waitToBePresent(".input01");
+```
+**Example**  
+```js
+await mobile.element.waitToBePresent("#button12");
+```
+**Example**  
+```js
+await mobile.element.waitToBePresent("p:first-child");
+```
+<a name="mobile.element.waitToBeVisible"></a>
+
+#### element.waitToBeVisible(selector, [timeout])
+Waits until the element with the given selector is visible.
+
+**Kind**: static method of [<code>element</code>](#mobile.element)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The CSS selector describing the element. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await mobile.element.waitToBeVisible(".input01");
+```
+**Example**  
+```js
+await mobile.element.waitToBeVisible("#button12");
+```
+**Example**  
+```js
+await mobile.element.waitToBeVisible("p:first-child");
+```
+<a name="mobile.element.waitToBeClickable"></a>
+
+#### element.waitToBeClickable(selector, [timeout])
+Waits until the element with the given selector is clickable.
+
+**Kind**: static method of [<code>element</code>](#mobile.element)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The CSS selector describing the element. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await mobile.element.waitToBeClickable(".input01");
+```
+**Example**  
+```js
+await mobile.element.waitToBeClickable("#button12");
+```
+**Example**  
+```js
+await mobile.element.waitToBeClickable("p:first-child");
+```
+<a name="mobile.element.isSelected"></a>
+
+#### element.isSelected(elem) ⇒ <code>boolean</code>
+Returns a boolean if the element (e.g. checkbox) is selected.
+
+**Kind**: static method of [<code>element</code>](#mobile.element)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Object</code> | The element. |
+
+**Example**  
+```js
+const elem = await mobile.element.getById("elem01");
+const isSelected = await mobile.element.isSelected(elem);
+```
+<a name="mobile.gestures"></a>
+
+### mobile.gestures
+**Kind**: static class of [<code>mobile</code>](#mobile)  
+<a name="mobile.gestures.waitToBeClickable"></a>
+
+#### gestures.waitToBeClickable(startX, startY, endX, endY, duration) ⇒ <code>Promise.&lt;void&gt;</code>
+Swipe from one point to another on the screen.
+
+**Kind**: static method of [<code>gestures</code>](#mobile.gestures)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| startX | <code>number</code> | The starting X coordinate of the swipe |
+| startY | <code>number</code> | The starting Y coordinate of the swipe |
+| endX | <code>number</code> | The ending X coordinate of the swipe |
+| endY | <code>number</code> | The ending Y coordinate of the swipe |
+| duration | <code>number</code> | The duration of the swipe in milliseconds (optional, default is 1000ms) |
+
+<a name="mobile.ios"></a>
+
+### mobile.ios
+**Kind**: static class of [<code>mobile</code>](#mobile)  
+<a name="mobile.userInteraction"></a>
+
+### mobile.userInteraction
+**Kind**: static class of [<code>mobile</code>](#mobile)  
+
+* [.userInteraction](#mobile.userInteraction)
+    * [.tap(element, [timeout])](#mobile.userInteraction.tap)
+    * [.check(element)](#mobile.userInteraction.check)
+
+<a name="mobile.userInteraction.tap"></a>
+
+#### userInteraction.tap(element, [timeout])
+Tap's on the mobile element.
+
+**Kind**: static method of [<code>userInteraction</code>](#mobile.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| element | <code>Element</code> \| <code>string</code> |  | The element or CSS selector describing the element. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const elem = await mobile.userInteraction.tap(elem);
+```
+<a name="mobile.userInteraction.check"></a>
+
+#### userInteraction.check(element)
+Checks the given checkbox.
+
+**Kind**: static method of [<code>userInteraction</code>](#mobile.userInteraction)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| element | <code>Element</code> | The element or CSS selector describing the element. |
+
+**Example**  
+```js
+await mobile.userInteraction.check(selector);
 ```

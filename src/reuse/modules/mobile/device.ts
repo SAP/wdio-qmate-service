@@ -5,7 +5,7 @@ import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class device
- * @memberof Mobile
+ * @memberof mobile
  */
 export class Device {
   private vlf = new VerboseLoggerFactory("mobile", "device");
@@ -13,7 +13,7 @@ export class Device {
 
   /**
    * @function isAppInstalled
-   * @memberOf mobile.device
+   * @memberof mobile.device
    * @description Check wether given package/bundle app is installed or not in the device.
    * @param {string} packageIdorBundleId - Android package Id, or iOS bundle Id.
    * @returns {boolean} Returns true if specified app package/bundled installed in the device, or false.
@@ -32,7 +32,7 @@ export class Device {
 
   /**
    * @function installApp
-   * @memberOf mobile.device
+   * @memberof mobile.device
    * @description Install the appropriate app based on the platform the test is being executed on.
    * @param {string} appPath - Path of the app(.apk, .ipa)
    * @example

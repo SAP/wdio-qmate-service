@@ -2,8 +2,8 @@ import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 /**
- * @class Ios
- * @memberof Mobile
+ * @class ios
+ * @memberof mobile
  */
 export class Ios {
   private vlf = new VerboseLoggerFactory("mobile", "ios");

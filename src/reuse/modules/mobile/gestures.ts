@@ -3,14 +3,16 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 /**
  * @class gestures
- * @memberof Mobile
+ * @memberof mobile
  */
 export class Gestures {
   private vlf = new VerboseLoggerFactory("mobile", "gestures");
   private ErrorHandler = new ErrorHandler();
 
   /**
-   * Swipe from one point to another on the screen.
+   * @function waitToBeClickable
+   * @memberof mobile.gestures
+   * @description Swipe from one point to another on the screen.
    * @param {number} startX - The starting X coordinate of the swipe
    * @param {number} startY - The starting Y coordinate of the swipe
    * @param {number} endX - The ending X coordinate of the swipe
