@@ -1,5 +1,9 @@
+// Imports
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
+
+// Types
+type KeyName = "back" | "home" | "volumeUp" | "volumeDown" | "VolumeMute" | "power" | "enter" | "space" | "delete" | "menu" | "search" | "camera" | "focus" | "notification" | "call" | "calendar" | "recent" | "settings";
 
 /**
  * @class android
@@ -16,24 +20,8 @@ export class Android {
    * @param {string} keyName - The name of the key (e.g., "back", "home", "volumeUp", etc.)
    * @example await mobile.device.pressKeyByName("back");
    * @example await mobile.device.pressKeyByName("home");
-   * @example await mobile.device.pressKeyByName("volumeUp");
-   * @example await mobile.device.pressKeyByName("volumeDown");
-   * @example await mobile.device.pressKeyByName("volumeMute");
-   * @example await mobile.device.pressKeyByName("power");
-   * @example await mobile.device.pressKeyByName("enter");
-   * @example await mobile.device.pressKeyByName("space");
-   * @example await mobile.device.pressKeyByName("delete");
-   * @example await mobile.device.pressKeyByName("menu");
-   * @example await mobile.device.pressKeyByName("search");
-   * @example await mobile.device.pressKeyByName("camera");
-   * @example await mobile.device.pressKeyByName("focus");
-   * @example await mobile.device.pressKeyByName("notification");
-   * @example await mobile.device.pressKeyByName("call");
-   * @example await mobile.device.pressKeyByName("calendar");
-   * @example await mobile.device.pressKeyByName("recent");
-   * @example await mobile.device.pressKeyByName("settings");
    */
-  async pressKeyByName(keyName: string): Promise<void> {
+  async pressKeyByName(keyName: KeyName): Promise<void> {
     const vl = this.vlf.initLog(this.pressKeyByName);
 
     const keyCodeMap: { [key: string]: number } = {
@@ -76,6 +64,7 @@ export class Android {
    * @description Simulate pressing a hardware key on the android device (e.g., back button, home button, etc.),
    * @param {string} keyCode - The code of the key (e.g., 4 (back), 3 (home) , etc.)
    * @example await mobile.android.pressKeyByCode(4);
+   * @see https://developer.android.com/reference/android/view/KeyEvent
    */
   async pressKeyByCode(keyCode: number): Promise<void> {
     const vl = this.vlf.initLog(this.pressKeyByCode);
