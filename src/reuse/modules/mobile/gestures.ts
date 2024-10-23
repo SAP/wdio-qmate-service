@@ -10,7 +10,7 @@ export class Gestures {
   private ErrorHandler = new ErrorHandler();
 
   /**
-   * @function waitToBeClickable
+   * @function swipe
    * @memberof mobile.gestures
    * @description Swipe from one point to another on the screen.
    * @param {number} startX - The starting X coordinate of the swipe
