@@ -41,7 +41,7 @@ export class UserSettings {
     }
     const res = await service.odata.get(this._srvInstance, "UserProfileProperties", { id: "DATE_FORMAT", shellType: "FLP" });
     const resUserData = await service.odata.get(this._srvInstance, "UserProfilePropertyValues", { id: "DATE_FORMAT", shellType: "FLP", value: res.value });
-    process.env.USER_SETTINGS_DATE_FORMAT = resUserData.description;
+    process.env.USER_SETTINGS_DATE_FORMAT = resUserData.description.replace(/\s*\(.*?\)$/, ""); //removes: the whitespace characters 0-* and the brackets including the content of the brackets. 
     vl.log(`Date Format: ${process.env.USER_SETTINGS_DATE_FORMAT} was set.`);
   }
 
