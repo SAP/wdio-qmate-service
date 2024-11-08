@@ -21,7 +21,7 @@ const entitySetError = (entitySet: any) => `Entity Set "${entitySet}" not found 
 export class OData {
   readonly utilModule = require("util");
   readonly urlLib = require("url").URL;
-  readonly curl = require("curl");
+  readonly axios = require("axios");
 
   Service: any;
   constructor() {
@@ -78,12 +78,12 @@ export class OData {
     };
 
     const parameters = {
-      ...params,
       ...{
         "sap-client": "715",
         "sap-documentation": ["heading", "quickinfo"],
         "sap-language": "EN"
-      }
+      },
+      ...params
     };
 
     const auth: any = {
@@ -115,21 +115,31 @@ export class OData {
    * @param {Object} keys - The required keys for the GET request.
    * @param {Boolean} [raw=false] - Specifies whether the response should include all header contents.
    * @param {Object} [headers] - Optional headers to be included in the request.
+   * @param {Object} [queryParams] - JSON object of key value pairs of custom query parameters.
    * @returns {Promise} A Promise that resolves to the response data.
    * @example const url = "<baseUrl>/sap/opu/odata/sap/API_PURCHASEORDER_PROCESS_SRV/";
    * const srv = await service.odata.init(url, user, password);
    * const keys = {
    *   PurchaseOrder: "4100000000"
    * };
-   * const res = await service.odata.get(srv, "A_PurchaseOrder", keys);
+   * const queryParams = {
+   *  "$top" : 5,
+   *  "$skip" : 10,
+   * };
+   * const headers = {
+   *   'X-Custom-Header': 'foobar'
+   * }
+   * const res = await service.odata.get(srv, "A_PurchaseOrder", keys, false, headers, queryParams);
    */
-  async get(srv: any, entitySet: string, keys: any, raw: boolean = false, headers?: IHeaders): Promise<any> {
+  async get(srv: any, entitySet: string, keys: any, raw: boolean = false, headers?: IHeaders, queryParams?: any): Promise<any> {
     if (!srv) throw new Error(SERVICE_INIT_ERROR);
 
     let entity = srv[entitySet];
     if (!entity) throw new Error(entitySetError(entitySet));
 
     if (headers) entity = this._applyHeaders(entity, headers);
+
+    if (queryParams) entity = this._applyQueryParameters(entity, queryParams);
 
     if (raw) entity = entity.raw();
 
@@ -190,6 +200,7 @@ export class OData {
    * @param {Object} payload - The payload of the POST request.
    * @param {Boolean} [raw=false] - Specifies whether the response should include all header contents.
    * @param {Object} [headers] - Optional headers to be included in the request.
+   * @param {Object} [queryParams] - JSON object of key value pairs of custom query parameters.
    * @returns {Promise} A Promise that resolves to the response data.
    * @example
    * const payload = {
@@ -199,13 +210,15 @@ export class OData {
    * };
    * const res = await service.odata.post(srv, "A_PurchaseOrder", payload);
    */
-  async post(srv: any, entitySet: string, payload: any, raw: boolean = false, headers?: IHeaders): Promise<any> {
+  async post(srv: any, entitySet: string, payload: any, raw: boolean = false, headers?: IHeaders, queryParams?: any): Promise<any> {
     if (!srv) throw new Error(SERVICE_INIT_ERROR);
 
     let entity = srv[entitySet];
     if (!entity) throw new Error(entitySetError(entitySet));
 
     if (headers) entity = this._applyHeaders(entity, headers);
+
+    if (queryParams) entity = this._applyQueryParameters(entity, queryParams);
 
     if (raw) entity = entity.raw();
 
@@ -395,17 +408,9 @@ export class OData {
       }
     }
     return new Promise((resolve, reject) => {
-      this.curl.get(url, options, function (error: any, res: any, body: any) {
-        if (!error) {
-          if (res.statusCode >= 400) {
-            reject(`${res.statusCode} - ${res.statusMessage}`);
-          } else {
-            resolve(body);
-          }
-        } else {
-          reject(error);
-        }
-      });
+      this.axios.get(url, options)
+        .then((response: any) => resolve(response.data))
+        .catch((error: any) => reject(error));
     });
   }
 

@@ -27,7 +27,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.click(elem);
    */
-  async click(elementOrSelector: Element | string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async click(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.click);
     const highlightConfig = await elementHighlight.getElementHighlightData("click");
 
@@ -67,7 +67,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.clickAndRetry(elem);
    */
-  async clickAndRetry(elementOrSelector: Element | string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000, retries = 3, interval = 5000) {
+  async clickAndRetry(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.click);
 
     try {
@@ -89,7 +89,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.doubleClick(elem);
    */
-  async doubleClick(elementOrSelector: Element | string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async doubleClick(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.doubleClick);
     const highlightConfig = await elementHighlight.getElementHighlightData("doubleClick");
 
@@ -127,7 +127,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.rightClick(elem);
    */
-  async rightClick(elementOrSelector: Element | string, timeout = process.env.QMATE_CUSTOM_TIMEOUT || 30000) {
+  async rightClick(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.rightClick);
     const highlightConfig = await elementHighlight.getElementHighlightData("rightClick");
 

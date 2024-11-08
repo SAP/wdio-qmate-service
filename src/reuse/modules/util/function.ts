@@ -10,7 +10,7 @@ import ErrorHandler from "../../helper/errorHandler";
 export class FunctionModule {
   private vlf = new VerboseLoggerFactory("util", "function");
   private ErrorHandler = new ErrorHandler();
-  overallRetries: number = 3;
+  private maxCurrentRetries: number = 3;
 
   // =================================== MAIN ===================================
   /**
@@ -30,9 +30,9 @@ export class FunctionModule {
   // NOTE: Don't set default values since they will be calculated with "_getRetryProperties".
   async retry(fct: Function, args: Array<any>, retries: number, interval: number, scope: any = null) {
     const vl = this.vlf.initLog(this.retry);
-    this.overallRetries = retries;
     vl.log(`${retries} retries were configured`);
     const res = await this._getRetryProperties(retries, interval);
+    this.maxCurrentRetries = res.retries;
     await this._retry(fct, args, res.retries, res.interval, scope);
   }
 
@@ -110,13 +110,13 @@ export class FunctionModule {
       interval: interval
     };
     if (res.retries === undefined) {
-      res.retries = browser.config.stepsRetries;
+      res.retries = browser.config.params.stepsRetries;
       if (res.retries === undefined) {
         res.retries = 3;
       }
     }
     if (res.interval === undefined) {
-      res.interval = browser.config.stepRetriesIntervals;
+      res.interval = browser.config.params.stepRetriesIntervals;
       if (res.interval === undefined) {
         res.interval = 5000;
       }
@@ -142,7 +142,7 @@ export class FunctionModule {
         this.ErrorHandler.logException(e, `Retries done. Failed to execute the function:${errorMessage}`);
       }
       await browser.pause(interval);
-      util.console.log(`Retrying function again (${this.overallRetries - retries}/${this.overallRetries})`);
+      util.console.log(`Retrying function again (${this.maxCurrentRetries - retries}/${this.maxCurrentRetries})`);
       await this._retry(fct, args, retries, interval, scope);
     }
   }

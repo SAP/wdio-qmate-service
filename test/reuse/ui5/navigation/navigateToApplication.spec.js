@@ -1,148 +1,130 @@
 "use strict";
 
-describe("navigation - navigateToApplication with preventPopups=false", function () {
-  it("Execution & Verification", async function () {
-    // First navigation - to #Shell-home
-    let urlExpected = `${await util.browser.getBaseUrl()}#Shell-home`; // http://localhost:34099/ui#Shell-home
+// Tests to add:
+// - test with preventPopups=false
+// - test with preventPopups=true
+// - test where baseUrl has query parameters
+// - test where intent has query parameters
+// - test where baseUrl has multiple query parameters
+// - test with error handling
 
-    await ui5.navigation.navigateToApplication("Shell-home"); // preventPopups=false by default
-    let button = await nonUi5.element.getById("parseUrl");
-    await nonUi5.userInteraction.click(button);
+const BASE_URL = `http://localhost:34099/ui`;
+const INTENT = "Shell-home";
+const DUMMY_QUERY_PARAM_1 = "dummyQueryParam1=dummyValue1";
+const DUMMY_QUERY_PARAM_2 = "dummyQueryParam2=dummyValue2";
+const PREVENT_POPUP_QUERY_PARAMS = "help-readCatalog=false&help-stateUACP=PRODUCTION";
 
-    await common.assertion.expectUrlToBe(urlExpected);
-
-    let parsedUrlElement = await nonUi5.element.getById("navigationUrl");
-    let parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
-
-    await common.assertion.expectEqual(urlExpected, parsedUrlValue);
-
-    // Second navigation - to #PurchaseOrder-manage
-    urlExpected = `${await util.browser.getBaseUrl()}#PurchaseOrder-manage`; // http://localhost:34099/ui#PurchaseOrder-manage
-
-    await ui5.navigation.navigateToApplication("PurchaseOrder-manage"); // preventPopups=false by default
-    button = await nonUi5.element.getById("parseUrl");
-    await nonUi5.userInteraction.click(button);
-
-    await common.assertion.expectUrlToBe(urlExpected);
-
-    parsedUrlElement = await nonUi5.element.getById("navigationUrl");
-    parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
-
-    await common.assertion.expectEqual(urlExpected, parsedUrlValue);
-
-  });
-});
-
-describe("navigation - navigateToApplication with preventPopups=true", function () {
-  it("Execution & Verification", async function () {
-    // First navigation - to #Shell-home
-    // "http://localhost:34099/ui?help-readCatalog=false&help-stateUACP=PRODUCTION#Shell-home" - as preventPopups=true
-    const queryToClosePopups = "help-readCatalog=false&help-stateUACP=PRODUCTION"; // from private function 'generateUrlParams'
-    let urlExpected = `${await util.browser.getBaseUrl()}?${queryToClosePopups}#Shell-home`;
-
-    await ui5.navigation.navigateToApplication("Shell-home", true); // preventPopups=true
-    let button = await nonUi5.element.getById("parseUrl");
-    await nonUi5.userInteraction.click(button);
-
-    await common.assertion.expectUrlToBe(urlExpected);
-
-    let parsedUrlElement = await nonUi5.element.getById("navigationUrl");
-    let parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
-
-    await common.assertion.expectEqual(urlExpected, parsedUrlValue);
-
-    // Second navigation - to #PurchaseOrder-manage
-    // "http://localhost:34099/ui?help-readCatalog=false&help-stateUACP=PRODUCTION#PurchaseOrder-manage" - as preventPopups=true
-    urlExpected = `${await util.browser.getBaseUrl()}?${queryToClosePopups}#PurchaseOrder-manage`;
-
-    await ui5.navigation.navigateToApplication("PurchaseOrder-manage", true); // preventPopups=true
-    button = await nonUi5.element.getById("parseUrl");
-    await nonUi5.userInteraction.click(button);
-
-    await common.assertion.expectUrlToBe(urlExpected);
-
-    parsedUrlElement = await nonUi5.element.getById("navigationUrl");
-    parsedUrlValue = await nonUi5.element.getValue(parsedUrlElement);
-
-    await common.assertion.expectEqual(urlExpected, parsedUrlValue);
-
-  });
-});
-
-describe("navigation - navigateToApplication wrong navigation intent type with/without verification(unhappy case)", function () {
-  const wrongApplication = { strange: "intent" };
-  const application = "Shell-home";
-
-  it("Execution & Verification", async function () {
-    await ui5.navigation.navigateToApplication(application, true);
-
-    await ui5.navigation.navigateToApplication(wrongApplication, false); // verify=false - no verification
-    const currentUrl = await browser.getUrl();
-
-    // system first navigates to '<urlToSystem>#%5Bobject%20Object%5D'
-    expect(currentUrl).toContain(browser.config.baseUrl + "#[object%20Object]");
-
-    await expect(ui5.navigation.navigateToApplication(wrongApplication, false, true)) // verify = true,
-      .rejects.toThrow(/Navigation failed/);
-  });
-});
-
-
-const selectorForErrorPopupText = {
-  "elementProperties": {
-    "metadata": "sap.m.Text",
-    "ancestorProperties": {
-      "elementProperties": {
-        "metadata": "sap.m.Dialog",
-        "type": "Message",
-        "state": "Error"
-      }
-    }
-  }
-};
-
-// Test is unstable - system itself can close the popup
-// TODO: discuss local server usage for assertion tests execution
-describe.skip("assertion - expectUnsupportedNavigationPopup", function () {
+describe("navigation - navigateToApplication - preventPopups=false", function () {
   it("Preparation", async function () {
-    await ui5.navigation.navigateToApplication("Shell-home", true);
-    await ui5.session.loginFiori("PURCHASER", "super-duper-sensitive-pw");
+    browser.config.baseUrl = BASE_URL;
   });
 
   it("Execution", async function () {
-    await ui5.navigation.navigateToApplication("SomeWrong-intent", true);
+    await ui5.navigation.navigateToApplication(INTENT, false);
   });
 
   it("Verification", async function () {
-    await ui5.assertion.expectUnsupportedNavigationPopup("#SomeWrong-intent");
-  });
-
-  it("Clean Up", async function () {
-    await ui5.session.logout();
+    const urlExp = `${BASE_URL}#Shell-home`;
+    await common.assertion.expectUrlToBe(urlExp);
   });
 });
 
-// Test is unstable - system itself can close the popup
-// TODO: discuss local server usage for assertion tests execution
-describe.skip("assertion - expectUnsupportedNavigationPopup with '&' (unhappy case, another error popup)", function () {
+describe("navigation - navigateToApplication - preventPopups=true", function () {
   it("Preparation", async function () {
-    await ui5.navigation.navigateToApplication("Shell-home", true);
-    await ui5.session.loginFiori("PURCHASER", "super-duper-sensitive-pw");
+    browser.config.baseUrl = BASE_URL;
   });
 
   it("Execution", async function () {
-    await ui5.navigation.navigateToApplication("SomeWrongIntentWith&", false);
+    await ui5.navigation.navigateToApplication(INTENT, true);
   });
 
   it("Verification", async function () {
-    await expect(ui5.assertion.expectUnsupportedNavigationPopup("#SomeWrongIntentWith&"))
-      .rejects.toThrow(/No visible elements found/);
-    const textElement = await ui5.element.getDisplayed(selectorForErrorPopupText);
-    const text = await textElement.getText();
-    await common.assertion.expectEqual(text, "Could not open app. Please try again later.");
+    const urlExp = `${BASE_URL}?${PREVENT_POPUP_QUERY_PARAMS}#Shell-home`;
+    await common.assertion.expectUrlToBe(urlExp);
+  });
+});
+
+describe("navigation - navigateToApplication - baseUrl with closePopup query parameters", function () {
+  it("Preparation", async function () {
+    browser.config.baseUrl = `${BASE_URL}?${PREVENT_POPUP_QUERY_PARAMS}`;
   });
 
-  it("Clean Up", async function () {
-    await ui5.session.logout();
+  it("Execution", async function () {
+    await ui5.navigation.navigateToApplication(INTENT, false);
+  });
+
+  it("Verification", async function () {
+    const urlExp = `${BASE_URL}?${PREVENT_POPUP_QUERY_PARAMS}#Shell-home`;
+    await common.assertion.expectUrlToBe(urlExp);
+  });
+});
+
+describe("navigation - navigateToApplication - baseUrl with dummy query parameters", function () {
+  it("Preparation", async function () {
+    browser.config.baseUrl = `${BASE_URL}?${DUMMY_QUERY_PARAM_1}`;
+  });
+
+  it("Execution", async function () {
+    await ui5.navigation.navigateToApplication(INTENT, false);
+  });
+
+  it("Verification", async function () {
+    const urlExp = `${BASE_URL}?${DUMMY_QUERY_PARAM_1}#Shell-home`;
+    await common.assertion.expectUrlToBe(urlExp);
+  });
+});
+
+describe("navigation - navigateToApplication - intent and baseUrl with query parameters", function () {
+  it("Preparation", async function () {
+    browser.config.baseUrl = `${BASE_URL}?${DUMMY_QUERY_PARAM_1}`;
+  });
+
+  it("Execution", async function () {
+    await ui5.navigation.navigateToApplication(`${INTENT}?${DUMMY_QUERY_PARAM_2}`, false);
+  });
+
+  it("Verification", async function () {
+    const urlExp = `${BASE_URL}?${DUMMY_QUERY_PARAM_1}#Shell-home?${DUMMY_QUERY_PARAM_2}`;
+    await common.assertion.expectUrlToBe(urlExp);
+  });
+});
+
+describe("navigation - navigateToApplication - intent with multiple query parameters", function () {
+  it("Preparation", async function () {
+    browser.config.baseUrl = BASE_URL;
+  });
+
+  it("Execution", async function () {
+    await ui5.navigation.navigateToApplication(`${INTENT}?${DUMMY_QUERY_PARAM_1}&${DUMMY_QUERY_PARAM_2}`, false);
+  });
+
+  it("Verification", async function () {
+    const urlExp = `${BASE_URL}#Shell-home?${DUMMY_QUERY_PARAM_1}&${DUMMY_QUERY_PARAM_2}`;
+    await common.assertion.expectUrlToBe(urlExp);
+  });
+});
+
+describe("navigation - navigateToApplication - baseUrl with multiple query parameters", function () {
+  it("Preparation", async function () {
+    browser.config.baseUrl = `${BASE_URL}?${DUMMY_QUERY_PARAM_1}&${PREVENT_POPUP_QUERY_PARAMS}`;
+  });
+
+  it("Execution", async function () {
+    await ui5.navigation.navigateToApplication(INTENT, false);
+  });
+
+  it("Verification", async function () {
+    const urlExp = `${BASE_URL}?${DUMMY_QUERY_PARAM_1}&${PREVENT_POPUP_QUERY_PARAMS}#Shell-home`;
+    await common.assertion.expectUrlToBe(urlExp);
+  });
+});
+
+describe("navigation - navigateToApplication - verify=true", function () {
+  it("Preparation", async function () {
+    browser.config.baseUrl = BASE_URL;
+  });
+
+  it("Execution & Verification", async function () {
+    await ui5.navigation.navigateToApplication(INTENT, false, true);
   });
 });

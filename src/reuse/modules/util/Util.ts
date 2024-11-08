@@ -10,7 +10,7 @@ import userSettings, { UserSettings } from "./userSettings";
 
 
 interface DataHooksExtended extends Data {
-  decrypt: (input: string) => string;
+  decrypt: (input: string | Array<string>) => string;
   privateKeyFound: boolean;
 }
 

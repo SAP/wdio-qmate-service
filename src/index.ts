@@ -6,6 +6,7 @@ import qmateLoader from "./scripts/hooks/before";
 import onPrepareHook from "./scripts/hooks/onPrepare";
 import onCompleteHook from "./scripts/hooks/onComplete";
 import afterHook from "./scripts/hooks/after";
+import { isBrowserDefined } from "./scripts/hooks/utils/isBrowserDefined";
 const pj = require("../package.json");
 
 module.exports = class CustomWorkerService {
@@ -57,9 +58,11 @@ module.exports = class CustomWorkerService {
   // @ts-ignore
   async beforeSession(config, capabilities, specs) {
     try {
-      browser.config = config;
+      if (isBrowserDefined()) {
+        browser.config = config;
+      }
       await qmateLoaderSession(config, capabilities, specs);
-      this.config = browser.config;
+      this.config = config;
     } catch (e) {
       if (specs && specs[0]) {
         // `specs` variable is an array, but includes only one current spec
