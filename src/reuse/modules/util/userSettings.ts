@@ -13,7 +13,13 @@ export class UserSettings {
 
   private async _initForUserSetting(user: string, password: string): Promise<any> {
     const vl = this.vlf.initLog(this._initForUserSetting);
-    this._srvInstance = await service.odata.init(`${browser.config.params.systemUrl}/sap/opu/odata/UI2/INTEROP`, user, password);
+    //TODO: Add vl.log msg
+    const params = browser.config.params;
+    if (params?.systemUrl) {
+      this._srvInstance = await service.odata.init(`${params.systemUrl}/sap/opu/odata/UI2/INTEROP`, user, password);
+    } else {
+      throw new Error("System URL is missing in the config file.");
+    }
   }
 
   public async setLanguageFromUserSettings(user: string, password: string) {
