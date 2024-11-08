@@ -18,6 +18,7 @@ export class UserSettings {
     if (params?.systemUrl) {
       this._srvInstance = await service.odata.init(`${params.systemUrl}/sap/opu/odata/UI2/INTEROP`, user, password);
     } else {
+      vl.log("System URL is missing in the config file.");
       throw new Error("System URL is missing in the config file.");
     }
   }
