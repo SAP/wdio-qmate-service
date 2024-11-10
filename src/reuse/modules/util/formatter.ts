@@ -143,7 +143,7 @@ export class Formatter {
    * const formattedDate = util.formatter.formatDate(date, "mmm dd, yyyy");
    * // returns "Apr 03, 2022"
    */
-  formatDate(date: Date, format: DateFormatsType, locale = "en-US"): string | Date { //TODO: suggestion to add process.env.USER_SETTINGS_DATE_FORMAT as a default value for format
+  formatDate(date: Date, format: DateFormatsType = process.env.USER_SETTINGS_DATE_FORMAT as DateFormatsType, locale = "en-US"): string | Date {
     if (format) {
       format = format.toLowerCase() as DateFormats;
     }

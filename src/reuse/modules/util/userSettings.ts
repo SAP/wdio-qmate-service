@@ -13,12 +13,10 @@ export class UserSettings {
 
   private async _initForUserSetting(user: string, password: string): Promise<any> {
     const vl = this.vlf.initLog(this._initForUserSetting);
-    //TODO: Add vl.log msg
     const params = browser.config.params;
     if (params?.systemUrl) {
       this._srvInstance = await service.odata.init(`${params.systemUrl}/sap/opu/odata/UI2/INTEROP`, user, password);
     } else {
-      vl.log("System URL is missing in the config file.");
       throw new Error("System URL is missing in the config file.");
     }
   }
@@ -29,9 +27,8 @@ export class UserSettings {
       await this._initForUserSetting(user, password);
     }
     const res = await service.odata.get(this._srvInstance, "UserProfileProperties", { id: "LANGUAGE", shellType: "FLP" });
-    console.log(res);
     process.env.USER_SETTINGS_LANG_KEY = res.value;
-    vl.log(`Language Key: ${process.env.USER_SETTINGS_LANG_KEY} was set.`);
+    util.console.info(`Language Key: ${process.env.USER_SETTINGS_LANG_KEY} was set.`);
   }
 
   public async setDateFormatFromUserSettings(user: string, password: string) {
@@ -41,8 +38,8 @@ export class UserSettings {
     }
     const res = await service.odata.get(this._srvInstance, "UserProfileProperties", { id: "DATE_FORMAT", shellType: "FLP" });
     const resUserData = await service.odata.get(this._srvInstance, "UserProfilePropertyValues", { id: "DATE_FORMAT", shellType: "FLP", value: res.value });
-    process.env.USER_SETTINGS_DATE_FORMAT = resUserData.description.replace(/\s*\(.*?\)$/, ""); //removes: the whitespace characters 0-* and the brackets including the content of the brackets. 
-    vl.log(`Date Format: ${process.env.USER_SETTINGS_DATE_FORMAT} was set.`);
+    process.env.USER_SETTINGS_DATE_FORMAT = resUserData.description.replace(/\s*\(.*?\)$/, ""); //removes: the whitespace characters 0-* and the brackets including the content of the brackets.
+    util.console.info(`Date Format: ${process.env.USER_SETTINGS_DATE_FORMAT} was set.`);
   }
 
   public async setTimeFormatFromUserSettings(user: string, password: string) {
@@ -53,7 +50,7 @@ export class UserSettings {
     const res = await service.odata.get(this._srvInstance, "UserProfileProperties", { id: "TIME_FORMAT", shellType: "FLP" });
     const resUserData = await service.odata.get(this._srvInstance, "UserProfilePropertyValues", { id: "TIME_FORMAT", shellType: "FLP", value: res.value });
     process.env.USER_SETTINGS_TIME_FORMAT = resUserData.description;
-    vl.log(`Time Format: ${process.env.USER_SETTINGS_TIME_FORMAT} was set.`);
+    util.console.info(`Time Format: ${process.env.USER_SETTINGS_TIME_FORMAT} was set.`);
   }
 
   public async setTimeZoneFromUserSettings(user: string, password: string) {
@@ -63,7 +60,7 @@ export class UserSettings {
     }
     const res = await service.odata.get(this._srvInstance, "UserProfileProperties", { id: "TIME_ZONE", shellType: "FLP" });
     process.env.USER_SETTINGS_TIME_ZONE = res.value.replace("/", ", ");
-    vl.log(`Time Zone: ${process.env.USER_SETTINGS_TIME_ZONE} was set.`);
+    util.console.info(`Time Zone: ${process.env.USER_SETTINGS_TIME_ZONE} was set.`);
   }
 
   public async setNumberFormatFromUserSettings(user: string, password: string) {
@@ -74,20 +71,21 @@ export class UserSettings {
     const res = await service.odata.get(this._srvInstance, "UserProfileProperties", { id: "NUMBER_FORMAT", shellType: "FLP" });
     const resUserData = await service.odata.get(this._srvInstance, "UserProfilePropertyValues", { id: "NUMBER_FORMAT", shellType: "FLP", value: res.value });
     process.env.USER_SETTINGS_NUMBER_FORMAT = resUserData.description;
-    vl.log(`Number Format: ${process.env.USER_SETTINGS_NUMBER_FORMAT} was set.`);
+    util.console.info(`Number Format: ${process.env.USER_SETTINGS_NUMBER_FORMAT} was set.`);
   }
 
   public async apply(user: string, password: string, isS4: boolean) {
-    this.vlf.initLog(this.apply);
-    if (isS4) {
+    const vl = this.vlf.initLog(this.apply);
+    if (browser.config.params?.applyUserSettingsForS4) {
       try {
+        await this._initForUserSetting(user, password);
         await this.setDateFormatFromUserSettings(user, password);
         await this.setLanguageFromUserSettings(user, password);
         await this.setNumberFormatFromUserSettings(user, password);
         await this.setTimeFormatFromUserSettings(user, password);
         await this.setTimeZoneFromUserSettings(user, password);
       } catch (error) {
-        util.console.warn(`Function: 'setUserSettingsForS4' failed: Unable to set the UserSettings: ${error}`);
+      vl.log(`Function: 'setUserSettingsForS4' failed: Unable to set the UserSettings: ${error}`);
       }
     }
   }
