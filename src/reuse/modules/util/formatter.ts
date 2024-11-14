@@ -167,28 +167,22 @@ export class Formatter {
 
 
     const formatMappings = {
+      [DateFormats.MONTH_DAY_YEAR_DASH]: `${mm}-${dd}-${yyyy}`,
       [DateFormats.MONTH_DAY_YEAR_SLASH]: `${mm}/${dd}/${yyyy}`,
       [DateFormats.DAY_MONTH_YEAR_DOT]: `${dd}.${mm}.${yyyy}`,
       [DateFormats.DAY_MONTH_YEAR_SLASH]: `${dd}/${mm}/${yyyy}`,
-      [DateFormats.YEAR_MONTH_DAY_PLAIN]: `${yyyy}${mm}${dd}`,
-      [DateFormats.YEAR_MONTH_DAY_SLASH]: `${yyyy}/${mm}/${dd}`,
       [DateFormats.DAY_MONTH_YEAR_TIME_DOT]: `${dd}.${mm}.${yyyy}.${hour}.${min}`,
+      [DateFormats.YEAR_MONTH_DAY_PLAIN]: `${yyyy}${mm}${dd}`,
+      [DateFormats.YEAR_MONTH_DAY_DOT]: `${yyyy}.${mm}.${dd}`,
+      [DateFormats.YEAR_MONTH_DAY_DASH]: `${yyyy}-${mm}-${dd}`,
+      [DateFormats.YEAR_MONTH_DAY_SLASH]: `${yyyy}/${mm}/${dd}`,
       [DateFormats.MONTH_DAY_YEAR_COMMA]: `${month} ${dd}, ${yyyy}`,
       [DateFormats.MONTH_DAY_YEAR_COMMA_SHORT]: `${month} ${dd}, ${yyyy}`,
       [DateFormats.DATETIME]: `datetime'${yyyy}-${mm}-${dd}T${hour}:${min}:${sec}'`,
       [DateFormats.OBJECT]: date,
-      [DateFormats.GREGORIAN_DOT]: `${dd}.${mm}.${yyyy}`,
-      [DateFormats.GREGORIAN_SLASH]: `${mm}/${dd}/${yyyy}`,
-      [DateFormats.GREGORIAN_DASH]: `${mm}-${dd}-${yyyy}`,
-      [DateFormats.GREGORIAN_DOT_YEAR_FIRST]: `${yyyy}.${mm}.${dd}`,
-      [DateFormats.GREGORIAN_SLASH_YEAR_FIRST]: `${yyyy}/${mm}/${dd}`,
-      [DateFormats.GREGORIAN_ISO]: `${yyyy}-${mm}-${dd}`,
       [DateFormats.JAPANESE_DOT]: `g.${yy}.${mm}.${dd}`,
       [DateFormats.JAPANESE_SLASH]: `g/${yy}/${mm}/${dd}`,
-      [DateFormats.JAPANESE_DASH]: `g-${yy}-${mm}-${dd}`,
-      [DateFormats.ISLAMIC_1]: `${yyyy}/${mm}/${dd}`,
-      [DateFormats.ISLAMIC_2]: `${yyyy}/${mm}/${dd}`,
-      [DateFormats.IRANIAN]: `${yyyy}/${mm}/${dd}`
+      [DateFormats.JAPANESE_DASH]: `g-${yy}-${mm}-${dd}`
     };
     
     if (format && formatMappings[format]) {

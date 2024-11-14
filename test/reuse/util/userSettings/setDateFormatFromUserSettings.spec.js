@@ -22,7 +22,10 @@ describe("userSettings", function () {
   });
 
   describe("setDateFormatFromUserSettings.spec - do not pass format, defaulted env(process.env.USER_SETTINGS_DATE_FORMAT) is taken", function () {
-
+    it("Preparation: Set systemUrl ", async function () {
+      browser.config.params.systemUrl = util.data.decrypt(data.systemUrl);
+    });
+    
     it("Execution & Verification ", async function () {
       await util.userSettings.setDateFormatFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
       const date = await common.date.getToday("yyyy/mm/dd");

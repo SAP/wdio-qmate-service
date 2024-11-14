@@ -5,8 +5,7 @@ exports.config = merge(qmateConfiguration.config, {
   params: {
     import: {
       data: "./data/"
-    },
-    // applyUserSettingsForS4: true
+    }
   },
   maxInstances: 1,
 
@@ -15,6 +14,11 @@ exports.config = merge(qmateConfiguration.config, {
     path.resolve(__dirname, "setDateFormatFromUserSettings.spec.js"),
     path.resolve(__dirname, "setTimeFormatFromUserSettings.spec.js"),
     path.resolve(__dirname, "setTimeZoneFromUserSettings.spec.js"),
-    path.resolve(__dirname, "setNumberFormatFromUserSettings.spec.js")
+    path.resolve(__dirname, "setNumberFormatFromUserSettings.spec.js"),
+    path.resolve(__dirname, "getLanguageFromUserSettings.spec.js"),
+    path.resolve(__dirname, "getDateFormatFromUserSettings.spec.js"),
+    path.resolve(__dirname, "getTimeFormatFromUserSettings.spec.js"),
+    path.resolve(__dirname, "getTimeZoneFromUserSettings.spec.js"),
+    path.resolve(__dirname, "getNumberFormatFromUserSettings.spec.js")
   ]
 });
