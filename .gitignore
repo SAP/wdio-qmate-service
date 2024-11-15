@@ -36,6 +36,7 @@ Dictionaries/
 GPUCache/
 exthost Crash Reports/
 Local Storage/
+User/
 blob_storage/
 Backups/
 Network Persistent State
