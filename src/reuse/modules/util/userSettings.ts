@@ -113,7 +113,7 @@ export class UserSettings {
 
   private async _getTimeZoneResponse(srvInstance: any): Promise<string> {
     try {
-      const res = await service.odata.get(this._srvInstance, "UserProfileProperties", { id: "TIME_ZONE", shellType: "FLP" });
+      const res = await service.odata.get(srvInstance, "UserProfileProperties", { id: "TIME_ZONE", shellType: "FLP" });
       return res.value.replace("/", ", ");
     } catch (error) {
       if (error instanceof Error) {
@@ -126,7 +126,7 @@ export class UserSettings {
 
   private async _getTimeFormatResponse(srvInstance: any): Promise<string> {
     try {
-      const res = await service.odata.get(this._srvInstance, "UserProfileProperties", { id: "TIME_FORMAT", shellType: "FLP" });
+      const res = await service.odata.get(srvInstance, "UserProfileProperties", { id: "TIME_FORMAT", shellType: "FLP" });
       const resUserData = await service.odata.get(this._srvInstance, "UserProfilePropertyValues", { id: "TIME_FORMAT", shellType: "FLP", value: res.value });
       return resUserData.description;
     } catch (error) {
@@ -140,7 +140,7 @@ export class UserSettings {
 
   private async _getDateFormatsResponse(srvInstance: any): Promise<string> {
     try {
-      const res = await service.odata.get(this._srvInstance, "UserProfileProperties", { id: "DATE_FORMAT", shellType: "FLP" });
+      const res = await service.odata.get(srvInstance, "UserProfileProperties", { id: "DATE_FORMAT", shellType: "FLP" });
       const resUserData = await service.odata.get(this._srvInstance, "UserProfilePropertyValues", { id: "DATE_FORMAT", shellType: "FLP", value: res.value });
       return resUserData.description.replace(/\s*\(.*?\)$/, "");
     } catch (error) {
