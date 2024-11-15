@@ -60,14 +60,14 @@ describe("date - pick - when datePicker already has date assigned and we change 
   });
 
   it("Execution", async function () {
-    const today = await common.date.calculate("today", "yyyy-MM-dd");
+    const today = await common.date.calculate("today");
     await ui5.date.pick(dataInput, today, 2);
   });
 
   it("Verification", async function () {
     const value = await ui5.element.getValue(dataInput, 2);
     const arrivedDate = new Date(value);
-    const today = await common.date.calculate("today", "yyyy-MM-dd");
+    const today = await common.date.calculate("today");
     common.assertion.expectEqual(arrivedDate.toDateString(), today.toDateString());
   });
 });
@@ -98,14 +98,14 @@ describe("date - pick - using selector for sap.ui.core.Icon", function () {
   });
 
   it("Execution", async function () {
-    const today = await common.date.calculate("today", "yyyy-MM-dd");
+    const today = await common.date.calculate("today");
     await ui5.date.pick(dataInputIcon, today, 2);
   });
 
   it("Verification", async function () {
     const value = await ui5.element.getValue(dataInput, 2);
     const arrivedDate = new Date(value);
-    const today = await common.date.calculate("today", "yyyy-MM-dd");
+    const today = await common.date.calculate("today");
     common.assertion.expectEqual(arrivedDate.toDateString(), today.toDateString());
   });
 });
