@@ -8,7 +8,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  */
 
 export class UserSettings {
-  private vlf = new VerboseLoggerFactory("util", "user");
+  private vlf = new VerboseLoggerFactory("util", "userSettings");
   private _srvInstance = null;
 
   private async initS4UserSettingService(user: string, password: string): Promise<any> {
