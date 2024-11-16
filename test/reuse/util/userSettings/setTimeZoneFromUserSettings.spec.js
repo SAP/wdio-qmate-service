@@ -7,8 +7,9 @@ describe("userSettings", function () {
       browser.config.params.systemUrl = util.data.decrypt(data.systemUrl);
     });
 
-    it("Execution", async function () {
+    it("Execution & Verification", async function () {
       await util.userSettings.setTimeZoneFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
+      common.assertion.expectDefined(process.env.USER_SETTINGS_TIME_ZONE); //Output: "Europe/Berlin"
     });
 
   });

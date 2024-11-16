@@ -10,7 +10,7 @@ describe("userSettings", function () {
 
     it("Execution", async function () {
       await util.userSettings.setNumberFormatFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
-      util.console.log(process.env.USER_SETTINGS_NUMBER_FORMAT);
+      common.assertion.expectDefined(process.env.USER_SETTINGS_NUMBER_FORMAT);  //Output: 1,234,567.89
     });
   });
 });

@@ -8,7 +8,8 @@ describe("userSettings", function () {
     });
 
     it("Execution", async function () {
-      await util.userSettings.getTimeZoneFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
+      const userTimeZone = await util.userSettings.getTimeZoneFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
+      common.assertion.expectDefined(userTimeZone); //Europe, Berlin was set.
     });
 
   });

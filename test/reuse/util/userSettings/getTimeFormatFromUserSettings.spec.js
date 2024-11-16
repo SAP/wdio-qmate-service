@@ -9,7 +9,8 @@ describe("userSettings", function () {
     });
 
     it("Execution", async function () {
-      await util.userSettings.getTimeFormatFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
+      const userTimeFormat = await util.userSettings.getTimeFormatFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
+      common.assertion.expectDefined(userTimeFormat); //12 Hour Format (Example: 12:05:10 PM)
     });
 
   });

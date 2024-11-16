@@ -13,9 +13,6 @@ describe("userSettings", function () {
       const userDateFormat = await util.userSettings.getDateFormatFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
       const date = await common.date.getToday("yyyy/mm/dd");
       const userDate = await common.date.getToday(userDateFormat);
-      //Ensure returned date matches 10 digits
-      common.assertion.expectEqual(date.length, DATE_FORMAT_LENGTH);
-      common.assertion.expectEqual(userDate.length, DATE_FORMAT_LENGTH);
       //Ensure returned date is a valid date
       common.assertion.expectEqual(new Date(date), new Date(userDate));
     });

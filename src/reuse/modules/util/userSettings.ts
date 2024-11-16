@@ -48,7 +48,6 @@ export class UserSettings {
   public async setTimeFormatFromUserSettings(user: string, password: string) {
     const vl = this.vlf.initLog(this.setTimeFormatFromUserSettings);
     await this.initS4UserSettingService(user, password);
-
     process.env.USER_SETTINGS_TIME_FORMAT = await this._getTimeFormatResponse(this._srvInstance);
     util.console.info(`Time Format: ${process.env.USER_SETTINGS_TIME_FORMAT} was set.`);
   }
@@ -128,7 +127,7 @@ export class UserSettings {
     try {
       const res = await service.odata.get(srvInstance, "UserProfileProperties", { id: "TIME_FORMAT", shellType: "FLP" });
       const resUserData = await service.odata.get(this._srvInstance, "UserProfilePropertyValues", { id: "TIME_FORMAT", shellType: "FLP", value: res.value });
-      return resUserData.description;
+      return resUserData.description.replace(/\s*\(.*?\)$/, "");
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(`Failed to get Time Format from User Settings: ${error.message}.`);

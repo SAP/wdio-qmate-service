@@ -12,5 +12,4 @@ describe("userSettings", function () {
       common.assertion.expectEqual(userLanguage.length, 2);
     });
   });
-
 });
