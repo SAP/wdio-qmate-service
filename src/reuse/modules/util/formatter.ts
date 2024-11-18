@@ -143,7 +143,7 @@ export class Formatter {
    * const formattedDate = util.formatter.formatDate(date, "mmm dd, yyyy");
    * // returns "Apr 03, 2022"
    */
-  formatDate(date: Date, format: DateFormatsType, locale = "en-US"): string | Date {
+  formatDate(date: Date, format: DateFormatsType = process.env.USER_SETTINGS_DATE_FORMAT ? (process.env.USER_SETTINGS_DATE_FORMAT as DateFormatsType) : DateFormats.OBJECT, locale = "en-US"): string | Date {
     if (format) {
       format = format.toLowerCase() as DateFormats;
     }
@@ -179,38 +179,56 @@ export class Formatter {
 
     if (format) {
       switch (format) {
-        case DateFormats.MONTH_DAY_YEAR_SLASH:
-          formattedDate = `${mm}/${dd}/${yyyy}`;
-          break;
-        case DateFormats.DAY_MONTH_YEAR_DOT:
-          formattedDate = `${dd}.${mm}.${yyyy}`;
-          break;
-        case DateFormats.DAY_MONTH_YEAR_SLASH:
-          formattedDate = `${dd}/${mm}/${yyyy}`;
-          break;
-        case DateFormats.YEAR_MONTH_DAY_PLAIN:
-          formattedDate = `${yyyy}${mm}${dd}`;
-          break;
-        case DateFormats.YEAR_MONTH_DAY_SLASH:
-          formattedDate = `${yyyy}/${mm}/${dd}`;
-          break;
-        case DateFormats.DAY_MONTH_YEAR_TIME_DOT:
-          formattedDate = `${dd}.${mm}.${yyyy}.${hour}.${min}`;
-          break;
-        case DateFormats.MONTH_DAY_YEAR_COMMA:
-          formattedDate = `${month} ${dd}, ${yyyy}`;
-          break;
-        case DateFormats.MONTH_DAY_YEAR_COMMA_SHORT:
-          formattedDate = `${month} ${dd}, ${yyyy}`;
-          break;
-        case DateFormats.DATETIME:
-          formattedDate = `datetime'${yyyy}-${mm}-${dd}T${hour}:${min}:${sec}'`;
-          break;
-        case DateFormats.OBJECT:
-          formattedDate = date;
-          break;
-        default:
-          break;
+      case DateFormats.MONTH_DAY_YEAR_SLASH:
+        formattedDate = `${mm}/${dd}/${yyyy}`;
+        break;
+      case DateFormats.MONTH_DAY_YEAR_DASH:
+        formattedDate = `${mm}-${dd}-${yyyy}`;
+        break;
+      case DateFormats.DAY_MONTH_YEAR_DOT:
+        formattedDate = `${dd}.${mm}.${yyyy}`;
+        break;
+      case DateFormats.DAY_MONTH_YEAR_SLASH:
+        formattedDate = `${dd}/${mm}/${yyyy}`;
+        break;
+      case DateFormats.YEAR_MONTH_DAY_PLAIN:
+        formattedDate = `${yyyy}${mm}${dd}`;
+        break;
+      case DateFormats.YEAR_MONTH_DAY_SLASH:
+        formattedDate = `${yyyy}/${mm}/${dd}`;
+        break;
+      case DateFormats.YEAR_MONTH_DAY_DOT:
+        formattedDate = `${yyyy}.${mm}.${dd}`;
+        break;
+      case DateFormats.YEAR_MONTH_DAY_DASH:
+        formattedDate = `${yyyy}-${mm}-${dd}`;
+        break;
+      case DateFormats.DAY_MONTH_YEAR_TIME_DOT:
+        formattedDate = `${dd}.${mm}.${yyyy}.${hour}.${min}`;
+        break;
+      case DateFormats.MONTH_DAY_YEAR_COMMA:
+        formattedDate = `${month} ${dd}, ${yyyy}`;
+        break;
+      case DateFormats.MONTH_DAY_YEAR_COMMA_SHORT:
+        formattedDate = `${month} ${dd}, ${yyyy}`;
+        break;
+      case DateFormats.DATETIME:
+        formattedDate = `datetime'${yyyy}-${mm}-${dd}T${hour}:${min}:${sec}'`;
+        break;
+      case DateFormats.OBJECT:
+        formattedDate = date;
+        break;
+      case DateFormats.JAPANESE_DOT:
+        formattedDate = `${date.toLocaleDateString(locale, { era: "short" })}.${mm}.${dd}`;
+        break;
+      case DateFormats.JAPANESE_SLASH:
+        formattedDate = `${date.toLocaleDateString(locale, { era: "short" })}/${mm}/${dd}`;
+        break;
+      case DateFormats.JAPANESE_DASH:
+        formattedDate = `${date.toLocaleDateString(locale, { era: "short" })}-${mm}-${dd}`;
+        break;
+      default:
+        break;
       }
     }
 
