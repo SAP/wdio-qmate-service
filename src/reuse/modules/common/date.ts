@@ -23,7 +23,7 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getToday("mm/dd/yyyy");
    */
-  getToday(format: DateFormatsType = DateFormats.OBJECT): Date | string {
+  getToday(format: DateFormatsType = process.env.USER_SETTINGS_DATE_FORMAT ? (process.env.USER_SETTINGS_DATE_FORMAT as DateFormatsType) : DateFormats.OBJECT): Date | string {
     const vl = this.vlf.initLog(this.getToday);
     const date = new Date();
     vl.log(date.toISOString());
@@ -38,7 +38,7 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getTomorrow("mm/dd/yyyy");
    */
-  getTomorrow(format: DateFormatsType = DateFormats.OBJECT): Date | string {
+  getTomorrow(format: DateFormatsType = process.env.USER_SETTINGS_DATE_FORMAT ? (process.env.USER_SETTINGS_DATE_FORMAT as DateFormatsType) : DateFormats.OBJECT): Date | string {
     const vl = this.vlf.initLog(this.getTomorrow);
     const date = new Date();
     date.setDate(date.getDate() + 1);
@@ -54,7 +54,7 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getNextMonth("mm/dd/yyyy");
    */
-  getNextMonth(format: DateFormatsType = DateFormats.OBJECT): Date | string {
+  getNextMonth(format: DateFormatsType = process.env.USER_SETTINGS_DATE_FORMAT ? (process.env.USER_SETTINGS_DATE_FORMAT as DateFormatsType) : DateFormats.OBJECT): Date | string {
     const vl = this.vlf.initLog(this.getTomorrow);
     const date = new Date();
     date.setMonth(date.getMonth() + 1);
@@ -70,7 +70,7 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getPreviousMonth("mm/dd/yyyy");
    */
-  getPreviousMonth(format: DateFormatsType = DateFormats.OBJECT): Date | string {
+  getPreviousMonth(format: DateFormatsType = process.env.USER_SETTINGS_DATE_FORMAT ? (process.env.USER_SETTINGS_DATE_FORMAT as DateFormatsType) : DateFormats.OBJECT): Date | string {
     const vl = this.vlf.initLog(this.getPreviousMonth);
     const date = new Date();
     date.setMonth(date.getMonth() - 1);
@@ -86,7 +86,7 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getNextYear("mm/dd/yyyy");
    */
-  getNextYear(format: DateFormatsType = DateFormats.OBJECT): Date | string {
+  getNextYear(format: DateFormatsType = process.env.USER_SETTINGS_DATE_FORMAT ? (process.env.USER_SETTINGS_DATE_FORMAT as DateFormatsType) : DateFormats.OBJECT): Date | string {
     const vl = this.vlf.initLog(this.getNextYear);
     const date = new Date();
     date.setFullYear(date.getFullYear() + 1);
@@ -102,7 +102,7 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getPreviousYear("mm/dd/yyyy");
    */
-  getPreviousYear(format: DateFormatsType = DateFormats.OBJECT): Date | string {
+  getPreviousYear(format: DateFormatsType = process.env.USER_SETTINGS_DATE_FORMAT ? (process.env.USER_SETTINGS_DATE_FORMAT as DateFormatsType) : DateFormats.OBJECT): Date | string {
     const vl = this.vlf.initLog(this.getPreviousYear);
     const date = new Date();
     date.setFullYear(date.getFullYear() - 1);
@@ -119,7 +119,7 @@ export class DateModule {
    * @returns {String} The date in the given format.
    * @example const date = await common.date.getSpecific("2020, 0, 17", "mm/dd/yyyy");
    */
-  getSpecific(date: string, format: DateFormatsType = DateFormats.OBJECT): Date | string {
+  getSpecific(date: string, format: DateFormatsType = process.env.USER_SETTINGS_DATE_FORMAT ? (process.env.USER_SETTINGS_DATE_FORMAT as DateFormatsType) : DateFormats.OBJECT): Date | string {
     const vl = this.vlf.initLog(this.getSpecific);
     if (!date) {
       throw new Error("Function 'getSpecific' failed: Please provide a date string ('2020, 0, 17') as first argument.");
@@ -136,10 +136,10 @@ export class DateModule {
    * @description Calculates the date based on the input parameter and returns it in the given format.
    * @param {String} [date="today"] - Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, previousYear
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "mmm d, yyyy", "datetime", "object").
-   * @returns {String} The calculated date in the given format.
+   * @returns {String | Date} The calculated date in the given format.
    * @example const date = await common.date.calculate("today", "mm/dd/yyyy");
    */
-  calculate(date: CalculateDatesType = CalculateDates.TODAY, format: DateFormatsType = DateFormats.OBJECT): Date | string {
+  calculate(date: CalculateDatesType = CalculateDates.TODAY, format: DateFormatsType = process.env.USER_SETTINGS_DATE_FORMAT ? (process.env.USER_SETTINGS_DATE_FORMAT as DateFormatsType) : DateFormats.OBJECT): Date | string {
     const vl = this.vlf.initLog(this.calculate);
     if (date === null) {
       date = CalculateDates.TODAY;

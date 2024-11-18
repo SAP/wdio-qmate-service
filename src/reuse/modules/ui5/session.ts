@@ -329,6 +329,9 @@ export class Session {
         util.console.warn(error.toString());
       }
     }
+    if (browser.config.params.applyS4UserSettings === true) {
+      await util.userSettings.setS4UserSettings(username, password);
+    }
   }
 
   private async _clickSignOut() {
