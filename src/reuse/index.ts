@@ -50,7 +50,8 @@ class ReuseLibrary {
       formatter: utilQmate.formatter,
       function: utilQmate.function,
       system: utilQmate.system,
-      component: utilQmate.component
+      component: utilQmate.component,
+      userSettings: utilQmate.userSettings
     };
     global.util = {
       ...util,
