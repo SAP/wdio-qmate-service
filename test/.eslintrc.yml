@@ -4,3 +4,4 @@ globals:
   nonUi5: readonly
   util: readonly
   service: readonly
+  flp: readonly

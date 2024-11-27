@@ -1,16 +1,17 @@
 const data = require("./data/data.json");
 
+
 describe("userSettings", function () {
-  describe("setLanguageFromUserSettings.spec", function () {
+  describe("setTimeFormatFromUserSettings.spec", function () {
 
     it("Preparation: Set systemUrl ", async function () {
       browser.config.params.systemUrl = util.data.decrypt(data.systemUrl);
     });
 
     it("Execution & Verification", async function () {
-      await util.userSettings.setLanguageFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
-      common.assertion.expectEqual(process.env.USER_SETTINGS_LANG_KEY.length, 2); //Output: en
+      await flp.userSettings.setTimeFormatFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
+      common.assertion.expectDefined(process.env.USER_SETTINGS_TIME_FORMAT); //12 Hour Format
     });
-  });
 
+  });
 });
