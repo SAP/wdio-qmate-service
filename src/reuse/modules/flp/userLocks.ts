@@ -11,6 +11,11 @@ export class UserLocks {
   private vlf = new VerboseLoggerFactory("util", "userLocks");
   private _srvUserLockInstance = null;
   private _srvEshInstance = null;
+  private _options: { Client: string; UserId: string; SessionId: string } = {
+    Client: "",
+    UserId: "",
+    SessionId: ""
+  };
   private async initUserLockService(user: string, password: string = "Welcome1!"): Promise<any> {
     if (!this._srvUserLockInstance) {
       const vl = this.vlf.initLog(await this.initUserLockService);
@@ -50,28 +55,50 @@ export class UserLocks {
     }
   }
 
-  public async getLockEntries(user: string, password: string, technicalUserId: string): Promise<any> {
+  public async getLockEntries(user: string, password: string, technicalUserId?: string): Promise<number> {
     const vl = this.vlf.initLog(await this.getLockEntries);
+    let resEsh = null;
+
     if (technicalUserId === undefined) {
       await this.initEnterpriseSearchHelpService(user, password);
+      resEsh = await this._getUserId();
     }
     await this.initUserLockService(user, password);
     const client = this._extractClient(browser.config.params.systemUrl);
-    const resEsh = await service.odata.get(this._srvEshInstance, "Users", {});
-    const userId = resEsh[0].Id;
-    const userName = resEsh[0].Name;
-    const resLocks = await service.odata.get(this._srvUserLockInstance, "Session", {
+    this._options = {
       Client: client,
-      UserId: userId,
+      UserId: technicalUserId || resEsh[0].Id,
       SessionId: "*"
-    });
-    if (resLocks.NumberOfLocks.length > 0) {
-      util.console.success(`User '${userName}' with ID '${userId}' has ${resLocks.length} locks.`);
-      //TODO: Implement deletion of lock entries
+    };
+    const resLocks = await service.odata.get(this._srvUserLockInstance, "Session", this._options);
+    if (resLocks.NumberOfLocks > 0) {
+      util.console.warn(`User '${resEsh[0].Name}' with ID '${this._options.UserId}' has ${resLocks.NumberOfLocks} lock/s.`);
+      this._options.SessionId = resLocks.SessionId;
     } else {
-      util.console.success(`User '${userName}' with ID '${userId}' has no locks.`);
+      util.console.success(`User '${resEsh[0].Name}' with ID '${this._options.UserId}' has no locks.`);
+    }
+    return resLocks.NumberOfLocks;
+  }
+
+  public async getAndDeleteLockEntries(user: string, password: string, technicalUserId: string): Promise<void> {
+    const lockEntryCount = await this.getLockEntries(user, password, technicalUserId);
+    if (lockEntryCount > 0) {
+      await this._deleteLockEntries();
     }
   }
+
+  private async _getUserId(): Promise<any> {
+    return await service.odata.get(this._srvEshInstance, "Users", {});
+  }
+
+  private async _deleteLockEntries(): Promise<any> {
+    const res = await service.odata.callFunctionImport(this._srvUserLockInstance, "delete_session", this._options, true);
+    const sapMessage = JSON.parse(res.headers.get("sap-message"));
+    if (sapMessage?.message === "Sessions deleted successfully") {
+      util.console.success(`Locks for user '${this._options.UserId}' have been deleted.`);
+    }
+  }
+
   private _extractClient(url: string): string {
     const match = url.match(/(?<=[a-zA-Z]{3}-)\d+/);
     if (match) {
