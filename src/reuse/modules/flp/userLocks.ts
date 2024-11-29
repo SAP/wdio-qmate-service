@@ -72,10 +72,10 @@ export class UserLocks {
     };
     const resLocks = await service.odata.get(this._srvUserLockInstance, "Session", this._options);
     if (resLocks.NumberOfLocks > 0) {
-      util.console.warn(`User '${resEsh[0].Name}' with ID '${this._options.UserId}' has ${resLocks.NumberOfLocks} lock/s.`);
+      util.console.warn(`User '${resEsh[0].Name || user}' with ID '${this._options.UserId || technicalUserId}' has ${resLocks.NumberOfLocks} lock/s.`);
       this._options.SessionId = resLocks.SessionId;
     } else {
-      util.console.success(`User '${resEsh[0].Name}' with ID '${this._options.UserId}' has no locks.`);
+      util.console.success(`User '${resEsh[0].Name || user}' with ID '${this._options.UserId || technicalUserId}' has no locks.`);
     }
     return resLocks.NumberOfLocks;
   }
