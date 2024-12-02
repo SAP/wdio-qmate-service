@@ -6,19 +6,23 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  * @class userLocks
  * @memberof util
  */
-
+type UserInfo = {
+  Id: string;
+  Name: string;
+};
 export class UserLocks {
   private vlf = new VerboseLoggerFactory("util", "userLocks");
   private _srvUserLockInstance = null;
   private _srvEshInstance = null;
-  private _options: { Client: string; UserId: string; SessionId: string } = {
+  private _requestOptions: { Client: string; UserId: string; SessionId: string } = {
     Client: "",
     UserId: "",
     SessionId: ""
   };
-  private async initUserLockService(user: string, password: string = "Welcome1!"): Promise<any> {
+
+  private async _initUserLockService(user: string, password: string = "Welcome1!"): Promise<any> {
     if (!this._srvUserLockInstance) {
-      const vl = this.vlf.initLog(await this.initUserLockService);
+      const vl = this.vlf.initLog(await this._initUserLockService);
       const params = browser.config.params;
       if (params?.systemUrl && user && password) {
         try {
@@ -55,47 +59,61 @@ export class UserLocks {
     }
   }
 
-  public async getLockEntries(user: string, password: string, technicalUserId?: string): Promise<number> {
-    const vl = this.vlf.initLog(await this.getLockEntries);
-    let resEsh = null;
+  public async getNumberOfLockEntries(user: string, password: string, technicalUserId?: string): Promise<number> {
+    const vl = this.vlf.initLog(await this.getNumberOfLockEntries);
+    let resUserInfo = null;
+    let userFullName = user;
 
-    if (technicalUserId === undefined) {
+    if (!technicalUserId) {
       await this.initEnterpriseSearchHelpService(user, password);
-      resEsh = await this._getUserId();
+      resUserInfo = await this._getUserInfo();
+      technicalUserId = resUserInfo.Id;
+      userFullName = resUserInfo.Name;
     }
-    await this.initUserLockService(user, password);
+
+    await this._initUserLockService(user, password);
     const client = this._extractClient(browser.config.params.systemUrl);
-    this._options = {
+    this._requestOptions = {
       Client: client,
-      UserId: technicalUserId || resEsh[0].Id,
-      SessionId: "*"
+      UserId: technicalUserId,
+      SessionId: "*" //Get all locks for the user, since we just want to know if there is a lock at all.
     };
-    const resLocks = await service.odata.get(this._srvUserLockInstance, "Session", this._options);
+
+    const resLocks = await service.odata.get(this._srvUserLockInstance, "Session", this._requestOptions);
     if (resLocks.NumberOfLocks > 0) {
-      util.console.warn(`User '${resEsh[0].Name || user}' with ID '${this._options.UserId}' has ${resLocks.NumberOfLocks} lock/s.`);
-      this._options.SessionId = resLocks.SessionId;
+      util.console.warn(`User '${userFullName}' with ID '${this._requestOptions.UserId}' has ${resLocks.NumberOfLocks} lock/s.`);
+      this._requestOptions.SessionId = resLocks.SessionId;
     } else {
-      util.console.success(`User '${resEsh[0].Name || user}' with ID '${this._options.UserId}' has no locks.`);
+      util.console.success(`User '${userFullName}' with ID '${this._requestOptions.UserId}' has no locks.`);
     }
     return resLocks.NumberOfLocks;
   }
 
-  public async getAndDeleteLockEntries(user: string, password: string, technicalUserId: string): Promise<void> {
-    const lockEntryCount = await this.getLockEntries(user, password, technicalUserId);
+  public async deleteExistingLockEntries(user: string, password: string, technicalUserId?: string): Promise<void> {
+    const lockEntryCount = await this.getNumberOfLockEntries(user, password, technicalUserId);
     if (lockEntryCount > 0) {
       await this._deleteLockEntries();
     }
   }
 
-  private async _getUserId(): Promise<any> {
-    return await service.odata.get(this._srvEshInstance, "Users", {});
+  private async _getUserInfo(): Promise<UserInfo> {
+    try {
+      const res = await service.odata.get(this._srvEshInstance, "Users", {});
+      return res[0] as UserInfo;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Failed to get user info: ${error.message}.`);
+      } else {
+        throw new Error("Failed to get user info");
+      }
+    }
   }
 
   private async _deleteLockEntries(): Promise<any> {
-    const res = await service.odata.callFunctionImport(this._srvUserLockInstance, "delete_session", this._options, true);
+    const res = await service.odata.callFunctionImport(this._srvUserLockInstance, "delete_session", this._requestOptions, true);
     const sapMessage = JSON.parse(res.headers.get("sap-message"));
     if (sapMessage?.message === "Sessions deleted successfully") {
-      util.console.success(`Locks for user '${this._options.UserId}' have been deleted.`);
+      util.console.success(`Locks for user '${this._requestOptions.UserId}' have been deleted.`);
     }
   }
 
