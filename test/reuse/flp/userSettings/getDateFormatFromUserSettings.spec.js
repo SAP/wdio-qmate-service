@@ -1,8 +1,6 @@
 const data = require("./data/data.json");
 
 describe("userSettings", function () {
-  const DATE_FORMAT_LENGTH = 10;
-
   describe("getDateFormatFromUserSettings.spec - passing date format", function () {
 
     it("Preparation: Set systemUrl ", async function () {

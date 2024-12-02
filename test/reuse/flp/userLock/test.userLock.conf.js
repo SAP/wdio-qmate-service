@@ -10,7 +10,7 @@ exports.config = merge(qmateConfiguration.config, {
   maxInstances: 1,
 
   specs: [
-    // path.resolve(__dirname, "getLockEntries.spec.js"),
+    path.resolve(__dirname, "getLockEntries.spec.js"),
     path.resolve(__dirname, "getAndDeleteLockEntries.spec.js"),
   ]
 });
