@@ -12,7 +12,7 @@ describe("userLocks", function () {
     });
 
     it("Execution & Verification: Set User Date", async function () {
-      await flp.userLocks.getAndDeleteLockEntries("GL_ACCOUNTANT_LU", "Welcome1!");
+      await flp.userLocks.getAndDeleteLockEntries(user, pw);
     });
   });
 
