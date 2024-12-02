@@ -35,25 +35,33 @@ export class UserLocks {
    * @example const lockCount = await flp.userLocks.getNumberOfLockEntries("user", "password");
    */
   public async getNumberOfLockEntries(user: string, password: string, technicalUserId?: string): Promise<number> {
-    // If technicalUserId is not provided, fetch it from the user info
-    if (!technicalUserId) {
+    let resolvedUserId = technicalUserId;
+    let resolvedUserName = user;
+
+    if (!resolvedUserId) {
+      // If no technicalUserId is provided, fetch it using the search service
       await this._initializeSearchService(user, password);
       const userInfo = await this._fetchUserInfo();
-      technicalUserId = userInfo.Id;
-      user = userInfo.Name;
+      resolvedUserId = userInfo.Id;
+      resolvedUserName = userInfo.Name;
     }
 
+    // Initialize the User Lock Service
     await this._initializeUserLockService(user, password);
-    this._requestOptions.Client = this._extractClientFromUrl(browser.config.params.systemUrl);
-    this._requestOptions.UserId = technicalUserId;
 
+    // Extract client and prepare request options
+    const client = this._extractClientFromUrl(browser.config.params.systemUrl);
+    this._initializeRequestOptions(client, resolvedUserId);
+
+    // Fetch lock entries
     const locks = await this._getLockEntries();
     const lockCount = locks.NumberOfLocks;
 
+    // Log the result
     if (lockCount > 0) {
-      util.console.warn(`User '${user}' with ID '${technicalUserId}' has ${lockCount} lock/s.`);
+      util.console.warn(`User '${resolvedUserName}' with ID '${resolvedUserId}' has ${lockCount} lock/s.`);
     } else {
-      util.console.success(`User '${user}' with ID '${technicalUserId}' has no locks.`);
+      util.console.success(`User '${resolvedUserName}' with ID '${resolvedUserId}' has no locks.`);
     }
 
     return lockCount;
@@ -99,6 +107,14 @@ export class UserLocks {
 
   private async _initializeSearchService(user: string, password: string): Promise<void> {
     this._srvEshInstance = await this._initializeService(this._srvEshInstance, "ESH_SEARCH_SRV", user, password);
+  }
+
+  private _initializeRequestOptions(client: string, userId: string, sessionId: string = "*"): void {
+    this._requestOptions = {
+      Client: client,
+      UserId: userId,
+      SessionId: sessionId
+    };
   }
 
   private async _fetchUserInfo(): Promise<UserInfo> {
