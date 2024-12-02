@@ -7,6 +7,10 @@ type UserInfo = {
   Name: string;
 };
 
+/**
+ * @class userLocks
+ * @memberof flp
+ */
 export class UserLocks {
   // Private Properties
   private vlf = new VerboseLoggerFactory("util", "userLocks");
@@ -22,13 +26,13 @@ export class UserLocks {
   // Public Functions
   /**
    * @function getNumberOfLockEntries
-   * @memberOf util.userLocks
+   * @memberOf flp.userLocks
    * @description Fetches the number of lock entries for the given user.
    * @param {String} user - The user name.
    * @param {String} password - The password.
    * @param {String} [technicalUserId] - The technical user ID.
    * @returns {Promise<Number>} The number of lock entries.
-   * @example const lockCount = await util.userLocks.getNumberOfLockEntries("user", "password");
+   * @example const lockCount = await flp.userLocks.getNumberOfLockEntries("user", "password");
    */
   public async getNumberOfLockEntries(user: string, password: string, technicalUserId?: string): Promise<number> {
     // If technicalUserId is not provided, fetch it from the user info
@@ -57,12 +61,12 @@ export class UserLocks {
 
   /**
    * @function deleteExistingLockEntries
-   * @memberOf util.userLocks
+   * @memberOf flp.userLocks
    * @description Deletes the existing lock entries for the given user.
    * @param {String} user - The user name.
    * @param {String} password - The password.
    * @param {String} [technicalUserId] - The technical user ID.
-   * @example await util.userLocks.deleteExistingLockEntries("user", "password");
+   * @example await flp.userLocks.deleteExistingLockEntries("user", "password");
    */
   public async deleteExistingLockEntries(user: string, password: string, technicalUserId?: string): Promise<void> {
     const lockCount = await this.getNumberOfLockEntries(user, password, technicalUserId);
