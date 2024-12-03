@@ -39,9 +39,9 @@ export class UserLocks {
     let resolvedUserName = user;
 
     if (!resolvedUserId) {
-      // If no technicalUserId is provided, fetch it using the search service
+      // If no technicalUserId is provided, get it using the search service
       await this._initializeSearchService(user, password);
-      const userInfo = await this._fetchUserInfo();
+      const userInfo = await this._getUserInfo();
       resolvedUserId = userInfo.Id;
       resolvedUserName = userInfo.Name;
     }
@@ -53,13 +53,14 @@ export class UserLocks {
     const client = this._extractClientFromUrl(browser.config.params.systemUrl);
     this._initializeRequestOptions(client, resolvedUserId);
 
-    // Fetch lock entries
+    // Get lock entries
     const locks = await this._getLockEntries();
     const lockCount = locks.NumberOfLocks;
 
     // Log the result
     if (lockCount > 0) {
       util.console.warn(`User '${resolvedUserName}' with ID '${resolvedUserId}' has ${lockCount} lock/s.`);
+      this._requestOptions.SessionId = locks.SessionId;
     } else {
       util.console.success(`User '${resolvedUserName}' with ID '${resolvedUserId}' has no locks.`);
     }
@@ -84,7 +85,7 @@ export class UserLocks {
   }
 
   // Private Functions
-  private async _initializeService(instance: any, urlSegment: string, user: string, password: string = "Welcome1!"): Promise<any> {
+  private async _initializeService(instance: any, serviceName: string, user: string, password: string = "Welcome1!"): Promise<any> {
     if (!instance) {
       const params = browser.config.params;
       if (!params?.systemUrl || !user || !password) {
@@ -92,7 +93,7 @@ export class UserLocks {
       }
 
       try {
-        instance = await service.odata.init(`${params.systemUrl}/sap/opu/odata/sap/${urlSegment}`, user, password);
+        instance = await service.odata.init(`${params.systemUrl}/sap/opu/odata/sap/${serviceName}`, user, password);
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : "Unknown error";
         throw new Error(`Failed to initialize service: ${errorMessage}`);
@@ -117,13 +118,13 @@ export class UserLocks {
     };
   }
 
-  private async _fetchUserInfo(): Promise<UserInfo> {
+  private async _getUserInfo(): Promise<UserInfo> {
     try {
       const users = await service.odata.get(this._srvEshInstance, "Users", {});
       return users[0] as UserInfo;
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
-      throw new Error(`Failed to fetch user info: ${errorMessage}`);
+      throw new Error(`Failed to get user info: ${errorMessage}`);
     }
   }
 
