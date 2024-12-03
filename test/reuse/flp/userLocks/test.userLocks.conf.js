@@ -11,6 +11,6 @@ exports.config = merge(qmateConfiguration.config, {
 
   specs: [
     path.resolve(__dirname, "getNumberOfLockEntries.spec.js"),
-    // path.resolve(__dirname, "deleteExistingLockEntries.spec.js"),
+    path.resolve(__dirname, "deleteExistingLockEntries.spec.js"),
   ]
 });

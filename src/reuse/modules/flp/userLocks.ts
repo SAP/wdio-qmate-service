@@ -27,7 +27,7 @@ export class UserLocks {
   /**
    * @function getNumberOfLockEntries
    * @memberOf flp.userLocks
-   * @description Fetches the number of lock entries for the given user.
+   * @description Gets the number of lock entries for the given user.
    * @param {String} user - The user name.
    * @param {String} password - The password.
    * @param {String} [technicalUserId] - The technical user ID.
@@ -129,8 +129,9 @@ export class UserLocks {
   }
 
   private _extractClientFromUrl(url: string): string {
-    const match = url.match(/(?<=[a-zA-Z]{3}-)\d+/);
-    if (match) return match[0];
+    const regex = /https:\/\/\w{3}-(\d{3})\./;
+    const match = url.match(regex);
+    if (match) return match[1];
     throw new Error("Client number not found in the URL");
   }
 
