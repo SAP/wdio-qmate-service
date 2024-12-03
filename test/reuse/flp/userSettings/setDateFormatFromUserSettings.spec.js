@@ -8,7 +8,7 @@ describe("userSettings", function () {
     });
 
     it("Execution & Verification: Set User Date", async function () {
-      await util.userSettings.setDateFormatFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
+      await flp.userSettings.setDateFormatFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
       const date = await common.date.getToday("yyyy/mm/dd");
       const userDate = await common.date.getToday(process.env.USER_SETTINGS_DATE_FORMAT);
       //Ensure returned date is a valid date
@@ -22,7 +22,7 @@ describe("userSettings", function () {
     });
 
     it("Execution & Verification ", async function () {
-      await util.userSettings.setDateFormatFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
+      await flp.userSettings.setDateFormatFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
       const date = await common.date.getToday("yyyy/mm/dd");
       const userDate = await common.date.getToday();
       //Ensure returned date is a valid date
