@@ -296,7 +296,7 @@ export class OData {
    * };
    * const res = await service.odata.callFunctionImport(srv, "Cancel", options);
    */
-  async callFunctionImport(srv: any, functionImportName: string, options: any, raw: boolean): Promise<any> {
+  async callFunctionImport(srv: any, functionImportName: string, options: any, raw: boolean = false): Promise<any> {
     if (!srv) throw new Error(SERVICE_INIT_ERROR);
 
     let functionImport = srv.functionImports[functionImportName];
