@@ -1,6 +1,6 @@
 {
   "name": "@sap_oss/wdio-qmate-service",
-  "version": "2.11.0",
+  "version": "2.12.0",
   "author": "SAP SE",
   "types": "./@types/index.d.ts",
   "main": "./lib/index.js",
@@ -97,7 +97,6 @@
     "test:reuse:util:console": "npx wdio ./test/reuse/util/console/test.console.conf.js",
     "test:reuse:util:formatter": "npx wdio ./test/reuse/util/formatter/test.formatter.conf.js",
     "test:reuse:util:system": "npx wdio ./test/reuse/util/system/test.system.conf.js",
-    "test:reuse:util:userSettings": "npx wdio ./test/reuse/util/userSettings/test.userSettings.apply.conf.js && npx wdio ./test/reuse/util/userSettings/test.userSettings.conf.js",
     "test:reuse:util": "npm run test:reuse:util:browser && npm run test:reuse:util:browserCmndLineArgs && npm run test:reuse:util:data && npm run test:reuse:util:file && npm run test:reuse:util:formatter && npm run test:reuse:util:system && npm run test:reuse:util:console && npm run test:reuse:util:component",
     "test:reuse:common:assertion": "npx wdio ./test/reuse/common/assertion/test.assertion.conf.js",
     "test:reuse:common:navigation": "npx wdio ./test/reuse/common/navigation/test.navigation.conf.js",
@@ -109,6 +108,8 @@
     "test:reuse:service:rest": "concurrently \"npm run test:reuse:service:rest:startJsonServer\" \"npm run test:reuse:service:restTests\"",
     "test:reuse:service:odata": "npx wdio test/reuse/service/odata/test.odata.conf.js",
     "test:reuse:service": "npm run test:reuse:service:rest && npm run test:reuse:service:odata",
+    "test:reuse:flp:userSettings": "npx wdio ./test/reuse/flp/userSettings/test.userSettings.apply.conf.js && npx wdio ./test/reuse/flp/userSettings/test.userSettings.conf.js",
+    "test:reuse:flp:userLocks": "npx wdio ./test/reuse/flp/userLocks/test.userLocks.conf.js",
     "test:reuse": "npm run test:reuse:common && npm run test:reuse:nonUi5 && npm run test:reuse:ui5 && npm run test:reuse:util && npm run test:reuse:service:odata",
     "test:reuse:helper:elementHighlight": "npx wdio ./test/reuse/helper/elementHighlight/test.elementHighlight.conf.js",
     "test": "npm run test:authenticator:staticLogin && npm run test:core && npm run test:reuse"

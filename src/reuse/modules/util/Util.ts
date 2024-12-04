@@ -6,8 +6,6 @@ import formatter, { Formatter } from "./formatter";
 import functionModule, { FunctionModule } from "./function";
 import system, { System } from "./system";
 import component, { Component } from "./component";
-import userSettings, { UserSettings } from "./userSettings";
-
 
 interface DataHooksExtended extends Data {
   decrypt: (input: string | Array<string>) => string;
@@ -23,7 +21,6 @@ export class Util {
   function: FunctionModule = functionModule;
   system: System = system;
   component: Component = component;
-  userSettings: UserSettings = userSettings;
 }
 
 export default new Util();
