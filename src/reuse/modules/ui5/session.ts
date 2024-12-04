@@ -330,7 +330,7 @@ export class Session {
       }
     }
     if (browser.config.params.applyS4UserSettings === true) {
-      await util.userSettings.setS4UserSettings(username, password);
+      await flp.userSettings.setS4UserSettings(username, password);
     }
   }
 

@@ -8,7 +8,7 @@ describe("userSettings", function () {
     });
 
     it("Execution & Verification", async function () {
-      await util.userSettings.setTimeZoneFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
+      await flp.userSettings.setTimeZoneFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
       common.assertion.expectDefined(process.env.USER_SETTINGS_TIME_ZONE); //Output: "Europe/Berlin"
     });
 

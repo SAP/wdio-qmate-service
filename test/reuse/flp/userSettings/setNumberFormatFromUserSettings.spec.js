@@ -9,7 +9,7 @@ describe("userSettings", function () {
     });
 
     it("Execution", async function () {
-      await util.userSettings.setNumberFormatFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
+      await flp.userSettings.setNumberFormatFromUserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
       common.assertion.expectDefined(process.env.USER_SETTINGS_NUMBER_FORMAT);  //Output: 1,234,567.89
     });
   });

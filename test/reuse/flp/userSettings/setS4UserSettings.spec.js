@@ -8,7 +8,7 @@ describe("userSettings", function () {
     });
 
     it("Execution & Verification: Set User Date", async function () {
-      await util.userSettings.setS4UserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
+      await flp.userSettings.setS4UserSettings(util.data.decrypt(data.username), util.data.decrypt(data.password));
       common.assertion.expectDefined(process.env.USER_SETTINGS_NUMBER_FORMAT);
       common.assertion.expectDefined(process.env.USER_SETTINGS_TIME_ZONE);
       common.assertion.expectDefined(process.env.USER_SETTINGS_TIME_FORMAT);
