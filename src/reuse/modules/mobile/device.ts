@@ -321,7 +321,7 @@ export class Device {
   }
 
   /**
-   * @function hideKeyboard
+   * @function isKeyboardVisible
    * @memberof mobile.device
    * @description Checks if the keyboard is visible or not on the mobile device.
    * @returns {Promise<boolean>}
