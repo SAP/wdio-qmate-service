@@ -65,7 +65,7 @@ export class Device {
         console.error(`Unsupported platform ${platform.toLowerCase().trim()} while installing app`);
       }
     } catch (error) {
-      this.ErrorHandler.logException(error, `Error: Failed to installing the app: ${platform.toLowerCase().trim()}`, true);
+      this.ErrorHandler.logException(error, `Error: Failed installing the app: ${platform.toLowerCase().trim()}`, true);
     }
   }
 
