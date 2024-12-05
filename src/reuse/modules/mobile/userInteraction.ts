@@ -72,7 +72,7 @@ export class UserInteraction {
    * @memberof mobile.userInteraction
    * @description Double Tap's on the mobile element.
    * @param {Element | string} element - The element or CSS selector describing the element (e.g., accessibility ID, XPath, CSS,).
-   * @param {number} [timeout = 30000] - The timeout to wait(ms) (default: 30000).
+   * @param {number} [timeout = 30000] - The timeout to wait(ms)
    * @example
    * const elem = await mobile.userInteraction.doubleTap(elem);
    * const elem = await mobile.userInteraction.doubleTap(elem, 20000);
