@@ -288,7 +288,7 @@ export class Device {
    * @param {string} strategy - Strategy to use for hiding the keyboard ('pressKey', 'tapOutside', 'swipeDown').
    * @param {string} key - Key to press if using the 'pressKey' strategy (e.g., 'Done', 'Enter').
    * @param {number} keyCode - Key code for Android (optional).
-   * @param {number} timeout - Timeout in milliseconds for retrying to hide the keyboard (default: 5000ms).
+   * @param {number} [timeout=5000] - Timeout in milliseconds for retrying to hide the keyboard.
    * @returns {Promise<void>}
    */
   async hideKeyboard(strategy: hideKeyboardStrategy, key?: string, keyCode?: number, timeout: number = 5000): Promise<void> {
