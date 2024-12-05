@@ -238,7 +238,7 @@ export class Device {
    * @example
    * await mobile.device.switchToPortrait();
    */
-  async switchToPortrait(): Promise<void> {
+  async switchToPortraitOrientation(): Promise<void> {
     const vl = this.vlf.initLog(this.switchToPortrait);
 
     try {
