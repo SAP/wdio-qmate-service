@@ -108,7 +108,7 @@ export class UserInteraction {
    * @description Enter a string value into a mobile input box.
    * @param {Element | string} element - The selector for the input element (e.g., accessibility ID, XPath, CSS,).
    * @param {string} value - The string value to be entered.
-   * @param {boolean} clear - Whether to clear the input box before entering the value (default: true).
+   * @param {boolean} [clear = true] - Whether to clear the input box before entering the value.
    * @param {number} [timeout = 30000] - The timeout to wait (ms).
    * @returns {Promise<void>}
    * @example
