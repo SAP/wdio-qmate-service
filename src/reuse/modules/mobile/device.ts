@@ -73,7 +73,7 @@ export class Device {
    * @function switchToContext
    * @memberof mobile.device
    * @description Switch to the specified( WEBVIEW | NATIVE_APP ) context if available.
-   * @param {string} targetContext The name of the target context (default: 'WEBVIEW').
+   * @param {string} [targetContext='WEBVIEW'] The name of the target context.
    * @param {number} timeout Maximum time to wait for the web context to appear (default: 5000ms).
    * @returns {Promise<boolean>} Returns 'true' if the context is successfully switched, otherwise 'false'.
    * @example
