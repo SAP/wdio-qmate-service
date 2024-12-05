@@ -210,7 +210,7 @@ export class Device {
    * @example
    * await mobile.device.switchToLandscape();
    */
-  async switchToLandscape(): Promise<void> {
+  async switchToLandscapeOrientation(): Promise<void> {
     const vl = this.vlf.initLog(this.switchToLandscape);
 
     try {
