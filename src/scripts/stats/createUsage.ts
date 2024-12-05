@@ -1,7 +1,4 @@
 import { Agent, fetch } from 'undici';
-import { getSapGlobalRootCa } from './getSapGlobalRootCa';
-
-const SAP_GLOBAL_ROOT_CA = getSapGlobalRootCa();
 
 export async function createUsage(usageData: {
     userId: string;
@@ -23,7 +20,7 @@ export async function createUsage(usageData: {
             body: JSON.stringify(usageData),
             dispatcher: new Agent({
                 connect: {
-                    ca: SAP_GLOBAL_ROOT_CA
+                    ca: process.env.SAP_GLOBAL_ROOT_CA
                 }
             })
         });

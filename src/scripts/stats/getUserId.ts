@@ -2,11 +2,8 @@ import * as os from 'os';
 import path from 'path';
 import { LocalStorage } from 'node-localstorage';
 import { Agent, fetch } from 'undici';
-import { getSapGlobalRootCa } from './getSapGlobalRootCa';
 
 const localStorage = new LocalStorage(path.join(os.homedir(), '.qmate-userId'));
-
-const SAP_GLOBAL_ROOT_CA = getSapGlobalRootCa();
 
 export async function getUserId(): Promise<string | null> {
     const urlUser = "http://localhost:3000/api/user";
@@ -18,7 +15,7 @@ export async function getUserId(): Promise<string | null> {
                 method: "POST",
                 dispatcher: new Agent({
                     connect: {
-                        ca: SAP_GLOBAL_ROOT_CA
+                        ca: process.env.SAP_GLOBAL_ROOT_CA
                     }
                 })
             });
