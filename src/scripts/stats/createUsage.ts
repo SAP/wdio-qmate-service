@@ -9,7 +9,7 @@ export async function createUsage(usageData: {
     environment: string[];
     configHash: string;
     repoHash: string | null;
-}) {
+}): Promise<string | null> {
     const urlUsage = "http://localhost:3000/api/usage/qmate";
     try {
         const response = await fetch(urlUsage, {
@@ -27,8 +27,14 @@ export async function createUsage(usageData: {
 
         if (!response.ok) {
             console.log(`Failed to create Qmate Stats Usage: ${response.status} ${response.statusText}`);
+            return null;
+        } else {
+            const responseText = await response.text();
+            const responseData = JSON.parse(responseText);
+            return responseData.id;
         }
     } catch (error) {
         console.log(`Failed to fetch Usage Stats API`);
+        return null;
     }
 }
