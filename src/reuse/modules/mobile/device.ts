@@ -261,7 +261,7 @@ export class Device {
   /**
    * @function getCurrentOrientation
    * @memberof mobile.device
-   * @description Switches the device orientation to portrait mode.
+   * @description Returns the device orientation.
    * @returns {Promise<string>} Resolves when the orientation is successfully switched.
    * @example
    * await mobile.device.getCurrentOrientation();
