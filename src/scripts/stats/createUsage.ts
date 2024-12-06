@@ -10,7 +10,7 @@ export async function createUsage(usageData: {
   configHash: string;
   repoHash: string | null;
 }): Promise<string | null> {
-  const urlUsage = "http://localhost:3000/api/usage/qmate";
+  const urlUsage = "https://stats.qmate.proc.only.sap/api/usage/qmate";
   try {
     const response = await fetch(urlUsage, {
       method: "POST",
