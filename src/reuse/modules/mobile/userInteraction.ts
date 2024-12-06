@@ -15,7 +15,7 @@ export class UserInteraction {
    * @memberof mobile.userInteraction
    * @description Tap's on the mobile element.
    * @param {Element | string} element - The element (e.g., accessibility ID, XPath, CSS,) selectors describing the element.
-   * @param {Number} [timeout=30000] - The timeout to wait(ms) (default: 30000)
+   * @param {Number} [timeout=30000] - The timeout to wait(ms)
    * @example
    * const elem = await mobile.userInteraction.tap(elem);
    * const elem = await mobile.userInteraction.tap(elem, 20000);
