@@ -307,8 +307,15 @@ export class Device {
    * @param {number} keyCode - Key code for Android (optional).
    * @param {number} [timeout=5000] - Timeout in milliseconds for retrying to hide the keyboard.
    * @returns {Promise<void>}
+   * @example
+   * await mobile.device.hideKeyboard();
+   * await mobile.device.hideKeyboard('tapOutside');
+   * await mobile.device.hideKeyboard('swipeDown');
+   * //Android only, Sends a specific key code, like 66 for "Enter."
+   * await mobile.device.hideKeyboard('pressKey', undefined, 66);
+   * await mobile.device.hideKeyboard('pressKey', 'Done');
    */
-  async hideKeyboard(strategy: hideKeyboardStrategy, key?: string, keyCode?: number, timeout: number = 5000): Promise<void> {
+  async hideKeyboard(strategy?: hideKeyboardStrategy, key?: string, keyCode?: number, timeout: number = 5000): Promise<void> {
     const vl = this.vlf.initLog(this.hideKeyboard);
 
     const startTime = Date.now();
@@ -327,9 +334,9 @@ export class Device {
         vl.log("Keyboard hidden successfully.");
         return; // Exit if the keyboard is successfully hidden
       } catch (error) {
-        this.ErrorHandler.logException(error, `Error: Failed to hide the keyboard. Retrying...`, true);
         // Wait briefly before retrying
         await new Promise((resolve) => setTimeout(resolve, 500));
+        this.ErrorHandler.logException(error, `Error: Failed to hide the keyboard, Retrying...`, true);
       }
     }
     vl.log(`Failed to hide the keyboard within the timeout of ${timeout}ms.`);
@@ -339,7 +346,9 @@ export class Device {
    * @function isKeyboardVisible
    * @memberof mobile.device
    * @description Checks if the keyboard is visible or not on the mobile device.
-   * @returns {Promise<boolean>}
+   * @returns {Promise<boolean>} Returns 'true' if the keyboard is visible on the mobile view.
+   * @example
+   * await mobile.device.isKeyboardVisible();
    */
   async isKeyboardVisible(): Promise<boolean> {
     const vl = this.vlf.initLog(this.isKeyboardVisible);
@@ -368,6 +377,18 @@ export class Device {
       this.ErrorHandler.logException(error, `Error: Failed to get the is keyboard visible`, true);
     }
     return isKeyboardVisible;
+  }
+
+  /**
+   * @function isPlatformSupported
+   * @memberof mobile.device
+   * @description Determine if the current platform is supported, if the current device platform is either Android or iOS.
+   * @returns {Promise<boolean>} If neither Android nor iOS is detected (e.g., Windows, Linux, or web), the condition evaluates to false
+   * @example
+   * await mobile.device.isPlatformSupported();
+   */
+  async isPlatformSupported(): Promise<boolean> {
+    return (await util.browser.isAndroid()) || (await util.browser.isIos());
   }
 }
 export default new Device();
