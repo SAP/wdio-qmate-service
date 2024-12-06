@@ -10,16 +10,23 @@ export function isCwdGitRepo(): boolean {
   }
 }
 
-export function getCwdGitRemoteUrlHash(): string | null {
-  if (!isCwdGitRepo()) {
-    return null;
-  }
+export function getCwdGitRemoteUrlHash(): string {
+  const FALLBACK_NO_GIT_REPOSITORY = "FALLBACK_NO_GIT_REPOSITORY";
+  const FALLBACK_NO_GIT_ORIGIN_REMOTE = "FALLBACK_NO_GIT_ORIGIN_REMOTE";
+  const FALLBACK_HASHING_FAILED = "FALLBACK_HASHING_FAILED";
 
+  if (!isCwdGitRepo()) {
+    return FALLBACK_NO_GIT_REPOSITORY;
+  }
   try {
     const remoteUrl = execSync("git config --get remote.origin.url").toString().trim();
-    const remoteUrlHash = shajs("sha256").update(remoteUrl).digest("hex");
-    return remoteUrlHash;
+    try {
+      const remoteUrlHash = shajs("sha256").update(remoteUrl).digest("hex");
+      return remoteUrlHash;
+    } catch (error) {
+      return FALLBACK_HASHING_FAILED;
+    }
   } catch (error) {
-    return null;
+    return FALLBACK_NO_GIT_ORIGIN_REMOTE
   }
 }
