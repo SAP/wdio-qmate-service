@@ -27,7 +27,6 @@ export async function createUsage(usageData: {
     });
 
     if (!response.ok) {
-      console.log(`Failed to create Qmate Stats Usage: ${response.status} ${response.statusText}`);
       return null;
     } else {
       const responseText = await response.text();
