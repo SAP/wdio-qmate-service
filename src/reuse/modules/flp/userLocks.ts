@@ -66,19 +66,6 @@ export class UserLocks {
     return lockCount;
   }
 
-  //lock count is the number of locks for the user on the same session.
-  private _getLockCount(sessions: any): number {
-    if (sessions.length > 0) {
-      return sessions[0].NumberOfLocks;
-    } else {
-      return 0;
-    }
-  }
-
-  private _getSessionId(sessions: any): string {
-    return sessions[0].SessionId;
-  }
-
   /**
    * @function deleteExistingLockEntries
    * @memberOf flp.userLocks
@@ -96,7 +83,48 @@ export class UserLocks {
   }
 
   // Private Functions
-  private async _initializeService(instance: any, serviceName: string, user: string, password: string = "Welcome1!"): Promise<any> {
+  /**
+   * @private
+   * @function getLockCount
+   * @memberOf flp.userLocks
+   * @description Gets the number of locks for the user on the same session.
+   * @param {Array} sessions - The sessions.
+   * @returns {Number} The number of locks.
+   * @example const lockCount = flp.userLocks.getLockCount(sessions);
+   */
+  private _getLockCount(sessions: Array<any>): number {
+    if (sessions.length > 0) {
+      return sessions[0].NumberOfLocks;
+    } else {
+      return 0;
+    }
+  }
+
+  /**
+   * @private
+   * @function _getSessionId
+   * @memberOf flp.userLocks
+   * @description Gets the session ID.
+   * @param {Array} sessions - The sessions.
+   * @returns {String} The session ID.
+   * @example const sessionId = flp.userLocks.getSessionId(sessions);
+   */
+  private _getSessionId(sessions: Array<any>): string {
+    return sessions[0].SessionId;
+  }
+
+  /**
+   * @private
+   * @function _initializeService
+   * @memberOf flp.userLocks
+   * @description Initializes the service.
+   * @param {Object} instance - The service instance.
+   * @param {String} serviceName - The service name.
+   * @param {String} user - The user name.
+   * @param {String} [password] - The password.
+   * @returns {Promise<Object>} The service instance.
+   */
+  private async _initializeService(instance: any, serviceName: string, user: string, password: string = "Welcome1!"): Promise<Object> {
     if (!instance) {
       const params = browser.config.params;
       if (!params?.systemUrl || !user || !password) {
@@ -113,14 +141,42 @@ export class UserLocks {
     return instance;
   }
 
+  /**
+   * @private
+   * @function _initializeUserLockService
+   * @memberOf flp.userLocks
+   * @description Initializes the User Lock Service.
+   * @param {String} user - The user name.
+   * @param {String} password - The password.
+   * @returns {Promise<void>}
+   */
   private async _initializeUserLockService(user: string, password: string): Promise<void> {
     this._srvUserLockInstance = await this._initializeService(this._srvUserLockInstance, "APS_IAM_MUS_V2UI", user, password);
   }
 
+  /**
+   * @private
+   * @function _initializeSearchService
+   * @memberOf flp.userLocks
+   * @description Initializes the Search Service.
+   * @param {String} user - The user name.
+   * @param {String} password - The password.
+   * @returns {Promise<void>}
+   */
   private async _initializeSearchService(user: string, password: string): Promise<void> {
     this._srvEshInstance = await this._initializeService(this._srvEshInstance, "ESH_SEARCH_SRV", user, password);
   }
 
+  /**
+   * @private
+   * @function _initializeRequestOptions
+   * @memberOf flp.userLocks
+   * @description Initializes the request options.
+   * @param {String} client - The client number.
+   * @param {String} userId - The user ID.
+   * @param {String} [sessionId] - The session ID.
+   * @returns {void}
+   */
   private _initializeRequestOptions(client: string, userId: string, sessionId: string = "*"): void {
     this._requestOptions = {
       Client: client,
@@ -129,6 +185,17 @@ export class UserLocks {
     };
   }
 
+  /**
+   * @private
+   * @function _getUserInfo
+   * @memberOf flp.userLocks
+   * @description Gets the user info.
+   * @returns {Promise<UserInfo>} The user info.
+   * @throws {Error} If the user info cannot be retrieved.
+   * @example const userInfo = await flp.userLocks.getUserInfo();
+   * @example console.log(userInfo.Id);
+   * @example console.log(userInfo.Name);
+   */
   private async _getUserInfo(): Promise<UserInfo> {
     try {
       const users = await service.odata.get(this._srvEshInstance, "Users", {});
@@ -139,6 +206,18 @@ export class UserLocks {
     }
   }
 
+  /**
+   * @private
+   * @function _extractClientFromUrl
+   * @memberOf flp.userLocks
+   * @description Extracts the client number from the URL.
+   * @param {String} url - The URL.
+   * @returns {String} The client number.
+   * @throws {Error} If the client number cannot be found in the URL.
+   * @example const client = flp.userLocks.extractClientFromUrl("https://www-123.example.com");
+   * @example console.log(client);
+   * @example // Output: 123
+   */
   private _extractClientFromUrl(url: string): string {
     const regex = /https:\/\/\w{3}-(\d{3})\./;
     const match = url.match(regex);
@@ -146,10 +225,26 @@ export class UserLocks {
     throw new Error("Client number not found in the URL");
   }
 
+  /**
+   * @private
+   * @function _getSession
+   * @memberOf flp.userLocks
+   * @description Gets the session.
+   * @returns {Promise<any>} The session.
+   * @example const session = await flp.userLocks.getSession();
+   */
   private async _getSession(): Promise<any> {
     return service.odata.get(this._srvUserLockInstance, "Session", {});
   }
 
+  /**
+   * @private
+   * @function _deleteLockEntries
+   * @memberOf flp.userLocks
+   * @description Deletes the lock entries.
+   * @returns {Promise<void>}
+   * @example await flp.userLocks.deleteLockEntries();
+   */
   private async _deleteLockEntries(): Promise<void> {
     const response = await service.odata.callFunctionImport(this._srvUserLockInstance, "delete_session", this._requestOptions, true);
 
