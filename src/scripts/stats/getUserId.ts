@@ -6,43 +6,44 @@ import { Agent, fetch } from 'undici';
 const localStorage = new LocalStorage(path.join(os.homedir(), '.qmate-userId'));
 
 export async function getUserId(): Promise<string | null> {
-    const urlUser = "http://localhost:3000/api/user";
-    if (isUserIdStored()) {
-        return getUserIdFromStore();
-    } else {
-        try {
-            const response = await fetch(urlUser, {
-                method: "POST",
-                dispatcher: new Agent({
-                    connect: {
-                        ca: process.env.SAP_GLOBAL_ROOT_CA
-                    }
-                })
-            });
-            if (!response.ok) {
-                console.log(`Failed to create Qmate Stats User: ${response.status} ${response.statusText}`);
-                return null;
-            } else {
-                const responseText = await response.text();
-                const responseData = JSON.parse(responseText);
-                saveUserIdToStore(responseData.id);
-                return responseData.id;
-            }
-        } catch (error) {
-            console.log(`Failed to fetch Usage Stats API`);
-            return null;
-        }
+  const urlUser = "http://localhost:3000/api/user";
+  if (isUserIdStored()) {
+    return getUserIdFromStore();
+  } else {
+    try {
+      const response = await fetch(urlUser, {
+        method: "POST",
+        dispatcher: new Agent({
+          connect: {
+            rejectUnauthorized: false,
+            // ca: process.env.SAP_GLOBAL_ROOT_CA
+          }
+        })
+      });
+      if (!response.ok) {
+        console.log(`Failed to create Qmate Stats User: ${response.status} ${response.statusText}`);
+        return null;
+      } else {
+        const responseText = await response.text();
+        const responseData = JSON.parse(responseText);
+        saveUserIdToStore(responseData.id);
+        return responseData.id;
+      }
+    } catch (error) {
+      console.log(`Failed to fetch Usage Stats API`);
+      return null;
     }
+  }
 }
 
 function isUserIdStored() {
-    return localStorage.getItem("UserId") !== null;
+  return localStorage.getItem("UserId") !== null;
 }
 
 function saveUserIdToStore(userId: string) {
-    localStorage.setItem("UserId", userId);
+  localStorage.setItem("UserId", userId);
 }
 
 function getUserIdFromStore() {
-    return localStorage.getItem("UserId");
+  return localStorage.getItem("UserId");
 }

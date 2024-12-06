@@ -10,15 +10,17 @@ import { updateUsageRequests } from "../stats/stats";
  * @param {<Object>} results object containing test results
  */
 
-export default async function (exitCode: any, config: any, capabilities: any, results: any) {
+export default async function (exitCode: any, config: any, capabilities: any, results: any, statsUsageId: string | null) {
   await dataExchangeCommands.writeExportData();
   
-  if (config.params && config.params.qmateStatsOptions) {
-    if (!config.params.qmateStatsOptions.optOut) {
-      if (exitCode === 0){
-        updateUsageRequests('success');
-      } else if (exitCode === 1) {
-        updateUsageRequests('fail');
+  if (statsUsageId !== null) {
+    if (config.params && config.params.qmateStatsOptions) {
+      if (!config.params.qmateStatsOptions.optOut) {
+        if (exitCode === 0){
+          updateUsageRequests(statsUsageId,  'success');
+        } else if (exitCode === 1) {
+          updateUsageRequests(statsUsageId, 'fail');
+        }
       }
     }
   }

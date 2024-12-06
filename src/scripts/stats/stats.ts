@@ -5,19 +5,12 @@ import { getOperatingSystemRelease, getOperatingSystemType, getOperatingSystemVe
 import { getCwdGitRemoteUrlHash } from './getRepositoryInformation';
 import { getUserId } from './getUserId';
 import { getVersion } from './getVersion';
-
-// LocalStorage
-import { LocalStorage } from 'node-localstorage';
-import path from 'path';
-import os from 'os';
 import { updateQmateUsage } from './updateUsage';
 
-const localStorage = new LocalStorage(path.join(os.homedir(), '.qmate-userId'));
-
-export async function sendUsageRequests() {
+export async function sendUsageRequests(): Promise<string | null> {
   const user = await getUserId();
   if (user === null) {
-    return;
+    return null;
   }
 
   const usageData = {
@@ -33,27 +26,17 @@ export async function sendUsageRequests() {
 
   const usageId = await createUsage(usageData);
   if (usageId === null) {
-    return;
+    return null;
   }
-  saveUsageIdToStore(usageId);
+  return usageId;
 }
 
-export async function updateUsageRequests(result: string) {
-  const usageId = getUsageIdFromStore() as string;
-
+export async function updateUsageRequests(usageId: string, result: string) {
   const usageData = {
     "result": result
   }
 
   updateQmateUsage(usageId, usageData);
-}
-
-function saveUsageIdToStore(usageId: string) {
-  localStorage.setItem("UsageId", usageId);
-}
-
-function getUsageIdFromStore() {
-  return localStorage.getItem("UsageId");
 }
 
 

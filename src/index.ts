@@ -10,6 +10,7 @@ import { isBrowserDefined } from "./scripts/hooks/utils/isBrowserDefined";
 const pj = require("../package.json");
 
 module.exports = class CustomWorkerService {
+  private _statsUsageId: string | null = null;
   config: any;
   /**
    * `serviceOptions` contains all options specific to the service
@@ -42,7 +43,9 @@ module.exports = class CustomWorkerService {
       `;
     console.log(logo);
     try {
-      await onPrepareHook(config, capabilities);
+      await onPrepareHook(config, capabilities, (statsUsageId) => {
+        this._statsUsageId = statsUsageId;
+      });
     } catch (e) {
       console.error(`onPrepare hook failed: ${e}`);
     }
@@ -146,7 +149,7 @@ module.exports = class CustomWorkerService {
    */
   async onComplete(exitCode: number, config: any, capabilities: any, results: any) {
     try {
-      await onCompleteHook(exitCode, config, capabilities, results);
+      await onCompleteHook(exitCode, config, capabilities, results, this._statsUsageId);
     } catch (e) {
       util.console.error(`onComplete hook failed: ${e}`);
     }
