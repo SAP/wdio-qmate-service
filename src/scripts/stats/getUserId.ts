@@ -30,7 +30,6 @@ export async function getUserId(): Promise<string | null> {
         return responseData.id;
       }
     } catch (error) {
-      console.log(`Failed to fetch Usage Stats API`);
       return null;
     }
   }
