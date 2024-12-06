@@ -20,7 +20,7 @@ export class UserLocks {
   private _requestOptions = {
     Client: "",
     UserId: "",
-    SessionId: "*" // Default to all sessions
+    SessionId: ""
   };
 
   // Public Functions
@@ -53,19 +53,30 @@ export class UserLocks {
     const client = this._extractClientFromUrl(browser.config.params.systemUrl);
     this._initializeRequestOptions(client, resolvedUserId);
 
-    // Get lock entries
-    const locks = await this._getLockEntries();
-    const lockCount = locks.NumberOfLocks;
+    const sessions = await this._getSession();
+    const lockCount = this._getLockCount(sessions);
 
-    // Log the result
     if (lockCount > 0) {
       util.console.warn(`User '${resolvedUserName}' with ID '${resolvedUserId}' has ${lockCount} lock/s.`);
-      this._requestOptions.SessionId = locks.SessionId;
+      //if there are locks, set the session ID to the first session, since it is needed for deletion.
+      this._requestOptions.SessionId = this._getSessionId(sessions);
     } else {
       util.console.success(`User '${resolvedUserName}' with ID '${resolvedUserId}' has no locks.`);
     }
-
     return lockCount;
+  }
+
+  //lock count is the number of locks for the user on the same session.
+  private _getLockCount(sessions: any): number {
+    if (sessions.length > 0) {
+      return sessions[0].NumberOfLocks;
+    } else {
+      return 0;
+    }
+  }
+
+  private _getSessionId(sessions: any): string {
+    return sessions[0].SessionId;
   }
 
   /**
@@ -135,8 +146,8 @@ export class UserLocks {
     throw new Error("Client number not found in the URL");
   }
 
-  private async _getLockEntries(): Promise<any> {
-    return service.odata.get(this._srvUserLockInstance, "Session", this._requestOptions);
+  private async _getSession(): Promise<any> {
+    return service.odata.get(this._srvUserLockInstance, "Session", {});
   }
 
   private async _deleteLockEntries(): Promise<void> {
