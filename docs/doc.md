@@ -19,6 +19,9 @@
 <dt><a href="#mobile">mobile</a></dt>
 <dd><p>Global namespace for mobile modules.</p>
 </dd>
+<dt><a href="#flp">flp</a></dt>
+<dd><p>Global namespace for Fiori Launchpad (FLP) modules.</p>
+</dd>
 </dl>
 
 <a name="common"></a>
@@ -45,7 +48,7 @@ Global namespace for common modules.
         * [.getNextYear([format])](#common.date.getNextYear) ⇒ <code>String</code>
         * [.getPreviousYear([format])](#common.date.getPreviousYear) ⇒ <code>String</code>
         * [.getSpecific(date, [format])](#common.date.getSpecific) ⇒ <code>String</code>
-        * [.calculate([date], [format])](#common.date.calculate) ⇒ <code>String</code>
+        * [.calculate([date], [format])](#common.date.calculate) ⇒ <code>String</code> \| <code>Date</code>
     * [.navigation](#common.navigation)
         * [.navigateToUrl(url)](#common.navigation.navigateToUrl)
         * [.navigateToUrlAndRetry(url, [retries], [interval])](#common.navigation.navigateToUrlAndRetry)
@@ -192,7 +195,7 @@ await common.assertion.expectUrlToBe("www.sap.com");
     * [.getNextYear([format])](#common.date.getNextYear) ⇒ <code>String</code>
     * [.getPreviousYear([format])](#common.date.getPreviousYear) ⇒ <code>String</code>
     * [.getSpecific(date, [format])](#common.date.getSpecific) ⇒ <code>String</code>
-    * [.calculate([date], [format])](#common.date.calculate) ⇒ <code>String</code>
+    * [.calculate([date], [format])](#common.date.calculate) ⇒ <code>String</code> \| <code>Date</code>
 
 <a name="common.date.getToday"></a>
 
@@ -309,11 +312,11 @@ const date = await common.date.getSpecific("2020, 0, 17", "mm/dd/yyyy");
 ```
 <a name="common.date.calculate"></a>
 
-#### date.calculate([date], [format]) ⇒ <code>String</code>
+#### date.calculate([date], [format]) ⇒ <code>String</code> \| <code>Date</code>
 Calculates the date based on the input parameter and returns it in the given format.
 
 **Kind**: static method of [<code>date</code>](#common.date)  
-**Returns**: <code>String</code> - The calculated date in the given format.  
+**Returns**: <code>String</code> \| <code>Date</code> - The calculated date in the given format.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -619,6 +622,7 @@ Global namespace for util modules.
         * [.executeOptional(fct, args)](#util.function.executeOptional)
     * [.system](#util.system)
         * [.getOS()](#util.system.getOS) ⇒ <code>String</code>
+    * [.userSettings](#util.userSettings)
 
 <a name="util.browser"></a>
 
@@ -1676,6 +1680,10 @@ Returns the current operating system.
 ```js
 const os = await util.system.getOS();
 ```
+<a name="util.userSettings"></a>
+
+### util.userSettings
+**Kind**: static class of [<code>util</code>](#util)  
 <a name="ui5"></a>
 
 ## ui5
@@ -5776,7 +5784,7 @@ Global namespace for mobile modules.
         * [.pressKeyByName(keyName)](#mobile.android.pressKeyByName)
         * [.pressKeyByCode(keyCode)](#mobile.android.pressKeyByCode)
     * [.device](#mobile.device)
-        * [.isAppInstalled(packageIdorBundleId)](#mobile.device.isAppInstalled) ⇒ <code>boolean</code>
+        * [.isAppInstalled(packageIdOrBundleId)](#mobile.device.isAppInstalled) ⇒ <code>boolean</code>
         * [.installApp(appPath)](#mobile.device.installApp)
     * [.element](#mobile.element)
         * [.isVisible(element, [strict])](#mobile.element.isVisible) ⇒ <code>Boolean</code>
@@ -5786,7 +5794,7 @@ Global namespace for mobile modules.
         * [.waitToBeClickable(selector, [timeout])](#mobile.element.waitToBeClickable)
         * [.isSelected(elem)](#mobile.element.isSelected) ⇒ <code>boolean</code>
     * [.gestures](#mobile.gestures)
-        * [.waitToBeClickable(startX, startY, endX, endY, duration)](#mobile.gestures.waitToBeClickable) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.swipe(startX, startY, endX, endY, duration)](#mobile.gestures.swipe) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.ios](#mobile.ios)
     * [.userInteraction](#mobile.userInteraction)
         * [.tap(element, [timeout])](#mobile.userInteraction.tap)
@@ -5820,76 +5828,13 @@ await mobile.device.pressKeyByName("back");
 ```js
 await mobile.device.pressKeyByName("home");
 ```
-**Example**  
-```js
-await mobile.device.pressKeyByName("volumeUp");
-```
-**Example**  
-```js
-await mobile.device.pressKeyByName("volumeDown");
-```
-**Example**  
-```js
-await mobile.device.pressKeyByName("volumeMute");
-```
-**Example**  
-```js
-await mobile.device.pressKeyByName("power");
-```
-**Example**  
-```js
-await mobile.device.pressKeyByName("enter");
-```
-**Example**  
-```js
-await mobile.device.pressKeyByName("space");
-```
-**Example**  
-```js
-await mobile.device.pressKeyByName("delete");
-```
-**Example**  
-```js
-await mobile.device.pressKeyByName("menu");
-```
-**Example**  
-```js
-await mobile.device.pressKeyByName("search");
-```
-**Example**  
-```js
-await mobile.device.pressKeyByName("camera");
-```
-**Example**  
-```js
-await mobile.device.pressKeyByName("focus");
-```
-**Example**  
-```js
-await mobile.device.pressKeyByName("notification");
-```
-**Example**  
-```js
-await mobile.device.pressKeyByName("call");
-```
-**Example**  
-```js
-await mobile.device.pressKeyByName("calendar");
-```
-**Example**  
-```js
-await mobile.device.pressKeyByName("recent");
-```
-**Example**  
-```js
-await mobile.device.pressKeyByName("settings");
-```
 <a name="mobile.android.pressKeyByCode"></a>
 
 #### android.pressKeyByCode(keyCode)
 Simulate pressing a hardware key on the android device (e.g., back button, home button, etc.),
 
 **Kind**: static method of [<code>android</code>](#mobile.android)  
+**See**: https://developer.android.com/reference/android/view/KeyEvent  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -5905,12 +5850,12 @@ await mobile.android.pressKeyByCode(4);
 **Kind**: static class of [<code>mobile</code>](#mobile)  
 
 * [.device](#mobile.device)
-    * [.isAppInstalled(packageIdorBundleId)](#mobile.device.isAppInstalled) ⇒ <code>boolean</code>
+    * [.isAppInstalled(packageIdOrBundleId)](#mobile.device.isAppInstalled) ⇒ <code>boolean</code>
     * [.installApp(appPath)](#mobile.device.installApp)
 
 <a name="mobile.device.isAppInstalled"></a>
 
-#### device.isAppInstalled(packageIdorBundleId) ⇒ <code>boolean</code>
+#### device.isAppInstalled(packageIdOrBundleId) ⇒ <code>boolean</code>
 Check wether given package/bundle app is installed or not in the device.
 
 **Kind**: static method of [<code>device</code>](#mobile.device)  
@@ -5918,7 +5863,7 @@ Check wether given package/bundle app is installed or not in the device.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| packageIdorBundleId | <code>string</code> | Android package Id, or iOS bundle Id. |
+| packageIdOrBundleId | <code>string</code> | Android package Id, or iOS bundle Id. |
 
 **Example**  
 ```js
@@ -6079,9 +6024,9 @@ const isSelected = await mobile.element.isSelected(elem);
 
 ### mobile.gestures
 **Kind**: static class of [<code>mobile</code>](#mobile)  
-<a name="mobile.gestures.waitToBeClickable"></a>
+<a name="mobile.gestures.swipe"></a>
 
-#### gestures.waitToBeClickable(startX, startY, endX, endY, duration) ⇒ <code>Promise.&lt;void&gt;</code>
+#### gestures.swipe(startX, startY, endX, endY, duration) ⇒ <code>Promise.&lt;void&gt;</code>
 Swipe from one point to another on the screen.
 
 **Kind**: static method of [<code>gestures</code>](#mobile.gestures)  
@@ -6137,4 +6082,144 @@ Checks the given checkbox.
 **Example**  
 ```js
 await mobile.userInteraction.check(selector);
+```
+<a name="flp"></a>
+
+## flp
+Global namespace for Fiori Launchpad (FLP) modules.
+
+**Kind**: global constant  
+
+* [flp](#flp)
+    * [.userLocks](#flp.userLocks)
+        * [.getNumberOfLockEntries(user, password, [technicalUserId])](#flp.userLocks.getNumberOfLockEntries) ⇒ <code>Promise.&lt;Number&gt;</code>
+        * [.deleteExistingLockEntries(user, password, [technicalUserId])](#flp.userLocks.deleteExistingLockEntries)
+    * [.userSettings](#flp.userSettings)
+        * [.setLanguageFromUserSettings(user, password)](#flp.userSettings.setLanguageFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.setDateFormatFromUserSettings(user, password)](#flp.userSettings.setDateFormatFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.setDateFormatFromUserSettings(user, password)](#flp.userSettings.setDateFormatFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.setTimeZoneFromUserSettings(user, password)](#flp.userSettings.setTimeZoneFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
+
+<a name="flp.userLocks"></a>
+
+### flp.userLocks
+**Kind**: static class of [<code>flp</code>](#flp)  
+
+* [.userLocks](#flp.userLocks)
+    * [.getNumberOfLockEntries(user, password, [technicalUserId])](#flp.userLocks.getNumberOfLockEntries) ⇒ <code>Promise.&lt;Number&gt;</code>
+    * [.deleteExistingLockEntries(user, password, [technicalUserId])](#flp.userLocks.deleteExistingLockEntries)
+
+<a name="flp.userLocks.getNumberOfLockEntries"></a>
+
+#### userLocks.getNumberOfLockEntries(user, password, [technicalUserId]) ⇒ <code>Promise.&lt;Number&gt;</code>
+Gets the number of lock entries for the given user.
+
+**Kind**: static method of [<code>userLocks</code>](#flp.userLocks)  
+**Returns**: <code>Promise.&lt;Number&gt;</code> - The number of lock entries.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| user | <code>String</code> | The user name. |
+| password | <code>String</code> | The password. |
+| [technicalUserId] | <code>String</code> | The technical user ID. |
+
+**Example**  
+```js
+const lockCount = await flp.userLocks.getNumberOfLockEntries("user", "password");
+```
+<a name="flp.userLocks.deleteExistingLockEntries"></a>
+
+#### userLocks.deleteExistingLockEntries(user, password, [technicalUserId])
+Deletes the existing lock entries for the given user.
+
+**Kind**: static method of [<code>userLocks</code>](#flp.userLocks)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| user | <code>String</code> | The user name. |
+| password | <code>String</code> | The password. |
+| [technicalUserId] | <code>String</code> | The technical user ID. |
+
+**Example**  
+```js
+await flp.userLocks.deleteExistingLockEntries("user", "password");
+```
+<a name="flp.userSettings"></a>
+
+### flp.userSettings
+**Kind**: static class of [<code>flp</code>](#flp)  
+
+* [.userSettings](#flp.userSettings)
+    * [.setLanguageFromUserSettings(user, password)](#flp.userSettings.setLanguageFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.setDateFormatFromUserSettings(user, password)](#flp.userSettings.setDateFormatFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.setDateFormatFromUserSettings(user, password)](#flp.userSettings.setDateFormatFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.setTimeZoneFromUserSettings(user, password)](#flp.userSettings.setTimeZoneFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
+
+<a name="flp.userSettings.setLanguageFromUserSettings"></a>
+
+#### userSettings.setLanguageFromUserSettings(user, password) ⇒ <code>Promise.&lt;void&gt;</code>
+Sets the environment variable 'USER_SETTINGS_LANG_KEY' language from user settings.
+
+**Kind**: static method of [<code>userSettings</code>](#flp.userSettings)  
+**Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when the language has been set.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| user | <code>String</code> | The username for authentication. |
+| password | <code>String</code> | The password for authentication. |
+
+**Example**  
+```js
+await flp.userSettings.setLanguageFromUserSettings("user", "password");
+```
+<a name="flp.userSettings.setDateFormatFromUserSettings"></a>
+
+#### userSettings.setDateFormatFromUserSettings(user, password) ⇒ <code>Promise.&lt;void&gt;</code>
+Sets the environment variable 'USER_SETTINGS_DATE_FORMAT' date format from user settings.
+
+**Kind**: static method of [<code>userSettings</code>](#flp.userSettings)  
+**Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when the date format has been set.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| user | <code>String</code> | The username for authentication. |
+| password | <code>String</code> | The password for authentication. |
+
+**Example**  
+```js
+await flp.userSettings.setDateFormatFromUserSettings("user", "password");
+```
+<a name="flp.userSettings.setDateFormatFromUserSettings"></a>
+
+#### userSettings.setDateFormatFromUserSettings(user, password) ⇒ <code>Promise.&lt;void&gt;</code>
+Sets the environment variable 'USER_SETTINGS_DATE_FORMAT' date format from user settings.
+
+**Kind**: static method of [<code>userSettings</code>](#flp.userSettings)  
+**Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when the date format has been set.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| user | <code>String</code> | The username for authentication. |
+| password | <code>String</code> | The password for authentication. |
+
+**Example**  
+```js
+await flp.userSettings.setDateFormatFromUserSettings("user", "password");
+```
+<a name="flp.userSettings.setTimeZoneFromUserSettings"></a>
+
+#### userSettings.setTimeZoneFromUserSettings(user, password) ⇒ <code>Promise.&lt;void&gt;</code>
+Sets the environment variable 'USER_SETTINGS_TIME_ZONE' time zone from user settings.
+
+**Kind**: static method of [<code>userSettings</code>](#flp.userSettings)  
+**Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when the time zone has been set.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| user | <code>String</code> | The username for authentication. |
+| password | <code>String</code> | The password for authentication. |
+
+**Example**  
+```js
+await flp.userSettings.setTimeZoneFromUserSettings("user", "password");
 ```
