@@ -18,7 +18,7 @@ export async function updateQmateUsage(id: string, usageData: { result: string }
     });
 
     if (!response.ok) {
-      console.log(`Failed to update Qmate Stats Usage: ${response.status} ${response.statusText}`);
+      // Intentionally ignore
     }
   } catch (error) {
     console.log(`Failed to fetch Usage Stats API`);
