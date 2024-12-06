@@ -117,11 +117,12 @@ export class Device {
     const vl = this.vlf.initLog(this.switchToContext);
 
     try {
-      const isWebContextAvailable = await browser.waitUntil(
+      let availableContexts: string[] = [];
+      const isContextAvailable = await browser.waitUntil(
         async () => {
           // Get all available contexts
-          const contexts: string[] = await browser.getContexts();
-          return contexts.some((context) => context.includes(targetContext));
+          availableContexts = await browser.getContexts();
+          return availableContexts.some((context) => context.includes(targetContext));
         },
         {
           timeout,
@@ -129,15 +130,13 @@ export class Device {
         }
       );
 
-      if (isWebContextAvailable) {
-        const contexts: string[] = await browser.getContexts();
+      if (isContextAvailable) {
         // Find and switch to the target context
-        for (const context of contexts) {
-          if (context.includes(targetContext)) {
-            await browser.switchContext(context);
-            vl.log(`Switched to ${context} context successfully...`);
-            return true;
-          }
+        const target = availableContexts.find((context) => context.includes(targetContext));
+        if (target) {
+          await browser.switchContext(target);
+          vl.log(`Switched to ${target} context successfully...`);
+          return true;
         }
       } else {
         vl.log(`Context ${targetContext} is not available.`);
