@@ -73,13 +73,13 @@ export class UserSettings {
     util.console.info(`Date Format: ${process.env.USER_SETTINGS_DATE_FORMAT} was set.`);
   }
   /**
-   * @function setDateFormatFromUserSettings
+   * @function setTimeFormatFromUserSettings
    * @memberOf flp.userSettings
-   * @description Sets the environment variable 'USER_SETTINGS_DATE_FORMAT' date format from user settings.
+   * @description Sets the environment variable 'USER_SETTINGS_DATE_FORMAT' time format from user settings.
    * @param {String} user - The username for authentication.
    * @param {String} password - The password for authentication.
-   * @example await flp.userSettings.setDateFormatFromUserSettings("user", "password");
-   * @returns {Promise<void>} A promise that resolves when the date format has been set.
+   * @example await flp.userSettings.setTimeFormatFromUserSettings("user", "password");
+   * @returns {Promise<void>} A promise that resolves when the time format has been set.
    */
   public async setTimeFormatFromUserSettings(user: string, password: string) {
     const vl = this.vlf.initLog(this.setTimeFormatFromUserSettings);
