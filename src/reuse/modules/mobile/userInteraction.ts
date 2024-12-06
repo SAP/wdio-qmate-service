@@ -148,7 +148,7 @@ export class UserInteraction {
   /**
    * @function fill
    * @memberof mobile.userInteraction
-   * @description Enter a string value into a mobile input box.
+   * @description Enter a string value into a mobile input field.
    * @param {Element | string} element - The selector for the input element (e.g., accessibility ID, XPath, CSS,).
    * @param {string} value - The string value to be entered.
    * @param {number} [timeout = 30000] - The timeout to wait (ms).
@@ -184,7 +184,7 @@ export class UserInteraction {
   /**
    * @function clearAndFill
    * @memberof mobile.userInteraction
-   * @description Enter a string value into a mobile input box.
+   * @description Enter a string into the mobile input field; it will clear the box before submission.
    * @param {Element | string} element - The selector for the input element (e.g., accessibility ID, XPath, CSS,).
    * @param {string} value - The string value to be entered.
    * @param {number} [timeout = 30000] - The timeout to wait (ms).
@@ -224,7 +224,7 @@ export class UserInteraction {
   /**
    * @function clear
    * @memberof mobile.userInteraction
-   * @description Clear a string value into a mobile input box.
+   * @description Clear a string value into a mobile input field.
    * @param {Element | string} element - The selector for the input element (e.g., accessibility ID, XPath, CSS,).
    * @param {number} [timeout = 30000] - The timeout to wait (ms).
    * @returns {Promise<void>}
