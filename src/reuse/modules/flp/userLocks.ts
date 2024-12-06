@@ -94,7 +94,7 @@ export class UserLocks {
    */
   private _getLockCount(sessions: Array<any>): number {
     if (sessions.length > 0) {
-      return sessions[0].NumberOfLocks;
+      return sessions[0].NumberOfLocks; //Always uses the first session.
     } else {
       return 0;
     }
