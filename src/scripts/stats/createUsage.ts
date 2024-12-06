@@ -34,7 +34,6 @@ export async function createUsage(usageData: {
       return responseData.id;
     }
   } catch (error) {
-    console.log(`Failed to fetch Usage Stats API`);
     return null;
   }
 }
