@@ -21,6 +21,6 @@ export async function updateQmateUsage(id: string, usageData: { result: string }
       // Intentionally ignore
     }
   } catch (error) {
-    console.log(`Failed to fetch Usage Stats API`);
+     // Intentionally ignore
   }
 }
