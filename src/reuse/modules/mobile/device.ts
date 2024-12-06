@@ -6,6 +6,13 @@ import ErrorHandler from "../../helper/errorHandler";
 // Types
 type hideKeyboardStrategy = "pressKey" | "tapOutside" | "swipeDown" | "";
 
+const ORIENTATION = {
+  LANDSCAPE: "LANDSCAPE",
+  PORTRAIT: "PORTRAIT",
+  UNKNOWN: "UNKNOWN"
+} as const;
+type Orientation = (typeof ORIENTATION)[keyof typeof ORIENTATION];
+
 /**
  * @class device
  * @memberof mobile
@@ -14,6 +21,34 @@ export class Device {
   private vlf = new VerboseLoggerFactory("mobile", "device");
   private ErrorHandler = new ErrorHandler();
 
+  //==================================Private Methods===============================================
+  /**
+   * @function isValidPlatform
+   * @memberof mobile.device
+   * @description Check the mobile platform from the session's capabilities.
+   * @returns {boolean} Returns 'true' if the platform in the session's capabilities is either Android or iOS.
+   */
+  private async isValidPlatform(): Promise<boolean> {
+    const vl = this.vlf.initLog(this.isValidPlatform);
+
+    const SUPPORTED_PLATFORMS = ["android", "ios"];
+    const platform: string = await browser.capabilities.platformName;
+    return SUPPORTED_PLATFORMS.includes(platform.toLowerCase().trim());
+  }
+
+  /**
+   * @function executionPlatform
+   * @memberof mobile.device
+   * @description Check the mobile platform from the session's capabilities.
+   * @returns {string} Return current execution platform in the session's capabilities.
+   */
+  private async executionPlatform(): Promise<string> {
+    const vl = this.vlf.initLog(this.executionPlatform);
+    const platform: string = browser.capabilities.platformName;
+    return platform.toLowerCase().trim();
+  }
+
+  //==================================Public Methods================================================
   /**
    * @function isAppInstalled
    * @memberof mobile.device
@@ -28,13 +63,12 @@ export class Device {
     const vl = this.vlf.initLog(this.isAppInstalled);
 
     let isAppInstalledInDevice: boolean = false;
-    const platform: string = await browser.capabilities.platformName;
     try {
-      if (["android", "ios"].includes(platform.toLowerCase().trim())) {
+      if (await this.isValidPlatform()) {
         isAppInstalledInDevice = browser.isAppInstalled(appPackageOrBundleId);
-        vl.log(`${platform.toLowerCase()} app installed successfully.`);
+        vl.log(`${await this.executionPlatform()} app installed successfully.`);
       } else {
-        console.error(`Unsupported platform ${platform.toLowerCase().trim()} while checking the is app installed or not`);
+        console.error(`Unsupported platform ${await this.executionPlatform()} while checking the is app installed or not`);
       }
     } catch (error) {
       this.ErrorHandler.logException(error, "Error: Failed at is app installed", true);
@@ -55,17 +89,16 @@ export class Device {
   async installApp(appPath: string): Promise<void> {
     const vl = this.vlf.initLog(this.installApp);
 
-    const platform: string = await browser.capabilities.platformName;
     try {
-      vl.log(`Installing ${platform.toLowerCase()} app...`);
-      if (["android", "ios"].includes(platform.toLowerCase().trim())) {
+      vl.log(`Installing ${await this.executionPlatform()} app...`);
+      if (await this.isValidPlatform()) {
         await browser.installApp(appPath);
-        vl.log(`${platform.toLowerCase()} app installed successfully.`);
+        vl.log(`${await this.executionPlatform()} app installed successfully.`);
       } else {
-        console.error(`Unsupported platform ${platform.toLowerCase().trim()} while installing app`);
+        console.error(`Unsupported platform ${await this.executionPlatform()} while installing app`);
       }
     } catch (error) {
-      this.ErrorHandler.logException(error, `Error: Failed installing the app: ${platform.toLowerCase().trim()}`, true);
+      this.ErrorHandler.logException(error, `Error: Failed installing the app: ${await this.executionPlatform()}`, true);
     }
   }
 
@@ -103,7 +136,6 @@ export class Device {
           if (context.includes(targetContext)) {
             await browser.switchContext(context);
             vl.log(`Switched to ${context} context successfully...`);
-            console.log(`Switched to ${context} context successfully...`);
             return true;
           }
         }
@@ -130,10 +162,8 @@ export class Device {
     try {
       await browser.closeApp();
       vl.log("The application has been closed successfully.");
-      console.log("The application has been closed successfully.");
     } catch (error) {
       this.ErrorHandler.logException(error, `Error: Failed to close the application`, true);
-      console.error("Failed to close the application:", error);
     }
   }
 
@@ -155,20 +185,17 @@ export class Device {
   async queryAppState(appPackageOrBundleId: string): Promise<number> {
     const vl = this.vlf.initLog(this.queryAppState);
 
-    const platform: string = await browser.capabilities.platformName;
     let appState: number = -1;
     try {
-      vl.log(`Querying the app ${platform.toLowerCase()} state...`);
-      if (["android", "ios"].includes(platform.toLowerCase().trim())) {
+      vl.log(`Querying the ${await this.executionPlatform()} app state...`);
+      if (await this.isValidPlatform()) {
         appState = await browser.queryAppState(appPackageOrBundleId);
         vl.log(`Application state for ${appPackageOrBundleId} : ${appState}`);
-        console.log(`Application state for ${appPackageOrBundleId} : ${appState}`);
       } else {
-        console.error(`Unsupported platform while query app state: ${platform.toLowerCase().trim()}`);
+        vl.log(`Unsupported platform while query app state: ${await this.executionPlatform()}`);
       }
     } catch (error) {
       this.ErrorHandler.logException(error, `Error: Failed to query app state for ${appPackageOrBundleId}:`, true);
-      console.error(`Failed to query app state for ${appPackageOrBundleId}:`, error);
     }
     return appState;
   }
@@ -186,97 +213,88 @@ export class Device {
   async launchApp(appPackageOrBundleId: string): Promise<void> {
     const vl = this.vlf.initLog(this.launchApp);
 
-    const platform: string = await browser.capabilities.platformName;
     try {
-      vl.log(`Launching ${platform.toLowerCase()} app...`);
-      if (["android", "ios"].includes(platform.toLowerCase().trim())) {
+      vl.log(`Launching ${await this.executionPlatform()} app...`);
+      if (await this.isValidPlatform()) {
         await browser.activateApp(appPackageOrBundleId);
-        console.log(`${platform.toLowerCase()} App launched successfully with given ${appPackageOrBundleId} Package/bundle ID`);
-        vl.log(`${platform.toLowerCase()} App launched successfully with given ${appPackageOrBundleId} Package/bundle ID`);
+        vl.log(`${await this.executionPlatform()} App launched successfully with given ${appPackageOrBundleId} Package/bundle ID`);
       } else {
-        console.error(`Unsupported platform while launching the app: ${platform.toLowerCase().trim()}`);
+        vl.log(`Unsupported platform while launching the app: ${await this.executionPlatform()}`);
       }
     } catch (error) {
       this.ErrorHandler.logException(error, `Error: Failed to launchApp`, true);
-      console.error("Error: Failed to launchApp", error);
     }
   }
 
   /**
-   * @function switchToLandscape
+   * @function switchToLandscapeOrientation
    * @memberof mobile.device
    * @description Switches the device orientation to landscape mode.
    * @returns {Promise<void>} Resolves when the orientation is successfully switched.
    * @example
-   * await mobile.device.switchToLandscape();
+   * await mobile.device.switchToLandscapeOrientation();
    */
   async switchToLandscapeOrientation(): Promise<void> {
-    const vl = this.vlf.initLog(this.switchToLandscape);
+    const vl = this.vlf.initLog(this.switchToLandscapeOrientation);
 
     try {
       const currentOrientation = await browser.getOrientation();
-      if (currentOrientation === "LANDSCAPE") {
+      if (currentOrientation === ORIENTATION.LANDSCAPE) {
         vl.log("Device is already in landscape mode.");
-        console.log("Device is already in landscape mode.");
         return;
       }
 
-      console.log("Switching device orientation to landscape...");
-      await browser.setOrientation("LANDSCAPE");
-      console.log("Device orientation successfully switched to landscape.");
+      vl.log("Switching device orientation to landscape...");
+      await browser.setOrientation(ORIENTATION.LANDSCAPE);
+      vl.log("Device orientation successfully switched to landscape.");
     } catch (error) {
       this.ErrorHandler.logException(error, `Error: Failed to switch device orientation to landscape`, true);
-      console.error("Failed to switch device orientation to landscape:", error);
     }
   }
 
   /**
-   * @function switchToPortrait
+   * @function switchToPortraitOrientation
    * @memberof mobile.device
    * @description Switches the device orientation to portrait mode.
    * @returns {Promise<void>} Resolves when the orientation is successfully switched.
    * @example
-   * await mobile.device.switchToPortrait();
+   * await mobile.device.switchToPortraitOrientation();
    */
   async switchToPortraitOrientation(): Promise<void> {
-    const vl = this.vlf.initLog(this.switchToPortrait);
+    const vl = this.vlf.initLog(this.switchToPortraitOrientation);
 
     try {
       const currentOrientation = await browser.getOrientation();
-      if (currentOrientation === "PORTRAIT") {
+      if (currentOrientation === ORIENTATION.PORTRAIT) {
         vl.log("Device is already in portrait mode.");
-        console.log("Device is already in portrait mode.");
         return;
       }
 
-      console.log("Switching device orientation to portrait...");
-      await browser.setOrientation("PORTRAIT");
-      console.log("Device orientation successfully switched to portrait.");
+      vl.log("Switching device orientation to portrait...");
+      await browser.setOrientation(ORIENTATION.PORTRAIT);
+      vl.log("Device orientation successfully switched to portrait.");
     } catch (error) {
       this.ErrorHandler.logException(error, `Error: Failed to switch device orientation to portrait`, true);
-      console.error("Failed to switch device orientation to portrait:", error);
     }
   }
 
   /**
    * @function getCurrentOrientation
    * @memberof mobile.device
-   * @description Returns the device orientation.
-   * @returns {Promise<string>} Resolves when the orientation is successfully switched.
+   * @description Returns the device current orientation (PORTRAIT or LANDSCAPE)
+   * @returns {Promise<Orientation>} Get the current device orientation.
    * @example
    * await mobile.device.getCurrentOrientation();
    */
-  async getCurrentOrientation(): Promise<string> {
+  async getCurrentOrientation(): Promise<Orientation> {
     const vl = this.vlf.initLog(this.getCurrentOrientation);
 
-    let orientation = "UNKNOWN"; // Default value
+    let orientation = ORIENTATION.UNKNOWN; // Default value
     try {
       orientation = await browser.getOrientation();
       vl.log(`Current device orientation: ${orientation}`);
-      console.log(`Current device orientation: ${orientation}`);
     } catch (error) {
       this.ErrorHandler.logException(error, `Error: Failed to get the current device orientation`, true);
-      console.error("Failed to get the current device orientation", error);
     }
     return orientation;
   }
@@ -298,26 +316,24 @@ export class Device {
     while (Date.now() - startTime < timeout) {
       try {
         if (await util.browser.isAndroid()) {
-          console.log("Hiding keyboard on Android.");
           vl.log("Hiding keyboard on Android.");
           await browser.hideKeyboard(strategy, key, keyCode);
         } else if (await util.browser.isIos()) {
-          console.log("Hiding keyboard on iOS.");
           vl.log("Hiding keyboard on iOS.");
           await browser.execute("mobile: hideKeyboard", { strategy });
         } else {
-          console.warn("Unsupported platform: Unable to hide the keyboard.");
+          vl.log("Unsupported platform: Unable to hide the keyboard.");
           return;
         }
-        console.log("Keyboard hidden successfully.");
+        vl.log("Keyboard hidden successfully.");
         return; // Exit if the keyboard is successfully hidden
       } catch (error) {
-        console.warn("Failed to hide the keyboard. Retrying...", error);
+        this.ErrorHandler.logException(error, `Error: Failed to hide the keyboard. Retrying...`, true);
         // Wait briefly before retrying
         await new Promise((resolve) => setTimeout(resolve, 500));
       }
     }
-    console.error(`Failed to hide the keyboard within the timeout of ${timeout}ms.`);
+    vl.log(`Failed to hide the keyboard within the timeout of ${timeout}ms.`);
   }
 
   /**
@@ -346,12 +362,11 @@ export class Device {
         isKeyboardVisible = isKeyboardShown === true; // Returns true if the keyboard is visible
         return isKeyboardVisible;
       } else {
-        console.warn("Unsupported platform: Unable to detect keyboard visibility.");
+        vl.log("Unsupported platform: Unable to detect keyboard visibility.");
         return false;
       }
     } catch (error) {
       this.ErrorHandler.logException(error, `Error: Failed to get the is keyboard visible`, true);
-      console.error("Failed to get the is keyboard visible", error);
     }
     return isKeyboardVisible;
   }
