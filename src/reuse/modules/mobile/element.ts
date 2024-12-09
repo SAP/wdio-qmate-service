@@ -38,7 +38,7 @@ export class ElementModule {
    * @function isPresent
    * @memberof mobile.element
    * @description Returns a boolean if the element is present at the DOM or not. It might be hidden.
-   * @param {Object} elem - The element.
+   * @param {Element} element - The element.
    * @returns {Boolean} Returns true or false.
    * @example
    * await mobile.element.isPresent(elem);
