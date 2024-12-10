@@ -61,7 +61,7 @@ export class UserLocks {
       //if there are locks, set the session ID to the first session, since it is needed for deletion.
       this._requestOptions.SessionId = this._getSessionId(sessions);
     } else {
-      util.console.success(`User '${resolvedUserName}' with ID '${resolvedUserId}' has no locks.`);
+      util.console.info(`User '${resolvedUserName}' with ID '${resolvedUserId}' has no locks.`);
     }
     return lockCount;
   }
@@ -192,9 +192,9 @@ export class UserLocks {
    * @description Gets the user info.
    * @returns {Promise<UserInfo>} The user info.
    * @throws {Error} If the user info cannot be retrieved.
-   * @example const userInfo = await flp.userLocks.getUserInfo();
-   * @example console.log(userInfo.Id);
-   * @example console.log(userInfo.Name);
+   * @example const userInfo = await flp.userLocks._getUserInfo();
+   * @example util.console.log(userInfo.Id);
+   * @example util.console.log(userInfo.Name);
    */
   private async _getUserInfo(): Promise<UserInfo> {
     try {
@@ -250,7 +250,7 @@ export class UserLocks {
 
     const sapMessage = JSON.parse(response.headers.get("sap-message"));
     if (sapMessage?.message === "Sessions deleted successfully") {
-      util.console.success(`Locks for user '${this._requestOptions.UserId}' have been deleted.`);
+      util.console.info(`Locks for user '${this._requestOptions.UserId}' have been deleted.`);
     }
   }
 }
