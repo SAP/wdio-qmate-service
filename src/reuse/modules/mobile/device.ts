@@ -117,6 +117,41 @@ export class Device {
     const vl = this.vlf.initLog(this.switchToContext);
 
     try {
+      let target = this.isTargetContextAvailable(targetContext, timeout);
+      if (typeof target === "string") {
+        await browser.switchContext(target);
+        vl.log(`Switched to ${target} context successfully...`);
+        return true;
+      } else {
+        vl.log(`Switched to ${target} context not successful, it may be null`);
+      }
+    } catch (error) {
+      this.ErrorHandler.logException(error, `Error: Failed to switch context`, true);
+    }
+    return false;
+  }
+
+  /**
+   * Checks if the specified target context is available within a given timeout.
+   *
+   * This method retrieves the list of available contexts and determines if a context
+   * that matches the `targetContext` string is present. If the target context is found,
+   * it returns the context name; otherwise, it returns `null`.
+   *
+   * @param {string} [targetContext="WEBVIEW"] - The name of the target context to check for.
+   *   Common examples are "WEBVIEW" or "NATIVE_APP".
+   * @param {number} [timeout=5000] - The maximum time, in milliseconds, to wait for the target
+   *   context to become available.
+   * @returns {Promise<string | null>} - The name of the target context if found, or `null` if
+   *   the context is not available within the timeout.
+   * @example
+   * const context = await isTargetContextAvailable("WEBVIEW", 10000);
+   * const context = await isTargetContextAvailable("NATIVE_APP", 10000);
+   */
+  async isTargetContextAvailable(targetContext: string = "WEBVIEW", timeout: number = 5000): Promise<string | null> {
+    const vl = this.vlf.initLog(this.isTargetContextAvailable);
+
+    try {
       let availableContexts: string[] = [];
       const isContextAvailable = await browser.waitUntil(
         async () => {
@@ -126,25 +161,21 @@ export class Device {
         },
         {
           timeout,
-          timeoutMsg: `Context "${targetContext}" not found within ${timeout}ms`
+          timeoutMsg: `Target Context "${targetContext}" not found within ${timeout}ms`
         }
       );
 
       if (isContextAvailable) {
-        // Find and switch to the target context
         const target = availableContexts.find((context) => context.includes(targetContext));
-        if (target) {
-          await browser.switchContext(target);
-          vl.log(`Switched to ${target} context successfully...`);
-          return true;
-        }
+        vl.log(`Target Context "${target}" is available.`);
+        return target || null;
       } else {
-        vl.log(`Context ${targetContext} is not available.`);
+        vl.log(`Target Context ${targetContext} is not available.`);
       }
     } catch (error) {
-      this.ErrorHandler.logException(error, `Error: Failed to switch context`, true);
+      this.ErrorHandler.logException(error, `Error: Failed to check is target context available`, true);
     }
-    return false;
+    return null;
   }
 
   /**
@@ -363,12 +394,10 @@ export class Device {
         // If the visible height is less, keyboard is visible
         vl.log("if visible height is less, keyboard is visible");
         isKeyboardVisible = windowRect.height < screenSize.height;
-        return isKeyboardVisible;
       } else if (await util.browser.isIos()) {
         // For iOS, check if the keyboard is displayed via Appium's mobile API
         const isKeyboardShown = await browser.execute("mobile: isKeyboardShown");
         isKeyboardVisible = isKeyboardShown === true; // Returns true if the keyboard is visible
-        return isKeyboardVisible;
       } else {
         vl.log("Unsupported platform: Unable to detect keyboard visibility.");
         return false;
