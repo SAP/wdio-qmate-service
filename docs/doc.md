@@ -6097,8 +6097,15 @@ Global namespace for Fiori Launchpad (FLP) modules.
     * [.userSettings](#flp.userSettings)
         * [.setLanguageFromUserSettings(user, password)](#flp.userSettings.setLanguageFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
         * [.setDateFormatFromUserSettings(user, password)](#flp.userSettings.setDateFormatFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
-        * [.setDateFormatFromUserSettings(user, password)](#flp.userSettings.setDateFormatFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.setTimeFormatFromUserSettings(user, password)](#flp.userSettings.setTimeFormatFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
         * [.setTimeZoneFromUserSettings(user, password)](#flp.userSettings.setTimeZoneFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.setNumberFormatFromUserSettings(user, password)](#flp.userSettings.setNumberFormatFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.setS4UserSettings(user, password)](#flp.userSettings.setS4UserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.getLanguageFromUserSettings(user, password)](#flp.userSettings.getLanguageFromUserSettings) ⇒ <code>Promise.&lt;String&gt;</code>
+        * [.getDateFormatFromUserSettings(user, password)](#flp.userSettings.getDateFormatFromUserSettings) ⇒ <code>Promise.&lt;String&gt;</code>
+        * [.getTimeFormatFromUserSettings(user, password)](#flp.userSettings.getTimeFormatFromUserSettings) ⇒ <code>Promise.&lt;String&gt;</code>
+        * [.getTimeZoneFromUserSettings(user, password)](#flp.userSettings.getTimeZoneFromUserSettings) ⇒ <code>Promise.&lt;String&gt;</code>
+        * [.getNumberFormatFromUserSettings(user, password)](#flp.userSettings.getNumberFormatFromUserSettings) ⇒ <code>Promise.&lt;String&gt;</code>
 
 <a name="flp.userLocks"></a>
 
@@ -6152,8 +6159,15 @@ await flp.userLocks.deleteExistingLockEntries("user", "password");
 * [.userSettings](#flp.userSettings)
     * [.setLanguageFromUserSettings(user, password)](#flp.userSettings.setLanguageFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.setDateFormatFromUserSettings(user, password)](#flp.userSettings.setDateFormatFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.setDateFormatFromUserSettings(user, password)](#flp.userSettings.setDateFormatFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.setTimeFormatFromUserSettings(user, password)](#flp.userSettings.setTimeFormatFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.setTimeZoneFromUserSettings(user, password)](#flp.userSettings.setTimeZoneFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.setNumberFormatFromUserSettings(user, password)](#flp.userSettings.setNumberFormatFromUserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.setS4UserSettings(user, password)](#flp.userSettings.setS4UserSettings) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.getLanguageFromUserSettings(user, password)](#flp.userSettings.getLanguageFromUserSettings) ⇒ <code>Promise.&lt;String&gt;</code>
+    * [.getDateFormatFromUserSettings(user, password)](#flp.userSettings.getDateFormatFromUserSettings) ⇒ <code>Promise.&lt;String&gt;</code>
+    * [.getTimeFormatFromUserSettings(user, password)](#flp.userSettings.getTimeFormatFromUserSettings) ⇒ <code>Promise.&lt;String&gt;</code>
+    * [.getTimeZoneFromUserSettings(user, password)](#flp.userSettings.getTimeZoneFromUserSettings) ⇒ <code>Promise.&lt;String&gt;</code>
+    * [.getNumberFormatFromUserSettings(user, password)](#flp.userSettings.getNumberFormatFromUserSettings) ⇒ <code>Promise.&lt;String&gt;</code>
 
 <a name="flp.userSettings.setLanguageFromUserSettings"></a>
 
@@ -6189,13 +6203,13 @@ Sets the environment variable 'USER_SETTINGS_DATE_FORMAT' date format from user 
 ```js
 await flp.userSettings.setDateFormatFromUserSettings("user", "password");
 ```
-<a name="flp.userSettings.setDateFormatFromUserSettings"></a>
+<a name="flp.userSettings.setTimeFormatFromUserSettings"></a>
 
-#### userSettings.setDateFormatFromUserSettings(user, password) ⇒ <code>Promise.&lt;void&gt;</code>
-Sets the environment variable 'USER_SETTINGS_DATE_FORMAT' date format from user settings.
+#### userSettings.setTimeFormatFromUserSettings(user, password) ⇒ <code>Promise.&lt;void&gt;</code>
+Sets the environment variable 'USER_SETTINGS_DATE_FORMAT' time format from user settings.
 
 **Kind**: static method of [<code>userSettings</code>](#flp.userSettings)  
-**Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when the date format has been set.  
+**Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when the time format has been set.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -6204,7 +6218,7 @@ Sets the environment variable 'USER_SETTINGS_DATE_FORMAT' date format from user 
 
 **Example**  
 ```js
-await flp.userSettings.setDateFormatFromUserSettings("user", "password");
+await flp.userSettings.setTimeFormatFromUserSettings("user", "password");
 ```
 <a name="flp.userSettings.setTimeZoneFromUserSettings"></a>
 
@@ -6222,4 +6236,123 @@ Sets the environment variable 'USER_SETTINGS_TIME_ZONE' time zone from user sett
 **Example**  
 ```js
 await flp.userSettings.setTimeZoneFromUserSettings("user", "password");
+```
+<a name="flp.userSettings.setNumberFormatFromUserSettings"></a>
+
+#### userSettings.setNumberFormatFromUserSettings(user, password) ⇒ <code>Promise.&lt;void&gt;</code>
+Sets the environment variable 'USER_SETTINGS_NUMBER_FORMAT' number format from user settings.
+
+**Kind**: static method of [<code>userSettings</code>](#flp.userSettings)  
+**Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when the number format has been set.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| user | <code>String</code> | The username for authentication. |
+| password | <code>String</code> | The password for authentication. |
+
+**Example**  
+```js
+await flp.userSettings.setNumberFormatFromUserSettings("user", "password");
+```
+<a name="flp.userSettings.setS4UserSettings"></a>
+
+#### userSettings.setS4UserSettings(user, password) ⇒ <code>Promise.&lt;void&gt;</code>
+Sets the user settings for S4.
+
+**Kind**: static method of [<code>userSettings</code>](#flp.userSettings)  
+**Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when the user settings have been set.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| user | <code>String</code> | The username for authentication. |
+| password | <code>String</code> | The password for authentication. |
+
+**Example**  
+```js
+await flp.userSettings.setS4UserSettings("user", "password");
+```
+<a name="flp.userSettings.getLanguageFromUserSettings"></a>
+
+#### userSettings.getLanguageFromUserSettings(user, password) ⇒ <code>Promise.&lt;String&gt;</code>
+Gets the language from user settings.
+
+**Kind**: static method of [<code>userSettings</code>](#flp.userSettings)  
+**Returns**: <code>Promise.&lt;String&gt;</code> - The language from user settings.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| user | <code>String</code> | The username for authentication. |
+| password | <code>String</code> | The password for authentication. |
+
+**Example**  
+```js
+const language = await flp.userSettings.getLanguageFromUserSettings("user", "password");
+```
+<a name="flp.userSettings.getDateFormatFromUserSettings"></a>
+
+#### userSettings.getDateFormatFromUserSettings(user, password) ⇒ <code>Promise.&lt;String&gt;</code>
+Gets the date format from user settings.
+
+**Kind**: static method of [<code>userSettings</code>](#flp.userSettings)  
+**Returns**: <code>Promise.&lt;String&gt;</code> - The date format from user settings.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| user | <code>String</code> | The username for authentication. |
+| password | <code>String</code> | The password for authentication. |
+
+**Example**  
+```js
+const dateFormat = await flp.userSettings.getDateFormatFromUserSettings("user", "password");
+```
+<a name="flp.userSettings.getTimeFormatFromUserSettings"></a>
+
+#### userSettings.getTimeFormatFromUserSettings(user, password) ⇒ <code>Promise.&lt;String&gt;</code>
+Gets the time format from user settings.
+
+**Kind**: static method of [<code>userSettings</code>](#flp.userSettings)  
+**Returns**: <code>Promise.&lt;String&gt;</code> - The time format from user settings.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| user | <code>String</code> | The username for authentication. |
+| password | <code>String</code> | The password for authentication. |
+
+**Example**  
+```js
+const timeFormat = await flp.userSettings.getTimeFormatFromUserSettings("user", "password");
+```
+<a name="flp.userSettings.getTimeZoneFromUserSettings"></a>
+
+#### userSettings.getTimeZoneFromUserSettings(user, password) ⇒ <code>Promise.&lt;String&gt;</code>
+Gets the time zone from user settings.
+
+**Kind**: static method of [<code>userSettings</code>](#flp.userSettings)  
+**Returns**: <code>Promise.&lt;String&gt;</code> - The time zone from user settings.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| user | <code>String</code> | The username for authentication. |
+| password | <code>String</code> | The password for authentication. |
+
+**Example**  
+```js
+const timeZone = await flp.userSettings.getTimeZoneFromUserSettings("user", "password");
+```
+<a name="flp.userSettings.getNumberFormatFromUserSettings"></a>
+
+#### userSettings.getNumberFormatFromUserSettings(user, password) ⇒ <code>Promise.&lt;String&gt;</code>
+Gets the number format from user settings.
+
+**Kind**: static method of [<code>userSettings</code>](#flp.userSettings)  
+**Returns**: <code>Promise.&lt;String&gt;</code> - The number format from user settings.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| user | <code>String</code> | The username for authentication. |
+| password | <code>String</code> | The password for authentication. |
+
+**Example**  
+```js
+const numberFormat = await flp.userSettings.getNumberFormatFromUserSettings("user", "password");
 ```

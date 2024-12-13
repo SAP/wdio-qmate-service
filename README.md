@@ -4,7 +4,7 @@
 Qmate Service is a custom WebdriverIO service built in TypeScript for testing web applications and APIs.
 
 ## Pages
-Please find our official and more detailed documentation [here](https://sap.github.io/wdio-qmate-service/).
+Please find our official and more detailed documentation <a href="https://sap.github.io/wdio-qmate-service/" target="_blank">here</a>.
 
 ## Installation
 To install the latest version of the service, simply execute the following command:
@@ -19,5 +19,4 @@ npm install @sap_oss/wdio-qmate-service@latest
 
 
 ## License
-Copyright (c) 2021-2022 SAP SE or an SAP affiliate company and wdio-qmate-service contributors. Please see our [LICENSE](./LICENSES/Apache-2.0.txt) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/SAP/wdio-qmate-service).
-
+Copyright (c) 2021-2022 SAP SE or an SAP affiliate company and wdio-qmate-service contributors. Please see our [LICENSE](./LICENSES/Apache-2.0.txt) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available <a href="https://api.reuse.software/info/github.com/SAP/wdio-qmate-service" target="_blank">via the REUSE tool</a>.
