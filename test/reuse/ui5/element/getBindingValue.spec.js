@@ -51,7 +51,7 @@ describe("element - getBindingValue for wrong attribute", function () {
         break;
       default: //chrome and edge
         await expect(ui5.element.getBindingValue(selector, attribute))
-          .rejects.toThrow("javascript error: Cannot read properties of undefined (reading 'getValue')");
+          .rejects.toThrow("TypeError: Cannot read properties of undefined (reading 'getValue')");
         break;
     }
 
