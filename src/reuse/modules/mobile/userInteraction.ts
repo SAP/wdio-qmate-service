@@ -1,4 +1,3 @@
-import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 
@@ -18,7 +17,7 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example const elem = await mobile.userInteraction.tap(elem);
    */
-  async tap(element: Element, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async tap(element: WebdriverIO.Element, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.tap);
 
     try {
@@ -50,7 +49,7 @@ export class UserInteraction {
    * @param {Element} element - The element or CSS selector describing the element.
    * @example await mobile.userInteraction.check(selector);
    */
-  async check(element: Element) {
+  async check(element: WebdriverIO.Element) {
     const vl = this.vlf.initLog(this.check);
 
     try {

@@ -1,6 +1,5 @@
-import { Element } from "../../../@types/wdio";
 
-export async function resolveCssSelectorOrElement(elementOrSelector: Element | string): Promise<Element> {
+export async function resolveCssSelectorOrElement(elementOrSelector: WebdriverIO.Element | string): Promise<WebdriverIO.Element> {
   if (!elementOrSelector) {
     throw new Error("Please provide an element or a CSS selector as first argument.");
   }

@@ -21,7 +21,7 @@ export class Device {
   async isAppInstalled(packageIdOrBundleId: string): Promise<boolean> {
     const vl = this.vlf.initLog(this.isAppInstalled);
     try {
-      const isAppInstalledInDevice: boolean = browser.isAppInstalled(packageIdOrBundleId);
+      const isAppInstalledInDevice: boolean = await browser.isAppInstalled(packageIdOrBundleId);
       vl.log(`Given app package/bundle id ${packageIdOrBundleId} installed on the device is ${isAppInstalledInDevice.toString()}`);
       return isAppInstalledInDevice;
     } catch (error) {
@@ -40,7 +40,7 @@ export class Device {
    */
   async installApp(appPath: string): Promise<void> {
     const vl = this.vlf.initLog(this.installApp);
-    const platform: String = await browser.capabilities.platformName;
+    const platform: string = browser.capabilities.platformName || "null";
     try {
       vl.log(`Installing ${platform.toLowerCase()} app...`);
       if (["android", "ios"].includes(platform.toLowerCase().trim())) {

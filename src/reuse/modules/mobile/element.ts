@@ -1,4 +1,3 @@
-import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 
@@ -21,11 +20,11 @@ export class ElementModule {
    * @example const elem = await mobile.element.isVisible("button01");
    * await mobile.element.isVisible(elem);
    */
-  async isVisible(element: Element, strict: boolean = true): Promise<boolean> {
+  async isVisible(element: WebdriverIO.Element, strict: boolean = true): Promise<boolean> {
     const vl = this.vlf.initLog(this.isVisible);
     try {
       if (strict) {
-        return element.isDisplayedInViewport();
+        return element.isDisplayed({ withinViewport: true });
       } else {
         return element.isDisplayed();
       }
@@ -43,7 +42,7 @@ export class ElementModule {
    * @example
    * await mobile.element.isPresent(elem);
    */
-  async isPresent(element: Element): Promise<boolean> {
+  async isPresent(element: WebdriverIO.Element): Promise<boolean> {
     const vl = this.vlf.initLog(this.isPresent);
     return element.isExisting();
   }
@@ -58,7 +57,7 @@ export class ElementModule {
    * @example await mobile.element.waitToBePresent("#button12");
    * @example await mobile.element.waitToBePresent("p:first-child");
    */
-  async waitToBePresent(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<void> {
+  async waitToBePresent(selector: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<void> {
     const vl = this.vlf.initLog(this.waitToBePresent);
     try {
       vl.log(`wdio.waitForExist invocation for selector ${selector}`);
@@ -117,7 +116,7 @@ export class ElementModule {
    * @example const elem = await mobile.element.getById("elem01");
    * const isSelected = await mobile.element.isSelected(elem);
    */
-  async isSelected(elem: Element): Promise<boolean> {
+  async isSelected(elem: WebdriverIO.Element): Promise<boolean> {
     const vl = this.vlf.initLog(this.isSelected);
     return elem.isSelected();
   }

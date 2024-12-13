@@ -1,6 +1,5 @@
 "use strict";
 
-import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { AlignmentOptions, AlignmentValues } from "../types";
 import ErrorHandler from "../../helper/errorHandler";
@@ -749,6 +748,7 @@ export class UserInteraction {
       elem = await browser.getActiveElement();
     } else {
       elem = await browser.getActiveElement();
+      elem = await $(elem).getElement();
       await elem.click();
       // @ts-ignore
       id = await util.function.getAttribute(elem, "id");
