@@ -21,8 +21,8 @@ describe("webdriver.io page locator test", function () {
     };
     const elem = await browser.uiControl(ui5ControlProperties);
     await expect(elem).toBeDisplayedInViewport();
-    expect(elem).toBeInstanceOf(Object);
-    expect(elem).toHaveAttribute("elementId");
+    await expect(elem).toBeInstanceOf(Object);
+    await expect(elem).toHaveAttribute("elementId");
   });
 
   it("should access element by elementProperties and nextSiblingProperties", async function () {
@@ -40,8 +40,8 @@ describe("webdriver.io page locator test", function () {
     };
     const elem = await browser.uiControl(ui5ControlProperties);
     await expect(elem).toBeDisplayedInViewport();
-    expect(elem).toBeInstanceOf(Object);
-    expect(elem).toHaveAttribute("elementId");
+    await expect(elem).toBeInstanceOf(Object);
+    await expect(elem).toHaveAttribute("elementId");
   });
 
   it("should access element by elementProperties and previousSiblingProperties", async function () {
@@ -59,8 +59,8 @@ describe("webdriver.io page locator test", function () {
     };
     const elem = await browser.uiControl(ui5ControlProperties);
     await expect(elem).toBeDisplayedInViewport();
-    expect(elem).toBeInstanceOf(Object);
-    expect(elem).toHaveAttribute("elementId");
+    await expect(elem).toBeInstanceOf(Object);
+    await expect(elem).toHaveAttribute("elementId");
   });
 
   it("should access elements only by siblingProperties and fail (unhappy case)", async function () {
@@ -93,8 +93,8 @@ describe("webdriver.io page locator test", function () {
     await expect(elem).toBeDisplayedInViewport();
     await expect(elem).toBeDisplayed();
     await expect(elem).toBeClickable();
-    expect(elem).toBeInstanceOf(Object);
-    expect(elem).toHaveAttribute("elementId");
+    await expect(elem).toBeInstanceOf(Object);
+    await expect(elem).toHaveAttribute("elementId");
   });
 
   it("try access element by elementProperties and siblingProperties and throw error", async function () {

@@ -6,7 +6,7 @@ describe("webdriver.io page", function () {
 
   it("step1: check name is Accessories - use UI5 Control properties", async function () {
     const parent = await $("#container-cart---homeView--categoryList-listUl");
-    const elem = (await parent.$$('li[id*="homeView--categoryList"]'))[0];
+    const elem = (await parent.$$('li[id*="homeView--categoryList"]').getElements())[0];
     await browser.waitUntil(
       async () => {
         try {
@@ -108,7 +108,7 @@ describe("webdriver.io page", function () {
       }
     );
     await expect(elem.getAllUI5Aggregations()).resolves.toContain("tooltip");
-    await expect(elem.getUI5Aggregation("")).rejects.toThrow("javascript error: done is not a function");
+    await expect(elem.getUI5Aggregation("")).rejects.toThrow("TypeError: done is not a function");
   });
 
   it("step6: check element's Binding context path using chain $.$$ and get wrong element property", async function () {
@@ -129,7 +129,7 @@ describe("webdriver.io page", function () {
       }
     );
     await expect(elem.getBindingContextPath()).resolves.toContain("/ProductCategories('AC')");
-    await expect(elem.getUI5Property("")).rejects.toThrow("javascript error: done is not a function");
+    await expect(elem.getUI5Property("")).rejects.toThrow("TypeError: done is not a function");
   });
 
   it("step7: get wrong element by wrong selector and throw error", async function () {
