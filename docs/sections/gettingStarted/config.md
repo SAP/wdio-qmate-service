@@ -15,4 +15,4 @@ exports.config = {
 ```
 
 !!! info "WebdriverIO Parameters"
-    For more information about **how to setup your config**, please see the official [documentation](https://webdriver.io/docs/configurationfile/) from WebdriverIO.
+    For more information about **how to setup your config**, please see the official [documentation](https://webdriver.io/docs/configurationfile/){target="__blank"} from WebdriverIO.
