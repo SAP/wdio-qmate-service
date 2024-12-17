@@ -10,7 +10,21 @@ on:
   workflow_dispatch:
 
 jobs:
-  docs:
+  generate-docs:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate Docs with Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm run generate-docs
+
+  publish-docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,4 +34,4 @@ jobs:
       - run: pip install --upgrade pip && pip install mkdocs mkdocs-material mkdocs-material-extensions
       - run: git config user.name 'github-actions[bot]' && git config user.email 'github-actions[bot]@users.noreply.github.com'
       - name: Re-generate and Publish docs
-        run: npm run generate-docs && mkdocs gh-deploy
+        run: mkdocs gh-deploy
