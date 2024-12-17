@@ -6,7 +6,7 @@ import { Agent, fetch } from 'undici';
 const localStorage = new LocalStorage(path.join(os.homedir(), '.qmate-userId'));
 
 export async function getUserId(): Promise<string | null> {
-  const urlUser = "http://localhost:3000/api/user";
+  const urlUser = "https://stats.qmate.proc.only.sap/api/user";
   if (isUserIdStored()) {
     return getUserIdFromStore();
   } else {
