@@ -12,7 +12,7 @@ describe("webdriver.io page", function () {
         try {
           return await elem.getAllUI5Properties();
         } catch (error) {
-          // console.log(error.message);
+          console.log(error.message);
           return false;
         }
       },
@@ -34,7 +34,7 @@ describe("webdriver.io page", function () {
         try {
           return await elem.getAllUI5Aggregations();
         } catch (error) {
-          // console.log(error.message);
+          console.log(error.message);
           return false;
         }
       },
