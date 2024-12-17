@@ -68,10 +68,10 @@ export class Device {
         isAppInstalledInDevice = browser.isAppInstalled(appPackageOrBundleId);
         vl.log(`${await this.executionPlatform()} app installed successfully.`);
       } else {
-        console.error(`Unsupported platform ${await this.executionPlatform()} while checking the is app installed or not`);
+        vl.log(`Unsupported platform while checking the is app installed or not`);
       }
     } catch (error) {
-      this.ErrorHandler.logException(error, "Error: Failed at is app installed", true);
+      this.ErrorHandler.logException(error, "Error: Could not determine if app is installed, The provided package name is invalid.", true);
     }
     return isAppInstalledInDevice;
   }
@@ -95,10 +95,10 @@ export class Device {
         await browser.installApp(appPath);
         vl.log(`${await this.executionPlatform()} app installed successfully.`);
       } else {
-        console.error(`Unsupported platform ${await this.executionPlatform()} while installing app`);
+        vl.log(`Unsupported platform ${await this.executionPlatform()} while installing app`);
       }
     } catch (error) {
-      this.ErrorHandler.logException(error, `Error: Failed installing the app: ${await this.executionPlatform()}`, true);
+      this.ErrorHandler.logException(error, `Error: Unable to install app. The provided app path ${appPath} does not exist`, true);
     }
   }
 
@@ -117,7 +117,7 @@ export class Device {
     const vl = this.vlf.initLog(this.switchToContext);
 
     try {
-      let target = this.isTargetContextAvailable(targetContext, timeout);
+      let target = this.getTargetContextAvailable(targetContext, timeout);
       if (typeof target === "string") {
         await browser.switchContext(target);
         vl.log(`Switched to ${target} context successfully...`);
@@ -126,7 +126,7 @@ export class Device {
         vl.log(`Switched to ${target} context not successful, it may be null`);
       }
     } catch (error) {
-      this.ErrorHandler.logException(error, `Error: Failed to switch context`, true);
+      this.ErrorHandler.logException(error, `Error: No contexts available, Could not switch to ${targetContext} context 'INVALID_CONTEXT'. `, true);
     }
     return false;
   }
@@ -145,11 +145,11 @@ export class Device {
    * @returns {Promise<string | null>} - The name of the target context if found, or `null` if
    *   the context is not available within the timeout.
    * @example
-   * const context = await isTargetContextAvailable("WEBVIEW", 10000);
-   * const context = await isTargetContextAvailable("NATIVE_APP", 10000);
+   * const context = await getTargetContextAvailable("WEBVIEW", 10000);
+   * const context = await getTargetContextAvailable("NATIVE_APP", 10000);
    */
-  async isTargetContextAvailable(targetContext: string = "WEBVIEW", timeout: number = 5000): Promise<string | null> {
-    const vl = this.vlf.initLog(this.isTargetContextAvailable);
+  async getTargetContextAvailable(targetContext: string = "WEBVIEW", timeout: number = 5000): Promise<string | null> {
+    const vl = this.vlf.initLog(this.getTargetContextAvailable);
 
     try {
       let availableContexts: string[] = [];
@@ -173,7 +173,7 @@ export class Device {
         vl.log(`Target Context ${targetContext} is not available.`);
       }
     } catch (error) {
-      this.ErrorHandler.logException(error, `Error: Failed to check is target context available`, true);
+      this.ErrorHandler.logException(error, `Error: No contexts available, Failed to check is target ${targetContext} context available`, true);
     }
     return null;
   }
@@ -193,7 +193,7 @@ export class Device {
       await browser.closeApp();
       vl.log("The application has been closed successfully.");
     } catch (error) {
-      this.ErrorHandler.logException(error, `Error: Failed to close the application`, true);
+      this.ErrorHandler.logException(error, `Error: Unable to close app, the app is not currently running`, true);
     }
   }
 
@@ -225,7 +225,7 @@ export class Device {
         vl.log(`Unsupported platform while query app state: ${await this.executionPlatform()}`);
       }
     } catch (error) {
-      this.ErrorHandler.logException(error, `Error: Failed to query app state for ${appPackageOrBundleId}:`, true);
+      this.ErrorHandler.logException(error, `Error: Unable to query app state, the package name ${appPackageOrBundleId} is invalid or does not exist.`, true);
     }
     return appState;
   }
@@ -252,7 +252,7 @@ export class Device {
         vl.log(`Unsupported platform while launching the app: ${await this.executionPlatform()}`);
       }
     } catch (error) {
-      this.ErrorHandler.logException(error, `Error: Failed to launchApp`, true);
+      this.ErrorHandler.logException(error, `Error: Unable to launch the app, the package name ${appPackageOrBundleId} is invalid or does not exist.`, true);
     }
   }
 
@@ -278,7 +278,7 @@ export class Device {
       await browser.setOrientation(ORIENTATION.LANDSCAPE);
       vl.log("Device orientation successfully switched to landscape.");
     } catch (error) {
-      this.ErrorHandler.logException(error, `Error: Failed to switch device orientation to landscape`, true);
+      this.ErrorHandler.logException(error, `Error: Could not change device orientation, Invalid argument: The orientation must be 'LANDSCAPE'.`, true);
     }
   }
 
@@ -304,7 +304,7 @@ export class Device {
       await browser.setOrientation(ORIENTATION.PORTRAIT);
       vl.log("Device orientation successfully switched to portrait.");
     } catch (error) {
-      this.ErrorHandler.logException(error, `Error: Failed to switch device orientation to portrait`, true);
+      this.ErrorHandler.logException(error, `Error: Could not change device orientation, Invalid argument: The orientation must be 'PORTRAIT`, true);
     }
   }
 
@@ -312,7 +312,7 @@ export class Device {
    * @function getCurrentOrientation
    * @memberof mobile.device
    * @description Returns the device current orientation (PORTRAIT or LANDSCAPE)
-   * @returns {Promise<Orientation>} Get the current device orientation.
+   * @returns {Promise<Orientation>} The current device orientation.
    * @example
    * await mobile.device.getCurrentOrientation();
    */
@@ -324,7 +324,7 @@ export class Device {
       orientation = await browser.getOrientation();
       vl.log(`Current device orientation: ${orientation}`);
     } catch (error) {
-      this.ErrorHandler.logException(error, `Error: Failed to get the current device orientation`, true);
+      this.ErrorHandler.logException(error, `Error: Could not get the current device orientation`, true);
     }
     return orientation;
   }
