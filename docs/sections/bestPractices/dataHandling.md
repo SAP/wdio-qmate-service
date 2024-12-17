@@ -40,7 +40,7 @@
       "lastName":  "Doe",
       "address": {
         "street":   "Main Road",
-        "number":   "432",
+        "number":   "42",
         "zipCode":  "01234",
         "city":     "Metropolis"
       }
