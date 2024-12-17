@@ -91,7 +91,7 @@ describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both eleme
     expect(allAggregationNamesOnElementLevel).not.toContain("wrong_aggregation");
     expect(allAggregationNamesOnElementLevel).not.toContain("");
 
-    await expect(element.getUI5Aggregation("")).rejects.toThrow("javascript error: done is not a function");
+    await expect(element.getUI5Aggregation("")).rejects.toThrow("TypeError: done is not a function");
     await expect(browser.getUI5Aggregation("wrong_aggregation_name", element)).resolves.toBeNull();
   });
 });

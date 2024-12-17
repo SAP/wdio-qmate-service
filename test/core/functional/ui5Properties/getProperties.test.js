@@ -196,7 +196,7 @@ describe("Test 'getUI5Property()' and 'getUI5Properties()' on both element and b
 
     await expect(button.getUI5Property("wrong_property_name")).resolves.toBeNull();
     await expect(browser.getUI5Property("wrong_property_name", button)).resolves.toBeNull();
-    await expect(button.getUI5Property("")).rejects.toThrow("javascript error: done is not a function");
+    await expect(button.getUI5Property("")).rejects.toThrow("TypeError: done is not a function");
   });
 });
 
