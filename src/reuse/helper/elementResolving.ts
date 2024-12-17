@@ -14,7 +14,7 @@ export async function resolveCssSelectorOrElement(elementOrSelector: Element | s
 
 export async function resolveMobileSelectorOrElement(elementOrSelector: Element | string): Promise<Element> {
   if (!elementOrSelector) {
-    throw new Error("Please provide an element or a CSS selector as first argument.");
+    throw new Error("Please provide an element or a selector as first argument.");
   }
 
   if (typeof elementOrSelector === "string") {
