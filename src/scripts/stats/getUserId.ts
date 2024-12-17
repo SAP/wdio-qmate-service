@@ -16,7 +16,6 @@ export async function getUserId(): Promise<string | null> {
         dispatcher: new Agent({
           connect: {
             rejectUnauthorized: false,
-            // ca: process.env.SAP_GLOBAL_ROOT_CA
           }
         })
       });

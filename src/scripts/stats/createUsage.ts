@@ -9,6 +9,7 @@ export async function createUsage(usageData: {
   environment: string[];
   configHash: string;
   repoHash: string | null;
+  specCounter: number;
 }): Promise<string | null> {
   const urlUsage = "https://stats.qmate.proc.only.sap/api/usage/qmate";
   try {
@@ -21,7 +22,6 @@ export async function createUsage(usageData: {
       dispatcher: new Agent({
         connect: {
           rejectUnauthorized: false,
-          // ca: process.env.SAP_GLOBAL_ROOT_CA
         }
       })
     });

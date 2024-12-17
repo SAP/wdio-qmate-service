@@ -7,7 +7,7 @@ import { getUserId } from './getUserId';
 import { getVersion } from './getVersion';
 import { updateQmateUsage } from './updateUsage';
 
-export async function sendUsageRequests(): Promise<string | null> {
+export async function sendUsageRequests(specCounter: number): Promise<string | null> {
   const user = await getUserId();
   if (user === null) {
     return null;
@@ -22,6 +22,7 @@ export async function sendUsageRequests(): Promise<string | null> {
     "environment": getEnvironmentVariables(),
     "configHash": getConfigurationHash(),
     "repoHash": getCwdGitRemoteUrlHash(),
+    "specCounter": specCounter,
   };
 
   const usageId = await createUsage(usageData);
@@ -33,10 +34,10 @@ export async function sendUsageRequests(): Promise<string | null> {
 
 export async function updateUsageRequests(usageId: string, result: string) {
   const usageData = {
-    "result": result
+    result
   }
 
-  updateQmateUsage(usageId, usageData);
+  void updateQmateUsage(usageId, usageData);
 }
 
 
