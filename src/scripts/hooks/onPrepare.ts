@@ -13,11 +13,13 @@ export default async function (config: any, capabilities: Array<object>, callbac
     process.env.CONFIG_PATH = path.dirname(config._[0]);
   }
 
+  const specCounter = countNestedArrayElements(config.specs);
+
   // Send usage requests
   if (config.params && config.params.qmateStatsOptions) {
     if (!config.params.qmateStatsOptions.optOut) {
       try {
-        sendUsageRequests().then((res) => {
+        sendUsageRequests(specCounter).then((res) => {
           if (res != null) {
             callbackStatsUsageId(res);
           }
@@ -38,3 +40,17 @@ export default async function (config: any, capabilities: Array<object>, callbac
   // Create a temporary data folder
   await dataExchangeCommands.createTmpDataFolder();
 };
+
+function countNestedArrayElements(arr: any[]): number {
+  let count = 0;
+
+  for (const element of arr) {
+    if (Array.isArray(element)) {
+      count += countNestedArrayElements(element);
+    } else {
+      count++;
+    }
+  }
+
+  return count;
+}

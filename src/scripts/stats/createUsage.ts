@@ -9,6 +9,7 @@ export async function createUsage(usageData: {
   environment: string[];
   configHash: string;
   repoHash: string | null;
+  specCounter: number;
 }): Promise<string | null> {
   const urlUsage = "http://localhost:3000/api/usage/qmate";
   try {
