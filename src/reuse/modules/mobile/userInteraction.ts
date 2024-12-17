@@ -28,7 +28,7 @@ export class UserInteraction {
       const element = await resolveMobileSelectorOrElement(elementOrSelector);
 
       vl.log("Waiting for the element to become enabled and visible within the specified timeout");
-      await Promise.all([mobile.element.waitToBeVisible(element, timeout), mobile.element.waitTotoBeEnabled(element, timeout)]);
+      await Promise.all([mobile.element.waitToBeVisible(element, timeout), mobile.element.waitToBeEnabled(element, timeout)]);
       vl.log("Tapping on the element");
       await element.click();
       vl.log("Given element is successfully taped on the mobile Ui");
@@ -54,7 +54,7 @@ export class UserInteraction {
       const element = await resolveMobileSelectorOrElement(elementOrSelector);
 
       vl.log("Waiting for the element to become enabled and visible within the specified timeout");
-      await Promise.all([mobile.element.waitToBeVisible(element, timeout), mobile.element.waitTotoBeEnabled(element, timeout)]);
+      await Promise.all([mobile.element.waitToBeVisible(element, timeout), mobile.element.waitToBeEnabled(element, timeout)]);
       const isSelected: boolean = await mobile.element.isSelected(element);
       if (!isSelected) {
         await this.tap(element);
@@ -84,7 +84,7 @@ export class UserInteraction {
       const element = await resolveMobileSelectorOrElement(elementOrSelector);
 
       vl.log("Waiting for the element to become enabled and visible within the specified timeout");
-      await Promise.all([mobile.element.waitToBeVisible(element, timeout), mobile.element.waitTotoBeEnabled(element, timeout)]);
+      await Promise.all([mobile.element.waitToBeVisible(element, timeout), mobile.element.waitToBeEnabled(element, timeout)]);
       const isSelected: boolean = await mobile.element.isSelected(element);
       if (isSelected) {
         await this.tap(element);
@@ -115,7 +115,7 @@ export class UserInteraction {
       const element = await resolveMobileSelectorOrElement(elementOrSelector);
 
       vl.log("Waiting for the element to become enabled and visible within the specified timeout");
-      await Promise.all([mobile.element.waitToBeVisible(element, timeout), mobile.element.waitTotoBeEnabled(element, timeout)]);
+      await Promise.all([mobile.element.waitToBeVisible(element, timeout), mobile.element.waitToBeEnabled(element, timeout)]);
       vl.log("Double taping on the element");
       await element.doubleClick();
       vl.log("Given element is successfully double taped on the mobile Ui");
@@ -143,7 +143,7 @@ export class UserInteraction {
       const element = await resolveMobileSelectorOrElement(elementOrSelector);
 
       vl.log("Waiting for the element to become enabled and visible within the specified timeout");
-      await Promise.all([mobile.element.waitToBeVisible(element, timeout), mobile.element.waitTotoBeEnabled(element, timeout)]);
+      await Promise.all([mobile.element.waitToBeVisible(element, timeout), mobile.element.waitToBeEnabled(element, timeout)]);
 
       // Set the value
       vl.log("set text on the element");
@@ -173,7 +173,7 @@ export class UserInteraction {
       const element = await resolveMobileSelectorOrElement(elementOrSelector);
 
       vl.log("Waiting for the element to become enabled and visible within the specified timeout");
-      await Promise.all([mobile.element.waitToBeVisible(element, timeout), mobile.element.waitTotoBeEnabled(element, timeout)]);
+      await Promise.all([mobile.element.waitToBeVisible(element, timeout), mobile.element.waitToBeEnabled(element, timeout)]);
 
       // Clear the input box.
       await element.clearValue();
@@ -206,7 +206,7 @@ export class UserInteraction {
       const element = await resolveMobileSelectorOrElement(elementOrSelector);
 
       vl.log("Waiting for the element to become enabled and visible within the specified timeout");
-      await Promise.all([mobile.element.waitToBeVisible(element, timeout), mobile.element.waitTotoBeEnabled(element, timeout)]);
+      await Promise.all([mobile.element.waitToBeVisible(element, timeout), mobile.element.waitToBeEnabled(element, timeout)]);
 
       vl.log("Clearing the existing text on the given element");
       await element.clearValue();

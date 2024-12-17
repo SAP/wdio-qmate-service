@@ -153,8 +153,8 @@ export class ElementModule {
    * @example await mobile.element.waitTotoBeEnabled("#button12");
    * @example await mobile.element.waitTotoBeEnabled("p:first-child");
    */
-  async waitTotoBeEnabled(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<boolean> {
-    const vl = this.vlf.initLog(this.waitTotoBeEnabled);
+  async waitToBeEnabled(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<boolean> {
+    const vl = this.vlf.initLog(this.waitToBeEnabled);
     try {
       vl.log(`wdio.waitTotoBeEnabled invocation for selector ${selector}`);
       await $(selector).toBeEnabled({
