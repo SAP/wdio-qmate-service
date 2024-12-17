@@ -19,7 +19,7 @@ export class ElementModule {
    * @param {Boolean} [strict=true] - If strict mode is enabled it will only return "true" if the element is visible on the mobile view and within the viewport.
    * If "false", it will be sufficient if the element is visible on the view but not inside the current viewport.
    * @returns {Boolean} Returns true or false.
-   * @example const elem = await mobile.element.isVisible("button01");
+   * @example
    * await mobile.element.isVisible(elem);
    */
   async isVisible(element: Element, strict: boolean = true): Promise<boolean> {
@@ -133,7 +133,7 @@ export class ElementModule {
    * @description Returns a boolean if the element (e.g. checkbox) is selected.
    * @param {Element | string} elementOrSelector - The element.
    * @returns {boolean}
-   * @example const elem = await mobile.element.getById("elem01");
+   * @example
    * const isSelected = await mobile.element.isSelected(elem);
    */
   async isSelected(elementOrSelector: Element | string): Promise<boolean> {
@@ -144,14 +144,14 @@ export class ElementModule {
   }
 
   /**
-   * @function waitTotoBeEnabled
+   * @function waitToBeEnabled
    * @memberof mobile.element
    * @description Waits until the element with the given selector is present.
    * @param {Object} selector - The CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await mobile.element.waitTotoBeEnabled(".input01");
-   * @example await mobile.element.waitTotoBeEnabled("#button12");
-   * @example await mobile.element.waitTotoBeEnabled("p:first-child");
+   * @example await mobile.element.waitToBeEnabled(".input01");
+   * @example await mobile.element.waitToBeEnabled("#button12");
+   * @example await mobile.element.waitToBeEnabled("p:first-child");
    */
   async waitToBeEnabled(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<boolean> {
     const vl = this.vlf.initLog(this.waitToBeEnabled);
