@@ -117,7 +117,7 @@ export class Device {
     const vl = this.vlf.initLog(this.switchToContext);
 
     try {
-      let target = this.getTargetContextAvailable(targetContext, timeout);
+      let target = this.getTargetContextIfAvailable(targetContext, timeout);
       if (typeof target === "string") {
         await browser.switchContext(target);
         vl.log(`Switched to ${target} context successfully...`);
@@ -132,7 +132,7 @@ export class Device {
   }
 
   /**
-   * Checks if the specified target context is available within a given timeout.
+   * Returns the specified target context if available within a given timeout.
    *
    * This method retrieves the list of available contexts and determines if a context
    * that matches the `targetContext` string is present. If the target context is found,
@@ -148,8 +148,8 @@ export class Device {
    * const context = await getTargetContextAvailable("WEBVIEW", 10000);
    * const context = await getTargetContextAvailable("NATIVE_APP", 10000);
    */
-  async getTargetContextAvailable(targetContext: string = "WEBVIEW", timeout: number = 5000): Promise<string | null> {
-    const vl = this.vlf.initLog(this.getTargetContextAvailable);
+  async getTargetContextIfAvailable(targetContext: string = "WEBVIEW", timeout: number = 5000): Promise<string | null> {
+    const vl = this.vlf.initLog(this.getTargetContextIfAvailable);
 
     try {
       let availableContexts: string[] = [];
