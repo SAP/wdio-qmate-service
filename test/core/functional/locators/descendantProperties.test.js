@@ -88,7 +88,7 @@ describe("webdriver.io page locator test", function () {
 
     await expect(elem).toBeDisplayedInViewport();
     await expect(elem).toBeInstanceOf(Object);
-    await expect(elem).toHaveAttribute("elementId");
+    await expect(elem).toHaveAttribute("id", expect.stringContaining("data"));
   });
 
   it("try access element by wrong descendant properties and catch error", async function () {
