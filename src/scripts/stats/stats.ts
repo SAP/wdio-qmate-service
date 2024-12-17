@@ -31,12 +31,15 @@ export async function sendUsageRequests(): Promise<string | null> {
   return usageId;
 }
 
-export async function updateUsageRequests(usageId: string, result: string) {
+export async function updateUsageRequests(usageId: string, result: string, numberOfSpecs: number) {
   const usageData = {
-    "result": result
+    result, 
+    numberOfSpecs
   }
 
-  updateQmateUsage(usageId, usageData);
+  console.log(usageData);
+
+  void updateQmateUsage(usageId, usageData);
 }
 
 

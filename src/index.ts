@@ -11,7 +11,10 @@ const pj = require("../package.json");
 
 module.exports = class CustomWorkerService {
   private _statsUsageId: string | null = null;
-  config: any;
+  private _numberOfSpecs: number = 0;
+
+  public config: any;
+
   /**
    * `serviceOptions` contains all options specific to the service
    * e.g. if defined as follows:
@@ -109,6 +112,15 @@ module.exports = class CustomWorkerService {
   }
 
   /**
+     * Hook that gets executed after the suite has ended (in Mocha/Jasmine only).
+     * @param {object} suite suite details
+     */
+  async afterSuite(suite: any) {
+    this._numberOfSpecs = this._numberOfSpecs + 1;
+    console.log('-------------------- afterSuite');
+  }
+
+  /**
    * Function to be executed after a test (in Mocha/Jasmine)
    */
   // @ts-ignore
@@ -148,8 +160,9 @@ module.exports = class CustomWorkerService {
    * @param {<Object>} results object containing test results
    */
   async onComplete(exitCode: number, config: any, capabilities: any, results: any) {
+    console.log('-------------------- onComplete', this._numberOfSpecs);
     try {
-      await onCompleteHook(exitCode, config, capabilities, results, this._statsUsageId);
+      await onCompleteHook(exitCode, config, capabilities, results, this._statsUsageId, this._numberOfSpecs);
     } catch (e) {
       util.console.error(`onComplete hook failed: ${e}`);
     }

@@ -1,7 +1,7 @@
 import { Agent, fetch } from "undici";
 
-export async function updateQmateUsage(id: string, usageData: { result: string }) {
-  const urlUsage = `https://stats.qmate.proc.only.sap/api/usage/qmate/${id}`;
+export async function updateQmateUsage(id: string, usageData: { result: string, numberOfSpecs: number }) {
+  const urlUsage = `http://localhost:3000/api/usage/qmate/${id}`;
   try {
     const response = await fetch(urlUsage, {
       method: "PUT",
@@ -12,7 +12,6 @@ export async function updateQmateUsage(id: string, usageData: { result: string }
       dispatcher: new Agent({
         connect: {
           rejectUnauthorized: false,
-          // ca: process.env.SAP_GLOBAL_ROOT_CA
         }
       })
     });
