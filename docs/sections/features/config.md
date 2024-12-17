@@ -1,7 +1,7 @@
 ## Important WebdriverIO Parameters
 
 !!!info "WebdriverIO Parameters"
-    For more information about how to setup your config please see the official [documentation](https://webdriver.io/docs/configurationfile/) from WebdriverIO.
+    For more information about how to setup your config please see the official [documentation](https://webdriver.io/docs/configurationfile/){target="__blank"} from WebdriverIO.
 
 ### *baseUrl*
 The `baseUrl` defines the entry point of your script. Here you can define in which system or application your script/s is/are being executed.
