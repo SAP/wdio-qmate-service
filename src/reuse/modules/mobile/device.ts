@@ -132,6 +132,9 @@ export class Device {
   }
 
   /**
+   * @function getTargetContextIfAvailable
+   * @memberof mobile.device
+   * @description
    * Returns the specified target context if available within a given timeout.
    *
    * This method retrieves the list of available contexts and determines if a context
@@ -145,8 +148,8 @@ export class Device {
    * @returns {Promise<string | null>} - The name of the target context if found, or `null` if
    *   the context is not available within the timeout.
    * @example
-   * const context = await getTargetContextAvailable("WEBVIEW", 10000);
-   * const context = await getTargetContextAvailable("NATIVE_APP", 10000);
+   * const context = await getTargetContextIfAvailable("WEBVIEW", 10000);
+   * const context = await getTargetContextIfAvailable("NATIVE_APP", 10000);
    */
   async getTargetContextIfAvailable(targetContext: string = "WEBVIEW", timeout: number = 5000): Promise<string | null> {
     const vl = this.vlf.initLog(this.getTargetContextIfAvailable);
