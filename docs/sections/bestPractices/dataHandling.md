@@ -41,7 +41,7 @@
       "address": {
         "street":   "Main Road",
         "number":   "432",
-        "zipCode":  "12345",
+        "zipCode":  "01234",
         "city":     "Metropolis"
       }
     }
