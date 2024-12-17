@@ -31,10 +31,9 @@ export async function sendUsageRequests(): Promise<string | null> {
   return usageId;
 }
 
-export async function updateUsageRequests(usageId: string, result: string, numberOfSpecs: number) {
+export async function updateUsageRequests(usageId: string, result: string) {
   const usageData = {
-    result, 
-    numberOfSpecs
+    result
   }
 
   console.log(usageData);
