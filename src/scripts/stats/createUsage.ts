@@ -22,7 +22,6 @@ export async function createUsage(usageData: {
       dispatcher: new Agent({
         connect: {
           rejectUnauthorized: false,
-          // ca: process.env.SAP_GLOBAL_ROOT_CA
         }
       })
     });
