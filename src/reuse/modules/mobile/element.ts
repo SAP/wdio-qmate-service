@@ -1,6 +1,7 @@
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
+import { resolveMobileSelectorOrElement } from "../../helper/elementResolving";
 
 /**
  * @class element
@@ -58,13 +59,19 @@ export class ElementModule {
    * @example await mobile.element.waitToBePresent("#button12");
    * @example await mobile.element.waitToBePresent("p:first-child");
    */
-  async waitToBePresent(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<void> {
+  async waitToBePresent(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<boolean> {
     const vl = this.vlf.initLog(this.waitToBePresent);
     try {
       vl.log(`wdio.waitForExist invocation for selector ${selector}`);
-      await $(selector).waitForExist({ timeout: timeout });
+      await $(selector).waitForExist({
+        timeout: timeout,
+        interval: 100,
+        timeoutMsg: `Timeout '${+timeout / 1000}s' by waiting for element is present.`
+      });
+      return true;
     } catch (error) {
       this.ErrorHandler.logException(error);
+      return false;
     }
   }
 
@@ -78,13 +85,19 @@ export class ElementModule {
    * @example await mobile.element.waitToBeVisible("#button12");
    * @example await mobile.element.waitToBeVisible("p:first-child");
    */
-  async waitToBeVisible(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async waitToBeVisible(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<boolean> {
     const vl = this.vlf.initLog(this.waitToBeVisible);
     try {
       vl.log(`wdio.waitForDisplayed invocation for selector ${selector}`);
-      await $(selector).waitForDisplayed({ timeout: timeout });
+      await $(selector).waitForDisplayed({
+        timeout: timeout,
+        interval: 100,
+        timeoutMsg: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
+      });
+      return true;
     } catch (error) {
       this.ErrorHandler.logException(error);
+      return false;
     }
   }
 
@@ -98,13 +111,19 @@ export class ElementModule {
    * @example await mobile.element.waitToBeClickable("#button12");
    * @example await mobile.element.waitToBeClickable("p:first-child");
    */
-  async waitToBeClickable(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async waitToBeClickable(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<boolean> {
     const vl = this.vlf.initLog(this.waitToBeClickable);
     try {
       vl.log(`wdio.waitForClickable invocation for selector ${selector}`);
-      await $(selector).waitForClickable({ timeout: timeout });
+      await $(selector).waitForClickable({
+        timeout: timeout,
+        interval: 100,
+        timeoutMsg: `Timeout '${+timeout / 1000}s' by waiting for element is clickable.`
+      });
+      return true;
     } catch (error) {
       this.ErrorHandler.logException(error);
+      return false;
     }
   }
 
@@ -112,14 +131,42 @@ export class ElementModule {
    * @function isSelected
    * @memberof mobile.element
    * @description Returns a boolean if the element (e.g. checkbox) is selected.
-   * @param {Object} elem - The element.
+   * @param {Element | string} elementOrSelector - The element.
    * @returns {boolean}
    * @example const elem = await mobile.element.getById("elem01");
    * const isSelected = await mobile.element.isSelected(elem);
    */
-  async isSelected(elem: Element): Promise<boolean> {
+  async isSelected(elementOrSelector: Element | string): Promise<boolean> {
     const vl = this.vlf.initLog(this.isSelected);
-    return elem.isSelected();
+
+    const element = await resolveMobileSelectorOrElement(elementOrSelector);
+    return await element.isSelected();
+  }
+
+  /**
+   * @function waitTotoBeEnabled
+   * @memberof mobile.element
+   * @description Waits until the element with the given selector is present.
+   * @param {Object} selector - The CSS selector describing the element.
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example await mobile.element.waitTotoBeEnabled(".input01");
+   * @example await mobile.element.waitTotoBeEnabled("#button12");
+   * @example await mobile.element.waitTotoBeEnabled("p:first-child");
+   */
+  async waitTotoBeEnabled(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<boolean> {
+    const vl = this.vlf.initLog(this.waitTotoBeEnabled);
+    try {
+      vl.log(`wdio.waitTotoBeEnabled invocation for selector ${selector}`);
+      await $(selector).toBeEnabled({
+        timeout: timeout,
+        interval: 100,
+        timeoutMsg: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
+      });
+      return true;
+    } catch (error) {
+      this.ErrorHandler.logException(error);
+      return false;
+    }
   }
 }
 export default new ElementModule();
