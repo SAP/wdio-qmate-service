@@ -13,7 +13,7 @@ export default async function (config: any, capabilities: Array<object>, callbac
     process.env.CONFIG_PATH = path.dirname(config._[0]);
   }
 
-  const specCounter = countNestedArrayElements(config.specs);
+  const specCounter = config.specs ? countNestedArrayElements(config.specs) : 0;
 
   // Send usage requests
   if (config.params && config.params.qmateStatsOptions) {
@@ -34,12 +34,11 @@ export default async function (config: any, capabilities: Array<object>, callbac
   if (config.params && config.params.qmateCustomTimeout) {
     process.env.QMATE_CUSTOM_TIMEOUT = config.params.qmateCustomTimeout;
     process.env.LOAD_PROPERTY_TIMEOUT = config.params.loadPropertyTimeout;
-
   }
 
   // Create a temporary data folder
   await dataExchangeCommands.createTmpDataFolder();
-};
+}
 
 function countNestedArrayElements(arr: any[]): number {
   let count = 0;
