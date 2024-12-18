@@ -11,7 +11,9 @@ const pj = require("../package.json");
 
 module.exports = class CustomWorkerService {
   private _statsUsageId: string | null = null;
-  config: any;
+
+  public config: any;
+
   /**
    * `serviceOptions` contains all options specific to the service
    * e.g. if defined as follows:

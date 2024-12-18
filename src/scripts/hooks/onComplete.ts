@@ -12,12 +12,11 @@ import { updateUsageRequests } from "../stats/stats";
 
 export default async function (exitCode: any, config: any, capabilities: any, results: any, statsUsageId: string | null) {
   await dataExchangeCommands.writeExportData();
-  
   if (statsUsageId !== null) {
     if (config.params && config.params.qmateStatsOptions) {
       if (!config.params.qmateStatsOptions.optOut) {
-        if (exitCode === 0){
-          updateUsageRequests(statsUsageId,  'success');
+        if (exitCode === 0) {
+          updateUsageRequests(statsUsageId, 'success');
         } else if (exitCode === 1) {
           updateUsageRequests(statsUsageId, 'fail');
         }
