@@ -12,7 +12,6 @@ export async function updateQmateUsage(id: string, usageData: { result: string }
       dispatcher: new Agent({
         connect: {
           rejectUnauthorized: false,
-          // ca: process.env.SAP_GLOBAL_ROOT_CA
         }
       })
     });
@@ -21,6 +20,6 @@ export async function updateQmateUsage(id: string, usageData: { result: string }
       // Intentionally ignore
     }
   } catch (error) {
-     // Intentionally ignore
+    // Intentionally ignore
   }
 }
