@@ -15,10 +15,10 @@ export class ElementModule {
    * @function isVisible
    * @memberof mobile.element
    * @description Returns a boolean if the mobile element is visible to the user.
-   * @param {Object} element - The Mobile Ui element.
-   * @param {Boolean} [strict=true] - If strict mode is enabled it will only return "true" if the element is visible on the mobile view and within the viewport.
+   * @param {Element} element - The Mobile Ui element.
+   * @param {boolean} [strict=true] - If strict mode is enabled it will only return "true" if the element is visible on the mobile view and within the viewport.
    * If "false", it will be sufficient if the element is visible on the view but not inside the current viewport.
-   * @returns {Boolean} Returns true or false.
+   * @returns {boolean} Returns true or false.
    * @example
    * await mobile.element.isVisible(elem);
    */
@@ -40,7 +40,7 @@ export class ElementModule {
    * @memberof mobile.element
    * @description Returns a boolean if the element is present at the DOM or not. It might be hidden.
    * @param {Element} element - The element.
-   * @returns {Boolean} Returns true or false.
+   * @returns {boolean} Returns true or false.
    * @example
    * await mobile.element.isPresent(elem);
    */
@@ -54,10 +54,12 @@ export class ElementModule {
    * @memberof mobile.element
    * @description Waits until the element with the given selector is present.
    * @param {Object} selector - The CSS selector describing the element.
-   * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await mobile.element.waitToBePresent(".input01");
-   * @example await mobile.element.waitToBePresent("#button12");
-   * @example await mobile.element.waitToBePresent("p:first-child");
+   * @param {number} [timeout = 30000] - The timeout to wait (ms).
+   * @returns {boolean} Returns true or false.
+   * @example
+   * await mobile.element.waitToBePresent(".input01");
+   * await mobile.element.waitToBePresent("#button12");
+   * await mobile.element.waitToBePresent("p:first-child");
    */
   async waitToBePresent(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<boolean> {
     const vl = this.vlf.initLog(this.waitToBePresent);
@@ -80,10 +82,12 @@ export class ElementModule {
    * @memberof mobile.element
    * @description Waits until the element with the given selector is visible.
    * @param {Object} selector - The CSS selector describing the element.
-   * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await mobile.element.waitToBeVisible(".input01");
-   * @example await mobile.element.waitToBeVisible("#button12");
-   * @example await mobile.element.waitToBeVisible("p:first-child");
+   * @param {number} [timeout=30000] - The timeout to wait (ms).
+   * @returns {boolean} Returns true or false.
+   * @example
+   * await mobile.element.waitToBeVisible(".input01");
+   * await mobile.element.waitToBeVisible("#button12");
+   * await mobile.element.waitToBeVisible("p:first-child");
    */
   async waitToBeVisible(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<boolean> {
     const vl = this.vlf.initLog(this.waitToBeVisible);
@@ -106,10 +110,12 @@ export class ElementModule {
    * @memberof mobile.element
    * @description Waits until the element with the given selector is clickable.
    * @param {Object} selector - The CSS selector describing the element.
-   * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await mobile.element.waitToBeClickable(".input01");
-   * @example await mobile.element.waitToBeClickable("#button12");
-   * @example await mobile.element.waitToBeClickable("p:first-child");
+   * @param {number} [timeout=30000] - The timeout to wait (ms).
+   * @returns {boolean} Returns true or false.
+   * @example
+   * await mobile.element.waitToBeClickable(".input01");
+   * await mobile.element.waitToBeClickable("#button12");
+   * await mobile.element.waitToBeClickable("p:first-child");
    */
   async waitToBeClickable(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<boolean> {
     const vl = this.vlf.initLog(this.waitToBeClickable);
@@ -132,7 +138,7 @@ export class ElementModule {
    * @memberof mobile.element
    * @description Returns a boolean if the element (e.g. checkbox) is selected.
    * @param {Element | string} elementOrSelector - The element.
-   * @returns {boolean}
+   * @returns {boolean} Returns true or false.
    * @example
    * const isSelected = await mobile.element.isSelected(elem);
    */
@@ -148,10 +154,12 @@ export class ElementModule {
    * @memberof mobile.element
    * @description Waits until the element with the given selector is present.
    * @param {Object} selector - The CSS selector describing the element.
-   * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @example await mobile.element.waitToBeEnabled(".input01");
-   * @example await mobile.element.waitToBeEnabled("#button12");
-   * @example await mobile.element.waitToBeEnabled("p:first-child");
+   * @param {number} [timeout=30000] - The timeout to wait (ms).
+   * @returns {boolean} Returns true or false.
+   * @example
+   * await mobile.element.waitToBeEnabled(".input01");
+   * await mobile.element.waitToBeEnabled("#button12");
+   * await mobile.element.waitToBeEnabled("p:first-child");
    */
   async waitToBeEnabled(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<boolean> {
     const vl = this.vlf.initLog(this.waitToBeEnabled);
