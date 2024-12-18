@@ -118,7 +118,7 @@ export class Device {
 
     try {
       let target = this.getTargetContextIfAvailable(targetContext, timeout);
-      if (typeof target === "string") {
+      if (target) {
         await browser.switchContext(target);
         vl.log(`Switched to ${target} context successfully...`);
         return true;
