@@ -42,7 +42,7 @@ class Decryption {
     return privateKey;
   }
 
-  decryptSecureData(privateKey: string, input: string | Array<string>, options?: {base64Output: boolean, base64Input: boolean}) {
+  decryptSecureData(privateKey: string, input: string | Array<string>, options?: { base64Output: boolean; base64Input: boolean }) {
     // input data can either be as single value or array of values for different keys
     if (typeof input === "string") {
       input = [input];
@@ -60,7 +60,7 @@ class Decryption {
           {
             key: this._parseKeyByEncoding(privateKey),
             padding: this.crypto.constants.RSA_PKCS1_OAEP_PADDING,
-            oaepHash: "sha256",
+            oaepHash: "sha256"
           },
           decryptedDataByRepoName
         );
@@ -90,6 +90,10 @@ class Decryption {
   }
 
   private _decryptDataWithRepoName(data: Buffer) {
+    if (process.env.QMATE_DECRYPT_WITHOUT_REPO) {
+      return data;
+    }
+
     let repoUrl;
     try {
       repoUrl = this.childProcess.execSync("git config --get remote.origin.url").toString();
@@ -127,14 +131,14 @@ class Decryption {
   private _unifySSHUrl(url: string) {
     const [hostAndAccount, repo] = url.replace("git@", "").trim().split("/");
     const [host, account] = hostAndAccount.split(":");
-    const repoTrimmed = repo.endsWith(".git") ? repo.slice(0, -4): repo;
+    const repoTrimmed = repo.endsWith(".git") ? repo.slice(0, -4) : repo;
     return this._hashHostAccountAndRepo(host, account, repoTrimmed);
   }
 
   private _unifyHTTPUrl(url: string) {
     const urlWithoutProtocol = url.replace(/((\bhttp\b)|(\bhttps\b)):\/\//, "").trim();
     const [host, account, repo] = urlWithoutProtocol.split("/");
-    const repoTrimmed = repo.endsWith(".git") ? repo.slice(0, -4): repo;
+    const repoTrimmed = repo.endsWith(".git") ? repo.slice(0, -4) : repo;
     return this._hashHostAccountAndRepo(host, account, repoTrimmed);
   }
 
@@ -159,6 +163,5 @@ class Decryption {
   private _utf8ToBase64(string: string): string {
     return Buffer.from(string, "utf-8").toString("base64");
   }
-
 }
 export default new Decryption();
