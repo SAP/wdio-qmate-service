@@ -90,29 +90,43 @@ class Decryption {
   }
 
   private _decryptDataWithRepoName(data: Buffer) {
-    if (process.env.QMATE_DECRYPT_WITHOUT_REPO) {
-      return data;
-    }
-
-    let repoUrl;
-    try {
-      repoUrl = this.childProcess.execSync("git config --get remote.origin.url").toString();
-    } catch (error) {
-      throw new Error("Please execute from a valid git repository.");
-    }
-
-    const repoUrlContractHashed = this._unifyRepoUrl(repoUrl);
-
     const salt = "72hdh393987f0hdc";
-    const secretKey = this.crypto.pbkdf2Sync(repoUrlContractHashed, salt, 100000, 32, "sha512");
+    const iv = Buffer.from("203efccd80e94d9f", "utf-8");
+    let secretKey: Buffer;
 
-    const iv = "203efccd80e94d9f";
-    const decipher = this.crypto.createDecipheriv("aes-256-cbc", secretKey, iv);
+    if (process.env.QMATE_DECRYPT_WITHOUT_REPO) {
+      console.log("Decrypting without using repo URL (QMATE_DECRYPT_WITHOUT_REPO is set).");
+      
+      // Use a static key when the environment variable is set
+      const staticKey = "static-key";
+      secretKey = this.crypto.pbkdf2Sync(staticKey, salt, 100000, 32, "sha512");
+    } else {
+      console.log("Decrypting using repo URL.");
+      const repoUrl = this._getRepoUrl();
+      const repoUrlContractHashed = this._unifyRepoUrl(repoUrl);
+      secretKey = this.crypto.pbkdf2Sync(repoUrlContractHashed, salt, 100000, 32, "sha512");
+    }
 
-    let decryptedData = decipher.update(data, "hex", "utf8");
-    decryptedData += decipher.final("utf8");
+    try {
+      const decipher = this.crypto.createDecipheriv("aes-256-cbc", secretKey, iv);
+      let decryptedData = decipher.update(data, "hex", "utf8");
+      decryptedData += decipher.final("utf8");
+      return decryptedData;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Decryption failed: ${error.message}`);
+      } else {
+        throw new Error("Decryption failed: Unknown error");
+      }
+    }
+  }
 
-    return decryptedData;
+  private _getRepoUrl(): string {
+    try {
+      return this.childProcess.execSync("git config --get remote.origin.url").toString().trim();
+    } catch (error) {
+      throw new Error("Failed to retrieve the repository URL. Please execute from a valid Git repository.");
+    }
   }
 
   private _unifyRepoUrl(url: string): string {
