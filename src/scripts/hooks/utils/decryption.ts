@@ -42,7 +42,7 @@ class Decryption {
     return privateKey;
   }
 
-  decryptSecureData(privateKey: string, input: string | Array<string>, options?: {base64Output: boolean, base64Input: boolean}) {
+  decryptSecureData(privateKey: string, input: string | Array<string>, options?: { base64Output: boolean; base64Input: boolean }) {
     // input data can either be as single value or array of values for different keys
     if (typeof input === "string") {
       input = [input];
@@ -60,7 +60,7 @@ class Decryption {
           {
             key: this._parseKeyByEncoding(privateKey),
             padding: this.crypto.constants.RSA_PKCS1_OAEP_PADDING,
-            oaepHash: "sha256",
+            oaepHash: "sha256"
           },
           decryptedDataByRepoName
         );
@@ -90,25 +90,43 @@ class Decryption {
   }
 
   private _decryptDataWithRepoName(data: Buffer) {
-    let repoUrl;
-    try {
-      repoUrl = this.childProcess.execSync("git config --get remote.origin.url").toString();
-    } catch (error) {
-      throw new Error("Please execute from a valid git repository.");
+    const salt = "72hdh393987f0hdc";
+    const iv = Buffer.from("203efccd80e94d9f", "utf-8");
+    let secretKey: Buffer;
+
+    if (process.env.QMATE_DECRYPT_WITHOUT_REPO) {
+      console.log("Decrypting without using repo URL (QMATE_DECRYPT_WITHOUT_REPO is set).");
+      
+      // Use a static key when the environment variable is set
+      const staticKey = "static-key";
+      secretKey = this.crypto.pbkdf2Sync(staticKey, salt, 100000, 32, "sha512");
+    } else {
+      console.log("Decrypting using repo URL.");
+      const repoUrl = this._getRepoUrl();
+      const repoUrlContractHashed = this._unifyRepoUrl(repoUrl);
+      secretKey = this.crypto.pbkdf2Sync(repoUrlContractHashed, salt, 100000, 32, "sha512");
     }
 
-    const repoUrlContractHashed = this._unifyRepoUrl(repoUrl);
+    try {
+      const decipher = this.crypto.createDecipheriv("aes-256-cbc", secretKey, iv);
+      let decryptedData = decipher.update(data, "hex", "utf8");
+      decryptedData += decipher.final("utf8");
+      return decryptedData;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Decryption failed: ${error.message}`);
+      } else {
+        throw new Error("Decryption failed: Unknown error");
+      }
+    }
+  }
 
-    const salt = "72hdh393987f0hdc";
-    const secretKey = this.crypto.pbkdf2Sync(repoUrlContractHashed, salt, 100000, 32, "sha512");
-
-    const iv = "203efccd80e94d9f";
-    const decipher = this.crypto.createDecipheriv("aes-256-cbc", secretKey, iv);
-
-    let decryptedData = decipher.update(data, "hex", "utf8");
-    decryptedData += decipher.final("utf8");
-
-    return decryptedData;
+  private _getRepoUrl(): string {
+    try {
+      return this.childProcess.execSync("git config --get remote.origin.url").toString().trim();
+    } catch (error) {
+      throw new Error("Failed to retrieve the repository URL. Please execute from a valid Git repository.");
+    }
   }
 
   private _unifyRepoUrl(url: string): string {
@@ -127,14 +145,14 @@ class Decryption {
   private _unifySSHUrl(url: string) {
     const [hostAndAccount, repo] = url.replace("git@", "").trim().split("/");
     const [host, account] = hostAndAccount.split(":");
-    const repoTrimmed = repo.endsWith(".git") ? repo.slice(0, -4): repo;
+    const repoTrimmed = repo.endsWith(".git") ? repo.slice(0, -4) : repo;
     return this._hashHostAccountAndRepo(host, account, repoTrimmed);
   }
 
   private _unifyHTTPUrl(url: string) {
     const urlWithoutProtocol = url.replace(/((\bhttp\b)|(\bhttps\b)):\/\//, "").trim();
     const [host, account, repo] = urlWithoutProtocol.split("/");
-    const repoTrimmed = repo.endsWith(".git") ? repo.slice(0, -4): repo;
+    const repoTrimmed = repo.endsWith(".git") ? repo.slice(0, -4) : repo;
     return this._hashHostAccountAndRepo(host, account, repoTrimmed);
   }
 
@@ -159,6 +177,5 @@ class Decryption {
   private _utf8ToBase64(string: string): string {
     return Buffer.from(string, "utf-8").toString("base64");
   }
-
 }
 export default new Decryption();
