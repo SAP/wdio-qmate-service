@@ -1,8 +1,4 @@
-/**
- * FIXME: This spec fails in the pipeline, requires investigation.
- * Skipped for now
- */
-describe.skip("webdriver.io page", function () {
+describe("webdriver.io page", function () {
 
   this.beforeAll(async () => {
     await browser.url("#/categories");
