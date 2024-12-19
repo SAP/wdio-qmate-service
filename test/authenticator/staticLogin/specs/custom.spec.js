@@ -12,7 +12,7 @@ describe("loginCustom", function () {
   });
 
   it("Execution", async function () {
-    await ui5.session.loginCustom("<username>", "<password>", "#username", "#password", "#logon", false);
+    await ui5.session.loginCustom("<username>", "<@#$password>", "#username", "#password", "#logon", false);
   });
 
   it("Verification", async function () {
@@ -28,7 +28,7 @@ describe("loginCustom - error case", function () {
   });
 
   it("Execution and Verification", async function () {
-    await expect(ui5.session.loginCustom("<username>", "<password>", "#wrongusernamefield", "#wrongpasswordfield", "#wrongsubmitbutton", false))
+    await expect(ui5.session.loginCustom("<username>", "<@#$password>", "#wrongusernamefield", "#wrongpasswordfield", "#wrongsubmitbutton", false))
       .rejects.toThrow("Function 'loginCustom' failed");
   });
 

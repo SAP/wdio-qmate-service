@@ -51,7 +51,7 @@ describe("userInteraction - clearAndFillAndRetry - button (error case)", functio
   it("Execution & Verification", async function () {
     const elem = await nonUi5.element.getById("Default", 10000);
     await expect(nonUi5.userInteraction.clearAndFillAndRetry(elem, "New test value", 1)).rejects.toThrow(
-      "Function 'clearAndFillAndRetry' failed with: Retries done. Failed to execute the function: invalid element state"
+      "Function 'clearAndFillAndRetry' failed with: Retries done. Failed to execute the function: WebDriverError: invalid element state"
     );
   });
 });
