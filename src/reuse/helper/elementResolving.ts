@@ -1,6 +1,5 @@
-import { Element } from "../../../@types/wdio";
 
-export async function resolveCssSelectorOrElement(elementOrSelector: Element | string): Promise<Element> {
+export async function resolveCssSelectorOrElement(elementOrSelector: WebdriverIO.Element | string): Promise<WebdriverIO.Element> {
   if (!elementOrSelector) {
     throw new Error("Please provide an element or a CSS selector as first argument.");
   }
@@ -12,13 +11,13 @@ export async function resolveCssSelectorOrElement(elementOrSelector: Element | s
   }
 }
 
-export async function resolveMobileSelectorOrElement(elementOrSelector: Element | string): Promise<Element> {
+export async function resolveMobileSelectorOrElement(elementOrSelector: WebdriverIO.Element | string): Promise<WebdriverIO.Element> {
   if (!elementOrSelector) {
     throw new Error("Please provide an element or a selector as first argument.");
   }
 
   if (typeof elementOrSelector === "string") {
-    return await $(elementOrSelector);
+    return await $(elementOrSelector).getElement();
   } else {
     return elementOrSelector;
   }
