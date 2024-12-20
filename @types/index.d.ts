@@ -19,6 +19,7 @@ declare global {
       getDisplayedElements: (any) => Promise<any>;
       uiControlExecuteLocator: (any) => Promise<any>;
       loadMockData: (any) => Promise<any>;
+      uiControl: (selector: any, index: number, timeout: number, returnAllDomElements: boolean) => Promise<any>;
       uiControls: (selector: any, timeout: number) => Promise<any>;
     }
 
@@ -30,6 +31,7 @@ declare global {
       getDisplayedElements: (any) => Promise<any>;
       uiControlExecuteLocator: (any) => Promise<any>;
       loadMockData: (any) => Promise<any>;
+      uiControl: (selector: any, index: number, timeout: number, returnAllDomElements: boolean) => Promise<any>;
       uiControls: (selector: any, timeout: number) => Promise<any>;
     }
 
@@ -50,7 +52,7 @@ declare global {
   var mobile: Mobile;
   var flp: Flp;
 
-  var expect: any;
+  var expect: ExpectWebdriverIO.Expect;
 
   var sap: any;
 }
