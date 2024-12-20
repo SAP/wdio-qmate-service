@@ -10,3 +10,15 @@ export async function resolveCssSelectorOrElement(elementOrSelector: WebdriverIO
     return elementOrSelector;
   }
 }
+
+export async function resolveMobileSelectorOrElement(elementOrSelector: WebdriverIO.Element | string): Promise<WebdriverIO.Element> {
+  if (!elementOrSelector) {
+    throw new Error("Please provide an element or a selector as first argument.");
+  }
+
+  if (typeof elementOrSelector === "string") {
+    return await $(elementOrSelector).getElement();
+  } else {
+    return elementOrSelector;
+  }
+}
