@@ -11,7 +11,7 @@ describe("userInteraction - scrollToElement - default alignment options", functi
 
   it("Execution", async function () {
     elem = await $("*=Legal Disclosure");
-    const isDisplayedInViewport = await elem.isDisplayedInViewport();
+    const isDisplayedInViewport = await elem.isDisplayed({ withinViewport: true });
     await common.assertion.expectFalse(isDisplayedInViewport);
     await nonUi5.userInteraction.scrollToElement(elem);
   });
@@ -33,7 +33,7 @@ describe("userInteraction - scrollToElement - alignment is center", function () 
   it("Execution", async function () {
     elem = await $("*=Legal Disclosure");
     alignment = "center";
-    const isDisplayedInViewport = await elem.isDisplayedInViewport();
+    const isDisplayedInViewport = await elem.isDisplayed({ withinViewport: true });
     await common.assertion.expectFalse(isDisplayedInViewport);
     await nonUi5.userInteraction.scrollToElement(elem, alignment);
   });

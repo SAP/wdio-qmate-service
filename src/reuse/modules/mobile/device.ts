@@ -32,7 +32,7 @@ export class Device {
     const vl = this.vlf.initLog(this.isValidPlatform);
 
     const SUPPORTED_PLATFORMS = ["android", "ios"];
-    const platform: string = await browser.capabilities.platformName;
+    const platform: string = await browser.capabilities.platformName || "";
     return SUPPORTED_PLATFORMS.includes(platform.toLowerCase().trim());
   }
 
@@ -44,7 +44,7 @@ export class Device {
    */
   private async executionPlatform(): Promise<string> {
     const vl = this.vlf.initLog(this.executionPlatform);
-    const platform: string = browser.capabilities.platformName;
+    const platform: string = browser.capabilities.platformName || "";
     return platform.toLowerCase().trim();
   }
 
@@ -65,7 +65,7 @@ export class Device {
     let isAppInstalledInDevice: boolean = false;
     try {
       if (await this.isValidPlatform()) {
-        isAppInstalledInDevice = browser.isAppInstalled(appPackageOrBundleId);
+        isAppInstalledInDevice = await browser.isAppInstalled(appPackageOrBundleId);
         vl.log(`${await this.executionPlatform()} app installed successfully.`);
       } else {
         vl.log(`Unsupported platform while checking the is app installed or not`);
@@ -88,7 +88,6 @@ export class Device {
    */
   async installApp(appPath: string): Promise<void> {
     const vl = this.vlf.initLog(this.installApp);
-
     try {
       vl.log(`Installing ${await this.executionPlatform()} app...`);
       if (await this.isValidPlatform()) {
@@ -117,7 +116,7 @@ export class Device {
     const vl = this.vlf.initLog(this.switchToContext);
 
     try {
-      let target = this.getTargetContextIfAvailable(targetContext, timeout);
+      let target = await this.getTargetContextIfAvailable(targetContext, timeout);
       if (target) {
         await browser.switchContext(target);
         vl.log(`Switched to ${target} context successfully...`);
@@ -155,7 +154,7 @@ export class Device {
     const vl = this.vlf.initLog(this.getTargetContextIfAvailable);
 
     try {
-      let availableContexts: string[] = [];
+      let availableContexts: any[] = [];
       const isContextAvailable = await browser.waitUntil(
         async () => {
           // Get all available contexts
@@ -322,9 +321,14 @@ export class Device {
   async getCurrentOrientation(): Promise<Orientation> {
     const vl = this.vlf.initLog(this.getCurrentOrientation);
 
-    let orientation = ORIENTATION.UNKNOWN; // Default value
+    let orientation : Orientation = ORIENTATION.UNKNOWN; // Default value
     try {
-      orientation = await browser.getOrientation();
+      const orientationString = await browser.getOrientation();
+      if(orientationString === ORIENTATION.LANDSCAPE) {
+        orientation = ORIENTATION.LANDSCAPE;
+      } else if(orientationString === ORIENTATION.PORTRAIT) {
+        orientation = ORIENTATION.PORTRAIT;
+      }
       vl.log(`Current device orientation: ${orientation}`);
     } catch (error) {
       this.ErrorHandler.logException(error, `Error: Could not get the current device orientation`, true);
@@ -338,7 +342,7 @@ export class Device {
    * @description Hides the keyboard on both Android and iOS using specific strategies with timeout.
    * @param {string} strategy - Strategy to use for hiding the keyboard ('pressKey', 'tapOutside', 'swipeDown').
    * @param {string} key - Key to press if using the 'pressKey' strategy (e.g., 'Done', 'Enter').
-   * @param {number} keyCode - Key code for Android (optional).
+   * @param {string} keyCode - Key code for Android (optional).
    * @param {number} [timeout=5000] - Timeout in milliseconds for retrying to hide the keyboard.
    * @returns {Promise<void>}
    * @example
@@ -349,7 +353,7 @@ export class Device {
    * await mobile.device.hideKeyboard('pressKey', undefined, 66);
    * await mobile.device.hideKeyboard('pressKey', 'Done');
    */
-  async hideKeyboard(strategy?: hideKeyboardStrategy, key?: string, keyCode?: number, timeout: number = 5000): Promise<void> {
+  async hideKeyboard(strategy?: hideKeyboardStrategy, key?: string, keyCode?: string, timeout: number = 5000): Promise<void> {
     const vl = this.vlf.initLog(this.hideKeyboard);
 
     const startTime = Date.now();

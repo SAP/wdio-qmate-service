@@ -1,4 +1,3 @@
-import chalk from "chalk";
 import { ErrorMessages } from "../helper/errorMessages";
 
 export interface IErrorHandler {
