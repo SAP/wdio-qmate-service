@@ -88,6 +88,8 @@ class LibScripts {
       if (arguments[1].getAttribute) {
         try {
           webElem = arguments[1];
+          // FIXME - without the next call to getAttribute, the call to get control for object registry fails
+          await webElem.getAttribute("id");
         } catch (error) {
           throw new Error("No web element found.");
         }
