@@ -13,8 +13,17 @@ class Decryption {
     try {
       const privateKey = Decrypter.retrievePrivateKey(path.resolve(__dirname, "../../../.."));
       global.util.data.privateKeyFound = true;
-      global.util.data.decrypt = (input, options = DEFAULT_OPTIONS) => {
-        return Decrypter.decryptData(input, privateKey, options);
+      global.util.data.decrypt = (input, options) => {
+        const mergedOptions = { ...DEFAULT_OPTIONS, ...options };
+        try {
+          return Decrypter.decryptData(input, privateKey, mergedOptions);
+        } catch (error) {
+          if (error instanceof Error) {
+            throw new Error(`Function 'decrypt' failed: ${error.message}`);
+          } else {
+            throw new Error("Function 'decrypt' failed: Unknown error");
+          }
+        }
       };
     } catch (error) {
       global.util.data.decrypt = function () {
