@@ -1,9 +1,8 @@
-describe("data - getSecureData - default source", function() {
-
+describe("data - getSecureData - default source", function () {
   let data;
 
   it("Execution", function () {
-    data = util.data.getSecureData("test");
+    data = util.data.getSecureData("getSecureData");
   });
 
   it("Verification 1 - hashed value", function () {
@@ -29,16 +28,14 @@ describe("data - getSecureData - default source", function() {
     const dataAct = data.alternatives;
     common.assertion.expectEqual(dataAct, dataExp);
   });
-
 });
 
-describe("data - getSecureData - custom source", function() {
-
+describe("data - getSecureData - custom source", function () {
   let data;
 
   it("Execution", function () {
     const source = "customSourceData";
-    data = util.data.getSecureData("test", source);
+    data = util.data.getSecureData("getSecureData", source);
   });
 
   it("Verification", function () {
@@ -46,29 +43,28 @@ describe("data - getSecureData - custom source", function() {
     const dataAct = data.session.password;
     common.assertion.expectEqual(dataAct, dataExp);
   });
-
 });
 
-// =================================== KEEP DISABLED ===================================
+// =================================== KEEP DISABLED FOR PIPELINE EXECUTION ===================================
 // Can't be executed in pipeline because file is missing. Add the following to "data" folder to execute locally:
 
-// test.local.json
+// getSecureData.local.json
 // {
 //   "session": {
 //     "password": "super-duper-sensitive-pw"
 //   }
 // }
+// ============================================================================================================
 
-// describe("data - getSecureData - local fallback", function() {
-
+// describe("data - getSecureData - local fallback", function () {
 //   let data;
 
 //   it("Preparation", function () {
-//     process.env.PRIVATEKEY_FOUND = false;
+//     global.util.data.privateKeyFound = false;
 //   });
 
 //   it("Execution", function () {
-//     data = util.data.getSecureData("test");
+//     data = util.data.getSecureData("getSecureData");
 //   });
 
 //   it("Verification", function () {
@@ -77,4 +73,4 @@ describe("data - getSecureData - custom source", function() {
 //     common.assertion.expectEqual(dataAct, dataExp);
 //   });
 // });
-// =======================================================================================
+// ============================================================================================================
