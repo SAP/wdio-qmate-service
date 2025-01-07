@@ -2,13 +2,19 @@ import path from "path";
 
 import { Decrypter } from "qcrypt";
 
+const DEFAULT_OPTIONS = {
+  useBase64Input: false,
+  useBase64Output: false,
+  includeRepoUrl: true
+};
+
 class Decryption {
   initDecryptFunction() {
     try {
       const privateKey = Decrypter.retrievePrivateKey(path.resolve(__dirname, "../../../.."));
       global.util.data.privateKeyFound = true;
-      global.util.data.decrypt = (input) => {
-        return Decrypter.decryptData(input, privateKey, { useBase64Input: false, useBase64Output: false, includeRepoUrl: true });
+      global.util.data.decrypt = (input, options = DEFAULT_OPTIONS) => {
+        return Decrypter.decryptData(input, privateKey, options);
       };
     } catch (error) {
       global.util.data.decrypt = function () {
