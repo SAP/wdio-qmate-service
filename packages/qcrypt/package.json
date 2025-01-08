@@ -3,5 +3,6 @@
   "version": "1.0.0",
   "description": "Local version of qcrypt package",
   "author": "I503232",
-  "main": "index.esm.js"
+  "main": "min/index.esm.js",
+  "type": "module"
 }
