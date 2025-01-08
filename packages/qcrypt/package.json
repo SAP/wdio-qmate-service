@@ -3,6 +3,5 @@
   "version": "1.0.0",
   "description": "Local version of qcrypt package",
   "author": "I503232",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts"
+  "main": "index.esm.js"
 }
