@@ -14,6 +14,8 @@ export class Data {
   private vlf = new VerboseLoggerFactory("util", "data");
   private ErrorHandler = new ErrorHandler();
 
+  private _alreadyDecryptedData: Array<string> = [];
+
   /**
    * @function getData
    * @memberOf util.data
@@ -48,6 +50,7 @@ export class Data {
    */
   getSecureData(filename: string, source: string = "data", options?: { useBase64Input: false; useBase64Output: false; includeRepoUrl: true }): object {
     const vl = this.vlf.initLog(this.getSecureData);
+
     const privateKeyFound = global.util.data.privateKeyFound === true;
 
     if (privateKeyFound) {
@@ -60,10 +63,15 @@ export class Data {
     if (browser.config.params && browser.config.params.import && browser.config.params.import[source]) {
       if (browser.config.params.import[source][filename]) {
         const data = browser.config.params.import[source][filename];
+        const dataIdentifier = `${source}_${filename}`;
 
-        if (privateKeyFound) {
+        // Decrypt data if not already decrypted and private key is found
+        if (!this._alreadyDecryptedData.includes(dataIdentifier) && privateKeyFound) {
           this._decryptRecursively(data, options);
         }
+
+        // Make sure data is not decrypted again
+        this._alreadyDecryptedData.push(dataIdentifier);
 
         return data;
       } else {
