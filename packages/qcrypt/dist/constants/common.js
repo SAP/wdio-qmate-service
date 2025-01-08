@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.KEY_EXPORT_FORMAT = exports.KEY_EXPORT_TYPE = exports.KEY_TYPE = exports.KEY_LENGTH = exports.ITERATIONS = exports.IV = exports.SALT = exports.DIGEST = exports.ALGORITHM = exports.STATIC_PASSWORD = exports.PRIVATE_KEY_NAME = exports.PUBLIC_KEY_NAME = void 0;
+exports.PUBLIC_KEY_NAME = "public.key";
+exports.PRIVATE_KEY_NAME = "private.key";
+exports.STATIC_PASSWORD = "QMATE_STATIC";
+exports.ALGORITHM = "aes-256-cbc";
+exports.DIGEST = "sha512";
+exports.SALT = "72hdh393987f0hdc";
+exports.IV = "203efccd80e94d9f";
+exports.ITERATIONS = 100000;
+exports.KEY_LENGTH = 32;
+exports.KEY_TYPE = "rsa";
+exports.KEY_EXPORT_TYPE = "pkcs1";
+exports.KEY_EXPORT_FORMAT = "pem";

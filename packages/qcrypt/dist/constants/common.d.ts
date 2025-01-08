@@ -10,4 +10,3 @@ export declare const KEY_LENGTH = 32;
 export declare const KEY_TYPE = "rsa";
 export declare const KEY_EXPORT_TYPE = "pkcs1";
 export declare const KEY_EXPORT_FORMAT = "pem";
-//# sourceMappingURL=common.d.ts.map

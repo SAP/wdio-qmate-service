@@ -24,4 +24,3 @@ export interface EncodedData {
     encodedData: string;
 }
 export type SecureData = string | Array<string>;
-//# sourceMappingURL=common.d.ts.map
