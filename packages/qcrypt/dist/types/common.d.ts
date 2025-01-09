@@ -16,11 +16,12 @@ export interface PrintOptions {
     printOutput: boolean;
 }
 export interface PublicKey {
-    root: string;
+    root: KeyRoot;
     key: string;
 }
 export interface EncodedData {
-    root: string;
+    root: KeyRoot;
     encodedData: string;
 }
+export type KeyRoot = "cwd" | "qmate";
 export type SecureData = string | Array<string>;

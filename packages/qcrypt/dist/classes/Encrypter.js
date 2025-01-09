@@ -16,6 +16,7 @@ class Encrypter {
      * @description Retrieves public keys from the file system and encrypts data for all of them.
      * @param data Data to be encrypted.
      * @param encryptionOptions Encryption options.
+     * @param printOptions Print options defining if the input and output is logged or not.
      */
     static encryptDataForAvailableKeys(data, encryptionOptions, printOptions) {
         if (printOptions === null || printOptions === void 0 ? void 0 : printOptions.printInput) {
@@ -57,14 +58,14 @@ class Encrypter {
             const publicKey = fs_1.default.readFileSync(path_1.default.resolve(process.cwd(), common_1.PUBLIC_KEY_NAME), "utf8");
             publicKeys.push({ root: "cwd", key: publicKey });
         }
-        catch (error) {
+        catch (_a) {
             // Do nothing
         }
         try {
             const publicKey = fs_1.default.readFileSync(path_1.default.resolve(keyPath, common_1.PUBLIC_KEY_NAME), "utf8");
             publicKeys.push({ root: "qmate", key: publicKey });
         }
-        catch (error) {
+        catch (_b) {
             // Do nothing
         }
         if (publicKeys.length < 1) {

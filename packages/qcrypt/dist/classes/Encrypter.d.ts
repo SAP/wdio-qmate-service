@@ -4,6 +4,7 @@ export default abstract class Encrypter {
      * @description Retrieves public keys from the file system and encrypts data for all of them.
      * @param data Data to be encrypted.
      * @param encryptionOptions Encryption options.
+     * @param printOptions Print options defining if the input and output is logged or not.
      */
     static encryptDataForAvailableKeys(data: string, encryptionOptions: EncryptionOptions, printOptions: PrintOptions): Array<EncodedData>;
     /**
@@ -12,7 +13,7 @@ export default abstract class Encrypter {
      * @param encryptionOptions Encryption options.
      * @param publicKeys Public keys for encryption.
      */
-    static encryptDataForMultipleKeys(data: string, encryptionOptions: EncryptionOptions, publicKeys: PublicKey[]): Array<EncodedData>;
+    static encryptDataForMultipleKeys(data: string, encryptionOptions: EncryptionOptions, publicKeys: Array<PublicKey>): Array<EncodedData>;
     /**
      * @description Retrieves the public keys from the file system.
      * @param keyPath Path to the directory containing the public key.

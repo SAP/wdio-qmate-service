@@ -52,7 +52,7 @@ class Decrypter {
                 }, decryptedDataByRepoName);
             }
             catch (error) {
-                decryptError = error;
+                decryptError = error.message;
             }
         }
         if (decryptedDataByKey) {
@@ -72,7 +72,7 @@ class Decrypter {
         try {
             privateKey = fs_1.default.readFileSync(path_1.default.resolve(process.cwd(), common_1.PRIVATE_KEY_NAME), "utf8");
         }
-        catch (error) {
+        catch (_a) {
             if (process.env.QMATE_PRIVATE_KEY) {
                 privateKey = process.env.QMATE_PRIVATE_KEY;
                 privateKey = privateKey.replace(/\\n/gm, "\n");

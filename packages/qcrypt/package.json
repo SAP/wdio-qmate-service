@@ -1,6 +1,6 @@
 {
   "name": "qcrypt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Local version of qcrypt package",
   "author": "I503232",
   "main": "dist/index.js",
