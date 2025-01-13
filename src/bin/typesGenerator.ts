@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import fse from "fs-extra";
 import os from "os";
 import path from "path";
-import glob from "glob-promise";
+import { glob } from "glob";
 
 const pj = require("../../package.json");
 
@@ -95,24 +95,27 @@ class TypesGenerator {
   }
 
   private async splitToModules(content: string[]) {
-    return content.reduce((acc, cur) => {
-      const slashIndex = cur.indexOf(path.sep);
-      let moduleName;
-      let file;
-      if (slashIndex !== -1) {
-        moduleName = cur.slice(0, slashIndex);
-        file = cur.slice(slashIndex + 1);
-      } else {
-        moduleName = this.FOLDER_FOR_TYPE_DECLARATION_FILES;
-        file = cur;
-      }
-      if (Array.isArray(acc[moduleName])) {
-        acc[moduleName].push(file);
-      } else {
-        acc[moduleName] = [file];
-      }
-      return acc;
-    }, {} as { [key: string]: string[] });
+    return content.reduce(
+      (acc, cur) => {
+        const slashIndex = cur.indexOf(path.sep);
+        let moduleName;
+        let file;
+        if (slashIndex !== -1) {
+          moduleName = cur.slice(0, slashIndex);
+          file = cur.slice(slashIndex + 1);
+        } else {
+          moduleName = this.FOLDER_FOR_TYPE_DECLARATION_FILES;
+          file = cur;
+        }
+        if (Array.isArray(acc[moduleName])) {
+          acc[moduleName].push(file);
+        } else {
+          acc[moduleName] = [file];
+        }
+        return acc;
+      },
+      {} as { [key: string]: string[] }
+    );
   }
 
   private async writeModules(content: { [key: string]: string[] }, distPath: string, srcPath: string) {
