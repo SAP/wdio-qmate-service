@@ -170,7 +170,7 @@
     "concurrently": "^9.1.2",
     "doctrine": "^3.0.0",
     "eslint": "^9.18.0",
-    "eslint-plugin-wdio": "^6.6.0",
+    "eslint-plugin-wdio": "^8.37.0",
     "glob": "^11.0.1",
     "jsdoc-to-markdown": "^9.1.1",
     "json-server": "^0.17.4",
