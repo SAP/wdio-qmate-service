@@ -11,12 +11,13 @@ import ErrorHandler from "../../helper/errorHandler";
 
 // Types
 type DecryptionOptions = {
-  useBase64Input: boolean;
-  useBase64Output: boolean;
-  includeRepoUrl: boolean;
+  useBase64Input?: boolean;
+  useBase64Output?: boolean;
+  includeRepoUrl?: boolean;
 };
 
-const DEFAULT_DECRYPTION_OPTIONS = {
+// Constants
+const DEFAULT_DECRYPTION_OPTIONS: DecryptionOptions = {
   useBase64Input: false,
   useBase64Output: false,
   includeRepoUrl: true
