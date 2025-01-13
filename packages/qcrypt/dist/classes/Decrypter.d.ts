@@ -16,7 +16,7 @@ export default abstract class Decrypter {
      */
     static decryptData(data: SecureData, privateKey: string, options: DecryptionOptions): string;
     /**
-     * @description Retrieves the private key from the file system.
+     * @description Retrieves the private key from the current working directory, env var or the given path.
      * @param keyPath Path to the directory containing the private key.
      * @returns Private key.
      */

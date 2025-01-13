@@ -13,6 +13,9 @@ class Util {
      * @returns The base64 encoded string.
      */
     static base64ToUtf8(string) {
+        if (!this.isBase64(string)) {
+            throw new Error("Invalid base64 format. Please provide a valid base64 encoded string.");
+        }
         return Buffer.from(string, "base64").toString("utf-8");
     }
     /**
@@ -24,6 +27,15 @@ class Util {
         return Buffer.from(string, "utf-8").toString("base64");
     }
     /**
+     * @description Checks if the given string is base64 encoded.
+     * @param string The string to be checked.
+     * @returns True if the string is base64 encoded, false otherwise.
+     */
+    static isBase64(string) {
+        const base64Regex = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
+        return base64Regex.test(string);
+    }
+    /**
      * @description Parses the key by encoding.
      * @param key The key to be parsed.
      * @returns The parsed key.
@@ -31,6 +43,14 @@ class Util {
     static parseKeyByEncoding(key) {
         const utf8Regex = /-*(BEGIN|END)\s\w*\s(PUBLIC|PRIVATE)\sKEY-*/;
         return utf8Regex.test(key) ? key : this.base64ToUtf8(key);
+    }
+    /**
+     * @description Normalizes the key by removing spaces and new lines.
+     * @param key The key to be normalized.
+     * @returns The normalized key.
+     */
+    static normalizeKey(key) {
+        return key.replace(/\\n/gm, "\n").replace(/\\s/gm, " ");
     }
     /**
      * @description Retrieves the repository URL from the git configuration.

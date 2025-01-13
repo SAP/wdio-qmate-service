@@ -7,7 +7,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const crypto_1 = __importDefault(require("crypto"));
-const Util_1 = __importDefault(require("./Util"));
+const Util_1 = __importDefault(require("./helper/Util"));
+const ErrorHandler_1 = __importDefault(require("./helper/ErrorHandler"));
 // Constants
 const common_1 = require("../constants/common");
 class Decrypter {
@@ -38,13 +39,31 @@ class Decrypter {
      * @returns Decrypted data.
      */
     static decryptData(data, privateKey, options) {
-        data = Util_1.default.convertStringToArray(data);
+        let encodedData;
         let decryptedDataByKey;
-        let decryptError;
-        for (const d of data) {
+        let decryptedDataByRepoName;
+        const decryptErrors = [];
+        data = Util_1.default.convertStringToArray(data);
+        for (const [index, value] of data.entries()) {
+            // Convert base64 encoded data to utf8
             try {
-                const dataEncoded = options.useBase64Input ? Util_1.default.base64ToUtf8(d) : d;
-                const decryptedDataByRepoName = Buffer.from(this._decryptDataWithPassword(dataEncoded, options), "base64");
+                encodedData = options.useBase64Input ? Util_1.default.base64ToUtf8(value) : value;
+            }
+            catch (error) {
+                decryptErrors.push(new Error(`\n - Invalid input data format at index ${index}. ${error.message}`));
+                continue;
+            }
+            // Decrypt data with password
+            try {
+                decryptedDataByRepoName = Buffer.from(this._decryptDataWithPassword(encodedData, options), "base64");
+            }
+            catch (error) {
+                const errorMessage = ErrorHandler_1.default.handleDecryptDataWithPasswordError(error, options);
+                decryptErrors.push(new Error(`\n - Decryption with password failed for data at index ${index}. ${errorMessage}`));
+                continue;
+            }
+            // Decrypt data with private key
+            try {
                 decryptedDataByKey = crypto_1.default.privateDecrypt({
                     key: Util_1.default.parseKeyByEncoding(privateKey),
                     padding: crypto_1.default.constants.RSA_PKCS1_OAEP_PADDING,
@@ -52,41 +71,38 @@ class Decrypter {
                 }, decryptedDataByRepoName);
             }
             catch (error) {
-                decryptError = error.message;
+                const errorMessage = ErrorHandler_1.default.handleDecryptDataWithPrivateKeyError(error);
+                decryptErrors.push(new Error(`\n - Decryption with private key failed for data at index ${index}. ${errorMessage}`));
             }
         }
+        // Return the decrypted data if successful
         if (decryptedDataByKey) {
             return options.useBase64Output ? Util_1.default.utf8ToBase64(decryptedDataByKey.toString()) : decryptedDataByKey.toString();
         }
         else {
-            throw new Error(decryptError);
+            throw new Error(`${ErrorHandler_1.default.DECRYPTION_ERROR_MESSAGE}: ${decryptErrors.map((error) => error.message).join(" ")}`);
         }
     }
     /**
-     * @description Retrieves the private key from the file system.
+     * @description Retrieves the private key from the current working directory, env var or the given path.
      * @param keyPath Path to the directory containing the private key.
      * @returns Private key.
      */
     static retrievePrivateKey(keyPath) {
         let privateKey;
-        try {
+        if (fs_1.default.existsSync(path_1.default.resolve(process.cwd(), common_1.PRIVATE_KEY_NAME))) {
             privateKey = fs_1.default.readFileSync(path_1.default.resolve(process.cwd(), common_1.PRIVATE_KEY_NAME), "utf8");
         }
-        catch (_a) {
-            if (process.env.QMATE_PRIVATE_KEY) {
-                privateKey = process.env.QMATE_PRIVATE_KEY;
-                privateKey = privateKey.replace(/\\n/gm, "\n");
-                privateKey = privateKey.replace(/\\s/gm, " ");
-            }
-            else {
-                try {
-                    privateKey = fs_1.default.readFileSync(path_1.default.resolve(keyPath, common_1.PRIVATE_KEY_NAME), "utf8");
-                }
-                catch (error) {
-                    throw new Error(`No private key found: ${error}`);
-                }
-            }
+        else if (process.env.QMATE_PRIVATE_KEY) {
+            privateKey = Util_1.default.normalizeKey(process.env.QMATE_PRIVATE_KEY);
         }
+        else if (fs_1.default.existsSync(path_1.default.resolve(keyPath, common_1.PRIVATE_KEY_NAME))) {
+            privateKey = fs_1.default.readFileSync(path_1.default.resolve(keyPath, common_1.PRIVATE_KEY_NAME), "utf8");
+        }
+        if (!privateKey) {
+            throw new Error(`${ErrorHandler_1.default.NO_PRIVATE_KEY_ERROR_MESSAGE}.`);
+        }
+        // Clear the private key from the environment variables after use
         process.env.QMATE_PRIVATE_KEY = "";
         return privateKey;
     }
@@ -113,12 +129,7 @@ class Decrypter {
             return decryptedData;
         }
         catch (error) {
-            if (error instanceof Error) {
-                throw new Error(error.message);
-            }
-            else {
-                throw new Error("Unknown error");
-            }
+            ErrorHandler_1.default.handleAndThrowError(error);
         }
     }
     /**

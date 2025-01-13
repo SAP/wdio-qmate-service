@@ -7,7 +7,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const crypto_1 = __importDefault(require("crypto"));
-const Util_1 = __importDefault(require("./Util"));
+const Util_1 = __importDefault(require("./helper/Util"));
+const ErrorHandler_1 = __importDefault(require("./helper/ErrorHandler"));
 // Constants
 const common_1 = require("../constants/common");
 class Encrypter {
@@ -40,7 +41,13 @@ class Encrypter {
         const encodedDataAggregated = [];
         data = encryptionOptions.useBase64Input ? Util_1.default.base64ToUtf8(data) : data;
         for (const pk of publicKeys) {
-            const encryptedData = this._encryptData(data, pk.key, encryptionOptions);
+            let encryptedData;
+            try {
+                encryptedData = this._encryptData(data, pk.key, encryptionOptions);
+            }
+            catch (error) {
+                ErrorHandler_1.default.handleAndThrowError(error, `Encryption failed`);
+            }
             const encodedData = encryptionOptions.useBase64Output ? Util_1.default.utf8ToBase64(encryptedData) : encryptedData;
             encodedDataAggregated.push({ root: pk.root, encodedData });
         }
@@ -69,7 +76,7 @@ class Encrypter {
             // Do nothing
         }
         if (publicKeys.length < 1) {
-            throw new Error("Encryption failed. No public key found.");
+            throw new Error(`${ErrorHandler_1.default.NO_PUBLIC_KEY_ERROR_MESSAGE}.`);
         }
         return publicKeys;
     }
@@ -90,7 +97,7 @@ class Encrypter {
             return this._encryptDataWithPassword(encryptedDataByKey.toString("base64"), options);
         }
         catch (error) {
-            throw new Error(`Encryption failed: ${error}`);
+            ErrorHandler_1.default.handleAndThrowError(error);
         }
     }
     /**
