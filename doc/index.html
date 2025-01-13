@@ -1053,9 +1053,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#datagetsecuredatafilename-source-object" class="md-nav__link">
+  <a href="#datagetsecuredatafilename-source-options-object" class="md-nav__link">
     <span class="md-ellipsis">
-      data.getSecureData(filename, [source]) ⇒ Object
+      data.getSecureData(filename, [source], [options]) ⇒ Object
     </span>
   </a>
   
@@ -1080,9 +1080,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#datadecryptdata-string" class="md-nav__link">
+  <a href="#datadecryptdata-options-string" class="md-nav__link">
     <span class="md-ellipsis">
-      data.decrypt(data) ⇒ String
+      data.decrypt(data, options) ⇒ String
     </span>
   </a>
   
@@ -3462,18 +3462,135 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#deviceisappinstalledpackageidorbundleid-boolean" class="md-nav__link">
+  <a href="#deviceisvalidplatform-boolean" class="md-nav__link">
     <span class="md-ellipsis">
-      device.isAppInstalled(packageIdOrBundleId) ⇒ boolean
+      device.isValidPlatform() ⇒ boolean
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#deviceinstallappapppath" class="md-nav__link">
+  <a href="#deviceexecutionplatform-string" class="md-nav__link">
     <span class="md-ellipsis">
-      device.installApp(appPath)
+      device.executionPlatform() ⇒ string
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceisappinstalledapppackageorbundleid-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.isAppInstalled(appPackageOrBundleId) ⇒ boolean
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceinstallappapppath-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.installApp(appPath) ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceswitchtocontexttargetcontext-timeout-promiseboolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.switchToContext([targetContext], [timeout]) ⇒ Promise.&lt;boolean&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicegettargetcontextifavailabletargetcontext-timeout-promisestringnull" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.getTargetContextIfAvailable([targetContext], [timeout]) ⇒ Promise.&lt;(string|null)&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicecloseapplication-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.closeApplication() ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicequeryappstateapppackageorbundleid-promisenumber" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.queryAppState(appPackageOrBundleId) ⇒ Promise.&lt;number&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicelaunchappapppackageorbundleid-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.launchApp(appPackageOrBundleId) ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceswitchtolandscapeorientation-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.switchToLandscapeOrientation() ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceswitchtoportraitorientation-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.switchToPortraitOrientation() ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicegetcurrentorientation-promiseorientation" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.getCurrentOrientation() ⇒ Promise.&lt;Orientation&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicehidekeyboardstrategy-key-keycode-timeout-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.hideKeyboard(strategy, key, keyCode, [timeout]) ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceiskeyboardvisible-promiseboolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.isKeyboardVisible() ⇒ Promise.&lt;boolean&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceisplatformsupported-promiseboolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.isPlatformSupported() ⇒ Promise.&lt;boolean&gt;
     </span>
   </a>
   
@@ -3497,52 +3614,61 @@
           <li class="md-nav__item">
   <a href="#elementisvisibleelement-strict-boolean_1" class="md-nav__link">
     <span class="md-ellipsis">
-      element.isVisible(element, [strict]) ⇒ Boolean
+      element.isVisible(element, [strict]) ⇒ boolean
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#elementispresentelem-boolean_1" class="md-nav__link">
+  <a href="#elementispresentelement-boolean" class="md-nav__link">
     <span class="md-ellipsis">
-      element.isPresent(elem) ⇒ Boolean
+      element.isPresent(element) ⇒ boolean
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#elementwaittobepresentselector-timeout_1" class="md-nav__link">
+  <a href="#elementwaittobepresentselector-timeout-boolean" class="md-nav__link">
     <span class="md-ellipsis">
-      element.waitToBePresent(selector, [timeout])
+      element.waitToBePresent(selector, [timeout]) ⇒ boolean
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#elementwaittobevisibleselector-timeout_1" class="md-nav__link">
+  <a href="#elementwaittobevisibleselector-timeout-boolean" class="md-nav__link">
     <span class="md-ellipsis">
-      element.waitToBeVisible(selector, [timeout])
+      element.waitToBeVisible(selector, [timeout]) ⇒ boolean
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#elementwaittobeclickableselector-timeout_1" class="md-nav__link">
+  <a href="#elementwaittobeclickableselector-timeout-boolean" class="md-nav__link">
     <span class="md-ellipsis">
-      element.waitToBeClickable(selector, [timeout])
+      element.waitToBeClickable(selector, [timeout]) ⇒ boolean
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#elementisselectedelem-boolean_1" class="md-nav__link">
+  <a href="#elementisselectedelementorselector-boolean" class="md-nav__link">
     <span class="md-ellipsis">
-      element.isSelected(elem) ⇒ boolean
+      element.isSelected(elementOrSelector) ⇒ boolean
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elementwaittobeenabledselector-timeout-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      element.waitToBeEnabled(selector, [timeout]) ⇒ boolean
     </span>
   </a>
   
@@ -3597,18 +3723,63 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#userinteractiontapelement-timeout" class="md-nav__link">
+  <a href="#userinteractiontapelementorselector-timeout" class="md-nav__link">
     <span class="md-ellipsis">
-      userInteraction.tap(element, [timeout])
+      userInteraction.tap(elementOrSelector, [timeout])
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractioncheckelement" class="md-nav__link">
+  <a href="#userinteractioncheckelementorselector-timeout" class="md-nav__link">
     <span class="md-ellipsis">
-      userInteraction.check(element)
+      userInteraction.check(elementOrSelector, [timeout])
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userinteractionuncheckelementorselector-timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      userInteraction.uncheck(elementOrSelector, [timeout])
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userinteractiondoubletapelementorselector-timeout-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      userInteraction.doubleTap(elementOrSelector, [timeout]) ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userinteractionfillelementorselector-value-timeout-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      userInteraction.fill(elementOrSelector, value, [timeout]) ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userinteractionclearandfillelementorselector-value-timeout-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      userInteraction.clearAndFill(elementOrSelector, value, [timeout]) ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userinteractionclearelementorselector-timeout-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      userInteraction.clear(elementOrSelector, [timeout]) ⇒ Promise.&lt;void&gt;
     </span>
   </a>
   
@@ -4993,9 +5164,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#datagetsecuredatafilename-source-object" class="md-nav__link">
+  <a href="#datagetsecuredatafilename-source-options-object" class="md-nav__link">
     <span class="md-ellipsis">
-      data.getSecureData(filename, [source]) ⇒ Object
+      data.getSecureData(filename, [source], [options]) ⇒ Object
     </span>
   </a>
   
@@ -5020,9 +5191,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#datadecryptdata-string" class="md-nav__link">
+  <a href="#datadecryptdata-options-string" class="md-nav__link">
     <span class="md-ellipsis">
-      data.decrypt(data) ⇒ String
+      data.decrypt(data, options) ⇒ String
     </span>
   </a>
   
@@ -7402,18 +7573,135 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#deviceisappinstalledpackageidorbundleid-boolean" class="md-nav__link">
+  <a href="#deviceisvalidplatform-boolean" class="md-nav__link">
     <span class="md-ellipsis">
-      device.isAppInstalled(packageIdOrBundleId) ⇒ boolean
+      device.isValidPlatform() ⇒ boolean
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#deviceinstallappapppath" class="md-nav__link">
+  <a href="#deviceexecutionplatform-string" class="md-nav__link">
     <span class="md-ellipsis">
-      device.installApp(appPath)
+      device.executionPlatform() ⇒ string
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceisappinstalledapppackageorbundleid-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.isAppInstalled(appPackageOrBundleId) ⇒ boolean
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceinstallappapppath-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.installApp(appPath) ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceswitchtocontexttargetcontext-timeout-promiseboolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.switchToContext([targetContext], [timeout]) ⇒ Promise.&lt;boolean&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicegettargetcontextifavailabletargetcontext-timeout-promisestringnull" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.getTargetContextIfAvailable([targetContext], [timeout]) ⇒ Promise.&lt;(string|null)&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicecloseapplication-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.closeApplication() ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicequeryappstateapppackageorbundleid-promisenumber" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.queryAppState(appPackageOrBundleId) ⇒ Promise.&lt;number&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicelaunchappapppackageorbundleid-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.launchApp(appPackageOrBundleId) ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceswitchtolandscapeorientation-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.switchToLandscapeOrientation() ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceswitchtoportraitorientation-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.switchToPortraitOrientation() ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicegetcurrentorientation-promiseorientation" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.getCurrentOrientation() ⇒ Promise.&lt;Orientation&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devicehidekeyboardstrategy-key-keycode-timeout-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.hideKeyboard(strategy, key, keyCode, [timeout]) ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceiskeyboardvisible-promiseboolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.isKeyboardVisible() ⇒ Promise.&lt;boolean&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceisplatformsupported-promiseboolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      device.isPlatformSupported() ⇒ Promise.&lt;boolean&gt;
     </span>
   </a>
   
@@ -7437,52 +7725,61 @@
           <li class="md-nav__item">
   <a href="#elementisvisibleelement-strict-boolean_1" class="md-nav__link">
     <span class="md-ellipsis">
-      element.isVisible(element, [strict]) ⇒ Boolean
+      element.isVisible(element, [strict]) ⇒ boolean
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#elementispresentelem-boolean_1" class="md-nav__link">
+  <a href="#elementispresentelement-boolean" class="md-nav__link">
     <span class="md-ellipsis">
-      element.isPresent(elem) ⇒ Boolean
+      element.isPresent(element) ⇒ boolean
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#elementwaittobepresentselector-timeout_1" class="md-nav__link">
+  <a href="#elementwaittobepresentselector-timeout-boolean" class="md-nav__link">
     <span class="md-ellipsis">
-      element.waitToBePresent(selector, [timeout])
+      element.waitToBePresent(selector, [timeout]) ⇒ boolean
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#elementwaittobevisibleselector-timeout_1" class="md-nav__link">
+  <a href="#elementwaittobevisibleselector-timeout-boolean" class="md-nav__link">
     <span class="md-ellipsis">
-      element.waitToBeVisible(selector, [timeout])
+      element.waitToBeVisible(selector, [timeout]) ⇒ boolean
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#elementwaittobeclickableselector-timeout_1" class="md-nav__link">
+  <a href="#elementwaittobeclickableselector-timeout-boolean" class="md-nav__link">
     <span class="md-ellipsis">
-      element.waitToBeClickable(selector, [timeout])
+      element.waitToBeClickable(selector, [timeout]) ⇒ boolean
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#elementisselectedelem-boolean_1" class="md-nav__link">
+  <a href="#elementisselectedelementorselector-boolean" class="md-nav__link">
     <span class="md-ellipsis">
-      element.isSelected(elem) ⇒ boolean
+      element.isSelected(elementOrSelector) ⇒ boolean
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elementwaittobeenabledselector-timeout-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      element.waitToBeEnabled(selector, [timeout]) ⇒ boolean
     </span>
   </a>
   
@@ -7537,18 +7834,63 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#userinteractiontapelement-timeout" class="md-nav__link">
+  <a href="#userinteractiontapelementorselector-timeout" class="md-nav__link">
     <span class="md-ellipsis">
-      userInteraction.tap(element, [timeout])
+      userInteraction.tap(elementOrSelector, [timeout])
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractioncheckelement" class="md-nav__link">
+  <a href="#userinteractioncheckelementorselector-timeout" class="md-nav__link">
     <span class="md-ellipsis">
-      userInteraction.check(element)
+      userInteraction.check(elementOrSelector, [timeout])
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userinteractionuncheckelementorselector-timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      userInteraction.uncheck(elementOrSelector, [timeout])
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userinteractiondoubletapelementorselector-timeout-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      userInteraction.doubleTap(elementOrSelector, [timeout]) ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userinteractionfillelementorselector-value-timeout-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      userInteraction.fill(elementOrSelector, value, [timeout]) ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userinteractionclearandfillelementorselector-value-timeout-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      userInteraction.clearAndFill(elementOrSelector, value, [timeout]) ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userinteractionclearelementorselector-timeout-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      userInteraction.clear(elementOrSelector, [timeout]) ⇒ Promise.&lt;void&gt;
     </span>
   </a>
   
@@ -8567,10 +8909,10 @@
 </li>
 <li><a href="#util.data">.data</a><ul>
 <li><a href="#util.data.getData">.getData(filename, [source])</a> ⇒ <code>Object</code></li>
-<li><a href="#util.data.getSecureData">.getSecureData(filename, [source])</a> ⇒ <code>Object</code></li>
+<li><a href="#util.data.getSecureData">.getSecureData(filename, [source], [options])</a> ⇒ <code>Object</code></li>
 <li><a href="#util.data.readDataFromFile">.readDataFromFile(filePath)</a> ⇒ <code>Object</code></li>
 <li><a href="#util.data.writeDataToFile">.writeDataToFile(filePath, data)</a></li>
-<li><a href="#util.data.decrypt">.decrypt(data)</a> ⇒ <code>String</code></li>
+<li><a href="#util.data.decrypt">.decrypt(data, options)</a> ⇒ <code>String</code></li>
 </ul>
 </li>
 <li><a href="#util.file">.file</a><ul>
@@ -9288,10 +9630,10 @@
 <ul>
 <li><a href="#util.data">.data</a><ul>
 <li><a href="#util.data.getData">.getData(filename, [source])</a> ⇒ <code>Object</code></li>
-<li><a href="#util.data.getSecureData">.getSecureData(filename, [source])</a> ⇒ <code>Object</code></li>
+<li><a href="#util.data.getSecureData">.getSecureData(filename, [source], [options])</a> ⇒ <code>Object</code></li>
 <li><a href="#util.data.readDataFromFile">.readDataFromFile(filePath)</a> ⇒ <code>Object</code></li>
 <li><a href="#util.data.writeDataToFile">.writeDataToFile(filePath, data)</a></li>
-<li><a href="#util.data.decrypt">.decrypt(data)</a> ⇒ <code>String</code></li>
+<li><a href="#util.data.decrypt">.decrypt(data, options)</a> ⇒ <code>String</code></li>
 </ul>
 </li>
 </ul>
@@ -9328,7 +9670,7 @@
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">getData</span><span class="p">(</span><span class="s2">&quot;myTest&quot;</span><span class="p">);</span>
 </code></pre></div>
 <a name="util.data.getSecureData"></a></p>
-<h4 id="datagetsecuredatafilename-source-object">data.getSecureData(filename, [source]) ⇒ <code>Object</code></h4>
+<h4 id="datagetsecuredatafilename-source-options-object">data.getSecureData(filename, [source], [options]) ⇒ <code>Object</code></h4>
 <p>Returns and encrypts the data object with the given filename (JSON, stored in data folder). Will return the local file object if private key is not accessible.</p>
 <p><strong>Kind</strong>: static method of <a href="#util.data"><code>data</code></a><br />
 <strong>Returns</strong>: <code>Object</code> - The encrypted or local data object.  </p>
@@ -9353,6 +9695,12 @@
 <td><code>String</code></td>
 <td><code>data</code></td>
 <td>The source key defined under params.import of the config file.</td>
+</tr>
+<tr>
+<td>[options]</td>
+<td><code>Object</code></td>
+<td></td>
+<td>The options object.</td>
 </tr>
 </tbody>
 </table>
@@ -9412,7 +9760,7 @@
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">writeDataToFile</span><span class="p">(</span><span class="s2">&quot;myTest&quot;</span><span class="p">);</span>
 </code></pre></div>
 <a name="util.data.decrypt"></a></p>
-<h4 id="datadecryptdata-string">data.decrypt(data) ⇒ <code>String</code></h4>
+<h4 id="datadecryptdata-options-string">data.decrypt(data, options) ⇒ <code>String</code></h4>
 <p>Decrypts the passed input data.</p>
 <p><strong>Kind</strong>: static method of <a href="#util.data"><code>data</code></a><br />
 <strong>Returns</strong>: <code>String</code> - The decrypted data.  </p>
@@ -9429,6 +9777,11 @@
 <td>data</td>
 <td><code>String</code> | <code>Array.&lt;String&gt;</code></td>
 <td>The encrypted data to decrypt. Single value or array of values for different keys.</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
+<td>The decryption options.</td>
 </tr>
 </tbody>
 </table>
@@ -17749,17 +18102,31 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </ul>
 </li>
 <li><a href="#mobile.device">.device</a><ul>
-<li><a href="#mobile.device.isAppInstalled">.isAppInstalled(packageIdOrBundleId)</a> ⇒ <code>boolean</code></li>
-<li><a href="#mobile.device.installApp">.installApp(appPath)</a></li>
+<li><a href="#mobile.device.isValidPlatform">.isValidPlatform()</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.device.executionPlatform">.executionPlatform()</a> ⇒ <code>string</code></li>
+<li><a href="#mobile.device.isAppInstalled">.isAppInstalled(appPackageOrBundleId)</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.device.installApp">.installApp(appPath)</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.device.switchToContext">.switchToContext([targetContext], [timeout])</a> ⇒ <code>Promise.&lt;boolean&gt;</code></li>
+<li><a href="#mobile.device.getTargetContextIfAvailable">.getTargetContextIfAvailable([targetContext], [timeout])</a> ⇒ <code>Promise.&lt;(string|null)&gt;</code></li>
+<li><a href="#mobile.device.closeApplication">.closeApplication()</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.device.queryAppState">.queryAppState(appPackageOrBundleId)</a> ⇒ <code>Promise.&lt;number&gt;</code></li>
+<li><a href="#mobile.device.launchApp">.launchApp(appPackageOrBundleId)</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.device.switchToLandscapeOrientation">.switchToLandscapeOrientation()</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.device.switchToPortraitOrientation">.switchToPortraitOrientation()</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.device.getCurrentOrientation">.getCurrentOrientation()</a> ⇒ <code>Promise.&lt;Orientation&gt;</code></li>
+<li><a href="#mobile.device.hideKeyboard">.hideKeyboard(strategy, key, keyCode, [timeout])</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.device.isKeyboardVisible">.isKeyboardVisible()</a> ⇒ <code>Promise.&lt;boolean&gt;</code></li>
+<li><a href="#mobile.device.isPlatformSupported">.isPlatformSupported()</a> ⇒ <code>Promise.&lt;boolean&gt;</code></li>
 </ul>
 </li>
 <li><a href="#mobile.element">.element</a><ul>
-<li><a href="#mobile.element.isVisible">.isVisible(element, [strict])</a> ⇒ <code>Boolean</code></li>
-<li><a href="#mobile.element.isPresent">.isPresent(elem)</a> ⇒ <code>Boolean</code></li>
-<li><a href="#mobile.element.waitToBePresent">.waitToBePresent(selector, [timeout])</a></li>
-<li><a href="#mobile.element.waitToBeVisible">.waitToBeVisible(selector, [timeout])</a></li>
-<li><a href="#mobile.element.waitToBeClickable">.waitToBeClickable(selector, [timeout])</a></li>
-<li><a href="#mobile.element.isSelected">.isSelected(elem)</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.element.isVisible">.isVisible(element, [strict])</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.element.isPresent">.isPresent(element)</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.element.waitToBePresent">.waitToBePresent(selector, [timeout])</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.element.waitToBeVisible">.waitToBeVisible(selector, [timeout])</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.element.waitToBeClickable">.waitToBeClickable(selector, [timeout])</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.element.isSelected">.isSelected(elementOrSelector)</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.element.waitToBeEnabled">.waitToBeEnabled(selector, [timeout])</a> ⇒ <code>boolean</code></li>
 </ul>
 </li>
 <li><a href="#mobile.gestures">.gestures</a><ul>
@@ -17768,8 +18135,13 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </li>
 <li><a href="#mobile.ios">.ios</a></li>
 <li><a href="#mobile.userInteraction">.userInteraction</a><ul>
-<li><a href="#mobile.userInteraction.tap">.tap(element, [timeout])</a></li>
-<li><a href="#mobile.userInteraction.check">.check(element)</a></li>
+<li><a href="#mobile.userInteraction.tap">.tap(elementOrSelector, [timeout])</a></li>
+<li><a href="#mobile.userInteraction.check">.check(elementOrSelector, [timeout])</a></li>
+<li><a href="#mobile.userInteraction.uncheck">.uncheck(elementOrSelector, [timeout])</a></li>
+<li><a href="#mobile.userInteraction.doubleTap">.doubleTap(elementOrSelector, [timeout])</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.userInteraction.fill">.fill(elementOrSelector, value, [timeout])</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.userInteraction.clearAndFill">.clearAndFill(elementOrSelector, value, [timeout])</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.userInteraction.clear">.clear(elementOrSelector, [timeout])</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
 </ul>
 </li>
 </ul>
@@ -17840,16 +18212,39 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <p><strong>Kind</strong>: static class of <a href="#mobile"><code>mobile</code></a>  </p>
 <ul>
 <li><a href="#mobile.device">.device</a><ul>
-<li><a href="#mobile.device.isAppInstalled">.isAppInstalled(packageIdOrBundleId)</a> ⇒ <code>boolean</code></li>
-<li><a href="#mobile.device.installApp">.installApp(appPath)</a></li>
+<li><a href="#mobile.device.isValidPlatform">.isValidPlatform()</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.device.executionPlatform">.executionPlatform()</a> ⇒ <code>string</code></li>
+<li><a href="#mobile.device.isAppInstalled">.isAppInstalled(appPackageOrBundleId)</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.device.installApp">.installApp(appPath)</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.device.switchToContext">.switchToContext([targetContext], [timeout])</a> ⇒ <code>Promise.&lt;boolean&gt;</code></li>
+<li><a href="#mobile.device.getTargetContextIfAvailable">.getTargetContextIfAvailable([targetContext], [timeout])</a> ⇒ <code>Promise.&lt;(string|null)&gt;</code></li>
+<li><a href="#mobile.device.closeApplication">.closeApplication()</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.device.queryAppState">.queryAppState(appPackageOrBundleId)</a> ⇒ <code>Promise.&lt;number&gt;</code></li>
+<li><a href="#mobile.device.launchApp">.launchApp(appPackageOrBundleId)</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.device.switchToLandscapeOrientation">.switchToLandscapeOrientation()</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.device.switchToPortraitOrientation">.switchToPortraitOrientation()</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.device.getCurrentOrientation">.getCurrentOrientation()</a> ⇒ <code>Promise.&lt;Orientation&gt;</code></li>
+<li><a href="#mobile.device.hideKeyboard">.hideKeyboard(strategy, key, keyCode, [timeout])</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.device.isKeyboardVisible">.isKeyboardVisible()</a> ⇒ <code>Promise.&lt;boolean&gt;</code></li>
+<li><a href="#mobile.device.isPlatformSupported">.isPlatformSupported()</a> ⇒ <code>Promise.&lt;boolean&gt;</code></li>
 </ul>
 </li>
 </ul>
-<p><a name="mobile.device.isAppInstalled"></a></p>
-<h4 id="deviceisappinstalledpackageidorbundleid-boolean">device.isAppInstalled(packageIdOrBundleId) ⇒ <code>boolean</code></h4>
+<p><a name="mobile.device.isValidPlatform"></a></p>
+<h4 id="deviceisvalidplatform-boolean">device.isValidPlatform() ⇒ <code>boolean</code></h4>
+<p>Check the mobile platform from the session's capabilities.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
+<strong>Returns</strong>: <code>boolean</code> - Returns 'true' if the platform in the session's capabilities is either Android or iOS.<br />
+<a name="mobile.device.executionPlatform"></a></p>
+<h4 id="deviceexecutionplatform-string">device.executionPlatform() ⇒ <code>string</code></h4>
+<p>Check the mobile platform from the session's capabilities.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
+<strong>Returns</strong>: <code>string</code> - Return current execution platform in the session's capabilities.<br />
+<a name="mobile.device.isAppInstalled"></a></p>
+<h4 id="deviceisappinstalledapppackageorbundleid-boolean">device.isAppInstalled(appPackageOrBundleId) ⇒ <code>boolean</code></h4>
 <p>Check wether given package/bundle app is installed or not in the device.</p>
 <p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
-<strong>Returns</strong>: <code>boolean</code> - Returns true if specified app package/bundled installed in the device, or false.  </p>
+<strong>Returns</strong>: <code>boolean</code> - Returns 'true' if specified app package/bundled installed in the device, or 'false'.  </p>
 <table>
 <thead>
 <tr>
@@ -17860,7 +18255,7 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </thead>
 <tbody>
 <tr>
-<td>packageIdOrBundleId</td>
+<td>appPackageOrBundleId</td>
 <td><code>string</code></td>
 <td>Android package Id, or iOS bundle Id.</td>
 </tr>
@@ -17868,9 +18263,10 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">isAppInstalled</span><span class="p">(</span><span class="s2">&quot;com.google.android.apps.maps&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">isAppInstalled</span><span class="p">(</span><span class="s2">&quot;com.apple.AppStore&quot;</span><span class="p">)</span>
 </code></pre></div>
 <a name="mobile.device.installApp"></a></p>
-<h4 id="deviceinstallappapppath">device.installApp(appPath)</h4>
+<h4 id="deviceinstallappapppath-promisevoid">device.installApp(appPath) ⇒ <code>Promise.&lt;void&gt;</code></h4>
 <p>Install the appropriate app based on the platform the test is being executed on.</p>
 <p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a>  </p>
 <table>
@@ -17893,25 +18289,246 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">installApp</span><span class="p">(</span><span class="s2">&quot;/path/to/your/app.apk&quot;</span><span class="p">);</span>
 <span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">installApp</span><span class="p">(</span><span class="s2">&quot;/path/to/your/app.ipa&quot;</span><span class="p">);</span>
 </code></pre></div>
+<a name="mobile.device.switchToContext"></a></p>
+<h4 id="deviceswitchtocontexttargetcontext-timeout-promiseboolean">device.switchToContext([targetContext], [timeout]) ⇒ <code>Promise.&lt;boolean&gt;</code></h4>
+<p>Switch to the specified( WEBVIEW | NATIVE_APP ) context if available.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;boolean&gt;</code> - Returns 'true' if the context is successfully switched, otherwise 'false'.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[targetContext]</td>
+<td><code>string</code></td>
+<td><code>&quot;&#x27;WEBVIEW&#x27;&quot;</code></td>
+<td>The name of the target context.</td>
+</tr>
+<tr>
+<td>[timeout]</td>
+<td><code>number</code></td>
+<td><code>5000</code></td>
+<td>Maximum time to wait for the web context to appear, milliseconds.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">switchToContext</span><span class="p">();</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">switchToContext</span><span class="p">(</span><span class="s2">&quot;NATIVE_APP&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span>
+</code></pre></div>
+<a name="mobile.device.getTargetContextIfAvailable"></a></p>
+<h4 id="devicegettargetcontextifavailabletargetcontext-timeout-promisestringnull">device.getTargetContextIfAvailable([targetContext], [timeout]) ⇒ <code>Promise.&lt;(string|null)&gt;</code></h4>
+<p>Returns the specified target context if available within a given timeout.</p>
+<p>This method retrieves the list of available contexts and determines if a context
+that matches the <code>targetContext</code> string is present. If the target context is found,
+it returns the context name; otherwise, it returns <code>null</code>.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;(string|null)&gt;</code> - - The name of the target context if found, or <code>null</code> if
+  the context is not available within the timeout.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[targetContext]</td>
+<td><code>string</code></td>
+<td><code>&quot;\&quot;WEBVIEW\&quot;&quot;</code></td>
+<td>The name of the target context to check for.   Common examples are "WEBVIEW" or "NATIVE_APP".</td>
+</tr>
+<tr>
+<td>[timeout]</td>
+<td><code>number</code></td>
+<td><code>5000</code></td>
+<td>The maximum time, in milliseconds, to wait for the target   context to become available.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getTargetContextIfAvailable</span><span class="p">(</span><span class="s2">&quot;WEBVIEW&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">10000</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getTargetContextIfAvailable</span><span class="p">(</span><span class="s2">&quot;NATIVE_APP&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">10000</span><span class="p">);</span>
+</code></pre></div>
+<a name="mobile.device.closeApplication"></a></p>
+<h4 id="devicecloseapplication-promisevoid">device.closeApplication() ⇒ <code>Promise.&lt;void&gt;</code></h4>
+<p>Close the currently active mobile application.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">closeApplication</span><span class="p">();</span>
+</code></pre></div>
+<a name="mobile.device.queryAppState"></a></p>
+<h4 id="devicequeryappstateapppackageorbundleid-promisenumber">device.queryAppState(appPackageOrBundleId) ⇒ <code>Promise.&lt;number&gt;</code></h4>
+<p>Queries the state of the application (e.g., running, background, not installed) on the mobile device(Android or iOS).</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;number&gt;</code> - - The app state:
+ 0 - Not running,
+ 1 - Not installed,
+ 2 - Running in the background (not suspended),
+ 3 - Running in the background (suspended),
+ 4 - Running in the foreground.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>appPackageOrBundleId</td>
+<td><code>string</code></td>
+<td>Package name (Android) or bundle ID (iOS) of the application.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">queryAppState</span><span class="p">(</span><span class="s2">&quot;com.google.android.apps.maps&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">queryAppState</span><span class="p">(</span><span class="s2">&quot;com.apple.AppStore&quot;</span><span class="p">);</span>
+</code></pre></div>
+<a name="mobile.device.launchApp"></a></p>
+<h4 id="devicelaunchappapppackageorbundleid-promisevoid">device.launchApp(appPackageOrBundleId) ⇒ <code>Promise.&lt;void&gt;</code></h4>
+<p>Launches the app for both iOS and Android with a parameterized app identifier.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;void&gt;</code> - Resolves when the app is successfully launched.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>appPackageOrBundleId</td>
+<td><code>string</code></td>
+<td>The Android package name or iOS bundle ID of the application.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">launchApp</span><span class="p">(</span><span class="s2">&quot;com.google.android.apps.maps&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">launchApp</span><span class="p">(</span><span class="s2">&quot;com.apple.AppStore&quot;</span><span class="p">);</span>
+</code></pre></div>
+<a name="mobile.device.switchToLandscapeOrientation"></a></p>
+<h4 id="deviceswitchtolandscapeorientation-promisevoid">device.switchToLandscapeOrientation() ⇒ <code>Promise.&lt;void&gt;</code></h4>
+<p>Switches the device orientation to landscape mode.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;void&gt;</code> - Resolves when the orientation is successfully switched.<br />
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">switchToLandscapeOrientation</span><span class="p">();</span>
+</code></pre></div>
+<a name="mobile.device.switchToPortraitOrientation"></a></p>
+<h4 id="deviceswitchtoportraitorientation-promisevoid">device.switchToPortraitOrientation() ⇒ <code>Promise.&lt;void&gt;</code></h4>
+<p>Switches the device orientation to portrait mode.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;void&gt;</code> - Resolves when the orientation is successfully switched.<br />
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">switchToPortraitOrientation</span><span class="p">();</span>
+</code></pre></div>
+<a name="mobile.device.getCurrentOrientation"></a></p>
+<h4 id="devicegetcurrentorientation-promiseorientation">device.getCurrentOrientation() ⇒ <code>Promise.&lt;Orientation&gt;</code></h4>
+<p>Returns the device current orientation (PORTRAIT or LANDSCAPE)</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;Orientation&gt;</code> - The current device orientation.<br />
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">getCurrentOrientation</span><span class="p">();</span>
+</code></pre></div>
+<a name="mobile.device.hideKeyboard"></a></p>
+<h4 id="devicehidekeyboardstrategy-key-keycode-timeout-promisevoid">device.hideKeyboard(strategy, key, keyCode, [timeout]) ⇒ <code>Promise.&lt;void&gt;</code></h4>
+<p>Hides the keyboard on both Android and iOS using specific strategies with timeout.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strategy</td>
+<td><code>string</code></td>
+<td></td>
+<td>Strategy to use for hiding the keyboard ('pressKey', 'tapOutside', 'swipeDown').</td>
+</tr>
+<tr>
+<td>key</td>
+<td><code>string</code></td>
+<td></td>
+<td>Key to press if using the 'pressKey' strategy (e.g., 'Done', 'Enter').</td>
+</tr>
+<tr>
+<td>keyCode</td>
+<td><code>number</code></td>
+<td></td>
+<td>Key code for Android (optional).</td>
+</tr>
+<tr>
+<td>[timeout]</td>
+<td><code>number</code></td>
+<td><code>5000</code></td>
+<td>Timeout in milliseconds for retrying to hide the keyboard.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">hideKeyboard</span><span class="p">();</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">hideKeyboard</span><span class="p">(</span><span class="s1">&#39;tapOutside&#39;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">hideKeyboard</span><span class="p">(</span><span class="s1">&#39;swipeDown&#39;</span><span class="p">);</span>
+<span class="c1">//Android only, Sends a specific key code, like 66 for &quot;Enter.&quot;</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">hideKeyboard</span><span class="p">(</span><span class="s1">&#39;pressKey&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">undefined</span><span class="p">,</span><span class="w"> </span><span class="mf">66</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">hideKeyboard</span><span class="p">(</span><span class="s1">&#39;pressKey&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Done&#39;</span><span class="p">);</span>
+</code></pre></div>
+<a name="mobile.device.isKeyboardVisible"></a></p>
+<h4 id="deviceiskeyboardvisible-promiseboolean">device.isKeyboardVisible() ⇒ <code>Promise.&lt;boolean&gt;</code></h4>
+<p>Checks if the keyboard is visible or not on the mobile device.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;boolean&gt;</code> - Returns 'true' if the keyboard is visible on the mobile view.<br />
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">isKeyboardVisible</span><span class="p">();</span>
+</code></pre></div>
+<a name="mobile.device.isPlatformSupported"></a></p>
+<h4 id="deviceisplatformsupported-promiseboolean">device.isPlatformSupported() ⇒ <code>Promise.&lt;boolean&gt;</code></h4>
+<p>Determine if the current platform is supported, if the current device platform is either Android or iOS.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;boolean&gt;</code> - If neither Android nor iOS is detected (e.g., Windows, Linux, or web), the condition evaluates to false<br />
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">isPlatformSupported</span><span class="p">();</span>
+</code></pre></div>
 <a name="mobile.element"></a></p>
 <h3 id="mobileelement">mobile.element</h3>
 <p><strong>Kind</strong>: static class of <a href="#mobile"><code>mobile</code></a>  </p>
 <ul>
 <li><a href="#mobile.element">.element</a><ul>
-<li><a href="#mobile.element.isVisible">.isVisible(element, [strict])</a> ⇒ <code>Boolean</code></li>
-<li><a href="#mobile.element.isPresent">.isPresent(elem)</a> ⇒ <code>Boolean</code></li>
-<li><a href="#mobile.element.waitToBePresent">.waitToBePresent(selector, [timeout])</a></li>
-<li><a href="#mobile.element.waitToBeVisible">.waitToBeVisible(selector, [timeout])</a></li>
-<li><a href="#mobile.element.waitToBeClickable">.waitToBeClickable(selector, [timeout])</a></li>
-<li><a href="#mobile.element.isSelected">.isSelected(elem)</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.element.isVisible">.isVisible(element, [strict])</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.element.isPresent">.isPresent(element)</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.element.waitToBePresent">.waitToBePresent(selector, [timeout])</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.element.waitToBeVisible">.waitToBeVisible(selector, [timeout])</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.element.waitToBeClickable">.waitToBeClickable(selector, [timeout])</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.element.isSelected">.isSelected(elementOrSelector)</a> ⇒ <code>boolean</code></li>
+<li><a href="#mobile.element.waitToBeEnabled">.waitToBeEnabled(selector, [timeout])</a> ⇒ <code>boolean</code></li>
 </ul>
 </li>
 </ul>
 <p><a name="mobile.element.isVisible"></a></p>
-<h4 id="elementisvisibleelement-strict-boolean_1">element.isVisible(element, [strict]) ⇒ <code>Boolean</code></h4>
+<h4 id="elementisvisibleelement-strict-boolean_1">element.isVisible(element, [strict]) ⇒ <code>boolean</code></h4>
 <p>Returns a boolean if the mobile element is visible to the user.</p>
 <p><strong>Kind</strong>: static method of <a href="#mobile.element"><code>element</code></a><br />
-<strong>Returns</strong>: <code>Boolean</code> - Returns true or false.  </p>
+<strong>Returns</strong>: <code>boolean</code> - Returns true or false.  </p>
 <table>
 <thead>
 <tr>
@@ -17924,27 +18541,26 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <tbody>
 <tr>
 <td>element</td>
-<td><code>Object</code></td>
+<td><code>Element</code></td>
 <td></td>
 <td>The Mobile Ui element.</td>
 </tr>
 <tr>
 <td>[strict]</td>
-<td><code>Boolean</code></td>
+<td><code>boolean</code></td>
 <td><code>true</code></td>
 <td>If strict mode is enabled it will only return "true" if the element is visible on the mobile view and within the viewport. If "false", it will be sufficient if the element is visible on the view but not inside the current viewport.</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">isVisible</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span>
-<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">isVisible</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">isVisible</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
 </code></pre></div>
 <a name="mobile.element.isPresent"></a></p>
-<h4 id="elementispresentelem-boolean_1">element.isPresent(elem) ⇒ <code>Boolean</code></h4>
+<h4 id="elementispresentelement-boolean">element.isPresent(element) ⇒ <code>boolean</code></h4>
 <p>Returns a boolean if the element is present at the DOM or not. It might be hidden.</p>
 <p><strong>Kind</strong>: static method of <a href="#mobile.element"><code>element</code></a><br />
-<strong>Returns</strong>: <code>Boolean</code> - Returns true or false.  </p>
+<strong>Returns</strong>: <code>boolean</code> - Returns true or false.  </p>
 <table>
 <thead>
 <tr>
@@ -17955,8 +18571,8 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </thead>
 <tbody>
 <tr>
-<td>elem</td>
-<td><code>Object</code></td>
+<td>element</td>
+<td><code>Element</code></td>
 <td>The element.</td>
 </tr>
 </tbody>
@@ -17965,9 +18581,10 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">isPresent</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
 </code></pre></div>
 <a name="mobile.element.waitToBePresent"></a></p>
-<h4 id="elementwaittobepresentselector-timeout_1">element.waitToBePresent(selector, [timeout])</h4>
+<h4 id="elementwaittobepresentselector-timeout-boolean">element.waitToBePresent(selector, [timeout]) ⇒ <code>boolean</code></h4>
 <p>Waits until the element with the given selector is present.</p>
-<p><strong>Kind</strong>: static method of <a href="#mobile.element"><code>element</code></a>  </p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.element"><code>element</code></a><br />
+<strong>Returns</strong>: <code>boolean</code> - Returns true or false.  </p>
 <table>
 <thead>
 <tr>
@@ -17986,7 +18603,7 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </tr>
 <tr>
 <td>[timeout]</td>
-<td><code>Number</code></td>
+<td><code>number</code></td>
 <td><code>30000</code></td>
 <td>The timeout to wait (ms).</td>
 </tr>
@@ -17994,17 +18611,14 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBePresent</span><span class="p">(</span><span class="s2">&quot;.input01&quot;</span><span class="p">);</span>
-</code></pre></div>
-<strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBePresent</span><span class="p">(</span><span class="s2">&quot;#button12&quot;</span><span class="p">);</span>
-</code></pre></div>
-<strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBePresent</span><span class="p">(</span><span class="s2">&quot;p:first-child&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBePresent</span><span class="p">(</span><span class="s2">&quot;#button12&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBePresent</span><span class="p">(</span><span class="s2">&quot;p:first-child&quot;</span><span class="p">);</span>
 </code></pre></div>
 <a name="mobile.element.waitToBeVisible"></a></p>
-<h4 id="elementwaittobevisibleselector-timeout_1">element.waitToBeVisible(selector, [timeout])</h4>
+<h4 id="elementwaittobevisibleselector-timeout-boolean">element.waitToBeVisible(selector, [timeout]) ⇒ <code>boolean</code></h4>
 <p>Waits until the element with the given selector is visible.</p>
-<p><strong>Kind</strong>: static method of <a href="#mobile.element"><code>element</code></a>  </p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.element"><code>element</code></a><br />
+<strong>Returns</strong>: <code>boolean</code> - Returns true or false.  </p>
 <table>
 <thead>
 <tr>
@@ -18023,7 +18637,7 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </tr>
 <tr>
 <td>[timeout]</td>
-<td><code>Number</code></td>
+<td><code>number</code></td>
 <td><code>30000</code></td>
 <td>The timeout to wait (ms).</td>
 </tr>
@@ -18031,17 +18645,14 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBeVisible</span><span class="p">(</span><span class="s2">&quot;.input01&quot;</span><span class="p">);</span>
-</code></pre></div>
-<strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBeVisible</span><span class="p">(</span><span class="s2">&quot;#button12&quot;</span><span class="p">);</span>
-</code></pre></div>
-<strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBeVisible</span><span class="p">(</span><span class="s2">&quot;p:first-child&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBeVisible</span><span class="p">(</span><span class="s2">&quot;#button12&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBeVisible</span><span class="p">(</span><span class="s2">&quot;p:first-child&quot;</span><span class="p">);</span>
 </code></pre></div>
 <a name="mobile.element.waitToBeClickable"></a></p>
-<h4 id="elementwaittobeclickableselector-timeout_1">element.waitToBeClickable(selector, [timeout])</h4>
+<h4 id="elementwaittobeclickableselector-timeout-boolean">element.waitToBeClickable(selector, [timeout]) ⇒ <code>boolean</code></h4>
 <p>Waits until the element with the given selector is clickable.</p>
-<p><strong>Kind</strong>: static method of <a href="#mobile.element"><code>element</code></a>  </p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.element"><code>element</code></a><br />
+<strong>Returns</strong>: <code>boolean</code> - Returns true or false.  </p>
 <table>
 <thead>
 <tr>
@@ -18060,7 +18671,7 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </tr>
 <tr>
 <td>[timeout]</td>
-<td><code>Number</code></td>
+<td><code>number</code></td>
 <td><code>30000</code></td>
 <td>The timeout to wait (ms).</td>
 </tr>
@@ -18068,17 +18679,14 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBeClickable</span><span class="p">(</span><span class="s2">&quot;.input01&quot;</span><span class="p">);</span>
-</code></pre></div>
-<strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBeClickable</span><span class="p">(</span><span class="s2">&quot;#button12&quot;</span><span class="p">);</span>
-</code></pre></div>
-<strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBeClickable</span><span class="p">(</span><span class="s2">&quot;p:first-child&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBeClickable</span><span class="p">(</span><span class="s2">&quot;#button12&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBeClickable</span><span class="p">(</span><span class="s2">&quot;p:first-child&quot;</span><span class="p">);</span>
 </code></pre></div>
 <a name="mobile.element.isSelected"></a></p>
-<h4 id="elementisselectedelem-boolean_1">element.isSelected(elem) ⇒ <code>boolean</code></h4>
+<h4 id="elementisselectedelementorselector-boolean">element.isSelected(elementOrSelector) ⇒ <code>boolean</code></h4>
 <p>Returns a boolean if the element (e.g. checkbox) is selected.</p>
-<p><strong>Kind</strong>: static method of <a href="#mobile.element"><code>element</code></a>  </p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.element"><code>element</code></a><br />
+<strong>Returns</strong>: <code>boolean</code> - Returns true or false.  </p>
 <table>
 <thead>
 <tr>
@@ -18089,15 +18697,48 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </thead>
 <tbody>
 <tr>
-<td>elem</td>
-<td><code>Object</code></td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
 <td>The element.</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;elem01&quot;</span><span class="p">);</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">isSelected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">isSelected</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">isSelected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">isSelected</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
+</code></pre></div>
+<a name="mobile.element.waitToBeEnabled"></a></p>
+<h4 id="elementwaittobeenabledselector-timeout-boolean">element.waitToBeEnabled(selector, [timeout]) ⇒ <code>boolean</code></h4>
+<p>Waits until the element with the given selector is present.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.element"><code>element</code></a><br />
+<strong>Returns</strong>: <code>boolean</code> - Returns true or false.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>selector</td>
+<td><code>Object</code></td>
+<td></td>
+<td>The CSS selector describing the element.</td>
+</tr>
+<tr>
+<td>[timeout]</td>
+<td><code>number</code></td>
+<td><code>30000</code></td>
+<td>The timeout to wait (ms).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBeEnabled</span><span class="p">(</span><span class="s2">&quot;.input01&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBeEnabled</span><span class="p">(</span><span class="s2">&quot;#button12&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">waitToBeEnabled</span><span class="p">(</span><span class="s2">&quot;p:first-child&quot;</span><span class="p">);</span>
 </code></pre></div>
 <a name="mobile.gestures"></a></p>
 <h3 id="mobilegestures">mobile.gestures</h3>
@@ -18150,13 +18791,18 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <p><strong>Kind</strong>: static class of <a href="#mobile"><code>mobile</code></a>  </p>
 <ul>
 <li><a href="#mobile.userInteraction">.userInteraction</a><ul>
-<li><a href="#mobile.userInteraction.tap">.tap(element, [timeout])</a></li>
-<li><a href="#mobile.userInteraction.check">.check(element)</a></li>
+<li><a href="#mobile.userInteraction.tap">.tap(elementOrSelector, [timeout])</a></li>
+<li><a href="#mobile.userInteraction.check">.check(elementOrSelector, [timeout])</a></li>
+<li><a href="#mobile.userInteraction.uncheck">.uncheck(elementOrSelector, [timeout])</a></li>
+<li><a href="#mobile.userInteraction.doubleTap">.doubleTap(elementOrSelector, [timeout])</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.userInteraction.fill">.fill(elementOrSelector, value, [timeout])</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.userInteraction.clearAndFill">.clearAndFill(elementOrSelector, value, [timeout])</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.userInteraction.clear">.clear(elementOrSelector, [timeout])</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
 </ul>
 </li>
 </ul>
 <p><a name="mobile.userInteraction.tap"></a></p>
-<h4 id="userinteractiontapelement-timeout">userInteraction.tap(element, [timeout])</h4>
+<h4 id="userinteractiontapelementorselector-timeout">userInteraction.tap(elementOrSelector, [timeout])</h4>
 <p>Tap's on the mobile element.</p>
 <p><strong>Kind</strong>: static method of <a href="#mobile.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -18170,24 +18816,25 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </thead>
 <tbody>
 <tr>
-<td>element</td>
+<td>elementOrSelector</td>
 <td><code>Element</code> | <code>string</code></td>
 <td></td>
-<td>The element or CSS selector describing the element.</td>
+<td>The element (e.g., accessibility ID, XPath) selectors describing the element.</td>
 </tr>
 <tr>
 <td>[timeout]</td>
 <td><code>Number</code></td>
 <td><code>30000</code></td>
-<td>The timeout to wait (ms).</td>
+<td>The timeout to wait(ms)</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">tap</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">tap</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">tap</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="mf">20000</span><span class="p">);</span>
 </code></pre></div>
 <a name="mobile.userInteraction.check"></a></p>
-<h4 id="userinteractioncheckelement">userInteraction.check(element)</h4>
+<h4 id="userinteractioncheckelementorselector-timeout">userInteraction.check(elementOrSelector, [timeout])</h4>
 <p>Checks the given checkbox.</p>
 <p><strong>Kind</strong>: static method of <a href="#mobile.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
@@ -18195,19 +18842,200 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <tr>
 <th>Param</th>
 <th>Type</th>
+<th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>element</td>
-<td><code>Element</code></td>
-<td>The element or CSS selector describing the element.</td>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td></td>
+<td>The element (e.g., accessibility ID, XPath) selectors describing the element.</td>
+</tr>
+<tr>
+<td>[timeout]</td>
+<td><code>number</code></td>
+<td><code>30000</code></td>
+<td>The timeout to wait(ms)</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">check</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">check</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">check</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="mf">20000</span><span class="p">);</span>
+</code></pre></div>
+<a name="mobile.userInteraction.uncheck"></a></p>
+<h4 id="userinteractionuncheckelementorselector-timeout">userInteraction.uncheck(elementOrSelector, [timeout])</h4>
+<p>Unchecks the given checkbox.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.userInteraction"><code>userInteraction</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td></td>
+<td>The element (e.g., accessibility ID, XPath) selectors describing the element.</td>
+</tr>
+<tr>
+<td>[timeout]</td>
+<td><code>number</code></td>
+<td><code>30000</code></td>
+<td>The timeout to wait(ms)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">uncheck</span><span class="p">(</span><span class="nx">elementOrSelector</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">uncheck</span><span class="p">(</span><span class="nx">elementOrSelector</span><span class="p">,</span><span class="w"> </span><span class="mf">20000</span><span class="p">);</span>
+</code></pre></div>
+<a name="mobile.userInteraction.doubleTap"></a></p>
+<h4 id="userinteractiondoubletapelementorselector-timeout-promisevoid">userInteraction.doubleTap(elementOrSelector, [timeout]) ⇒ <code>Promise.&lt;void&gt;</code></h4>
+<p>Double Tap's on the mobile element.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.userInteraction"><code>userInteraction</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td></td>
+<td>The element (e.g., accessibility ID, XPath) selectors describing the element.</td>
+</tr>
+<tr>
+<td>[timeout]</td>
+<td><code>number</code></td>
+<td><code>30000</code></td>
+<td>The timeout to wait(ms)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">doubleTap</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">doubleTap</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="mf">2000</span><span class="p">);</span>
+</code></pre></div>
+<a name="mobile.userInteraction.fill"></a></p>
+<h4 id="userinteractionfillelementorselector-value-timeout-promisevoid">userInteraction.fill(elementOrSelector, value, [timeout]) ⇒ <code>Promise.&lt;void&gt;</code></h4>
+<p>Enter a string value into a mobile input field.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.userInteraction"><code>userInteraction</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td></td>
+<td>The element (e.g., accessibility ID, XPath) selectors describing the element.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><code>string</code></td>
+<td></td>
+<td>The string value to be entered.</td>
+</tr>
+<tr>
+<td>[timeout]</td>
+<td><code>number</code></td>
+<td><code>30000</code></td>
+<td>The timeout to wait (ms).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">fill</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">fill</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="mf">2000</span><span class="p">);</span>
+</code></pre></div>
+<a name="mobile.userInteraction.clearAndFill"></a></p>
+<h4 id="userinteractionclearandfillelementorselector-value-timeout-promisevoid">userInteraction.clearAndFill(elementOrSelector, value, [timeout]) ⇒ <code>Promise.&lt;void&gt;</code></h4>
+<p>Enter a string into the mobile input field; it will clear the box before submission.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.userInteraction"><code>userInteraction</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td></td>
+<td>The element (e.g., accessibility ID, XPath) selectors describing the element.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><code>string</code></td>
+<td></td>
+<td>The string value to be entered.</td>
+</tr>
+<tr>
+<td>[timeout]</td>
+<td><code>number</code></td>
+<td><code>30000</code></td>
+<td>The timeout to wait (ms).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">clearAndFill</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">clearAndFill</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="mf">2000</span><span class="p">);</span>
+</code></pre></div>
+<a name="mobile.userInteraction.clear"></a></p>
+<h4 id="userinteractionclearelementorselector-timeout-promisevoid">userInteraction.clear(elementOrSelector, [timeout]) ⇒ <code>Promise.&lt;void&gt;</code></h4>
+<p>Clear a string value into a mobile input field.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.userInteraction"><code>userInteraction</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>elementOrSelector</td>
+<td><code>Element</code> | <code>string</code></td>
+<td></td>
+<td>The element (e.g., accessibility ID, XPath) selectors describing the element.</td>
+</tr>
+<tr>
+<td>[timeout]</td>
+<td><code>number</code></td>
+<td><code>30000</code></td>
+<td>The timeout to wait (ms).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">clear</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">clear</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="mf">2000</span><span class="p">);</span>
 </code></pre></div>
 <a name="flp"></a></p>
 <h2 id="flp">flp</h2>
