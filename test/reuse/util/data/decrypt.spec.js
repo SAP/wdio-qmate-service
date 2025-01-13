@@ -61,7 +61,7 @@ describe("data - decrypt - error case (bad decrypt)", function () {
   const data = util.data.getData("decrypt.secure");
 
   it("Execution & Verification", function () {
-    const errorMessageExp = "Function 'decrypt' failed: error:1C800064:Provider routines::bad decrypt";
+    const errorMessageExp = "Function 'decrypt' failed: Decryption failed: None of the given data values could be decrypted using the given private key";
     const options = { includeRepoUrl: false };
     expect(() => util.data.decrypt(data.password, options)).toThrow(errorMessageExp);
   });
