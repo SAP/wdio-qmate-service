@@ -9,7 +9,7 @@ import component, { Component } from "./component";
 import userSettings, { UserSettings } from "./userSettings";
 
 interface DataHooksExtended extends Data {
-  decrypt: (input: string | Array<string>, options?: { useBase64Input: boolean; useBase64Output: boolean; includeRepoUrl: boolean }) => string;
+  decrypt: (input: string | Array<string>, options?: { useBase64Input?: boolean; useBase64Output?: boolean; includeRepoUrl?: boolean }) => string;
   privateKeyFound: boolean;
 }
 
