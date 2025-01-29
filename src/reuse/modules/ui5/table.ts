@@ -42,10 +42,19 @@ export class Table {
         "text": "Ascending"
       }
     };
+    const newerSortButtonSelector = {
+      "elementProperties": {
+        "metadata": "sap.ui.core.Icon",
+        "src": "sap-icon://sort-ascending"
+      },
+      "ancestorProperties": {
+          "metadata":"sap.m.InputListItem"
+      }
+    };
     const sort = await this._getSortIndicatorValue(columnName, tableSelector);
     if (sort !== "Ascending") {
       this._clickColumn(columnName, tableSelector);
-      await Promise.any([ui5.userInteraction.click(oldSortButtonSelector), ui5.userInteraction.click(newSortButtonSelector)]);
+      await Promise.any([ui5.userInteraction.click(oldSortButtonSelector), ui5.userInteraction.click(newSortButtonSelector), ui5.userInteraction.click(newerSortButtonSelector)]);
     }
   }
 
@@ -81,10 +90,19 @@ export class Table {
         "text": "Descending"
       }
     };
+    const newerSortButtonSelector = {
+      "elementProperties": {
+        "metadata": "sap.ui.core.Icon",
+        "src": "sap-icon://sort-descending"
+      },
+      "ancestorProperties": {
+          "metadata":"sap.m.InputListItem"
+      }
+    };
     const sort = await this._getSortIndicatorValue(columnName, tableSelector);
     if (sort !== "Descending") {
       this._clickColumn(columnName, tableSelector);
-      await Promise.any([ui5.userInteraction.click(oldSortButtonSelector), ui5.userInteraction.click(newSortButtonSelector)]);
+      await Promise.any([ui5.userInteraction.click(oldSortButtonSelector), ui5.userInteraction.click(newSortButtonSelector), ui5.userInteraction.click(newerSortButtonSelector)]);
     }
   }
 
