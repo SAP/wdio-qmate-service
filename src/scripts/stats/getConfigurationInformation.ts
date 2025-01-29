@@ -10,9 +10,12 @@ function azureGetGitRoot(): string {
   }
 }
 
-function getGitRoot(): string {
+function getGitRoot(configPath: string): string {
   try {
-    return execSync("git rev-parse --show-toplevel", { stdio: ["pipe", "pipe", "ignore"] }) // Ignore stderr
+    return execSync("git rev-parse --show-toplevel", {
+      cwd: configPath, // Run the command in the configPath directory to support absolute path execution
+      stdio: ["pipe", "pipe", "ignore"] // Ignore stderr
+    })
       .toString()
       .trim();
   } catch (error) {
@@ -25,7 +28,7 @@ function getGitRoot(): string {
     // Intentionally left blank
   }
 
-  throw Error();
+  throw new Error(`No Git repository found at ${configPath}`);
 }
 
 export function getConfigurationHash(): string {
@@ -36,7 +39,7 @@ export function getConfigurationHash(): string {
   if (process.env.CONFIG_PATH) {
     const configPath = process.env.CONFIG_PATH;
     try {
-      const gitRoot = getGitRoot();
+      const gitRoot = getGitRoot(configPath);
       const relativePath = path.relative(gitRoot, configPath);
       try {
         return shajs("sha256").update(relativePath).digest("hex");
