@@ -10,11 +10,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 
 // Types
-type DecryptionOptions = {
-  useBase64Input: boolean;
-  useBase64Output: boolean;
-  includeRepoUrl: boolean;
-};
+import { DecryptionOptions } from "../types";
 
 /**
  * @class data
@@ -60,7 +56,7 @@ export class Data {
    * @returns {Object} The encrypted or local data object.
    * @example const secureData = util.data.getSecureData("myTest");
    */
-  getSecureData(filename: string, source: string = "data", options?: { useBase64Input: false; useBase64Output: false; includeRepoUrl: true }): object {
+  getSecureData(filename: string, source: string = "data", options?: DecryptionOptions): object {
     const vl = this.vlf.initLog(this.getSecureData);
 
     const privateKeyFound = global.util.data.privateKeyFound === true;
