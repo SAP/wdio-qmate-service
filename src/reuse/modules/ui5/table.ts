@@ -46,6 +46,9 @@ export class Table {
       "elementProperties": {
         "metadata": "sap.ui.core.Icon",
         "src": "sap-icon://sort-ascending"
+      },
+      "ancestorProperties": {
+          "metadata":"sap.m.InputListItem"
       }
     };
     const sort = await this._getSortIndicatorValue(columnName, tableSelector);
@@ -91,6 +94,9 @@ export class Table {
       "elementProperties": {
         "metadata": "sap.ui.core.Icon",
         "src": "sap-icon://sort-descending"
+      },
+      "ancestorProperties": {
+          "metadata":"sap.m.InputListItem"
       }
     };
     const sort = await this._getSortIndicatorValue(columnName, tableSelector);
