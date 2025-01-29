@@ -28,7 +28,7 @@ function getGitRoot(configPath: string): string {
     // Intentionally left blank
   }
 
-  throw new Error(`No Git repository found at ${configPath}`);
+  throw Error();
 }
 
 export function getConfigurationHash(): string {
