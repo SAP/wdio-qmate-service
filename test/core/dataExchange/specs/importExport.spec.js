@@ -85,7 +85,7 @@ describe("Import and Export using UI", function () {
     };
 
     try {
-      await nonUi5.userInteraction.click(trustArcCookieButton, 30000);
+      await nonUi5.userInteraction.click(trustArcCookieButton, 60000);
     } catch (e) {
       // ignore, no cookie dialog
     }
