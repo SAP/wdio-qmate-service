@@ -53,7 +53,7 @@
     "test:core:dataExchange:standard": "npx wdio ./test/core/dataExchange/config.js",
     "test:core:dataExchange:parallel": "npx wdio ./test/core/dataExchange/config.parallel.js",
     "test:core:dataExchange:parallelGroup": "npx wdio ./test/core/dataExchange/config.parallel.group.js",
-    "test:core:dataExchange": "npm run test:core:dataExchange:export && npm run test:core:dataExchange:import && npm run test:core:dataExchange:standard && npm run test:core:dataExchange:parallel && npm run test:core:dataExchange:parallelGroup",
+    "test:core:dataExchange": "npm run test:core:dataExchange:export && npm run test:core:dataExchange:import && npm run test:core:dataExchange:parallel && npm run test:core:dataExchange:parallelGroup",
     "test:core:functional:chaining": "npx wdio ./test/core/functional/chaining/test.conf.js",
     "test:core:functional:locator": "npx wdio ./test/core/functional/locators/test.locator.conf.js",
     "test:core:functional:nativeBrowser": "npx wdio ./test/core/functional/nativeBrowser/test.conf.js",
