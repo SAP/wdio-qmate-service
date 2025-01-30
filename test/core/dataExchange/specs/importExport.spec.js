@@ -39,6 +39,7 @@ const formUtils = {
     }
   },
   fillForm: async function (description, userData) {
+    await closeTrustArcCookiePopup();
     await ui5.element.waitForAll(this.textSelector);
     await ui5.userInteraction.fill(this.textSelector, description);
     await ui5.userInteraction.fill(this.emailSelector, userData.email);
@@ -47,6 +48,7 @@ const formUtils = {
     await ui5.userInteraction.fill(this.urlSelector, userData.website);
   },
   clearForm: async function () {
+    await closeTrustArcCookiePopup();
     await ui5.userInteraction.clear(this.textSelector);
     await ui5.userInteraction.clear(this.emailSelector);
     await ui5.userInteraction.clear(this.telephoneSelector);
@@ -55,6 +57,14 @@ const formUtils = {
   }
 };
 
+async function closeTrustArcCookiePopup() {
+  const trustArcCookieButton="//button[text()='Accept All']";
+  try {
+    await nonUi5.userInteraction.click(trustArcCookieButton, 30000);
+  } catch (e) {
+    // ignore, no cookie dialog
+  }
+}
 
 describe("Import and Export using UI", function () {
 
@@ -73,7 +83,6 @@ describe("Import and Export using UI", function () {
   it("step 1: navigate to app", async function () {
 
     await ui5.navigation.navigateToApplication("", false);
-    const trustArcCookieButton = "//button[text()='Accept All']";
     const acceptCookiesButton = {
       "elementProperties": {
         "viewName": "sap.ui.documentation.sdk.view.App",
@@ -84,11 +93,7 @@ describe("Import and Export using UI", function () {
       }
     };
 
-    try {
-      await nonUi5.userInteraction.click(trustArcCookieButton, 60000);
-    } catch (e) {
-      // ignore, no cookie dialog
-    }
+    await closeTrustArcCookiePopup();
     try {
       await ui5.userInteraction.click(acceptCookiesButton);
     } catch (e) {
