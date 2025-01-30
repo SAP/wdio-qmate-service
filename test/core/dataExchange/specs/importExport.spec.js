@@ -69,11 +69,11 @@ describe("Import and Export using UI", function () {
   //   exportData: "./data/ui/export/exportedUser.json",
   //   webUser : "./data/ui/export/exportedWebUser.json"
   // }, 
-  it("step 1: use data loaded into myUserPrefix", async function () {
 
-    // uses data from file pointed to by myUserPrefix
-    //   myUserPrefix: "./data/ui/user.json",
+  it("step 1: navigate to app", async function () {
+
     await ui5.navigation.navigateToApplication("", false);
+    const trustArcCookieButton = "//button[text()='Accept All']";
     const acceptCookiesButton = {
       "elementProperties": {
         "viewName": "sap.ui.documentation.sdk.view.App",
@@ -83,12 +83,24 @@ describe("Import and Export using UI", function () {
         }]
       }
     };
+
+    try {
+      await nonUi5.userInteraction.click(trustArcCookieButton, 30000);
+    } catch (e) {
+      // ignore, no cookie dialog
+    }
     try {
       await ui5.userInteraction.click(acceptCookiesButton);
     } catch (e) {
       // ignore, no cookie dialog
     }
     await util.browser.switchToIframe("iframe[id='sampleFrame']");
+  });
+
+  it("step 2: use data loaded into myUserPrefix", async function () {
+
+    // uses data from file pointed to by myUserPrefix
+    //   myUserPrefix: "./data/ui/user.json",
 
     const userData = browser.params.import.myUserPrefix;
     await common.assertion.expectDefined(userData);
@@ -104,7 +116,7 @@ describe("Import and Export using UI", function () {
 
   });
 
-  it("step 2: use data loaded from file in subfolder moreDataFolder - anotherUser.json", async function () {
+  it("step 3: use data loaded from file in subfolder moreDataFolder - anotherUser.json", async function () {
 
     // file anotherUser.json is in subfolder "moreDataFolder" within directory pointed to by userDataFolder
     //   userDataFolder: "./data/ui",
@@ -125,7 +137,7 @@ describe("Import and Export using UI", function () {
     await formUtils.clearForm();
 
   });
-  it("step 3: use data loaded into uiUser", async function () {
+  it("step 4: use data loaded into uiUser", async function () {
 
     // uses data from file pointed to by reference
     //   uiUser: "./data/ui/webUser.json"
@@ -143,7 +155,7 @@ describe("Import and Export using UI", function () {
 
   });
 
-  it("step 4: export data into file pointed to by exportData param", async function () {
+  it("step 5: export data into file pointed to by exportData param", async function () {
 
     const dateAdded = (new Date()).toISOString();
     const userData = {
@@ -168,7 +180,7 @@ describe("Import and Export using UI", function () {
 
   });
 
-  it("step 5: export data into file pointed to by webUser param", async function () {
+  it("step 6: export data into file pointed to by webUser param", async function () {
 
 
     const dateAdded = (new Date()).toISOString();
