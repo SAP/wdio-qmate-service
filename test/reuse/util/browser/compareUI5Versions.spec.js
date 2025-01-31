@@ -6,7 +6,7 @@ const { expect } = require("chai");
 describe("browser - compareUI5Versions", function () {
 
   let isGreaterOrEqual;
-  before("Preparation", async function () {
+  beforeEach(async function () {
     await browser.navigateTo(browser.config.baseUrl);
     await util.function.executeOptional(async function () {
       const selector = {
@@ -24,46 +24,44 @@ describe("browser - compareUI5Versions", function () {
 
   describe("major version", function () {
     it("Compare greater than", async function () {
-      isGreaterOrEqual = await util.browser.compareUI5Versions('1.1.1', '2.0.0');
+      isGreaterOrEqual = await util.browser.compareUI5Versions("1.1.1", "2.0.0");
       expect(isGreaterOrEqual).to.be.true;
     });
     it("Compare smaller than", async function () {
-      isGreaterOrEqual = await util.browser.compareUI5Versions('2.0.0', '1.1.1');
+      isGreaterOrEqual = await util.browser.compareUI5Versions("2.0.0", "1.1.1");
       expect(isGreaterOrEqual).to.be.false;
     });
   });
 
   describe("minor version", function () {
     it("Compare greater than", async function () {
-      isGreaterOrEqual = await util.browser.compareUI5Versions('1.1.1', '1.2.0');
+      isGreaterOrEqual = await util.browser.compareUI5Versions("1.1.1", "1.2.0");
       expect(isGreaterOrEqual).to.be.true;
     });
     it("Compare smaller than", async function () {
-      isGreaterOrEqual = await util.browser.compareUI5Versions('1.2.0', '1.1.1');
+      isGreaterOrEqual = await util.browser.compareUI5Versions("1.2.0", "1.1.1");
       expect(isGreaterOrEqual).to.be.false;
     });
   });
 
   describe("lowest version", function () {
     it("Compare greater than", async function () {
-      isGreaterOrEqual = await util.browser.compareUI5Versions('1.1.1', '1.1.2');
+      isGreaterOrEqual = await util.browser.compareUI5Versions("1.1.1", "1.1.2");
       expect(isGreaterOrEqual).to.be.true;
     });
     it("Compare smaller than", async function () {
-      isGreaterOrEqual = await util.browser.compareUI5Versions('1.1.2', '1.1.1');
+      isGreaterOrEqual = await util.browser.compareUI5Versions("1.1.2", "1.1.1");
       expect(isGreaterOrEqual).to.be.false;
     });
-  });
-  
-  it("Compare equal than", async function () {
-    isGreaterOrEqual = await util.browser.compareUI5Versions('1.1.1', '1.1.1');
-    expect(isGreaterOrEqual).to.be.true;
-  });
-  
-  it("compare against current version", async function () {
-    const currentUI5Version = await util.browser.getUI5Version().version;
-    isGreaterOrEqual = await util.browser.compareUI5Versions(currentUI5Version);
-    expect(isGreaterOrEqual).to.be.true;
+    it("Compare equal than", async function () {
+      isGreaterOrEqual = await util.browser.compareUI5Versions("1.1.1", "1.1.1");
+      expect(isGreaterOrEqual).to.be.true;
+    });
+    it("compare against current version", async function () {
+      const currentUI5Version = await util.browser.getUI5Version().version;
+      isGreaterOrEqual = await util.browser.compareUI5Versions(currentUI5Version);
+      expect(isGreaterOrEqual).to.be.true;
+    });
   });
 
 });
