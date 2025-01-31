@@ -455,5 +455,33 @@ export class Browser {
     vl.log("Indicates is a iOS session? or Android session");
     return browser.isIOS();
   }
+  
+  /**
+   * @function compareUI5Versions
+   * @memberOf util.browser
+   * @description Compares two UI5 versions. If the second (or current) is greater or equal than the first (or compared against) it returns true.
+   * @param {String} compareAgainstVersion - Version you want to compare the UI5 version against.
+   * @param {String} [compareVersion] The UI5 version you want to compare (if not provided getUI5Version).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example await util.browser.compareUI5Versions('1.133.0');
+   */
+  async compareUI5Versions(compareAgainstVersion: String, compareVersion: String, timeout: number = browser.config.waitForUI5Timeout || 5000) {
+    const vl = this.vlf.initLog(this.compareUI5Versions);
+    compareVersion = compareVersion || (await this.getUI5Version(timeout)).version;
+    const compareAgaisntArray = compareAgainstVersion.split('-')[0].split('.');
+    const compareArray = compareVersion.split('-')[0].split('.');
+    for (let i = 0; i < compareAgaisntArray.length; i++) {
+      if (parseInt(compareArray[i]) > parseInt(compareAgaisntArray[i])) {
+        // UI5 version is greater version
+        return true;
+      } else if (parseInt(compareArray[i]) < parseInt(compareAgaisntArray[i])) {
+        // UI5 version is lower version
+        return false;
+      }
+    }
+    // UI5 versions are equal
+    return true;
+  }
 }
+
 export default new Browser();
