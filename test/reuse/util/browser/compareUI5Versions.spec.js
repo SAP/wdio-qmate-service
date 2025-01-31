@@ -4,7 +4,7 @@
 describe("browser - compareUI5Versions", function () {
 
   let isGreaterOrEqual;
-  before(async function () {
+  it("Preparation", async function () {
     await browser.navigateTo(browser.config.baseUrl);
     await util.function.executeOptional(async function () {
       const selector = {
