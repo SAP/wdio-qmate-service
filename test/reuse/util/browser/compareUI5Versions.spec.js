@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
 "use strict";
 
-const { expect } = require("chai");
-
 describe("browser - compareUI5Versions", function () {
 
   let isGreaterOrEqual;
@@ -25,42 +23,42 @@ describe("browser - compareUI5Versions", function () {
   describe("major version", function () {
     it("Compare greater than", async function () {
       isGreaterOrEqual = await util.browser.compareUI5Versions("1.1.1", "2.0.0");
-      expect(isGreaterOrEqual).to.be.true;
+      await expect(isGreaterOrEqual).toBeTruthy();
     });
     it("Compare smaller than", async function () {
       isGreaterOrEqual = await util.browser.compareUI5Versions("2.0.0", "1.1.1");
-      expect(isGreaterOrEqual).to.be.false;
+      await expect(isGreaterOrEqual).toBeFalsy();
     });
   });
 
   describe("minor version", function () {
     it("Compare greater than", async function () {
       isGreaterOrEqual = await util.browser.compareUI5Versions("1.1.1", "1.2.0");
-      expect(isGreaterOrEqual).to.be.true;
+      await expect(isGreaterOrEqual).toBeTruthy();
     });
     it("Compare smaller than", async function () {
       isGreaterOrEqual = await util.browser.compareUI5Versions("1.2.0", "1.1.1");
-      expect(isGreaterOrEqual).to.be.false;
+      await expect(isGreaterOrEqual).toBeFalsy();
     });
   });
 
   describe("lowest version", function () {
     it("Compare greater than", async function () {
       isGreaterOrEqual = await util.browser.compareUI5Versions("1.1.1", "1.1.2");
-      expect(isGreaterOrEqual).to.be.true;
+      await expect(isGreaterOrEqual).toBeTruthy();
     });
     it("Compare smaller than", async function () {
       isGreaterOrEqual = await util.browser.compareUI5Versions("1.1.2", "1.1.1");
-      expect(isGreaterOrEqual).to.be.false;
+      await expect(isGreaterOrEqual).toBeFalsy();
     });
     it("Compare equal than", async function () {
       isGreaterOrEqual = await util.browser.compareUI5Versions("1.1.1", "1.1.1");
-      expect(isGreaterOrEqual).to.be.true;
+      await expect(isGreaterOrEqual).toBeTruthy();
     });
     it("compare against current version", async function () {
-      const currentUI5Version = await util.browser.getUI5Version().version;
+      const currentUI5Version = (await util.browser.getUI5Version()).version;
       isGreaterOrEqual = await util.browser.compareUI5Versions(currentUI5Version);
-      expect(isGreaterOrEqual).to.be.true;
+      await expect(isGreaterOrEqual).toBeTruthy();
     });
   });
 

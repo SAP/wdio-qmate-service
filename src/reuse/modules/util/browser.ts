@@ -195,7 +195,7 @@ export class Browser {
     );
 
     // @ts-ignore
-    return util.browser.executeScript(function () {
+    const versionInfo = await util.browser.executeScript( () => {
       /* eslint-disable no-undef */
       if (sap && sap.ui && sap.ui.getVersionInfo && sap.ui.getVersionInfo()) {
         const version = sap.ui.getVersionInfo().version;
@@ -217,7 +217,13 @@ export class Browser {
         return null;
       }
     });
-  }
+    return {
+      ...versionInfo,
+      isAtLeast: async (atLeastVersion: String): Promise<boolean> => {
+        return this._compareUI5Versions(atLeastVersion, versionInfo.version);
+      }
+    };
+  };
 
   /**
    * @function logUI5Version
@@ -466,7 +472,11 @@ export class Browser {
    * @example await util.browser.compareUI5Versions('1.133.0');
    */
   async compareUI5Versions(compareAgainstVersion: String, compareVersion: String, timeout: number = browser.config.waitForUI5Timeout || 5000) {
-    const vl = this.vlf.initLog(this.compareUI5Versions);
+    return this._compareUI5Versions(compareAgainstVersion, compareVersion, timeout);
+  }
+  
+  private async _compareUI5Versions(compareAgainstVersion: String, compareVersion: String, timeout: number = browser.config.waitForUI5Timeout || 5000) {
+    const vl = this.vlf.initLog(this._compareUI5Versions);
     compareVersion = compareVersion || (await this.getUI5Version(timeout)).version;
     const compareAgaisntArray = compareAgainstVersion.split('-')[0].split('.');
     const compareArray = compareVersion.split('-')[0].split('.');
