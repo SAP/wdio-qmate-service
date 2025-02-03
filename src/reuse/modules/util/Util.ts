@@ -1,3 +1,4 @@
+// Components
 import browser, { Browser } from "./browser";
 import console, { Console } from "./console";
 import data, { Data } from "./data";
@@ -8,9 +9,11 @@ import system, { System } from "./system";
 import component, { Component } from "./component";
 import userSettings, { UserSettings } from "./userSettings";
 
+// Types
+import { DecryptionOptions } from "../types";
 
 interface DataHooksExtended extends Data {
-  decrypt: (input: string | Array<string>) => string;
+  decrypt: (input: string | Array<string>, options?: DecryptionOptions) => string;
   privateKeyFound: boolean;
 }
 

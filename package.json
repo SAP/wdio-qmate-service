@@ -1,6 +1,6 @@
 {
   "name": "@sap_oss/wdio-qmate-service",
-  "version": "2.13.2",
+  "version": "2.14.3",
   "author": "SAP SE",
   "types": "./@types/index.d.ts",
   "main": "./lib/index.js",
@@ -53,7 +53,7 @@
     "test:core:dataExchange:standard": "npx wdio ./test/core/dataExchange/config.js",
     "test:core:dataExchange:parallel": "npx wdio ./test/core/dataExchange/config.parallel.js",
     "test:core:dataExchange:parallelGroup": "npx wdio ./test/core/dataExchange/config.parallel.group.js",
-    "test:core:dataExchange": "npm run test:core:dataExchange:export && npm run test:core:dataExchange:import && npm run test:core:dataExchange:standard && npm run test:core:dataExchange:parallel && npm run test:core:dataExchange:parallelGroup",
+    "test:core:dataExchange": "npm run test:core:dataExchange:export && npm run test:core:dataExchange:import && npm run test:core:dataExchange:parallel && npm run test:core:dataExchange:parallelGroup",
     "test:core:functional:chaining": "npx wdio ./test/core/functional/chaining/test.conf.js",
     "test:core:functional:locator": "npx wdio ./test/core/functional/locators/test.locator.conf.js",
     "test:core:functional:nativeBrowser": "npx wdio ./test/core/functional/nativeBrowser/test.conf.js",
@@ -145,7 +145,8 @@
     "webdriverio": "^9.4.5",
     "xlsx": "^0.18.5",
     "xml2js": "^0.6.2",
-    "yargs": "^17.1.1"
+    "yargs": "^17.1.1",
+    "qcrypt": "file:./packages/qcrypt"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",

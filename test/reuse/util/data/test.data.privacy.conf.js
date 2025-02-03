@@ -16,7 +16,10 @@ exports.config = merge(profile.config, {
   },
 
   specs: [
-    path.resolve(__dirname, "getSecureData.spec.js"),
-    path.resolve(__dirname, "decrypt.spec.js")
+    path.resolve(__dirname, "decrypt.spec.js"), 
+    [
+      path.resolve(__dirname, "getSecureData1.spec.js"), 
+      path.resolve(__dirname, "getSecureData2.spec.js")
+    ]
   ]
 });
