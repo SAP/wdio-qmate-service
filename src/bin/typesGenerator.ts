@@ -42,6 +42,7 @@ class TypesGenerator {
   private async writePackageJson(distPath: string) {
     const updatedPackageJson = Object.assign({}, this.PACKAGE_JSON_BASE_CONTENT);
     updatedPackageJson.version = pj.version;
+    updatedPackageJson.dependencies["@types/node"] = pj.devDependencies["@types/node"];
     await fs.writeFile(`${distPath}/package.json`, JSON.stringify(updatedPackageJson, null, 2));
   }
 
@@ -122,12 +123,6 @@ class TypesGenerator {
   }
 
   private async writeSingleModule(moduleName: string, files: string[], distPath: string, srcPath: string) {
-    const replacements = [
-      {
-        src: 'import { Element } from "../../../../@types/wdio"',
-        replace: 'import { Element } from "../../../@types/wdio"'
-      }
-    ];
     for (const file of files) {
       let src = `${srcPath}${path.sep}${moduleName}${path.sep}${file}`;
       let dist = `${distPath}${path.sep}modules${path.sep}${moduleName}${path.sep}${file}`;
@@ -136,7 +131,6 @@ class TypesGenerator {
         dist = `${distPath}${path.sep}modules${path.sep}${file}`;
       }
       await fse.copy(src, dist);
-      await this.replaceStringsInFile(dist, replacements);
     }
   }
 
