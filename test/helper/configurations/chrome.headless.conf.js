@@ -5,7 +5,7 @@ exports.config = merge(baseConfig.config, {
   capabilities: [
     {
       browserName: "chrome",
-      browserVersion: "132",
+      browserVersion: "stable",
       acceptInsecureCerts: true,
       "goog:chromeOptions": {
         args: [
