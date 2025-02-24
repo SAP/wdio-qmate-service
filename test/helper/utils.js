@@ -1,7 +1,7 @@
 exports.handleCookiesConsent = async function handleCookiesConsent() {
   // eslint-disable-next-line no-undef
   await util.function.executeOptional(async function () {
-    const oldCookiesDialog = {
+    const oldCookiesConsentDialog = {
       "elementProperties": {
         "viewName": "sap.ui.documentation.sdk.view.App",
         "metadata": "sap.m.Button",
@@ -12,7 +12,7 @@ exports.handleCookiesConsent = async function handleCookiesConsent() {
     };
     const newCookiesConsentDialog = "button[id='truste-consent-button']";
     await Promise.race([
-      ui5.userInteraction.click(oldCookiesDialog, 0, 15000),
+      ui5.userInteraction.click(oldCookiesConsentDialog, 0, 15000),
       nonUi5.userInteraction.click(newCookiesConsentDialog, 0, 15000)
     ]);
   }, []);
