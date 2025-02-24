@@ -7,7 +7,7 @@ describe("userInteraction - clickElementInSvg - UI5 SVG Chart", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.suite.ui.commons.ChartContainer/sample/sap.suite.ui.commons.sample.ChartContainerToolbarEnhancement");
     await handleCookiesConsent();
-    await handleTrustArcCookie(30000);
+    await util.browser.sleep(5000);
   });
 
   it("Execution", async function () {
