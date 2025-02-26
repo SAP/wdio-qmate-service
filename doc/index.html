@@ -3432,18 +3432,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#androidpresskeybynamekeyname" class="md-nav__link">
+  <a href="#androidpresskeybynamekeyname-promisevoid" class="md-nav__link">
     <span class="md-ellipsis">
-      android.pressKeyByName(keyName)
+      android.pressKeyByName(keyName) ⇒ Promise.&lt;void&gt;
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#androidpresskeybycodekeycode" class="md-nav__link">
+  <a href="#androidpresskeybycodekeycode-promisevoid" class="md-nav__link">
     <span class="md-ellipsis">
-      android.pressKeyByCode(keyCode)
+      android.pressKeyByCode(keyCode) ⇒ Promise.&lt;void&gt;
     </span>
   </a>
   
@@ -3463,24 +3463,6 @@
   
     <nav class="md-nav" aria-label="mobile.device">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#deviceisvalidplatform-boolean" class="md-nav__link">
-    <span class="md-ellipsis">
-      device.isValidPlatform() ⇒ boolean
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#deviceexecutionplatform-string" class="md-nav__link">
-    <span class="md-ellipsis">
-      device.executionPlatform() ⇒ string
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#deviceisappinstalledapppackageorbundleid-boolean" class="md-nav__link">
@@ -3695,7 +3677,16 @@
           <li class="md-nav__item">
   <a href="#gesturesswipestartx-starty-endx-endy-duration-promisevoid" class="md-nav__link">
     <span class="md-ellipsis">
-      gestures.swipe(startX, startY, endX, endY, duration) ⇒ Promise.&lt;void&gt;
+      gestures.swipe(startX, startY, endX, endY, [duration]) ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gesturestapcoordx-coordy-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      gestures.tap(coordX, coordY) ⇒ Promise.&lt;void&gt;
     </span>
   </a>
   
@@ -7560,18 +7551,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#androidpresskeybynamekeyname" class="md-nav__link">
+  <a href="#androidpresskeybynamekeyname-promisevoid" class="md-nav__link">
     <span class="md-ellipsis">
-      android.pressKeyByName(keyName)
+      android.pressKeyByName(keyName) ⇒ Promise.&lt;void&gt;
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#androidpresskeybycodekeycode" class="md-nav__link">
+  <a href="#androidpresskeybycodekeycode-promisevoid" class="md-nav__link">
     <span class="md-ellipsis">
-      android.pressKeyByCode(keyCode)
+      android.pressKeyByCode(keyCode) ⇒ Promise.&lt;void&gt;
     </span>
   </a>
   
@@ -7591,24 +7582,6 @@
   
     <nav class="md-nav" aria-label="mobile.device">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#deviceisvalidplatform-boolean" class="md-nav__link">
-    <span class="md-ellipsis">
-      device.isValidPlatform() ⇒ boolean
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#deviceexecutionplatform-string" class="md-nav__link">
-    <span class="md-ellipsis">
-      device.executionPlatform() ⇒ string
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#deviceisappinstalledapppackageorbundleid-boolean" class="md-nav__link">
@@ -7823,7 +7796,16 @@
           <li class="md-nav__item">
   <a href="#gesturesswipestartx-starty-endx-endy-duration-promisevoid" class="md-nav__link">
     <span class="md-ellipsis">
-      gestures.swipe(startX, startY, endX, endY, duration) ⇒ Promise.&lt;void&gt;
+      gestures.swipe(startX, startY, endX, endY, [duration]) ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gesturestapcoordx-coordy-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      gestures.tap(coordX, coordY) ⇒ Promise.&lt;void&gt;
     </span>
   </a>
   
@@ -18118,13 +18100,11 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <ul>
 <li><a href="#mobile">mobile</a><ul>
 <li><a href="#mobile.android">.android</a><ul>
-<li><a href="#mobile.android.pressKeyByName">.pressKeyByName(keyName)</a></li>
-<li><a href="#mobile.android.pressKeyByCode">.pressKeyByCode(keyCode)</a></li>
+<li><a href="#mobile.android.pressKeyByName">.pressKeyByName(keyName)</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.android.pressKeyByCode">.pressKeyByCode(keyCode)</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
 </ul>
 </li>
 <li><a href="#mobile.device">.device</a><ul>
-<li><a href="#mobile.device.isValidPlatform">.isValidPlatform()</a> ⇒ <code>boolean</code></li>
-<li><a href="#mobile.device.executionPlatform">.executionPlatform()</a> ⇒ <code>string</code></li>
 <li><a href="#mobile.device.isAppInstalled">.isAppInstalled(appPackageOrBundleId)</a> ⇒ <code>boolean</code></li>
 <li><a href="#mobile.device.installApp">.installApp(appPath)</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
 <li><a href="#mobile.device.switchToContext">.switchToContext([targetContext], [timeout])</a> ⇒ <code>Promise.&lt;boolean&gt;</code></li>
@@ -18151,7 +18131,8 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </ul>
 </li>
 <li><a href="#mobile.gestures">.gestures</a><ul>
-<li><a href="#mobile.gestures.swipe">.swipe(startX, startY, endX, endY, duration)</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.gestures.swipe">.swipe(startX, startY, endX, endY, [duration])</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.gestures.tap">.tap(coordX, coordY)</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
 </ul>
 </li>
 <li><a href="#mobile.ios">.ios</a></li>
@@ -18173,13 +18154,13 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <p><strong>Kind</strong>: static class of <a href="#mobile"><code>mobile</code></a>  </p>
 <ul>
 <li><a href="#mobile.android">.android</a><ul>
-<li><a href="#mobile.android.pressKeyByName">.pressKeyByName(keyName)</a></li>
-<li><a href="#mobile.android.pressKeyByCode">.pressKeyByCode(keyCode)</a></li>
+<li><a href="#mobile.android.pressKeyByName">.pressKeyByName(keyName)</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.android.pressKeyByCode">.pressKeyByCode(keyCode)</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
 </ul>
 </li>
 </ul>
 <p><a name="mobile.android.pressKeyByName"></a></p>
-<h4 id="androidpresskeybynamekeyname">android.pressKeyByName(keyName)</h4>
+<h4 id="androidpresskeybynamekeyname-promisevoid">android.pressKeyByName(keyName) ⇒ <code>Promise.&lt;void&gt;</code></h4>
 <p>Simulate pressing a hardware key on the android device (e.g., back button, home button, etc.),</p>
 <p><strong>Kind</strong>: static method of <a href="#mobile.android"><code>android</code></a>  </p>
 <table>
@@ -18199,13 +18180,11 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">pressKeyByName</span><span class="p">(</span><span class="s2">&quot;back&quot;</span><span class="p">);</span>
-</code></pre></div>
-<strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">pressKeyByName</span><span class="p">(</span><span class="s2">&quot;home&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">android</span><span class="p">.</span><span class="nx">pressKeyByName</span><span class="p">(</span><span class="s2">&quot;back&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">android</span><span class="p">.</span><span class="nx">pressKeyByName</span><span class="p">(</span><span class="s2">&quot;home&quot;</span><span class="p">);</span>
 </code></pre></div>
 <a name="mobile.android.pressKeyByCode"></a></p>
-<h4 id="androidpresskeybycodekeycode">android.pressKeyByCode(keyCode)</h4>
+<h4 id="androidpresskeybycodekeycode-promisevoid">android.pressKeyByCode(keyCode) ⇒ <code>Promise.&lt;void&gt;</code></h4>
 <p>Simulate pressing a hardware key on the android device (e.g., back button, home button, etc.),</p>
 <p><strong>Kind</strong>: static method of <a href="#mobile.android"><code>android</code></a><br />
 <strong>See</strong>: https://developer.android.com/reference/android/view/KeyEvent  </p>
@@ -18233,8 +18212,6 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <p><strong>Kind</strong>: static class of <a href="#mobile"><code>mobile</code></a>  </p>
 <ul>
 <li><a href="#mobile.device">.device</a><ul>
-<li><a href="#mobile.device.isValidPlatform">.isValidPlatform()</a> ⇒ <code>boolean</code></li>
-<li><a href="#mobile.device.executionPlatform">.executionPlatform()</a> ⇒ <code>string</code></li>
 <li><a href="#mobile.device.isAppInstalled">.isAppInstalled(appPackageOrBundleId)</a> ⇒ <code>boolean</code></li>
 <li><a href="#mobile.device.installApp">.installApp(appPath)</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
 <li><a href="#mobile.device.switchToContext">.switchToContext([targetContext], [timeout])</a> ⇒ <code>Promise.&lt;boolean&gt;</code></li>
@@ -18251,21 +18228,11 @@ Cookies will also automatically assembled and stored in the service instance.</p
 </ul>
 </li>
 </ul>
-<p><a name="mobile.device.isValidPlatform"></a></p>
-<h4 id="deviceisvalidplatform-boolean">device.isValidPlatform() ⇒ <code>boolean</code></h4>
-<p>Check the mobile platform from the session's capabilities.</p>
-<p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
-<strong>Returns</strong>: <code>boolean</code> - Returns 'true' if the platform in the session's capabilities is either Android or iOS.<br />
-<a name="mobile.device.executionPlatform"></a></p>
-<h4 id="deviceexecutionplatform-string">device.executionPlatform() ⇒ <code>string</code></h4>
-<p>Check the mobile platform from the session's capabilities.</p>
-<p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
-<strong>Returns</strong>: <code>string</code> - Return current execution platform in the session's capabilities.<br />
-<a name="mobile.device.isAppInstalled"></a></p>
+<p><a name="mobile.device.isAppInstalled"></a></p>
 <h4 id="deviceisappinstalledapppackageorbundleid-boolean">device.isAppInstalled(appPackageOrBundleId) ⇒ <code>boolean</code></h4>
-<p>Check wether given package/bundle app is installed or not in the device.</p>
+<p>Check if the application identified by its Package name/Bundle ID is installed on the device.</p>
 <p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
-<strong>Returns</strong>: <code>boolean</code> - Returns 'true' if specified app package/bundled installed in the device, or 'false'.  </p>
+<strong>Returns</strong>: <code>boolean</code> - - Returns <code>true</code> if specified app package/bundled installed in the device, or <code>false</code>.  </p>
 <table>
 <thead>
 <tr>
@@ -18278,7 +18245,7 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <tr>
 <td>appPackageOrBundleId</td>
 <td><code>string</code></td>
-<td>Android package Id, or iOS bundle Id.</td>
+<td>Android package Name, or iOS bundle Id.</td>
 </tr>
 </tbody>
 </table>
@@ -18314,7 +18281,7 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <h4 id="deviceswitchtocontexttargetcontext-timeout-promiseboolean">device.switchToContext([targetContext], [timeout]) ⇒ <code>Promise.&lt;boolean&gt;</code></h4>
 <p>Switch to the specified( WEBVIEW | NATIVE_APP ) context if available.</p>
 <p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
-<strong>Returns</strong>: <code>Promise.&lt;boolean&gt;</code> - Returns 'true' if the context is successfully switched, otherwise 'false'.  </p>
+<strong>Returns</strong>: <code>Promise.&lt;boolean&gt;</code> - Returns <code>true</code> if the context is successfully switched, otherwise <code>false</code>.  </p>
 <table>
 <thead>
 <tr>
@@ -18350,7 +18317,7 @@ Cookies will also automatically assembled and stored in the service instance.</p
 that matches the <code>targetContext</code> string is present. If the target context is found,
 it returns the context name; otherwise, it returns <code>null</code>.</p>
 <p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
-<strong>Returns</strong>: <code>Promise.&lt;(string|null)&gt;</code> - - The name of the target context if found, or <code>null</code> if
+<strong>Returns</strong>: <code>Promise.&lt;(string|null)&gt;</code> - The name of the target context if found, or <code>null</code> if
   the context is not available within the timeout.  </p>
 <table>
 <thead>
@@ -18365,8 +18332,8 @@ it returns the context name; otherwise, it returns <code>null</code>.</p>
 <tr>
 <td>[targetContext]</td>
 <td><code>string</code></td>
-<td><code>&quot;\&quot;WEBVIEW\&quot;&quot;</code></td>
-<td>The name of the target context to check for.   Common examples are "WEBVIEW" or "NATIVE_APP".</td>
+<td><code>&quot;&#x27;WEBVIEW&#x27;&quot;</code></td>
+<td>The name of the target context to check for.   Common examples are <code>WEBVIEW</code> or <code>NATIVE_APP</code>.</td>
 </tr>
 <tr>
 <td>[timeout]</td>
@@ -18518,13 +18485,13 @@ it returns the context name; otherwise, it returns <code>null</code>.</p>
 <h4 id="deviceiskeyboardvisible-promiseboolean">device.isKeyboardVisible() ⇒ <code>Promise.&lt;boolean&gt;</code></h4>
 <p>Checks if the keyboard is visible or not on the mobile device.</p>
 <p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
-<strong>Returns</strong>: <code>Promise.&lt;boolean&gt;</code> - Returns 'true' if the keyboard is visible on the mobile view.<br />
+<strong>Returns</strong>: <code>Promise.&lt;boolean&gt;</code> - Returns <code>true</code> if the keyboard is visible on the mobile view.<br />
 <strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">isKeyboardVisible</span><span class="p">();</span>
 </code></pre></div>
 <a name="mobile.device.isPlatformSupported"></a></p>
 <h4 id="deviceisplatformsupported-promiseboolean">device.isPlatformSupported() ⇒ <code>Promise.&lt;boolean&gt;</code></h4>
-<p>Determine if the current platform is supported, if the current device platform is either Android or iOS.</p>
+<p>Determine if the current platform is supported, if the current device platform is either <code>Android</code> or <code>iOS</code>.</p>
 <p><strong>Kind</strong>: static method of <a href="#mobile.device"><code>device</code></a><br />
 <strong>Returns</strong>: <code>Promise.&lt;boolean&gt;</code> - If neither Android nor iOS is detected (e.g., Windows, Linux, or web), the condition evaluates to false<br />
 <strong>Example</strong><br />
@@ -18763,10 +18730,73 @@ it returns the context name; otherwise, it returns <code>null</code>.</p>
 </code></pre></div>
 <a name="mobile.gestures"></a></p>
 <h3 id="mobilegestures">mobile.gestures</h3>
-<p><strong>Kind</strong>: static class of <a href="#mobile"><code>mobile</code></a><br />
-<a name="mobile.gestures.swipe"></a></p>
-<h4 id="gesturesswipestartx-starty-endx-endy-duration-promisevoid">gestures.swipe(startX, startY, endX, endY, duration) ⇒ <code>Promise.&lt;void&gt;</code></h4>
-<p>Swipe from one point to another on the screen.</p>
+<p><strong>Kind</strong>: static class of <a href="#mobile"><code>mobile</code></a>  </p>
+<ul>
+<li><a href="#mobile.gestures">.gestures</a><ul>
+<li><a href="#mobile.gestures.swipe">.swipe(startX, startY, endX, endY, [duration])</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+<li><a href="#mobile.gestures.tap">.tap(coordX, coordY)</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="mobile.gestures.swipe"></a></p>
+<h4 id="gesturesswipestartx-starty-endx-endy-duration-promisevoid">gestures.swipe(startX, startY, endX, endY, [duration]) ⇒ <code>Promise.&lt;void&gt;</code></h4>
+<p>Swipe from one point to another on the screen,
+Ensure that the provided coordinates are within the bounds of the screen to avoid unexpected behavior.</p>
+<p><strong>Kind</strong>: static method of <a href="#mobile.gestures"><code>gestures</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>startX</td>
+<td><code>number</code></td>
+<td></td>
+<td>The starting X coordinate of the swipe</td>
+</tr>
+<tr>
+<td>startY</td>
+<td><code>number</code></td>
+<td></td>
+<td>The starting Y coordinate of the swipe</td>
+</tr>
+<tr>
+<td>endX</td>
+<td><code>number</code></td>
+<td></td>
+<td>The ending X coordinate of the swipe</td>
+</tr>
+<tr>
+<td>endY</td>
+<td><code>number</code></td>
+<td></td>
+<td>The ending Y coordinate of the swipe</td>
+</tr>
+<tr>
+<td>[duration]</td>
+<td><code>number</code></td>
+<td><code>1000</code></td>
+<td>The duration of the swipe in milliseconds (optional, default is 1000ms)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="c1">// Swipes from left to right across the screen horizontally (useful for image carousels or galleries).</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">gestures</span><span class="p">.</span><span class="nx">swipe</span><span class="p">(</span><span class="mf">100</span><span class="p">,</span><span class="w"> </span><span class="mf">800</span><span class="p">,</span><span class="w"> </span><span class="mf">800</span><span class="p">,</span><span class="w"> </span><span class="mf">800</span><span class="p">);</span>
+<span class="c1">// Swipes from bottom to top vertically to scroll down a list.</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">gestures</span><span class="p">.</span><span class="nx">swipe</span><span class="p">(</span><span class="mf">300</span><span class="p">,</span><span class="w"> </span><span class="mf">1000</span><span class="p">,</span><span class="w"> </span><span class="mf">300</span><span class="p">,</span><span class="w"> </span><span class="mf">400</span><span class="p">);</span>
+<span class="c1">// Swipes from the top down to refresh content on a mobile app (common for pull-to-refresh).</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">gestures</span><span class="p">.</span><span class="nx">swipe</span><span class="p">(</span><span class="mf">400</span><span class="p">,</span><span class="w"> </span><span class="mf">200</span><span class="p">,</span><span class="w"> </span><span class="mf">400</span><span class="p">,</span><span class="w"> </span><span class="mf">800</span><span class="p">);</span>
+</code></pre></div>
+<a name="mobile.gestures.tap"></a></p>
+<h4 id="gesturestapcoordx-coordy-promisevoid">gestures.tap(coordX, coordY) ⇒ <code>Promise.&lt;void&gt;</code></h4>
+<p>Executes a tap at the given screen coordinates,
+Ensure that the provided coordinates are within the bounds of the screen to avoid unexpected behavior.</p>
 <p><strong>Kind</strong>: static method of <a href="#mobile.gestures"><code>gestures</code></a>  </p>
 <table>
 <thead>
@@ -18778,33 +18808,21 @@ it returns the context name; otherwise, it returns <code>null</code>.</p>
 </thead>
 <tbody>
 <tr>
-<td>startX</td>
+<td>coordX</td>
 <td><code>number</code></td>
-<td>The starting X coordinate of the swipe</td>
+<td>The horizontal screen coordinate for the tap.</td>
 </tr>
 <tr>
-<td>startY</td>
+<td>coordY</td>
 <td><code>number</code></td>
-<td>The starting Y coordinate of the swipe</td>
-</tr>
-<tr>
-<td>endX</td>
-<td><code>number</code></td>
-<td>The ending X coordinate of the swipe</td>
-</tr>
-<tr>
-<td>endY</td>
-<td><code>number</code></td>
-<td>The ending Y coordinate of the swipe</td>
-</tr>
-<tr>
-<td>duration</td>
-<td><code>number</code></td>
-<td>The duration of the swipe in milliseconds (optional, default is 1000ms)</td>
+<td>The vertical screen coordinate for the tap.</td>
 </tr>
 </tbody>
 </table>
-<p><a name="mobile.ios"></a></p>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mobile</span><span class="p">.</span><span class="nx">gestures</span><span class="p">.</span><span class="nx">tap</span><span class="p">(</span><span class="mf">100</span><span class="p">,</span><span class="w"> </span><span class="mf">800</span><span class="p">);</span>
+</code></pre></div>
+<a name="mobile.ios"></a></p>
 <h3 id="mobileios">mobile.ios</h3>
 <p><strong>Kind</strong>: static class of <a href="#mobile"><code>mobile</code></a><br />
 <a name="mobile.userInteraction"></a></p>
