@@ -77,15 +77,6 @@ export class OData {
       error: console.error
     };
 
-    const parameters = {
-      ...{
-        "sap-client": "715",
-        "sap-documentation": ["heading", "quickinfo"],
-        "sap-language": "EN"
-      },
-      ...params
-    };
-
     const auth: any = {
       username,
       password
@@ -97,8 +88,8 @@ export class OData {
       logger: loggingEnabled ? logger : "",
       url,
       auth,
-      parameters, // Define initial request by $metadata?sap-client=<client-number>&sap-documentation=&sap-language=EN
-      strict: false // ignore non critical errors, e.g. orphaned annotations
+      params,
+      strict: false
     });
 
     await srv.init;
