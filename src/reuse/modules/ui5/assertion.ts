@@ -199,7 +199,7 @@ export class Assertion {
   /**
    * @function expectToBeNotEnabled
    * @memberOf ui5.assertion
-   * @description Expects that the element is enabled to the user.
+   * @description Expects that the element is not enabled to the user.
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
