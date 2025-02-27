@@ -25,14 +25,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectAttributeToBe(selector, "text", "Hello");
    */
-  async expectAttributeToBe(
-    selector: any,
-    attribute: string,
-    compareValue: any,
-    index = 0,
-    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000,
-    loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
-  ) {
+  async expectAttributeToBe(selector: any, attribute: string, compareValue: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const vl = this.vlf.initLog(this.expectAttributeToBe);
     let elem: Element, value;
     compareValue = String(compareValue);
@@ -41,10 +34,7 @@ export class Assertion {
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
-      this.ErrorHandler.logException(
-        !(error as Error).stack?.includes(this.expectAttributeToBe.name) ? new Error() : error,
-        (error as Error).message
-      );
+      this.ErrorHandler.logException(!(error as Error).stack?.includes(this.expectAttributeToBe.name) ? new Error() : error, (error as Error).message);
     }
 
     let ui5PropertyValue, innerUI5PropertyValue;
@@ -87,14 +77,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectAttributeToContain(selector, "text", "abc");
    */
-  async expectAttributeToContain(
-    selector: any,
-    attribute: string,
-    compareValue: any,
-    index = 0,
-    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000,
-    loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
-  ) {
+  async expectAttributeToContain(selector: any, attribute: string, compareValue: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const vl = this.vlf.initLog(this.expectAttributeToContain);
     let elem: Element, value;
     compareValue = String(compareValue);
@@ -146,13 +129,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectTextToBe(selector, "Hello");
    */
-  async expectTextToBe(
-    selector: any,
-    compareValue: any,
-    index = 0,
-    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000,
-    loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
-  ) {
+  async expectTextToBe(selector: any, compareValue: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const vl = this.vlf.initLog(this.expectTextToBe);
     return this.expectAttributeToBe(selector, "text", compareValue, index, timeout, loadPropertyTimeout);
   }
@@ -168,13 +145,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectValueToBe(selector, "123");
    */
-  async expectValueToBe(
-    selector: any,
-    compareValue: any,
-    index = 0,
-    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000,
-    loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
-  ) {
+  async expectValueToBe(selector: any, compareValue: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const vl = this.vlf.initLog(this.expectValueToBe);
     return this.expectAttributeToBe(selector, "value", compareValue, index, timeout, loadPropertyTimeout);
   }
@@ -199,19 +170,14 @@ export class Assertion {
   /**
    * @function expectToBeNotEnabled
    * @memberOf ui5.assertion
-   * @description Expects that the element is enabled to the user.
+   * @description Expects that the element is disabled to the user.
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeNotEnabled(selector);
    */
-  async expectToBeNotEnabled(
-    selector: any,
-    index = 0,
-    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000,
-    loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
-  ) {
+  async expectToBeNotEnabled(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const vl = this.vlf.initLog(this.expectToBeNotEnabled);
     await this.expectAttributeToBe(selector, "enabled", false, index, timeout, loadPropertyTimeout);
   }
@@ -226,12 +192,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeEnabled(selector);
    */
-  async expectToBeEnabled(
-    selector: any,
-    index = 0,
-    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000,
-    loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
-  ) {
+  async expectToBeEnabled(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const vl = this.vlf.initLog(this.expectToBeEnabled);
     await this.expectAttributeToBe(selector, "enabled", true, index, timeout, loadPropertyTimeout);
   }
@@ -246,12 +207,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectValidationError(selector);
    */
-  async expectValidationError(
-    selector: any,
-    index = 0,
-    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000,
-    loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
-  ) {
+  async expectValidationError(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const vl = this.vlf.initLog(this.expectValidationError);
     return this.expectAttributeToBe(selector, "valueState", "Error", index, timeout, loadPropertyTimeout);
   }
@@ -266,12 +222,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectValidationSuccess(selector);
    */
-  async expectValidationSuccess(
-    selector: any,
-    index = 0,
-    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000,
-    loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
-  ) {
+  async expectValidationSuccess(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const vl = this.vlf.initLog(this.expectValidationSuccess);
     return this.expectAttributeToBe(selector, "valueState", "None", index, timeout, loadPropertyTimeout);
   }
@@ -289,14 +240,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectBindingPathToBe(selector, "text", "Hello");
    */
-  async expectBindingPathToBe(
-    selector: any,
-    attribute: string,
-    compareValue: any,
-    index = 0,
-    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000,
-    loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
-  ) {
+  async expectBindingPathToBe(selector: any, attribute: string, compareValue: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const vl = this.vlf.initLog(this.expectBindingPathToBe);
     let elem: Element;
     try {
@@ -306,7 +250,7 @@ export class Assertion {
     }
 
     let values = null;
-    if(typeof loadPropertyTimeout === "string") {
+    if (typeof loadPropertyTimeout === "string") {
       loadPropertyTimeout = parseInt(loadPropertyTimeout);
     }
     if (loadPropertyTimeout > 0) {
@@ -356,27 +300,18 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectBindingContextPathToBe(selector, "text", "Hello");
    */
-  async expectBindingContextPathToBe(
-    selector: any,
-    compareValue: any,
-    index = 0,
-    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000,
-    loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
-  ) {
+  async expectBindingContextPathToBe(selector: any, compareValue: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const vl = this.vlf.initLog(this.expectBindingContextPathToBe);
     let elem: Element;
 
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
-      return this.ErrorHandler.logException(
-        !(error as Error).stack?.includes("expectBindingContextPathToBe") ? new Error() : error,
-        (error as Error).message
-      );
+      return this.ErrorHandler.logException(!(error as Error).stack?.includes("expectBindingContextPathToBe") ? new Error() : error, (error as Error).message);
     }
 
     let value = null;
-    if(typeof loadPropertyTimeout === "string") {
+    if (typeof loadPropertyTimeout === "string") {
       loadPropertyTimeout = parseInt(loadPropertyTimeout);
     }
     if (loadPropertyTimeout > 0) {
@@ -408,26 +343,18 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeVisible(selector);
    */
-  async expectToBeVisible(
-    selector: any,
-    index = 0,
-    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000,
-    loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
-  ) {
+  async expectToBeVisible(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const vl = this.vlf.initLog(this.expectToBeVisible);
     let elem: Element;
 
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
-      return this.ErrorHandler.logException(
-        !(error as Error).stack?.includes(this.expectToBeVisible.name) ? new Error() : error,
-        (error as Error).message
-      );
+      return this.ErrorHandler.logException(!(error as Error).stack?.includes(this.expectToBeVisible.name) ? new Error() : error, (error as Error).message);
     }
 
     let value = null;
-    if(typeof loadPropertyTimeout === "string") {
+    if (typeof loadPropertyTimeout === "string") {
       loadPropertyTimeout = parseInt(loadPropertyTimeout);
     }
     if (loadPropertyTimeout > 0) {
@@ -473,10 +400,7 @@ export class Assertion {
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
-      this.ErrorHandler.logException(
-        !(error as Error).stack?.includes(this.expectToBeVisibleInViewport.name) ? new Error() : error,
-        (error as Error).message
-      );
+      this.ErrorHandler.logException(!(error as Error).stack?.includes(this.expectToBeVisibleInViewport.name) ? new Error() : error, (error as Error).message);
     }
 
     let value = null;
