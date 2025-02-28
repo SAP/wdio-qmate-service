@@ -1,15 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2021" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-    "module": "commonjs" /* Specify what module code is generated. */,
+    "module": "CommonJS",
+    "target": "ES2022",
     "rootDir": "./src" /* Specify the root folder within your source files. */,
-    "paths": {
-      "*": ["./types/*"]
-    },
-    "typeRoots": [
-      "./@types",
-      "./node_modules/@types"
-    ] /* Specify multiple folders that act like `./node_modules/@types`. */,
+    "removeComments": false,
+    "strictFunctionTypes": false,
+    "experimentalDecorators": true,
+    "lib": ["es2023", "dom", "es2021"],
+    "types": ["node", "mocha", "@wdio/globals/types"],
     "resolveJsonModule": true /* Enable importing .json files */,
     "declaration": true /* Generates corresponding `.d.ts` file. */,
     "allowJs": true /* Allow JavaScript files to be a part of your program. Use the `checkJS` option to get errors from these files. */,

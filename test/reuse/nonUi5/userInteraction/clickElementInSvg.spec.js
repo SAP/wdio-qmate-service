@@ -1,6 +1,6 @@
 "use strict";
 
-const { handleCookiesConsent } = require("../../../helper/utils");
+const { handleCookiesConsent, handleTrustArcCookie } = require("../../../helper/utils");
 
 describe("userInteraction - clickElementInSvg - UI5 SVG Chart", function () {
 
@@ -11,6 +11,7 @@ describe("userInteraction - clickElementInSvg - UI5 SVG Chart", function () {
   });
 
   it("Execution", async function () {
+    await util.browser.sleep(5000);
     await util.browser.switchToIframe("IFRAME[id='sampleFrame']");
     const svgElem = await nonUi5.element.getByCss("svg");
     const innerSelector = "g[data-id='4']";

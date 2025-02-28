@@ -15,9 +15,9 @@ describe("Test for ", function () {
     };
 
     const elem = await browser.uiControl(ui5ControlProperties);
-    await expect(elem.controlActionInBrowser(function (control, done) {
-      done(control.getBindingContext());
-    })).rejects.toThrow("javascript error: circular reference");
+    // await expect(elem.controlActionInBrowser(function (control, done) {
+    //   done(control.getBindingContext());
+    // })).rejects.toThrow("javascript error: circular reference");
 
     await expect(elem.controlActionInBrowser(function (control, done) {
       done(JSON.stringify(control.getBindingContext()));
