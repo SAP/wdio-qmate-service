@@ -780,7 +780,7 @@ module.exports = {
         return bPass;
       } else if (controlVal && metadata) {
         //console.log("Control val---->" + controlVal + " metadata--->"+ metadata);
-        bPass = bPass && (controlVal === metadata);
+        bPass = bPass && wildCardAndNormalCompare(metadata, controlVal);
       }
       return bPass;
     }

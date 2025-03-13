@@ -80,3 +80,29 @@ describe("element - getDisplayed by index which is equal to the number of elemen
       .rejects.toThrow(/Index out of bound. Trying to access element at index: 1/);
   });
 });
+
+describe("element - 'getDisplayed' by selector having wildcard character(*) for metadata", function () {
+  let elementOne;
+  let elementTwo;
+
+  it("Preparation", async function () {
+    await browser.url("#/categories");
+  });
+
+  it("Execution", async function () {
+    const selectorForMultipleElements = {
+      "elementProperties": {
+        "viewName": "sap.ui.demo.cart.view.Home",
+        "metadata": "sap.m.*ListItem",
+        "bindingContextPath": "/ProductCategories*)"
+      }
+    };
+    elementOne = await ui5.element.getDisplayed(selectorForMultipleElements, 0);
+    elementTwo = await ui5.element.getDisplayed(selectorForMultipleElements, 1);
+  });
+
+  it("Verification", async function () {
+    await expect(elementOne.getText()).resolves.toMatch(/Accessories/);
+    await expect(elementTwo.getText()).resolves.toMatch(/Computer System Accessories/);
+  });
+});
