@@ -31,12 +31,12 @@ async function FormAuthenticator() {
 
   await browser.url(url);
   await browser.waitUntil(async function () {
-    usernameField = await $(usernameFieldSelector);
-    passwordField = await $(passwordFieldSelector);
-    logonField = await $(logonButtonSelector);
-    return await usernameField.isDisplayedInViewport() &&
-      await passwordField.isDisplayedInViewport() &&
-      await logonField.isDisplayedInViewport();
+    usernameField = await $(usernameFieldSelector).getElement();
+    passwordField = await $(passwordFieldSelector).getElement();
+    logonField = await $(logonButtonSelector).getElement();
+    return await usernameField.isDisplayed({ withinViewport: true }) &&
+      await passwordField.isDisplayed({ withinViewport: true }) &&
+      await logonField.isDisplayed({ withinViewport: true });
   }, {
     timeout: 60000,
     timeoutMsg: "Expected user name field to be present after 60s"

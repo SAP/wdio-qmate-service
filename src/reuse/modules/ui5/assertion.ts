@@ -1,6 +1,5 @@
 "use strict";
 
-import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 
@@ -34,7 +33,7 @@ export class Assertion {
     loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
   ) {
     const vl = this.vlf.initLog(this.expectAttributeToBe);
-    let elem: Element, value;
+    let elem: WebdriverIO.Element, value;
     compareValue = String(compareValue);
 
     this._throwAttributeError(attribute);
@@ -96,7 +95,7 @@ export class Assertion {
     loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
   ) {
     const vl = this.vlf.initLog(this.expectAttributeToContain);
-    let elem: Element, value;
+    let elem: WebdriverIO.Element, value;
     compareValue = String(compareValue);
 
     this._throwAttributeError(attribute);
@@ -298,7 +297,7 @@ export class Assertion {
     loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
   ) {
     const vl = this.vlf.initLog(this.expectBindingPathToBe);
-    let elem: Element;
+    let elem: WebdriverIO.Element;
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
@@ -364,7 +363,7 @@ export class Assertion {
     loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
   ) {
     const vl = this.vlf.initLog(this.expectBindingContextPathToBe);
-    let elem: Element;
+    let elem: WebdriverIO.Element;
 
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -415,7 +414,7 @@ export class Assertion {
     loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000
   ) {
     const vl = this.vlf.initLog(this.expectToBeVisible);
-    let elem: Element;
+    let elem: WebdriverIO.Element;
 
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -469,7 +468,7 @@ export class Assertion {
    */
   async expectToBeVisibleInViewport(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.expectToBeVisibleInViewport);
-    let elem: Element;
+    let elem: WebdriverIO.Element;
     try {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
     } catch (error) {
@@ -482,7 +481,7 @@ export class Assertion {
     let value = null;
     await browser.waitUntil(
       async function () {
-        value = await elem.isDisplayedInViewport();
+        value = await elem.isDisplayed({ withinViewport: true });
         return value;
       },
       {
@@ -532,7 +531,7 @@ export class Assertion {
   }
 
   // =================================== HELPER ===================================
-  private async _getUI5Property(elem: Element, attribute: string) {
+  private async _getUI5Property(elem: WebdriverIO.Element, attribute: string) {
     const vl = this.vlf.initLog(this._getUI5Property);
     let value = await elem.getUI5Property(attribute);
     if (typeof value === "string") {
@@ -542,7 +541,7 @@ export class Assertion {
     return value;
   }
 
-  private async _getInnerUI5Property(elem: Element, attribute: string) {
+  private async _getInnerUI5Property(elem: WebdriverIO.Element, attribute: string) {
     let innerValue = await ui5.element.getInnerAttribute(elem, "data-" + attribute);
     if (typeof innerValue === "string") {
       innerValue = this._trimText(innerValue);
