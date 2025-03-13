@@ -22,12 +22,7 @@ export class Device {
   private ErrorHandler = new ErrorHandler();
 
   //==================================Private Methods===============================================
-  /**
-   * @function isValidPlatform
-   * @memberof mobile.device
-   * @description Check the mobile platform from the session's capabilities.
-   * @returns {boolean} Returns 'true' if the platform in the session's capabilities is either Android or iOS.
-   */
+
   private async isValidPlatform(): Promise<boolean> {
     const vl = this.vlf.initLog(this.isValidPlatform);
 
@@ -36,12 +31,6 @@ export class Device {
     return SUPPORTED_PLATFORMS.includes(platform.toLowerCase().trim());
   }
 
-  /**
-   * @function executionPlatform
-   * @memberof mobile.device
-   * @description Check the mobile platform from the session's capabilities.
-   * @returns {string} Return current execution platform in the session's capabilities.
-   */
   private async executionPlatform(): Promise<string> {
     const vl = this.vlf.initLog(this.executionPlatform);
     const platform: string = browser.capabilities.platformName || "";
@@ -52,9 +41,9 @@ export class Device {
   /**
    * @function isAppInstalled
    * @memberof mobile.device
-   * @description Check wether given package/bundle app is installed or not in the device.
-   * @param {string} appPackageOrBundleId - Android package Id, or iOS bundle Id.
-   * @returns {boolean} Returns 'true' if specified app package/bundled installed in the device, or 'false'.
+   * @description Check if the application identified by its Package name/Bundle ID is installed on the device.
+   * @param {string} appPackageOrBundleId - Android package Name, or iOS bundle Id.
+   * @returns {boolean} - Returns `true` if specified app package/bundled installed in the device, or `false`.
    * @example
    * await mobile.device.isAppInstalled("com.google.android.apps.maps");
    * await mobile.device.isAppInstalled("com.apple.AppStore")
@@ -107,7 +96,7 @@ export class Device {
    * @description Switch to the specified( WEBVIEW | NATIVE_APP ) context if available.
    * @param {string} [targetContext='WEBVIEW'] The name of the target context.
    * @param {number} [timeout=5000] Maximum time to wait for the web context to appear, milliseconds.
-   * @returns {Promise<boolean>} Returns 'true' if the context is successfully switched, otherwise 'false'.
+   * @returns {Promise<boolean>} Returns `true` if the context is successfully switched, otherwise `false`.
    * @example
    * await mobile.device.switchToContext();
    * await mobile.device.switchToContext("NATIVE_APP", 1000);
@@ -140,11 +129,11 @@ export class Device {
    * that matches the `targetContext` string is present. If the target context is found,
    * it returns the context name; otherwise, it returns `null`.
    *
-   * @param {string} [targetContext="WEBVIEW"] - The name of the target context to check for.
-   *   Common examples are "WEBVIEW" or "NATIVE_APP".
-   * @param {number} [timeout=5000] - The maximum time, in milliseconds, to wait for the target
+   * @param {string} [targetContext='WEBVIEW'] The name of the target context to check for.
+   *   Common examples are `WEBVIEW` or `NATIVE_APP`.
+   * @param {number} [timeout=5000] The maximum time, in milliseconds, to wait for the target
    *   context to become available.
-   * @returns {Promise<string | null>} - The name of the target context if found, or `null` if
+   * @returns {Promise<string | null>} The name of the target context if found, or `null` if
    *   the context is not available within the timeout.
    * @example
    * const context = await getTargetContextIfAvailable("WEBVIEW", 10000);
@@ -384,7 +373,7 @@ export class Device {
    * @function isKeyboardVisible
    * @memberof mobile.device
    * @description Checks if the keyboard is visible or not on the mobile device.
-   * @returns {Promise<boolean>} Returns 'true' if the keyboard is visible on the mobile view.
+   * @returns {Promise<boolean>} Returns `true` if the keyboard is visible on the mobile view.
    * @example
    * await mobile.device.isKeyboardVisible();
    */
@@ -418,7 +407,7 @@ export class Device {
   /**
    * @function isPlatformSupported
    * @memberof mobile.device
-   * @description Determine if the current platform is supported, if the current device platform is either Android or iOS.
+   * @description Determine if the current platform is supported, if the current device platform is either `Android` or `iOS`.
    * @returns {Promise<boolean>} If neither Android nor iOS is detected (e.g., Windows, Linux, or web), the condition evaluates to false
    * @example
    * await mobile.device.isPlatformSupported();

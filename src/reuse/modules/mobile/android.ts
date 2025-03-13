@@ -18,8 +18,10 @@ export class Android {
    * @memberof mobile.android
    * @description Simulate pressing a hardware key on the android device (e.g., back button, home button, etc.),
    * @param {string} keyName - The name of the key (e.g., "back", "home", "volumeUp", etc.)
-   * @example await mobile.device.pressKeyByName("back");
-   * @example await mobile.device.pressKeyByName("home");
+   * @returns {Promise<void>}
+   * @example
+   * await mobile.android.pressKeyByName("back");
+   * await mobile.android.pressKeyByName("home");
    */
   async pressKeyByName(keyName: KeyName): Promise<void> {
     const vl = this.vlf.initLog(this.pressKeyByName);
@@ -63,6 +65,7 @@ export class Android {
    * @memberof mobile.android
    * @description Simulate pressing a hardware key on the android device (e.g., back button, home button, etc.),
    * @param {string} keyCode - The code of the key (e.g., 4 (back), 3 (home) , etc.)
+   * @returns {Promise<void>}
    * @example await mobile.android.pressKeyByCode(4);
    * @see https://developer.android.com/reference/android/view/KeyEvent
    */

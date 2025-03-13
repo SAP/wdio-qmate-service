@@ -71,3 +71,26 @@ describe("userInteraction - click on invisible element", function () {
       .rejects.toThrow("Element not clickable after 30s");
   });
 });
+
+describe("userInteraction - click with selector having wildcard character(*) for metadata", function () {
+
+  it("Preparation", async function () {
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/");
+    await handleCookiesConsent();
+  });
+
+  it("Execution", async function () {
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.ui.documentation.sdk.view.App",
+        "metadata": "sap.m.*",
+        "id": "*apiMasterTab"
+      }
+    };
+    await ui5.userInteraction.click(selector, 0, 60000);
+  });
+
+  it("Verification", async function () {
+    await common.assertion.expectUrlToBe("https://sapui5.hana.ondemand.com/1.96.27/#/api");
+  });
+});
