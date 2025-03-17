@@ -1,6 +1,7 @@
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
+import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
 /**
  * @class element
  * @memberof nonUi5
@@ -491,10 +492,11 @@ export class ElementModule {
     }
   }
 
-  async getCssPropertyValue(elem: Element, cssProperty: string): Promise<string> {
+  async getCssPropertyValue(elementOrSelector: Element | string, cssProperty: string): Promise<string> {
     const vl = this.vlf.initLog(this.getCssPropertyValue);
     try {
-      const property = await elem.getCSSProperty(cssProperty);
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
+      const property = await element.getCSSProperty(cssProperty);
       return property.value;
     } catch (error) {
       return this.ErrorHandler.logException(error);
