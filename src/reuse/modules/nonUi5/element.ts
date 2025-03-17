@@ -499,6 +499,8 @@ export class ElementModule {
    * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {String} cssProperty - The CSS property of the element to get value.
    * @returns {String} The value of the CSS property.
+   * @example const elem = await nonUi5.element.getById("elem01");
+   * const color = await nonUi5.element.getCssPropertyValue(elem, "color");
    */
   async getCssPropertyValue(elementOrSelector: Element | string, cssProperty: string): Promise<string> {
     const vl = this.vlf.initLog(this.getCssPropertyValue);

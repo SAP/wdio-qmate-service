@@ -4904,6 +4904,11 @@ Returns the value of the passed CSS property of the element.
 | elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
 | cssProperty | <code>String</code> | The CSS property of the element to get value. |
 
+**Example**  
+```js
+const elem = await nonUi5.element.getById("elem01");
+const color = await nonUi5.element.getCssPropertyValue(elem, "color");
+```
 <a name="nonUi5.element.setInnerHTML"></a>
 
 #### element.setInnerHTML(elem) ⇒ <code>String</code>
