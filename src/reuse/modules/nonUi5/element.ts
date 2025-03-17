@@ -492,6 +492,14 @@ export class ElementModule {
     }
   }
 
+  /**
+   * @function getCssPropertyValue
+   * @memberOf nonUi5.element
+   * @description Returns the value of the passed CSS property of the element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
+   * @param {String} cssProperty - The CSS property of the element to get value.
+   * @returns {String} The value of the CSS property.
+   */
   async getCssPropertyValue(elementOrSelector: Element | string, cssProperty: string): Promise<string> {
     const vl = this.vlf.initLog(this.getCssPropertyValue);
     try {
