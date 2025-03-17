@@ -267,6 +267,17 @@ export class ElementModule {
     }
   }
 
+  async getCssPropertyValue(selector:any, cssProperty: string): Promise<string>{
+    const vl = this.vlf.initLog(this.getCssPropertyValue);
+    try{
+      const elem = await this.getDisplayed(selector);
+      const property = await elem.getCSSProperty(cssProperty);
+      return property.value;
+    }catch(error){
+      return this.ErrorHandler.logException(error);
+    }
+  }
+
   /**
    * @function getBindingValue
    * @memberOf ui5.element

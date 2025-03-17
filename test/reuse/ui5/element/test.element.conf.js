@@ -1,6 +1,6 @@
 const path = require("path");
 const merge = require("deepmerge");
-const profile = require("../../../helper/configurations/chrome.headless.conf");
+const profile = require("../../../helper/configurations/chrome.conf");
 exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
@@ -18,6 +18,7 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "getPropertyValue.spec.js"),
     path.resolve(__dirname, "highlight.spec.js"),
     path.resolve(__dirname, "isVisible.spec.js"),
-    path.resolve(__dirname, "waitForAll.spec.js")
+    path.resolve(__dirname, "waitForAll.spec.js"),
+    path.resolve(__dirname, "getCssPropertyValue.spec.js")
   ]
 });
