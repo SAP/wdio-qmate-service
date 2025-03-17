@@ -491,6 +491,16 @@ export class ElementModule {
     }
   }
 
+  async getCssPropertyValue(elem: Element, cssProperty: string): Promise<string> {
+    const vl = this.vlf.initLog(this.getCssPropertyValue);
+    try {
+      const property = await elem.getCSSProperty(cssProperty);
+      return property.value;
+    } catch (error) {
+      return this.ErrorHandler.logException(error);
+    }
+  }
+
   // =================================== SET VALUES ===================================
   /**
    * @function setInnerHTML

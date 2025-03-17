@@ -1,6 +1,6 @@
 const path = require("path");
 const merge = require("deepmerge");
-const profile = require("../../../helper/configurations/chrome.headless.conf");
+const profile = require("../../../helper/configurations/chrome.conf");
 
 exports.config = merge(profile.config, {
   maxInstances: 6,
@@ -29,7 +29,8 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "isPresent.spec.js"),
     path.resolve(__dirname, "isPresentByCss.spec.js"),
     path.resolve(__dirname, "isPresentByXPath.spec.js"),
-    path.resolve(__dirname, "setInnerHTML.spec.js")
+    path.resolve(__dirname, "setInnerHTML.spec.js"),
+    path.resolve(__dirname, "getCssPropertyValue.spec.js"),
   ],
 
   services: [
