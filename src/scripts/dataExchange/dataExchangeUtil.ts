@@ -47,7 +47,7 @@ class DataExchangeUtil {
   async readJson (filename: string): Promise<object> {
     // handle empty files
     const data = await fs.readFile(filename, "utf-8");
-    return data && data.trim() ? JSON.parse(data) : null;
+    return data && data.trim() ? JSON.parse(data) : {};
   };
 
   /**

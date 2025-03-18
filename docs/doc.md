@@ -1741,6 +1741,7 @@ Global namespace for UI5 modules.
         * [.getId(selector, [index], [timeout])](#ui5.element.getId) ⇒ <code>String</code>
         * [.getPropertyValue(selector, property, [index], [timeout])](#ui5.element.getPropertyValue) ⇒ <code>any</code>
         * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
+        * [.getCssPropertyValue(selector, cssProperty)](#ui5.element.getCssPropertyValue) ⇒ <code>String</code>
         * [.getBindingValue(selector, bindingContext, [index], [timeout])](#ui5.element.getBindingValue) ⇒ <code>String</code>
         * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
         * [.highlight(selector, [duration], [color])](#ui5.element.highlight)
@@ -2501,6 +2502,7 @@ await ui5.date.fillRange(selector, range);
     * [.getId(selector, [index], [timeout])](#ui5.element.getId) ⇒ <code>String</code>
     * [.getPropertyValue(selector, property, [index], [timeout])](#ui5.element.getPropertyValue) ⇒ <code>any</code>
     * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
+    * [.getCssPropertyValue(selector, cssProperty)](#ui5.element.getCssPropertyValue) ⇒ <code>String</code>
     * [.getBindingValue(selector, bindingContext, [index], [timeout])](#ui5.element.getBindingValue) ⇒ <code>String</code>
     * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
     * [.highlight(selector, [duration], [color])](#ui5.element.highlight)
@@ -2683,6 +2685,23 @@ Returns the inner value of the passed element.
 **Example**  
 ```js
 const elemValue = await ui5.element.getValue(selector);
+```
+<a name="ui5.element.getCssPropertyValue"></a>
+
+#### element.getCssPropertyValue(selector, cssProperty) ⇒ <code>String</code>
+Returns the value of the passed CSS property of the element.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+**Returns**: <code>String</code> - The value of the CSS property.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>Object</code> | The selector describing the element. |
+| cssProperty | <code>String</code> | The CSS property of the element to get value. |
+
+**Example**  
+```js
+const cssPropertyValue = await ui5.element.getCssPropertyValue(selector, "visibility");
 ```
 <a name="ui5.element.getBindingValue"></a>
 
