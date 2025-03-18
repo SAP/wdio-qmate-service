@@ -44,10 +44,10 @@ class DataExchangeUtil {
    * @return {object} - the JSON data
    * @throws {*} - throws an error if file is not readable, or if data is not valid JSON
    */
-  async readJson (filename: string): Promise<object> {
+  async readJson (filename: string): Promise<object | null> {
     // handle empty files
     const data = await fs.readFile(filename, "utf-8");
-    return data && data.trim() ? JSON.parse(data) : {};
+    return data && data.trim() ? JSON.parse(data) : null;
   };
 
   /**
