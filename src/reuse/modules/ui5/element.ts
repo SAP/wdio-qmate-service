@@ -266,7 +266,16 @@ export class ElementModule {
       return this.ErrorHandler.logException(error);
     }
   }
-
+  
+  /**
+   * @function getCssPropertyValue
+   * @memberOf ui5.element
+   * @description Returns the value of the passed CSS property of the element.
+   * @param {Object} selector - The selector describing the element.
+   * @param {String} cssProperty - The CSS property of the element to get value.
+   * @returns {String} The value of the CSS property.
+   * @example const cssPropertyValue = await ui5.element.getCssPropertyValue(selector, "visibility");
+   */
   async getCssPropertyValue(selector:any, cssProperty: string): Promise<string>{
     const vl = this.vlf.initLog(this.getCssPropertyValue);
     try{
