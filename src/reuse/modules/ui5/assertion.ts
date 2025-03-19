@@ -283,7 +283,7 @@ export class Assertion {
    * @param {Object} selector - The selector describing the element.
    * @param {String} cssProperty - The CSS property of the element to compare with.
    * @param {String} compareValue - The compare value.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+   * @param {Number} [index=0] - The index of the selector (in case there is more than one element visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.assertion.expectCssPropertyValueToBe(selector, "color", "rgb(255, 0, 0)");
    */
