@@ -1704,6 +1704,7 @@ Global namespace for UI5 modules.
         * [.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeEnabled)
         * [.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationError)
         * [.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationSuccess)
+        * [.expectCssPropertyValueToBe(selector, cssProperty, compareValue)](#ui5.assertion.expectCssPropertyValueToBe)
         * [.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingPathToBe)
         * [.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingContextPathToBe)
         * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible)
@@ -1849,6 +1850,7 @@ Global namespace for UI5 modules.
     * [.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeEnabled)
     * [.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationError)
     * [.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationSuccess)
+    * [.expectCssPropertyValueToBe(selector, cssProperty, compareValue)](#ui5.assertion.expectCssPropertyValueToBe)
     * [.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingPathToBe)
     * [.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingContextPathToBe)
     * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible)
@@ -2022,6 +2024,23 @@ Expects the valueState of the element to be "None".
 **Example**  
 ```js
 await ui5.assertion.expectValidationSuccess(selector);
+```
+<a name="ui5.assertion.expectCssPropertyValueToBe"></a>
+
+#### assertion.expectCssPropertyValueToBe(selector, cssProperty, compareValue)
+Expects the CSS property value of the passed element to be the compare value.
+
+**Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| selector | <code>Object</code> | The selector describing the element. |
+| cssProperty | <code>String</code> | The CSS property of the element to compare with. |
+| compareValue |  | The compare value. |
+
+**Example**  
+```js
+await ui5.assertion.expectCssPropertyValueToBe(selector, "color", "rgb(255, 0, 0)");
 ```
 <a name="ui5.assertion.expectBindingPathToBe"></a>
 

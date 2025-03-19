@@ -276,6 +276,15 @@ export class Assertion {
     return this.expectAttributeToBe(selector, "valueState", "None", index, timeout, loadPropertyTimeout);
   }
 
+  /**
+   * @function expectCssPropertyValueToBe
+   * @memberOf ui5.assertion
+   * @description Expects the CSS property value of the passed element to be the compare value.
+   * @param {Object} selector - The selector describing the element.
+   * @param {String} cssProperty - The CSS property of the element to compare with.
+   * @param compareValue - The compare value.
+   * @example await ui5.assertion.expectCssPropertyValueToBe(selector, "color", "rgb(255, 0, 0)");
+   */
   async expectCssPropertyValueToBe(selector: any, cssProperty: string, compareValue: string) {
     const vl = this.vlf.initLog(this.expectCssPropertyValueToBe);
     const value = await ui5.element.getCssPropertyValue(selector, cssProperty);
