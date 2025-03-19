@@ -1704,7 +1704,7 @@ Global namespace for UI5 modules.
         * [.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeEnabled)
         * [.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationError)
         * [.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationSuccess)
-        * [.expectCssPropertyValueToBe(selector, cssProperty, compareValue)](#ui5.assertion.expectCssPropertyValueToBe)
+        * [.expectCssPropertyValueToBe(selector, cssProperty, compareValue, [index], [timeout])](#ui5.assertion.expectCssPropertyValueToBe)
         * [.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingPathToBe)
         * [.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingContextPathToBe)
         * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible)
@@ -1742,7 +1742,7 @@ Global namespace for UI5 modules.
         * [.getId(selector, [index], [timeout])](#ui5.element.getId) ⇒ <code>String</code>
         * [.getPropertyValue(selector, property, [index], [timeout])](#ui5.element.getPropertyValue) ⇒ <code>any</code>
         * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
-        * [.getCssPropertyValue(selector, cssProperty)](#ui5.element.getCssPropertyValue) ⇒ <code>String</code>
+        * [.getCssPropertyValue(selector, cssProperty, [index], [timeout])](#ui5.element.getCssPropertyValue) ⇒ <code>String</code>
         * [.getBindingValue(selector, bindingContext, [index], [timeout])](#ui5.element.getBindingValue) ⇒ <code>String</code>
         * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
         * [.highlight(selector, [duration], [color])](#ui5.element.highlight)
@@ -1850,7 +1850,7 @@ Global namespace for UI5 modules.
     * [.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeEnabled)
     * [.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationError)
     * [.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationSuccess)
-    * [.expectCssPropertyValueToBe(selector, cssProperty, compareValue)](#ui5.assertion.expectCssPropertyValueToBe)
+    * [.expectCssPropertyValueToBe(selector, cssProperty, compareValue, [index], [timeout])](#ui5.assertion.expectCssPropertyValueToBe)
     * [.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingPathToBe)
     * [.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingContextPathToBe)
     * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible)
@@ -2027,16 +2027,18 @@ await ui5.assertion.expectValidationSuccess(selector);
 ```
 <a name="ui5.assertion.expectCssPropertyValueToBe"></a>
 
-#### assertion.expectCssPropertyValueToBe(selector, cssProperty, compareValue)
+#### assertion.expectCssPropertyValueToBe(selector, cssProperty, compareValue, [index], [timeout])
 Expects the CSS property value of the passed element to be the compare value.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| selector | <code>Object</code> | The selector describing the element. |
-| cssProperty | <code>String</code> | The CSS property of the element to compare with. |
-| compareValue |  | The compare value. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| cssProperty | <code>String</code> |  | The CSS property of the element to compare with. |
+| compareValue | <code>String</code> |  | The compare value. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there is more than one element visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
 ```js
@@ -2521,7 +2523,7 @@ await ui5.date.fillRange(selector, range);
     * [.getId(selector, [index], [timeout])](#ui5.element.getId) ⇒ <code>String</code>
     * [.getPropertyValue(selector, property, [index], [timeout])](#ui5.element.getPropertyValue) ⇒ <code>any</code>
     * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
-    * [.getCssPropertyValue(selector, cssProperty)](#ui5.element.getCssPropertyValue) ⇒ <code>String</code>
+    * [.getCssPropertyValue(selector, cssProperty, [index], [timeout])](#ui5.element.getCssPropertyValue) ⇒ <code>String</code>
     * [.getBindingValue(selector, bindingContext, [index], [timeout])](#ui5.element.getBindingValue) ⇒ <code>String</code>
     * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
     * [.highlight(selector, [duration], [color])](#ui5.element.highlight)
@@ -2707,16 +2709,18 @@ const elemValue = await ui5.element.getValue(selector);
 ```
 <a name="ui5.element.getCssPropertyValue"></a>
 
-#### element.getCssPropertyValue(selector, cssProperty) ⇒ <code>String</code>
+#### element.getCssPropertyValue(selector, cssProperty, [index], [timeout]) ⇒ <code>String</code>
 Returns the value of the passed CSS property of the element.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
 **Returns**: <code>String</code> - The value of the CSS property.  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| selector | <code>Object</code> | The selector describing the element. |
-| cssProperty | <code>String</code> | The CSS property of the element to get value. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| cssProperty | <code>String</code> |  | The CSS property of the element to get value. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
 ```js
@@ -4473,7 +4477,7 @@ Expects the CSS property value of the passed element to be the compare value.
 | --- | --- | --- |
 | elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
 | cssProperty | <code>String</code> | The CSS property of the element to compare with. |
-| compareValue |  | The compare value. |
+| compareValue | <code>String</code> | The compare value. |
 
 **Example**  
 ```js
