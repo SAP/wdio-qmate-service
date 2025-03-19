@@ -4321,6 +4321,7 @@ Global namespace for non UI5 modules.
         * [.expectAttributeToBe(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
         * [.expectAttributeToContain(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToContain)
         * [.expectValueToBe(elementOrSelector, compareValue)](#nonUi5.assertion.expectValueToBe)
+        * [.expectCssPropertyValueToBe(elementOrSelector, cssProperty, compareValue)](#nonUi5.assertion.expectCssPropertyValueToBe)
         * [.expectToBeVisible(elementOrSelector)](#nonUi5.assertion.expectToBeVisible)
         * [.expectToBeNotVisible(elementOrSelector, [timeout])](#nonUi5.assertion.expectToBeNotVisible)
     * [.element](#nonUi5.element)
@@ -4380,6 +4381,7 @@ Global namespace for non UI5 modules.
     * [.expectAttributeToBe(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
     * [.expectAttributeToContain(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToContain)
     * [.expectValueToBe(elementOrSelector, compareValue)](#nonUi5.assertion.expectValueToBe)
+    * [.expectCssPropertyValueToBe(elementOrSelector, cssProperty, compareValue)](#nonUi5.assertion.expectCssPropertyValueToBe)
     * [.expectToBeVisible(elementOrSelector)](#nonUi5.assertion.expectToBeVisible)
     * [.expectToBeNotVisible(elementOrSelector, [timeout])](#nonUi5.assertion.expectToBeNotVisible)
 
@@ -4440,6 +4442,24 @@ Expects the attributes value of the passed element to be the compare value.
 ```js
 const element = await nonUi5.element.getById("button01");
 await nonUi5.assertion.expectValueToBe(element, "Save");
+```
+<a name="nonUi5.assertion.expectCssPropertyValueToBe"></a>
+
+#### assertion.expectCssPropertyValueToBe(elementOrSelector, cssProperty, compareValue)
+Expects the CSS property value of the passed element to be the compare value.
+
+**Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
+| cssProperty | <code>String</code> | The CSS property of the element to compare with. |
+| compareValue |  | The compare value. |
+
+**Example**  
+```js
+const element = await nonUi5.element.getById("button01");
+await nonUi5.assertion.expectCssPropertyValueToBe(element, "color", "rgb(255, 0, 0)");
 ```
 <a name="nonUi5.assertion.expectToBeVisible"></a>
 
