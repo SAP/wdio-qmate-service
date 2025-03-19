@@ -1,6 +1,10 @@
 "use strict";
 const { handleCookiesConsent } = require("../../../helper/utils");
 
+const selector = "//div[contains(text(),'Laptops')]";
+const cssProperty = "visibility";
+const compareValue = "visible";
+
 describe("assertion - expectCssPropertyValueToBe - element", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
@@ -8,9 +12,8 @@ describe("assertion - expectCssPropertyValueToBe - element", function () {
   });
 
   it("Execution and Verification", async function () {
-    const selector = "//div[contains(text(),'Laptops')]";
     const product = await nonUi5.element.getByXPath(selector);
-    await nonUi5.assertion.expectCssPropertyValueToBe(product, "visibility", "visible");
+    await nonUi5.assertion.expectCssPropertyValueToBe(product, cssProperty, compareValue);
   });
 });
 
@@ -21,10 +24,11 @@ describe("assertion - expectCssPropertyValueToBe - selector", function () {
   });
 
   it("Execution and Verification", async function () {
-    const selector = "//div[contains(text(),'Laptops')]";
-    await nonUi5.assertion.expectCssPropertyValueToBe(selector, "visibility", "visible");
+    await nonUi5.assertion.expectCssPropertyValueToBe(selector, cssProperty, compareValue);
   });
 });
+
+const errorRegexp = /Expected.*wrong.*|Received.*visible/;
 
 describe("assertion - expectCssPropertyValueToBe - element - error", function () {
   it("Preparation", async function () {
@@ -33,10 +37,9 @@ describe("assertion - expectCssPropertyValueToBe - element - error", function ()
   });
 
   it("Execution and Verification", async function () {
-    const selector = "//div[contains(text(),'Laptops')]";
     const product = await nonUi5.element.getByXPath(selector);
-    await expect(nonUi5.assertion.expectCssPropertyValueToBe(product, "visibility", "wrong"))
-      .rejects.toThrow(/Expected.*wrong.*|Received.*visible/);
+    await expect(nonUi5.assertion.expectCssPropertyValueToBe(product, cssProperty, "wrong"))
+      .rejects.toThrow(errorRegexp);
   });
 });
 
@@ -47,8 +50,7 @@ describe("assertion - expectCssPropertyValueToBe - selector - error", function (
   });
 
   it("Execution and Verification", async function () {
-    const selector = "//div[contains(text(),'Laptops')]";
-    await expect(nonUi5.assertion.expectCssPropertyValueToBe(selector, "visibility", "wrong"))
-      .rejects.toThrow(/Expected.*wrong.*|Received.*visible/);
+    await expect(nonUi5.assertion.expectCssPropertyValueToBe(selector, cssProperty, "wrong"))
+      .rejects.toThrow(errorRegexp);
   });
 });
