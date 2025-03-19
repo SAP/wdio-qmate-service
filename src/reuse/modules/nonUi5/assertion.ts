@@ -66,6 +66,12 @@ export class Assertion {
     await this.expectAttributeToBe(element, compareValue);
   }
 
+  async expectCssPropertyValueToBe(element: Element, cssProperty: string, compareValue: string): Promise<void> {
+    const vl = this.vlf.initLog(this.expectCssPropertyValueToBe);
+    const value = await nonUi5.element.getCssPropertyValue(element, cssProperty);
+    return common.assertion.expectEqual(value, compareValue);
+  }
+
   // =================================== VISIBILITY ===================================
   /**
    * @function expectToBeVisible
