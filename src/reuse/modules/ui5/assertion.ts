@@ -276,6 +276,12 @@ export class Assertion {
     return this.expectAttributeToBe(selector, "valueState", "None", index, timeout, loadPropertyTimeout);
   }
 
+  async expectCssPropertyValueToBe(selector: any, cssProperty: string, compareValue: string) {
+    const vl = this.vlf.initLog(this.expectCssPropertyValueToBe);
+    const value = await ui5.element.getCssPropertyValue(selector, cssProperty);
+    return common.assertion.expectEqual(value, compareValue);
+  }
+
   // =================================== BINDINGS ===================================
   /**
    * @function expectBindingPathToBe

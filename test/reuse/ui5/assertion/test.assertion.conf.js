@@ -23,6 +23,7 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "expectToBeVisible.spec.js"),
     path.resolve(__dirname, "expectToBeNotVisible.spec.js"),
     path.resolve(__dirname, "expectToBeVisibleInViewport.spec.js"),
-    path.resolve(__dirname, "expectMessageToastTextToBe.spec.js")
+    path.resolve(__dirname, "expectMessageToastTextToBe.spec.js"),
+    path.resolve(__dirname, "expectCssPropertyValueToBe.spec.js")
   ]
 });
