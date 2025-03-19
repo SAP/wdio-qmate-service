@@ -17,7 +17,10 @@ describe("element - getCssPropertyValue", function () {
         bindingContextPath: "/ProductCategories*'LT')"
       }
     };
-    valueAct = await ui5.element.getCssPropertyValue(selector, "visibility");
+    const cssProperty = "visibility";
+    const index = 0;
+    const timeout = 30000;
+    valueAct = await ui5.element.getCssPropertyValue(selector, cssProperty, index, timeout);
   });
 
   it("Verification", async function () {
