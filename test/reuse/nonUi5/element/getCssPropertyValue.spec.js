@@ -3,6 +3,10 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
+const selector = "//div[contains(text(),'Laptops')]";
+const cssProperty = "visibility";
+const valueExp = "visible";
+
 describe("element - getCssPropertyValue - element", function () {
   let valueAct;
 
@@ -12,12 +16,11 @@ describe("element - getCssPropertyValue - element", function () {
   });
 
   it("Execution", async function () {
-    const product = await nonUi5.element.getByXPath("//div[contains(text(),'Laptops')]");
-    valueAct = await nonUi5.element.getCssPropertyValue(product, "visibility");
+    const product = await nonUi5.element.getByXPath(selector);
+    valueAct = await nonUi5.element.getCssPropertyValue(product, cssProperty);
   });
 
   it("Verification", async function () {
-    const valueExp = "visible";
     await common.assertion.expectEqual(valueAct, valueExp);
   });
 });
@@ -31,12 +34,10 @@ describe("element - getCssPropertyValue - selector", function () {
   });
 
   it("Execution", async function () {
-    const selector = "//div[contains(text(),'Laptops')]";
-    valueAct = await nonUi5.element.getCssPropertyValue(selector, "visibility");
+    valueAct = await nonUi5.element.getCssPropertyValue(selector, cssProperty);
   });
 
   it("Verification", async function () {
-    const valueExp = "visible";
     await common.assertion.expectEqual(valueAct, valueExp);
   });
 });
