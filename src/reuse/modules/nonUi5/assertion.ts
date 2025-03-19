@@ -72,7 +72,7 @@ export class Assertion {
    * @description Expects the CSS property value of the passed element to be the compare value.
    * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {String} cssProperty - The CSS property of the element to compare with.
-   * @param compareValue - The compare value.
+   * @param {String} compareValue - The compare value.
    * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectCssPropertyValueToBe(element, "color", "rgb(255, 0, 0)");
    */

@@ -282,12 +282,20 @@ export class Assertion {
    * @description Expects the CSS property value of the passed element to be the compare value.
    * @param {Object} selector - The selector describing the element.
    * @param {String} cssProperty - The CSS property of the element to compare with.
-   * @param compareValue - The compare value.
+   * @param {String} compareValue - The compare value.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.assertion.expectCssPropertyValueToBe(selector, "color", "rgb(255, 0, 0)");
    */
-  async expectCssPropertyValueToBe(selector: any, cssProperty: string, compareValue: string) {
+  async expectCssPropertyValueToBe(
+    selector: any,
+    cssProperty: string,
+    compareValue: string,
+    index = 0,
+    timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000
+  ) {
     const vl = this.vlf.initLog(this.expectCssPropertyValueToBe);
-    const value = await ui5.element.getCssPropertyValue(selector, cssProperty);
+    const value = await ui5.element.getCssPropertyValue(selector, cssProperty, index, timeout);
     return common.assertion.expectEqual(value, compareValue);
   }
 
