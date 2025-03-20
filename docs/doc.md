@@ -1,4 +1,4 @@
-# ☰ Reuse API
+# Reuse API
 
 ## Constants
 
