@@ -1,6 +1,7 @@
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
+import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
 /**
  * @class element
  * @memberof nonUi5
@@ -486,6 +487,27 @@ export class ElementModule {
     try {
       const [value, text] = await Promise.all([elem.getValue(), elem.getText()]);
       return value || text;
+    } catch (error) {
+      return this.ErrorHandler.logException(error);
+    }
+  }
+
+  /**
+   * @function getCssPropertyValue
+   * @memberOf nonUi5.element
+   * @description Returns the value of the passed CSS property of the element.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
+   * @param {String} cssProperty - The CSS property of the element to get value.
+   * @returns {String} The value of the CSS property.
+   * @example const elem = await nonUi5.element.getById("elem01");
+   * const color = await nonUi5.element.getCssPropertyValue(elem, "color");
+   */
+  async getCssPropertyValue(elementOrSelector: Element | string, cssProperty: string): Promise<string> {
+    const vl = this.vlf.initLog(this.getCssPropertyValue);
+    try {
+      const element = await resolveCssSelectorOrElement(elementOrSelector);
+      const property = await element.getCSSProperty(cssProperty);
+      return property.value;
     } catch (error) {
       return this.ErrorHandler.logException(error);
     }
