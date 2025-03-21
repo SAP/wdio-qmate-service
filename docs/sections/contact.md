@@ -1,3 +1,5 @@
+# Contact
+
 > In case of questions or issues, please feel free to reach out to us or open an [issue](https://github.com/SAP/wdio-qmate-service/issues){target="__blank"} on our [GitHub Page](https://github.com/SAP/wdio-qmate-service){target="__blank"}.
 
 ## Qmate Main Contact
