@@ -406,12 +406,12 @@ export class UserInteraction {
    *
    * @example
    * // Scroll to element with center alignment.
-   * const elem = await nonUi5.userInteraction.getElementById("footer01");
+   * const elem = await nonUi5.element.getById("footer01");
    * await nonUi5.userInteraction.scrollToElement(elem, "center");
    *
    * @example
    * // Scroll to element with custom alignment.
-   * const elem = await nonUi5.userInteraction.getElementById("footer01");
+   * const elem = await nonUi5.element.getById("footer01");
    * const alignment = {
    *   block: "start",
    *   inline: "center"
@@ -422,9 +422,12 @@ export class UserInteraction {
   async scrollToElement(elementOrSelector: Element | string, alignment: AlignmentOptions | AlignmentValues = "center") {
     const vl = this.vlf.initLog(this.scrollToElement);
     let options = {};
-
+  
     try {
       const element = await resolveCssSelectorOrElement(elementOrSelector);
+      if (!element) {
+        throw new Error(`Element or selector not found: ${elementOrSelector}`);
+      }
       if (typeof alignment === "string") {
         options = {
           block: alignment,
