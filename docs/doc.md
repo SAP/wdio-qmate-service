@@ -1704,6 +1704,7 @@ Global namespace for UI5 modules.
         * [.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeEnabled)
         * [.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationError)
         * [.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationSuccess)
+        * [.expectCssPropertyValueToBe(selector, cssProperty, compareValue, [index], [timeout])](#ui5.assertion.expectCssPropertyValueToBe)
         * [.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingPathToBe)
         * [.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingContextPathToBe)
         * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible)
@@ -1741,7 +1742,7 @@ Global namespace for UI5 modules.
         * [.getId(selector, [index], [timeout])](#ui5.element.getId) ⇒ <code>String</code>
         * [.getPropertyValue(selector, property, [index], [timeout])](#ui5.element.getPropertyValue) ⇒ <code>any</code>
         * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
-        * [.getCssPropertyValue(selector, cssProperty)](#ui5.element.getCssPropertyValue) ⇒ <code>String</code>
+        * [.getCssPropertyValue(selector, cssProperty, [index], [timeout])](#ui5.element.getCssPropertyValue) ⇒ <code>String</code>
         * [.getBindingValue(selector, bindingContext, [index], [timeout])](#ui5.element.getBindingValue) ⇒ <code>String</code>
         * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
         * [.highlight(selector, [duration], [color])](#ui5.element.highlight)
@@ -1849,6 +1850,7 @@ Global namespace for UI5 modules.
     * [.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeEnabled)
     * [.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationError)
     * [.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationSuccess)
+    * [.expectCssPropertyValueToBe(selector, cssProperty, compareValue, [index], [timeout])](#ui5.assertion.expectCssPropertyValueToBe)
     * [.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingPathToBe)
     * [.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingContextPathToBe)
     * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible)
@@ -2022,6 +2024,25 @@ Expects the valueState of the element to be "None".
 **Example**  
 ```js
 await ui5.assertion.expectValidationSuccess(selector);
+```
+<a name="ui5.assertion.expectCssPropertyValueToBe"></a>
+
+#### assertion.expectCssPropertyValueToBe(selector, cssProperty, compareValue, [index], [timeout])
+Expects the CSS property value of the passed element to be the compare value.
+
+**Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| cssProperty | <code>String</code> |  | The CSS property of the element to compare with. |
+| compareValue | <code>String</code> |  | The compare value. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there is more than one element visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.assertion.expectCssPropertyValueToBe(selector, "color", "rgb(255, 0, 0)");
 ```
 <a name="ui5.assertion.expectBindingPathToBe"></a>
 
@@ -2502,7 +2523,7 @@ await ui5.date.fillRange(selector, range);
     * [.getId(selector, [index], [timeout])](#ui5.element.getId) ⇒ <code>String</code>
     * [.getPropertyValue(selector, property, [index], [timeout])](#ui5.element.getPropertyValue) ⇒ <code>any</code>
     * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
-    * [.getCssPropertyValue(selector, cssProperty)](#ui5.element.getCssPropertyValue) ⇒ <code>String</code>
+    * [.getCssPropertyValue(selector, cssProperty, [index], [timeout])](#ui5.element.getCssPropertyValue) ⇒ <code>String</code>
     * [.getBindingValue(selector, bindingContext, [index], [timeout])](#ui5.element.getBindingValue) ⇒ <code>String</code>
     * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
     * [.highlight(selector, [duration], [color])](#ui5.element.highlight)
@@ -2688,16 +2709,18 @@ const elemValue = await ui5.element.getValue(selector);
 ```
 <a name="ui5.element.getCssPropertyValue"></a>
 
-#### element.getCssPropertyValue(selector, cssProperty) ⇒ <code>String</code>
+#### element.getCssPropertyValue(selector, cssProperty, [index], [timeout]) ⇒ <code>String</code>
 Returns the value of the passed CSS property of the element.
 
 **Kind**: static method of [<code>element</code>](#ui5.element)  
 **Returns**: <code>String</code> - The value of the CSS property.  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| selector | <code>Object</code> | The selector describing the element. |
-| cssProperty | <code>String</code> | The CSS property of the element to get value. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| cssProperty | <code>String</code> |  | The CSS property of the element to get value. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
 ```js
@@ -4321,6 +4344,7 @@ Global namespace for non UI5 modules.
         * [.expectAttributeToBe(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
         * [.expectAttributeToContain(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToContain)
         * [.expectValueToBe(elementOrSelector, compareValue)](#nonUi5.assertion.expectValueToBe)
+        * [.expectCssPropertyValueToBe(elementOrSelector, cssProperty, compareValue)](#nonUi5.assertion.expectCssPropertyValueToBe)
         * [.expectToBeVisible(elementOrSelector)](#nonUi5.assertion.expectToBeVisible)
         * [.expectToBeNotVisible(elementOrSelector, [timeout])](#nonUi5.assertion.expectToBeNotVisible)
     * [.element](#nonUi5.element)
@@ -4380,6 +4404,7 @@ Global namespace for non UI5 modules.
     * [.expectAttributeToBe(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
     * [.expectAttributeToContain(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToContain)
     * [.expectValueToBe(elementOrSelector, compareValue)](#nonUi5.assertion.expectValueToBe)
+    * [.expectCssPropertyValueToBe(elementOrSelector, cssProperty, compareValue)](#nonUi5.assertion.expectCssPropertyValueToBe)
     * [.expectToBeVisible(elementOrSelector)](#nonUi5.assertion.expectToBeVisible)
     * [.expectToBeNotVisible(elementOrSelector, [timeout])](#nonUi5.assertion.expectToBeNotVisible)
 
@@ -4440,6 +4465,24 @@ Expects the attributes value of the passed element to be the compare value.
 ```js
 const element = await nonUi5.element.getById("button01");
 await nonUi5.assertion.expectValueToBe(element, "Save");
+```
+<a name="nonUi5.assertion.expectCssPropertyValueToBe"></a>
+
+#### assertion.expectCssPropertyValueToBe(elementOrSelector, cssProperty, compareValue)
+Expects the CSS property value of the passed element to be the compare value.
+
+**Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
+| cssProperty | <code>String</code> | The CSS property of the element to compare with. |
+| compareValue | <code>String</code> | The compare value. |
+
+**Example**  
+```js
+const element = await nonUi5.element.getById("button01");
+await nonUi5.assertion.expectCssPropertyValueToBe(element, "color", "rgb(255, 0, 0)");
 ```
 <a name="nonUi5.assertion.expectToBeVisible"></a>
 
@@ -5275,13 +5318,13 @@ Scrolls an element into view.
 **Example**  
 ```js
 // Scroll to element with center alignment.
-const elem = await nonUi5.userInteraction.getElementById("footer01");
+const elem = await nonUi5.element.getById("footer01");
 await nonUi5.userInteraction.scrollToElement(elem, "center");
 ```
 **Example**  
 ```js
 // Scroll to element with custom alignment.
-const elem = await nonUi5.userInteraction.getElementById("footer01");
+const elem = await nonUi5.element.getById("footer01");
 const alignment = {
   block: "start",
   inline: "center"

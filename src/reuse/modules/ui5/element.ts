@@ -273,16 +273,18 @@ export class ElementModule {
    * @description Returns the value of the passed CSS property of the element.
    * @param {Object} selector - The selector describing the element.
    * @param {String} cssProperty - The CSS property of the element to get value.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @returns {String} The value of the CSS property.
    * @example const cssPropertyValue = await ui5.element.getCssPropertyValue(selector, "visibility");
    */
-  async getCssPropertyValue(selector:any, cssProperty: string): Promise<string>{
+  async getCssPropertyValue(selector:any, cssProperty: string, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<string>{
     const vl = this.vlf.initLog(this.getCssPropertyValue);
     try{
-      const elem = await this.getDisplayed(selector);
+      const elem = await this.getDisplayed(selector, index, timeout);
       const property = await elem.getCSSProperty(cssProperty);
       return property.value;
-    }catch(error){
+    } catch(error) {
       return this.ErrorHandler.logException(error);
     }
   }
