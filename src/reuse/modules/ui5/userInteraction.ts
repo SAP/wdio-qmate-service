@@ -643,9 +643,6 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.scrollToElement);
     let options = {};
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
-    if (!elem) {
-        throw new Error(`Element or Selector not found: ${JSON.stringify(selector)}`);
-    }
     if (typeof alignment == "string") {
         options = {
             block: alignment,

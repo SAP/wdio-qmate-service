@@ -425,9 +425,6 @@ export class UserInteraction {
   
     try {
       const element = await resolveCssSelectorOrElement(elementOrSelector);
-      if (!element) {
-        throw new Error(`Element or selector not found: ${elementOrSelector}`);
-      }
       if (typeof alignment === "string") {
         options = {
           block: alignment,
