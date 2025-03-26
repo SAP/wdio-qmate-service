@@ -247,9 +247,9 @@ export class UserInteraction {
       const id = await ui5.element.getId(selector, index, timeout);
       let elem = null;
       if (selector.elementProperties.metadata === "sap.m.TextArea") {
-        elem = await nonUi5.element.getByCss("[id='" + id + "'] textarea", 0, timeout);
+        elem = await nonUi5.element.getByCss("[id='" + id + "'] textarea", index, timeout);
       } else {
-        elem = await nonUi5.element.getByCss("[id='" + id + "'] input", 0, timeout);
+        elem = await nonUi5.element.getByCss("[id='" + id + "'] input", index, timeout);
       }
       await elem.setValue(value);
     } else {
@@ -643,16 +643,18 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.scrollToElement);
     let options = {};
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
-    if (typeof alignment == "string") {
+    if (elem) {
+      if (typeof alignment == "string") {
         options = {
-            block: alignment,
-            inline: alignment
+          block: alignment,
+          inline: alignment
         };
-    } else if (typeof alignment === "object") {
+      } else if (typeof alignment === "object") {
         options = alignment;
+      }
+      await elem.scrollIntoView(options);
     }
-    await elem.scrollIntoView(options);
-}
+  }
 
   /**
    * @function selectAll
