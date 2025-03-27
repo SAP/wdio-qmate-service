@@ -5318,13 +5318,13 @@ Scrolls an element into view.
 **Example**  
 ```js
 // Scroll to element with center alignment.
-const elem = await nonUi5.userInteraction.getElementById("footer01");
+const elem = await nonUi5.element.getById("footer01");
 await nonUi5.userInteraction.scrollToElement(elem, "center");
 ```
 **Example**  
 ```js
 // Scroll to element with custom alignment.
-const elem = await nonUi5.userInteraction.getElementById("footer01");
+const elem = await nonUi5.element.getById("footer01");
 const alignment = {
   block: "start",
   inline: "center"
