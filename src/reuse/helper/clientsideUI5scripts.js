@@ -22,7 +22,35 @@ functions.execQUnits = function (mScriptParams, done) {
     });
   }
 };
-
+functions.startQunit = function (mScriptParams, done) {
+  if (QUnit) {
+    // reset the QUnit config such that the test can run a second time
+    if (QUnit.version.charAt(0) === "2"){
+      QUnit.config.current = undefined;
+    }
+    else {
+      QUnit.config.current = true;
+    }
+    window["qunitMsg"]=false;
+    QUnit.start();
+    QUnit.done(function (details) {
+      const msg = "Total: " + details.total + "," + " Failed: " + details.failed + "," + " Passed: " + details.passed + "," + " Runtime: " + details.runtime;
+      console.log(msg);
+      if (details.failed > 0) {
+        window["qunitMsg"]=null;
+      } else {
+        window["qunitMsg"] = msg;
+      }
+    });
+    done(true); 
+  }
+};
+functions.getQunitMessage = function (mScriptParams, done) {
+  if (QUnit) {
+    return window["qunitMsg"];
+  }
+  return null;
+};
 functions.loadMockData = function (mScriptParams, done) {
   if (!mScriptParams.responsePath) throw new Error("Please give a valid file path");
   try {

@@ -75,7 +75,7 @@ export class Assertion {
    * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectCssPropertyValueToBe(element, "color", "rgb(255, 0, 0)");
    */
-  async expectCssPropertyValueToBe(elementOrSelector: Element | string, cssProperty: string, compareValue: string): Promise<void> {
+  async expectCssPropertyValueToBe(elementOrSelector: WebdriverIO.Element | string, cssProperty: string, compareValue: string): Promise<void> {
     const vl = this.vlf.initLog(this.expectCssPropertyValueToBe);
     const value = await nonUi5.element.getCssPropertyValue(elementOrSelector, cssProperty);
     return common.assertion.expectEqual(value, compareValue);

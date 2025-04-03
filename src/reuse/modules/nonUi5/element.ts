@@ -502,7 +502,7 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getById("elem01");
    * const color = await nonUi5.element.getCssPropertyValue(elem, "color");
    */
-  async getCssPropertyValue(elementOrSelector: Element | string, cssProperty: string): Promise<string> {
+  async getCssPropertyValue(elementOrSelector: WebdriverIO.Element | string, cssProperty: string): Promise<string | undefined> {
     const vl = this.vlf.initLog(this.getCssPropertyValue);
     try {
       const element = await resolveCssSelectorOrElement(elementOrSelector);
@@ -557,12 +557,12 @@ export class ElementModule {
 
     await browser.waitUntil(
       async () => {
-        let allElements = await $$(selector).getElements();
-        let currentElems: WebdriverIO.Element[] = await allElements.map(el => el);
+        let allElements = await $$(selector);
+        let currentElemsCount = await allElements.length;
         if (!includeHidden) {
-          currentElems = await this._filterDisplayed(currentElems);
+          const displayedElements = await allElements.map((element) => element.isDisplayed());
+          currentElemsCount = displayedElements.filter(isDisplayed => isDisplayed).length;
         }
-        const currentElemsCount = currentElems.length;
         vl.log(`Found ${currentElemsCount} elements`);
 
         if (currentElemsCount === elemsCount) {

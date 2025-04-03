@@ -277,7 +277,7 @@ export class ElementModule {
    * @returns {String} The value of the CSS property.
    * @example const cssPropertyValue = await ui5.element.getCssPropertyValue(selector, "visibility");
    */
-  async getCssPropertyValue(selector:any, cssProperty: string, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<string>{
+  async getCssPropertyValue(selector:any, cssProperty: string, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<string | undefined>{
     const vl = this.vlf.initLog(this.getCssPropertyValue);
     try{
       const elem = await this.getDisplayed(selector, index, timeout);
