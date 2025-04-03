@@ -36,7 +36,7 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
       }
     };
 
-    await expect(browser.uiControl(selector)).toBeClickable();
+    await expect(await browser.uiControl(selector)).toBeClickable();
   });
 
   it("'unhappy case': should access element by nested elementProperties, ancestorProperties, siblingProperties, domProperties and wrong descendantProperties", async () => {
@@ -99,7 +99,7 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
         }
       }
     };
-    await expect(browser.uiControl(selector)).toBeTruthy();
+    await expect(await browser.uiControl(selector)).toBeTruthy();
   });
 
   it("'happy case': should access element by nested elementProperties, ancestorProperties, domProperties, siblingProperties and empty descendantProperties", async () => {
@@ -130,7 +130,7 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
         }
       }
     };
-    await expect(browser.uiControl(selector)).toBeTruthy();
+    await expect(await browser.uiControl(selector)).toBeTruthy();
   });
 
   it("'unhappy case': should access element by nested elementProperties, ancestorProperties, siblingProperties, descendantProperties and wrong domProperties", async () => {

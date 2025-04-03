@@ -125,7 +125,7 @@ describe("assertion - expectBindingPathToBe with wrong attribute (unhappy case)"
         await expectBindingPathToBeUnhappyCaseTest(firefoxErrorMessage);
         break;
       default: //chrome and edge
-        const defaultErrorMessage = "javascript error: Cannot read properties of undefined (reading 'parts')";
+        const defaultErrorMessage = "TypeError: Cannot read properties of undefined (reading 'parts')";
         await expectBindingPathToBeUnhappyCaseTest(defaultErrorMessage);
         break;
     }
