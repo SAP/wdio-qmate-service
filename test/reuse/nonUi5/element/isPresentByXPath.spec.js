@@ -7,8 +7,9 @@ describe("element - isPresentByXPath", function () {
   let linkBtn;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution & Verification", async function () {
@@ -20,8 +21,9 @@ describe("element - isPresentByXPath", function () {
 
 describe("element - isPresentByXPath with wrong selector and catch error", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution & Verification", async function () {

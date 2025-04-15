@@ -8,8 +8,9 @@ describe("element - getById + expectToBeVisible", function () {
   let downloadBtn;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {
@@ -24,8 +25,9 @@ describe("element - getById + expectToBeVisible", function () {
 describe("element - getById and catch error", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution & Verification", async function () {
@@ -37,8 +39,9 @@ describe("element - getById and catch error", function () {
 describe("element - getById - error case, verify error stack", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution & Verification", async function () {

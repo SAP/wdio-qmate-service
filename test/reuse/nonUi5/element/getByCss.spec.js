@@ -8,8 +8,9 @@ describe("element - getByCss + expectToBeVisible", function () {
   let downloadBtn;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {
@@ -24,9 +25,10 @@ describe("element - getByCss + expectToBeVisible", function () {
 describe("element - getByCss outside of viewpoint", function () {
   let comboBoxElement;
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await util.browser.refresh(); // Need a refresh here as sapui5.hana.ondemand.com doesn't work correctly from time to time
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
 
     const selectorForDropdownList = {
       "elementProperties": {
@@ -54,8 +56,9 @@ describe("element - getByCss outside of viewpoint", function () {
 describe("element - getByCss and catch error", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution & Verification", async function () {

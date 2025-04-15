@@ -12,8 +12,9 @@ describe("element - waitForAll", function () {
     }
   };
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.tnt.NavigationList/sample/sap.tnt.sample.NavigationList");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.tnt.NavigationList/sample/sap.tnt.sample.NavigationList");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {
@@ -35,8 +36,9 @@ describe("element - waitForAll - error case", function () {
     }
   };
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.tnt.NavigationList/sample/sap.tnt.sample.NavigationList");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.tnt.NavigationList/sample/sap.tnt.sample.NavigationList");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution and Verification", async function () {

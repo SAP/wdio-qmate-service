@@ -4,9 +4,10 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 describe("webdriver.io page locator test", function () {
   it("should access same element by elementProperties, ancestorProperties and nested ancestorProperties", async function () {
     await browser.navigateTo(
-      "https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Button/sample/sap.m.sample.Button"
+      "https://sapui5.hana.ondemand.com/#/entity/sap.m.Button/sample/sap.m.sample.Button"
     );
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
 
     const rejectButtonProperties = {
       "elementProperties": {
@@ -50,8 +51,9 @@ describe("webdriver.io page locator test", function () {
   });
 
   it("should access element(s) by ancestor properties and index", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Button/sample/sap.m.sample.Button");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Button/sample/sap.m.sample.Button");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
 
     const defaultButtonsProperties = {
       "elementProperties": {
@@ -83,8 +85,9 @@ describe("webdriver.io page locator test", function () {
 
   it("should try access element only by ancestor properties and fail (unhappy case)", async function () {
     await browser.navigateTo(
-      "https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Button/sample/sap.m.sample.Button");
+      "https://sapui5.hana.ondemand.com/#/entity/sap.m.Button/sample/sap.m.sample.Button");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
 
     const wrongSelectorWithoutElementProperties = {
       "ancestorProperties": {

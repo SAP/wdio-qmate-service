@@ -13,8 +13,9 @@ describe("userInteraction - clearAndRetry", function () {
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {
@@ -35,8 +36,9 @@ describe("userInteraction - clearAndRetry", function () {
 describe("userInteraction - clearAndRetry with invalid selector", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution & Verification", async function () {

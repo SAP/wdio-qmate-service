@@ -8,9 +8,10 @@ describe("userInteraction - clearAndFillActive", function () {
 
   it("Preparation", async function () {
     await browser.navigateTo(
-      "https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview"
+      "https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview"
     );
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {
@@ -49,9 +50,10 @@ describe("userInteraction - clearAndFillActive with invalid selector", function 
   let value;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
     await util.browser.refresh();
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution & Verification", async function () {
@@ -71,9 +73,10 @@ describe("userInteraction - clearAndFillActive with wrong element", function () 
   let value;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.MenuButton/sample/sap.m.sample.MenuButton");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.MenuButton/sample/sap.m.sample.MenuButton");
     await util.browser.refresh();
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution & Verification", async function () {

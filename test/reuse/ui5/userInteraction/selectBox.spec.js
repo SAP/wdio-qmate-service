@@ -10,8 +10,9 @@ describe("userInteraction - selectBox", function () {
   let index;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Select/sample/sap.m.sample.Select");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Select/sample/sap.m.sample.Select");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {
@@ -43,8 +44,9 @@ describe("userInteraction - selectComboBox use wrong selector", function () {
   let index;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Select/sample/sap.m.sample.Select");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Select/sample/sap.m.sample.Select");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution & Verification", async function () {
@@ -71,8 +73,9 @@ describe("userInteraction - selectComboBox use wrong value", function () {
   let index;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Select/sample/sap.m.sample.Select");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Select/sample/sap.m.sample.Select");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution & Verification", async function () {
@@ -100,9 +103,10 @@ describe("userInteraction - use 3rd selectBox on page", function () {
   let index;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Select/sample/sap.m.sample.SelectValueState");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Select/sample/sap.m.sample.SelectValueState");
     await handleCookiesConsent();
     await util.browser.refresh();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {

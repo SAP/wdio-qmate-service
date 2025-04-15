@@ -6,8 +6,9 @@ const {
 describe("table - sortColumnDescending - smartTable", function () {
 
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {
@@ -36,8 +37,9 @@ describe("table - sortColumnDescending - smartTable with tableSelector", functio
   };
 
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {
@@ -61,8 +63,9 @@ describe("table - sortColumnDescending - smartTable with tableSelector", functio
 describe("table - sortColumnDescending - smartTable with index (legacy)", function () {
 
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {
