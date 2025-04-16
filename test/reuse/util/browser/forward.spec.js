@@ -7,7 +7,6 @@ describe("browser - forward", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
     await handleCookiesConsent();
-    await util.browser.switchToIframe("[id='sampleFrame']");
     const selector = {
       elementProperties: {
         viewName: "sap.ui.documentation.sdk.view.App",

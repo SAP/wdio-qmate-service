@@ -6,7 +6,7 @@ describe("navigationBar - expectPageTitle", function () {
   });
 
   it("Execution & Verification", async function () {
-    await ui5.navigationBar.expectPageTitle("Home");
+    await ui5.navigationBar.expectPageTitle("Manage Products");
   });
 });
 

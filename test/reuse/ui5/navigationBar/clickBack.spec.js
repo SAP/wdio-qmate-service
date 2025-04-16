@@ -2,15 +2,16 @@
 
 describe("navigationBar - clickBack", async function () {
   it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/suite/ui/generic/template/demokit/sample.manage.products.sepmra/test/index.html?sap-ui-theme=sap_horizon#Shell-home");
     await common.navigation.navigateToUrl(browser.config.baseUrl);
+    await browser.pause(4000);
     const selector = {
       "elementProperties": {
-        "viewName": "sap.ushell.components.homepage.DashboardContent",
-        "metadata": "sap.m.GenericTile",
-        "bindingContextPath": "/groups/1/tiles/1/content/0"
+        "metadata": "sap.ushell.ui.shell.ShellHeadItem",
+        "id": "backBtn"
       }
     };
-    await ui5.userInteraction.click(selector);
+    await ui5.assertion.expectToBeVisible(selector);
   });
 
   it("Execution", async function () {
@@ -30,4 +31,5 @@ describe("navigationBar - clickBack - error case", function () {
   it("Execution & Verification", async function () {
     await expect(ui5.navigationBar.clickBack()).rejects.toThrowError("Function 'clickBack' failed with:");
   });
+  
 });

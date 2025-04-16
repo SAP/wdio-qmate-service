@@ -12,6 +12,7 @@ describe("browser - switchToIframe", function () {
   });
 
   it("Execution & Verification", async function () {
+    await browser.switchToParentFrame(); // switch back to parent frame
     elem = await $("iframe[id='sampleFrame']");
     await nonUi5.userInteraction.scrollToElement(elem);
     await util.browser.switchToIframe("iframe[id='sampleFrame']");

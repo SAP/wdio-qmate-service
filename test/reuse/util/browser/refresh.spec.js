@@ -1,21 +1,12 @@
 "use strict";
-
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 
 
 describe("browser - refresh", function () {
   it("Preparation", async function () {
     await browser.navigateTo(browser.config.baseUrl);
-    const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.App",
-        "metadata": "sap.m.Button",
-        "text": [{
-          "path": "i18n>COOKIE_SETTINGS_DIALOG_FUNCTIONAL_COOKIES_ACCEPT_ALL"
-        }]
-      }
-    };
-    await ui5.userInteraction.click(selector);
+    await handleCookiesConsent();
   });
   it("Execution", async function () {
     let selector = {
@@ -30,7 +21,8 @@ describe("browser - refresh", function () {
       "elementProperties": {
         "viewName": "sap.ui.documentation.sdk.view.App",
         "metadata": "sap.ui.unified.MenuItem",
-        "id": "*aboutMenuItem-unifiedmenu"
+        "icon": "sap-icon://hint",
+        "id": "__item10-unifiedmenu"
       }
     };
     await ui5.userInteraction.click(selector);

@@ -13,17 +13,14 @@ describe("browser - switchToDefaultContent", function () {
   };
 
   it("Preparation", async function () {
-    //keep latest demo kit version due to iframes here
+     //keep latest demo kit version due to iframes here
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Dialog/sample/sap.m.sample.Dialog");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
-    elem = await $("iframe[id='sampleFrame']");
-    await nonUi5.userInteraction.scrollToElement(elem);
-    await util.browser.switchToIframe("iframe[id='sampleFrame']");
-    await ui5.element.getDisplayed(dialogSelector);
   });
 
   it("Execution", async function () {
+    // Switch back to default content
     await util.browser.switchToDefaultContent();
   });
 
@@ -32,4 +29,3 @@ describe("browser - switchToDefaultContent", function () {
       .rejects.toThrow("uiControlExecuteLocator(): No visible elements found with selector");
   });
 });
-
