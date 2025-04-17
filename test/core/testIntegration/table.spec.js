@@ -4,6 +4,7 @@ describe("table", function () {
 
   it("step1:getChild", async function () {
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
     var ui5ControlProperties = {
       "elementProperties": { "metadata": "sap.m.ColumnListItem", "mProperties": { "bindingContextPath": "/ProductCollection/2" } },
       "parentProperties": { "metadata": "sap.m.Table", "mProperties": { "items": [{ "path": "/ProductCollection" }] } },
