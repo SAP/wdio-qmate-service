@@ -1,9 +1,16 @@
 "use strict";
 const { handleCookiesConsent } = require("../../../helper/utils");
 
-
-
 describe("browser - refresh", function () {
+
+  const aboutDialogSelector = {
+    "elementProperties": {
+      "viewName": "sap.ui.documentation.sdk.view.App",
+      "metadata": "sap.m.Image",
+      "id": "aboutDialogFragment--aboutLogoSAP"
+    }
+  };
+
   it("Preparation", async function () {
     await browser.navigateTo(browser.config.baseUrl);
     await handleCookiesConsent();
@@ -22,23 +29,16 @@ describe("browser - refresh", function () {
         "viewName": "sap.ui.documentation.sdk.view.App",
         "metadata": "sap.ui.unified.MenuItem",
         "icon": "sap-icon://hint",
-        "id": "__item10-unifiedmenu"
+        "id": "*unifiedmenu"
       }
     };
     await ui5.userInteraction.click(selector);
+    await ui5.element.getDisplayed(aboutDialogSelector);
     await util.browser.refresh();
   });
 
   it("Verification", async function () {
-    const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.App",
-        "metadata": "sap.m.Image",
-        "id": "aboutDialogFragment--aboutLogoSAP"
-      }
-    };
-    await expect(ui5.element.getDisplayed(selector, 0, 3000))
+    await expect(ui5.element.getDisplayed(aboutDialogSelector, 0, 3000))
       .rejects.toThrow(/No visible elements found with selector/);
-
   });
 });

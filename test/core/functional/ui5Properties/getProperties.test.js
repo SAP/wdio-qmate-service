@@ -107,7 +107,7 @@ describe("Test 'getUI5Property()' and 'getUI5Properties()' on both element and b
     const searchFieldProperties = {
       "elementProperties": {
         "viewName": "sap.ui.comp.sample.smarttable.SmartTable",
-        "metadata": "sap.m.SearchField"
+        "metadata": "sap.ui.comp.smartfilterbar.SFBSearchField"
       }
     };
 

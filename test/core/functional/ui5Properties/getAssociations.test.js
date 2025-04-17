@@ -8,7 +8,7 @@ describe("Test 'getAllUI5Associations()' and 'getUI5Association()' on both eleme
     };
     const elem = await browser.uiControl(ui5ControlProperties);
     const associations = await elem.getAllUI5Associations();
-    expect(associations).toStrictEqual(["ariaLabelledBy"]);
+    expect(associations).toStrictEqual(["fieldHelpDisplay", "ariaLabelledBy"]);
     await expect(browser.getAllUI5Associations(elem)).resolves.toStrictEqual(associations);
 
     const association = await elem.getUI5Association(associations[0]);

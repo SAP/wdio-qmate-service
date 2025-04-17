@@ -6,7 +6,7 @@ exports.config = merge(profile.config, {
   maxInstances: 4,
   specFileRetries: 2,
 
-  baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/suite/ui/generic/template/demokit/sample.manage.products.sepmra/test/index.html?sap-ui-theme=sap_horizon#masterDetail-display",
+  baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/suite/ui/generic/template/demokit/sample.manage.products.sepmra/test/index.html?sap-ui-theme=sap_horizon#Shell-home",
 
   specs: [
     path.resolve(__dirname, "clickBack.spec.js"),
