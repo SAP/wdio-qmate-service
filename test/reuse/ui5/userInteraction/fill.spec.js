@@ -11,10 +11,10 @@ describe("userInteraction - fill", function () {
 
   it("Execution", async function () {
     const selector = {
-      elementProperties: {
-        viewName: "sap.ui.demo.cart.view.Home",
-        metadata: "sap.m.SearchField",
-        id: "*searchField"
+      "elementProperties": {
+        "viewName": "sap.ui.demo.cart.view.Home",
+        "metadata": "sap.m.SearchField",
+        "id": "*searchField"
       }
     };
 
@@ -40,16 +40,17 @@ describe("userInteraction - fill element with invalid selector", function () {
 
   it("Execution & Verification", async function () {
     const selector = {
-      elementProperties: {
-        viewName: "sap.ui.demo.cart.view.Home",
-        metadata: "sap.eld"
+      "elementProperties": {
+        "viewName": "sap.ui.demo.cart.view.Home",
+        "metadata": "sap.eld"
       }
     };
 
     value = "My Value";
     const index = 0;
     const timeout = 30000;
-    await expect(ui5.userInteraction.fill(selector, value, index, timeout)).rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+    await expect(ui5.userInteraction.fill(selector, value, index, timeout))
+      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
   });
 });
 
@@ -64,10 +65,10 @@ describe("userInteraction - fill element with number", function () {
 
   it("Execution", async function () {
     const selector = {
-      elementProperties: {
-        viewName: "sap.ui.demo.cart.view.Home",
-        metadata: "sap.m.SearchField",
-        id: "*searchField"
+      "elementProperties": {
+        "viewName": "sap.ui.demo.cart.view.Home",
+        "metadata": "sap.m.SearchField",
+        "id": "*searchField"
       }
     };
     value = 12;
@@ -90,15 +91,16 @@ describe("userInteraction - fill element with empty value", function () {
 
   it("Execution", async function () {
     const selector = {
-      elementProperties: {
-        viewName: "sap.ui.demo.cart.view.Home",
-        metadata: "sap.m.SearchField",
-        id: "*searchField"
+      "elementProperties": {
+        "viewName": "sap.ui.demo.cart.view.Home",
+        "metadata": "sap.m.SearchField",
+        "id": "*searchField"
       }
     };
     const index = 0;
     const timeout = 30000;
-    await expect(ui5.userInteraction.fill(selector)).rejects.toThrow("Function 'fill' failed with: Please provide an element and value(datatype - number/string) as arguments.");
+    await expect(ui5.userInteraction.fill(selector))
+      .rejects.toThrow("Function 'fill' failed with: Please provide an element and value(datatype - number/string) as arguments.");
   });
 });
 
@@ -114,9 +116,9 @@ describe("userInteraction - fill element, index > 0", function () {
 
   it("Execution", async function () {
     const selector = {
-      elementProperties: {
-        viewName: "sap.m.sample.InputAssisted.V",
-        metadata: "sap.m.Input"
+      "elementProperties": {
+        "viewName": "sap.m.sample.InputAssisted.V",
+        "metadata": "sap.m.Input"
       }
     };
     value = "Track Mouse";

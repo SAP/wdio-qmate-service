@@ -22,6 +22,7 @@ export class NavigationBar {
     const vl = this.vlf.initLog(this.clickBack);
     const selector = {
       elementProperties: {
+        metadata: "sap.ushell.ui.shell.ShellHeadItem",
         id: "backBtn"
       }
     };

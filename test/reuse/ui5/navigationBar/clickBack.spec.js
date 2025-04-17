@@ -2,7 +2,7 @@
 
 describe("navigationBar - clickBack", async function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/suite/ui/generic/template/demokit/sample.manage.products.sepmra/test/index.html?sap-ui-theme=sap_horizon#Shell-home");
+    await common.navigation.navigateToUrl(browser.config.baseUrl);
     const selector = {
       elementProperties: {
         viewName: "sap.ushell.components.tiles.cdm.applauncher.StaticTile",
@@ -24,7 +24,7 @@ describe("navigationBar - clickBack", async function () {
 
 describe("navigationBar - clickBack - error case", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/suite/ui/generic/template/demokit/sample.manage.products.sepmra/test/index.html?sap-ui-theme=sap_horizon#Shell-home");
+    await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
 
   it("Execution & Verification", async function () {

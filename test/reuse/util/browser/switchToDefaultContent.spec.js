@@ -3,7 +3,6 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("browser - switchToDefaultContent", function () {
 
-  let elem;
   const dialogSelector = {
     "elementProperties": {
       "viewName": "sap.m.sample.Dialog.V",
@@ -13,14 +12,13 @@ describe("browser - switchToDefaultContent", function () {
   };
 
   it("Preparation", async function () {
-     //keep latest demo kit version due to iframes here
+    //keep latest demo kit version due to iframes here
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Dialog/sample/sap.m.sample.Dialog");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {
-    // Switch back to default content
     await util.browser.switchToDefaultContent();
   });
 

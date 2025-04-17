@@ -1137,7 +1137,7 @@ describe("filters1", function () {
     await ui5.assertion.expectAttributeToBe(ui5ControlProperties, attribute, compareValue, Index);
   });
 
-  it("Step 61: s:check text for specific list item ancestor with wrong wildcard", async function () {
+  it("Step 61: check text for specific list item ancestor with wrong wildcard", async function () {
     //----------------------- Block for sap.m.Text - Perform Assert -----------------------
     var ui5ControlProperties = {
       "elementProperties": { "metadata": "sap.m.Text", "mProperties": { "text": "Audio/Video Cable Kit - 4m" } },
