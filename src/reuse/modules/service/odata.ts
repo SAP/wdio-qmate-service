@@ -88,7 +88,7 @@ export class OData {
       logger: loggingEnabled ? logger : "",
       url,
       auth,
-      params,
+      parameters: params,
       strict: false
     });
 
