@@ -336,16 +336,28 @@ export class Session {
 
   private async _clickSignOut() {
     const vl = this.vlf.initLog(this._clickSignOut);
-    const selector = {
-      elementProperties: {
-        metadata: "sap.m.StandardListItem",
-        mProperties: {
-          id: "*logoutBtn"
+    
+    await Promise.any([scrollAndClickLogoutUi5(), scrollAndClickLogoutNonUi5()]);
+ 
+    async function scrollAndClickLogoutUi5() {
+      const selector = {
+        elementProperties: {
+          metadata: "sap.m.StandardListItem",
+          mProperties: {
+            id: "*logoutBtn"
+          }
         }
-      }
-    };
-    await ui5.userInteraction.scrollToElement(selector, 0, "end");
-    return ui5.userInteraction.click(selector);
+      };
+      await ui5.userInteraction.scrollToElement(selector, 0, "end");
+      await ui5.userInteraction.click(selector);
+    }
+
+    async function scrollAndClickLogoutNonUi5() {
+      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow without '>>>')
+      const selector = ">>>.ui5-user-menu-sign-out-btn";
+      await nonUi5.userInteraction.scrollToElement(selector, "end");
+      await nonUi5.userInteraction.click(selector);
+    }
   }
 
   private async _checkForErrors(messageSelector: string) {
