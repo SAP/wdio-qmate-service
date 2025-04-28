@@ -1,12 +1,11 @@
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - fill", function () {
-
   let value;
   let actualValue;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
     await handleCookiesConsent();
   });
 
@@ -32,11 +31,10 @@ describe("userInteraction - fill", function () {
 });
 
 describe("userInteraction - fill element with invalid selector", function () {
-
   let value;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
     await handleCookiesConsent();
   });
 
@@ -57,12 +55,11 @@ describe("userInteraction - fill element with invalid selector", function () {
 });
 
 describe("userInteraction - fill element with number", function () {
-
   let value;
   let actualValue;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
     await handleCookiesConsent();
   });
 
@@ -88,7 +85,7 @@ describe("userInteraction - fill element with number", function () {
 
 describe("userInteraction - fill element with empty value", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
     await handleCookiesConsent();
   });
 
@@ -108,13 +105,13 @@ describe("userInteraction - fill element with empty value", function () {
 });
 
 describe("userInteraction - fill element, index > 0", function () {
-
   let value;
   let actualValue;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/resources/sap/ui/documentation/sdk/index.html?sap-ui-xx-sample-id=sap.m.sample.InputAssisted&sap-ui-xx-sample-lib=sap.m&sap-ui-xx-sample-origin=.&sap-ui-xx-dk-origin=https://sapui5.hana.ondemand.com");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputAssisted");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {

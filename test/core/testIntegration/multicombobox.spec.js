@@ -5,6 +5,7 @@ const { handleCookiesConsent } = require("../../helper/utils");
 describe("multi combo", function () {
   it("step1:click on arrow of multicombo", async function () {
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
     var ui5ControlProperties = {
       "elementProperties": { "metadata": "sap.m.MultiComboBox", "mProperties": {} },
       "parentProperties": { "metadata": "sap.ui.layout.VerticalLayout", "mProperties": {} },

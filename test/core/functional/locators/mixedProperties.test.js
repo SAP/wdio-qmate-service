@@ -12,11 +12,10 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
         "siblingProperties": {
           "viewName": "sap.ui.demo.cart.view.Home",
           "metadata": "sap.m.Toolbar",
-          "id": "*searchBar33343",
+          "id": "*searchBar*",
           "domProperties": {
             "nodeName": "div",
-            "class": "sapMIBar sapMTB sapMTBNewFlex sapMTBInactive sapMTBStandard sapMTB-Auto-CTX sapMIBar-CTX sapMSubHeader-CTX sapContrastPlus",
-            "id": "container-cart---homeView--searchBar33343"
+            "class": "*sapMTB*"
           }
         },
         "ancestorProperties": {
