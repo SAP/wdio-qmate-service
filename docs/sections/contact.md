@@ -9,7 +9,7 @@
 
 ---
 
-## Our Team
+## Maintainers & Contributors
 
 ### Uladzislau Dauhashei
 :octicons-location-16: WDF - Germany  
@@ -30,3 +30,7 @@
 ### Moritz Knaut
 :octicons-location-16: Remote - Germany  
 :material-email: [moritz.knaut@sap.com](mailto:moritz.knaut@sap.com)
+
+### Marvin Grüßinger
+:octicons-location-16: ROT - Germany  
+:material-email: [marvin.gruessinger@sap.com](mailto:marvin.gruessinger@sap.com)
