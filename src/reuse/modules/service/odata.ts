@@ -9,6 +9,13 @@ interface IParams {
   [key: string]: string;
 }
 
+interface IAuth {
+  username: string;
+  password: string;
+  type?: string;
+  headers?: object;
+}
+
 // =================================== CONSTANTS ================================
 const SERVICE_INIT_ERROR = "Service instance not found. Make sure the service is initialized and passed to the request.";
 const entitySetError = (entitySet: any) => `Entity Set "${entitySet}" not found in service.`;
@@ -68,7 +75,7 @@ export class OData {
    *
    * const srv = await service.odata.init(url, user, password, true, params, "headers", authHeaders);
    */
-  async init(url: string, username: string, password: string, loggingEnabled = false, params = {}, authType?: string, headers?: any): Promise<any> {
+  async init(url: string, username: string, password: string, loggingEnabled = false, params = {}, authType?: IAuth["type"], headers?: IAuth["headers"]): Promise<any> {
     const logger = {
       trace: () => {},
       debug: console.debug,
@@ -77,17 +84,12 @@ export class OData {
       error: console.error
     };
 
-    const auth: any = {
-      username,
-      password
-    };
-    if (authType) auth.type = authType;
-    if (headers && Object.entries(headers).length > 0) auth.headers = headers;
+    const auth: IAuth = createAuthObject();
 
     const srv = new this.Service({
       logger: loggingEnabled ? logger : "",
-      url,
-      auth,
+      url: url,
+      auth: auth,
       parameters: params,
       strict: false
     });
@@ -95,6 +97,16 @@ export class OData {
     await srv.init;
 
     return srv;
+
+    function createAuthObject() {
+      const auth: IAuth = {
+        username: username,
+        password: password
+      };
+      if (authType) auth.type = authType;
+      if (headers && Object.entries(headers).length > 0) auth.headers = headers;
+      return auth;
+    }
   }
 
   /**
@@ -401,7 +413,8 @@ export class OData {
       }
     }
     return new Promise((resolve, reject) => {
-      this.axios.get(url, options)
+      this.axios
+        .get(url, options)
         .then((response: any) => resolve(response.data))
         .catch((error: any) => reject(error));
     });
