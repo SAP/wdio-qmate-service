@@ -353,7 +353,7 @@ export class Session {
     }
 
     async function scrollAndClickLogoutNonUi5() {
-      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow without '>>>')
+      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
       const selector = ">>>.ui5-user-menu-sign-out-btn";
       await nonUi5.userInteraction.scrollToElement(selector, "end");
       await nonUi5.userInteraction.click(selector);
