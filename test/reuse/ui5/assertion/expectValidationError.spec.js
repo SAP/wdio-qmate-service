@@ -23,8 +23,9 @@ const inputFieldWithCheckSelector = {
 
 describe("Expect input field 'valueState' not to be 'Error' (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {});
@@ -38,8 +39,9 @@ describe("Expect input field 'valueState' not to be 'Error' (unhappy case)", fun
 
 describe("Expect input field 'valueState' to be 'Error'", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {

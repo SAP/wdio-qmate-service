@@ -2,7 +2,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - clickTab - simple tab", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/api/sap.m.IconTabBar");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/api/sap.m.IconTabBar");
     await handleCookiesConsent();
   });
 
@@ -10,7 +10,7 @@ describe("userInteraction - clickTab - simple tab", function () {
     const selector = {
       elementProperties: {
         viewName: "sap.ui.documentation.sdk.view.SubApiDetail",
-        metadata: "sap.m.Button",
+        metadata: "sap.m.IconTabFilter",
         text: "Properties"
       }
     };
@@ -33,7 +33,7 @@ describe("userInteraction - clickTab - simple tab", function () {
 
 describe("userInteraction - clickTab - multiple select values", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/api/sap.m.IconTabBar");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/api/sap.m.IconTabBar");
     await util.browser.refresh();
     await handleCookiesConsent();
   });
@@ -42,7 +42,7 @@ describe("userInteraction - clickTab - multiple select values", function () {
     const selector = {
       elementProperties: {
         viewName: "sap.ui.documentation.sdk.view.SubApiDetail",
-        metadata: "sap.m.Button",
+        metadata: "sap.m.IconTabFilter",
         text: "Events"
       }
     };
@@ -68,7 +68,7 @@ describe("userInteraction - clickTab - multiple select values", function () {
 
 describe("userInteraction - clickTab - non tab element", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/api/sap.m.IconTabBar");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/api/sap.m.IconTabBar");
     await util.browser.refresh();
     await handleCookiesConsent();
   });

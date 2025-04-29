@@ -7,7 +7,7 @@ describe("browser - getBaseUrl", function () {
   });
 
   it("Verification", () => {
-    const expectedUrl = "https://sapui5.hana.ondemand.com/1.96.27/";
+    const expectedUrl = "https://sapui5.hana.ondemand.com/";
     common.assertion.expectEqual(baseUrl, expectedUrl);
   });
 });

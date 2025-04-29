@@ -4,9 +4,10 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 describe("getAssociationProperty - 'ariaDescribedBy' of Button", function () {
   let val;
   it("Preparation", async () => {
-    const url = "https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Button/sample/sap.m.sample.Button";
+    const url = "https://sapui5.hana.ondemand.com/#/entity/sap.m.Button/sample/sap.m.sample.Button";
     await common.navigation.navigateToUrl(url);
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async () => {
@@ -25,16 +26,17 @@ describe("getAssociationProperty - 'ariaDescribedBy' of Button", function () {
   });
 
   it("Verification", async () => {
-    common.assertion.expectEqual(val, ["__xmlview1--defaultButtonDescription", "__xmlview1--genericButtonDescription"]);
+    common.assertion.expectEqual(val, ["__xmlview0--defaultButtonDescription", "__xmlview0--genericButtonDescription"]);
   });
 
 });
 describe("getAssociationProperty - 'selectedItems' of MultiComboBox", function () {
   let selector, selectedItems;
   it("Preparation", async () => {
-    const url = "https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox";
+    const url = "https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox";
     await common.navigation.navigateToUrl(url);
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
     selector = {
       "elementProperties": { "metadata": "sap.m.MultiComboBox" },
       "parentProperties": { "metadata": "sap.ui.layout.VerticalLayout" }

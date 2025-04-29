@@ -7,8 +7,9 @@ describe("userInteraction - clearAndFillSmartFieldInput", function () {
   let selector;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {
@@ -22,7 +23,7 @@ describe("userInteraction - clearAndFillSmartFieldInput", function () {
       }
     };
 
-    value = "375";
+    value = "375.000";
     const index = 0;
     const timeout = 30000;
 
@@ -40,7 +41,7 @@ describe("userInteraction - clearAndFillSmartFieldInput", function () {
   });
 
   it("Verification", function () {
-    common.assertion.expectEqual(value, valueAct);
+    common.assertion.expectEqual(valueAct, value);
   });
 });
 
@@ -50,8 +51,9 @@ describe("userInteraction - clearAndFillSmartFieldInput with invalid selector", 
   let selector;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution & Verification", async function () {

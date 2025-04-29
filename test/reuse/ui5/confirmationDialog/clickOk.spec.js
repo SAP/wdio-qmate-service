@@ -11,8 +11,9 @@ const selectorForPopupOkButton = {
 
 describe("confirmationDialog - clickOk", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
 
     const submitButtonSelector = {
       "elementProperties": {
