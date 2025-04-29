@@ -337,9 +337,10 @@ export class Session {
   private async _clickSignOut() {
     const vl = this.vlf.initLog(this._clickSignOut);
     
-    await Promise.any([scrollAndClickLogoutUi5(), scrollAndClickLogoutNonUi5()]);
+    // attempt clicking both old and new logout buttons
+    await Promise.any([scrollAndClickLogoutOld(), scrollAndClickLogoutNew()]);
  
-    async function scrollAndClickLogoutUi5() {
+    async function scrollAndClickLogoutOld() {
       const selector = {
         elementProperties: {
           metadata: "sap.m.StandardListItem",
@@ -352,7 +353,7 @@ export class Session {
       await ui5.userInteraction.click(selector);
     }
 
-    async function scrollAndClickLogoutNonUi5() {
+    async function scrollAndClickLogoutNew() {
       // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
       const selector = ">>>.ui5-user-menu-sign-out-btn";
       await nonUi5.userInteraction.scrollToElement(selector, "end");
