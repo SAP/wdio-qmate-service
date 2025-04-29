@@ -1,3 +1,5 @@
+# Reuse API
+
 ## Constants
 
 <dl>
@@ -592,10 +594,10 @@ Global namespace for util modules.
         * [.info(message)](#util.console.info)
     * [.data](#util.data)
         * [.getData(filename, [source])](#util.data.getData) ⇒ <code>Object</code>
-        * [.getSecureData(filename, [source])](#util.data.getSecureData) ⇒ <code>Object</code>
+        * [.getSecureData(filename, [source], [options])](#util.data.getSecureData) ⇒ <code>Object</code>
         * [.readDataFromFile(filePath)](#util.data.readDataFromFile) ⇒ <code>Object</code>
         * [.writeDataToFile(filePath, data)](#util.data.writeDataToFile)
-        * [.decrypt(data)](#util.data.decrypt) ⇒ <code>String</code>
+        * [.decrypt(data, options)](#util.data.decrypt) ⇒ <code>String</code>
     * [.file](#util.file)
         * [.upload(files, [selector])](#util.file.upload)
         * [.uploadWebGui(files, selector)](#util.file.uploadWebGui)
@@ -1150,10 +1152,10 @@ util.console.success("The document has been saved.");
 
 * [.data](#util.data)
     * [.getData(filename, [source])](#util.data.getData) ⇒ <code>Object</code>
-    * [.getSecureData(filename, [source])](#util.data.getSecureData) ⇒ <code>Object</code>
+    * [.getSecureData(filename, [source], [options])](#util.data.getSecureData) ⇒ <code>Object</code>
     * [.readDataFromFile(filePath)](#util.data.readDataFromFile) ⇒ <code>Object</code>
     * [.writeDataToFile(filePath, data)](#util.data.writeDataToFile)
-    * [.decrypt(data)](#util.data.decrypt) ⇒ <code>String</code>
+    * [.decrypt(data, options)](#util.data.decrypt) ⇒ <code>String</code>
 
 <a name="util.data.getData"></a>
 
@@ -1174,7 +1176,7 @@ const data = util.data.getData("myTest");
 ```
 <a name="util.data.getSecureData"></a>
 
-#### data.getSecureData(filename, [source]) ⇒ <code>Object</code>
+#### data.getSecureData(filename, [source], [options]) ⇒ <code>Object</code>
 Returns and encrypts the data object with the given filename (JSON, stored in data folder). Will return the local file object if private key is not accessible.
 
 **Kind**: static method of [<code>data</code>](#util.data)  
@@ -1184,6 +1186,7 @@ Returns and encrypts the data object with the given filename (JSON, stored in da
 | --- | --- | --- | --- |
 | filename | <code>String</code> |  | The name of the data file (without suffix '.secure' or '.local'). |
 | [source] | <code>String</code> | <code>data</code> | The source key defined under params.import of the config file. |
+| [options] | <code>Object</code> |  | The options object. |
 
 **Example**  
 ```js
@@ -1223,7 +1226,7 @@ const data = util.data.writeDataToFile("myTest");
 ```
 <a name="util.data.decrypt"></a>
 
-#### data.decrypt(data) ⇒ <code>String</code>
+#### data.decrypt(data, options) ⇒ <code>String</code>
 Decrypts the passed input data.
 
 **Kind**: static method of [<code>data</code>](#util.data)  
@@ -1232,6 +1235,7 @@ Decrypts the passed input data.
 | Param | Type | Description |
 | --- | --- | --- |
 | data | <code>String</code> \| <code>Array.&lt;String&gt;</code> | The encrypted data to decrypt. Single value or array of values for different keys. |
+| options | <code>Object</code> | The decryption options. |
 
 **Example**  
 ```js
@@ -1702,6 +1706,7 @@ Global namespace for UI5 modules.
         * [.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeEnabled)
         * [.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationError)
         * [.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationSuccess)
+        * [.expectCssPropertyValueToBe(selector, cssProperty, compareValue, [index], [timeout])](#ui5.assertion.expectCssPropertyValueToBe)
         * [.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingPathToBe)
         * [.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingContextPathToBe)
         * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible)
@@ -1739,6 +1744,7 @@ Global namespace for UI5 modules.
         * [.getId(selector, [index], [timeout])](#ui5.element.getId) ⇒ <code>String</code>
         * [.getPropertyValue(selector, property, [index], [timeout])](#ui5.element.getPropertyValue) ⇒ <code>any</code>
         * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
+        * [.getCssPropertyValue(selector, cssProperty, [index], [timeout])](#ui5.element.getCssPropertyValue) ⇒ <code>String</code>
         * [.getBindingValue(selector, bindingContext, [index], [timeout])](#ui5.element.getBindingValue) ⇒ <code>String</code>
         * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
         * [.highlight(selector, [duration], [color])](#ui5.element.highlight)
@@ -1846,6 +1852,7 @@ Global namespace for UI5 modules.
     * [.expectToBeEnabled(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeEnabled)
     * [.expectValidationError(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationError)
     * [.expectValidationSuccess(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectValidationSuccess)
+    * [.expectCssPropertyValueToBe(selector, cssProperty, compareValue, [index], [timeout])](#ui5.assertion.expectCssPropertyValueToBe)
     * [.expectBindingPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingPathToBe)
     * [.expectBindingContextPathToBe(selector, attribute, compareValue, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectBindingContextPathToBe)
     * [.expectToBeVisible(selector, [index], [timeout], [loadPropertyTimeout])](#ui5.assertion.expectToBeVisible)
@@ -1951,7 +1958,7 @@ await ui5.assertion.expectValueToBeDefined(selector);
 <a name="ui5.assertion.expectToBeNotEnabled"></a>
 
 #### assertion.expectToBeNotEnabled(selector, [index], [timeout], [loadPropertyTimeout])
-Expects that the element is enabled to the user.
+Expects that the element is not enabled to the user.
 
 **Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
 
@@ -2019,6 +2026,25 @@ Expects the valueState of the element to be "None".
 **Example**  
 ```js
 await ui5.assertion.expectValidationSuccess(selector);
+```
+<a name="ui5.assertion.expectCssPropertyValueToBe"></a>
+
+#### assertion.expectCssPropertyValueToBe(selector, cssProperty, compareValue, [index], [timeout])
+Expects the CSS property value of the passed element to be the compare value.
+
+**Kind**: static method of [<code>assertion</code>](#ui5.assertion)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| cssProperty | <code>String</code> |  | The CSS property of the element to compare with. |
+| compareValue | <code>String</code> |  | The compare value. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there is more than one element visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await ui5.assertion.expectCssPropertyValueToBe(selector, "color", "rgb(255, 0, 0)");
 ```
 <a name="ui5.assertion.expectBindingPathToBe"></a>
 
@@ -2499,6 +2525,7 @@ await ui5.date.fillRange(selector, range);
     * [.getId(selector, [index], [timeout])](#ui5.element.getId) ⇒ <code>String</code>
     * [.getPropertyValue(selector, property, [index], [timeout])](#ui5.element.getPropertyValue) ⇒ <code>any</code>
     * [.getValue(selector, [index], [timeout])](#ui5.element.getValue) ⇒ <code>String</code>
+    * [.getCssPropertyValue(selector, cssProperty, [index], [timeout])](#ui5.element.getCssPropertyValue) ⇒ <code>String</code>
     * [.getBindingValue(selector, bindingContext, [index], [timeout])](#ui5.element.getBindingValue) ⇒ <code>String</code>
     * [.isVisible(selector, [index], [timeout])](#ui5.element.isVisible) ⇒ <code>Boolean</code>
     * [.highlight(selector, [duration], [color])](#ui5.element.highlight)
@@ -2681,6 +2708,25 @@ Returns the inner value of the passed element.
 **Example**  
 ```js
 const elemValue = await ui5.element.getValue(selector);
+```
+<a name="ui5.element.getCssPropertyValue"></a>
+
+#### element.getCssPropertyValue(selector, cssProperty, [index], [timeout]) ⇒ <code>String</code>
+Returns the value of the passed CSS property of the element.
+
+**Kind**: static method of [<code>element</code>](#ui5.element)  
+**Returns**: <code>String</code> - The value of the CSS property.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The selector describing the element. |
+| cssProperty | <code>String</code> |  | The CSS property of the element to get value. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+const cssPropertyValue = await ui5.element.getCssPropertyValue(selector, "visibility");
 ```
 <a name="ui5.element.getBindingValue"></a>
 
@@ -4300,6 +4346,7 @@ Global namespace for non UI5 modules.
         * [.expectAttributeToBe(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
         * [.expectAttributeToContain(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToContain)
         * [.expectValueToBe(elementOrSelector, compareValue)](#nonUi5.assertion.expectValueToBe)
+        * [.expectCssPropertyValueToBe(elementOrSelector, cssProperty, compareValue)](#nonUi5.assertion.expectCssPropertyValueToBe)
         * [.expectToBeVisible(elementOrSelector)](#nonUi5.assertion.expectToBeVisible)
         * [.expectToBeNotVisible(elementOrSelector, [timeout])](#nonUi5.assertion.expectToBeNotVisible)
     * [.element](#nonUi5.element)
@@ -4324,6 +4371,7 @@ Global namespace for non UI5 modules.
         * [.isSelected(elem)](#nonUi5.element.isSelected) ⇒ <code>boolean</code>
         * [.getAttributeValue(elem, [attribute])](#nonUi5.element.getAttributeValue) ⇒ <code>String</code>
         * [.getValue(elem)](#nonUi5.element.getValue) ⇒ <code>String</code>
+        * [.getCssPropertyValue(elementOrSelector, cssProperty)](#nonUi5.element.getCssPropertyValue) ⇒ <code>String</code>
         * [.setInnerHTML(elem)](#nonUi5.element.setInnerHTML) ⇒ <code>String</code>
         * [.highlight(elem, [duration], [color])](#nonUi5.element.highlight)
     * [.navigation](#nonUi5.navigation)
@@ -4358,6 +4406,7 @@ Global namespace for non UI5 modules.
     * [.expectAttributeToBe(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToBe)
     * [.expectAttributeToContain(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToContain)
     * [.expectValueToBe(elementOrSelector, compareValue)](#nonUi5.assertion.expectValueToBe)
+    * [.expectCssPropertyValueToBe(elementOrSelector, cssProperty, compareValue)](#nonUi5.assertion.expectCssPropertyValueToBe)
     * [.expectToBeVisible(elementOrSelector)](#nonUi5.assertion.expectToBeVisible)
     * [.expectToBeNotVisible(elementOrSelector, [timeout])](#nonUi5.assertion.expectToBeNotVisible)
 
@@ -4419,6 +4468,24 @@ Expects the attributes value of the passed element to be the compare value.
 const element = await nonUi5.element.getById("button01");
 await nonUi5.assertion.expectValueToBe(element, "Save");
 ```
+<a name="nonUi5.assertion.expectCssPropertyValueToBe"></a>
+
+#### assertion.expectCssPropertyValueToBe(elementOrSelector, cssProperty, compareValue)
+Expects the CSS property value of the passed element to be the compare value.
+
+**Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
+| cssProperty | <code>String</code> | The CSS property of the element to compare with. |
+| compareValue | <code>String</code> | The compare value. |
+
+**Example**  
+```js
+const element = await nonUi5.element.getById("button01");
+await nonUi5.assertion.expectCssPropertyValueToBe(element, "color", "rgb(255, 0, 0)");
+```
 <a name="nonUi5.assertion.expectToBeVisible"></a>
 
 #### assertion.expectToBeVisible(elementOrSelector)
@@ -4479,6 +4546,7 @@ await nonUi5.assertion.expectToBeNotVisible(element, 5000);
     * [.isSelected(elem)](#nonUi5.element.isSelected) ⇒ <code>boolean</code>
     * [.getAttributeValue(elem, [attribute])](#nonUi5.element.getAttributeValue) ⇒ <code>String</code>
     * [.getValue(elem)](#nonUi5.element.getValue) ⇒ <code>String</code>
+    * [.getCssPropertyValue(elementOrSelector, cssProperty)](#nonUi5.element.getCssPropertyValue) ⇒ <code>String</code>
     * [.setInnerHTML(elem)](#nonUi5.element.setInnerHTML) ⇒ <code>String</code>
     * [.highlight(elem, [duration], [color])](#nonUi5.element.highlight)
 
@@ -4887,6 +4955,24 @@ Returns the value of the passed element.
 const elem = await nonUi5.element.getById("elem02");
 const innerHTML = await nonUi5.element.getValue(elem);
 ```
+<a name="nonUi5.element.getCssPropertyValue"></a>
+
+#### element.getCssPropertyValue(elementOrSelector, cssProperty) ⇒ <code>String</code>
+Returns the value of the passed CSS property of the element.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>String</code> - The value of the CSS property.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
+| cssProperty | <code>String</code> | The CSS property of the element to get value. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getById("elem01");
+const color = await nonUi5.element.getCssPropertyValue(elem, "color");
+```
 <a name="nonUi5.element.setInnerHTML"></a>
 
 #### element.setInnerHTML(elem) ⇒ <code>String</code>
@@ -5234,13 +5320,13 @@ Scrolls an element into view.
 **Example**  
 ```js
 // Scroll to element with center alignment.
-const elem = await nonUi5.userInteraction.getElementById("footer01");
+const elem = await nonUi5.element.getById("footer01");
 await nonUi5.userInteraction.scrollToElement(elem, "center");
 ```
 **Example**  
 ```js
 // Scroll to element with custom alignment.
-const elem = await nonUi5.userInteraction.getElementById("footer01");
+const elem = await nonUi5.element.getById("footer01");
 const alignment = {
   block: "start",
   inline: "center"
@@ -5781,24 +5867,42 @@ Global namespace for mobile modules.
 
 * [mobile](#mobile)
     * [.android](#mobile.android)
-        * [.pressKeyByName(keyName)](#mobile.android.pressKeyByName)
-        * [.pressKeyByCode(keyCode)](#mobile.android.pressKeyByCode)
+        * [.pressKeyByName(keyName)](#mobile.android.pressKeyByName) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.pressKeyByCode(keyCode)](#mobile.android.pressKeyByCode) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.device](#mobile.device)
-        * [.isAppInstalled(packageIdOrBundleId)](#mobile.device.isAppInstalled) ⇒ <code>boolean</code>
-        * [.installApp(appPath)](#mobile.device.installApp)
+        * [.isAppInstalled(appPackageOrBundleId)](#mobile.device.isAppInstalled) ⇒ <code>boolean</code>
+        * [.installApp(appPath)](#mobile.device.installApp) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.switchToContext([targetContext], [timeout])](#mobile.device.switchToContext) ⇒ <code>Promise.&lt;boolean&gt;</code>
+        * [.getTargetContextIfAvailable([targetContext], [timeout])](#mobile.device.getTargetContextIfAvailable) ⇒ <code>Promise.&lt;(string\|null)&gt;</code>
+        * [.closeApplication()](#mobile.device.closeApplication) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.queryAppState(appPackageOrBundleId)](#mobile.device.queryAppState) ⇒ <code>Promise.&lt;number&gt;</code>
+        * [.launchApp(appPackageOrBundleId)](#mobile.device.launchApp) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.switchToLandscapeOrientation()](#mobile.device.switchToLandscapeOrientation) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.switchToPortraitOrientation()](#mobile.device.switchToPortraitOrientation) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.getCurrentOrientation()](#mobile.device.getCurrentOrientation) ⇒ <code>Promise.&lt;Orientation&gt;</code>
+        * [.hideKeyboard(strategy, key, keyCode, [timeout])](#mobile.device.hideKeyboard) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.isKeyboardVisible()](#mobile.device.isKeyboardVisible) ⇒ <code>Promise.&lt;boolean&gt;</code>
+        * [.isPlatformSupported()](#mobile.device.isPlatformSupported) ⇒ <code>Promise.&lt;boolean&gt;</code>
     * [.element](#mobile.element)
-        * [.isVisible(element, [strict])](#mobile.element.isVisible) ⇒ <code>Boolean</code>
-        * [.isPresent(elem)](#mobile.element.isPresent) ⇒ <code>Boolean</code>
-        * [.waitToBePresent(selector, [timeout])](#mobile.element.waitToBePresent)
-        * [.waitToBeVisible(selector, [timeout])](#mobile.element.waitToBeVisible)
-        * [.waitToBeClickable(selector, [timeout])](#mobile.element.waitToBeClickable)
-        * [.isSelected(elem)](#mobile.element.isSelected) ⇒ <code>boolean</code>
+        * [.isVisible(element, [strict])](#mobile.element.isVisible) ⇒ <code>boolean</code>
+        * [.isPresent(element)](#mobile.element.isPresent) ⇒ <code>boolean</code>
+        * [.waitToBePresent(selector, [timeout])](#mobile.element.waitToBePresent) ⇒ <code>boolean</code>
+        * [.waitToBeVisible(selector, [timeout])](#mobile.element.waitToBeVisible) ⇒ <code>boolean</code>
+        * [.waitToBeClickable(selector, [timeout])](#mobile.element.waitToBeClickable) ⇒ <code>boolean</code>
+        * [.isSelected(elementOrSelector)](#mobile.element.isSelected) ⇒ <code>boolean</code>
+        * [.waitToBeEnabled(selector, [timeout])](#mobile.element.waitToBeEnabled) ⇒ <code>boolean</code>
     * [.gestures](#mobile.gestures)
-        * [.swipe(startX, startY, endX, endY, duration)](#mobile.gestures.swipe) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.swipe(startX, startY, endX, endY, [duration])](#mobile.gestures.swipe) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.tap(coordX, coordY)](#mobile.gestures.tap) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.ios](#mobile.ios)
     * [.userInteraction](#mobile.userInteraction)
-        * [.tap(element, [timeout])](#mobile.userInteraction.tap)
-        * [.check(element)](#mobile.userInteraction.check)
+        * [.tap(elementOrSelector, [timeout])](#mobile.userInteraction.tap)
+        * [.check(elementOrSelector, [timeout])](#mobile.userInteraction.check)
+        * [.uncheck(elementOrSelector, [timeout])](#mobile.userInteraction.uncheck)
+        * [.doubleTap(elementOrSelector, [timeout])](#mobile.userInteraction.doubleTap) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.fill(elementOrSelector, value, [timeout])](#mobile.userInteraction.fill) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.clearAndFill(elementOrSelector, value, [timeout])](#mobile.userInteraction.clearAndFill) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.clear(elementOrSelector, [timeout])](#mobile.userInteraction.clear) ⇒ <code>Promise.&lt;void&gt;</code>
 
 <a name="mobile.android"></a>
 
@@ -5806,12 +5910,12 @@ Global namespace for mobile modules.
 **Kind**: static class of [<code>mobile</code>](#mobile)  
 
 * [.android](#mobile.android)
-    * [.pressKeyByName(keyName)](#mobile.android.pressKeyByName)
-    * [.pressKeyByCode(keyCode)](#mobile.android.pressKeyByCode)
+    * [.pressKeyByName(keyName)](#mobile.android.pressKeyByName) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.pressKeyByCode(keyCode)](#mobile.android.pressKeyByCode) ⇒ <code>Promise.&lt;void&gt;</code>
 
 <a name="mobile.android.pressKeyByName"></a>
 
-#### android.pressKeyByName(keyName)
+#### android.pressKeyByName(keyName) ⇒ <code>Promise.&lt;void&gt;</code>
 Simulate pressing a hardware key on the android device (e.g., back button, home button, etc.),
 
 **Kind**: static method of [<code>android</code>](#mobile.android)  
@@ -5822,15 +5926,12 @@ Simulate pressing a hardware key on the android device (e.g., back button, home 
 
 **Example**  
 ```js
-await mobile.device.pressKeyByName("back");
-```
-**Example**  
-```js
-await mobile.device.pressKeyByName("home");
+await mobile.android.pressKeyByName("back");
+await mobile.android.pressKeyByName("home");
 ```
 <a name="mobile.android.pressKeyByCode"></a>
 
-#### android.pressKeyByCode(keyCode)
+#### android.pressKeyByCode(keyCode) ⇒ <code>Promise.&lt;void&gt;</code>
 Simulate pressing a hardware key on the android device (e.g., back button, home button, etc.),
 
 **Kind**: static method of [<code>android</code>](#mobile.android)  
@@ -5850,28 +5951,40 @@ await mobile.android.pressKeyByCode(4);
 **Kind**: static class of [<code>mobile</code>](#mobile)  
 
 * [.device](#mobile.device)
-    * [.isAppInstalled(packageIdOrBundleId)](#mobile.device.isAppInstalled) ⇒ <code>boolean</code>
-    * [.installApp(appPath)](#mobile.device.installApp)
+    * [.isAppInstalled(appPackageOrBundleId)](#mobile.device.isAppInstalled) ⇒ <code>boolean</code>
+    * [.installApp(appPath)](#mobile.device.installApp) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.switchToContext([targetContext], [timeout])](#mobile.device.switchToContext) ⇒ <code>Promise.&lt;boolean&gt;</code>
+    * [.getTargetContextIfAvailable([targetContext], [timeout])](#mobile.device.getTargetContextIfAvailable) ⇒ <code>Promise.&lt;(string\|null)&gt;</code>
+    * [.closeApplication()](#mobile.device.closeApplication) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.queryAppState(appPackageOrBundleId)](#mobile.device.queryAppState) ⇒ <code>Promise.&lt;number&gt;</code>
+    * [.launchApp(appPackageOrBundleId)](#mobile.device.launchApp) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.switchToLandscapeOrientation()](#mobile.device.switchToLandscapeOrientation) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.switchToPortraitOrientation()](#mobile.device.switchToPortraitOrientation) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.getCurrentOrientation()](#mobile.device.getCurrentOrientation) ⇒ <code>Promise.&lt;Orientation&gt;</code>
+    * [.hideKeyboard(strategy, key, keyCode, [timeout])](#mobile.device.hideKeyboard) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.isKeyboardVisible()](#mobile.device.isKeyboardVisible) ⇒ <code>Promise.&lt;boolean&gt;</code>
+    * [.isPlatformSupported()](#mobile.device.isPlatformSupported) ⇒ <code>Promise.&lt;boolean&gt;</code>
 
 <a name="mobile.device.isAppInstalled"></a>
 
-#### device.isAppInstalled(packageIdOrBundleId) ⇒ <code>boolean</code>
-Check wether given package/bundle app is installed or not in the device.
+#### device.isAppInstalled(appPackageOrBundleId) ⇒ <code>boolean</code>
+Check if the application identified by its Package name/Bundle ID is installed on the device.
 
 **Kind**: static method of [<code>device</code>](#mobile.device)  
-**Returns**: <code>boolean</code> - Returns true if specified app package/bundled installed in the device, or false.  
+**Returns**: <code>boolean</code> - - Returns `true` if specified app package/bundled installed in the device, or `false`.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| packageIdOrBundleId | <code>string</code> | Android package Id, or iOS bundle Id. |
+| appPackageOrBundleId | <code>string</code> | Android package Name, or iOS bundle Id. |
 
 **Example**  
 ```js
 await mobile.device.isAppInstalled("com.google.android.apps.maps");
+await mobile.device.isAppInstalled("com.apple.AppStore")
 ```
 <a name="mobile.device.installApp"></a>
 
-#### device.installApp(appPath)
+#### device.installApp(appPath) ⇒ <code>Promise.&lt;void&gt;</code>
 Install the appropriate app based on the platform the test is being executed on.
 
 **Kind**: static method of [<code>device</code>](#mobile.device)  
@@ -5885,48 +5998,216 @@ Install the appropriate app based on the platform the test is being executed on.
 await mobile.device.installApp("/path/to/your/app.apk");
 await mobile.device.installApp("/path/to/your/app.ipa");
 ```
+<a name="mobile.device.switchToContext"></a>
+
+#### device.switchToContext([targetContext], [timeout]) ⇒ <code>Promise.&lt;boolean&gt;</code>
+Switch to the specified( WEBVIEW | NATIVE_APP ) context if available.
+
+**Kind**: static method of [<code>device</code>](#mobile.device)  
+**Returns**: <code>Promise.&lt;boolean&gt;</code> - Returns `true` if the context is successfully switched, otherwise `false`.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [targetContext] | <code>string</code> | <code>&quot;&#x27;WEBVIEW&#x27;&quot;</code> | The name of the target context. |
+| [timeout] | <code>number</code> | <code>5000</code> | Maximum time to wait for the web context to appear, milliseconds. |
+
+**Example**  
+```js
+await mobile.device.switchToContext();
+await mobile.device.switchToContext("NATIVE_APP", 1000);
+```
+<a name="mobile.device.getTargetContextIfAvailable"></a>
+
+#### device.getTargetContextIfAvailable([targetContext], [timeout]) ⇒ <code>Promise.&lt;(string\|null)&gt;</code>
+Returns the specified target context if available within a given timeout.
+
+This method retrieves the list of available contexts and determines if a context
+that matches the `targetContext` string is present. If the target context is found,
+it returns the context name; otherwise, it returns `null`.
+
+**Kind**: static method of [<code>device</code>](#mobile.device)  
+**Returns**: <code>Promise.&lt;(string\|null)&gt;</code> - The name of the target context if found, or `null` if
+  the context is not available within the timeout.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [targetContext] | <code>string</code> | <code>&quot;&#x27;WEBVIEW&#x27;&quot;</code> | The name of the target context to check for.   Common examples are `WEBVIEW` or `NATIVE_APP`. |
+| [timeout] | <code>number</code> | <code>5000</code> | The maximum time, in milliseconds, to wait for the target   context to become available. |
+
+**Example**  
+```js
+const context = await getTargetContextIfAvailable("WEBVIEW", 10000);
+const context = await getTargetContextIfAvailable("NATIVE_APP", 10000);
+```
+<a name="mobile.device.closeApplication"></a>
+
+#### device.closeApplication() ⇒ <code>Promise.&lt;void&gt;</code>
+Close the currently active mobile application.
+
+**Kind**: static method of [<code>device</code>](#mobile.device)  
+**Example**  
+```js
+await mobile.device.closeApplication();
+```
+<a name="mobile.device.queryAppState"></a>
+
+#### device.queryAppState(appPackageOrBundleId) ⇒ <code>Promise.&lt;number&gt;</code>
+Queries the state of the application (e.g., running, background, not installed) on the mobile device(Android or iOS).
+
+**Kind**: static method of [<code>device</code>](#mobile.device)  
+**Returns**: <code>Promise.&lt;number&gt;</code> - - The app state:
+ 0 - Not running,
+ 1 - Not installed,
+ 2 - Running in the background (not suspended),
+ 3 - Running in the background (suspended),
+ 4 - Running in the foreground.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| appPackageOrBundleId | <code>string</code> | Package name (Android) or bundle ID (iOS) of the application. |
+
+**Example**  
+```js
+await mobile.device.queryAppState("com.google.android.apps.maps");
+await mobile.device.queryAppState("com.apple.AppStore");
+```
+<a name="mobile.device.launchApp"></a>
+
+#### device.launchApp(appPackageOrBundleId) ⇒ <code>Promise.&lt;void&gt;</code>
+Launches the app for both iOS and Android with a parameterized app identifier.
+
+**Kind**: static method of [<code>device</code>](#mobile.device)  
+**Returns**: <code>Promise.&lt;void&gt;</code> - Resolves when the app is successfully launched.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| appPackageOrBundleId | <code>string</code> | The Android package name or iOS bundle ID of the application. |
+
+**Example**  
+```js
+await mobile.device.launchApp("com.google.android.apps.maps");
+await mobile.device.launchApp("com.apple.AppStore");
+```
+<a name="mobile.device.switchToLandscapeOrientation"></a>
+
+#### device.switchToLandscapeOrientation() ⇒ <code>Promise.&lt;void&gt;</code>
+Switches the device orientation to landscape mode.
+
+**Kind**: static method of [<code>device</code>](#mobile.device)  
+**Returns**: <code>Promise.&lt;void&gt;</code> - Resolves when the orientation is successfully switched.  
+**Example**  
+```js
+await mobile.device.switchToLandscapeOrientation();
+```
+<a name="mobile.device.switchToPortraitOrientation"></a>
+
+#### device.switchToPortraitOrientation() ⇒ <code>Promise.&lt;void&gt;</code>
+Switches the device orientation to portrait mode.
+
+**Kind**: static method of [<code>device</code>](#mobile.device)  
+**Returns**: <code>Promise.&lt;void&gt;</code> - Resolves when the orientation is successfully switched.  
+**Example**  
+```js
+await mobile.device.switchToPortraitOrientation();
+```
+<a name="mobile.device.getCurrentOrientation"></a>
+
+#### device.getCurrentOrientation() ⇒ <code>Promise.&lt;Orientation&gt;</code>
+Returns the device current orientation (PORTRAIT or LANDSCAPE)
+
+**Kind**: static method of [<code>device</code>](#mobile.device)  
+**Returns**: <code>Promise.&lt;Orientation&gt;</code> - The current device orientation.  
+**Example**  
+```js
+await mobile.device.getCurrentOrientation();
+```
+<a name="mobile.device.hideKeyboard"></a>
+
+#### device.hideKeyboard(strategy, key, keyCode, [timeout]) ⇒ <code>Promise.&lt;void&gt;</code>
+Hides the keyboard on both Android and iOS using specific strategies with timeout.
+
+**Kind**: static method of [<code>device</code>](#mobile.device)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| strategy | <code>string</code> |  | Strategy to use for hiding the keyboard ('pressKey', 'tapOutside', 'swipeDown'). |
+| key | <code>string</code> |  | Key to press if using the 'pressKey' strategy (e.g., 'Done', 'Enter'). |
+| keyCode | <code>number</code> |  | Key code for Android (optional). |
+| [timeout] | <code>number</code> | <code>5000</code> | Timeout in milliseconds for retrying to hide the keyboard. |
+
+**Example**  
+```js
+await mobile.device.hideKeyboard();
+await mobile.device.hideKeyboard('tapOutside');
+await mobile.device.hideKeyboard('swipeDown');
+//Android only, Sends a specific key code, like 66 for "Enter."
+await mobile.device.hideKeyboard('pressKey', undefined, 66);
+await mobile.device.hideKeyboard('pressKey', 'Done');
+```
+<a name="mobile.device.isKeyboardVisible"></a>
+
+#### device.isKeyboardVisible() ⇒ <code>Promise.&lt;boolean&gt;</code>
+Checks if the keyboard is visible or not on the mobile device.
+
+**Kind**: static method of [<code>device</code>](#mobile.device)  
+**Returns**: <code>Promise.&lt;boolean&gt;</code> - Returns `true` if the keyboard is visible on the mobile view.  
+**Example**  
+```js
+await mobile.device.isKeyboardVisible();
+```
+<a name="mobile.device.isPlatformSupported"></a>
+
+#### device.isPlatformSupported() ⇒ <code>Promise.&lt;boolean&gt;</code>
+Determine if the current platform is supported, if the current device platform is either `Android` or `iOS`.
+
+**Kind**: static method of [<code>device</code>](#mobile.device)  
+**Returns**: <code>Promise.&lt;boolean&gt;</code> - If neither Android nor iOS is detected (e.g., Windows, Linux, or web), the condition evaluates to false  
+**Example**  
+```js
+await mobile.device.isPlatformSupported();
+```
 <a name="mobile.element"></a>
 
 ### mobile.element
 **Kind**: static class of [<code>mobile</code>](#mobile)  
 
 * [.element](#mobile.element)
-    * [.isVisible(element, [strict])](#mobile.element.isVisible) ⇒ <code>Boolean</code>
-    * [.isPresent(elem)](#mobile.element.isPresent) ⇒ <code>Boolean</code>
-    * [.waitToBePresent(selector, [timeout])](#mobile.element.waitToBePresent)
-    * [.waitToBeVisible(selector, [timeout])](#mobile.element.waitToBeVisible)
-    * [.waitToBeClickable(selector, [timeout])](#mobile.element.waitToBeClickable)
-    * [.isSelected(elem)](#mobile.element.isSelected) ⇒ <code>boolean</code>
+    * [.isVisible(element, [strict])](#mobile.element.isVisible) ⇒ <code>boolean</code>
+    * [.isPresent(element)](#mobile.element.isPresent) ⇒ <code>boolean</code>
+    * [.waitToBePresent(selector, [timeout])](#mobile.element.waitToBePresent) ⇒ <code>boolean</code>
+    * [.waitToBeVisible(selector, [timeout])](#mobile.element.waitToBeVisible) ⇒ <code>boolean</code>
+    * [.waitToBeClickable(selector, [timeout])](#mobile.element.waitToBeClickable) ⇒ <code>boolean</code>
+    * [.isSelected(elementOrSelector)](#mobile.element.isSelected) ⇒ <code>boolean</code>
+    * [.waitToBeEnabled(selector, [timeout])](#mobile.element.waitToBeEnabled) ⇒ <code>boolean</code>
 
 <a name="mobile.element.isVisible"></a>
 
-#### element.isVisible(element, [strict]) ⇒ <code>Boolean</code>
+#### element.isVisible(element, [strict]) ⇒ <code>boolean</code>
 Returns a boolean if the mobile element is visible to the user.
 
 **Kind**: static method of [<code>element</code>](#mobile.element)  
-**Returns**: <code>Boolean</code> - Returns true or false.  
+**Returns**: <code>boolean</code> - Returns true or false.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| element | <code>Object</code> |  | The Mobile Ui element. |
-| [strict] | <code>Boolean</code> | <code>true</code> | If strict mode is enabled it will only return "true" if the element is visible on the mobile view and within the viewport. If "false", it will be sufficient if the element is visible on the view but not inside the current viewport. |
+| element | <code>Element</code> |  | The Mobile Ui element. |
+| [strict] | <code>boolean</code> | <code>true</code> | If strict mode is enabled it will only return "true" if the element is visible on the mobile view and within the viewport. If "false", it will be sufficient if the element is visible on the view but not inside the current viewport. |
 
 **Example**  
 ```js
-const elem = await mobile.element.isVisible("button01");
 await mobile.element.isVisible(elem);
 ```
 <a name="mobile.element.isPresent"></a>
 
-#### element.isPresent(elem) ⇒ <code>Boolean</code>
+#### element.isPresent(element) ⇒ <code>boolean</code>
 Returns a boolean if the element is present at the DOM or not. It might be hidden.
 
 **Kind**: static method of [<code>element</code>](#mobile.element)  
-**Returns**: <code>Boolean</code> - Returns true or false.  
+**Returns**: <code>boolean</code> - Returns true or false.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| elem | <code>Object</code> | The element. |
+| element | <code>Element</code> | The element. |
 
 **Example**  
 ```js
@@ -5934,111 +6215,147 @@ await mobile.element.isPresent(elem);
 ```
 <a name="mobile.element.waitToBePresent"></a>
 
-#### element.waitToBePresent(selector, [timeout])
+#### element.waitToBePresent(selector, [timeout]) ⇒ <code>boolean</code>
 Waits until the element with the given selector is present.
 
 **Kind**: static method of [<code>element</code>](#mobile.element)  
+**Returns**: <code>boolean</code> - Returns true or false.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The CSS selector describing the element. |
-| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
 ```js
 await mobile.element.waitToBePresent(".input01");
-```
-**Example**  
-```js
 await mobile.element.waitToBePresent("#button12");
-```
-**Example**  
-```js
 await mobile.element.waitToBePresent("p:first-child");
 ```
 <a name="mobile.element.waitToBeVisible"></a>
 
-#### element.waitToBeVisible(selector, [timeout])
+#### element.waitToBeVisible(selector, [timeout]) ⇒ <code>boolean</code>
 Waits until the element with the given selector is visible.
 
 **Kind**: static method of [<code>element</code>](#mobile.element)  
+**Returns**: <code>boolean</code> - Returns true or false.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The CSS selector describing the element. |
-| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
 ```js
 await mobile.element.waitToBeVisible(".input01");
-```
-**Example**  
-```js
 await mobile.element.waitToBeVisible("#button12");
-```
-**Example**  
-```js
 await mobile.element.waitToBeVisible("p:first-child");
 ```
 <a name="mobile.element.waitToBeClickable"></a>
 
-#### element.waitToBeClickable(selector, [timeout])
+#### element.waitToBeClickable(selector, [timeout]) ⇒ <code>boolean</code>
 Waits until the element with the given selector is clickable.
 
 **Kind**: static method of [<code>element</code>](#mobile.element)  
+**Returns**: <code>boolean</code> - Returns true or false.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | selector | <code>Object</code> |  | The CSS selector describing the element. |
-| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait (ms). |
 
 **Example**  
 ```js
 await mobile.element.waitToBeClickable(".input01");
-```
-**Example**  
-```js
 await mobile.element.waitToBeClickable("#button12");
-```
-**Example**  
-```js
 await mobile.element.waitToBeClickable("p:first-child");
 ```
 <a name="mobile.element.isSelected"></a>
 
-#### element.isSelected(elem) ⇒ <code>boolean</code>
+#### element.isSelected(elementOrSelector) ⇒ <code>boolean</code>
 Returns a boolean if the element (e.g. checkbox) is selected.
 
 **Kind**: static method of [<code>element</code>](#mobile.element)  
+**Returns**: <code>boolean</code> - Returns true or false.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| elem | <code>Object</code> | The element. |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element. |
 
 **Example**  
 ```js
-const elem = await mobile.element.getById("elem01");
 const isSelected = await mobile.element.isSelected(elem);
+```
+<a name="mobile.element.waitToBeEnabled"></a>
+
+#### element.waitToBeEnabled(selector, [timeout]) ⇒ <code>boolean</code>
+Waits until the element with the given selector is present.
+
+**Kind**: static method of [<code>element</code>](#mobile.element)  
+**Returns**: <code>boolean</code> - Returns true or false.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Object</code> |  | The CSS selector describing the element. |
+| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await mobile.element.waitToBeEnabled(".input01");
+await mobile.element.waitToBeEnabled("#button12");
+await mobile.element.waitToBeEnabled("p:first-child");
 ```
 <a name="mobile.gestures"></a>
 
 ### mobile.gestures
 **Kind**: static class of [<code>mobile</code>](#mobile)  
+
+* [.gestures](#mobile.gestures)
+    * [.swipe(startX, startY, endX, endY, [duration])](#mobile.gestures.swipe) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.tap(coordX, coordY)](#mobile.gestures.tap) ⇒ <code>Promise.&lt;void&gt;</code>
+
 <a name="mobile.gestures.swipe"></a>
 
-#### gestures.swipe(startX, startY, endX, endY, duration) ⇒ <code>Promise.&lt;void&gt;</code>
-Swipe from one point to another on the screen.
+#### gestures.swipe(startX, startY, endX, endY, [duration]) ⇒ <code>Promise.&lt;void&gt;</code>
+Swipe from one point to another on the screen,
+Ensure that the provided coordinates are within the bounds of the screen to avoid unexpected behavior.
+
+**Kind**: static method of [<code>gestures</code>](#mobile.gestures)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| startX | <code>number</code> |  | The starting X coordinate of the swipe |
+| startY | <code>number</code> |  | The starting Y coordinate of the swipe |
+| endX | <code>number</code> |  | The ending X coordinate of the swipe |
+| endY | <code>number</code> |  | The ending Y coordinate of the swipe |
+| [duration] | <code>number</code> | <code>1000</code> | The duration of the swipe in milliseconds (optional, default is 1000ms) |
+
+**Example**  
+```js
+// Swipes from left to right across the screen horizontally (useful for image carousels or galleries).
+await mobile.gestures.swipe(100, 800, 800, 800);
+// Swipes from bottom to top vertically to scroll down a list.
+await mobile.gestures.swipe(300, 1000, 300, 400);
+// Swipes from the top down to refresh content on a mobile app (common for pull-to-refresh).
+await mobile.gestures.swipe(400, 200, 400, 800);
+```
+<a name="mobile.gestures.tap"></a>
+
+#### gestures.tap(coordX, coordY) ⇒ <code>Promise.&lt;void&gt;</code>
+Executes a tap at the given screen coordinates,
+Ensure that the provided coordinates are within the bounds of the screen to avoid unexpected behavior.
 
 **Kind**: static method of [<code>gestures</code>](#mobile.gestures)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| startX | <code>number</code> | The starting X coordinate of the swipe |
-| startY | <code>number</code> | The starting Y coordinate of the swipe |
-| endX | <code>number</code> | The ending X coordinate of the swipe |
-| endY | <code>number</code> | The ending Y coordinate of the swipe |
-| duration | <code>number</code> | The duration of the swipe in milliseconds (optional, default is 1000ms) |
+| coordX | <code>number</code> | The horizontal screen coordinate for the tap. |
+| coordY | <code>number</code> | The vertical screen coordinate for the tap. |
 
+**Example**  
+```js
+await mobile.gestures.tap(100, 800);
+```
 <a name="mobile.ios"></a>
 
 ### mobile.ios
@@ -6049,39 +6366,134 @@ Swipe from one point to another on the screen.
 **Kind**: static class of [<code>mobile</code>](#mobile)  
 
 * [.userInteraction](#mobile.userInteraction)
-    * [.tap(element, [timeout])](#mobile.userInteraction.tap)
-    * [.check(element)](#mobile.userInteraction.check)
+    * [.tap(elementOrSelector, [timeout])](#mobile.userInteraction.tap)
+    * [.check(elementOrSelector, [timeout])](#mobile.userInteraction.check)
+    * [.uncheck(elementOrSelector, [timeout])](#mobile.userInteraction.uncheck)
+    * [.doubleTap(elementOrSelector, [timeout])](#mobile.userInteraction.doubleTap) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.fill(elementOrSelector, value, [timeout])](#mobile.userInteraction.fill) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.clearAndFill(elementOrSelector, value, [timeout])](#mobile.userInteraction.clearAndFill) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.clear(elementOrSelector, [timeout])](#mobile.userInteraction.clear) ⇒ <code>Promise.&lt;void&gt;</code>
 
 <a name="mobile.userInteraction.tap"></a>
 
-#### userInteraction.tap(element, [timeout])
+#### userInteraction.tap(elementOrSelector, [timeout])
 Tap's on the mobile element.
 
 **Kind**: static method of [<code>userInteraction</code>](#mobile.userInteraction)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| element | <code>Element</code> \| <code>string</code> |  | The element or CSS selector describing the element. |
-| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element (e.g., accessibility ID, XPath) selectors describing the element. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait(ms) |
 
 **Example**  
 ```js
-const elem = await mobile.userInteraction.tap(elem);
+await mobile.userInteraction.tap(elem);
+await mobile.userInteraction.tap(elem, 20000);
 ```
 <a name="mobile.userInteraction.check"></a>
 
-#### userInteraction.check(element)
+#### userInteraction.check(elementOrSelector, [timeout])
 Checks the given checkbox.
 
 **Kind**: static method of [<code>userInteraction</code>](#mobile.userInteraction)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| element | <code>Element</code> | The element or CSS selector describing the element. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element (e.g., accessibility ID, XPath) selectors describing the element. |
+| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait(ms) |
 
 **Example**  
 ```js
-await mobile.userInteraction.check(selector);
+await mobile.userInteraction.check(element);
+await mobile.userInteraction.check(element, 20000);
+```
+<a name="mobile.userInteraction.uncheck"></a>
+
+#### userInteraction.uncheck(elementOrSelector, [timeout])
+Unchecks the given checkbox.
+
+**Kind**: static method of [<code>userInteraction</code>](#mobile.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element (e.g., accessibility ID, XPath) selectors describing the element. |
+| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait(ms) |
+
+**Example**  
+```js
+await mobile.userInteraction.uncheck(elementOrSelector);
+await mobile.userInteraction.uncheck(elementOrSelector, 20000);
+```
+<a name="mobile.userInteraction.doubleTap"></a>
+
+#### userInteraction.doubleTap(elementOrSelector, [timeout]) ⇒ <code>Promise.&lt;void&gt;</code>
+Double Tap's on the mobile element.
+
+**Kind**: static method of [<code>userInteraction</code>](#mobile.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element (e.g., accessibility ID, XPath) selectors describing the element. |
+| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait(ms) |
+
+**Example**  
+```js
+await mobile.userInteraction.doubleTap(elem);
+await mobile.userInteraction.doubleTap(elem, 2000);
+```
+<a name="mobile.userInteraction.fill"></a>
+
+#### userInteraction.fill(elementOrSelector, value, [timeout]) ⇒ <code>Promise.&lt;void&gt;</code>
+Enter a string value into a mobile input field.
+
+**Kind**: static method of [<code>userInteraction</code>](#mobile.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element (e.g., accessibility ID, XPath) selectors describing the element. |
+| value | <code>string</code> |  | The string value to be entered. |
+| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await mobile.userInteraction.fill(element);
+await mobile.userInteraction.fill(element, 2000);
+```
+<a name="mobile.userInteraction.clearAndFill"></a>
+
+#### userInteraction.clearAndFill(elementOrSelector, value, [timeout]) ⇒ <code>Promise.&lt;void&gt;</code>
+Enter a string into the mobile input field; it will clear the box before submission.
+
+**Kind**: static method of [<code>userInteraction</code>](#mobile.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element (e.g., accessibility ID, XPath) selectors describing the element. |
+| value | <code>string</code> |  | The string value to be entered. |
+| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await mobile.userInteraction.clearAndFill(element);
+await mobile.userInteraction.clearAndFill(element, 2000);
+```
+<a name="mobile.userInteraction.clear"></a>
+
+#### userInteraction.clear(elementOrSelector, [timeout]) ⇒ <code>Promise.&lt;void&gt;</code>
+Clear a string value into a mobile input field.
+
+**Kind**: static method of [<code>userInteraction</code>](#mobile.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element (e.g., accessibility ID, XPath) selectors describing the element. |
+| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await mobile.userInteraction.clear(element);
+await mobile.userInteraction.clear(element, 2000);
 ```
 <a name="flp"></a>
 

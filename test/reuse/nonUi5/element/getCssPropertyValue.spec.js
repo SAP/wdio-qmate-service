@@ -3,8 +3,12 @@ const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
-describe("element - getValue", function () {
-  let actValue;
+const selector = "//div[contains(text(),'Laptops')]";
+const cssProperty = "visibility";
+const valueExp = "visible";
+
+describe("element - getCssPropertyValue - element", function () {
+  let valueAct;
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
@@ -12,40 +16,39 @@ describe("element - getValue", function () {
   });
 
   it("Execution", async function () {
-    const elem = await nonUi5.element.getByXPath("//div[contains(text(),'Laptops')]");
-    actValue = await nonUi5.element.getValue(elem);
+    const product = await nonUi5.element.getByXPath(selector);
+    valueAct = await nonUi5.element.getCssPropertyValue(product, cssProperty);
   });
 
   it("Verification", async function () {
-    await common.assertion.expectEqual(actValue, "Laptops");
+    await common.assertion.expectEqual(valueAct, valueExp);
   });
 });
 
-describe("element - getValue - innerHTML", function () {
-  let actValue;
+describe("element - getCssPropertyValue - selector", function () {
+  let valueAct;
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await handleCookiesConsent();
   });
 
   it("Execution", async function () {
-    const elem = await nonUi5.element.getByCss("SPAN[id='container-cart---homeView--page-title-inner']");
-    actValue = await nonUi5.element.getValue(elem);
+    valueAct = await nonUi5.element.getCssPropertyValue(selector, cssProperty);
   });
 
   it("Verification", async function () {
-    const expValue = "Product Catalog";
-    await common.assertion.expectEqual(actValue, expValue);
+    await common.assertion.expectEqual(valueAct, valueExp);
   });
 });
 
-describe("element - getValue - error case", function () {
+describe("element - getCssPropertyValue - error", function () {
+  
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
   });
 
   it("Execution & Verification", async function () {
-    await expect(nonUi5.element.getValue())
-      .rejects.toThrow("Function 'getValue' failed");
+    await expect(nonUi5.element.getCssPropertyValue()).rejects.toThrow("Function 'getCssPropertyValue' failed");
   });
 });

@@ -49,7 +49,7 @@ describe("assertion - expectToBeVisible with wrong selector", function () {
 
 describe("assertion - expectToBeVisible outside viewport", function () {
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/1.96.27/");
+    await browser.url("https://sapui5.hana.ondemand.com/");
     await handleCookiesConsent();
   });
 

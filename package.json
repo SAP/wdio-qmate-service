@@ -1,6 +1,6 @@
 {
   "name": "@sap_oss/wdio-qmate-service",
-  "version": "2.15.3",
+  "version": "2.16.1",
   "author": "SAP SE",
   "types": "./@types/index.d.ts",
   "main": "./lib/index.js",
@@ -89,7 +89,7 @@
     "test:reuse:ui5:pt1": "npm run test:reuse:ui5:assertion && npm run test:reuse:ui5:confirmationDialog && npm run test:reuse:ui5:control && npm run test:reuse:ui5:date && npm run test:reuse:ui5:element && npm run test:reuse:ui5:errorDialog",
     "test:reuse:ui5:pt2": "npm run test:reuse:ui5:navigationBar && npm run test:reuse:ui5:table && npm run test:reuse:ui5:userInteraction",
     "test:reuse:util:browser": "npx wdio ./test/reuse/util/browser/test.browser.conf.js",
-    "test:reuse:util:browserCmndLineArgs": "npx wdio ./test/reuse/util/browser/test.browserCmndLineArgs.conf.js --baseUrl=https://sapui5.hana.ondemand.com/1.96.27/",
+    "test:reuse:util:browserCmndLineArgs": "npx wdio ./test/reuse/util/browser/test.browserCmndLineArgs.conf.js --baseUrl=https://sapui5.hana.ondemand.com/",
     "test:reuse:util:data": "npx wdio ./test/reuse/util/data/test.data.conf.js",
     "test:reuse:util:data:privacy": "npx wdio ./test/reuse/util/data/test.data.privacy.conf.js",
     "test:reuse:util:component": "npx wdio ./test/reuse/util/component/test.component.conf.js",

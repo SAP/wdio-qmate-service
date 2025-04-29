@@ -6,7 +6,7 @@ exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
   
-  baseUrl: "https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3",
+  baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3",
 
   specs: [
     path.resolve(__dirname, "waitToBePresent.spec.js"),
@@ -29,7 +29,8 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "isPresent.spec.js"),
     path.resolve(__dirname, "isPresentByCss.spec.js"),
     path.resolve(__dirname, "isPresentByXPath.spec.js"),
-    path.resolve(__dirname, "setInnerHTML.spec.js")
+    path.resolve(__dirname, "setInnerHTML.spec.js"),
+    path.resolve(__dirname, "getCssPropertyValue.spec.js"),
   ],
 
   services: [
