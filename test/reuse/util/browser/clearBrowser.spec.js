@@ -3,16 +3,10 @@
 describe("browser - clearBrowser", function () {
   it("Preparation", async function () {
     await browser.navigateTo(browser.config.baseUrl);
-    const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.App",
-        "metadata": "sap.m.Button",
-        "text": [{
-          "path": "i18n>COOKIE_SETTINGS_DIALOG_FUNCTIONAL_COOKIES_ACCEPT_ALL"
-        }]
-      }
-    };
-    await ui5.userInteraction.click(selector);
+
+    // Updated selector for the new cookie consent button
+    const newCookiesConsentDialog = "button[id='truste-consent-button']";
+    nonUi5.userInteraction.click(newCookiesConsentDialog, 0, 15000);
   });
 
   it("Execution", async function () {
@@ -21,15 +15,11 @@ describe("browser - clearBrowser", function () {
 
   it("Verification", async function () {
     await util.browser.refresh();
-    const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.App",
-        "metadata": "sap.m.Button",
-        "text": [{
-          "path": "i18n>COOKIE_SETTINGS_DIALOG_FUNCTIONAL_COOKIES_ACCEPT_ALL"
-        }]
-      }
-    };
-    await ui5.element.getDisplayed(selector);
+
+    // Updated selector for the new cookie consent button
+    const newCookiesConsentDialog = "button[id='truste-consent-button']";
+
+    // Verify if the new cookie consent button is displayed after clearing the browser cache
+    await nonUi5.element.waitToBeVisible(newCookiesConsentDialog);
   });
 });

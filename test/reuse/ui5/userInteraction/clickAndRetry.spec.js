@@ -2,7 +2,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - click and retry", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/");
     await handleCookiesConsent();
   });
 
@@ -22,13 +22,13 @@ describe("userInteraction - click and retry", function () {
   });
 
   it("Verification", async function () {
-    await common.assertion.expectUrlToBe("https://sapui5.hana.ondemand.com/1.96.27/#/api");
+    await common.assertion.expectUrlToBe("https://sapui5.hana.ondemand.com/#/api");
   });
 });
 
 describe("userInteraction - click and retry on not displayed element", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/");
     await handleCookiesConsent();
   });
 
