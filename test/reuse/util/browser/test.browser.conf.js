@@ -5,7 +5,7 @@ exports.config = merge(profile.config, {
   maxInstances: 1,
   specFileRetries: 0,
 
-  baseUrl: "https://sapui5.hana.ondemand.com/1.96.27/",
+  baseUrl: "https://sapui5.hana.ondemand.com/",
 
   specs: [
     path.resolve(__dirname, "logCurrentUrl.spec.js"),

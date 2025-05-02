@@ -6,7 +6,7 @@ exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
   
-  baseUrl: "https://sapui5.hana.ondemand.com/1.96.27/",
+  baseUrl: "https://sapui5.hana.ondemand.com/",
 
   specs: [
     path.resolve(__dirname, "addRemoveLeadingZeros.spec.js"),

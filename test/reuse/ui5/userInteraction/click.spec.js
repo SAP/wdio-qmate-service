@@ -3,7 +3,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 describe("userInteraction - click", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/");
     await handleCookiesConsent();
   });
 
@@ -19,14 +19,14 @@ describe("userInteraction - click", function () {
   });
 
   it("Verification", async function () {
-    await common.assertion.expectUrlToBe("https://sapui5.hana.ondemand.com/1.96.27/#/api");
+    await common.assertion.expectUrlToBe("https://sapui5.hana.ondemand.com/#/api");
   });
 });
 
 describe("userInteraction - click on not displayed element", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/");
     await handleCookiesConsent();
   });
 
@@ -48,7 +48,7 @@ describe("userInteraction - click on not displayed element", function () {
 describe("userInteraction - click on invisible element", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/category/AC/product/HT-2000");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/category/AC/product/HT-2000");
     await handleCookiesConsent();
   });
 
@@ -75,7 +75,7 @@ describe("userInteraction - click on invisible element", function () {
 describe("userInteraction - click with selector having wildcard character(*) for metadata", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/");
     await handleCookiesConsent();
   });
 
@@ -91,6 +91,6 @@ describe("userInteraction - click with selector having wildcard character(*) for
   });
 
   it("Verification", async function () {
-    await common.assertion.expectUrlToBe("https://sapui5.hana.ondemand.com/1.96.27/#/api");
+    await common.assertion.expectUrlToBe("https://sapui5.hana.ondemand.com/#/api");
   });
 });

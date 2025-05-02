@@ -5,7 +5,7 @@ describe("userInteraction - scrollToElement - default alignment options", functi
   let elem;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/api");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/api");
     await handleCookiesConsent();
   });
 
@@ -25,7 +25,7 @@ describe("userInteraction - scrollToElement - alignment is center", function () 
   let elem, alignment;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/api");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/api");
     await handleCookiesConsent();
     await browser.setWindowSize(1200, 800);
   });
@@ -45,7 +45,7 @@ describe("userInteraction - scrollToElement - alignment is center", function () 
 
 describe("locator - scrollToElement - wrong element (error case)", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
     await handleCookiesConsent();
   });
 
