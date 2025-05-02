@@ -274,7 +274,7 @@ functions.loadUI5PageNew = function (mScriptParams) {
   }
   if (window.RecordReplay) {
     // paralell running waitForUI5 block each other
-    if(window.loadUI5PagePromise && !window.loadUI5PagePromise.done) {
+    if (window.loadUI5PagePromise && !window.loadUI5PagePromise.done) {
       // console.error("loadUI5PagePromise already running, returning it");
       return window.loadUI5PagePromise;
     }
