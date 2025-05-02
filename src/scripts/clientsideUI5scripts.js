@@ -239,71 +239,71 @@ functions.loadUI5Page = function (mScriptParams) {
 };
 
 functions.loadUI5CoreAndAutowaiterNew = function () {
-    try {
-        // First check if already everything loaded
-        if (window.RecordReplay) {
-            return true;
-        }
-        if (window.sap &&
-            window.sap.ui.getCore &&
-            window.sap.ui.getCore() &&
-            document.readyState === "complete") {
-            return window.sap.ui.getCore().ready(function () {
-                    sap.ui.require([
-                        "sap/ui/test/RecordReplay"
-                    ], function (RecordReplay) {
-                        // Attach RecordReplay
-                        window.RecordReplay = RecordReplay;
-                    });
-                });
-        }
+  try {
+    // First check if already everything loaded
+    if (window.RecordReplay) {
+      return true;
     }
-    catch (oError) {
-        return false;
+    if (window.sap &&
+      window.sap.ui.getCore &&
+      window.sap.ui.getCore() &&
+      document.readyState === "complete") {
+      return window.sap.ui.getCore().ready(function () {
+        sap.ui.require([
+          "sap/ui/test/RecordReplay"
+        ], function (RecordReplay) {
+          // Attach RecordReplay
+          window.RecordReplay = RecordReplay;
+        });
+      });
     }
+  }
+  catch (oError) {
+    return false;
+  }
 };
 
 functions.loadUI5PageNew = function (mScriptParams) {
-    if (!window.findBusyIndicator) {
-        window.findBusyIndicator = function () {
-            return Boolean(Array.from(document.getElementsByClassName("sapMBusyIndicator")).find(function (elem) {
-                var rect = elem.getBoundingClientRect();
-                return (rect.x > 0 || rect.y > 0) && rect.width > 0 && rect.height > 0;
-            }));
-        };
+  if (!window.findBusyIndicator) {
+      window.findBusyIndicator = function () {
+          return Boolean(Array.from(document.getElementsByClassName("sapMBusyIndicator")).find(function (elem) {
+              var rect = elem.getBoundingClientRect();
+              return (rect.x > 0 || rect.y > 0) && rect.width > 0 && rect.height > 0;
+          }));
+      };
+  }
+  if (window.RecordReplay) {
+    // paralell running waitForUI5 block each other
+    if(window.loadUI5PagePromise && !window.loadUI5PagePromise.done) {
+      console.error('loadUI5PagePromise already running, returning it');
+      return window.loadUI5PagePromise;
     }
-    if (window.RecordReplay) {
-        // paralell running waitForUI5 block each other
-        if(window.loadUI5PagePromise && !window.loadUI5PagePromise.done) {
-            console.error('loadUI5PagePromise already running, returning it');
-            return window.loadUI5PagePromise;
-        }
-         
-        var randomId = Math.floor(Math.random() * 1000000);
-        console.error('start loadUI5Page:'+randomId);
-        window.loadUI5PagePromise = window.RecordReplay.waitForUI5({
-            timeout: mScriptParams.waitForUI5Timeout,
-            interval: mScriptParams.waitForUI5PollingInterval
-        }).then(function () {
-            console.error('done loadUI5Page'+randomId);
-            if (window.findBusyIndicator()) {
-                console.error('found busy indicator loadUI5Page');
-                return false;
-            } else {
-                console.error('no busy indicator loadUI5Page, success!');
-                return true;
-            }
-        }).catch(function (err) {
-            console.error('error during loadUI5Page:'+randomId+'\nerror:'+err);
-            return false;
-        }).finally(() => { 
-            window.loadUI5PagePromise.done = true; 
-        });
-        window.loadUI5PagePromise.done = false; 
-        return window.loadUI5PagePromise;
-    } else {
-        throw new Error('window.RecordReplay not found!');
-    }
+     
+    var randomId = Math.floor(Math.random() * 1000000);
+    console.error('start loadUI5Page:'+randomId);
+    window.loadUI5PagePromise = window.RecordReplay.waitForUI5({
+      timeout: mScriptParams.waitForUI5Timeout,
+      interval: mScriptParams.waitForUI5PollingInterval
+    }).then(function () {
+      console.error('done loadUI5Page'+randomId);
+      if (window.findBusyIndicator()) {
+        console.error('found busy indicator loadUI5Page');
+        return false;
+      } else {
+        console.error('no busy indicator loadUI5Page, success!');
+        return true;
+      }
+    }).catch(function (err) {
+      console.error('error during loadUI5Page:'+randomId+'\nerror:'+err);
+      return false;
+    }).finally(() => { 
+      window.loadUI5PagePromise.done = true; 
+    });
+    window.loadUI5PagePromise.done = false; 
+    return window.loadUI5PagePromise;
+  } else {
+    throw new Error('window.RecordReplay not found!');
+  }
 };
 
 functions.waitForAngular = function (rootSelector, interval, callback) {
