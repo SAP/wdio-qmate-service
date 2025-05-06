@@ -139,35 +139,42 @@ export class Table {
   }
 
   // =================================== OPERATIONS ===================================
-  async getTotalNumberOfRows(tableSelector: object | string) {
+  async getTotalNumberOfRows(tableSelector: object | string): Promise<number> {
     const vl = this.vlf.initLog(this.getTotalNumberOfRows);
-    const elemId = await this._resolveElementId(tableSelector);
+    let smartTableSelector;
 
-    const command1 = `return sap.ui.getCore().getElementById("${elemId}").getTable().getBinding("rows").getLength()`;
-    const command2 = `return sap.ui.getCore().getElementById("${elemId}").getTable().getItems().length;`;
+    if (typeof tableSelector === "string") {
+      smartTableSelector = {
+        metadata: "sap.ui.comp.smarttable.SmartTable",
+        id: tableSelector
+      };
+    } else if (typeof tableSelector === "object") {
+      smartTableSelector = tableSelector;
+    } else {
+      throw new Error("Invalid table selector provided. It should be either a string or an object (Qmate selector).");
+    }
 
-    return await Promise.any([util.browser.executeScript(command1), util.browser.executeScript(command2)]);
+    const selector = {
+      elementProperties: {
+        metadata: "sap.m.Title"
+      },
+      parentProperties: {
+        metadata: "sap.m.OverflowToolbar",
+        ancestorProperties: smartTableSelector
+      }
+    };
+
+    const numberOfRows = await ui5.element.getPropertyValue(selector, "text");
+
+    const match = numberOfRows.match(/\((\d+)\)/);
+    if (match) {
+      return parseInt(match[1], 10);
+    } else {
+      throw new Error(`Could not extract the number of rows from the text: ${numberOfRows}`);
+    }
   }
 
   // =================================== HELPER ===================================
-  private async _resolveElementId(selectorOrId: object | string): Promise<any> {
-    let elemId;
-
-    if (typeof selectorOrId === "object") {
-      elemId = await ui5.element.getId(selectorOrId);
-    } else if (typeof selectorOrId === "string") {
-      elemId = selectorOrId;
-    } else {
-      throw new Error("Invalid selector or ID provided.");
-    }
-
-    if (!elemId) {
-      throw new Error(`Element ID could not be resolved based on the given selector or id: ${JSON.stringify(selectorOrId)}`);
-    }
-
-    return elemId;
-  }
-
   private async _clickColumn(name: string, tableSelector: any) {
     const vl = this.vlf.initLog(this._clickColumn);
     const tableColumnSelector = {
