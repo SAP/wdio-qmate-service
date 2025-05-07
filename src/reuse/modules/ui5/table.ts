@@ -143,6 +143,24 @@ export class Table {
   // =================================== OPERATIONS ===================================
   async getTotalNumberOfRows(tableSelector: object | string): Promise<number> {
     this.vlf.initLog(this.getTotalNumberOfRows);
+    const smartTableSelector = this._resolveTableSelector(tableSelector);
+
+    const tableTitleSelector = {
+      elementProperties: {
+        metadata: "sap.m.Title"
+      },
+      parentProperties: {
+        metadata: "sap.m.OverflowToolbar",
+        ancestorProperties: smartTableSelector
+      }
+    };
+
+    const tableTitleText = await ui5.element.getPropertyValue(tableTitleSelector, "text");
+    return this._extractRowCountFromTitle(tableTitleText);
+  }
+
+  // =================================== HELPER ===================================
+  private _resolveTableSelector(tableSelector: string | object) {
     let smartTableSelector;
 
     if (typeof tableSelector === "string") {
@@ -156,24 +174,12 @@ export class Table {
       throw new Error("Invalid table selector provided. It should be either a string or an object (Qmate selector).");
     }
 
-    const selector = {
-      elementProperties: {
-        metadata: "sap.m.Title"
-      },
-      parentProperties: {
-        metadata: "sap.m.OverflowToolbar",
-        ancestorProperties: smartTableSelector
-      }
-    };
-
-    const tableTitleText = await ui5.element.getPropertyValue(selector, "text");
-    return this._extractRowCountFromTitle(tableTitleText);
+    return smartTableSelector;
   }
 
-  // =================================== HELPER ===================================
   private _extractRowCountFromTitle(title: string): number {
     const vl = this.vlf.initLog(this._extractRowCountFromTitle);
-    
+
     const match = title.match(/\((\d+)\)/);
     if (match) {
       return parseInt(match[1], 10);
