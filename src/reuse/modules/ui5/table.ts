@@ -141,6 +141,21 @@ export class Table {
   }
 
   // =================================== OPERATIONS ===================================
+  /**
+   * @function getTotalNumberOfRows
+   * @memberOf ui5.table
+   * @description Returns the total number of rows in the table.
+   * @param {Object | String} [tableSelector] - The selector or ID describing the outer smart table element.
+   * @returns {Number} The total number of rows in the table.
+   * @example const selector = {
+   *  elementProperties: {
+   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *    metadata: "sap.ui.comp.smarttable.SmartTable",
+   *   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   *  }
+   * };
+   * const numberOfRows = await ui5.table.getTotalNumberOfRows(selector);
+   */
   async getTotalNumberOfRows(tableSelector: object | string): Promise<number> {
     this.vlf.initLog(this.getTotalNumberOfRows);
     const smartTableSelector = this._resolveTableSelector(tableSelector);
