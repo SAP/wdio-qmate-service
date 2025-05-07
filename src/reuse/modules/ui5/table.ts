@@ -1,6 +1,7 @@
 "use strict";
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import ErrorHandler from "../../helper/errorHandler";
 
 /**
  * @class table
@@ -8,6 +9,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
  */
 export class Table {
   private vlf = new VerboseLoggerFactory("ui5", "table");
+  private ErrorHandler = new ErrorHandler();
 
   // =================================== SORTING ===================================
   /**
@@ -140,7 +142,7 @@ export class Table {
 
   // =================================== OPERATIONS ===================================
   async getTotalNumberOfRows(tableSelector: object | string): Promise<number> {
-    const vl = this.vlf.initLog(this.getTotalNumberOfRows);
+    this.vlf.initLog(this.getTotalNumberOfRows);
     let smartTableSelector;
 
     if (typeof tableSelector === "string") {
@@ -164,17 +166,23 @@ export class Table {
       }
     };
 
-    const numberOfRows = await ui5.element.getPropertyValue(selector, "text");
-
-    const match = numberOfRows.match(/\((\d+)\)/);
-    if (match) {
-      return parseInt(match[1], 10);
-    } else {
-      throw new Error(`Could not extract the number of rows from the text: ${numberOfRows}`);
-    }
+    const tableTitleText = await ui5.element.getPropertyValue(selector, "text");
+    return this._extractRowCountFromTitle(tableTitleText);
   }
 
   // =================================== HELPER ===================================
+  private _extractRowCountFromTitle(title: string): number {
+    const vl = this.vlf.initLog(this._extractRowCountFromTitle);
+    
+    const match = title.match(/\((\d+)\)/);
+    if (match) {
+      return parseInt(match[1], 10);
+    } else {
+      vl.log(`Extracting row count from title was not successful, returning 0.`);
+      return 0;
+    }
+  }
+
   private async _clickColumn(name: string, tableSelector: any) {
     const vl = this.vlf.initLog(this._clickColumn);
     const tableColumnSelector = {
