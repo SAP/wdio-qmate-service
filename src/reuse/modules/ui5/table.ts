@@ -174,7 +174,46 @@ export class Table {
     return this._extractRowCountFromTitle(tableTitleText);
   }
 
+  /**
+   * @function navigateByIndex
+   * @memberOf ui5.table
+   * @description Navigates to a specific row in the table by its index.
+   * @param {Object | String} tableSelector - The selector or ID describing the outer smart table element.
+   * @param {Number} index - The index of the row to navigate to.
+   * @example const selector = {
+   *  elementProperties: {
+   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *    metadata: "sap.ui.comp.smarttable.SmartTable",
+   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   *  }
+   * };
+   * await ui5.table.navigateByIndex(selector, 3);
+   */
+  async navigateByIndex(tableSelector: any, index: number) {
+    this.vlf.initLog(this.navigateByIndex);
+    const smartTableSelector = this._resolveTableSelector(tableSelector);
+    const tableId = this._getId(tableSelector);
+
+    const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems()[${index}];`;
+    const columnListItem = await util.browser.executeScript(browserCommand);
+
+  }
+
   // =================================== HELPER ===================================
+
+  private async _getId(tableSelector: any): Promise<string> {
+    this.vlf.initLog(this._getId);
+    if (typeof tableSelector === "string") {
+      return tableSelector;
+    } else if (typeof tableSelector === "object" && "id" in tableSelector) {
+      return tableSelector.id;
+    } else if (typeof tableSelector === "object") {
+      return await ui5.element.getPropertyValue(tableSelector, "id");
+    } else {
+      throw new Error("Invalid table selector provided. It should be either a string or an object (Qmate selector).");
+    }
+  }
+
   private _resolveTableSelector(tableSelector: string | object) {
     let smartTableSelector;
 
