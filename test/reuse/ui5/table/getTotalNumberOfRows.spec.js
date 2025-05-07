@@ -68,3 +68,32 @@ describe("table - getTotalNumberOfRows - demo kit smartTable - 0 rows", function
     await common.assertion.expectEqual(actNumberOfTableRows, expNumberOfTableRows);
   });
 });
+
+
+// Only for local testing -> Replace the placeholder with the correct URL, password and user name
+
+// describe("table - getTotalNumberOfRows - table", function () {
+//   let actNumberOfTableRows;
+
+//   it("Preparation", async function () {
+//     await common.navigation.navigateToUrl("<test_system_url>/ui#ReportingTask-run&/?sap-iapp-state=ASQ7LUYSPNTEJR8D5BOKD7T4DNSJVXBD4GKZLB0Z");
+//     await ui5.session.login("<user_name>", "<password>");
+//   });
+
+//   it("Execution", async function () {
+//     const selector = {
+//       elementProperties: {
+//         viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+//         metadata: "sap.ui.comp.smarttable.SmartTable",
+//         id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+//       }
+//     };
+//     await ui5.element.waitForAll(selector);
+//     actNumberOfTableRows = await ui5.table.getTotalNumberOfRows(selector);
+//   });
+
+//   it("Verification", async function () {
+//     const expNumberOfTableRows = 5;
+//     await common.assertion.expectEqual(actNumberOfTableRows, expNumberOfTableRows);
+//   });
+// });
