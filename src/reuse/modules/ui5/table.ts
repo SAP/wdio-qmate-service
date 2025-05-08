@@ -191,8 +191,7 @@ export class Table {
    */
   async navigateByIndex(tableSelector: any, index: number) {
     this.vlf.initLog(this.navigateByIndex);
-    const smartTableSelector = this._resolveTableSelector(tableSelector);
-    const tableId = this._getId(tableSelector);
+    const tableId = await this._getId(tableSelector);
 
     const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems()[${index}].getId();`;
     const columnListItemId = await util.browser.executeScript(browserCommand);
@@ -200,8 +199,7 @@ export class Table {
       elementProperties: {
         metadata: "sap.m.ColumnListItem",
         id: columnListItemId
-      },
-      ancestorProperties: smartTableSelector
+      }
     };
     await ui5.userInteraction.click(columnListItemSelector);
   }
@@ -210,15 +208,11 @@ export class Table {
 
   private async _getId(tableSelector: any): Promise<string> {
     this.vlf.initLog(this._getId);
-    if (typeof tableSelector === "string") {
-      return tableSelector;
-    } else if (typeof tableSelector === "object" && "id" in tableSelector) {
-      return tableSelector.id;
-    } else if (typeof tableSelector === "object") {
-      return await ui5.element.getPropertyValue(tableSelector, "id");
-    } else {
-      throw new Error("Invalid table selector provided. It should be either a string or an object (Qmate selector).");
-    }
+    const resolvedTableSelector = await this._resolveTableSelector(tableSelector);
+    const selector = {
+      elementProperties: resolvedTableSelector
+    };
+    return await ui5.element.getId(selector);
   }
 
   private _resolveTableSelector(tableSelector: string | object) {
