@@ -204,7 +204,7 @@ export class Table {
     await ui5.userInteraction.click(columnListItemSelector);
   }
 
-  async navigateByValue(tableSelector: any, value: string, index: number) {
+  async navigateByValue(tableSelector: any, value: string, index: number = 0) {
     this.vlf.initLog(this.navigateByValue);
     const tableId = await this._getId(tableSelector);
     const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
