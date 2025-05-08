@@ -63,6 +63,7 @@ export class NavigationBar {
     const vl = this.vlf.initLog(this.clickUserIcon);
 
     try {
+      // attempt clicking both old and new user icons
       await Promise.any([clickUserIconOld(), clickUserIconNew()]);
     } catch (error) {
       (error as AggregateError).errors.forEach((err) => {
