@@ -194,9 +194,16 @@ export class Table {
     const smartTableSelector = this._resolveTableSelector(tableSelector);
     const tableId = this._getId(tableSelector);
 
-    const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems()[${index}];`;
-    const columnListItem = await util.browser.executeScript(browserCommand);
-
+    const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems()[${index}].getId();`;
+    const columnListItemId = await util.browser.executeScript(browserCommand);
+    const columnListItemSelector = {
+      elementProperties: {
+        metadata: "sap.m.ColumnListItem",
+        id: columnListItemId
+      },
+      ancestorProperties: smartTableSelector
+    };
+    await ui5.userInteraction.click(columnListItemSelector);
   }
 
   // =================================== HELPER ===================================
