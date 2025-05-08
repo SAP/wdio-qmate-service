@@ -204,6 +204,21 @@ export class Table {
     await ui5.userInteraction.click(columnListItemSelector);
   }
 
+  async navigateByValue(tableSelector: any, value: string, index: number) {
+    this.vlf.initLog(this.navigateByValue);
+    const tableId = await this._getId(tableSelector);
+    const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
+    item => Object.values(item.getBindingContext().getObject()).includes("${value}"))[${index}].getId()`;
+    const columnListItemId = await util.browser.executeScript(browserCommand);
+    const columnListItemSelector = {
+      elementProperties: {
+        metadata: "sap.m.ColumnListItem",
+        id: columnListItemId
+      }
+    };
+    return ui5.userInteraction.click(columnListItemSelector);
+  }
+
   // =================================== HELPER ===================================
 
   private async _getId(tableSelector: any): Promise<string> {
