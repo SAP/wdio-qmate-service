@@ -83,7 +83,7 @@ export class NavigationBar {
 
     async function clickUserIconNew() {
       // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
-      const selector = ">>>[title='Profile']";
+      const selector = ">>>[data-ui5-stable='profile']";
       await nonUi5.userInteraction.click(selector);
     }
   }
