@@ -174,6 +174,25 @@ export class Table {
     return this._extractRowCountFromTitle(tableTitleText);
   }
 
+  /**
+   * @function getTotalNumberOfRowsByValues
+   * @memberOf ui5.table
+   * @description Returns the total number of rows in the table that match the given values.
+   * @param {Object | String} tableSelector - The selector or ID describing the outer smart table element.
+   * @param {String | Array<String>} values - The value(s) to match in the table rows.
+   * @param {Number} [index=0] - The index of the matching row to consider.
+   * @returns {Number} The total number of matching rows in the table.
+   * @example const selector = {
+   *  elementProperties: {
+   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *    metadata: "sap.ui.comp.smarttable.SmartTable",
+   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   *  }
+   * };
+   * const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, ["value1", "value2"]);
+   * const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, "value");
+
+   */
   async getTotalNumberOfRowsByValues(tableSelector: any, values: string | Array<string>, index: number = 0) {
     this.vlf.initLog(this.getTotalNumberOfRowsByValues);
     if (typeof values === "string") {
@@ -182,16 +201,20 @@ export class Table {
       throw new Error("Invalid values provided. It should be either a string or an array of strings.");
     }
     const tableId = this._getId(tableSelector);
-    const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
-      item => Object.values(item.getBindingContext().getObject()).includes("${values}"))[${index}].getId()`;
-    const columnListItemId = util.browser.executeScript(browserCommand);
-    const columnListItemSelector = {
-      elementProperties: {
-        metadata: "sap.m.ColumnListItem",
-        id: columnListItemId
-      }
-    };
-    return ui5.userInteraction.click(columnListItemSelector);
+    try {
+      const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
+        item => Object.values(item.getBindingContext().getObject()).includes("${values}"))[${index}].length()`;
+      const columnListItemId = util.browser.executeScript(browserCommand);
+      const columnListItemSelector = {
+        elementProperties: {
+          metadata: "sap.m.ColumnListItem",
+          id: columnListItemId
+        }
+      };
+      return ui5.userInteraction.click(columnListItemSelector);
+    } catch (error) {
+      throw new Error(`Error while executing script: ${error}`);
+    }
   }
 
   /**
