@@ -174,6 +174,26 @@ export class Table {
     return this._extractRowCountFromTitle(tableTitleText);
   }
 
+  async getTotalNumberOfRowsByValues(tableSelector: any, values: string | Array<string>, index: number = 0) {
+    this.vlf.initLog(this.getTotalNumberOfRowsByValues);
+    if (typeof values === "string") {
+      values = [values];
+    } else if (!Array.isArray(values)) {
+      throw new Error("Invalid values provided. It should be either a string or an array of strings.");
+    }
+    const tableId = this._getId(tableSelector);
+    const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
+      item => Object.values(item.getBindingContext().getObject()).includes("${values}"))[${index}].getId()`;
+    const columnListItemId = util.browser.executeScript(browserCommand);
+    const columnListItemSelector = {
+      elementProperties: {
+        metadata: "sap.m.ColumnListItem",
+        id: columnListItemId
+      }
+    };
+    return ui5.userInteraction.click(columnListItemSelector);
+  }
+
   /**
    * @function navigateByIndex
    * @memberOf ui5.table
@@ -233,8 +253,10 @@ export class Table {
       throw new Error("Invalid values provided. It should be either a string or an array of strings.");
     }
     try {
-      const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
-        item => Object.values(item.getBindingContext().getObject()).includes("${values}"))[${index}].getId()`;
+      const browserCommand = `
+      return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
+        item => values.every(
+          val => Object.values(item.getBindingContext().getObject()).includes(val)))[${index}].getId()`;
       const columnListItemId = await util.browser.executeScript(browserCommand);
       const columnListItemSelector = {
         elementProperties: {
