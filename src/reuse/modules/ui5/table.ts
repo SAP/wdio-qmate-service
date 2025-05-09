@@ -209,10 +209,7 @@ export class Table {
   private async _getId(tableSelector: any): Promise<string> {
     this.vlf.initLog(this._getId);
     const resolvedTableSelector = await this._resolveTableSelector(tableSelector);
-    const selector = {
-      elementProperties: resolvedTableSelector
-    };
-    return await ui5.element.getId(selector);
+    return await ui5.element.getId(resolvedTableSelector);
   }
 
   private _resolveTableSelector(tableSelector: string | object) {
