@@ -182,16 +182,18 @@ export class Table {
       throw new Error("Invalid values provided. It should be either a string or an array of strings.");
     }
     const tableId = this._getId(tableSelector);
-    const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
-      item => Object.values(item.getBindingContext().getObject()).includes("${values}"))[${index}].getId()`;
-    const columnListItemId = util.browser.executeScript(browserCommand);
-    const columnListItemSelector = {
-      elementProperties: {
-        metadata: "sap.m.ColumnListItem",
-        id: columnListItemId
-      }
-    };
-    return ui5.userInteraction.click(columnListItemSelector);
+    try {
+      const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
+        item => Object.values(item.getBindingContext().getObject()).includes("${values}"))[${index}].length()`;
+      const columnListItemId = util.browser.executeScript(browserCommand);
+      const columnListItemSelector = {
+        elementProperties: {
+          metadata: "sap.m.ColumnListItem",
+          id: columnListItemId
+        }
+      };
+      return ui5.userInteraction.click(columnListItemSelector);
+    } catch (error) {}
   }
 
   /**
