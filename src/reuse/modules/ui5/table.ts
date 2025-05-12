@@ -203,15 +203,9 @@ export class Table {
     const tableId = this._getId(tableSelector);
     try {
       const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
-        item => Object.values(item.getBindingContext().getObject()).includes("${values}"))[${index}].length()`;
-      const columnListItemId = util.browser.executeScript(browserCommand);
-      const columnListItemSelector = {
-        elementProperties: {
-          metadata: "sap.m.ColumnListItem",
-          id: columnListItemId
-        }
-      };
-      return ui5.userInteraction.click(columnListItemSelector);
+        item => Object.values(item.getBindingContext().getObject()).includes("${values}")).length()`;
+      const totalNumberOfRowsByValues = util.browser.executeScript(browserCommand);
+      return totalNumberOfRowsByValues;
     } catch (error) {
       throw new Error(`Error while executing script: ${error}`);
     }
@@ -232,11 +226,11 @@ export class Table {
    * };
    * await ui5.table.navigateByIndex(selector, 3);
    */
-  async navigateByIndex(tableSelector: any, index: number) {
-    this.vlf.initLog(this.navigateByIndex);
+  async openItemByIndex(tableSelector: any, index: number) {
+    this.vlf.initLog(this.openItemByIndex);
     const tableId = await this._getId(tableSelector);
 
-    const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems()[${index}].getId();`;
+    const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTab le().getItems()[${index}].getId();`;
     const columnListItemId = await util.browser.executeScript(browserCommand);
     const columnListItemSelector = {
       elementProperties: {
@@ -246,31 +240,8 @@ export class Table {
     };
     await ui5.userInteraction.click(columnListItemSelector);
   }
-
-  async navigateByValue(tableSelector: any, value: string, index: number = 0) {
-    this.vlf.initLog(this.navigateByValue);
-    const tableId = await this._getId(tableSelector);
-    try {
-      const browserCommand = `
-      return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
-        item => Object.values(item.getBindingContext().getObject()).includes("${value}"))[${index}].getId()
-      `;
-      const columnListItemId = await util.browser.executeScript(browserCommand);
-      const columnListItemSelector = {
-        elementProperties: {
-          metadata: "sap.m.ColumnListItem",
-          id: columnListItemId
-        }
-      };
-      return ui5.userInteraction.click(columnListItemSelector);
-      // Catching since the script might not return an id (empty array) if the item is not found
-    } catch (error) {
-      throw new Error(`Error while executing script: ${error}`);
-    }
-  }
-
-  async navigateByValues(tableSelector: any, values: string | Array<string>, index: number = 0) {
-    this.vlf.initLog(this.navigateByValue);
+  async openItemByValues(tableSelector: any, values: string | Array<string>, index: number = 0) {
+    this.vlf.initLog(this.openItemByValues);
     const tableId = await this._getId(tableSelector);
     if (typeof values === "string") {
       values = [values];
@@ -295,6 +266,58 @@ export class Table {
     } catch (error) {
       throw new Error(`Error while executing script: ${error}`);
     }
+  }
+
+  async getRowByValues(tableSelector: any, values: string | Array<string>, index: number = 0) {
+    this.vlf.initLog(this.openItemByValues);
+    const tableId = await this._getId(tableSelector);
+    if (typeof values === "string") {
+      values = [values];
+    } else if (!Array.isArray(values)) {
+      throw new Error("Invalid values provided. It should be either a string or an array of strings.");
+    }
+    try {
+      const browserCommand = `
+      return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
+        item => values.every(
+          val => Object.values(item.getBindingContext().getObject()).includes(val))).map(filteredItems => getId())
+      `;
+      const filteredRowIds = await util.browser.executeScript(browserCommand);
+      const rows = [];
+      let columnListItemSelector = {
+        elementProperties: {
+          metadata: "sap.m.ColumnListItem",
+          id: undefined
+        }
+      };
+      if (filteredRowIds.length > 1) {
+        for (let i = 0; i < filteredRowIds.length; i++) {
+          columnListItemSelector.elementProperties.id = filteredRowIds[i];
+          rows.push(await ui5.element.getDisplayed(columnListItemSelector));
+        }
+        return rows;
+      } else if (filteredRowIds.length === 1) {
+        columnListItemSelector.elementProperties.id = filteredRowIds[0];
+        return await ui5.element.getDisplayed(columnListItemSelector);
+      }
+    } catch (error) {
+      throw new Error(`Error while executing script: ${error}`);
+    }
+  }
+
+  async getRowByIndex(tableSelector: any, index: number) {
+    this.vlf.initLog(this.openItemByIndex);
+    const tableId = await this._getId(tableSelector);
+
+    const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTab le().getItems()[${index}].getId();`;
+    const columnListItemId = await util.browser.executeScript(browserCommand);
+    const columnListItemSelector = {
+      elementProperties: {
+        metadata: "sap.m.ColumnListItem",
+        id: columnListItemId
+      }
+    };
+    await ui5.userInteraction.click(columnListItemSelector);
   }
 
   // =================================== HELPER ===================================
