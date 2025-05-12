@@ -82,6 +82,21 @@ export class Assertion {
     return common.assertion.expectEqual(value, compareValue);
   }
 
+  /**
+   * @function expectTextToBe
+   * @memberOf nonUi5.assertion
+   * @description Expects the text of the passed element to be the compare value.
+   * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
+   * @param {String} compareValue - The compare value.
+   * @example const element = await nonUi5.element.getById("button01");
+   **/
+  async expectTextToBe(elementOrSelector: Element | string, compareValue: string): Promise<void> {
+    const vl = this.vlf.initLog(this.expectTextToBe);
+    const element = await resolveCssSelectorOrElement(elementOrSelector);
+    const textValue = await element.getText();
+    return common.assertion.expectEqual(textValue, compareValue);
+  }
+
   // =================================== VISIBILITY ===================================
   /**
    * @function expectToBeVisible
