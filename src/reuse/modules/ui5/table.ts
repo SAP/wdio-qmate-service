@@ -193,30 +193,71 @@ export class Table {
    * const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, "value");
 
    */
-  async getTotalNumberOfRowsByValues(tableSelector: any, values: string | Array<string>, index: number = 0) {
+  async getTotalNumberOfRowsByValues(tableSelector: any, values: string | Array<string>): Promise<number> {
     this.vlf.initLog(this.getTotalNumberOfRowsByValues);
     if (typeof values === "string") {
       values = [values];
     } else if (!Array.isArray(values)) {
-      throw new Error("Invalid values provided. It should be either a string or an array of strings.");
+      return this.ErrorHandler.logException(new Error("Invalid values provided. It should be either a string or an array of strings."));
     }
     const tableId = this._getId(tableSelector);
+    let browserCommand;
     try {
-      const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
+      browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
         item => Object.values(item.getBindingContext().getObject()).includes("${values}")).length()`;
       const totalNumberOfRowsByValues = util.browser.executeScript(browserCommand);
       return totalNumberOfRowsByValues;
     } catch (error) {
-      throw new Error(`Error while executing script: ${error}`);
+      return this.ErrorHandler.logException(error, `Browser Command injected: ${browserCommand} was injected.`);
     }
   }
 
   /**
-   * @function navigateByIndex
+   * @function openItemByIndex
    * @memberOf ui5.table
-   * @description Navigates to a specific row in the table by its index.
+   * @description Opens the item in the table by its index.
    * @param {Object | String} tableSelector - The selector or ID describing the outer smart table element.
-   * @param {Number} index - The index of the row to navigate to.
+   * @param {Number} index - The index of the item to open.
+   * @example const selector = {
+   *  elementProperties: {
+   *   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *   metadata: "sap.ui.comp.smarttable.SmartTable",
+   *   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   * }
+   * };
+   * await ui5.table.openItemByIndex(selector, 0);
+   * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+   * await ui5.table.openItemByIndex(id, 0);
+   * @throws {Error} If the table selector is invalid or if the index is out of bounds.
+   * @param tableSelector
+   * @param index
+   */
+  async openItemByIndex(tableSelector: any, index: number) {
+    this.vlf.initLog(this.openItemByIndex);
+    const tableId = await this._getId(tableSelector);
+    let browserCommand;
+    try {
+      browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTab le().getItems()[${index}].getId();`;
+      const columnListItemId = await util.browser.executeScript(browserCommand);
+      const columnListItemSelector = {
+        elementProperties: {
+          metadata: "sap.m.ColumnListItem",
+          id: columnListItemId
+        }
+      };
+      await ui5.userInteraction.click(columnListItemSelector);
+    } catch (error) {
+      return this.ErrorHandler.logException(error, `Browser Command injected: ${browserCommand} was injected.`);
+    }
+  }
+
+  /**
+   * @function openItemByValues
+   * @memberOf ui5.table
+   * @description Opens the item in the table containing the given values. If multiple items match, it opens the index-th item.
+   * @param {Object | String} tableSelector - The selector or ID describing the outer smart table element.
+   * @param {String | Array<String>} values - The value(s) to match in the table rows.
+   * @param {Number} [index=0] - The index of the matching row to consider.
    * @example const selector = {
    *  elementProperties: {
    *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
@@ -224,32 +265,22 @@ export class Table {
    *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
    *  }
    * };
-   * await ui5.table.navigateByIndex(selector, 3);
+   * await ui5.table.openItemByValues(selector, ["value1", "value2"]);
+   *
+   * const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+   * await ui5.table.openItemByValues(id, "value");
    */
-  async openItemByIndex(tableSelector: any, index: number) {
-    this.vlf.initLog(this.openItemByIndex);
-    const tableId = await this._getId(tableSelector);
-
-    const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTab le().getItems()[${index}].getId();`;
-    const columnListItemId = await util.browser.executeScript(browserCommand);
-    const columnListItemSelector = {
-      elementProperties: {
-        metadata: "sap.m.ColumnListItem",
-        id: columnListItemId
-      }
-    };
-    await ui5.userInteraction.click(columnListItemSelector);
-  }
   async openItemByValues(tableSelector: any, values: string | Array<string>, index: number = 0) {
     this.vlf.initLog(this.openItemByValues);
     const tableId = await this._getId(tableSelector);
     if (typeof values === "string") {
       values = [values];
     } else if (!Array.isArray(values)) {
-      throw new Error("Invalid values provided. It should be either a string or an array of strings.");
+      return this.ErrorHandler.logException(new Error("Invalid values provided. It should be either a string or an array of strings."));
     }
+    let browserCommand;
     try {
-      const browserCommand = `
+      browserCommand = `
       return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
         item => values.every(
           val => Object.values(item.getBindingContext().getObject()).includes(val)))[${index}].getId()
@@ -264,10 +295,10 @@ export class Table {
       return ui5.userInteraction.click(columnListItemSelector);
       // Catching since the script might not return an id (empty array) if the item is not found
     } catch (error) {
-      throw new Error(`Error while executing script: ${error}`);
+      return this.ErrorHandler.logException(error, `Browser Command injected: ${browserCommand} was injected.`);
     }
   }
-/**
+  /**
    * @function getRowsSelectorsByValues
    * @memberOf ui5.table
    * @description Gets the selectors of rows in the table that contain the given values. If multiple values are provided, it only returns the selectors of rows that contain all of them.
@@ -275,7 +306,7 @@ export class Table {
    * @param {string} values - The value(s) to match in the table rows.
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable"
    * await ui5.table.getRowsSelectorsByValues(id, "February");
-   * 
+   *
    * const selector = {
    *  elementProperties: {
    *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
@@ -283,7 +314,7 @@ export class Table {
    *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
    *  }
    * };
-   * await ui5.table.getRowsSelectorsByValues(selector, ["January", "2022"]);
+   * @example await ui5.table.getRowsSelectorsByValues(selector, ["January", "2022"]);
    */
   async getRowsSelectorsByValues(tableSelector: any, values: string | Array<string>): Promise<object[]> {
     this.vlf.initLog(this.getRowsSelectorsByValues);
@@ -291,7 +322,7 @@ export class Table {
     if (typeof values === "string") {
       values = [values];
     } else if (!Array.isArray(values)) {
-      throw new Error("Invalid values provided. It should be either a string or an array of strings.");
+      this.ErrorHandler.logException(new Error("Invalid values provided. It should be either a string or an array of strings."));
     }
     let browserCommand;
     try {
@@ -314,23 +345,44 @@ export class Table {
       }
       return rowsSelectors;
     } catch (error) {
-      throw new Error(`Error while executing script: ${error}. The browser command ${browserCommand} was injected.`);
+      return this.ErrorHandler.logException(error, `Browser Command injected: ${browserCommand} was injected.`);
     }
   }
 
-  async getRowByIndex(tableSelector: any, index: number) {
-    this.vlf.initLog(this.getRowByIndex);
+  /**
+   * @function getRowSelectorByIndex
+   * @memberOf ui5.table
+   * @description Gets the selector of a row in the table by its index.
+   * @param {Object | String} tableSelector - The selector or ID describing the outer smart table element.
+   * @param {Number} index - The index of the item to open.
+   * @example const selector = {
+   *  elementProperties: {
+   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *    metadata: "sap.ui.comp.smarttable.SmartTable",
+   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   *  }
+   * };
+   * const rowSelector = await ui5.table.getRowSelectorByIndex(selector, 0);
+   * @example id = "application-ReportingTask-run-component---ReportList--ReportingTable"
+   * const rowSelector = await ui5.table.getRowSelectorByIndex(id, 0);
+   */
+  async getRowSelectorByIndex(tableSelector: any, index: number) {
+    this.vlf.initLog(this.getRowSelectorByIndex);
     const tableId = await this._getId(tableSelector);
-
-    const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTab le().getItems()[${index}].getId();`;
-    const columnListItemId = await util.browser.executeScript(browserCommand);
-    const columnListItemSelector = {
-      elementProperties: {
-        metadata: "sap.m.ColumnListItem",
-        id: columnListItemId
-      }
-    };
-    await ui5.userInteraction.click(columnListItemSelector);
+    let browserCommand;
+    try {
+      browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTab le().getItems()[${index}].getId();`;
+      const columnListItemId = await util.browser.executeScript(browserCommand);
+      const columnListItemSelector = {
+        elementProperties: {
+          metadata: "sap.m.ColumnListItem",
+          id: columnListItemId
+        }
+      };
+      return columnListItemSelector;
+    } catch (error) {
+      return this.ErrorHandler.logException(error, `Browser Command injected: ${browserCommand} was injected.`);
+    }
   }
 
   // =================================== HELPER ===================================
