@@ -61,16 +61,30 @@ export class NavigationBar {
    */
   async clickUserIcon(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.clickUserIcon);
-    const selector = {
-      "elementProperties": {
-        "metadata": "sap.m.Avatar",
-        "id": "*HeaderButton"
-      }
-    };
+
     try {
-      await ui5.userInteraction.click(selector, 0, timeout);
+      // attempt clicking both old and new user icons
+      await Promise.any([clickUserIconOld(), clickUserIconNew()]);
     } catch (error) {
-      this.ErrorHandler.logException(error);
+      (error as AggregateError).errors.forEach((err) => {
+        this.ErrorHandler.logException(err);
+      });
+    }
+
+    async function clickUserIconOld() {
+      const selector = {
+        "elementProperties": {
+          "metadata": "sap.m.Avatar",
+          "id": "*HeaderButton"
+        }
+      };
+      await ui5.userInteraction.click(selector, 0, timeout);
+    }
+
+    async function clickUserIconNew() {
+      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
+      const selector = ">>>[data-ui5-stable='profile']";
+      await nonUi5.userInteraction.click(selector);
     }
   }
 

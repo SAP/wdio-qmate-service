@@ -25,7 +25,7 @@ describe("userInteraction - selectFromTab", function () {
       elementProperties: {
         viewName: "sap.ui.documentation.sdk.view.SubApiDetail",
         metadata: "sap.ui.documentation.JSDocText",
-        text: "<p>Indicates that the tab will expand or collapse.<br><br><i>Since: 1.15.0.</i></p>"
+        text: "*<p>Indicates that the tab will expand or collapse.<br><br><i>Since: 1.15.0.</i></p>*"
       },
       ancestorProperties: {
         metadata: "sap.ui.documentation.ObjectPageSubSection",
