@@ -267,46 +267,59 @@ export class Table {
       throw new Error(`Error while executing script: ${error}`);
     }
   }
-
-  async getRowByValues(tableSelector: any, values: string | Array<string>, index: number = 0) {
-    this.vlf.initLog(this.openItemByValues);
+/**
+   * @function getRowsSelectorsByValues
+   * @memberOf ui5.table
+   * @description Gets the selectors of rows in the table that contain the given values. If multiple values are provided, it only returns the selectors of rows that contain all of them.
+   * @param {Object | String} tableSelector - The selector or ID describing the outer smart table element.
+   * @param {string} values - The value(s) to match in the table rows.
+   * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable"
+   * await ui5.table.getRowsSelectorsByValues(id, "February");
+   * 
+   * const selector = {
+   *  elementProperties: {
+   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *    metadata: "sap.ui.comp.smarttable.SmartTable",
+   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   *  }
+   * };
+   * await ui5.table.getRowsSelectorsByValues(selector, ["January", "2022"]);
+   */
+  async getRowsSelectorsByValues(tableSelector: any, values: string | Array<string>): Promise<object[]> {
+    this.vlf.initLog(this.getRowsSelectorsByValues);
     const tableId = await this._getId(tableSelector);
     if (typeof values === "string") {
       values = [values];
     } else if (!Array.isArray(values)) {
       throw new Error("Invalid values provided. It should be either a string or an array of strings.");
     }
+    let browserCommand;
     try {
-      const browserCommand = `
+      browserCommand = `
       return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
-        item => values.every(
-          val => Object.values(item.getBindingContext().getObject()).includes(val))).map(filteredItems => getId())
+        item => ${JSON.stringify(values)}.every(
+          val => Object.values(item.getBindingContext().getObject()).includes(val))).map(filteredItems => filteredItems.getId())
       `;
       const filteredRowIds = await util.browser.executeScript(browserCommand);
-      const rows = [];
-      let columnListItemSelector = {
-        elementProperties: {
-          metadata: "sap.m.ColumnListItem",
-          id: undefined
-        }
-      };
-      if (filteredRowIds.length > 1) {
-        for (let i = 0; i < filteredRowIds.length; i++) {
-          columnListItemSelector.elementProperties.id = filteredRowIds[i];
-          rows.push(await ui5.element.getDisplayed(columnListItemSelector));
-        }
-        return rows;
-      } else if (filteredRowIds.length === 1) {
-        columnListItemSelector.elementProperties.id = filteredRowIds[0];
-        return await ui5.element.getDisplayed(columnListItemSelector);
+      const rowsSelectors = [];
+
+      for (const id of filteredRowIds) {
+        const columnListItemSelector = {
+          elementProperties: {
+            metadata: "sap.m.ColumnListItem",
+            id: id
+          }
+        };
+        rowsSelectors.push(columnListItemSelector);
       }
+      return rowsSelectors;
     } catch (error) {
-      throw new Error(`Error while executing script: ${error}`);
+      throw new Error(`Error while executing script: ${error}. The browser command ${browserCommand} was injected.`);
     }
   }
 
   async getRowByIndex(tableSelector: any, index: number) {
-    this.vlf.initLog(this.openItemByIndex);
+    this.vlf.initLog(this.getRowByIndex);
     const tableId = await this._getId(tableSelector);
 
     const browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTab le().getItems()[${index}].getId();`;
