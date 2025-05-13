@@ -204,7 +204,7 @@ export class Table {
     let browserCommand;
     try {
       browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
-        item => Object.values(item.getBindingContext().getObject()).includes("${values}")).length()`;
+        item => Object.values(item.getBindingContext().getObject()).includes("${values}")).length`;
       const totalNumberOfRowsByValues = util.browser.executeScript(browserCommand);
       return totalNumberOfRowsByValues;
     } catch (error) {
@@ -229,15 +229,24 @@ export class Table {
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
    * await ui5.table.openItemByIndex(id, 0);
    * @throws {Error} If the table selector is invalid or if the index is out of bounds.
-   * @param tableSelector
-   * @param index
    */
   async openItemByIndex(tableSelector: any, index: number) {
     this.vlf.initLog(this.openItemByIndex);
     const tableId = await this._getId(tableSelector);
     let browserCommand;
     try {
-      browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTab le().getItems()[${index}].getId();`;
+      browserCommand = `
+        return (function () {
+          const items = sap.ui.getCore().getElementById("${tableId}").getTable().getItems();
+          if (!items) return undefined;
+          const item = items[${index}];
+          if (item?.getTitle === undefined) {
+            return item?.getId?.();
+          } else {
+            return items[${index + 1}]?.getId?.();
+          }
+        })();
+      `;
       const columnListItemId = await util.browser.executeScript(browserCommand);
       const columnListItemSelector = {
         elementProperties: {
@@ -245,9 +254,10 @@ export class Table {
           id: columnListItemId
         }
       };
-      await ui5.userInteraction.click(columnListItemSelector);
+      await ui5.userInteraction.scrollToElement(columnListItemSelector);
+      return await ui5.userInteraction.click(columnListItemSelector);
     } catch (error) {
-      return this.ErrorHandler.logException(error, `Browser Command injected: ${browserCommand} was injected.`);
+      throw new Error(`Error opening item by index: ${error}. Browser Command injected: ${browserCommand} was injected.`);
     }
   }
 
@@ -282,7 +292,7 @@ export class Table {
     try {
       browserCommand = `
       return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
-        item => values.every(
+        item => ${JSON.stringify(values)}.every(
           val => Object.values(item.getBindingContext().getObject()).includes(val)))[${index}].getId()
       `;
       const columnListItemId = await util.browser.executeScript(browserCommand);
@@ -292,6 +302,7 @@ export class Table {
           id: columnListItemId
         }
       };
+      await ui5.userInteraction.scrollToElement(columnListItemSelector);
       return ui5.userInteraction.click(columnListItemSelector);
       // Catching since the script might not return an id (empty array) if the item is not found
     } catch (error) {
@@ -371,7 +382,7 @@ export class Table {
     const tableId = await this._getId(tableSelector);
     let browserCommand;
     try {
-      browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTab le().getItems()[${index}].getId();`;
+      browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems()[${index}].getId();`;
       const columnListItemId = await util.browser.executeScript(browserCommand);
       const columnListItemSelector = {
         elementProperties: {
