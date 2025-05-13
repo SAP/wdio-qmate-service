@@ -382,7 +382,18 @@ export class Table {
     const tableId = await this._getId(tableSelector);
     let browserCommand;
     try {
-      browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems()[${index}].getId();`;
+      browserCommand = `
+        return (function () {
+          const items = sap.ui.getCore().getElementById("${tableId}").getTable().getItems();
+          if (!items) return undefined;
+          const item = items[${index}];
+          if (item?.getTitle === undefined) {
+            return item?.getId?.();
+          } else {
+            return items[${index + 1}]?.getId?.();
+          }
+        })();
+      `;
       const columnListItemId = await util.browser.executeScript(browserCommand);
       const columnListItemSelector = {
         elementProperties: {
