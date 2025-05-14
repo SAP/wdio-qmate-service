@@ -3,7 +3,7 @@
 //   handleCookiesConsent
 // } = require("../../../helper/utils");
 
-// describe("table - navigateByIndex - smartTable", function () {
+// describe("table - openItemByValue - smartTable", function () {
 
 //   it("Preparation", async function () {
 //     await browser.url("https://sapui5.hana.ondemand.com/test-resources/sap/suite/ui/generic/template/demokit/sample.manage.products.sepmra/test/index.html?sap-ui-theme=sap_horizon_dark#masterDetail-display");
@@ -25,17 +25,8 @@
 //   });
 
 //   it("Execution", async function () {
-//     await ui5.table.navigateByIndex(5);
+//     await ui5.table.openItemByValue(5);
 //   });
 //   it("Verification", async function () {
 //   });
 // });
-
-describe("table - navigateByIndex - smartTable", function () {
-
-  it("Preparation", async function () {
-    await browser.url("https://hbr-715.devsys.net.sap/ui#PurchaseOrder-manage");
-    await ui5.session.login("Purchaser", "Welcome1");
-  });
-  
-});
