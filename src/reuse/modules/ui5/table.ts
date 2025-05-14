@@ -18,7 +18,7 @@ export class Table {
    * @memberOf ui5.table
    * @description Sorts the given column "Ascending".
    * @param {String} columnName - The name of the column to sort.
-   * @param {Object} [tableSelector] - The selector describing the table element (in case there are more then one).
+   * @param {Ui5Selector} tableSelector - The selector describing the table element (in case there are more then one).
    * @example await ui5.table.sortColumnAscending("Supplier");
    * @example const glAccountItemsTable = {
    *  "elementProperties": {
@@ -29,7 +29,7 @@ export class Table {
    * };
    * await ui5.table.sortColumnAscending("Amount", glAccountItemsTable);
    */
-  async sortColumnAscending(columnName: string, tableSelector: any) {
+  async sortColumnAscending(columnName: string, tableSelector: Ui5Selector) {
     const oldSortButtonSelector = {
       elementProperties: {
         metadata: "sap.m.Button",
@@ -66,7 +66,7 @@ export class Table {
    * @memberOf ui5.table
    * @description Sorts the given column "Descending".
    * @param {String} columnName The name of the column to sort.
-   * @param {Object} [tableSelector] - The selector describing the table element (in case there are more then one).
+   * @param {Ui5Selector} tableSelector - The selector describing the table element (in case there are more then one).
    * @example await ui5.table.sortColumnDescending("Supplier");
    * @example const glAccountItemsTable = {
    *  "elementProperties": {
@@ -77,7 +77,7 @@ export class Table {
    * };
    * await ui5.table.sortColumnDescending("Amount", glAccountItemsTable);
    */
-  async sortColumnDescending(columnName: string, tableSelector: any) {
+  async sortColumnDescending(columnName: string, tableSelector: Ui5Selector) {
     const oldSortButtonSelector = {
       elementProperties: {
         metadata: "sap.m.Button",
@@ -114,7 +114,7 @@ export class Table {
    * @function clickSettingsButton
    * @memberOf ui5.table
    * @description Opens the user Settings.
-   * @param {Object} [tableSelector] - The selector describing the table element (in case there are more then one).
+   * @param {Ui5Selector} tableSelector - The selector describing the table element (in case there are more then one).
    * @example await ui5.table.clickSettingsButton();
    * @example const glAccountItemsTable = {
    *  "elementProperties": {
@@ -125,7 +125,7 @@ export class Table {
    * };
    * await ui5.table.clickSettingsButton(glAccountItemsTable);
    */
-  async clickSettingsButton(tableSelector: any) {
+  async clickSettingsButton(tableSelector: Ui5Selector) {
     const vl = this.vlf.initLog(this.clickSettingsButton);
     const settingsButtonSelector = {
       elementProperties: {
@@ -146,7 +146,7 @@ export class Table {
    * @function getTotalNumberOfRows
    * @memberOf ui5.table
    * @description Returns the total number of rows in the table.
-   * @param {Object | String} [tableSelector] - The selector or ID describing the outer smart table element.
+   * @param {Ui5Selector | String} tableSelector - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
    * @returns {Number} The total number of rows in the table.
    * @example const selector = {
    *  elementProperties: {
@@ -175,6 +175,22 @@ export class Table {
     return this._extractRowCountFromTitle(tableTitleText);
   }
 
+  /**
+   * @function selectRowByIndex
+   * @memberOf ui5.table
+   * @description Selects a row in the table by its index.
+   * @param {Ui5Selector | String} tableSelector - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
+   * @param {Number} index - The index of the row to select.
+   * @example await ui5.table.selectRowByIndex("application-ReportingTask-run-component---ReportList--ReportingTable", 0);
+   * @example const selector = {
+   *  elementProperties: {
+   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *    metadata: "sap.ui.comp.smarttable.SmartTable",
+   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   *  }
+   * };
+   * await ui5.table.selectRowByIndex(selector, 0);
+   */
   async selectRowByIndex(tableSelector: Ui5Selector | string, index: number) {
     this.vlf.initLog(this.selectRowByIndex);
     const ancestorSelector = await this._resolveTableSelector(tableSelector);
@@ -214,7 +230,6 @@ export class Table {
         }
       };
       if (await ui5.element.isVisible(constructedSelector)) return constructedSelector;
-
       // Throw an error if the selector is non of both types
       else throw new Error(`The provided table selector "${tableSelector}" is not valid. Please provide a valid selector or ID for control type 'SmartTable' or 'Table'.`);
     } else if (typeof tableSelector === "object") {
@@ -236,7 +251,7 @@ export class Table {
     }
   }
 
-  private async _clickColumn(name: string, tableSelector: any) {
+  private async _clickColumn(name: string, tableSelector: Ui5Selector) {
     const vl = this.vlf.initLog(this._clickColumn);
     const tableColumnSelector = {
       elementProperties: {
@@ -273,7 +288,7 @@ export class Table {
     return sorted ? sortOrder : "";
   }
 
-  private async _getSortIndicatorValue(name: string, tableSelector: any) {
+  private async _getSortIndicatorValue(name: string, tableSelector: Ui5Selector) {
     const vl = this.vlf.initLog(this._getSortIndicatorValue);
     const tableColumnSelector = {
       elementProperties: {
