@@ -2,6 +2,7 @@
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
+import { Ui5Selector } from "./types/ui5.types";
 
 /**
  * @class table
@@ -156,9 +157,9 @@ export class Table {
    * };
    * const numberOfRows = await ui5.table.getTotalNumberOfRows(selector);
    */
-  async getTotalNumberOfRows(tableSelector: object | string): Promise<number> {
+  async getTotalNumberOfRows(tableSelector: Ui5Selector | string): Promise<number> {
     this.vlf.initLog(this.getTotalNumberOfRows);
-    const smartTableSelector = this._resolveTableSelector(tableSelector);
+    const smartTableSelector = await this._resolveTableSelector(tableSelector);
 
     const tableTitleSelector = {
       elementProperties: {
@@ -166,7 +167,7 @@ export class Table {
       },
       parentProperties: {
         metadata: "sap.m.OverflowToolbar",
-        ancestorProperties: smartTableSelector
+        ancestorProperties: smartTableSelector.elementProperties
       }
     };
 
@@ -174,22 +175,41 @@ export class Table {
     return this._extractRowCountFromTitle(tableTitleText);
   }
 
+  async selectRowByIndex(tableSelector: Ui5Selector | string, index: number) {
+    const vl = this.vlf.initLog(this.selectRowByIndex);
+    const smartTableSelector = await this._resolveTableSelector(tableSelector);
+  }
+
   // =================================== HELPER ===================================
-  private _resolveTableSelector(tableSelector: string | object) {
-    let smartTableSelector;
+  private async _resolveTableSelector(tableSelector: Ui5Selector | string): Promise<Ui5Selector> {
+    let constructedSelector: Ui5Selector;
 
     if (typeof tableSelector === "string") {
-      smartTableSelector = {
-        metadata: "sap.ui.comp.smarttable.SmartTable",
-        id: tableSelector
+      // Check if passed element ID is for a SmartTable
+      constructedSelector = {
+        elementProperties: {
+          metadata: "sap.ui.comp.smarttable.SmartTable",
+          id: tableSelector
+        }
       };
-    } else if (typeof tableSelector === "object") {
-      smartTableSelector = tableSelector;
-    } else {
-      throw new Error("Invalid table selector provided. It should be either a string or an object (Qmate selector).");
-    }
+      if (await ui5.element.isVisible(constructedSelector)) return constructedSelector;
 
-    return smartTableSelector;
+      // Check if passed element ID is for a Table
+      constructedSelector = {
+        elementProperties: {
+          metadata: "sap.m.Table",
+          id: tableSelector
+        }
+      };
+      if (await ui5.element.isVisible(constructedSelector)) return constructedSelector;
+
+      // Throw an error if the selector is non of both types
+      else throw new Error(`The provided table selector "${tableSelector}" is not valid. Please provide a valid selector or ID for control type 'SmartTable' or 'Table'.`);
+    } else if (typeof tableSelector === "object") {
+      return tableSelector;
+    } else {
+      throw new Error("Invalid table selector provided. It should be either a string or an valid Qmate selector.");
+    }
   }
 
   private _extractRowCountFromTitle(title: string): number {
