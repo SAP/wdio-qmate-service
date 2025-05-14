@@ -339,6 +339,7 @@ export class Table {
     this.vlf.initLog(this.getRowSelectorByIndex);
     const tableId = await this._getId(tableSelector);
     let browserCommand;
+    let columnListItemId;
     try {
       browserCommand = `
         return (function () {
@@ -352,12 +353,16 @@ export class Table {
           }
         })();
       `;
-      const columnListItemId = await util.browser.executeScript(browserCommand);
-      if (!columnListItemId) {
-        // => fails here
-        return this.ErrorHandler.logException(`No item found with index ${index}.
-          Browser Command injected: ${browserCommand} was injected.`);
-      }
+      columnListItemId = await util.browser.executeScript(browserCommand);
+    } catch (error) {
+      return this.ErrorHandler.logException(error, `Browser Command injected: ${browserCommand} was injected.`);
+    }
+    if (!columnListItemId) {
+      return this.ErrorHandler.logException(
+        new Error(`No item found with index ${index}.
+          Browser Command injected: ${browserCommand} was injected.`)
+      );
+    } else {
       const columnListItemSelector = {
         elementProperties: {
           metadata: "sap.m.ColumnListItem",
@@ -365,9 +370,6 @@ export class Table {
         }
       };
       return columnListItemSelector;
-    } catch (error) {
-      // => but catched here and ending
-      return this.ErrorHandler.logException(error, `Browser Command injected: ${browserCommand} was injected.`);
     }
   }
 
