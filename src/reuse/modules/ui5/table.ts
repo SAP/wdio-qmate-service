@@ -210,13 +210,16 @@ export class Table {
 
   // =================================== HELPER ===================================
   private async _resolveTableSelector(tableSelector: Ui5Selector | string): Promise<Ui5Selector> {
+    const SMART_TABLE_METADATA = "sap.ui.comp.smarttable.SmartTable";
+    const TABLE_METADATA = "sap.m.Table";
+
     let constructedSelector: Ui5Selector;
 
     if (typeof tableSelector === "string") {
       // Check if passed element ID is for a SmartTable
       constructedSelector = {
         elementProperties: {
-          metadata: "sap.ui.comp.smarttable.SmartTable",
+          metadata: SMART_TABLE_METADATA,
           id: tableSelector
         }
       };
@@ -225,15 +228,19 @@ export class Table {
       // Check if passed element ID is for a Table
       constructedSelector = {
         elementProperties: {
-          metadata: "sap.m.Table",
+          metadata: TABLE_METADATA,
           id: tableSelector
         }
       };
       if (await ui5.element.isVisible(constructedSelector)) return constructedSelector;
       // Throw an error if the selector is non of both types
       else throw new Error(`The provided table selector "${tableSelector}" is not valid. Please provide a valid selector or ID for control type 'SmartTable' or 'Table'.`);
-    } else if (typeof tableSelector === "object") {
-      return tableSelector;
+    } else if (typeof tableSelector === "object" && "elementProperties" in tableSelector) {
+      if (tableSelector.elementProperties.metadata !== TABLE_METADATA && tableSelector.elementProperties.metadata !== SMART_TABLE_METADATA) {
+        throw new Error(`The provided table selector is not valid. Please provide a valid selector for control type 'SmartTable' or 'Table'.`);
+      } else {
+        return tableSelector;
+      }
     } else {
       throw new Error("Invalid table selector provided. It should be either a string or an valid Qmate selector.");
     }
