@@ -159,7 +159,7 @@ export class Table {
    */
   async getTotalNumberOfRows(tableSelector: Ui5Selector | string): Promise<number> {
     this.vlf.initLog(this.getTotalNumberOfRows);
-    const smartTableSelector = await this._resolveTableSelector(tableSelector);
+    const ancestorSelector = await this._resolveTableSelector(tableSelector);
 
     const tableTitleSelector = {
       elementProperties: {
@@ -167,7 +167,7 @@ export class Table {
       },
       parentProperties: {
         metadata: "sap.m.OverflowToolbar",
-        ancestorProperties: smartTableSelector.elementProperties
+        ancestorProperties: ancestorSelector.elementProperties
       }
     };
 
@@ -176,8 +176,20 @@ export class Table {
   }
 
   async selectRowByIndex(tableSelector: Ui5Selector | string, index: number) {
-    const vl = this.vlf.initLog(this.selectRowByIndex);
-    const smartTableSelector = await this._resolveTableSelector(tableSelector);
+    this.vlf.initLog(this.selectRowByIndex);
+    const ancestorSelector = await this._resolveTableSelector(tableSelector);
+
+    const checkBoxSelector = {
+      elementProperties: {
+        metadata: "sap.m.CheckBox"
+      },
+      parentProperties: {
+        metadata: "sap.m.ColumnListItem",
+        ancestorProperties: ancestorSelector.elementProperties
+      }
+    };
+
+    await ui5.userInteraction.check(checkBoxSelector, index);
   }
 
   // =================================== HELPER ===================================
