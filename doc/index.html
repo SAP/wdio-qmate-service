@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -2442,6 +2442,15 @@
   <a href="#tableclicksettingsbuttontableselector" class="md-nav__link">
     <span class="md-ellipsis">
       table.clickSettingsButton([tableSelector])
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tablegettotalnumberofrowstableselector-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      table.getTotalNumberOfRows([tableSelector]) ⇒ Number
     </span>
   </a>
   
@@ -6623,6 +6632,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tablegettotalnumberofrowstableselector-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      table.getTotalNumberOfRows([tableSelector]) ⇒ Number
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -9299,7 +9317,7 @@
 <tbody>
 <tr>
 <td>command</td>
-<td><code>String</code></td>
+<td><code>String</code> | <code>function</code></td>
 <td>The command to execute.</td>
 </tr>
 </tbody>
@@ -10768,6 +10786,7 @@
 <li><a href="#ui5.table.sortColumnAscending">.sortColumnAscending(columnName, [tableSelector])</a></li>
 <li><a href="#ui5.table.sortColumnDescending">.sortColumnDescending(columnName, [tableSelector])</a></li>
 <li><a href="#ui5.table.clickSettingsButton">.clickSettingsButton([tableSelector])</a></li>
+<li><a href="#ui5.table.getTotalNumberOfRows">.getTotalNumberOfRows([tableSelector])</a> ⇒ <code>Number</code></li>
 </ul>
 </li>
 <li><a href="#ui5.userInteraction">.userInteraction</a><ul>
@@ -14315,6 +14334,7 @@ This is essential for chaining scripts, so that no static browser sleep in the s
 <li><a href="#ui5.table.sortColumnAscending">.sortColumnAscending(columnName, [tableSelector])</a></li>
 <li><a href="#ui5.table.sortColumnDescending">.sortColumnDescending(columnName, [tableSelector])</a></li>
 <li><a href="#ui5.table.clickSettingsButton">.clickSettingsButton([tableSelector])</a></li>
+<li><a href="#ui5.table.getTotalNumberOfRows">.getTotalNumberOfRows([tableSelector])</a> ⇒ <code>Number</code></li>
 </ul>
 </li>
 </ul>
@@ -14426,6 +14446,37 @@ This is essential for chaining scripts, so that no static browser sleep in the s
 <span class="w"> </span><span class="p">}</span>
 <span class="p">};</span>
 <span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">table</span><span class="p">.</span><span class="nx">clickSettingsButton</span><span class="p">(</span><span class="nx">glAccountItemsTable</span><span class="p">);</span>
+</code></pre></div>
+<a name="ui5.table.getTotalNumberOfRows"></a></p>
+<h4 id="tablegettotalnumberofrowstableselector-number">table.getTotalNumberOfRows([tableSelector]) ⇒ <code>Number</code></h4>
+<p>Returns the total number of rows in the table.</p>
+<p><strong>Kind</strong>: static method of <a href="#ui5.table"><code>table</code></a><br />
+<strong>Returns</strong>: <code>Number</code> - The total number of rows in the table.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[tableSelector]</td>
+<td><code>Object</code> | <code>String</code></td>
+<td>The selector or ID describing the outer smart table element.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">selector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="nx">elementProperties</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nx">viewName</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;gs.fin.runstatutoryreports.s1.view.ReportList&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nx">metadata</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sap.ui.comp.smarttable.SmartTable&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;application-ReportingTask-run-component---ReportList--ReportingTable&quot;</span>
+<span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">numberOfRows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">table</span><span class="p">.</span><span class="nx">getTotalNumberOfRows</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span>
 </code></pre></div>
 <a name="ui5.userInteraction"></a></p>
 <h3 id="ui5userinteraction">ui5.userInteraction</h3>
@@ -19843,10 +19894,10 @@ Ensure that the provided coordinates are within the bounds of the screen to avoi
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "content.tabs.link", "navigation.top"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "content.tabs.link", "navigation.top"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
       
     
   </body>
