@@ -200,12 +200,12 @@ export class Table {
     } else if (!Array.isArray(values)) {
       return this.ErrorHandler.logException(new Error("Invalid values provided. It should be either a string or an array of strings."));
     }
-    const tableId = this._getId(tableSelector);
+    const tableId = await this._getId(tableSelector);
     let browserCommand;
     try {
       browserCommand = `return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
         item => Object.values(item.getBindingContext().getObject()).includes("${values}")).length`;
-      const totalNumberOfRowsByValues = util.browser.executeScript(browserCommand);
+      const totalNumberOfRowsByValues = await util.browser.executeScript(browserCommand);
       return totalNumberOfRowsByValues;
     } catch (error) {
       return this.ErrorHandler.logException(error, `Browser Command injected: ${browserCommand} was injected.`);
