@@ -89,6 +89,7 @@ export class Assertion {
    * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
    * @param {String} compareValue - The compare value.
    * @example const element = await nonUi5.element.getById("button01");
+   * await nonUi5.assertion.expectTextToBe(element, "Save");
    **/
   async expectTextToBe(elementOrSelector: Element | string, compareValue: string): Promise<void> {
     const vl = this.vlf.initLog(this.expectTextToBe);
