@@ -232,33 +232,8 @@ export class Table {
    */
   async openItemByIndex(tableSelector: any, index: number) {
     this.vlf.initLog(this.openItemByIndex);
-    const tableId = await this._getId(tableSelector);
-    let browserCommand;
-    try {
-      browserCommand = `
-        return (function () {
-          const items = sap.ui.getCore().getElementById("${tableId}").getTable().getItems();
-          if (!items) return undefined;
-          const item = items[${index}];
-          if (item?.getTitle === undefined) {
-            return item?.getId?.();
-          } else {
-            return items[${index + 1}]?.getId?.();
-          }
-        })();
-      `;
-      const columnListItemId = await util.browser.executeScript(browserCommand);
-      const columnListItemSelector = {
-        elementProperties: {
-          metadata: "sap.m.ColumnListItem",
-          id: columnListItemId
-        }
-      };
-      await ui5.userInteraction.scrollToElement(columnListItemSelector);
-      return await ui5.userInteraction.click(columnListItemSelector);
-    } catch (error) {
-      throw new Error(`Error opening item by index: ${error}. Browser Command injected: ${browserCommand} was injected.`);
-    }
+    const rowSelector = await this.getRowSelectorByIndex(tableSelector, index);
+    await ui5.userInteraction.click(rowSelector);
   }
 
   /**
@@ -282,31 +257,14 @@ export class Table {
    */
   async openItemByValues(tableSelector: any, values: string | Array<string>, index: number = 0) {
     this.vlf.initLog(this.openItemByValues);
-    const tableId = await this._getId(tableSelector);
-    if (typeof values === "string") {
-      values = [values];
-    } else if (!Array.isArray(values)) {
-      return this.ErrorHandler.logException(new Error("Invalid values provided. It should be either a string or an array of strings."));
-    }
-    let browserCommand;
-    try {
-      browserCommand = `
-      return sap.ui.getCore().getElementById("${tableId}").getTable().getItems().filter(
-        item => ${JSON.stringify(values)}.every(
-          val => Object.values(item.getBindingContext().getObject()).includes(val)))[${index}].getId()
-      `;
-      const columnListItemId = await util.browser.executeScript(browserCommand);
-      const columnListItemSelector = {
-        elementProperties: {
-          metadata: "sap.m.ColumnListItem",
-          id: columnListItemId
-        }
-      };
-      await ui5.userInteraction.scrollToElement(columnListItemSelector);
-      return ui5.userInteraction.click(columnListItemSelector);
-      // Catching since the script might not return an id (empty array) if the item is not found
-    } catch (error) {
-      return this.ErrorHandler.logException(error, `Browser Command injected: ${browserCommand} was injected.`);
+    const rowSelectors = await this.getRowsSelectorsByValues(tableSelector, values);
+    if (rowSelectors.length === 0) {
+      return this.ErrorHandler.logException(new Error(`No items found with the provided values: ${values}.`));
+    } else if (rowSelectors.length <= index) {
+      return this.ErrorHandler.logException(new Error(`The index ${index} is out of bounds. The number of matching items is ${rowSelectors.length}.`));
+    } else {
+      const rowSelector = rowSelectors[index];
+      await ui5.userInteraction.click(rowSelector);
     }
   }
   /**
@@ -385,7 +343,7 @@ export class Table {
       browserCommand = `
         return (function () {
           const items = sap.ui.getCore().getElementById("${tableId}").getTable().getItems();
-          if (!items) return undefined;
+          if (!items || !items[${index}]) return undefined;
           const item = items[${index}];
           if (item?.getTitle === undefined) {
             return item?.getId?.();
@@ -395,6 +353,11 @@ export class Table {
         })();
       `;
       const columnListItemId = await util.browser.executeScript(browserCommand);
+      if (!columnListItemId) {
+        // => fails here
+        return this.ErrorHandler.logException(`No item found with index ${index}.
+          Browser Command injected: ${browserCommand} was injected.`);
+      }
       const columnListItemSelector = {
         elementProperties: {
           metadata: "sap.m.ColumnListItem",
@@ -403,6 +366,7 @@ export class Table {
       };
       return columnListItemSelector;
     } catch (error) {
+      // => but catched here and ending
       return this.ErrorHandler.logException(error, `Browser Command injected: ${browserCommand} was injected.`);
     }
   }
