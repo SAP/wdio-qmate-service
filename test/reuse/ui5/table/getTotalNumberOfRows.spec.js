@@ -24,7 +24,7 @@ describe("table - getTotalNumberOfRows - demo kit - passing SmartTable", functio
 
   it("Verification", async function () {
     const expNumberOfTableRows = 54;
-    await common.assertion.expectEqual(actNumberOfTableRows, expNumberOfTableRows);
+    common.assertion.expectEqual(actNumberOfTableRows, expNumberOfTableRows);
   });
 });
 
@@ -44,7 +44,7 @@ describe("table - getTotalNumberOfRows - demo kit - passing ID", function () {
 
   it("Verification", async function () {
     const expNumberOfTableRows = 54;
-    await common.assertion.expectEqual(actNumberOfTableRows, expNumberOfTableRows);
+    common.assertion.expectEqual(actNumberOfTableRows, expNumberOfTableRows);
   });
 });
 
@@ -68,7 +68,7 @@ describe("table - getTotalNumberOfRows - demo kit - 0 rows", function () {
     };
     const invalidFiscalYear = "2000";
     await ui5.userInteraction.clearAndFill(selector, invalidFiscalYear);
-    await common.userInteraction.pressEnter();
+    common.userInteraction.pressEnter();
   });
 
   it("Execution", async function () {
@@ -85,60 +85,60 @@ describe("table - getTotalNumberOfRows - demo kit - 0 rows", function () {
 
   it("Verification", async function () {
     const expNumberOfTableRows = 0;
-    await common.assertion.expectEqual(actNumberOfTableRows, expNumberOfTableRows);
+    common.assertion.expectEqual(actNumberOfTableRows, expNumberOfTableRows);
   });
 });
 
 // Only for local testing -> Replace the placeholder with the correct URL, password and user name
 
-describe("table - getTotalNumberOfRows - productive app - passing SmartTable", function () {
-  let actNumberOfTableRows;
+// describe("table - getTotalNumberOfRows - productive app - passing SmartTable", function () {
+//   let actNumberOfTableRows;
 
-  it("Preparation", async function () {
-    await common.navigation.navigateToUrl("<system_url>/ui#ReportingTask-run&/?sap-iapp-state=ASQ7LUYSPNTEJR8D5BOKD7T4DNSJVXBD4GKZLB0Z");
-    await ui5.session.login("<user>", "<password>");
-  });
+//   it("Preparation", async function () {
+//     await common.navigation.navigateToUrl("<system_url>/ui#ReportingTask-run&/?sap-iapp-state=ASQ7LUYSPNTEJR8D5BOKD7T4DNSJVXBD4GKZLB0Z");
+//     await ui5.session.login("<user>", "<password>");
+//   });
 
-  it("Execution", async function () {
-    const selector = {
-      elementProperties: {
-        viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
-        metadata: "sap.ui.comp.smarttable.SmartTable",
-        id: "application-ReportingTask-run-component---ReportList--ReportingTable"
-      }
-    };
-    await ui5.element.waitForAll(selector);
-    actNumberOfTableRows = await ui5.table.getTotalNumberOfRows(selector);
-  });
+//   it("Execution", async function () {
+//     const selector = {
+//       elementProperties: {
+//         viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+//         metadata: "sap.ui.comp.smarttable.SmartTable",
+//         id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+//       }
+//     };
+//     await ui5.element.waitForAll(selector);
+//     actNumberOfTableRows = await ui5.table.getTotalNumberOfRows(selector);
+//   });
 
-  it("Verification", async function () {
-    const expNumberOfTableRows = 5;
-    await common.assertion.expectEqual(actNumberOfTableRows, expNumberOfTableRows);
-  });
-});
+//   it("Verification", async function () {
+//     const expNumberOfTableRows = 5;
+//     common.assertion.expectEqual(actNumberOfTableRows, expNumberOfTableRows);
+//   });
+// });
 
-describe("table - getTotalNumberOfRows - productive app - passing Table", function () {
-  let actNumberOfTableRows;
+// describe("table - getTotalNumberOfRows - productive app - passing Table", function () {
+//   let actNumberOfTableRows;
 
-  it("Preparation", async function () {
-    await common.navigation.navigateToUrl("<system_url>/ui#ReportingTask-run&/?sap-iapp-state=ASQ7LUYSPNTEJR8D5BOKD7T4DNSJVXBD4GKZLB0Z");
-    await ui5.session.login("<user>", "<password>");
-  });
+//   it("Preparation", async function () {
+//     await common.navigation.navigateToUrl("<system_url>/ui#ReportingTask-run&/?sap-iapp-state=ASQ7LUYSPNTEJR8D5BOKD7T4DNSJVXBD4GKZLB0Z");
+//     await ui5.session.login("<user>", "<password>");
+//   });
 
-  it("Execution", async function () {
-    const selector = {
-      elementProperties: {
-        viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
-        metadata: "sap.m.Table",
-        id: "application-ReportingTask-run-component---ReportList--reportingTable"
-      }
-    };
-    await ui5.element.waitForAll(selector);
-    actNumberOfTableRows = await ui5.table.getTotalNumberOfRows(selector);
-  });
+//   it("Execution", async function () {
+//     const selector = {
+//       elementProperties: {
+//         viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+//         metadata: "sap.m.Table",
+//         id: "application-ReportingTask-run-component---ReportList--reportingTable"
+//       }
+//     };
+//     await ui5.element.waitForAll(selector);
+//     actNumberOfTableRows = await ui5.table.getTotalNumberOfRows(selector);
+//   });
 
-  it("Verification", async function () {
-    const expNumberOfTableRows = 5;
-    await common.assertion.expectEqual(actNumberOfTableRows, expNumberOfTableRows);
-  });
-});
+//   it("Verification", async function () {
+//     const expNumberOfTableRows = 5;
+//     common.assertion.expectEqual(actNumberOfTableRows, expNumberOfTableRows);
+//   });
+// });
