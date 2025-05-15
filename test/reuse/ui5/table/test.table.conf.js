@@ -10,6 +10,7 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "clickSettingsButton.spec.js"),
     path.resolve(__dirname, "sortColumnAscending.spec.js"),
     path.resolve(__dirname, "sortColumnDescending.spec.js"),
-    path.resolve(__dirname, "getTotalNumberOfRows.spec.js")
+    path.resolve(__dirname, "getTotalNumberOfRows.spec.js"),
+    path.resolve(__dirname, "selectRowByIndex.spec.js"),
   ]
 });
