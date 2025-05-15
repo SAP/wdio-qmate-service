@@ -361,13 +361,6 @@ export class Table {
   }
 
   // =================================== HELPER ===================================
-
-  private async _getId(tableSelector: any): Promise<string> {
-    this.vlf.initLog(this._getId);
-    const resolvedTableSelector = await this._resolveTableSelector(tableSelector);
-    return await ui5.element.getId(resolvedTableSelector);
-  }
-
   private _resolveTableSelector(tableSelector: string | object) {
     let smartTableSelector;
 
@@ -383,6 +376,12 @@ export class Table {
     }
 
     return smartTableSelector;
+  }
+
+  private async _getId(tableSelector: any): Promise<string> {
+    this.vlf.initLog(this._getId);
+    const resolvedTableSelector = await this._resolveTableSelector(tableSelector);
+    return await ui5.element.getId(resolvedTableSelector);
   }
 
   private _extractRowCountFromTitle(title: string): number {

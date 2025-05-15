@@ -11,6 +11,7 @@ exports.config = merge(profile.config, {
     // path.resolve(__dirname, "sortColumnAscending.spec.js"),
     // path.resolve(__dirname, "sortColumnDescending.spec.js"),
     // path.resolve(__dirname, "getTotalNumberOfRows.spec.js"),
-    path.resolve(__dirname, "navigateByIndex.spec.js")
+    path.resolve(__dirname, "navigateByIndex.spec.js"),
+    path.resolve(__dirname, "getTotalNumberOfRows.spec.js")
   ]
 });
