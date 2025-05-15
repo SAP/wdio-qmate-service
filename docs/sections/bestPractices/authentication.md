@@ -13,7 +13,7 @@ Which way to choose depends on your needs and preferences. If you are testing a 
 
 
 ## Login via **Reuse Methods**
-The other way of system authentication, is to use the specific [reuse method](https://sap.github.io/wdio-qmate-service/doc/#ui5.session). 
+The other way of system authentication, is to use the specific [reuse method](https://sap.github.io/wdio-qmate-service/doc/#ui5.session){target="__blank"}. 
 This is commonly recommended, especially if you are switching between multiple users or systems during the test execution. 
 With this approach, you handle the login within a step of your script/s. 
 The benefit of this approach is, to have more control over the login as an actual step inside your test process. 
@@ -79,7 +79,7 @@ You can use one of the following methods:
           // further test data ...
         }
         ```
-    - To store your credential securely, you can refer to our main documentation under section [Data Privacy](https://pages.github.tools.sap/sProcurement/qmate/sections/furtherTopics/dataPrivacy/).
+    - To store your credential securely, you can refer to our main documentation under section [Handling Private Data](https://pages.github.tools.sap/sProcurement/qmate/sections/further-concepts/handling-private-data/){target="__blank"}.
 
 !!! tip
     You can disable the login centrally without touching your specs by setting the `formType` to `"skip"` inside your configuration file.

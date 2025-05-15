@@ -1,8 +1,10 @@
 "use strict";
 
+const baseUrl = "";
+
 describe("session - logout with inner verification", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("<urlToSystem");
+    util.browser.setBaseUrl(baseUrl);
     await common.navigation.navigateToUrl(browser.config.baseUrl);
     await ui5.session.loginFiori("PURCHASER");
     await ui5.navigation.navigateToApplication("Shell-home", true);
@@ -20,7 +22,7 @@ describe("session - logout with inner verification", function () {
 
 describe("session - logout without inner verification", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("<urlToSystem");
+    util.browser.setBaseUrl(baseUrl);
     await common.navigation.navigateToUrl(browser.config.baseUrl);
     await ui5.session.loginFiori("PURCHASER");
     await ui5.navigation.navigateToApplication("Shell-home", true);
@@ -38,7 +40,7 @@ describe("session - logout without inner verification", function () {
 
 describe("session - logout without login (unhappy case)", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrlAndRetry("https://sapui5.hana.ondemand.com/1.96.27/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
+    await common.navigation.navigateToUrlAndRetry("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
   });
 
   it("Execution & Verification", async function () {

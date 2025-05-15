@@ -1,3 +1,4 @@
+// Components
 import browser, { Browser } from "./browser";
 import console, { Console } from "./console";
 import data, { Data } from "./data";
@@ -6,9 +7,13 @@ import formatter, { Formatter } from "./formatter";
 import functionModule, { FunctionModule } from "./function";
 import system, { System } from "./system";
 import component, { Component } from "./component";
+import userSettings, { UserSettings } from "./userSettings";
+
+// Types
+import { DecryptionOptions } from "../types";
 
 interface DataHooksExtended extends Data {
-  decrypt: (input: string) => string;
+  decrypt: (input: string | Array<string>, options?: DecryptionOptions) => string;
   privateKeyFound: boolean;
 }
 
@@ -21,6 +26,7 @@ export class Util {
   function: FunctionModule = functionModule;
   system: System = system;
   component: Component = component;
+  userSettings: UserSettings = userSettings;
 }
 
 export default new Util();

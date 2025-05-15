@@ -1,5 +1,5 @@
 # Troubleshooting
-If you find any bug or issue which is not listed below, please open a new [issue](https://github.com/SAP/wdio-qmate-service/issues) in the qmate repository. Thanks for your support.
+If you find any bug or issue which is not listed below, please open a new [issue](https://github.com/SAP/wdio-qmate-service/issues){target="__blank"} in the qmate repository. Thanks for your support.
 
 
 ## SessionNotCreatedError

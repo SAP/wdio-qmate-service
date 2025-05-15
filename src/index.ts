@@ -6,10 +6,14 @@ import qmateLoader from "./scripts/hooks/before";
 import onPrepareHook from "./scripts/hooks/onPrepare";
 import onCompleteHook from "./scripts/hooks/onComplete";
 import afterHook from "./scripts/hooks/after";
+import { isBrowserDefined } from "./scripts/hooks/utils/isBrowserDefined";
 const pj = require("../package.json");
 
 module.exports = class CustomWorkerService {
-  config: any;
+  private _statsUsageId: string | null = null;
+
+  public config: any;
+
   /**
    * `serviceOptions` contains all options specific to the service
    * e.g. if defined as follows:
@@ -41,7 +45,9 @@ module.exports = class CustomWorkerService {
       `;
     console.log(logo);
     try {
-      await onPrepareHook(config, capabilities);
+      await onPrepareHook(config, capabilities, (statsUsageId) => {
+        this._statsUsageId = statsUsageId;
+      });
     } catch (e) {
       console.error(`onPrepare hook failed: ${e}`);
     }
@@ -57,9 +63,11 @@ module.exports = class CustomWorkerService {
   // @ts-ignore
   async beforeSession(config, capabilities, specs) {
     try {
-      browser.config = config;
+      if (isBrowserDefined()) {
+        browser.config = config;
+      }
       await qmateLoaderSession(config, capabilities, specs);
-      this.config = browser.config;
+      this.config = config;
     } catch (e) {
       if (specs && specs[0]) {
         // `specs` variable is an array, but includes only one current spec
@@ -143,7 +151,7 @@ module.exports = class CustomWorkerService {
    */
   async onComplete(exitCode: number, config: any, capabilities: any, results: any) {
     try {
-      await onCompleteHook(exitCode, config, capabilities, results);
+      await onCompleteHook(exitCode, config, capabilities, results, this._statsUsageId);
     } catch (e) {
       util.console.error(`onComplete hook failed: ${e}`);
     }

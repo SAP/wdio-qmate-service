@@ -14,6 +14,7 @@ describe("browser - getCurrentUrl", function () {
 
   it("Go to Samples page", async function () {
     await handleCookiesConsent();
+    //await util.browser.switchToIframe("[id='sampleFrame']");
     const selector = {
       "elementProperties": {
         "viewName": "sap.ui.documentation.sdk.view.App",

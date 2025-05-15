@@ -247,9 +247,9 @@ export class UserInteraction {
       const id = await ui5.element.getId(selector, index, timeout);
       let elem = null;
       if (selector.elementProperties.metadata === "sap.m.TextArea") {
-        elem = await nonUi5.element.getByCss("[id='" + id + "'] textarea", index, timeout);
+        elem = await nonUi5.element.getByCss("[id='" + id + "'] textarea", 0, timeout);
       } else {
-        elem = await nonUi5.element.getByCss("[id='" + id + "'] input", index, timeout);
+        elem = await nonUi5.element.getByCss("[id='" + id + "'] input", 0, timeout);
       }
       await elem.setValue(value);
     } else {

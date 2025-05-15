@@ -2,7 +2,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - selectFromTab", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/1.96.27/#/api/sap.m.IconTabBar");
+    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/api/sap.m.IconTabBar");
     await handleCookiesConsent();
   });
 
@@ -10,7 +10,7 @@ describe("userInteraction - selectFromTab", function () {
     const selector = {
       elementProperties: {
         viewName: "sap.ui.documentation.sdk.view.SubApiDetail",
-        metadata: "sap.m.Button",
+        metadata: "sap.m.IconTabFilter",
         text: "Events"
       }
     };
@@ -25,7 +25,7 @@ describe("userInteraction - selectFromTab", function () {
       elementProperties: {
         viewName: "sap.ui.documentation.sdk.view.SubApiDetail",
         metadata: "sap.ui.documentation.JSDocText",
-        text: "<p>Indicates that the tab will expand or collapse.<br><br><i>Since: 1.15.0.</i></p>"
+        text: "*<p>Indicates that the tab will expand or collapse.<br><br><i>Since: 1.15.0.</i></p>*"
       },
       ancestorProperties: {
         metadata: "sap.ui.documentation.ObjectPageSubSection",

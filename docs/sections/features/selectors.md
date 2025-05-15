@@ -2,7 +2,7 @@
 To perform any action on an element (e.g. clicking a button), you need to specify the element at which the action is being executed. This differs from the web technology you are using. Read the following instructions, depending on the UI technology of the application to be tested. 
 
 !!! info
-		Selectors are typically created using our Qmate Suite, but it is important to note that this tool is currently **only available for internal use at SAP**. For further information as **internal**, please refer to our official Qmate documentation.
+	Selectors are typically created using our Qmate Suite, but it is important to note that this tool is currently **only available for internal use at SAP**. For further information as **internal**, please refer to our official Qmate documentation.
 
 ## UI5
 
@@ -62,7 +62,7 @@ You have to define at least one property in ```elementProperties```. This could 
 	}
 ```
 !!! tip
-		For most of the cases it will be sufficient to provide only the elementProperties. Qmate Suite will generate the minimal unique selector for you.
+	For most of the cases it will be sufficient to provide only the elementProperties. Qmate Suite will generate the minimal unique selector for you.
 
 
 ### Overview
@@ -71,7 +71,7 @@ The following properties apply to all selector types (elementProperties, ancesto
 | Property | Description | Sample | Format | Remark |
 | -------- | ----------- | -------| ------ | ------ |
 | ``metadata`` | the control type | ``"metadata": "sap.m.Button"``, ``"metadata": "sap.m.Input"`` | string: ``"property": "value"`` | |
-| ``<ui5Property>`` | UI5 properties including aggregations and associations, as defined in the official [UI5 API](https://sapui5.hana.ondemand.com/#/api) | ``"text": "Amount"``, ``"tooltip": "Amount"``, ``"title": "Currency"``, ``"enabled": true`` | string: ``"property": "value"``, numeric: ``"property": 123``, boolean: ``"property": true`` | |
+| ``<ui5Property>`` | UI5 properties including aggregations and associations, as defined in the official [UI5 API](https://sapui5.hana.ondemand.com/#/api){target="__blank"} | ``"text": "Amount"``, ``"tooltip": "Amount"``, ``"title": "Currency"``, ``"enabled": true`` | string: ``"property": "value"``, numeric: ``"property": 123``, boolean: ``"property": true`` | |
 | ``id`` | the ID of the control | ``"id": "myButtonId"``, ``"id": "my*Id*"`` | string: ``"property": "value"`` | |
 | ``viewName`` | the view name | ``"viewName": "myViewName"``, ``"viewName": "*view*"``| string: ``"property": "value"`` | |
 | ``viewId`` | the view ID | ``"viewId": "*myViewId*"`` | string: ``"property": "value"`` | |
@@ -81,10 +81,10 @@ The following properties apply to all selector types (elementProperties, ancesto
 | ``domProperties`` | the properties of the DOM | ``"domProperties": {"nodeName": "div", "class": "buttonNU* class2*", "id": "my*Id*"}`` | string: ``"property": "value"``, numeric: ``"property": 123``, boolean: ``"property": true`` | can be used if the UI5 Virtual DOM is not sufficient |
 
 !!! info
-		Wildcards are supported for all properties, aggregation and associations 
-		```js
-		"text": "my*text*"
-		```
+	Wildcards are supported for all properties, aggregation and associations 
+	```js
+	"text": "my*text*"
+	```
 
 ### Nested Properties
 In case you need to specify the element based on its surrounding, you can define nested properties. 
@@ -103,7 +103,7 @@ In case you need to specify the element based on its surrounding, you can define
 };
 ```
 !!! info
-		Nesting is enabled infinitely for *ancestorProperties*, *siblingProperties* and *descendantProperties*. Be cautious, the more level of nesting you add the slower your script will be.
+	Nesting is enabled infinitely for *ancestorProperties*, *siblingProperties* and *descendantProperties*. Be cautious, the more level of nesting you add the slower your script will be.
 
 ### Usage of Selectors
 For almost every UI5 action we provide, you can pass the selector directly to the function like:
@@ -137,7 +137,7 @@ const elem = await nonUi5.element.getByCss("input[title='name']");
 const elem = await nonUi5.element.getByCssContainingText(".button", "Save");
 ```
 !!! info
-		To get a complete overview about all possible methods, please see [nonUi5.element](https://pages.github.tools.sap/sProcurement/wdio-qmate-service-ts/doc/#nonUi5.element). 
+	To get a complete overview about all possible methods, please see [nonUi5.element](https://pages.github.tools.sap/sProcurement/wdio-qmate-service-ts/doc/#nonUi5.element){target="__blank"}. 
 
 
 ### Getting the attributes manually 
@@ -155,7 +155,7 @@ clearly.
 $$("[<attr>='<attrValue>']");
 ```
 !!! warning
-		If there are more than one elements found, try to find another attribute or add some more attributes until you will find a single element (you can still pass an index to the reuse function if you are not able to find a unique selector).
+	If there are more than one elements found, try to find another attribute or add some more attributes until you will find a single element (you can still pass an index to the reuse function if you are not able to find a unique selector).
 
 
 ### Usage

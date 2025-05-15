@@ -4,20 +4,28 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "**.md"
-      - "mkdocs.yml"
   workflow_dispatch:
 
 jobs:
-  docs:
+  generate-docs:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+      - name: Setup node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20              
+      - run: npm ci
+      - run: npm run generate-docs
+      - name: Publish Docs
+        uses: actions/setup-python@v5
       - run: pip install --upgrade pip && pip install mkdocs mkdocs-material mkdocs-material-extensions
       - run: git config user.name 'github-actions[bot]' && git config user.email 'github-actions[bot]@users.noreply.github.com'
-      - name: Publish docs
+      - name: Re-generate and Publish docs
         run: mkdocs gh-deploy

@@ -9,6 +9,13 @@ interface IParams {
   [key: string]: string;
 }
 
+interface IAuth {
+  username: string;
+  password: string;
+  type?: string;
+  headers?: object;
+}
+
 // =================================== CONSTANTS ================================
 const SERVICE_INIT_ERROR = "Service instance not found. Make sure the service is initialized and passed to the request.";
 const entitySetError = (entitySet: any) => `Entity Set "${entitySet}" not found in service.`;
@@ -68,7 +75,7 @@ export class OData {
    *
    * const srv = await service.odata.init(url, user, password, true, params, "headers", authHeaders);
    */
-  async init(url: string, username: string, password: string, loggingEnabled = false, params = {}, authType?: string, headers?: any): Promise<any> {
+  async init(url: string, username: string, password: string, loggingEnabled = false, params = {}, authType?: IAuth["type"], headers?: IAuth["headers"]): Promise<any> {
     const logger = {
       trace: () => {},
       debug: console.debug,
@@ -77,33 +84,29 @@ export class OData {
       error: console.error
     };
 
-    const parameters = {
-      ...{
-        "sap-client": "715",
-        "sap-documentation": ["heading", "quickinfo"],
-        "sap-language": "EN"
-      },
-      ...params
-    };
-
-    const auth: any = {
-      username,
-      password
-    };
-    if (authType) auth.type = authType;
-    if (headers && Object.entries(headers).length > 0) auth.headers = headers;
+    const auth: IAuth = createAuthObject();
 
     const srv = new this.Service({
       logger: loggingEnabled ? logger : "",
-      url,
-      auth,
-      parameters, // Define initial request by $metadata?sap-client=<client-number>&sap-documentation=&sap-language=EN
-      strict: false // ignore non critical errors, e.g. orphaned annotations
+      url: url,
+      auth: auth,
+      parameters: params,
+      strict: false
     });
 
     await srv.init;
 
     return srv;
+
+    function createAuthObject() {
+      const auth: IAuth = {
+        username: username,
+        password: password
+      };
+      if (authType) auth.type = authType;
+      if (headers && Object.entries(headers).length > 0) auth.headers = headers;
+      return auth;
+    }
   }
 
   /**
@@ -296,10 +299,12 @@ export class OData {
    * };
    * const res = await service.odata.callFunctionImport(srv, "Cancel", options);
    */
-  async callFunctionImport(srv: any, functionImportName: string, options: any): Promise<any> {
+  async callFunctionImport(srv: any, functionImportName: string, options: any, raw: boolean = false): Promise<any> {
     if (!srv) throw new Error(SERVICE_INIT_ERROR);
 
-    const functionImport = srv.functionImports[functionImportName];
+    let functionImport = srv.functionImports[functionImportName];
+
+    if (raw) functionImport = functionImport.raw();
 
     return await functionImport.call(options);
   }
@@ -408,7 +413,8 @@ export class OData {
       }
     }
     return new Promise((resolve, reject) => {
-      this.axios.get(url, options)
+      this.axios
+        .get(url, options)
         .then((response: any) => resolve(response.data))
         .catch((error: any) => reject(error));
     });

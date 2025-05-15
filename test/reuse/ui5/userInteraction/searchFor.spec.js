@@ -5,8 +5,9 @@ const {
 describe("userInteraction - searchFor - use button", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {
@@ -47,8 +48,9 @@ describe("userInteraction - searchFor - use button", function () {
 describe("userInteraction - searchFor - use Enter", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {
@@ -89,8 +91,9 @@ describe("userInteraction - searchFor - use Enter", function () {
 describe("userInteraction - searchFor - use Enter and wrong selector", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution & Verification", async function () {
@@ -116,8 +119,9 @@ describe("userInteraction - searchFor - use Enter and wrong selector", function 
 describe("userInteraction - resetSearch", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/1.96.27/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
     await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
   it("Execution", async function () {

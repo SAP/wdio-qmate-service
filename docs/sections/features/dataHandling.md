@@ -54,7 +54,7 @@ const references = browser.config.params.import.data["references"];
 ```
 
 !!! tip
-    Alternatively, you can load the data with the following [reuse method](https://pages.github.tools.sap/sProcurement/wdio-qmate-service-ts/doc/#util.data.getData):
+    Alternatively, you can load the data with the following [reuse method](https://pages.github.tools.sap/sProcurement/wdio-qmate-service-ts/doc/#util.data.getData){target="__blank"}:
     ```js
     const data = util.data.getData("createSupplierInvoice");
     ```
@@ -66,7 +66,7 @@ To store any value inside the imported file and make it available for other spec
 references.documentNumber = "4500012345";
 ```
 !!! warning
-    To be able to share data between different scripts, the specs need to be grouped together inside the configuration file. Please find more information under [Configuration - Specs](https://pages.github.tools.sap/sProcurement/qmate-profiles/sections/parameters/main/#specs). Please consider, that the data is only stored during the runtime of the test execution. To store data persistently, please see chapter [Advanced Data Handling](./advancedDataHandling.md).
+    To be able to share data between different scripts, the specs need to be grouped together inside the configuration file. Please find more information under [Configuration - Specs](https://pages.github.tools.sap/sProcurement/qmate-profiles/sections/parameters/main/#specs){target="__blank"}. Please consider, that the data is only stored during the runtime of the test execution. To store data persistently, please see chapter [Advanced Data Handling](./advancedDataHandling.md).
 
 ### Read data
 To read data from the input data or reference file, use the following code **inside a step (it block)**:
