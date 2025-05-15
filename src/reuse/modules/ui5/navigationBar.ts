@@ -41,7 +41,9 @@ export class NavigationBar {
     try {
       await Promise.any([clickBack(), clickBackWebComponent()]);
     } catch (error) {
-      this.ErrorHandler.logException(error);
+      (error as AggregateError).errors.forEach((err) => {
+        this.ErrorHandler.logException(err);
+      });
     }
   }
 
