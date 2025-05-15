@@ -66,3 +66,24 @@ describe("table - selectRowByIndex - demo kit - already selected row remains sel
     await validateChecked();
   });
 });
+
+describe("table - selectRowByIndex - demo kit - passing id", function () {
+  let rowIndex = 0;
+
+  async function validateChecked() {
+    const isSelected = await ui5.element.getPropertyValue(checkBoxSelector("/Products*15)"), "selected");
+    await common.assertion.expectEqual(isSelected, true);
+  }
+
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
+  });
+
+  it("Execution", async function () {
+    await ui5.table.selectRowByIndex(tableSelector.elementProperties.id, rowIndex);
+  });
+
+  it("Verification", async function () {
+    await validateChecked();
+  });
+});
