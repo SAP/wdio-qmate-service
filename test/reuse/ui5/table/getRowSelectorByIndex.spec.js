@@ -33,7 +33,7 @@ describe("table - getRowSelectorByIndex - smartTable - get first row", function 
 });
 
 describe("table - getRowSelectorByIndex - smartTable - unhappy case - row with index doesn't exist", function () {
-  it("Execution", async function () {
+  it("Execution && Verification", async function () {
     const selector = {
       elementProperties: {
         viewName: "sap.ui.comp.sample.smarttable.mtable.SmartTable",
@@ -42,12 +42,8 @@ describe("table - getRowSelectorByIndex - smartTable - unhappy case - row with i
       }
     };
     const index = 550;
-    rows = await ui5.table.getRowSelectorByIndex(selector, index);
+    await expect(ui5.table.getRowSelectorByIndex(selector, index)).rejects.toThrow(/No item found with index/);
   });
 
-
-  it("Verification", async function () {
-    await common.assertion.expectEqual(rows.length, 0);
-  });
 
 });
