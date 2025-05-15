@@ -20,30 +20,15 @@ export class NavigationBar {
    */
   async clickBack(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.clickBack);
-    async function clickBack() {
-      const selector = {
-        elementProperties: {
-          metadata: "sap.ushell.ui.shell.ShellHeadItem",
-          id: "backBtn"
-        }
-      };
-      await ui5.userInteraction.click(selector, 0, timeout);
-    }
-    async function clickBackWebComponent() {
-      const selectorWebComponent = {
-        elementProperties: {
-          metadata: "@ui5/webcomponents.Button",
-          id: "backBtn"
-        }
-      };
-      await ui5.userInteraction.click(selectorWebComponent, 0, timeout);
-    }
+    const selector = {
+      elementProperties: {
+        id: "backBtn"
+      }
+    };
     try {
-      await Promise.any([clickBack(), clickBackWebComponent()]);
+      await ui5.userInteraction.click(selector, 0, timeout);
     } catch (error) {
-      (error as AggregateError).errors.forEach((err) => {
-        this.ErrorHandler.logException(err);
-      });
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -138,7 +123,6 @@ export class NavigationBar {
     const vl = this.vlf.initLog(this.expectShellHeader);
     const selector = {
       elementProperties: {
-        metadata: "sap.ushell.ui.ShellHeader",
         id: "shell-header"
       }
     };
