@@ -14,7 +14,8 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "expectToBeNotVisible.spec.js"),
     path.resolve(__dirname, "expectAttributeToBe.spec.js"),
     path.resolve(__dirname, "expectAttributeToContain.spec.js"),
-    path.resolve(__dirname, "expectCssPropertyValueToBe.spec.js")
+    path.resolve(__dirname, "expectCssPropertyValueToBe.spec.js"),
+    path.resolve(__dirname, "expectTextToBe.spec.js")
   ],
 
   services: [
