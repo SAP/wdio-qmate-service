@@ -1,32 +1,36 @@
-// "use strict";
+"use strict";
 // const {
 //   handleCookiesConsent
 // } = require("../../../helper/utils");
 
-// describe("table - openItemByIndex - smartTable", function () {
+describe("table - openItemByIndex - smartTable", function () {
 
-//   it("Preparation", async function () {
-//     await browser.url("https://sapui5.hana.ondemand.com/test-resources/sap/suite/ui/generic/template/demokit/sample.manage.products.sepmra/test/index.html?sap-ui-theme=sap_horizon_dark#masterDetail-display");
-//     await handleCookiesConsent();
-//     await util.browser.switchToIframe("[id='sampleFrame']");
-//   });
+  it("Preparation", async function () {
+    const url = "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark";
+    await common.navigation.navigateToUrl(url);
+    // await handleCookiesConsent();
+  });
 
-//   it("Preperation - click 'Go'", async function () {
-//     const selector = {
-//       "elementProperties": {
-//         "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
-//         "metadata": "sap.m.Button",
-//         "text": [{
-//           "path": "i18n>BUTTON_GO"
-//         }]
-//       }
-//     };
-//     await ui5.userInteraction.click(selector);
-//   });
+  it("Execution", async function () {
+    const selector = {
+      "elementProperties": {
+        "viewName": "mycompany.myapp.MyWorklistApp.view.Worklist",
+        "metadata": "sap.m.Table",
+        "id": "*table"
+      }
+    };
+    await ui5.table.openItemByIndex(selector, 5);
+  });
 
-//   it("Execution", async function () {
-//     await ui5.table.openItemByIndex(5);
-//   });
-//   it("Verification", async function () {
-//   });
-// });
+  it("Verification", async function () {
+    const pageTitle = "Chef Anton's Cajun Seasoning";
+    const selector = {
+      "elementProperties": {
+        "viewName": "mycompany.myapp.MyWorklistApp.view.Object",
+        "metadata": "sap.m.Title",
+        "text": pageTitle
+      }
+    };
+    await expect(ui5.element.getDisplayed(selector)).resolves.not.toThrow();
+  });
+});
