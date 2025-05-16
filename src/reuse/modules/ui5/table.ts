@@ -13,10 +13,10 @@ export class Table {
   private ErrorHandler = new ErrorHandler();
 
   // =================================== CONSTANTS ===================================
-
   private static readonly SMART_TABLE_METADATA = "sap.ui.comp.smarttable.SmartTable";
   private static readonly TABLE_METADATA = "sap.m.Table";
-  private static readonly COLUMNLISTITEM = "sap.m.ColumnListItem";
+  private static readonly COLUMN_LIST_ITEM_METADATA = "sap.m.ColumnListItem";
+
   // =================================== SORTING ===================================
   /**
    * @function sortColumnAscending
@@ -201,7 +201,7 @@ export class Table {
   **/
   async getTotalNumberOfRowsByValues(tableSelector: any, values: string | Array<string>): Promise<number> {
     this.vlf.initLog(this.getTotalNumberOfRowsByValues);
-    const rowSelectors = await this.getRowsSelectorsByValues(tableSelector, values);
+    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelector, values);
     return rowSelectors.length;
   }
 
@@ -229,7 +229,7 @@ export class Table {
         metadata: "sap.m.CheckBox"
       },
       parentProperties: {
-        metadata: Table.COLUMNLISTITEM,
+        metadata: Table.COLUMN_LIST_ITEM_METADATA,
         ancestorProperties: ancestorSelector.elementProperties
       }
     };
@@ -282,7 +282,7 @@ export class Table {
    */
   async openItemByValues(tableSelector: any, values: string | Array<string>, index: number = 0) {
     this.vlf.initLog(this.openItemByValues);
-    const rowSelectors = await this.getRowsSelectorsByValues(tableSelector, values);
+    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelector, values);
     if (rowSelectors.length === 0) {
       return this.ErrorHandler.logException(new Error(`No items found with the provided values: ${values}.`));
     } else if (rowSelectors.length <= index) {
@@ -311,9 +311,17 @@ export class Table {
    * };
    * @example await ui5.table.getRowsSelectorsByValues(selector, ["January", "2022"]);
    */
-  async getRowsSelectorsByValues(tableSelector: any, values: string | Array<string>): Promise<object[]> {
-    this.vlf.initLog(this.getRowsSelectorsByValues);
+  async getSelectorsForRowsByValues(tableSelector: any, values: string | Array<string>): Promise<object[]> {
+    this.vlf.initLog(this.getSelectorsForRowsByValues);
     const tableId = await this._getId(tableSelector);
+    const tableMetaData = await this._getTableMetadata(tableId);
+    const selector = {
+      elementProperties: {
+        metadata: Table.TABLE_METADATA,
+        id: tableId
+      }
+    };
+    await ui5.element.waitForAll(selector); // TODO might not be needed => remove
     if (typeof values === "string") {
       values = [values];
     } else if (!Array.isArray(values)) {
@@ -321,20 +329,30 @@ export class Table {
     }
     let browserCommand;
     try {
-      browserCommand = `return 
-        const table = sap.ui.getCore().getElementById("${tableId}");
-        const items = table.getTable === undefined ? table.getItems() : table.getTable().getItems();
-        items.filter(
-        item => ${JSON.stringify(values)}.every(
-          val => Object.values(item.getBindingContext().getObject()).includes(val))).map(filteredItems => filteredItems.getId())
-      `;
+      browserCommand = ` //TODO use arrow function instead return
+      return (function () {
+          const table = sap.ui.getCore().getElementById("${tableId}");
+          let items = [];
+          if ("${Table.TABLE_METADATA}" === "${tableMetaData}" && table.getItems !== undefined) {
+            items = table.getItems();
+          } else if("${Table.SMART_TABLE_METADATA}" === "${tableMetaData}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
+            items = table.getTable().getItems();
+          } else {
+            return undefined;
+          }
+          return items.filter(
+            item => ${JSON.stringify(values)}.every(
+              val => Object
+              .values(item.getBindingContext().getObject()).includes(val)))
+              .map(filteredItems => filteredItems.getId())
+      })();`;
       const filteredRowIds = await util.browser.executeScript(browserCommand);
       const rowsSelectors = [];
 
       for (const id of filteredRowIds) {
         const columnListItemSelector = {
           elementProperties: {
-            metadata: Table.COLUMNLISTITEM,
+            metadata: Table.COLUMN_LIST_ITEM_METADATA,
             id: id
           }
         };
@@ -342,7 +360,7 @@ export class Table {
       }
       return rowsSelectors;
     } catch (error) {
-      return this.ErrorHandler.logException(error, `Browser Command injected: ${browserCommand} was injected.`);
+      return this.ErrorHandler.logException(new Error(`Browser Command injected: ${browserCommand} was injected. ${error}`));
     }
   }
 
@@ -373,7 +391,7 @@ export class Table {
         id: tableId
       }
     };
-    await ui5.element.waitForAll(selector);
+    await ui5.element.waitForAll(selector); //TODO: might not be needed => remove
     let browserCommand;
     let columnListItemId;
     try {
@@ -384,7 +402,7 @@ export class Table {
           if ("${Table.TABLE_METADATA}" === "${tableMetaData}" && table.getItems !== undefined) {
             items = table.getItems();
           } else if("${Table.SMART_TABLE_METADATA}" === "${tableMetaData}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
-            items = table.getTable().getItems();
+            items = table.getTable().getItems(); //TODO filter rows for getTitle and keep only the ones which have no title
           } else {
             return undefined;
           }
@@ -399,7 +417,7 @@ export class Table {
       `;
       columnListItemId = await util.browser.executeScript(browserCommand);
     } catch (error) {
-      return this.ErrorHandler.logException(error, `Browser Command injected: ${browserCommand} was injected.`);
+      return this.ErrorHandler.logException(new Error(`Browser Command injected: ${browserCommand} was injected. ${error}`));
     }
     if (!columnListItemId) {
       return this.ErrorHandler.logException(
@@ -409,7 +427,7 @@ export class Table {
     } else {
       const columnListItemSelector = {
         elementProperties: {
-          metadata: Table.COLUMNLISTITEM,
+          metadata: Table.COLUMN_LIST_ITEM_METADATA,
           id: columnListItemId
         }
       };
@@ -478,7 +496,7 @@ export class Table {
       const tableMetadata = await util.browser.executeScript(browserCommand);
       return tableMetadata;
     } catch (error) {
-      return this.ErrorHandler.logException(error, `Browser Command injected: ${browserCommand} was injected.`);
+      throw new Error(`Browser Command injected: ${browserCommand} was injected: ${error}`);
     }
   }
 

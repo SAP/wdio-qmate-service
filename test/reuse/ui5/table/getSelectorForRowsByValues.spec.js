@@ -22,7 +22,7 @@ describe("table - getRowsByValues - smartTable - single value as a String", func
 
   it("Execution", async function () {
     const customerNameValue = "HäuHoh Huch GmbH";
-    rows = await ui5.table.getRowsSelectorsByValues(tableSelector, customerNameValue);
+    rows = await ui5.table.getSelectorForRowsByValues(tableSelector, customerNameValue);
   });
 
 
@@ -56,7 +56,7 @@ describe("table - getRowsByValues - smartTable - single value as an Array", func
 
   it("Execution", async function () {
     const customerNameValue = ["ToMa SE"];
-    rows = await ui5.table.getRowsSelectorsByValues(tableSelector, customerNameValue);
+    rows = await ui5.table.getSelectorForRowsByValues(tableSelector, customerNameValue);
   });
 
 
@@ -91,7 +91,7 @@ describe("table - getRowsByValues - smartTable - multiple values as an Array, re
 
   it("Execution", async function () {
     const customerNameValue = ["Elena KG"];
-    rows = await ui5.table.getRowsSelectorsByValues(tableSelector, customerNameValue);
+    rows = await ui5.table.getSelectorForRowsByValues(tableSelector, customerNameValue);
   });
 
 
@@ -135,7 +135,7 @@ describe("table - getRowsByValues - smartTable - multiple values as an Array, re
 describe("table - getRowsByValues - smartTable - unhappy case - multiple values as an array, receiving no row(empty array)", function () {
   it("Execution", async function () {
     const customerNameValue = ["Elena KG", "abcdef"];
-    rows = await ui5.table.getRowsSelectorsByValues(tableSelector, customerNameValue);
+    rows = await ui5.table.getSelectorForRowsByValues(tableSelector, customerNameValue);
   });
 
 
