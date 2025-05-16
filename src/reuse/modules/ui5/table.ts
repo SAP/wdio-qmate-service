@@ -213,31 +213,38 @@ export class Table {
     const SMART_TABLE_METADATA = "sap.ui.comp.smarttable.SmartTable";
     const TABLE_METADATA = "sap.m.Table";
 
-    let constructedSelector: Ui5Selector;
-
     if (typeof tableSelector === "string") {
-      // Check if passed element ID is for a SmartTable
-      constructedSelector = {
-        elementProperties: {
-          metadata: SMART_TABLE_METADATA,
-          id: tableSelector
+      const selectors: Array<Ui5Selector> = [
+        {
+          elementProperties: {
+            metadata: SMART_TABLE_METADATA,
+            id: "tableSelector"
+          }
+        },
+        {
+          elementProperties: {
+            metadata: TABLE_METADATA,
+            id: "tableSelector"
+          }
         }
-      };
-      if (await ui5.element.isVisible(constructedSelector)) return constructedSelector;
+      ];
 
-      // Check if passed element ID is for a Table
-      constructedSelector = {
-        elementProperties: {
-          metadata: TABLE_METADATA,
-          id: tableSelector
-        }
-      };
-      if (await ui5.element.isVisible(constructedSelector)) return constructedSelector;
+      try {
+        const index = await Promise.any(
+          selectors.map(async (selectors, index) => {
+            return await ui5.element.getDisplayed(selectors).then(() => index);
+          })
+        );
+        return selectors[index];
+      } catch (error) {
+        // Intentionally left empty, as the error is handled below
+      }
     } else if (typeof tableSelector === "object" && "elementProperties" in tableSelector) {
       if (tableSelector.elementProperties.metadata === TABLE_METADATA || tableSelector.elementProperties.metadata === SMART_TABLE_METADATA) {
         return tableSelector;
       }
     }
+
     throw new Error(`The provided table selector "${tableSelector}" is not valid. Please provide a valid selector or ID for control type 'SmartTable' or 'Table'.`);
   }
 
