@@ -317,7 +317,7 @@ export class Table {
     const tableMetaData = await this._getTableMetadata(tableId);
     const selector = {
       elementProperties: {
-        metadata: Table.TABLE_METADATA,
+        metadata: tableMetaData,
         id: tableId
       }
     };
@@ -387,7 +387,7 @@ export class Table {
     const tableMetaData = await this._getTableMetadata(tableId);
     const selector = {
       elementProperties: {
-        metadata: Table.TABLE_METADATA,
+        metadata: tableMetaData,
         id: tableId
       }
     };
