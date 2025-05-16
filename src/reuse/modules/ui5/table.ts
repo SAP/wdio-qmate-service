@@ -402,7 +402,7 @@ export class Table {
           if ("${Table.TABLE_METADATA}" === "${tableMetaData}" && table.getItems !== undefined) {
             items = table.getItems();
           } else if("${Table.SMART_TABLE_METADATA}" === "${tableMetaData}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
-            items = table.getTable().getItems(); //TODO filter rows for getTitle and keep only the ones which have no title
+            items = table.getTable().getItems();
           } else {
             return undefined;
           }
