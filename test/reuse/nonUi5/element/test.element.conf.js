@@ -31,6 +31,7 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "isPresentByXPath.spec.js"),
     path.resolve(__dirname, "setInnerHTML.spec.js"),
     path.resolve(__dirname, "getCssPropertyValue.spec.js"),
+    path.resolve(__dirname, "isEnabled.spec.js")
   ],
 
   services: [
