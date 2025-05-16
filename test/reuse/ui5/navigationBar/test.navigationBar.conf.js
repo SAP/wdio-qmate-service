@@ -12,6 +12,7 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "clickBack.spec.js"),
     path.resolve(__dirname, "clickUserIcon.spec.js"),
     path.resolve(__dirname, "expectPageTitle.spec.js"),
-    path.resolve(__dirname, "expectShellHeader.spec.js")
+    path.resolve(__dirname, "expectShellHeader.spec.js"),
+    path.resolve(__dirname, "clickSapLogo.spec.js"),
   ]
 });
