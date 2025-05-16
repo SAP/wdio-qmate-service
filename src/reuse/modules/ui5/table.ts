@@ -407,12 +407,9 @@ export class Table {
             return undefined;
           }
           if (!items || !items[${index}]) return undefined;
-          const item = items[${index}];
-          if (item?.getTitle === undefined) {
+            const filteredItems = items.filter( item => item.getTitle === undefined)
+            const item = filteredItems[${index}];
             return item?.getId?.();
-          } else {
-            return items[${index + 1}]?.getId?.();
-          }
         })();
       `;
       columnListItemId = await util.browser.executeScript(browserCommand);
