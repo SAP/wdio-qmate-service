@@ -2985,6 +2985,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#elementisenabledelem-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      element.isEnabled(elem) ⇒ Boolean
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#elementispresentbycsscss-index-timeout-boolean" class="md-nav__link">
     <span class="md-ellipsis">
       element.isPresentByCss(css, [index], [timeout]) ⇒ boolean
@@ -7173,6 +7182,15 @@
   <a href="#elementispresentelem-boolean" class="md-nav__link">
     <span class="md-ellipsis">
       element.isPresent(elem) ⇒ Boolean
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elementisenabledelem-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      element.isEnabled(elem) ⇒ Boolean
     </span>
   </a>
   
@@ -15786,6 +15804,7 @@ In case that the search is already filled, it will reset the field first.</p>
 <li><a href="#nonUi5.element.getByParent">.getByParent(elementSelector, parentSelector, [index], [timeout], [includeHidden])</a> ⇒ <code>Object</code></li>
 <li><a href="#nonUi5.element.isVisible">.isVisible(element, [strict])</a> ⇒ <code>Boolean</code></li>
 <li><a href="#nonUi5.element.isPresent">.isPresent(elem)</a> ⇒ <code>Boolean</code></li>
+<li><a href="#nonUi5.element.isEnabled">.isEnabled(elem)</a> ⇒ <code>Boolean</code></li>
 <li><a href="#nonUi5.element.isPresentByCss">.isPresentByCss(css, [index], [timeout])</a> ⇒ <code>boolean</code></li>
 <li><a href="#nonUi5.element.isPresentByXPath">.isPresentByXPath(xpath, [index], [timeout])</a> ⇒ <code>boolean</code></li>
 <li><a href="#nonUi5.element.isSelected">.isSelected(elem)</a> ⇒ <code>boolean</code></li>
@@ -16083,6 +16102,7 @@ In case that the search is already filled, it will reset the field first.</p>
 <li><a href="#nonUi5.element.getByParent">.getByParent(elementSelector, parentSelector, [index], [timeout], [includeHidden])</a> ⇒ <code>Object</code></li>
 <li><a href="#nonUi5.element.isVisible">.isVisible(element, [strict])</a> ⇒ <code>Boolean</code></li>
 <li><a href="#nonUi5.element.isPresent">.isPresent(elem)</a> ⇒ <code>Boolean</code></li>
+<li><a href="#nonUi5.element.isEnabled">.isEnabled(elem)</a> ⇒ <code>Boolean</code></li>
 <li><a href="#nonUi5.element.isPresentByCss">.isPresentByCss(css, [index], [timeout])</a> ⇒ <code>boolean</code></li>
 <li><a href="#nonUi5.element.isPresentByXPath">.isPresentByXPath(xpath, [index], [timeout])</a> ⇒ <code>boolean</code></li>
 <li><a href="#nonUi5.element.isSelected">.isSelected(elem)</a> ⇒ <code>boolean</code></li>
@@ -16729,6 +16749,31 @@ In case that the search is already filled, it will reset the field first.</p>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span>
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">isPresent</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
+</code></pre></div>
+<a name="nonUi5.element.isEnabled"></a></p>
+<h4 id="elementisenabledelem-boolean">element.isEnabled(elem) ⇒ <code>Boolean</code></h4>
+<p>Returns a boolean if the element is enabled or not.</p>
+<p><strong>Kind</strong>: static method of <a href="#nonUi5.element"><code>element</code></a><br />
+<strong>Returns</strong>: <code>Boolean</code> - Returns true or false.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>elem</td>
+<td><code>Element</code></td>
+<td>The element.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button01&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">isEnabled</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
 </code></pre></div>
 <a name="nonUi5.element.isPresentByCss"></a></p>
 <h4 id="elementispresentbycsscss-index-timeout-boolean">element.isPresentByCss(css, [index], [timeout]) ⇒ <code>boolean</code></h4>
