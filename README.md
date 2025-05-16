@@ -1,5 +1,5 @@
 # Qmate Service
-[![REUSE status](https://api.reuse.software/badge/github.com/SAP/wdio-qmate-service)](https://api.reuse.software/info/github.com/SAP/wdio-qmate-service)[![Node.js CI](https://github.com/SAP/wdio-qmate-service/actions/workflows/node.js.yml/badge.svg)](https://github.com/SAP/wdio-qmate-service/actions/workflows/node.js.yml)
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP/wdio-qmate-service)](https://api.reuse.software/info/github.com/SAP/wdio-qmate-service)[![Node.js CI](https://github.com/SAP/wdio-qmate-service/actions/workflows/node.js.yml/badge.svg)](https://github.com/SAP/wdio-qmate-service/actions/workflows/node.js.yml)[![Dependabot Updates](https://github.com/SAP/wdio-qmate-service/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/SAP/wdio-qmate-service/actions/workflows/dependabot/dependabot-updates)
 
 Qmate Service is a custom WebdriverIO service built in TypeScript for testing web applications and APIs.
 
