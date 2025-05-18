@@ -13,6 +13,7 @@ if (!process.env.CHROME_DRIVER || !fs.existsSync(process.env.CHROME_DRIVER)) {
 }
 
 exports.config = {
+  params: {},
   services: [[WdioQmateService]],
 
   runner: "local",
