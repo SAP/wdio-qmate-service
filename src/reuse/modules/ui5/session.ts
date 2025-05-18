@@ -340,7 +340,7 @@ export class Session {
     // attempt clicking both old and new logout buttons
     await browser.waitUntil(
       async () => {
-        try{
+        try {
           await Promise.any([scrollAndClickLogoutOld(), scrollAndClickLogoutNew()]);
           return true;
         } catch (error) {
