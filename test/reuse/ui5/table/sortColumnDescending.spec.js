@@ -38,7 +38,7 @@ describe("table - sortColumnDescending - smartTable with tableSelector", functio
 
   it("Preparation", async function () {
     await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
-    await handleCookiesConsent();
+    // await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
@@ -64,7 +64,7 @@ describe("table - sortColumnDescending - smartTable with index (legacy)", functi
 
   it("Preparation", async function () {
     await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
-    await handleCookiesConsent();
+    // await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
