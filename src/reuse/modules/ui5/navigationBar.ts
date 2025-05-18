@@ -67,9 +67,7 @@ export class NavigationBar {
         }
       );
     } catch (error) {
-      (error as AggregateError).errors.forEach((err) => {
-        this.ErrorHandler.logException(err);
-      });
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -102,9 +100,7 @@ export class NavigationBar {
         }
       );
     } catch (error) {
-      (error as AggregateError).errors.forEach((err) => {
-        this.ErrorHandler.logException(err);
-      });
+      this.ErrorHandler.logException(error);
     }
 
     async function clickUserIconOld() {
