@@ -43,14 +43,29 @@ export class NavigationBar {
     const vl = this.vlf.initLog(this.clickSapLogo);
     async function clickLogo() {
       const selector = "//a[@id='shell-header-logo']";
-      await nonUi5.userInteraction.click(selector, timeout);
+      await nonUi5.userInteraction.click(selector, 0);
     }
     async function clickLogoWebComponent() {
       const selector=">>>span[class='ui5-shellbar-logo']";
-      await nonUi5.userInteraction.click(selector, timeout);
+      await nonUi5.userInteraction.click(selector, 0);
     }
     try {
-      await Promise.any([clickLogo(), clickLogoWebComponent()]);
+      await browser.waitUntil(
+        async () => {
+          try {
+            await Promise.any([clickLogo(), clickLogoWebComponent()]);
+            return true;
+          } catch (error) {
+            // Ignore error and continue to next promise
+            return false;
+          }
+        },
+        {
+          timeout: timeout,
+          timeoutMsg: "SAP Logo not clickable",
+          interval: 10
+        }
+      );
     } catch (error) {
       (error as AggregateError).errors.forEach((err) => {
         this.ErrorHandler.logException(err);
@@ -70,7 +85,22 @@ export class NavigationBar {
 
     try {
       // attempt clicking both old and new user icons
-      await Promise.any([clickUserIconOld(), clickUserIconNew()]);
+      await browser.waitUntil(
+        async () => {
+          try{
+            await Promise.any([clickUserIconOld(), clickUserIconNew()]);
+            return true;
+          } catch (error) {
+            // Ignore error and continue to next promise
+            return false;
+          }
+        },
+        {
+          timeout: timeout,
+          timeoutMsg: "User Icon not clickable",
+          interval: 10
+        }
+      );
     } catch (error) {
       (error as AggregateError).errors.forEach((err) => {
         this.ErrorHandler.logException(err);
@@ -84,13 +114,13 @@ export class NavigationBar {
           "id": "*HeaderButton"
         }
       };
-      await ui5.userInteraction.click(selector, 0, timeout);
+      await ui5.userInteraction.click(selector, 0, 0);
     }
 
     async function clickUserIconNew() {
       // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
       const selector = ">>>[data-ui5-stable='profile']";
-      await nonUi5.userInteraction.click(selector);
+      await nonUi5.userInteraction.click(selector, 0);
     }
   }
 

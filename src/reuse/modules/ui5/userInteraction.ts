@@ -579,8 +579,23 @@ export class UserInteraction {
             text: value
           }
         };
-        await Promise.any([ui5.userInteraction.click(menuItemSelectorNewUI5, 0, timeout), 
-                           ui5.userInteraction.click(menuItemSelectorOldUI5, 0, timeout)]);
+        await browser.waitUntil(
+          async () => {
+            try{
+              await Promise.any([ui5.userInteraction.click(menuItemSelectorNewUI5, 0, 0), 
+                ui5.userInteraction.click(menuItemSelectorOldUI5, 0, 0)]);
+            } catch (error) {
+              // Ignore error and continue to next promise
+              return false;
+            }
+          },
+          {
+            timeout: timeout,
+            timeoutMsg: "Menu Item not clickable after " + timeout / 1000 + "s",
+            interval: 10
+          }
+        );
+        
         
         const tabSwitchedSuccessfully: boolean = await this._verifyTabSwitch(selector);
         if (tabSwitchedSuccessfully === false) {

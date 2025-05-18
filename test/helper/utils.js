@@ -11,9 +11,24 @@ exports.handleCookiesConsent = async function handleCookiesConsent() {
       }
     };
     const newCookiesConsentDialog = "button[id='truste-consent-button']";
-    await Promise.any([
-      ui5.userInteraction.click(oldCookiesConsentDialog, 0, 15000),
-      nonUi5.userInteraction.click(newCookiesConsentDialog, 0, 15000)
-    ]);
+    await browser.waitUntil(
+      async () => {
+        try{
+          await Promise.any([
+            ui5.userInteraction.click(oldCookiesConsentDialog, 0, 0),
+            nonUi5.userInteraction.click(newCookiesConsentDialog, 0, 0)
+          ]);
+          return true;
+        } catch (error) {
+          // Ignore error and continue to next promise
+          return false;
+        }
+      },
+      {
+        timeout: 15000,
+        timeoutMsg: "Cookies consent dialog not found",
+        interval: 10
+      }
+    );
   }, []);
 };
