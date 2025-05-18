@@ -55,7 +55,7 @@ export class Table {
     };
     const sort = await this._getSortIndicatorValue(columnName, tableSelector);
     if (sort !== "Ascending") {
-      this._clickColumn(columnName, tableSelector);
+      await this._clickColumn(columnName, tableSelector);
       await browser.waitUntil(
         async () => {
           try {
@@ -118,7 +118,7 @@ export class Table {
     };
     const sort = await this._getSortIndicatorValue(columnName, tableSelector);
     if (sort !== "Descending") {
-      this._clickColumn(columnName, tableSelector);
+      await this._clickColumn(columnName, tableSelector);
       await browser.waitUntil(
         async () => {
           try {
