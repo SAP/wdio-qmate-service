@@ -43,11 +43,11 @@ export class NavigationBar {
     const vl = this.vlf.initLog(this.clickSapLogo);
     async function clickLogo() {
       const selector = "//a[@id='shell-header-logo']";
-      await nonUi5.userInteraction.click(selector, 100);
+      await nonUi5.userInteraction.click(selector, 500);
     }
     async function clickLogoWebComponent() {
       const selector=">>>span[class='ui5-shellbar-logo']";
-      await nonUi5.userInteraction.click(selector, 100);
+      await nonUi5.userInteraction.click(selector, 500);
     }
     try {
       await browser.waitUntil(
@@ -110,13 +110,13 @@ export class NavigationBar {
           "id": "*HeaderButton"
         }
       };
-      await ui5.userInteraction.click(selector, 0, 100);
+      await ui5.userInteraction.click(selector, 0, 500);
     }
 
     async function clickUserIconNew() {
       // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
       const selector = ">>>[data-ui5-stable='profile']";
-      await nonUi5.userInteraction.click(selector, 100);
+      await nonUi5.userInteraction.click(selector, 500);
     }
   }
 

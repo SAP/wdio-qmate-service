@@ -15,8 +15,8 @@ exports.handleCookiesConsent = async function handleCookiesConsent() {
       async () => {
         try {
           await Promise.any([
-            ui5.userInteraction.click(oldCookiesConsentDialog, 0, 100),
-            nonUi5.userInteraction.click(newCookiesConsentDialog, 0, 100)
+            ui5.userInteraction.click(oldCookiesConsentDialog, 0, 500),
+            nonUi5.userInteraction.click(newCookiesConsentDialog, 0, 500)
           ]);
           return true;
         } catch (error) {

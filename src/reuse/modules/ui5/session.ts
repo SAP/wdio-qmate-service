@@ -40,7 +40,7 @@ export class Session {
         const fioriForm = new Promise<void>(async (res, rej) => {
           try {
             const fioriFormId = ui5.authenticators.fioriForm.formId;
-            const elem = await nonUi5.element.getByCss(fioriFormId, 0, 100);
+            const elem = await nonUi5.element.getByCss(fioriFormId, 0, 500);
             await nonUi5.element.isVisible(elem);
             authenticator = ui5.authenticators.fioriForm;
             messageSelector = ui5.authenticators.fioriForm.messageSelector;
@@ -53,7 +53,7 @@ export class Session {
         const sapCloudForm = new Promise<void>(async (res, rej) => {
           try {
             const sapCloudFormId = ui5.authenticators.sapCloudForm.formId;
-            const elem = await nonUi5.element.getByCss(sapCloudFormId, 0, 100);
+            const elem = await nonUi5.element.getByCss(sapCloudFormId, 0, 500);
             await nonUi5.element.isVisible(elem);
             authenticator = ui5.authenticators.sapCloudForm;
             messageSelector = ui5.authenticators.sapCloudForm.messageSelector;
@@ -364,15 +364,15 @@ export class Session {
           }
         }
       };
-      await ui5.userInteraction.scrollToElement(selector, 0, "end", 100);
-      await ui5.userInteraction.click(selector, 0, 100);
+      await ui5.userInteraction.scrollToElement(selector, 0, "end", 500);
+      await ui5.userInteraction.click(selector, 0, 500);
     }
 
     async function scrollAndClickLogoutNew() {
       // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
       const selector = ">>>.ui5-user-menu-sign-out-btn";
-      await nonUi5.userInteraction.scrollToElement(selector, "end", 100);
-      await nonUi5.userInteraction.click(selector, 100);
+      await nonUi5.userInteraction.scrollToElement(selector, "end", 500);
+      await nonUi5.userInteraction.click(selector, 500);
     }
   }
 
