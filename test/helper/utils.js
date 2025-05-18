@@ -13,7 +13,7 @@ exports.handleCookiesConsent = async function handleCookiesConsent() {
     const newCookiesConsentDialog = "button[id='truste-consent-button']";
     await browser.waitUntil(
       async () => {
-        try{
+        try {
           await Promise.any([
             ui5.userInteraction.click(oldCookiesConsentDialog, 0, 0),
             nonUi5.userInteraction.click(newCookiesConsentDialog, 0, 0)
