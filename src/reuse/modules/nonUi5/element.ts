@@ -594,7 +594,7 @@ export class ElementModule {
       },
       {
         timeout: timeout,
-        interval: 10,
+        interval: 100,
         timeoutMsg: elemsCount === 0 ? `Timeout reached. No element with passed selector found after ${+timeout / 1000}s.` : `Timeout reached. Page is still loading after ${+timeout / 1000}s.`
       }
     );

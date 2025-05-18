@@ -69,7 +69,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort button not clickable",
-          interval: 10
+          interval: 100
         }
       );
     }
@@ -132,7 +132,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort button not clickable",
-          interval: 10
+          interval: 100
         }
       );
     }
@@ -258,7 +258,7 @@ export class Table {
       await browser.waitUntil(
         async () => {
           try {
-            await Promise.any([ui5.userInteraction.click(tableColumnSelector,0,500), ui5.userInteraction.click(tableGridColumnSelector,0,500)]);
+            await Promise.any([ui5.userInteraction.click(tableColumnSelector, 0, 500), ui5.userInteraction.click(tableGridColumnSelector, 0, 500)]);
             return true;
           } catch (error) {
             // Ignore error and continue to next promise
@@ -268,7 +268,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Column not clickable",
-          interval: 10
+          interval: 100
         }
       );
     }
@@ -287,7 +287,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Column not clickable",
-          interval: 10
+          interval: 100
         }
       );
     } else if (typeof tableSelector === "object") {
@@ -304,7 +304,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Column not clickable",
-          interval: 10
+          interval: 100
         }
       );
     }
@@ -351,7 +351,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort indicator not found",
-          interval: 10
+          interval: 100
         }
       );
     }
@@ -370,7 +370,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort indicator not found",
-          interval: 10
+          interval: 100
         }
       );
     } else if (typeof tableSelector === "object") {
@@ -388,7 +388,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort indicator not found",
-          interval: 10
+          interval: 100
         }
       );
     }

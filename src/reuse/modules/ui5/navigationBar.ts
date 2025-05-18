@@ -63,7 +63,7 @@ export class NavigationBar {
         {
           timeout: timeout,
           timeoutMsg: "SAP Logo not clickable",
-          interval: 10
+          interval: 100
         }
       );
     } catch (error) {
@@ -96,7 +96,7 @@ export class NavigationBar {
         {
           timeout: timeout,
           timeoutMsg: "User Icon not clickable",
-          interval: 10
+          interval: 100
         }
       );
     } catch (error) {

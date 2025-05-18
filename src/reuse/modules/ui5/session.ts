@@ -351,7 +351,7 @@ export class Session {
       {
         timeout: timeout,
         timeoutMsg: "Sign out button not clickable",
-        interval: 10
+        interval: 100
       }
     );
 

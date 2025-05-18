@@ -592,7 +592,7 @@ export class UserInteraction {
           {
             timeout: timeout,
             timeoutMsg: "Menu Item not clickable after " + timeout / 1000 + "s",
-            interval: 10
+            interval: 100
           }
         );
         
