@@ -254,11 +254,12 @@ export class Table {
       }
     };
 
-    if (!tableSelector) {
+    if (typeof tableSelector == "number") {
+      util.console.warn(`Usage of argument 'index' is deprecated. Please pass a valid table selector instead.`);
       await browser.waitUntil(
         async () => {
           try {
-            await Promise.any([ui5.userInteraction.click(tableColumnSelector, 0, 500), ui5.userInteraction.click(tableGridColumnSelector, 0, 500)]);
+            await Promise.any([ui5.userInteraction.click(tableColumnSelector, tableSelector, 500), ui5.userInteraction.click(tableGridColumnSelector, tableSelector, 500)]);
             return true;
           } catch (error) {
             // Ignore error and continue to next promise
@@ -271,13 +272,11 @@ export class Table {
           interval: 100
         }
       );
-    }
-    if (typeof tableSelector == "number") {
-      util.console.warn(`Usage of argument 'index' is deprecated. Please pass a valid table selector instead.`);
+    } else if (!tableSelector) {
       await browser.waitUntil(
         async () => {
           try {
-            await Promise.any([ui5.userInteraction.click(tableColumnSelector, tableSelector, 500), ui5.userInteraction.click(tableGridColumnSelector, tableSelector, 500)]);
+            await Promise.any([ui5.userInteraction.click(tableColumnSelector, 0, 500), ui5.userInteraction.click(tableGridColumnSelector, 0, 500)]);
             return true;
           } catch (error) {
             // Ignore error and continue to next promise
@@ -337,11 +336,12 @@ export class Table {
     };
 
     let sortIndicator;
-    if (!tableSelector) {
+    if (typeof tableSelector == "number") {
+      util.console.warn(`The usage of argument 'index' is deprecated. Please pass a valid table selector instead.`);
       await browser.waitUntil(
         async () => {
           try {
-            sortIndicator = await Promise.any([ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator",0,500), this._getSortValudGridTable(tableGridColumnSelector)]);
+            sortIndicator = await Promise.any([ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator", tableSelector, 500), this._getSortValudGridTable(tableGridColumnSelector, tableSelector)]);
             return true;
           } catch (error) {
             // Ignore error and continue to next promise
@@ -354,13 +354,11 @@ export class Table {
           interval: 100
         }
       );
-    }
-    if (typeof tableSelector == "number") {
-      util.console.warn(`The usage of argument 'index' is deprecated. Please pass a valid table selector instead.`);
+    } else if (!tableSelector) {
       await browser.waitUntil(
         async () => {
           try {
-            sortIndicator = await Promise.any([ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator", tableSelector, 500), this._getSortValudGridTable(tableGridColumnSelector, tableSelector)]);
+            sortIndicator = await Promise.any([ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator",0,500), this._getSortValudGridTable(tableGridColumnSelector)]);
             return true;
           } catch (error) {
             // Ignore error and continue to next promise
