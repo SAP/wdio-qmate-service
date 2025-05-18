@@ -273,7 +273,7 @@ export class Table {
       );
     }
     if (typeof tableSelector == "number") {
-      util.console.warn(`Usage of argument 'index' in function ${arguments.callee.caller.name} is deprecated. Please pass a valid table selector instead.`);
+      util.console.warn(`Usage of argument 'index' is deprecated. Please pass a valid table selector instead.`);
       await browser.waitUntil(
         async () => {
           try {
@@ -356,7 +356,7 @@ export class Table {
       );
     }
     if (typeof tableSelector == "number") {
-      util.console.warn(`The usage of argument 'index' in function ${arguments.callee.caller.name} is deprecated. Please pass a valid table selector instead.`);
+      util.console.warn(`The usage of argument 'index' is deprecated. Please pass a valid table selector instead.`);
       await browser.waitUntil(
         async () => {
           try {
