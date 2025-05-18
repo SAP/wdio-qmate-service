@@ -294,7 +294,7 @@ export class Table {
       await browser.waitUntil(
         async () => {
           try {
-            await Promise.any([ui5.userInteraction.click(this._prepareAncestorSelector(tableColumnSelector, tableSelector),500), ui5.userInteraction.click(this._prepareAncestorSelector(tableGridColumnSelector, tableSelector),500)]);
+            await Promise.any([ui5.userInteraction.click(this._prepareAncestorSelector(tableColumnSelector, tableSelector),0,500), ui5.userInteraction.click(this._prepareAncestorSelector(tableGridColumnSelector, tableSelector),0,500)]);
             return true;
           } catch (error) {
             // Ignore error and continue to next promise
