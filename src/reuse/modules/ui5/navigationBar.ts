@@ -87,7 +87,7 @@ export class NavigationBar {
       // attempt clicking both old and new user icons
       await browser.waitUntil(
         async () => {
-          try{
+          try {
             await Promise.any([clickUserIconOld(), clickUserIconNew()]);
             return true;
           } catch (error) {
