@@ -582,8 +582,8 @@ export class UserInteraction {
         await browser.waitUntil(
           async () => {
             try {
-              await Promise.any([ui5.userInteraction.click(menuItemSelectorNewUI5, 0, 0), 
-                ui5.userInteraction.click(menuItemSelectorOldUI5, 0, 0)]);
+              await Promise.any([ui5.userInteraction.click(menuItemSelectorNewUI5, 0, 100), 
+                ui5.userInteraction.click(menuItemSelectorOldUI5, 0, 100)]);
             } catch (error) {
               // Ignore error and continue to next promise
               return false;
