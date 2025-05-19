@@ -25,6 +25,8 @@ async function buildAsync(config) {
   const exportRegex = /export\s+\{\s*locate\s*\};/;
   const modifiedContent = filedContent.replace(exportRegex, "");
   const wrappedContent =
+    "/* eslint-disable no-undef */\n" +
+    "/* eslint-disable no-console */\n" +
     "module.exports = { \n ui5All: function ui5All(ui5Selector, index, opt_parentElement) {\n" +
     modifiedContent +
     "\n" +

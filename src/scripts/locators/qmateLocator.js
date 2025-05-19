@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-console */
 module.exports = {
   ui5All: function ui5All(ui5Selector, index, opt_parentElement) {
     // src/scripts/locators/qmateLocatorSrc/Debug.ts
