@@ -2,7 +2,7 @@
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
-import { Ui5Selector } from "./types/ui5.types";
+import { Ui5ControlMetadata, Ui5Selector } from "./types/ui5.types";
 
 /**
  * @class table
@@ -313,15 +313,7 @@ export class Table {
    */
   async getSelectorsForRowsByValues(tableSelector: any, values: string | Array<string>): Promise<object[]> {
     this.vlf.initLog(this.getSelectorsForRowsByValues);
-    const tableId = await this._getId(tableSelector);
-    const tableMetaData = await this._getTableMetadata(tableId);
-    const selector = {
-      elementProperties: {
-        metadata: tableMetaData,
-        id: tableId
-      }
-    };
-    await ui5.element.waitForAll(selector); // TODO might not be needed => remove
+    const constructedTableSelector = await this._constructTableSelector(tableSelector);
     if (typeof values === "string") {
       values = [values];
     } else if (!Array.isArray(values)) {
@@ -331,11 +323,13 @@ export class Table {
     try {
       browserCommand = ` //TODO use arrow function instead return
       return (function () {
-          const table = sap.ui.getCore().getElementById("${tableId}");
+          const table = sap.ui.getCore().getElementById("${constructedTableSelector.elementProperties?.id}");
           let items = [];
-          if ("${Table.TABLE_METADATA}" === "${tableMetaData}" && table.getItems !== undefined) {
+          if ("${Table.TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getItems !== undefined) {
             items = table.getItems();
-          } else if("${Table.SMART_TABLE_METADATA}" === "${tableMetaData}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
+           } else if("${Table.TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getRows !== undefined) {
+            items = table.getRows();
+          } else if("${Table.SMART_TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
             items = table.getTable().getItems();
           } else {
             return undefined;
@@ -383,31 +377,26 @@ export class Table {
    */
   async getRowSelectorByIndex(tableSelector: any, index: number) {
     this.vlf.initLog(this.getRowSelectorByIndex);
-    const tableId = await this._getId(tableSelector);
-    const tableMetaData = await this._getTableMetadata(tableId);
-    const selector = {
-      elementProperties: {
-        metadata: tableMetaData,
-        id: tableId
-      }
-    };
-    await ui5.element.waitForAll(selector); //TODO: might not be needed => remove
+    const constructedTableSelector = await this._constructTableSelector(tableSelector);
     let browserCommand;
     let columnListItemId;
     try {
       browserCommand = `
         return (function () {
-          const table = sap.ui.getCore().getElementById("${tableId}");
+          const table = sap.ui.getCore().getElementById("${constructedTableSelector.elementProperties?.id}");
           let items = [];
-          if ("${Table.TABLE_METADATA}" === "${tableMetaData}" && table.getItems !== undefined) {
+          if("${Table.TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getItems !== undefined) {
             items = table.getItems();
-          } else if("${Table.SMART_TABLE_METADATA}" === "${tableMetaData}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
+          } else if("${Table.TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getRows !== undefined) {
+            items = table.getRows();
+          } else if("${Table.SMART_TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
             items = table.getTable().getItems();
           } else {
             return undefined;
           }
-          if (!items || !items[${index}]) return undefined;
-            const filteredItems = items.filter( item => item.getTitle === undefined)
+          if(!items || !items[${index}]) return undefined;
+          // Filter out items with undefined or empty title since the rows/columnListItems are for dividers for grouped items
+            const filteredItems = items.filter( item => item.getTitle === undefined || item.getTitle() === '');
             const item = filteredItems[${index}];
             return item?.getId?.();
         })();
@@ -495,6 +484,20 @@ export class Table {
     } catch (error) {
       throw new Error(`Browser Command injected: ${browserCommand} was injected: ${error}`);
     }
+  }
+
+  private async _constructTableSelector(tableSelector: Ui5Selector | string): Promise<Ui5Selector> {
+    const vl = this.vlf.initLog(this._constructTableSelector);
+    const tableId = await this._getId(tableSelector);
+    const tableMetaData = await this._getTableMetadata(tableId);
+    const selector: Ui5Selector = {
+      elementProperties: {
+        metadata: tableMetaData as Ui5ControlMetadata,
+        id: tableId
+      }
+    };
+    await ui5.element.waitForAll(selector);
+    return selector;
   }
 
   private _extractRowCountFromTitle(title: string): number {
