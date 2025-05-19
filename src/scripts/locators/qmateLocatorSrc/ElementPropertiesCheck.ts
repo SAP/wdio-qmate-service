@@ -438,18 +438,9 @@ export class ElementPropertiesCheck {
       }
 
       if (Array.isArray(value)) {
-        let bIsStringVal = typeof value[0] === "string";
+        const isStringVal = typeof value[0] === "string";
         for (const valData of value) {
-          if (
-            (bIsStringVal &&
-              !Comparator.compareArrayStrElements(key, valData, control)) ||
-            (!bIsStringVal &&
-              !Comparator.compareBindingPathAndModelProperty(
-                key,
-                valData,
-                control
-              ))
-          ) {
+          if ((isStringVal && !Comparator.compareArrayStrElements(key, valData, control)) || (!isStringVal && !Comparator.compareBindingPathAndModelProperty(key, valData, control))) {
             return false;
           }
         }

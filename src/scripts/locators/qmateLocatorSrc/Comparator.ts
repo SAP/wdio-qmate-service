@@ -120,7 +120,7 @@ export class Comparator {
     elemId: any,
     control: UI5Control
   ): boolean {
-    let values: any[] =
+    const values: any[] =
       UI5ControlHandler.getAssociationProperty(control, key) ||
       UI5ControlHandler.getAggregationProperty(control, key) ||
       UI5ControlHandler.getControlProperty(control, key) ||
