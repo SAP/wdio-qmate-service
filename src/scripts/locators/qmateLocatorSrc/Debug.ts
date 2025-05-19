@@ -21,9 +21,11 @@ const cyrb53 = function (str: string, seed = 0) {
 
 export class LocatorDebug {
   static logs: any[];
+  static indentation: string;
 
   public static initializeLogs(ui5Selector: UI5Selector): void {
     this.logs = [];
+    this.indentation = "";
     // @ts-ignore
     if (!document.qmateLogHashes) {
       // @ts-ignore
@@ -35,8 +37,15 @@ export class LocatorDebug {
     );
   }
 
+  public static indent(positive: boolean): void {
+    if(positive)
+      this.indentation = "....";
+    else
+      this.indentation = this.indentation.substring(0, this.indentation.length-4);
+  }
+
   public static debugLog(...messages: any[]): void {
-    this.logs.push(messages);
+    this.logs.push([this.indentation, ...messages]);
   }
 
   public static printLogs(): void {

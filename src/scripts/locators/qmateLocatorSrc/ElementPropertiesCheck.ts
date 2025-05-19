@@ -14,6 +14,12 @@ export class ElementPropertiesCheck {
       return controls;
     }
 
+    LocatorDebug.indent(true);
+    LocatorDebug.debugLog(
+      "Valid controls before initial elementProperties check:",
+      controls.length
+    );
+
     // needed for backward compatibility
     let elementProperties = rawElementProperties;
     if (typeof rawElementProperties.mProperties === "object") {
@@ -81,6 +87,7 @@ export class ElementPropertiesCheck {
       "Valid ui5Controls after extended elementProperties check:",
       filteredControls.length
     );
+    LocatorDebug.indent(false);
     return filteredControls;
   }
 
@@ -94,6 +101,9 @@ export class ElementPropertiesCheck {
     ) {
       return controls;
     }
+
+    LocatorDebug.indent(true);
+    LocatorDebug.debugLog("Valid ui5Controls before parentProperties check:", controls.length);
 
     const filteredControls = controls.filter((control) => {
       const parentControl = UI5ControlHandler.getUI5Parent(control);
@@ -115,6 +125,7 @@ export class ElementPropertiesCheck {
       "Valid ui5Controls after parentProperties check:",
       filteredControls.length
     );
+    LocatorDebug.indent(false);
     return filteredControls;
   }
 
@@ -128,6 +139,7 @@ export class ElementPropertiesCheck {
     ) {
       return controls;
     }
+    LocatorDebug.indent(true);
     LocatorDebug.debugLog("Valid ui5Controls before  ancestorProperties check:", controls.length);
     const filteredControls = controls.filter((control) => {
       return this.filterByElementProperties(
@@ -140,6 +152,7 @@ export class ElementPropertiesCheck {
       "Valid ui5Controls after ancestorProperties check:",
       filteredControls.length
     );
+    LocatorDebug.indent(false);
     return filteredControls;
   }
 
@@ -154,6 +167,8 @@ export class ElementPropertiesCheck {
       return controls;
     }
 
+    LocatorDebug.indent(true);
+    LocatorDebug.debugLog("Valid ui5Controls before descendantProperties check:", controls.length);
     const filteredControls = controls.filter((control) => {
       const parentElement = document.getElementById(control.getId?.());
       if (!parentElement) {
@@ -186,6 +201,7 @@ export class ElementPropertiesCheck {
       "Valid ui5Controls after descendantProperties check:",
       filteredControls.length
     );
+    LocatorDebug.indent(false);
     return filteredControls;
   }
 
@@ -200,6 +216,8 @@ export class ElementPropertiesCheck {
       return controls;
     }
 
+    LocatorDebug.indent(true);
+    LocatorDebug.debugLog("Valid ui5Controls before childProperties check:", controls.length);
     const filteredControls = controls.filter((control) => {
       const parentElement = document.getElementById(control.getId());
       if (!parentElement) {
@@ -221,6 +239,7 @@ export class ElementPropertiesCheck {
       "Valid ui5Controls after childProperties check:",
       filteredControls.length
     );
+    LocatorDebug.indent(false);
     return filteredControls;
   }
 
@@ -234,12 +253,12 @@ export class ElementPropertiesCheck {
     ) {
       return controls;
     }
-
+    LocatorDebug.indent(true);
+    LocatorDebug.debugLog("Valid ui5Controls before siblingProperties check:", controls.length);
     const filteredControls = controls.filter((control) => {
       const aSiblingControls = UI5ControlHandler.findSiblingControls(control);
       return (
-        this.filterByElementProperties(rawElementProperties, aSiblingControls)
-          .length > 0
+        this.filterByElementProperties(rawElementProperties, aSiblingControls).length > 0
       );
     });
 
@@ -247,6 +266,7 @@ export class ElementPropertiesCheck {
       "Valid ui5Controls after siblingProperties check:",
       filteredControls.length
     );
+    LocatorDebug.indent(false);
     return filteredControls;
   }
 
@@ -260,7 +280,8 @@ export class ElementPropertiesCheck {
     ) {
       return controls;
     }
-
+    LocatorDebug.indent(true);
+    LocatorDebug.debugLog("Valid ui5Controls before prevSiblingProperties check:", controls.length);
     const filteredControls = controls.filter((control) => {
       const prevControl = UI5ControlHandler.findPrevNextControl(control, false);
       if (!prevControl) {
@@ -276,6 +297,7 @@ export class ElementPropertiesCheck {
       "Valid ui5Controls after prevSiblingProperties check:",
       filteredControls.length
     );
+    LocatorDebug.indent(false);
     return filteredControls;
   }
 
@@ -289,7 +311,8 @@ export class ElementPropertiesCheck {
     ) {
       return controls;
     }
-
+    LocatorDebug.indent(true);
+    LocatorDebug.debugLog("Valid ui5Controls before nextSiblingProperties check:", controls.length);
     const filteredControls = controls.filter((control) => {
       const nextControl = UI5ControlHandler.findPrevNextControl(control, true);
       if (!nextControl) {
@@ -305,6 +328,7 @@ export class ElementPropertiesCheck {
       "Valid ui5Controls after nextSiblingProperties check:",
       filteredControls.length
     );
+    LocatorDebug.indent(false);
     return filteredControls;
   }
 

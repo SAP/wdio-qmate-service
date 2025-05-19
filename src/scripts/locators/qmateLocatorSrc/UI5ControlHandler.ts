@@ -282,7 +282,6 @@ export class UI5ControlHandler {
       LocatorDebug.debugLog("Maximum depth reached while retrieving ancestors for control", control.getId?.());
     }
     LocatorDebug.debugLog("found ancestors:" + ancestors.length);
-    ancestors.forEach(control => LocatorDebug.debugLog(control.getId()));
 
     return ancestors;
   }
