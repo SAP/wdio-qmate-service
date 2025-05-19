@@ -237,7 +237,18 @@ export class Table {
     await ui5.userInteraction.check(checkBoxSelector, index);
   }
 
+  async openItemByIndex(tableSelector: any, index: number) {
+    this.vlf.initLog(this.openItemByIndex);
+    const rowSelector = await this.getRowSelectorByIndex(tableSelector, index);
+    await ui5.userInteraction.click(rowSelector);
+  }
+
   /**
+   * @function selectAllRows
+   * @memberOf ui5.table
+   * @description Selects all rows in the table.
+   * @param {Ui5Selector | String} tableSelector - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
+   * @example await ui5.table.selectAllRows("application-ReportingTask-run-component---ReportList--ReportingTable");
    * @function openItemByIndex
    * @memberOf ui5.table
    * @description Opens the item in the table by its index.
@@ -255,10 +266,18 @@ export class Table {
    * await ui5.table.openItemByIndex(id, 0);
    * @throws {Error} If the table selector is invalid or if the index is out of bounds.
    */
-  async openItemByIndex(tableSelector: any, index: number) {
-    this.vlf.initLog(this.openItemByIndex);
-    const rowSelector = await this.getRowSelectorByIndex(tableSelector, index);
-    await ui5.userInteraction.click(rowSelector);
+  async selectAllRows(tableSelector: Ui5Selector | string) {
+    this.vlf.initLog(this.selectAllRows);
+    const parentSelector = await this._resolveTableSelector(tableSelector);
+
+    const checkBoxSelector = {
+      elementProperties: {
+        metadata: "sap.m.CheckBox"
+      },
+      parentProperties: parentSelector.elementProperties
+    };
+
+    await ui5.userInteraction.check(checkBoxSelector);
   }
 
   /**
@@ -275,10 +294,7 @@ export class Table {
    *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
    *  }
    * };
-   * await ui5.table.openItemByValues(selector, ["value1", "value2"]);
-   *
-   * const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
-   * await ui5.table.openItemByValues(id, "value");
+   * await ui5.table.selectAllRows(selector);
    */
   async openItemByValues(tableSelector: any, values: string | Array<string>, index: number = 0) {
     this.vlf.initLog(this.openItemByValues);
