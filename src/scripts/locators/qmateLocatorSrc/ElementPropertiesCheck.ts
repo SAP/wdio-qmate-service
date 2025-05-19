@@ -365,7 +365,9 @@ export class ElementPropertiesCheck {
       }
       if (key === "nodeName") {
         const nodeName = node?.nodeName || "";
-        return nodeName.toLowerCase() === value.toLowerCase();
+        if(nodeName.toLowerCase() !== value.toLowerCase()){
+          return false;
+        }
       } else {
         if (Array.isArray(value)) {
           for (let i = 0; i < value.length; i++) {
@@ -380,11 +382,13 @@ export class ElementPropertiesCheck {
             }
           }
         } else {
-          return this.compareAttributeToElementAttributes(
+          if (!this.compareAttributeToElementAttributes(
             key,
             value,
             nodeAttributes
-          );
+          )){
+            return false;
+          }
         }
       }
     }

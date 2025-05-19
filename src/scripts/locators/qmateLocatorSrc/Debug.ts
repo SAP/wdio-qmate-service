@@ -39,7 +39,7 @@ export class LocatorDebug {
 
   public static indent(positive: boolean): void {
     if(positive)
-      this.indentation = "....";
+      this.indentation += "....";
     else
       this.indentation = this.indentation.substring(0, this.indentation.length-4);
   }
