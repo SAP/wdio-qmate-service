@@ -208,6 +208,35 @@ export class Table {
     await ui5.userInteraction.check(checkBoxSelector, index);
   }
 
+  /**
+   * @function selectAllRows
+   * @memberOf ui5.table
+   * @description Selects all rows in the table.
+   * @param {Ui5Selector | String} tableSelector - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
+   * @example await ui5.table.selectAllRows("application-ReportingTask-run-component---ReportList--ReportingTable");
+   * @example const selector = {
+   *  elementProperties: {
+   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *    metadata: "sap.ui.comp.smarttable.SmartTable",
+   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   *  }
+   * };
+   * await ui5.table.selectAllRows(selector);
+   */
+  async selectAllRows(tableSelector: Ui5Selector | string) {
+    this.vlf.initLog(this.selectAllRows);
+    const parentSelector = await this._resolveTableSelector(tableSelector);
+
+    const checkBoxSelector = {
+      elementProperties: {
+        metadata: "sap.m.CheckBox"
+      },
+      parentProperties: parentSelector.elementProperties
+    };
+
+    await ui5.userInteraction.check(checkBoxSelector);
+  }
+
   // =================================== HELPER ===================================
   private async _resolveTableSelector(tableSelector: Ui5Selector | string): Promise<Ui5Selector> {
     const SMART_TABLE_METADATA = "sap.ui.comp.smarttable.SmartTable";

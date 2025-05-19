@@ -12,5 +12,6 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "sortColumnDescending.spec.js"),
     path.resolve(__dirname, "getTotalNumberOfRows.spec.js"),
     path.resolve(__dirname, "selectRowByIndex.spec.js"),
+    path.resolve(__dirname, "selectAllRows.spec.js")
   ]
 });
