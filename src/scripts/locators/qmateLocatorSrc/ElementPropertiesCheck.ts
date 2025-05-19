@@ -128,7 +128,7 @@ export class ElementPropertiesCheck {
     ) {
       return controls;
     }
-
+    LocatorDebug.debugLog("Valid ui5Controls before  ancestorProperties check:", controls.length);
     const filteredControls = controls.filter((control) => {
       return this.filterByElementProperties(
           rawElementProperties,
@@ -478,7 +478,14 @@ export class ElementPropertiesCheck {
       return false;
     }
 
-    const ancesterControls = UI5ControlHandler.getUI5Ancestors(control);
+    if (
+      control instanceof sap.ui.core.mvc.View &&
+      // @ts-ignore
+      Comparator.compareWithWildCard(viewName, control.getViewName())
+    ) {
+      return true;
+    }
+      const ancesterControls = UI5ControlHandler.getUI5Ancestors(control);
     for (const ancestorControl of ancesterControls) {
       if (
         ancestorControl instanceof sap.ui.core.mvc.View &&

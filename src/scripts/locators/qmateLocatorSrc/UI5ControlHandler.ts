@@ -1,4 +1,5 @@
 import { ControlFinder } from "./ControlFinder";
+import {LocatorDebug} from "./Debug";
 
 export class UI5ControlHandler {
   public static retrieveValidUI5ControlsSubElements(
@@ -278,11 +279,11 @@ export class UI5ControlHandler {
       parentControl = UI5ControlHandler.getUI5Parent(parentControl);
     }
     if (ancestors.length >= MAXIMUM_DEPTH) {
-      console.warn(
-        "Maximum depth reached while retrieving ancestors for control",
-        control.getId?.()
-      );
+      LocatorDebug.debugLog("Maximum depth reached while retrieving ancestors for control", control.getId?.());
     }
+    LocatorDebug.debugLog("found ancestors:" + ancestors.length);
+    ancestors.forEach(control => LocatorDebug.debugLog(control.getId()));
+
     return ancestors;
   }
 }

@@ -342,11 +342,15 @@ module.exports = {
           parentControl = _UI5ControlHandler.getUI5Parent(parentControl);
         }
         if (ancestors.length >= MAXIMUM_DEPTH) {
-          console.warn(
+          LocatorDebug.debugLog(
             "Maximum depth reached while retrieving ancestors for control",
             control.getId?.()
           );
         }
+        LocatorDebug.debugLog("found ancestors:" + ancestors.length);
+        ancestors.forEach((control2) =>
+          LocatorDebug.debugLog(control2.getId())
+        );
         return ancestors;
       }
     };
@@ -646,6 +650,10 @@ module.exports = {
         ) {
           return controls;
         }
+        LocatorDebug.debugLog(
+          "Valid ui5Controls before  ancestorProperties check:",
+          controls.length
+        );
         const filteredControls = controls.filter((control) => {
           return (
             this.filterByElementProperties(
@@ -952,6 +960,12 @@ module.exports = {
       static isControlInViewName(control, viewName) {
         if (!control || !sap.ui.core.mvc.View) {
           return false;
+        }
+        if (
+          control instanceof sap.ui.core.mvc.View && // @ts-ignore
+          Comparator.compareWithWildCard(viewName, control.getViewName())
+        ) {
+          return true;
         }
         const ancesterControls = UI5ControlHandler.getUI5Ancestors(control);
         for (const ancestorControl of ancesterControls) {
