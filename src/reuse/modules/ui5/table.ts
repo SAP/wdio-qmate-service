@@ -218,13 +218,13 @@ export class Table {
         {
           elementProperties: {
             metadata: SMART_TABLE_METADATA,
-            id: "tableSelector"
+            id: tableSelector
           }
         },
         {
           elementProperties: {
             metadata: TABLE_METADATA,
-            id: "tableSelector"
+            id: tableSelector
           }
         }
       ];
