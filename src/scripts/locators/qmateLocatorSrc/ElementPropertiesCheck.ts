@@ -16,7 +16,7 @@ export class ElementPropertiesCheck {
 
     LocatorDebug.indent(true);
     LocatorDebug.debugLog(
-      "Valid controls before initial elementProperties check:",
+      "Valid ui5Controls before initial elementProperties check:",
       controls.length
     );
 
