@@ -60,6 +60,3 @@ myEntrypoints
 
 # JSON doc
 reuseApi.json
-
-# will be built by script
-qmateLocator.js
