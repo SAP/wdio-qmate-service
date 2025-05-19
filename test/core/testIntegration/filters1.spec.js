@@ -199,31 +199,32 @@ describe("filters1", function () {
       .rejects.toThrow(/No visible elements found with selector/);
   });
 
-  it("Step 09: check Page has descendant text - use deep selector structure in elementProperties", async function () {
-    var ui5ControlProperties = {
-      "elementProperties": {
-        "metadata": "sap.m.Page", "mProperties": {
-          "id": "container-cart---welcomeView--page"
-        },
-        "descendantProperties": {
-          "metadata": "sap.m.Text", "mProperties": {
-            "text": [{ "path": "i18n>welcomeCarouselShipping" }],
-            "ancestorProperties": {
-              "viewName": "*view.Welcome",
-              "tooltip": [{ "path": "i18n>welcomeDescription" }],
-              "descendantProperties": {
-                "metadata": "sap.m.ScrollContainer",
-                "domProperties": {
-                  "class": "*sapMScrollCont"
-                }
-              }
-            }
-          }
-        }
-      },
-    };
-    await ui5.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 30000, 30000);
-  });
+  // can not work there is no ScrollContainer on the whole page
+  // it("Step 09: check Page has descendant text - use deep selector structure in elementProperties", async function () {
+  //   var ui5ControlProperties = {
+  //     "elementProperties": {
+  //       "metadata": "sap.m.Page", "mProperties": {
+  //         "id": "container-cart---welcomeView--page"
+  //       },
+  //       "descendantProperties": {
+  //         "metadata": "sap.m.Text", "mProperties": {
+  //           "text": [{ "path": "i18n>welcomeCarouselShipping" }],
+  //           "ancestorProperties": {
+  //             "viewName": "*view.Welcome",
+  //             "tooltip": [{ "path": "i18n>welcomeDescription" }],
+  //             "descendantProperties": {
+  //               "metadata": "sap.m.ScrollContainer",
+  //               "domProperties": {
+  //                 "class": "*sapMScrollCont"
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     },
+  //   };
+  //   await ui5.assertion.expectAttributeToBe(ui5ControlProperties, "showHeader", "true", 0, 30000, 30000);
+  // });
 
   it("Step 10: check Page has descendant text - use deep selector structure wrong", async function () {
     var ui5ControlProperties = {

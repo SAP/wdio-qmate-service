@@ -57,9 +57,12 @@ export class LocatorDebug {
       return;
     }
 
+    let fullLog: any[] = []
     for (const log of this.logs) {
-      console.warn(...log);
+      fullLog = fullLog.concat(log);
+      fullLog.push("\n");
     }
+    console.warn(...fullLog);
   }
 
   private static sameLogAlreadyPrinted(): boolean {
