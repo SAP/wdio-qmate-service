@@ -10,6 +10,11 @@ exports.handleCookiesConsent = async function handleCookiesConsent() {
         }]
       }
     };
+    const testCookie = await browser.getCookies(["cmapi_cookie_privacy"]);
+    if (testCookie.length > 0){
+      // cookie already set
+      return;
+    }
     const newCookiesConsentDialog = "button[id='truste-consent-button']";
     await browser.waitUntil(
       async () => {

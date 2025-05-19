@@ -584,6 +584,7 @@ export class UserInteraction {
             try {
               await Promise.any([ui5.userInteraction.click(menuItemSelectorNewUI5, 0, 500), 
                 ui5.userInteraction.click(menuItemSelectorOldUI5, 0, 500)]);
+              return true;
             } catch (error) {
               // Ignore error and continue to next promise
               return false;
