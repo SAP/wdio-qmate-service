@@ -495,11 +495,14 @@ module.exports = {
       static compareBindingPathAndModelProperty(key, value, control) {
         const extrPath =
           UI5ControlHandler.extractBindingPathAndModelProperty(value);
-        let bindingInfo =
-          UI5ControlHandler.getBindDataForProperty(control, key) ||
-          UI5ControlHandler.getBindDataForAggregation(control, key) ||
-          UI5ControlHandler.getBindDataForAssociation(control, key) ||
-          [];
+        const bindingInfo = []
+          .concat(UI5ControlHandler.getBindDataForProperty(control, key) || [])
+          .concat(
+            UI5ControlHandler.getBindDataForAggregation(control, key) || []
+          )
+          .concat(
+            UI5ControlHandler.getBindDataForAssociation(control, key) || []
+          );
         if (!extrPath.path && bindingInfo.length >= 0) return true;
         if (extrPath.path && bindingInfo.length === 0) return false;
         return bindingInfo.some((info) => {
