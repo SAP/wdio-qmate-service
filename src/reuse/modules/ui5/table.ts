@@ -15,6 +15,7 @@ export class Table {
   // =================================== CONSTANTS ===================================
   private static readonly SMART_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.comp.smarttable.SmartTable";
   private static readonly TABLE_METADATA: Ui5ControlMetadata = "sap.m.Table";
+  private static readonly UI_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.table.Table";
   private static readonly COLUMN_LIST_ITEM_METADATA: Ui5ControlMetadata = "sap.m.ColumnListItem";
 
   // =================================== SORTING ===================================
@@ -326,23 +327,25 @@ export class Table {
     let browserCommand;
     try {
       browserCommand = ` //TODO use arrow function instead return
-      return (function () {
+      return (async function () {
           const table = sap.ui.getCore().getElementById("${constructedTableSelector.elementProperties?.id}");
           let items = [];
           if ("${Table.TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getItems !== undefined) {
             items = table.getItems();
-           } else if("${Table.TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getRows !== undefined) {
-            items = table.getRows();
+            ${this._filterItems()};
+           } else if("${Table.UI_TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getRows !== undefined) {
+            ${this._getBrowserCommandInjectHighlightStyle()}
+            ${this.getBrowserCommandForFindRowIndexesByCellValues()}
+            ${this.getBrowserCommandForGetRowControlIdsByMatchedValues()}
+            const matchedIds = await getRowControlIdsByMatchedValuesAsync(table, ${JSON.stringify(values)});
+            console.log("Matched Row Control IDs:", matchedIds);
+            return matchedIds;
           } else if("${Table.SMART_TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
             items = table.getTable().getItems();
+            ${this._filterItems()};
           } else {
             return undefined;
           }
-          return items.filter(
-            item => ${JSON.stringify(values)}.every(
-              val => Object
-              .values(item.getBindingContext().getObject()).includes(val)))
-              .map(filteredItems => filteredItems.getId())
       })();`;
       const filteredRowIds = await util.browser.executeScript(browserCommand);
       const rowsSelectors = [];
@@ -388,7 +391,7 @@ export class Table {
     try {
       browserCommand = `
         return (function () {
-          const table = sap.ui.getCore().getElementById("${constructedTableSelector.elementProperties?.id}");
+          const table = ${this._getBrowserCommandForGetTable(constructedTableSelector.elementProperties?.id)};
           let items = [];
           if("${Table.TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getItems !== undefined) {
             items = table.getItems();
@@ -445,6 +448,33 @@ export class Table {
     };
 
     await ui5.userInteraction.check(checkBoxSelector);
+  }
+
+  async test(tableId: any, targetValues: any) {
+    const browserCommand = `
+    ${this._getBrowserCommandInjectHighlightStyle()}
+    ${this.getBrowserCommandForFindRowIndexesByCellValues()}
+    ${this.getBrowserCommandForGetRowControlIdsByMatchedValues()}
+    return (async () => {
+    const oTable = sap.ui.getCore().byId("${tableId}");
+
+  if (!oTable) {
+    console.error("Table not found");
+    return;
+  }
+
+    const matchedIds = await getRowControlIdsByMatchedValuesAsync(oTable, ${JSON.stringify(targetValues)});
+    console.log("Matched Row Control IDs:", matchedIds);
+    return matchedIds;
+  })();
+    `;
+    try {
+      const results = await util.browser.executeScript(browserCommand);
+      util.console.log(results);
+      return results;
+    } catch (error) {
+      throw new Error(`Browser Command: ${browserCommand} failed with: ${error}`);
+    }
   }
 
   // =================================== HELPER ===================================
@@ -504,7 +534,7 @@ export class Table {
     try {
       browserCommand = `
         return (function () {
-          const table = sap.ui.getCore().getElementById("${tableId}");
+          const table = ${this._getBrowserCommandForGetTable(tableId)};
           return table.getMetadata().getName();
         })();
       `;
@@ -513,6 +543,100 @@ export class Table {
     } catch (error) {
       throw new Error(`Browser Command: ${browserCommand} failed with: ${error}`);
     }
+  }
+
+  private _getBrowserCommandForGetTable(tableId: string) {
+    return `sap.ui.getCore().getElementById("${tableId}");`;
+  }
+
+  private _filterItems(): string {
+    return `return items.filter(
+            item => JSON.stringify(values).every(
+              val => Object
+              .values(item.getBindingContext().getObject()).includes(val)))
+              .map(filteredItems => filteredItems.getId())
+              `;
+  }
+
+  private _getBrowserCommandInjectHighlightStyle(): string {
+    return `
+    function injectHighlightStyle() {
+      if (!document.getElementById("highlightRowStyle")) {
+      const style = document.createElement("style");
+      style.id = "highlightRowStyle";
+      style.innerHTML = \`
+        .rowHighlightFlash {
+          background-color: #ffeaa7 !important;
+          transition: background-color 1s ease-out;
+        }
+      \`;
+      document.head.appendChild(style);
+      }
+    }
+  `;
+  }
+
+  private getBrowserCommandForFindRowIndexesByCellValues(): string {
+    return `
+      function findRowIndexesByCellValues(oTable, targetValues) {
+        const searchValues = Array.isArray(targetValues) ? targetValues : [targetValues];
+        const oBinding = oTable.getBinding("rows");
+        const aContexts = oBinding.getContexts(0, oBinding.getLength());
+        const matchedRowIndexes = [];
+
+        for (let i = 0; i < aContexts.length; i++) {
+          const oRowData = aContexts[i].getObject();
+          const flatRowValues = Object.values(oRowData).flatMap(cell => Object.values(cell));
+          const allMatch = searchValues.every(val => flatRowValues.includes(val));
+          if (allMatch) {
+            matchedRowIndexes.push(i);
+          }
+        }
+
+        return matchedRowIndexes;
+      }
+    `;
+  }
+
+  private getBrowserCommandForGetRowControlIdsByMatchedValues(): string {
+    return `
+      function getRowControlIdsByMatchedValuesAsync(oTable, targetValues) {
+        injectHighlightStyle();
+
+        const matchedIndexes = findRowIndexesByCellValues(oTable, targetValues);
+        const iFirstVisible = oTable.getFirstVisibleRow();
+        const visibleRowCount = oTable.getVisibleRowCount();
+
+        const scrollAndCollect = (index) => {
+          return new Promise((resolve) => {
+            // Scroll if necessary
+            if (index < iFirstVisible || index >= iFirstVisible + visibleRowCount) {
+              oTable.setFirstVisibleRow(index);
+            }
+
+            // Wait a bit for UI to render
+            setTimeout(() => {
+              const relativeIndex = index - oTable.getFirstVisibleRow();
+              const oRow = oTable.getRows()[relativeIndex];
+              if (oRow) {
+                const domRef = oRow.getDomRef();
+                if (domRef) {
+                  domRef.classList.add("rowHighlightFlash");
+                  setTimeout(() => domRef.classList.remove("rowHighlightFlash"), 2000);
+                }
+                resolve(oRow.getId());
+              } else {
+                resolve(null); // row not rendered yet
+              }
+            }, 250);
+          });
+        };
+
+        // Run scrolling and ID collection in sequence
+        const promises = matchedIndexes.map(index => scrollAndCollect(index));
+        return Promise.all(promises);
+      }
+    `;
   }
 
   private async _constructTableSelector(tableSelector: Ui5Selector | string): Promise<Ui5Selector> {
