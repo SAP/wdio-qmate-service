@@ -7,11 +7,10 @@ import { ChildFilter } from "./ChildFilter";
 import { ParentFilter } from "./ParentFilter";
 import { PrevSiblingFilter } from "./PrevSiblingFilter";
 import { NextSiblingFilter } from "./NextSiblingFilter";
-import {BaseFilter} from "./BaseFilter";
+import { BaseFilter } from "./BaseFilter";
 
 export class ElementFilter extends BaseFilter {
   public _doFiltering(elementProperties: ElementProperties, controls: UI5Control[]): UI5Control[] {
-
     if (elementProperties.prevSiblingProperties || elementProperties.nextSiblingProperties || elementProperties.childProperties || elementProperties.parentProperties) {
       console.error(`The selector your provided ${JSON.stringify(elementProperties)} contains childProperties, parentProperties, prevSiblingProperties or nextSiblingProperties, please provide a valid selector without these properties`);
       throw new Error("Nested properties can only be used for ancestorProperties, descendantProperties or siblingProperties.");
