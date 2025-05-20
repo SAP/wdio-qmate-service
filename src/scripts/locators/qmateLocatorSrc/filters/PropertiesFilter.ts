@@ -9,7 +9,7 @@ export class PropertiesFilter {
 
     LocatorDebug.beginLog("PropertiesFilter", controls.length);
 
-    let filteredControls = controls.filter((control) => {
+    const filteredControls = controls.filter((control) => {
       if (!control) {
         return false;
       }
