@@ -3,13 +3,13 @@ import { UI5ControlDataInjector } from "./utils/UI5ControlDataInjector";
 import { LocatorDebug } from "./utils/LocatorDebug";
 import { ElementFilter } from "./filters/ElementFilter";
 export class Locator {
-  public static locate(ui5Selector: UI5Selector): HTMLElement[] {
+  public static locate(ui5Selector: UI5Selector, rootElement: HTMLElement): HTMLElement[] {
     LocatorDebug.initializeLogs(ui5Selector);
     try {
       Locator.checkSelector(ui5Selector);
       Locator.checkUI5Loaded();
 
-      const ui5Controls = ControlFinder.retrieveUI5Controls(ui5Selector);
+      const ui5Controls = ControlFinder.retrieveUI5Controls(ui5Selector, rootElement);
       const validUi5Controls = Locator.filterControlsBySelector(ui5Controls, ui5Selector);
       const resultElements = UI5ControlDataInjector.convertAndInjectDataForProperties(validUi5Controls);
 

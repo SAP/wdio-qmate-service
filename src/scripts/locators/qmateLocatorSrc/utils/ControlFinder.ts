@@ -1,8 +1,8 @@
 import { LocatorDebug } from "../utils/LocatorDebug";
 
 export class ControlFinder {
-  public static retrieveUI5Controls(selector: UI5Selector): UI5Control[] {
-    const nodes = ControlFinder.retrieveNodesFromBody(selector) || [];
+  public static retrieveUI5Controls(selector: UI5Selector, rootElement: HTMLElement): UI5Control[] {
+    const nodes = ControlFinder.retrieveNodesFromBody(selector, rootElement) || [];
     return ControlFinder.retrieveValidUI5Controls(nodes);
   }
 
@@ -10,7 +10,7 @@ export class ControlFinder {
     return !isNaN(value) && (parseFloat(value) | 0) === parseFloat(value);
   }
 
-  private static retrieveNodesFromBody(selector: UI5Selector): Element[] {
+  private static retrieveNodesFromBody(selector: UI5Selector, rootElement: HTMLElement): Element[] {
     // build smart css selector if possible
     let cssSelector = "*";
     if (selector.elementProperties?.id) {
@@ -19,6 +19,10 @@ export class ControlFinder {
         LocatorDebug.debugLog("shortened id is '", idWithoutWildcards, "' from '", selector.elementProperties.id, "'");
         cssSelector = `*[id*="${idWithoutWildcards}"]`;
       }
+    }
+
+    if (rootElement) {
+      return Array.from(rootElement.querySelectorAll(cssSelector));
     }
 
     const sapBodies = Array.from(document.getElementsByClassName("sapUiBody"));

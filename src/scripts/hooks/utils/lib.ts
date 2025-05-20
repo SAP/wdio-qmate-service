@@ -93,13 +93,13 @@ var LibScripts = function () {
         }
       } else if (arguments[1].elementProperties) {
         const returnAllDomElements = arguments[1].returnAllDomElements;
-        webElem = await this.uiControlExecuteLocator(arguments[1], 0, 30000, returnAllDomElements);
+        webElem = await this.uiControlExecuteLocator(arguments[1], 0, 30000, undefined, returnAllDomElements);
       } else if (arguments[1].selector) {
         const index = arguments[1].index || 0;
         const timeout = arguments[1].timeout || 30000;
         const selector = arguments[1].selector;
         const returnAllDomElements = arguments[1].returnAllDomElements;
-        webElem = await this.uiControlExecuteLocator(selector, index, timeout, returnAllDomElements);
+        webElem = await this.uiControlExecuteLocator(selector, index, timeout, undefined, returnAllDomElements);
       } else {
         throw new Error("Make sure you provide an element or a selector. Currently is undefined");
       }
@@ -178,15 +178,15 @@ var LibScripts = function () {
 
   };
 
-  this.stableDomElementCount = async function (ui5Selector, countStable, elmLength, allTries) {
+  this.stableDomElementCount = async function (ui5Selector, rootElement, countStable, elmLength, allTries) {
     if (countStable && countStable > 0 && allTries && allTries > 0) {
       let aElements = null;
       if (!isEmptyObjectOrUndefined(ui5Selector)) {
-        if (ui5Selector && (ui5Selector.elementProperties || ui5Selector.ancestorProperties
-            || ui5Selector.descendantProperties || ui5Selector.siblingProperties
-            || ui5Selector.parentProperties || ui5Selector.childProperties
-            || ui5Selector.prevSiblingProperties || ui5Selector.nextSiblingProperties)) {
-          aElements = await browser.custom$$("ui5All", ui5Selector);
+        if (
+          ui5Selector &&
+          (ui5Selector.elementProperties || ui5Selector.ancestorProperties || ui5Selector.descendantProperties || ui5Selector.siblingProperties || ui5Selector.parentProperties || ui5Selector.childProperties || ui5Selector.prevSiblingProperties || ui5Selector.nextSiblingProperties)
+        ) {
+          aElements = await browser.custom$$("ui5All", ui5Selector, rootElement);
         } else if (ui5Selector && ui5Selector.controlType) {
           aElements = await browser.custom$$("ui5Veri5", ui5Selector);
         }
@@ -209,23 +209,23 @@ var LibScripts = function () {
       allTries--;
       // eslint-disable-next-line no-console
       //console.log("Countstable:" + countStable +" All tries" + allTries +" Stability check, found:" + displayedElements.length + " expected:" + newLength);
-      return this.stableDomElementCount(ui5Selector, countStable, newLength, allTries);
+      return this.stableDomElementCount(ui5Selector, rootElement, countStable, newLength, allTries);
     }
   };
 
-  this.getDisplayedElements = async function (ui5Selector, countStable, allTries, returnAllDomElements = false) {
+  this.getDisplayedElements = async function (ui5Selector, rootElement, countStable, allTries, returnAllDomElements = false) {
     var aElements = null;
     try {
       if (!isEmptyObjectOrUndefined(ui5Selector)) {
-        if (ui5Selector && (ui5Selector.elementProperties || ui5Selector.ancestorProperties
-            || ui5Selector.descendantProperties || ui5Selector.siblingProperties
-            || ui5Selector.parentProperties || ui5Selector.childProperties
-            || ui5Selector.prevSiblingProperties || ui5Selector.nextSiblingProperties)) {
+        if (
+          ui5Selector &&
+          (ui5Selector.elementProperties || ui5Selector.ancestorProperties || ui5Selector.descendantProperties || ui5Selector.siblingProperties || ui5Selector.parentProperties || ui5Selector.childProperties || ui5Selector.prevSiblingProperties || ui5Selector.nextSiblingProperties)
+        ) {
           if (!ui5Selector.elementProperties || isEmptyObjectOrUndefined(ui5Selector.elementProperties)) {
             throw new Error(`The selector your provided ${ui5Selector ? JSON.stringify(ui5Selector) : ui5Selector} does not contain elementProperties, please provide a valid selector with elementProperties`);
           }
-          aElements = await browser.custom$$("ui5All", ui5Selector);
-        } else if (ui5Selector && ui5Selector.controlType){
+          aElements = await browser.custom$$("ui5All", ui5Selector, rootElement);
+        } else if (ui5Selector && ui5Selector.controlType) {
           aElements = await browser.custom$$("ui5Veri5", ui5Selector);
         } else {
           return null;
@@ -245,7 +245,7 @@ var LibScripts = function () {
         }
 
         if (displayedElements && Array.isArray(displayedElements) && displayedElements.length > 0) {
-          await this.stableDomElementCount(ui5Selector, countStable, displayedElements.length, allTries);
+          await this.stableDomElementCount(ui5Selector, rootElement, countStable, displayedElements.length, allTries);
           return displayedElements;
         }
       }
@@ -260,7 +260,7 @@ var LibScripts = function () {
     return null;
   };
 
-  this.uiControlExecuteLocator = async function (ui5Selector, index, timeout, returnAllDomElements = false) {
+  this.uiControlExecuteLocator = async function (ui5Selector, index, timeout, rootElement, returnAllDomElements = false) {
     var elems = null;
     var that = this;
     const countStable = COUNT_STABLE;
@@ -279,7 +279,7 @@ var LibScripts = function () {
     // Note: it is possible to use () => {} - arrow function to keep scope:
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
     await browser.waitUntil(async () => {
-      elems = await that.getDisplayedElements(ui5Selector, countStable, allTries, returnAllDomElements);
+      elems = await that.getDisplayedElements(ui5Selector, rootElement, countStable, allTries, returnAllDomElements);
       return elems && Array.isArray(elems) && elems.length > 0;
 
     }, {
