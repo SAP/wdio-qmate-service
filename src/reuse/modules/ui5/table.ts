@@ -330,19 +330,20 @@ export class Table {
       return (async function () {
           const table = sap.ui.getCore().getElementById("${constructedTableSelector.elementProperties?.id}");
           let items = [];
+          ${this._getBrowserCommandForDeclareInjectHighlightStyle()}
           if ("${Table.TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getItems !== undefined) {
             items = table.getItems();
-            ${this._filterItems()};
+            ${this._getBrowserCommandForFilterItems(values)};
            } else if("${Table.UI_TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getRows !== undefined) {
-            ${this._getBrowserCommandInjectHighlightStyle()}
-            ${this.getBrowserCommandForFindRowIndexesByCellValues()}
-            ${this.getBrowserCommandForGetRowControlIdsByMatchedValues()}
+            ${this._getBrowserCommandForDeclareInjectHighlightStyle()}
+            ${this._getBrowserCommandForDeclareFindRowIndexesByCellValues()}
+            ${this._getBrowserCommandForDeclareGetRowControlIdsByMatchedValues()}
             const matchedIds = await getRowControlIdsByMatchedValuesAsync(table, ${JSON.stringify(values)});
             console.log("Matched Row Control IDs:", matchedIds);
             return matchedIds;
           } else if("${Table.SMART_TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
             items = table.getTable().getItems();
-            ${this._filterItems()};
+            ${this._getBrowserCommandForFilterItems(values)};
           } else {
             return undefined;
           }
@@ -452,9 +453,9 @@ export class Table {
 
   async test(tableId: any, targetValues: any) {
     const browserCommand = `
-    ${this._getBrowserCommandInjectHighlightStyle()}
-    ${this.getBrowserCommandForFindRowIndexesByCellValues()}
-    ${this.getBrowserCommandForGetRowControlIdsByMatchedValues()}
+    ${this._getBrowserCommandForDeclareInjectHighlightStyle()}
+    ${this._getBrowserCommandForDeclareFindRowIndexesByCellValues()}
+    ${this._getBrowserCommandForDeclareGetRowControlIdsByMatchedValues()}
     return (async () => {
     const oTable = sap.ui.getCore().byId("${tableId}");
 
@@ -549,16 +550,29 @@ export class Table {
     return `sap.ui.getCore().getElementById("${tableId}");`;
   }
 
-  private _filterItems(): string {
-    return `return items.filter(
-            item => JSON.stringify(values).every(
-              val => Object
-              .values(item.getBindingContext().getObject()).includes(val)))
-              .map(filteredItems => filteredItems.getId())
-              `;
+  private _getBrowserCommandForFilterItems(values: string[]): string {
+    return `const matchedItems = items.filter(
+        item => ${JSON.stringify(values)}.every(
+          val => Object
+          .values(item.getBindingContext().getObject()).includes(val)))
+        if (matchedItems.length === 0) return undefined
+        injectHighlightStyle();
+        return new Promise(resolve => {
+          setTimeout(() => {
+          matchedItems.forEach(item => {
+            const domRef = item.getDomRef();
+            if (domRef) {
+            domRef.classList.add("rowHighlightFlash");
+            setTimeout(() => domRef.classList.remove("rowHighlightFlash"), 2000);
+            }
+          });
+          resolve(matchedItems.map(item => item.getId()));
+          }, 250);
+        });
+          `;
   }
 
-  private _getBrowserCommandInjectHighlightStyle(): string {
+  private _getBrowserCommandForDeclareInjectHighlightStyle(): string {
     return `
     function injectHighlightStyle() {
       if (!document.getElementById("highlightRowStyle")) {
@@ -576,7 +590,7 @@ export class Table {
   `;
   }
 
-  private getBrowserCommandForFindRowIndexesByCellValues(): string {
+  private _getBrowserCommandForDeclareFindRowIndexesByCellValues(): string {
     return `
       function findRowIndexesByCellValues(oTable, targetValues) {
         const searchValues = Array.isArray(targetValues) ? targetValues : [targetValues];
@@ -598,9 +612,9 @@ export class Table {
     `;
   }
 
-  private getBrowserCommandForGetRowControlIdsByMatchedValues(): string {
+  private _getBrowserCommandForDeclareGetRowControlIdsByMatchedValues(): string {
     return `
-      function getRowControlIdsByMatchedValuesAsync(oTable, targetValues) {
+      async function getRowControlIdsByMatchedValuesAsync(oTable, targetValues) {
         injectHighlightStyle();
 
         const matchedIndexes = findRowIndexesByCellValues(oTable, targetValues);
