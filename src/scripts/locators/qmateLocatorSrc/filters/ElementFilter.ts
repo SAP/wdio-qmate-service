@@ -1,4 +1,4 @@
-import { LocatorDebug } from "../Debug";
+import { LocatorDebug } from "../utils/LocatorDebug";
 import { AncestorFilter } from "./AncestorFilter";
 import { DescendantFilter } from "./DescendantFilter";
 import { SiblingFilter } from "./SiblingFilter";
@@ -31,10 +31,10 @@ export class ElementFilter {
 
     LocatorDebug.beginLog("ElementFilter", controls.length);
 
-    let filteredControls = PropertiesFilter.filter(elementProperties, controls);
-    filteredControls = AncestorFilter.filter(elementProperties.ancestorProperties, filteredControls);
-    filteredControls = DescendantFilter.filter(elementProperties.descendantProperties, filteredControls);
-    filteredControls = SiblingFilter.filter(elementProperties.siblingProperties, filteredControls);
+    let filteredControls = new PropertiesFilter().filter(elementProperties, controls);
+    filteredControls = new AncestorFilter().filter(elementProperties.ancestorProperties, filteredControls);
+    filteredControls = new DescendantFilter().filter(elementProperties.descendantProperties, filteredControls);
+    filteredControls = new SiblingFilter().filter(elementProperties.siblingProperties, filteredControls);
 
     LocatorDebug.endLog("ElementFilter", filteredControls.length);
 
@@ -43,13 +43,13 @@ export class ElementFilter {
 
   public static filterBySelector(ui5Selector: UI5Selector, controls: UI5Control[]): UI5Control[] {
     let validUi5Controls = ElementFilter.filter(ui5Selector.elementProperties, controls);
-    validUi5Controls = ParentFilter.filter(ui5Selector.parentProperties, validUi5Controls);
-    validUi5Controls = AncestorFilter.filter(ui5Selector.ancestorProperties, validUi5Controls);
-    validUi5Controls = ChildFilter.filter(ui5Selector.childProperties, validUi5Controls);
-    validUi5Controls = DescendantFilter.filter(ui5Selector.descendantProperties, validUi5Controls);
-    validUi5Controls = SiblingFilter.filter(ui5Selector.siblingProperties, validUi5Controls);
-    validUi5Controls = PrevSiblingFilter.filter(ui5Selector.prevSiblingProperties, validUi5Controls);
-    validUi5Controls = NextSiblingFilter.filter(ui5Selector.nextSiblingProperties, validUi5Controls);
+    validUi5Controls = new ParentFilter().filter(ui5Selector.parentProperties, validUi5Controls);
+    validUi5Controls = new AncestorFilter().filter(ui5Selector.ancestorProperties, validUi5Controls);
+    validUi5Controls = new ChildFilter().filter(ui5Selector.childProperties, validUi5Controls);
+    validUi5Controls = new DescendantFilter().filter(ui5Selector.descendantProperties, validUi5Controls);
+    validUi5Controls = new SiblingFilter().filter(ui5Selector.siblingProperties, validUi5Controls);
+    validUi5Controls = new PrevSiblingFilter().filter(ui5Selector.prevSiblingProperties, validUi5Controls);
+    validUi5Controls = new NextSiblingFilter().filter(ui5Selector.nextSiblingProperties, validUi5Controls);
     return validUi5Controls;
   }
 }

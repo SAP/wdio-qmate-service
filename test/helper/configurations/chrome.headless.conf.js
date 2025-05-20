@@ -5,7 +5,7 @@ exports.config = merge(baseConfig.config, {
   capabilities: [
     {
       browserName: "chrome",
-      browserVersion: "120.0.6099.35",
+      // browserVersion: "120.0.6099.35",
       acceptInsecureCerts: true,
       "goog:chromeOptions": {
         args: [
@@ -17,8 +17,8 @@ exports.config = merge(baseConfig.config, {
           "--whitelisted-ips",
           "--disable-dev-shm-usage",
           "--incognito",
-          "--headless",
-          "--disable-gpu",
+          // "--headless",
+          // "--disable-gpu",
           "--disable-web-security",
           "--disable-infobars",
           "--disable-extensions",

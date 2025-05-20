@@ -1,15 +1,10 @@
-import { LocatorDebug } from "../Debug";
-import { UI5ControlHandler } from "../UI5ControlHandler";
+import { UI5ControlHandler } from "../utils/UI5ControlHandler";
+import { BaseFilter } from "./BaseFilter";
 import { ElementFilter } from "./ElementFilter";
 
-export class ChildFilter {
-  public static filter(elementProperties: ElementProperties | undefined, controls: UI5Control[]): UI5Control[] {
-    if (!elementProperties || Object.keys(elementProperties).length === 0 || controls.length === 0) {
-      return controls;
-    }
-
-    LocatorDebug.beginLog("ChildFilter", controls.length);
-    const filteredControls = controls.filter((control) => {
+export class ChildFilter extends BaseFilter {
+  public doFiltering(elementProperties: ElementProperties, controls: UI5Control[]): UI5Control[] {
+    return controls.filter((control) => {
       const parentElement = document.getElementById(control.getId());
       if (!parentElement) {
         return false;
@@ -20,7 +15,5 @@ export class ChildFilter {
 
       return aChildrenControls.length > 0;
     });
-    LocatorDebug.endLog("ChildFilter", filteredControls.length);
-    return filteredControls;
   }
 }

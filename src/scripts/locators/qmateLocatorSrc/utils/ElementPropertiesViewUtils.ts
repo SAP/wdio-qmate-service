@@ -1,5 +1,5 @@
-import { Comparator } from "../Comparator";
-import { UI5ControlHandler } from "../UI5ControlHandler";
+import { Comparator } from "./Comparator";
+import { UI5ControlHandler } from "../utils/UI5ControlHandler";
 
 export class ElementPropertiesViewUtils {
   public static isControlInViewName(control: UI5Control | undefined, viewName: string): boolean {

@@ -1,17 +1,18 @@
-import { ControlFinder } from "./ControlFinder";
-import { UI5ControlDataInjector } from "./UI5ControlDataInjector";
-import { LocatorDebug } from "./Debug";
+import { ControlFinder } from "./utils/ControlFinder";
+import { UI5ControlDataInjector } from "./utils/UI5ControlDataInjector";
+import { LocatorDebug } from "./utils/LocatorDebug";
 import { ElementFilter } from "./filters/ElementFilter";
 export class Locator {
   public static locate(ui5Selector: UI5Selector): HTMLElement[] {
     LocatorDebug.initializeLogs(ui5Selector);
     try {
-      this.checkSelector(ui5Selector);
-      this.checkUI5Loaded();
+      Locator.checkSelector(ui5Selector);
+      Locator.checkUI5Loaded();
 
       const ui5Controls = ControlFinder.retrieveUI5Controls(ui5Selector);
-      const validUi5Controls = this.filterControlsBySelector(ui5Controls, ui5Selector);
-      const resultElements = this.convertControlsToHTMLElements(validUi5Controls);
+      const validUi5Controls = Locator.filterControlsBySelector(ui5Controls, ui5Selector);
+      const resultElements = UI5ControlDataInjector.convertAndInjectDataForProperties(validUi5Controls);
+
       LocatorDebug.printLogs(resultElements.length);
 
       return resultElements;
@@ -45,15 +46,5 @@ export class Locator {
       console.error("This is not an UI5 App, please use other locators");
       throw new Error("This is not an UI5 App, please use other locators");
     }
-  }
-
-  private static convertControlsToHTMLElements(controls: UI5Control[]) {
-    return controls
-      .map((control) => {
-        const domElement = document.getElementById(control.getId?.());
-        UI5ControlDataInjector.injectDataForProperties(domElement, control);
-        return domElement;
-      })
-      .filter(Boolean) as HTMLElement[];
   }
 }

@@ -1,21 +1,15 @@
-import { LocatorDebug } from "../Debug";
-import { UI5ControlHandler } from "../UI5ControlHandler";
+import { UI5ControlHandler } from "../utils/UI5ControlHandler";
+import { BaseFilter } from "./BaseFilter";
 import { ElementFilter } from "./ElementFilter";
 
-export class NextSiblingFilter {
-  public static filter(elementProperties: ElementProperties | undefined, controls: UI5Control[]): UI5Control[] {
-    if (!elementProperties || Object.keys(elementProperties).length === 0 || controls.length === 0) {
-      return controls;
-    }
-    LocatorDebug.beginLog("NextSiblingFilter", controls.length);
-    const filteredControls = controls.filter((control) => {
+export class NextSiblingFilter extends BaseFilter {
+  public doFiltering(elementProperties: ElementProperties, controls: UI5Control[]): UI5Control[] {
+    return controls.filter((control) => {
       const nextControl = UI5ControlHandler.findPrevNextControl(control, true);
       if (!nextControl) {
         return false;
       }
       return ElementFilter.filter(elementProperties, [nextControl]).length > 0;
     });
-    LocatorDebug.endLog("NextSiblingFilter", filteredControls.length);
-    return filteredControls;
   }
 }

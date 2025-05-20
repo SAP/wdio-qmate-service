@@ -1,13 +1,23 @@
-import { UI5ControlHandler } from "./UI5ControlHandler";
+import { UI5ControlHandler } from "../utils/UI5ControlHandler";
 export class UI5ControlDataInjector {
-  public static injectDataForProperties(domElement: HTMLElement | null, oControl: UI5Control): void {
+  public static convertAndInjectDataForProperties(controls: UI5Control[]) {
+    return controls
+      .map((control) => {
+        const domElement = document.getElementById(control.getId?.());
+        UI5ControlDataInjector.injectDataForProperties(domElement, control);
+        return domElement;
+      })
+      .filter(Boolean) as HTMLElement[];
+  }
+
+  private static injectDataForProperties(domElement: HTMLElement | null, oControl: UI5Control): void {
     if (!domElement || !oControl) return;
 
-    this.injectBindingContextPaths(domElement, oControl);
+    UI5ControlDataInjector.injectBindingContextPaths(domElement, oControl);
 
-    this.injectAttributes(domElement, oControl, Object.keys(UI5ControlHandler.getControlAllProperties(oControl)), (key) => UI5ControlHandler.getControlProperty(oControl, key));
-    this.injectAttributes(domElement, oControl, Object.keys(UI5ControlHandler.getControlAllAggregations(oControl)), (key) => UI5ControlHandler.getAggregationProperty(oControl, key));
-    this.injectAttributes(domElement, oControl, Object.keys(UI5ControlHandler.getControlAllAssociations(oControl)), (key) => UI5ControlHandler.getAssociationProperty(oControl, key));
+    UI5ControlDataInjector.injectAttributes(domElement, oControl, Object.keys(UI5ControlHandler.getControlAllProperties(oControl)), (key) => UI5ControlHandler.getControlProperty(oControl, key));
+    UI5ControlDataInjector.injectAttributes(domElement, oControl, Object.keys(UI5ControlHandler.getControlAllAggregations(oControl)), (key) => UI5ControlHandler.getAggregationProperty(oControl, key));
+    UI5ControlDataInjector.injectAttributes(domElement, oControl, Object.keys(UI5ControlHandler.getControlAllAssociations(oControl)), (key) => UI5ControlHandler.getAssociationProperty(oControl, key));
   }
 
   private static injectAttributes(domElement: HTMLElement, oControl: UI5Control, keys: string[], valueGetter: (key: string) => string): void {

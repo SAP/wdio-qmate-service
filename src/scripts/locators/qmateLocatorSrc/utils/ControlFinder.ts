@@ -1,9 +1,9 @@
-import { LocatorDebug } from "./Debug";
+import { LocatorDebug } from "../utils/LocatorDebug";
 
 export class ControlFinder {
   public static retrieveUI5Controls(selector: UI5Selector): UI5Control[] {
-    const nodes = this.retrieveNodesFromBody(selector) || [];
-    return this.retrieveValidUI5Controls(nodes);
+    const nodes = ControlFinder.retrieveNodesFromBody(selector) || [];
+    return ControlFinder.retrieveValidUI5Controls(nodes);
   }
 
   private static isInt(value: any): boolean {
@@ -28,7 +28,7 @@ export class ControlFinder {
   }
 
   private static retrieveValidUI5Controls(nodes: Element[]): UI5Control[] {
-    return nodes.map((node) => this.getUI5Control(node.getAttribute("id"))).filter((element) => element) as UI5Control[];
+    return nodes.map((node) => ControlFinder.getUI5Control(node.getAttribute("id"))).filter((element) => element) as UI5Control[];
   }
 
   public static getUI5Control(id: string | null | undefined): UI5Control | null {

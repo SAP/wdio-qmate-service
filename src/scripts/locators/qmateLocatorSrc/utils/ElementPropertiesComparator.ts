@@ -1,5 +1,5 @@
-import { Comparator } from "../Comparator";
-import { UI5ControlHandler } from "../UI5ControlHandler";
+import { Comparator } from "./Comparator";
+import { UI5ControlHandler } from "../utils/UI5ControlHandler";
 import { ElementPropertiesViewUtils } from "./ElementPropertiesViewUtils";
 
 // --- Comparator and Utility helpers ---
@@ -36,14 +36,12 @@ export class ElementPropertiesComparator {
           return false;
         }
       } else {
-        if (Array.isArray(value)) {
-          for (let i = 0; i < value.length; i++) {
-            if (!ElementPropertiesComparator.compareAttributeToElementAttributes(key, value[i], nodeAttributes)) {
-              return false;
-            }
-          }
-        } else {
-          if (!ElementPropertiesComparator.compareAttributeToElementAttributes(key, value, nodeAttributes)) {
+        let valueArray = value;
+        if (!Array.isArray(value)) {
+          valueArray = [value];
+        }
+        for (let i = 0; i < valueArray.length; i++) {
+          if (!ElementPropertiesComparator.compareAttributeToElementAttributes(key, valueArray[i], nodeAttributes)) {
             return false;
           }
         }

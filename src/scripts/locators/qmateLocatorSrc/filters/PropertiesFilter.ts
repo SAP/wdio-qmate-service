@@ -1,15 +1,9 @@
-import { LocatorDebug } from "../Debug";
 import { ElementPropertiesComparator } from "../utils/ElementPropertiesComparator";
+import { BaseFilter } from "./BaseFilter";
 
-export class PropertiesFilter {
-  public static filter(elementProperties: ElementProperties | undefined, controls: UI5Control[]): UI5Control[] {
-    if (!elementProperties || !elementProperties || Object.keys(elementProperties).length === 0 || controls.length === 0) {
-      return controls;
-    }
-
-    LocatorDebug.beginLog("PropertiesFilter", controls.length);
-
-    const filteredControls = controls.filter((control) => {
+export class PropertiesFilter extends BaseFilter {
+  public doFiltering(elementProperties: ElementProperties, controls: UI5Control[]): UI5Control[] {
+    return controls.filter((control) => {
       if (!control) {
         return false;
       }
@@ -24,7 +18,5 @@ export class PropertiesFilter {
       }
       return true;
     });
-    LocatorDebug.endLog("PropertiesFilter", filteredControls.length);
-    return filteredControls;
   }
 }

@@ -24,24 +24,24 @@ export class LocatorDebug {
   static indentation: string;
 
   public static initializeLogs(ui5Selector: UI5Selector): void {
-    this.logs = [];
-    this.indentation = "";
+    LocatorDebug.logs = [];
+    LocatorDebug.indentation = "";
     // @ts-ignore
     if (!document.qmateLogHashes) {
       // @ts-ignore
       document.qmateLogHashes = [];
     }
 
-    this.debugLog("QmateLocator Debug Logs for Selector:" + JSON.stringify(ui5Selector));
+    LocatorDebug.debugLog("QmateLocator Debug Logs for Selector:" + JSON.stringify(ui5Selector));
   }
 
   private static indent(positive: boolean): void {
-    if (positive) this.indentation += "....";
-    else this.indentation = this.indentation.substring(0, this.indentation.length - 4);
+    if (positive) LocatorDebug.indentation += "....";
+    else LocatorDebug.indentation = LocatorDebug.indentation.substring(0, LocatorDebug.indentation.length - 4);
   }
 
   public static debugLog(...messages: any[]): void {
-    this.logs.push([this.indentation, ...messages]);
+    LocatorDebug.logs.push([LocatorDebug.indentation, ...messages]);
   }
 
   public static beginLog(name: string, elementCount: number): void {
@@ -61,12 +61,12 @@ export class LocatorDebug {
 
     LocatorDebug.debugLog("Result elements:", finalElementCount);
 
-    if (this.sameLogAlreadyPrinted()) {
+    if (LocatorDebug.sameLogAlreadyPrinted()) {
       return;
     }
 
     let fullLog: any[] = [];
-    for (const log of this.logs) {
+    for (const log of LocatorDebug.logs) {
       fullLog = fullLog.concat(log);
       fullLog.push("\n");
     }
@@ -79,7 +79,7 @@ export class LocatorDebug {
     now.setSeconds(Math.floor(now.getSeconds() / 10) * 10, 0);
     const time = now.toISOString().replace(/T/, " ").replace(/\..+/, "");
 
-    const hash = cyrb53(JSON.stringify(this.logs) + time);
+    const hash = cyrb53(JSON.stringify(LocatorDebug.logs) + time);
     // @ts-ignore
     if (document.qmateLogHashes.includes(hash)) {
       return true;

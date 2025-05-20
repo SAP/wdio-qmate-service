@@ -1,5 +1,5 @@
-import { ControlFinder } from "./ControlFinder";
-import { LocatorDebug } from "./Debug";
+import { ControlFinder } from "../utils/ControlFinder";
+import { LocatorDebug } from "../utils/LocatorDebug";
 
 export class UI5ControlHandler {
   public static retrieveValidUI5ControlsSubElements(nodes: HTMLCollection): UI5Control[] {
@@ -46,7 +46,7 @@ export class UI5ControlHandler {
       return [];
     }
     const allSiblingNodes = parentElement.children;
-    const aValidControls = this.retrieveValidUI5ControlsSubElements(allSiblingNodes);
+    const aValidControls = UI5ControlHandler.retrieveValidUI5ControlsSubElements(allSiblingNodes);
     if (!aValidControls || aValidControls.length === 0) return [];
     const controlIndx = aValidControls.findIndex((element) => element.getId() === controlId);
     if (controlIndx === -1) {
@@ -67,7 +67,7 @@ export class UI5ControlHandler {
     if (!parentElement) return null;
 
     const aAllSiblingNodes = parentElement.children;
-    const aValidControls = this.retrieveValidUI5ControlsSubElements(aAllSiblingNodes);
+    const aValidControls = UI5ControlHandler.retrieveValidUI5ControlsSubElements(aAllSiblingNodes);
     const controlIndx = aValidControls.findIndex((element) => element.getId() === sControlId);
     if (controlIndx === -1) {
       console.error("Something is very wrong with prev/next control finder");
@@ -133,25 +133,25 @@ export class UI5ControlHandler {
   }
 
   public static getBindDataForAggregation(control: UI5Control, propKey: string): BindingInfo[] {
-    const aAggregation = this.getControlAllAggregations(control);
-    return this.getBindingData(aAggregation, control, propKey);
+    const aAggregation = UI5ControlHandler.getControlAllAggregations(control);
+    return UI5ControlHandler.getBindingData(aAggregation, control, propKey);
   }
 
   public static getBindDataForAssociation(control: UI5Control, propKey: string): BindingInfo[] {
-    const aAssociation = this.getControlAllAssociations(control);
-    return this.getBindingData(aAssociation, control, propKey);
+    const aAssociation = UI5ControlHandler.getControlAllAssociations(control);
+    return UI5ControlHandler.getBindingData(aAssociation, control, propKey);
   }
 
   public static getBindDataForProperty(control: UI5Control, propKey: string): BindingInfo[] {
-    const aProperties = this.getControlAllProperties(control);
-    return this.getBindingData(aProperties, control, propKey);
+    const aProperties = UI5ControlHandler.getControlAllProperties(control);
+    return UI5ControlHandler.getBindingData(aProperties, control, propKey);
   }
 
   public static getBindingData(aProperties: any, control: UI5Control, propKey: string): BindingInfo[] {
     let aBindingInfos: BindingInfo[] = [];
     if (aProperties.hasOwnProperty(propKey)) {
       if (!control?.getBindingInfo?.(propKey)) return aBindingInfos;
-      aBindingInfos = this.getBindingInfos(control, propKey);
+      aBindingInfos = UI5ControlHandler.getBindingInfos(control, propKey);
     }
     return aBindingInfos;
   }
@@ -182,7 +182,7 @@ export class UI5ControlHandler {
 
     const binding = control.getBinding?.(propKey);
     if (binding) {
-      this.retrieveCompositeBindings(binding, infos);
+      UI5ControlHandler.retrieveCompositeBindings(binding, infos);
     }
 
     return infos;
