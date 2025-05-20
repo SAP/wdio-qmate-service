@@ -447,6 +447,39 @@ export class Table {
     await ui5.userInteraction.check(checkBoxSelector);
   }
 
+  /**
+   * @function deselectRowByIndex
+   * @memberOf ui5.table
+   * @description Deselects a row in the table by its index.
+   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
+   * @example const selector = {
+   *  elementProperties: {
+   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *    metadata: "sap.ui.comp.smarttable.SmartTable",
+   *   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   *  }
+   * };
+   * await ui5.table.deselectRowByIndex(selector, 0);
+   * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+   * await ui5.table.deselectRowByIndex(id, 0);
+   */
+  async deselectRowByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
+    this.vlf.initLog(this.selectRowByIndex);
+    const ancestorSelector = await this._resolveTableSelectorOrId(tableSelectorOrId);
+
+    const checkBoxSelector = {
+      elementProperties: {
+        metadata: "sap.m.CheckBox"
+      },
+      parentProperties: {
+        metadata: "sap.m.ColumnListItem",
+        ancestorProperties: ancestorSelector.elementProperties
+      }
+    };
+
+    await ui5.userInteraction.uncheck(checkBoxSelector, index);
+  }
+
   // =================================== HELPER ===================================
   private async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string): Promise<Ui5Selector> {
     if (typeof tableSelectorOrId === "string") {
