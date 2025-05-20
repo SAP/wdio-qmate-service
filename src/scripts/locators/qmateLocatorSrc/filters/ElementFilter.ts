@@ -29,14 +29,14 @@ export class ElementFilter {
       throw new Error("Nested properties can only be used for ancestorProperties, descendantProperties or siblingProperties.");
     }
 
-    LocatorDebug.beginLog(this.constructor.name, controls.length);
+    LocatorDebug.beginLog("ElementFilter", controls.length);
 
     let filteredControls = PropertiesFilter.filter(elementProperties, controls);
     filteredControls = AncestorFilter.filter(elementProperties.ancestorProperties, filteredControls);
     filteredControls = DescendantFilter.filter(elementProperties.descendantProperties, filteredControls);
     filteredControls = SiblingFilter.filter(elementProperties.siblingProperties, filteredControls);
 
-    LocatorDebug.endLog(this.constructor.name, filteredControls.length);
+    LocatorDebug.endLog("ElementFilter", filteredControls.length);
 
     return filteredControls;
   }

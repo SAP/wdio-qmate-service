@@ -8,7 +8,7 @@ export class ParentFilter {
       return controls;
     }
 
-    LocatorDebug.beginLog(this.constructor.name, controls.length);
+    LocatorDebug.beginLog("ParentFilter", controls.length);
     const filteredControls = controls.filter((control) => {
       const parentControl = UI5ControlHandler.getUI5Parent(control);
       if (!parentControl) {
@@ -17,7 +17,7 @@ export class ParentFilter {
       }
       return ElementFilter.filter(elementProperties, [parentControl]).length > 0;
     });
-    LocatorDebug.endLog(this.constructor.name, filteredControls.length);
+    LocatorDebug.endLog("ParentFilter", filteredControls.length);
     return filteredControls;
   }
 }

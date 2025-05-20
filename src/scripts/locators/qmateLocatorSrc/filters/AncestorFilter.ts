@@ -7,11 +7,11 @@ export class AncestorFilter {
     if (!elementProperties || Object.keys(elementProperties).length === 0 || controls.length === 0) {
       return controls;
     }
-    LocatorDebug.beginLog(this.constructor.name, controls.length);
+    LocatorDebug.beginLog("AncestorFilter", controls.length);
     const filteredControls = controls.filter((control) => {
       return ElementFilter.filter(elementProperties, UI5ControlHandler.getUI5Ancestors(control)).length > 0;
     });
-    LocatorDebug.endLog(this.constructor.name, filteredControls.length);
+    LocatorDebug.endLog("AncestorFilter", filteredControls.length);
 
     return filteredControls;
   }

@@ -8,7 +8,7 @@ export class ChildFilter {
       return controls;
     }
 
-    LocatorDebug.beginLog(this.constructor.name, controls.length);
+    LocatorDebug.beginLog("ChildFilter", controls.length);
     const filteredControls = controls.filter((control) => {
       const parentElement = document.getElementById(control.getId());
       if (!parentElement) {
@@ -20,7 +20,7 @@ export class ChildFilter {
 
       return aChildrenControls.length > 0;
     });
-    LocatorDebug.endLog(this.constructor.name, filteredControls.length);
+    LocatorDebug.endLog("ChildFilter", filteredControls.length);
     return filteredControls;
   }
 }

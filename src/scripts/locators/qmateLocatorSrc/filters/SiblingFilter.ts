@@ -8,12 +8,12 @@ export class SiblingFilter {
       return controls;
     }
 
-    LocatorDebug.beginLog(this.constructor.name, controls.length);
+    LocatorDebug.beginLog("SiblingFilter", controls.length);
     const filteredControls = controls.filter((control) => {
       const aSiblingControls = UI5ControlHandler.findSiblingControls(control);
       return ElementFilter.filter(elementProperties, aSiblingControls).length > 0;
     });
-    LocatorDebug.endLog(this.constructor.name, filteredControls.length);
+    LocatorDebug.endLog("SiblingFilter", filteredControls.length);
 
     return filteredControls;
   }

@@ -8,7 +8,7 @@ export class DescendantFilter {
       return controls;
     }
 
-    LocatorDebug.beginLog(this.constructor.name, controls.length);
+    LocatorDebug.beginLog("DescendantFilter", controls.length);
     const filteredControls = controls.filter((control) => {
       const parentElement = document.getElementById(control.getId?.());
       if (!parentElement) {
@@ -26,7 +26,7 @@ export class DescendantFilter {
       }
       return false;
     });
-    LocatorDebug.endLog(this.constructor.name, filteredControls.length);
+    LocatorDebug.endLog("DescendantFilter", filteredControls.length);
     return filteredControls;
   }
 }

@@ -7,7 +7,7 @@ export class PropertiesFilter {
       return controls;
     }
 
-    LocatorDebug.beginLog(this.constructor.name, controls.length);
+    LocatorDebug.beginLog("PropertiesFilter", controls.length);
 
     let filteredControls = controls.filter((control) => {
       if (!control) {
@@ -24,7 +24,7 @@ export class PropertiesFilter {
       }
       return true;
     });
-    LocatorDebug.endLog(this.constructor.name, filteredControls.length);
+    LocatorDebug.endLog("PropertiesFilter", filteredControls.length);
     return filteredControls;
   }
 }

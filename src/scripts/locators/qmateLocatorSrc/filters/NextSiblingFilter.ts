@@ -7,7 +7,7 @@ export class NextSiblingFilter {
     if (!elementProperties || Object.keys(elementProperties).length === 0 || controls.length === 0) {
       return controls;
     }
-    LocatorDebug.beginLog(this.constructor.name, controls.length);
+    LocatorDebug.beginLog("NextSiblingFilter", controls.length);
     const filteredControls = controls.filter((control) => {
       const nextControl = UI5ControlHandler.findPrevNextControl(control, true);
       if (!nextControl) {
@@ -15,7 +15,7 @@ export class NextSiblingFilter {
       }
       return ElementFilter.filter(elementProperties, [nextControl]).length > 0;
     });
-    LocatorDebug.endLog(this.constructor.name, filteredControls.length);
+    LocatorDebug.endLog("NextSiblingFilter", filteredControls.length);
     return filteredControls;
   }
 }
