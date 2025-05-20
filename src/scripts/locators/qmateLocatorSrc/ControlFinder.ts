@@ -1,8 +1,8 @@
 import { LocatorDebug } from "./Debug";
 
 export class ControlFinder {
-  public static retrieveUI5Controls(selector: UI5Selector, index: any, opt_parentElement: HTMLElement): UI5Control[] {
-    const nodes = this.retrieveNodesFromBody(selector, index, opt_parentElement) || [];
+  public static retrieveUI5Controls(selector: UI5Selector): UI5Control[] {
+    const nodes = this.retrieveNodesFromBody(selector) || [];
     return this.retrieveValidUI5Controls(nodes);
   }
 
@@ -10,7 +10,7 @@ export class ControlFinder {
     return !isNaN(value) && (parseFloat(value) | 0) === parseFloat(value);
   }
 
-  private static retrieveNodesFromBody(selector: UI5Selector, index: any, opt_parentElement: Element): Element[] {
+  private static retrieveNodesFromBody(selector: UI5Selector): Element[] {
     // build smart css selector if possible
     let cssSelector = "*";
     if (selector.elementProperties?.id) {
@@ -18,15 +18,6 @@ export class ControlFinder {
         const idWithoutWildcards = selector.elementProperties.id.replaceAll("*", "");
         LocatorDebug.debugLog("shortened id is '", idWithoutWildcards, "' from '", selector.elementProperties.id, "'");
         cssSelector = `*[id*="${idWithoutWildcards}"]`;
-      }
-    }
-
-    // Logic to retrieve the element for chaining
-    if (index) {
-      if (!this.isInt(index) && index.nodeType) {
-        return Array.from(index.querySelectorAll(cssSelector));
-      } else if (opt_parentElement && opt_parentElement.nodeType) {
-        return Array.from(opt_parentElement.querySelectorAll(cssSelector));
       }
     }
 

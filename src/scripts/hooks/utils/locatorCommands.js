@@ -3,12 +3,12 @@ const lib = require("./lib");
 const cycle = require("./cycle.js");
 
 module.exports = {
-  ui5ControlLocator: async function (ui5Selector, index = 0, timeout = 60000, rootElement, returnAllDomElements = false) {
-    return lib.uiControlExecuteLocator(ui5Selector, index, timeout, rootElement, returnAllDomElements);
+  ui5ControlLocator: async function (ui5Selector, index = 0, timeout = 60000, returnAllDomElements = false) {
+    return lib.uiControlExecuteLocator(ui5Selector, index, timeout, returnAllDomElements);
   },
 
-  ui5ControlsLocators: async function (ui5Selector, timeout = 60000, rootElement) {
-    return lib.uiControlExecuteLocator(ui5Selector, null, timeout, rootElement);
+  ui5ControlsLocators: async function (ui5Selector, timeout = 60000) {
+    return lib.uiControlExecuteLocator(ui5Selector, null, timeout);
   },
 
   getUI5Property: async function (propName, selectorOrElement) {
