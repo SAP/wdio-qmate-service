@@ -35,13 +35,23 @@ export class LocatorDebug {
     this.debugLog("QmateLocator Debug Logs for Selector:" + JSON.stringify(ui5Selector));
   }
 
-  public static indent(positive: boolean): void {
+  private static indent(positive: boolean): void {
     if (positive) this.indentation += "....";
     else this.indentation = this.indentation.substring(0, this.indentation.length - 4);
   }
 
   public static debugLog(...messages: any[]): void {
     this.logs.push([this.indentation, ...messages]);
+  }
+
+  public static beginLog(name: string, elementCount: number): void {
+    LocatorDebug.indent(true);
+    LocatorDebug.debugLog("Valid ui5Controls before " + name + ":", elementCount);
+  }
+
+  public static endLog(name: string, elementCount: number): void {
+    LocatorDebug.debugLog("Valid ui5Controls after " + name + ":", elementCount);
+    LocatorDebug.indent(false);
   }
 
   public static printLogs(): void {

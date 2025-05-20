@@ -1,14 +1,7 @@
 import { ControlFinder } from "./ControlFinder";
 import { UI5ControlDataInjector } from "./UI5ControlDataInjector";
 import { LocatorDebug } from "./Debug";
-import { NextSiblingFilter } from "./filters/NextSiblingFilter";
-import { PrevSiblingFilter } from "./filters/PrevSiblingFilter";
-import { SiblingFilter } from "./filters/SiblingFilter";
-import { ChildFilter } from "./filters/ChildFilter";
-import { AncestorFilter } from "./filters/AncestorFilter";
-import { ParentFilter } from "./filters/ParentFilter";
-import { PropertiesFilter } from "./filters/PropertiesFilter";
-import { DescendantFilter } from "./filters/DescendantFilter";
+import { ElementFilter } from "./filters/ElementFilter";
 export class Locator {
   public static locate(ui5Selector: UI5Selector, index: any, opt_parentElement: HTMLElement): HTMLElement[] {
     LocatorDebug.initializeLogs(ui5Selector);
@@ -45,15 +38,7 @@ export class Locator {
   }
 
   private static checkControls(controls: UI5Control[], ui5Selector: UI5Selector): UI5Control[] {
-    let validUi5Controls = PropertiesFilter.filter(ui5Selector.elementProperties, controls);
-    validUi5Controls = ParentFilter.filter(ui5Selector.parentProperties, validUi5Controls);
-    validUi5Controls = AncestorFilter.filter(ui5Selector.ancestorProperties, validUi5Controls);
-    validUi5Controls = ChildFilter.filter(ui5Selector.childProperties, validUi5Controls);
-    validUi5Controls = DescendantFilter.filter(ui5Selector.descendantProperties, validUi5Controls);
-    validUi5Controls = SiblingFilter.filter(ui5Selector.siblingProperties, validUi5Controls);
-    validUi5Controls = PrevSiblingFilter.filter(ui5Selector.prevSiblingProperties, validUi5Controls);
-    validUi5Controls = NextSiblingFilter.filter(ui5Selector.nextSiblingProperties, validUi5Controls);
-    return validUi5Controls;
+    return ElementFilter.filterBySelector(ui5Selector, controls);
   }
 
   private static checkSelector(ui5Selector: UI5Selector): void {
