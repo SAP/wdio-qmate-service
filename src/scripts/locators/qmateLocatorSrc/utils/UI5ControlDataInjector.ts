@@ -16,8 +16,6 @@ export class UI5ControlDataInjector {
     UI5ControlDataInjector.injectBindingContextPaths(domElement, oControl);
 
     UI5ControlDataInjector.injectAttributes(domElement, oControl, Object.keys(UI5ControlHandler.getControlAllProperties(oControl)), (key) => UI5ControlHandler.getControlProperty(oControl, key));
-    UI5ControlDataInjector.injectAttributes(domElement, oControl, Object.keys(UI5ControlHandler.getControlAllAggregations(oControl)), (key) => UI5ControlHandler.getAggregationProperty(oControl, key));
-    UI5ControlDataInjector.injectAttributes(domElement, oControl, Object.keys(UI5ControlHandler.getControlAllAssociations(oControl)), (key) => UI5ControlHandler.getAssociationProperty(oControl, key));
   }
 
   private static injectAttributes(domElement: HTMLElement, oControl: UI5Control, keys: string[], valueGetter: (key: string) => string): void {
@@ -47,7 +45,7 @@ export class UI5ControlDataInjector {
       for (let i = 0; i < aBindingInfoParts.length; i++) {
         if (!aBindingInfoParts[i].path) continue;
         if (aBindingInfoParts[i].model) aBindingInfos.push(aBindingInfoParts[i].model + ">");
-        aBindingInfos.push(aBindingInfoParts[i].path);
+        aBindingInfos.push(aBindingInfoParts[i].path || "");
       }
     } else {
       aBindingInfos.push(oControl.getBindingInfo?.(key)?.path || "");

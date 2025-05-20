@@ -109,103 +109,68 @@ export class UI5ControlHandler {
   }
 
   public static getControlProperty(control: UI5Control, propKey: string): any {
-    return control?.getMetadata?.()?.getProperty?.(propKey)?.get?.(control);
-  }
-
-  public static getAggregationProperty(control: UI5Control, propKey: string): any {
-    return control?.getMetadata?.()?.getAggregation?.(propKey)?.get?.(control);
-  }
-
-  public static getAssociationProperty(control: UI5Control, propKey: string): any {
-    return control?.getMetadata?.()?.getAssociation?.(propKey)?.get?.(control);
+    if (!control || !propKey) return undefined;
+    const metadata = control.getMetadata?.();
+    const property = metadata?.getProperty?.(propKey);
+    const aggregation = metadata?.getAggregation?.(propKey);
+    const association = metadata?.getAssociation?.(propKey);
+    return (property ?? aggregation ?? association)?.get?.(control);
   }
 
   public static getControlAllProperties(control: UI5Control): any {
-    return control?.getMetadata?.()?.getAllProperties?.() || {};
+    return {
+      ...control?.getMetadata?.()?.getAllProperties?.(),
+      ...control?.getMetadata?.()?.getAllAssociations?.(),
+      ...control?.getMetadata?.()?.getAllAggregations?.()
+    };
   }
 
-  public static getControlAllAggregations(control: UI5Control): any {
-    return control?.getMetadata?.()?.getAllAggregations?.() || {};
-  }
-
-  public static getControlAllAssociations(control: UI5Control): any {
-    return control?.getMetadata?.()?.getAllAssociations?.() || {};
-  }
-
-  public static getBindDataForAggregation(control: UI5Control, propKey: string): BindingInfo[] {
-    const aAggregation = UI5ControlHandler.getControlAllAggregations(control);
-    return UI5ControlHandler.getBindingData(aAggregation, control, propKey);
-  }
-
-  public static getBindDataForAssociation(control: UI5Control, propKey: string): BindingInfo[] {
-    const aAssociation = UI5ControlHandler.getControlAllAssociations(control);
-    return UI5ControlHandler.getBindingData(aAssociation, control, propKey);
-  }
-
-  public static getBindDataForProperty(control: UI5Control, propKey: string): BindingInfo[] {
+  public static getBindDataForProperty(control: UI5Control, propKey: string): QMateBindingInfo[] {
     const aProperties = UI5ControlHandler.getControlAllProperties(control);
-    return UI5ControlHandler.getBindingData(aProperties, control, propKey);
-  }
-
-  public static getBindingData(aProperties: any, control: UI5Control, propKey: string): BindingInfo[] {
-    let aBindingInfos: BindingInfo[] = [];
     if (aProperties.hasOwnProperty(propKey)) {
-      if (!control?.getBindingInfo?.(propKey)) return aBindingInfos;
-      aBindingInfos = UI5ControlHandler.getBindingInfos(control, propKey);
+      return UI5ControlHandler.getBindingInfos(control, propKey);
     }
-    return aBindingInfos;
+    return [];
   }
 
-  private static getBindingInfos(control: UI5Control, propKey: string): BindingInfo[] {
+  private static createBindingInfo(part: UI5BindingInfo): QMateBindingInfo {
+    return {
+      model: part.model || "",
+      path: part.path || "",
+      value: ""
+    };
+  }
+
+  private static getBindingInfos(control: UI5Control, propKey: string): QMateBindingInfo[] {
     const bindingInfo = control.getBindingInfo?.(propKey);
     if (!bindingInfo) return [];
 
-    const parts = bindingInfo.parts as any[] | undefined;
-    const infos: BindingInfo[] = [];
+    const parts = (bindingInfo.parts ?? []) as UI5BindingInfo[];
+    const infos: QMateBindingInfo[] = [];
 
-    if (Array.isArray(parts) && parts.length > 0) {
-      for (const part of parts) {
-        if (!part.path) continue;
-        infos.push({
-          model: part.model || "",
-          path: part.path,
-          value: ""
-        });
-      }
-    } else if (bindingInfo.path) {
-      infos.push({
-        model: bindingInfo.model || "",
-        path: bindingInfo.path,
-        value: ""
-      });
+    infos.push(...parts.filter((part) => part.path).map(UI5ControlHandler.createBindingInfo));
+    if (infos.length === 0 && bindingInfo.path) {
+      infos.push(UI5ControlHandler.createBindingInfo(bindingInfo));
     }
 
     const binding = control.getBinding?.(propKey);
-    if (binding) {
+    if (binding && infos.length > 0) {
       UI5ControlHandler.retrieveCompositeBindings(binding, infos);
     }
 
     return infos;
   }
 
-  private static retrieveCompositeBindings(oBinding: any, aBindingInfos: any): void {
-    if (!oBinding || !aBindingInfos) return;
-
-    const processBinding = (binding: any) => {
-      if (binding.getBindings) {
-        const subBindings = binding.getBindings();
-        if (Array.isArray(subBindings)) {
-          subBindings.forEach(processBinding);
-        }
-      } else if (binding.getPath && binding.getValue) {
-        const info = aBindingInfos.find((bi: any) => bi.path === binding.getPath());
-        if (info) {
-          info.value = binding.getValue();
-        }
+  private static retrieveCompositeBindings(binding: any, bindingInfos: any): void {
+    if (binding.getBindings) {
+      const subBindings = binding.getBindings() ?? [];
+      subBindings.forEach((subBinding: any) => UI5ControlHandler.retrieveCompositeBindings(subBinding, bindingInfos));
+    } else if (binding.getPath && binding.getValue) {
+      const info = bindingInfos.find((bi: any) => bi.path === binding.getPath());
+      if (info) {
+        info.value = binding.getValue();
       }
-    };
-
-    processBinding(oBinding);
+    }
   }
 
   public static getUI5Ancestors(control: UI5Control): UI5Control[] {

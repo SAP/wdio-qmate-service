@@ -1,5 +1,10 @@
 declare global {
-  type BindingInfo = { model: string; path: string; value: string };
+  type UI5BindingInfo = {
+    parts: Array<UI5BindingInfo>;
+    path?: string;
+    model?: string;
+  };
+  type QMateBindingInfo = { model: string; path: string; value: string };
   type UI5Control = {
     oPropagatedProperties?: any;
     oBindingContexts?: any;
@@ -8,7 +13,7 @@ declare global {
     getParent?: () => UI5Control;
     getViewName?: () => string;
     getBinding?: (key: string) => any;
-    getBindingInfo?: (key: string) => { parts: any; path: string; model: string } | undefined;
+    getBindingInfo?: (key: string) => UI5BindingInfo | undefined;
     getMetadata: () => {
       getAllAggregations: () => any;
       getAllAssociations: () => any;
@@ -53,4 +58,4 @@ declare global {
   };
 }
 
-export { ElementProperties, UI5Control, UI5Selector, BindingInfo };
+export { ElementProperties, UI5Control, UI5Selector, QMateBindingInfo as BindingInfo };

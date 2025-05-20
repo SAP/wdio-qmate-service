@@ -46,7 +46,7 @@ export class ElementPropertiesComparator {
         if (!bFound) {
           return false;
         }
-      } else if (!ElementPropertiesComparator.compareProperty(control, key, value) && !ElementPropertiesComparator.compareAggregation(control, key, value) && !ElementPropertiesComparator.compareAssociation(control, key, value)) {
+      } else if (!ElementPropertiesComparator.compareProperty(control, key, value)) {
         return false;
       }
     }
@@ -85,42 +85,14 @@ export class ElementPropertiesComparator {
 
   private static compareProperty(control: UI5Control, key: string, value: string): boolean {
     const controlVal = UI5ControlHandler.getControlProperty(control, key);
-    if (!Comparator.isNullish(controlVal) && !Comparator.isNullish(value)) {
-      return Comparator.compareWithWildCard(value, controlVal);
-    } else if (Comparator.isNullish(controlVal) && value) {
-      return false;
-    }
-    return true;
-  }
-
-  private static compareAggregation(control: UI5Control, key: string, value: any): boolean {
-    const controlVal = UI5ControlHandler.getAggregationProperty(control, key);
-    if (!Comparator.isNullish(controlVal) && value) {
-      return Comparator.compareWithWildCard(value, controlVal);
-    } else if (Comparator.isNullish(controlVal) && value) {
-      return false;
-    }
-    return true;
-  }
-
-  private static compareAssociation(control: UI5Control, key: string, value: any): boolean {
-    const controlVal = UI5ControlHandler.getAssociationProperty(control, key);
-    if (!Comparator.isNullish(controlVal) && value) {
-      return Comparator.compareWithWildCard(value, controlVal);
-    } else if (Comparator.isNullish(controlVal) && value) {
-      return false;
-    }
-    return true;
+    return Comparator.compareWithWildCard(value, controlVal);
   }
 
   private static compareBindingPathAndModelProperty(key: string, value: any, control: UI5Control): boolean {
     const extrPath = UI5ControlHandler.extractBindingPathAndModelProperty(value);
     if (!extrPath.path) return true;
 
-    const bindingInfo = ([] as BindingInfo[])
-      .concat(UI5ControlHandler.getBindDataForProperty(control, key) || [])
-      .concat(UI5ControlHandler.getBindDataForAggregation(control, key) || [])
-      .concat(UI5ControlHandler.getBindDataForAssociation(control, key) || []);
+    const bindingInfo = UI5ControlHandler.getBindDataForProperty(control, key);
 
     return bindingInfo.some((info) => {
       if (extrPath.model && info.model) {
@@ -131,7 +103,7 @@ export class ElementPropertiesComparator {
   }
 
   private static compareArrayStrElements(key: string, elemId: any, control: UI5Control): boolean {
-    const values: any[] = UI5ControlHandler.getAssociationProperty(control, key) || UI5ControlHandler.getAggregationProperty(control, key) || UI5ControlHandler.getControlProperty(control, key) || [];
+    const values: any[] = UI5ControlHandler.getControlProperty(control, key) || [];
 
     if (!values.length && elemId) return false;
     if (!values.length && !elemId) return true;
