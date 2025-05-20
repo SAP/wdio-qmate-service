@@ -7,29 +7,13 @@ export class Locator {
     LocatorDebug.initializeLogs(ui5Selector);
     try {
       this.checkSelector(ui5Selector);
-
-      // Check if the UI5 library is loaded
-      if (!sap.ui?.getCore?.()) {
-        console.error("This is not an UI5 App, please use other locators");
-        throw new Error("This is not an UI5 App, please use other locators");
-      }
+      this.checkUI5Loaded();
 
       const ui5Controls = ControlFinder.retrieveUI5Controls(ui5Selector);
-      LocatorDebug.debugLog("Total ui5Controls:", ui5Controls.length);
-      const validUi5Controls = this.checkControls(ui5Controls, ui5Selector);
-      LocatorDebug.debugLog("Valid ui5Controls:", validUi5Controls.length);
+      const validUi5Controls = this.filterControlsBySelector(ui5Controls, ui5Selector);
+      const resultElements = this.convertControlsToHTMLElements(validUi5Controls);
+      LocatorDebug.printLogs(resultElements.length);
 
-      const resultElements = validUi5Controls
-        .map((control) => {
-          const domElement = document.getElementById(control.getId?.());
-          UI5ControlDataInjector.injectDataForProperties(domElement, control);
-          return domElement;
-        })
-        .filter(Boolean) as HTMLElement[];
-      LocatorDebug.debugLog("Result elements:", resultElements.length);
-      if (resultElements.length === 0) {
-        LocatorDebug.printLogs();
-      }
       return resultElements;
     } catch (error: any) {
       console.error("Error in locator:", error.stack);
@@ -37,8 +21,11 @@ export class Locator {
     }
   }
 
-  private static checkControls(controls: UI5Control[], ui5Selector: UI5Selector): UI5Control[] {
-    return ElementFilter.filterBySelector(ui5Selector, controls);
+  private static filterControlsBySelector(controls: UI5Control[], ui5Selector: UI5Selector): UI5Control[] {
+    LocatorDebug.debugLog("Total ui5Controls:", controls.length);
+    const validControls = ElementFilter.filterBySelector(ui5Selector, controls);
+    LocatorDebug.debugLog("Valid ui5Controls:", validControls.length);
+    return validControls;
   }
 
   private static checkSelector(ui5Selector: UI5Selector): void {
@@ -51,5 +38,22 @@ export class Locator {
       console.error(`The selector your provided ${JSON.stringify(ui5Selector)} does not contain elementProperties, please provide a valid selector with elementProperties`);
       throw new Error(`The selector your provided ${JSON.stringify(ui5Selector)} does not contain elementProperties, please provide a valid selector with elementProperties`);
     }
+  }
+
+  private static checkUI5Loaded() {
+    if (!sap.ui?.getCore?.()) {
+      console.error("This is not an UI5 App, please use other locators");
+      throw new Error("This is not an UI5 App, please use other locators");
+    }
+  }
+
+  private static convertControlsToHTMLElements(controls: UI5Control[]) {
+    return controls
+      .map((control) => {
+        const domElement = document.getElementById(control.getId?.());
+        UI5ControlDataInjector.injectDataForProperties(domElement, control);
+        return domElement;
+      })
+      .filter(Boolean) as HTMLElement[];
   }
 }

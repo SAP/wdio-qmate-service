@@ -54,10 +54,12 @@ export class LocatorDebug {
     LocatorDebug.indent(false);
   }
 
-  public static printLogs(): void {
-    if (this.logs.length === 0) {
+  public static printLogs(finalElementCount: number): void {
+    if (finalElementCount > 0) {
       return;
     }
+
+    LocatorDebug.debugLog("Result elements:", finalElementCount);
 
     if (this.sameLogAlreadyPrinted()) {
       return;

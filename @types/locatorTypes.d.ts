@@ -43,14 +43,13 @@ declare global {
   };
   type ElementProperties = {
     [key: string]: any;
-    elementProperties: any;
-    parentProperties?: any;
-    ancestorProperties?: any;
-    childProperties?: any;
-    descendantProperties?: any;
-    siblingProperties?: any;
-    prevSiblingProperties?: any;
-    nextSiblingProperties?: any;
+    parentProperties?: ElementProperties;
+    ancestorProperties?: ElementProperties;
+    childProperties?: ElementProperties;
+    descendantProperties?: ElementProperties;
+    siblingProperties?: ElementProperties;
+    prevSiblingProperties?: ElementProperties;
+    nextSiblingProperties?: ElementProperties;
   };
 }
 
