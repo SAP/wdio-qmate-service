@@ -32,16 +32,12 @@ export class LocatorDebug {
       document.qmateLogHashes = [];
     }
 
-    this.debugLog(
-      "QmateLocator Debug Logs for Selector:" + JSON.stringify(ui5Selector)
-    );
+    this.debugLog("QmateLocator Debug Logs for Selector:" + JSON.stringify(ui5Selector));
   }
 
   public static indent(positive: boolean): void {
-    if(positive)
-      this.indentation += "....";
-    else
-      this.indentation = this.indentation.substring(0, this.indentation.length-4);
+    if (positive) this.indentation += "....";
+    else this.indentation = this.indentation.substring(0, this.indentation.length - 4);
   }
 
   public static debugLog(...messages: any[]): void {
@@ -57,7 +53,7 @@ export class LocatorDebug {
       return;
     }
 
-    let fullLog: any[] = []
+    let fullLog: any[] = [];
     for (const log of this.logs) {
       fullLog = fullLog.concat(log);
       fullLog.push("\n");

@@ -1,13 +1,8 @@
 import { LocatorDebug } from "./Debug";
 
 export class ControlFinder {
-  public static retrieveUI5Controls(
-    selector: UI5Selector,
-    index: any,
-    opt_parentElement: HTMLElement
-  ): UI5Control[] {
-    const nodes =
-      this.retrieveNodesFromBody(selector, index, opt_parentElement) || [];
+  public static retrieveUI5Controls(selector: UI5Selector, index: any, opt_parentElement: HTMLElement): UI5Control[] {
+    const nodes = this.retrieveNodesFromBody(selector, index, opt_parentElement) || [];
     return this.retrieveValidUI5Controls(nodes);
   }
 
@@ -15,32 +10,13 @@ export class ControlFinder {
     return !isNaN(value) && (parseFloat(value) | 0) === parseFloat(value);
   }
 
-  private static retrieveNodesFromBody(
-    selector: UI5Selector,
-    index: any,
-    opt_parentElement: Element
-  ): Element[] {
+  private static retrieveNodesFromBody(selector: UI5Selector, index: any, opt_parentElement: Element): Element[] {
     // build smart css selector if possible
     let cssSelector = "*";
     if (selector.elementProperties?.id) {
-      if (
-        selector.elementProperties.id.startsWith("*") ||
-        (selector.elementProperties.id.endsWith("*") &&
-          !selector.elementProperties.id
-            .substring(1, selector.elementProperties.id.length - 1)
-            .includes("*"))
-      ) {
-        const idWithoutWildcards = selector.elementProperties.id.replaceAll(
-          "*",
-          ""
-        );
-        LocatorDebug.debugLog(
-          "shortened id is '",
-          idWithoutWildcards,
-          "' from '",
-          selector.elementProperties.id,
-          "'"
-        );
+      if (selector.elementProperties.id.startsWith("*") || (selector.elementProperties.id.endsWith("*") && !selector.elementProperties.id.substring(1, selector.elementProperties.id.length - 1).includes("*"))) {
+        const idWithoutWildcards = selector.elementProperties.id.replaceAll("*", "");
+        LocatorDebug.debugLog("shortened id is '", idWithoutWildcards, "' from '", selector.elementProperties.id, "'");
         cssSelector = `*[id*="${idWithoutWildcards}"]`;
       }
     }
@@ -61,14 +37,10 @@ export class ControlFinder {
   }
 
   private static retrieveValidUI5Controls(nodes: Element[]): UI5Control[] {
-    return nodes
-      .map((node) => this.getUI5Control(node.getAttribute("id")))
-      .filter((element) => element) as UI5Control[];
+    return nodes.map((node) => this.getUI5Control(node.getAttribute("id"))).filter((element) => element) as UI5Control[];
   }
 
-  public static getUI5Control(
-    id: string | null | undefined
-  ): UI5Control | null {
+  public static getUI5Control(id: string | null | undefined): UI5Control | null {
     return sap.ui.core.Element.getElementById(id);
   }
 }

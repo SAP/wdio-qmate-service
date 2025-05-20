@@ -1,13 +1,16 @@
 import { ControlFinder } from "./ControlFinder";
 import { UI5ControlDataInjector } from "./UI5ControlDataInjector";
-import { ElementPropertiesCheck } from "./ElementPropertiesCheck";
 import { LocatorDebug } from "./Debug";
+import { NextSiblingFilter } from "./filters/NextSiblingFilter";
+import { PrevSiblingFilter } from "./filters/PrevSiblingFilter";
+import { SiblingFilter } from "./filters/SiblingFilter";
+import { ChildFilter } from "./filters/ChildFilter";
+import { AncestorFilter } from "./filters/AncestorFilter";
+import { ParentFilter } from "./filters/ParentFilter";
+import { PropertiesFilter } from "./filters/PropertiesFilter";
+import { DescendantFilter } from "./filters/DescendantFilter";
 export class Locator {
-  public static locate(
-    ui5Selector: UI5Selector,
-    index: any,
-    opt_parentElement: HTMLElement
-  ): HTMLElement[] {
+  public static locate(ui5Selector: UI5Selector, index: any, opt_parentElement: HTMLElement): HTMLElement[] {
     LocatorDebug.initializeLogs(ui5Selector);
     try {
       this.checkSelector(ui5Selector);
@@ -18,11 +21,7 @@ export class Locator {
         throw new Error("This is not an UI5 App, please use other locators");
       }
 
-      const ui5Controls = ControlFinder.retrieveUI5Controls(
-        ui5Selector,
-        index,
-        opt_parentElement
-      );
+      const ui5Controls = ControlFinder.retrieveUI5Controls(ui5Selector, index, opt_parentElement);
       LocatorDebug.debugLog("Total ui5Controls:", ui5Controls.length);
       const validUi5Controls = this.checkControls(ui5Controls, ui5Selector);
       LocatorDebug.debugLog("Valid ui5Controls:", validUi5Controls.length);
@@ -45,68 +44,27 @@ export class Locator {
     }
   }
 
-  private static checkControls(
-    controls: UI5Control[],
-    ui5Selector: UI5Selector
-  ): UI5Control[] {
-    let validUi5Controls = ElementPropertiesCheck.filterByElementProperties(
-      ui5Selector.elementProperties,
-      controls
-    );
-    validUi5Controls = ElementPropertiesCheck.filterByParentProperties(
-      ui5Selector.parentProperties,
-      validUi5Controls
-    );
-    validUi5Controls = ElementPropertiesCheck.filterByAncestorProperties(
-      ui5Selector.ancestorProperties,
-      validUi5Controls
-    );
-    validUi5Controls = ElementPropertiesCheck.filterByChildProperties(
-      ui5Selector.childProperties,
-      validUi5Controls
-    );
-    validUi5Controls =
-      ElementPropertiesCheck.filterByDescendantProperties(
-        ui5Selector.descendantProperties,
-        validUi5Controls
-      );
-    validUi5Controls =
-      ElementPropertiesCheck.filterBySiblingProperties(
-        ui5Selector.siblingProperties,
-        validUi5Controls
-      );
-    validUi5Controls = ElementPropertiesCheck.filterByPrevElementProperties(
-      ui5Selector.prevSiblingProperties,
-      validUi5Controls
-    );
-    validUi5Controls = ElementPropertiesCheck.filterByNextElementProperties(
-      ui5Selector.nextSiblingProperties,
-      validUi5Controls
-    );
+  private static checkControls(controls: UI5Control[], ui5Selector: UI5Selector): UI5Control[] {
+    let validUi5Controls = PropertiesFilter.filter(ui5Selector.elementProperties, controls);
+    validUi5Controls = ParentFilter.filter(ui5Selector.parentProperties, validUi5Controls);
+    validUi5Controls = AncestorFilter.filter(ui5Selector.ancestorProperties, validUi5Controls);
+    validUi5Controls = ChildFilter.filter(ui5Selector.childProperties, validUi5Controls);
+    validUi5Controls = DescendantFilter.filter(ui5Selector.descendantProperties, validUi5Controls);
+    validUi5Controls = SiblingFilter.filter(ui5Selector.siblingProperties, validUi5Controls);
+    validUi5Controls = PrevSiblingFilter.filter(ui5Selector.prevSiblingProperties, validUi5Controls);
+    validUi5Controls = NextSiblingFilter.filter(ui5Selector.nextSiblingProperties, validUi5Controls);
     return validUi5Controls;
   }
 
   private static checkSelector(ui5Selector: UI5Selector): void {
     if (!ui5Selector) {
-      console.error(
-        `The selector your provided ${ui5Selector} is undefined/null, please provide a valid selector`
-      );
-      throw new Error(
-        `The selector your provided ${ui5Selector} is undefined/null, please provide a valid selector`
-      );
+      console.error(`The selector your provided ${ui5Selector} is undefined/null, please provide a valid selector`);
+      throw new Error(`The selector your provided ${ui5Selector} is undefined/null, please provide a valid selector`);
     }
 
     if (!ui5Selector.elementProperties) {
-      console.error(
-        `The selector your provided ${JSON.stringify(
-          ui5Selector
-        )} does not contain elementProperties, please provide a valid selector with elementProperties`
-      );
-      throw new Error(
-        `The selector your provided ${JSON.stringify(
-          ui5Selector
-        )} does not contain elementProperties, please provide a valid selector with elementProperties`
-      );
+      console.error(`The selector your provided ${JSON.stringify(ui5Selector)} does not contain elementProperties, please provide a valid selector with elementProperties`);
+      throw new Error(`The selector your provided ${JSON.stringify(ui5Selector)} does not contain elementProperties, please provide a valid selector with elementProperties`);
     }
   }
 
