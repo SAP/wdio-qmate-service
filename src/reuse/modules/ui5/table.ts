@@ -298,13 +298,13 @@ export class Table {
   }
 
   /**
-   * @function getRowsSelectorsByValues
+   * @function getSelectorsForRowsByValues
    * @memberOf ui5.table
    * @description Gets the selectors of rows in the table that contain the given values. If multiple values are provided, it only returns the selectors of rows that contain all of them.
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
    * @param {string} values - The value(s) to match in the table rows.
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable"
-   * await ui5.table.getRowsSelectorsByValues(id, "February");
+   * await ui5.table.getSelectorsForRowsByValues(id, "February");
    * @example const selector = {
    *  elementProperties: {
    *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
@@ -312,9 +312,9 @@ export class Table {
    *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
    *  }
    * };
-   * await ui5.table.getRowsSelectorsByValues(selector, ["January", "2022"]);
+   * await ui5.table.getSelectorsForRowsByValues(selector, ["January", "2022"]);
    */
-  async getSelectorsForRowsByValues(tableSelector: Ui5Selector | string, values: string | Array<string>): Promise<object[]> {
+  async getSelectorsForRowsByValues(tableSelector: Ui5Selector | string, values: string | Array<string>): Promise<Array<Ui5Selector>> {
     this.vlf.initLog(this.getSelectorsForRowsByValues);
 
     if (typeof values === "string") {
@@ -359,7 +359,7 @@ export class Table {
       return this.ErrorHandler.logException(new Error(`No items found with the provided values: ${values}.`));
     }
 
-    const rowsSelectors = [];
+    const rowsSelectors: Array<Ui5Selector> = [];
 
     for (const id of filteredRowIds) {
       const columnListItemSelector = {
@@ -390,7 +390,7 @@ export class Table {
    * @example id = "application-ReportingTask-run-component---ReportList--ReportingTable"
    * const rowSelector = await ui5.table.getRowSelectorByIndex(id, 0);
    */
-  async getRowSelectorByIndex(tableSelector: any, index: number) {
+  async getRowSelectorByIndex(tableSelector: any, index: number): Promise<Ui5Selector> {
     this.vlf.initLog(this.getRowSelectorByIndex);
 
     const constructedTableSelector = await this._constructTableSelector(tableSelector);
@@ -433,7 +433,7 @@ export class Table {
       return this.ErrorHandler.logException(new Error(`No item found with index ${index}.`));
     }
 
-    const columnListItemSelector = {
+    const columnListItemSelector: Ui5Selector = {
       elementProperties: {
         metadata: Table.COLUMN_LIST_ITEM_METADATA,
         id: columnListItemId
