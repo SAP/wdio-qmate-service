@@ -14,7 +14,7 @@ export class ControlFinder {
     // build smart css selector if possible
     let cssSelector = "*";
     if (selector.elementProperties?.id) {
-      if (selector.elementProperties.id.startsWith("*") || (selector.elementProperties.id.endsWith("*") && !selector.elementProperties.id.substring(1, selector.elementProperties.id.length - 1).includes("*"))) {
+      if (selector.elementProperties.id.includes("*") && !selector.elementProperties.id.substring(1, selector.elementProperties.id.length - 1).includes("*")) {
         const idWithoutWildcards = selector.elementProperties.id.replaceAll("*", "");
         LocatorDebug.debugLog("shortened id is '", idWithoutWildcards, "' from '", selector.elementProperties.id, "'");
         cssSelector = `*[id*="${idWithoutWildcards}"]`;

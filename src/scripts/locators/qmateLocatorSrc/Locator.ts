@@ -25,7 +25,7 @@ export class Locator {
           UI5ControlDataInjector.injectDataForProperties(domElement, control);
           return domElement;
         })
-        .filter((element) => element) as HTMLElement[];
+        .filter(Boolean) as HTMLElement[];
       LocatorDebug.debugLog("Result elements:", resultElements.length);
       if (resultElements.length === 0) {
         LocatorDebug.printLogs();
