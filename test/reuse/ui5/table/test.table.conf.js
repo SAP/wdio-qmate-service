@@ -18,5 +18,8 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "openItemByValues.spec.js"),
     path.resolve(__dirname, "getRowSelectorByIndex.spec.js"),
     path.resolve(__dirname, "getSelectorForRowsByValues.spec.js"),
+    path.resolve(__dirname, "getSelectorForRowsByValues.spec.js"),
+    path.resolve(__dirname, "selectAllRows.spec.js"),
+    path.resolve(__dirname, "deselectRowByIndex.spec.js")
   ]
 });
