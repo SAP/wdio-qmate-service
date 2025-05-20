@@ -2,7 +2,7 @@ import { ElementPropertiesComparator } from "../utils/ElementPropertiesComparato
 import { BaseFilter } from "./BaseFilter";
 
 export class PropertiesFilter extends BaseFilter {
-  public doFiltering(elementProperties: ElementProperties, controls: UI5Control[]): UI5Control[] {
+  public _doFiltering(elementProperties: ElementProperties, controls: UI5Control[]): UI5Control[] {
     return controls.filter((control) => {
       if (!control) {
         return false;

@@ -7,42 +7,25 @@ import { ChildFilter } from "./ChildFilter";
 import { ParentFilter } from "./ParentFilter";
 import { PrevSiblingFilter } from "./PrevSiblingFilter";
 import { NextSiblingFilter } from "./NextSiblingFilter";
+import {BaseFilter} from "./BaseFilter";
 
-export class ElementFilter {
-  public static filter(rawElementProperties: ElementProperties | undefined, controls: UI5Control[]): UI5Control[] {
-    // needed for backward compatibility
-    let elementProperties = rawElementProperties;
-    if (rawElementProperties && typeof rawElementProperties.mProperties === "object") {
-      elementProperties = {
-        ...rawElementProperties,
-        ...rawElementProperties.mProperties
-      } as ElementProperties;
-      delete elementProperties.mProperties;
-    }
-
-    if (!elementProperties || Object.keys(elementProperties).length === 0 || controls.length === 0) {
-      return controls;
-    }
+export class ElementFilter extends BaseFilter {
+  public _doFiltering(elementProperties: ElementProperties, controls: UI5Control[]): UI5Control[] {
 
     if (elementProperties.prevSiblingProperties || elementProperties.nextSiblingProperties || elementProperties.childProperties || elementProperties.parentProperties) {
       console.error(`The selector your provided ${JSON.stringify(elementProperties)} contains childProperties, parentProperties, prevSiblingProperties or nextSiblingProperties, please provide a valid selector without these properties`);
       throw new Error("Nested properties can only be used for ancestorProperties, descendantProperties or siblingProperties.");
     }
 
-    LocatorDebug.beginLog("ElementFilter", controls.length);
-
     let filteredControls = new PropertiesFilter().filter(elementProperties, controls);
     filteredControls = new AncestorFilter().filter(elementProperties.ancestorProperties, filteredControls);
     filteredControls = new DescendantFilter().filter(elementProperties.descendantProperties, filteredControls);
     filteredControls = new SiblingFilter().filter(elementProperties.siblingProperties, filteredControls);
-
-    LocatorDebug.endLog("ElementFilter", filteredControls.length);
-
     return filteredControls;
   }
 
-  public static filterBySelector(ui5Selector: UI5Selector, controls: UI5Control[]): UI5Control[] {
-    let validUi5Controls = ElementFilter.filter(ui5Selector.elementProperties, controls);
+  public filterBySelector(ui5Selector: UI5Selector, controls: UI5Control[]): UI5Control[] {
+    let validUi5Controls = this.filter(ui5Selector.elementProperties, controls);
     validUi5Controls = new ParentFilter().filter(ui5Selector.parentProperties, validUi5Controls);
     validUi5Controls = new AncestorFilter().filter(ui5Selector.ancestorProperties, validUi5Controls);
     validUi5Controls = new ChildFilter().filter(ui5Selector.childProperties, validUi5Controls);

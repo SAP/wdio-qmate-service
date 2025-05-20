@@ -24,7 +24,7 @@ export class Locator {
 
   private static filterControlsBySelector(controls: UI5Control[], ui5Selector: UI5Selector): UI5Control[] {
     LocatorDebug.debugLog("Total ui5Controls:", controls.length);
-    const validControls = ElementFilter.filterBySelector(ui5Selector, controls);
+    const validControls = new ElementFilter().filterBySelector(ui5Selector, controls);
     LocatorDebug.debugLog("Valid ui5Controls:", validControls.length);
     return validControls;
   }
