@@ -317,49 +317,60 @@ export class Table {
   async getSelectorsForRowsByValues(tableSelector: Ui5Selector | string, values: string | Array<string>): Promise<object[]> {
     this.vlf.initLog(this.getSelectorsForRowsByValues);
 
-    const constructedTableSelector = await this._constructTableSelector(tableSelector);
     if (typeof values === "string") {
       values = [values];
     } else if (!Array.isArray(values)) {
       this.ErrorHandler.logException(new Error("Invalid values provided. It should be either a string or an array of strings."));
     }
-    let browserCommand;
+
+    const constructedTableSelector = await this._constructTableSelector(tableSelector);
+    let filteredRowIds;
+
     try {
-      browserCommand = ` //TODO use arrow function instead return
-      return (function () {
-          const table = sap.ui.getCore().getElementById("${constructedTableSelector.elementProperties?.id}");
+      // =========================== BROWSER COMMAND ===========================
+      filteredRowIds = await util.browser.executeScript(
+        (constructedTableSelector: Ui5Selector, values: Array<string>, tableMetadata: Ui5ControlMetadata, smartTableMetadata: Ui5ControlMetadata) => {
+          const table = sap.ui.getCore().getElementById(constructedTableSelector.elementProperties?.id);
           let items = [];
-          if ("${Table.TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getItems !== undefined) {
+
+          if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getItems !== undefined) {
             items = table.getItems();
-           } else if("${Table.TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getRows !== undefined) {
+          } else if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getRows !== undefined) {
             items = table.getRows();
-          } else if("${Table.SMART_TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
+          } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined && table.getTable().getItems !== undefined) {
             items = table.getTable().getItems();
           } else {
             return undefined;
           }
-          return items.filter(
-            item => ${JSON.stringify(values)}.every(
-              val => Object
-              .values(item.getBindingContext().getObject()).includes(val)))
-              .map(filteredItems => filteredItems.getId())
-      })();`;
-      const filteredRowIds = await util.browser.executeScript(browserCommand);
-      const rowsSelectors = [];
 
-      for (const id of filteredRowIds) {
-        const columnListItemSelector = {
-          elementProperties: {
-            metadata: Table.COLUMN_LIST_ITEM_METADATA,
-            id: id
-          }
-        };
-        rowsSelectors.push(columnListItemSelector);
-      }
-      return rowsSelectors;
+          return items.filter((item: any) => values.every((val) => Object.values(item.getBindingContext().getObject()).includes(val))).map((filteredItems: any) => filteredItems.getId());
+        },
+        constructedTableSelector,
+        Table.TABLE_METADATA,
+        Table.SMART_TABLE_METADATA,
+        values
+      );
+      // ========================================================================
     } catch (error) {
-      return this.ErrorHandler.logException(new Error(`Browser Command injected: ${browserCommand} was injected. ${error}`));
+      return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
     }
+
+    if (!filteredRowIds || filteredRowIds.length === 0) {
+      return this.ErrorHandler.logException(new Error(`No items found with the provided values: ${values}.`));
+    }
+
+    const rowsSelectors = [];
+
+    for (const id of filteredRowIds) {
+      const columnListItemSelector = {
+        elementProperties: {
+          metadata: Table.COLUMN_LIST_ITEM_METADATA,
+          id: id
+        }
+      };
+      rowsSelectors.push(columnListItemSelector);
+    }
+    return rowsSelectors;
   }
 
   /**
@@ -383,45 +394,52 @@ export class Table {
     this.vlf.initLog(this.getRowSelectorByIndex);
 
     const constructedTableSelector = await this._constructTableSelector(tableSelector);
-    let browserCommand;
     let columnListItemId;
+
     try {
-      browserCommand = `
-        return (function () {
-          const table = sap.ui.getCore().getElementById("${constructedTableSelector.elementProperties?.id}");
+      // =========================== BROWSER COMMAND ===========================
+      columnListItemId = await util.browser.executeScript(
+        (constructedTableSelector: Ui5Selector, index: number, tableMetadata: Ui5ControlMetadata, smartTableMetadata: Ui5ControlMetadata) => {
+          const table = sap.ui.getCore().getElementById(constructedTableSelector.elementProperties?.id);
           let items = [];
-          if("${Table.TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getItems !== undefined) {
+
+          if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getItems !== undefined) {
             items = table.getItems();
-          } else if("${Table.TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getRows !== undefined) {
+          } else if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getRows !== undefined) {
             items = table.getRows();
-          } else if("${Table.SMART_TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
+          } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined && table.getTable().getItems !== undefined) {
             items = table.getTable().getItems();
-          } else {
-            return undefined;
           }
-           if(!items || !items[${index}]) return undefined;
-          // Filter out items with undefined or empty title since the rows/columnListItems are for dividers for grouped items
-            const filteredItems = items.filter(item => item.getTitle === undefined || item.getTitle() === '');
-            const item = filteredItems[${index}];
-            return item?.getId?.();
-        })();
-      `;
-      columnListItemId = await util.browser.executeScript(browserCommand);
+
+          if (!items || !items[index]) return undefined;
+
+          // Filter items with undefined or empty title since titles in rows/columnListItems are only used for dividers of grouped items
+          const filteredItems = items.filter((item: any) => item.getTitle === undefined || item.getTitle() === "");
+          const item = filteredItems[index];
+
+          return item?.getId?.();
+        },
+        constructedTableSelector,
+        index,
+        Table.TABLE_METADATA,
+        Table.SMART_TABLE_METADATA
+      );
+      // ========================================================================
     } catch (error) {
-      return this.ErrorHandler.logException(new Error(`${error} while executing browser command: ${browserCommand}`));
+      return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
     }
 
     if (!columnListItemId) {
-      return this.ErrorHandler.logException(new Error(`No item found with index ${index} while executing browser command: ${browserCommand}`));
-    } else {
-      const columnListItemSelector = {
-        elementProperties: {
-          metadata: Table.COLUMN_LIST_ITEM_METADATA,
-          id: columnListItemId
-        }
-      };
-      return columnListItemSelector;
+      return this.ErrorHandler.logException(new Error(`No item found with index ${index}.`));
     }
+
+    const columnListItemSelector = {
+      elementProperties: {
+        metadata: Table.COLUMN_LIST_ITEM_METADATA,
+        id: columnListItemId
+      }
+    };
+    return columnListItemSelector;
   }
 
   /**
