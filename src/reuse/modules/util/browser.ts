@@ -257,9 +257,9 @@ export class Browser {
    * @returns {Any} The result from the executed function.
    * @example await util.browser.executeScript(command);
    */
-  async executeScript(command: string | Function): Promise<any> {
+  async executeScript(command: string | Function, ...args: Array<any>): Promise<any> {
     const vl = this.vlf.initLog(this.executeScript);
-    return browser.execute(command);
+    return browser.execute(command, ...args);
   }
 
   // =================================== WINDOW HANDLING ===================================
