@@ -1,9 +1,20 @@
+import {FilterFactory} from "../utils/FilterFactory";
 import { LocatorDebug } from "../utils/LocatorDebug";
 
 export abstract class BaseFilter {
-  private convertRawElementPropertiesToElementProperties(rawElementProperties: ElementProperties | undefined): ElementProperties | undefined {
+  elementProperties: ElementProperties;
+  filterFactory: FilterFactory;
+  results: { [controlId: string]: boolean };
+
+  constructor(filterFactory:FilterFactory, rawElementProperties: ElementProperties | undefined) {
+    this.elementProperties = this.convertRawElementPropertiesToElementProperties(rawElementProperties);
+    this.filterFactory = filterFactory;
+    this.results = {};
+  }
+
+  private convertRawElementPropertiesToElementProperties(rawElementProperties: ElementProperties | undefined): ElementProperties {
     // needed for backward compatibility
-    let elementProperties = rawElementProperties;
+    let elementProperties = { ...rawElementProperties };
     if (typeof rawElementProperties?.mProperties === "object") {
       elementProperties = {
         ...rawElementProperties,
@@ -14,33 +25,34 @@ export abstract class BaseFilter {
     return elementProperties;
   }
 
-  public filter(rawElementProperties: ElementProperties | undefined, controls: UI5Control[]): UI5Control[] {
-    const elementProperties = this.convertRawElementPropertiesToElementProperties(rawElementProperties);
-
-    if (!elementProperties || Object.keys(elementProperties).length === 0 || controls.length === 0) {
+  public filter(controls: UI5Control[]): UI5Control[] {
+    if (Object.keys(this.elementProperties).length === 0 || controls.length === 0) {
       return controls;
     }
     LocatorDebug.beginLog(this.constructor.name, controls.length);
-    const filteredControls = this._doFiltering(elementProperties, controls);
+    const filteredControls = this._doFiltering(controls);
     LocatorDebug.endLog(this.constructor.name, filteredControls.length);
 
     return filteredControls;
   }
 
-  protected _doFiltering(elementProperties: ElementProperties, controls: UI5Control[]): UI5Control[] {
-    return controls.filter((control) => this.checkSingle(elementProperties, control));
+  protected _doFiltering(controls: UI5Control[]): UI5Control[] {
+    return controls.filter((control) => this.checkSingle(control));
   }
 
-  public checkSingle(rawElementProperties: ElementProperties | undefined, control: UI5Control): boolean {
-    const elementProperties = this.convertRawElementPropertiesToElementProperties(rawElementProperties);
-    if (!elementProperties || Object.keys(elementProperties).length === 0) {
+  public checkSingle(control: UI5Control): boolean {
+    if (Object.keys(this.elementProperties).length === 0) {
       return true;
     }
     if (!control) {
       return false;
     }
-    return this._doCheckSingle(elementProperties, control);
+    const controlID = control.getId();
+    if (!this.results.hasOwnProperty(controlID)) {
+      this.results[controlID] = this._doCheckSingle(control);
+    }
+    return this.results[controlID];
   }
 
-  protected abstract _doCheckSingle(elementProperties: ElementProperties, control: UI5Control): boolean;
+  protected abstract _doCheckSingle(control: UI5Control): boolean;
 }

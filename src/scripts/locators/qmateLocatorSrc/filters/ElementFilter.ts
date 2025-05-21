@@ -7,44 +7,46 @@ import { ParentFilter } from "./ParentFilter";
 import { PrevSiblingFilter } from "./PrevSiblingFilter";
 import { NextSiblingFilter } from "./NextSiblingFilter";
 import { BaseFilter } from "./BaseFilter";
+import {FilterFactory} from "../utils/FilterFactory";
 
 export class ElementFilter extends BaseFilter {
-  protected _doFiltering(elementProperties: ElementProperties, controls: UI5Control[]): UI5Control[] {
-    this.checkElementProperties(elementProperties);
+  protected _doFiltering(controls: UI5Control[]): UI5Control[] {
+    this.checkElementProperties();
 
-    let filteredControls = new PropertiesFilter().filter(elementProperties, controls);
-    filteredControls = new AncestorFilter().filter(elementProperties.ancestorProperties, filteredControls);
-    filteredControls = new DescendantFilter().filter(elementProperties.descendantProperties, filteredControls);
-    filteredControls = new SiblingFilter().filter(elementProperties.siblingProperties, filteredControls);
+    let filteredControls = this.filterFactory.getInstance(PropertiesFilter, this.elementProperties).filter(controls);
+    filteredControls = this.filterFactory.getInstance(AncestorFilter, this.elementProperties?.ancestorProperties).filter(filteredControls);
+    filteredControls = this.filterFactory.getInstance(DescendantFilter, this.elementProperties?.descendantProperties).filter(filteredControls);
+    filteredControls = this.filterFactory.getInstance(SiblingFilter, this.elementProperties?.siblingProperties).filter(filteredControls);
     return filteredControls;
   }
 
-  public _doCheckSingle(elementProperties: ElementProperties, control: UI5Control): boolean {
-    this.checkElementProperties(elementProperties);
+  public _doCheckSingle(control: UI5Control): boolean {
+    this.checkElementProperties();
 
-    let pass = new PropertiesFilter().checkSingle(elementProperties, control);
-    pass &&= new AncestorFilter().checkSingle(elementProperties.ancestorProperties, control);
-    pass &&= new DescendantFilter().checkSingle(elementProperties.descendantProperties, control);
-    pass &&= new SiblingFilter().checkSingle(elementProperties.siblingProperties, control);
+    let pass = this.filterFactory.getInstance(PropertiesFilter, this.elementProperties).checkSingle(control);
+    pass &&= this.filterFactory.getInstance(AncestorFilter, this.elementProperties?.ancestorProperties).checkSingle(control);
+    pass &&= this.filterFactory.getInstance(DescendantFilter, this.elementProperties?.descendantProperties).checkSingle(control);
+    pass &&= this.filterFactory.getInstance(SiblingFilter, this.elementProperties?.siblingProperties).checkSingle(control);
     return pass;
   }
 
-  private checkElementProperties(elementProperties: ElementProperties): void {
-    if (elementProperties.prevSiblingProperties || elementProperties.nextSiblingProperties || elementProperties.childProperties || elementProperties.parentProperties) {
-      console.error(`The selector your provided ${JSON.stringify(elementProperties)} contains childProperties, parentProperties, prevSiblingProperties or nextSiblingProperties, please provide a valid selector without these properties`);
+  private checkElementProperties(): void {
+    if (this.elementProperties?.prevSiblingProperties || this.elementProperties?.nextSiblingProperties || this.elementProperties?.childProperties || this.elementProperties?.parentProperties) {
+      console.error(`The selector your provided ${JSON.stringify(this.elementProperties)} contains childProperties, parentProperties, prevSiblingProperties or nextSiblingProperties, please provide a valid selector without these properties`);
       throw new Error("Nested properties can only be used for ancestorProperties, descendantProperties or siblingProperties.");
     }
   }
 
-  public filterBySelector(ui5Selector: UI5Selector, controls: UI5Control[]): UI5Control[] {
-    let validUi5Controls = this.filter(ui5Selector.elementProperties, controls);
-    validUi5Controls = new ParentFilter().filter(ui5Selector.parentProperties, validUi5Controls);
-    validUi5Controls = new AncestorFilter().filter(ui5Selector.ancestorProperties, validUi5Controls);
-    validUi5Controls = new ChildFilter().filter(ui5Selector.childProperties, validUi5Controls);
-    validUi5Controls = new DescendantFilter().filter(ui5Selector.descendantProperties, validUi5Controls);
-    validUi5Controls = new SiblingFilter().filter(ui5Selector.siblingProperties, validUi5Controls);
-    validUi5Controls = new PrevSiblingFilter().filter(ui5Selector.prevSiblingProperties, validUi5Controls);
-    validUi5Controls = new NextSiblingFilter().filter(ui5Selector.nextSiblingProperties, validUi5Controls);
+  public static filterBySelector(ui5Selector: UI5Selector, controls: UI5Control[]): UI5Control[] {
+    const filterFactory = new FilterFactory();
+    let validUi5Controls = filterFactory.getInstance(ElementFilter, ui5Selector.elementProperties).filter(controls);
+    validUi5Controls = filterFactory.getInstance(ParentFilter, ui5Selector.parentProperties).filter(validUi5Controls);
+    validUi5Controls = filterFactory.getInstance(AncestorFilter, ui5Selector.ancestorProperties).filter(validUi5Controls);
+    validUi5Controls = filterFactory.getInstance(ChildFilter, ui5Selector.childProperties).filter(validUi5Controls);
+    validUi5Controls = filterFactory.getInstance(DescendantFilter, ui5Selector.descendantProperties).filter(validUi5Controls);
+    validUi5Controls = filterFactory.getInstance(SiblingFilter, ui5Selector.siblingProperties).filter(validUi5Controls);
+    validUi5Controls = filterFactory.getInstance(PrevSiblingFilter, ui5Selector.prevSiblingProperties).filter(validUi5Controls);
+    validUi5Controls = filterFactory.getInstance(NextSiblingFilter, ui5Selector.nextSiblingProperties).filter(validUi5Controls);
     return validUi5Controls;
   }
 }

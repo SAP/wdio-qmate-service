@@ -2,6 +2,7 @@ import { ControlFinder } from "./utils/ControlFinder";
 import { UI5ControlDataInjector } from "./utils/UI5ControlDataInjector";
 import { LocatorDebug } from "./utils/LocatorDebug";
 import { ElementFilter } from "./filters/ElementFilter";
+import {FilterFactory} from "./utils/FilterFactory";
 export class Locator {
   public static locate(ui5Selector: UI5Selector, rootElement: HTMLElement): HTMLElement[] {
     LocatorDebug.initializeLogs(ui5Selector);
@@ -24,7 +25,7 @@ export class Locator {
 
   private static filterControlsBySelector(controls: UI5Control[], ui5Selector: UI5Selector): UI5Control[] {
     LocatorDebug.debugLog("Total ui5Controls:", controls.length);
-    const validControls = new ElementFilter().filterBySelector(ui5Selector, controls);
+    const validControls = ElementFilter.filterBySelector(ui5Selector, controls);
     LocatorDebug.debugLog("Valid ui5Controls:", validControls.length);
     return validControls;
   }

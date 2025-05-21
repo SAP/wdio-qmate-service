@@ -3,9 +3,9 @@ import { BaseFilter } from "./BaseFilter";
 import { ElementFilter } from "./ElementFilter";
 
 export class AncestorFilter extends BaseFilter {
-  public _doCheckSingle(elementProperties: ElementProperties, control: UI5Control): boolean {
+  public _doCheckSingle(control: UI5Control): boolean {
     const ancestors = UI5ControlHandler.getUI5Ancestors(control);
-    const elementFilter = new ElementFilter();
-    return ancestors.some((ancestor) => elementFilter.checkSingle(elementProperties, ancestor));
+    const elementFilter = this.filterFactory.getInstance(ElementFilter, this.elementProperties);
+    return ancestors.some((ancestor) => elementFilter.checkSingle(ancestor));
   }
 }

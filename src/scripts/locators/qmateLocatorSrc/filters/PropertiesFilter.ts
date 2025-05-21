@@ -4,10 +4,10 @@ import { MetadataComparator } from "../comparators/MetadataComparator";
 import { BaseFilter } from "./BaseFilter";
 
 export class PropertiesFilter extends BaseFilter {
-  public _doCheckSingle(elementProperties: ElementProperties, control: UI5Control): boolean {
-    let pass = MetadataComparator.compareMetadata(elementProperties, control);
-    pass &&= ElementPropertiesComparator.compareToProperties(elementProperties, control);
-    pass &&= DomPropertiesComparator.compareToDomProperties(elementProperties.domProperties, control);
+  public _doCheckSingle(control: UI5Control): boolean {
+    let pass = MetadataComparator.compareMetadata(this.elementProperties, control);
+    pass &&= ElementPropertiesComparator.compareToProperties(this.elementProperties, control);
+    pass &&= DomPropertiesComparator.compareToDomProperties(this.elementProperties.domProperties, control);
     return pass;
   }
 }
