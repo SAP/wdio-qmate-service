@@ -346,31 +346,31 @@ export class Table {
           return items.filter((item: any) => values.every((val) => Object.values(item.getBindingContext().getObject()).includes(val))).map((filteredItems: any) => filteredItems.getId());
         },
         constructedTableSelector,
+        values,
         Table.TABLE_METADATA,
-        Table.SMART_TABLE_METADATA,
-        values
+        Table.SMART_TABLE_METADATA
       );
       // ========================================================================
     } catch (error) {
       return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
     }
 
-    if (!filteredRowIds || filteredRowIds.length === 0) {
-      return this.ErrorHandler.logException(new Error(`No items found with the provided values: ${values}.`));
-    }
+    if (filteredRowIds && filteredRowIds.length > 0) {
+      const rowsSelectors: Array<Ui5Selector> = [];
 
-    const rowsSelectors: Array<Ui5Selector> = [];
-
-    for (const id of filteredRowIds) {
-      const columnListItemSelector = {
-        elementProperties: {
-          metadata: Table.COLUMN_LIST_ITEM_METADATA,
-          id: id
-        }
-      };
-      rowsSelectors.push(columnListItemSelector);
+      for (const id of filteredRowIds) {
+        const columnListItemSelector = {
+          elementProperties: {
+            metadata: Table.COLUMN_LIST_ITEM_METADATA,
+            id: id
+          }
+        };
+        rowsSelectors.push(columnListItemSelector);
+      }
+      return rowsSelectors;
+    } else {
+      return [];
     }
-    return rowsSelectors;
   }
 
   /**
