@@ -6,7 +6,7 @@ import { BaseFilter } from "../filters/BaseFilter";
 export class FilterFactory {
   private instances: Map<string, BaseFilter> = new Map();
 
-  public getInstance<T extends BaseFilter>(classType: new (...args: any[]) => T, elementProperties: ElementProperties|undefined): T {
+  public getInstance<T extends BaseFilter>(classType: new (...args: any[]) => T, elementProperties: ElementProperties | undefined): T {
     const key = `${classType.name}-${JSON.stringify(elementProperties)}`;
     if (!this.instances.has(key)) {
       this.instances.set(key, new classType(this, elementProperties));

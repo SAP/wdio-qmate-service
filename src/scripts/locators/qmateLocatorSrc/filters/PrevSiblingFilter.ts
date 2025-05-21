@@ -1,5 +1,3 @@
-import { FilterFactory } from "../utils/FilterFactory";
-import { LocatorDebug } from "../utils/LocatorDebug";
 import { UI5ControlHandler } from "../utils/UI5ControlHandler";
 import { BaseFilter } from "./BaseFilter";
 import { ElementFilter } from "./ElementFilter";

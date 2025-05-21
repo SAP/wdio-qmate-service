@@ -7,7 +7,7 @@ import { ParentFilter } from "./ParentFilter";
 import { PrevSiblingFilter } from "./PrevSiblingFilter";
 import { NextSiblingFilter } from "./NextSiblingFilter";
 import { BaseFilter } from "./BaseFilter";
-import {FilterFactory} from "../utils/FilterFactory";
+import { FilterFactory } from "../utils/FilterFactory";
 
 export class ElementFilter extends BaseFilter {
   protected _doFiltering(controls: UI5Control[]): UI5Control[] {

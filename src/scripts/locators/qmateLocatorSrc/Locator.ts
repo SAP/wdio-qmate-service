@@ -2,7 +2,7 @@ import { ControlFinder } from "./utils/ControlFinder";
 import { UI5ControlDataInjector } from "./utils/UI5ControlDataInjector";
 import { LocatorDebug } from "./utils/LocatorDebug";
 import { ElementFilter } from "./filters/ElementFilter";
-import {FilterFactory} from "./utils/FilterFactory";
+
 export class Locator {
   public static locate(ui5Selector: UI5Selector, rootElement: HTMLElement): HTMLElement[] {
     LocatorDebug.initializeLogs(ui5Selector);

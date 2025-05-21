@@ -1,4 +1,4 @@
-import {FilterFactory} from "../utils/FilterFactory";
+import { FilterFactory } from "../utils/FilterFactory";
 import { LocatorDebug } from "../utils/LocatorDebug";
 
 export abstract class BaseFilter {
@@ -6,7 +6,7 @@ export abstract class BaseFilter {
   filterFactory: FilterFactory;
   results: Map<string, boolean>;
 
-  constructor(filterFactory:FilterFactory, rawElementProperties: ElementProperties | undefined) {
+  constructor(filterFactory: FilterFactory, rawElementProperties: ElementProperties | undefined) {
     this.elementProperties = this.convertRawElementPropertiesToElementProperties(rawElementProperties);
     this.filterFactory = filterFactory;
     this.results = new Map();
