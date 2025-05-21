@@ -498,6 +498,36 @@ export class Table {
     await ui5.userInteraction.uncheck(checkBoxSelector, index);
   }
 
+  /**
+   * @function deselectAllRows
+   * @memberOf ui5.table
+   * @description Deselects all rows in the table.
+   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
+   * @example await ui5.table.deselectAllRows("application-ReportingTask-run-component---ReportList--ReportingTable");
+   * @example const selector = {
+   *  elementProperties: {
+   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *    metadata: "sap.ui.comp.smarttable.SmartTable",
+   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   *  }
+   * };
+   * await ui5.table.deselectAllRows(selector);
+   */
+  async deselectAllRows(tableSelectorOrId: Ui5Selector | string) {
+    this.vlf.initLog(this.selectAllRows);
+
+    const parentSelector = await this._resolveTableSelectorOrId(tableSelectorOrId);
+
+    const checkBoxSelector = {
+      elementProperties: {
+        metadata: "sap.m.CheckBox"
+      },
+      parentProperties: parentSelector.elementProperties
+    };
+
+    await ui5.userInteraction.uncheck(checkBoxSelector);
+  }
+
   // =================================== HELPER ===================================
   private async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string): Promise<Ui5Selector> {
     if (typeof tableSelectorOrId === "string") {
