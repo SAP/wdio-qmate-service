@@ -261,7 +261,7 @@ export class Table {
   async openItemByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
     this.vlf.initLog(this.openItemByIndex);
 
-    const rowSelector = await this.getRowSelectorByIndex(tableSelectorOrId, index);
+    const rowSelector = await this.getSelectorForRowByIndex(tableSelectorOrId, index);
     await ui5.userInteraction.click(rowSelector);
   }
 
@@ -374,7 +374,7 @@ export class Table {
   }
 
   /**
-   * @function getRowSelectorByIndex
+   * @function getSelectorForRowByIndex
    * @memberOf ui5.table
    * @description Gets the selector of a row in the table by its index.
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
@@ -386,12 +386,12 @@ export class Table {
    *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
    *  }
    * };
-   * const rowSelector = await ui5.table.getRowSelectorByIndex(selector, 0);
+   * const rowSelector = await ui5.table.getSelectorForRowByIndex(selector, 0);
    * @example id = "application-ReportingTask-run-component---ReportList--ReportingTable"
-   * const rowSelector = await ui5.table.getRowSelectorByIndex(id, 0);
+   * const rowSelector = await ui5.table.getSelectorForRowByIndex(id, 0);
    */
-  async getRowSelectorByIndex(tableSelector: any, index: number): Promise<Ui5Selector> {
-    this.vlf.initLog(this.getRowSelectorByIndex);
+  async getSelectorForRowByIndex(tableSelector: any, index: number): Promise<Ui5Selector> {
+    this.vlf.initLog(this.getSelectorForRowByIndex);
 
     const constructedTableSelector = await this._constructTableSelector(tableSelector);
     let columnListItemId;
