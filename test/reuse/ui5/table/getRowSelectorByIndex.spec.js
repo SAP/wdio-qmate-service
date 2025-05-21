@@ -26,19 +26,23 @@ describe("table - getRowSelectorByIndex - smartTable - get first row", function 
     const expRowSelector = {
       elementProperties: {
         metadata: "sap.m.ColumnListItem",
-        id: "__item1-__clone0"
+        bindingContextPath: "/LineItemsSet('1')"
       }
     };
-    common.assertion.expectEqual(actRowSelector, expRowSelector);
+    const expElement = await ui5.element.getId(expRowSelector);
+    const actElement = await ui5.element.getId(actRowSelector);
+
+    // Compare the element IDs since the function does construct the selector using ID, which is unstable, hence can't be used for direct selector comparison
+    common.assertion.expectEqual(expElement, actElement);
   });
 });
 
 describe("table - getRowSelectorByIndex - smartTable - get fifth row", function () {
-  it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
-    await handleCookiesConsent();
-    await util.browser.switchToIframe("[id='sampleFrame']");
-  });
+  // it("Preparation", async function () {
+  //   await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+  //   await handleCookiesConsent();
+  //   await util.browser.switchToIframe("[id='sampleFrame']");
+  // });
 
   it("Execution", async function () {
     const index = 4;
@@ -49,19 +53,23 @@ describe("table - getRowSelectorByIndex - smartTable - get fifth row", function 
     const expRowSelector = {
       elementProperties: {
         metadata: "sap.m.ColumnListItem",
-        id: "__item1-__clone4"
+        bindingContextPath: "/LineItemsSet('5')"
       }
     };
-    common.assertion.expectEqual(actRowSelector, expRowSelector);
+    const expElement = await ui5.element.getId(expRowSelector);
+    const actElement = await ui5.element.getId(actRowSelector);
+
+    // Compare the element IDs since the function does construct the selector using ID, which is unstable, hence can't be used for direct selector comparison
+    common.assertion.expectEqual(expElement, actElement);
   });
 });
 
 describe("table - getRowSelectorByIndex - smartTable - unhappy case - row with index doesn't exist", function () {
-  it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
-    await handleCookiesConsent();
-    await util.browser.switchToIframe("[id='sampleFrame']");
-  });
+  // it("Preparation", async function () {
+  //   await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+  //   await handleCookiesConsent();
+  //   await util.browser.switchToIframe("[id='sampleFrame']");
+  // });
 
   it("Execution && Verification", async function () {
     const index = 550;
