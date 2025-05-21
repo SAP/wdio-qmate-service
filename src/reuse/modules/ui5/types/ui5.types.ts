@@ -1,23 +1,24 @@
 // Qmate
-export type QmateSelectors = Record<string, Ui5Selector | Ui5DynamicSelector | CssSelector | CssDynamicSelector>;
+export type QmateSelector = Ui5Selector | Ui5DynamicSelector | CssSelector | CssDynamicSelector;
+export type QmateSelectors = Record<string, QmateSelector>;
 
 // Ui5
 export interface Ui5Selector {
-  elementProperties: ElementProperties;
-  ancestorProperties?: ElementProperties;
-  parentProperties?: ElementProperties;
-  siblingProperties?: ElementProperties;
-  prevSiblingProperties?: ElementProperties;
-  nextSiblingProperties?: ElementProperties;
-  childProperties?: ElementProperties;
-  descendantProperties?: ElementProperties;
+  elementProperties: ElementProperties | Ui5Selector;
+  ancestorProperties?: ElementProperties | Ui5Selector;
+  parentProperties?: ElementProperties | Ui5Selector;
+  siblingProperties?: ElementProperties | Ui5Selector;
+  prevSiblingProperties?: ElementProperties | Ui5Selector;
+  nextSiblingProperties?: ElementProperties | Ui5Selector;
+  childProperties?: ElementProperties | Ui5Selector;
+  descendantProperties?: ElementProperties | Ui5Selector;
 }
 
 export type Ui5DynamicSelector = (...args: Array<any>) => Ui5Selector;
 
 export interface ElementProperties {
   viewName?: string;
-  metadata: Ui5ControlMetadata;
+  metadata?: Ui5ControlMetadata;
   [key: string]: any;
 }
 
