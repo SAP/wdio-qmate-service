@@ -20,6 +20,7 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "getSelectorForRowsByValues.spec.js"),
     path.resolve(__dirname, "getSelectorForRowsByValues.spec.js"),
     path.resolve(__dirname, "selectAllRows.spec.js"),
-    path.resolve(__dirname, "deselectRowByIndex.spec.js")
+    path.resolve(__dirname, "deselectRowByIndex.spec.js"),
+    path.resolve(__dirname, "deselectAllRows.spec.js")
   ]
 });
