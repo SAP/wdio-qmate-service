@@ -1,8 +1,10 @@
 "use strict";
 
+const baseUrl = "";
+
 describe("session - logout with inner verification", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("<urlToSystem");
+    util.browser.setBaseUrl(baseUrl);
     await common.navigation.navigateToUrl(browser.config.baseUrl);
     await ui5.session.loginFiori("PURCHASER");
     await ui5.navigation.navigateToApplication("Shell-home", true);
@@ -20,7 +22,7 @@ describe("session - logout with inner verification", function () {
 
 describe("session - logout without inner verification", function () {
   it("Preparation", async function () {
-    util.browser.setBaseUrl("<urlToSystem");
+    util.browser.setBaseUrl(baseUrl);
     await common.navigation.navigateToUrl(browser.config.baseUrl);
     await ui5.session.loginFiori("PURCHASER");
     await ui5.navigation.navigateToApplication("Shell-home", true);

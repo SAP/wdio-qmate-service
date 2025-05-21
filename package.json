@@ -1,6 +1,6 @@
 {
   "name": "@sap_oss/wdio-qmate-service",
-  "version": "2.16.1",
+  "version": "2.17.0",
   "author": "SAP SE",
   "types": "./@types/index.d.ts",
   "main": "./lib/index.js",
@@ -132,20 +132,20 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@sap_oss/odata-library": "^2.4.0",
-    "axios": "^1.7.7",
+    "axios": "^1.9.0",
     "deepmerge": "^4.2.2",
     "fs-extra": "^10.0.0",
     "node-localstorage": "^3.0.5",
     "path": "^0.12.7",
     "pdf-parse": "^1.1.1",
+    "qcrypt": "file:./packages/qcrypt",
     "query-string": "^7.1.0",
     "sha.js": "^2.4.11",
     "supertest": "^7.0.0",
     "undici": "^7.2.3",
     "xlsx": "^0.18.5",
     "xml2js": "^0.6.0",
-    "yargs": "^17.1.1",
-    "qcrypt": "file:./packages/qcrypt"
+    "yargs": "^17.1.1"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
@@ -153,16 +153,15 @@
     "@types/pdf-parse": "^1.1.1",
     "@types/sha.js": "^2.4.4",
     "@types/xml2js": "^0.4.11",
-    "@wdio/appium-service": "^8.39.1",
-    "@wdio/cli": "^8.29.7",
-    "@wdio/local-runner": "^8.29.7",
-    "@wdio/mocha-framework": "^8.29.3",
-    "@wdio/sauce-service": "^8.27.0",
-    "@wdio/shared-store-service": "^8.29.7",
-    "@wdio/spec-reporter": "^8.29.7",
-    "@wdio/static-server-service": "^8.29.1",
+    "@wdio/appium-service": "^8.44.1",
+    "@wdio/cli": "^8.44.1",
+    "@wdio/local-runner": "^8.44.1",
+    "@wdio/mocha-framework": "^8.41.0",
+    "@wdio/sauce-service": "^8.44.1",
+    "@wdio/spec-reporter": "^8.43.0",
+    "@wdio/static-server-service": "^8.41.0",
     "app-root-path": "^3.1.0",
-    "appium": "2.12.0",
+    "appium": "^2.12.0",
     "appium-uiautomator2-driver": "^3.7.4",
     "appium-xcuitest-driver": "^7.24.3",
     "chai": "^4.3.4",
@@ -182,6 +181,10 @@
     "wdio-chromedriver-service": "^8.0.0"
   },
   "overrides": {
-    "got": "^11.8.5"
+    "got": "^11.8.5",
+    "appium": {
+      "axios": "^1.8.0"
+    },
+    "tough-cookie": "^4.1.3"
   }
 }

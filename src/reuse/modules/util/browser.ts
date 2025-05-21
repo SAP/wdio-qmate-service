@@ -259,13 +259,13 @@ export class Browser {
    * @function executeScript
    * @memberOf util.browser
    * @description Executes the specified JavaScript command.
-   * @param {String} command - The command to execute.
+   * @param {String | Function} command - The command to execute.
    * @returns {Any} The result from the executed function.
    * @example await util.browser.executeScript(command);
    */
-  async executeScript(command: string): Promise<any> {
+  async executeScript(command: string | Function, ...args: Array<any>): Promise<any> {
     const vl = this.vlf.initLog(this.executeScript);
-    return browser.execute(command);
+    return browser.execute(command, ...args);
   }
 
   // =================================== WINDOW HANDLING ===================================
