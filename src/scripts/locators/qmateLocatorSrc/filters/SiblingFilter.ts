@@ -3,10 +3,9 @@ import { BaseFilter } from "./BaseFilter";
 import { ElementFilter } from "./ElementFilter";
 
 export class SiblingFilter extends BaseFilter {
-  public _doFiltering(elementProperties: ElementProperties, controls: UI5Control[]): UI5Control[] {
-    return controls.filter((control) => {
-      const aSiblingControls = UI5ControlHandler.findSiblingControls(control);
-      return new ElementFilter().filter(elementProperties, aSiblingControls).length > 0;
-    });
+  public _doCheckSingle(elementProperties: ElementProperties, control: UI5Control): boolean {
+    const aSiblingControls = UI5ControlHandler.findSiblingControls(control);
+    const elementFilter = new ElementFilter();
+    return aSiblingControls.some((siblingControl) => elementFilter.checkSingle(elementProperties, siblingControl));
   }
 }

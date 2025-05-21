@@ -1,26 +1,17 @@
-import { LocatorDebug } from "../utils/LocatorDebug";
 import { UI5ControlHandler } from "../utils/UI5ControlHandler";
 import { BaseFilter } from "./BaseFilter";
 import { ElementFilter } from "./ElementFilter";
 
 export class DescendantFilter extends BaseFilter {
-  public _doFiltering(elementProperties: ElementProperties, controls: UI5Control[]): UI5Control[] {
-    return controls.filter((control) => {
-      const parentElement = document.getElementById(control.getId?.());
-      if (!parentElement) {
-        return false;
-      }
-      const childrenControls = UI5ControlHandler.retrieveValidUI5ControlsSubElements(parentElement.children);
-      for (const childControl of childrenControls) {
-        if (new ElementFilter().filter(elementProperties, [childControl]).length > 0) {
-          return true;
-        }
-      }
-
-      if (this.filter(elementProperties, childrenControls).length > 0) {
-        return true;
-      }
+  public _doCheckSingle(elementProperties: ElementProperties, control: UI5Control): boolean {
+    const parentElement = document.getElementById(control.getId?.());
+    if (!parentElement) {
       return false;
-    });
+    }
+    const childControls = UI5ControlHandler.retrieveValidUI5ControlsSubElements(parentElement.children);
+    const elementFilter = new ElementFilter();
+    let foundMatch = childControls.some((childControl) => elementFilter.checkSingle(elementProperties, childControl));
+    foundMatch ||= childControls.some((childControl) => this.checkSingle(elementProperties, childControl));
+    return foundMatch;
   }
 }

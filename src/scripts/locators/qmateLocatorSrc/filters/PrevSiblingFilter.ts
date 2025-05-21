@@ -4,13 +4,11 @@ import { BaseFilter } from "./BaseFilter";
 import { ElementFilter } from "./ElementFilter";
 
 export class PrevSiblingFilter extends BaseFilter {
-  public _doFiltering(elementProperties: ElementProperties, controls: UI5Control[]): UI5Control[] {
-    return controls.filter((control) => {
-      const prevControl = UI5ControlHandler.findPrevNextControl(control, false);
-      if (!prevControl) {
-        return false;
-      }
-      return new ElementFilter().filter(elementProperties, [prevControl]).length > 0;
-    });
+  public _doCheckSingle(elementProperties: ElementProperties, control: UI5Control): boolean {
+    const prevControl = UI5ControlHandler.findPrevNextControl(control, false);
+    if (!prevControl) {
+      return false;
+    }
+    return new ElementFilter().checkSingle(elementProperties, prevControl);
   }
 }

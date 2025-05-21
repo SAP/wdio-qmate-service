@@ -3,54 +3,40 @@ import { UI5ControlHandler } from "../utils/UI5ControlHandler";
 
 export class ElementPropertiesComparator {
   public static compareToProperties(elementProperties: ElementProperties, control: UI5Control): boolean {
-    if (!elementProperties) {
-      return true;
-    }
-    for (const [key, value] of Object.entries(elementProperties)) {
+    return Object.entries(elementProperties ?? {}).every(([key, value]) => {
       if (["domProperties", "metadata", "ancestorProperties", "descendantProperties", "siblingProperties", "mProperties"].includes(key)) {
-        continue;
+        return true;
+      }
+
+      if (key === "viewName") {
+        return ElementPropertiesComparator.isControlInViewName(control, value as string);
+      }
+      if (key === "viewId") {
+        return ElementPropertiesComparator.isControlInViewId(control, value as string);
+      }
+      if (key === "id") {
+        return ElementPropertiesComparator.compareId(control, value as string);
+      }
+      if (key === "bindingContextPath") {
+        return UI5ControlHandler.getControlBindingContextPaths(control).some((path) => Comparator.compareWithWildCard(value, path));
       }
 
       if (Array.isArray(value)) {
-        const isStringVal = typeof value[0] === "string";
-        for (const valData of value) {
-          if ((isStringVal && !ElementPropertiesComparator.compareArrayStrElements(key, valData, control)) || (!isStringVal && !ElementPropertiesComparator.compareBindingPathAndModelProperty(key, valData, control))) {
-            return false;
+        return value.every((val: any) => {
+          if (typeof val === "string") {
+            return ElementPropertiesComparator.compareArrayStrElements(key, val, control);
+          } else {
+            return ElementPropertiesComparator.compareBindingPathAndModelProperty(key, val, control);
           }
-        }
-      } else if (typeof value === "object") {
-        if (!ElementPropertiesComparator.compareBindingPathAndModelProperty(key, value, control)) {
-          return false;
-        }
-      } else if (key === "viewName") {
-        if (!ElementPropertiesComparator.isControlInViewName(control, value as string)) {
-          return false;
-        }
-      } else if (key === "viewId") {
-        if (!ElementPropertiesComparator.isControlInViewId(control, value as string)) {
-          return false;
-        }
-      } else if (key === "id") {
-        if (!ElementPropertiesComparator.compareId(control, value as string)) {
-          return false;
-        }
-      } else if (key === "bindingContextPath") {
-        const aPaths = UI5ControlHandler.getControlBindingContextPaths(control);
-        let bFound = false;
-        for (let i = 0; i < aPaths.length; i++) {
-          if (aPaths[i] && value && Comparator.compareWithWildCard(value, aPaths[i])) {
-            bFound = true;
-            break;
-          }
-        }
-        if (!bFound) {
-          return false;
-        }
-      } else if (!ElementPropertiesComparator.compareProperty(control, key, value)) {
-        return false;
+        });
       }
-    }
-    return true;
+
+      if (typeof value === "object") {
+        return ElementPropertiesComparator.compareBindingPathAndModelProperty(key, value, control);
+      }
+
+      return ElementPropertiesComparator.compareProperty(control, key, value);
+    });
   }
 
   private static isControlInViewName(control: UI5Control, viewName: string): boolean {

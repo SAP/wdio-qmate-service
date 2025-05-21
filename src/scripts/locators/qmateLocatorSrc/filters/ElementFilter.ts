@@ -1,4 +1,3 @@
-import { LocatorDebug } from "../utils/LocatorDebug";
 import { AncestorFilter } from "./AncestorFilter";
 import { DescendantFilter } from "./DescendantFilter";
 import { SiblingFilter } from "./SiblingFilter";
@@ -10,17 +9,31 @@ import { NextSiblingFilter } from "./NextSiblingFilter";
 import { BaseFilter } from "./BaseFilter";
 
 export class ElementFilter extends BaseFilter {
-  public _doFiltering(elementProperties: ElementProperties, controls: UI5Control[]): UI5Control[] {
-    if (elementProperties.prevSiblingProperties || elementProperties.nextSiblingProperties || elementProperties.childProperties || elementProperties.parentProperties) {
-      console.error(`The selector your provided ${JSON.stringify(elementProperties)} contains childProperties, parentProperties, prevSiblingProperties or nextSiblingProperties, please provide a valid selector without these properties`);
-      throw new Error("Nested properties can only be used for ancestorProperties, descendantProperties or siblingProperties.");
-    }
+  protected _doFiltering(elementProperties: ElementProperties, controls: UI5Control[]): UI5Control[] {
+    this.checkElementProperties(elementProperties);
 
     let filteredControls = new PropertiesFilter().filter(elementProperties, controls);
     filteredControls = new AncestorFilter().filter(elementProperties.ancestorProperties, filteredControls);
     filteredControls = new DescendantFilter().filter(elementProperties.descendantProperties, filteredControls);
     filteredControls = new SiblingFilter().filter(elementProperties.siblingProperties, filteredControls);
     return filteredControls;
+  }
+
+  public _doCheckSingle(elementProperties: ElementProperties, control: UI5Control): boolean {
+    this.checkElementProperties(elementProperties);
+
+    let pass = new PropertiesFilter().checkSingle(elementProperties, control);
+    pass &&= new AncestorFilter().checkSingle(elementProperties.ancestorProperties, control);
+    pass &&= new DescendantFilter().checkSingle(elementProperties.descendantProperties, control);
+    pass &&= new SiblingFilter().checkSingle(elementProperties.siblingProperties, control);
+    return pass;
+  }
+
+  private checkElementProperties(elementProperties: ElementProperties): void {
+    if (elementProperties.prevSiblingProperties || elementProperties.nextSiblingProperties || elementProperties.childProperties || elementProperties.parentProperties) {
+      console.error(`The selector your provided ${JSON.stringify(elementProperties)} contains childProperties, parentProperties, prevSiblingProperties or nextSiblingProperties, please provide a valid selector without these properties`);
+      throw new Error("Nested properties can only be used for ancestorProperties, descendantProperties or siblingProperties.");
+    }
   }
 
   public filterBySelector(ui5Selector: UI5Selector, controls: UI5Control[]): UI5Control[] {
