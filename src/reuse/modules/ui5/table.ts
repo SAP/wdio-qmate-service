@@ -261,7 +261,7 @@ export class Table {
   async openItemByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
     this.vlf.initLog(this.openItemByIndex);
 
-    const rowSelector = await this.getRowSelectorByIndex(tableSelectorOrId, index);
+    const rowSelector = await this.getSelectorForRowByIndex(tableSelectorOrId, index);
     await ui5.userInteraction.click(rowSelector);
   }
 
@@ -298,13 +298,13 @@ export class Table {
   }
 
   /**
-   * @function getRowsSelectorsByValues
+   * @function getSelectorsForRowsByValues
    * @memberOf ui5.table
    * @description Gets the selectors of rows in the table that contain the given values. If multiple values are provided, it only returns the selectors of rows that contain all of them.
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
    * @param {string} values - The value(s) to match in the table rows.
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable"
-   * await ui5.table.getRowsSelectorsByValues(id, "February");
+   * await ui5.table.getSelectorsForRowsByValues(id, "February");
    * @example const selector = {
    *  elementProperties: {
    *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
@@ -312,40 +312,51 @@ export class Table {
    *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
    *  }
    * };
-   * await ui5.table.getRowsSelectorsByValues(selector, ["January", "2022"]);
+   * await ui5.table.getSelectorsForRowsByValues(selector, ["January", "2022"]);
    */
-  async getSelectorsForRowsByValues(tableSelector: Ui5Selector | string, values: string | Array<string>): Promise<object[]> {
+  async getSelectorsForRowsByValues(tableSelector: Ui5Selector | string, values: string | Array<string>): Promise<Array<Ui5Selector>> {
     this.vlf.initLog(this.getSelectorsForRowsByValues);
 
-    const constructedTableSelector = await this._constructTableSelector(tableSelector);
     if (typeof values === "string") {
       values = [values];
     } else if (!Array.isArray(values)) {
       this.ErrorHandler.logException(new Error("Invalid values provided. It should be either a string or an array of strings."));
     }
-    let browserCommand;
+
+    const constructedTableSelector = await this._constructTableSelector(tableSelector);
+    let filteredRowIds;
+
     try {
-      browserCommand = ` //TODO use arrow function instead return
-      return (function () {
-          const table = sap.ui.getCore().getElementById("${constructedTableSelector.elementProperties?.id}");
+      // =========================== BROWSER COMMAND ===========================
+      filteredRowIds = await util.browser.executeScript(
+        (constructedTableSelector: Ui5Selector, values: Array<string>, tableMetadata: Ui5ControlMetadata, smartTableMetadata: Ui5ControlMetadata) => {
+          const table = sap.ui.getCore().getElementById(constructedTableSelector.elementProperties?.id);
           let items = [];
-          if ("${Table.TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getItems !== undefined) {
+
+          if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getItems !== undefined) {
             items = table.getItems();
-           } else if("${Table.TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getRows !== undefined) {
+          } else if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getRows !== undefined) {
             items = table.getRows();
-          } else if("${Table.SMART_TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
+          } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined && table.getTable().getItems !== undefined) {
             items = table.getTable().getItems();
           } else {
             return undefined;
           }
-          return items.filter(
-            item => ${JSON.stringify(values)}.every(
-              val => Object
-              .values(item.getBindingContext().getObject()).includes(val)))
-              .map(filteredItems => filteredItems.getId())
-      })();`;
-      const filteredRowIds = await util.browser.executeScript(browserCommand);
-      const rowsSelectors = [];
+
+          return items.filter((item: any) => values.every((val) => Object.values(item.getBindingContext().getObject()).includes(val))).map((filteredItems: any) => filteredItems.getId());
+        },
+        constructedTableSelector,
+        values,
+        Table.TABLE_METADATA,
+        Table.SMART_TABLE_METADATA
+      );
+      // ========================================================================
+    } catch (error) {
+      return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
+    }
+
+    if (filteredRowIds && filteredRowIds.length > 0) {
+      const rowsSelectors: Array<Ui5Selector> = [];
 
       for (const id of filteredRowIds) {
         const columnListItemSelector = {
@@ -357,13 +368,13 @@ export class Table {
         rowsSelectors.push(columnListItemSelector);
       }
       return rowsSelectors;
-    } catch (error) {
-      return this.ErrorHandler.logException(new Error(`Browser Command injected: ${browserCommand} was injected. ${error}`));
+    } else {
+      return [];
     }
   }
 
   /**
-   * @function getRowSelectorByIndex
+   * @function getSelectorForRowByIndex
    * @memberOf ui5.table
    * @description Gets the selector of a row in the table by its index.
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
@@ -375,53 +386,60 @@ export class Table {
    *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
    *  }
    * };
-   * const rowSelector = await ui5.table.getRowSelectorByIndex(selector, 0);
+   * const rowSelector = await ui5.table.getSelectorForRowByIndex(selector, 0);
    * @example id = "application-ReportingTask-run-component---ReportList--ReportingTable"
-   * const rowSelector = await ui5.table.getRowSelectorByIndex(id, 0);
+   * const rowSelector = await ui5.table.getSelectorForRowByIndex(id, 0);
    */
-  async getRowSelectorByIndex(tableSelector: any, index: number) {
-    this.vlf.initLog(this.getRowSelectorByIndex);
+  async getSelectorForRowByIndex(tableSelector: any, index: number): Promise<Ui5Selector> {
+    this.vlf.initLog(this.getSelectorForRowByIndex);
 
     const constructedTableSelector = await this._constructTableSelector(tableSelector);
-    let browserCommand;
     let columnListItemId;
+
     try {
-      browserCommand = `
-        return (function () {
-          const table = sap.ui.getCore().getElementById("${constructedTableSelector.elementProperties?.id}");
+      // =========================== BROWSER COMMAND ===========================
+      columnListItemId = await util.browser.executeScript(
+        (constructedTableSelector: Ui5Selector, index: number, tableMetadata: Ui5ControlMetadata, smartTableMetadata: Ui5ControlMetadata) => {
+          const table = sap.ui.getCore().getElementById(constructedTableSelector.elementProperties?.id);
           let items = [];
-          if("${Table.TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getItems !== undefined) {
+
+          if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getItems !== undefined) {
             items = table.getItems();
-          } else if("${Table.TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getRows !== undefined) {
+          } else if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getRows !== undefined) {
             items = table.getRows();
-          } else if("${Table.SMART_TABLE_METADATA}" === "${constructedTableSelector.elementProperties.metadata}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
+          } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined && table.getTable().getItems !== undefined) {
             items = table.getTable().getItems();
-          } else {
-            return undefined;
           }
-           if(!items || !items[${index}]) return undefined;
-          // Filter out items with undefined or empty title since the rows/columnListItems are for dividers for grouped items
-            const filteredItems = items.filter(item => item.getTitle === undefined || item.getTitle() === '');
-            const item = filteredItems[${index}];
-            return item?.getId?.();
-        })();
-      `;
-      columnListItemId = await util.browser.executeScript(browserCommand);
+
+          if (!items || !items[index]) return undefined;
+
+          // Filter items with undefined or empty title since titles in rows/columnListItems are only used for dividers of grouped items
+          const filteredItems = items.filter((item: any) => item.getTitle === undefined || item.getTitle() === "");
+          const item = filteredItems[index];
+
+          return item?.getId?.();
+        },
+        constructedTableSelector,
+        index,
+        Table.TABLE_METADATA,
+        Table.SMART_TABLE_METADATA
+      );
+      // ========================================================================
     } catch (error) {
-      return this.ErrorHandler.logException(new Error(`${error} while executing browser command: ${browserCommand}`));
+      return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
     }
 
     if (!columnListItemId) {
-      return this.ErrorHandler.logException(new Error(`No item found with index ${index} while executing browser command: ${browserCommand}`));
-    } else {
-      const columnListItemSelector = {
-        elementProperties: {
-          metadata: Table.COLUMN_LIST_ITEM_METADATA,
-          id: columnListItemId
-        }
-      };
-      return columnListItemSelector;
+      return this.ErrorHandler.logException(new Error(`No item found with index ${index}.`));
     }
+
+    const columnListItemSelector: Ui5Selector = {
+      elementProperties: {
+        metadata: Table.COLUMN_LIST_ITEM_METADATA,
+        id: columnListItemId
+      }
+    };
+    return columnListItemSelector;
   }
 
   /**
