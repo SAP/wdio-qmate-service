@@ -253,7 +253,17 @@ export class Table {
             return undefined;
           }
 
-          return items.filter((item: any) => values.every((val) => Object.values(item.getBindingContext().getObject()).includes(val))).map((filteredItems: any) => filteredItems.getId());
+          return items
+            .filter((item: any) => {
+              const cells = item.getCells();
+              return values.every((val) => {
+                return cells.some((cell: any) => {
+                  const cellText = cell.getDomRef().innerText;
+                  return cellText.includes(val);
+                });
+              });
+            })
+            .map((filteredItem: any) => filteredItem.getId());
         },
         constructedTableSelector,
         values,
