@@ -4,12 +4,12 @@ import { LocatorDebug } from "../utils/LocatorDebug";
 export abstract class BaseFilter {
   elementProperties: ElementProperties;
   filterFactory: FilterFactory;
-  results: { [controlId: string]: boolean };
+  results: Map<string, boolean>;
 
   constructor(filterFactory:FilterFactory, rawElementProperties: ElementProperties | undefined) {
     this.elementProperties = this.convertRawElementPropertiesToElementProperties(rawElementProperties);
     this.filterFactory = filterFactory;
-    this.results = {};
+    this.results = new Map();
   }
 
   private convertRawElementPropertiesToElementProperties(rawElementProperties: ElementProperties | undefined): ElementProperties {
@@ -48,10 +48,10 @@ export abstract class BaseFilter {
       return false;
     }
     const controlID = control.getId();
-    if (!this.results.hasOwnProperty(controlID)) {
-      this.results[controlID] = this._doCheckSingle(control);
+    if (!this.results.has(controlID)) {
+      this.results.set(controlID, this._doCheckSingle(control));
     }
-    return this.results[controlID];
+    return this.results.get(controlID) as boolean;
   }
 
   protected abstract _doCheckSingle(control: UI5Control): boolean;
