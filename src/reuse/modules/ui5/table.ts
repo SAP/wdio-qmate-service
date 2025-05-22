@@ -247,8 +247,13 @@ export class Table {
             items = table.getItems();
           } else if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getRows !== undefined) {
             items = table.getRows();
-          } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined && table.getTable().getItems !== undefined) {
-            items = table.getTable().getItems();
+          } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined) {
+            const innerTable = table.getTable();
+            if (innerTable.getItems !== undefined) {
+              items = innerTable.getItems();
+            } else if (innerTable.getRows !== undefined) {
+              items = innerTable.getRows();
+            }
           } else {
             return undefined;
           }
@@ -258,8 +263,10 @@ export class Table {
               const cells = item.getCells();
               return values.every((val) => {
                 return cells.some((cell: any) => {
-                  const cellText = cell.getDomRef().innerText;
-                  return cellText.includes(val);
+                  const domRef = cell.getDomRef();
+                  if (!domRef) return false;
+                  const cellText = domRef.innerText;
+                  return cellText && cellText.includes(val);
                 });
               });
             })
