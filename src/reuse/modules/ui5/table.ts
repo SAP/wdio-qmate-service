@@ -4,6 +4,12 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 import { Ui5Selector, Ui5ControlMetadata } from "./types/ui5.types";
 
+type SelectorTypeForSelection = "ui5CheckBox" | "cssItem" | "ui5RadioButton" | "none";
+type SelectorDefinitionForSelection = {
+  type: SelectorTypeForSelection;
+  selector: string;
+};
+
 /**
  * @class table
  * @memberof ui5
@@ -506,17 +512,28 @@ export class Table {
     const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values);
     if (rowSelectors.length === 0) {
       return this.ErrorHandler.logException(new Error(`No rows found with the provided values: ${values}.`));
-    } else if (rowSelectors.length <= index) {
+    }
+    if (rowSelectors.length <= index) {
       return this.ErrorHandler.logException(new Error(`The index ${index} is out of bounds. The number of matching rows is ${rowSelectors.length}.`));
-    } else {
-      const rowSelector = rowSelectors[index];
-      const checkBoxSelector = {
-        elementProperties: {
-          metadata: "sap.m.CheckBox"
-        },
-        parentProperties: rowSelector.elementProperties
-      };
-      await ui5.userInteraction.check(checkBoxSelector);
+    }
+
+    const rowSelector = rowSelectors[index];
+    const selectorType = await this._getSelectorTypeForRowSelection(rowSelector);
+
+    try {
+      const selectionSelector = this._buildRowSelectionSelector(selectorType, rowSelector);
+
+      switch (selectorType) {
+        case "ui5CheckBox":
+        case "ui5RadioButton":
+          await ui5.userInteraction.check(selectionSelector);
+          break;
+        case "cssItem":
+          await nonUi5.userInteraction.check(selectionSelector);
+          break;
+      }
+    } catch (error) {
+      return this.ErrorHandler.logException(error);
     }
   }
 
@@ -756,6 +773,58 @@ export class Table {
       }
     }
     return selector;
+  }
+
+  private async _getSelectorTypeForRowSelection(rowSelector: Ui5Selector): Promise<SelectorTypeForSelection> {
+    return await util.browser.executeScript((rowSelector: Ui5Selector) => {
+      const id = rowSelector.elementProperties.id;
+      const selectorChecks: Array<SelectorDefinitionForSelection> = [
+        {
+          type: "ui5CheckBox",
+          selector: `tr[id='${id}'] [data-sap-ui*='selectMulti'][role='checkbox']`
+        },
+        {
+          type: "ui5RadioButton",
+          selector: `tr[id='${id}'] [data-sap-ui*='selectSingle'][role='radio']`
+        },
+        {
+          type: "cssItem",
+          selector: `[data-sap-ui-related='${id}'][role='row']`
+        }
+      ];
+
+      for (const check of selectorChecks) {
+        // Note: Following command slows down the execution and might be used after refactoring service
+        // const isPresent = await nonUi5.element.isPresentByCss(check.selector);
+        if (window.document.querySelector(check.selector)) {
+          return check.type;
+        }
+      }
+      return "none";
+    }, rowSelector);
+  }
+
+  private _buildRowSelectionSelector(selectorType: SelectorTypeForSelection, rowSelector: Ui5Selector): any {
+    switch (selectorType) {
+      case "ui5CheckBox":
+        return {
+          elementProperties: {
+            metadata: "sap.m.CheckBox"
+          },
+          parentProperties: rowSelector.elementProperties
+        };
+      case "ui5RadioButton":
+        return {
+          elementProperties: {
+            metadata: "sap.m.RadioButton"
+          },
+          parentProperties: rowSelector.elementProperties
+        };
+      case "cssItem":
+        return `[data-sap-ui-related = ${rowSelector.elementProperties.id}]`;
+      case "none":
+        throw new Error("No selectable CheckBox, RadioButton, or Css element found for the row.");
+    }
   }
 }
 export default new Table();
