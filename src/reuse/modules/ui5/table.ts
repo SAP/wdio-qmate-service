@@ -4,6 +4,12 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 import { Ui5Selector, Ui5ControlMetadata } from "./types/ui5.types";
 
+type SelectorTypeForSelection = "ui5CheckBox" | "cssItem" | "ui5RadioButton" | "none";
+type SelectorDefinitionForSelection = {
+  type: SelectorTypeForSelection;
+  selector: string;
+};
+
 /**
  * @class table
  * @memberof ui5
@@ -147,7 +153,7 @@ export class Table {
     }
   }
 
-  // =================================== OPERATIONS ===================================
+  // =================================== GET OPERATIONS ===================================
   /**
    * @function getTotalNumberOfRows
    * @memberOf ui5.table
@@ -208,96 +214,6 @@ export class Table {
   }
 
   /**
-   * @function selectRowByIndex
-   * @memberOf ui5.table
-   * @description Selects a row in the table by its index.
-   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
-   * @param {Number} index - The index of the row to select.
-   * @example await ui5.table.selectRowByIndex("application-ReportingTask-run-component---ReportList--ReportingTable", 0);
-   * @example const selector = {
-   *  elementProperties: {
-   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
-   *    metadata: "sap.ui.comp.smarttable.SmartTable",
-   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
-   *  }
-   * };
-   * await ui5.table.selectRowByIndex(selector, 0);
-   */
-  async selectRowByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
-    this.vlf.initLog(this.selectRowByIndex);
-
-    const ancestorSelector = await this._resolveTableSelectorOrId(tableSelectorOrId);
-
-    const checkBoxSelector = {
-      elementProperties: {
-        metadata: "sap.m.CheckBox"
-      },
-      parentProperties: {
-        metadata: Table.COLUMN_LIST_ITEM_METADATA,
-        ancestorProperties: ancestorSelector.elementProperties
-      }
-    };
-
-    await ui5.userInteraction.check(checkBoxSelector, index);
-  }
-
-  /**
-   * @function openItemByIndex
-   * @memberOf ui5.table
-   * @description Opens the item in the table by its index.
-   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
-   * @param {Number} index - The index of the item to open.
-   * @example const selector = {
-   *  elementProperties: {
-   *   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
-   *   metadata: "sap.ui.comp.smarttable.SmartTable",
-   *   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
-   *  }
-   * };
-   * await ui5.table.openItemByIndex(selector, 0);
-   * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
-   * await ui5.table.openItemByIndex(id, 0);
-   */
-  async openItemByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
-    this.vlf.initLog(this.openItemByIndex);
-
-    const rowSelector = await this.getSelectorForRowByIndex(tableSelectorOrId, index);
-    await ui5.userInteraction.click(rowSelector);
-  }
-
-  /**
-   * @function openItemByValues
-   * @memberOf ui5.table
-   * @description Opens the item in the table containing the given values. If multiple items match, it opens the index-th item.
-   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
-   * @param {String | Array<String>} values - The value(s) to match in the table rows.
-   * @param {Number} [index=0] - The index of the matching row to consider.
-   * @example const selector = {
-   *  elementProperties: {
-   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
-   *    metadata: "sap.ui.comp.smarttable.SmartTable",
-   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
-   *  }
-   * };
-   * await ui5.table.openItemByValues(selector, ["value1", "value2"]);
-   * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
-   * await ui5.table.openItemByValues(id, "value");
-   */
-  async openItemByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, index: number = 0) {
-    this.vlf.initLog(this.openItemByValues);
-
-    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values);
-    if (rowSelectors.length === 0) {
-      return this.ErrorHandler.logException(new Error(`No items found with the provided values: ${values}.`));
-    } else if (rowSelectors.length <= index) {
-      return this.ErrorHandler.logException(new Error(`The index ${index} is out of bounds. The number of matching items is ${rowSelectors.length}.`));
-    } else {
-      const rowSelector = rowSelectors[index];
-      await ui5.userInteraction.click(rowSelector);
-    }
-  }
-
-  /**
    * @function getSelectorsForRowsByValues
    * @memberOf ui5.table
    * @description Gets the selectors of rows in the table that contain the given values. If multiple values are provided, it only returns the selectors of rows that contain all of them.
@@ -337,13 +253,30 @@ export class Table {
             items = table.getItems();
           } else if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getRows !== undefined) {
             items = table.getRows();
-          } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined && table.getTable().getItems !== undefined) {
-            items = table.getTable().getItems();
+          } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined) {
+            const innerTable = table.getTable();
+            if (innerTable.getItems !== undefined) {
+              items = innerTable.getItems();
+            } else if (innerTable.getRows !== undefined) {
+              items = innerTable.getRows();
+            }
           } else {
             return undefined;
           }
 
-          return items.filter((item: any) => values.every((val) => Object.values(item.getBindingContext().getObject()).includes(val))).map((filteredItems: any) => filteredItems.getId());
+          return items
+            .filter((item: any) => {
+              const cells = item.getCells();
+              return values.every((val) => {
+                return cells.some((cell: any) => {
+                  const domRef = cell.getDomRef();
+                  if (!domRef) return false;
+                  const cellText = domRef.innerText;
+                  return cellText && cellText.includes(val);
+                });
+              });
+            })
+            .map((filteredItem: any) => filteredItem.getId());
         },
         constructedTableSelector,
         values,
@@ -442,6 +375,41 @@ export class Table {
     return columnListItemSelector;
   }
 
+  // =================================== SELECT OPERATIONS ===================================
+  /**
+   * @function selectRowByIndex
+   * @memberOf ui5.table
+   * @description Selects a row in the table by its index.
+   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
+   * @param {Number} index - The index of the row to select.
+   * @example await ui5.table.selectRowByIndex("application-ReportingTask-run-component---ReportList--ReportingTable", 0);
+   * @example const selector = {
+   *  elementProperties: {
+   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *    metadata: "sap.ui.comp.smarttable.SmartTable",
+   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   *  }
+   * };
+   * await ui5.table.selectRowByIndex(selector, 0);
+   */
+  async selectRowByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
+    this.vlf.initLog(this.selectRowByIndex);
+
+    const ancestorSelector = await this._resolveTableSelectorOrId(tableSelectorOrId);
+
+    const checkBoxSelector = {
+      elementProperties: {
+        metadata: "sap.m.CheckBox"
+      },
+      parentProperties: {
+        metadata: Table.COLUMN_LIST_ITEM_METADATA,
+        ancestorProperties: ancestorSelector.elementProperties
+      }
+    };
+
+    await ui5.userInteraction.check(checkBoxSelector, index);
+  }
+
   /**
    * @function selectAllRows
    * @memberOf ui5.table
@@ -526,6 +494,104 @@ export class Table {
     };
 
     await ui5.userInteraction.uncheck(checkBoxSelector);
+  }
+
+  /**
+   * @function selectRowByValues
+   * @memberOf ui5.table
+   * @description Selects a row in the table by matching value(s). If multiple rows match, selects the one at the given index.
+   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table.
+   * @param {String | Array<String>} values - The value(s) to match in the table rows.
+   * @param {Number} [index=0] - The index of the matching row to select.
+   * @example await ui5.table.selectRowByValues(selector, "Supplier Name");
+   * @example await ui5.table.selectRowByValues(selector, ["Supplier Name", "Amount"], 1);
+   */
+  async selectRowByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, index: number = 0) {
+    this.vlf.initLog(this.selectRowByValues);
+
+    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values);
+    if (rowSelectors.length === 0) {
+      return this.ErrorHandler.logException(new Error(`No rows found with the provided values: ${values}.`));
+    }
+    if (rowSelectors.length <= index) {
+      return this.ErrorHandler.logException(new Error(`The index ${index} is out of bounds. The number of matching rows is ${rowSelectors.length}.`));
+    }
+
+    const rowSelector = rowSelectors[index];
+    const selectorType = await this._getSelectorTypeForRowSelection(rowSelector);
+
+    try {
+      const selectionSelector = this._buildRowSelectionSelector(selectorType, rowSelector);
+
+      switch (selectorType) {
+        case "ui5CheckBox":
+        case "ui5RadioButton":
+          await ui5.userInteraction.check(selectionSelector);
+          break;
+        case "cssItem":
+          await nonUi5.userInteraction.check(selectionSelector);
+          break;
+      }
+    } catch (error) {
+      return this.ErrorHandler.logException(error);
+    }
+  }
+
+  // =================================== OPEN OPERATIONS ===================================
+  /**
+   * @function openItemByIndex
+   * @memberOf ui5.table
+   * @description Opens the item in the table by its index.
+   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
+   * @param {Number} index - The index of the item to open.
+   * @example const selector = {
+   *  elementProperties: {
+   *   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *   metadata: "sap.ui.comp.smarttable.SmartTable",
+   *   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   *  }
+   * };
+   * await ui5.table.openItemByIndex(selector, 0);
+   * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+   * await ui5.table.openItemByIndex(id, 0);
+   */
+  async openItemByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
+    this.vlf.initLog(this.openItemByIndex);
+
+    const rowSelector = await this.getSelectorForRowByIndex(tableSelectorOrId, index);
+    await ui5.userInteraction.click(rowSelector);
+  }
+
+  /**
+   * @function openItemByValues
+   * @memberOf ui5.table
+   * @description Opens the item in the table containing the given values. If multiple items match, it opens the index-th item.
+   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
+   * @param {String | Array<String>} values - The value(s) to match in the table rows.
+   * @param {Number} [index=0] - The index of the matching row to consider.
+   * @example const selector = {
+   *  elementProperties: {
+   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *    metadata: "sap.ui.comp.smarttable.SmartTable",
+   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   *  }
+   * };
+   * await ui5.table.openItemByValues(selector, ["value1", "value2"]);
+   * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+   * await ui5.table.openItemByValues(id, "value");
+   */
+  async openItemByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, index: number = 0) {
+    this.vlf.initLog(this.openItemByValues);
+
+    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values);
+    if (rowSelectors.length === 0) {
+      return this.ErrorHandler.logException(new Error(`No items found with the provided values: ${values}.`));
+    } else if (rowSelectors.length <= index) {
+      return this.ErrorHandler.logException(new Error(`The index ${index} is out of bounds. The number of matching items is ${rowSelectors.length}.`));
+    } else {
+      const rowSelector = rowSelectors[index];
+      await ui5.userInteraction.click(rowSelector);
+    }
   }
 
   // =================================== HELPER ===================================
@@ -707,6 +773,58 @@ export class Table {
       }
     }
     return selector;
+  }
+
+  private async _getSelectorTypeForRowSelection(rowSelector: Ui5Selector): Promise<SelectorTypeForSelection> {
+    return await util.browser.executeScript((rowSelector: Ui5Selector) => {
+      const id = rowSelector.elementProperties.id;
+      const selectorChecks: Array<SelectorDefinitionForSelection> = [
+        {
+          type: "ui5CheckBox",
+          selector: `tr[id='${id}'] [data-sap-ui*='selectMulti'][role='checkbox']`
+        },
+        {
+          type: "ui5RadioButton",
+          selector: `tr[id='${id}'] [data-sap-ui*='selectSingle'][role='radio']`
+        },
+        {
+          type: "cssItem",
+          selector: `[data-sap-ui-related='${id}'][role='row']`
+        }
+      ];
+
+      for (const check of selectorChecks) {
+        // Note: Following command slows down the execution and might be used after refactoring service
+        // const isPresent = await nonUi5.element.isPresentByCss(check.selector);
+        if (window.document.querySelector(check.selector)) {
+          return check.type;
+        }
+      }
+      return "none";
+    }, rowSelector);
+  }
+
+  private _buildRowSelectionSelector(selectorType: SelectorTypeForSelection, rowSelector: Ui5Selector): any {
+    switch (selectorType) {
+      case "ui5CheckBox":
+        return {
+          elementProperties: {
+            metadata: "sap.m.CheckBox"
+          },
+          parentProperties: rowSelector.elementProperties
+        };
+      case "ui5RadioButton":
+        return {
+          elementProperties: {
+            metadata: "sap.m.RadioButton"
+          },
+          parentProperties: rowSelector.elementProperties
+        };
+      case "cssItem":
+        return `[data-sap-ui-related = ${rowSelector.elementProperties.id}]`;
+      case "none":
+        throw new Error("No selectable CheckBox, RadioButton, or Css element found for the row.");
+    }
   }
 }
 export default new Table();
