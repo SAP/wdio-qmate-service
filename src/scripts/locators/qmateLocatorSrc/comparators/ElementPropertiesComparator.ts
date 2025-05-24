@@ -58,15 +58,7 @@ export class ElementPropertiesComparator {
   }
 
   private static compareId(control: UI5Control, expectedId: string): boolean {
-    const controlID = control.getId?.();
-    if (!expectedId) {
-      return true;
-    }
-    if (controlID) {
-      return Comparator.compareWithWildCard(expectedId, controlID);
-    } else {
-      return false;
-    }
+    return Comparator.compareWithWildCard(expectedId, control.getId?.());
   }
 
   private static compareProperty(control: UI5Control, key: string, value: string): boolean {
@@ -77,33 +69,15 @@ export class ElementPropertiesComparator {
   private static compareBindingPathAndModelProperty(key: string, value: any, control: UI5Control): boolean {
     const extrPath = UI5ControlHandler.extractBindingPathAndModelProperty(value);
     if (!extrPath.path) return true;
-
     const bindingInfo = UI5ControlHandler.getBindDataForProperty(control, key);
-
-    return bindingInfo.some((info) => {
-      if (extrPath.model && info.model) {
-        return Comparator.compareWithWildCard(extrPath.model, info.model) && Comparator.compareWithWildCard(extrPath.path, info.path);
-      }
-      return Comparator.compareWithWildCard(extrPath.path, info.path);
-    });
+    return bindingInfo.some((info) => Comparator.compareWithWildCard(extrPath.path, info.path) && (!extrPath.model || !info.model || Comparator.compareWithWildCard(extrPath.model, info.model)));
   }
 
-  private static compareArrayStrElements(key: string, elemId: any, control: UI5Control): boolean {
+  private static compareArrayStrElements(key: string, expectedValue: string, control: UI5Control): boolean {
     const values: any[] = UI5ControlHandler.getControlProperty(control, key) || [];
 
-    if (!values.length && elemId) return false;
-    if (!values.length && !elemId) return true;
-    if (values.length && !elemId) return false;
-
-    const elemIdStr = Comparator.convertToString(elemId).toLowerCase();
-
-    return values.some((elem) => {
-      let elemStr = elem;
-      if (typeof elem === "object" && typeof elem.getId === "function") {
-        elemStr = elem.getId();
-      }
-      elemStr = Comparator.convertToString(elemStr).toLowerCase();
-      return Comparator.compareWithWildCard(elemIdStr, elemStr);
-    });
+    if (!values.length && !expectedValue) return true;
+    if (values.length && !expectedValue) return false;
+    return values.some((elem) => Comparator.compareWithWildCard(expectedValue, elem.getId?.() ?? elem, true));
   }
 }

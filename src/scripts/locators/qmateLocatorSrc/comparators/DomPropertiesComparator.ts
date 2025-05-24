@@ -8,39 +8,22 @@ export class DomPropertiesComparator {
     }
 
     const nodeAttributes = DomPropertiesComparator.retrieveNodeAttributes(node);
-    for (const [key, value] of Object.entries(properties)) {
+    return Object.entries(properties).every(([key, value]) => {
       if (key === "nodeName") {
-        const nodeName = node?.nodeName || "";
-        if (nodeName.toLowerCase() !== value.toLowerCase()) {
-          return false;
-        }
-      } else {
-        let valueArray = value;
-        if (!Array.isArray(value)) {
-          valueArray = [value];
-        }
-        for (let i = 0; i < valueArray.length; i++) {
-          if (!DomPropertiesComparator.compareAttributeToElementAttributes(key, valueArray[i], nodeAttributes)) {
-            return false;
-          }
-        }
+        return Comparator.compareWithWildCard(node?.nodeName, value, true);
       }
-    }
-    return true;
+      const valueArray = Array.isArray(value) ? value : [value];
+      return valueArray.some(val =>
+        DomPropertiesComparator.compareAttributeToElementAttributes(key, val, nodeAttributes)
+      );
+    });
   }
 
   private static retrieveNodeAttributes(node: HTMLElement): Map<string, string> {
-    const domProperties = new Map();
-    const attributes: any[] | NamedNodeMap = node.attributes || [];
-    for (let i = 0; i < attributes.length; i++) {
-      domProperties.set(attributes[i].nodeName, attributes[i].nodeValue);
-    }
-    return domProperties;
+    return new Map(Array.from(node.attributes, a => [a.nodeName, a.nodeValue ?? ""]));
   }
 
   private static compareAttributeToElementAttributes(key: string, value: any, nodeAttributes: Map<string, string>): boolean {
-    if (!key || !value || !nodeAttributes) return false;
-    const actualValue = nodeAttributes.get(key)?.toString();
-    return Comparator.compareWithWildCard(value, actualValue);
+    return Comparator.compareWithWildCard(value, nodeAttributes.get(key));
   }
 }
