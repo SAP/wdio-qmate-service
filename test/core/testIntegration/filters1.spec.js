@@ -1082,7 +1082,7 @@ describe("filters1", function () {
       "parentProperties": { "metadata": "sap.m.ObjectListItem", "mProperties": { "bindingContextPath": "/Products('HT-2026')" } },
       "ancestorProperties": {
         "metadata": "sap.m.List", "mProperties": {
-          "bindingContextPath": "ProductCategories('AC')*",
+          "bindingContextPath": "/ProductCategories('AC')*",
           "items": { "path": "Products" }
         }
       },
