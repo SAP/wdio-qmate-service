@@ -13,7 +13,7 @@ export class DomPropertiesComparator {
         return Comparator.compareWithWildCard(node?.nodeName, value, true);
       }
       const valueArray = Array.isArray(value) ? value : [value];
-      return valueArray.some(val =>
+      return valueArray.every(val =>
         DomPropertiesComparator.compareAttributeToElementAttributes(key, val, nodeAttributes)
       );
     });

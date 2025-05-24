@@ -58,7 +58,7 @@ export class ElementPropertiesComparator {
   }
 
   private static compareId(control: UI5Control, expectedId: string): boolean {
-    return Comparator.compareWithWildCard(expectedId, control.getId?.());
+    return expectedId === undefined || Comparator.compareWithWildCard(expectedId, control.getId?.());
   }
 
   private static compareProperty(control: UI5Control, key: string, value: string): boolean {
