@@ -46,7 +46,7 @@ export class NavigationBar {
       await nonUi5.userInteraction.click(selector, timeout);
     }
     async function clickLogoWebComponent() {
-      const selector=">>>span[class='ui5-shellbar-logo']";
+      const selector = ">>>span[class='ui5-shellbar-logo']";
       await nonUi5.userInteraction.click(selector, timeout);
     }
     try {
@@ -65,32 +65,42 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickUserIcon();
    */
-  async clickUserIcon(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async clickUserIcon(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 5000) {
     const vl = this.vlf.initLog(this.clickUserIcon);
 
     try {
-      // attempt clicking both old and new user icons
-      await Promise.any([clickUserIconOld(), clickUserIconNew()]);
+      await scrollAndClickUserIconNew();
+      return;
     } catch (error) {
-      (error as AggregateError).errors.forEach((err) => {
-        this.ErrorHandler.logException(err);
-      });
+      console.warn("New user icon not found, trying old selector.");
     }
 
-    async function clickUserIconOld() {
+    try {
+      await scrollAndClickUserIconOld();
+      return;
+    } catch (error) {
+      this.ErrorHandler.logException(error);
+    }
+
+    this.ErrorHandler.logException(
+      new Error("Neither old nor new logout button could be clicked.")
+    );
+
+    async function scrollAndClickUserIconNew() {
+      const selector = ">>>[data-ui5-stable='profile']";
+      await nonUi5.userInteraction.scrollToElement(selector, "end");
+      await nonUi5.userInteraction.click(selector);
+    }
+
+    async function scrollAndClickUserIconOld() {
       const selector = {
         "elementProperties": {
           "metadata": "sap.m.Avatar",
           "id": "*HeaderButton"
         }
       };
+      await ui5.userInteraction.scrollToElement(selector, 0, "end");
       await ui5.userInteraction.click(selector, 0, timeout);
-    }
-
-    async function clickUserIconNew() {
-      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
-      const selector = ">>>[data-ui5-stable='profile']";
-      await nonUi5.userInteraction.click(selector);
     }
   }
 
