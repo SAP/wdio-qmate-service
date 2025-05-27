@@ -2,6 +2,7 @@
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
+import { TableHelper } from "../../helper/tableHelper";
 import { Ui5Selector, Ui5ControlMetadata } from "./types/ui5.types";
 
 /**
@@ -167,7 +168,7 @@ export class Table {
   async getTotalNumberOfRows(tableSelectorOrId: Ui5Selector | string): Promise<number> {
     this.vlf.initLog(this.getTotalNumberOfRows);
 
-    const ancestorSelector = await this._resolveTableSelectorOrId(tableSelectorOrId);
+    const ancestorSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
 
     const tableTitleSelector = {
       elementProperties: {
@@ -227,7 +228,7 @@ export class Table {
   async selectRowByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
     this.vlf.initLog(this.selectRowByIndex);
 
-    const ancestorSelector = await this._resolveTableSelectorOrId(tableSelectorOrId);
+    const ancestorSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
 
     const checkBoxSelector = {
       elementProperties: {
@@ -400,13 +401,13 @@ export class Table {
     try {
       // =========================== BROWSER COMMAND ===========================
       columnListItemId = await util.browser.executeScript(
-        (constructedTableSelector: Ui5Selector, index: number, tableMetadata: Ui5ControlMetadata, smartTableMetadata: Ui5ControlMetadata) => {
+        (constructedTableSelector: Ui5Selector, index: number, tableMetadata: Ui5ControlMetadata, smartTableMetadata: Ui5ControlMetadata, uiTableMetadata: Ui5ControlMetadata) => {
           const table = sap.ui.getCore().getElementById(constructedTableSelector.elementProperties?.id);
           let items = [];
 
           if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getItems !== undefined) {
             items = table.getItems();
-          } else if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getRows !== undefined) {
+          } else if (uiTableMetadata === constructedTableSelector.elementProperties.metadata && table.getRows !== undefined) {
             items = table.getRows();
           } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined && table.getTable().getItems !== undefined) {
             items = table.getTable().getItems();
@@ -423,7 +424,8 @@ export class Table {
         constructedTableSelector,
         index,
         Table.TABLE_METADATA,
-        Table.SMART_TABLE_METADATA
+        Table.SMART_TABLE_METADATA,
+        Table.UI_TABLE_METADATA
       );
       // ========================================================================
     } catch (error) {
@@ -454,7 +456,7 @@ export class Table {
   async selectAllRows(tableSelectorOrId: Ui5Selector | string) {
     this.vlf.initLog(this.selectAllRows);
 
-    const parentSelector = await this._resolveTableSelectorOrId(tableSelectorOrId);
+    const parentSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
 
     const checkBoxSelector = {
       elementProperties: {
@@ -466,32 +468,6 @@ export class Table {
     await ui5.userInteraction.check(checkBoxSelector);
   }
 
-  async test(tableId: any, targetValues: any) {
-    const browserCommand = `
-    ${this._getBrowserCommandForDeclareInjectHighlightStyle()}
-    ${this._getBrowserCommandForDeclareFindRowIndexesByCellValues()}
-    ${this._getBrowserCommandForDeclareGetRowControlIdsByMatchedValues()}
-    return (async () => {
-    const oTable = sap.ui.getCore().byId("${tableId}");
-
-  if (!oTable) {
-    console.error("Table not found");
-    return;
-  }
-
-    const matchedIds = await getRowControlIdsByMatchedValuesAsync(oTable, ${JSON.stringify(targetValues)});
-    console.log("Matched Row Control IDs:", matchedIds);
-    return matchedIds;
-  })();
-    `;
-    try {
-      const results = await util.browser.executeScript(browserCommand);
-      util.console.log(results);
-      return results;
-    } catch (error) {
-      throw new Error(`Browser Command: ${browserCommand} failed with: ${error}`);
-    }
-  }
   /**
    * @function deselectRowByIndex
    * @memberOf ui5.table
@@ -510,7 +486,7 @@ export class Table {
    */
   async deselectRowByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
     this.vlf.initLog(this.selectRowByIndex);
-    const ancestorSelector = await this._resolveTableSelectorOrId(tableSelectorOrId);
+    const ancestorSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
 
     const checkBoxSelector = {
       elementProperties: {
@@ -543,7 +519,7 @@ export class Table {
   async deselectAllRows(tableSelectorOrId: Ui5Selector | string) {
     this.vlf.initLog(this.selectAllRows);
 
-    const parentSelector = await this._resolveTableSelectorOrId(tableSelectorOrId);
+    const parentSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
 
     const checkBoxSelector = {
       elementProperties: {
@@ -555,8 +531,20 @@ export class Table {
     await ui5.userInteraction.uncheck(checkBoxSelector);
   }
 
+  async test(tableId: string) {
+    const classCode = TableHelper.serializeClass();
+    const metadata = await browser.util.executeScript();
+    console.log(`Table metadata for ID ${tableId}:`, metadata);
+    const id = await util.browser.executeScript(`
+      ${classCode}
+      return TableHelper.getTable("${tableId}");
+   `);
+
+    return id;
+  }
+
   // =================================== HELPER ===================================
-  private async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string): Promise<Ui5Selector> {
+  private static async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string): Promise<Ui5Selector> {
     if (typeof tableSelectorOrId === "string") {
       const selectors: Array<Ui5Selector> = [
         {
@@ -568,6 +556,12 @@ export class Table {
         {
           elementProperties: {
             metadata: Table.TABLE_METADATA,
+            id: tableSelectorOrId
+          }
+        },
+        {
+          elementProperties: {
+            metadata: Table.UI_TABLE_METADATA,
             id: tableSelectorOrId
           }
         }
@@ -584,7 +578,7 @@ export class Table {
         // Intentionally left empty, as the error is handled below
       }
     } else if (typeof tableSelectorOrId === "object" && "elementProperties" in tableSelectorOrId) {
-      if (tableSelectorOrId.elementProperties.metadata === Table.TABLE_METADATA || tableSelectorOrId.elementProperties.metadata === Table.SMART_TABLE_METADATA) {
+      if (tableSelectorOrId.elementProperties.metadata === Table.TABLE_METADATA || tableSelectorOrId.elementProperties.metadata === Table.SMART_TABLE_METADATA || tableSelectorOrId.elementProperties.metadata === Table.UI_TABLE_METADATA) {
         return tableSelectorOrId;
       }
     }
@@ -592,39 +586,27 @@ export class Table {
     throw new Error(`The provided table selector "${tableSelectorOrId}" is not valid. Please provide a valid selector or ID for control type 'SmartTable' or 'Table'.`);
   }
 
-  private async _getId(tableSelectorOrId: Ui5Selector | string): Promise<string> {
-    this.vlf.initLog(this._getId);
-
+  private static async _getId(tableSelectorOrId: Ui5Selector | string): Promise<string> {
     if (typeof tableSelectorOrId === "string") {
       return tableSelectorOrId;
     } else {
-      const resolvedTableSelectorOrId = await this._resolveTableSelectorOrId(tableSelectorOrId);
+      const resolvedTableSelectorOrId = await Table._resolveTableSelectorOrId(tableSelectorOrId);
       return await ui5.element.getId(resolvedTableSelectorOrId);
     }
   }
 
-  private async _getTableMetadata(tableId: string): Promise<Ui5ControlMetadata> {
-    const vl = this.vlf.initLog(this._getTableMetadata);
-
-    vl.log(`The table selector is a string: ${tableId}`);
-    let browserCommand;
-
+  async _getTableMetadata(tableId: string): Promise<Ui5ControlMetadata> {
     try {
-      browserCommand = `
-        return (function () {
-          const table = ${this._getBrowserCommandForGetTable(tableId)};
-          return table.getMetadata().getName();
-        })();
-      `;
-      const tableMetadata = await util.browser.executeScript(browserCommand);
+      // =========================== BROWSER COMMAND ===========================
+      const classCode = TableHelper.serializeClass();
+      const tableMetadata = await util.browser.executeScript(`
+        ${classCode}
+        return TableHelper.getTableMetadata("${tableId}");
+      `);
       return tableMetadata;
     } catch (error) {
-      throw new Error(`Browser Command: ${browserCommand} failed with: ${error}`);
+      throw new Error(`Error while executing browser command: ${error}`);
     }
-  }
-
-  private _getBrowserCommandForGetTable(tableId: string) {
-    return `sap.ui.getCore().getElementById("${tableId}");`;
   }
 
   private _getBrowserCommandForFilterItems(values: string[]): string {
@@ -731,10 +713,8 @@ export class Table {
   }
 
   private async _constructTableSelector(tableSelector: Ui5Selector | string): Promise<Ui5Selector> {
-    this.vlf.initLog(this._constructTableSelector);
-
-    const tableId = await this._getId(tableSelector);
-    const tableMetaData = await this._getTableMetadata(tableId);
+    const tableId = await Table._getId(tableSelector);
+    const tableMetaData: Ui5ControlMetadata = await this._getTableMetadata(tableId);
     const selector: Ui5Selector = {
       elementProperties: {
         metadata: tableMetaData,
