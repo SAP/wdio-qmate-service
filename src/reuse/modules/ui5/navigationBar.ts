@@ -68,6 +68,7 @@ export class NavigationBar {
   async clickUserIcon(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.clickUserIcon);
 
+    // attempt to click the new user icon first
     try {
       await scrollAndClickUserIconNew();
       return;
@@ -75,6 +76,7 @@ export class NavigationBar {
       console.warn("New user icon not found, trying old selector.");
     }
 
+    // attempt to click the old user icon
     try {
       await scrollAndClickUserIconOld();
       return;
