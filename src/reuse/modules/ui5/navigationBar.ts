@@ -79,14 +79,10 @@ export class NavigationBar {
     // attempt to click the old user icon
     try {
       await scrollAndClickUserIconOld();
-      return;
     } catch (error) {
+      console.warn("Old user icon not found, logging exception.");
       this.ErrorHandler.logException(error);
     }
-
-    this.ErrorHandler.logException(
-      new Error("Neither old nor new logout button could be clicked.")
-    );
 
     async function scrollAndClickUserIconNew() {
       // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
@@ -102,7 +98,6 @@ export class NavigationBar {
           "id": "*HeaderButton"
         }
       };
-      await ui5.userInteraction.scrollToElement(selector, 0, "end");
       await ui5.userInteraction.click(selector, 0, timeout);
     }
   }
