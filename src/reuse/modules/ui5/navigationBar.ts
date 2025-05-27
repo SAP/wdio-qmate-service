@@ -89,6 +89,7 @@ export class NavigationBar {
     );
 
     async function scrollAndClickUserIconNew() {
+      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
       const selector = ">>>[data-ui5-stable='profile']";
       await nonUi5.userInteraction.scrollToElement(selector, "end");
       await nonUi5.userInteraction.click(selector);
