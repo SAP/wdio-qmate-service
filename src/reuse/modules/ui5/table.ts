@@ -331,13 +331,13 @@ export class Table {
     try {
       // =========================== BROWSER COMMAND ===========================
       filteredRowIds = await util.browser.executeScript(
-        (constructedTableSelector: Ui5Selector, values: Array<string>, tableMetadata: Ui5ControlMetadata, smartTableMetadata: Ui5ControlMetadata) => {
+        (constructedTableSelector: Ui5Selector, values: Array<string>, tableMetadata: Ui5ControlMetadata, smartTableMetadata: Ui5ControlMetadata, uiTableMetadata: Ui5ControlMetadata) => {
           const table = sap.ui.getCore().getElementById(constructedTableSelector.elementProperties?.id);
           let items = [];
 
           if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getItems !== undefined) {
             items = table.getItems();
-          } else if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getRows !== undefined) {
+          } else if (uiTableMetadata === constructedTableSelector.elementProperties.metadata && table.getRows !== undefined) {
             items = table.getRows();
           } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined && table.getTable().getItems !== undefined) {
             items = table.getTable().getItems();
@@ -397,35 +397,33 @@ export class Table {
 
     const constructedTableSelector = await this._constructTableSelector(tableSelector);
     let columnListItemId;
+    const tableMetadata = constructedTableSelector.elementProperties.metadata;
+    const classCode = TableHelper.serializeClass();
 
     try {
       // =========================== BROWSER COMMAND ===========================
       columnListItemId = await util.browser.executeScript(
-        (constructedTableSelector: Ui5Selector, index: number, tableMetadata: Ui5ControlMetadata, smartTableMetadata: Ui5ControlMetadata, uiTableMetadata: Ui5ControlMetadata) => {
-          const table = sap.ui.getCore().getElementById(constructedTableSelector.elementProperties?.id);
+        `
+         ${classCode}
+          const table = TableHelper.getTable("${constructedTableSelector.elementProperties.id}");
           let items = [];
 
-          if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getItems !== undefined) {
+          if ("${Table.TABLE_METADATA}" === "${tableMetadata}" && table.getItems !== undefined) {
             items = table.getItems();
-          } else if (uiTableMetadata === constructedTableSelector.elementProperties.metadata && table.getRows !== undefined) {
+          } else if ("${Table.UI_TABLE_METADATA}" === "${tableMetadata}" && table.getRows !== undefined) {
             items = table.getRows();
-          } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined && table.getTable().getItems !== undefined) {
+          } else if ("${Table.SMART_TABLE_METADATA}" === "${tableMetadata}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
             items = table.getTable().getItems();
           }
 
-          if (!items || !items[index]) return undefined;
+          if (!items || !items[${index}]) return null;
 
           // Filter items with undefined or empty title since titles in rows/columnListItems are only used for dividers of grouped items
-          const filteredItems = items.filter((item: any) => item.getTitle === undefined || item.getTitle() === "");
-          const item = filteredItems[index];
+          const filteredItems = items.filter((item) => item.getTitle === undefined || item.getTitle() === "");
+          const item = filteredItems[${index}];
 
           return item?.getId?.();
-        },
-        constructedTableSelector,
-        index,
-        Table.TABLE_METADATA,
-        Table.SMART_TABLE_METADATA,
-        Table.UI_TABLE_METADATA
+        `
       );
       // ========================================================================
     } catch (error) {
@@ -533,8 +531,6 @@ export class Table {
 
   async test(tableId: string) {
     const classCode = TableHelper.serializeClass();
-    const metadata = await browser.util.executeScript();
-    console.log(`Table metadata for ID ${tableId}:`, metadata);
     const id = await util.browser.executeScript(`
       ${classCode}
       return TableHelper.getTable("${tableId}");
@@ -607,109 +603,6 @@ export class Table {
     } catch (error) {
       throw new Error(`Error while executing browser command: ${error}`);
     }
-  }
-
-  private _getBrowserCommandForFilterItems(values: string[]): string {
-    return `const matchedItems = items.filter(
-        item => ${JSON.stringify(values)}.every(
-          val => Object
-          .values(item.getBindingContext().getObject()).includes(val)))
-        if (matchedItems.length === 0) return undefined
-        injectHighlightStyle();
-        return new Promise(resolve => {
-          setTimeout(() => {
-          matchedItems.forEach(item => {
-            const domRef = item.getDomRef();
-            if (domRef) {
-            domRef.classList.add("rowHighlightFlash");
-            setTimeout(() => domRef.classList.remove("rowHighlightFlash"), 2000);
-            }
-          });
-          resolve(matchedItems.map(item => item.getId()));
-          }, 250);
-        });
-          `;
-  }
-
-  private _getBrowserCommandForDeclareInjectHighlightStyle(): string {
-    return `
-    function injectHighlightStyle() {
-      if (!document.getElementById("highlightRowStyle")) {
-      const style = document.createElement("style");
-      style.id = "highlightRowStyle";
-      style.innerHTML = \`
-        .rowHighlightFlash {
-          background-color: #ffeaa7 !important;
-          transition: background-color 1s ease-out;
-        }
-      \`;
-      document.head.appendChild(style);
-      }
-    }
-  `;
-  }
-
-  private _getBrowserCommandForDeclareFindRowIndexesByCellValues(): string {
-    return `
-      function findRowIndexesByCellValues(oTable, targetValues) {
-        const searchValues = Array.isArray(targetValues) ? targetValues : [targetValues];
-        const oBinding = oTable.getBinding("rows");
-        const aContexts = oBinding.getContexts(0, oBinding.getLength());
-        const matchedRowIndexes = [];
-
-        for (let i = 0; i < aContexts.length; i++) {
-          const oRowData = aContexts[i].getObject();
-          const flatRowValues = Object.values(oRowData).flatMap(cell => Object.values(cell));
-          const allMatch = searchValues.every(val => flatRowValues.includes(val));
-          if (allMatch) {
-            matchedRowIndexes.push(i);
-          }
-        }
-
-        return matchedRowIndexes;
-      }
-    `;
-  }
-
-  private _getBrowserCommandForDeclareGetRowControlIdsByMatchedValues(): string {
-    return `
-      async function getRowControlIdsByMatchedValuesAsync(oTable, targetValues) {
-        injectHighlightStyle();
-
-        const matchedIndexes = findRowIndexesByCellValues(oTable, targetValues);
-        const iFirstVisible = oTable.getFirstVisibleRow();
-        const visibleRowCount = oTable.getVisibleRowCount();
-
-        const scrollAndCollect = (index) => {
-          return new Promise((resolve) => {
-            // Scroll if necessary
-            if (index < iFirstVisible || index >= iFirstVisible + visibleRowCount) {
-              oTable.setFirstVisibleRow(index);
-            }
-
-            // Wait a bit for UI to render
-            setTimeout(() => {
-              const relativeIndex = index - oTable.getFirstVisibleRow();
-              const oRow = oTable.getRows()[relativeIndex];
-              if (oRow) {
-                const domRef = oRow.getDomRef();
-                if (domRef) {
-                  domRef.classList.add("rowHighlightFlash");
-                  setTimeout(() => domRef.classList.remove("rowHighlightFlash"), 2000);
-                }
-                resolve(oRow.getId());
-              } else {
-                resolve(null); // row not rendered yet
-              }
-            }, 250);
-          });
-        };
-
-        // Run scrolling and ID collection in sequence
-        const promises = matchedIndexes.map(index => scrollAndCollect(index));
-        return Promise.all(promises);
-      }
-    `;
   }
 
   private async _constructTableSelector(tableSelector: Ui5Selector | string): Promise<Ui5Selector> {
