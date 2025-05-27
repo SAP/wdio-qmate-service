@@ -337,6 +337,7 @@ export class Session {
   private async _clickSignOut() {
     const vl = this.vlf.initLog(this._clickSignOut);
 
+    // Attempt to click the new logout button
     try {
       await scrollAndClickLogoutNew();
       return;
@@ -344,6 +345,7 @@ export class Session {
       console.warn("New logout button not found, trying old selector.");
     }
 
+    // Attempt to click the old logout button
     try {
       await scrollAndClickLogoutOld();
       return;
