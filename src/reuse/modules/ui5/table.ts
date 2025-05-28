@@ -326,31 +326,30 @@ export class Table {
     }
 
     const constructedTableSelector = await this._constructTableSelector(tableSelector);
+    const tableMetadata = constructedTableSelector.elementProperties.metadata;
+    const classCode = TableHelper.serializeClass();
     let filteredRowIds;
 
     try {
       // =========================== BROWSER COMMAND ===========================
       filteredRowIds = await util.browser.executeScript(
-        (constructedTableSelector: Ui5Selector, values: Array<string>, tableMetadata: Ui5ControlMetadata, smartTableMetadata: Ui5ControlMetadata, uiTableMetadata: Ui5ControlMetadata) => {
-          const table = sap.ui.getCore().getElementById(constructedTableSelector.elementProperties?.id);
+        `
+         ${classCode}
+          const table = TableHelper.getTable("${constructedTableSelector.elementProperties.id}");
           let items = [];
 
-          if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getItems !== undefined) {
+          if ("${Table.TABLE_METADATA}" === "${tableMetadata}" && table.getItems !== undefined) {
             items = table.getItems();
-          } else if (uiTableMetadata === constructedTableSelector.elementProperties.metadata && table.getRows !== undefined) {
+          } else if ("${Table.UI_TABLE_METADATA}" === "${tableMetadata}" && table.getRows !== undefined) {
             items = table.getRows();
-          } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined && table.getTable().getItems !== undefined) {
+          } else if ("${Table.SMART_TABLE_METADATA}" === "${tableMetadata}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
             items = table.getTable().getItems();
           } else {
             return undefined;
           }
 
-          return items.filter((item: any) => values.every((val) => Object.values(item.getBindingContext().getObject()).includes(val))).map((filteredItems: any) => filteredItems.getId());
-        },
-        constructedTableSelector,
-        values,
-        Table.TABLE_METADATA,
-        Table.SMART_TABLE_METADATA
+          return TableHelper.getFilteredItemIds(items, ${JSON.stringify(values)});
+        `
       );
       // ========================================================================
     } catch (error) {

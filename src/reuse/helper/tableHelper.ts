@@ -14,6 +14,10 @@ export class TableHelper {
     }
   }
 
+  static getFilteredItemIds(items: any[], values: string[]): any[] | undefined {
+    return items.filter((item: any) => values.every((val) => Object.values(item.getBindingContext().getObject()).includes(val))).map((filteredItems: any) => filteredItems.getId());
+  }
+
   static filterItems(items: any[], values: string[]) {
     const matchedItems = items.filter((item) => values.every((val) => Object.values(item.getBindingContext().getObject()).includes(val)));
     if (matchedItems.length === 0) return undefined;
@@ -43,9 +47,7 @@ export class TableHelper {
 
     for (let i = 0; i < aContexts.length; i++) {
       const oRowData = aContexts[i].getObject();
-      const flatRowValues = Object.values(oRowData).flatMap((cell) =>
-        (cell && typeof cell === "object") ? Object.values(cell as object) : [cell]
-      );
+      const flatRowValues = Object.values(oRowData).flatMap((cell) => (cell && typeof cell === "object" ? Object.values(cell as object) : [cell]));
       const allMatch = searchValues.every((val) => flatRowValues.includes(val));
       if (allMatch) {
         matchedRowIndexes.push(i);
