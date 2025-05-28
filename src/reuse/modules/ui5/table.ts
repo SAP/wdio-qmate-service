@@ -340,15 +340,18 @@ export class Table {
 
           if ("${Table.TABLE_METADATA}" === "${tableMetadata}" && table.getItems !== undefined) {
             items = table.getItems();
+            return TableHelper.filterItems(items, ${JSON.stringify(values)});
           } else if ("${Table.UI_TABLE_METADATA}" === "${tableMetadata}" && table.getRows !== undefined) {
             items = table.getRows();
+            return TableHelper.getRowControlIdsByMatchedValuesAsync(items, ${JSON.stringify(values)});
           } else if ("${Table.SMART_TABLE_METADATA}" === "${tableMetadata}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
             items = table.getTable().getItems();
+            return TableHelper.filterItems(items, ${JSON.stringify(values)});
           } else {
             return undefined;
           }
 
-          return TableHelper.getFilteredItemIds(items, ${JSON.stringify(values)});
+          
         `
       );
       // ========================================================================
@@ -417,8 +420,7 @@ export class Table {
 
           if (!items || !items[${index}]) return null;
 
-          // Filter items with undefined or empty title since titles in rows/columnListItems are only used for dividers of grouped items
-          const filteredItems = items.filter((item) => item.getTitle === undefined || item.getTitle() === "");
+          const filteredItems = TableHelper.filterItemsWithoutTitle(items); 
           const item = filteredItems[${index}];
 
           return item?.getId?.();
