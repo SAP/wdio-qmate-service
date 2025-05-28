@@ -507,7 +507,7 @@ export class Table {
    * @example await ui5.table.selectRowByValues(selector, ["Supplier Name", "Amount"], 1);
    */
   async selectRowByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, index: number = 0) {
-    this.vlf.initLog(this.selectRowByValues);
+    const vl = this.vlf.initLog(this.selectRowByValues);
 
     const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values);
     if (rowSelectors.length === 0) {
@@ -529,7 +529,13 @@ export class Table {
           await ui5.userInteraction.check(selectionSelector);
           break;
         case "cssItem":
-          await nonUi5.userInteraction.check(selectionSelector);
+          const element = await nonUi5.element.getByCss(selectionSelector);
+          const isSelected = await nonUi5.element.getAttributeValue(element, "aria-selected");
+          if (isSelected === "false") {
+            await nonUi5.userInteraction.click(element);
+          } else if (isSelected === "true") {
+            vl.log(`Row with values ${values} at index ${index} is already selected.`);
+          }
           break;
       }
     } catch (error) {
@@ -789,7 +795,7 @@ export class Table {
         },
         {
           type: "cssItem",
-          selector: `[data-sap-ui-related='${id}'][role='row']`
+          selector: `[data-sap-ui-related='${id}'][role='row'] [role='gridcell']`
         }
       ];
 
@@ -821,7 +827,7 @@ export class Table {
           parentProperties: rowSelector.elementProperties
         };
       case "cssItem":
-        return `[data-sap-ui-related = ${rowSelector.elementProperties.id}]`;
+        return `[data-sap-ui-related = '${rowSelector.elementProperties.id}'] [role='gridcell']`;
       case "none":
         throw new Error("No selectable CheckBox, RadioButton, or Css element found for the row.");
     }

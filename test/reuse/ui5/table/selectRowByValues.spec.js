@@ -58,7 +58,7 @@ describe("table - selectRowByValues - demo kit - passing value as string - ui5Ch
 
   it("Verification", async function () {
     const isSelected = await ui5.element.getPropertyValue(checkBoxSelector1("/Products*15)"), "selected");
-    await common.assertion.expectEqual(isSelected, true);
+    common.assertion.expectEqual(isSelected, true);
   });
 });
 
@@ -76,7 +76,7 @@ describe("table - selectRowByValues - demo kit - passing value as array of strin
   it("Verification", async function () {
     const element = await nonUi5.element.getById(checkBoxSelector2);
     const isSelected = await nonUi5.element.getAttributeValue(element, "aria-selected");
-    await common.assertion.expectEqual(isSelected, "true");
+    common.assertion.expectEqual(isSelected, "true");
   });
 });
 
@@ -91,14 +91,14 @@ describe("table - selectRowByValues - demo kit - passing value as array of strin
 
   it("Verification", async function () {
     const isSelected = await ui5.element.getPropertyValue(checkBoxSelector3("/C_STTA_SalesOrder_WD_20*SalesOrder='500000007'*"), "selected");
-    await common.assertion.expectEqual(isSelected, true);
+    common.assertion.expectEqual(isSelected, true);
   });
 });
 
 describe("table - selectRowByValues - demo kit - already selected row remains selected", function () {
   async function validateChecked() {
     const isSelected = await ui5.element.getPropertyValue(checkBoxSelector1("/Products*15)"), "selected");
-    await common.assertion.expectEqual(isSelected, true);
+    common.assertion.expectEqual(isSelected, true);
   }
 
   it("Preparation", async function () {
