@@ -262,6 +262,11 @@ export class Browser {
     return browser.execute(command, ...args);
   }
 
+  async waitUntil(fn: Function, options: { timeout?: number; timeoutMsg?: string; interval?: number } = {}): Promise<void> {
+    const vl = this.vlf.initLog(this.waitUntil);
+    return browser.waitUntil(fn, options);
+  }
+
   // =================================== WINDOW HANDLING ===================================
   /**
    * @function switchToNewWindow
