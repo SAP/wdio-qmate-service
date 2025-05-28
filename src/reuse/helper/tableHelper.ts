@@ -17,24 +17,10 @@ export class TableHelper {
   static async filterItems(items: any[], values: string[]): Promise<string[] | undefined> {
     const matchedItems = items.filter((item) => values.every((val) => Object.values(item.getBindingContext().getObject()).includes(val)));
 
-    if (matchedItems.length === 0) return undefined;
+    if (!matchedItems.length) return undefined;
 
-    TableHelper.injectHighlightStyle();
-
-    matchedItems.forEach((item) => {
-      const domRef = item.getDomRef();
-      if (domRef) {
-        domRef.classList.add("rowHighlightFlash");
-        setTimeout(() => {
-          domRef.classList.remove("rowHighlightFlash");
-        }, 2000);
-      }
-    });
-
-    // Wait for the highlight to be fully shown and removed
-    await new Promise((resolve) => setTimeout(resolve, 2250));
-
-    return matchedItems.map((item) => item.getId?.()).filter(Boolean);
+    await TableHelper.highlightItems(matchedItems);
+    return matchedItems.map((item) => item?.getId?.()).filter(Boolean);
   }
 
   static filterItemsWithoutTitle(items: any[]): any[] {
@@ -60,41 +46,28 @@ export class TableHelper {
     return matchedRowIndexes;
   }
 
-  static getRowControlIdsByMatchedValuesAsync(table: any, targetValues: string[]): Promise<any[]> {
-    TableHelper.injectHighlightStyle();
-
+  static async getRowControlIdsByMatchedValuesAsync(table: any, targetValues: string[]): Promise<string[] | undefined> {
     const matchedIndexes = TableHelper.findRowIndexesByCellValues(table, targetValues);
+    if (!matchedIndexes.length) return undefined;
+
     const iFirstVisible = table.getFirstVisibleRow();
     const visibleRowCount = table.getVisibleRowCount();
+    const matchedRows: any[] = [];
 
-    const scrollAndCollect = (index: number) => {
-      return new Promise((resolve) => {
-        // Scroll if necessary
-        if (index < iFirstVisible || index >= iFirstVisible + visibleRowCount) {
-          table.setFirstVisibleRow(index);
-        }
+    for (const index of matchedIndexes) {
+      if (index < iFirstVisible || index >= iFirstVisible + visibleRowCount) {
+        table.setFirstVisibleRow(index);
+      }
 
-        // Wait a bit for UI to render
-        setTimeout(() => {
-          const relativeIndex = index - table.getFirstVisibleRow();
-          const oRow = table.getRows()[relativeIndex];
-          if (oRow) {
-            const domRef = oRow.getDomRef();
-            if (domRef) {
-              domRef.classList.add("rowHighlightFlash");
-              setTimeout(() => domRef.classList.remove("rowHighlightFlash"), 2000);
-            }
-            resolve(oRow.getId());
-          } else {
-            resolve(null); // row not rendered yet
-          }
-        }, 250);
-      });
-    };
+      await new Promise((res) => setTimeout(res, 250)); // wait for UI to rerender
 
-    // Run scrolling and ID collection in sequence
-    const promises = matchedIndexes.map((index) => scrollAndCollect(index));
-    return Promise.all(promises);
+      const relativeIndex = index - table.getFirstVisibleRow();
+      const oRow = table.getRows()[relativeIndex];
+      if (oRow) matchedRows.push(oRow);
+    }
+
+    await TableHelper.highlightItems(matchedRows);
+    return matchedRows.map((row) => row?.getId?.()).filter(Boolean);
   }
 
   static injectHighlightStyle() {
@@ -109,6 +82,25 @@ export class TableHelper {
       `;
       document.head.appendChild(style);
     }
+  }
+
+  static async highlightItems(items: any[]): Promise<void> {
+    if (!items || !items.length) return;
+
+    TableHelper.injectHighlightStyle();
+
+    await new Promise<void>((resolve) => {
+      setTimeout(() => {
+        items.forEach((item) => {
+          const domRef = item.getDomRef?.();
+          if (domRef) {
+            domRef.classList.add("rowHighlightFlash");
+            setTimeout(() => domRef.classList.remove("rowHighlightFlash"), 2000);
+          }
+        });
+        setTimeout(resolve, 2250); // total time to wait before resolving
+      }, 250);
+    });
   }
 
   static serializeClass(): string {
