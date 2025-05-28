@@ -1,5 +1,3 @@
-# Reuse API
-
 ## Constants
 
 <dl>
@@ -569,6 +567,7 @@ Global namespace for util modules.
         * [.getUI5Version([timeout])](#util.browser.getUI5Version)
         * [.logUI5Version()](#util.browser.logUI5Version)
         * [.executeScript(command)](#util.browser.executeScript) ⇒ <code>Any</code>
+        * [.waitUntil(condition, [options])](#util.browser.waitUntil) ⇒ <code>Promise.&lt;void&gt;</code>
         * [.switchToNewWindow(titleOrUrl, [timeout])](#util.browser.switchToNewWindow)
         * [.switchToWindow(handle)](#util.browser.switchToWindow)
         * [.getCurrentWindow()](#util.browser.getCurrentWindow) ⇒ <code>Object</code>
@@ -646,6 +645,7 @@ Global namespace for util modules.
     * [.getUI5Version([timeout])](#util.browser.getUI5Version)
     * [.logUI5Version()](#util.browser.logUI5Version)
     * [.executeScript(command)](#util.browser.executeScript) ⇒ <code>Any</code>
+    * [.waitUntil(condition, [options])](#util.browser.waitUntil) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.switchToNewWindow(titleOrUrl, [timeout])](#util.browser.switchToNewWindow)
     * [.switchToWindow(handle)](#util.browser.switchToWindow)
     * [.getCurrentWindow()](#util.browser.getCurrentWindow) ⇒ <code>Object</code>
@@ -829,11 +829,31 @@ Executes the specified JavaScript command.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| command | <code>String</code> | The command to execute. |
+| command | <code>String</code> \| <code>function</code> | The command to execute. |
 
 **Example**  
 ```js
 await util.browser.executeScript(command);
+```
+<a name="util.browser.waitUntil"></a>
+
+#### browser.waitUntil(condition, [options]) ⇒ <code>Promise.&lt;void&gt;</code>
+Waits until the specified function returns true or the timeout is reached.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Returns**: <code>Promise.&lt;void&gt;</code> - Resolves when the function returns true or the timeout is reached.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| condition | <code>function</code> | The function to wait for. |
+| [options] | <code>Object</code> | Options for the wait. |
+| [options.timeout] | <code>Number</code> | The timeout to wait (ms). |
+| [options.timeoutMsg] | <code>String</code> | The message to display if the timeout is reached. |
+| [options.interval] | <code>Number</code> | The interval to check the function (ms). |
+
+**Example**  
+```js
+await util.browser.waitUntil(async () => await ui5.element.isVisible(selector), { timeout: 5000, timeoutMsg: "Element not visible" });
 ```
 <a name="util.browser.switchToNewWindow"></a>
 
@@ -1803,9 +1823,19 @@ Global namespace for UI5 modules.
         * [.switchUser(username, [password], [authenticator], [wait])](#ui5.session.switchUser)
         * [.expectLogoutText()](#ui5.session.expectLogoutText)
     * [.table](#ui5.table)
-        * [.sortColumnAscending(columnName, [tableSelector])](#ui5.table.sortColumnAscending)
-        * [.sortColumnDescending(columnName, [tableSelector])](#ui5.table.sortColumnDescending)
-        * [.clickSettingsButton([tableSelector])](#ui5.table.clickSettingsButton)
+        * [.sortColumnAscending(columnName, tableSelector)](#ui5.table.sortColumnAscending)
+        * [.sortColumnDescending(columnName, tableSelector)](#ui5.table.sortColumnDescending)
+        * [.clickSettingsButton(tableSelector)](#ui5.table.clickSettingsButton)
+        * [.getTotalNumberOfRows(tableSelectorOrId)](#ui5.table.getTotalNumberOfRows) ⇒ <code>Number</code>
+        * [.getTotalNumberOfRowsByValues(tableSelectorOrId, values, [index])](#ui5.table.getTotalNumberOfRowsByValues) ⇒ <code>Number</code>
+        * [.selectRowByIndex(tableSelectorOrId, index)](#ui5.table.selectRowByIndex)
+        * [.openItemByIndex(tableSelectorOrId, index)](#ui5.table.openItemByIndex)
+        * [.openItemByValues(tableSelectorOrId, values, [index])](#ui5.table.openItemByValues)
+        * [.getSelectorsForRowsByValues(tableSelectorOrId, values)](#ui5.table.getSelectorsForRowsByValues)
+        * [.getSelectorForRowByIndex(tableSelectorOrId, index)](#ui5.table.getSelectorForRowByIndex)
+        * [.selectAllRows(tableSelectorOrId)](#ui5.table.selectAllRows)
+        * [.deselectRowByIndex(tableSelectorOrId)](#ui5.table.deselectRowByIndex)
+        * [.deselectAllRows(tableSelectorOrId)](#ui5.table.deselectAllRows)
     * [.userInteraction](#ui5.userInteraction)
         * [.click(selector, [index], [timeout])](#ui5.userInteraction.click)
         * [.clickAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clickAndRetry)
@@ -3678,13 +3708,23 @@ await ui5.session.expectLogoutText();
 **Kind**: static class of [<code>ui5</code>](#ui5)  
 
 * [.table](#ui5.table)
-    * [.sortColumnAscending(columnName, [tableSelector])](#ui5.table.sortColumnAscending)
-    * [.sortColumnDescending(columnName, [tableSelector])](#ui5.table.sortColumnDescending)
-    * [.clickSettingsButton([tableSelector])](#ui5.table.clickSettingsButton)
+    * [.sortColumnAscending(columnName, tableSelector)](#ui5.table.sortColumnAscending)
+    * [.sortColumnDescending(columnName, tableSelector)](#ui5.table.sortColumnDescending)
+    * [.clickSettingsButton(tableSelector)](#ui5.table.clickSettingsButton)
+    * [.getTotalNumberOfRows(tableSelectorOrId)](#ui5.table.getTotalNumberOfRows) ⇒ <code>Number</code>
+    * [.getTotalNumberOfRowsByValues(tableSelectorOrId, values, [index])](#ui5.table.getTotalNumberOfRowsByValues) ⇒ <code>Number</code>
+    * [.selectRowByIndex(tableSelectorOrId, index)](#ui5.table.selectRowByIndex)
+    * [.openItemByIndex(tableSelectorOrId, index)](#ui5.table.openItemByIndex)
+    * [.openItemByValues(tableSelectorOrId, values, [index])](#ui5.table.openItemByValues)
+    * [.getSelectorsForRowsByValues(tableSelectorOrId, values)](#ui5.table.getSelectorsForRowsByValues)
+    * [.getSelectorForRowByIndex(tableSelectorOrId, index)](#ui5.table.getSelectorForRowByIndex)
+    * [.selectAllRows(tableSelectorOrId)](#ui5.table.selectAllRows)
+    * [.deselectRowByIndex(tableSelectorOrId)](#ui5.table.deselectRowByIndex)
+    * [.deselectAllRows(tableSelectorOrId)](#ui5.table.deselectAllRows)
 
 <a name="ui5.table.sortColumnAscending"></a>
 
-#### table.sortColumnAscending(columnName, [tableSelector])
+#### table.sortColumnAscending(columnName, tableSelector)
 Sorts the given column "Ascending".
 
 **Kind**: static method of [<code>table</code>](#ui5.table)  
@@ -3692,7 +3732,7 @@ Sorts the given column "Ascending".
 | Param | Type | Description |
 | --- | --- | --- |
 | columnName | <code>String</code> | The name of the column to sort. |
-| [tableSelector] | <code>Object</code> | The selector describing the table element (in case there are more then one). |
+| tableSelector | <code>Ui5Selector</code> | The selector describing the table element (in case there are more then one). |
 
 **Example**  
 ```js
@@ -3711,7 +3751,7 @@ await ui5.table.sortColumnAscending("Amount", glAccountItemsTable);
 ```
 <a name="ui5.table.sortColumnDescending"></a>
 
-#### table.sortColumnDescending(columnName, [tableSelector])
+#### table.sortColumnDescending(columnName, tableSelector)
 Sorts the given column "Descending".
 
 **Kind**: static method of [<code>table</code>](#ui5.table)  
@@ -3719,7 +3759,7 @@ Sorts the given column "Descending".
 | Param | Type | Description |
 | --- | --- | --- |
 | columnName | <code>String</code> | The name of the column to sort. |
-| [tableSelector] | <code>Object</code> | The selector describing the table element (in case there are more then one). |
+| tableSelector | <code>Ui5Selector</code> | The selector describing the table element (in case there are more then one). |
 
 **Example**  
 ```js
@@ -3738,14 +3778,14 @@ await ui5.table.sortColumnDescending("Amount", glAccountItemsTable);
 ```
 <a name="ui5.table.clickSettingsButton"></a>
 
-#### table.clickSettingsButton([tableSelector])
+#### table.clickSettingsButton(tableSelector)
 Opens the user Settings.
 
 **Kind**: static method of [<code>table</code>](#ui5.table)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [tableSelector] | <code>Object</code> | The selector describing the table element (in case there are more then one). |
+| tableSelector | <code>Ui5Selector</code> | The selector describing the table element (in case there are more then one). |
 
 **Example**  
 ```js
@@ -3761,6 +3801,264 @@ const glAccountItemsTable = {
  }
 };
 await ui5.table.clickSettingsButton(glAccountItemsTable);
+```
+<a name="ui5.table.getTotalNumberOfRows"></a>
+
+#### table.getTotalNumberOfRows(tableSelectorOrId) ⇒ <code>Number</code>
+Returns the total number of rows in the table.
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+**Returns**: <code>Number</code> - The total number of rows in the table.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
+
+**Example**  
+```js
+const selector = {
+ elementProperties: {
+   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   metadata: "sap.ui.comp.smarttable.SmartTable",
+  id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+ }
+};
+const numberOfRows = await ui5.table.getTotalNumberOfRows(selector);
+```
+<a name="ui5.table.getTotalNumberOfRowsByValues"></a>
+
+#### table.getTotalNumberOfRowsByValues(tableSelectorOrId, values, [index]) ⇒ <code>Number</code>
+Returns the total number of rows in the table that match the given values.
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+**Returns**: <code>Number</code> - The total number of matching rows in the table.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> |  | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
+| values | <code>String</code> \| <code>Array.&lt;String&gt;</code> |  | The value(s) to match in the table rows. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the matching row to consider. |
+
+**Example**  
+```js
+const selector = {
+ elementProperties: {
+   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   metadata: "sap.ui.comp.smarttable.SmartTable",
+   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+ }
+};
+const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, ["value1", "value2"]);
+const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, "value");
+```
+<a name="ui5.table.selectRowByIndex"></a>
+
+#### table.selectRowByIndex(tableSelectorOrId, index)
+Selects a row in the table by its index.
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
+| index | <code>Number</code> | The index of the row to select. |
+
+**Example**  
+```js
+await ui5.table.selectRowByIndex("application-ReportingTask-run-component---ReportList--ReportingTable", 0);
+```
+**Example**  
+```js
+const selector = {
+ elementProperties: {
+   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   metadata: "sap.ui.comp.smarttable.SmartTable",
+   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+ }
+};
+await ui5.table.selectRowByIndex(selector, 0);
+```
+<a name="ui5.table.openItemByIndex"></a>
+
+#### table.openItemByIndex(tableSelectorOrId, index)
+Opens the item in the table by its index.
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
+| index | <code>Number</code> | The index of the item to open. |
+
+**Example**  
+```js
+const selector = {
+ elementProperties: {
+  viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+  metadata: "sap.ui.comp.smarttable.SmartTable",
+  id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+ }
+};
+await ui5.table.openItemByIndex(selector, 0);
+```
+**Example**  
+```js
+const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+await ui5.table.openItemByIndex(id, 0);
+```
+<a name="ui5.table.openItemByValues"></a>
+
+#### table.openItemByValues(tableSelectorOrId, values, [index])
+Opens the item in the table containing the given values. If multiple items match, it opens the index-th item.
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> |  | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
+| values | <code>String</code> \| <code>Array.&lt;String&gt;</code> |  | The value(s) to match in the table rows. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the matching row to consider. |
+
+**Example**  
+```js
+const selector = {
+ elementProperties: {
+   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   metadata: "sap.ui.comp.smarttable.SmartTable",
+   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+ }
+};
+await ui5.table.openItemByValues(selector, ["value1", "value2"]);
+```
+**Example**  
+```js
+const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+await ui5.table.openItemByValues(id, "value");
+```
+<a name="ui5.table.getSelectorsForRowsByValues"></a>
+
+#### table.getSelectorsForRowsByValues(tableSelectorOrId, values)
+Gets the selectors of rows in the table that contain the given values. If multiple values are provided, it only returns the selectors of rows that contain all of them.
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
+| values | <code>string</code> | The value(s) to match in the table rows. |
+
+**Example**  
+```js
+const id = "application-ReportingTask-run-component---ReportList--ReportingTable"
+await ui5.table.getSelectorsForRowsByValues(id, "February");
+```
+**Example**  
+```js
+const selector = {
+ elementProperties: {
+   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   metadata: "sap.ui.comp.smarttable.SmartTable",
+   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+ }
+};
+await ui5.table.getSelectorsForRowsByValues(selector, ["January", "2022"]);
+```
+<a name="ui5.table.getSelectorForRowByIndex"></a>
+
+#### table.getSelectorForRowByIndex(tableSelectorOrId, index)
+Gets the selector of a row in the table by its index.
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
+| index | <code>Number</code> | The index of the item to open. |
+
+**Example**  
+```js
+const selector = {
+ elementProperties: {
+   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   metadata: "sap.ui.comp.smarttable.SmartTable",
+   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+ }
+};
+const rowSelector = await ui5.table.getSelectorForRowByIndex(selector, 0);
+```
+**Example**  
+```js
+id = "application-ReportingTask-run-component---ReportList--ReportingTable"
+const rowSelector = await ui5.table.getSelectorForRowByIndex(id, 0);
+```
+<a name="ui5.table.selectAllRows"></a>
+
+#### table.selectAllRows(tableSelectorOrId)
+Selects all rows in the table.
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
+
+**Example**  
+```js
+await ui5.table.selectAllRows("application-ReportingTask-run-component---ReportList--ReportingTable");
+await ui5.table.selectAllRows(selector);
+```
+<a name="ui5.table.deselectRowByIndex"></a>
+
+#### table.deselectRowByIndex(tableSelectorOrId)
+Deselects a row in the table by its index.
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
+
+**Example**  
+```js
+const selector = {
+ elementProperties: {
+   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   metadata: "sap.ui.comp.smarttable.SmartTable",
+  id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+ }
+};
+await ui5.table.deselectRowByIndex(selector, 0);
+```
+**Example**  
+```js
+const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+await ui5.table.deselectRowByIndex(id, 0);
+```
+<a name="ui5.table.deselectAllRows"></a>
+
+#### table.deselectAllRows(tableSelectorOrId)
+Deselects all rows in the table.
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
+
+**Example**  
+```js
+await ui5.table.deselectAllRows("application-ReportingTask-run-component---ReportList--ReportingTable");
+```
+**Example**  
+```js
+const selector = {
+ elementProperties: {
+   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   metadata: "sap.ui.comp.smarttable.SmartTable",
+   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+ }
+};
+await ui5.table.deselectAllRows(selector);
 ```
 <a name="ui5.userInteraction"></a>
 
@@ -4347,6 +4645,7 @@ Global namespace for non UI5 modules.
         * [.expectAttributeToContain(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToContain)
         * [.expectValueToBe(elementOrSelector, compareValue)](#nonUi5.assertion.expectValueToBe)
         * [.expectCssPropertyValueToBe(elementOrSelector, cssProperty, compareValue)](#nonUi5.assertion.expectCssPropertyValueToBe)
+        * [.expectTextToBe(elementOrSelector, compareValue)](#nonUi5.assertion.expectTextToBe)
         * [.expectToBeVisible(elementOrSelector)](#nonUi5.assertion.expectToBeVisible)
         * [.expectToBeNotVisible(elementOrSelector, [timeout])](#nonUi5.assertion.expectToBeNotVisible)
     * [.element](#nonUi5.element)
@@ -4366,6 +4665,7 @@ Global namespace for non UI5 modules.
         * [.getByParent(elementSelector, parentSelector, [index], [timeout], [includeHidden])](#nonUi5.element.getByParent) ⇒ <code>Object</code>
         * [.isVisible(element, [strict])](#nonUi5.element.isVisible) ⇒ <code>Boolean</code>
         * [.isPresent(elem)](#nonUi5.element.isPresent) ⇒ <code>Boolean</code>
+        * [.isEnabled(elem)](#nonUi5.element.isEnabled) ⇒ <code>Boolean</code>
         * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
         * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
         * [.isSelected(elem)](#nonUi5.element.isSelected) ⇒ <code>boolean</code>
@@ -4407,6 +4707,7 @@ Global namespace for non UI5 modules.
     * [.expectAttributeToContain(elementOrSelector, compareValue, [attribute])](#nonUi5.assertion.expectAttributeToContain)
     * [.expectValueToBe(elementOrSelector, compareValue)](#nonUi5.assertion.expectValueToBe)
     * [.expectCssPropertyValueToBe(elementOrSelector, cssProperty, compareValue)](#nonUi5.assertion.expectCssPropertyValueToBe)
+    * [.expectTextToBe(elementOrSelector, compareValue)](#nonUi5.assertion.expectTextToBe)
     * [.expectToBeVisible(elementOrSelector)](#nonUi5.assertion.expectToBeVisible)
     * [.expectToBeNotVisible(elementOrSelector, [timeout])](#nonUi5.assertion.expectToBeNotVisible)
 
@@ -4486,6 +4787,23 @@ Expects the CSS property value of the passed element to be the compare value.
 const element = await nonUi5.element.getById("button01");
 await nonUi5.assertion.expectCssPropertyValueToBe(element, "color", "rgb(255, 0, 0)");
 ```
+<a name="nonUi5.assertion.expectTextToBe"></a>
+
+#### assertion.expectTextToBe(elementOrSelector, compareValue)
+Expects the text of the passed element to be the compare value.
+
+**Kind**: static method of [<code>assertion</code>](#nonUi5.assertion)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elementOrSelector | <code>Element</code> \| <code>string</code> | The element or CSS selector describing the element. |
+| compareValue | <code>String</code> | The compare value. |
+
+**Example**  
+```js
+const element = await nonUi5.element.getById("button01");
+await nonUi5.assertion.expectTextToBe(element, "Save");
+```
 <a name="nonUi5.assertion.expectToBeVisible"></a>
 
 #### assertion.expectToBeVisible(elementOrSelector)
@@ -4541,6 +4859,7 @@ await nonUi5.assertion.expectToBeNotVisible(element, 5000);
     * [.getByParent(elementSelector, parentSelector, [index], [timeout], [includeHidden])](#nonUi5.element.getByParent) ⇒ <code>Object</code>
     * [.isVisible(element, [strict])](#nonUi5.element.isVisible) ⇒ <code>Boolean</code>
     * [.isPresent(elem)](#nonUi5.element.isPresent) ⇒ <code>Boolean</code>
+    * [.isEnabled(elem)](#nonUi5.element.isEnabled) ⇒ <code>Boolean</code>
     * [.isPresentByCss(css, [index], [timeout])](#nonUi5.element.isPresentByCss) ⇒ <code>boolean</code>
     * [.isPresentByXPath(xpath, [index], [timeout])](#nonUi5.element.isPresentByXPath) ⇒ <code>boolean</code>
     * [.isSelected(elem)](#nonUi5.element.isSelected) ⇒ <code>boolean</code>
@@ -4863,6 +5182,23 @@ Returns a boolean if the element is present at the DOM or not. It might be hidde
 ```js
 const elem = await nonUi5.element.getById("button01");
 await nonUi5.element.isPresent(elem);
+```
+<a name="nonUi5.element.isEnabled"></a>
+
+#### element.isEnabled(elem) ⇒ <code>Boolean</code>
+Returns a boolean if the element is enabled or not.
+
+**Kind**: static method of [<code>element</code>](#nonUi5.element)  
+**Returns**: <code>Boolean</code> - Returns true or false.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| elem | <code>Element</code> | The element. |
+
+**Example**  
+```js
+const elem = await nonUi5.element.getById("button01");
+await nonUi5.element.isEnabled(elem);
 ```
 <a name="nonUi5.element.isPresentByCss"></a>
 
