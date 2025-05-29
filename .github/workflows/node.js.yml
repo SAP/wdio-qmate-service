@@ -1,6 +1,8 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 name: Node.js CI
+permissions:
+  contents: read
 on:
   push:
     branches: [ "main" ]
@@ -12,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
       - uses: actions/checkout@v3
@@ -22,6 +24,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
+          npm install -g npm@latest
           npm ci
           npm run lint
 
@@ -29,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -38,6 +41,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
+          npm install -g npm@latest
           npm ci
           npm run test:core
 
@@ -45,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -54,6 +58,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
+          npm install -g npm@latest
           npm ci
           npm run test:authenticator:staticLogin
 
@@ -61,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -70,6 +75,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
+          npm install -g npm@latest
           npm ci
           npm run test:reuse:common
 
@@ -77,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -86,6 +92,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
+          npm install -g npm@latest
           npm ci
           npm run test:reuse:ui5:pt1
 
@@ -93,7 +100,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -102,6 +109,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
+          npm install -g npm@latest
           npm ci
           npm run test:reuse:ui5:pt2
 
@@ -109,7 +117,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -118,6 +126,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
+          npm install -g npm@latest
           npm ci
           npm run test:reuse:nonUi5
 
@@ -125,7 +134,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -134,6 +143,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: run tests
         run: |
+          npm install -g npm@latest
           npm ci
           npm run test:reuse:util
 
@@ -142,7 +152,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -153,6 +163,7 @@ jobs:
         env: 
           QMATE_PRIVATE_KEY: ${{ secrets.QMATE_PRIVATE_KEY }}
         run: |
+          npm install -g npm@latest
           npm ci
           npm run test:reuse:util:data:privacy
           
@@ -160,7 +171,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -169,6 +180,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
+          npm install -g npm@latest
           npm ci
           npm run test:reuse:service
 

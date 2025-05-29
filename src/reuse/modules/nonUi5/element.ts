@@ -392,6 +392,20 @@ export class ElementModule {
   }
 
   /**
+   * @function isEnabled
+   * @memberOf nonUi5.element
+   * @description Returns a boolean if the element is enabled or not.
+   * @param {Element} elem - The element.
+   * @returns {Boolean} Returns true or false.
+   * @example const elem = await nonUi5.element.getById("button01");
+   * await nonUi5.element.isEnabled(elem);
+   */
+  async isEnabled(elem: Element): Promise<boolean> {
+    const vl = this.vlf.initLog(this.isEnabled);
+    return elem.isEnabled();
+  }
+
+  /**
    * @function isPresentByCss
    * @memberOf nonUi5.element
    * @description Returns a boolean if the element is present at the DOM or not.
