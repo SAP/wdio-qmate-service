@@ -90,7 +90,7 @@ export class Assertion {
    * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectTextToBe(element, "Save");
    **/
-  async expectTextToBe(elementOrSelector: Element | string, compareValue: string): Promise<void> {
+  async expectTextToBe(elementOrSelector: WebdriverIO.Element | string, compareValue: string): Promise<void> {
     const vl = this.vlf.initLog(this.expectTextToBe);
     const element = await resolveCssSelectorOrElement(elementOrSelector);
     const textValue = await element.getText();

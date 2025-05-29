@@ -400,7 +400,7 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.element.isEnabled(elem);
    */
-  async isEnabled(elem: Element): Promise<boolean> {
+  async isEnabled(elem: WebdriverIO.Element): Promise<boolean> {
     const vl = this.vlf.initLog(this.isEnabled);
     return elem.isEnabled();
   }
