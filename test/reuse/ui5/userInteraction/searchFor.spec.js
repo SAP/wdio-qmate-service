@@ -12,13 +12,15 @@ describe("userInteraction - searchFor - use button", function () {
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.SearchField.Page",
-        "metadata": "sap.m.SearchField"
+      elementProperties: {
+        viewName: "sap.m.sample.SearchField.Page",
+        metadata: "sap.m.SearchField"
       },
-      "siblingProperties": {
-        "metadata": "sap.m.Toolbar",
-        "viewName": "sap.m.sample.SearchField.Page"
+      ancestorProperties: {
+        siblingProperties: {
+          metadata: "sap.m.Toolbar",
+          viewName: "sap.m.sample.SearchField.Page"
+        }
       }
     };
     const value = "Laptop";
@@ -30,13 +32,15 @@ describe("userInteraction - searchFor - use button", function () {
 
   it("Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.SearchField.Page",
-        "metadata": "sap.m.SearchField"
+      elementProperties: {
+        viewName: "sap.m.sample.SearchField.Page",
+        metadata: "sap.m.SearchField"
       },
-      "siblingProperties": {
-        "metadata": "sap.m.Toolbar",
-        "viewName": "sap.m.sample.SearchField.Page"
+      ancestorProperties: {
+        siblingProperties: {
+          metadata: "sap.m.Toolbar",
+          viewName: "sap.m.sample.SearchField.Page"
+        }
       }
     };
     const valueExp = "Laptop";
@@ -55,13 +59,15 @@ describe("userInteraction - searchFor - use Enter", function () {
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.SearchField.Page",
-        "metadata": "sap.m.SearchField"
+      elementProperties: {
+        viewName: "sap.m.sample.SearchField.Page",
+        metadata: "sap.m.SearchField"
       },
-      "siblingProperties": {
-        "metadata": "sap.m.Toolbar",
-        "viewName": "sap.m.sample.SearchField.Page"
+      ancestorProperties: {
+        siblingProperties: {
+          metadata: "sap.m.Toolbar",
+          viewName: "sap.m.sample.SearchField.Page"
+        }
       }
     };
     const value = "Laptop";
@@ -73,13 +79,15 @@ describe("userInteraction - searchFor - use Enter", function () {
 
   it("Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.SearchField.Page",
-        "metadata": "sap.m.SearchField"
+      elementProperties: {
+        viewName: "sap.m.sample.SearchField.Page",
+        metadata: "sap.m.SearchField"
       },
-      "siblingProperties": {
-        "metadata": "sap.m.Toolbar",
-        "viewName": "sap.m.sample.SearchField.Page"
+      ancestorProperties: {
+        siblingProperties: {
+          metadata: "sap.m.Toolbar",
+          viewName: "sap.m.sample.SearchField.Page"
+        }
       }
     };
     const valueExp = "Laptop";
@@ -98,13 +106,15 @@ describe("userInteraction - searchFor - use Enter and wrong selector", function 
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.SearchField.Page",
-        "metadata": "sarchField"
+      elementProperties: {
+        viewName: "sap.m.sample.SearchField.Page",
+        metadata: "sarchField"
       },
-      "siblingProperties": {
-        "metadata": "sap.m.Toolbar",
-        "viewName": "sap.m.rchField.Page"
+      ancestorProperties: {
+        siblingProperties: {
+          metadata: "sap.m.Toolbar",
+          viewName: "sap.m.sample.SearchField.Page"
+        }
       }
     };
     const value = "Laptop";
@@ -126,13 +136,15 @@ describe("userInteraction - resetSearch", function () {
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.SearchField.Page",
-        "metadata": "sap.m.SearchField"
+      elementProperties: {
+        viewName: "sap.m.sample.SearchField.Page",
+        metadata: "sap.m.SearchField"
       },
-      "siblingProperties": {
-        "metadata": "sap.m.Toolbar",
-        "viewName": "sap.m.sample.SearchField.Page"
+      ancestorProperties: {
+        siblingProperties: {
+          metadata: "sap.m.Toolbar",
+          viewName: "sap.m.sample.SearchField.Page"
+        }
       }
     };
     const value = "Laptop";
@@ -144,13 +156,15 @@ describe("userInteraction - resetSearch", function () {
 
   it("Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.SearchField.Page",
-        "metadata": "sap.m.SearchField"
+      elementProperties: {
+        viewName: "sap.m.sample.SearchField.Page",
+        metadata: "sap.m.SearchField"
       },
-      "siblingProperties": {
-        "metadata": "sap.m.Toolbar",
-        "viewName": "sap.m.sample.SearchField.Page"
+      ancestorProperties: {
+        siblingProperties: {
+          metadata: "sap.m.Toolbar",
+          viewName: "sap.m.sample.SearchField.Page"
+        }
       }
     };
     const valueExp = "";
