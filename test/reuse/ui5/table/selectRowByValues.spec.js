@@ -80,13 +80,13 @@ describe("table - selectRowByValues - demo kit - passing value as array of strin
   });
 });
 
-describe("table - selectRowByValues - demo kit - passing value as array of string - ui5RadioButton with index", function () {
+describe("table - selectRowByValues - demo kit - passing value as array of string - ui5RadioButton with index - passing id", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#/?sap-iapp-state--history=1&sap-iapp-state=5");
   });
 
   it("Execution", async function () {
-    await ui5.table.selectRowByValues(tableSelector3, ["Custom Content"], 2);
+    await ui5.table.selectRowByValues(tableSelector3.elementProperties.id, ["Custom Content"], 2);
   });
 
   it("Verification", async function () {

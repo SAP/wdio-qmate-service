@@ -179,7 +179,7 @@ export class Table {
         metadata: "sap.m.Title"
       },
       parentProperties: {
-        metadata: "sap.m.OverflowToolbar",
+        metadata: "sap.m.*Toolbar",
         ancestorProperties: ancestorSelector.elementProperties
       }
     };
@@ -253,30 +253,13 @@ export class Table {
             items = table.getItems();
           } else if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getRows !== undefined) {
             items = table.getRows();
-          } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined) {
-            const innerTable = table.getTable();
-            if (innerTable.getItems !== undefined) {
-              items = innerTable.getItems();
-            } else if (innerTable.getRows !== undefined) {
-              items = innerTable.getRows();
-            }
+          } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined && table.getTable().getItems !== undefined) {
+            items = table.getTable().getItems();
           } else {
             return undefined;
           }
 
-          return items
-            .filter((item: any) => {
-              const cells = item.getCells();
-              return values.every((val) => {
-                return cells.some((cell: any) => {
-                  const domRef = cell.getDomRef();
-                  if (!domRef) return false;
-                  const cellText = domRef.innerText;
-                  return cellText && cellText.includes(val);
-                });
-              });
-            })
-            .map((filteredItem: any) => filteredItem.getId());
+          return items.filter((item: any) => values.every((val) => Object.values(item.getBindingContext().getObject()).includes(val))).map((filteredItems: any) => filteredItems.getId());
         },
         constructedTableSelector,
         values,
@@ -499,47 +482,32 @@ export class Table {
   /**
    * @function selectRowByValues
    * @memberOf ui5.table
-   * @description Selects a row in the table by matching value(s). If multiple rows match, selects the one at the given index.
+   * @description Selects a row in the table by matching value(s). If multiple rows match, selects the one at the given global index (across all pages).
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table.
    * @param {String | Array<String>} values - The value(s) to match in the table rows.
-   * @param {Number} [index=0] - The index of the matching row to select.
-   * @example await ui5.table.selectRowByValues(selector, "Supplier Name");
-   * @example await ui5.table.selectRowByValues(selector, ["Supplier Name", "Amount"], 1);
+   * @param {Number} [index=0] - The global index of the matching row to select (across all pages).
+   * @example const selector = {
+   * elementProperties: {
+   *  viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *  metadata: "sap.ui.comp.smarttable.SmartTable",
+   *  id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   * }
+   * };
+   * await ui5.table.selectRowByValues(selector, ["value1", "value2"]);
+   * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+   * await ui5.table.selectRowByValues(id, "value", 1);
    */
   async selectRowByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, index: number = 0) {
     const vl = this.vlf.initLog(this.selectRowByValues);
 
-    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values);
-    if (rowSelectors.length === 0) {
-      return this.ErrorHandler.logException(new Error(`No rows found with the provided values: ${values}.`));
-    }
-    if (rowSelectors.length <= index) {
-      return this.ErrorHandler.logException(new Error(`The index ${index} is out of bounds. The number of matching rows is ${rowSelectors.length}.`));
-    }
+    if (typeof values === "string") values = [values];
 
-    const rowSelector = rowSelectors[index];
-    const selectorType = await this._getSelectorTypeForRowSelection(rowSelector);
+    const resolvedSelector = await this._resolveTableSelectorOrId(tableSelectorOrId);
 
-    try {
-      const selectionSelector = this._buildRowSelectionSelector(selectorType, rowSelector);
+    const found = await this._findAndSelectRowByValuesWithGlobalIndex(resolvedSelector, values, index);
 
-      switch (selectorType) {
-        case "ui5CheckBox":
-        case "ui5RadioButton":
-          await ui5.userInteraction.check(selectionSelector);
-          break;
-        case "cssItem":
-          const element = await nonUi5.element.getByCss(selectionSelector);
-          const isSelected = await nonUi5.element.getAttributeValue(element, "aria-selected");
-          if (isSelected === "false") {
-            await nonUi5.userInteraction.click(element);
-          } else if (isSelected === "true") {
-            vl.log(`Row with values ${values} at index ${index} is already selected.`);
-          }
-          break;
-      }
-    } catch (error) {
-      return this.ErrorHandler.logException(error);
+    if (!found) {
+      return this.ErrorHandler.logException(new Error(`No row found with the provided values: ${values} at global index ${index}.`));
     }
   }
 
@@ -782,6 +750,8 @@ export class Table {
   }
 
   private async _getSelectorTypeForRowSelection(rowSelector: Ui5Selector): Promise<SelectorTypeForSelection> {
+    const vl = this.vlf.initLog(this._getSelectorTypeForRowSelection);
+
     return await util.browser.executeScript((rowSelector: Ui5Selector) => {
       const id = rowSelector.elementProperties.id;
       const selectorChecks: Array<SelectorDefinitionForSelection> = [
@@ -811,6 +781,8 @@ export class Table {
   }
 
   private _buildRowSelectionSelector(selectorType: SelectorTypeForSelection, rowSelector: Ui5Selector): any {
+    const vl = this.vlf.initLog(this._buildRowSelectionSelector);
+
     switch (selectorType) {
       case "ui5CheckBox":
         return {
@@ -832,5 +804,118 @@ export class Table {
         throw new Error("No selectable CheckBox, RadioButton, or Css element found for the row.");
     }
   }
+
+  private async _getVisibleMatchingRowIds(tableSelectorOrId: Ui5Selector | string, values: string[] | string): Promise<string[]> {
+    const vl = this.vlf.initLog(this._getVisibleMatchingRowIds);
+
+    if (typeof values === "string") values = [values];
+    const constructedTableSelector = await this._constructTableSelector(tableSelectorOrId);
+    return util.browser.executeScript(
+      (constructedTableSelector: Ui5Selector, values: string[]) => {
+        if (typeof values === "string") values = [values];
+        const table = sap.ui.getCore().getElementById(constructedTableSelector.elementProperties?.id);
+        const innerTable = table.getTable ? table.getTable() : table;
+        const items = innerTable.getItems ? innerTable.getItems() : innerTable.getRows();
+        return items
+          .filter((item: any) => {
+            const cells = item.getCells();
+            return values.every((val) =>
+              cells.some((cell: any) => {
+                const domRef = cell.getDomRef();
+                return domRef && domRef.innerText && domRef.innerText.includes(val);
+              })
+            );
+          })
+          .map((item: any) => item.getId());
+      },
+      constructedTableSelector,
+      values
+    );
+  }
+
+  private async _findAndSelectRowByValuesWithGlobalIndex(tableSelectorOrId: Ui5Selector | string, values: string[], globalIndex: number): Promise<boolean> {
+    const vl = this.vlf.initLog(this._findAndSelectRowByValuesWithGlobalIndex);
+
+    const constructedTableSelector = await this._constructTableSelector(tableSelectorOrId);
+    const tableId = constructedTableSelector.elementProperties.id;
+
+    const totalRows = await this.getTotalNumberOfRows(constructedTableSelector);
+
+    const getVisibleRowsCount = async () => {
+      return util.browser.executeScript((tableId: string) => {
+        const table = sap.ui.getCore().getElementById(tableId);
+        const innerTable = table.getTable ? table.getTable() : table;
+        const items = innerTable.getItems ? innerTable.getItems() : innerTable.getRows();
+        return items.length;
+      }, tableId);
+    };
+
+    const visibleRowsCount = await getVisibleRowsCount();
+    let globalMatchIndex = 0;
+    let found = false;
+
+    for (let firstVisible = 0; firstVisible < totalRows; firstVisible += visibleRowsCount) {
+      // Scroll to the current page
+      await util.browser.executeScript(
+        (tableId: string, firstVisible: number) => {
+          const table = sap.ui.getCore().getElementById(tableId);
+          const innerTable = table.getTable ? table.getTable() : table;
+          if (typeof innerTable.setFirstVisibleRow === "function") {
+            innerTable.setFirstVisibleRow(firstVisible);
+          }
+        },
+        tableId,
+        firstVisible
+      );
+      // Wait for UI to update
+      await new Promise((r) => setTimeout(r, 150));
+
+      // Get visible matching row IDs on this page
+      const visibleRowIds: string[] = await this._getVisibleMatchingRowIds(constructedTableSelector, values);
+
+      if (visibleRowIds && visibleRowIds.length > 0) {
+        for (let i = 0; i < visibleRowIds.length; i++) {
+          if (globalMatchIndex === globalIndex) {
+            // Found the desired row, select it
+            const rowSelector = {
+              elementProperties: {
+                metadata: Table.COLUMN_LIST_ITEM_METADATA,
+                id: visibleRowIds[i]
+              }
+            };
+            const selectorType = await this._getSelectorTypeForRowSelection(rowSelector);
+            const selectionSelector = this._buildRowSelectionSelector(selectorType, rowSelector);
+
+            switch (selectorType) {
+              case "ui5CheckBox":
+              case "ui5RadioButton":
+                await ui5.element.waitForAll(rowSelector);
+                await ui5.userInteraction.check(selectionSelector);
+                break;
+              case "cssItem":
+                await nonUi5.element.waitForAll(selectionSelector);
+                await checkCssItem(selectionSelector);
+                break;
+              default:
+                throw new Error("No selectable element found for the row.");
+            }
+            found = true;
+            break;
+          }
+          globalMatchIndex++;
+        }
+      }
+      if (found) break;
+    }
+    return found;
+  }
 }
 export default new Table();
+
+async function checkCssItem(selectionSelector: any) {
+  const element = await nonUi5.element.getByCss(selectionSelector);
+  const isSelected = await nonUi5.element.getAttributeValue(element, "aria-selected");
+  if (isSelected === "false") {
+    await nonUi5.userInteraction.click(element);
+  }
+}
