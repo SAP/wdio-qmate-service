@@ -819,6 +819,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#browserwaituntilcondition-options-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      browser.waitUntil(condition, [options]) ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#browserswitchtonewwindowtitleorurl-timeout" class="md-nav__link">
     <span class="md-ellipsis">
       browser.switchToNewWindow(titleOrUrl, [timeout])
@@ -5103,6 +5112,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#browserwaituntilcondition-options-promisevoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      browser.waitUntil(condition, [options]) ⇒ Promise.&lt;void&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#browserswitchtonewwindowtitleorurl-timeout" class="md-nav__link">
     <span class="md-ellipsis">
       browser.switchToNewWindow(titleOrUrl, [timeout])
@@ -9196,6 +9214,7 @@
 <li><a href="#util.browser.getUI5Version">.getUI5Version([timeout])</a></li>
 <li><a href="#util.browser.logUI5Version">.logUI5Version()</a></li>
 <li><a href="#util.browser.executeScript">.executeScript(command)</a> ⇒ <code>Any</code></li>
+<li><a href="#util.browser.waitUntil">.waitUntil(condition, [options])</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
 <li><a href="#util.browser.switchToNewWindow">.switchToNewWindow(titleOrUrl, [timeout])</a></li>
 <li><a href="#util.browser.switchToWindow">.switchToWindow(handle)</a></li>
 <li><a href="#util.browser.getCurrentWindow">.getCurrentWindow()</a> ⇒ <code>Object</code></li>
@@ -9290,6 +9309,7 @@
 <li><a href="#util.browser.getUI5Version">.getUI5Version([timeout])</a></li>
 <li><a href="#util.browser.logUI5Version">.logUI5Version()</a></li>
 <li><a href="#util.browser.executeScript">.executeScript(command)</a> ⇒ <code>Any</code></li>
+<li><a href="#util.browser.waitUntil">.waitUntil(condition, [options])</a> ⇒ <code>Promise.&lt;void&gt;</code></li>
 <li><a href="#util.browser.switchToNewWindow">.switchToNewWindow(titleOrUrl, [timeout])</a></li>
 <li><a href="#util.browser.switchToWindow">.switchToWindow(handle)</a></li>
 <li><a href="#util.browser.getCurrentWindow">.getCurrentWindow()</a> ⇒ <code>Object</code></li>
@@ -9522,6 +9542,50 @@
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">executeScript</span><span class="p">(</span><span class="nx">command</span><span class="p">);</span>
+</code></pre></div>
+<a name="util.browser.waitUntil"></a></p>
+<h4 id="browserwaituntilcondition-options-promisevoid">browser.waitUntil(condition, [options]) ⇒ <code>Promise.&lt;void&gt;</code></h4>
+<p>Waits until the specified function returns true or the timeout is reached.</p>
+<p><strong>Kind</strong>: static method of <a href="#util.browser"><code>browser</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;void&gt;</code> - Resolves when the function returns true or the timeout is reached.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>condition</td>
+<td><code>function</code></td>
+<td>The function to wait for.</td>
+</tr>
+<tr>
+<td>[options]</td>
+<td><code>Object</code></td>
+<td>Options for the wait.</td>
+</tr>
+<tr>
+<td>[options.timeout]</td>
+<td><code>Number</code></td>
+<td>The timeout to wait (ms).</td>
+</tr>
+<tr>
+<td>[options.timeoutMsg]</td>
+<td><code>String</code></td>
+<td>The message to display if the timeout is reached.</td>
+</tr>
+<tr>
+<td>[options.interval]</td>
+<td><code>Number</code></td>
+<td>The interval to check the function (ms).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">waitUntil</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">isVisible</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">timeout</span><span class="o">:</span><span class="w"> </span><span class="mf">5000</span><span class="p">,</span><span class="w"> </span><span class="nx">timeoutMsg</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Element not visible&quot;</span><span class="w"> </span><span class="p">});</span>
 </code></pre></div>
 <a name="util.browser.switchToNewWindow"></a></p>
 <h4 id="browserswitchtonewwindowtitleorurl-timeout">browser.switchToNewWindow(titleOrUrl, [timeout])</h4>
