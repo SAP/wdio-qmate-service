@@ -193,7 +193,7 @@ export class Session {
       if (browser.config.params && browser.config.params.auth && browser.config.params.auth.username && browser.config.params.auth.password) {
         username = browser.config.params.auth.username;
         password = browser.config.params.auth.password;
-      
+
         util.console.info("Login credentials will be taken from config.");
       } else if (!username && !password) {
         this.ErrorHandler.logException(new Error("Username or password is missing. Check your parameters or config file."));
@@ -337,6 +337,26 @@ export class Session {
   private async _clickSignOut(timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this._clickSignOut);
     
+    async function scrollAndClickLogoutOld() {
+      const selector = {
+        elementProperties: {
+          metadata: "sap.m.StandardListItem",
+          mProperties: {
+            id: "*logoutBtn"
+          }
+        }
+      };
+      await ui5.userInteraction.scrollToElement(selector, 0, "end", 500);
+      await ui5.userInteraction.click(selector, 0, 500);
+    }
+    
+    async function scrollAndClickLogoutNew() {
+      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
+      const selector = ">>>.ui5-user-menu-sign-out-btn";
+      await nonUi5.userInteraction.scrollToElement(selector, "end", 500);
+      await nonUi5.userInteraction.click(selector, 500);
+    }
+    
     // attempt clicking both old and new logout buttons
     await browser.waitUntil(
       async () => {
@@ -354,26 +374,6 @@ export class Session {
         interval: 100
       }
     );
-
-    async function scrollAndClickLogoutOld() {
-      const selector = {
-        elementProperties: {
-          metadata: "sap.m.StandardListItem",
-          mProperties: {
-            id: "*logoutBtn"
-          }
-        }
-      };
-      await ui5.userInteraction.scrollToElement(selector, 0, "end", 500);
-      await ui5.userInteraction.click(selector, 0, 500);
-    }
-
-    async function scrollAndClickLogoutNew() {
-      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
-      const selector = ">>>.ui5-user-menu-sign-out-btn";
-      await nonUi5.userInteraction.scrollToElement(selector, "end", 500);
-      await nonUi5.userInteraction.click(selector, 500);
-    }
   }
 
   private async _checkForErrors(messageSelector: string) {
