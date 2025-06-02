@@ -559,7 +559,7 @@ export class Table {
   }
 
   // =================================== HELPER ===================================
-  private async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string): Promise<Ui5Selector> {
+  private async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<Ui5Selector> {
     if (typeof tableSelectorOrId === "string") {
       const selectors: Array<Ui5Selector> = [
         {
@@ -577,10 +577,26 @@ export class Table {
       ];
 
       try {
-        const index = await Promise.any(
-          selectors.map(async (selectors, index) => {
-            return await ui5.element.getDisplayed(selectors).then(() => index);
-          })
+        let index: number = -1;
+        await browser.waitUntil(
+          async () => {
+            try {
+             index = await Promise.any(
+                selectors.map(async (selectors, index) => {
+                  return await ui5.element.getDisplayed(selectors, 0, 500).then(() => index);
+                })
+              );
+              return true;
+            } catch (error) {
+              // Ignore error and continue to next promise
+              return false;
+            }
+          },
+          {
+            timeout: timeout,
+            timeoutMsg: "User Icon not clickable",
+            interval: 100
+          }
         );
         return selectors[index];
       } catch (error) {
