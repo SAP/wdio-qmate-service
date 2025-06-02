@@ -594,7 +594,7 @@ export class Table {
           },
           {
             timeout: timeout,
-            timeoutMsg: "User Icon not clickable",
+            timeoutMsg: "Table could not be resolved",
             interval: 100
           }
         );
