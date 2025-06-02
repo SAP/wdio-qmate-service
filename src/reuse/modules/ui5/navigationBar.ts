@@ -81,7 +81,7 @@ export class NavigationBar {
   async clickUserIcon(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.clickUserIcon);
 
-    async function scrollAndClickUserIconOld() {
+    async function clickUserIconOld() {
       const selector = {
         "elementProperties": {
           "metadata": "sap.m.Avatar",
