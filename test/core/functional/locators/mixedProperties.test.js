@@ -113,7 +113,7 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
           "id": "*searchBar33343",
           "domProperties": {
             "nodeName": "div",
-             "id": "container-cart---homeView--searchBar33343"
+            "id": "container-cart---homeView--searchBar33343"
           }
         },
         "ancestorProperties": {
