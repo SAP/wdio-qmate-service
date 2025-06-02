@@ -45,6 +45,6 @@ describe("session - logout without login (unhappy case)", function () {
 
   it("Execution & Verification", async function () {
     await expect(ui5.session.logout())
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/Function 'logout' failed with: User Icon not clickable/);
   });
 });
