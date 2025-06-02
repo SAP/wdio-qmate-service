@@ -113,8 +113,7 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
           "id": "*searchBar33343",
           "domProperties": {
             "nodeName": "div",
-            "class": "sapMIBar sapMTB sapMTBNewFlex sapMTBInactive sapMTBStandard sapMTB-Auto-CTX sapMIBar-CTX sapMSubHeader-CTX sapContrastPlus",
-            "id": "container-cart---homeView--searchBar33343"
+             "id": "container-cart---homeView--searchBar33343"
           }
         },
         "ancestorProperties": {

@@ -73,6 +73,7 @@ describe("webdriver.io page locator test", function () {
   it("should access element by element properties and descendant properties", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Button/sample/sap.m.sample.Button");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const ui5ControlProperties = {
