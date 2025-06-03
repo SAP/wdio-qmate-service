@@ -383,13 +383,13 @@ export class Table {
     this.vlf.initLog(this.getSelectorForRowByIndex);
 
     const constructedTableSelector = await this._constructTableSelector(tableSelector);
-    let columnListItemId;
+    let filteredRowId: string;
     const tableMetadata = constructedTableSelector.elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
 
     try {
       // =========================== BROWSER COMMAND ===========================
-      columnListItemId = await util.browser.executeScript(
+      filteredRowId = await util.browser.executeScript(
         `
          ${classCode}
           const table = TableHelper.getTable("${constructedTableSelector.elementProperties.id}");
@@ -416,17 +416,11 @@ export class Table {
       return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
     }
 
-    if (!columnListItemId) {
+    if (!filteredRowId) {
       return this.ErrorHandler.logException(new Error(`No item found with index ${index}.`));
     }
-
-    const columnListItemSelector: Ui5Selector = {
-      elementProperties: {
-        metadata: Table.COLUMN_LIST_ITEM_METADATA,
-        id: columnListItemId
-      }
-    };
-    return columnListItemSelector;
+    const rowSelector = this._constructRowSelector([filteredRowId], tableMetadata);
+    return rowSelector[0]; // Return the first selector as we expect only one row to match the index
   }
 
   /**
