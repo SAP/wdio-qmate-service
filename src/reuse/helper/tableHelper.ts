@@ -69,9 +69,10 @@ export class TableHelper {
     await TableHelper.highlightItems(matchedRows);
     return matchedRows.map((row) => row?.getId?.()).filter(Boolean);
   }
-
   static injectHighlightStyle() {
+    // @ts-ignore: error TS2584: Cannot find name 'document'. Do you need to change your target library? Try changing the 'lib' compiler option to include 'dom'.
     if (!document.getElementById("highlightRowStyle")) {
+      // @ts-ignore: error TS2584: Cannot find name 'document'. Do you need to change your target library? Try changing the 'lib' compiler option to include 'dom'.
       const style = document.createElement("style");
       style.id = "highlightRowStyle";
       style.innerHTML = `
@@ -80,6 +81,7 @@ export class TableHelper {
           transition: background-color 1s ease-out;
         }
       `;
+      // @ts-ignore: error TS2584: Cannot find name 'document'. Do you need to change your target library? Try changing the 'lib' compiler option to include 'dom'.
       document.head.appendChild(style);
     }
   }
