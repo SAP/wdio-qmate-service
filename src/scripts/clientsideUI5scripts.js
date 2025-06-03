@@ -242,7 +242,7 @@ functions.loadUI5CoreAndAutowaiterNew = function () {
   }
 };
 
-functions.loadUI5PageNew = function (mScriptParams) {
+functions.loadUI5Page = function (mScriptParams) {
   if (!window.findBusyIndicator) {
     window.findBusyIndicator = function () {
       return Boolean(Array.from(document.getElementsByClassName("sapMBusyIndicator")).find(function (elem) {

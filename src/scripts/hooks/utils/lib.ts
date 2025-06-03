@@ -164,7 +164,7 @@ var LibScripts = function () {
       var mScriptParams = {};
       mScriptParams.waitForUI5Timeout = browser.config.waitForUI5Timeout;
       mScriptParams.waitForUI5PollingInterval = browser.config.waitForUI5PollingInterval;
-      return (await browser.execute(clientsidescripts.loadUI5PageNew, mScriptParams)) === true;
+      return (await browser.execute(clientsidescripts.loadUI5Page, mScriptParams)) === true;
     } catch (error) {
       // eslint-disable-next-line no-console
       //console.log(`waitUI5ToStabilize(ui5Selector): Function raised an exception and ignored... Selector: ${util.formatter.stringifyJSON(ui5Selector)} and error: ${error}`);
