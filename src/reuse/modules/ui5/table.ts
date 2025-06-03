@@ -18,6 +18,7 @@ export class Table {
   private static readonly TABLE_METADATA: Ui5ControlMetadata = "sap.m.Table";
   private static readonly UI_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.table.Table";
   private static readonly COLUMN_LIST_ITEM_METADATA: Ui5ControlMetadata = "sap.m.ColumnListItem";
+  private static readonly TABLE_ROW_METADATA: Ui5ControlMetadata = "sap.ui.table.Row";
 
   // =================================== SORTING ===================================
   /**
@@ -332,8 +333,7 @@ export class Table {
 
     try {
       // =========================== BROWSER COMMAND ===========================
-      filteredRowIds = await util.browser.executeScript(
-        `
+      const browserCommand = `
          ${classCode}
           const table = TableHelper.getTable("${constructedTableSelector.elementProperties.id}");
           let items = [];
@@ -342,34 +342,21 @@ export class Table {
             items = table.getItems();
             return TableHelper.filterItems(items, ${JSON.stringify(values)});
           } else if ("${Table.UI_TABLE_METADATA}" === "${tableMetadata}" && table.getRows !== undefined) {
-            items = table.getRows();
-            return TableHelper.getRowControlIdsByMatchedValuesAsync(items, ${JSON.stringify(values)});
+            return TableHelper.getRowControlIdsByMatchedValuesAsync(table, ${JSON.stringify(values)});
           } else if ("${Table.SMART_TABLE_METADATA}" === "${tableMetadata}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
             items = table.getTable().getItems();
             return TableHelper.filterItems(items, ${JSON.stringify(values)});
           } else {
             return undefined;
           }
-        `
-      );
+        `;
+      filteredRowIds = await util.browser.executeScript(browserCommand);
       // ========================================================================
     } catch (error) {
       return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
     }
-
     if (filteredRowIds && filteredRowIds.length > 0) {
-      const rowsSelectors: Array<Ui5Selector> = [];
-
-      for (const id of filteredRowIds) {
-        const columnListItemSelector = {
-          elementProperties: {
-            metadata: Table.COLUMN_LIST_ITEM_METADATA,
-            id: id
-          }
-        };
-        rowsSelectors.push(columnListItemSelector);
-      }
-      return rowsSelectors;
+      return this._constructRowSelector(filteredRowIds, tableMetadata);
     } else {
       return [];
     }
@@ -528,16 +515,6 @@ export class Table {
     await ui5.userInteraction.uncheck(checkBoxSelector);
   }
 
-  async test(tableId: string) {
-    const classCode = TableHelper.serializeClass();
-    const id = await util.browser.executeScript(`
-      ${classCode}
-      return TableHelper.getTable("${tableId}");
-   `);
-
-    return id;
-  }
-
   // =================================== HELPER ===================================
   private static async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string): Promise<Ui5Selector> {
     if (typeof tableSelectorOrId === "string") {
@@ -615,6 +592,29 @@ export class Table {
     };
     await ui5.element.waitForAll(selector);
     return selector;
+  }
+
+  private _constructRowSelector(filteredRowIds: Array<string>, tableMetadata: Ui5ControlMetadata): Array<Ui5Selector> {
+    const rowsSelectors: Array<Ui5Selector> = [];
+    const rowMetadata = this._getRowMetadataByTableMetadata(tableMetadata);
+    for (const id of filteredRowIds) {
+      const columnListItemSelector = {
+        elementProperties: {
+          metadata: rowMetadata,
+          id: id
+        }
+      };
+      rowsSelectors.push(columnListItemSelector);
+    }
+    return rowsSelectors;
+  }
+
+  private _getRowMetadataByTableMetadata(tableMetadata: Ui5ControlMetadata): Ui5ControlMetadata {
+    if (tableMetadata === Table.TABLE_METADATA || tableMetadata === Table.SMART_TABLE_METADATA) {
+      return Table.COLUMN_LIST_ITEM_METADATA;
+    } else {
+      return Table.TABLE_ROW_METADATA;
+    }
   }
 
   private _extractRowCountFromTitle(title: string): number {
