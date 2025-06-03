@@ -160,22 +160,27 @@ const uiTableSelector = {
 
 
 describe("table - getSelectorsForRowsByValues - sap.ui.table.Table - single value as an Array", function () {
-
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.table.Table/sample/sap.ui.table.sample.Basic");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
-  it("Step 01: ", async function () {
+  it("Execution", async function () {
     const productName = ["Notebook Basic 15"];
     rowSelectors = await ui5.table.getSelectorsForRowsByValues(uiTableSelector, productName);
   });
 
-
-  it("Step 02: ", async function () {
-
+  it("Verification", async function () {
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.ui.table.sample.Basic.View",
+        "metadata": "sap.ui.unified.Currency",
+        "value": "956"
+      },
+      "ancestorProperties": rowSelectors[0].elementProperties
+    };
+    await expect(ui5.element.getDisplayed(selector)).resolves.not.toThrow();
   });
 
 });
