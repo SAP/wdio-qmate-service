@@ -40,7 +40,7 @@ export class Session {
         const fioriForm = new Promise<void>(async (res, rej) => {
           try {
             const fioriFormId = ui5.authenticators.fioriForm.formId;
-            const elem = await nonUi5.element.getByCss(fioriFormId, 0, 7500);
+            const elem = await nonUi5.element.getByCss(fioriFormId, 0, 500);
             await nonUi5.element.isVisible(elem);
             authenticator = ui5.authenticators.fioriForm;
             messageSelector = ui5.authenticators.fioriForm.messageSelector;
@@ -53,7 +53,7 @@ export class Session {
         const sapCloudForm = new Promise<void>(async (res, rej) => {
           try {
             const sapCloudFormId = ui5.authenticators.sapCloudForm.formId;
-            const elem = await nonUi5.element.getByCss(sapCloudFormId, 0, 7500);
+            const elem = await nonUi5.element.getByCss(sapCloudFormId, 0, 500);
             await nonUi5.element.isVisible(elem);
             authenticator = ui5.authenticators.sapCloudForm;
             messageSelector = ui5.authenticators.sapCloudForm.messageSelector;
@@ -334,36 +334,9 @@ export class Session {
     }
   }
 
-  private async _clickSignOut() {
+  private async _clickSignOut(timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this._clickSignOut);
-
-    // Attempt to click the new logout button
-    try {
-      await scrollAndClickLogoutNew();
-      return;
-    } catch (error) {
-      console.warn("New logout button not found, trying old selector.");
-    }
-
-    // Attempt to click the old logout button
-    try {
-      await scrollAndClickLogoutOld();
-      return;
-    } catch (error) {
-      this.ErrorHandler.logException(error);
-    }
-
-    this.ErrorHandler.logException(
-      new Error("Neither old nor new logout button could be clicked.")
-    );
-
-    async function scrollAndClickLogoutNew() {
-      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
-      const selector = ">>>.ui5-user-menu-sign-out-btn";
-      await nonUi5.userInteraction.scrollToElement(selector, "end");
-      await nonUi5.userInteraction.click(selector);
-    }
-
+    
     async function scrollAndClickLogoutOld() {
       const selector = {
         elementProperties: {
@@ -373,9 +346,34 @@ export class Session {
           }
         }
       };
-      await ui5.userInteraction.scrollToElement(selector, 0, "end");
-      await ui5.userInteraction.click(selector);
+      await ui5.userInteraction.scrollToElement(selector, 0, "end", 500);
+      await ui5.userInteraction.click(selector, 0, 500);
     }
+    
+    async function scrollAndClickLogoutNew() {
+      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
+      const selector = ">>>.ui5-user-menu-sign-out-btn";
+      await nonUi5.userInteraction.scrollToElement(selector, "end", 500);
+      await nonUi5.userInteraction.click(selector, 500);
+    }
+    
+    // attempt clicking both old and new logout buttons
+    await browser.waitUntil(
+      async () => {
+        try {
+          await Promise.any([scrollAndClickLogoutOld(), scrollAndClickLogoutNew()]);
+          return true;
+        } catch (error) {
+          // Ignore error and continue to next promise
+          return false;
+        }
+      },
+      {
+        timeout: timeout,
+        timeoutMsg: "Sign out button not clickable",
+        interval: 100
+      }
+    );
   }
 
   private async _checkForErrors(messageSelector: string) {

@@ -43,18 +43,31 @@ export class NavigationBar {
     const vl = this.vlf.initLog(this.clickSapLogo);
     async function clickLogo() {
       const selector = "//a[@id='shell-header-logo']";
-      await nonUi5.userInteraction.click(selector, timeout);
+      await nonUi5.userInteraction.click(selector, 500);
     }
     async function clickLogoWebComponent() {
-      const selector = ">>>span[class='ui5-shellbar-logo']";
-      await nonUi5.userInteraction.click(selector, timeout);
+      const selector=">>>span[class='ui5-shellbar-logo']";
+      await nonUi5.userInteraction.click(selector, 500);
     }
     try {
-      await Promise.any([clickLogo(), clickLogoWebComponent()]);
+      await browser.waitUntil(
+        async () => {
+          try {
+            await Promise.any([clickLogo(), clickLogoWebComponent()]);
+            return true;
+          } catch (error) {
+            // Ignore error and continue to next promise
+            return false;
+          }
+        },
+        {
+          timeout: timeout,
+          timeoutMsg: "SAP Logo not clickable",
+          interval: 100
+        }
+      );
     } catch (error) {
-      (error as AggregateError).errors.forEach((err) => {
-        this.ErrorHandler.logException(err);
-      });
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -68,37 +81,43 @@ export class NavigationBar {
   async clickUserIcon(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.clickUserIcon);
 
-    // attempt to click the new user icon first
-    try {
-      await scrollAndClickUserIconNew();
-      return;
-    } catch (error) {
-      console.warn("New user icon not found, trying old selector.");
-    }
-
-    // attempt to click the old user icon
-    try {
-      await scrollAndClickUserIconOld();
-    } catch (error) {
-      console.warn("Old user icon not found, logging exception.");
-      this.ErrorHandler.logException(error);
-    }
-
-    async function scrollAndClickUserIconNew() {
-      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
-      const selector = ">>>[data-ui5-stable='profile']";
-      await nonUi5.userInteraction.scrollToElement(selector, "end");
-      await nonUi5.userInteraction.click(selector);
-    }
-
-    async function scrollAndClickUserIconOld() {
+    async function clickUserIconOld() {
       const selector = {
         "elementProperties": {
           "metadata": "sap.m.Avatar",
           "id": "*HeaderButton"
         }
       };
-      await ui5.userInteraction.click(selector, 0, timeout);
+      await ui5.userInteraction.click(selector, 0, 500);
+    }
+
+    async function clickUserIconNew() {
+      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
+      const selector = ">>>[data-ui5-stable='profile']";
+      await nonUi5.userInteraction.click(selector, 500);
+    }
+
+    // attempt to click the new user icon first
+    try {
+      // attempt clicking both old and new user icons
+      await browser.waitUntil(
+        async () => {
+          try {
+            await Promise.any([clickUserIconOld(), clickUserIconNew()]);
+            return true;
+          } catch (error) {
+            // Ignore error and continue to next promise
+            return false;
+          }
+        },
+        {
+          timeout: timeout,
+          timeoutMsg: "User Icon not clickable",
+          interval: 100
+        }
+      );
+    } catch (error) {
+      this.ErrorHandler.logException(error);
     }
   }
 
