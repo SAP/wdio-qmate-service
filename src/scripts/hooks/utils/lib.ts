@@ -154,7 +154,11 @@ var LibScripts = function () {
     }
     try {
       await browser.waitUntil(async () => {
-        return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
+        if (browser.config.waitForUI5New) {
+          return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiterNew)) === true;
+        } else {
+          return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
+        }
       }, {
         timeout: browser.config.waitForUI5Timeout,
         timeoutMsg: `Timeout of ${browser.config.waitForUI5Timeout / 1000}s reached, UI5 libraries did not load`,
@@ -165,7 +169,11 @@ var LibScripts = function () {
       mScriptParams.waitForUI5Timeout = browser.config.waitForUI5Timeout;
       mScriptParams.waitForUI5PollingInterval = browser.config.waitForUI5PollingInterval;
       await browser.waitUntil(async () => {
-        return (await browser.execute(clientsidescripts.loadUI5Page, mScriptParams)) === true;
+        if (browser.config.waitForUI5New) {
+          return (await browser.execute(clientsidescripts.loadUI5PageNew, mScriptParams)) === true;
+        } else {
+          return (await browser.execute(clientsidescripts.loadUI5Page, mScriptParams)) === true;
+        }
       }, {
         timeout: browser.config.waitForUI5Timeout,
         timeoutMsg: `Timeout of ${browser.config.waitForUI5Timeout / 1000}s reached, UI5 page did not load`,
