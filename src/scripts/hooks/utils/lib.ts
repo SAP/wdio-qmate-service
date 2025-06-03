@@ -154,7 +154,7 @@ var LibScripts = function () {
     }
     try {
       await browser.waitUntil(async () => {
-        return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiterNew)) === true;
+        return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
       }, {
         timeout: browser.config.waitForUI5Timeout,
         timeoutMsg: `Timeout of ${browser.config.waitForUI5Timeout / 1000}s reached, UI5 libraries did not load`,

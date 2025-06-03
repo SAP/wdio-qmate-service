@@ -174,7 +174,7 @@ functions.getControlPropertyBinding = function (mScriptParams) {
   return aBindingInfos;
 };
 
-functions.loadUI5CoreAndAutowaiterNew = function () {
+functions.loadUI5CoreAndAutowaiter = function () {
   try {
     // First check if already everything loaded
     if (window.RecordReplay) {
