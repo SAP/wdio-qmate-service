@@ -221,19 +221,6 @@ functions.loadUI5CoreAndAutowaiter = function () {
   }
 };
 
-functions.loadUI5Page = function (mScriptParams) {
-  return window.RecordReplay.waitForUI5({
-    timeout: mScriptParams.waitForUI5Timeout,
-    interval: mScriptParams.waitForUI5PollingInterval
-  }).then(function () {
-    window.Log.warning("Finish loading");
-    // Can use also interactWithControl
-    return true;
-  }).catch(function (err) {
-    return false;
-  });
-};
-
 functions.waitForAngular = function (rootSelector, interval, callback) {
 
   var findBusyIndicator = function () {

@@ -217,27 +217,6 @@ functions.loadUI5CoreAndAutowaiter = function () {
   }
 };
 
-functions.loadUI5Page = function (mScriptParams) {
-  if (!window.findBusyIndicator) {
-    window.findBusyIndicator = function () {
-      return Boolean(Array.from(document.getElementsByClassName("sapMBusyIndicator")).find(function (elem) {
-        var rect = elem.getBoundingClientRect();
-        return (rect.x > 0 || rect.y > 0) && rect.width > 0 && rect.height > 0;
-      }));
-    };
-  }
-  // Always check for busy indicators
-  if (window.findBusyIndicator()) { return false; }
-  return window.RecordReplay.waitForUI5({
-    timeout: mScriptParams.waitForUI5Timeout,
-    interval: mScriptParams.waitForUI5PollingInterval
-  }).then(function () {
-    return (!window.findBusyIndicator());
-  }).catch(function (err) {
-    return false;
-  });
-};
-
 functions.loadUI5CoreAndAutowaiterNew = function () {
   try {
     // First check if already everything loaded
