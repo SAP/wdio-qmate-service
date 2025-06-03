@@ -32,7 +32,7 @@ exports.handleCookiesConsent = async function handleCookiesConsent() {
       {
         timeout: 15000,
         timeoutMsg: "Cookies consent dialog not found",
-        interval: 10
+        interval: 100
       }
     );
   }, []);
