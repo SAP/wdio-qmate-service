@@ -1,5 +1,6 @@
 import locatorCommands from "./utils/addLocatorCommands";
 import authenticatorHandler from "../../reuse/authenticator/authHandler";
+import { Ui5ExtensionMocker } from "./utils/Ui5ExtensionMocker";
 /**
  * Gets executed before test execution begins. At this point you can access to all global
  * variables like `browser`. It is the perfect place to define custom commands.
@@ -18,4 +19,5 @@ export default async function (capabilities: object[], specs: string[], browser:
   //Add authenticators
   await authenticatorHandler.attachAuthHandling();
 
+  await Ui5ExtensionMocker.mockRequests();
 };

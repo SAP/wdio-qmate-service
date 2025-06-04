@@ -346,13 +346,13 @@ export class Session {
           }
         }
       };
-      await ui5.userInteraction.click(selector, 0, 1000);
+      await ui5.userInteraction.click(selector, 0, 500);
     }
     
     async function scrollAndClickLogoutNew() {
       // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
       const selector = ">>>.ui5-user-menu-sign-out-btn";
-      await nonUi5.userInteraction.click(selector, 1000);
+      await nonUi5.userInteraction.click(selector, 500);
     }
     
     // attempt clicking both old and new logout buttons
