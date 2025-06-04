@@ -203,10 +203,10 @@ export class Table {
    * const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, ["value1", "value2"]);
    * const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, "value");
    **/
-  async getTotalNumberOfRowsByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>): Promise<number> {
+  async getTotalNumberOfRowsByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, enableHighlighting: boolean): Promise<number> {
     this.vlf.initLog(this.getTotalNumberOfRowsByValues);
 
-    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values);
+    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values, enableHighlighting);
     return rowSelectors.length;
   }
 
@@ -286,10 +286,10 @@ export class Table {
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
    * await ui5.table.openItemByValues(id, "value");
    */
-  async openItemByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, index: number = 0) {
+  async openItemByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, index: number = 0, enableHighlighting: boolean) {
     this.vlf.initLog(this.openItemByValues);
 
-    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values);
+    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values, enableHighlighting);
     if (rowSelectors.length === 0) {
       return this.ErrorHandler.logException(new Error(`No items found with the provided values: ${values}.`));
     } else if (rowSelectors.length <= index) {
@@ -317,7 +317,7 @@ export class Table {
    * };
    * await ui5.table.getSelectorsForRowsByValues(selector, ["January", "2022"]);
    */
-  async getSelectorsForRowsByValues(tableSelector: Ui5Selector | string, values: string | Array<string>): Promise<Array<Ui5Selector>> {
+  async getSelectorsForRowsByValues(tableSelector: Ui5Selector | string, values: string | Array<string>, enableHighlighting: boolean = true): Promise<Array<Ui5Selector>> {
     this.vlf.initLog(this.getSelectorsForRowsByValues);
 
     if (typeof values === "string") {
@@ -329,27 +329,29 @@ export class Table {
     const constructedTableSelector = await this._constructTableSelector(tableSelector);
     const tableMetadata = constructedTableSelector.elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
-    let filteredRowIds;
+    let filteredRowIds = null;
 
     try {
       // =========================== BROWSER COMMAND ===========================
       const browserCommand = `
          ${classCode}
-          const table = TableHelper.getTable("${constructedTableSelector.elementProperties.id}");
-          let items = [];
-
-          if ("${Table.TABLE_METADATA}" === "${tableMetadata}" && table.getItems !== undefined) {
-            items = table.getItems();
-            return TableHelper.filterItems(items, ${JSON.stringify(values)});
-          } else if ("${Table.UI_TABLE_METADATA}" === "${tableMetadata}" && table.getRows !== undefined) {
-            items = table.getRows();
-            return TableHelper.filterRowItemsByCellValues(items, ${JSON.stringify(values)});
-          } else if ("${Table.SMART_TABLE_METADATA}" === "${tableMetadata}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
-            items = table.getTable().getItems();
-            return TableHelper.filterItems(items, ${JSON.stringify(values)});
-          } else {
-            return undefined;
+          if (!("${Table.TABLE_METADATA}" === "${tableMetadata}"
+          || "${Table.SMART_TABLE_METADATA}" === "${tableMetadata}"
+          || "${Table.UI_TABLE_METADATA}" === "${tableMetadata}")) {
+            return null;
           }
+          let table = TableHelper.getTable("${constructedTableSelector.elementProperties.id}");
+          if ("${Table.SMART_TABLE_METADATA}" === "${tableMetadata}" && table.getTable !== undefined) {
+            table = table.getTable();
+          }
+          debugger;
+          let items = [];
+           if (table.getItems !== undefined) {
+            items = table.getItems();
+          } else if (table.getRows !== undefined) {
+            items = table.getRows();
+          }
+          return await TableHelper.getIdsForItemsByCellValue(items, ${JSON.stringify(values)}, ${enableHighlighting});
         `;
       filteredRowIds = await util.browser.executeScript(browserCommand);
       // ========================================================================

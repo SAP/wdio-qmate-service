@@ -52,7 +52,7 @@ export class TableHelper {
     return items.filter((item) => item.getTitle === undefined || item.getTitle() === "");
   }
 
-  static async filterRowItemsByCellValues(rows: any, targetValues: string[]): Promise<string[] | undefined> {
+  static async getIdsForItemsByCellValue(rows: any, targetValues: string[], enableHighlighting = true): Promise<string[] | undefined> {
     const matchedRows = rows
       .filter((row: any) => {
         const cells = row.getCells();
@@ -65,7 +65,7 @@ export class TableHelper {
       });
 
     if (!matchedRows.length) return undefined;
-    await TableHelper.highlightItems(matchedRows);
+    if (enableHighlighting) await TableHelper.highlightItems(matchedRows);
     return matchedRows.map((item: any) => item.getId());
   }
 
