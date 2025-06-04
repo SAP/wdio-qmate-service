@@ -246,20 +246,35 @@ export class Table {
       // =========================== BROWSER COMMAND ===========================
       filteredRowIds = await util.browser.executeScript(
         (constructedTableSelector: Ui5Selector, values: Array<string>, tableMetadata: Ui5ControlMetadata, smartTableMetadata: Ui5ControlMetadata) => {
-          const table = sap.ui.getCore().getElementById(constructedTableSelector.elementProperties?.id);
-          let items = [];
-
-          if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getItems !== undefined) {
-            items = table.getItems();
-          } else if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getRows !== undefined) {
-            items = table.getRows();
-          } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined && table.getTable().getItems !== undefined) {
-            items = table.getTable().getItems();
-          } else {
+          if (!(tableMetadata === constructedTableSelector.elementProperties.metadata || smartTableMetadata === constructedTableSelector.elementProperties.metadata)) {
             return undefined;
           }
 
-          return items.filter((item: any) => values.every((val) => Object.values(item.getBindingContext().getObject()).includes(val))).map((filteredItems: any) => filteredItems.getId());
+          let table = sap.ui.getCore().getElementById(constructedTableSelector.elementProperties?.id);
+          if (constructedTableSelector.elementProperties.metadata === smartTableMetadata && table.getTable !== undefined) {
+            table = table.getTable();
+          }
+
+          let items = [];
+
+          if (table.getItems !== undefined) {
+            items = table.getItems();
+          } else if (table.getRows !== undefined) {
+            items = table.getRows();
+          }
+
+          return items
+            .filter((item: any) => {
+              const cells = item.getCells();
+              debugger;
+              return values.every((val) =>
+                cells.some((cell: any) => {
+                  const domRef = cell.getDomRef();
+                  return domRef && domRef.innerText && domRef.innerText.includes(val);
+                })
+              );
+            })
+            .map((item: any) => item.getId());
         },
         constructedTableSelector,
         values,
@@ -805,34 +820,6 @@ export class Table {
     }
   }
 
-  private async _getVisibleMatchingRowIds(tableSelectorOrId: Ui5Selector | string, values: string[] | string): Promise<string[]> {
-    const vl = this.vlf.initLog(this._getVisibleMatchingRowIds);
-
-    if (typeof values === "string") values = [values];
-    const constructedTableSelector = await this._constructTableSelector(tableSelectorOrId);
-    return util.browser.executeScript(
-      (constructedTableSelector: Ui5Selector, values: string[]) => {
-        if (typeof values === "string") values = [values];
-        const table = sap.ui.getCore().getElementById(constructedTableSelector.elementProperties?.id);
-        const innerTable = table.getTable ? table.getTable() : table;
-        const items = innerTable.getItems ? innerTable.getItems() : innerTable.getRows();
-        return items
-          .filter((item: any) => {
-            const cells = item.getCells();
-            return values.every((val) =>
-              cells.some((cell: any) => {
-                const domRef = cell.getDomRef();
-                return domRef && domRef.innerText && domRef.innerText.includes(val);
-              })
-            );
-          })
-          .map((item: any) => item.getId());
-      },
-      constructedTableSelector,
-      values
-    );
-  }
-
   private async _findAndSelectRowByValuesWithGlobalIndex(tableSelectorOrId: Ui5Selector | string, values: string[], globalIndex: number): Promise<boolean> {
     const vl = this.vlf.initLog(this._findAndSelectRowByValuesWithGlobalIndex);
 
@@ -871,25 +858,19 @@ export class Table {
       await new Promise((r) => setTimeout(r, 150));
 
       // Get visible matching row IDs on this page
-      const visibleRowIds: string[] = await this._getVisibleMatchingRowIds(constructedTableSelector, values);
-
-      if (visibleRowIds && visibleRowIds.length > 0) {
-        for (let i = 0; i < visibleRowIds.length; i++) {
+      const visibleRowSelectors: Array<Ui5Selector> = await this.getSelectorsForRowsByValues(constructedTableSelector, values);
+      console.log(`Visible row selectors on page starting at index ${firstVisible}:`, visibleRowSelectors);
+      if (visibleRowSelectors && visibleRowSelectors.length > 0) {
+        for (let i = 0; i < visibleRowSelectors.length; i++) {
           if (globalMatchIndex === globalIndex) {
             // Found the desired row, select it
-            const rowSelector = {
-              elementProperties: {
-                metadata: Table.COLUMN_LIST_ITEM_METADATA,
-                id: visibleRowIds[i]
-              }
-            };
-            const selectorType = await this._getSelectorTypeForRowSelection(rowSelector);
-            const selectionSelector = this._buildRowSelectionSelector(selectorType, rowSelector);
+            const selectorType = await this._getSelectorTypeForRowSelection(visibleRowSelectors[i]);
+            const selectionSelector = this._buildRowSelectionSelector(selectorType, visibleRowSelectors[i]);
 
             switch (selectorType) {
               case "ui5CheckBox":
               case "ui5RadioButton":
-                await ui5.element.waitForAll(rowSelector);
+                await ui5.element.waitForAll(visibleRowSelectors[i]);
                 await ui5.userInteraction.check(selectionSelector);
                 break;
               case "cssItem":
