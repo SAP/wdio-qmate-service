@@ -262,6 +262,24 @@ export class Browser {
     return browser.execute(command.toString(), ...args);
   }
 
+  // =================================== WAITING ===================================
+  /**
+   * @function waitUntil
+   * @memberOf util.browser
+   * @description Waits until the specified function returns true or the timeout is reached.
+   * @param {Function} condition - The function to wait for.
+   * @param {Object} [options] - Options for the wait.
+   * @param {Number} [options.timeout] - The timeout to wait (ms).
+   * @param {String} [options.timeoutMsg] - The message to display if the timeout is reached.
+   * @param {Number} [options.interval] - The interval to check the function (ms).
+   * @returns {Promise<void>} Resolves when the function returns true or the timeout is reached.
+   * @example await util.browser.waitUntil(async () => await ui5.element.isVisible(selector), { timeout: 5000, timeoutMsg: "Element not visible" });
+  */
+  async waitUntil(condition: Function, options: { timeout?: number; timeoutMsg?: string; interval?: number } = {}): Promise<void> {
+    const vl = this.vlf.initLog(this.waitUntil);
+    return browser.waitUntil(condition, options);
+  }
+
   // =================================== WINDOW HANDLING ===================================
   /**
    * @function switchToNewWindow
