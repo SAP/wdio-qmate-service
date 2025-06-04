@@ -344,7 +344,7 @@ export class Table {
           if ("${Table.SMART_TABLE_METADATA}" === "${tableMetadata}" && table.getTable !== undefined) {
             table = table.getTable();
           }
-          debugger;
+            
           let items = [];
            if (table.getItems !== undefined) {
             items = table.getItems();
