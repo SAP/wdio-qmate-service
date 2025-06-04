@@ -52,19 +52,21 @@ export class TableHelper {
     return items.filter((item) => item.getTitle === undefined || item.getTitle() === "");
   }
 
-  static filterRowItemsByCellValues(rows: any, targetValues: string[]): any[] {
-    return rows
+  static async filterRowItemsByCellValues(rows: any, targetValues: string[]): Promise<string[] | undefined> {
+    const matchedRows = rows
       .filter((row: any) => {
         const cells = row.getCells();
-        debugger;
         return targetValues.every((val) =>
           cells.some((cell: any) => {
             const domRef = cell.getDomRef();
             return domRef && domRef.innerText && domRef.innerText.includes(val);
           })
         );
-      })
-      .map((item: any) => item.getId());
+      });
+
+    if (!matchedRows.length) return undefined;
+    await TableHelper.highlightItems(matchedRows);
+    return matchedRows.map((item: any) => item.getId());
   }
 
   static findRowIndexesByCellValues(table: any, targetValues: string[]): number[] {
