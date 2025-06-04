@@ -75,6 +75,7 @@ describe("confirmationDialog - clickDelete", function () {
 
 describe("confirmationDialog - clickDelete without confirmation dialog (unhappy case)", function () {
   it("Preparation", async function () {
+    await util.browser.switchToDefaultContent();
     await browser.url("#/categories");
   });
 

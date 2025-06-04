@@ -257,9 +257,9 @@ export class Browser {
    * @returns {Any} The result from the executed function.
    * @example await util.browser.executeScript(command);
    */
-  async executeScript(command: string | Function, ...args: Array<any>): Promise<any> {
+  async executeScript(command: string | ((...innerArgs: any[]) => unknown), ...args: Array<any>): Promise<any> {
     const vl = this.vlf.initLog(this.executeScript);
-    return browser.execute(command.toString(), ...args);
+    return browser.execute(command, ...args);
   }
 
   // =================================== WAITING ===================================
@@ -275,7 +275,7 @@ export class Browser {
    * @returns {Promise<void>} Resolves when the function returns true or the timeout is reached.
    * @example await util.browser.waitUntil(async () => await ui5.element.isVisible(selector), { timeout: 5000, timeoutMsg: "Element not visible" });
   */
-  async waitUntil(condition: Function, options: { timeout?: number; timeoutMsg?: string; interval?: number } = {}): Promise<void> {
+  async waitUntil(condition: () => void | Promise<void>, options: { timeout?: number; timeoutMsg?: string; interval?: number } = {}): Promise<void> {
     const vl = this.vlf.initLog(this.waitUntil);
     return browser.waitUntil(condition, options);
   }

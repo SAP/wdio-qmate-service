@@ -44,6 +44,7 @@ describe("userInteraction - clearAndFill - SmartField", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
@@ -71,6 +72,7 @@ describe("userInteraction - clearAndFill - TextArea", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
@@ -97,6 +99,7 @@ describe("userInteraction - clearAndFill - ComboBox", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBox");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
     await ui5.userInteraction.selectComboBox(selector, "Greece");
   });
@@ -124,6 +127,7 @@ describe("userInteraction - clearAndFill - MultiComboBox", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
     await ui5.userInteraction.selectMultiComboBox(selector, ["Comfort Senior", "Comfort Easy"]);
   });
@@ -151,6 +155,7 @@ describe("userInteraction - clearAndFill - Input - error case", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputValueState");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 

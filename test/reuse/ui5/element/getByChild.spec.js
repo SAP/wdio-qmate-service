@@ -51,6 +51,7 @@ describe("element - getByChild - with ignored nested selectors", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
@@ -100,6 +101,7 @@ describe("element - getByChild - with inner nested selectors and index", functio
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
