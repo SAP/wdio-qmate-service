@@ -53,6 +53,7 @@ describe("confirmationDialog - clickOk", function () {
 
 describe("confirmationDialog - clickOk without confirmation dialog (unhappy case)", function () {
   it("Preparation", async function () {
+    await util.browser.switchToDefaultContent();
     await browser.url("#/categories");
   });
 

@@ -49,6 +49,7 @@ describe("confirmationDialog - clickButton - text 'OK'", function () {
 
 describe("confirmationDialog - clickButton - text 'OK' without confirmation dialog (unhappy case)", function () {
   it("Preparation", async function () {
+    await util.browser.switchToDefaultContent();
     await browser.url("#/categories");
   });
 
@@ -65,6 +66,7 @@ describe("confirmationDialog - clickButton - text 'Cancel'", function () {
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBox");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const confirmButtonSelector = {

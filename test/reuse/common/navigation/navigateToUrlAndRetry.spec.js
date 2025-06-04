@@ -15,7 +15,7 @@ describe("navigateToUrlAndRetry", function () {
 describe("navigateToUrlAndRetry with wrong url", function () {
   it("Execution & Verification", async function () {
     await expect(common.navigation.navigateToUrlAndRetry("sd")).rejects.toThrow(
-      "Function 'navigateToUrlAndRetry' failed with: Retries done. Failed to execute the function:invalid argument"
+      "Function 'navigateToUrlAndRetry' failed with: Retries done. Failed to execute the function:WebDriverError: invalid argument"
     );
   });
 });

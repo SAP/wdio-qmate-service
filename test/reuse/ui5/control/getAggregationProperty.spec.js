@@ -67,6 +67,7 @@ describe("getAggregationProperty - items in list", async () => {
     const url = "https://sapui5.hana.ondemand.com/#/entity/sap.m.Select/sample/sap.m.sample.Select";
     await common.navigation.navigateToUrl(url);
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 

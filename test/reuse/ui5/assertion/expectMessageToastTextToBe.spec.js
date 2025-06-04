@@ -22,6 +22,7 @@ describe("assertion - expectMessageToastTextToBe", function () {
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.MessageToast/sample/sap.m.sample.MessageToast");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 

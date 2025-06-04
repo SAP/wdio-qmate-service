@@ -78,6 +78,10 @@ export default class ErrorHandler implements IErrorHandler {
                 : initFunctionArray[index].includes(".")
                 ? initFunctionArray[index].substring(initFunctionArray[index].indexOf(".") + 1)
                 : initFunctionArray[index];
+          } else {
+            functionName = initFunctionArray[index].includes(".")
+            ? initFunctionArray[index].substring(initFunctionArray[index].indexOf(".") + 1)
+            : initFunctionArray[index];
           }
           index++;
         }

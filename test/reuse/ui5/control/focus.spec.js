@@ -25,6 +25,7 @@ describe("control - focus", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.ActionSheet");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
   });
 
   it("Execution and Verification", async function () {
@@ -44,6 +45,7 @@ describe("control - focus - outside of viewpoint", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 

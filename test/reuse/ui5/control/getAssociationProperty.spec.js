@@ -36,6 +36,7 @@ describe("getAssociationProperty - 'selectedItems' of MultiComboBox", function (
     const url = "https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox";
     await common.navigation.navigateToUrl(url);
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
     selector = {
       "elementProperties": { "metadata": "sap.m.MultiComboBox" },

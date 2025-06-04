@@ -66,7 +66,7 @@ describe("userInteraction - click on invisible element", function () {
     const index = 0;
     const timeout = 30000;
     await ui5.userInteraction.click(selector, index, timeout);
-    await browser.pause(1000);
+    await util.browser.sleep(1000);
     await expect(ui5.userInteraction.click(selector, index, timeout))
       .rejects.toThrow("Element not clickable after 30s");
   });

@@ -54,6 +54,7 @@ describe("confirmationDialog - clickNo", function () {
 describe("confirmationDialog - clickNo without 'No' button (unhappy case)", function () {
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBoxInitialFocus");
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
     const openDialogButton = {
       "elementProperties": {
@@ -84,6 +85,7 @@ describe("confirmationDialog - clickNo without 'No' button (unhappy case)", func
 
 describe("confirmationDialog - clickNo without confirmation dialog (unhappy case)", function () {
   it("Preparation", async function () {
+    await util.browser.switchToDefaultContent();
     await browser.url("#/categories");
   });
 
