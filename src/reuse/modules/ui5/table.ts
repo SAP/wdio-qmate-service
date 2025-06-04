@@ -342,7 +342,8 @@ export class Table {
             items = table.getItems();
             return TableHelper.filterItems(items, ${JSON.stringify(values)});
           } else if ("${Table.UI_TABLE_METADATA}" === "${tableMetadata}" && table.getRows !== undefined) {
-            return TableHelper.getRowControlIdsByMatchedValuesAsync(table, ${JSON.stringify(values)});
+            items = table.getRows();
+            return TableHelper.filterRowItemsByCellValues(items, ${JSON.stringify(values)});
           } else if ("${Table.SMART_TABLE_METADATA}" === "${tableMetadata}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
             items = table.getTable().getItems();
             return TableHelper.filterItems(items, ${JSON.stringify(values)});

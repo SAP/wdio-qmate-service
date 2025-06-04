@@ -5,6 +5,31 @@ export class TableHelper {
     return sap.ui.getCore().getElementById(tableId);
   }
 
+  // static getColumns(table: object): any[] {
+
+  //   table.getColumns().filter(qqqq => column.getLabel()?.getText() !== ""); // Filter out columns with empty labels
+  // }
+
+  // static getColumnKeyByLabelText(table: any, labelText: string): string | null {
+  //   var columns = table.getColumns();
+  //   var targetLabel = labelText; // the label you're looking for
+  //   var columnKey = null;
+
+  //   columns.forEach(function (column: any) {
+  //     var label = column.getLabel();
+  //     if (label && label.getText && label.getText() === targetLabel) {
+  //       var template = column.getTemplate(); // e.g. Text or Input
+  //       if (template) {
+  //         var bindingInfo = template.getBindingInfo("text") || template.getBindingInfo("value");
+  //         if (bindingInfo && bindingInfo.parts && bindingInfo.parts.length > 0) {
+  //           columnKey = bindingInfo.parts[0].path;
+  //         }
+  //       }
+  //     }
+  //   });
+  //   return columnKey;
+  // }
+
   static getTableMetadata(tableId: string): Ui5ControlMetadata | undefined {
     const table: any = TableHelper.getTable(tableId);
     if (table && typeof table.getMetadata === "function") {
@@ -18,7 +43,6 @@ export class TableHelper {
     const matchedItems = items.filter((item) => values.every((val) => Object.values(item.getBindingContext().getObject()).includes(val)));
 
     if (!matchedItems.length) return undefined;
-
     await TableHelper.highlightItems(matchedItems);
     return matchedItems.map((item) => item?.getId?.()).filter(Boolean);
   }
@@ -26,6 +50,21 @@ export class TableHelper {
   static filterItemsWithoutTitle(items: any[]): any[] {
     // Filter items with undefined or empty title since titles in rows/columnListItems are only used for dividers of grouped items
     return items.filter((item) => item.getTitle === undefined || item.getTitle() === "");
+  }
+
+  static filterRowItemsByCellValues(rows: any, targetValues: string[]): any[] {
+    return rows
+      .filter((row: any) => {
+        const cells = row.getCells();
+        debugger;
+        return targetValues.every((val) =>
+          cells.some((cell: any) => {
+            const domRef = cell.getDomRef();
+            return domRef && domRef.innerText && domRef.innerText.includes(val);
+          })
+        );
+      })
+      .map((item: any) => item.getId());
   }
 
   static findRowIndexesByCellValues(table: any, targetValues: string[]): number[] {
