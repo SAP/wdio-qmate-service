@@ -14,7 +14,7 @@ export class Ui5ExtensionMocker {
   ];
 
   private static readonly mockResponse: MockResponse = {
-    payload: "File not found",
+    payload: "File intentionally mocked by Qmate to improve performance",
     params: {
       statusCode: 404,
       fetchResponse: false
