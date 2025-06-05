@@ -317,7 +317,7 @@ export class Table {
    * };
    * await ui5.table.getSelectorsForRowsByValues(selector, ["January", "2022"]);
    */
-  async getSelectorsForRowsByValues(tableSelector: Ui5Selector | string, values: string | Array<string>, enableHighlighting: boolean = true): Promise<Array<Ui5Selector>> {
+  async getSelectorsForRowsByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, enableHighlighting: boolean = true): Promise<Array<Ui5Selector>> {
     this.vlf.initLog(this.getSelectorsForRowsByValues);
 
     if (typeof values === "string") {
@@ -326,7 +326,7 @@ export class Table {
       this.ErrorHandler.logException(new Error("Invalid values provided. It should be either a string or an array of strings."));
     }
 
-    const constructedTableSelector = await this._constructTableSelector(tableSelector);
+    const constructedTableSelector = await this._constructTableSelector(tableSelectorOrId);
     const tableMetadata = constructedTableSelector.elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
     let filteredRowIds = null;
@@ -335,7 +335,7 @@ export class Table {
       // =========================== BROWSER COMMAND ===========================
       const browserCommand = `
          ${classCode}
-          const table = TableHelper.filterTableByMetadata(${constructedTableSelector.elementProperties}, ${tableMetadata}, ${JSON.stringify(supportedTablesMetadata)});
+          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(supportedTablesMetadata)});
           const items = TableHelper.getItems(table);
           return await TableHelper.getIdsForItemsByCellValues(items, ${JSON.stringify(values)}, ${enableHighlighting});
         `;
@@ -368,10 +368,10 @@ export class Table {
    * @example id = "application-ReportingTask-run-component---ReportList--ReportingTable"
    * const rowSelector = await ui5.table.getSelectorForRowByIndex(id, 0);
    */
-  async getSelectorForRowByIndex(tableSelector: any, index: number): Promise<Ui5Selector> {
+  async getSelectorForRowByIndex(tableSelectorOrId: any, index: number): Promise<Ui5Selector> {
     this.vlf.initLog(this.getSelectorForRowByIndex);
 
-    const constructedTableSelector = await this._constructTableSelector(tableSelector);
+    const constructedTableSelector = await this._constructTableSelector(tableSelectorOrId);
     let filteredRowId: string;
     const tableMetadata = constructedTableSelector.elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
@@ -379,10 +379,9 @@ export class Table {
 
     try {
       // =========================== BROWSER COMMAND ===========================
-      filteredRowId = await util.browser.executeScript(
-        `
+      const browserCommand = `
           ${classCode}
-          const table = TableHelper.filterTableByMetadata(${constructedTableSelector.elementProperties}, ${tableMetadata}, ${JSON.stringify(supportedTablesMetadata)});
+          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(supportedTablesMetadata)});
           const items = TableHelper.getItems(table);
 
           if (!items || !items[${index}]) return null;
@@ -391,8 +390,8 @@ export class Table {
           const item = filteredItems[${index}];
 
           return item?.getId?.();
-        `
-      );
+      `;
+      filteredRowId = await util.browser.executeScript(browserCommand);
       // ========================================================================
     } catch (error) {
       return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
