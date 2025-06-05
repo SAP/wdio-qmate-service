@@ -5,30 +5,77 @@ export class TableHelper {
     return sap.ui.getCore().getElementById(tableId);
   }
 
-  // static getColumns(table: object): any[] {
+  static filterTableByMetadata(tableId: string, tableMetadataName: Ui5ControlMetadata, supportedTablesMetadata: string[]): any {
+    if (!supportedTablesMetadata.includes(tableMetadataName)) {
+      return null;
+    }
+    let table = TableHelper.getTable(tableId);
+    if (tableMetadataName === supportedTablesMetadata[0] && table.getTable !== undefined) {
+      table = table.getTable();
+    }
+    return table;
+  }
 
-  //   table.getColumns().filter(qqqq => column.getLabel()?.getText() !== ""); // Filter out columns with empty labels
-  // }
+  static getItems(table: any): any[] {
+    let items: any[] = [];
+    if (table.getItems !== undefined) {
+      items = table.getItems();
+    } else if (table.getRows !== undefined) {
+      items = table.getRows();
+    }
+    return items;
+  }
 
-  // static getColumnKeyByLabelText(table: any, labelText: string): string | null {
-  //   var columns = table.getColumns();
-  //   var targetLabel = labelText; // the label you're looking for
-  //   var columnKey = null;
+  static getColumnKeyByLabelText(table: any, labelText: string): string | null {
+    var columns = table.getColumns();
+    var targetLabel = labelText; // the label you're looking for
+    var columnKey = null;
 
-  //   columns.forEach(function (column: any) {
-  //     var label = column.getLabel();
-  //     if (label && label.getText && label.getText() === targetLabel) {
-  //       var template = column.getTemplate(); // e.g. Text or Input
-  //       if (template) {
-  //         var bindingInfo = template.getBindingInfo("text") || template.getBindingInfo("value");
-  //         if (bindingInfo && bindingInfo.parts && bindingInfo.parts.length > 0) {
-  //           columnKey = bindingInfo.parts[0].path;
-  //         }
-  //       }
-  //     }
-  //   });
-  //   return columnKey;
-  // }
+    columns.forEach(function (column: any) {
+      var label = column.getLabel();
+      if (label && label.getText && label.getText() === targetLabel) {
+        var template = column.getTemplate(); // e.g. Text or Input
+        if (template) {
+          var bindingInfo = template.getBindingInfo("text") || template.getBindingInfo("value");
+          if (bindingInfo && bindingInfo.parts && bindingInfo.parts.length > 0) {
+            columnKey = bindingInfo.parts[0].path;
+          }
+        }
+      }
+    });
+    return columnKey;
+  }
+
+  static async getAllColumnValuesByScrolling(table: any, sColumnKey: string): Promise<string[]> {
+    const oBinding = table.getBinding("rows");
+    if (!oBinding) {
+      console.warn("No row binding found.");
+      return [];
+    }
+
+    const iTotalRows = oBinding.getLength();
+    const iPageSize = table.getVisibleRowCount();
+    const aAllValues = [];
+
+    for (let i = 0; i < iTotalRows; i += iPageSize) {
+      // Scroll to make rows render
+      table.setFirstVisibleRow(i);
+
+      // Wait for rendering and data loading
+      await new Promise((resolve) => setTimeout(resolve, 200)); // You can adjust timing
+
+      // Get contexts for current visible page
+      const aContexts = oBinding.getContexts(i, iPageSize);
+      for (const oContext of aContexts) {
+        const oData = oContext.getObject();
+        if (oData && oData.hasOwnProperty(sColumnKey)) {
+          aAllValues.push(oData[sColumnKey]);
+        }
+      }
+    }
+
+    return aAllValues;
+  }
 
   static getTableMetadata(tableId: string): Ui5ControlMetadata | undefined {
     const table: any = TableHelper.getTable(tableId);
@@ -52,79 +99,20 @@ export class TableHelper {
     return items.filter((item) => item.getTitle === undefined || item.getTitle() === "");
   }
 
-  static async getIdsForItemsByCellValue(rows: any, targetValues: string[], enableHighlighting = true): Promise<string[] | undefined> {
-    const matchedRows = rows
-      .filter((row: any) => {
-        const cells = row.getCells();
-        return targetValues.every((val) =>
-          cells.some((cell: any) => {
-            const domRef = cell.getDomRef();
-            return domRef && domRef.innerText && domRef.innerText.includes(val);
-          })
-        );
-      });
+  static async getIdsForItemsByCellValues(rows: any, targetValues: string[], enableHighlighting = true): Promise<string[] | undefined> {
+    const matchedRows = rows.filter((row: any) => {
+      const cells = row.getCells();
+      return targetValues.every((val) =>
+        cells.some((cell: any) => {
+          const domRef = cell.getDomRef();
+          return domRef && domRef.innerText && domRef.innerText.includes(val);
+        })
+      );
+    });
 
     if (!matchedRows.length) return undefined;
     if (enableHighlighting) await TableHelper.highlightItems(matchedRows);
     return matchedRows.map((item: any) => item.getId());
-  }
-
-  static findRowIndexesByCellValues(table: any, targetValues: string[]): number[] {
-    const searchValues = Array.isArray(targetValues) ? targetValues : [targetValues];
-    const oBinding = table.getBinding("rows");
-    const aContexts = oBinding.getContexts(0, oBinding.getLength());
-    const matchedRowIndexes = [];
-
-    for (let i = 0; i < aContexts.length; i++) {
-      const oRowData = aContexts[i].getObject();
-      const flatRowValues = Object.values(oRowData).flatMap((cell) => (cell && typeof cell === "object" ? Object.values(cell as object) : [cell]));
-      const allMatch = searchValues.every((val) => flatRowValues.includes(val));
-      if (allMatch) {
-        matchedRowIndexes.push(i);
-      }
-    }
-
-    return matchedRowIndexes;
-  }
-
-  static async getRowControlIdsByMatchedValuesAsync(table: any, targetValues: string[]): Promise<string[] | undefined> {
-    const matchedIndexes = TableHelper.findRowIndexesByCellValues(table, targetValues);
-    if (!matchedIndexes.length) return undefined;
-
-    const iFirstVisible = table.getFirstVisibleRow();
-    const visibleRowCount = table.getVisibleRowCount();
-    const matchedRows: any[] = [];
-
-    for (const index of matchedIndexes) {
-      if (index < iFirstVisible || index >= iFirstVisible + visibleRowCount) {
-        table.setFirstVisibleRow(index);
-      }
-
-      await new Promise((res) => setTimeout(res, 250)); // wait for UI to rerender
-
-      const relativeIndex = index - table.getFirstVisibleRow();
-      const oRow = table.getRows()[relativeIndex];
-      if (oRow) matchedRows.push(oRow);
-    }
-
-    await TableHelper.highlightItems(matchedRows);
-    return matchedRows.map((row) => row?.getId?.()).filter(Boolean);
-  }
-  static injectHighlightStyle() {
-    // @ts-ignore: error TS2584: Cannot find name 'document'. Do you need to change your target library? Try changing the 'lib' compiler option to include 'dom'.
-    if (!document.getElementById("highlightRowStyle")) {
-      // @ts-ignore: error TS2584: Cannot find name 'document'. Do you need to change your target library? Try changing the 'lib' compiler option to include 'dom'.
-      const style = document.createElement("style");
-      style.id = "highlightRowStyle";
-      style.innerHTML = `
-        .rowHighlightFlash {
-          background-color: #ffeaa7 !important;
-          transition: background-color 1s ease-out;
-        }
-      `;
-      // @ts-ignore: error TS2584: Cannot find name 'document'. Do you need to change your target library? Try changing the 'lib' compiler option to include 'dom'.
-      document.head.appendChild(style);
-    }
   }
 
   static async highlightItems(items: any[]): Promise<void> {
@@ -144,6 +132,23 @@ export class TableHelper {
         setTimeout(resolve, 2250); // total time to wait before resolving
       }, 250);
     });
+  }
+
+  static injectHighlightStyle() {
+    // @ts-ignore: error TS2584: Cannot find name 'document'. Do you need to change your target library? Try changing the 'lib' compiler option to include 'dom'.
+    if (!document.getElementById("highlightRowStyle")) {
+      // @ts-ignore: error TS2584: Cannot find name 'document'. Do you need to change your target library? Try changing the 'lib' compiler option to include 'dom'.
+      const style = document.createElement("style");
+      style.id = "highlightRowStyle";
+      style.innerHTML = `
+        .rowHighlightFlash {
+          background-color: #ffeaa7 !important;
+          transition: background-color 1s ease-out;
+        }
+      `;
+      // @ts-ignore: error TS2584: Cannot find name 'document'. Do you need to change your target library? Try changing the 'lib' compiler option to include 'dom'.
+      document.head.appendChild(style);
+    }
   }
 
   static serializeClass(): string {

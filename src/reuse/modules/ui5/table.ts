@@ -330,28 +330,14 @@ export class Table {
     const tableMetadata = constructedTableSelector.elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
     let filteredRowIds = null;
-
+    const supportedTablesMetadata = [Table.SMART_TABLE_METADATA, Table.TABLE_METADATA, Table.UI_TABLE_METADATA];
     try {
       // =========================== BROWSER COMMAND ===========================
       const browserCommand = `
          ${classCode}
-          if (!("${Table.TABLE_METADATA}" === "${tableMetadata}"
-          || "${Table.SMART_TABLE_METADATA}" === "${tableMetadata}"
-          || "${Table.UI_TABLE_METADATA}" === "${tableMetadata}")) {
-            return null;
-          }
-          let table = TableHelper.getTable("${constructedTableSelector.elementProperties.id}");
-          if ("${Table.SMART_TABLE_METADATA}" === "${tableMetadata}" && table.getTable !== undefined) {
-            table = table.getTable();
-          }
-            
-          let items = [];
-           if (table.getItems !== undefined) {
-            items = table.getItems();
-          } else if (table.getRows !== undefined) {
-            items = table.getRows();
-          }
-          return await TableHelper.getIdsForItemsByCellValue(items, ${JSON.stringify(values)}, ${enableHighlighting});
+          const table = TableHelper.filterTableByMetadata(${constructedTableSelector.elementProperties}, ${tableMetadata}, ${JSON.stringify(supportedTablesMetadata)});
+          const items = TableHelper.getItems(table);
+          return await TableHelper.getIdsForItemsByCellValues(items, ${JSON.stringify(values)}, ${enableHighlighting});
         `;
       filteredRowIds = await util.browser.executeScript(browserCommand);
       // ========================================================================
@@ -389,22 +375,15 @@ export class Table {
     let filteredRowId: string;
     const tableMetadata = constructedTableSelector.elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
+    const supportedTablesMetadata = [Table.SMART_TABLE_METADATA, Table.TABLE_METADATA, Table.UI_TABLE_METADATA];
 
     try {
       // =========================== BROWSER COMMAND ===========================
       filteredRowId = await util.browser.executeScript(
         `
-         ${classCode}
-          const table = TableHelper.getTable("${constructedTableSelector.elementProperties.id}");
-          let items = [];
-
-          if ("${Table.TABLE_METADATA}" === "${tableMetadata}" && table.getItems !== undefined) {
-            items = table.getItems();
-          } else if ("${Table.UI_TABLE_METADATA}" === "${tableMetadata}" && table.getRows !== undefined) {
-            items = table.getRows();
-          } else if ("${Table.SMART_TABLE_METADATA}" === "${tableMetadata}" && table.getTable !== undefined && table.getTable().getItems !== undefined) {
-            items = table.getTable().getItems();
-          }
+          ${classCode}
+          const table = TableHelper.filterTableByMetadata(${constructedTableSelector.elementProperties}, ${tableMetadata}, ${JSON.stringify(supportedTablesMetadata)});
+          const items = TableHelper.getItems(table);
 
           if (!items || !items[${index}]) return null;
 
