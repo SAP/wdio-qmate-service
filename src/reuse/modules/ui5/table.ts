@@ -556,8 +556,8 @@ export class Table {
     }
   }
 
-  private async _constructTableSelector(tableSelector: Ui5Selector | string): Promise<Ui5Selector> {
-    const tableId = await Table._getId(tableSelector);
+  private async _constructTableSelector(tableSelectorOrId: Ui5Selector | string): Promise<Ui5Selector> {
+    const tableId = await Table._getId(tableSelectorOrId);
     const tableMetaData: Ui5ControlMetadata = await this._getTableMetadata(tableId);
     const selector: Ui5Selector = {
       elementProperties: {
