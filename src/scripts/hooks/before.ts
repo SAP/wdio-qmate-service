@@ -8,7 +8,7 @@ import { Ui5ExtensionMocker } from "./utils/Ui5ExtensionMocker";
  * @param {Array.<String>} specs        List of spec file paths that are to be run
  * @param {Object}         browser      instance of created browser/device session
  */
-export default async function (capabilities: object[], specs: string[], browser: object) {
+export default async function (capabilities: object[], specs: string[], browser: any) {
   // Add ui control selector & properties
   await locatorCommands.addControlCommands();
   await locatorCommands.addGetControlProperties();
@@ -19,5 +19,11 @@ export default async function (capabilities: object[], specs: string[], browser:
   //Add authenticators
   await authenticatorHandler.attachAuthHandling();
 
-  await Ui5ExtensionMocker.mockRequests();
+  if (shouldMockUi5Extension(browser)) {
+    await Ui5ExtensionMocker.mockRequests();
+  }
 };
+
+function shouldMockUi5Extension(browser: any): boolean {
+  return !(browser.config.qmate && browser.config.qmate.enableUi5ExtensionMocking === false);
+}
