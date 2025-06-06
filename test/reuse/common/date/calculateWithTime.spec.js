@@ -27,6 +27,20 @@ describe("date - calculateWithTime - 'today' - without time", function() {
   });
 });
 
+describe("date - calculateWithTime - 'today' - '10:00'", function() {
+  let dateAct;
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("today", "10:00");
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setHours(10, 0, 0, 0);
+    verifyDateWithTime(dateAct, dateExp);
+  });
+});
+
 function verifyDateWithTime(dateAct, dateExp) {
   common.assertion.expectEqual(dateAct.getFullYear(), dateExp.getFullYear());
   common.assertion.expectEqual(dateAct.getMonth(), dateExp.getMonth());
