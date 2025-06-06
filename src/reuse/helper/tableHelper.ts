@@ -1,16 +1,18 @@
-import { Ui5Selector, Ui5ControlMetadata } from "../modules/ui5/types/ui5.types";
+import { Ui5ControlMetadata } from "../modules/ui5/types/ui5.types";
+import { TableMetadata } from "./TableMetadata";
 
 export class TableHelper {
+  
   static getTable(tableId: string): any {
     return sap.ui.getCore().getElementById(tableId);
   }
 
-  static filterTableByMetadata(tableId: string, tableMetadataName: Ui5ControlMetadata, supportedTablesMetadata: string[]): any {
-    if (!supportedTablesMetadata.includes(tableMetadataName)) {
+  static filterTableByMetadata(tableId: string, tableMetadataName: Ui5ControlMetadata): any {
+    if (!TableMetadata.SUPPORTED_TABLES.includes(tableMetadataName)) {
       return null;
     }
     let table = TableHelper.getTable(tableId);
-    if (tableMetadataName === supportedTablesMetadata[0] && table.getTable !== undefined) {
+    if (tableMetadataName === TableMetadata.SMART_TABLE && table.getTable !== undefined) {
       table = table.getTable();
     }
     return table;

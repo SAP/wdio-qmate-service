@@ -4,7 +4,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 import { TableHelper } from "../../helper/tableHelper";
 import { Ui5Selector, Ui5ControlMetadata } from "./types/ui5.types";
-
+import { TableMetadata } from "../../helper/TableMetadata";
 /**
  * @class table
  * @memberof ui5
@@ -12,13 +12,6 @@ import { Ui5Selector, Ui5ControlMetadata } from "./types/ui5.types";
 export class Table {
   private vlf = new VerboseLoggerFactory("ui5", "table");
   private ErrorHandler = new ErrorHandler();
-
-  // =================================== CONSTANTS ===================================
-  private static readonly SMART_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.comp.smarttable.SmartTable";
-  private static readonly TABLE_METADATA: Ui5ControlMetadata = "sap.m.Table";
-  private static readonly UI_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.table.Table";
-  private static readonly COLUMN_LIST_ITEM_METADATA: Ui5ControlMetadata = "sap.m.ColumnListItem";
-  private static readonly TABLE_ROW_METADATA: Ui5ControlMetadata = "sap.ui.table.Row";
 
   // =================================== SORTING ===================================
   /**
@@ -236,7 +229,7 @@ export class Table {
         metadata: "sap.m.CheckBox"
       },
       parentProperties: {
-        metadata: Table.COLUMN_LIST_ITEM_METADATA,
+        metadata: TableMetadata.COLUMN_LIST_ITEM,
         ancestorProperties: ancestorSelector.elementProperties
       }
     };
@@ -330,7 +323,7 @@ export class Table {
     const tableMetadata = constructedTableSelector.elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
     let filteredRowIds = null;
-    const supportedTablesMetadata = [Table.SMART_TABLE_METADATA, Table.TABLE_METADATA, Table.UI_TABLE_METADATA];
+    const supportedTablesMetadata = [TableMetadata.SMART_TABLE, TableMetadata.TABLE, TableMetadata.UI_TABLE];
     try {
       // =========================== BROWSER COMMAND ===========================
       const browserCommand = `
@@ -375,7 +368,7 @@ export class Table {
     let filteredRowId: string;
     const tableMetadata = constructedTableSelector.elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
-    const supportedTablesMetadata = [Table.SMART_TABLE_METADATA, Table.TABLE_METADATA, Table.UI_TABLE_METADATA];
+    const supportedTablesMetadata = [TableMetadata.SMART_TABLE, TableMetadata.TABLE, TableMetadata.UI_TABLE];
 
     try {
       // =========================== BROWSER COMMAND ===========================
@@ -496,19 +489,19 @@ export class Table {
       const selectors: Array<Ui5Selector> = [
         {
           elementProperties: {
-            metadata: Table.SMART_TABLE_METADATA,
+            metadata: TableMetadata.SMART_TABLE,
             id: tableSelectorOrId
           }
         },
         {
           elementProperties: {
-            metadata: Table.TABLE_METADATA,
+            metadata: TableMetadata.TABLE,
             id: tableSelectorOrId
           }
         },
         {
           elementProperties: {
-            metadata: Table.UI_TABLE_METADATA,
+            metadata: TableMetadata.UI_TABLE,
             id: tableSelectorOrId
           }
         }
@@ -525,7 +518,7 @@ export class Table {
         // Intentionally left empty, as the error is handled below
       }
     } else if (typeof tableSelectorOrId === "object" && "elementProperties" in tableSelectorOrId) {
-      if (tableSelectorOrId.elementProperties.metadata === Table.TABLE_METADATA || tableSelectorOrId.elementProperties.metadata === Table.SMART_TABLE_METADATA || tableSelectorOrId.elementProperties.metadata === Table.UI_TABLE_METADATA) {
+      if (tableSelectorOrId.elementProperties.metadata === TableMetadata.TABLE || tableSelectorOrId.elementProperties.metadata === TableMetadata.SMART_TABLE || tableSelectorOrId.elementProperties.metadata === TableMetadata.UI_TABLE) {
         return tableSelectorOrId;
       }
     }
@@ -585,10 +578,10 @@ export class Table {
   }
 
   private _getRowMetadataByTableMetadata(tableMetadata: Ui5ControlMetadata): Ui5ControlMetadata {
-    if (tableMetadata === Table.TABLE_METADATA || tableMetadata === Table.SMART_TABLE_METADATA) {
-      return Table.COLUMN_LIST_ITEM_METADATA;
+    if (tableMetadata === TableMetadata.TABLE || tableMetadata === TableMetadata.SMART_TABLE) {
+      return TableMetadata.COLUMN_LIST_ITEM;
     } else {
-      return Table.TABLE_ROW_METADATA;
+      return TableMetadata.TABLE_ROW;
     }
   }
 
