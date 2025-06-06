@@ -193,8 +193,16 @@ export class DateModule {
       dateWithTime.setHours(0, 0, 0, 0); // Reset time to midnight
     }
     if (time) {
-      const [hours, minutes] = time.split(":").map(Number);
-      dateWithTime.setHours(hours, minutes, 0, 0); // Set the specified time
+      const [hours, minutes, seconds] = time.split(":").map(Number);
+      if (hours) {
+        dateWithTime.setHours(hours);
+      }
+      if (minutes) {
+        dateWithTime.setMinutes(minutes);
+      }
+      if (seconds) {
+        dateWithTime.setSeconds(seconds);
+      }
     }
     return dateWithTime;
   }

@@ -41,6 +41,34 @@ describe("date - calculateWithTime - 'today' - '10:00'", function() {
   });
 });
 
+describe("date - calculateWithTime - 'today' - '10:00:30'", function() {
+  let dateAct;
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("today", "10:00:30");
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setHours(10, 0, 30, 0);
+    verifyDateWithTime(dateAct, dateExp);
+  });
+});
+
+describe("date - calculateWithTime - 'today' - '10'", function() {
+  let dateAct;
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("today", "10");
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setHours(10, 0, 0, 0);
+    verifyDateWithTime(dateAct, dateExp);
+  });
+});
+
 function verifyDateWithTime(dateAct, dateExp) {
   common.assertion.expectEqual(dateAct.getFullYear(), dateExp.getFullYear());
   common.assertion.expectEqual(dateAct.getMonth(), dateExp.getMonth());
