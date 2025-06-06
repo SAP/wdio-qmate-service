@@ -323,12 +323,11 @@ export class Table {
     const tableMetadata = constructedTableSelector.elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
     let filteredRowIds = null;
-    const supportedTablesMetadata = [TableMetadata.SMART_TABLE, TableMetadata.TABLE, TableMetadata.UI_TABLE];
     try {
       // =========================== BROWSER COMMAND ===========================
       const browserCommand = `
          ${classCode}
-          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(supportedTablesMetadata)});
+          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}");
           const items = TableHelper.getItems(table);
           return await TableHelper.getIdsForItemsByCellValues(items, ${JSON.stringify(values)}, ${enableHighlighting});
         `;
@@ -368,13 +367,12 @@ export class Table {
     let filteredRowId: string;
     const tableMetadata = constructedTableSelector.elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
-    const supportedTablesMetadata = [TableMetadata.SMART_TABLE, TableMetadata.TABLE, TableMetadata.UI_TABLE];
 
     try {
       // =========================== BROWSER COMMAND ===========================
       const browserCommand = `
           ${classCode}
-          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(supportedTablesMetadata)});
+          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}");
           const items = TableHelper.getItems(table);
 
           if (!items || !items[${index}]) return null;
