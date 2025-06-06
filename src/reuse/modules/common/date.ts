@@ -187,8 +187,12 @@ export class DateModule {
    * @returns  {Date} The calculated date and time in the given format.
    * @example const date = await common.date.calculateWithTime("today", "10:00", "mm/dd/yyyy hh:mm");
    */
-  calculateWithTime(date: CalculateDatesType = CalculateDates.TODAY, time: string = "00:00"): Date {
-    return new Date();
+  calculateWithTime(date?: CalculateDatesType, time?: string): Date {
+    const dateWithTime = new Date();
+    if (date === "today") {
+      dateWithTime.setHours(0, 0, 0, 0); // Reset time to midnight
+    }
+    return dateWithTime;
   }
 }
 export default new DateModule();
