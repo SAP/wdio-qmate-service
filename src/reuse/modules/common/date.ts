@@ -188,16 +188,9 @@ export class DateModule {
    * @example const date = await common.date.calculateWithTime("today", "10:00", "mm/dd/yyyy hh:mm");
    */
   calculateWithTime(date?: CalculateDatesType, time?: string): Date {
-    const dateWithTime = new Date();
-    if (date === "today") {
-      dateWithTime.setHours(0, 0, 0, 0); // Reset time to midnight
-    }
-    if (date === "tomorrow") {
-      dateWithTime.setDate(dateWithTime.getDate() + 1);
-      dateWithTime.setHours(0, 0, 0, 0); // Reset time to midnight
-    }
-    if (date === "previousMonth") {
-      dateWithTime.setMonth(dateWithTime.getMonth() - 1);
+    let dateWithTime = new Date();
+    if (date) {
+      dateWithTime = this.calculate(date, DateFormats.OBJECT) as Date;
       dateWithTime.setHours(0, 0, 0, 0); // Reset time to midnight
     }
 
