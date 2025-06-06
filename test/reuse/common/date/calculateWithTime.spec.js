@@ -114,6 +114,21 @@ describe("date - calculateWithTime - 'previousMonth' - '10:00:30'", function() {
   });
 });
 
+describe("date - calculateWithTime - 'nextYear' - '15:20:40'", function() {
+  let dateAct;
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("nextYear", "15:20:40");
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setFullYear(dateExp.getFullYear() + 1);
+    dateExp.setHours(15, 20, 40, 0);
+    verifyDateWithTime(dateAct, dateExp);
+  });
+});
+
 function verifyDateWithTime(dateAct, dateExp) {
   common.assertion.expectEqual(dateAct.getFullYear(), dateExp.getFullYear());
   common.assertion.expectEqual(dateAct.getMonth(), dateExp.getMonth());
