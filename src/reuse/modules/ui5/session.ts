@@ -370,7 +370,7 @@ export class Session {
       },
       {
         timeout: timeout,
-        timeoutMsg: "Sign out button not clickable",
+        timeoutMsg: `Could not click Sign out button in ${+timeout/1000}s`,
         interval: 100
       }
     );

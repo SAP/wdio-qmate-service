@@ -175,70 +175,6 @@ functions.getControlPropertyBinding = function (mScriptParams) {
 };
 
 functions.loadUI5CoreAndAutowaiter = function () {
-  if (!window.findBusyIndicator) {
-    window.findBusyIndicator = function () {
-      return Boolean(Array.from(document.getElementsByClassName("sapMBusyIndicator")).find(function (elem) {
-        var rect = elem.getBoundingClientRect();
-        return (rect.x > 0 || rect.y > 0) && rect.width > 0 && rect.height > 0;
-      }));
-    };
-  }
-  try {
-    // First check if already everything loaded
-    if (window.RecordReplay && !window.findBusyIndicator()) {
-      return true;
-    }
-    if (
-      window.sap &&
-        window.sap.ui.getCore &&
-        window.sap.ui.getCore() &&
-        !window.sap.ui.getCore().isLocked() &&
-        !window.sap.ui.getCore().getUIDirty() &&
-        document.readyState === "complete"
-    ) {
-      // Always check for busy indicators
-      if (window.findBusyIndicator()) { return false; }
-
-      return new Promise(function(res, rej) {
-        sap.ui.require([
-          "sap/ui/test/RecordReplay"
-        ], function (RecordReplay) {
-          // Attach RecordReplay globally
-          if (RecordReplay) {
-            window.RecordReplay = RecordReplay;
-            res(!window.findBusyIndicator());
-          }
-          res(false);
-        });
-      });
-    }
-  } catch (oError) {
-    return false;
-  }
-};
-
-functions.loadUI5Page = function (mScriptParams) {
-  if (!window.findBusyIndicator) {
-    window.findBusyIndicator = function () {
-      return Boolean(Array.from(document.getElementsByClassName("sapMBusyIndicator")).find(function (elem) {
-        var rect = elem.getBoundingClientRect();
-        return (rect.x > 0 || rect.y > 0) && rect.width > 0 && rect.height > 0;
-      }));
-    };
-  }
-  // Always check for busy indicators
-  if (window.findBusyIndicator()) { return false; }
-  return window.RecordReplay.waitForUI5({
-    timeout: mScriptParams.waitForUI5Timeout,
-    interval: mScriptParams.waitForUI5PollingInterval
-  }).then(function () {
-    return (!window.findBusyIndicator());
-  }).catch(function (err) {
-    return false;
-  });
-};
-
-functions.loadUI5CoreAndAutowaiterNew = function () {
   try {
     // First check if already everything loaded
     if (window.RecordReplay) {
@@ -263,7 +199,7 @@ functions.loadUI5CoreAndAutowaiterNew = function () {
   }
 };
 
-functions.loadUI5PageNew = function (mScriptParams) {
+functions.loadUI5Page = function (mScriptParams) {
   if (!window.findBusyIndicator) {
     window.findBusyIndicator = function () {
       return Boolean(Array.from(document.getElementsByClassName("sapMBusyIndicator")).find(function (elem) {

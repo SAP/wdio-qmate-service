@@ -112,7 +112,7 @@ export class NavigationBar {
         },
         {
           timeout: timeout,
-          timeoutMsg: "User Icon not clickable",
+          timeoutMsg: `Could not click User Icon in ${+timeout/1000}s`,
           interval: 100
         }
       );
