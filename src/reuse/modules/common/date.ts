@@ -192,6 +192,10 @@ export class DateModule {
     if (date === "today") {
       dateWithTime.setHours(0, 0, 0, 0); // Reset time to midnight
     }
+    if (date === "tomorrow") {
+      dateWithTime.setDate(dateWithTime.getDate() + 1);
+      dateWithTime.setHours(0, 0, 0, 0); // Reset time to midnight
+    }
     if (time) {
       const [hours, minutes, seconds] = time.split(":").map(Number);
       if (hours) {
