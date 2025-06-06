@@ -84,6 +84,36 @@ describe("date - calculateWithTime - 'tomorrow' - without parameters", function(
   });
 });
 
+describe("date - calculateWithTime - 'tomorrow' - '10:00'", function() {
+  let dateAct;
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("tomorrow", "10:00");
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setDate(dateExp.getDate() + 1);
+    dateExp.setHours(10, 0, 0, 0);
+    verifyDateWithTime(dateAct, dateExp);
+  });
+});
+
+describe("date - calculateWithTime - 'previousMonth' - '10:00:30'", function() {
+  let dateAct;
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("previousMonth", "10:00:30");
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setMonth(dateExp.getMonth() - 1);
+    dateExp.setHours(10, 0, 30, 0);
+    verifyDateWithTime(dateAct, dateExp);
+  });
+});
+
 function verifyDateWithTime(dateAct, dateExp) {
   common.assertion.expectEqual(dateAct.getFullYear(), dateExp.getFullYear());
   common.assertion.expectEqual(dateAct.getMonth(), dateExp.getMonth());
