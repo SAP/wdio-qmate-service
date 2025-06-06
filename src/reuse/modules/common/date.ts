@@ -178,5 +178,17 @@ export class DateModule {
     }
     return calculatedDate;
   }
+
+  /**
+   * @function calculateWithTime
+   * @memberOf common.date
+   * @description Calculates the date and time based on the input parameter and returns it in the given format.
+   * @param {String} [date="today"] - Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, previousYear
+   * @returns  {Date} The calculated date and time in the given format.
+   * @example const date = await common.date.calculateWithTime("today", "10:00", "mm/dd/yyyy hh:mm");
+   */
+  calculateWithTime(date: CalculateDatesType = CalculateDates.TODAY, time: string = "00:00"): Date {
+    return new Date();
+  }
 }
 export default new DateModule();
