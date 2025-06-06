@@ -189,25 +189,26 @@ export class DateModule {
    * @example const date = await common.date.calculateWithTime("today", "10:00");
    */
   calculateWithTime(date?: CalculateDatesType, time?: string): Date {
-    let dateWithTime = new Date();
-    if (date) {
-      dateWithTime = this.calculate(date, DateFormats.OBJECT) as Date;
-      dateWithTime.setHours(0, 0, 0, 0); // Reset time to midnight
+    if (!date) {
+      return new Date();
     }
+    const result = this.calculate(date, DateFormats.OBJECT) as Date;
+    result.setHours(0, 0, 0, 0); // Reset time to midnight
+    return time ? this._setTime(result, time) : result;
+  }
 
-    if (time) {
-      const [hours, minutes, seconds] = time.split(":").map(Number);
-      if (hours) {
-        dateWithTime.setHours(hours);
-      }
-      if (minutes) {
-        dateWithTime.setMinutes(minutes);
-      }
-      if (seconds) {
-        dateWithTime.setSeconds(seconds);
-      }
+  private _setTime(date: Date, time: string): Date {
+    const [hours, minutes, seconds] = time.split(":").map(Number);
+    if (hours) {
+      date.setHours(hours);
     }
-    return dateWithTime;
+    if (minutes) {
+      date.setMinutes(minutes);
+    }
+    if (seconds) {
+      date.setSeconds(seconds);
+    }
+    return date;
   }
 }
 export default new DateModule();
