@@ -21,7 +21,7 @@ export interface ElementProperties {
   [key: string]: any;
 }
 
-export type Ui5ControlMetadata = `sap.m.${Capitalize<string>}` | `sap.ui.comp.${Lowercase<string>}.${Capitalize<string>}`;
+export type Ui5ControlMetadata = `sap.m.${Capitalize<string>}` | `sap.ui.comp.${Lowercase<string>}.${Capitalize<string>}` | `sap.ui.${Lowercase<string>}.${Capitalize<string>}`;
 
 export type Ui5SelectorWithOptions = {
   selector: Ui5Selector;
