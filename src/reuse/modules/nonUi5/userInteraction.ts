@@ -419,12 +419,12 @@ export class UserInteraction {
    * await nonUi5.userInteraction.scrollToElement(elem, alignment);
    */
 
-  async scrollToElement(elementOrSelector: Element | string, alignment: AlignmentOptions | AlignmentValues = "center") {
+  async scrollToElement(elementOrSelector: Element | string, alignment: AlignmentOptions | AlignmentValues = "center", timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.scrollToElement);
     let options = {};
   
     try {
-      const element = await resolveCssSelectorOrElement(elementOrSelector);
+      const element = await resolveCssSelectorOrElement(elementOrSelector, timeout);
       if (typeof alignment === "string") {
         options = {
           block: alignment,

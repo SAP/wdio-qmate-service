@@ -34,7 +34,7 @@ export class Table {
    * };
    * await ui5.table.sortColumnAscending("Amount", glAccountItemsTable);
    */
-  async sortColumnAscending(columnName: string, tableSelector: Ui5Selector) {
+  async sortColumnAscending(columnName: string, tableSelector: any, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const oldSortButtonSelector = {
       elementProperties: {
         metadata: "sap.m.Button",
@@ -61,8 +61,23 @@ export class Table {
     };
     const sort = await this._getSortIndicatorValue(columnName, tableSelector);
     if (sort !== "Ascending") {
-      this._clickColumn(columnName, tableSelector);
-      await Promise.any([ui5.userInteraction.click(oldSortButtonSelector), ui5.userInteraction.click(newSortButtonSelector), ui5.userInteraction.click(newerSortButtonSelector)]);
+      await this._clickColumn(columnName, tableSelector);
+      await browser.waitUntil(
+        async () => {
+          try {
+            await Promise.any([ui5.userInteraction.click(oldSortButtonSelector,0,500), ui5.userInteraction.click(newSortButtonSelector,0,500), ui5.userInteraction.click(newerSortButtonSelector,0,500)]);
+            return true;
+          } catch (error) {
+            // Ignore error and continue to next promise
+            return false;
+          }
+        },
+        {
+          timeout: timeout,
+          timeoutMsg: "Sort button not clickable",
+          interval: 100
+        }
+      );
     }
   }
 
@@ -82,7 +97,7 @@ export class Table {
    * };
    * await ui5.table.sortColumnDescending("Amount", glAccountItemsTable);
    */
-  async sortColumnDescending(columnName: string, tableSelector: Ui5Selector) {
+  async sortColumnDescending(columnName: string, tableSelector: any, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000){
     const oldSortButtonSelector = {
       elementProperties: {
         metadata: "sap.m.Button",
@@ -109,8 +124,23 @@ export class Table {
     };
     const sort = await this._getSortIndicatorValue(columnName, tableSelector);
     if (sort !== "Descending") {
-      this._clickColumn(columnName, tableSelector);
-      await Promise.any([ui5.userInteraction.click(oldSortButtonSelector), ui5.userInteraction.click(newSortButtonSelector), ui5.userInteraction.click(newerSortButtonSelector)]);
+      await this._clickColumn(columnName, tableSelector);
+      await browser.waitUntil(
+        async () => {
+          try {
+            await Promise.any([ui5.userInteraction.click(oldSortButtonSelector,0,500), ui5.userInteraction.click(newSortButtonSelector,0,500), ui5.userInteraction.click(newerSortButtonSelector,0,500)]);
+            return true;
+          } catch (error) {
+            // Ignore error and continue to next promise
+            return false;
+          }
+        },
+        {
+          timeout: timeout,
+          timeoutMsg: "Sort button not clickable",
+          interval: 100
+        }
+      );
     }
   }
 
@@ -529,7 +559,7 @@ export class Table {
   }
 
   // =================================== HELPER ===================================
-  private async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string): Promise<Ui5Selector> {
+  private async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<Ui5Selector> {
     if (typeof tableSelectorOrId === "string") {
       const selectors: Array<Ui5Selector> = [
         {
@@ -547,10 +577,26 @@ export class Table {
       ];
 
       try {
-        const index = await Promise.any(
-          selectors.map(async (selectors, index) => {
-            return await ui5.element.getDisplayed(selectors).then(() => index);
-          })
+        let index: number = -1;
+        await browser.waitUntil(
+          async () => {
+            try {
+             index = await Promise.any(
+                selectors.map(async (selectors, index) => {
+                  return await ui5.element.getDisplayed(selectors, 0, 500).then(() => index);
+                })
+              );
+              return true;
+            } catch (error) {
+              // Ignore error and continue to next promise
+              return false;
+            }
+          },
+          {
+            timeout: timeout,
+            timeoutMsg: "Table could not be resolved",
+            interval: 100
+          }
         );
         return selectors[index];
       } catch (error) {
@@ -623,7 +669,7 @@ export class Table {
     }
   }
 
-  private async _clickColumn(name: string, tableSelector: Ui5Selector) {
+  private async _clickColumn(name: string, tableSelector: any, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this._clickColumn);
     const tableColumnSelector = {
       elementProperties: {
@@ -643,24 +689,68 @@ export class Table {
       }
     };
 
-    if (!tableSelector) {
-      await Promise.any([ui5.userInteraction.click(tableColumnSelector), ui5.userInteraction.click(tableGridColumnSelector)]);
-    }
     if (typeof tableSelector == "number") {
-      util.console.warn(`Usage of argument 'index' in function ${arguments.callee.caller.name} is deprecated. Please pass a valid table selector instead.`);
-      await Promise.any([ui5.userInteraction.click(tableColumnSelector, tableSelector), ui5.userInteraction.click(tableGridColumnSelector, tableSelector)]);
+      util.console.warn(`Usage of argument 'index' is deprecated. Please pass a valid table selector instead.`);
+      await browser.waitUntil(
+        async () => {
+          try {
+            await Promise.any([ui5.userInteraction.click(tableColumnSelector, tableSelector, 500), ui5.userInteraction.click(tableGridColumnSelector, tableSelector, 500)]);
+            return true;
+          } catch (error) {
+            // Ignore error and continue to next promise
+            return false;
+          }
+        },
+        {
+          timeout: timeout,
+          timeoutMsg: "Column not clickable",
+          interval: 100
+        }
+      );
+    } else if (!tableSelector) {
+      await browser.waitUntil(
+        async () => {
+          try {
+            await Promise.any([ui5.userInteraction.click(tableColumnSelector, 0, 500), ui5.userInteraction.click(tableGridColumnSelector, 0, 500)]);
+            return true;
+          } catch (error) {
+            // Ignore error and continue to next promise
+            return false;
+          }
+        },
+        {
+          timeout: timeout,
+          timeoutMsg: "Column not clickable",
+          interval: 100
+        }
+      );
     } else if (typeof tableSelector === "object") {
-      await Promise.any([ui5.userInteraction.click(this._prepareAncestorSelector(tableColumnSelector, tableSelector)), ui5.userInteraction.click(this._prepareAncestorSelector(tableGridColumnSelector, tableSelector))]);
+      await browser.waitUntil(
+        async () => {
+          try {
+            await Promise.any([ui5.userInteraction.click(this._prepareAncestorSelector(tableColumnSelector, tableSelector),0,500), ui5.userInteraction.click(this._prepareAncestorSelector(tableGridColumnSelector, tableSelector),0,500)]);
+            return true;
+          } catch (error) {
+            // Ignore error and continue to next promise
+            return false;
+          }
+        },
+        {
+          timeout: timeout,
+          timeoutMsg: "Column not clickable",
+          interval: 100
+        }
+      );
     }
   }
 
   private async _getSortValueGridTable(selector: any, ancestor?: any) {
-    const sortOrder = await ui5.element.getPropertyValue(selector, "sortOrder", ancestor);
-    const sorted = await ui5.element.getPropertyValue(selector, "sorted", ancestor);
+    const sortOrder = await ui5.element.getPropertyValue(selector, "sortOrder", ancestor,500);
+    const sorted = await ui5.element.getPropertyValue(selector, "sorted", ancestor,500);
     return sorted ? sortOrder : "";
   }
 
-  private async _getSortIndicatorValue(name: string, tableSelector: Ui5Selector) {
+  private async _getSortIndicatorValue(name: string, tableSelector: any, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this._getSortIndicatorValue);
     const tableColumnSelector = {
       elementProperties: {
@@ -680,16 +770,62 @@ export class Table {
       }
     };
 
-    if (!tableSelector) {
-      return Promise.any([ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator"), this._getSortValueGridTable(tableGridColumnSelector)]);
-    }
+    let sortIndicator;
     if (typeof tableSelector == "number") {
-      util.console.warn(`The usage of argument 'index' in function ${arguments.callee.caller.name} is deprecated. Please pass a valid table selector instead.`);
-      return Promise.any([ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator", tableSelector), this._getSortValueGridTable(tableGridColumnSelector, tableSelector)]);
+      util.console.warn(`The usage of argument 'index' is deprecated. Please pass a valid table selector instead.`);
+      await browser.waitUntil(
+        async () => {
+          try {
+            sortIndicator = await Promise.any([ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator", tableSelector, 500), this._getSortValueGridTable(tableGridColumnSelector, tableSelector)]);
+            return true;
+          } catch (error) {
+            // Ignore error and continue to next promise
+            return false;
+          }
+        },
+        {
+          timeout: timeout,
+          timeoutMsg: "Sort indicator not found",
+          interval: 100
+        }
+      );
+    } else if (!tableSelector) {
+      await browser.waitUntil(
+        async () => {
+          try {
+            sortIndicator = await Promise.any([ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator",0,500), this._getSortValueGridTable(tableGridColumnSelector)]);
+            return true;
+          } catch (error) {
+            // Ignore error and continue to next promise
+            return false;
+          }
+        },
+        {
+          timeout: timeout,
+          timeoutMsg: "Sort indicator not found",
+          interval: 100
+        }
+      );
     } else if (typeof tableSelector === "object") {
       const selector = this._prepareAncestorSelector(tableColumnSelector, tableSelector);
-      return Promise.any([ui5.element.getPropertyValue(this._prepareAncestorSelector(tableColumnSelector, tableSelector), "sortIndicator"), this._getSortValueGridTable(this._prepareAncestorSelector(tableGridColumnSelector, tableSelector))]);
+      await browser.waitUntil(
+        async () => {
+          try {
+            sortIndicator = await Promise.any([ui5.element.getPropertyValue(this._prepareAncestorSelector(tableColumnSelector, tableSelector), "sortIndicator",0,500), this._getSortValueGridTable(this._prepareAncestorSelector(tableGridColumnSelector, tableSelector))]);
+            return true;
+          } catch (error) {
+            // Ignore error and continue to next promise
+            return false;
+          }
+        },
+        {
+          timeout: timeout,
+          timeoutMsg: "Sort indicator not found",
+          interval: 100
+        }
+      );
     }
+    return sortIndicator;
   }
 
   private _prepareAncestorSelector(selector: any, ancestorSelector: any) {

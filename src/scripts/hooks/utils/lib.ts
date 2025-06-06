@@ -158,7 +158,7 @@ var LibScripts = function () {
       }, {
         timeout: browser.config.waitForUI5Timeout,
         timeoutMsg: `Timeout of ${browser.config.waitForUI5Timeout / 1000}s reached, UI5 libraries did not load`,
-        interval: 10
+        interval: 100
       });
 
       var mScriptParams = {};
@@ -182,10 +182,10 @@ var LibScripts = function () {
     if (countStable && countStable > 0 && allTries && allTries > 0) {
       let aElements = null;
       if (!isEmptyObjectOrUndefined(ui5Selector)) {
-        if (ui5Selector && (ui5Selector.elementProperties || ui5Selector.ancestorProperties
-            || ui5Selector.descendantProperties || ui5Selector.siblingProperties
-            || ui5Selector.parentProperties || ui5Selector.childProperties
-            || ui5Selector.prevSiblingProperties || ui5Selector.nextSiblingProperties)) {
+        if (
+          ui5Selector &&
+          (ui5Selector.elementProperties || ui5Selector.ancestorProperties || ui5Selector.descendantProperties || ui5Selector.siblingProperties || ui5Selector.parentProperties || ui5Selector.childProperties || ui5Selector.prevSiblingProperties || ui5Selector.nextSiblingProperties)
+        ) {
           aElements = await browser.custom$$("ui5All", ui5Selector, rootElement);
         } else if (ui5Selector && ui5Selector.controlType) {
           aElements = await browser.custom$$("ui5Veri5", ui5Selector);
@@ -217,15 +217,15 @@ var LibScripts = function () {
     var aElements = null;
     try {
       if (!isEmptyObjectOrUndefined(ui5Selector)) {
-        if (ui5Selector && (ui5Selector.elementProperties || ui5Selector.ancestorProperties
-            || ui5Selector.descendantProperties || ui5Selector.siblingProperties
-            || ui5Selector.parentProperties || ui5Selector.childProperties
-            || ui5Selector.prevSiblingProperties || ui5Selector.nextSiblingProperties)) {
+        if (
+          ui5Selector &&
+          (ui5Selector.elementProperties || ui5Selector.ancestorProperties || ui5Selector.descendantProperties || ui5Selector.siblingProperties || ui5Selector.parentProperties || ui5Selector.childProperties || ui5Selector.prevSiblingProperties || ui5Selector.nextSiblingProperties)
+        ) {
           if (!ui5Selector.elementProperties || isEmptyObjectOrUndefined(ui5Selector.elementProperties)) {
             throw new Error(`The selector your provided ${ui5Selector ? JSON.stringify(ui5Selector) : ui5Selector} does not contain elementProperties, please provide a valid selector with elementProperties`);
           }
           aElements = await browser.custom$$("ui5All", ui5Selector, rootElement);
-        } else if (ui5Selector && ui5Selector.controlType){
+        } else if (ui5Selector && ui5Selector.controlType) {
           aElements = await browser.custom$$("ui5Veri5", ui5Selector);
         } else {
           return null;
@@ -285,7 +285,7 @@ var LibScripts = function () {
     }, {
       timeout: finalTimeout,
       timeoutMsg: `uiControlExecuteLocator(): No visible elements found with selector: ${util.formatter.stringifyJSON(ui5Selector)} in ${finalTimeout / 1000}s`,
-      interval: 50
+      interval: 100
     });
     if (elems && Array.isArray(elems) && elems.length > 0 &&
         index !== null && index !== undefined && index < elems.length) {
