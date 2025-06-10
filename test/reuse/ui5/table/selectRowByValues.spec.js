@@ -1,5 +1,6 @@
 "use strict";
 const { handleCookiesConsent } = require("../../../helper/utils");
+const { validateChecked } = require("./helper");
 
 const tableSelector1 = {
   elementProperties: {
@@ -96,15 +97,10 @@ describe("table - selectRowByValues - demo kit - passing value as array of strin
 });
 
 describe("table - selectRowByValues - demo kit - already selected row remains selected", function () {
-  async function validateChecked() {
-    const isSelected = await ui5.element.getPropertyValue(checkBoxSelector1("/Products*15)"), "selected");
-    common.assertion.expectEqual(isSelected, true);
-  }
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
     await ui5.table.selectRowByValues(tableSelector1, "Exotic Liquids");
-    await validateChecked();
+    await validateChecked(checkBoxSelector1("/Products*15)"));
   });
 
   it("Execution", async function () {
@@ -112,6 +108,6 @@ describe("table - selectRowByValues - demo kit - already selected row remains se
   });
 
   it("Verification", async function () {
-    await validateChecked();
+    await validateChecked(checkBoxSelector1("/Products*15)"));
   });
 });
