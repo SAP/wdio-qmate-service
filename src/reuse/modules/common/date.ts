@@ -198,6 +198,9 @@ export class DateModule {
   }
 
   private _setTime(date: Date, time: string): Date {
+    if (!this._isValidTime(time)) {
+      throw new Error("Function 'calculateWithTime' failed: Please provide a valid time string as a second argument.");
+    }
     const [hours, minutes, seconds] = time.split(":").map(Number);
     if (hours) {
       date.setHours(hours);
@@ -209,6 +212,23 @@ export class DateModule {
       date.setSeconds(seconds);
     }
     return date;
+  }
+
+  private _isValidTime(time: string): boolean {
+    const hoursRegex = /^(2[0-3]|[01]?[0-9])$/; // 00-23
+    const minutesRegex = /^([0-5]?[0-9])$/; // 00-59
+    const secondsRegex = /^([0-5]?[0-9])$/; // 00-59
+    const [hours, minutes, seconds] = time.split(":");
+    if (hours && !hoursRegex.test(hours)) {
+      return false;
+    }
+    if (minutes && !minutesRegex.test(minutes)) {
+      return false;
+    }
+    if (seconds && !secondsRegex.test(seconds)) {
+      return false;
+    }
+    return true;
   }
 }
 export default new DateModule();

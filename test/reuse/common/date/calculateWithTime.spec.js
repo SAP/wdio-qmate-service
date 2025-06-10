@@ -129,6 +129,14 @@ describe("date - calculateWithTime - 'nextYear' - '15:20:40'", function() {
   });
 });
 
+describe("date - calculateWithTime - 'nextYear' - 'invalid-time' - error", function() {
+  let dateAct;
+
+  it("Execution & Verification", function() {
+    expect(() => common.date.calculateWithTime("nextYear", "invalid-time")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as a second argument.");
+  });
+});
+
 function verifyDateWithTime(dateAct, dateExp) {
   common.assertion.expectEqual(dateAct.getFullYear(), dateExp.getFullYear());
   common.assertion.expectEqual(dateAct.getMonth(), dateExp.getMonth());
