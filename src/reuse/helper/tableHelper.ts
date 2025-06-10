@@ -1,8 +1,8 @@
 import { Ui5ControlMetadata } from "../modules/ui5/types/ui5.types";
+import { serializeStaticClass } from "./serializeStaticClass";
 import { TableMetadata } from "./TableMetadata";
 
 export class TableHelper {
-  
   static getTable(tableId: string): any {
     return sap.ui.getCore().getElementById(tableId);
   }
@@ -153,7 +153,7 @@ export class TableHelper {
     }
   }
 
-  static serializeClass(): string {
-    return TableHelper.toString();
+  public static serializeClass(): string {
+    return `${TableMetadata.serializeClass()}\n${serializeStaticClass(this, "TableHelper")}`;
   }
 }
