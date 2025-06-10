@@ -20,6 +20,7 @@ export class Table {
   private static readonly COLUMN_LIST_ITEM_METADATA: Ui5ControlMetadata = "sap.m.ColumnListItem";
   private static readonly TABLE_ROW_METADATA: Ui5ControlMetadata = "sap.ui.table.Row";
 
+  private static readonly SUPPORTED_TABLES_METADATA: Array<Ui5ControlMetadata> = [Table.SMART_TABLE_METADATA, Table.TABLE_METADATA, Table.UI_TABLE_METADATA];
   // =================================== SORTING ===================================
   /**
    * @function sortColumnAscending
@@ -330,15 +331,14 @@ export class Table {
     const tableMetadata = constructedTableSelector.elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
     let filteredRowIds = null;
-    const supportedTablesMetadata = [Table.SMART_TABLE_METADATA, Table.TABLE_METADATA, Table.UI_TABLE_METADATA];
     try {
       // =========================== BROWSER COMMAND ===========================
       const browserCommand = `
          ${classCode}
-          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(supportedTablesMetadata)});
+          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
           const items = TableHelper.getItems(table);
           return await TableHelper.getIdsForItemsByCellValues(items, ${JSON.stringify(values)}, ${enableHighlighting});
-        `;
+      `;
       filteredRowIds = await util.browser.executeScript(browserCommand);
       // ========================================================================
     } catch (error) {
@@ -375,13 +375,12 @@ export class Table {
     let filteredRowId: string;
     const tableMetadata = constructedTableSelector.elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
-    const supportedTablesMetadata = [Table.SMART_TABLE_METADATA, Table.TABLE_METADATA, Table.UI_TABLE_METADATA];
 
     try {
       // =========================== BROWSER COMMAND ===========================
       const browserCommand = `
           ${classCode}
-          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(supportedTablesMetadata)});
+          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
           const items = TableHelper.getItems(table);
 
           if (!items || !items[${index}]) return null;
