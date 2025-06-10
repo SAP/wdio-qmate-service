@@ -97,7 +97,6 @@ export class NavigationBar {
       await nonUi5.userInteraction.click(selector, 500);
     }
 
-    // attempt to click the new user icon first
     try {
       // attempt clicking both old and new user icons
       await browser.waitUntil(
