@@ -266,7 +266,6 @@ export class Table {
           return items
             .filter((item: any) => {
               const cells = item.getCells();
-              debugger;
               return values.every((val) =>
                 cells.some((cell: any) => {
                   const domRef = cell.getDomRef();
