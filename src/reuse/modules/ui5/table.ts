@@ -65,7 +65,7 @@ export class Table {
       await browser.waitUntil(
         async () => {
           try {
-            await Promise.any([ui5.userInteraction.click(oldSortButtonSelector,0,500), ui5.userInteraction.click(newSortButtonSelector,0,500), ui5.userInteraction.click(newerSortButtonSelector,0,500)]);
+            await Promise.any([ui5.userInteraction.click(oldSortButtonSelector, 0, 500), ui5.userInteraction.click(newSortButtonSelector, 0, 500), ui5.userInteraction.click(newerSortButtonSelector, 0, 500)]);
             return true;
           } catch (error) {
             // Ignore error and continue to next promise
@@ -97,7 +97,7 @@ export class Table {
    * };
    * await ui5.table.sortColumnDescending("Amount", glAccountItemsTable);
    */
-  async sortColumnDescending(columnName: string, tableSelector: any, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000){
+  async sortColumnDescending(columnName: string, tableSelector: any, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const oldSortButtonSelector = {
       elementProperties: {
         metadata: "sap.m.Button",
@@ -128,7 +128,7 @@ export class Table {
       await browser.waitUntil(
         async () => {
           try {
-            await Promise.any([ui5.userInteraction.click(oldSortButtonSelector,0,500), ui5.userInteraction.click(newSortButtonSelector,0,500), ui5.userInteraction.click(newerSortButtonSelector,0,500)]);
+            await Promise.any([ui5.userInteraction.click(oldSortButtonSelector, 0, 500), ui5.userInteraction.click(newSortButtonSelector, 0, 500), ui5.userInteraction.click(newerSortButtonSelector, 0, 500)]);
             return true;
           } catch (error) {
             // Ignore error and continue to next promise
@@ -581,7 +581,7 @@ export class Table {
         await browser.waitUntil(
           async () => {
             try {
-             index = await Promise.any(
+              index = await Promise.any(
                 selectors.map(async (selectors, index) => {
                   return await ui5.element.getDisplayed(selectors, 0, 500).then(() => index);
                 })
@@ -728,7 +728,7 @@ export class Table {
       await browser.waitUntil(
         async () => {
           try {
-            await Promise.any([ui5.userInteraction.click(this._prepareAncestorSelector(tableColumnSelector, tableSelector),0,500), ui5.userInteraction.click(this._prepareAncestorSelector(tableGridColumnSelector, tableSelector),0,500)]);
+            await Promise.any([ui5.userInteraction.click(this._prepareAncestorSelector(tableColumnSelector, tableSelector), 0, 500), ui5.userInteraction.click(this._prepareAncestorSelector(tableGridColumnSelector, tableSelector), 0, 500)]);
             return true;
           } catch (error) {
             // Ignore error and continue to next promise
@@ -745,8 +745,8 @@ export class Table {
   }
 
   private async _getSortValueGridTable(selector: any, ancestor?: any) {
-    const sortOrder = await ui5.element.getPropertyValue(selector, "sortOrder", ancestor,500);
-    const sorted = await ui5.element.getPropertyValue(selector, "sorted", ancestor,500);
+    const sortOrder = await ui5.element.getPropertyValue(selector, "sortOrder", ancestor, 500);
+    const sorted = await ui5.element.getPropertyValue(selector, "sorted", ancestor, 500);
     return sorted ? sortOrder : "";
   }
 
@@ -793,7 +793,7 @@ export class Table {
       await browser.waitUntil(
         async () => {
           try {
-            sortIndicator = await Promise.any([ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator",0,500), this._getSortValueGridTable(tableGridColumnSelector)]);
+            sortIndicator = await Promise.any([ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator", 0, 500), this._getSortValueGridTable(tableGridColumnSelector)]);
             return true;
           } catch (error) {
             // Ignore error and continue to next promise
@@ -811,7 +811,7 @@ export class Table {
       await browser.waitUntil(
         async () => {
           try {
-            sortIndicator = await Promise.any([ui5.element.getPropertyValue(this._prepareAncestorSelector(tableColumnSelector, tableSelector), "sortIndicator",0,500), this._getSortValueGridTable(this._prepareAncestorSelector(tableGridColumnSelector, tableSelector))]);
+            sortIndicator = await Promise.any([ui5.element.getPropertyValue(this._prepareAncestorSelector(tableColumnSelector, tableSelector), "sortIndicator", 0, 500), this._getSortValueGridTable(this._prepareAncestorSelector(tableGridColumnSelector, tableSelector))]);
             return true;
           } catch (error) {
             // Ignore error and continue to next promise
