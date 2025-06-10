@@ -4,7 +4,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 import { TableHelper } from "../../helper/tableHelper";
 import { Ui5Selector, Ui5ControlMetadata } from "./types/ui5.types";
-import { TableMetadata } from "../../helper/TableMetadata";
+
 /**
  * @class table
  * @memberof ui5
@@ -12,6 +12,13 @@ import { TableMetadata } from "../../helper/TableMetadata";
 export class Table {
   private vlf = new VerboseLoggerFactory("ui5", "table");
   private ErrorHandler = new ErrorHandler();
+
+  // =================================== CONSTANTS ===================================
+  private static readonly SMART_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.comp.smarttable.SmartTable";
+  private static readonly TABLE_METADATA: Ui5ControlMetadata = "sap.m.Table";
+  private static readonly UI_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.table.Table";
+  private static readonly COLUMN_LIST_ITEM_METADATA: Ui5ControlMetadata = "sap.m.ColumnListItem";
+  private static readonly TABLE_ROW_METADATA: Ui5ControlMetadata = "sap.ui.table.Row";
 
   // =================================== SORTING ===================================
   /**
@@ -229,7 +236,7 @@ export class Table {
         metadata: "sap.m.CheckBox"
       },
       parentProperties: {
-        metadata: TableMetadata.COLUMN_LIST_ITEM,
+        metadata: Table.COLUMN_LIST_ITEM_METADATA,
         ancestorProperties: ancestorSelector.elementProperties
       }
     };
@@ -323,11 +330,12 @@ export class Table {
     const tableMetadata = constructedTableSelector.elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
     let filteredRowIds = null;
+    const supportedTablesMetadata = [Table.SMART_TABLE_METADATA, Table.TABLE_METADATA, Table.UI_TABLE_METADATA];
     try {
       // =========================== BROWSER COMMAND ===========================
       const browserCommand = `
          ${classCode}
-          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}");
+          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(supportedTablesMetadata)});
           const items = TableHelper.getItems(table);
           return await TableHelper.getIdsForItemsByCellValues(items, ${JSON.stringify(values)}, ${enableHighlighting});
         `;
@@ -367,12 +375,13 @@ export class Table {
     let filteredRowId: string;
     const tableMetadata = constructedTableSelector.elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
+    const supportedTablesMetadata = [Table.SMART_TABLE_METADATA, Table.TABLE_METADATA, Table.UI_TABLE_METADATA];
 
     try {
       // =========================== BROWSER COMMAND ===========================
       const browserCommand = `
           ${classCode}
-          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}");
+          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(supportedTablesMetadata)});
           const items = TableHelper.getItems(table);
 
           if (!items || !items[${index}]) return null;
@@ -487,19 +496,19 @@ export class Table {
       const selectors: Array<Ui5Selector> = [
         {
           elementProperties: {
-            metadata: TableMetadata.SMART_TABLE,
+            metadata: Table.SMART_TABLE_METADATA,
             id: tableSelectorOrId
           }
         },
         {
           elementProperties: {
-            metadata: TableMetadata.TABLE,
+            metadata: Table.TABLE_METADATA,
             id: tableSelectorOrId
           }
         },
         {
           elementProperties: {
-            metadata: TableMetadata.UI_TABLE,
+            metadata: Table.UI_TABLE_METADATA,
             id: tableSelectorOrId
           }
         }
@@ -516,7 +525,7 @@ export class Table {
         // Intentionally left empty, as the error is handled below
       }
     } else if (typeof tableSelectorOrId === "object" && "elementProperties" in tableSelectorOrId) {
-      if (tableSelectorOrId.elementProperties.metadata === TableMetadata.TABLE || tableSelectorOrId.elementProperties.metadata === TableMetadata.SMART_TABLE || tableSelectorOrId.elementProperties.metadata === TableMetadata.UI_TABLE) {
+      if (tableSelectorOrId.elementProperties.metadata === Table.TABLE_METADATA || tableSelectorOrId.elementProperties.metadata === Table.SMART_TABLE_METADATA || tableSelectorOrId.elementProperties.metadata === Table.UI_TABLE_METADATA) {
         return tableSelectorOrId;
       }
     }
@@ -576,10 +585,10 @@ export class Table {
   }
 
   private _getRowMetadataByTableMetadata(tableMetadata: Ui5ControlMetadata): Ui5ControlMetadata {
-    if (tableMetadata === TableMetadata.TABLE || tableMetadata === TableMetadata.SMART_TABLE) {
-      return TableMetadata.COLUMN_LIST_ITEM;
+    if (tableMetadata === Table.TABLE_METADATA || tableMetadata === Table.SMART_TABLE_METADATA) {
+      return Table.COLUMN_LIST_ITEM_METADATA;
     } else {
-      return TableMetadata.TABLE_ROW;
+      return Table.TABLE_ROW_METADATA;
     }
   }
 
