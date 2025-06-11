@@ -2,6 +2,7 @@
 
 import { VerboseLoggerFactory, InactiveLogger, ActiveLogger } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
+import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class session
@@ -23,7 +24,7 @@ export class Session {
    * @example await ui5.session.login("PURCHASER");
    * @example await ui5.session.login("JOHN_DOE", "abc123!", true);
    */
-  async login(username: string, password?: string, verify = false, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async login(username: string, password?: string, verify = false, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.login);
 
     if (browser.config && browser.config.params && browser.config.params.auth && browser.config.params.auth.formType === "skip") {
@@ -40,7 +41,7 @@ export class Session {
         const fioriForm = new Promise<void>(async (res, rej) => {
           try {
             const fioriFormId = ui5.authenticators.fioriForm.formId;
-            const elem = await nonUi5.element.getByCss(fioriFormId, 0, 7500);
+            const elem = await nonUi5.element.getByCss(fioriFormId, 0, 500);
             await nonUi5.element.isVisible(elem);
             authenticator = ui5.authenticators.fioriForm;
             messageSelector = ui5.authenticators.fioriForm.messageSelector;
@@ -53,7 +54,7 @@ export class Session {
         const sapCloudForm = new Promise<void>(async (res, rej) => {
           try {
             const sapCloudFormId = ui5.authenticators.sapCloudForm.formId;
-            const elem = await nonUi5.element.getByCss(sapCloudFormId, 0, 7500);
+            const elem = await nonUi5.element.getByCss(sapCloudFormId, 0, 500);
             await nonUi5.element.isVisible(elem);
             authenticator = ui5.authenticators.sapCloudForm;
             messageSelector = ui5.authenticators.sapCloudForm.messageSelector;
@@ -293,14 +294,10 @@ export class Session {
           usernameField = await $(authenticator.usernameFieldSelector);
           passwordField = await $(authenticator.passwordFieldSelector);
           logonField = await $(authenticator.logonButtonSelector);
-          return (
-            (await usernameField.isDisplayedInViewport()) &&
-            (await passwordField.isDisplayedInViewport()) &&
-            (await logonField.isDisplayedInViewport())
-          );
+          return (await usernameField.isDisplayedInViewport()) && (await passwordField.isDisplayedInViewport()) && (await logonField.isDisplayedInViewport());
         },
         {
-          timeout: 30000,
+          timeout: GLOBAL_DEFAULT_WAIT_TIMEOUT,
           timeoutMsg: "Login failed: Login page with the given authenticator not present."
         }
       );
@@ -334,35 +331,8 @@ export class Session {
     }
   }
 
-  private async _clickSignOut() {
+  private async _clickSignOut(timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this._clickSignOut);
-
-    // Attempt to click the new logout button
-    try {
-      await scrollAndClickLogoutNew();
-      return;
-    } catch (error) {
-      console.warn("New logout button not found, trying old selector.");
-    }
-
-    // Attempt to click the old logout button
-    try {
-      await scrollAndClickLogoutOld();
-      return;
-    } catch (error) {
-      this.ErrorHandler.logException(error);
-    }
-
-    this.ErrorHandler.logException(
-      new Error("Neither old nor new logout button could be clicked.")
-    );
-
-    async function scrollAndClickLogoutNew() {
-      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
-      const selector = ">>>.ui5-user-menu-sign-out-btn";
-      await nonUi5.userInteraction.scrollToElement(selector, "end");
-      await nonUi5.userInteraction.click(selector);
-    }
 
     async function scrollAndClickLogoutOld() {
       const selector = {
@@ -373,9 +343,34 @@ export class Session {
           }
         }
       };
-      await ui5.userInteraction.scrollToElement(selector, 0, "end");
-      await ui5.userInteraction.click(selector);
+      await ui5.userInteraction.scrollToElement(selector, 0, "end", 500);
+      await ui5.userInteraction.click(selector, 0, 500);
     }
+
+    async function scrollAndClickLogoutNew() {
+      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
+      const selector = ">>>.ui5-user-menu-sign-out-btn";
+      await nonUi5.userInteraction.scrollToElement(selector, "end", 500);
+      await nonUi5.userInteraction.click(selector, 500);
+    }
+
+    // attempt clicking both old and new logout buttons
+    await browser.waitUntil(
+      async () => {
+        try {
+          await Promise.any([scrollAndClickLogoutOld(), scrollAndClickLogoutNew()]);
+          return true;
+        } catch (error) {
+          // Ignore error and continue to next promise
+          return false;
+        }
+      },
+      {
+        timeout: timeout,
+        timeoutMsg: `Could not click Sign out button in ${+timeout / 1000}s`,
+        interval: GLOBAL_DEFAULT_WAIT_INTERVAL
+      }
+    );
   }
 
   private async _checkForErrors(messageSelector: string) {
