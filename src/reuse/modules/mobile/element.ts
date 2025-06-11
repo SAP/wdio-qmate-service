@@ -118,7 +118,7 @@ export class ElementModule {
    * await mobile.element.waitToBeClickable("#button12");
    * await mobile.element.waitToBeClickable("p:first-child");
    */
-  async waitToBeClickable(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<boolean> {
+  async waitToBeClickable(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT): Promise<boolean> {
     const vl = this.vlf.initLog(this.waitToBeClickable);
     try {
       vl.log(`wdio.waitForClickable invocation for selector ${selector}`);

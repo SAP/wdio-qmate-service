@@ -3,7 +3,7 @@
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 import { Ui5Selector, Ui5ControlMetadata } from "./types/ui5.types";
-import { GLOBAL_WAIT_INTERVAL } from "../constants";
+import { GLOBAL_WAIT_INTERVAL, GLOBAL_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class table
@@ -35,7 +35,7 @@ export class Table {
    * };
    * await ui5.table.sortColumnAscending("Amount", glAccountItemsTable);
    */
-  async sortColumnAscending(columnName: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async sortColumnAscending(columnName: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const oldSortButtonSelector = {
       elementProperties: {
         metadata: "sap.m.Button",
@@ -98,7 +98,7 @@ export class Table {
    * };
    * await ui5.table.sortColumnDescending("Amount", glAccountItemsTable);
    */
-  async sortColumnDescending(columnName: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async sortColumnDescending(columnName: string, tableSelector: Ui5Selector, timeout = ) {
     const oldSortButtonSelector = {
       elementProperties: {
         metadata: "sap.m.Button",
@@ -560,7 +560,7 @@ export class Table {
   }
 
   // =================================== HELPER ===================================
-  private async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<Ui5Selector> {
+  private async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string, timeout: number = ): Promise<Ui5Selector> {
     if (typeof tableSelectorOrId === "string") {
       const selectors: Array<Ui5Selector> = [
         {
@@ -670,7 +670,7 @@ export class Table {
     }
   }
 
-  private async _clickColumn(name: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  private async _clickColumn(name: string, tableSelector: Ui5Selector, timeout = ) {
     const vl = this.vlf.initLog(this._clickColumn);
     const tableColumnSelector = {
       elementProperties: {
@@ -751,7 +751,7 @@ export class Table {
     return sorted ? sortOrder : "";
   }
 
-  private async _getSortIndicatorValue(name: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  private async _getSortIndicatorValue(name: string, tableSelector: Ui5Selector, timeout = ) {
     const vl = this.vlf.initLog(this._getSortIndicatorValue);
     const tableColumnSelector = {
       elementProperties: {

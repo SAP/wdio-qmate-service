@@ -19,7 +19,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickBack();
    */
-  async clickBack(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async clickBack(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickBack);
     const selector = {
       elementProperties: {
@@ -40,7 +40,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickSapLogo();
    */
-  async clickSapLogo(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async clickSapLogo(timeout: number = ) {
     const vl = this.vlf.initLog(this.clickSapLogo);
     async function clickLogo() {
       const selector = "//a[@id='shell-header-logo']";
@@ -153,7 +153,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.expectShellHeader();
    */
-  async expectShellHeader(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+  async expectShellHeader(timeout: number = , loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const vl = this.vlf.initLog(this.expectShellHeader);
     const selector = {
       elementProperties: {

@@ -68,7 +68,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.clickAndRetry(elem);
    */
-  async clickAndRetry(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, retries = 3, interval = 5000) {
+  async clickAndRetry(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.click);
 
     try {
@@ -420,7 +420,7 @@ export class UserInteraction {
    * await nonUi5.userInteraction.scrollToElement(elem, alignment);
    */
 
-  async scrollToElement(elementOrSelector: Element | string, alignment: AlignmentOptions | AlignmentValues = "center", timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async scrollToElement(elementOrSelector: Element | string, alignment: AlignmentOptions | AlignmentValues = "center", timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.scrollToElement);
     let options = {};
 
