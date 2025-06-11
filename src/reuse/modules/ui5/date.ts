@@ -72,7 +72,26 @@ export class DateModule {
     await this._selectDate(tempSelector, range[1]);
   }
 
-  async pickWithTime(selector: any, date: Date) {}
+  async pickWithTime(selector: any, date: Date) {
+    const vl = this.vlf.initLog(this.pickWithTime);
+    vl.log(`Picking date with time ${date} for selector ${selector}`);
+    let id = await ui5.element.getId(selector);
+    if (selector.elementProperties.metadata === "sap.ui.core.Icon") {
+      id = id.replace("-icon", "");
+    }
+
+    const tempSelector = {
+      elementProperties: {
+        metadata: "sap.m.DateTimePicker",
+        id: id
+      }
+    };
+
+    await this._openDatePicker(tempSelector);
+    await this._selectDate(tempSelector, date);
+    await this._selectTime(tempSelector, date);
+    // add logic to click the "OK" button to confirm the selection
+  }
 
   // =================================== FILL ===================================
   /**
@@ -149,6 +168,28 @@ export class DateModule {
 
     const dayPick = await nonUi5.element.getByCss(`[id="${id}-cal"] .sapUiCalItem[data-sap-day="${util.formatter.formatDate(date, DateFormats.YEAR_MONTH_DAY_PLAIN)}"] .sapUiCalItemText`);
     await nonUi5.userInteraction.click(dayPick);
+  }
+
+  private async _selectTime(selector: any, date: Date) {
+    const vl = this.vlf.initLog(this._selectTime);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+
+    const id = selector.elementProperties.id;
+
+    // pick hours
+    const hoursPick = await nonUi5.element.getByCss(`[id*="${id}"] .sapMTPCNumber[id="${id}-clockH-${hours}"]`);
+    await nonUi5.userInteraction.click(hoursPick);
+
+    // pick minutes
+    // [id='__xmlview0--DTP1-Clocks'] .sapMTPCNumber .sapMTPCDeg30
+    // const minutesPick = await nonUi5.element.getByCss(`[id*="${id}"] .sapMTPCNumber .sapMTPCDeg${minutes * 6}`);
+    // await nonUi5.userInteraction.click(minutesPick);
+
+    // // pick seconds
+    // const secondsPick = await nonUi5.element.getByCss(`[id*="${id}"] .sapMTPCNumber[id="${id}-clockS-${seconds}"]`);
+    // await nonUi5.userInteraction.click(secondsPick);
   }
 }
 export default new DateModule();
