@@ -179,7 +179,7 @@ export class DateModule {
     const id = selector.elementProperties.id;
 
     // pick hours
-    const hoursPick = await nonUi5.element.getByCss(`[id*="${id}"] .sapMTPCNumber[id="${id}-clockH-${hours}"]`);
+    const hoursPick = await nonUi5.element.getByCss(`[id*="${id}"] .sapMTPCNumber[id="${id}-Clocks-clockH-${hours}"]`);
     await nonUi5.userInteraction.click(hoursPick);
 
     // pick minutes
@@ -187,7 +187,7 @@ export class DateModule {
     await nonUi5.userInteraction.click(minutesPick);
 
     // pick seconds
-    const secondsPick = await nonUi5.element.getByCss(`[id*="${id}"] .sapMTPCDeg${minutes * 6}`);
+    const secondsPick = await nonUi5.element.getByCss(`[id*="${id}"] .sapMTPCDeg${seconds * 6}`);
     await nonUi5.userInteraction.click(secondsPick);
   }
 }
