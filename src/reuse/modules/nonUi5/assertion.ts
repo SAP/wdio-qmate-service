@@ -4,7 +4,7 @@ import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
 import ErrorHandler from "../../helper/errorHandler";
-import { GLOBAL_WAIT_INTERVAL, GLOBAL_WAIT_TIMEOUT } from "../constants";
+import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class assertion
@@ -120,8 +120,8 @@ export class Assertion {
           return isPresent && isDisplayed;
         },
         {
-          interval: GLOBAL_WAIT_INTERVAL,
-          timeout: GLOBAL_WAIT_TIMEOUT,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
+          timeout: GLOBAL_DEFAULT_WAIT_TIMEOUT,
           timeoutMsg: "Function 'expectToBeVisible' failed. Timeout by waiting for element to be visible."
         }
       );
@@ -139,7 +139,7 @@ export class Assertion {
    * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectToBeNotVisible(element, 5000);
    */
-  async expectToBeNotVisible(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT): Promise<void> {
+  async expectToBeNotVisible(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.expectToBeNotVisible);
     try {
       const element = await resolveCssSelectorOrElement(elementOrSelector);

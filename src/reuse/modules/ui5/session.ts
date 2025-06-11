@@ -2,7 +2,7 @@
 
 import { VerboseLoggerFactory, InactiveLogger, ActiveLogger } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
-import { GLOBAL_WAIT_INTERVAL, GLOBAL_WAIT_TIMEOUT } from "../constants";
+import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class session
@@ -24,7 +24,7 @@ export class Session {
    * @example await ui5.session.login("PURCHASER");
    * @example await ui5.session.login("JOHN_DOE", "abc123!", true);
    */
-  async login(username: string, password?: string, verify = false, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
+  async login(username: string, password?: string, verify = false, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.login);
 
     if (browser.config && browser.config.params && browser.config.params.auth && browser.config.params.auth.formType === "skip") {
@@ -331,7 +331,7 @@ export class Session {
     }
   }
 
-  private async _clickSignOut(timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
+  private async _clickSignOut(timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this._clickSignOut);
 
     async function scrollAndClickLogoutOld() {
@@ -368,7 +368,7 @@ export class Session {
       {
         timeout: timeout,
         timeoutMsg: `Could not click Sign out button in ${+timeout / 1000}s`,
-        interval: GLOBAL_WAIT_INTERVAL
+        interval: GLOBAL_DEFAULT_WAIT_INTERVAL
       }
     );
   }

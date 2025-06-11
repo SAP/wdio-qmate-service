@@ -1,7 +1,7 @@
 "use strict";
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
-import { GLOBAL_WAIT_TIMEOUT } from "../constants";
+import { GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class footerBar
@@ -65,7 +65,7 @@ export class FooterBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickButton("Ok");
    */
-  async clickButton(text: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
+  async clickButton(text: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickButton);
     vl.log(`Clicking button with text ${text}`);
     return ui5.userInteraction.click(this.selectors.genericButton(text), 0, timeout);
@@ -78,7 +78,7 @@ export class FooterBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickApply();
    */
-  async clickApply(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
+  async clickApply(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickApply);
     return this.clickButton("Apply", timeout);
   }
@@ -90,7 +90,7 @@ export class FooterBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickSave();
    */
-  async clickSave(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
+  async clickSave(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickSave);
     return this.clickButton("Save", timeout);
   }
@@ -102,7 +102,7 @@ export class FooterBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickCreate();
    */
-  async clickCreate(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
+  async clickCreate(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickCreate);
     return this.clickButton("Create", timeout);
   }
@@ -114,7 +114,7 @@ export class FooterBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickCancel();
    */
-  async clickCancel(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
+  async clickCancel(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickCancel);
     return this.clickButton("Cancel", timeout);
   }
@@ -126,7 +126,7 @@ export class FooterBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickCheck();
    */
-  async clickCheck(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
+  async clickCheck(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickCheck);
     return this.clickButton("Check", timeout);
   }
@@ -138,7 +138,7 @@ export class FooterBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickOrder();
    */
-  async clickOrder(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
+  async clickOrder(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickOrder);
     return this.clickButton("Order", timeout);
   }
@@ -150,7 +150,7 @@ export class FooterBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickPost();
    */
-  async clickPost(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
+  async clickPost(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickPost);
     return this.clickButton("Post", timeout);
   }
@@ -162,7 +162,7 @@ export class FooterBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.footerBar.clickAdd();
    */
-  async clickAdd(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
+  async clickAdd(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickAdd);
     return this.clickButton("Add", timeout);
   }

@@ -3,7 +3,7 @@
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 import { Ui5Selector, Ui5ControlMetadata } from "./types/ui5.types";
-import { GLOBAL_WAIT_INTERVAL, GLOBAL_WAIT_TIMEOUT } from "../constants";
+import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class table
@@ -35,7 +35,7 @@ export class Table {
    * };
    * await ui5.table.sortColumnAscending("Amount", glAccountItemsTable);
    */
-  async sortColumnAscending(columnName: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
+  async sortColumnAscending(columnName: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const oldSortButtonSelector = {
       elementProperties: {
         metadata: "sap.m.Button",
@@ -76,7 +76,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort button not clickable",
-          interval: GLOBAL_WAIT_INTERVAL
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
         }
       );
     }
@@ -139,7 +139,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort button not clickable",
-          interval: GLOBAL_WAIT_INTERVAL
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
         }
       );
     }
@@ -560,7 +560,7 @@ export class Table {
   }
 
   // =================================== HELPER ===================================
-  private async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT): Promise<Ui5Selector> {
+  private async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<Ui5Selector> {
     if (typeof tableSelectorOrId === "string") {
       const selectors: Array<Ui5Selector> = [
         {
@@ -596,7 +596,7 @@ export class Table {
           {
             timeout: timeout,
             timeoutMsg: "Table could not be resolved",
-            interval: GLOBAL_WAIT_INTERVAL
+            interval: GLOBAL_DEFAULT_WAIT_INTERVAL
           }
         );
         return selectors[index];
@@ -704,7 +704,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Column not clickable",
-          interval: GLOBAL_WAIT_INTERVAL
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
         }
       );
     } else if (typeof tableSelector === "object") {
@@ -721,7 +721,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Column not clickable",
-          interval: GLOBAL_WAIT_INTERVAL
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
         }
       );
     }
@@ -769,7 +769,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort indicator not found",
-          interval: GLOBAL_WAIT_INTERVAL
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
         }
       );
     } else if (typeof tableSelector === "object") {
@@ -787,7 +787,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort indicator not found",
-          interval: GLOBAL_WAIT_INTERVAL
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
         }
       );
     }

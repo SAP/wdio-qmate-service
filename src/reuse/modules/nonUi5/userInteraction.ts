@@ -8,7 +8,7 @@ import ErrorHandler from "../../helper/errorHandler";
 import elementHighlight from "../../helper/elementHighlight";
 import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
 import { validateValue } from "../../helper/inputValidation";
-import { GLOBAL_WAIT_INTERVAL, GLOBAL_WAIT_TIMEOUT } from "../constants";
+import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class userInteraction
@@ -28,7 +28,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.click(elem);
    */
-  async click(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
+  async click(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.click);
     const highlightConfig = await elementHighlight.getElementHighlightData("click");
 
@@ -39,12 +39,12 @@ export class UserInteraction {
       await Promise.all([
         expect(element).toBeDisplayed({
           wait: timeout,
-          interval: GLOBAL_WAIT_INTERVAL,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
         }),
         expect(element).toBeEnabled({
           wait: timeout,
-          interval: GLOBAL_WAIT_INTERVAL,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
         })
       ]);
@@ -68,7 +68,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.clickAndRetry(elem);
    */
-  async clickAndRetry(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT, retries = 3, interval = 5000) {
+  async clickAndRetry(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.click);
 
     try {
@@ -90,7 +90,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.doubleClick(elem);
    */
-  async doubleClick(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
+  async doubleClick(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.doubleClick);
     const highlightConfig = await elementHighlight.getElementHighlightData("doubleClick");
 
@@ -101,12 +101,12 @@ export class UserInteraction {
       await Promise.all([
         expect(element).toBeDisplayed({
           wait: timeout,
-          interval: GLOBAL_WAIT_INTERVAL,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
         }),
         expect(element).toBeEnabled({
           wait: timeout,
-          interval: GLOBAL_WAIT_INTERVAL,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
         })
       ]);
@@ -128,7 +128,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.rightClick(elem);
    */
-  async rightClick(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
+  async rightClick(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.rightClick);
     const highlightConfig = await elementHighlight.getElementHighlightData("rightClick");
 
@@ -139,12 +139,12 @@ export class UserInteraction {
       await Promise.all([
         expect(element).toBeDisplayed({
           wait: timeout,
-          interval: GLOBAL_WAIT_INTERVAL,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
         }),
         expect(element).toBeEnabled({
           wait: timeout,
-          interval: GLOBAL_WAIT_INTERVAL,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
         })
       ]);
@@ -420,7 +420,7 @@ export class UserInteraction {
    * await nonUi5.userInteraction.scrollToElement(elem, alignment);
    */
 
-  async scrollToElement(elementOrSelector: Element | string, alignment: AlignmentOptions | AlignmentValues = "center", timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
+  async scrollToElement(elementOrSelector: Element | string, alignment: AlignmentOptions | AlignmentValues = "center", timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.scrollToElement);
     let options = {};
 
