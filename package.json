@@ -34,8 +34,9 @@
     "generate-types": "ts-node ./src/bin/typesGenerator",
     "serve-docs": "npm run generate-docs && mkdocs serve",
     "deploy-docs": "npm run generate-docs && mkdocs gh-deploy --force",
-    "build": "node src/scripts/locators/qmateLocatorSrc/build.js && npx tsc",
-    "build:dev": "node src/scripts/locators/qmateLocatorSrc/build.js && npx tsc --watch",
+    "build": "npm run build:locator  && npx tsc",
+    "build:dev": "npm run build:locator && npx tsc --watch",
+    "build:locator":  "node src/scripts/locators/qmateLocatorSrc/build.js"
     "test:authenticator:staticLogin:custom": "npx wdio ./test/authenticator/staticLogin/configCustom.js",
     "test:authenticator:staticLogin:customViaConfig": "npx wdio ./test/authenticator/staticLogin/configCustomViaConfig.js",
     "test:authenticator:staticLogin:fiori": "npx wdio ./test/authenticator/staticLogin/configFiori.js",
