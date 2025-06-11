@@ -8,6 +8,7 @@ import ErrorHandler from "../../helper/errorHandler";
 import elementHighlight from "../../helper/elementHighlight";
 import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
 import { validateValue } from "../../helper/inputValidation";
+import { GLOBAL_WAIT_INTERVAL, GLOBAL_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class userInteraction
@@ -27,7 +28,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.click(elem);
    */
-  async click(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async click(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.click);
     const highlightConfig = await elementHighlight.getElementHighlightData("click");
 
@@ -38,12 +39,12 @@ export class UserInteraction {
       await Promise.all([
         expect(element).toBeDisplayed({
           wait: timeout,
-          interval: 100,
+          interval: GLOBAL_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
         }),
         expect(element).toBeEnabled({
           wait: timeout,
-          interval: 100,
+          interval: GLOBAL_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
         })
       ]);
@@ -89,7 +90,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.doubleClick(elem);
    */
-  async doubleClick(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async doubleClick(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.doubleClick);
     const highlightConfig = await elementHighlight.getElementHighlightData("doubleClick");
 
@@ -100,12 +101,12 @@ export class UserInteraction {
       await Promise.all([
         expect(element).toBeDisplayed({
           wait: timeout,
-          interval: 100,
+          interval: GLOBAL_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
         }),
         expect(element).toBeEnabled({
           wait: timeout,
-          interval: 100,
+          interval: GLOBAL_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
         })
       ]);
@@ -127,7 +128,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.rightClick(elem);
    */
-  async rightClick(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async rightClick(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.rightClick);
     const highlightConfig = await elementHighlight.getElementHighlightData("rightClick");
 
@@ -138,12 +139,12 @@ export class UserInteraction {
       await Promise.all([
         expect(element).toBeDisplayed({
           wait: timeout,
-          interval: 100,
+          interval: GLOBAL_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
         }),
         expect(element).toBeEnabled({
           wait: timeout,
-          interval: 100,
+          interval: GLOBAL_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
         })
       ]);
@@ -422,7 +423,7 @@ export class UserInteraction {
   async scrollToElement(elementOrSelector: Element | string, alignment: AlignmentOptions | AlignmentValues = "center", timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.scrollToElement);
     let options = {};
-  
+
     try {
       const element = await resolveCssSelectorOrElement(elementOrSelector, timeout);
       if (typeof alignment === "string") {

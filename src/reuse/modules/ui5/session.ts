@@ -2,6 +2,7 @@
 
 import { VerboseLoggerFactory, InactiveLogger, ActiveLogger } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
+import { GLOBAL_WAIT_INTERVAL, GLOBAL_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class session
@@ -293,11 +294,7 @@ export class Session {
           usernameField = await $(authenticator.usernameFieldSelector);
           passwordField = await $(authenticator.passwordFieldSelector);
           logonField = await $(authenticator.logonButtonSelector);
-          return (
-            (await usernameField.isDisplayedInViewport()) &&
-            (await passwordField.isDisplayedInViewport()) &&
-            (await logonField.isDisplayedInViewport())
-          );
+          return (await usernameField.isDisplayedInViewport()) && (await passwordField.isDisplayedInViewport()) && (await logonField.isDisplayedInViewport());
         },
         {
           timeout: 30000,
@@ -334,9 +331,9 @@ export class Session {
     }
   }
 
-  private async _clickSignOut(timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  private async _clickSignOut(timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this._clickSignOut);
-    
+
     async function scrollAndClickLogoutOld() {
       const selector = {
         elementProperties: {
@@ -349,14 +346,14 @@ export class Session {
       await ui5.userInteraction.scrollToElement(selector, 0, "end", 500);
       await ui5.userInteraction.click(selector, 0, 500);
     }
-    
+
     async function scrollAndClickLogoutNew() {
       // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
       const selector = ">>>.ui5-user-menu-sign-out-btn";
       await nonUi5.userInteraction.scrollToElement(selector, "end", 500);
       await nonUi5.userInteraction.click(selector, 500);
     }
-    
+
     // attempt clicking both old and new logout buttons
     await browser.waitUntil(
       async () => {
@@ -370,8 +367,8 @@ export class Session {
       },
       {
         timeout: timeout,
-        timeoutMsg: `Could not click Sign out button in ${+timeout/1000}s`,
-        interval: 100
+        timeoutMsg: `Could not click Sign out button in ${+timeout / 1000}s`,
+        interval: GLOBAL_WAIT_INTERVAL
       }
     );
   }

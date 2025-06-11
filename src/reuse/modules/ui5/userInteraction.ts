@@ -4,6 +4,7 @@ import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { AlignmentOptions, AlignmentValues } from "../types";
 import ErrorHandler from "../../helper/errorHandler";
+import { GLOBAL_WAIT_INTERVAL } from "../constants";
 
 /**
  * @class userInteraction
@@ -593,7 +594,7 @@ export class UserInteraction {
           {
             timeout: timeout,
             timeoutMsg: "Menu Item not clickable after " + timeout / 1000 + "s",
-            interval: 100
+            interval: GLOBAL_WAIT_INTERVAL
           }
         );
         

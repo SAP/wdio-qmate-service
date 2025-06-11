@@ -158,7 +158,7 @@ var LibScripts = function () {
       }, {
         timeout: browser.config.waitForUI5Timeout,
         timeoutMsg: `Timeout of ${browser.config.waitForUI5Timeout / 1000}s reached, UI5 libraries did not load`,
-        interval: 100
+        interval: GLOBAL_WAIT_INTERVAL
       });
 
       var mScriptParams = {};
@@ -285,7 +285,7 @@ var LibScripts = function () {
     }, {
       timeout: finalTimeout,
       timeoutMsg: `uiControlExecuteLocator(): No visible elements found with selector: ${util.formatter.stringifyJSON(ui5Selector)} in ${finalTimeout / 1000}s`,
-      interval: 100
+      interval: GLOBAL_WAIT_INTERVAL
     });
     if (elems && Array.isArray(elems) && elems.length > 0 &&
         index !== null && index !== undefined && index < elems.length) {

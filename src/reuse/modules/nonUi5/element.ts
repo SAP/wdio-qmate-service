@@ -2,6 +2,7 @@ import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
+import { GLOBAL_WAIT_INTERVAL } from "../constants";
 /**
  * @class element
  * @memberof nonUi5
@@ -594,7 +595,7 @@ export class ElementModule {
       },
       {
         timeout: timeout,
-        interval: 100,
+        interval: GLOBAL_WAIT_INTERVAL,
         timeoutMsg: elemsCount === 0 ? `Timeout reached. No element with passed selector found after ${+timeout / 1000}s.` : `Timeout reached. Page is still loading after ${+timeout / 1000}s.`
       }
     );

@@ -4,6 +4,7 @@ import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
 import ErrorHandler from "../../helper/errorHandler";
+import { GLOBAL_WAIT_INTERVAL, GLOBAL_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class assertion
@@ -119,8 +120,8 @@ export class Assertion {
           return isPresent && isDisplayed;
         },
         {
-          interval: 100,
-          timeout: 30000,
+          interval: GLOBAL_WAIT_INTERVAL,
+          timeout: GLOBAL_WAIT_TIMEOUT,
           timeoutMsg: "Function 'expectToBeVisible' failed. Timeout by waiting for element to be visible."
         }
       );

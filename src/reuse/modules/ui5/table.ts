@@ -3,6 +3,7 @@
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 import { Ui5Selector, Ui5ControlMetadata } from "./types/ui5.types";
+import { GLOBAL_WAIT_INTERVAL } from "../constants";
 
 /**
  * @class table
@@ -75,7 +76,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort button not clickable",
-          interval: 100
+          interval: GLOBAL_WAIT_INTERVAL
         }
       );
     }
@@ -138,7 +139,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort button not clickable",
-          interval: 100
+          interval: GLOBAL_WAIT_INTERVAL
         }
       );
     }
@@ -595,7 +596,7 @@ export class Table {
           {
             timeout: timeout,
             timeoutMsg: "Table could not be resolved",
-            interval: 100
+            interval: GLOBAL_WAIT_INTERVAL
           }
         );
         return selectors[index];
@@ -704,7 +705,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Column not clickable",
-          interval: 100
+          interval: GLOBAL_WAIT_INTERVAL
         }
       );
     } else if (!tableSelector) {
@@ -721,7 +722,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Column not clickable",
-          interval: 100
+          interval: GLOBAL_WAIT_INTERVAL
         }
       );
     } else if (typeof tableSelector === "object") {
@@ -738,7 +739,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Column not clickable",
-          interval: 100
+          interval: GLOBAL_WAIT_INTERVAL
         }
       );
     }
@@ -786,7 +787,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort indicator not found",
-          interval: 100
+          interval: GLOBAL_WAIT_INTERVAL
         }
       );
     } else if (!tableSelector) {
@@ -803,7 +804,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort indicator not found",
-          interval: 100
+          interval: GLOBAL_WAIT_INTERVAL
         }
       );
     } else if (typeof tableSelector === "object") {
@@ -821,7 +822,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort indicator not found",
-          interval: 100
+          interval: GLOBAL_WAIT_INTERVAL
         }
       );
     }
