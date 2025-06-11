@@ -26,6 +26,7 @@ export class Table {
   private static readonly COLUMN_LIST_ITEM_METADATA: Ui5ControlMetadata = "sap.m.ColumnListItem";
   private static readonly TABLE_ROW_METADATA: Ui5ControlMetadata = "sap.ui.table.Row";
 
+  private static readonly CHECKBOX_METADATA: Ui5ControlMetadata = "sap.m.CheckBox";
   private static readonly SUPPORTED_TABLES_METADATA: Array<Ui5ControlMetadata> = [Table.SMART_TABLE_METADATA, Table.TABLE_METADATA, Table.UI_TABLE_METADATA];
   // =================================== SORTING ===================================
   /**
@@ -319,7 +320,7 @@ export class Table {
     return rowSelector[0]; // Return the first selector as we expect only one row to match the index
   }
 
-  async getAllColumnValuesByName(tableSelectorOrId: Ui5Selector | string, columnName: string, scrollingEnabled: boolean): Promise<Array<string>> {
+  private async getAllColumnValuesByName(tableSelectorOrId: Ui5Selector | string, columnName: string, scrollingEnabled: boolean): Promise<Array<string>> {
     this.vlf.initLog(this.getAllColumnValuesByName);
 
     const constructedTableSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
@@ -367,7 +368,7 @@ export class Table {
 
     const checkBoxSelector = {
       elementProperties: {
-        metadata: "sap.m.CheckBox"
+        metadata: Table.CHECKBOX_METADATA
       },
       parentProperties: {
         metadata: Table.COLUMN_LIST_ITEM_METADATA,
@@ -393,7 +394,7 @@ export class Table {
 
     const checkBoxSelector = {
       elementProperties: {
-        metadata: "sap.m.CheckBox"
+        metadata: Table.CHECKBOX_METADATA
       },
       parentProperties: parentSelector.elementProperties
     };
@@ -423,10 +424,10 @@ export class Table {
 
     const checkBoxSelector = {
       elementProperties: {
-        metadata: "sap.m.CheckBox"
+        metadata: Table.CHECKBOX_METADATA
       },
       parentProperties: {
-        metadata: "sap.m.ColumnListItem",
+        metadata: Table.COLUMN_LIST_ITEM_METADATA,
         ancestorProperties: ancestorSelector.elementProperties
       }
     };
@@ -456,7 +457,7 @@ export class Table {
 
     const checkBoxSelector = {
       elementProperties: {
-        metadata: "sap.m.CheckBox"
+        metadata: Table.CHECKBOX_METADATA
       },
       parentProperties: parentSelector.elementProperties
     };
@@ -813,7 +814,7 @@ export class Table {
       case "ui5CheckBox":
         return {
           elementProperties: {
-            metadata: "sap.m.CheckBox"
+            metadata: Table.CHECKBOX_METADATA
           },
           parentProperties: rowSelector.elementProperties
         };
@@ -830,76 +831,6 @@ export class Table {
         throw new Error("No selectable CheckBox, RadioButton, or Css element found for the row.");
     }
   }
-
-  // private async _findAndSelectRowByValuesWithGlobalIndex(tableSelectorOrId: Ui5Selector | string, values: string[], globalIndex: number): Promise<boolean> {
-  //   const vl = this.vlf.initLog(this._findAndSelectRowByValuesWithGlobalIndex);
-
-  //   const constructedTableSelector = await this._constructTableSelector(tableSelectorOrId);
-  //   const tableId = constructedTableSelector.elementProperties.id;
-
-  //   const totalRows = await this.getTotalNumberOfRows(constructedTableSelector);
-
-  //   const getVisibleRowsCount = async () => {
-  //     return util.browser.executeScript((tableId: string) => {
-  //       const table = sap.ui.getCore().getElementById(tableId);
-  //       const innerTable = table.getTable ? table.getTable() : table;
-  //       const items = innerTable.getItems ? innerTable.getItems() : innerTable.getRows();
-  //       return items.length;
-  //     }, tableId);
-  //   };
-
-  //   const visibleRowsCount = await getVisibleRowsCount();
-  //   let globalMatchIndex = 0;
-  //   let found = false;
-
-  //   for (let firstVisible = 0; firstVisible < totalRows; firstVisible += visibleRowsCount) {
-  //     // Scroll to the current page
-  //     await util.browser.executeScript(
-  //       (tableId: string, firstVisible: number) => {
-  //         const table = sap.ui.getCore().getElementById(tableId);
-  //         const innerTable = table.getTable ? table.getTable() : table;
-  //         if (typeof innerTable.setFirstVisibleRow === "function") {
-  //           innerTable.setFirstVisibleRow(firstVisible);
-  //         }
-  //       },
-  //       tableId,
-  //       firstVisible
-  //     );
-  //     // Wait for UI to update
-  //     await new Promise((r) => setTimeout(r, 150));
-
-  //     // Get visible matching row IDs on this page
-  //     const visibleRowSelectors: Array<Ui5Selector> = await this.getSelectorsForRowsByValues(constructedTableSelector, values);
-  //     if (visibleRowSelectors && visibleRowSelectors.length > 0) {
-  //       for (let i = 0; i < visibleRowSelectors.length; i++) {
-  //         if (globalMatchIndex === globalIndex) {
-  //           // Found the desired row, select it
-  //           const selectorType = await this._getSelectorTypeForRowSelection(visibleRowSelectors[i]);
-  //           const selectionSelector = this._buildRowSelectionSelector(selectorType, visibleRowSelectors[i]);
-
-  //           switch (selectorType) {
-  //             case "ui5CheckBox":
-  //             case "ui5RadioButton":
-  //               await ui5.element.waitForAll(visibleRowSelectors[i]);
-  //               await ui5.userInteraction.check(selectionSelector);
-  //               break;
-  //             case "cssItem":
-  //               await nonUi5.element.waitForAll(selectionSelector);
-  //               await this._checkCssItem(selectionSelector);
-  //               break;
-  //             default:
-  //               throw new Error("No selectable element found for the row.");
-  //           }
-  //           found = true;
-  //           break;
-  //         }
-  //         globalMatchIndex++;
-  //       }
-  //     }
-  //     if (found) break;
-  //   }
-  //   return found;
-  // }
 
   // TODO: Move to separate public function under nonUi5.userInteraction.check
   private async _checkCssItem(selectionSelector: CssSelector) {
