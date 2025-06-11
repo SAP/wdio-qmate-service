@@ -1,4 +1,5 @@
 "use strict";
+const { validateChecked } = require("./helper");
 
 const tableSelector = {
   elementProperties: {
@@ -47,15 +48,10 @@ describe("table - selectRowByIndex - demo kit - index", function () {
 describe("table - selectRowByIndex - demo kit - already selected row remains selected", function () {
   const rowIndex = 0;
 
-  async function validateChecked() {
-    const isSelected = await ui5.element.getPropertyValue(checkBoxSelector("/Products*15)"), "selected");
-    await common.assertion.expectEqual(isSelected, true);
-  }
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
     await ui5.table.selectRowByIndex(tableSelector, rowIndex);
-    await validateChecked();
+    await validateChecked(checkBoxSelector("/Products*15)"));
   });
 
   it("Execution", async function () {
@@ -63,17 +59,12 @@ describe("table - selectRowByIndex - demo kit - already selected row remains sel
   });
 
   it("Verification", async function () {
-    await validateChecked();
+    await validateChecked(checkBoxSelector("/Products*15)"));
   });
 });
 
 describe("table - selectRowByIndex - demo kit - passing id", function () {
   const rowIndex = 0;
-
-  async function validateChecked() {
-    const isSelected = await ui5.element.getPropertyValue(checkBoxSelector("/Products*15)"), "selected");
-    await common.assertion.expectEqual(isSelected, true);
-  }
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
@@ -84,6 +75,6 @@ describe("table - selectRowByIndex - demo kit - passing id", function () {
   });
 
   it("Verification", async function () {
-    await validateChecked();
+    await validateChecked(checkBoxSelector("/Products*15)"));
   });
 });
