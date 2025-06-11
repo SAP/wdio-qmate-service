@@ -6,10 +6,6 @@ export class ControlFinder {
     return ControlFinder.retrieveValidUI5Controls(nodes);
   }
 
-  private static isInt(value: any): boolean {
-    return !isNaN(value) && (parseFloat(value) | 0) === parseFloat(value);
-  }
-
   private static retrieveNodesFromBody(selector: UI5Selector, rootElement: HTMLElement): Element[] {
     // build smart css selector if possible
     let cssSelector = "*";
