@@ -3,7 +3,7 @@ import { BaseFilter } from "./BaseFilter";
 import { ElementFilter } from "./ElementFilter";
 
 export class NextSiblingFilter extends BaseFilter {
-  public _doCheckSingle(control: UI5Control): boolean {
+  public doCheckSingle(control: UI5Control): boolean {
     const nextControl = UI5ControlHandler.findPrevNextControl(control, true);
     if (!nextControl) {
       return false;

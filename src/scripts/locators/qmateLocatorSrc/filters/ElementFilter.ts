@@ -10,7 +10,7 @@ import { BaseFilter } from "./BaseFilter";
 import { FilterFactory } from "../utils/FilterFactory";
 
 export class ElementFilter extends BaseFilter {
-  protected _doFiltering(controls: UI5Control[]): UI5Control[] {
+  protected doFiltering(controls: UI5Control[]): UI5Control[] {
     this.checkElementProperties();
 
     let filteredControls = this.filterFactory.getInstance(PropertiesFilter, this.elementProperties).filter(controls);
@@ -20,7 +20,7 @@ export class ElementFilter extends BaseFilter {
     return filteredControls;
   }
 
-  public _doCheckSingle(control: UI5Control): boolean {
+  public doCheckSingle(control: UI5Control): boolean {
     this.checkElementProperties();
 
     let pass = this.filterFactory.getInstance(PropertiesFilter, this.elementProperties).checkSingle(control);

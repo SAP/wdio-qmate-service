@@ -3,7 +3,7 @@ import { BaseFilter } from "./BaseFilter";
 import { ElementFilter } from "./ElementFilter";
 
 export class ChildFilter extends BaseFilter {
-  public _doCheckSingle(control: UI5Control): boolean {
+  public doCheckSingle(control: UI5Control): boolean {
     const element = document.getElementById(control.getId());
     if (!element) {
       return false;
