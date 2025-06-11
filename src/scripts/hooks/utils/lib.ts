@@ -3,7 +3,7 @@
 
 // @ts-nocheck
 
-const GLOBAL_DEFAULT_WAIT_TIMEOUT = require("../../../reuse/modules/constants");
+const { GLOBAL_DEFAULT_WAIT_TIMEOUT, GLOBAL_DEFAULT_WAIT_INTERVAL } = require("../../../reuse/modules/constants");
 var clientsidescripts = require("../../clientsideUI5scripts");
 
 function isEmptyObjectOrUndefined(obj) {
