@@ -73,7 +73,7 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.doubleClick(selector);
    */
-  async doubleClick(selector: any, index = 0, timeout: number = ) {
+  async doubleClick(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.doubleClick);
     let elem = null;
     await browser.waitUntil(
@@ -106,7 +106,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await ui5.userInteraction.rightClick(elem);
    */
-  async rightClick(selector: any, index = 0, timeout: number = ) {
+  async rightClick(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.rightClick);
     let elem = null;
     await browser.waitUntil(
@@ -141,7 +141,7 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clickTab(selector);
    */
-  async clickTab(selector: any, index = 0, timeout: number = ) {
+  async clickTab(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickTab);
     await util.function.retry(
       async (selector: any, index: number, timeout: number) => {
@@ -169,7 +169,7 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clickListItem(selector);
    */
-  async clickListItem(selector: any, index = 0, timeout: number = ) {
+  async clickListItem(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickListItem);
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
     await ui5.control.execute(function (control: any, done: Function) {
@@ -190,7 +190,7 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.check(selector);
    */
-  async check(selector: any, index = 0, timeout: number = ) {
+  async check(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.check);
 
     try {
@@ -214,7 +214,7 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.uncheck(selector);
    */
-  async uncheck(selector: any, index = 0, timeout: number = ) {
+  async uncheck(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.uncheck);
 
     try {
@@ -240,7 +240,7 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.fill(selector, "My Value");
    */
-  async fill(selector: any, value: string | number, index = 0, timeout: number = ) {
+  async fill(selector: any, value: string | number, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.fill);
     vl.log(`Filling with ${value}`);
 
@@ -287,7 +287,7 @@ export class UserInteraction {
    */
 
   //TODO remove clearHelper and use clear
-  async clear(selector: any, index = 0, timeout: number = ) {
+  async clear(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clear);
     await this._clearHelper(selector, index, timeout);
   }
@@ -318,7 +318,7 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clearAndFill(selector, "My Value");
    */
-  async clearAndFill(selector: any, value: string | number, index = 0, timeout: number = ) {
+  async clearAndFill(selector: any, value: string | number, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clearAndFill);
     if (typeof value === "number" || typeof value === "string" || typeof value === "boolean") {
       await this.clear(selector, index, timeout);
@@ -375,7 +375,7 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clearSmartFieldInput(selector);
    */
-  async clearSmartFieldInput(selector: any, index = 0, timeout: number = ) {
+  async clearSmartFieldInput(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clearSmartFieldInput);
     await ui5.userInteraction.clear(selector, index, timeout);
   }
@@ -390,7 +390,7 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clearAndFillSmartFieldInput(selector, "My Value");
    */
-  async clearAndFillSmartFieldInput(selector: any, value: string, index = 0, timeout: number = ) {
+  async clearAndFillSmartFieldInput(selector: any, value: string, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clearAndFillSmartFieldInput);
     const id = await ui5.element.getId(selector, index, timeout);
     const elem = await nonUi5.element.getByCss(`input[id*='${id}']`);
@@ -552,7 +552,7 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.selectFromTab(selector);
    */
-  async selectFromTab(selector: any, value: string, index: number = 0, timeout: number = ) {
+  async selectFromTab(selector: any, value: string, index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.selectFromTab);
     await util.function.retry(
       async (selector: any, index: number, timeout: number) => {
@@ -621,7 +621,7 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.mouseOverElement(selector);
    */
-  async mouseOverElement(selector: any, index = 0, timeout: number = ) {
+  async mouseOverElement(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.mouseOverElement);
     let elem;
     try {
@@ -656,7 +656,7 @@ export class UserInteraction {
    * };
    * await nonUi5.userInteraction.scrollToElement(selector, 0, alignment);
    */
-  async scrollToElement(selector: any, index = 0, alignment: AlignmentOptions | AlignmentValues = "center", timeout: number = ) {
+  async scrollToElement(selector: any, index = 0, alignment: AlignmentOptions | AlignmentValues = "center", timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.scrollToElement);
     let options = {};
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -682,7 +682,7 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.selectAll(selector);
    */
-  async selectAll(selector: any, index = 0, timeout: number = ) {
+  async selectAll(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.selectAll);
     if (selector !== undefined) {
       await this.click(selector, index, timeout);
@@ -749,7 +749,7 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.resetSearch(selector);
    */
-  async resetSearch(selector: any, index = 0, timeout: number = ) {
+  async resetSearch(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.resetSearch);
     const id = await ui5.element.getId(selector, index, timeout);
     const resetButton = await nonUi5.element.getByCss("[id='" + id + "-reset']", 0, timeout);
@@ -758,7 +758,7 @@ export class UserInteraction {
 
   // =================================== HELPER ===================================
   //TODO: rework function in its whole. Why don't we use the clear function from native wdio here?
-  private async _clearHelper(selector: any, index = 0, timeout: number = ) {
+  private async _clearHelper(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     let id, elem;
     if (selector) {
       await ui5.userInteraction.click(selector, index, timeout);
@@ -841,7 +841,7 @@ export class UserInteraction {
   //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
   //  * @example await ui5.userInteraction.dragAndDrop(sourceSelector, targetSelector);
   //  */
-  // this.dragAndDrop = async function (sourceSelector, targetSelector, sourceIndex = 0, targetIndex = 0, duration = 3000, timeout: number = ) {
+  // this.dragAndDrop = async function (sourceSelector, targetSelector, sourceIndex = 0, targetIndex = 0, duration = 3000, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
   //   const sourceElement = await ui5.element.getDisplayed(sourceSelector, sourceIndex, timeout);
   //   const targetElement = await ui5.element.getDisplayed(targetSelector, targetIndex, timeout);
   //   await nonUi5.userInteraction.dragAndDrop(sourceElement, targetElement);

@@ -416,7 +416,7 @@ export class ElementModule {
    * @returns {boolean} Returns true or false.
    * @example await nonUi5.element.isPresentByCss(".button01");
    */
-  async isPresentByCss(css: string, index: number = 0, timeout: number = ) {
+  async isPresentByCss(css: string, index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.isPresentByCss);
     try {
       const elems = await this.getAll(css, timeout);
@@ -436,7 +436,7 @@ export class ElementModule {
    * @returns {boolean}
    * @example await nonUi5.element.isPresentByXPath(".//*[text()='Create']");
    */
-  async isPresentByXPath(xpath: string, index: number = 0, timeout: number = ): Promise<boolean> {
+  async isPresentByXPath(xpath: string, index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT): Promise<boolean> {
     const vl = this.vlf.initLog(this.isPresentByXPath);
     return this.isPresentByCss(xpath, index, timeout);
   }

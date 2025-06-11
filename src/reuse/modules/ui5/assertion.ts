@@ -160,7 +160,7 @@ export class Assertion {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.assertion.expectValueToBeDefined(selector);
    */
-  async expectValueToBeDefined(selector: any, index = 0, timeout: number = ) {
+  async expectValueToBeDefined(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.expectValueToBeDefined);
     const value = await ui5.element.getValue(selector, index, timeout);
     vl.log(`Expecting ${value} to be defined`);
@@ -239,7 +239,7 @@ export class Assertion {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.assertion.expectCssPropertyValueToBe(selector, "color", "rgb(255, 0, 0)");
    */
-  async expectCssPropertyValueToBe(selector: any, cssProperty: string, compareValue: string, index = 0, timeout: number = ) {
+  async expectCssPropertyValueToBe(selector: any, cssProperty: string, compareValue: string, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.expectCssPropertyValueToBe);
     const value = await ui5.element.getCssPropertyValue(selector, cssProperty, index, timeout);
     return common.assertion.expectEqual(value, compareValue);
@@ -412,7 +412,7 @@ export class Assertion {
    * @param {Number} [loadPropertyTimeout = 10000] - The timeout to wait for a specific property to have the given compare value.
    * @example await ui5.assertion.expectToBeVisibleInViewport(selector);
    */
-  async expectToBeVisibleInViewport(selector: any, index = 0, timeout: number = ) {
+  async expectToBeVisibleInViewport(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.expectToBeVisibleInViewport);
     let elem: Element;
     try {
@@ -444,7 +444,7 @@ export class Assertion {
    * @param {Number} [timeout=30000] - The timeout to wait (ms). Recommendation is to lower the timeout since the element is not expected to show up.
    * @example await ui5.assertion.expectToBeNotVisible(selector, 0, 5000);
    */
-  async expectToBeNotVisible(selector: any, index = 0, timeout: number = ) {
+  async expectToBeNotVisible(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.expectToBeNotVisible);
     try {
       const isVisible = await ui5.element.isVisible(selector, index, timeout);
@@ -463,7 +463,7 @@ export class Assertion {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.assertion.expectMessageToastTextToBe(text);
    */
-  async expectMessageToastTextToBe(text: string, timeout: number = ) {
+  async expectMessageToastTextToBe(text: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.expectMessageToastTextToBe);
     if (!text) {
       this.ErrorHandler.logException(new Error("Please provide the expected text as argument."));
