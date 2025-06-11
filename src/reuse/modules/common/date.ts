@@ -189,15 +189,28 @@ export class DateModule {
    * @example const date = await common.date.calculateWithTime("today", "10:00");
    */
   calculateWithTime(date?: CalculateDatesType, time?: string): Date {
+    const vl = this.vlf.initLog(this.calculateWithTime);
     if (!date) {
       return new Date();
     }
-    const result = this.calculate(date, DateFormats.OBJECT) as Date;
-    result.setHours(0, 0, 0, 0); // Reset time to midnight
-    return time ? this._setTime(result, time) : result;
+    const startOfDay = this._calculateStartOfDay(date);
+    return time
+      ? this._updateDateWithTime(startOfDay, time)
+      : startOfDay;
   }
 
-  private _setTime(date: Date, time: string): Date {
+  private _calculateStartOfDay(date: CalculateDatesType): Date {
+    let calculatedDate: Date;
+    try {
+      calculatedDate = this.calculate(date, DateFormats.OBJECT) as Date;
+    } catch (error) {
+      throw new Error("Function 'calculateWithTime' failed: Please provide a valid date string as first argument.");
+    }
+    calculatedDate.setHours(0, 0, 0, 0);
+    return calculatedDate;
+  }
+
+  private _updateDateWithTime(date: Date, time: string): Date {
     if (!this._isValidTime(time)) {
       throw new Error("Function 'calculateWithTime' failed: Please provide a valid time string as a second argument.");
     }

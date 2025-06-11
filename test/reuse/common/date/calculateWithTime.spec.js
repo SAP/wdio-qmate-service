@@ -130,10 +130,20 @@ describe("date - calculateWithTime - 'nextYear' - '15:20:40'", function() {
 });
 
 describe("date - calculateWithTime - 'nextYear' - 'invalid-time' - error", function() {
-  let dateAct;
-
   it("Execution & Verification", function() {
     expect(() => common.date.calculateWithTime("nextYear", "invalid-time")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as a second argument.");
+  });
+});
+
+describe("date - calculateWithTime - 'nextYear' - 'invalid-time (15:78:21)' - error", function() {
+  it("Execution & Verification", function() {
+    expect(() => common.date.calculateWithTime("nextYear", "15:78:21")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as a second argument.");
+  });
+});
+
+describe("date - calculateWithTime - 'invalid-date' - '15:23:23' - error", function() {
+  it("Execution & Verification", function() {
+    expect(() => common.date.calculateWithTime("invalid-date", "15:23:23")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid date string as first argument.");
   });
 });
 
