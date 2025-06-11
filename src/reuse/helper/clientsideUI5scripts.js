@@ -180,60 +180,6 @@ functions.getControlPropertyBinding = function (mScriptParams) {
   return aBindingInfos;
 };
 
-functions.loadUI5CoreAndAutowaiter = function () {
-  try {
-    if (
-      window.sap &&
-      window.sap.ui.getCore &&
-      window.sap.ui.getCore() &&
-      !window.sap.ui.getCore().isLocked() &&
-      !window.sap.ui.getCore().getUIDirty() &&
-      document.readyState === "complete"
-    ) {
-      sap.ui.require([
-        "sap/ui/test/_ControlFinder",
-        "sap/ui/test/RecordReplay",
-        "sap/base/Log"
-      ], function (_ControlFinder, RecordReplay, Log) {
-        // Use log globally
-        window.Log = Log;
-        // Attach RecordReplay globally
-        if (RecordReplay) {
-          window.RecordReplay = RecordReplay;
-        } else {
-          window.RecordReplay = null;
-        }
-        //Workaround until I get multiple results
-        if (_ControlFinder) {
-          window._ControlFinder = _ControlFinder;
-        } else {
-          // _findElements
-          window._ControlFinder = null;
-        }
-      });
-    }
-    if (window.RecordReplay && window._ControlFinder && window.Log) {
-      return true;
-    }
-    return false;
-  } catch (oError) {
-    return false;
-  }
-};
-
-functions.loadUI5Page = function (mScriptParams) {
-  return window.RecordReplay.waitForUI5({
-    timeout: mScriptParams.waitForUI5Timeout,
-    interval: mScriptParams.waitForUI5PollingInterval
-  }).then(function () {
-    window.Log.warning("Finish loading");
-    // Can use also interactWithControl
-    return true;
-  }).catch(function (err) {
-    return false;
-  });
-};
-
 functions.waitForAngular = function (rootSelector, interval, callback) {
 
   var findBusyIndicator = function () {

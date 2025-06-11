@@ -2,6 +2,7 @@
 
 import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
+import { GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 import { Ui5Selector, Ui5SelectorWithOptions } from "./types/ui5.types";
 
 /**
@@ -44,7 +45,7 @@ export class Control {
    * @example await ui5.control.focus(selector);
    * @example await ui5.control.focus(selector, 0, 5000);
    */
-  async focus(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async focus(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
     const id = await elem.getAttribute("id");
     const focused = await browser.execute(function (id: string) {
