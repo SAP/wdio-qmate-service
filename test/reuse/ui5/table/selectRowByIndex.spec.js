@@ -24,7 +24,7 @@ describe("table - selectRowByIndex - demo kit - index", function () {
   });
 
   it("Execution (Index 0)", async function () {
-    let rowIndex = 0;
+    const rowIndex = 0;
     await ui5.table.selectRowByIndex(tableSelector, rowIndex);
   });
 
@@ -34,7 +34,7 @@ describe("table - selectRowByIndex - demo kit - index", function () {
   });
 
   it("Execution (Index 4)", async function () {
-    let rowIndex = 4;
+    const rowIndex = 4;
     await ui5.table.selectRowByIndex(tableSelector, rowIndex);
   });
 
@@ -45,7 +45,7 @@ describe("table - selectRowByIndex - demo kit - index", function () {
 });
 
 describe("table - selectRowByIndex - demo kit - already selected row remains selected", function () {
-  let rowIndex = 0;
+  const rowIndex = 0;
 
   async function validateChecked() {
     const isSelected = await ui5.element.getPropertyValue(checkBoxSelector("/Products*15)"), "selected");
@@ -68,7 +68,7 @@ describe("table - selectRowByIndex - demo kit - already selected row remains sel
 });
 
 describe("table - selectRowByIndex - demo kit - passing id", function () {
-  let rowIndex = 0;
+  const rowIndex = 0;
 
   async function validateChecked() {
     const isSelected = await ui5.element.getPropertyValue(checkBoxSelector("/Products*15)"), "selected");

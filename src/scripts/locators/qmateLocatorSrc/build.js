@@ -57,7 +57,7 @@ module.exports = {
 }
 
 async function _formatContent(wrappedContent) {
-  return await prettier.format(wrappedContent, {
+  return prettier.format(wrappedContent, {
     filepath: qmateLocatorPath
   });
 }
