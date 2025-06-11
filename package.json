@@ -1,6 +1,6 @@
 {
   "name": "@sap_oss/wdio-qmate-service",
-  "version": "2.19.0",
+  "version": "3.0.0",
   "author": "SAP SE",
   "types": "./@types/index.d.ts",
   "main": "./lib/index.js",
@@ -36,7 +36,7 @@
     "deploy-docs": "npm run generate-docs && mkdocs gh-deploy --force",
     "build": "npm run build:locator  && npx tsc",
     "build:dev": "npm run build:locator && npx tsc --watch",
-    "build:locator":  "node src/scripts/locators/qmateLocatorSrc/build.js",
+    "build:locator": "node src/scripts/locators/qmateLocatorSrc/build.js",
     "test:authenticator:staticLogin:custom": "npx wdio ./test/authenticator/staticLogin/configCustom.js",
     "test:authenticator:staticLogin:customViaConfig": "npx wdio ./test/authenticator/staticLogin/configCustomViaConfig.js",
     "test:authenticator:staticLogin:fiori": "npx wdio ./test/authenticator/staticLogin/configFiori.js",
