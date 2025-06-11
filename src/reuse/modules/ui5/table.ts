@@ -690,25 +690,7 @@ export class Table {
       }
     };
 
-    if (typeof tableSelector == "number") {
-      util.console.warn(`Usage of argument 'index' in function ${arguments.callee.caller.name} is deprecated. Please pass a valid table selector instead.`);
-      await browser.waitUntil(
-        async () => {
-          try {
-            await Promise.any([ui5.userInteraction.click(tableColumnSelector, tableSelector, 500), ui5.userInteraction.click(tableGridColumnSelector, tableSelector, 500)]);
-            return true;
-          } catch (error) {
-            // Ignore error and continue to next promise
-            return false;
-          }
-        },
-        {
-          timeout: timeout,
-          timeoutMsg: "Column not clickable",
-          interval: GLOBAL_WAIT_INTERVAL
-        }
-      );
-    } else if (!tableSelector) {
+    if (!tableSelector) {
       await browser.waitUntil(
         async () => {
           try {
@@ -772,25 +754,8 @@ export class Table {
     };
 
     let sortIndicator;
-    if (typeof tableSelector == "number") {
-      util.console.warn(`The usage of argument 'index' in function ${arguments.callee.caller.name} is deprecated. Please pass a valid table selector instead.`);
-      await browser.waitUntil(
-        async () => {
-          try {
-            sortIndicator = await Promise.any([ui5.element.getPropertyValue(tableColumnSelector, "sortIndicator", tableSelector, 500), this._getSortValueGridTable(tableGridColumnSelector, tableSelector)]);
-            return true;
-          } catch (error) {
-            // Ignore error and continue to next promise
-            return false;
-          }
-        },
-        {
-          timeout: timeout,
-          timeoutMsg: "Sort indicator not found",
-          interval: GLOBAL_WAIT_INTERVAL
-        }
-      );
-    } else if (!tableSelector) {
+
+    if (!tableSelector) {
       await browser.waitUntil(
         async () => {
           try {
