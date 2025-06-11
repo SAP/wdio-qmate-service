@@ -76,7 +76,6 @@ export class DateModule {
     const vl = this.vlf.initLog(this.pickWithTime);
     vl.log(`Picking date with time ${date} for selector ${selector}`);
     let id = await ui5.element.getId(selector);
-    console.log("ID:", id);
     if (selector.elementProperties.metadata === "sap.ui.core.Icon") {
       id = id.replace("-icon", "");
     }
