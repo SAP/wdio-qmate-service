@@ -2,7 +2,14 @@
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
-import { Ui5Selector, Ui5ControlMetadata } from "./types/ui5.types";
+import { TableHelper } from "../../helper/tableHelper";
+import { Ui5Selector, Ui5ControlMetadata, CssSelector } from "./types/ui5.types";
+
+type SelectorTypeForSelection = "ui5CheckBox" | "cssItem" | "ui5RadioButton" | "none";
+type SelectorDefinitionForSelection = {
+  type: SelectorTypeForSelection;
+  selector: string;
+};
 
 /**
  * @class table
@@ -15,8 +22,12 @@ export class Table {
   // =================================== CONSTANTS ===================================
   private static readonly SMART_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.comp.smarttable.SmartTable";
   private static readonly TABLE_METADATA: Ui5ControlMetadata = "sap.m.Table";
+  private static readonly UI_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.table.Table";
   private static readonly COLUMN_LIST_ITEM_METADATA: Ui5ControlMetadata = "sap.m.ColumnListItem";
+  private static readonly TABLE_ROW_METADATA: Ui5ControlMetadata = "sap.ui.table.Row";
 
+  private static readonly CHECKBOX_METADATA: Ui5ControlMetadata = "sap.m.CheckBox";
+  private static readonly SUPPORTED_TABLES_METADATA: Array<Ui5ControlMetadata> = [Table.SMART_TABLE_METADATA, Table.TABLE_METADATA, Table.UI_TABLE_METADATA];
   // =================================== SORTING ===================================
   /**
    * @function sortColumnAscending
@@ -147,7 +158,7 @@ export class Table {
     }
   }
 
-  // =================================== OPERATIONS ===================================
+  // =================================== GET OPERATIONS ===================================
   /**
    * @function getTotalNumberOfRows
    * @memberOf ui5.table
@@ -166,14 +177,14 @@ export class Table {
   async getTotalNumberOfRows(tableSelectorOrId: Ui5Selector | string): Promise<number> {
     this.vlf.initLog(this.getTotalNumberOfRows);
 
-    const ancestorSelector = await this._resolveTableSelectorOrId(tableSelectorOrId);
+    const ancestorSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
 
     const tableTitleSelector = {
       elementProperties: {
         metadata: "sap.m.Title"
       },
       parentProperties: {
-        metadata: "sap.m.OverflowToolbar",
+        metadata: "sap.m.*Toolbar",
         ancestorProperties: ancestorSelector.elementProperties
       }
     };
@@ -200,13 +211,140 @@ export class Table {
    * const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, ["value1", "value2"]);
    * const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, "value");
    **/
-  async getTotalNumberOfRowsByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>): Promise<number> {
+  async getTotalNumberOfRowsByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, enableHighlighting: boolean): Promise<number> {
     this.vlf.initLog(this.getTotalNumberOfRowsByValues);
 
-    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values);
+    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values, enableHighlighting);
     return rowSelectors.length;
   }
 
+  /**
+   * @function getSelectorsForRowsByValues
+   * @memberOf ui5.table
+   * @description Gets the selectors of rows in the table that contain the given values. If multiple values are provided, it only returns the selectors of rows that contain all of them.
+   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
+   * @param {String | Array<String>} values - The value(s) to match in the table rows.
+   * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable"
+   * await ui5.table.getSelectorsForRowsByValues(id, "February");
+   * @example const selector = {
+   *  elementProperties: {
+   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *    metadata: "sap.ui.comp.smarttable.SmartTable",
+   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   *  }
+   * };
+   * await ui5.table.getSelectorsForRowsByValues(selector, ["January", "2022"]);
+   */
+  async getSelectorsForRowsByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, enableHighlighting: boolean = true): Promise<Array<Ui5Selector>> {
+    this.vlf.initLog(this.getSelectorsForRowsByValues);
+
+    if (typeof values === "string") {
+      values = [values];
+    } else if (!Array.isArray(values)) {
+      this.ErrorHandler.logException(new Error("Invalid values provided. It should be either a string or an array of strings."));
+    }
+
+    const constructedTableSelector = await this._constructTableSelector(tableSelectorOrId);
+    const tableMetadata = constructedTableSelector.elementProperties.metadata;
+    const classCode = TableHelper.serializeClass();
+    let filteredRowIds = null;
+    try {
+      // =========================== BROWSER COMMAND ===========================
+      const browserCommand = `
+         ${classCode}
+          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
+          const items = TableHelper.getItems(table);
+          return await TableHelper.getIdsForItemsByCellValues(items, ${JSON.stringify(values)}, ${enableHighlighting});
+      `;
+      filteredRowIds = await util.browser.executeScript(browserCommand);
+      // ========================================================================
+    } catch (error) {
+      return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
+    }
+    if (filteredRowIds && filteredRowIds.length > 0) {
+      return this._constructRowSelector(filteredRowIds, tableMetadata);
+    } else {
+      return [];
+    }
+  }
+
+  /**
+   * @function getSelectorForRowByIndex
+   * @memberOf ui5.table
+   * @description Gets the selector of a row in the table by its index.
+   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
+   * @param {Number} index - The index of the item to open.
+   * @example const selector = {
+   *  elementProperties: {
+   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *    metadata: "sap.ui.comp.smarttable.SmartTable",
+   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   *  }
+   * };
+   * const rowSelector = await ui5.table.getSelectorForRowByIndex(selector, 0);
+   * @example id = "application-ReportingTask-run-component---ReportList--ReportingTable"
+   * const rowSelector = await ui5.table.getSelectorForRowByIndex(id, 0);
+   */
+  async getSelectorForRowByIndex(tableSelectorOrId: any, index: number): Promise<Ui5Selector> {
+    this.vlf.initLog(this.getSelectorForRowByIndex);
+
+    const constructedTableSelector = await this._constructTableSelector(tableSelectorOrId);
+    let filteredRowId: string;
+    const tableMetadata = constructedTableSelector.elementProperties.metadata;
+    const classCode = TableHelper.serializeClass();
+
+    try {
+      // =========================== BROWSER COMMAND ===========================
+      const browserCommand = `
+          ${classCode}
+          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
+          const items = TableHelper.getItems(table);
+
+          if (!items || !items[${index}]) return null;
+
+          const filteredItems = TableHelper.filterItemsWithoutTitle(items); 
+          const item = filteredItems[${index}];
+
+          return item?.getId?.();
+      `;
+      filteredRowId = await util.browser.executeScript(browserCommand);
+      // ========================================================================
+    } catch (error) {
+      return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
+    }
+
+    if (!filteredRowId) {
+      return this.ErrorHandler.logException(new Error(`No item found with index ${index}.`));
+    }
+    const rowSelector = this._constructRowSelector([filteredRowId], tableMetadata);
+    return rowSelector[0]; // Return the first selector as we expect only one row to match the index
+  }
+
+  private async getAllColumnValuesByName(tableSelectorOrId: Ui5Selector | string, columnName: string, scrollingEnabled: boolean): Promise<Array<string>> {
+    this.vlf.initLog(this.getAllColumnValuesByName);
+
+    const constructedTableSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
+    const tableMetadata = constructedTableSelector.elementProperties.metadata;
+
+    const classCode = TableHelper.serializeClass();
+    let values: Array<string> = [];
+    try {
+      // =========================== BROWSER COMMAND ===========================
+      const browserCommand = `
+        ${classCode}
+        const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
+        return await TableHelper.getAllColumnValuesByScrolling(table, "${columnName}", ${scrollingEnabled});
+      `;
+      values = await util.browser.executeScript(browserCommand);
+      // ========================================================================
+    } catch (error) {
+      return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
+    }
+
+    return values;
+  }
+
+  // =================================== SELECT OPERATIONS ===================================
   /**
    * @function selectRowByIndex
    * @memberOf ui5.table
@@ -226,11 +364,11 @@ export class Table {
   async selectRowByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
     this.vlf.initLog(this.selectRowByIndex);
 
-    const ancestorSelector = await this._resolveTableSelectorOrId(tableSelectorOrId);
+    const ancestorSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
 
     const checkBoxSelector = {
       elementProperties: {
-        metadata: "sap.m.CheckBox"
+        metadata: Table.CHECKBOX_METADATA
       },
       parentProperties: {
         metadata: Table.COLUMN_LIST_ITEM_METADATA,
@@ -241,6 +379,141 @@ export class Table {
     await ui5.userInteraction.check(checkBoxSelector, index);
   }
 
+  /**
+   * @function selectAllRows
+   * @memberOf ui5.table
+   * @description Selects all rows in the table.
+   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
+   * @example await ui5.table.selectAllRows("application-ReportingTask-run-component---ReportList--ReportingTable");
+   * await ui5.table.selectAllRows(selector);
+   */
+  async selectAllRows(tableSelectorOrId: Ui5Selector | string) {
+    this.vlf.initLog(this.selectAllRows);
+
+    const parentSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
+
+    const checkBoxSelector = {
+      elementProperties: {
+        metadata: Table.CHECKBOX_METADATA
+      },
+      parentProperties: parentSelector.elementProperties
+    };
+
+    await ui5.userInteraction.check(checkBoxSelector);
+  }
+
+  /**
+   * @function deselectRowByIndex
+   * @memberOf ui5.table
+   * @description Deselects a row in the table by its index.
+   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
+   * @example const selector = {
+   *  elementProperties: {
+   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *    metadata: "sap.ui.comp.smarttable.SmartTable",
+   *   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   *  }
+   * };
+   * await ui5.table.deselectRowByIndex(selector, 0);
+   * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+   * await ui5.table.deselectRowByIndex(id, 0);
+   */
+  async deselectRowByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
+    this.vlf.initLog(this.selectRowByIndex);
+    const ancestorSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
+
+    const checkBoxSelector = {
+      elementProperties: {
+        metadata: Table.CHECKBOX_METADATA
+      },
+      parentProperties: {
+        metadata: Table.COLUMN_LIST_ITEM_METADATA,
+        ancestorProperties: ancestorSelector.elementProperties
+      }
+    };
+
+    await ui5.userInteraction.uncheck(checkBoxSelector, index);
+  }
+
+  /**
+   * @function deselectAllRows
+   * @memberOf ui5.table
+   * @description Deselects all rows in the table.
+   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
+   * @example await ui5.table.deselectAllRows("application-ReportingTask-run-component---ReportList--ReportingTable");
+   * @example const selector = {
+   *  elementProperties: {
+   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *    metadata: "sap.ui.comp.smarttable.SmartTable",
+   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   *  }
+   * };
+   * await ui5.table.deselectAllRows(selector);
+   */
+  async deselectAllRows(tableSelectorOrId: Ui5Selector | string) {
+    this.vlf.initLog(this.selectAllRows);
+
+    const parentSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
+
+    const checkBoxSelector = {
+      elementProperties: {
+        metadata: Table.CHECKBOX_METADATA
+      },
+      parentProperties: parentSelector.elementProperties
+    };
+
+    await ui5.userInteraction.uncheck(checkBoxSelector);
+  }
+
+  /**
+   * @function selectRowByValues
+   * @memberOf ui5.table
+   * @description Selects a row in the table by matching value(s). If multiple rows match, selects the one at the given global index (across all pages).
+   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table.
+   * @param {String | Array<String>} values - The value(s) to match in the table rows.
+   * @param {Number} [index=0] - The global index of the matching row to select (across all pages).
+   * @example const selector = {
+   * elementProperties: {
+   *  viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   *  metadata: "sap.ui.comp.smarttable.SmartTable",
+   *  id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+   * }
+   * };
+   * await ui5.table.selectRowByValues(selector, ["value1", "value2"]);
+   * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+   * await ui5.table.selectRowByValues(id, "value", 1);
+   */
+  async selectRowByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, index: number = 0) {
+    const vl = this.vlf.initLog(this.selectRowByValues);
+
+    if (typeof values === "string") values = [values];
+
+    const constructedTableSelector = await this._constructTableSelector(tableSelectorOrId);
+    const visibleRowSelectors: Array<Ui5Selector> = await this.getSelectorsForRowsByValues(constructedTableSelector, values);
+
+    if (visibleRowSelectors.length === 0) {
+      return this.ErrorHandler.logException(new Error(`No row found with the provided values: ${values} at global index ${index}.`));
+    }
+
+    const selectorType = await this._getSelectorTypeForRowSelection(visibleRowSelectors[index]);
+    const selectionSelector = this._buildRowSelectionSelector(selectorType, visibleRowSelectors[index]);
+
+    switch (selectorType) {
+      case "ui5CheckBox":
+      case "ui5RadioButton":
+        await ui5.element.waitForAll(visibleRowSelectors[index]);
+        await ui5.userInteraction.check(selectionSelector);
+        break;
+      case "cssItem":
+        await nonUi5.element.waitForAll(selectionSelector);
+        await this._checkCssItem(selectionSelector);
+        break;
+      default:
+        throw new Error("No selectable element found for the row.");
+    }
+  }
+
+  // =================================== OPEN OPERATIONS ===================================
   /**
    * @function openItemByIndex
    * @memberOf ui5.table
@@ -283,10 +556,10 @@ export class Table {
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
    * await ui5.table.openItemByValues(id, "value");
    */
-  async openItemByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, index: number = 0) {
+  async openItemByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, index: number = 0, enableHighlighting: boolean) {
     this.vlf.initLog(this.openItemByValues);
 
-    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values);
+    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values, enableHighlighting);
     if (rowSelectors.length === 0) {
       return this.ErrorHandler.logException(new Error(`No items found with the provided values: ${values}.`));
     } else if (rowSelectors.length <= index) {
@@ -297,239 +570,8 @@ export class Table {
     }
   }
 
-  /**
-   * @function getSelectorsForRowsByValues
-   * @memberOf ui5.table
-   * @description Gets the selectors of rows in the table that contain the given values. If multiple values are provided, it only returns the selectors of rows that contain all of them.
-   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
-   * @param {string} values - The value(s) to match in the table rows.
-   * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable"
-   * await ui5.table.getSelectorsForRowsByValues(id, "February");
-   * @example const selector = {
-   *  elementProperties: {
-   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
-   *    metadata: "sap.ui.comp.smarttable.SmartTable",
-   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
-   *  }
-   * };
-   * await ui5.table.getSelectorsForRowsByValues(selector, ["January", "2022"]);
-   */
-  async getSelectorsForRowsByValues(tableSelector: Ui5Selector | string, values: string | Array<string>): Promise<Array<Ui5Selector>> {
-    this.vlf.initLog(this.getSelectorsForRowsByValues);
-
-    if (typeof values === "string") {
-      values = [values];
-    } else if (!Array.isArray(values)) {
-      this.ErrorHandler.logException(new Error("Invalid values provided. It should be either a string or an array of strings."));
-    }
-
-    const constructedTableSelector = await this._constructTableSelector(tableSelector);
-    let filteredRowIds;
-
-    try {
-      // =========================== BROWSER COMMAND ===========================
-      filteredRowIds = await util.browser.executeScript(
-        (constructedTableSelector: Ui5Selector, values: Array<string>, tableMetadata: Ui5ControlMetadata, smartTableMetadata: Ui5ControlMetadata) => {
-          const table = sap.ui.getCore().getElementById(constructedTableSelector.elementProperties?.id);
-          let items = [];
-
-          if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getItems !== undefined) {
-            items = table.getItems();
-          } else if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getRows !== undefined) {
-            items = table.getRows();
-          } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined && table.getTable().getItems !== undefined) {
-            items = table.getTable().getItems();
-          } else {
-            return undefined;
-          }
-
-          return items.filter((item: any) => values.every((val) => Object.values(item.getBindingContext().getObject()).includes(val))).map((filteredItems: any) => filteredItems.getId());
-        },
-        constructedTableSelector,
-        values,
-        Table.TABLE_METADATA,
-        Table.SMART_TABLE_METADATA
-      );
-      // ========================================================================
-    } catch (error) {
-      return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
-    }
-
-    if (filteredRowIds && filteredRowIds.length > 0) {
-      const rowsSelectors: Array<Ui5Selector> = [];
-
-      for (const id of filteredRowIds) {
-        const columnListItemSelector = {
-          elementProperties: {
-            metadata: Table.COLUMN_LIST_ITEM_METADATA,
-            id: id
-          }
-        };
-        rowsSelectors.push(columnListItemSelector);
-      }
-      return rowsSelectors;
-    } else {
-      return [];
-    }
-  }
-
-  /**
-   * @function getSelectorForRowByIndex
-   * @memberOf ui5.table
-   * @description Gets the selector of a row in the table by its index.
-   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
-   * @param {Number} index - The index of the item to open.
-   * @example const selector = {
-   *  elementProperties: {
-   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
-   *    metadata: "sap.ui.comp.smarttable.SmartTable",
-   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
-   *  }
-   * };
-   * const rowSelector = await ui5.table.getSelectorForRowByIndex(selector, 0);
-   * @example id = "application-ReportingTask-run-component---ReportList--ReportingTable"
-   * const rowSelector = await ui5.table.getSelectorForRowByIndex(id, 0);
-   */
-  async getSelectorForRowByIndex(tableSelector: any, index: number): Promise<Ui5Selector> {
-    this.vlf.initLog(this.getSelectorForRowByIndex);
-
-    const constructedTableSelector = await this._constructTableSelector(tableSelector);
-    let columnListItemId;
-
-    try {
-      // =========================== BROWSER COMMAND ===========================
-      columnListItemId = await util.browser.executeScript(
-        (constructedTableSelector: Ui5Selector, index: number, tableMetadata: Ui5ControlMetadata, smartTableMetadata: Ui5ControlMetadata) => {
-          const table = sap.ui.getCore().getElementById(constructedTableSelector.elementProperties?.id);
-          let items = [];
-
-          if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getItems !== undefined) {
-            items = table.getItems();
-          } else if (tableMetadata === constructedTableSelector.elementProperties.metadata && table.getRows !== undefined) {
-            items = table.getRows();
-          } else if (smartTableMetadata === constructedTableSelector.elementProperties.metadata && table.getTable !== undefined && table.getTable().getItems !== undefined) {
-            items = table.getTable().getItems();
-          }
-
-          if (!items || !items[index]) return undefined;
-
-          // Filter items with undefined or empty title since titles in rows/columnListItems are only used for dividers of grouped items
-          const filteredItems = items.filter((item: any) => item.getTitle === undefined || item.getTitle() === "");
-          const item = filteredItems[index];
-
-          return item?.getId?.();
-        },
-        constructedTableSelector,
-        index,
-        Table.TABLE_METADATA,
-        Table.SMART_TABLE_METADATA
-      );
-      // ========================================================================
-    } catch (error) {
-      return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
-    }
-
-    if (!columnListItemId) {
-      return this.ErrorHandler.logException(new Error(`No item found with index ${index}.`));
-    }
-
-    const columnListItemSelector: Ui5Selector = {
-      elementProperties: {
-        metadata: Table.COLUMN_LIST_ITEM_METADATA,
-        id: columnListItemId
-      }
-    };
-    return columnListItemSelector;
-  }
-
-  /**
-   * @function selectAllRows
-   * @memberOf ui5.table
-   * @description Selects all rows in the table.
-   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
-   * @example await ui5.table.selectAllRows("application-ReportingTask-run-component---ReportList--ReportingTable");
-   * await ui5.table.selectAllRows(selector);
-   */
-  async selectAllRows(tableSelectorOrId: Ui5Selector | string) {
-    this.vlf.initLog(this.selectAllRows);
-
-    const parentSelector = await this._resolveTableSelectorOrId(tableSelectorOrId);
-
-    const checkBoxSelector = {
-      elementProperties: {
-        metadata: "sap.m.CheckBox"
-      },
-      parentProperties: parentSelector.elementProperties
-    };
-
-    await ui5.userInteraction.check(checkBoxSelector);
-  }
-
-  /**
-   * @function deselectRowByIndex
-   * @memberOf ui5.table
-   * @description Deselects a row in the table by its index.
-   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
-   * @example const selector = {
-   *  elementProperties: {
-   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
-   *    metadata: "sap.ui.comp.smarttable.SmartTable",
-   *   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
-   *  }
-   * };
-   * await ui5.table.deselectRowByIndex(selector, 0);
-   * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
-   * await ui5.table.deselectRowByIndex(id, 0);
-   */
-  async deselectRowByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
-    this.vlf.initLog(this.selectRowByIndex);
-    const ancestorSelector = await this._resolveTableSelectorOrId(tableSelectorOrId);
-
-    const checkBoxSelector = {
-      elementProperties: {
-        metadata: "sap.m.CheckBox"
-      },
-      parentProperties: {
-        metadata: "sap.m.ColumnListItem",
-        ancestorProperties: ancestorSelector.elementProperties
-      }
-    };
-
-    await ui5.userInteraction.uncheck(checkBoxSelector, index);
-  }
-
-  /**
-   * @function deselectAllRows
-   * @memberOf ui5.table
-   * @description Deselects all rows in the table.
-   * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
-   * @example await ui5.table.deselectAllRows("application-ReportingTask-run-component---ReportList--ReportingTable");
-   * @example const selector = {
-   *  elementProperties: {
-   *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
-   *    metadata: "sap.ui.comp.smarttable.SmartTable",
-   *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
-   *  }
-   * };
-   * await ui5.table.deselectAllRows(selector);
-   */
-  async deselectAllRows(tableSelectorOrId: Ui5Selector | string) {
-    this.vlf.initLog(this.selectAllRows);
-
-    const parentSelector = await this._resolveTableSelectorOrId(tableSelectorOrId);
-
-    const checkBoxSelector = {
-      elementProperties: {
-        metadata: "sap.m.CheckBox"
-      },
-      parentProperties: parentSelector.elementProperties
-    };
-
-    await ui5.userInteraction.uncheck(checkBoxSelector);
-  }
-
   // =================================== HELPER ===================================
-  private async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string): Promise<Ui5Selector> {
+  private static async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string): Promise<Ui5Selector> {
     if (typeof tableSelectorOrId === "string") {
       const selectors: Array<Ui5Selector> = [
         {
@@ -541,6 +583,12 @@ export class Table {
         {
           elementProperties: {
             metadata: Table.TABLE_METADATA,
+            id: tableSelectorOrId
+          }
+        },
+        {
+          elementProperties: {
+            metadata: Table.UI_TABLE_METADATA,
             id: tableSelectorOrId
           }
         }
@@ -557,7 +605,7 @@ export class Table {
         // Intentionally left empty, as the error is handled below
       }
     } else if (typeof tableSelectorOrId === "object" && "elementProperties" in tableSelectorOrId) {
-      if (tableSelectorOrId.elementProperties.metadata === Table.TABLE_METADATA || tableSelectorOrId.elementProperties.metadata === Table.SMART_TABLE_METADATA) {
+      if (tableSelectorOrId.elementProperties.metadata === Table.TABLE_METADATA || tableSelectorOrId.elementProperties.metadata === Table.SMART_TABLE_METADATA || tableSelectorOrId.elementProperties.metadata === Table.UI_TABLE_METADATA) {
         return tableSelectorOrId;
       }
     }
@@ -565,50 +613,69 @@ export class Table {
     throw new Error(`The provided table selector "${tableSelectorOrId}" is not valid. Please provide a valid selector or ID for control type 'SmartTable' or 'Table'.`);
   }
 
-  private async _getId(tableSelectorOrId: Ui5Selector | string): Promise<string> {
-    this.vlf.initLog(this._getId);
-
+  private static async _getId(tableSelectorOrId: Ui5Selector | string): Promise<string> {
     if (typeof tableSelectorOrId === "string") {
       return tableSelectorOrId;
     } else {
-      const resolvedTableSelectorOrId = await this._resolveTableSelectorOrId(tableSelectorOrId);
+      const resolvedTableSelectorOrId = await Table._resolveTableSelectorOrId(tableSelectorOrId);
       return await ui5.element.getId(resolvedTableSelectorOrId);
     }
   }
 
-  private async _getTableMetadata(tableId: string): Promise<Ui5ControlMetadata> {
-    const vl = this.vlf.initLog(this._getTableMetadata);
-
-    vl.log(`The table selector is a string: ${tableId}`);
-    let browserCommand;
-
+  async _getTableMetadata(tableId: string): Promise<Ui5ControlMetadata> {
     try {
-      browserCommand = `
-        return (function () {
-          const table = sap.ui.getCore().getElementById("${tableId}");
-          return table.getMetadata().getName();
-        })();
-      `;
-      const tableMetadata = await util.browser.executeScript(browserCommand);
+      // =========================== BROWSER COMMAND ===========================
+      const classCode = TableHelper.serializeClass();
+      const tableMetadata = await util.browser.executeScript(`
+        ${classCode}
+        return TableHelper.getTableMetadata("${tableId}");
+      `);
       return tableMetadata;
     } catch (error) {
-      throw new Error(`Browser Command: ${browserCommand} failed with: ${error}`);
+      throw new Error(`Error while executing browser command: ${error}`);
     }
   }
 
   private async _constructTableSelector(tableSelector: Ui5Selector | string): Promise<Ui5Selector> {
     this.vlf.initLog(this._constructTableSelector);
 
-    const tableId = await this._getId(tableSelector);
-    const tableMetaData = await this._getTableMetadata(tableId);
-    const selector: Ui5Selector = {
+    const tableId = await Table._getId(tableSelector);
+    const selector = {
       elementProperties: {
-        metadata: tableMetaData,
         id: tableId
       }
     };
     await ui5.element.waitForAll(selector);
-    return selector;
+    const tableMetadata = await this._getTableMetadata(tableId);
+    return {
+      elementProperties: {
+        ...selector.elementProperties,
+        metadata: tableMetadata
+      }
+    };
+  }
+
+  private _constructRowSelector(filteredRowIds: Array<string>, tableMetadata: Ui5ControlMetadata): Array<Ui5Selector> {
+    const rowsSelectors: Array<Ui5Selector> = [];
+    const rowMetadata = this._getRowMetadataByTableMetadata(tableMetadata);
+    for (const id of filteredRowIds) {
+      const columnListItemSelector = {
+        elementProperties: {
+          metadata: rowMetadata,
+          id: id
+        }
+      };
+      rowsSelectors.push(columnListItemSelector);
+    }
+    return rowsSelectors;
+  }
+
+  private _getRowMetadataByTableMetadata(tableMetadata: Ui5ControlMetadata): Ui5ControlMetadata {
+    if (tableMetadata === Table.TABLE_METADATA || tableMetadata === Table.SMART_TABLE_METADATA) {
+      return Table.COLUMN_LIST_ITEM_METADATA;
+    } else {
+      return Table.TABLE_ROW_METADATA;
+    }
   }
 
   private _extractRowCountFromTitle(title: string): number {
@@ -707,6 +774,71 @@ export class Table {
       }
     }
     return selector;
+  }
+
+  private async _getSelectorTypeForRowSelection(rowSelector: Ui5Selector): Promise<SelectorTypeForSelection> {
+    const vl = this.vlf.initLog(this._getSelectorTypeForRowSelection);
+
+    return await util.browser.executeScript((rowSelector: Ui5Selector) => {
+      const id = rowSelector.elementProperties.id;
+      const selectorChecks: Array<SelectorDefinitionForSelection> = [
+        {
+          type: "ui5CheckBox",
+          selector: `tr[id='${id}'] [data-sap-ui*='selectMulti'][role='checkbox']`
+        },
+        {
+          type: "ui5RadioButton",
+          selector: `tr[id='${id}'] [data-sap-ui*='selectSingle'][role='radio']`
+        },
+        {
+          type: "cssItem",
+          selector: `[data-sap-ui-related='${id}'][role='row'] [role='gridcell']`
+        }
+      ];
+
+      for (const check of selectorChecks) {
+        // Note: Following command slows down the execution and might be used after refactoring service
+        // const isPresent = await nonUi5.element.isPresentByCss(check.selector);
+        if (window.document.querySelector(check.selector)) {
+          return check.type;
+        }
+      }
+      return "none";
+    }, rowSelector);
+  }
+
+  private _buildRowSelectionSelector(selectorType: SelectorTypeForSelection, rowSelector: Ui5Selector): any {
+    const vl = this.vlf.initLog(this._buildRowSelectionSelector);
+
+    switch (selectorType) {
+      case "ui5CheckBox":
+        return {
+          elementProperties: {
+            metadata: Table.CHECKBOX_METADATA
+          },
+          parentProperties: rowSelector.elementProperties
+        };
+      case "ui5RadioButton":
+        return {
+          elementProperties: {
+            metadata: "sap.m.RadioButton"
+          },
+          parentProperties: rowSelector.elementProperties
+        };
+      case "cssItem":
+        return `[data-sap-ui-related = '${rowSelector.elementProperties.id}'] [role='gridcell']`;
+      case "none":
+        throw new Error("No selectable CheckBox, RadioButton, or Css element found for the row.");
+    }
+  }
+
+  // TODO: Move to separate public function under nonUi5.userInteraction.check
+  private async _checkCssItem(selectionSelector: CssSelector) {
+    const element = await nonUi5.element.getByCss(selectionSelector);
+    const isSelected = await nonUi5.element.getAttributeValue(element, "aria-selected");
+    if (isSelected === "false") {
+      await nonUi5.userInteraction.click(element);
+    }
   }
 }
 export default new Table();
