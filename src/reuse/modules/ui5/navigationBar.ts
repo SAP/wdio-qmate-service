@@ -46,7 +46,7 @@ export class NavigationBar {
       await nonUi5.userInteraction.click(selector, timeout);
     }
     async function clickLogoWebComponent() {
-      const selector=">>>span[class='ui5-shellbar-logo']";
+      const selector = ">>>span[class='ui5-shellbar-logo']";
       await nonUi5.userInteraction.click(selector, timeout);
     }
     try {
@@ -68,16 +68,30 @@ export class NavigationBar {
   async clickUserIcon(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this.clickUserIcon);
 
+    // attempt to click the new user icon first
     try {
-      // attempt clicking both old and new user icons
-      await Promise.any([clickUserIconOld(), clickUserIconNew()]);
+      await scrollAndClickUserIconNew();
+      return;
     } catch (error) {
-      (error as AggregateError).errors.forEach((err) => {
-        this.ErrorHandler.logException(err);
-      });
+      console.warn("New user icon not found, trying old selector.");
     }
 
-    async function clickUserIconOld() {
+    // attempt to click the old user icon
+    try {
+      await scrollAndClickUserIconOld();
+    } catch (error) {
+      console.warn("Old user icon not found, logging exception.");
+      this.ErrorHandler.logException(error);
+    }
+
+    async function scrollAndClickUserIconNew() {
+      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
+      const selector = ">>>[data-ui5-stable='profile']";
+      await nonUi5.userInteraction.scrollToElement(selector, "end");
+      await nonUi5.userInteraction.click(selector);
+    }
+
+    async function scrollAndClickUserIconOld() {
       const selector = {
         "elementProperties": {
           "metadata": "sap.m.Avatar",
@@ -85,12 +99,6 @@ export class NavigationBar {
         }
       };
       await ui5.userInteraction.click(selector, 0, timeout);
-    }
-
-    async function clickUserIconNew() {
-      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
-      const selector = ">>>[data-ui5-stable='profile']";
-      await nonUi5.userInteraction.click(selector);
     }
   }
 
