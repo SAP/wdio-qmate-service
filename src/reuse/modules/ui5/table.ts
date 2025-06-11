@@ -34,7 +34,7 @@ export class Table {
    * };
    * await ui5.table.sortColumnAscending("Amount", glAccountItemsTable);
    */
-  async sortColumnAscending(columnName: string, tableSelector: any, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async sortColumnAscending(columnName: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const oldSortButtonSelector = {
       elementProperties: {
         metadata: "sap.m.Button",
@@ -97,7 +97,7 @@ export class Table {
    * };
    * await ui5.table.sortColumnDescending("Amount", glAccountItemsTable);
    */
-  async sortColumnDescending(columnName: string, tableSelector: any, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async sortColumnDescending(columnName: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const oldSortButtonSelector = {
       elementProperties: {
         metadata: "sap.m.Button",
@@ -669,7 +669,7 @@ export class Table {
     }
   }
 
-  private async _clickColumn(name: string, tableSelector: any, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  private async _clickColumn(name: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this._clickColumn);
     const tableColumnSelector = {
       elementProperties: {
@@ -690,7 +690,7 @@ export class Table {
     };
 
     if (typeof tableSelector == "number") {
-      util.console.warn(`Usage of argument 'index' is deprecated. Please pass a valid table selector instead.`);
+      util.console.warn(`Usage of argument 'index' in function ${arguments.callee.caller.name} is deprecated. Please pass a valid table selector instead.`);
       await browser.waitUntil(
         async () => {
           try {
@@ -750,7 +750,7 @@ export class Table {
     return sorted ? sortOrder : "";
   }
 
-  private async _getSortIndicatorValue(name: string, tableSelector: any, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  private async _getSortIndicatorValue(name: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
     const vl = this.vlf.initLog(this._getSortIndicatorValue);
     const tableColumnSelector = {
       elementProperties: {
@@ -772,7 +772,7 @@ export class Table {
 
     let sortIndicator;
     if (typeof tableSelector == "number") {
-      util.console.warn(`The usage of argument 'index' is deprecated. Please pass a valid table selector instead.`);
+      util.console.warn(`The usage of argument 'index' in function ${arguments.callee.caller.name} is deprecated. Please pass a valid table selector instead.`);
       await browser.waitUntil(
         async () => {
           try {
