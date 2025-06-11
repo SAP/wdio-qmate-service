@@ -57,7 +57,7 @@ export class UI5ControlHandler {
     }
   }
 
-  public static findPrevNextControl(control: UI5Control, bIsNext: boolean): UI5Control | null {
+  public static findPreviousOrNextControl(control: UI5Control, bIsNext: boolean): UI5Control | null {
     const oParentControl = UI5ControlHandler.getUI5Parent(control);
     const sControlId = control?.getId?.();
     const sParentId = oParentControl?.getId?.();

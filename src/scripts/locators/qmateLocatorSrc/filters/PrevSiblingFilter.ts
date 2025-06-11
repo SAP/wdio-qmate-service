@@ -4,7 +4,7 @@ import { ElementFilter } from "./ElementFilter";
 
 export class PrevSiblingFilter extends BaseFilter {
   public doCheckSingle(control: UI5Control): boolean {
-    const prevControl = UI5ControlHandler.findPrevNextControl(control, false);
+    const prevControl = UI5ControlHandler.findPreviousOrNextControl(control, false);
     if (!prevControl) {
       return false;
     }
