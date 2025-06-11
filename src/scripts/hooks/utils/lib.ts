@@ -1,6 +1,9 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
+
 // @ts-nocheck
+
+const GLOBAL_DEFAULT_WAIT_TIMEOUT = require("../../../reuse/modules/constants");
 var clientsidescripts = require("../../clientsideUI5scripts");
 
 function isEmptyObjectOrUndefined(obj) {
