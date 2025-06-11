@@ -1,8 +1,8 @@
 /*
-    cyrb53 (c) 2018 bryc (github.com/bryc)
-    License: Public domain (or MIT if needed). Attribution appreciated.
-    A fast and simple 53-bit string hash function with decent collision resistance.
-    Largely inspired by MurmurHash2/3, but with a focus on speed/simplicity.
+  cyrb53 (c) 2018 bryc (github.com/bryc)
+  License: Public domain (or MIT if needed). Attribution appreciated.
+  A fast and simple 53-bit string hash function with decent collision resistance.
+  Largely inspired by MurmurHash2/3, but with a focus on speed/simplicity.
 */
 const cyrb53 = function (str: string, seed = 0) {
   let h1 = 0xdeadbeef ^ seed,
@@ -23,6 +23,7 @@ export class LocatorDebug {
   static logs: any[];
   static indentation: string;
 
+  // Public
   public static initializeLogs(ui5Selector: UI5Selector): void {
     LocatorDebug.logs = [];
     LocatorDebug.indentation = "";
@@ -33,11 +34,6 @@ export class LocatorDebug {
     }
 
     LocatorDebug.debugLog("QmateLocator Debug Logs for Selector:" + JSON.stringify(ui5Selector));
-  }
-
-  private static indent(positive: boolean): void {
-    if (positive) LocatorDebug.indentation += "....";
-    else LocatorDebug.indentation = LocatorDebug.indentation.substring(0, LocatorDebug.indentation.length - 4);
   }
 
   public static debugLog(...messages: any[]): void {
@@ -71,6 +67,12 @@ export class LocatorDebug {
       fullLog.push("\n");
     }
     console.warn(...fullLog);
+  }
+
+  // Private
+  private static indent(positive: boolean): void {
+    if (positive) LocatorDebug.indentation += "....";
+    else LocatorDebug.indentation = LocatorDebug.indentation.substring(0, LocatorDebug.indentation.length - 4);
   }
 
   private static sameLogAlreadyPrinted(): boolean {
