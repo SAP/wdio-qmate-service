@@ -72,6 +72,8 @@ export class DateModule {
     await this._selectDate(tempSelector, range[1]);
   }
 
+  async pickWithTime(selector: any, date: Date) {}
+
   // =================================== FILL ===================================
   /**
    * @function fillRange

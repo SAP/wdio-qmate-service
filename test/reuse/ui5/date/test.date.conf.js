@@ -9,6 +9,7 @@ exports.config = merge(profile.config, {
   specs: [
     path.resolve(__dirname, "pick.spec.js"),
     path.resolve(__dirname, "pickRange.spec.js"),
-    path.resolve(__dirname, "fillRange.spec.js")
+    path.resolve(__dirname, "fillRange.spec.js"),
+    path.resolve(__dirname, "pickWithTime.spec.js")
   ]
 });
