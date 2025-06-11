@@ -27,26 +27,77 @@ export class TableHelper {
   }
 
   static getColumnKeyByLabelText(table: any, labelText: string): string | null {
-    var columns = table.getColumns();
-    var targetLabel = labelText; // the label you're looking for
-    var columnKey = null;
+    let columnKey: string | null = null;
 
-    columns.forEach(function (column: any) {
-      var label = column.getLabel();
-      if (label && label.getText && label.getText() === targetLabel) {
-        var template = column.getTemplate(); // e.g. Text or Input
-        if (template) {
-          var bindingInfo = template.getBindingInfo("text") || template.getBindingInfo("value");
-          if (bindingInfo && bindingInfo.parts && bindingInfo.parts.length > 0) {
-            columnKey = bindingInfo.parts[0].path;
+    /**
+     * Recursively search inside a control and its children for text/value bindings
+     */
+    function findBindingPath(control: any): string | null {
+      if (!control) return null;
+
+      // Try text or value bindings
+      const textBinding = control.getBinding?.("text");
+      const valueBinding = control.getBinding?.("value");
+
+      if (textBinding?.getPath?.()) return textBinding.getPath();
+      if (valueBinding?.getPath?.()) return valueBinding.getPath();
+
+      // Recursively search common aggregation types
+      const aggregations = ["content", "items", "cells", "components", "formElements", "elements"];
+      for (const agg of aggregations) {
+        const children = control.getAggregation?.(agg);
+        if (Array.isArray(children)) {
+          for (const child of children) {
+            const path = findBindingPath(child);
+            if (path) return path;
           }
+        } else if (children) {
+          const path = findBindingPath(children);
+          if (path) return path;
         }
       }
-    });
+
+      return null;
+    }
+
+    const columns = table.getColumns?.();
+    if (!columns?.length) return null;
+
+    const isUiTable = typeof columns[0].getLabel === "function";
+
+    if (isUiTable) {
+      // === sap.ui.table.Table ===
+      const rows = table.getRows?.();
+      if (!rows?.length) return null;
+
+      const row = rows[0];
+      const cells = row.getCells?.();
+
+      columns.forEach((column: any, index: number) => {
+        const label = column.getLabel?.();
+        if (label?.getText?.() === labelText && cells?.[index]) {
+          columnKey = findBindingPath(cells[index]);
+        }
+      });
+    } else {
+      // === sap.m.Table ===
+      const items = table.getItems?.();
+      if (!items?.length) return null;
+
+      const cells = items[0].getCells?.();
+
+      columns.forEach((column: any, index: number) => {
+        const header = column.getHeader?.();
+        if (header?.getText?.() === labelText && cells?.[index]) {
+          columnKey = findBindingPath(cells[index]);
+        }
+      });
+    }
+
     return columnKey;
   }
 
-  static async getAllColumnValuesByScrolling(table: any, sColumnKey: string): Promise<string[]> {
+  static async getAllColumnValuesByScrolling(table: any, columnName: string, enableScrolling: boolean = true, scrollDelay: number = 200): Promise<string[]> {
     const oBinding = table.getBinding("rows");
     if (!oBinding) {
       console.warn("No row binding found.");
@@ -55,21 +106,35 @@ export class TableHelper {
 
     const iTotalRows = oBinding.getLength();
     const iPageSize = table.getVisibleRowCount();
-    const aAllValues = [];
+    const aAllValues: string[] = [];
+    const columnKey = TableHelper.getColumnKeyByLabelText(table, columnName);
 
-    for (let i = 0; i < iTotalRows; i += iPageSize) {
-      // Scroll to make rows render
-      table.setFirstVisibleRow(i);
+    if (columnKey == null) {
+      console.warn("Column key could not be determined for column:", columnName);
+      return [];
+    }
 
-      // Wait for rendering and data loading
-      await new Promise((resolve) => setTimeout(resolve, 200)); // You can adjust timing
-
-      // Get contexts for current visible page
-      const aContexts = oBinding.getContexts(i, iPageSize);
+    if (!enableScrolling) {
+      const aContexts = oBinding.getContexts(0, iTotalRows);
       for (const oContext of aContexts) {
         const oData = oContext.getObject();
-        if (oData && oData.hasOwnProperty(sColumnKey)) {
-          aAllValues.push(oData[sColumnKey]);
+        if (oData && oData.hasOwnProperty(columnKey)) {
+          aAllValues.push(oData[columnKey]);
+        }
+      }
+    } else {
+      for (let i = 0; i < iTotalRows; i += iPageSize) {
+        table.setFirstVisibleRow(i);
+
+        // Wait for rendering/data loading
+        await new Promise((resolve) => setTimeout(resolve, scrollDelay));
+
+        const aContexts = oBinding.getContexts(i, iPageSize);
+        for (const oContext of aContexts) {
+          const oData = oContext.getObject();
+          if (oData && oData.hasOwnProperty(columnKey)) {
+            aAllValues.push(oData[columnKey]);
+          }
         }
       }
     }

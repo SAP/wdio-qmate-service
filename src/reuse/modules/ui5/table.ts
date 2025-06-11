@@ -306,7 +306,7 @@ export class Table {
    * @memberOf ui5.table
    * @description Gets the selectors of rows in the table that contain the given values. If multiple values are provided, it only returns the selectors of rows that contain all of them.
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
-   * @param {string} values - The value(s) to match in the table rows.
+   * @param {String | Array<String>} values - The value(s) to match in the table rows.
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable"
    * await ui5.table.getSelectorsForRowsByValues(id, "February");
    * @example const selector = {
@@ -401,6 +401,30 @@ export class Table {
     }
     const rowSelector = this._constructRowSelector([filteredRowId], tableMetadata);
     return rowSelector[0]; // Return the first selector as we expect only one row to match the index
+  }
+
+  async getAllColumnValuesByName(tableSelectorOrId: Ui5Selector | string, columnName: string, scrollingEnabled: boolean): Promise<Array<string>> {
+    this.vlf.initLog(this.getAllColumnValuesByName);
+
+    const constructedTableSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
+    const tableMetadata = constructedTableSelector.elementProperties.metadata;
+
+    const classCode = TableHelper.serializeClass();
+    let values: Array<string> = [];
+    try {
+      // =========================== BROWSER COMMAND ===========================
+      const browserCommand = `
+        ${classCode}
+        const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
+        return await TableHelper.getAllColumnValuesByScrolling(table, "${columnName}", ${scrollingEnabled});
+      `;
+      values = await util.browser.executeScript(browserCommand);
+      // ========================================================================
+    } catch (error) {
+      return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
+    }
+
+    return values;
   }
 
   /**
