@@ -43,7 +43,7 @@ export class ElementModule {
    * @returns {Object[]} - The found elements.
    * @example const elem = await ui5.element.getAllDisplayed(selector);
    */
-  async getAllDisplayed(selector: any, timeout: number = ): Promise<Element[]> {
+  async getAllDisplayed(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT): Promise<Element[]> {
     const vl = this.vlf.initLog(this.getAllDisplayed);
     if (!selector) {
       this.ErrorHandler.logException(new Error(), `Please provide a valid selector as argument.`);

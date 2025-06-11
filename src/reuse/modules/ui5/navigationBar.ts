@@ -153,7 +153,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.expectShellHeader();
    */
-  async expectShellHeader(timeout: number = , loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+  async expectShellHeader(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const vl = this.vlf.initLog(this.expectShellHeader);
     const selector = {
       elementProperties: {

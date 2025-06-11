@@ -59,7 +59,7 @@ export class UserInteraction {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await ui5.userInteraction.clickAndRetry(selector);
    */
-  async clickAndRetry(selector: any, index = 0, timeout: number = , retries = 3, interval = 5000) {
+  async clickAndRetry(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.clickAndRetry);
     await util.function.retry(this.click, [selector, index, timeout], retries, interval, this);
   }
@@ -270,7 +270,7 @@ export class UserInteraction {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await ui5.userInteraction.fillAndRetry(selector, "My Value");
    */
-  async fillAndRetry(selector: any, value: string | number, index = 0, timeout: number = , retries = 3, interval = 5000) {
+  async fillAndRetry(selector: any, value: string | number, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.fillAndRetry);
     await util.function.retry(this.fill, [selector, value, index, timeout], retries, interval, this);
   }
@@ -303,7 +303,7 @@ export class UserInteraction {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await ui5.userInteraction.clearAndRetry(selector);
    */
-  async clearAndRetry(selector: any, index = 0, timeout: number = , retries = 3, interval = 5000) {
+  async clearAndRetry(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.clearAndRetry);
     await util.function.retry(this.clear, [selector, index, timeout], retries, interval, this);
   }
@@ -341,7 +341,7 @@ export class UserInteraction {
    * @param {Boolean} [verify=true] - Specifies if the filled value should be verified.
    * @example await ui5.userInteraction.clearAndFillAndRetry(selector, "My Value");
    */
-  async clearAndFillAndRetry(selector: any, value: string, index = 0, timeout: number = , retries = 3, interval = 5000, verify = true) {
+  async clearAndFillAndRetry(selector: any, value: string, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT, retries = 3, interval = 5000, verify = true) {
     const vl = this.vlf.initLog(this.clearAndFillAndRetry);
     await util.function.retry(
       async (selector: any, value: string, index: number, timeout: number) => {
@@ -411,7 +411,7 @@ export class UserInteraction {
    * @param {Number} [interval=5000] - The delay between the retries (ms). Can be set in config for all functions under params.stepRetriesIntervals.
    * @example await ui5.userInteraction.clearAndFillSmartFieldInputAndRetry(selector, "My Value");
    */
-  async clearAndFillSmartFieldInputAndRetry(selector: any, value: string, index = 0, timeout: number = , retries = 3, interval = 5000) {
+  async clearAndFillSmartFieldInputAndRetry(selector: any, value: string, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.clearAndFillSmartFieldInputAndRetry);
     await util.function.retry(this.clearAndFillSmartFieldInput, [selector, value, index, timeout], retries, interval, this);
   }
@@ -703,7 +703,7 @@ export class UserInteraction {
    * The default value is true (triggered by pressing the F4-key). Set "useF4Key" to false, to trigger the search by clicking the button.
    * @example await ui5.userInteraction.openF4Help(selector, 0, 30000, false);
    */
-  async openF4Help(selector: any, index = 0, timeout: number = , useF4Key = true) {
+  async openF4Help(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT, useF4Key = true) {
     const vl = this.vlf.initLog(this.openF4Help);
     await ui5.userInteraction.click(selector, index, timeout);
     if (useF4Key === true) {
@@ -727,7 +727,7 @@ export class UserInteraction {
    * The default value is true (triggered by pressing the Enter-key). Set "useEnter" to false, to trigger the search by clicking the search button.
    * @example await ui5.userInteraction.searchFor(selector, "My Value", 0, 30000, false);
    */
-  async searchFor(selector: any, value: string, index = 0, timeout: number = , useEnter = true) {
+  async searchFor(selector: any, value: string, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_WAIT_TIMEOUT, useEnter = true) {
     const vl = this.vlf.initLog(this.searchFor);
     vl.log(`Searching for ${value}`);
     await ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout);
