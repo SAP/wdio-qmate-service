@@ -2031,9 +2031,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mockserverwaitforui5applicationloadinterval" class="md-nav__link">
+  <a href="#mockserverwaitforui5applicationload" class="md-nav__link">
     <span class="md-ellipsis">
-      mockserver.waitForUi5ApplicationLoad(interval)
+      mockserver.waitForUi5ApplicationLoad()
     </span>
   </a>
   
@@ -6333,9 +6333,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mockserverwaitforui5applicationloadinterval" class="md-nav__link">
+  <a href="#mockserverwaitforui5applicationload" class="md-nav__link">
     <span class="md-ellipsis">
-      mockserver.waitForUi5ApplicationLoad(interval)
+      mockserver.waitForUi5ApplicationLoad()
     </span>
   </a>
   
@@ -11012,7 +11012,7 @@
 </ul>
 </li>
 <li><a href="#ui5.mockserver">.mockserver</a><ul>
-<li><a href="#ui5.mockserver.waitForUi5ApplicationLoad">.waitForUi5ApplicationLoad(interval)</a></li>
+<li><a href="#ui5.mockserver.waitForUi5ApplicationLoad">.waitForUi5ApplicationLoad()</a></li>
 <li><a href="#ui5.mockserver.interactWithMockServer">.interactWithMockServer(mockServerPath, fnCallback, oParams)</a></li>
 <li><a href="#ui5.mockserver.attachFunctionBefore">.attachFunctionBefore(method, mockServerPath, fnBeforeCallback, oParams)</a></li>
 <li><a href="#ui5.mockserver.attachFunctionAfter">.attachFunctionAfter(method, mockServerPath, fnAfterCallback, oParams)</a></li>
@@ -13282,7 +13282,7 @@ Note: For nested selectors, all properties except of the "elementProperties" are
 <p><strong>Kind</strong>: static class of <a href="#ui5"><code>ui5</code></a>  </p>
 <ul>
 <li><a href="#ui5.mockserver">.mockserver</a><ul>
-<li><a href="#ui5.mockserver.waitForUi5ApplicationLoad">.waitForUi5ApplicationLoad(interval)</a></li>
+<li><a href="#ui5.mockserver.waitForUi5ApplicationLoad">.waitForUi5ApplicationLoad()</a></li>
 <li><a href="#ui5.mockserver.interactWithMockServer">.interactWithMockServer(mockServerPath, fnCallback, oParams)</a></li>
 <li><a href="#ui5.mockserver.attachFunctionBefore">.attachFunctionBefore(method, mockServerPath, fnBeforeCallback, oParams)</a></li>
 <li><a href="#ui5.mockserver.attachFunctionAfter">.attachFunctionAfter(method, mockServerPath, fnAfterCallback, oParams)</a></li>
@@ -13300,26 +13300,10 @@ Note: For nested selectors, all properties except of the "elementProperties" are
 </li>
 </ul>
 <p><a name="ui5.mockserver.waitForUi5ApplicationLoad"></a></p>
-<h4 id="mockserverwaitforui5applicationloadinterval">mockserver.waitForUi5ApplicationLoad(interval)</h4>
+<h4 id="mockserverwaitforui5applicationload">mockserver.waitForUi5ApplicationLoad()</h4>
 <p>Waits for the UI5 framework to load and makes sure XHR request finished und busy indicators are not visible anymore.</p>
-<p><strong>Kind</strong>: static method of <a href="#ui5.mockserver"><code>mockserver</code></a>  </p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>interval</td>
-<td><code>Integer</code></td>
-<td>The intervals to use when waiting UI5 to load.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong><br />
+<p><strong>Kind</strong>: static method of <a href="#ui5.mockserver"><code>mockserver</code></a><br />
+<strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">mockserver</span><span class="p">.</span><span class="nx">waitForUi5ApplicationLoad</span><span class="p">(</span><span class="mf">100</span><span class="p">);</span>
 </code></pre></div>
 <a name="ui5.mockserver.interactWithMockServer"></a></p>
