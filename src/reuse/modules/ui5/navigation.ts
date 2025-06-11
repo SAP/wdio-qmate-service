@@ -339,7 +339,7 @@ export class Navigation {
     });
   }
 
-  private async _closePopup(popup: Popup, timeout: number = 30000): Promise<void> {
+  private async _closePopup(popup: Popup, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     try {
       const elem = await nonUi5.element.getByCss(popup.selector, 0, timeout);
       await nonUi5.userInteraction.click(elem);
