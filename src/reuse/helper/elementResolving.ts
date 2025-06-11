@@ -1,6 +1,7 @@
 import { Element } from "../../../@types/wdio";
+import { GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../modules/constants";
 
-export async function resolveCssSelectorOrElement(elementOrSelector: Element | string, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<Element> {
+export async function resolveCssSelectorOrElement(elementOrSelector: Element | string, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<Element> {
   if (!elementOrSelector) {
     throw new Error("Please provide an element or a CSS selector as first argument.");
   }

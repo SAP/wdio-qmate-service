@@ -297,7 +297,7 @@ export class Session {
           return (await usernameField.isDisplayedInViewport()) && (await passwordField.isDisplayedInViewport()) && (await logonField.isDisplayedInViewport());
         },
         {
-          timeout: 30000,
+          timeout: GLOBAL_DEFAULT_WAIT_TIMEOUT,
           timeoutMsg: "Login failed: Login page with the given authenticator not present."
         }
       );

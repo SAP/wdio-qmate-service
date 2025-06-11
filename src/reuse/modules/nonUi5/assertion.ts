@@ -147,7 +147,7 @@ export class Assertion {
         timeout: +timeout,
         reverse: true,
         timeoutMsg: "Function 'expectToBeNotVisible' failed. Element is visible but was expected to be not.",
-        interval: 100
+        interval: GLOBAL_DEFAULT_WAIT_INTERVAL
       });
     } catch (error) {
       this.ErrorHandler.logException(error);
