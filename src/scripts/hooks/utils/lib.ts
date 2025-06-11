@@ -1,6 +1,9 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
+
 // @ts-nocheck
+
+const { GLOBAL_DEFAULT_WAIT_TIMEOUT, GLOBAL_DEFAULT_WAIT_INTERVAL } = require("../../../reuse/modules/constants");
 var clientsidescripts = require("../../clientsideUI5scripts");
 
 function isEmptyObjectOrUndefined(obj) {
@@ -10,7 +13,6 @@ function isEmptyObjectOrUndefined(obj) {
 //TODO: Consider count stable later
 var COUNT_STABLE = 1;
 var LibScripts = function () {
-
   this.mockServerActionInBrowser = async function () {
     const aCustomParams = [];
     let browserFunction = null;
@@ -93,10 +95,10 @@ var LibScripts = function () {
         }
       } else if (arguments[1].elementProperties) {
         const returnAllDomElements = arguments[1].returnAllDomElements;
-        webElem = await this.uiControlExecuteLocator(arguments[1], 0, 30000, undefined, returnAllDomElements);
+        webElem = await this.uiControlExecuteLocator(arguments[1], 0, GLOBAL_DEFAULT_WAIT_TIMEOUT, undefined, returnAllDomElements);
       } else if (arguments[1].selector) {
         const index = arguments[1].index || 0;
-        const timeout = arguments[1].timeout || 30000;
+        const timeout = arguments[1].timeout || GLOBAL_DEFAULT_WAIT_TIMEOUT;
         const selector = arguments[1].selector;
         const returnAllDomElements = arguments[1].returnAllDomElements;
         webElem = await this.uiControlExecuteLocator(selector, index, timeout, undefined, returnAllDomElements);
@@ -107,7 +109,6 @@ var LibScripts = function () {
       throw error;
     }
 
-
     if (arguments.length > 2) {
       for (var i = 2; i < arguments.length; i++) {
         if (arguments[i]) {
@@ -115,8 +116,7 @@ var LibScripts = function () {
         }
       }
     }
-    if (browserFunction !== null && browserFunction !== undefined &&
-        webElem !== null && webElem !== undefined) {
+    if (browserFunction !== null && browserFunction !== undefined && webElem !== null && webElem !== undefined) {
       var nConvFunction = function (browserFunction, webElem, aCustomParams, callBack) {
         var control = null;
         var userDefFunction = "userDefFunction = " + browserFunction;
@@ -153,29 +153,34 @@ var LibScripts = function () {
       browser.config.waitForUI5PollingInterval = 10;
     }
     try {
-      await browser.waitUntil(async () => {
-        return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
-      }, {
-        timeout: browser.config.waitForUI5Timeout,
-        timeoutMsg: `Timeout of ${browser.config.waitForUI5Timeout / 1000}s reached, UI5 libraries did not load`,
-        interval: 100
-      });
+      await browser.waitUntil(
+        async () => {
+          return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
+        },
+        {
+          timeout: browser.config.waitForUI5Timeout,
+          timeoutMsg: `Timeout of ${browser.config.waitForUI5Timeout / 1000}s reached, UI5 libraries did not load`,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
+        }
+      );
 
       var mScriptParams = {};
       mScriptParams.waitForUI5Timeout = browser.config.waitForUI5Timeout;
       mScriptParams.waitForUI5PollingInterval = browser.config.waitForUI5PollingInterval;
-      await browser.waitUntil(async () => {
-        return (await browser.execute(clientsidescripts.loadUI5Page, mScriptParams)) === true;
-      }, {
-        timeout: browser.config.waitForUI5Timeout,
-        timeoutMsg: `Timeout of ${browser.config.waitForUI5Timeout / 1000}s reached, UI5 page did not load`,
-        interval: 10
-      });
+      await browser.waitUntil(
+        async () => {
+          return (await browser.execute(clientsidescripts.loadUI5Page, mScriptParams)) === true;
+        },
+        {
+          timeout: browser.config.waitForUI5Timeout,
+          timeoutMsg: `Timeout of ${browser.config.waitForUI5Timeout / 1000}s reached, UI5 page did not load`,
+          interval: 10
+        }
+      );
     } catch (error) {
       // eslint-disable-next-line no-console
       //console.log(`waitUI5ToStabilize(ui5Selector): Function raised an exception and ignored... Selector: ${util.formatter.stringifyJSON(ui5Selector)} and error: ${error}`);
     }
-
   };
 
   this.stableDomElementCount = async function (ui5Selector, rootElement, countStable, elmLength, allTries) {
@@ -269,8 +274,8 @@ var LibScripts = function () {
 
     if (browser.config.useWaitUI5ToStabilize !== false) {
       /*
-      * If not used it will not wait for the page to be stabilized before next action
-      */
+       * If not used it will not wait for the page to be stabilized before next action
+       */
       // console.log("Waiting page to stabilize");
       await this.waitUI5ToStabilize(ui5Selector);
       // console.log("Page stabilized, continue...");
@@ -278,17 +283,18 @@ var LibScripts = function () {
 
     // Note: it is possible to use () => {} - arrow function to keep scope:
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
-    await browser.waitUntil(async () => {
-      elems = await that.getDisplayedElements(ui5Selector, rootElement, countStable, allTries, returnAllDomElements);
-      return elems && Array.isArray(elems) && elems.length > 0;
-
-    }, {
-      timeout: finalTimeout,
-      timeoutMsg: `uiControlExecuteLocator(): No visible elements found with selector: ${util.formatter.stringifyJSON(ui5Selector)} in ${finalTimeout / 1000}s`,
-      interval: 100
-    });
-    if (elems && Array.isArray(elems) && elems.length > 0 &&
-        index !== null && index !== undefined && index < elems.length) {
+    await browser.waitUntil(
+      async () => {
+        elems = await that.getDisplayedElements(ui5Selector, rootElement, countStable, allTries, returnAllDomElements);
+        return elems && Array.isArray(elems) && elems.length > 0;
+      },
+      {
+        timeout: finalTimeout,
+        timeoutMsg: `uiControlExecuteLocator(): No visible elements found with selector: ${util.formatter.stringifyJSON(ui5Selector)} in ${finalTimeout / 1000}s`,
+        interval: GLOBAL_DEFAULT_WAIT_INTERVAL
+      }
+    );
+    if (elems && Array.isArray(elems) && elems.length > 0 && index !== null && index !== undefined && index < elems.length) {
       return elems[index];
     }
     return elems;

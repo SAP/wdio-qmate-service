@@ -2,6 +2,7 @@
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
+import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class navigationBar
@@ -18,7 +19,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickBack();
    */
-  async clickBack(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async clickBack(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickBack);
     const selector = {
       elementProperties: {
@@ -39,14 +40,14 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickSapLogo();
    */
-  async clickSapLogo(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async clickSapLogo(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickSapLogo);
     async function clickLogo() {
       const selector = "//a[@id='shell-header-logo']";
       await nonUi5.userInteraction.click(selector, 500);
     }
     async function clickLogoWebComponent() {
-      const selector=">>>span[class='ui5-shellbar-logo']";
+      const selector = ">>>span[class='ui5-shellbar-logo']";
       await nonUi5.userInteraction.click(selector, 500);
     }
     try {
@@ -63,7 +64,7 @@ export class NavigationBar {
         {
           timeout: timeout,
           timeoutMsg: "SAP Logo not clickable",
-          interval: 100
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
         }
       );
     } catch (error) {
@@ -78,14 +79,14 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickUserIcon();
    */
-  async clickUserIcon(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async clickUserIcon(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickUserIcon);
 
     async function clickUserIconOld() {
       const selector = {
-        "elementProperties": {
-          "metadata": "sap.m.Avatar",
-          "id": "*HeaderButton"
+        elementProperties: {
+          metadata: "sap.m.Avatar",
+          id: "*HeaderButton"
         }
       };
       await ui5.userInteraction.click(selector, 0, 500);
@@ -111,8 +112,8 @@ export class NavigationBar {
         },
         {
           timeout: timeout,
-          timeoutMsg: `Could not click User Icon in ${+timeout/1000}s`,
-          interval: 100
+          timeoutMsg: `Could not click User Icon in ${+timeout / 1000}s`,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
         }
       );
     } catch (error) {
@@ -152,7 +153,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.expectShellHeader();
    */
-  async expectShellHeader(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+  async expectShellHeader(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const vl = this.vlf.initLog(this.expectShellHeader);
     const selector = {
       elementProperties: {

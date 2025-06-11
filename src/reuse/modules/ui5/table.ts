@@ -3,6 +3,7 @@
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 import { Ui5Selector, Ui5ControlMetadata } from "./types/ui5.types";
+import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class table
@@ -34,7 +35,7 @@ export class Table {
    * };
    * await ui5.table.sortColumnAscending("Amount", glAccountItemsTable);
    */
-  async sortColumnAscending(columnName: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async sortColumnAscending(columnName: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const oldSortButtonSelector = {
       elementProperties: {
         metadata: "sap.m.Button",
@@ -75,7 +76,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort button not clickable",
-          interval: 100
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
         }
       );
     }
@@ -97,7 +98,7 @@ export class Table {
    * };
    * await ui5.table.sortColumnDescending("Amount", glAccountItemsTable);
    */
-  async sortColumnDescending(columnName: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async sortColumnDescending(columnName: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const oldSortButtonSelector = {
       elementProperties: {
         metadata: "sap.m.Button",
@@ -138,7 +139,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort button not clickable",
-          interval: 100
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
         }
       );
     }
@@ -559,7 +560,7 @@ export class Table {
   }
 
   // =================================== HELPER ===================================
-  private async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<Ui5Selector> {
+  private async _resolveTableSelectorOrId(tableSelectorOrId: Ui5Selector | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<Ui5Selector> {
     if (typeof tableSelectorOrId === "string") {
       const selectors: Array<Ui5Selector> = [
         {
@@ -595,7 +596,7 @@ export class Table {
           {
             timeout: timeout,
             timeoutMsg: "Table could not be resolved",
-            interval: 100
+            interval: GLOBAL_DEFAULT_WAIT_INTERVAL
           }
         );
         return selectors[index];
@@ -669,7 +670,7 @@ export class Table {
     }
   }
 
-  private async _clickColumn(name: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  private async _clickColumn(name: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this._clickColumn);
     const tableColumnSelector = {
       elementProperties: {
@@ -703,7 +704,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Column not clickable",
-          interval: 100
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
         }
       );
     } else if (typeof tableSelector === "object") {
@@ -720,7 +721,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Column not clickable",
-          interval: 100
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
         }
       );
     }
@@ -732,7 +733,7 @@ export class Table {
     return sorted ? sortOrder : "";
   }
 
-  private async _getSortIndicatorValue(name: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  private async _getSortIndicatorValue(name: string, tableSelector: Ui5Selector, timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this._getSortIndicatorValue);
     const tableColumnSelector = {
       elementProperties: {
@@ -753,6 +754,7 @@ export class Table {
     };
 
     let sortIndicator;
+
     if (!tableSelector) {
       await browser.waitUntil(
         async () => {
@@ -767,7 +769,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort indicator not found",
-          interval: 100
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
         }
       );
     } else if (typeof tableSelector === "object") {
@@ -785,7 +787,7 @@ export class Table {
         {
           timeout: timeout,
           timeoutMsg: "Sort indicator not found",
-          interval: 100
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
         }
       );
     }
