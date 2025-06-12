@@ -3,6 +3,14 @@
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { DateFormats } from "../util/constants/formatter.constants";
 
+type PickerMetadata = "sap.m.DatePicker" | "sap.m.DateTimePicker" | "sap.m.DateRangeSelection";
+
+class DatePickerSelectorParams {
+  selector: any;
+  index: number = 0;
+  metadata: PickerMetadata = "sap.m.DatePicker";
+}
+
 /**
  * @class date
  * @memberof ui5
@@ -24,7 +32,7 @@ export class DateModule {
   async pick(selector: any, date: Date, index: number = 0) {
     const vl = this.vlf.initLog(this.pick);
     vl.log(`Picking date ${date} for selector ${selector}`);
-    const tempSelector = await this._constructDatePickerSelector(selector, index, "sap.m.DatePicker");
+    const tempSelector = await this._constructDatePickerSelector({ selector, index, metadata: "sap.m.DatePicker" });
     await this._openDatePicker(tempSelector);
     await this._selectDate(tempSelector, date);
   }
@@ -45,7 +53,7 @@ export class DateModule {
   async pickRange(selector: any, range: Date[], index = 0) {
     const vl = this.vlf.initLog(this.pickRange);
     vl.log(`Picking date range ${range} for selector ${selector}`);
-    const tempSelector = await this._constructDatePickerSelector(selector, index, "sap.m.DateRangeSelection");
+    const tempSelector = await this._constructDatePickerSelector({ selector, index, metadata: "sap.m.DateRangeSelection" });
     await this._openDatePicker(tempSelector);
     await this._selectDate(tempSelector, range[0]);
     await this._selectDate(tempSelector, range[1]);
@@ -54,7 +62,7 @@ export class DateModule {
   async pickWithTime(selector: any, date: Date, index = 0) {
     const vl = this.vlf.initLog(this.pickWithTime);
     vl.log(`Picking date with time ${date} for selector ${selector}`);
-    const tempSelector = await this._constructDatePickerSelector(selector, index, "sap.m.DateTimePicker");
+    const tempSelector = await this._constructDatePickerSelector({ selector, index, metadata: "sap.m.DateTimePicker" });
     await this._openDatePicker(tempSelector);
     await this._selectDate(tempSelector, date);
     await this._selectTime(date);
@@ -81,14 +89,14 @@ export class DateModule {
   }
 
   // =================================== HELPER ===================================
-  private async _constructDatePickerSelector(selector: any, index: number = 0, metadata: "sap.m.DatePicker" | "sap.m.DateTimePicker" | "sap.m.DateRangeSelection" = "sap.m.DatePicker") {
-    let id = await ui5.element.getId(selector, index);
-    if (selector.elementProperties.metadata === "sap.ui.core.Icon") {
+  private async _constructDatePickerSelector(params: DatePickerSelectorParams) {
+    let id = await ui5.element.getId(params.selector, params.index);
+    if (params.selector.elementProperties.metadata === "sap.ui.core.Icon") {
       id = id.replace("-icon", "");
     }
     return {
       elementProperties: {
-        metadata: metadata,
+        metadata: params.metadata,
         id: id
       }
     };
