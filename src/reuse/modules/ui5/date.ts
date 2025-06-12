@@ -180,22 +180,26 @@ export class DateModule {
 
   private async _selectTime(selector: any, date: Date) {
     const vl = this.vlf.initLog(this._selectTime);
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
+    await this._pickAmPm(date.getHours() < 12 ? "AM" : "PM");
+    await this._pickHours(date.getHours());
+    await this._pickMinutes(date.getMinutes());
+    await this._pickSeconds(date.getSeconds());
+  }
 
-    // pick AM/PM
-    const amOrPm = hours >= 12 ? "PM" : "AM";
+  private async _pickAmPm(amPm: "AM" | "PM") {
+    const vl = this.vlf.initLog(this._pickAmPm);
     const amPmSelector = {
       "elementProperties": {
         "viewName": "sap.m.sample.DateTimePicker.Group",
         "metadata": "sap.m.Button",
-        "text": amOrPm
+        "text": amPm
       }
     };
     await ui5.userInteraction.click(amPmSelector);
+  }
 
-    // pick hours
+  private async _pickHours(hours: number) {
+    const vl = this.vlf.initLog(this._pickHours);
     await ui5.userInteraction.click({
       "elementProperties": {
         "viewName": "sap.m.sample.DateTimePicker.Group",
@@ -203,9 +207,16 @@ export class DateModule {
         "tooltip": "Hours"
       }
     });
-    await common.userInteraction.pressKey(util.formatter.addRemoveLeadingZeros((hours % 12).toString(), 2));
+    await common.userInteraction.pressKey(
+      util.formatter.addRemoveLeadingZeros(
+        (hours % 12).toString(),
+        2
+      )
+    );
+  }
 
-    // pick minutes
+  private async _pickMinutes(minutes: number) {
+    const vl = this.vlf.initLog(this._pickMinutes);
     await ui5.userInteraction.click({
       "elementProperties": {
         "viewName": "sap.m.sample.DateTimePicker.Group",
@@ -213,9 +224,13 @@ export class DateModule {
         "tooltip": "Minutes"
       }
     });
-    await common.userInteraction.pressKey(util.formatter.addRemoveLeadingZeros(minutes.toString(), 2));
+    await common.userInteraction.pressKey(
+      util.formatter.addRemoveLeadingZeros(minutes.toString(), 2)
+    );
+  }
 
-    // pick seconds
+  private async _pickSeconds(seconds: number) {
+    const vl = this.vlf.initLog(this._pickSeconds);
     await ui5.userInteraction.click({
       "elementProperties": {
         "viewName": "sap.m.sample.DateTimePicker.Group",
