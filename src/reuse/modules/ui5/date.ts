@@ -59,6 +59,16 @@ export class DateModule {
     await this._selectDate(tempSelector, range[1]);
   }
 
+  /**
+   * @function pickWithTime
+   * @memberOf ui5.date
+   * @description Picks the passed date with time using the "DateTimePicker" with the given selector.
+   * @param {Selector} selector - The selector describing the element.
+   * @param {Date} date - The date object.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+   * @example const tomorrowMorning = await common.date.calculateWithTime("tomorrow", "09:30:45");
+   * await ui5.date.pickWithTime(selector, tomorrowMorning);
+   */
   async pickWithTime(selector: any, date: Date, index = 0) {
     const vl = this.vlf.initLog(this.pickWithTime);
     vl.log(`Picking date with time ${date} for selector ${selector}`);
