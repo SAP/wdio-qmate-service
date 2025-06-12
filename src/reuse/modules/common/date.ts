@@ -7,6 +7,8 @@ import { DateFormats } from "../util/constants/formatter.constants";
 import { DateFormatsType } from "../util/types/formatter.types";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 
+type Time = `${number}:${number}` | `${number}:${number}:${number}` | `${number}`;
+
 /**
  * @class date
  * @memberof common
@@ -188,7 +190,7 @@ export class DateModule {
    * @returns  {Date} The calculated date and time in the given format.
    * @example const date = await common.date.calculateWithTime("today", "10:00");
    */
-  calculateWithTime(date?: CalculateDatesType, time?: string): Date {
+  calculateWithTime(date?: CalculateDatesType, time?: Time): Date {
     const vl = this.vlf.initLog(this.calculateWithTime);
     if (!date) {
       return new Date();
