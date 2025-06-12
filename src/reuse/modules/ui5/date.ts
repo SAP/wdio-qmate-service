@@ -161,10 +161,10 @@ export class DateModule {
 
   private async _selectTime(date: Date) {
     const vl = this.vlf.initLog(this._selectTime);
-    await this._pickAmPm(date.getHours() < 12 ? "AM" : "PM");
-    await this._pickHours(date.getHours());
-    await this._pickMinutes(date.getMinutes());
-    await this._pickSeconds(date.getSeconds());
+    await this._selectAmPm(date.getHours() < 12 ? "AM" : "PM");
+    await this._selectHours(date.getHours());
+    await this._selectMinutes(date.getMinutes());
+    await this._selectSeconds(date.getSeconds());
   }
 
   private async _clickOk() {
@@ -178,8 +178,8 @@ export class DateModule {
     await ui5.userInteraction.click(selector);
   }
 
-  private async _pickAmPm(amPm: "AM" | "PM") {
-    const vl = this.vlf.initLog(this._pickAmPm);
+  private async _selectAmPm(amPm: "AM" | "PM") {
+    const vl = this.vlf.initLog(this._selectAmPm);
     const amPmSelector = {
       "elementProperties": {
         "viewName": "sap.m.sample.DateTimePicker.Group",
@@ -190,8 +190,8 @@ export class DateModule {
     await ui5.userInteraction.click(amPmSelector);
   }
 
-  private async _pickHours(hours: number) {
-    const vl = this.vlf.initLog(this._pickHours);
+  private async _selectHours(hours: number) {
+    const vl = this.vlf.initLog(this._selectHours);
     await ui5.userInteraction.click({
       "elementProperties": {
         "viewName": "sap.m.sample.DateTimePicker.Group",
@@ -207,8 +207,8 @@ export class DateModule {
     );
   }
 
-  private async _pickMinutes(minutes: number) {
-    const vl = this.vlf.initLog(this._pickMinutes);
+  private async _selectMinutes(minutes: number) {
+    const vl = this.vlf.initLog(this._selectMinutes);
     await ui5.userInteraction.click({
       "elementProperties": {
         "viewName": "sap.m.sample.DateTimePicker.Group",
@@ -221,8 +221,8 @@ export class DateModule {
     );
   }
 
-  private async _pickSeconds(seconds: number) {
-    const vl = this.vlf.initLog(this._pickSeconds);
+  private async _selectSeconds(seconds: number) {
+    const vl = this.vlf.initLog(this._selectSeconds);
     await ui5.userInteraction.click({
       "elementProperties": {
         "viewName": "sap.m.sample.DateTimePicker.Group",
