@@ -90,7 +90,15 @@ export class DateModule {
     await this._openDatePicker(tempSelector);
     await this._selectDate(tempSelector, date);
     await this._selectTime(tempSelector, date);
-    // TODO: add logic to click the "OK" button to confirm the selection
+
+    const okButtonSelector = {
+      "elementProperties": {
+        "viewName": "sap.m.sample.DateTimePicker.Group",
+        "metadata": "sap.m.Button",
+        "text": "OK"
+      }
+    };
+    await ui5.userInteraction.click(okButtonSelector);
   }
 
   // =================================== FILL ===================================
@@ -176,19 +184,46 @@ export class DateModule {
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
 
-    const id = selector.elementProperties.id;
+    // pick AM/PM
+    const amOrPm = hours >= 12 ? "PM" : "AM";
+    const amPmSelector = {
+      "elementProperties": {
+        "viewName": "sap.m.sample.DateTimePicker.Group",
+        "metadata": "sap.m.Button",
+        "text": amOrPm
+      }
+    };
+    await ui5.userInteraction.click(amPmSelector);
 
     // pick hours
-    const hoursPick = await nonUi5.element.getByCss(`[id*="${id}"] .sapMTPCNumber[id="${id}-Clocks-clockH-${hours}"]`);
-    await nonUi5.userInteraction.click(hoursPick);
+    await ui5.userInteraction.click({
+      "elementProperties": {
+        "viewName": "sap.m.sample.DateTimePicker.Group",
+        "metadata": "sap.m.internal.ToggleSpinButton",
+        "tooltip": "Hours"
+      }
+    });
+    await common.userInteraction.pressKey(util.formatter.addRemoveLeadingZeros((hours % 12).toString(), 2));
 
     // pick minutes
-    const minutesPick = await nonUi5.element.getByCss(`[id*="${id}"] .sapMTPCDeg${minutes * 6}`);
-    await nonUi5.userInteraction.click(minutesPick);
+    await ui5.userInteraction.click({
+      "elementProperties": {
+        "viewName": "sap.m.sample.DateTimePicker.Group",
+        "metadata": "sap.m.internal.ToggleSpinButton",
+        "tooltip": "Minutes"
+      }
+    });
+    await common.userInteraction.pressKey(util.formatter.addRemoveLeadingZeros(minutes.toString(), 2));
 
     // pick seconds
-    const secondsPick = await nonUi5.element.getByCss(`[id*="${id}"] .sapMTPCDeg${seconds * 6}`);
-    await nonUi5.userInteraction.click(secondsPick);
+    await ui5.userInteraction.click({
+      "elementProperties": {
+        "viewName": "sap.m.sample.DateTimePicker.Group",
+        "metadata": "sap.m.internal.ToggleSpinButton",
+        "tooltip": "Seconds"
+      }
+    });
+    await common.userInteraction.pressKey(util.formatter.addRemoveLeadingZeros(seconds.toString(), 2));
   }
 }
 export default new DateModule();
