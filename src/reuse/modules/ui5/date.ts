@@ -89,16 +89,8 @@ export class DateModule {
 
     await this._openDatePicker(tempSelector);
     await this._selectDate(tempSelector, date);
-    await this._selectTime(tempSelector, date);
-
-    const okButtonSelector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.DateTimePicker.Group",
-        "metadata": "sap.m.Button",
-        "text": "OK"
-      }
-    };
-    await ui5.userInteraction.click(okButtonSelector);
+    await this._selectTime(date);
+    await this._clickOk();
   }
 
   // =================================== FILL ===================================
@@ -178,12 +170,23 @@ export class DateModule {
     await nonUi5.userInteraction.click(dayPick);
   }
 
-  private async _selectTime(selector: any, date: Date) {
+  private async _selectTime(date: Date) {
     const vl = this.vlf.initLog(this._selectTime);
     await this._pickAmPm(date.getHours() < 12 ? "AM" : "PM");
     await this._pickHours(date.getHours());
     await this._pickMinutes(date.getMinutes());
     await this._pickSeconds(date.getSeconds());
+  }
+
+  private async _clickOk() {
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.m.sample.DateTimePicker.Group",
+        "metadata": "sap.m.Button",
+        "text": "OK"
+      }
+    };
+    await ui5.userInteraction.click(selector);
   }
 
   private async _pickAmPm(amPm: "AM" | "PM") {
