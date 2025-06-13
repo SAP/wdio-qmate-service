@@ -7,7 +7,9 @@ import { DateFormats } from "../util/constants/formatter.constants";
 import { DateFormatsType } from "../util/types/formatter.types";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 
-type Time =  `${number}:${number}:${number}` | `${number}:${number}` | `${number}`;
+type Time =  `${number}:${number}:${number}` | `${number}:${number}:${number} ${"AM" | "PM"}`
+  | `${number}:${number}` | `${number}:${number} ${"AM" | "PM"}`
+  | `${number}` | `${number} ${"AM" | "PM"}`;
 
 /**
  * @class date
@@ -216,6 +218,7 @@ export class DateModule {
     if (!this._isValidTime(time)) {
       throw new Error("Function 'calculateWithTime' failed: Please provide a valid time string as a second argument.");
     }
+    time = time.replace(/AM|PM/i, "").trim(); // Remove AM/PM if present
     const [hours, minutes, seconds] = time.split(":").map(Number);
     if (hours) {
       date.setHours(hours);
@@ -230,6 +233,7 @@ export class DateModule {
   }
 
   private _isValidTime(time: string): boolean {
+    time = time.replace(/AM|PM/i, "").trim(); // Remove AM/PM if present
     const hoursRegex = /^(2[0-3]|[01]?[0-9])$/; // 00-23
     const minutesRegex = /^([0-5]?[0-9])$/; // 00-59
     const secondsRegex = /^([0-5]?[0-9])$/; // 00-59
