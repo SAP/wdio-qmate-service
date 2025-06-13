@@ -159,6 +159,21 @@ describe("date - calculateWithTime - 'nextMonth' - '9:15 PM'", function() {
   });
 });
 
+describe("date - calculateWithTime - 'previousMonth' - '12 AM'", function() {
+  let dateAct;
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("previousMonth", "12 AM");
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setMonth(dateExp.getMonth() - 1);
+    dateExp.setHours(0, 0, 0, 0);
+    verifyDateWithTime(dateAct, dateExp);
+  });
+});
+
 describe("date - calculateWithTime - 'nextYear' - 'invalid-time' - error", function() {
   it("Execution & Verification", function() {
     expect(() => common.date.calculateWithTime("nextYear", "invalid-time")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");

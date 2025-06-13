@@ -7,9 +7,10 @@ import { DateFormats } from "../util/constants/formatter.constants";
 import { DateFormatsType } from "../util/types/formatter.types";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 
-type Time = `${number}:${number}:${number}` | `${number}:${number}:${number} ${"AM" | "PM"}`
-  | `${number}:${number}` | `${number}:${number} ${"AM" | "PM"}`
-  | `${number}` | `${number} ${"AM" | "PM"}`;
+type AmPm = "AM" | "PM" | "";
+type Time = `${number}:${number}:${number}` | `${number}:${number}:${number} ${AmPm}`
+  | `${number}:${number}` | `${number}:${number} ${AmPm}`
+  | `${number}` | `${number} ${AmPm}`;
 
 /**
  * @class date
@@ -219,19 +220,18 @@ export class DateModule {
       throw new Error("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
     }
     let [hours, minutes, seconds] = this._extractTimeComponents(time).map(Number);
-    if (time.includes("PM")) {
-      hours += 12;
-    }
-    date.setHours(hours || 0);
+    date.setHours(hours
+      ? this._adjustTo24HourFormat(hours, this._extractAmPm(time))
+      : 0
+    );
     date.setMinutes(minutes || 0);
     date.setSeconds(seconds || 0);
     return date;
   }
 
   private _isValidTime(time: string): boolean {
-    const amPm = time.toUpperCase().match(/AM|PM/i);
     const [hours, minutes, seconds] = this._extractTimeComponents(time);
-    return (hours ? this._isValidHours(hours, amPm) : true)
+    return (hours ? this._isValidHours(hours, this._extractAmPm(time)) : true)
       && (minutes ? this._isValidMinutes(minutes) : true)
       && (seconds ? this._isValidSeconds(seconds) : true);
   }
@@ -240,10 +240,20 @@ export class DateModule {
     return time.replace(/AM|PM/i, "").trim().split(":");
   }
 
-  private _isValidHours(hours: string, amPm: RegExpMatchArray | null): boolean {
+  private _adjustTo24HourFormat(hours: number, amPm: AmPm): number {
+    if (amPm === "PM" && hours < 12) {
+      return hours + 12;
+    }
+    if (amPm === "AM" && hours === 12) {
+      return 0;
+    }
+    return hours;
+  }
+
+  private _isValidHours(hours: string, amPm: AmPm): boolean {
     const hoursRegex = /^(2[0-3]|[01]?[0-9])$/; // 00-23
     return (hoursRegex.test(hours) && (
-        (amPm && amPm[0] === "PM") ? Number(hours) <= 12 : true
+        (amPm && amPm === "PM") ? Number(hours) <= 12 : true
       )
     );
   }
@@ -256,6 +266,11 @@ export class DateModule {
   private _isValidSeconds(seconds: string): boolean {
     const secondsRegex = /^([0-5]?[0-9])$/; // 00-59
     return secondsRegex.test(seconds);
+  }
+
+  private _extractAmPm(time: string): AmPm {
+    const match = time.toUpperCase().match(/AM|PM/i);
+    return match ? (match[0] as "AM" | "PM") : "";
   }
 }
 export default new DateModule();
