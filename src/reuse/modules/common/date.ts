@@ -2,21 +2,12 @@
 
 import { CalculateDates } from "./constants/date.constants";
 import { CalculateDatesType } from "./types/date.types";
+import { Time } from "./types/time.types";
 
 import { DateFormats } from "../util/constants/formatter.constants";
 import { DateFormatsType } from "../util/types/formatter.types";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
-
-type AmPm = "AM" | "PM" | "";
-type Time = `${number}:${number}:${number}` | `${number}:${number}:${number} ${AmPm}`
-  | `${number}:${number}` | `${number}:${number} ${AmPm}`
-  | `${number}` | `${number} ${AmPm}`;
-
-interface TimeComponents {
-  hours: string;
-  minutes?: string;
-  seconds?: string;
-}
+import { TimeHelper } from "../../helper/timeHelper";
 
 /**
  * @class date
@@ -206,7 +197,7 @@ export class DateModule {
     }
     const startOfDay = this._calculateStartOfDay(date);
     return time
-      ? this._updateDateWithTime(startOfDay, time)
+      ? TimeHelper.updateDateWithTime(startOfDay, time)
       : startOfDay;
   }
 
@@ -220,65 +211,6 @@ export class DateModule {
     }
     calculatedDate.setHours(0, 0, 0, 0);
     return calculatedDate;
-  }
-
-  private _updateDateWithTime(date: Date, time: Time): Date {
-    if (!this._isValidTime(time)) {
-      throw new Error("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
-    }
-    const { hours, minutes, seconds } = this._extractTimeComponents(time);
-    date.setHours(hours
-      ? this._adjustTo24HourFormat(Number(hours), this._extractAmPm(time))
-      : 0
-    );
-    date.setMinutes(Number(minutes) || 0);
-    date.setSeconds(Number(seconds) || 0);
-    return date;
-  }
-
-  private _isValidTime(time: Time): boolean {
-    const { hours, minutes, seconds } = this._extractTimeComponents(time);
-    return this._isValidHours(hours, this._extractAmPm(time))
-      && (minutes ? this._isValidMinutes(minutes) : true)
-      && (seconds ? this._isValidSeconds(seconds) : true);
-  }
-
-  private _extractTimeComponents(time: Time): TimeComponents {
-    const [hours, minutes, seconds] = time.replace(/AM|PM/i, "").trim().split(":");
-    return { hours, minutes, seconds };
-  }
-
-  private _adjustTo24HourFormat(hours: number, amPm: AmPm): number {
-    if (amPm === "PM" && hours < 12) {
-      return hours + 12;
-    }
-    if (amPm === "AM" && hours === 12) {
-      return 0;
-    }
-    return hours;
-  }
-
-  private _isValidHours(hours: string, amPm: AmPm): boolean {
-    const hoursRegex = /^(2[0-3]|[01]?[0-9])$/; // 00-23
-    return (hoursRegex.test(hours) && (
-        amPm ? Number(hours) <= 12 : true
-      )
-    );
-  }
-
-  private _isValidMinutes(minutes: string): boolean {
-    const minutesRegex = /^([0-5]?[0-9])$/; // 00-59
-    return minutesRegex.test(minutes);
-  }
-
-  private _isValidSeconds(seconds: string): boolean {
-    const secondsRegex = /^([0-5]?[0-9])$/; // 00-59
-    return secondsRegex.test(seconds);
-  }
-
-  private _extractAmPm(time: Time): AmPm {
-    const match = time.toUpperCase().match(/AM|PM/i);
-    return match ? (match[0] as "AM" | "PM") : "";
   }
 }
 export default new DateModule();
