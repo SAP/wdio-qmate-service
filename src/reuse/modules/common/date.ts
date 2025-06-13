@@ -220,7 +220,11 @@ export class DateModule {
     }
     const [hours, minutes, seconds] = this._removeAmPm(time).split(":").map(Number);
     if (hours) {
-      date.setHours(hours);
+      if (time.toUpperCase().includes("PM")) {
+        date.setHours(hours + 12);
+      } else {
+        date.setHours(hours);
+      }
     }
     if (minutes) {
       date.setMinutes(minutes);
