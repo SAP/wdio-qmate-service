@@ -287,6 +287,12 @@ describe("date - calculateWithTime - 'nextMonth' - 'PM' - error", function() {
   });
 });
 
+describe("date - calculateWithTime - 'nextMonth' - '12 AM/PM' - error", function() {
+  it("Execution & Verification", function() {
+    expect(() => common.date.calculateWithTime("nextMonth", "12 AM/PM")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+  });
+});
+
 // =================================== TEST HELPER ===================================
 function verifyDateWithTime(dateAct, dateExp) {
   common.assertion.expectEqual(dateAct.getFullYear(), dateExp.getFullYear());
