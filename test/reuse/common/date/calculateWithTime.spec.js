@@ -1,6 +1,6 @@
 "use strict";
 
-  // =================================== VALID CASES ===================================
+// =================================== VALID CASES ===================================
 describe("date - calculateWithTime - without parameters", function() {
   let dateAct;
 
@@ -145,11 +145,41 @@ describe("date - calculateWithTime - 'nextMonth' - '9:15 AM'", function() {
   });
 });
 
+describe("date - calculateWithTime - 'nextMonth' - '9:15 am' ('am' in lowercase')", function() {
+  let dateAct;
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("nextMonth", "9:15 am");
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setMonth(dateExp.getMonth() + 1);
+    dateExp.setHours(9, 15, 0, 0);
+    verifyDateWithTime(dateAct, dateExp);
+  });
+});
+
 describe("date - calculateWithTime - 'nextMonth' - '9:15 PM'", function() {
   let dateAct;
 
   it("Execution", function() {
     dateAct = common.date.calculateWithTime("nextMonth", "9:15 PM");
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setMonth(dateExp.getMonth() + 1);
+    dateExp.setHours(21, 15, 0, 0);
+    verifyDateWithTime(dateAct, dateExp);
+  });
+});
+
+describe("date - calculateWithTime - 'nextMonth' - '9:15 pm' ('pm' in lowercase)", function() {
+  let dateAct;
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("nextMonth", "9:15 pm");
   });
 
   it("Verification", function() {
