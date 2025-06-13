@@ -216,7 +216,7 @@ export class DateModule {
 
   private _updateDateWithTime(date: Date, time: string): Date {
     if (!this._isValidTime(time)) {
-      throw new Error("Function 'calculateWithTime' failed: Please provide a valid time string as a second argument.");
+      throw new Error("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
     }
     let [hours, minutes, seconds] = this._extractTimeComponents(time).map(Number);
     if (time.includes("PM")) {
@@ -229,17 +229,33 @@ export class DateModule {
   }
 
   private _isValidTime(time: string): boolean {
+    const amPm = time.toUpperCase().match(/AM|PM/i);
     const [hours, minutes, seconds] = this._extractTimeComponents(time);
-    const hoursRegex = /^(2[0-3]|[01]?[0-9])$/; // 00-23
-    const minutesRegex = /^([0-5]?[0-9])$/; // 00-59
-    const secondsRegex = /^([0-5]?[0-9])$/; // 00-59
-    return (hours ? hoursRegex.test(hours) : true)
-      && (minutes ? minutesRegex.test(minutes) : true)
-      && (seconds ? secondsRegex.test(seconds) : true);
+    return (hours ? this._isValidHours(hours, amPm) : true)
+      && (minutes ? this._isValidMinutes(minutes) : true)
+      && (seconds ? this._isValidSeconds(seconds) : true);
   }
 
   private _extractTimeComponents(time: string): Array<string> {
     return time.replace(/AM|PM/i, "").trim().split(":");
+  }
+
+  private _isValidHours(hours: string, amPm: RegExpMatchArray | null): boolean {
+    const hoursRegex = /^(2[0-3]|[01]?[0-9])$/; // 00-23
+    return (hoursRegex.test(hours) && (
+        (amPm && amPm[0] === "PM") ? Number(hours) <= 12 : true
+      )
+    );
+  }
+
+  private _isValidMinutes(minutes: string): boolean {
+    const minutesRegex = /^([0-5]?[0-9])$/; // 00-59
+    return minutesRegex.test(minutes);
+  }
+
+  private _isValidSeconds(seconds: string): boolean {
+    const secondsRegex = /^([0-5]?[0-9])$/; // 00-59
+    return secondsRegex.test(seconds);
   }
 }
 export default new DateModule();
