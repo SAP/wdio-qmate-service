@@ -7,7 +7,7 @@ import { DateFormats } from "../util/constants/formatter.constants";
 import { DateFormatsType } from "../util/types/formatter.types";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 
-type Time =  `${number}:${number}:${number}` | `${number}:${number}:${number} ${"AM" | "PM"}`
+type Time = `${number}:${number}:${number}` | `${number}:${number}:${number} ${"AM" | "PM"}`
   | `${number}:${number}` | `${number}:${number} ${"AM" | "PM"}`
   | `${number}` | `${number} ${"AM" | "PM"}`;
 
@@ -218,42 +218,28 @@ export class DateModule {
     if (!this._isValidTime(time)) {
       throw new Error("Function 'calculateWithTime' failed: Please provide a valid time string as a second argument.");
     }
-    const [hours, minutes, seconds] = this._removeAmPm(time).split(":").map(Number);
-    if (hours) {
-      if (time.toUpperCase().includes("PM")) {
-        date.setHours(hours + 12);
-      } else {
-        date.setHours(hours);
-      }
+    let [hours, minutes, seconds] = this._extractTimeComponents(time).map(Number);
+    if (time.includes("PM")) {
+      hours += 12;
     }
-    if (minutes) {
-      date.setMinutes(minutes);
-    }
-    if (seconds) {
-      date.setSeconds(seconds);
-    }
+    date.setHours(hours || 0);
+    date.setMinutes(minutes || 0);
+    date.setSeconds(seconds || 0);
     return date;
   }
 
   private _isValidTime(time: string): boolean {
+    const [hours, minutes, seconds] = this._extractTimeComponents(time);
     const hoursRegex = /^(2[0-3]|[01]?[0-9])$/; // 00-23
     const minutesRegex = /^([0-5]?[0-9])$/; // 00-59
     const secondsRegex = /^([0-5]?[0-9])$/; // 00-59
-    const [hours, minutes, seconds] = this._removeAmPm(time).split(":");
-    if (hours && !hoursRegex.test(hours)) {
-      return false;
-    }
-    if (minutes && !minutesRegex.test(minutes)) {
-      return false;
-    }
-    if (seconds && !secondsRegex.test(seconds)) {
-      return false;
-    }
-    return true;
+    return (hours ? hoursRegex.test(hours) : true)
+      && (minutes ? minutesRegex.test(minutes) : true)
+      && (seconds ? secondsRegex.test(seconds) : true);
   }
 
-  private _removeAmPm(time: string): string {
-    return time.replace(/AM|PM/i, "").trim();
+  private _extractTimeComponents(time: string): Array<string> {
+    return time.replace(/AM|PM/i, "").trim().split(":");
   }
 }
 export default new DateModule();
