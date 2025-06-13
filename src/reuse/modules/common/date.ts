@@ -254,7 +254,7 @@ export class DateModule {
   private _isValidHours(hours: string, amPm: AmPm): boolean {
     const hoursRegex = /^(2[0-3]|[01]?[0-9])$/; // 00-23
     return (hoursRegex.test(hours) && (
-        (amPm && amPm === "PM") ? Number(hours) <= 12 : true
+        amPm ? Number(hours) <= 12 : true
       )
     );
   }

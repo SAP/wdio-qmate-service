@@ -293,6 +293,12 @@ describe("date - calculateWithTime - 'nextMonth' - '12 AM/PM' - error", function
   });
 });
 
+describe("date - calculateWithTime - 'nextMonth' - '13:15 AM' - error", function() {
+  it("Execution & Verification", function() {
+    expect(() => common.date.calculateWithTime("nextMonth", "21:15 AM")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+  });
+});
+
 describe("date - calculateWithTime - 'previousMonth' - '-5:40:40' - error", function() {
   it("Execution & Verification", function() {
     expect(() => common.date.calculateWithTime("nextMonth", "-5:40:40")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
