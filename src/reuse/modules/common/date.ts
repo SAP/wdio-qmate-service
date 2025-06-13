@@ -12,6 +12,12 @@ type Time = `${number}:${number}:${number}` | `${number}:${number}:${number} ${A
   | `${number}:${number}` | `${number}:${number} ${AmPm}`
   | `${number}` | `${number} ${AmPm}`;
 
+interface TimeComponents {
+  hours: string;
+  minutes?: string;
+  seconds?: string;
+}
+
 /**
  * @class date
  * @memberof common
@@ -216,29 +222,30 @@ export class DateModule {
     return calculatedDate;
   }
 
-  private _updateDateWithTime(date: Date, time: string): Date {
+  private _updateDateWithTime(date: Date, time: Time): Date {
     if (!this._isValidTime(time)) {
       throw new Error("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
     }
-    let [hours, minutes, seconds] = this._extractTimeComponents(time).map(Number);
+    const { hours, minutes, seconds } = this._extractTimeComponents(time);
     date.setHours(hours
-      ? this._adjustTo24HourFormat(hours, this._extractAmPm(time))
+      ? this._adjustTo24HourFormat(Number(hours), this._extractAmPm(time))
       : 0
     );
-    date.setMinutes(minutes || 0);
-    date.setSeconds(seconds || 0);
+    date.setMinutes(Number(minutes) || 0);
+    date.setSeconds(Number(seconds) || 0);
     return date;
   }
 
-  private _isValidTime(time: string): boolean {
-    const [hours, minutes, seconds] = this._extractTimeComponents(time);
+  private _isValidTime(time: Time): boolean {
+    const { hours, minutes, seconds } = this._extractTimeComponents(time);
     return this._isValidHours(hours, this._extractAmPm(time))
       && (minutes ? this._isValidMinutes(minutes) : true)
       && (seconds ? this._isValidSeconds(seconds) : true);
   }
 
-  private _extractTimeComponents(time: string): Array<string> {
-    return time.replace(/AM|PM/i, "").trim().split(":");
+  private _extractTimeComponents(time: Time): TimeComponents {
+    const [hours, minutes, seconds] = time.replace(/AM|PM/i, "").trim().split(":");
+    return { hours, minutes, seconds };
   }
 
   private _adjustTo24HourFormat(hours: number, amPm: AmPm): number {
@@ -269,7 +276,7 @@ export class DateModule {
     return secondsRegex.test(seconds);
   }
 
-  private _extractAmPm(time: string): AmPm {
+  private _extractAmPm(time: Time): AmPm {
     const match = time.toUpperCase().match(/AM|PM/i);
     return match ? (match[0] as "AM" | "PM") : "";
   }
