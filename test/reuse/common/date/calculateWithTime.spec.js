@@ -293,6 +293,24 @@ describe("date - calculateWithTime - 'nextMonth' - '12 AM/PM' - error", function
   });
 });
 
+describe("date - calculateWithTime - 'previousMonth' - '-5:40:40' - error", function() {
+  it("Execution & Verification", function() {
+    expect(() => common.date.calculateWithTime("nextMonth", "-5:40:40")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+  });
+});
+
+describe("date - calculateWithTime - 'previousMonth' - '20:-40:30' - error", function() {
+  it("Execution & Verification", function() {
+    expect(() => common.date.calculateWithTime("nextMonth", "-5:40:40")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+  });
+});
+
+describe("date - calculateWithTime - 'previousMonth' - '20:40:-30' - error", function() {
+  it("Execution & Verification", function() {
+    expect(() => common.date.calculateWithTime("nextMonth", "-5:40:40")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+  });
+});
+
 // =================================== TEST HELPER ===================================
 function verifyDateWithTime(dateAct, dateExp) {
   common.assertion.expectEqual(dateAct.getFullYear(), dateExp.getFullYear());
