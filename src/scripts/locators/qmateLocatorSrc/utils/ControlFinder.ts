@@ -32,6 +32,6 @@ export class ControlFinder {
   }
 
   public static getUI5Control(id: string | null | undefined): UI5Control | null {
-    return sap.ui.core.Element.getElementById(id);
+    return (sap.ui.core?.Element?.getElementById || sap.ui.getCore().byId)(id);
   }
 }
