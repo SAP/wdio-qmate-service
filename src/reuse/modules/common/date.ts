@@ -7,7 +7,7 @@ import { DateFormats } from "../util/constants/formatter.constants";
 import { DateFormatsType } from "../util/types/formatter.types";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 
-type Time = `${number}:${number}` | `${number}:${number}:${number}` | `${number}`;
+type Time =  `${number}:${number}:${number}` | `${number}:${number}` | `${number}`;
 
 /**
  * @class date
