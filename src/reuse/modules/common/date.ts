@@ -197,7 +197,7 @@ export class DateModule {
     }
     const startOfDay = this._calculateStartOfDay(date);
     return time
-      ? TimeHelper.updateDateWithTime(startOfDay, time)
+      ? this._updateDateWithTime(startOfDay, time)
       : startOfDay;
   }
 
@@ -211,6 +211,14 @@ export class DateModule {
     }
     calculatedDate.setHours(0, 0, 0, 0);
     return calculatedDate;
+  }
+
+  private _updateDateWithTime(date: Date, time: Time): Date {
+    try {
+      return TimeHelper.updateDateWithTime(date, time);
+    } catch (error) {
+      throw new Error(`Function 'calculateWithTime' failed: ${(error as unknown as Error).message}`);
+    }
   }
 }
 export default new DateModule();

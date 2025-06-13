@@ -10,7 +10,7 @@ interface TimeComponents {
 export class TimeHelper {
   public static updateDateWithTime(date: Date, time: Time): Date {
     if (!this._isValidTime(time)) {
-      throw new Error("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+      throw new Error("Please provide a valid time string as second argument.");
     }
     const { hours, minutes, seconds } = this._extractTimeComponents(time);
     date.setHours(hours
