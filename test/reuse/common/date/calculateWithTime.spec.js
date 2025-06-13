@@ -1,5 +1,6 @@
 "use strict";
 
+  // =================================== VALID CASES ===================================
 describe("date - calculateWithTime - without parameters", function() {
   let dateAct;
 
@@ -219,6 +220,7 @@ describe("date - calculateWithTime - 'previousMonth' - '12 PM'", function() {
   });
 });
 
+  // =================================== ERROR CASES ===================================
 describe("date - calculateWithTime - 'nextYear' - 'invalid-time' - error", function() {
   it("Execution & Verification", function() {
     expect(() => common.date.calculateWithTime("nextYear", "invalid-time")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
@@ -243,6 +245,19 @@ describe("date - calculateWithTime - 'nextMonth' - '21:15 PM' - error", function
   });
 });
 
+describe("date - calculateWithTime - 'nextMonth' - 'AM' - error", function() {
+  it("Execution & Verification", function() {
+    expect(() => common.date.calculateWithTime("nextMonth", "AM")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+  });
+});
+
+describe("date - calculateWithTime - 'nextMonth' - 'PM' - error", function() {
+  it("Execution & Verification", function() {
+    expect(() => common.date.calculateWithTime("nextMonth", "PM")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+  });
+});
+
+// =================================== TEST HELPER ===================================
 function verifyDateWithTime(dateAct, dateExp) {
   common.assertion.expectEqual(dateAct.getFullYear(), dateExp.getFullYear());
   common.assertion.expectEqual(dateAct.getMonth(), dateExp.getMonth());

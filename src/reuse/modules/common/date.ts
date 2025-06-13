@@ -204,6 +204,7 @@ export class DateModule {
       : startOfDay;
   }
 
+  // =================================== HELPER ===================================
   private _calculateStartOfDay(date: CalculateDatesType): Date {
     let calculatedDate: Date;
     try {
@@ -231,7 +232,7 @@ export class DateModule {
 
   private _isValidTime(time: string): boolean {
     const [hours, minutes, seconds] = this._extractTimeComponents(time);
-    return (hours ? this._isValidHours(hours, this._extractAmPm(time)) : true)
+    return this._isValidHours(hours, this._extractAmPm(time))
       && (minutes ? this._isValidMinutes(minutes) : true)
       && (seconds ? this._isValidSeconds(seconds) : true);
   }
