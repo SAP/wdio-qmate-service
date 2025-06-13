@@ -174,6 +174,51 @@ describe("date - calculateWithTime - 'previousMonth' - '12 AM'", function() {
   });
 });
 
+describe("date - calculateWithTime - 'previousMonth' - '12:15 AM'", function() {
+  let dateAct;
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("previousMonth", "12:15 AM");
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setMonth(dateExp.getMonth() - 1);
+    dateExp.setHours(0, 15, 0, 0);
+    verifyDateWithTime(dateAct, dateExp);
+  });
+});
+
+describe("date - calculateWithTime - 'previousMonth' - '01:05 AM'", function() {
+  let dateAct;
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("previousMonth", "01:05 AM");
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setMonth(dateExp.getMonth() - 1);
+    dateExp.setHours(1, 5, 0, 0);
+    verifyDateWithTime(dateAct, dateExp);
+  });
+});
+
+describe("date - calculateWithTime - 'previousMonth' - '12 PM'", function() {
+  let dateAct;
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("previousMonth", "12 PM");
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setMonth(dateExp.getMonth() - 1);
+    dateExp.setHours(12, 0, 0, 0);
+    verifyDateWithTime(dateAct, dateExp);
+  });
+});
+
 describe("date - calculateWithTime - 'nextYear' - 'invalid-time' - error", function() {
   it("Execution & Verification", function() {
     expect(() => common.date.calculateWithTime("nextYear", "invalid-time")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
