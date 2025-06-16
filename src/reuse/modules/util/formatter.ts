@@ -236,7 +236,10 @@ export class Formatter {
   }
 
   formatDateWithTime(date: Date, format: DateTimeFormatsType = DateFormats.OBJECT, locale = "en-US"): string | Date {
-    const dateFormat = format.split(" ")[0] as DateFormatsType;
+    let dateFormat = Object.values(DateFormats).find((f) => format.startsWith(f));
+    if (!dateFormat) {
+      return "Invalid date format provided.";
+    }
     const dateFormatted = this.formatDate(date, dateFormat, locale);
     const timeFormat = format.slice(dateFormat.length + 1);
     const hours = date.getHours();
