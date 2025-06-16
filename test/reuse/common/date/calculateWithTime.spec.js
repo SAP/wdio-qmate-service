@@ -250,6 +250,23 @@ describe("date - calculateWithTime - 'previousMonth' - '12 PM'", function() {
   });
 });
 
+describe("date - calculate - 'today' + 'mm/dd/yyyy HH:mm:ss'", function() {
+  let dateAct;
+  const format = "mm/dd/yyyy HH:mm:ss";
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("previousMonth", "12 PM", format);
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setMonth(dateExp.getMonth() - 1);
+    dateExp.setHours(12, 0, 0, 0);
+    const dateExpFormatted = util.formatter.formatDateWithTime(dateExp, format);
+    common.assertion.expectEqual(dateAct, dateExpFormatted);
+  });
+});
+
 // =================================== ERROR CASES ===================================
 describe("date - calculateWithTime - 'nextYear' - 'invalid-time' - error", function() {
   it("Execution & Verification", function() {
