@@ -257,6 +257,36 @@ export class OData {
   }
 
   /**
+   * @function patch
+   * @memberOf service.odata
+   * @description @description Sends a PATCH request to patch data from the specified OData entity set for the given payload.
+   * @param {Object} srv - Instance of the service
+   * @param {String} entitySet - The entitySet you want to PATCH in.
+   * @param {Object} payload - The payload of the PATCH request.
+   * @param {Object} [headers] - Optional headers to be included in the request.
+   * @returns {Promise} A Promise that resolves to the response data.
+   * @example
+   * const res = await service.odata.patch(srv, "ContractAccountPartner", {
+   *  "ContractAccount": "",
+   *  "BusinessPartner": "",
+   *  "DraftUUID": "42010aef-80aa-1fd0-8ec3-a11a9c56c3d3",
+   *  "IsActiveEntity": "false",
+   *  "CACompanyCodeGroup": "3910",
+   *  "CAStandardCompanyCode": "3910"
+   * };
+   */
+  async patch(srv: any, entitySet: string, payload: any, headers?: IHeaders): Promise<any> {
+    if (!srv) throw new Error(SERVICE_INIT_ERROR);
+
+    let entity = srv[entitySet];
+    if (!entity) throw new Error(entitySetError(entitySet));
+
+    if (headers) entity = this._applyHeaders(entity, headers);
+
+    return await entity.patch(payload);
+  }
+
+  /**
    * @function delete
    * @memberOf service.odata
    * @description Sends a DELETE request to the specified OData entity set.
