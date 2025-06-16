@@ -247,10 +247,11 @@ export class Formatter {
     const timeFormat = this._parseTimeFormat(format, dateFormat);
     const timeFormatted = this._formatTime(date, timeFormat);
 
-    const delimiter = format.slice(dateFormat.length, -timeFormat.length);
+    const delimiter = this._parseDelimiter(format, dateFormat, timeFormat);
     return `${dateFormatted}${delimiter}${timeFormatted}`;
   }
 
+  // =================================== HELPER ===================================
   private _parseDateFormat(format: DateTimeFormatsType): DateFormatsType {
     const dateFormat = Object.values(DateFormats).find((f) => format.startsWith(f));
     if (!dateFormat) {
@@ -273,6 +274,10 @@ export class Formatter {
       throw new Error("Invalid time format provided.");
     }
     return timeFormat as TimeFormats;
+  }
+
+  private _parseDelimiter(format: DateTimeFormatsType, dateFormat: DateFormatsType, timeFormat: TimeFormats): string {
+    return format.slice(dateFormat.length, -timeFormat.length);
   }
 
   private _formatTime(date: Date, format: TimeFormats): string {
