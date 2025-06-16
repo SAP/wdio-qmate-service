@@ -237,22 +237,22 @@ export class Formatter {
   }
 
   formatDateWithTime(date: Date, format: DateTimeFormatsType = DateFormats.OBJECT, locale = "en-US"): string | Date {
-    const dateFormat = this._parseDateFormat(format);
+    const dateFormat = this._extractDateFormat(format);
     this._validateDateFormat(format, dateFormat);
     const dateFormatted = this.formatDate(date, dateFormat, locale);
     if (dateFormat === DateFormats.DATETIME) {
       return dateFormatted;
     }
 
-    const timeFormat = this._parseTimeFormat(format, dateFormat);
+    const timeFormat = this._extractTimeFormat(format, dateFormat);
     const timeFormatted = this._formatTime(date, timeFormat);
 
-    const delimiter = this._parseDelimiter(format, dateFormat, timeFormat);
+    const delimiter = this._extractDelimiter(format, dateFormat, timeFormat);
     return `${dateFormatted}${delimiter}${timeFormatted}`;
   }
 
   // =================================== HELPER ===================================
-  private _parseDateFormat(format: DateTimeFormatsType): DateFormatsType {
+  private _extractDateFormat(format: DateTimeFormatsType): DateFormatsType {
     const dateFormat = Object.values(DateFormats).find((f) => format.startsWith(f));
     if (!dateFormat) {
       throw new Error("Invalid date format provided.");
@@ -268,7 +268,7 @@ export class Formatter {
     }
   }
 
-  private _parseTimeFormat(format: DateTimeFormatsType, dateFormat: DateFormatsType): TimeFormats {
+  private _extractTimeFormat(format: DateTimeFormatsType, dateFormat: DateFormatsType): TimeFormats {
     const timeFormat = Object.values(TimeFormats).find((f) => format.endsWith(f));
     if (!timeFormat) {
       throw new Error("Invalid time format provided.");
@@ -276,7 +276,7 @@ export class Formatter {
     return timeFormat as TimeFormats;
   }
 
-  private _parseDelimiter(format: DateTimeFormatsType, dateFormat: DateFormatsType, timeFormat: TimeFormats): string {
+  private _extractDelimiter(format: DateTimeFormatsType, dateFormat: DateFormatsType, timeFormat: TimeFormats): string {
     return format.slice(dateFormat.length, -timeFormat.length);
   }
 
