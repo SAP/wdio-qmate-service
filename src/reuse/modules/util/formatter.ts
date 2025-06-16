@@ -246,7 +246,8 @@ export class Formatter {
     const timeFormat = this._parseTimeFormat(format, dateFormat);
     const timeFormatted = this._formatTime(date, timeFormat);
 
-    return `${dateFormatted} ${timeFormatted}`;
+    const delimiter = format.slice(dateFormat.length, -timeFormat.length);
+    return `${dateFormatted}${delimiter}${timeFormatted}`;
   }
 
   private _parseDateFormat(format: DateTimeFormatsType): DateFormatsType {
@@ -267,7 +268,11 @@ export class Formatter {
   }
 
   private _parseTimeFormat(format: DateTimeFormatsType, dateFormat: DateFormatsType): TimeFormats {
-    return format.slice(dateFormat.length + 1) as TimeFormats;
+    const timeFormat = Object.values(TimeFormats).find((f) => format.endsWith(f));
+    if (!timeFormat) {
+      throw new Error("Invalid time format provided.");
+    }
+    return timeFormat as TimeFormats;
   }
 
   private _formatTime(date: Date, format: TimeFormats): string {

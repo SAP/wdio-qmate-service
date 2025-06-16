@@ -181,6 +181,54 @@ describe("formatter - formatDateWithTime", () => {
     });
   });
 
+  describe("formatDateWithTime - format 'yyyy/mm/ddTHH:mm:ss' - delimiter 'T' between date and time", () => {
+    it("Preparation", () => {
+      date = new Date(2025, 0, 2, 10, 30, 45);
+      format = "yyyy/mm/ddTHH:mm:ss";
+      expected = "2025/01/02T10:30:45";
+    });
+
+    it("Execution", () => {
+      formattedDate = util.formatter.formatDateWithTime(date, format);
+    });
+
+    it("Verification", async () => {
+      await common.assertion.expectEqual(formattedDate, expected);
+    });
+  });
+
+  describe("formatDateWithTime - format 'yyyy/mm/ddTHH:mm:ss' - delimiter 'TT' between date and time", () => {
+    it("Preparation", () => {
+      date = new Date(2025, 0, 2, 10, 30, 45);
+      format = "yyyy/mm/ddTTHH:mm:ss";
+      expected = "2025/01/02TT10:30:45";
+    });
+
+    it("Execution", () => {
+      formattedDate = util.formatter.formatDateWithTime(date, format);
+    });
+
+    it("Verification", async () => {
+      await common.assertion.expectEqual(formattedDate, expected);
+    });
+  });
+
+  describe("formatDateWithTime - format 'yyyy/mm/ddHH:mm:ss' - no delimiter between date and time", () => {
+    it("Preparation", () => {
+      date = new Date(2025, 0, 2, 10, 30, 45);
+      format = "yyyy/mm/ddHH:mm:ss";
+      expected = "2025/01/0210:30:45";
+    });
+
+    it("Execution", () => {
+      formattedDate = util.formatter.formatDateWithTime(date, format);
+    });
+
+    it("Verification", async () => {
+      await common.assertion.expectEqual(formattedDate, expected);
+    });
+  });
+
   // =================================== ERROR CASES ===================================
   describe("formatDateWithTime - invalid format - 'object object'", () => {
     it("Preparation", () => {
