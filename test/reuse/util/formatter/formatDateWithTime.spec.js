@@ -286,6 +286,39 @@ describe("formatter - formatDateWithTime", () => {
       expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError("Invalid time format provided");
     });
   });
+
+  describe("formatDateWithTime - invalid format - 'HH:mm:ss a'", () => {
+    it("Preparation", () => {
+      date = new Date(2025, 0, 2, 15, 30, 45);
+      format = "HH:mm:ss a";
+    });
+
+    it("Execution & Verification", function () {
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError("Invalid date format provided");
+    });
+  });
+
+  describe("formatDateWithTime - invalid format - 'yy-dd-mm HH:mm:ss a'", () => {
+    it("Preparation", () => {
+      date = new Date(2025, 0, 2, 15, 30, 45);
+      format = "yy-dd-mm HH:mm:ss a";
+    });
+
+    it("Execution & Verification", function () {
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError("Invalid date format provided");
+    });
+  });
+
+  describe("formatDateWithTime - invalid format - 'yyyy/mm/dd HH:mm:ss some-text' - some-text after date and time", () => {
+    it("Preparation", () => {
+      date = new Date(2025, 0, 2, 10, 30, 45);
+      format = "yyyy/mm/dd HH:mm:ss some-text";
+    });
+
+    it("Execution & Verification", function () {
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError("Invalid time format provided");
+    });
+  });
 });
 
 function calculateTimezoneOffset(date) {
