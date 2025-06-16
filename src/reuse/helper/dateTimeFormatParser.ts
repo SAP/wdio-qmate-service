@@ -1,5 +1,5 @@
 import { DateFormats, TimeFormats } from "../modules/util/constants/formatter.constants";
-import { DateFormatsType, DateTimeFormatsType, TimeFormatsType } from "../modules/util/types/formatter.types";
+import { DateFormatsType, DateTimeDelimiter, DateTimeFormatsType, TimeFormatsType } from "../modules/util/types/formatter.types";
 
 export class DateTimeFormatParser {
   public static extractDateFormat(format: DateTimeFormatsType): DateFormatsType {
@@ -18,7 +18,9 @@ export class DateTimeFormatParser {
     return timeFormat as TimeFormatsType;
   }
 
-  public static extractDelimiter(params: { format: DateTimeFormatsType, dateFormat: DateFormatsType, timeFormat: TimeFormatsType }): string {
-    return params.format.slice(params.dateFormat.length, -params.timeFormat.length);
+  public static extractDelimiter(format: DateTimeFormatsType): DateTimeDelimiter {
+    const dateFormat = this.extractDateFormat(format);
+    const timeFormat = this.extractTimeFormat(format);
+    return format.slice(dateFormat.length, -timeFormat.length);
   }
 }

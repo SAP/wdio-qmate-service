@@ -181,56 +181,56 @@ export class Formatter {
 
     if (format) {
       switch (format) {
-      case DateFormats.MONTH_DAY_YEAR_SLASH:
-        formattedDate = `${mm}/${dd}/${yyyy}`;
-        break;
-      case DateFormats.MONTH_DAY_YEAR_DASH:
-        formattedDate = `${mm}-${dd}-${yyyy}`;
-        break;
-      case DateFormats.DAY_MONTH_YEAR_DOT:
-        formattedDate = `${dd}.${mm}.${yyyy}`;
-        break;
-      case DateFormats.DAY_MONTH_YEAR_SLASH:
-        formattedDate = `${dd}/${mm}/${yyyy}`;
-        break;
-      case DateFormats.YEAR_MONTH_DAY_PLAIN:
-        formattedDate = `${yyyy}${mm}${dd}`;
-        break;
-      case DateFormats.YEAR_MONTH_DAY_SLASH:
-        formattedDate = `${yyyy}/${mm}/${dd}`;
-        break;
-      case DateFormats.YEAR_MONTH_DAY_DOT:
-        formattedDate = `${yyyy}.${mm}.${dd}`;
-        break;
-      case DateFormats.YEAR_MONTH_DAY_DASH:
-        formattedDate = `${yyyy}-${mm}-${dd}`;
-        break;
-      case DateFormats.DAY_MONTH_YEAR_TIME_DOT:
-        formattedDate = `${dd}.${mm}.${yyyy}.${hour}.${min}`;
-        break;
-      case DateFormats.MONTH_DAY_YEAR_COMMA:
-        formattedDate = `${month} ${dd}, ${yyyy}`;
-        break;
-      case DateFormats.MONTH_DAY_YEAR_COMMA_SHORT:
-        formattedDate = `${month} ${dd}, ${yyyy}`;
-        break;
-      case DateFormats.DATETIME:
-        formattedDate = `datetime'${yyyy}-${mm}-${dd}T${hour}:${min}:${sec}'`;
-        break;
-      case DateFormats.OBJECT:
-        formattedDate = date;
-        break;
-      case DateFormats.JAPANESE_DOT:
-        formattedDate = `${date.toLocaleDateString(locale, { era: "short" })}.${mm}.${dd}`;
-        break;
-      case DateFormats.JAPANESE_SLASH:
-        formattedDate = `${date.toLocaleDateString(locale, { era: "short" })}/${mm}/${dd}`;
-        break;
-      case DateFormats.JAPANESE_DASH:
-        formattedDate = `${date.toLocaleDateString(locale, { era: "short" })}-${mm}-${dd}`;
-        break;
-      default:
-        break;
+        case DateFormats.MONTH_DAY_YEAR_SLASH:
+          formattedDate = `${mm}/${dd}/${yyyy}`;
+          break;
+        case DateFormats.MONTH_DAY_YEAR_DASH:
+          formattedDate = `${mm}-${dd}-${yyyy}`;
+          break;
+        case DateFormats.DAY_MONTH_YEAR_DOT:
+          formattedDate = `${dd}.${mm}.${yyyy}`;
+          break;
+        case DateFormats.DAY_MONTH_YEAR_SLASH:
+          formattedDate = `${dd}/${mm}/${yyyy}`;
+          break;
+        case DateFormats.YEAR_MONTH_DAY_PLAIN:
+          formattedDate = `${yyyy}${mm}${dd}`;
+          break;
+        case DateFormats.YEAR_MONTH_DAY_SLASH:
+          formattedDate = `${yyyy}/${mm}/${dd}`;
+          break;
+        case DateFormats.YEAR_MONTH_DAY_DOT:
+          formattedDate = `${yyyy}.${mm}.${dd}`;
+          break;
+        case DateFormats.YEAR_MONTH_DAY_DASH:
+          formattedDate = `${yyyy}-${mm}-${dd}`;
+          break;
+        case DateFormats.DAY_MONTH_YEAR_TIME_DOT:
+          formattedDate = `${dd}.${mm}.${yyyy}.${hour}.${min}`;
+          break;
+        case DateFormats.MONTH_DAY_YEAR_COMMA:
+          formattedDate = `${month} ${dd}, ${yyyy}`;
+          break;
+        case DateFormats.MONTH_DAY_YEAR_COMMA_SHORT:
+          formattedDate = `${month} ${dd}, ${yyyy}`;
+          break;
+        case DateFormats.DATETIME:
+          formattedDate = `datetime'${yyyy}-${mm}-${dd}T${hour}:${min}:${sec}'`;
+          break;
+        case DateFormats.OBJECT:
+          formattedDate = date;
+          break;
+        case DateFormats.JAPANESE_DOT:
+          formattedDate = `${date.toLocaleDateString(locale, { era: "short" })}.${mm}.${dd}`;
+          break;
+        case DateFormats.JAPANESE_SLASH:
+          formattedDate = `${date.toLocaleDateString(locale, { era: "short" })}/${mm}/${dd}`;
+          break;
+        case DateFormats.JAPANESE_DASH:
+          formattedDate = `${date.toLocaleDateString(locale, { era: "short" })}-${mm}-${dd}`;
+          break;
+        default:
+          break;
       }
     }
 
@@ -244,11 +244,8 @@ export class Formatter {
     if (dateFormat === DateFormats.DATETIME) {
       return dateFormatted;
     }
-
-    const timeFormat = DateTimeFormatParser.extractTimeFormat(format);
-    const timeFormatted = this._formatTime(date, timeFormat);
-
-    const delimiter = DateTimeFormatParser.extractDelimiter({ format, dateFormat, timeFormat });
+    const timeFormatted = this._formatTime(date, format);
+    const delimiter = DateTimeFormatParser.extractDelimiter(format);
     return `${dateFormatted}${delimiter}${timeFormatted}`;
   }
 
@@ -261,28 +258,31 @@ export class Formatter {
     }
   }
 
-  private _formatTime(date: Date, format: TimeFormatsType): string {
-    return format.replace(/HH|h|mm|ss|a|z/g, (token) => {
-      switch (token) {
-        case "HH":
-          return date.getHours().toString().padStart(2, "0");
-        case "h":
-          return ((date.getHours() % 12) || 12).toString();
-        case "mm":
-          return date.getMinutes().toString().padStart(2, "0");
-        case "ss":
-          return date.getSeconds().toString().padStart(2, "0");
-        case "a":
-          return date.getHours() < 12 ? "AM" : "PM";
-        case "z":
-          const offset = date.getTimezoneOffset();
-          const sign = offset < 0 ? "+" : "-";
-          const hours = Math.abs(offset / 60);
-          return `GMT${sign}${hours}`;
-        default:
-          return token;
-      }
-    });
+  private _formatTime(date: Date, format: DateTimeFormatsType): string {
+    const timeFormat = DateTimeFormatParser.extractTimeFormat(format);
+    return timeFormat.replace(/HH|h|mm|ss|a|z/g, (token) => this._replaceTimeFormatToken(date, token));
+  }
+
+  private _replaceTimeFormatToken(date: Date, token: string): string {
+    switch (token) {
+      case "HH":
+        return date.getHours().toString().padStart(2, "0");
+      case "h":
+        return ((date.getHours() % 12) || 12).toString();
+      case "mm":
+        return date.getMinutes().toString().padStart(2, "0");
+      case "ss":
+        return date.getSeconds().toString().padStart(2, "0");
+      case "a":
+        return date.getHours() < 12 ? "AM" : "PM";
+      case "z":
+        const offset = date.getTimezoneOffset();
+        const sign = offset < 0 ? "+" : "-";
+        const hours = Math.abs(offset / 60);
+        return `GMT${sign}${hours}`;
+      default:
+        return token;
+    }
   }
 }
 export default new Formatter();
