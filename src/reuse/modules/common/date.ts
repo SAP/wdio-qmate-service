@@ -5,7 +5,7 @@ import { CalculateDatesType } from "./types/date.types";
 import { Time } from "./types/time.types";
 
 import { DateFormats } from "../util/constants/formatter.constants";
-import { DateFormatsType } from "../util/types/formatter.types";
+import { DateFormatsType, DateTimeFormatsType } from "../util/types/formatter.types";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { TimeHelper } from "../../helper/timeHelper";
 
@@ -187,18 +187,20 @@ export class DateModule {
    * @description Calculates the date and time based on the input parameter and returns it in the given format.
    * @param {String} [date] - Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, previousYear
    * @param {String} [time] - The time in "HH:MM:SS" format (e.g., "10:00", "10:30:20", "15").
-   * @returns  {Date} The calculated date and time in the given format.
+   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy HH:mm:ss", "dd.mm.yyyy h:mm:ss a", "dd/mm/yyyy HH:mm:ss z", "yyyymmdd h:mm:ss a z", "yyyy/mm/dd HH:mm", "mmm dd, yyyy h:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a", etc; "datetime", "object").
+   * @returns  {String | Date} The calculated date and time in the given format.
    * @example const date = await common.date.calculateWithTime("today", "10:00");
    */
-  calculateWithTime(date?: CalculateDatesType, time?: Time): Date {
+  calculateWithTime(date?: CalculateDatesType, time?: Time, format: DateTimeFormatsType = DateFormats.OBJECT): string | Date {
     const vl = this.vlf.initLog(this.calculateWithTime);
     if (!date) {
       return new Date();
     }
     const startOfDay = this._calculateStartOfDay(date);
-    return time
+    const calculatedTime = time
       ? this._updateDateWithTime(startOfDay, time)
       : startOfDay;
+    return util.formatter.formatDateWithTime(calculatedTime, format);
   }
 
   // =================================== HELPER ===================================
