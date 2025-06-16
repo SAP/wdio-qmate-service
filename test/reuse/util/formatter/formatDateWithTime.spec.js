@@ -350,5 +350,8 @@ describe("formatter - formatDateWithTime", () => {
 
 function calculateTimezoneOffset(date) {
   const offset = date.getTimezoneOffset();
-  return offset < 0 ? `GMT+${Math.abs(offset / 60)}` : `GMT-${offset / 60}`;
+  const sign = offset < 0 ? "+" : "-";
+  const hours = Math.abs(Math.floor(offset / 60)).toString().padStart(2, "0");
+  const minutes = Math.abs(offset % 60).toString().padStart(2, "0");
+  return `GMT${sign}${hours}:${minutes}`;
 }

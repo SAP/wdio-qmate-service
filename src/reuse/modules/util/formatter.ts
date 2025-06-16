@@ -278,13 +278,18 @@ export class Formatter {
       case "a":
         return date.getHours() < 12 ? "AM" : "PM";
       case "z":
-        const offset = date.getTimezoneOffset();
-        const sign = offset < 0 ? "+" : "-";
-        const hours = Math.abs(offset / 60);
-        return `GMT${sign}${hours}`;
+        return this._formatTimeOffset(date);
       default:
         return token;
     }
+  }
+
+  private _formatTimeOffset(date: Date): string {
+    const offset = date.getTimezoneOffset();
+    const sign = offset < 0 ? "+" : "-";
+    const hours = Math.abs(Math.floor(offset / 60)).toString().padStart(2, "0");
+    const minutes = Math.abs(offset % 60).toString().padStart(2, "0");
+    return `GMT${sign}${hours}:${minutes}`;
   }
 }
 export default new Formatter();
