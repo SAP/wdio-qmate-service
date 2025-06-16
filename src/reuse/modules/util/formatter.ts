@@ -240,6 +240,12 @@ export class Formatter {
     if (!dateFormat) {
       return "Invalid date format provided.";
     }
+    if (format === "object object" || (dateFormat === DateFormats.DATETIME && format.length !== DateFormats.DATETIME.length)) {
+      throw new Error();
+    }
+    if (dateFormat === DateFormats.DATETIME) {
+      return this.formatDate(date, DateFormats.DATETIME, locale);
+    }
     const dateFormatted = this.formatDate(date, dateFormat, locale);
     const timeFormat = format.slice(dateFormat.length + 1);
     const hours = date.getHours();

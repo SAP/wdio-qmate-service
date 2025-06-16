@@ -3,6 +3,8 @@ describe("formatter - formatDateWithTime", () => {
   let format;
   let formattedDate;
   let expected;
+
+  // =================================== VALID CASES ===================================
   describe("formatDateWithTime - format mm/dd/yyyy h:mm:ss a", () => {
     it("Preparation", () => {
       date = new Date(2025, 0, 2, 15, 30, 45);
@@ -160,6 +162,45 @@ describe("formatter - formatDateWithTime", () => {
 
     it("Verification", async () => {
       await common.assertion.expectEqual(formattedDate, expected);
+    });
+  });
+
+  describe("formatDateWithTime - format datetime", () => {
+    it("Preparation", () => {
+      date = new Date(2025, 0, 2, 10, 30, 45);
+      format = "datetime";
+      expected = "datetime'2025-01-02T10:30:45'";
+    });
+
+    it("Execution", () => {
+      formattedDate = util.formatter.formatDateWithTime(date, format);
+    });
+
+    it("Verification", async () => {
+      await common.assertion.expectEqual(formattedDate, expected);
+    });
+  });
+
+  // =================================== ERROR CASES ===================================
+  describe("formatDateWithTime - invalid format - 'object object'", () => {
+    it("Preparation", () => {
+      date = new Date(2025, 0, 2, 15, 30, 45);
+      format = "object object";
+    });
+
+    it("Execution & Verification", function () {
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError();
+    });
+  });
+
+  describe("formatDateWithTime - invalid format - 'datetime HH:mm:ss'", () => {
+    it("Preparation", () => {
+      date = new Date(2025, 0, 2, 15, 30, 45);
+      format = "datetime HH:mm:ss";
+    });
+
+    it("Execution & Verification", function () {
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError();
     });
   });
 });
