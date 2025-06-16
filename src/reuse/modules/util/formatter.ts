@@ -237,6 +237,30 @@ export class Formatter {
     return formattedDate;
   }
 
+  /**
+   * @function formatDateWithTime
+   * @memberOf util.formatter
+   * @description formats date with time.
+   * @param {Date} date - The date object to be formatted.
+   * @param {String} format - The expected format ("mm/dd/yyyy HH:mm:ss", "dd.mm.yyyy h:mm:ss a", "dd/mm/yyyy HH:mm:ss z", "yyyymmdd h:mm:ss a z", "yyyy/mm/dd HH:mm", "mmm dd, yyyy h:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a", etc; "datetime", "object").
+   * @param {String} [locale="en-US"] - The locale format of the date. E.g. "en-US", "de-DE", etc.
+   * @returns {String|Date} The formatted date with time as string or date object.
+   * @example const date = new Date(2020, 0, 17, 15, 30, 45);
+   * const formattedDate = util.formatter.formatDateWithTime(date, "mm/dd/yyyy HH:mm:ss");
+   * // returns "01/17/2020 15:30:45"
+   * @example const date = new Date(2022, 3, 12, 9, 5, 0);
+   * const formattedDate = util.formatter.formatDateWithTime(date, "mmm dd, yyyy h:mm:ss a");
+   * // returns "Apr 12, 2022 9:05:00 AM"
+   * @example const date = new Date(2022, 3, 12, 9, 5, 0);
+   * const formattedDate = util.formatter.formatDateWithTime(date, "dd/mm/yyyy HH:mm:ss z");
+   * // returns "12/04/2022 09:05:00 GMT+02:00"
+   * @example const date = new Date(2022, 3, 12, 9, 5, 0);
+   * const formattedDate = util.formatter.formatDateWithTime(date, "yyyy/mm/dd HH:mm");
+   * // returns "2022/04/12 09:05"
+   * @example const date = new Date(2022, 3, 12, 9, 5, 0);
+   * const formattedDate = util.formatter.formatDateWithTime(date, "mmm dd, yyyy h:mm a");
+   * // returns "Apr 12, 2022 9:05 AM"
+   */
   formatDateWithTime(date: Date, format: DateTimeFormatsType = DateFormats.OBJECT, locale = "en-US"): string | Date {
     const dateFormat = DateTimeFormatParser.extractDateFormat(format);
     this._validateDateFormat(format, dateFormat);
