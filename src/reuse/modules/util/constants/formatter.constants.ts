@@ -25,6 +25,5 @@ export enum TimeFormats {
   HOUR_MINUTE = "HH:mm",
   HOUR_MINUTE_AM_PM = "h:mm a",
   HOUR = "HH",
-  HOUR_AM_PM = "h a",
-  OBJECT = "object"
+  HOUR_AM_PM = "h a"
 };

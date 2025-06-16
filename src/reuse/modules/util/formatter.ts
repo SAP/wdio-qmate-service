@@ -245,7 +245,6 @@ export class Formatter {
     }
 
     const timeFormat = this._parseTimeFormat(format, dateFormat);
-    this._validateTimeFormat(format, timeFormat);
     const timeFormatted = this._formatTime(date, timeFormat);
 
     const delimiter = format.slice(dateFormat.length, -timeFormat.length);
@@ -261,11 +260,10 @@ export class Formatter {
   }
 
   private _validateDateFormat(format: DateTimeFormatsType, dateFormat?: DateFormatsType): void {
-    if (dateFormat === DateFormats.OBJECT && format.toString() !== DateFormats.OBJECT) {
-      throw new Error(this.getRedundantTextErrorMessage(DateFormats.OBJECT));
-    }
-    if (dateFormat === DateFormats.DATETIME && format.toString() !== DateFormats.DATETIME) {
-      throw new Error(this.getRedundantTextErrorMessage(DateFormats.DATETIME));
+    if (dateFormat === DateFormats.OBJECT && format.toString() !== DateFormats.OBJECT
+      || dateFormat === DateFormats.DATETIME && format.toString() !== DateFormats.DATETIME
+    ) {
+      throw new Error(`Invalid date time format: if you want to use '${dateFormat}' format, please use only '${dateFormat}' without any additional text`);
     }
   }
 
@@ -277,12 +275,6 @@ export class Formatter {
     return timeFormat as TimeFormats;
   }
 
-  private _validateTimeFormat(format: DateTimeFormatsType, timeFormat?: TimeFormats): void {
-    if (timeFormat === TimeFormats.OBJECT && format.toString() !== TimeFormats.OBJECT) {
-      throw new Error(this.getRedundantTextErrorMessage(TimeFormats.OBJECT));
-    }
-  }
-
   private _formatTime(date: Date, format: TimeFormats): string {
     return format
       .replace("h", (date.getHours() % 12).toString())
@@ -291,10 +283,6 @@ export class Formatter {
       .replace("ss", date.getSeconds().toString())
       .replace("a", date.getHours() < 12 ? "AM" : "PM")
       .replace("z", "GMT" + (date.getTimezoneOffset() < 0 ? "+" : "-") + Math.abs(date.getTimezoneOffset() / 60));
-  }
-
-  private getRedundantTextErrorMessage (format: DateFormats.DATETIME | DateFormats.OBJECT | TimeFormats.OBJECT): string {
-    return `Invalid date time format: if you want to use '${format}' format, please use only '${format}' without any additional text`;
   }
 }
 export default new Formatter();

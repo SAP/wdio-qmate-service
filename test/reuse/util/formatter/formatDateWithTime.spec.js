@@ -272,7 +272,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(dateTimeFormatError("object"));
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError("Invalid time format provided");
     });
   });
 
