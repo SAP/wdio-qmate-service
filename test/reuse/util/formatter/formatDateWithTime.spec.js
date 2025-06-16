@@ -229,6 +229,22 @@ describe("formatter - formatDateWithTime", () => {
     });
   });
 
+  describe("formatDateWithTime - format 'dd.mm.yyyy.hh.mm'", () => {
+    it("Preparation", () => {
+      date = new Date(2025, 0, 2, 15, 30, 45);
+      format = "dd.mm.yyyy.hh.mm";
+      expected = "02.01.2025.15.30";
+    });
+
+    it("Execution", () => {
+      formattedDate = util.formatter.formatDateWithTime(date, format);
+    });
+
+    it("Verification", async () => {
+      await common.assertion.expectEqual(formattedDate, expected);
+    });
+  });
+
   // =================================== ERROR CASES ===================================
   const dateTimeFormatError = (format) => `Invalid date time format: if you want to use '${format}' format, please use only '${format}' without any additional text`;
 

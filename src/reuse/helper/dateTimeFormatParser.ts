@@ -3,11 +3,12 @@ import { DateFormatsType, DateTimeDelimiter, DateTimeFormatsType, TimeFormatsTyp
 
 export class DateTimeFormatParser {
   public static extractDateFormat(format: DateTimeFormatsType): DateFormatsType {
-    const dateFormat = Object.values(DateFormats).find((f) => format.startsWith(f));
-    if (!dateFormat) {
+    const matchingFormats = Object.values(DateFormats).filter((f) => format.startsWith(f));
+    if (matchingFormats.length === 0) {
       throw new Error("Invalid date format provided.");
     }
-    return dateFormat as DateFormatsType;
+    const longestMatch = matchingFormats.reduce((a, b) => (a.length > b.length ? a : b));
+    return longestMatch as DateFormatsType;
   }
 
   public static extractTimeFormat(format: DateTimeFormatsType): TimeFormatsType {
