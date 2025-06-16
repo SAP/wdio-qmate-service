@@ -250,7 +250,7 @@ describe("date - calculateWithTime - 'previousMonth' - '12 PM'", function() {
   });
 });
 
-  // =================================== ERROR CASES ===================================
+// =================================== ERROR CASES ===================================
 describe("date - calculateWithTime - 'nextYear' - 'invalid-time' - error", function() {
   it("Execution & Verification", function() {
     expect(() => common.date.calculateWithTime("nextYear", "invalid-time")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");

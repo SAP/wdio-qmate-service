@@ -1,7 +1,7 @@
 "use strict";
 
 import { DateFormats } from "./constants/formatter.constants";
-import { DateFormatsType } from "./types/formatter.types";
+import { DateFormatsType, DateTimeFormatsType } from "./types/formatter.types";
 import ErrorHandler from "../../helper/errorHandler";
 
 /**
@@ -233,6 +233,23 @@ export class Formatter {
     }
 
     return formattedDate;
+  }
+
+  formatDateWithTime(date: Date, format: DateTimeFormatsType = DateFormats.OBJECT, locale = "en-US"): string | Date {
+    const dateFormat = format.split(" ")[0] as DateFormatsType;
+    const dateFormatted = this.formatDate(date, dateFormat, locale);
+    const timeFormat = format.slice(dateFormat.length + 1);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    const timeFormatted = timeFormat
+      .replace("h", (hours % 12).toString())
+      .replace("HH", hours.toString())
+      .replace("mm", minutes.toString())
+      .replace("ss", seconds.toString())
+      .replace("a", hours < 12 ? "AM" : "PM")
+      .replace("z", "GMT" + (date.getTimezoneOffset() < 0 ? "+" : "-") + Math.abs(date.getTimezoneOffset() / 60));
+    return `${dateFormatted} ${timeFormatted}`;
   }
 }
 export default new Formatter();
