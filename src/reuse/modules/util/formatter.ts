@@ -276,13 +276,27 @@ export class Formatter {
   }
 
   private _formatTime(date: Date, format: TimeFormats): string {
-    return format
-      .replace("h", (date.getHours() % 12).toString())
-      .replace("HH", date.getHours().toString())
-      .replace("mm", date.getMinutes().toString())
-      .replace("ss", date.getSeconds().toString())
-      .replace("a", date.getHours() < 12 ? "AM" : "PM")
-      .replace("z", "GMT" + (date.getTimezoneOffset() < 0 ? "+" : "-") + Math.abs(date.getTimezoneOffset() / 60));
+    return format.replace(/HH|h|mm|ss|a|z/g, (token) => {
+      switch (token) {
+        case "HH":
+          return date.getHours().toString().padStart(2, "0");
+        case "h":
+          return ((date.getHours() % 12) || 12).toString();
+        case "mm":
+          return date.getMinutes().toString().padStart(2, "0");
+        case "ss":
+          return date.getSeconds().toString().padStart(2, "0");
+        case "a":
+          return date.getHours() < 12 ? "AM" : "PM";
+        case "z":
+          const offset = date.getTimezoneOffset();
+          const sign = offset < 0 ? "+" : "-";
+          const hours = Math.abs(offset / 60);
+          return `GMT${sign}${hours}`;
+        default:
+          return token;
+      }
+    });
   }
 }
 export default new Formatter();
