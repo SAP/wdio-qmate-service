@@ -246,7 +246,7 @@ describe("formatter - formatDateWithTime", () => {
   });
 
   // =================================== ERROR CASES ===================================
-  const dateTimeFormatError = (format) => `Invalid date time format: if you want to use '${format}' format, please use only '${format}' without any additional text`;
+  const additionalTextFormatError = (format) => `Invalid date time format: if you want to use '${format}' format, please use only '${format}' without any additional text`;
 
   describe("formatDateWithTime - invalid format - 'object object'", () => {
     it("Preparation", () => {
@@ -255,7 +255,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(dateTimeFormatError("object"));
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(additionalTextFormatError("object"));
     });
   });
 
@@ -266,7 +266,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(dateTimeFormatError("datetime"));
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(additionalTextFormatError("datetime"));
     });
   });
 
@@ -277,7 +277,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(dateTimeFormatError("datetime"));
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(additionalTextFormatError("datetime"));
     });
   });
 
@@ -333,6 +333,17 @@ describe("formatter - formatDateWithTime", () => {
 
     it("Execution & Verification", function () {
       expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError("Invalid time format provided");
+    });
+  });
+
+  describe("formatDateWithTime - invalid format - dd.mm.yyyy.hh.mm.HH:mm:ss", () => {
+    it("Preparation", () => {
+      date = new Date(2025, 0, 2, 15, 30, 45);
+      format = "dd.mm.yyyy.hh.mm.HH:mm:ss";
+    });
+
+    it("Execution & Verification", function () {
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(additionalTextFormatError("dd.mm.yyyy.hh.mm"));
     });
   });
 });

@@ -241,7 +241,7 @@ export class Formatter {
     const dateFormat = DateTimeFormatParser.extractDateFormat(format);
     this._validateDateFormat(format, dateFormat);
     const dateFormatted = this.formatDate(date, dateFormat, locale);
-    if (this._isDateFormatIncludesTime(dateFormat)) {
+    if (this._containsTimeInDateFormat(dateFormat)) {
       return dateFormatted;
     }
     const timeFormatted = this._formatTime(date, format);
@@ -251,15 +251,13 @@ export class Formatter {
 
   // =================================== HELPER ===================================
   private _validateDateFormat(format: DateTimeFormatsType, dateFormat: DateFormatsType): void {
-    if (dateFormat === DateFormats.OBJECT && format.toString() !== DateFormats.OBJECT
-      || dateFormat === DateFormats.DATETIME && format.toString() !== DateFormats.DATETIME
-    ) {
+    if (this._containsTimeInDateFormat(dateFormat) && !(format.toString() === dateFormat.toString())) {
       throw new Error(`Invalid date time format: if you want to use '${dateFormat}' format, please use only '${dateFormat}' without any additional text`);
     }
   }
 
-  private _isDateFormatIncludesTime(dateFormat: DateFormatsType): boolean {
-    return dateFormat === DateFormats.DATETIME || dateFormat === DateFormats.DAY_MONTH_YEAR_TIME_DOT;
+  private _containsTimeInDateFormat(dateFormat: DateFormatsType): boolean {
+    return dateFormat === DateFormats.DATETIME || dateFormat === DateFormats.DAY_MONTH_YEAR_TIME_DOT || dateFormat === DateFormats.OBJECT;
   }
 
   private _formatTime(date: Date, format: DateTimeFormatsType): string {
