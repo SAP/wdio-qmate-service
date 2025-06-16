@@ -1,6 +1,6 @@
 "use strict";
 
-import { DateFormats } from "./constants/formatter.constants";
+import { DateFormats, TimeFormats } from "./constants/formatter.constants";
 import { DateFormatsType, DateTimeFormatsType } from "./types/formatter.types";
 import ErrorHandler from "../../helper/errorHandler";
 
@@ -236,29 +236,48 @@ export class Formatter {
   }
 
   formatDateWithTime(date: Date, format: DateTimeFormatsType = DateFormats.OBJECT, locale = "en-US"): string | Date {
-    let dateFormat = Object.values(DateFormats).find((f) => format.startsWith(f));
-    if (!dateFormat) {
-      return "Invalid date format provided.";
+    const dateFormat = this._parseDateFormat(format);
+    this._validateDateFormat(format, dateFormat);
+    const dateFormatted = this.formatDate(date, dateFormat, locale);
+    if (dateFormat === DateFormats.DATETIME) {
+      return dateFormatted;
     }
-    if (format === "object object" || (dateFormat === DateFormats.DATETIME && format.length !== DateFormats.DATETIME.length)) {
+
+    const timeFormat = this._parseTimeFormat(format, dateFormat);
+    const timeFormatted = this._formatTime(date, timeFormat);
+
+    return `${dateFormatted} ${timeFormatted}`;
+  }
+
+  private _parseDateFormat(format: DateTimeFormatsType): DateFormatsType {
+    const dateFormat = Object.values(DateFormats).find((f) => format.startsWith(f));
+    if (!dateFormat) {
+      throw new Error("Invalid date format provided.");
+    }
+    return dateFormat as DateFormatsType;
+  }
+
+  private _validateDateFormat(format: DateTimeFormatsType, dateFormat?: DateFormatsType): void {
+    if (format === `${DateFormats.OBJECT} ${TimeFormats.OBJECT}`) {
       throw new Error();
     }
-    if (dateFormat === DateFormats.DATETIME) {
-      return this.formatDate(date, DateFormats.DATETIME, locale);
+    if (dateFormat === DateFormats.DATETIME && format.toString() !== DateFormats.DATETIME) {
+      throw new Error();
     }
-    const dateFormatted = this.formatDate(date, dateFormat, locale);
-    const timeFormat = format.slice(dateFormat.length + 1);
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
-    const timeFormatted = timeFormat
-      .replace("h", (hours % 12).toString())
-      .replace("HH", hours.toString())
-      .replace("mm", minutes.toString())
-      .replace("ss", seconds.toString())
-      .replace("a", hours < 12 ? "AM" : "PM")
+  }
+
+  private _parseTimeFormat(format: DateTimeFormatsType, dateFormat: DateFormatsType): TimeFormats {
+    return format.slice(dateFormat.length + 1) as TimeFormats;
+  }
+
+  private _formatTime(date: Date, format: TimeFormats): string {
+    return format
+      .replace("h", (date.getHours() % 12).toString())
+      .replace("HH", date.getHours().toString())
+      .replace("mm", date.getMinutes().toString())
+      .replace("ss", date.getSeconds().toString())
+      .replace("a", date.getHours() < 12 ? "AM" : "PM")
       .replace("z", "GMT" + (date.getTimezoneOffset() < 0 ? "+" : "-") + Math.abs(date.getTimezoneOffset() / 60));
-    return `${dateFormatted} ${timeFormatted}`;
   }
 }
 export default new Formatter();
