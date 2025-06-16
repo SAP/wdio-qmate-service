@@ -250,7 +250,7 @@ export class Formatter {
   }
 
   // =================================== HELPER ===================================
-  private _validateDateFormat(format: DateTimeFormatsType, dateFormat?: DateFormatsType): void {
+  private _validateDateFormat(format: DateTimeFormatsType, dateFormat: DateFormatsType): void {
     if (dateFormat === DateFormats.OBJECT && format.toString() !== DateFormats.OBJECT
       || dateFormat === DateFormats.DATETIME && format.toString() !== DateFormats.DATETIME
     ) {
