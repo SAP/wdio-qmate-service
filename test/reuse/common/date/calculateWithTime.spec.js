@@ -253,7 +253,7 @@ describe("date - calculateWithTime - 'previousMonth' - '12 PM'", function() {
   });
 });
 
-describe("date - calculate - 'today' + 'mm/dd/yyyy HH:mm:ss'", function() {
+describe("date - calculate - 'today' + format 'mm/dd/yyyy HH:mm:ss'", function() {
   let dateAct;
   const format = "mm/dd/yyyy HH:mm:ss";
 
