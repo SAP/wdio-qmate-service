@@ -243,7 +243,8 @@ export class Formatter {
    * @memberOf util.formatter
    * @description formats date with time.
    * @param {Date} date - The date object to be formatted.
-   * @param {String} format - The expected format ("mm/dd/yyyy HH:mm:ss", "dd.mm.yyyy h:mm:ss a", "dd/mm/yyyy HH:mm:ss z", "yyyymmdd h:mm:ss a z", "yyyy/mm/dd HH:mm", "mmm dd, yyyy h:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a", etc; "datetime", "object").
+   * @param {String} format - The expected format ("datetime", "object", "mm/dd/yyyy HH\:mm:ss", "dd.mm.yyyy h\:mm:ss a", "dd/mm/yyyy HH\:mm:ss z", "yyyymmdd h\:mm:ss a z", "yyyy/mm/dd HH\:mm", "mmm dd, yyyy h\:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a", etc.).<br>
+   * See the `format` argument of the {@link common.date.calculateWithTime} function for more details on the available formats.
    * @param {String} [locale="en-US"] - The locale format of the date. E.g. "en-US", "de-DE", etc.
    * @returns {String|Date} The formatted date with time as string or date object.
    * @example const date = new Date(2020, 0, 17, 15, 30, 45);

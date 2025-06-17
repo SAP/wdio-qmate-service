@@ -1702,7 +1702,7 @@ formats date with time.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | date | <code>Date</code> |  | The date object to be formatted. |
-| format | <code>String</code> |  | The expected format ("mm/dd/yyyy HH:mm:ss", "dd.mm.yyyy h:mm:ss a", "dd/mm/yyyy HH:mm:ss z", "yyyymmdd h:mm:ss a z", "yyyy/mm/dd HH:mm", "mmm dd, yyyy h:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a", etc; "datetime", "object"). |
+| format | <code>String</code> |  | The expected format ("datetime", "object", "mm/dd/yyyy HH\:mm:ss", "dd.mm.yyyy h\:mm:ss a", "dd/mm/yyyy HH\:mm:ss z", "yyyymmdd h\:mm:ss a z", "yyyy/mm/dd HH\:mm", "mmm dd, yyyy h\:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a", etc.).<br> See the `format` argument of the [calculateWithTime](#common.date.calculateWithTime) function for more details on the available formats. |
 | [locale] | <code>String</code> | <code>&quot;en-US&quot;</code> | The locale format of the date. E.g. "en-US", "de-DE", etc. |
 
 **Example**  
