@@ -40,7 +40,7 @@ describe("formatter - formatDateWithTime", () => {
   describe("formatDateWithTime - format 'dd.mm.yyyy HH:mm:ss'", () => {
     it("Preparation", () => {
       date = new Date(2025, 0, 2, 15, 30, 45);
-      format = "dd.mm.yyyy HH:mm:ss z";
+      format = "dd.mm.yyyy HH:mm:ss";
       expected = `02.01.2025 15:30:45 ${calculateTimezoneOffset(date)}`;
     });
 
