@@ -288,7 +288,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError("Invalid time format provided");
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(/Invalid time format provided. Available time formats: /);
     });
   });
 
@@ -299,7 +299,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError("Invalid time format provided");
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(/Invalid time format provided. Available time formats: /);
     });
   });
 
@@ -310,7 +310,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError("Invalid date format provided");
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(/Invalid date format provided. Available date formats: /);
     });
   });
 
@@ -321,7 +321,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError("Invalid date format provided");
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(/Invalid date format provided. Available date formats: /);
     });
   });
 
@@ -332,7 +332,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError("Invalid time format provided");
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(/Invalid time format provided. Available time formats: /);
     });
   });
 
