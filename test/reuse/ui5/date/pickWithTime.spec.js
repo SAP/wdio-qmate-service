@@ -58,3 +58,28 @@ describe("date - pickWithTime - With initialFocusedDateValue when datePicker has
     common.assertion.expectEqual(actualDate.toISOString(), expectedDate.toISOString());
   });
 });
+
+describe("date - pickWithTime - with given Value when datePicker has a date assigned", function () {
+  let expectedDate;
+
+  it("Preparation", async function () {
+    await browser.url(dateTimePickerUrl);
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+  });
+
+  it("Execution (today - no time provided)", async function () {
+    expectedDate = await common.date.calculateWithTime("today");
+    await ui5.date.pickWithTime(dateTimePicker, expectedDate, 2);
+    await util.browser.sleep(5000);
+  });
+
+  it("Verification (today - no time provided)", async function () {
+    const value = await ui5.element.getValue(dateTimePicker, 2);
+    const actualDate = new Date(value);
+    common.assertion.expectEqual(actualDate.getHours(), 0);
+    common.assertion.expectEqual(actualDate.getMinutes(), 0);
+    common.assertion.expectEqual(actualDate.getSeconds(), 0);
+    common.assertion.expectEqual(actualDate.toISOString(), expectedDate.toISOString());
+  });
+});
