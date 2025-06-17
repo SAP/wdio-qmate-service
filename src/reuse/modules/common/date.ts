@@ -194,7 +194,7 @@ export class DateModule {
    * @function getCurrentDateAndTime
    * @memberOf common.date
    * @description Returns the current date and time in the given format.
-   * @param {String} [format="object"] - The expected format as a string, which consists of date and time formats, separated by a whitespace. 
+   * @param {String} [format="object"] - The expected format as a string, which consists of date and time formats, separated by a whitespace or another delimiter. 
    * Supported formats are the same as for the {@link common.date.calculateWithTime} method.<br>
    * @returns {String | Date} The calculated date and time in the given format.
    * @example const date = common.date.getCurrentDateAndTime("mm/dd/yyyy HH:mm:ss");
@@ -216,11 +216,11 @@ export class DateModule {
    * Supported formats: "HH:MM:SS" (e.g. "10:30:20"), "HH:MM" (e.g. "10:30"), "HH" (e.g. "10").
    * It can also be in 12-hour format with AM/PM (e.g. "10:30 PM", "3 AM").
    * If not provided, the time will default to the start of the day (00:00:00).
-   * @param {String} [format="object"] - The expected output format as a string, which consists of <b>date and time formats, separated by a whitespace</b>.<br>
+   * @param {String} [format="object"] - The expected output format as a string, which consists of <b>date and time formats, separated by a whitespace or another delimiter</b> (such as 'T' substring).<br>
    * - Supported <b>date</b> formats are the same as for the {@link common.date.calculate} method.<br>
    * - Supported <b>time</b> formats are the following: "HH\:mm:ss" (24-hour format), "h\:mm:ss a" (12-hour format), "HH\:mm:ss z" (24-hour format with timezone), "h\:mm:ss a z" (12-hour format with timezone),
    * "HH\:mm" (24-hour format), "h\:mm a" (12-hour format), "HH" (24-hour format), "h a" (12-hour format).<br>
-   * - Examples of <b>expected format</b>: "datetime", "object", "mm/dd/yyyy HH\:mm:ss", "dd.mm.yyyy h\:mm:ss a", "dd/mm/yyyy HH\:mm:ss z", "yyyymmdd h\:mm:ss a z",
+   * - Examples of <b>expected format</b>: "datetime", "object", "mm/dd/yyyy HH\:mm:ss", "dd.mm.yyyy h\:mm:ss a", "dd/mm/yyyy HH\:mm:ss z", "yyyymmddTh\:mm:ss a z",
    * "yyyy/mm/dd HH\:mm", "mmm dd, yyyy h\:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a",
    * and other combinations of supported date and time formats.<br>
    * @returns {String | Date} The calculated date and time in the given format.
@@ -234,8 +234,8 @@ export class DateModule {
    * // returns a string like "17.05.2025 22:00:45"
    * @example const date = common.date.calculateWithTime("nextYear", "3 AM", "dd/mm/yyyy h a");
    * // returns a string like "17/06/2026 3 AM"
-   * @example const date = common.date.calculateWithTime("previousYear", "15:30", "yyyymmdd HH:mm");
-   * // returns a string like "20240617 15:30"
+   * @example const date = common.date.calculateWithTime("previousYear", "15:30", "yyyymmddTHH:mm");
+   * // returns a string like "20240617T15:30"
    * @example const date = common.date.calculateWithTime("tomorrow", "10:00:50", "mmm dd, yyyy HH:mm:ss z");
    * // returns a string like "Jun 18, 2025 10:00:50 GMT+02:00"
    */
