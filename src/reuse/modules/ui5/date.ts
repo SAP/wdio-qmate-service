@@ -233,14 +233,18 @@ export class DateModule {
 
   private async _selectSeconds(seconds: number) {
     const vl = this.vlf.initLog(this._selectSeconds);
-    await ui5.userInteraction.click({
-      "elementProperties": {
-        "viewName": "sap.m.sample.DateTimePicker.Group",
-        "metadata": "sap.m.internal.ToggleSpinButton",
-        "tooltip": "Seconds"
-      }
-    });
-    await common.userInteraction.pressKey(util.formatter.addRemoveLeadingZeros(seconds.toString(), 2));
+    try {
+      await ui5.userInteraction.click({
+        "elementProperties": {
+          "viewName": "sap.m.sample.DateTimePicker.Group",
+          "metadata": "sap.m.internal.ToggleSpinButton",
+          "tooltip": "Seconds"
+        }
+      });
+      await common.userInteraction.pressKey(util.formatter.addRemoveLeadingZeros(seconds.toString(), 2));
+    } catch (error) {
+      vl.log("Cannot select seconds in this calendar, moving on.");
+    }
   }
 }
 export default new DateModule();

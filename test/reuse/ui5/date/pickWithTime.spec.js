@@ -83,3 +83,24 @@ describe("date - pickWithTime - with given Value when datePicker has a date assi
     common.assertion.expectEqual(actualDate.toISOString(), expectedDate.toISOString());
   });
 });
+
+describe("date - pickWithTime - clock without seconds picker", function () {
+  let expectedDate;
+
+  it("Preparation", async function () {
+    await browser.url(dateTimePickerUrl);
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+  });
+
+  it("Execution (tomorrow - 22:00)", async function () {
+    expectedDate = await common.date.calculateWithTime("tomorrow", "22:00");
+    await ui5.date.pickWithTime(dateTimePicker, expectedDate, 3);
+  });
+
+  it("Verification (tomorrow - 22:00)", async function () {
+    const value = await ui5.element.getValue(dateTimePicker, 3);
+    const actualDate = new Date(value);
+    common.assertion.expectEqual(actualDate.toISOString(), expectedDate.toISOString());
+  });
+});
