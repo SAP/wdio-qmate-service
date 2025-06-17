@@ -136,7 +136,8 @@ export class DateModule {
    * @function calculate
    * @memberOf common.date
    * @description Calculates the date based on the input parameter and returns it in the given format.
-   * @param {String} [date="today"] - Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, previousYear
+   * @param {String} [date="today"] - Supported values: "today", "tomorrow", "nextMonth", "previousMonth", "nextYear", "previousYear"
+   * If the date is not provided, the current date will be used.
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "mmm d, yyyy", "datetime", "object").
    * @returns {String | Date} The calculated date in the given format.
    * @example const date = await common.date.calculate("today", "mm/dd/yyyy");
@@ -185,13 +186,18 @@ export class DateModule {
    * @function calculateWithTime
    * @memberOf common.date
    * @description Calculates the date and time based on the input parameter and returns it in the given format.
-   * @param {String} [date] - Supported values: "today", "tomorrow", "nextMonth", "previousMonth", "nextYear", "previousYear".
-   * If the date is not provided, the current date will be used.
+   * @param {String} [date = "today"] - Supported values: "today", "tomorrow", "nextMonth", "previousMonth", "nextYear", "previousYear".
    * @param {String} [time] - The time of day.
    * Supported formats: "HH:MM:SS" (e.g. "10:30:20"), "HH:MM" (e.g. "10:30"), "HH" (e.g. "10").
    * It can also be in 12-hour format with AM/PM (e.g. "10:30 PM", "3 AM").
    * If not provided, the time will default to the start of the day (00:00:00).
-   * @param {String} [format="object"] - The expected format ("mm/dd/yyyy HH:mm:ss", "dd.mm.yyyy h:mm:ss a", "dd/mm/yyyy HH:mm:ss z", "yyyymmdd h:mm:ss a z", "yyyy/mm/dd HH:mm", "mmm dd, yyyy h:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a", etc; "datetime", "object").
+   * @param {String} [format="object"] - The expected format as a string, which consists of <b>date and time formats, separated by a whitespace</b>.<br>
+   * - Supported <b>date</b> formats are the same as for the {@link common.date.calculate} method.<br>
+   * - Supported <b>time</b> formats are the following: "HH\:mm:ss" (24-hour format), "h\:mm:ss a" (12-hour format), "HH\:mm:ss z" (24-hour format with timezone), "h\:mm:ss a z" (12-hour format with timezone),
+   * "HH\:mm" (24-hour format), "h\:mm a" (12-hour format), "HH" (24-hour format), "h a" (12-hour format).<br>
+   * - Examples of <b>expected format</b>: "datetime", "object", "mm/dd/yyyy HH\:mm:ss", "dd.mm.yyyy h\:mm:ss a", "dd/mm/yyyy HH\:mm:ss z", "yyyymmdd h\:mm:ss a z",
+   * "yyyy/mm/dd HH\:mm", "mmm dd, yyyy h\:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a",
+   * and other combinations of supported date and time formats.<br>
    * @returns  {String | Date} The calculated date and time in the given format.
    * @example const date = common.date.calculateWithTime("today", "10:00");
    * // returns a Date object like "Tue Jun 17 2025 08:17:27 GMT+0200 (Central European Summer Time)"
@@ -208,7 +214,7 @@ export class DateModule {
    * @example const date = common.date.calculateWithTime("tomorrow", "10:00:50", "mmm dd, yyyy HH:mm:ss z");
    * // returns a string like "Jun 18, 2025 10:00:50 GMT+02:00"
    */
-  calculateWithTime(date?: CalculateDatesType, time?: Time, format: DateTimeFormatsType = DateFormats.OBJECT): string | Date {
+  calculateWithTime(date: CalculateDatesType = CalculateDates.TODAY, time?: Time, format: DateTimeFormatsType = DateFormats.OBJECT): string | Date {
     const vl = this.vlf.initLog(this.calculateWithTime);
     const startOfDay = this._calculateStartOfDay(date);
     const calculatedTime = time
@@ -218,7 +224,7 @@ export class DateModule {
   }
 
   // =================================== HELPER ===================================
-  private _calculateStartOfDay(date: CalculateDatesType = CalculateDates.TODAY): Date {
+  private _calculateStartOfDay(date: CalculateDatesType): Date {
     let calculatedDate: Date;
     try {
       calculatedDate = this.calculate(date, DateFormats.OBJECT) as Date;
