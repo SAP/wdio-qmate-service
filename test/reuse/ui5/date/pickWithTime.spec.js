@@ -38,6 +38,28 @@ describe("date - pickWithTime - Simple DateTimePicker when datePicker has not as
   });
 });
 
+describe("date - pickWithTime - Simple DateTimePicker when datePicker has not assigned any date - current time", function () {
+  let expectedDate;
+
+  it("Preparation", async function () {
+    await browser.url(dateTimePickerUrl);
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+  });
+
+  it("Execution (current date and time)", async function () {
+    expectedDate = await common.date.getCurrentDateAndTime();
+    expectedDate.setMilliseconds(0);
+    await ui5.date.pickWithTime(dateTimePicker, expectedDate);
+  });
+
+  it("Verification (current date and time)", async function () {
+    const value = await ui5.element.getValue(dateTimePicker);
+    const actualDate = new Date(value);
+    common.assertion.expectEqual(actualDate.toISOString(), expectedDate.toISOString());
+  });
+});
+
 describe("date - pickWithTime - With initialFocusedDateValue when datePicker has not assigned any date", function () {
   let expectedDate;
 
