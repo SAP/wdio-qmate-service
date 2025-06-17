@@ -189,7 +189,20 @@ export class DateModule {
    * @param {String} [time] - The time in "HH:MM:SS" format (e.g., "10:00", "10:30:20", "15").
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy HH:mm:ss", "dd.mm.yyyy h:mm:ss a", "dd/mm/yyyy HH:mm:ss z", "yyyymmdd h:mm:ss a z", "yyyy/mm/dd HH:mm", "mmm dd, yyyy h:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a", etc; "datetime", "object").
    * @returns  {String | Date} The calculated date and time in the given format.
-   * @example const date = await common.date.calculateWithTime("today", "10:00");
+   * @example const date = common.date.calculateWithTime("today", "10:00");
+   * // returns a Date object like "Tue Jun 17 2025 08:17:27 GMT+0200 (Central European Summer Time)"
+   * @example const date = common.date.calculateWithTime("today", "10:00:00", "mm/dd/yyyy HH:mm:ss");
+   * // returns a string like "06/17/2025 10:00:00"
+   * @example const date = common.date.calculateWithTime("nextMonth", "9:00 PM", "mm-dd-yyyy h:mm a");
+   * // returns a string like "07-17-2025 9:00 PM"
+   * @example const date = common.date.calculateWithTime("previousMonth", "22:00:45", "dd.mm.yyyy HH:mm:ss");
+   * // returns a string like "17.05.2025 22:00:45"
+   * @example const date = common.date.calculateWithTime("nextYear", "3 AM", "dd/mm/yyyy h a");
+   * // returns a string like "17/06/2026 3 AM"
+   * @example const date = common.date.calculateWithTime("previousYear", "15:30", "yyyymmdd HH:mm");
+   * // returns a string like "20240617 15:30"
+   * @example const date = common.date.calculateWithTime("tomorrow", "10:00:50", "mmm dd, yyyy HH:mm:ss z");
+   * // returns a string like "Jun 18, 2025 10:00:50 GMT+02:00"
    */
   calculateWithTime(date?: CalculateDatesType, time?: Time, format: DateTimeFormatsType = DateFormats.OBJECT): string | Date {
     const vl = this.vlf.initLog(this.calculateWithTime);

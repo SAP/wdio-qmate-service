@@ -5,7 +5,7 @@ describe("formatter - formatDateWithTime", () => {
   let expected;
 
   // =================================== VALID CASES ===================================
-  describe("formatDateWithTime - format mm/dd/yyyy h:mm:ss a", () => {
+  describe("formatDateWithTime - format 'mm/dd/yyyy h:mm:ss a'", () => {
     it("Preparation", () => {
       date = new Date(2025, 0, 2, 15, 30, 45);
       format = "mm/dd/yyyy h:mm:ss a";
@@ -21,7 +21,7 @@ describe("formatter - formatDateWithTime", () => {
     });
   });
 
-  describe("formatDateWithTime - format mm-dd-yyyy HH:mm:ss", () => {
+  describe("formatDateWithTime - format 'mm-dd-yyyy HH:mm:ss'", () => {
     it("Preparation", () => {
       date = new Date(2025, 0, 2, 15, 30, 45);
       format = "mm-dd-yyyy HH:mm:ss";
@@ -37,7 +37,7 @@ describe("formatter - formatDateWithTime", () => {
     });
   });
 
-  describe("formatDateWithTime - format dd.mm.yyyy HH:mm:ss", () => {
+  describe("formatDateWithTime - format 'dd.mm.yyyy HH:mm:ss'", () => {
     it("Preparation", () => {
       date = new Date(2025, 0, 2, 15, 30, 45);
       format = "dd.mm.yyyy HH:mm:ss z";
@@ -53,7 +53,7 @@ describe("formatter - formatDateWithTime", () => {
     });
   });
 
-  describe("formatDateWithTime - format dd/mm/yyyy HH:mm:ss z", () => {
+  describe("formatDateWithTime - format 'dd/mm/yyyy HH:mm:ss z'", () => {
     it("Preparation", () => {
       date = new Date(2025, 0, 2, 15, 30, 45);
       format = "dd/mm/yyyy HH:mm:ss z";
@@ -69,7 +69,7 @@ describe("formatter - formatDateWithTime", () => {
     });
   });
 
-  describe("formatDateWithTime - format yyyymmdd h:mm:ss a z", () => {
+  describe("formatDateWithTime - format 'yyyymmdd h:mm:ss a z'", () => {
     it("Preparation", () => {
       date = new Date(2025, 0, 2, 15, 30, 45);
       format = "yyyymmdd h:mm:ss a z";
@@ -85,7 +85,7 @@ describe("formatter - formatDateWithTime", () => {
     });
   });
 
-  describe("formatDateWithTime - format yyyy/mm/dd HH:mm", () => {
+  describe("formatDateWithTime - format 'yyyy/mm/dd HH:mm'", () => {
     it("Preparation", () => {
       date = new Date(2025, 0, 2, 15, 30, 45);
       format = "yyyy/mm/dd HH:mm";
@@ -101,7 +101,7 @@ describe("formatter - formatDateWithTime", () => {
     });
   });
 
-  describe("formatDateWithTime - format yyyy.mm.dd h:mm a", () => {
+  describe("formatDateWithTime - format 'yyyy.mm.dd h:mm a'", () => {
     it("Preparation", () => {
       date = new Date(2025, 0, 2, 15, 30, 45);
       format = "yyyy.mm.dd h:mm a";
@@ -117,7 +117,7 @@ describe("formatter - formatDateWithTime", () => {
     });
   });
 
-  describe("formatDateWithTime - format yyyy-mm-dd HH", () => {
+  describe("formatDateWithTime - format 'yyyy-mm-dd HH'", () => {
     it("Preparation", () => {
       date = new Date(2025, 0, 2, 15, 30, 45);
       format = "yyyy-mm-dd HH";
@@ -133,7 +133,7 @@ describe("formatter - formatDateWithTime", () => {
     });
   });
 
-  describe("formatDateWithTime - format mmm dd, yyyy h a", () => {
+  describe("formatDateWithTime - format 'mmm dd, yyyy h a'", () => {
     it("Preparation", () => {
       date = new Date(2025, 0, 2, 10, 30, 45);
       format = "mmm dd, yyyy h a";
@@ -149,7 +149,7 @@ describe("formatter - formatDateWithTime", () => {
     });
   });
 
-  describe("formatDateWithTime - format mmm d, yyyy h a", () => {
+  describe("formatDateWithTime - format 'mmm d, yyyy h a'", () => {
     it("Preparation", () => {
       date = new Date(2025, 0, 2, 10, 30, 45);
       format = "mmm d, yyyy h a";
@@ -165,7 +165,7 @@ describe("formatter - formatDateWithTime", () => {
     });
   });
 
-  describe("formatDateWithTime - format datetime", () => {
+  describe("formatDateWithTime - format 'datetime'", () => {
     it("Preparation", () => {
       date = new Date(2025, 0, 2, 10, 30, 45);
       format = "datetime";
@@ -325,7 +325,7 @@ describe("formatter - formatDateWithTime", () => {
     });
   });
 
-  describe("formatDateWithTime - invalid format - 'yyyy/mm/dd HH:mm:ss some-text' - some-text after date and time", () => {
+  describe("formatDateWithTime - invalid format - 'yyyy/mm/dd HH:mm:ss some-text' - some-text after time", () => {
     it("Preparation", () => {
       date = new Date(2025, 0, 2, 10, 30, 45);
       format = "yyyy/mm/dd HH:mm:ss some-text";
@@ -336,7 +336,7 @@ describe("formatter - formatDateWithTime", () => {
     });
   });
 
-  describe("formatDateWithTime - invalid format - dd.mm.yyyy.hh.mm.HH:mm:ss", () => {
+  describe("formatDateWithTime - invalid format - 'dd.mm.yyyy.hh.mm.HH:mm:ss'", () => {
     it("Preparation", () => {
       date = new Date(2025, 0, 2, 15, 30, 45);
       format = "dd.mm.yyyy.hh.mm.HH:mm:ss";
