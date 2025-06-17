@@ -2,11 +2,11 @@
 
 const { verifyDateWithTime } = require("./utils");
 
-describe("date - getCurrentTime", () => {
+describe("date - getCurrentDateAndTime", () => {
   let dateAct;
 
   it("Execution", () => {
-    dateAct = common.date.getCurrentTime();
+    dateAct = common.date.getCurrentDateAndTime();
   });
 
   it("Verification", () => {
@@ -15,12 +15,12 @@ describe("date - getCurrentTime", () => {
   });
 });
 
-describe("date - getCurrentTime with format ('mm/dd/yyyy HH:mm:ss')", () => {
+describe("date - getCurrentDateAndTime with format ('mm/dd/yyyy HH:mm:ss')", () => {
   let dateAct;
   const format = "mm/dd/yyyy HH:mm:ss";
 
   it("Execution", () => {
-    dateAct = common.date.getCurrentTime("mm/dd/yyyy HH:mm:ss");
+    dateAct = common.date.getCurrentDateAndTime("mm/dd/yyyy HH:mm:ss");
   });
 
   it("Verification", () => {

@@ -15,7 +15,7 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "getPreviousYear.spec.js"),
     path.resolve(__dirname, "calculate.spec.js"),
     path.resolve(__dirname, "calculateWithTime.spec.js"),
-    path.resolve(__dirname, "getCurrentTime.spec.js"),
+    path.resolve(__dirname, "getCurrentDateAndTime.spec.js"),
     path.resolve(__dirname, "getSpecific.spec.js")
   ]
 });

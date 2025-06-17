@@ -190,7 +190,19 @@ export class DateModule {
     return calculatedDate;
   }
 
-  getCurrentTime(format: DateTimeFormatsType = DateFormats.OBJECT): string | Date {
+  /**
+   * @function getCurrentDateAndTime
+   * @memberOf common.date
+   * @description Returns the current date and time in the given format.
+   * @param {String} [format="object"] - The expected format as a string, which consists of date and time formats, separated by a whitespace.<br>
+   * - Supported formats are the same as for the {@link common.date.calculateWithTime | calculateWithTime} function.<br>
+   * @returns {String | Date} The calculated date and time in the given format.
+   * @example const date = common.date.getCurrentDateAndTime("mm/dd/yyyy HH:mm:ss");
+   * // returns a string like "06/17/2025 08:17:27"
+   * @example const date = common.date.getCurrentDateAndTime();
+   * // returns a Date object like "Tue Jun 17 2025 08:17:27 GMT+0200 (Central European Summer Time)"
+   */
+  getCurrentDateAndTime(format: DateTimeFormatsType = DateFormats.OBJECT): string | Date {
     const currentTime = new Date();
     return util.formatter.formatDateWithTime(currentTime, format);
   }
@@ -211,7 +223,7 @@ export class DateModule {
    * - Examples of <b>expected format</b>: "datetime", "object", "mm/dd/yyyy HH\:mm:ss", "dd.mm.yyyy h\:mm:ss a", "dd/mm/yyyy HH\:mm:ss z", "yyyymmdd h\:mm:ss a z",
    * "yyyy/mm/dd HH\:mm", "mmm dd, yyyy h\:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a",
    * and other combinations of supported date and time formats.<br>
-   * @returns  {String | Date} The calculated date and time in the given format.
+   * @returns {String | Date} The calculated date and time in the given format.
    * @example const date = common.date.calculateWithTime("today", "10:00");
    * // returns a Date object like "Tue Jun 17 2025 08:17:27 GMT+0200 (Central European Summer Time)"
    * @example const date = common.date.calculateWithTime("today", "10:00:00", "mm/dd/yyyy HH:mm:ss");
