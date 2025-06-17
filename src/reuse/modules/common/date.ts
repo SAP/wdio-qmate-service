@@ -190,6 +190,10 @@ export class DateModule {
     return calculatedDate;
   }
 
+  getCurrentTime() {
+    return new Date();
+  }
+
   /**
    * @function calculateWithTime
    * @memberOf common.date

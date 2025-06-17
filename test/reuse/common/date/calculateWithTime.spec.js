@@ -1,5 +1,7 @@
 "use strict";
 
+const { verifyDateWithTime } = require("./utils");
+
 // =================================== VALID CASES ===================================
 describe("date - calculateWithTime - without parameters", function() {
   let dateAct;
@@ -334,13 +336,3 @@ describe("date - calculateWithTime - 'previousMonth' - '20:40:-30' - error", fun
     expect(() => common.date.calculateWithTime("nextMonth", "-5:40:40")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
   });
 });
-
-// =================================== TEST HELPER ===================================
-function verifyDateWithTime(dateAct, dateExp) {
-  common.assertion.expectEqual(dateAct.getFullYear(), dateExp.getFullYear());
-  common.assertion.expectEqual(dateAct.getMonth(), dateExp.getMonth());
-  common.assertion.expectEqual(dateAct.getDate(), dateExp.getDate());
-  common.assertion.expectEqual(dateAct.getHours(), dateExp.getHours());
-  common.assertion.expectEqual(dateAct.getMinutes(), dateExp.getMinutes());
-  common.assertion.expectEqual(dateAct.getSeconds(), dateExp.getSeconds());
-}
