@@ -185,8 +185,12 @@ export class DateModule {
    * @function calculateWithTime
    * @memberOf common.date
    * @description Calculates the date and time based on the input parameter and returns it in the given format.
-   * @param {String} [date] - Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, previousYear
-   * @param {String} [time] - The time in "HH:MM:SS" format (e.g., "10:00", "10:30:20", "15").
+   * @param {String} [date] - Supported values: "today", "tomorrow", "nextMonth", "previousMonth", "nextYear", "previousYear".
+   * If the date is not provided, the current date will be used.
+   * @param {String} [time] - The time of day.
+   * Supported formats: "HH:MM:SS" (e.g. "10:30:20"), "HH:MM" (e.g. "10:30"), "HH" (e.g. "10").
+   * It can also be in 12-hour format with AM/PM (e.g. "10:30 PM", "3 AM").
+   * If not provided, the time will default to the start of the day (00:00:00).
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy HH:mm:ss", "dd.mm.yyyy h:mm:ss a", "dd/mm/yyyy HH:mm:ss z", "yyyymmdd h:mm:ss a z", "yyyy/mm/dd HH:mm", "mmm dd, yyyy h:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a", etc; "datetime", "object").
    * @returns  {String | Date} The calculated date and time in the given format.
    * @example const date = common.date.calculateWithTime("today", "10:00");
@@ -206,9 +210,6 @@ export class DateModule {
    */
   calculateWithTime(date?: CalculateDatesType, time?: Time, format: DateTimeFormatsType = DateFormats.OBJECT): string | Date {
     const vl = this.vlf.initLog(this.calculateWithTime);
-    if (!date) {
-      return new Date();
-    }
     const startOfDay = this._calculateStartOfDay(date);
     const calculatedTime = time
       ? this._updateDateWithTime(startOfDay, time)
@@ -217,7 +218,7 @@ export class DateModule {
   }
 
   // =================================== HELPER ===================================
-  private _calculateStartOfDay(date: CalculateDatesType): Date {
+  private _calculateStartOfDay(date: CalculateDatesType = CalculateDates.TODAY): Date {
     let calculatedDate: Date;
     try {
       calculatedDate = this.calculate(date, DateFormats.OBJECT) as Date;

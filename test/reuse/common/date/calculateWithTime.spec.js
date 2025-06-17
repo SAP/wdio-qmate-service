@@ -10,6 +10,7 @@ describe("date - calculateWithTime - without parameters", function() {
 
   it("Verification", function() {
     const dateExp = new Date();
+    dateExp.setHours(0, 0, 0, 0);
     verifyDateWithTime(dateAct, dateExp);
   });
 });
