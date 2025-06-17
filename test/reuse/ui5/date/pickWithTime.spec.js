@@ -93,12 +93,12 @@ describe("date - pickWithTime - clock without seconds picker", function () {
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
-  it("Execution (tomorrow - 22:00)", async function () {
-    expectedDate = await common.date.calculateWithTime("tomorrow", "22:00");
+  it("Execution (tomorrow - 11:30 AM)", async function () {
+    expectedDate = await common.date.calculateWithTime("tomorrow", "11:30 AM");
     await ui5.date.pickWithTime(dateTimePicker, expectedDate, 3);
   });
 
-  it("Verification (tomorrow - 22:00)", async function () {
+  it("Verification (tomorrow - 11:30 AM)", async function () {
     const value = await ui5.element.getValue(dateTimePicker, 3);
     const actualDate = new Date(value);
     common.assertion.expectEqual(actualDate.toISOString(), expectedDate.toISOString());

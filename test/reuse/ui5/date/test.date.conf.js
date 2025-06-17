@@ -5,6 +5,9 @@ const profile = require("../../../helper/configurations/chrome.headless.conf");
 exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
+  params: {
+    qmateCustomTimeout: 5000,
+  },
 
   specs: [
     path.resolve(__dirname, "pick.spec.js"),
