@@ -190,8 +190,9 @@ export class DateModule {
     return calculatedDate;
   }
 
-  getCurrentTime() {
-    return new Date();
+  getCurrentTime(format: DateTimeFormatsType = DateFormats.OBJECT): string | Date {
+    const currentTime = new Date();
+    return util.formatter.formatDateWithTime(currentTime, format);
   }
 
   /**
