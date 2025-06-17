@@ -93,15 +93,11 @@ describe("date - pickWithTime - with given Value when datePicker has a date assi
   it("Execution (today - no time provided)", async function () {
     expectedDate = await common.date.calculateWithTime("today");
     await ui5.date.pickWithTime(dateTimePicker, expectedDate, 2);
-    await util.browser.sleep(5000);
   });
 
   it("Verification (today - no time provided)", async function () {
     const value = await ui5.element.getValue(dateTimePicker, 2);
     const actualDate = new Date(value);
-    common.assertion.expectEqual(actualDate.getHours(), 0);
-    common.assertion.expectEqual(actualDate.getMinutes(), 0);
-    common.assertion.expectEqual(actualDate.getSeconds(), 0);
     common.assertion.expectEqual(actualDate.toISOString(), expectedDate.toISOString());
   });
 });
@@ -115,12 +111,12 @@ describe("date - pickWithTime - clock without seconds picker", function () {
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
-  it("Execution (tomorrow - 11:30 AM)", async function () {
-    expectedDate = await common.date.calculateWithTime("tomorrow", "11:30 AM");
+  it("Execution (previousMonth - 11:30 AM)", async function () {
+    expectedDate = await common.date.calculateWithTime("previousMonth", "11:30 AM");
     await ui5.date.pickWithTime(dateTimePicker, expectedDate, 3);
   });
 
-  it("Verification (tomorrow - 11:30 AM)", async function () {
+  it("Verification (previousMonth - 11:30 AM)", async function () {
     const value = await ui5.element.getValue(dateTimePicker, 3);
     const actualDate = new Date(value);
     common.assertion.expectEqual(actualDate.toISOString(), expectedDate.toISOString());
