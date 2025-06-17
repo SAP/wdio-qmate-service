@@ -325,7 +325,7 @@ Calculates the date based on the input parameter and returns it in the given for
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [date] | <code>String</code> | <code>&quot;today&quot;</code> | Supported values: "today", "tomorrow", "nextMonth", "previousMonth", "nextYear", "previousYear" If the date is not provided, the current date will be used. |
+| [date] | <code>String</code> | <code>&quot;today&quot;</code> | Supported values: "today", "tomorrow", "nextMonth", "previousMonth", "nextYear", "previousYear" If the date is not provided, "today" will be used. |
 | [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
@@ -342,7 +342,7 @@ Returns the current date and time in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format as a string, which consists of date and time formats, separated by a whitespace. Supported formats are the same as for the [ calculateWithTime](#common.date.calculateWithTime) function.<br> |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format as a string, which consists of date and time formats, separated by a whitespace. Supported formats are the same as for the [calculateWithTime](#common.date.calculateWithTime) method.<br> |
 
 **Example**  
 ```js
@@ -366,7 +366,7 @@ Calculates the date and time based on the input parameter and returns it in the 
 | --- | --- | --- | --- |
 | [date] | <code>String</code> | <code>&quot;today&quot;</code> | Supported values: "today", "tomorrow", "nextMonth", "previousMonth", "nextYear", "previousYear". |
 | [time] | <code>String</code> |  | The time of day. Supported formats: "HH:MM:SS" (e.g. "10:30:20"), "HH:MM" (e.g. "10:30"), "HH" (e.g. "10"). It can also be in 12-hour format with AM/PM (e.g. "10:30 PM", "3 AM"). If not provided, the time will default to the start of the day (00:00:00). |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format as a string, which consists of <b>date and time formats, separated by a whitespace</b>.<br> - Supported <b>date</b> formats are the same as for the [calculate](#common.date.calculate) method.<br> - Supported <b>time</b> formats are the following: "HH\:mm:ss" (24-hour format), "h\:mm:ss a" (12-hour format), "HH\:mm:ss z" (24-hour format with timezone), "h\:mm:ss a z" (12-hour format with timezone), "HH\:mm" (24-hour format), "h\:mm a" (12-hour format), "HH" (24-hour format), "h a" (12-hour format).<br> - Examples of <b>expected format</b>: "datetime", "object", "mm/dd/yyyy HH\:mm:ss", "dd.mm.yyyy h\:mm:ss a", "dd/mm/yyyy HH\:mm:ss z", "yyyymmdd h\:mm:ss a z", "yyyy/mm/dd HH\:mm", "mmm dd, yyyy h\:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a", and other combinations of supported date and time formats.<br> |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected output format as a string, which consists of <b>date and time formats, separated by a whitespace</b>.<br> - Supported <b>date</b> formats are the same as for the [calculate](#common.date.calculate) method.<br> - Supported <b>time</b> formats are the following: "HH\:mm:ss" (24-hour format), "h\:mm:ss a" (12-hour format), "HH\:mm:ss z" (24-hour format with timezone), "h\:mm:ss a z" (12-hour format with timezone), "HH\:mm" (24-hour format), "h\:mm a" (12-hour format), "HH" (24-hour format), "h a" (12-hour format).<br> - Examples of <b>expected format</b>: "datetime", "object", "mm/dd/yyyy HH\:mm:ss", "dd.mm.yyyy h\:mm:ss a", "dd/mm/yyyy HH\:mm:ss z", "yyyymmdd h\:mm:ss a z", "yyyy/mm/dd HH\:mm", "mmm dd, yyyy h\:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a", and other combinations of supported date and time formats.<br> |
 
 **Example**  
 ```js

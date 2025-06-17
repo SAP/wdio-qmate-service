@@ -243,7 +243,7 @@ export class DateModule {
       });
       await common.userInteraction.pressKey(util.formatter.addRemoveLeadingZeros(seconds.toString(), 2));
     } catch (error) {
-      vl.log("Cannot select seconds in this calendar, moving on.");
+      vl.log("Cannot select seconds on this calendar, moving on.");
     }
   }
 }

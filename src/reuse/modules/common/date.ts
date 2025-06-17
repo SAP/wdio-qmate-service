@@ -195,7 +195,7 @@ export class DateModule {
    * @memberOf common.date
    * @description Returns the current date and time in the given format.
    * @param {String} [format="object"] - The expected format as a string, which consists of date and time formats, separated by a whitespace. 
-   * Supported formats are the same as for the {@link common.date.calculateWithTime | calculateWithTime} function.<br>
+   * Supported formats are the same as for the {@link common.date.calculateWithTime} method.<br>
    * @returns {String | Date} The calculated date and time in the given format.
    * @example const date = common.date.getCurrentDateAndTime("mm/dd/yyyy HH:mm:ss");
    * // returns a string like "06/17/2025 08:17:27"
@@ -216,7 +216,7 @@ export class DateModule {
    * Supported formats: "HH:MM:SS" (e.g. "10:30:20"), "HH:MM" (e.g. "10:30"), "HH" (e.g. "10").
    * It can also be in 12-hour format with AM/PM (e.g. "10:30 PM", "3 AM").
    * If not provided, the time will default to the start of the day (00:00:00).
-   * @param {String} [format="object"] - The expected format as a string, which consists of <b>date and time formats, separated by a whitespace</b>.<br>
+   * @param {String} [format="object"] - The expected output format as a string, which consists of <b>date and time formats, separated by a whitespace</b>.<br>
    * - Supported <b>date</b> formats are the same as for the {@link common.date.calculate} method.<br>
    * - Supported <b>time</b> formats are the following: "HH\:mm:ss" (24-hour format), "h\:mm:ss a" (12-hour format), "HH\:mm:ss z" (24-hour format with timezone), "h\:mm:ss a z" (12-hour format with timezone),
    * "HH\:mm" (24-hour format), "h\:mm a" (12-hour format), "HH" (24-hour format), "h a" (12-hour format).<br>
