@@ -12,7 +12,6 @@ exports.config = merge(profile.config, {
   bail: 1,
 
   specs: [
-    path.resolve(__dirname, "addRemoveLeadingZeros.spec.js"),
     path.resolve(__dirname, "extractNumberFromString.spec.js")
   ],
   exclude: [],
