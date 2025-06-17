@@ -41,7 +41,7 @@ describe("formatter - formatDateWithTime", () => {
     it("Preparation", () => {
       date = new Date(2025, 0, 2, 15, 30, 45);
       format = "dd.mm.yyyy HH:mm:ss";
-      expected = `02.01.2025 15:30:45 ${calculateTimezoneOffset(date)}`;
+      expected = `02.01.2025 15:30:45`;
     });
 
     it("Execution", () => {
