@@ -97,7 +97,6 @@ describe("date - pickWithTime - with given Value when datePicker has a date assi
 
   it("Verification (today - no time provided)", async function () {
     const value = await ui5.element.getValue(dateTimePicker, 2);
-    console.log("Value from DateTimePicker:", value);
     const actualDate = new Date(value);
     common.assertion.expectEqual(actualDate.toISOString(), expectedDate.toISOString());
   });
