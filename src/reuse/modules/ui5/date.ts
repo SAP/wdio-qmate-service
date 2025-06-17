@@ -3,6 +3,14 @@
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { DateFormats } from "../util/constants/formatter.constants";
 
+type PickerMetadata = "sap.m.DatePicker" | "sap.m.DateTimePicker" | "sap.m.DateRangeSelection";
+
+class DatePickerSelectorParams {
+  selector: any;
+  index: number = 0;
+  metadata: PickerMetadata = "sap.m.DatePicker";
+}
+
 /**
  * @class date
  * @memberof ui5
@@ -24,18 +32,7 @@ export class DateModule {
   async pick(selector: any, date: Date, index: number = 0) {
     const vl = this.vlf.initLog(this.pick);
     vl.log(`Picking date ${date} for selector ${selector}`);
-    let id = await ui5.element.getId(selector, index);
-    if (selector.elementProperties.metadata === "sap.ui.core.Icon") {
-      id = id.replace("-icon", "");
-    }
-
-    const tempSelector = {
-      elementProperties: {
-        metadata: "sap.m.DatePicker",
-        id: id
-      }
-    };
-
+    const tempSelector = await this._constructDatePickerSelector({ selector, index, metadata: "sap.m.DatePicker" });
     await this._openDatePicker(tempSelector);
     await this._selectDate(tempSelector, date);
   }
@@ -56,20 +53,30 @@ export class DateModule {
   async pickRange(selector: any, range: Date[], index = 0) {
     const vl = this.vlf.initLog(this.pickRange);
     vl.log(`Picking date range ${range} for selector ${selector}`);
-    let id = await ui5.element.getId(selector, index);
-    if (selector.elementProperties.metadata === "sap.ui.core.Icon") {
-      id = id.replace("-icon", "");
-    }
-
-    const tempSelector = {
-      elementProperties: {
-        metadata: "sap.m.DateRangeSelection",
-        id: id
-      }
-    };
+    const tempSelector = await this._constructDatePickerSelector({ selector, index, metadata: "sap.m.DateRangeSelection" });
     await this._openDatePicker(tempSelector);
     await this._selectDate(tempSelector, range[0]);
     await this._selectDate(tempSelector, range[1]);
+  }
+
+  /**
+   * @function pickWithTime
+   * @memberOf ui5.date
+   * @description Picks the passed date with time using the "DateTimePicker" with the given selector.
+   * @param {Selector} selector - The selector describing the element.
+   * @param {Date} date - The date object.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+   * @example const tomorrowMorning = await common.date.calculateWithTime("tomorrow", "09:30:45");
+   * await ui5.date.pickWithTime(selector, tomorrowMorning);
+   */
+  async pickWithTime(selector: any, date: Date, index = 0) {
+    const vl = this.vlf.initLog(this.pickWithTime);
+    vl.log(`Picking date with time ${date} for selector ${selector}`);
+    const tempSelector = await this._constructDatePickerSelector({ selector, index, metadata: "sap.m.DateTimePicker" });
+    await this._openDatePicker(tempSelector);
+    await this._selectDate(tempSelector, date);
+    await this._selectTime(date);
+    await this._clickOk();
   }
 
   // =================================== FILL ===================================
@@ -92,6 +99,19 @@ export class DateModule {
   }
 
   // =================================== HELPER ===================================
+  private async _constructDatePickerSelector(params: DatePickerSelectorParams) {
+    let id = await ui5.element.getId(params.selector, params.index);
+    if (params.selector.elementProperties.metadata === "sap.ui.core.Icon") {
+      id = id.replace("-icon", "");
+    }
+    return {
+      elementProperties: {
+        metadata: params.metadata,
+        id: id
+      }
+    };
+  }
+
   private async _openDatePicker(selector: any) {
     const vl = this.vlf.initLog(this._openDatePicker);
     const id = selector.elementProperties.id;
@@ -147,6 +167,84 @@ export class DateModule {
 
     const dayPick = await nonUi5.element.getByCss(`[id="${id}-cal"] .sapUiCalItem[data-sap-day="${util.formatter.formatDate(date, DateFormats.YEAR_MONTH_DAY_PLAIN)}"] .sapUiCalItemText`);
     await nonUi5.userInteraction.click(dayPick);
+  }
+
+  private async _selectTime(date: Date) {
+    const vl = this.vlf.initLog(this._selectTime);
+    await this._selectAmPm(date.getHours() < 12 ? "AM" : "PM");
+    await this._selectHours(date.getHours());
+    await this._selectMinutes(date.getMinutes());
+    await this._selectSeconds(date.getSeconds());
+  }
+
+  private async _clickOk() {
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.m.sample.DateTimePicker.Group",
+        "metadata": "sap.m.Button",
+        "text": "OK"
+      }
+    };
+    await ui5.userInteraction.click(selector);
+  }
+
+  private async _selectAmPm(amPm: "AM" | "PM") {
+    const vl = this.vlf.initLog(this._selectAmPm);
+    const amPmSelector = {
+      "elementProperties": {
+        "viewName": "sap.m.sample.DateTimePicker.Group",
+        "metadata": "sap.m.Button",
+        "text": amPm
+      }
+    };
+    await ui5.userInteraction.click(amPmSelector);
+  }
+
+  private async _selectHours(hours: number) {
+    const vl = this.vlf.initLog(this._selectHours);
+    await ui5.userInteraction.click({
+      "elementProperties": {
+        "viewName": "sap.m.sample.DateTimePicker.Group",
+        "metadata": "sap.m.internal.ToggleSpinButton",
+        "tooltip": "Hours"
+      }
+    });
+    await common.userInteraction.pressKey(
+      util.formatter.addRemoveLeadingZeros(
+        (hours % 12).toString(),
+        2
+      )
+    );
+  }
+
+  private async _selectMinutes(minutes: number) {
+    const vl = this.vlf.initLog(this._selectMinutes);
+    await ui5.userInteraction.click({
+      "elementProperties": {
+        "viewName": "sap.m.sample.DateTimePicker.Group",
+        "metadata": "sap.m.internal.ToggleSpinButton",
+        "tooltip": "Minutes"
+      }
+    });
+    await common.userInteraction.pressKey(
+      util.formatter.addRemoveLeadingZeros(minutes.toString(), 2)
+    );
+  }
+
+  private async _selectSeconds(seconds: number) {
+    const vl = this.vlf.initLog(this._selectSeconds);
+    try {
+      await ui5.userInteraction.click({
+        "elementProperties": {
+          "viewName": "sap.m.sample.DateTimePicker.Group",
+          "metadata": "sap.m.internal.ToggleSpinButton",
+          "tooltip": "Seconds"
+        }
+      });
+      await common.userInteraction.pressKey(util.formatter.addRemoveLeadingZeros(seconds.toString(), 2));
+    } catch (error) {
+      vl.log("Cannot select seconds on this calendar, moving on.");
+    }
   }
 }
 export default new DateModule();
