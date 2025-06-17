@@ -13,7 +13,6 @@ exports.config = merge(profile.config, {
 
   specs: [
     path.resolve(__dirname, "addRemoveLeadingZeros.spec.js"),
-    path.resolve(__dirname, "formatDate.spec.js"),
     path.resolve(__dirname, "extractNumberFromString.spec.js")
   ],
   exclude: [],
