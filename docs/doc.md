@@ -210,7 +210,7 @@ Returns the current day in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
 ```js
@@ -226,7 +226,7 @@ Returns tomorrows date in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
 ```js
@@ -242,7 +242,7 @@ Returns the current day one month later in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
 ```js
@@ -258,7 +258,7 @@ Returns the current day one month before in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
 ```js
@@ -274,7 +274,7 @@ Returns the current day one year later in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
 ```js
@@ -290,7 +290,7 @@ Returns the current day one year before in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
 ```js
@@ -307,7 +307,7 @@ Returns a specific date in the given format.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | date | <code>String</code> |  | A specific date string. |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
 ```js
@@ -324,7 +324,7 @@ Calculates the date based on the input parameter and returns it in the given for
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | [date] | <code>String</code> | <code>&quot;today&quot;</code> | Supported values: "today", "tomorrow", "nextMonth", "previousMonth", "nextYear", "previousYear" If the date is not provided, the current date will be used. |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "mmm d, yyyy", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
 ```js
@@ -1676,7 +1676,7 @@ formats date.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | date | <code>Date</code> |  | The date object to be formatted. |
-| format | <code>String</code> |  | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "mmm d, yyyy", "datetime", "object"). |
+| format | <code>String</code> |  | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 | [locale] | <code>String</code> | <code>&quot;en-US&quot;</code> | The locale format of the date. E.g. "en-US", "de-DE", etc. |
 
 **Example**  

@@ -135,7 +135,8 @@ export class Formatter {
    * @memberOf util.formatter
    * @description formats date.
    * @param {Date} date - The date object to be formatted.
-   * @param {String} format - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "mmm d, yyyy", "datetime", "object").
+   * @param {String} format - The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd",
+   * "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object").
    * @param {String} [locale="en-US"] - The locale format of the date. E.g. "en-US", "de-DE", etc.
    * @returns {String} The formatted date as string.
    * @example const date = new Date(2020, 0, 17);
