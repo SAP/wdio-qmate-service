@@ -144,7 +144,7 @@ export class DateModule {
    * @memberOf common.date
    * @description Calculates the date based on the input parameter and returns it in the given format.
    * @param {String} [date="today"] - Supported values: "today", "tomorrow", "nextMonth", "previousMonth", "nextYear", "previousYear"
-   * If the date is not provided, the current date will be used.
+   * If the date is not provided, "today" will be used.
    * @param {String} [format="object"] - The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd",
    * "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object").
    * @returns {String | Date} The calculated date in the given format.
