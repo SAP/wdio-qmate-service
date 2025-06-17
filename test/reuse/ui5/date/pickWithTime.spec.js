@@ -97,7 +97,8 @@ describe("date - pickWithTime - with given Value when datePicker has a date assi
 
   it("Verification (today - no time provided)", async function () {
     const value = await ui5.element.getValue(dateTimePicker, 2);
-    const actualDate = new Date(value);
+    const adjustedValue = value.replace("GMTZ", "UTC"); // Adjust for pipeline timezone differences
+    const actualDate = new Date(adjustedValue);
     common.assertion.expectEqual(actualDate.toISOString(), expectedDate.toISOString());
   });
 });
