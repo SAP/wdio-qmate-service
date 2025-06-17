@@ -49,6 +49,7 @@ Global namespace for common modules.
         * [.getPreviousYear([format])](#common.date.getPreviousYear) ⇒ <code>String</code>
         * [.getSpecific(date, [format])](#common.date.getSpecific) ⇒ <code>String</code>
         * [.calculate([date], [format])](#common.date.calculate) ⇒ <code>String</code> \| <code>Date</code>
+        * [.getCurrentDateAndTime([format])](#common.date.getCurrentDateAndTime) ⇒ <code>String</code> \| <code>Date</code>
         * [.calculateWithTime([date], [time], [format])](#common.date.calculateWithTime) ⇒ <code>String</code> \| <code>Date</code>
     * [.navigation](#common.navigation)
         * [.navigateToUrl(url)](#common.navigation.navigateToUrl)
@@ -198,6 +199,7 @@ await common.assertion.expectUrlToBe("www.sap.com");
     * [.getPreviousYear([format])](#common.date.getPreviousYear) ⇒ <code>String</code>
     * [.getSpecific(date, [format])](#common.date.getSpecific) ⇒ <code>String</code>
     * [.calculate([date], [format])](#common.date.calculate) ⇒ <code>String</code> \| <code>Date</code>
+    * [.getCurrentDateAndTime([format])](#common.date.getCurrentDateAndTime) ⇒ <code>String</code> \| <code>Date</code>
     * [.calculateWithTime([date], [time], [format])](#common.date.calculateWithTime) ⇒ <code>String</code> \| <code>Date</code>
 
 <a name="common.date.getToday"></a>
@@ -329,6 +331,28 @@ Calculates the date based on the input parameter and returns it in the given for
 **Example**  
 ```js
 const date = await common.date.calculate("today", "mm/dd/yyyy");
+```
+<a name="common.date.getCurrentDateAndTime"></a>
+
+#### date.getCurrentDateAndTime([format]) ⇒ <code>String</code> \| <code>Date</code>
+Returns the current date and time in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.date)  
+**Returns**: <code>String</code> \| <code>Date</code> - The calculated date and time in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format as a string, which consists of date and time formats, separated by a whitespace. Supported formats are the same as for the [ calculateWithTime](#common.date.calculateWithTime) function.<br> |
+
+**Example**  
+```js
+const date = common.date.getCurrentDateAndTime("mm/dd/yyyy HH:mm:ss");
+// returns a string like "06/17/2025 08:17:27"
+```
+**Example**  
+```js
+const date = common.date.getCurrentDateAndTime();
+// returns a Date object like "Tue Jun 17 2025 08:17:27 GMT+0200 (Central European Summer Time)"
 ```
 <a name="common.date.calculateWithTime"></a>
 

@@ -194,8 +194,8 @@ export class DateModule {
    * @function getCurrentDateAndTime
    * @memberOf common.date
    * @description Returns the current date and time in the given format.
-   * @param {String} [format="object"] - The expected format as a string, which consists of date and time formats, separated by a whitespace.<br>
-   * - Supported formats are the same as for the {@link common.date.calculateWithTime | calculateWithTime} function.<br>
+   * @param {String} [format="object"] - The expected format as a string, which consists of date and time formats, separated by a whitespace. 
+   * Supported formats are the same as for the {@link common.date.calculateWithTime | calculateWithTime} function.<br>
    * @returns {String | Date} The calculated date and time in the given format.
    * @example const date = common.date.getCurrentDateAndTime("mm/dd/yyyy HH:mm:ss");
    * // returns a string like "06/17/2025 08:17:27"
