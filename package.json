@@ -79,7 +79,6 @@
     "test:reuse:ui5:date": "npx wdio ./test/reuse/ui5/date/test.date.conf.js",
     "test:reuse:ui5:element": "npx wdio ./test/reuse/ui5/element/test.element.conf.js",
     "test:reuse:ui5:errorDialog": "npx wdio ./test/reuse/ui5/errorDialog/test.errorDialog.conf.js",
-    "test:reuse:ui5:formatter": "npx wdio ./test/reuse/ui5/formatter/test.formatter.conf.js",
     "test:reuse:ui5:static:navigation": "npx wdio ./test/reuse/ui5/navigation/test.navigation.static.conf.js",
     "test:reuse:ui5:navigation": "npx wdio ./test/reuse/ui5/navigation/test.navigation.conf.js",
     "test:reuse:ui5:navigationBar": "npx wdio ./test/reuse/ui5/navigationBar/test.navigationBar.conf.js",
