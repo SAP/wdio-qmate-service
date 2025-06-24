@@ -163,6 +163,7 @@ jobs:
         env: 
           QMATE_PRIVATE_KEY: ${{ secrets.QMATE_PRIVATE_KEY }}
         run: |
+          ls -la
           npm install -g npm@latest
           npm ci
           npm run test:reuse:util:data:privacy
