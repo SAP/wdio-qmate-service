@@ -7,9 +7,8 @@ import * as fs from "fs";
 import * as xlsx from "xlsx";
 import * as os from "os";
 import * as xml2js from "xml2js";
-import { parsed } from "yargs";
-import { match } from "assert";
 import ErrorHandler from "../../helper/errorHandler";
+import { GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class file
@@ -73,7 +72,7 @@ export class File {
       await common.userInteraction.pressF4();
       const okButton = await nonUi5.element.getByCss("DIV[id='UpDownDialogChoose']");
       await nonUi5.assertion.expectToBeVisible(okButton);
-      const fileInput = await nonUi5.element.getByCss(".//input[@id='webgui_filebrowser_file_upload'][@type='file']", 0, 30000, true);
+      const fileInput = await nonUi5.element.getByCss(".//input[@id='webgui_filebrowser_file_upload'][@type='file']", 0, GLOBAL_DEFAULT_WAIT_TIMEOUT, true);
       let remoteFiles = "";
       for (const file of files) {
         const filePath = path.resolve(file);
@@ -398,9 +397,7 @@ export class File {
     if (fileEnding.toLowerCase() === expectedFileEnding.toLowerCase()) {
       return true;
     } else {
-      return this.ErrorHandler.logException(
-        new Error(`Wrong file format '${fileEnding}' was passed to function. Expected file format: ${expectedFileEnding}.`)
-      );
+      return this.ErrorHandler.logException(new Error(`Wrong file format '${fileEnding}' was passed to function. Expected file format: ${expectedFileEnding}.`));
     }
   }
 }

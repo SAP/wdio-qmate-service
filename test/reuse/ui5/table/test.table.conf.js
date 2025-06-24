@@ -14,9 +14,11 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "getTotalNumberOfRowsByValues.spec.js"),
     path.resolve(__dirname, "getSelectorForRowByIndex.spec.js"),
     path.resolve(__dirname, "getSelectorsForRowsByValues.spec.js"),
+    path.resolve(__dirname, "getAllColumnValuesByName.spec.js"),
     path.resolve(__dirname, "openItemByIndex.spec.js"),
     path.resolve(__dirname, "openItemByValues.spec.js"),
     path.resolve(__dirname, "selectRowByIndex.spec.js"),
+    path.resolve(__dirname, "selectRowByValues.spec.js"),
     path.resolve(__dirname, "selectAllRows.spec.js"),
     path.resolve(__dirname, "deselectRowByIndex.spec.js"),
     path.resolve(__dirname, "deselectAllRows.spec.js")
