@@ -19,6 +19,10 @@ export class TimeHelper {
   }
 
   // =================================== PRIVATE ===================================
+  private static _isValidTimeAnchor(time: Time): boolean {
+    return Object.values(CalculateTimeAnchors).includes(time as CalculateTimeAnchors);
+  }
+
   private static _isValidTimeValue(time: Time): boolean {
     const { hours, minutes, seconds } = this._extractTimeComponents(time);
     return this._isValidHours(hours, this._extractAmPm(time))
@@ -54,36 +58,14 @@ export class TimeHelper {
     return date;
   }
 
-  private static _updateDateWithCurrentTime(date: Date): void {
-    const now = new Date();
-    date.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), 0);
-  }
-
-  private static _updateDateWithStartOfDay(date: Date): void {
-    date.setHours(0, 0, 0, 0);
-  }
-
-  private static _updateDateWithEndOfDay(date: Date): void {
-    date.setHours(23, 59, 59, 999);
-  }
-
-  private static _isValidTimeAnchor(time: Time): boolean {
-    return Object.values(CalculateTimeAnchors).includes(time as CalculateTimeAnchors);
-  }
-
   private static _extractTimeComponents(time: Time): TimeComponents {
     const [hours, minutes, seconds] = time.replace(/AM|PM/i, "").trim().split(":");
     return { hours, minutes, seconds };
   }
 
-  private static _adjustTo24HourFormat(hours: number, amPm: AmOrPm): number {
-    if (amPm === "PM" && hours < 12) {
-      return hours + 12;
-    }
-    if (amPm === "AM" && hours === 12) {
-      return 0;
-    }
-    return hours;
+  private static _extractAmPm(time: Time): AmOrPm {
+    const match = time.toUpperCase().match(/AM|PM/i);
+    return match ? (match[0] as "AM" | "PM") : "";
   }
 
   private static _isValidHours(hours: string, amPm: AmOrPm): boolean {
@@ -104,8 +86,26 @@ export class TimeHelper {
     return secondsRegex.test(seconds);
   }
 
-  private static _extractAmPm(time: Time): AmOrPm {
-    const match = time.toUpperCase().match(/AM|PM/i);
-    return match ? (match[0] as "AM" | "PM") : "";
+  private static _updateDateWithCurrentTime(date: Date): void {
+    const now = new Date();
+    date.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), 0);
+  }
+
+  private static _updateDateWithStartOfDay(date: Date): void {
+    date.setHours(0, 0, 0, 0);
+  }
+
+  private static _updateDateWithEndOfDay(date: Date): void {
+    date.setHours(23, 59, 59, 999);
+  }
+
+  private static _adjustTo24HourFormat(hours: number, amPm: AmOrPm): number {
+    if (amPm === "PM" && hours < 12) {
+      return hours + 12;
+    }
+    if (amPm === "AM" && hours === 12) {
+      return 0;
+    }
+    return hours;
   }
 }
