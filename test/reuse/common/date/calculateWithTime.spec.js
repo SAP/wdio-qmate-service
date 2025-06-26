@@ -270,6 +270,21 @@ describe("date - calculate - 'today' + format 'mm/dd/yyyy HH:mm:ss'", function()
   });
 });
 
+describe("date - calculateWithTime - 'tomorrow' - 'currentTime'", function() {
+  let dateAct;
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("tomorrow", "currentTime");
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setDate(dateExp.getDate() + 1);
+    dateExp.setHours(new Date().getHours(), new Date().getMinutes(), new Date().getSeconds(), 0);
+    verifyDateWithTime(dateAct, dateExp);
+  });
+});
+
 // =================================== ERROR CASES ===================================
 describe("date - calculateWithTime - 'nextYear' - 'invalid-time' - error", function() {
   it("Execution & Verification", function() {

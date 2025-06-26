@@ -5,4 +5,8 @@ export enum CalculateDates {
   PREVIOUS_MONTH = "previousMonth",
   NEXT_YEAR = "nextYear",
   PREVIOUS_YEAR = "previousYear"
-}
+};
+
+export enum CalculateTimeAnchors {
+  CURRENT_TIME = "currentTime"
+};
