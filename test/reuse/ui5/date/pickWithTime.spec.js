@@ -86,6 +86,29 @@ describe("date - pickWithTime - With initialFocusedDateValue when datePicker has
   });
 });
 
+describe("date - pickWithTime - With initialFocusedDateValue when datePicker has not assigned any date - startOfDay", function () {
+  let expectedDate;
+
+  it("Preparation", async function () {
+    await browser.url(dateTimePickerUrl);
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+  });
+
+  it("Execution (nextMonth - startOfDay)", async function () {
+    expectedDate = await common.date.calculateWithTime("nextMonth", "startOfDay");
+    expectedDate.setMilliseconds(0);
+    await ui5.date.pickWithTime(dateTimePicker, expectedDate, 1);
+  });
+
+  it("Verification (nextMonth - startOfDay)", async function () {
+    const value = await ui5.element.getValue(dateTimePicker, 1);
+    const actualDate = new Date(value);
+    actualDate.setMilliseconds(0);
+    common.assertion.expectEqual(actualDate.toISOString(), expectedDate.toISOString());
+  });
+});
+
 describe("date - pickWithTime - with given Value when datePicker has a date assigned", function () {
   let expectedDate;
 
