@@ -33,6 +33,9 @@ export class TimeHelper {
         date.setMinutes(new Date().getMinutes());
         date.setSeconds(new Date().getSeconds());
         break;
+      case CalculateTimeAnchors.START_OF_DAY:
+        date.setHours(0, 0, 0, 0);
+        break;
       default:
         throw new Error(`Unsupported time anchor: ${time}`);
     }

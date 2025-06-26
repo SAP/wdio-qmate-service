@@ -270,6 +270,21 @@ describe("date - calculate - 'today' + format 'mm/dd/yyyy HH:mm:ss'", function()
   });
 });
 
+describe("date - calculateWithTime - 'previousMonth' - 'startOfDay'", function() {
+  let dateAct;
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("previousMonth", "startOfDay");
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setMonth(dateExp.getMonth() - 1);
+    dateExp.setHours(0, 0, 0, 0);
+    verifyDateWithTime(dateAct, dateExp);
+  });
+});
+
 describe("date - calculateWithTime - 'tomorrow' - 'currentTime'", function() {
   let dateAct;
 
