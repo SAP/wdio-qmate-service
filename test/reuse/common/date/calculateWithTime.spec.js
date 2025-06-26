@@ -300,6 +300,21 @@ describe("date - calculateWithTime - 'tomorrow' - 'currentTime'", function() {
   });
 });
 
+describe("date - calculateWithTime - 'nextYear' - 'endOfDay'", function() {
+  let dateAct;
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("nextYear", "endOfDay");
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setFullYear(dateExp.getFullYear() + 1);
+    dateExp.setHours(23, 59, 59, 999);
+    verifyDateWithTime(dateAct, dateExp);
+  });
+});
+
 // =================================== ERROR CASES ===================================
 describe("date - calculateWithTime - 'nextYear' - 'invalid-time' - error", function() {
   it("Execution & Verification", function() {

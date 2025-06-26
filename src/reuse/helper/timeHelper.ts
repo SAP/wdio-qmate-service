@@ -36,6 +36,9 @@ export class TimeHelper {
       case CalculateTimeAnchors.START_OF_DAY:
         date.setHours(0, 0, 0, 0);
         break;
+      case CalculateTimeAnchors.END_OF_DAY:
+        date.setHours(23, 59, 59, 999);
+        break;
       default:
         throw new Error(`Unsupported time anchor: ${time}`);
     }

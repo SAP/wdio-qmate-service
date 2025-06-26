@@ -9,5 +9,6 @@ export enum CalculateDates {
 
 export enum CalculateTimeAnchors {
   CURRENT_TIME = "currentTime",
-  START_OF_DAY = "startOfDay"
+  START_OF_DAY = "startOfDay",
+  END_OF_DAY = "endOfDay"
 };
