@@ -29,15 +29,13 @@ export class TimeHelper {
   private static _updateDateWithTimeAnchor(date: Date, time: CalculateTimeAnchors): Date {
     switch (time) {
       case CalculateTimeAnchors.CURRENT_TIME:
-        date.setHours(new Date().getHours());
-        date.setMinutes(new Date().getMinutes());
-        date.setSeconds(new Date().getSeconds());
+        this._updateDateWithCurrentTime(date);
         break;
       case CalculateTimeAnchors.START_OF_DAY:
-        date.setHours(0, 0, 0, 0);
+        this._updateDateWithStartOfDay(date);
         break;
       case CalculateTimeAnchors.END_OF_DAY:
-        date.setHours(23, 59, 59, 999);
+        this._updateDateWithEndOfDay(date);
         break;
       default:
         throw new Error(`Unsupported time anchor: ${time}`);
@@ -54,6 +52,19 @@ export class TimeHelper {
     date.setMinutes(Number(minutes) || 0);
     date.setSeconds(Number(seconds) || 0);
     return date;
+  }
+
+  private static _updateDateWithCurrentTime(date: Date): void {
+    const now = new Date();
+    date.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), 0);
+  }
+
+  private static _updateDateWithStartOfDay(date: Date): void {
+    date.setHours(0, 0, 0, 0);
+  }
+
+  private static _updateDateWithEndOfDay(date: Date): void {
+    date.setHours(23, 59, 59, 999);
   }
 
   private static _isValidTimeAnchor(time: Time): boolean {
