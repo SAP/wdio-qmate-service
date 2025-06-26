@@ -28,12 +28,14 @@ describe("date - pickWithTime - Simple DateTimePicker when datePicker has not as
 
   it("Execution (tomorrow - 10:00:00)", async function () {
     expectedDate = await common.date.calculateWithTime("tomorrow", "10:00:00");
+    expectedDate.setMilliseconds(0);
     await ui5.date.pickWithTime(dateTimePicker, expectedDate);
   });
 
   it("Verification (tomorrow - 10:00:00)", async function () {
     const value = await ui5.element.getValue(dateTimePicker);
     const actualDate = new Date(value);
+    actualDate.setMilliseconds(0);
     common.assertion.expectEqual(actualDate.toISOString(), expectedDate.toISOString());
   });
 });
@@ -56,6 +58,7 @@ describe("date - pickWithTime - Simple DateTimePicker when datePicker has not as
   it("Verification (current date and time)", async function () {
     const value = await ui5.element.getValue(dateTimePicker);
     const actualDate = new Date(value);
+    actualDate.setMilliseconds(0);
     common.assertion.expectEqual(actualDate.toISOString(), expectedDate.toISOString());
   });
 });
@@ -71,12 +74,14 @@ describe("date - pickWithTime - With initialFocusedDateValue when datePicker has
 
   it("Execution (nextMonth - 5 PM)", async function () {
     expectedDate = await common.date.calculateWithTime("nextMonth", "5 PM");
+    expectedDate.setMilliseconds(0);
     await ui5.date.pickWithTime(dateTimePicker, expectedDate, 1);
   });
 
   it("Verification (nextMonth - 5 PM)", async function () {
     const value = await ui5.element.getValue(dateTimePicker, 1);
     const actualDate = new Date(value);
+    actualDate.setMilliseconds(0);
     common.assertion.expectEqual(actualDate.toISOString(), expectedDate.toISOString());
   });
 });
@@ -114,12 +119,14 @@ describe("date - pickWithTime - clock without seconds picker", function () {
 
   it("Execution (previousMonth - 11:30 AM)", async function () {
     expectedDate = await common.date.calculateWithTime("previousMonth", "11:30 AM");
+    expectedDate.setMilliseconds(0);
     await ui5.date.pickWithTime(dateTimePicker, expectedDate, 3);
   });
 
   it("Verification (previousMonth - 11:30 AM)", async function () {
     const value = await ui5.element.getValue(dateTimePicker, 3);
     const actualDate = new Date(value);
+    actualDate.setMilliseconds(0);
     common.assertion.expectEqual(actualDate.toISOString(), expectedDate.toISOString());
   });
 });
