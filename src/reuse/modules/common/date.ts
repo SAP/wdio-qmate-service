@@ -215,7 +215,8 @@ export class DateModule {
    * @param {String} [time] - The time of day.
    * Supported formats: "HH:MM:SS" (e.g. "10:30:20"), "HH:MM" (e.g. "10:30"), "HH" (e.g. "10").
    * It can also be in 12-hour format with AM/PM (e.g. "10:30 PM", "3 AM").
-   * If not provided, the time will default to the start of the day (00:00:00).
+   * It can also be a time anchor, such as "currentTime", "startOfDay", or "endOfDay".<br>
+   * If not provided, the time will default to the "startOfDay".
    * @param {String} [format="object"] - The expected output format as a string, which consists of <b>date and time formats, separated by a whitespace or another delimiter</b> (such as 'T' substring).<br>
    * - Supported <b>date</b> formats are the same as for the {@link common.date.calculate} method.<br>
    * - Supported <b>time</b> formats are the following: "HH\:mm:ss" (24-hour format), "h\:mm:ss a" (12-hour format), "HH\:mm:ss z" (24-hour format with timezone), "h\:mm:ss a z" (12-hour format with timezone),
@@ -238,6 +239,8 @@ export class DateModule {
    * // returns a string like "20240617T15:30"
    * @example const date = common.date.calculateWithTime("tomorrow", "10:00:50", "mmm dd, yyyy HH:mm:ss z");
    * // returns a string like "Jun 18, 2025 10:00:50 GMT+02:00"
+   * @example const date = common.date.calculateWithTime("today", "startOfDay", "dd.mm.yyyy HH:mm:ss");
+   * // returns a string like "17.06.2025 00:00:00"
    */
   calculateWithTime(date: CalculateDatesType = CalculateDates.TODAY, time: Time = CalculateTimeAnchors.START_OF_DAY, format: DateTimeFormatsType = DateFormats.OBJECT): string | Date {
     const vl = this.vlf.initLog(this.calculateWithTime);

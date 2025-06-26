@@ -315,6 +315,22 @@ describe("date - calculateWithTime - 'nextYear' - 'endOfDay'", function() {
   });
 });
 
+describe("date - calculateWithTime - 'tomorrow' - 'endOfDay' + format 'mm/dd/yyyy HH:mm:ss'", function() {
+  let dateAct;
+
+  it("Execution", function() {
+    dateAct = common.date.calculateWithTime("tomorrow", "endOfDay", "mm/dd/yyyy HH:mm:ss");
+  });
+
+  it("Verification", function() {
+    const dateExp = new Date();
+    dateExp.setDate(dateExp.getDate() + 1);
+    dateExp.setHours(23, 59, 59, 999);
+    const dateExpFormatted = util.formatter.formatDateWithTime(dateExp, "mm/dd/yyyy HH:mm:ss");
+    common.assertion.expectEqual(dateAct, dateExpFormatted);
+  });
+});
+
 // =================================== ERROR CASES ===================================
 describe("date - calculateWithTime - 'nextYear' - 'invalid-time' - error", function() {
   it("Execution & Verification", function() {
