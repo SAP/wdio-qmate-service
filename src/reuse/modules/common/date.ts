@@ -1,6 +1,6 @@
 "use strict";
 
-import { CalculateDates } from "./constants/date.constants";
+import { CalculateDates, CalculateTimeAnchors } from "./constants/date.constants";
 import { CalculateDatesType } from "./types/date.types";
 import { Time } from "./types/time.types";
 
@@ -239,25 +239,20 @@ export class DateModule {
    * @example const date = common.date.calculateWithTime("tomorrow", "10:00:50", "mmm dd, yyyy HH:mm:ss z");
    * // returns a string like "Jun 18, 2025 10:00:50 GMT+02:00"
    */
-  calculateWithTime(date: CalculateDatesType = CalculateDates.TODAY, time?: Time, format: DateTimeFormatsType = DateFormats.OBJECT): string | Date {
+  calculateWithTime(date: CalculateDatesType = CalculateDates.TODAY, time: Time = CalculateTimeAnchors.START_OF_DAY, format: DateTimeFormatsType = DateFormats.OBJECT): string | Date {
     const vl = this.vlf.initLog(this.calculateWithTime);
-    const startOfDay = this._calculateStartOfDay(date);
-    const calculatedTime = time
-      ? this._updateDateWithTime(startOfDay, time)
-      : startOfDay;
+    const calculatedDate = this._getCalculatedDate(date);
+    const calculatedTime = this._updateDateWithTime(calculatedDate, time)
     return util.formatter.formatDateWithTime(calculatedTime, format);
   }
 
   // =================================== HELPER ===================================
-  private _calculateStartOfDay(date: CalculateDatesType): Date {
-    let calculatedDate: Date;
+  private _getCalculatedDate(date: CalculateDatesType): Date {
     try {
-      calculatedDate = this.calculate(date, DateFormats.OBJECT) as Date;
+      return this.calculate(date, DateFormats.OBJECT) as Date;
     } catch (error) {
       throw new Error("Function 'calculateWithTime' failed: Please provide a valid date string as first argument.");
     }
-    calculatedDate.setHours(0, 0, 0, 0);
-    return calculatedDate;
   }
 
   private _updateDateWithTime(date: Date, time: Time): Date {
