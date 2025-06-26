@@ -33,9 +33,9 @@ export class DateModule {
   async pick(selector: Ui5Selector, date: Date, index: number = 0) {
     const vl = this.vlf.initLog(this.pick);
     vl.log(`Picking date ${date} for selector ${selector}`);
-    const tempSelector = await this._constructDatePickerSelector({ selector, index, metadata: "sap.m.DatePicker" });
-    await this._openDatePicker(tempSelector);
-    await this._selectDate(tempSelector, date);
+    const datePickerSelector = await this._constructDatePickerSelector({ selector, index, metadata: "sap.m.DatePicker" });
+    await this._openDatePicker(datePickerSelector);
+    await this._selectDate(datePickerSelector, date);
   }
 
   /**
@@ -54,10 +54,10 @@ export class DateModule {
   async pickRange(selector: Ui5Selector, range: Date[], index = 0) {
     const vl = this.vlf.initLog(this.pickRange);
     vl.log(`Picking date range ${range} for selector ${selector}`);
-    const tempSelector = await this._constructDatePickerSelector({ selector, index, metadata: "sap.m.DateRangeSelection" });
-    await this._openDatePicker(tempSelector);
-    await this._selectDate(tempSelector, range[0]);
-    await this._selectDate(tempSelector, range[1]);
+    const datePickerSelector = await this._constructDatePickerSelector({ selector, index, metadata: "sap.m.DateRangeSelection" });
+    await this._openDatePicker(datePickerSelector);
+    await this._selectDate(datePickerSelector, range[0]);
+    await this._selectDate(datePickerSelector, range[1]);
   }
 
   /**
@@ -73,9 +73,9 @@ export class DateModule {
   async pickWithTime(selector: Ui5Selector, date: Date, index = 0) {
     const vl = this.vlf.initLog(this.pickWithTime);
     vl.log(`Picking date with time ${date} for selector ${selector}`);
-    const tempSelector = await this._constructDatePickerSelector({ selector, index, metadata: "sap.m.DateTimePicker" });
-    await this._openDatePicker(tempSelector);
-    await this._selectDate(tempSelector, date);
+    const datePickerSelector = await this._constructDatePickerSelector({ selector, index, metadata: "sap.m.DateTimePicker" });
+    await this._openDatePicker(datePickerSelector);
+    await this._selectDate(datePickerSelector, date);
     await this._selectTime(date);
     await this._clickOk();
   }
