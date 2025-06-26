@@ -14,7 +14,6 @@ npm install @sap_oss/wdio-qmate-service@latest
 
 ## Contact
 - Benjamin Warth <benjamin.warth@sap.com>
-- Georgios Treska <georgios.treska@sap.com>
 - Marvin Grüßinger <marvin.gruessinger@sap.com>
 
 
