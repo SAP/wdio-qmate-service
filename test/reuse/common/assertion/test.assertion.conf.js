@@ -15,7 +15,8 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "expectUnequal.spec.js"),
     path.resolve(__dirname, "expectTrue.spec.js"),
     path.resolve(__dirname, "expectFalse.spec.js"),
-    path.resolve(__dirname, "expectUrlToBe.spec.js")
+    path.resolve(__dirname, "expectUrlToBe.spec.js"),
+    path.resolve(__dirname, "expectToContain.spec.js")
   ],
 
   services: [
