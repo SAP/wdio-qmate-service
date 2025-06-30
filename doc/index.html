@@ -419,6 +419,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#assertionexpecttocontainvalue1-value2" class="md-nav__link">
+    <span class="md-ellipsis">
+      assertion.expectToContain(value1, value2)
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4721,6 +4730,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#assertionexpecttocontainvalue1-value2" class="md-nav__link">
+    <span class="md-ellipsis">
+      assertion.expectToContain(value1, value2)
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -8481,6 +8499,7 @@
 <li><a href="#common.assertion.expectDefined">.expectDefined(value)</a></li>
 <li><a href="#common.assertion.expectUndefined">.expectUndefined(value)</a></li>
 <li><a href="#common.assertion.expectUrlToBe">.expectUrlToBe()</a></li>
+<li><a href="#common.assertion.expectToContain">.expectToContain(value1, value2)</a></li>
 </ul>
 </li>
 <li><a href="#common.date">.date</a><ul>
@@ -8529,6 +8548,7 @@
 <li><a href="#common.assertion.expectDefined">.expectDefined(value)</a></li>
 <li><a href="#common.assertion.expectUndefined">.expectUndefined(value)</a></li>
 <li><a href="#common.assertion.expectUrlToBe">.expectUrlToBe()</a></li>
+<li><a href="#common.assertion.expectToContain">.expectToContain(value1, value2)</a></li>
 </ul>
 </li>
 </ul>
@@ -8686,6 +8706,34 @@
 <p><strong>Kind</strong>: static method of <a href="#common.assertion"><code>assertion</code></a><br />
 <strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">assertion</span><span class="p">.</span><span class="nx">expectUrlToBe</span><span class="p">(</span><span class="s2">&quot;www.sap.com&quot;</span><span class="p">);</span>
+</code></pre></div>
+<a name="common.assertion.expectToContain"></a></p>
+<h4 id="assertionexpecttocontainvalue1-value2">assertion.expectToContain(value1, value2)</h4>
+<p>Expects the first passed value to contain the second passed value, after normalizing whitespace.</p>
+<p><strong>Kind</strong>: static method of <a href="#common.assertion"><code>assertion</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value1</td>
+<td><code>string</code></td>
+<td>The string expected to contain value2.</td>
+</tr>
+<tr>
+<td>value2</td>
+<td><code>string</code></td>
+<td>The string expected to be found within value1.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">assertion</span><span class="p">.</span><span class="nx">expectToContain</span><span class="p">(</span><span class="s2">&quot;foo bar baz&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bar&quot;</span><span class="p">);</span>
 </code></pre></div>
 <a name="common.date"></a></p>
 <h3 id="commondate">common.date</h3>
