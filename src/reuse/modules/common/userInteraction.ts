@@ -94,7 +94,7 @@ export class UserInteraction {
   /**
    * @function pressKey
    * @memberOf common.userInteraction
-   * @description Performs the specified keypress. Possible values: https://w3c.github.io/webdriver/#keyboard-actions
+   * @description Performs the specified keypress. Possible values: <a href="https://w3c.github.io/webdriver/#keyboard-actions" target="_blank">WebDriver Keyboard Actions</a>
    * @param {String | String[]} keys - The key or combination of keys to execute.
    * @example await common.userInteraction.pressKey("Enter");
    * @example await common.userInteraction.pressKey("\uE004");

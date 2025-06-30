@@ -184,14 +184,28 @@ functions.loadUI5CoreAndAutowaiter = function () {
       window.sap.ui.getCore &&
       window.sap.ui.getCore() &&
       document.readyState === "complete") {
-      return window.sap.ui.getCore().ready(function () {
-        sap.ui.require([
-          "sap/ui/test/RecordReplay"
-        ], function (RecordReplay) {
-          // Attach RecordReplay
-          window.RecordReplay = RecordReplay;
+      if (window.sap.ui.getCore().ready) {
+        return window.sap.ui.getCore().ready(function () {
+          sap.ui.require([
+            "sap/ui/test/RecordReplay"
+          ], function (RecordReplay) {
+            // Attach RecordReplay
+            window.RecordReplay = RecordReplay;
+          });
         });
-      });
+      } else {
+        return new Promise(function (res) {
+          sap.ui.require([
+            "sap/ui/test/RecordReplay"
+          ], function (RecordReplay) {
+            if (RecordReplay) {
+              window.RecordReplay = RecordReplay;
+              res(true);
+            }
+            res(false);
+          });
+        });
+      }
     }
   }
   catch (oError) {

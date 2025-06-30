@@ -100,5 +100,20 @@ export class Assertion {
     vl.log(`Expecting current url to be to be ${urlExp}`);
     return expect(browser.getUrl()).resolves.toBe(urlExp);
   }
+
+  /**
+   * @function expectToContain
+   * @memberOf common.assertion
+   * @description Expects the first passed value to contain the second passed value, after normalizing whitespace.
+   * @param {string} value1 - The string expected to contain value2.
+   * @param {string} value2 - The string expected to be found within value1.
+   * @example await common.assertion.expectToContain("foo bar baz", "bar");
+   */
+  expectToContain(value1: string, value2: string) {
+    const vl = this.vlf.initLog(this.expectToContain);
+    vl.log(`Expecting ${value1} to contain ${value2}`);
+    const normalizeString = (str: string | null | undefined) => (str ?? "").replace(/\s+/g, " ").trim();
+    expect(normalizeString(value1)).toContain(normalizeString(value2));
+  }
 }
 export default new Assertion();

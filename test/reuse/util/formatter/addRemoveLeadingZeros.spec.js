@@ -4,35 +4,22 @@ describe("formatter - addRemoveLeadingZeros", function () {
   let sliced;
   let expected;
 
-  describe("addRemoveLeadingZeros - add zeros to the number", async function () {
-    it("Preparation", function () {
-      input = "12";
-      length = 4;
-      expected = "0012";
-    });
-
-    it("Execution", function () {
-      sliced = util.formatter.addRemoveLeadingZeros(input, length);
-    });
-
-    it("Verification", async function () {
-      await common.assertion.expectEqual(sliced, expected);
+  describe("formatter - addRemoveLeadingZeros - add zeros", function () {
+    it("Execution & Verification", function () {
+      common.assertion.expectEqual(util.formatter.addRemoveLeadingZeros(10, 5), "00010");
+      common.assertion.expectEqual(util.formatter.addRemoveLeadingZeros("12", 4), "0012");
+      common.assertion.expectEqual(util.formatter.addRemoveLeadingZeros("0014", 5), "00014");
+      common.assertion.expectEqual(util.formatter.addRemoveLeadingZeros("11", 2), "11");
+      common.assertion.expectEqual(util.formatter.addRemoveLeadingZeros(new Number(10), 5), "00010");
     });
   });
 
-  describe("addRemoveLeadingZeros - remove zeros from number", async function () {
-    it("Preparation", function () {
-      input = "00012";
-      length = 3;
-      expected = "012";
-    });
 
-    it("Execution", function () {
-      sliced = util.formatter.addRemoveLeadingZeros(input, length);
-    });
-
-    it("Verification", async function () {
-      await common.assertion.expectEqual(sliced, expected);
+  describe("formatter - addRemoveLeadingZeros - remove zeros", function () {
+    it("Execution & Verification", function () {
+      common.assertion.expectEqual(util.formatter.addRemoveLeadingZeros("0000010", 2), "10");
+      common.assertion.expectEqual(util.formatter.addRemoveLeadingZeros("0000010", 1), "0");
+      common.assertion.expectEqual(util.formatter.addRemoveLeadingZeros("00012", 3), "012");
     });
   });
 });
