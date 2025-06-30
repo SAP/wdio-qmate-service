@@ -1,6 +1,6 @@
 {
   "name": "@sap_oss/wdio-qmate-service",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "author": "SAP SE",
   "types": "./@types/index.d.ts",
   "main": "./lib/index.js",
