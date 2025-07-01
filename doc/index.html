@@ -515,6 +515,24 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#dategetcurrentdateandtimeformat-string-date" class="md-nav__link">
+    <span class="md-ellipsis">
+      date.getCurrentDateAndTime([format]) ⇒ String | Date
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datecalculatewithtimedate-time-format-string-date" class="md-nav__link">
+    <span class="md-ellipsis">
+      date.calculateWithTime([date], [time], [format]) ⇒ String | Date
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1316,6 +1334,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#formatterformatdatewithtimedate-format-locale-string-date" class="md-nav__link">
+    <span class="md-ellipsis">
+      formatter.formatDateWithTime(date, format, [locale]) ⇒ String | Date
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1749,6 +1776,15 @@
   <a href="#datepickrangeselector-range-index" class="md-nav__link">
     <span class="md-ellipsis">
       date.pickRange(selector, range, [index])
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datepickwithtimeselector-date-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      date.pickWithTime(selector, date, [index])
     </span>
   </a>
   
@@ -4826,6 +4862,24 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#dategetcurrentdateandtimeformat-string-date" class="md-nav__link">
+    <span class="md-ellipsis">
+      date.getCurrentDateAndTime([format]) ⇒ String | Date
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datecalculatewithtimedate-time-format-string-date" class="md-nav__link">
+    <span class="md-ellipsis">
+      date.calculateWithTime([date], [time], [format]) ⇒ String | Date
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -5627,6 +5681,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#formatterformatdatewithtimedate-format-locale-string-date" class="md-nav__link">
+    <span class="md-ellipsis">
+      formatter.formatDateWithTime(date, format, [locale]) ⇒ String | Date
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6060,6 +6123,15 @@
   <a href="#datepickrangeselector-range-index" class="md-nav__link">
     <span class="md-ellipsis">
       date.pickRange(selector, range, [index])
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datepickwithtimeselector-date-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      date.pickWithTime(selector, date, [index])
     </span>
   </a>
   
@@ -8511,6 +8583,8 @@
 <li><a href="#common.date.getPreviousYear">.getPreviousYear([format])</a> ⇒ <code>String</code></li>
 <li><a href="#common.date.getSpecific">.getSpecific(date, [format])</a> ⇒ <code>String</code></li>
 <li><a href="#common.date.calculate">.calculate([date], [format])</a> ⇒ <code>String</code> | <code>Date</code></li>
+<li><a href="#common.date.getCurrentDateAndTime">.getCurrentDateAndTime([format])</a> ⇒ <code>String</code> | <code>Date</code></li>
+<li><a href="#common.date.calculateWithTime">.calculateWithTime([date], [time], [format])</a> ⇒ <code>String</code> | <code>Date</code></li>
 </ul>
 </li>
 <li><a href="#common.navigation">.navigation</a><ul>
@@ -8748,6 +8822,8 @@
 <li><a href="#common.date.getPreviousYear">.getPreviousYear([format])</a> ⇒ <code>String</code></li>
 <li><a href="#common.date.getSpecific">.getSpecific(date, [format])</a> ⇒ <code>String</code></li>
 <li><a href="#common.date.calculate">.calculate([date], [format])</a> ⇒ <code>String</code> | <code>Date</code></li>
+<li><a href="#common.date.getCurrentDateAndTime">.getCurrentDateAndTime([format])</a> ⇒ <code>String</code> | <code>Date</code></li>
+<li><a href="#common.date.calculateWithTime">.calculateWithTime([date], [time], [format])</a> ⇒ <code>String</code> | <code>Date</code></li>
 </ul>
 </li>
 </ul>
@@ -8770,7 +8846,7 @@
 <td>[format]</td>
 <td><code>String</code></td>
 <td><code>&quot;object&quot;</code></td>
-<td>The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object").</td>
+<td>The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object").</td>
 </tr>
 </tbody>
 </table>
@@ -8796,7 +8872,7 @@
 <td>[format]</td>
 <td><code>String</code></td>
 <td><code>&quot;object&quot;</code></td>
-<td>The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object").</td>
+<td>The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object").</td>
 </tr>
 </tbody>
 </table>
@@ -8822,7 +8898,7 @@
 <td>[format]</td>
 <td><code>String</code></td>
 <td><code>&quot;object&quot;</code></td>
-<td>The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object").</td>
+<td>The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object").</td>
 </tr>
 </tbody>
 </table>
@@ -8848,7 +8924,7 @@
 <td>[format]</td>
 <td><code>String</code></td>
 <td><code>&quot;object&quot;</code></td>
-<td>The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object").</td>
+<td>The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object").</td>
 </tr>
 </tbody>
 </table>
@@ -8874,7 +8950,7 @@
 <td>[format]</td>
 <td><code>String</code></td>
 <td><code>&quot;object&quot;</code></td>
-<td>The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object").</td>
+<td>The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object").</td>
 </tr>
 </tbody>
 </table>
@@ -8900,7 +8976,7 @@
 <td>[format]</td>
 <td><code>String</code></td>
 <td><code>&quot;object&quot;</code></td>
-<td>The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object").</td>
+<td>The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object").</td>
 </tr>
 </tbody>
 </table>
@@ -8932,7 +9008,7 @@
 <td>[format]</td>
 <td><code>String</code></td>
 <td><code>&quot;object&quot;</code></td>
-<td>The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object").</td>
+<td>The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object").</td>
 </tr>
 </tbody>
 </table>
@@ -8958,18 +9034,116 @@
 <td>[date]</td>
 <td><code>String</code></td>
 <td><code>&quot;today&quot;</code></td>
-<td>Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, previousYear</td>
+<td>Supported values: "today", "tomorrow", "nextMonth", "previousMonth", "nextYear", "previousYear" If the date is not provided, "today" will be used.</td>
 </tr>
 <tr>
 <td>[format]</td>
 <td><code>String</code></td>
 <td><code>&quot;object&quot;</code></td>
-<td>The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "mmm d, yyyy", "datetime", "object").</td>
+<td>The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object").</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">calculate</span><span class="p">(</span><span class="s2">&quot;today&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mm/dd/yyyy&quot;</span><span class="p">);</span>
+</code></pre></div>
+<a name="common.date.getCurrentDateAndTime"></a></p>
+<h4 id="dategetcurrentdateandtimeformat-string-date">date.getCurrentDateAndTime([format]) ⇒ <code>String</code> | <code>Date</code></h4>
+<p>Returns the current date and time in the given format.</p>
+<p><strong>Kind</strong>: static method of <a href="#common.date"><code>date</code></a><br />
+<strong>Returns</strong>: <code>String</code> | <code>Date</code> - The calculated date and time in the given format.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[format]</td>
+<td><code>String</code></td>
+<td><code>&quot;object&quot;</code></td>
+<td>The expected format as a string, which consists of date and time formats, separated by a whitespace or another delimiter. Supported formats are the same as for the <a href="#common.date.calculateWithTime">calculateWithTime</a> method.<br></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">getCurrentDateAndTime</span><span class="p">(</span><span class="s2">&quot;mm/dd/yyyy HH:mm:ss&quot;</span><span class="p">);</span>
+<span class="c1">// returns a string like &quot;06/17/2025 08:17:27&quot;</span>
+</code></pre></div>
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">getCurrentDateAndTime</span><span class="p">();</span>
+<span class="c1">// returns a Date object like &quot;Tue Jun 17 2025 08:17:27 GMT+0200 (Central European Summer Time)&quot;</span>
+</code></pre></div>
+<a name="common.date.calculateWithTime"></a></p>
+<h4 id="datecalculatewithtimedate-time-format-string-date">date.calculateWithTime([date], [time], [format]) ⇒ <code>String</code> | <code>Date</code></h4>
+<p>Calculates the date and time based on the input parameter and returns it in the given format.</p>
+<p><strong>Kind</strong>: static method of <a href="#common.date"><code>date</code></a><br />
+<strong>Returns</strong>: <code>String</code> | <code>Date</code> - The calculated date and time in the given format.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[date]</td>
+<td><code>String</code></td>
+<td><code>&quot;today&quot;</code></td>
+<td>Supported values: "today", "tomorrow", "nextMonth", "previousMonth", "nextYear", "previousYear".</td>
+</tr>
+<tr>
+<td>[time]</td>
+<td><code>String</code></td>
+<td></td>
+<td>The time of day. Supported formats: "HH:MM:SS" (e.g. "10:30:20"), "HH:MM" (e.g. "10:30"), "HH" (e.g. "10"). It can also be in 12-hour format with AM/PM (e.g. "10:30 PM", "3 AM"). It can also be a time anchor, such as "currentTime", "startOfDay", or "endOfDay".<br> If not provided, the time will default to the "startOfDay".</td>
+</tr>
+<tr>
+<td>[format]</td>
+<td><code>String</code></td>
+<td><code>&quot;object&quot;</code></td>
+<td>The expected output format as a string, which consists of <b>date and time formats, separated by a whitespace or another delimiter</b> (such as 'T' substring).<br> - Supported <b>date</b> formats are the same as for the <a href="#common.date.calculate">calculate</a> method.<br> - Supported <b>time</b> formats are the following: "HH:mm:ss" (24-hour format), "h:mm:ss a" (12-hour format), "HH:mm:ss z" (24-hour format with timezone), "h:mm:ss a z" (12-hour format with timezone), "HH:mm" (24-hour format), "h:mm a" (12-hour format), "HH" (24-hour format), "h a" (12-hour format).<br> - Examples of <b>expected format</b>: "datetime", "object", "mm/dd/yyyy HH:mm:ss", "dd.mm.yyyy h:mm:ss a", "dd/mm/yyyy HH:mm:ss z", "yyyymmddTh:mm:ss a z", "yyyy/mm/dd HH:mm", "mmm dd, yyyy h:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a", and other combinations of supported date and time formats.<br></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">calculateWithTime</span><span class="p">(</span><span class="s2">&quot;today&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;10:00&quot;</span><span class="p">);</span>
+<span class="c1">// returns a Date object like &quot;Tue Jun 17 2025 08:17:27 GMT+0200 (Central European Summer Time)&quot;</span>
+</code></pre></div>
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">calculateWithTime</span><span class="p">(</span><span class="s2">&quot;today&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;10:00:00&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mm/dd/yyyy HH:mm:ss&quot;</span><span class="p">);</span>
+<span class="c1">// returns a string like &quot;06/17/2025 10:00:00&quot;</span>
+</code></pre></div>
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">calculateWithTime</span><span class="p">(</span><span class="s2">&quot;nextMonth&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;9:00 PM&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mm-dd-yyyy h:mm a&quot;</span><span class="p">);</span>
+<span class="c1">// returns a string like &quot;07-17-2025 9:00 PM&quot;</span>
+</code></pre></div>
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">calculateWithTime</span><span class="p">(</span><span class="s2">&quot;previousMonth&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;22:00:45&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dd.mm.yyyy HH:mm:ss&quot;</span><span class="p">);</span>
+<span class="c1">// returns a string like &quot;17.05.2025 22:00:45&quot;</span>
+</code></pre></div>
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">calculateWithTime</span><span class="p">(</span><span class="s2">&quot;nextYear&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;3 AM&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dd/mm/yyyy h a&quot;</span><span class="p">);</span>
+<span class="c1">// returns a string like &quot;17/06/2026 3 AM&quot;</span>
+</code></pre></div>
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">calculateWithTime</span><span class="p">(</span><span class="s2">&quot;previousYear&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;15:30&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;yyyymmddTHH:mm&quot;</span><span class="p">);</span>
+<span class="c1">// returns a string like &quot;20240617T15:30&quot;</span>
+</code></pre></div>
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">calculateWithTime</span><span class="p">(</span><span class="s2">&quot;tomorrow&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;10:00:50&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mmm dd, yyyy HH:mm:ss z&quot;</span><span class="p">);</span>
+<span class="c1">// returns a string like &quot;Jun 18, 2025 10:00:50 GMT+02:00&quot;</span>
+</code></pre></div>
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">calculateWithTime</span><span class="p">(</span><span class="s2">&quot;today&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;startOfDay&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dd.mm.yyyy HH:mm:ss&quot;</span><span class="p">);</span>
+<span class="c1">// returns a string like &quot;17.06.2025 00:00:00&quot;</span>
 </code></pre></div>
 <a name="common.navigation"></a></p>
 <h3 id="commonnavigation">common.navigation</h3>
@@ -9341,6 +9515,7 @@
 <li><a href="#util.formatter.stringifyJSON">.stringifyJSON(object)</a> ⇒ <code>String</code></li>
 <li><a href="#util.formatter.addRemoveLeadingZeros">.addRemoveLeadingZeros(number, length)</a> ⇒ <code>String</code></li>
 <li><a href="#util.formatter.formatDate">.formatDate(date, format, [locale])</a> ⇒ <code>String</code></li>
+<li><a href="#util.formatter.formatDateWithTime">.formatDateWithTime(date, format, [locale])</a> ⇒ <code>String</code> | <code>Date</code></li>
 </ul>
 </li>
 <li><a href="#util.function">.function</a><ul>
@@ -10631,6 +10806,7 @@
 <li><a href="#util.formatter.stringifyJSON">.stringifyJSON(object)</a> ⇒ <code>String</code></li>
 <li><a href="#util.formatter.addRemoveLeadingZeros">.addRemoveLeadingZeros(number, length)</a> ⇒ <code>String</code></li>
 <li><a href="#util.formatter.formatDate">.formatDate(date, format, [locale])</a> ⇒ <code>String</code></li>
+<li><a href="#util.formatter.formatDateWithTime">.formatDateWithTime(date, format, [locale])</a> ⇒ <code>String</code> | <code>Date</code></li>
 </ul>
 </li>
 </ul>
@@ -10843,7 +11019,7 @@
 <td>format</td>
 <td><code>String</code></td>
 <td></td>
-<td>The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "mmm d, yyyy", "datetime", "object").</td>
+<td>The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object").</td>
 </tr>
 <tr>
 <td>[locale]</td>
@@ -10862,6 +11038,66 @@
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="mf">2022</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">12</span><span class="p">);</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">formattedDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">formatter</span><span class="p">.</span><span class="nx">formatDate</span><span class="p">(</span><span class="nx">date</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mmm dd, yyyy&quot;</span><span class="p">);</span>
 <span class="c1">// returns &quot;Apr 03, 2022&quot;</span>
+</code></pre></div>
+<a name="util.formatter.formatDateWithTime"></a></p>
+<h4 id="formatterformatdatewithtimedate-format-locale-string-date">formatter.formatDateWithTime(date, format, [locale]) ⇒ <code>String</code> | <code>Date</code></h4>
+<p>formats date with time.</p>
+<p><strong>Kind</strong>: static method of <a href="#util.formatter"><code>formatter</code></a><br />
+<strong>Returns</strong>: <code>String</code> | <code>Date</code> - The formatted date with time as string or date object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td><code>Date</code></td>
+<td></td>
+<td>The date object to be formatted.</td>
+</tr>
+<tr>
+<td>format</td>
+<td><code>String</code></td>
+<td></td>
+<td>The expected format ("datetime", "object", "mm/dd/yyyy HH:mm:ss", "dd.mm.yyyy h:mm:ss a", "dd/mm/yyyy HH:mm:ss z", "yyyymmdd h:mm:ss a z", "yyyy/mm/dd HH:mm", "mmm dd, yyyy h:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a", etc.).<br> See the <code>format</code> argument of the <a href="#common.date.calculateWithTime">calculateWithTime</a> function for more details on the available formats.</td>
+</tr>
+<tr>
+<td>[locale]</td>
+<td><code>String</code></td>
+<td><code>&quot;en-US&quot;</code></td>
+<td>The locale format of the date. E.g. "en-US", "de-DE", etc.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="mf">2020</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">17</span><span class="p">,</span><span class="w"> </span><span class="mf">15</span><span class="p">,</span><span class="w"> </span><span class="mf">30</span><span class="p">,</span><span class="w"> </span><span class="mf">45</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">formattedDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">formatter</span><span class="p">.</span><span class="nx">formatDateWithTime</span><span class="p">(</span><span class="nx">date</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mm/dd/yyyy HH:mm:ss&quot;</span><span class="p">);</span>
+<span class="c1">// returns &quot;01/17/2020 15:30:45&quot;</span>
+</code></pre></div>
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="mf">2022</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">12</span><span class="p">,</span><span class="w"> </span><span class="mf">9</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">formattedDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">formatter</span><span class="p">.</span><span class="nx">formatDateWithTime</span><span class="p">(</span><span class="nx">date</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mmm dd, yyyy h:mm:ss a&quot;</span><span class="p">);</span>
+<span class="c1">// returns &quot;Apr 12, 2022 9:05:00 AM&quot;</span>
+</code></pre></div>
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="mf">2022</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">12</span><span class="p">,</span><span class="w"> </span><span class="mf">9</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">formattedDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">formatter</span><span class="p">.</span><span class="nx">formatDateWithTime</span><span class="p">(</span><span class="nx">date</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dd/mm/yyyy HH:mm:ss z&quot;</span><span class="p">);</span>
+<span class="c1">// returns &quot;12/04/2022 09:05:00 GMT+02:00&quot;</span>
+</code></pre></div>
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="mf">2022</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">12</span><span class="p">,</span><span class="w"> </span><span class="mf">9</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">formattedDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">formatter</span><span class="p">.</span><span class="nx">formatDateWithTime</span><span class="p">(</span><span class="nx">date</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;yyyy/mm/dd HH:mm&quot;</span><span class="p">);</span>
+<span class="c1">// returns &quot;2022/04/12 09:05&quot;</span>
+</code></pre></div>
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="mf">2022</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">12</span><span class="p">,</span><span class="w"> </span><span class="mf">9</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">formattedDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">formatter</span><span class="p">.</span><span class="nx">formatDateWithTime</span><span class="p">(</span><span class="nx">date</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mmm dd, yyyy h:mm a&quot;</span><span class="p">);</span>
+<span class="c1">// returns &quot;Apr 12, 2022 9:05 AM&quot;</span>
 </code></pre></div>
 <a name="util.function"></a></p>
 <h3 id="utilfunction">util.function</h3>
@@ -11023,6 +11259,7 @@
 <li><a href="#ui5.date">.date</a><ul>
 <li><a href="#ui5.date.pick">.pick(selector, date, [index])</a></li>
 <li><a href="#ui5.date.pickRange">.pickRange(selector, range, [index])</a></li>
+<li><a href="#ui5.date.pickWithTime">.pickWithTime(selector, date, [index])</a></li>
 <li><a href="#ui5.date.fillRange">.fillRange(selector, range, [index])</a></li>
 </ul>
 </li>
@@ -12377,6 +12614,7 @@
 <li><a href="#ui5.date">.date</a><ul>
 <li><a href="#ui5.date.pick">.pick(selector, date, [index])</a></li>
 <li><a href="#ui5.date.pickRange">.pickRange(selector, range, [index])</a></li>
+<li><a href="#ui5.date.pickWithTime">.pickWithTime(selector, date, [index])</a></li>
 <li><a href="#ui5.date.fillRange">.fillRange(selector, range, [index])</a></li>
 </ul>
 </li>
@@ -12459,6 +12697,44 @@ Note that this will only work within the current month!</p>
 <span class="kd">const</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">calculate</span><span class="p">(</span><span class="s2">&quot;2021, 1, 3&quot;</span><span class="p">);</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">range</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nx">start</span><span class="p">,</span><span class="w"> </span><span class="nx">end</span><span class="p">];</span>
 <span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">pickRange</span><span class="p">(</span><span class="nx">selector</span><span class="p">,</span><span class="w"> </span><span class="nx">range</span><span class="p">);</span>
+</code></pre></div>
+<a name="ui5.date.pickWithTime"></a></p>
+<h4 id="datepickwithtimeselector-date-index">date.pickWithTime(selector, date, [index])</h4>
+<p>Picks the passed date with time using the "DateTimePicker" with the given selector.</p>
+<p><strong>Kind</strong>: static method of <a href="#ui5.date"><code>date</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>selector</td>
+<td><code>Selector</code></td>
+<td></td>
+<td>The selector describing the element.</td>
+</tr>
+<tr>
+<td>date</td>
+<td><code>Date</code></td>
+<td></td>
+<td>The date object.</td>
+</tr>
+<tr>
+<td>[index]</td>
+<td><code>Number</code></td>
+<td><code>0</code></td>
+<td>The index of the selector (in case there are more than one elements visible at the same time).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">tomorrowMorning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">calculateWithTime</span><span class="p">(</span><span class="s2">&quot;tomorrow&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;09:30:45&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">pickWithTime</span><span class="p">(</span><span class="nx">selector</span><span class="p">,</span><span class="w"> </span><span class="nx">tomorrowMorning</span><span class="p">);</span>
 </code></pre></div>
 <a name="ui5.date.fillRange"></a></p>
 <h4 id="datefillrangeselector-range-index">date.fillRange(selector, range, [index])</h4>
