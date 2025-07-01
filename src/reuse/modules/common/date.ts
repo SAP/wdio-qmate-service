@@ -244,25 +244,25 @@ export class DateModule {
    */
   calculateWithTime(date: CalculateDatesType = CalculateDates.TODAY, time: Time = CalculateTimeAnchors.START_OF_DAY, format: DateTimeFormatsType = DateFormats.OBJECT): string | Date {
     const vl = this.vlf.initLog(this.calculateWithTime);
-    const calculatedDate = this._getCalculatedDate(date);
-    const calculatedTime = this._updateDateWithTime(calculatedDate, time)
-    return util.formatter.formatDateWithTime(calculatedTime, format);
+    try {
+      return this._calculateWithTimeFormatted(date, time, format);
+    } catch (error) {
+      throw new Error(`Function 'calculateWithTime' failed: ${(error as unknown as Error).message}`);
+    }
   }
 
   // =================================== HELPER ===================================
+  private _calculateWithTimeFormatted(date: CalculateDatesType, time: Time, format: DateTimeFormatsType): string | Date {
+    const calculatedDate = this._getCalculatedDate(date);
+    const calculatedTime = TimeHelper.updateDateWithTime(calculatedDate, time);
+    return util.formatter.formatDateWithTime(calculatedTime, format);
+  }
+
   private _getCalculatedDate(date: CalculateDatesType): Date {
     try {
       return this.calculate(date, DateFormats.OBJECT) as Date;
     } catch (error) {
-      throw new Error("Function 'calculateWithTime' failed: Please provide a valid date string as first argument.");
-    }
-  }
-
-  private _updateDateWithTime(date: Date, time: Time): Date {
-    try {
-      return TimeHelper.updateDateWithTime(date, time);
-    } catch (error) {
-      throw new Error(`Function 'calculateWithTime' failed: ${(error as unknown as Error).message}`);
+      throw new Error("Please provide a valid date string as first argument.");
     }
   }
 }
