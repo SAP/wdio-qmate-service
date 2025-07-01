@@ -30,7 +30,7 @@ export class DateModule {
    * @example const today = await common.date.calculate("today");
    * await ui5.date.pick(selector, today);
    */
-  async pick(selector: Ui5Selector, date: Date, index: number = 0) {
+  async pick(selector: Ui5Selector | any, date: Date, index: number = 0) {
     const vl = this.vlf.initLog(this.pick);
     vl.log(`Picking date ${date} for selector ${selector}`);
     const datePickerSelector = await this._constructDatePickerSelector({ selector, index, metadata: "sap.m.DatePicker" });
