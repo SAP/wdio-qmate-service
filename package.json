@@ -139,6 +139,7 @@
     "path": "^0.12.7",
     "pdf-parse": "^1.1.1",
     "qcrypt": "file:packages/qcrypt",
+    "qmate-locator": "file:../qmate-locator",
     "query-string": "^9.2.0",
     "sha.js": "^2.4.11",
     "supertest": "^7.1.1",

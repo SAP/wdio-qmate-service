@@ -1,6 +1,5 @@
 // @ts-nocheck
-var qmateLocator = require("../../locators/qmateLocator");
-var uiveri5Locator = require("../../locators/uiveri5Locator");
+var { qmateLocator, uiveri5Locator } = require("qmate-locator");
 var lib = require("./lib");
 import { ui5ControlLocator, ui5ControlsLocators, getUI5Property,
   getUI5Aggregation, getUI5Association, getBindingContextPath,
