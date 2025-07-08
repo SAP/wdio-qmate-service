@@ -1,5 +1,5 @@
 // @ts-nocheck
-var { qmateLocator, uiveri5Locator } = require("qmate-locator");
+var { coreLocator, uiveri5Locator } = require("qmate-locator");
 var lib = require("./lib");
 import { ui5ControlLocator, ui5ControlsLocators, getUI5Property,
   getUI5Aggregation, getUI5Association, getBindingContextPath,
@@ -10,7 +10,7 @@ import { ui5ControlLocator, ui5ControlsLocators, getUI5Property,
 var AddLocatorCommands = function () {
   this.addControlCommands = async function () {
     // Add Qmate locator strategy
-    await browser.addLocatorStrategy("ui5All", qmateLocator.ui5All);
+    await browser.addLocatorStrategy("ui5All", coreLocator.ui5All);
     await browser.addLocatorStrategy("ui5Veri5", uiveri5Locator.ui5Veri5);
     // Register global names
     //global.uiControl = ui5ControlLocator;
