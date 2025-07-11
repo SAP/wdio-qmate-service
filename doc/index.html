@@ -3501,6 +3501,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#odatapatchsrv-entityset-payload-headers-promise" class="md-nav__link">
+    <span class="md-ellipsis">
+      odata.patch(srv, entitySet, payload, [headers]) ⇒ Promise
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#odatadeletesrv-entityset-options-headers-promise" class="md-nav__link">
     <span class="md-ellipsis">
       odata.delete(srv, entitySet, options, [headers]) ⇒ Promise
@@ -7842,6 +7851,15 @@
   <a href="#odatamergesrv-entityset-payload-headers-promise" class="md-nav__link">
     <span class="md-ellipsis">
       odata.merge(srv, entitySet, payload, [headers]) ⇒ Promise
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#odatapatchsrv-entityset-payload-headers-promise" class="md-nav__link">
+    <span class="md-ellipsis">
+      odata.patch(srv, entitySet, payload, [headers]) ⇒ Promise
     </span>
   </a>
   
@@ -18670,6 +18688,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <li><a href="#service.odata.getEntitySet">.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])</a> ⇒ <code>Promise</code></li>
 <li><a href="#service.odata.post">.post(srv, entitySet, payload, [raw], [headers], [queryParams])</a> ⇒ <code>Promise</code></li>
 <li><a href="#service.odata.merge">.merge(srv, entitySet, payload, [headers])</a> ⇒ <code>Promise</code></li>
+<li><a href="#service.odata.patch">.patch(srv, entitySet, payload, [headers])</a> ⇒ <code>Promise</code></li>
 <li><a href="#service.odata.delete">.delete(srv, entitySet, options, [headers])</a> ⇒ <code>Promise</code></li>
 <li><a href="#service.odata.callFunctionImport">.callFunctionImport(srv, functionImportName, options)</a> ⇒ <code>Promise</code></li>
 <li><a href="#service.odata.isFeatureToggleActivated">.isFeatureToggleActivated(srv, featureName)</a> ⇒ <code>Promise</code></li>
@@ -18699,6 +18718,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <li><a href="#service.odata.getEntitySet">.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])</a> ⇒ <code>Promise</code></li>
 <li><a href="#service.odata.post">.post(srv, entitySet, payload, [raw], [headers], [queryParams])</a> ⇒ <code>Promise</code></li>
 <li><a href="#service.odata.merge">.merge(srv, entitySet, payload, [headers])</a> ⇒ <code>Promise</code></li>
+<li><a href="#service.odata.patch">.patch(srv, entitySet, payload, [headers])</a> ⇒ <code>Promise</code></li>
 <li><a href="#service.odata.delete">.delete(srv, entitySet, options, [headers])</a> ⇒ <code>Promise</code></li>
 <li><a href="#service.odata.callFunctionImport">.callFunctionImport(srv, functionImportName, options)</a> ⇒ <code>Promise</code></li>
 <li><a href="#service.odata.isFeatureToggleActivated">.isFeatureToggleActivated(srv, featureName)</a> ⇒ <code>Promise</code></li>
@@ -19013,6 +19033,52 @@ Cookies will also automatically assembled and stored in the service instance.</p
 <span class="w"> </span><span class="s2">&quot;PurchasingDocumentItem&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;10&quot;</span><span class="p">,</span>
 <span class="w"> </span><span class="s2">&quot;ScheduleLine&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
 <span class="w"> </span><span class="s2">&quot;ScheduleLineDeliveryDate&quot;</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">()</span>
+<span class="p">};</span>
+</code></pre></div>
+<a name="service.odata.patch"></a></p>
+<h4 id="odatapatchsrv-entityset-payload-headers-promise">odata.patch(srv, entitySet, payload, [headers]) ⇒ <code>Promise</code></h4>
+<p>@description Sends a PATCH request to patch data from the specified OData entity set for the given payload.</p>
+<p><strong>Kind</strong>: static method of <a href="#service.odata"><code>odata</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - A Promise that resolves to the response data.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>srv</td>
+<td><code>Object</code></td>
+<td>Instance of the service</td>
+</tr>
+<tr>
+<td>entitySet</td>
+<td><code>String</code></td>
+<td>The entitySet you want to PATCH in.</td>
+</tr>
+<tr>
+<td>payload</td>
+<td><code>Object</code></td>
+<td>The payload of the PATCH request.</td>
+</tr>
+<tr>
+<td>[headers]</td>
+<td><code>Object</code></td>
+<td>Optional headers to be included in the request.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">odata</span><span class="p">.</span><span class="nx">patch</span><span class="p">(</span><span class="nx">srv</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ContractAccountPartner&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="s2">&quot;ContractAccount&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w"> </span><span class="s2">&quot;BusinessPartner&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w"> </span><span class="s2">&quot;DraftUUID&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;42010aef-80aa-1fd0-8ec3-a11a9c56c3d3&quot;</span><span class="p">,</span>
+<span class="w"> </span><span class="s2">&quot;IsActiveEntity&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;false&quot;</span><span class="p">,</span>
+<span class="w"> </span><span class="s2">&quot;CACompanyCodeGroup&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;3910&quot;</span><span class="p">,</span>
+<span class="w"> </span><span class="s2">&quot;CAStandardCompanyCode&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;3910&quot;</span>
 <span class="p">};</span>
 </code></pre></div>
 <a name="service.odata.delete"></a></p>
