@@ -27,6 +27,9 @@ describe("browser - getUI5Version", function () {
 
   it("Verification", async function () {
     await expect(ui5VersionInfo).toBeDefined();
+    await expect(await ui5VersionInfo.isAtLeast("0.0.0")).toBeTruthy();
+    await expect(await ui5VersionInfo.isAtLeast(ui5VersionInfo.version)).toBeTruthy();
+    await expect(await ui5VersionInfo.isAtLeast("99.99.99")).toBeFalsy();
   });
 
 });
