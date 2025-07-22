@@ -20,6 +20,24 @@ export async function getUserId(): Promise<string | null> {
   }
 }
 
+function isLocalStorageAvailable() {
+  try {
+    getLocalStorage();
+    return true;
+  } catch (e) {
+    console.log("LocalStorage is not available: ", (e as Error).message);
+    return false;
+  }
+}
+
+function isUserIdStored() {
+  return getLocalStorage().getItem("UserId") !== null;
+}
+
+function getUserIdFromStore() {
+  return getLocalStorage().getItem("UserId");
+}
+
 async function retrieveNewUserIdFromServer(): Promise<string | null> {
   try {
     return await fetchNewUserIdFromServer();
@@ -27,6 +45,16 @@ async function retrieveNewUserIdFromServer(): Promise<string | null> {
     console.log("Error while fetching user ID: ", (error as Error).message);
     return null;
   }
+}
+
+function saveUserIdToStore(userId: string) {
+  getLocalStorage().setItem("UserId", userId);
+}
+
+let localStorageInstance: LocalStorage | null = null;
+function getLocalStorage() {
+  localStorageInstance ??= new LocalStorage(path.join(os.homedir(), '.qmate-userId'));
+  return localStorageInstance;
 }
 
 async function fetchNewUserIdFromServer(): Promise<string | null> {
@@ -53,32 +81,4 @@ async function extractUserIdFromResponse(response: Response): Promise<string | n
   const responseText = await response.text();
   const responseData = JSON.parse(responseText);
   return responseData.id;
-}
-
-function isLocalStorageAvailable() {
-  try {
-    getLocalStorage();
-    return true;
-  } catch (e) {
-    console.log("LocalStorage is not available: ", (e as Error).message);
-    return false;
-  }
-}
-
-function isUserIdStored() {
-  return getLocalStorage().getItem("UserId") !== null;
-}
-
-function saveUserIdToStore(userId: string) {
-  getLocalStorage().setItem("UserId", userId);
-}
-
-function getUserIdFromStore() {
-  return getLocalStorage().getItem("UserId");
-}
-
-let localStorageInstance: LocalStorage | null = null;
-function getLocalStorage() {
-  localStorageInstance ??= new LocalStorage(path.join(os.homedir(), '.qmate-userId'));
-  return localStorageInstance;
 }
