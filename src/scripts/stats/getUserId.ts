@@ -38,7 +38,7 @@ export async function getUserId(): Promise<string | null> {
 
 function isLocalStorageAvailable() {
   try {
-    new LocalStorage(path.join(os.homedir(), '.qmate-userId'));
+    getLocalStorage();
     return true;
   } catch (e) {
     console.log("LocalStorage is not available: ", (e as Error).message);
@@ -58,6 +58,8 @@ function getUserIdFromStore() {
   return getLocalStorage().getItem("UserId");
 }
 
+let localStorageInstance: LocalStorage | null = null;
 function getLocalStorage() {
-  return new LocalStorage(path.join(os.homedir(), '.qmate-userId'));
+  localStorageInstance ??= new LocalStorage(path.join(os.homedir(), '.qmate-userId'));
+  return localStorageInstance;
 }
