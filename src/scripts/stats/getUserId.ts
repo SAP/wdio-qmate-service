@@ -1,7 +1,7 @@
 import * as os from 'os';
 import path from 'path';
 import { LocalStorage } from 'node-localstorage';
-import { Agent, fetch } from 'undici';
+import { Agent, fetch, Response } from 'undici';
 import { STATS_SERVER_URL } from './constants';
 
 export async function getUserId(): Promise<string | null> {
@@ -12,29 +12,47 @@ export async function getUserId(): Promise<string | null> {
   if (isUserIdStored()) {
     return getUserIdFromStore();
   } else {
-    try {
-      const response = await fetch(`${STATS_SERVER_URL}/api/user`, {
-        method: "POST",
-        dispatcher: new Agent({
-          connect: {
-            rejectUnauthorized: false,
-          }
-        })
-      });
-      if (!response.ok) {
-        console.log(`Failed to create Qmate Stats User: ${response.status} ${response.statusText}`);
-        return null;
-      } else {
-        const responseText = await response.text();
-        const responseData = JSON.parse(responseText);
-        saveUserIdToStore(responseData.id);
-        return responseData.id;
-      }
-    } catch (error) {
-      console.log("Error while fetching user ID: ", (error as Error).message);
-      return null;
+    const userId = await retrieveNewUserIdFromServer();
+    if (userId !== null) {
+      saveUserIdToStore(userId);
     }
+    return userId;
   }
+}
+
+async function retrieveNewUserIdFromServer(): Promise<string | null> {
+  try {
+    return await fetchNewUserIdFromServer();
+  } catch (error) {
+    console.log("Error while fetching user ID: ", (error as Error).message);
+    return null;
+  }
+}
+
+async function fetchNewUserIdFromServer(): Promise<string | null> {
+  const response = await fetchNewUserResponse();
+  return await extractUserIdFromResponse(response);
+}
+
+async function fetchNewUserResponse(): Promise<Response> {
+  return fetch(`${STATS_SERVER_URL}/api/user`, {
+    method: "POST",
+    dispatcher: new Agent({
+      connect: {
+        rejectUnauthorized: false,
+      }
+    })
+  });
+}
+
+async function extractUserIdFromResponse(response: Response): Promise<string | null> {
+  if (!response.ok) {
+    console.log(`Failed to create Qmate Stats User: ${response.status} ${response.statusText}`);
+    return null;
+  }
+  const responseText = await response.text();
+  const responseData = JSON.parse(responseText);
+  return responseData.id;
 }
 
 function isLocalStorageAvailable() {
