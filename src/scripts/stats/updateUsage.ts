@@ -1,7 +1,8 @@
 import { Agent, fetch } from "undici";
+import { STATS_SERVER_URL } from "./constants";
 
 export async function updateQmateUsage(id: string, usageData: { result: string }) {
-  const urlUsage = `https://stats.qmate.proc.only.sap/api/usage/qmate/${id}`;
+  const urlUsage = `${STATS_SERVER_URL}/api/usage/qmate/${id}`;
   try {
     const response = await fetch(urlUsage, {
       method: "PUT",

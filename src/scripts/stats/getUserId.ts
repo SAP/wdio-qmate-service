@@ -2,18 +2,18 @@ import * as os from 'os';
 import path from 'path';
 import { LocalStorage } from 'node-localstorage';
 import { Agent, fetch } from 'undici';
+import { STATS_SERVER_URL } from './constants';
 
 export async function getUserId(): Promise<string | null> {
   if (!isLocalStorageAvailable()) {
     console.log("Cannot retrieve user ID.");
     return null;
   }
-  const urlUser = "https://stats.qmate.proc.only.sap/api/user";
   if (isUserIdStored()) {
     return getUserIdFromStore();
   } else {
     try {
-      const response = await fetch(urlUser, {
+      const response = await fetch(`${STATS_SERVER_URL}/api/user`, {
         method: "POST",
         dispatcher: new Agent({
           connect: {
@@ -31,6 +31,7 @@ export async function getUserId(): Promise<string | null> {
         return responseData.id;
       }
     } catch (error) {
+      console.log("Error while fetching user ID: ", (error as Error).message);
       return null;
     }
   }

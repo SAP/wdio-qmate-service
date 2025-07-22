@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterAll } from "vitest";
 import { getUserId } from "../../../src/scripts/stats/getUserId";
+import { STATS_SERVER_URL } from "../../../src/scripts/stats/constants";
 
 const mockUserId = "test-user-id";
 const fetchedUserId = "fetched-user-id";
@@ -56,6 +57,16 @@ describe("getUserId", () => {
     expect(userId).toBe(mockUserId);
   });
 
+  it("should not call fetch if user ID is stored", async () => {
+    // Prepare
+    getItemMock.mockReturnValue(mockUserId);
+
+    // Act
+    await getUserId();
+
+    // Verify
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
 
   it("should return fetched user ID if not stored", async () => {
     // Prepare
@@ -70,6 +81,24 @@ describe("getUserId", () => {
 
     // Verify
     expect(userId).toBe(fetchedUserId);
+  });
+
+  it("should fetch user ID from correct URL", async () => {
+    // Prepare
+    getItemMock.mockReturnValue(null);
+    fetchMock.mockResolvedValue({
+      ok: true,
+      text: () => Promise.resolve(JSON.stringify({ id: fetchedUserId })),
+    } as Response);
+
+    // Act
+    await getUserId();
+
+    // Verify
+    expect(fetchMock).toHaveBeenCalledWith(`${STATS_SERVER_URL}/api/user`, {
+      method: "POST",
+      dispatcher: expect.anything(),
+    });
   });
 
   it("should return null if fetch fails", async () => {
