@@ -37,6 +37,8 @@
     "build": "npm run build:locator  && npx tsc",
     "build:dev": "npm run build:locator && npx tsc --watch",
     "build:locator": "node src/scripts/locators/qmateLocatorSrc/build.js",
+    "test:unit": "vitest run --config ./test/unit/vitest.config.ts",
+    "test:unit:watch": "vitest --config ./test/unit/vitest.config.ts",
     "test:authenticator:staticLogin:custom": "npx wdio ./test/authenticator/staticLogin/configCustom.js",
     "test:authenticator:staticLogin:customViaConfig": "npx wdio ./test/authenticator/staticLogin/configCustomViaConfig.js",
     "test:authenticator:staticLogin:fiori": "npx wdio ./test/authenticator/staticLogin/configFiori.js",
@@ -179,6 +181,7 @@
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
+    "vitest": "^3.2.4",
     "wdio-chromedriver-service": "^8.1.1"
   },
   "overrides": {

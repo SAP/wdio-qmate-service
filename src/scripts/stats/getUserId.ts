@@ -1,47 +1,84 @@
 import * as os from 'os';
 import path from 'path';
 import { LocalStorage } from 'node-localstorage';
-import { Agent, fetch } from 'undici';
-
-const localStorage = new LocalStorage(path.join(os.homedir(), '.qmate-userId'));
+import { Agent, fetch, Response } from 'undici';
+import { STATS_SERVER_URL } from './constants';
 
 export async function getUserId(): Promise<string | null> {
-  const urlUser = "https://stats.qmate.proc.only.sap/api/user";
+  if (!isLocalStorageAvailable()) {
+    console.log("Cannot retrieve user ID.");
+    return null;
+  }
   if (isUserIdStored()) {
     return getUserIdFromStore();
   } else {
-    try {
-      const response = await fetch(urlUser, {
-        method: "POST",
-        dispatcher: new Agent({
-          connect: {
-            rejectUnauthorized: false,
-          }
-        })
-      });
-      if (!response.ok) {
-        console.log(`Failed to create Qmate Stats User: ${response.status} ${response.statusText}`);
-        return null;
-      } else {
-        const responseText = await response.text();
-        const responseData = JSON.parse(responseText);
-        saveUserIdToStore(responseData.id);
-        return responseData.id;
-      }
-    } catch (error) {
-      return null;
+    const userId = await retrieveNewUserIdFromServer();
+    if (userId !== null) {
+      saveUserIdToStore(userId);
     }
+    return userId;
+  }
+}
+
+function isLocalStorageAvailable() {
+  try {
+    getLocalStorage();
+    return true;
+  } catch (e) {
+    console.log("LocalStorage is not available: ", (e as Error).message);
+    return false;
   }
 }
 
 function isUserIdStored() {
-  return localStorage.getItem("UserId") !== null;
-}
-
-function saveUserIdToStore(userId: string) {
-  localStorage.setItem("UserId", userId);
+  return getLocalStorage().getItem("UserId") !== null;
 }
 
 function getUserIdFromStore() {
-  return localStorage.getItem("UserId");
+  return getLocalStorage().getItem("UserId");
+}
+
+async function retrieveNewUserIdFromServer(): Promise<string | null> {
+  try {
+    return await fetchNewUserIdFromServer();
+  } catch (error) {
+    console.log("Error while fetching user ID: ", (error as Error).message);
+    return null;
+  }
+}
+
+function saveUserIdToStore(userId: string) {
+  getLocalStorage().setItem("UserId", userId);
+}
+
+let localStorageInstance: LocalStorage | null = null;
+function getLocalStorage() {
+  localStorageInstance ??= new LocalStorage(path.join(os.homedir(), '.qmate-userId'));
+  return localStorageInstance;
+}
+
+async function fetchNewUserIdFromServer(): Promise<string | null> {
+  const response = await fetchNewUserResponse();
+  return await extractUserIdFromResponse(response);
+}
+
+async function fetchNewUserResponse(): Promise<Response> {
+  return fetch(`${STATS_SERVER_URL}/api/user`, {
+    method: "POST",
+    dispatcher: new Agent({
+      connect: {
+        rejectUnauthorized: false,
+      }
+    })
+  });
+}
+
+async function extractUserIdFromResponse(response: Response): Promise<string | null> {
+  if (!response.ok) {
+    console.log(`Failed to create Qmate Stats User: ${response.status} ${response.statusText}`);
+    return null;
+  }
+  const responseText = await response.text();
+  const responseData = JSON.parse(responseText);
+  return responseData.id;
 }
