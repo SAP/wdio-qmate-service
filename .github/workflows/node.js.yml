@@ -184,3 +184,19 @@ jobs:
           npm ci
           npm run test:reuse:service
 
+  test-unit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: |
+          npm install -g npm@latest
+          npm ci
+          npm run test:unit
