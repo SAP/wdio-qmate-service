@@ -3,9 +3,11 @@ import path from 'path';
 import { LocalStorage } from 'node-localstorage';
 import { Agent, fetch } from 'undici';
 
-const localStorage = new LocalStorage(path.join(os.homedir(), '.qmate-userId'));
-
 export async function getUserId(): Promise<string | null> {
+  if (!isLocalStorageAvailable()) {
+    console.log("Cannot retrieve user ID.");
+    return null;
+  }
   const urlUser = "https://stats.qmate.proc.only.sap/api/user";
   if (isUserIdStored()) {
     return getUserIdFromStore();
@@ -34,14 +36,28 @@ export async function getUserId(): Promise<string | null> {
   }
 }
 
+function isLocalStorageAvailable() {
+  try {
+    new LocalStorage(path.join(os.homedir(), '.qmate-userId'));
+    return true;
+  } catch (e) {
+    console.log("LocalStorage is not available: ", (e as Error).message);
+    return false;
+  }
+}
+
 function isUserIdStored() {
-  return localStorage.getItem("UserId") !== null;
+  return getLocalStorage().getItem("UserId") !== null;
 }
 
 function saveUserIdToStore(userId: string) {
-  localStorage.setItem("UserId", userId);
+  getLocalStorage().setItem("UserId", userId);
 }
 
 function getUserIdFromStore() {
-  return localStorage.getItem("UserId");
+  return getLocalStorage().getItem("UserId");
+}
+
+function getLocalStorage() {
+  return new LocalStorage(path.join(os.homedir(), '.qmate-userId'));
 }

@@ -40,6 +40,18 @@ vi.mock("undici", () => {
   };
 });
 
+const { homedirMock } = vi.hoisted(() => {
+  return {
+    homedirMock: vi.fn(() => "/mock/home/dir")
+  }
+});
+
+vi.mock("os", () => {
+  return {
+    homedir: homedirMock
+  };
+});
+
 describe("getUserId", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -115,6 +127,19 @@ describe("getUserId", () => {
 
     // Verify
     expect(setItemMock).toHaveBeenCalledWith("UserId", fetchedUserId);
+  });
+
+  it("should return null if home directory is not accessible", async () => {
+    // Prepare
+    homedirMock.mockImplementation(() => {
+      throw new Error("Home directory not accessible");
+    });
+
+    // Act
+    const userId = await getUserId();
+
+    // Verify
+    expect(userId).toBeNull();
   });
 
   afterAll(() => {
