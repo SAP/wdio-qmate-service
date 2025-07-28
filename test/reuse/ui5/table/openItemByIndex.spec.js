@@ -29,7 +29,6 @@ describe("table - openItemByIndex - smartTable - open first item", function () {
   it("Verification", async function () {
     const pageTitle = "500000001";
     const selector = {
-
       "elementProperties": {
         "viewName": "sap.suite.ui.generic.template.ObjectPage.view.Details",
         "metadata": "sap.uxap.ObjectPageHeader",
@@ -57,7 +56,6 @@ describe("table - openItemByIndex - smartTable - open third item", function () {
   it("Verification", async function () {
     const pageTitle = "500000007";
     const selector = {
-
       "elementProperties": {
         "viewName": "sap.suite.ui.generic.template.ObjectPage.view.Details",
         "metadata": "sap.uxap.ObjectPageHeader",
