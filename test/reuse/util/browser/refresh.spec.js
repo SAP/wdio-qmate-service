@@ -27,7 +27,7 @@ describe("browser - refresh", function () {
     selector = {
       "elementProperties": {
         "viewName": "sap.ui.documentation.sdk.view.App",
-        "metadata": "sap.ui.unified.MenuItem",
+        "metadata": "sap.m.MenuItem",
         "icon": "sap-icon://hint"
       }
     };
