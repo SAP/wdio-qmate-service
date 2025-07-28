@@ -28,8 +28,7 @@ describe("browser - refresh", function () {
       "elementProperties": {
         "viewName": "sap.ui.documentation.sdk.view.App",
         "metadata": "sap.ui.unified.MenuItem",
-        "icon": "sap-icon://hint",
-        "id": "*unifiedmenu"
+        "icon": "sap-icon://hint"
       }
     };
     await ui5.userInteraction.click(selector);
