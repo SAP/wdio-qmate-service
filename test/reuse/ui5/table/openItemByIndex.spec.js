@@ -20,6 +20,7 @@ describe("table - openItemByIndex - smartTable - open first item", function () {
     const url = "https://sapui5.hana.ondemand.com/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#";
     await common.navigation.navigateToUrl(url);
     await ui5.userInteraction.click(goButtonSelector);
+    console.log("URL before openItemByIndex: " + await util.browser.getCurrentUrl());
   });
 
   it("Execution", async function () {
@@ -27,6 +28,7 @@ describe("table - openItemByIndex - smartTable - open first item", function () {
   });
 
   it("Verification", async function () {
+    console.log("URL after openItemByIndex: " + await util.browser.getCurrentUrl());
     const pageTitle = "500000001";
     const selector = {
       "elementProperties": {
