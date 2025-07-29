@@ -566,7 +566,6 @@ export class Table {
     this.vlf.initLog(this.openItemByIndex);
 
     const rowSelector = await this.getSelectorForRowByIndex(tableSelectorOrId, index);
-    console.log(`Opening item at index ${index} with selector:`, rowSelector);
     await ui5.userInteraction.click(rowSelector);
   }
 

@@ -29,6 +29,7 @@ describe("table - openItemByValues - smartTable - single value as a String", fun
   it("Verification", async function () {
     const pageTitle = "500000001";
     const selector = {
+
       "elementProperties": {
         "viewName": "sap.suite.ui.generic.template.ObjectPage.view.Details",
         "metadata": "sap.uxap.ObjectPageHeader",
@@ -56,6 +57,7 @@ describe("table - openItemByValues - smartTable - single value as an Array - 3 m
   it("Verification", async function () {
     const pageTitle = "500000001";
     const selector = {
+
       "elementProperties": {
         "viewName": "sap.suite.ui.generic.template.ObjectPage.view.Details",
         "metadata": "sap.uxap.ObjectPageHeader",
@@ -85,6 +87,7 @@ describe("table - openItemByValues - smartTable - multiple values as an Array - 
   it("Verification", async function () {
     const pageTitle = "500000007";
     const selector = {
+
       "elementProperties": {
         "viewName": "sap.suite.ui.generic.template.ObjectPage.view.Details",
         "metadata": "sap.uxap.ObjectPageHeader",
