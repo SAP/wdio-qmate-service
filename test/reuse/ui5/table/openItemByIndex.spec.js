@@ -25,6 +25,7 @@ describe("table - openItemByIndex - smartTable - open first item", function () {
 
   it("Execution", async function () {
     await ui5.table.openItemByIndex(smartTableSelector, 0);
+    await ui5.table.openItemByIndex(smartTableSelector, 0);
   });
 
   it("Verification", async function () {
