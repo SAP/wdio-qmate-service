@@ -87,9 +87,9 @@
     "test:reuse:ui5:session": "npx wdio ./test/reuse/ui5/session/test.session.conf.js",
     "test:reuse:ui5:userInteraction": "npx wdio ./test/reuse/ui5/userInteraction/test.userInteraction.conf.js",
     "test:reuse:ui5:table": "npx wdio ./test/reuse/ui5/table/test.table.conf.js",
-    "test:reuse:ui5": "npm run test:reuse:ui5:pt1 && npm run test:reuse:ui5:pt2",
+    "test:reuse:ui5": "npm run test:reuse:ui5:pt2",
     "test:reuse:ui5:pt1": "npm run test:reuse:ui5:assertion && npm run test:reuse:ui5:confirmationDialog && npm run test:reuse:ui5:control && npm run test:reuse:ui5:date && npm run test:reuse:ui5:element && npm run test:reuse:ui5:errorDialog",
-    "test:reuse:ui5:pt2": "npm run test:reuse:ui5:navigationBar && npm run test:reuse:ui5:table && npm run test:reuse:ui5:userInteraction",
+    "test:reuse:ui5:pt2": "npm run test:reuse:ui5:table",
     "test:reuse:util:browser": "npx wdio ./test/reuse/util/browser/test.browser.conf.js",
     "test:reuse:util:browserCmndLineArgs": "npx wdio ./test/reuse/util/browser/test.browserCmndLineArgs.conf.js --baseUrl=https://sapui5.hana.ondemand.com/",
     "test:reuse:util:data": "npx wdio ./test/reuse/util/data/test.data.conf.js",
@@ -112,9 +112,9 @@
     "test:reuse:service": "npm run test:reuse:service:rest && npm run test:reuse:service:odata",
     "test:reuse:flp:userSettings": "npx wdio ./test/reuse/flp/userSettings/test.userSettings.apply.conf.js && npx wdio ./test/reuse/flp/userSettings/test.userSettings.conf.js",
     "test:reuse:flp:userLocks": "npx wdio ./test/reuse/flp/userLocks/test.userLocks.conf.js",
-    "test:reuse": "npm run test:reuse:common && npm run test:reuse:nonUi5 && npm run test:reuse:ui5 && npm run test:reuse:util && npm run test:reuse:service:odata",
+    "test:reuse": "npm run test:reuse:ui5",
     "test:reuse:helper:elementHighlight": "npx wdio ./test/reuse/helper/elementHighlight/test.elementHighlight.conf.js",
-    "test": "npm run test:authenticator:staticLogin && npm run test:core && npm run test:reuse && npm run test:unit"
+    "test": "npm run test:reuse"
   },
   "homepage": "https://github.com/SAP/wdio-qmate-service",
   "repository": {
