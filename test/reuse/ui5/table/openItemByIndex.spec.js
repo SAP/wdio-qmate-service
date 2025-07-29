@@ -25,11 +25,9 @@ describe("table - openItemByIndex - smartTable - open first item", function () {
 
   it("Execution", async function () {
     await ui5.table.openItemByIndex(smartTableSelector, 0);
-    await ui5.table.openItemByIndex(smartTableSelector, 0);
   });
 
   it("Verification", async function () {
-    await util.browser.sleep(10000);
     console.log("URL after openItemByIndex: " + await util.browser.getCurrentUrl());
     const pageTitle = "500000001";
     const selector = {
