@@ -30,7 +30,7 @@ export class DateModule {
    * @example const today = await common.date.calculate("today");
    * await ui5.date.pick(selector, today);
    */
-  async pick(selector: Ui5Selector | any, date: Date, index: number = 0) {
+  async pick(selector: any, date: Date, index: number = 0) {
     const vl = this.vlf.initLog(this.pick);
     vl.log(`Picking date ${date} for selector ${selector}`);
     const datePickerSelector = await this._constructDatePickerSelector({ selector, index, metadata: "sap.m.DatePicker" });
@@ -51,7 +51,7 @@ export class DateModule {
    * const range = [start, end];
    * await ui5.date.pickRange(selector, range);
    */
-  async pickRange(selector: Ui5Selector, range: Date[], index = 0) {
+  async pickRange(selector: any, range: Date[], index = 0) {
     const vl = this.vlf.initLog(this.pickRange);
     vl.log(`Picking date range ${range} for selector ${selector}`);
     const datePickerSelector = await this._constructDatePickerSelector({ selector, index, metadata: "sap.m.DateRangeSelection" });
@@ -70,7 +70,7 @@ export class DateModule {
    * @example const tomorrowMorning = await common.date.calculateWithTime("tomorrow", "09:30:45");
    * await ui5.date.pickWithTime(selector, tomorrowMorning);
    */
-  async pickWithTime(selector: Ui5Selector, date: Date, index = 0) {
+  async pickWithTime(selector: any, date: Date, index = 0) {
     const vl = this.vlf.initLog(this.pickWithTime);
     vl.log(`Picking date with time ${date} for selector ${selector}`);
     const datePickerSelector = await this._constructDatePickerSelector({ selector, index, metadata: "sap.m.DateTimePicker" });
@@ -93,7 +93,7 @@ export class DateModule {
    * const range = [start, end];
    * await ui5.date.fillRange(selector, range);
    */
-  async fillRange(selector: Ui5Selector, range: Date[], index: number = 0) {
+  async fillRange(selector: any, range: Date[], index: number = 0) {
     const vl = this.vlf.initLog(this.fillRange);
     const value = range[0] + " - " + range[1];
     await ui5.userInteraction.clearAndFill(selector, value, index);
