@@ -622,6 +622,12 @@ export class Table {
             metadata: Table.UI_TABLE_METADATA,
             id: tableSelectorOrId
           }
+        },
+        {
+          elementProperties: {
+            metadata: Table.TREE_TABLE_METADATA,
+            id: tableSelectorOrId
+          }
         }
       ];
 
@@ -652,12 +658,17 @@ export class Table {
         // Intentionally left empty, as the error is handled below
       }
     } else if (typeof tableSelectorOrId === "object" && "elementProperties" in tableSelectorOrId) {
-      if (tableSelectorOrId.elementProperties.metadata === Table.TABLE_METADATA || tableSelectorOrId.elementProperties.metadata === Table.SMART_TABLE_METADATA || tableSelectorOrId.elementProperties.metadata === Table.UI_TABLE_METADATA) {
+      if (
+        tableSelectorOrId.elementProperties.metadata === Table.TABLE_METADATA ||
+        tableSelectorOrId.elementProperties.metadata === Table.SMART_TABLE_METADATA ||
+        tableSelectorOrId.elementProperties.metadata === Table.UI_TABLE_METADATA ||
+        tableSelectorOrId.elementProperties.metadata === Table.TREE_TABLE_METADATA
+      ) {
         return tableSelectorOrId;
       }
     }
 
-    throw new Error(`The provided table selector "${tableSelectorOrId}" is not valid. Please provide a valid selector or ID for control type 'SmartTable' or 'Table'.`);
+    throw new Error(`The provided table selector "${tableSelectorOrId}" is not valid. Please provide a valid selector or ID for the control types 'SmartTable', 'Table', 'TreeTable', or 'UITable'.`);
   }
 
   private static async _getId(tableSelectorOrId: Ui5Selector | string): Promise<string> {
