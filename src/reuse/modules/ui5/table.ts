@@ -659,16 +659,13 @@ export class Table {
       }
     } else if (typeof tableSelectorOrId === "object" && "elementProperties" in tableSelectorOrId) {
       if (
-        tableSelectorOrId.elementProperties.metadata === Table.TABLE_METADATA ||
-        tableSelectorOrId.elementProperties.metadata === Table.SMART_TABLE_METADATA ||
-        tableSelectorOrId.elementProperties.metadata === Table.UI_TABLE_METADATA ||
-        tableSelectorOrId.elementProperties.metadata === Table.TREE_TABLE_METADATA
+        Table.SUPPORTED_TABLES_METADATA.includes(tableSelectorOrId.elementProperties.metadata)
       ) {
         return tableSelectorOrId;
       }
     }
 
-    throw new Error(`The provided table selector "${tableSelectorOrId}" is not valid. Please provide a valid selector or ID for the control types 'SmartTable', 'Table', 'TreeTable', or 'UITable'.`);
+    throw new Error(`The provided table selector "${tableSelectorOrId}" is not valid. Please provide a valid selector or ID for the supported control types: ${Table.SUPPORTED_TABLES_METADATA.join(", ")}.`);
   }
 
   private static async _getId(tableSelectorOrId: Ui5Selector | string): Promise<string> {
