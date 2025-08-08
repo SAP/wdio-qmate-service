@@ -17,6 +17,13 @@ const uiTableSelector = {
   }
 };
 
+const treeTableSelector = {
+  elementProperties: {
+    viewName: "sap.ui.table.sample.TreeTable.HierarchyMaintenanceJSONTreeBinding.View",
+    metadata: "sap.ui.table.TreeTable"
+  }
+};
+
 describe("table - getSelectorsForRowsByValues - sap.ui.comp.smarttable.SmartTable - single value as a String", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
@@ -158,7 +165,6 @@ describe("table - getSelectorsForRowsByValues - sap.ui.comp.smarttable.SmartTabl
   });
 });
 
-
 describe("table - getSelectorsForRowsByValues - sap.ui.table.Table - single value as an Array", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.table.Table/sample/sap.ui.table.sample.Basic");
@@ -179,6 +185,31 @@ describe("table - getSelectorsForRowsByValues - sap.ui.table.Table - single valu
         "value": "956"
       },
       "ancestorProperties": rowSelectors[0].elementProperties
+    };
+    await expect(ui5.element.getDisplayed(selector)).resolves.not.toThrow();
+  });
+});
+
+describe("table - getSelectorsForRowsByValues - sap.ui.table.TreeTable - single value as an Array", function () {
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.table.TreeTable/sample/sap.ui.table.sample.TreeTable.HierarchyMaintenanceJSONTreeBinding");
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+  });
+
+  it("Execution", async function () {
+    const categoryName = ["Men"];
+    rowSelectors = await ui5.table.getSelectorsForRowsByValues(treeTableSelector, categoryName);
+  });
+
+  it("Verification", async function () {
+    const selector = {
+      elementProperties: {
+        viewName: "sap.ui.table.sample.TreeTable.HierarchyMaintenanceJSONTreeBinding.View",
+        metadata: "sap.m.Text",
+        text: "Men"
+      },
+      ancestorProperties: rowSelectors[0].elementProperties
     };
     await expect(ui5.element.getDisplayed(selector)).resolves.not.toThrow();
   });

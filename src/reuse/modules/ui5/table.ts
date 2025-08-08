@@ -24,11 +24,11 @@ export class Table {
   private static readonly SMART_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.comp.smarttable.SmartTable";
   private static readonly TABLE_METADATA: Ui5ControlMetadata = "sap.m.Table";
   private static readonly UI_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.table.Table";
+  private static readonly TREE_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.table.TreeTable";
   private static readonly COLUMN_LIST_ITEM_METADATA: Ui5ControlMetadata = "sap.m.ColumnListItem";
   private static readonly TABLE_ROW_METADATA: Ui5ControlMetadata = "sap.ui.table.Row";
-
   private static readonly CHECKBOX_METADATA: Ui5ControlMetadata = "sap.m.CheckBox";
-  private static readonly SUPPORTED_TABLES_METADATA: Array<Ui5ControlMetadata> = [Table.SMART_TABLE_METADATA, Table.TABLE_METADATA, Table.UI_TABLE_METADATA];
+  private static readonly SUPPORTED_TABLES_METADATA: Array<Ui5ControlMetadata> = [Table.SMART_TABLE_METADATA, Table.TABLE_METADATA, Table.UI_TABLE_METADATA, Table.TREE_TABLE_METADATA];
   // =================================== SORTING ===================================
   /**
    * @function sortColumnAscending
@@ -285,7 +285,8 @@ export class Table {
          ${classCode}
           const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
           const items = TableHelper.getItems(table);
-          return await TableHelper.getIdsForItemsByCellValues(items, ${JSON.stringify(values)}, ${enableHighlighting});
+          const filteredItems = TableHelper.filterItemsWithoutTitle(items);
+          return await TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting});
       `;
       filteredRowIds = await util.browser.executeScript(browserCommand);
       // ========================================================================
@@ -622,6 +623,12 @@ export class Table {
             metadata: Table.UI_TABLE_METADATA,
             id: tableSelectorOrId
           }
+        },
+        {
+          elementProperties: {
+            metadata: Table.TREE_TABLE_METADATA,
+            id: tableSelectorOrId
+          }
         }
       ];
 
@@ -652,12 +659,14 @@ export class Table {
         // Intentionally left empty, as the error is handled below
       }
     } else if (typeof tableSelectorOrId === "object" && "elementProperties" in tableSelectorOrId) {
-      if (tableSelectorOrId.elementProperties.metadata === Table.TABLE_METADATA || tableSelectorOrId.elementProperties.metadata === Table.SMART_TABLE_METADATA || tableSelectorOrId.elementProperties.metadata === Table.UI_TABLE_METADATA) {
+      if (
+        Table.SUPPORTED_TABLES_METADATA.includes(tableSelectorOrId.elementProperties.metadata)
+      ) {
         return tableSelectorOrId;
       }
     }
 
-    throw new Error(`The provided table selector "${tableSelectorOrId}" is not valid. Please provide a valid selector or ID for control type 'SmartTable' or 'Table'.`);
+    throw new Error(`The provided table selector "${tableSelectorOrId}" is not valid. Please provide a valid selector or ID for the supported control types: ${Table.SUPPORTED_TABLES_METADATA.join(", ")}.`);
   }
 
   private static async _getId(tableSelectorOrId: Ui5Selector | string): Promise<string> {
@@ -901,6 +910,7 @@ export class Table {
       for (const check of selectorChecks) {
         // Note: Following command slows down the execution and might be used after refactoring service
         // const isPresent = await nonUi5.element.isPresentByCss(check.selector);
+        // @ts-ignore
         if (window.document.querySelector(check.selector)) {
           return check.type;
         }
