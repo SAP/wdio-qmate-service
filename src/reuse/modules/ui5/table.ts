@@ -285,7 +285,8 @@ export class Table {
          ${classCode}
           const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
           const items = TableHelper.getItems(table);
-          return await TableHelper.getIdsForItemsByCellValues(items, ${JSON.stringify(values)}, ${enableHighlighting});
+          const filteredItems = TableHelper.filterItemsWithoutTitle(items);
+          return await TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting});
       `;
       filteredRowIds = await util.browser.executeScript(browserCommand);
       // ========================================================================
