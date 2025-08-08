@@ -134,12 +134,12 @@ describe("table - getSelectorForRowByIndex - sap.ui.table.Table - get first row"
 
     it("Verification", async function () {
       const selector = {
-        "elementProperties": {
-          "viewName": "sap.ui.table.sample.TreeTable.BasicODataTreeBinding.View",
-          "metadata": "sap.m.Text",
-          "bindingContextPath": "/Nodes*1)",
-          "text": [{
-            "path": "Description"
+        elementProperties: {
+          viewName: "sap.ui.table.sample.TreeTable.BasicODataTreeBinding.View",
+          metadata: "sap.m.Text",
+          bindingContextPath: "/Nodes*1)",
+          text: [{
+            path: "Description"
           }]
         },
         ancestorProperties: actRowSelector.elementProperties
