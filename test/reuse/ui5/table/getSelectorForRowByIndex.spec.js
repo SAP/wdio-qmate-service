@@ -15,6 +15,7 @@ const uiTableSelector = {
     metadata: "sap.ui.table.Table"
   }
 };
+
 const treeTableSelector = {
   elementProperties: {
     viewName: "sap.ui.table.sample.TreeTable.BasicODataTreeBinding.View",
