@@ -115,7 +115,7 @@ describe("table - getTotalNumberOfRowsByValues - unhappy case- 0 matches", funct
 
 });
 
-describe("table - getSelectorsForRowsByValues - sap.ui.table.TreeTable - single value as an Array", function () {
+describe("table - getTotalNumberOfRowsByValues - sap.ui.table.TreeTable - single value as an Array", function () {
   let rowCount;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.table.TreeTable/sample/sap.ui.table.sample.TreeTable.HierarchyMaintenanceJSONTreeBinding");
