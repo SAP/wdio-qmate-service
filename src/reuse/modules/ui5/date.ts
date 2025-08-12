@@ -181,7 +181,6 @@ export class DateModule {
   private async _clickOk() {
     const selector = {
       "elementProperties": {
-        "viewName": "sap.m.sample.DateTimePicker.Group",
         "metadata": "sap.m.Button",
         "text": "OK"
       }
