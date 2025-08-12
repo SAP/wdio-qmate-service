@@ -193,7 +193,6 @@ export class DateModule {
     const vl = this.vlf.initLog(this._selectAmPm);
     const amPmSelector = {
       "elementProperties": {
-        "viewName": "sap.m.sample.DateTimePicker.Group",
         "metadata": "sap.m.Button",
         "text": amPm
       }
@@ -205,9 +204,8 @@ export class DateModule {
     const vl = this.vlf.initLog(this._selectHours);
     await ui5.userInteraction.click({
       "elementProperties": {
-        "viewName": "sap.m.sample.DateTimePicker.Group",
         "metadata": "sap.m.internal.ToggleSpinButton",
-        "tooltip": "Hours"
+        "id": "*Clocks-btnH"
       }
     });
     await common.userInteraction.pressKey(
@@ -222,9 +220,8 @@ export class DateModule {
     const vl = this.vlf.initLog(this._selectMinutes);
     await ui5.userInteraction.click({
       "elementProperties": {
-        "viewName": "sap.m.sample.DateTimePicker.Group",
         "metadata": "sap.m.internal.ToggleSpinButton",
-        "tooltip": "Minutes"
+        "id": "*Clocks-btnM"
       }
     });
     await common.userInteraction.pressKey(
@@ -237,9 +234,8 @@ export class DateModule {
     try {
       await ui5.userInteraction.click({
         "elementProperties": {
-          "viewName": "sap.m.sample.DateTimePicker.Group",
           "metadata": "sap.m.internal.ToggleSpinButton",
-          "tooltip": "Seconds"
+          "id": "*Clocks-btnS"
         }
       });
       await common.userInteraction.pressKey(util.formatter.addRemoveLeadingZeros(seconds.toString(), 2));
