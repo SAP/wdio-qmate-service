@@ -402,7 +402,7 @@ export class Table {
       elementProperties: {
         metadata: Table.CHECKBOX_METADATA
       },
-      parentProperties: {
+      ancestorProperties: {
         metadata: Table.COLUMN_LIST_ITEM_METADATA,
         ancestorProperties: ancestorSelector.elementProperties
       }
