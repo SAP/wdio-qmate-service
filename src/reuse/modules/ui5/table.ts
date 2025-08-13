@@ -214,7 +214,7 @@ export class Table {
       elementProperties: {
         metadata: "sap.m.Title"
       },
-      parentProperties: {
+      ancestorProperties: {
         metadata: "sap.m.*Toolbar",
         ancestorProperties: ancestorSelector.elementProperties
       }
@@ -422,13 +422,13 @@ export class Table {
   async selectAllRows(tableSelectorOrId: Ui5Selector | string) {
     this.vlf.initLog(this.selectAllRows);
 
-    const parentSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
+    const ancestorSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
 
     const checkBoxSelector = {
       elementProperties: {
         metadata: Table.CHECKBOX_METADATA
       },
-      parentProperties: parentSelector.elementProperties
+      ancestorProperties: ancestorSelector.elementProperties
     };
 
     await ui5.userInteraction.check(checkBoxSelector);
@@ -458,7 +458,7 @@ export class Table {
       elementProperties: {
         metadata: Table.CHECKBOX_METADATA
       },
-      parentProperties: {
+      ancestorProperties: {
         metadata: Table.COLUMN_LIST_ITEM_METADATA,
         ancestorProperties: ancestorSelector.elementProperties
       }
@@ -485,13 +485,13 @@ export class Table {
   async deselectAllRows(tableSelectorOrId: Ui5Selector | string) {
     this.vlf.initLog(this.selectAllRows);
 
-    const parentSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
+    const ancestorSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
 
     const checkBoxSelector = {
       elementProperties: {
         metadata: Table.CHECKBOX_METADATA
       },
-      parentProperties: parentSelector.elementProperties
+      ancestorProperties: ancestorSelector.elementProperties
     };
 
     await ui5.userInteraction.uncheck(checkBoxSelector);
@@ -928,14 +928,14 @@ export class Table {
           elementProperties: {
             metadata: Table.CHECKBOX_METADATA
           },
-          parentProperties: rowSelector.elementProperties
+          ancestorProperties: rowSelector.elementProperties
         };
       case "ui5RadioButton":
         return {
           elementProperties: {
             metadata: "sap.m.RadioButton"
           },
-          parentProperties: rowSelector.elementProperties
+          ancestorProperties: rowSelector.elementProperties
         };
       case "cssItem":
         return `[data-sap-ui-related = '${rowSelector.elementProperties.id}'] [role='gridcell']`;
