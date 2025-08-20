@@ -24,6 +24,7 @@
   ],
   "scripts": {
     "prepare": "npm run build",
+    "prepublishOnly": "npm run generate-json-docs",
     "clean": "npx rimraf lib",
     "lint": "eslint .",
     "lint:fix": "npx eslint . --fix",
