@@ -102,7 +102,7 @@ export class DateModule {
   // =================================== HELPER ===================================
   private async _constructDatePickerSelector(params: DatePickerSelectorParams) {
     let id = await ui5.element.getId(params.selector, params.index);
-    if (params.selector.elementProperties.metadata === "sap.ui.core.Icon") {
+    if ((params.selector as ElementProperties).elementProperties.metadata === "sap.ui.core.Icon") {
       id = id.replace("-icon", "");
     }
     return {
@@ -115,7 +115,7 @@ export class DateModule {
 
   private async _openDatePicker(selector: Ui5Selector) {
     const vl = this.vlf.initLog(this._openDatePicker);
-    const id = selector.elementProperties.id;
+    const id = (selector as ElementProperties).elementProperties.id;
     const icon = await nonUi5.element.getById(`${id}-icon`);
     await nonUi5.userInteraction.click(icon);
   }
@@ -127,7 +127,7 @@ export class DateModule {
 
     let found = false;
 
-    const id = selector.elementProperties.id;
+    const id = (selector as ElementProperties).elementProperties.id;
 
     const value = await ui5.element.getValue(selector);
 
