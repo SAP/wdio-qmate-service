@@ -903,7 +903,7 @@ export class Table {
         },
         {
           type: "cssItem",
-          selector: `[data-sap-ui-related='${id}'][role='row'] [role='gridcell']`
+          selector: `[data-sap-ui-related='${id}'] [role='gridcell']`
         }
       ];
 
