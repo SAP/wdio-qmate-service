@@ -50,6 +50,9 @@ function generateModuleDoc(namespace, module) {
   const regex = new RegExp(/\/\*\*(?:(?!\*\/)[\s\S])*@function([\s\S]*?)\*\//, "g");
   const jsDocs = fileContent.match(regex);
   reuseApiJson[namespace][module] = {};
+  if (!jsDocs) {
+    return;
+  }
   for (const jsDoc of jsDocs) {
     parseAndUpdateModuleDoc(namespace, module, jsDoc);
   }
@@ -78,7 +81,7 @@ function startsWithCapital(word) {
 function parseAndWriteModuleDoc(namespace, module, jsDoc) {
   const functionAst = doctrine.parse(jsDoc, { unwrap: true, sloppy: true });
   const functionName = getFunctionName(functionAst);
-  if (functionName) {
+  if (functionName && !functionName.startsWith("_")) {
     reuseApiJson[namespace][module][functionName] = formatFunctionAst(functionAst);
   }
 }

@@ -40,6 +40,7 @@ Global namespace for common modules.
         * [.expectDefined(value)](#common.assertion.expectDefined)
         * [.expectUndefined(value)](#common.assertion.expectUndefined)
         * [.expectUrlToBe()](#common.assertion.expectUrlToBe)
+        * [.expectToContain(value1, value2)](#common.assertion.expectToContain)
     * [.date](#common.date)
         * [.getToday([format])](#common.date.getToday) ⇒ <code>String</code>
         * [.getTomorrow([format])](#common.date.getTomorrow) ⇒ <code>String</code>
@@ -54,7 +55,6 @@ Global namespace for common modules.
     * [.navigation](#common.navigation)
         * [.navigateToUrl(url)](#common.navigation.navigateToUrl)
         * [.navigateToUrlAndRetry(url, [retries], [interval])](#common.navigation.navigateToUrlAndRetry)
-    * [.time](#common.time)
     * [.userInteraction](#common.userInteraction)
         * [.fillActive(value)](#common.userInteraction.fillActive)
         * [.fillActiveAndRetry(value, [retries], [interval])](#common.userInteraction.fillActiveAndRetry)
@@ -82,6 +82,7 @@ Global namespace for common modules.
     * [.expectDefined(value)](#common.assertion.expectDefined)
     * [.expectUndefined(value)](#common.assertion.expectUndefined)
     * [.expectUrlToBe()](#common.assertion.expectUrlToBe)
+    * [.expectToContain(value1, value2)](#common.assertion.expectToContain)
 
 <a name="common.assertion.expectEqual"></a>
 
@@ -184,6 +185,22 @@ Expects the url to be the passed value.
 **Example**  
 ```js
 await common.assertion.expectUrlToBe("www.sap.com");
+```
+<a name="common.assertion.expectToContain"></a>
+
+#### assertion.expectToContain(value1, value2)
+Expects the first passed value to contain the second passed value, after normalizing whitespace.
+
+**Kind**: static method of [<code>assertion</code>](#common.assertion)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value1 | <code>string</code> | The string expected to contain value2. |
+| value2 | <code>string</code> | The string expected to be found within value1. |
+
+**Example**  
+```js
+await common.assertion.expectToContain("foo bar baz", "bar");
 ```
 <a name="common.date"></a>
 
@@ -449,10 +466,6 @@ Navigates to the passed url and retries the function in case of a failure.
 ```js
 await common.navigation.navigateToUrlAndRetry("www.sap.com");
 ```
-<a name="common.time"></a>
-
-### common.time
-**Kind**: static class of [<code>common</code>](#common)  
 <a name="common.userInteraction"></a>
 
 ### common.userInteraction
@@ -539,7 +552,7 @@ await common.userInteraction.clearAndFillActiveAndRetry("My Value");
 <a name="common.userInteraction.pressKey"></a>
 
 #### userInteraction.pressKey(keys)
-Performs the specified keypress. Possible values: https://w3c.github.io/webdriver/#keyboard-actions
+Performs the specified keypress. Possible values: <a href="https://w3c.github.io/webdriver/#keyboard-actions" target="_blank">WebDriver Keyboard Actions</a>
 
 **Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
 
@@ -5915,6 +5928,7 @@ Global namespace for service modules.
         * [.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])](#service.odata.getEntitySet) ⇒ <code>Promise</code>
         * [.post(srv, entitySet, payload, [raw], [headers], [queryParams])](#service.odata.post) ⇒ <code>Promise</code>
         * [.merge(srv, entitySet, payload, [headers])](#service.odata.merge) ⇒ <code>Promise</code>
+        * [.patch(srv, entitySet, payload, [headers])](#service.odata.patch) ⇒ <code>Promise</code>
         * [.delete(srv, entitySet, options, [headers])](#service.odata.delete) ⇒ <code>Promise</code>
         * [.callFunctionImport(srv, functionImportName, options)](#service.odata.callFunctionImport) ⇒ <code>Promise</code>
         * [.isFeatureToggleActivated(srv, featureName)](#service.odata.isFeatureToggleActivated) ⇒ <code>Promise</code>
@@ -5939,6 +5953,7 @@ Global namespace for service modules.
     * [.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])](#service.odata.getEntitySet) ⇒ <code>Promise</code>
     * [.post(srv, entitySet, payload, [raw], [headers], [queryParams])](#service.odata.post) ⇒ <code>Promise</code>
     * [.merge(srv, entitySet, payload, [headers])](#service.odata.merge) ⇒ <code>Promise</code>
+    * [.patch(srv, entitySet, payload, [headers])](#service.odata.patch) ⇒ <code>Promise</code>
     * [.delete(srv, entitySet, options, [headers])](#service.odata.delete) ⇒ <code>Promise</code>
     * [.callFunctionImport(srv, functionImportName, options)](#service.odata.callFunctionImport) ⇒ <code>Promise</code>
     * [.isFeatureToggleActivated(srv, featureName)](#service.odata.isFeatureToggleActivated) ⇒ <code>Promise</code>
@@ -6098,6 +6113,32 @@ const res = await service.odata.merge(srv, "A_PurchaseOrderScheduleLine", {
  "PurchasingDocumentItem": "10",
  "ScheduleLine": "1",
  "ScheduleLineDeliveryDate": new Date()
+};
+```
+<a name="service.odata.patch"></a>
+
+#### odata.patch(srv, entitySet, payload, [headers]) ⇒ <code>Promise</code>
+@description Sends a PATCH request to patch data from the specified OData entity set for the given payload.
+
+**Kind**: static method of [<code>odata</code>](#service.odata)  
+**Returns**: <code>Promise</code> - A Promise that resolves to the response data.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| srv | <code>Object</code> | Instance of the service |
+| entitySet | <code>String</code> | The entitySet you want to PATCH in. |
+| payload | <code>Object</code> | The payload of the PATCH request. |
+| [headers] | <code>Object</code> | Optional headers to be included in the request. |
+
+**Example**  
+```js
+const res = await service.odata.patch(srv, "ContractAccountPartner", {
+ "ContractAccount": "",
+ "BusinessPartner": "",
+ "DraftUUID": "42010aef-80aa-1fd0-8ec3-a11a9c56c3d3",
+ "IsActiveEntity": "false",
+ "CACompanyCodeGroup": "3910",
+ "CAStandardCompanyCode": "3910"
 };
 ```
 <a name="service.odata.delete"></a>
