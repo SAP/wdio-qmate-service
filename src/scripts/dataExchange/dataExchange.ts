@@ -32,7 +32,7 @@ class DataExchange {
 
     // copy filenames, since the user will overwrite browser.params.export with data
     // the filenames are required to write the json data at end of session
-    const exportParams = browser.params.export;
+    const exportParams = { ...config.params.export };
     if (exportParams) {
       await readExportParams(config, exportParams);
     }
