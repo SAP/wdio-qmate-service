@@ -276,14 +276,14 @@ export class Table {
     }
 
     const constructedTableSelector = await this._constructTableSelector(tableSelectorOrId);
-    const tableMetadata = constructedTableSelector.elementProperties.metadata;
+    const tableMetadata = (constructedTableSelector as ElementProperties).elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
     let filteredRowIds = null;
     try {
       // =========================== BROWSER COMMAND ===========================
       const browserCommand = `
          ${classCode}
-          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
+          const table = TableHelper.filterTableByMetadata("${(constructedTableSelector as ElementProperties).elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
           const items = TableHelper.getItems(table);
           const filteredItems = TableHelper.filterItemsWithoutTitle(items);
           return await TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting});
@@ -322,14 +322,14 @@ export class Table {
 
     const constructedTableSelector = await this._constructTableSelector(tableSelectorOrId);
     let filteredRowId: string;
-    const tableMetadata = constructedTableSelector.elementProperties.metadata;
+    const tableMetadata = (constructedTableSelector as ElementProperties).elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
 
     try {
       // =========================== BROWSER COMMAND ===========================
       const browserCommand = `
           ${classCode}
-          const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
+          const table = TableHelper.filterTableByMetadata("${(constructedTableSelector as ElementProperties).elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
           const items = TableHelper.getItems(table);
 
           if (!items || !items[${index}]) return null;
@@ -356,7 +356,7 @@ export class Table {
     this.vlf.initLog(this.getAllColumnValuesByName);
 
     const constructedTableSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
-    const tableMetadata = constructedTableSelector.elementProperties.metadata;
+    const tableMetadata = (constructedTableSelector as ElementProperties).elementProperties.metadata;
 
     const classCode = TableHelper.serializeClass();
     let values: Array<string> = [];
@@ -364,7 +364,7 @@ export class Table {
       // =========================== BROWSER COMMAND ===========================
       const browserCommand = `
         ${classCode}
-        const table = TableHelper.filterTableByMetadata("${constructedTableSelector.elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
+        const table = TableHelper.filterTableByMetadata("${(constructedTableSelector as ElementProperties).elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
         return await TableHelper.getAllColumnValuesByScrolling(table, "${columnName}", ${scrollingEnabled});
       `;
       values = await util.browser.executeScript(browserCommand);
@@ -660,7 +660,7 @@ export class Table {
       }
     } else if (typeof tableSelectorOrId === "object" && "elementProperties" in tableSelectorOrId) {
       if (
-        Table.SUPPORTED_TABLES_METADATA.includes(tableSelectorOrId.elementProperties.metadata)
+        Table.SUPPORTED_TABLES_METADATA.includes((tableSelectorOrId as ElementProperties).elementProperties.metadata)
       ) {
         return tableSelectorOrId;
       }
@@ -891,7 +891,7 @@ export class Table {
     const vl = this.vlf.initLog(this._getSelectorTypeForRowSelection);
 
     return await util.browser.executeScript((rowSelector: Ui5Selector) => {
-      const id = rowSelector.elementProperties.id;
+      const id = (rowSelector as ElementProperties).elementProperties.id;
       const selectorChecks: Array<SelectorDefinitionForSelection> = [
         {
           type: "ui5CheckBox",
@@ -938,7 +938,7 @@ export class Table {
           ancestorProperties: rowSelector.elementProperties
         };
       case "cssItem":
-        return `[data-sap-ui-related = '${rowSelector.elementProperties.id}'] [role='gridcell']`;
+        return `[data-sap-ui-related = '${(rowSelector as ElementProperties).elementProperties.id}'] [role='gridcell']`;
       case "none":
         throw new Error("No selectable CheckBox, RadioButton, or Css element found for the row.");
     }
