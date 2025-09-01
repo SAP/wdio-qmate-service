@@ -1,5 +1,6 @@
 // Qmate
-export type QmateSelectors = Record<string, Ui5Selector | Ui5DynamicSelector | CssSelector | CssDynamicSelector>;
+export type QmateSelector = Ui5Selector | Ui5DynamicSelector | CssSelector | CssDynamicSelector;
+export type QmateSelectors = Record<string, QmateSelector>;
 
 // Ui5
 export interface Ui5Selector {
@@ -17,11 +18,11 @@ export type Ui5DynamicSelector = (...args: Array<any>) => Ui5Selector;
 
 export interface ElementProperties {
   viewName?: string;
-  metadata: Ui5ControlMetadata;
+  metadata?: Ui5ControlMetadata;
   [key: string]: any;
 }
 
-export type Ui5ControlMetadata = `sap.m.${Capitalize<string>}` | `sap.ui.comp.${Lowercase<string>}.${Capitalize<string>}` | `sap.ui.${Lowercase<string>}.${Capitalize<string>}`;
+export type Ui5ControlMetadata = string;
 
 export type Ui5SelectorWithOptions = {
   selector: Ui5Selector;
