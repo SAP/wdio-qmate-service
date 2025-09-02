@@ -899,7 +899,7 @@ export class Table {
         },
         {
           type: "ui5RadioButton",
-          selector: `tr[id='${id}'] [data-sap-ui*='selectSingle'][role='radio']`
+          selector: `tr[id='${id}'] [role='radio']`
         },
         {
           type: "cssItem",
