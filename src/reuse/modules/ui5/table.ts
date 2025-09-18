@@ -230,7 +230,8 @@ export class Table {
    * @description Returns the total number of rows in the table that match the given values.
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
    * @param {String | Array<String>} values - The value(s) to match in the table rows.
-   * @param {Number} [index=0] - The index of the matching row to consider.
+   * @param {Boolean} [enableHighlighting=true] - Enable or disable highlighting of found elements.
+   * @param {String} [matchMode="contains"] - The match mode for the values. Can be "contains", "exact" or "wordBoundary".
    * @returns {Number} The total number of matching rows in the table.
    * @example const selector = {
    *  elementProperties: {
@@ -242,10 +243,15 @@ export class Table {
    * const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, ["value1", "value2"]);
    * const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, "value");
    **/
-  async getTotalNumberOfRowsByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, enableHighlighting: boolean): Promise<number> {
+  async getTotalNumberOfRowsByValues(
+    tableSelectorOrId: Ui5Selector | string,
+    values: string | Array<string>,
+    enableHighlighting: boolean = true,
+    matchMode: "contains" | "exact" | "wordBoundary" = "contains"
+  ): Promise<number> {
     this.vlf.initLog(this.getTotalNumberOfRowsByValues);
 
-    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values, enableHighlighting);
+    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values, enableHighlighting, matchMode);
     return rowSelectors.length;
   }
 
@@ -255,6 +261,8 @@ export class Table {
    * @description Gets the selectors of rows in the table that contain the given values. If multiple values are provided, it only returns the selectors of rows that contain all of them.
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
    * @param {String | Array<String>} values - The value(s) to match in the table rows.
+   * @param {Boolean} [enableHighlighting=true] - Enable or disable highlighting of found elements.
+   * @param {String} [matchMode="contains"] - The match mode for the values. Can be "contains", "exact" or "wordBoundary".
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable"
    * await ui5.table.getSelectorsForRowsByValues(id, "February");
    * @example const selector = {
@@ -264,9 +272,14 @@ export class Table {
    *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
    *  }
    * };
-   * await ui5.table.getSelectorsForRowsByValues(selector, ["January", "2022"]);
+   * await ui5.table.getSelectorsForRowsByValues(selector, ["January", "2022"], true, "exact");
    */
-  async getSelectorsForRowsByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, enableHighlighting: boolean = true): Promise<Array<Ui5Selector>> {
+  async getSelectorsForRowsByValues(
+    tableSelectorOrId: Ui5Selector | string,
+    values: string | Array<string>,
+    enableHighlighting: boolean = true,
+    matchMode: "contains" | "exact" | "wordBoundary" = "contains"
+  ): Promise<Array<Ui5Selector>> {
     this.vlf.initLog(this.getSelectorsForRowsByValues);
 
     if (typeof values === "string") {
@@ -286,7 +299,7 @@ export class Table {
           const table = TableHelper.filterTableByMetadata("${(constructedTableSelector as ElementProperties).elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
           const items = TableHelper.getItems(table);
           const filteredItems = TableHelper.filterItemsWithoutTitle(items);
-          return await TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting});
+          return await TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting}, "${matchMode}");
       `;
       filteredRowIds = await util.browser.executeScript(browserCommand);
       // ========================================================================
@@ -541,6 +554,8 @@ export class Table {
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
    * @param {String | Array<String>} values - The value(s) to match in the table rows.
    * @param {Number} [index=0] - The index of the matching row to consider.
+   * @param {Boolean} [enableHighlighting=true] - Enable or disable highlighting of found elements.
+   * @param {String} [matchMode="contains"] - The match mode for the values. Can be "contains", "exact" or "wordBoundary".
    * @example const selector = {
    *  elementProperties: {
    *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
@@ -552,10 +567,16 @@ export class Table {
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
    * await ui5.table.openItemByValues(id, "value");
    */
-  async openItemByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, index: number = 0, enableHighlighting: boolean) {
+  async openItemByValues(
+    tableSelectorOrId: Ui5Selector | string,
+    values: string | Array<string>,
+    index: number = 0,
+    enableHighlighting: boolean = true,
+    matchMode: "contains" | "exact" | "wordBoundary" = "contains"
+  ) {
     this.vlf.initLog(this.openItemByValues);
 
-    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values, enableHighlighting);
+    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values, enableHighlighting, matchMode);
     if (rowSelectors.length === 0) {
       return this.ErrorHandler.logException(new Error(`No items found with the provided values: ${values}.`));
     } else if (rowSelectors.length <= index) {
