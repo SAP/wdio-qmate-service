@@ -170,6 +170,7 @@ export class TableHelper {
       return targetValues.every((val) =>
         cells.some((cell: any) => {
           const domRef = cell.getDomRef();
+          //TODO: Discuss include since it's causing errors in some cases. E.g.: searching for 1 digit numerics and timestamps in createdAt etc. are displayed as well.
           return domRef && domRef.innerText && domRef.innerText.includes(val);
         })
       );
