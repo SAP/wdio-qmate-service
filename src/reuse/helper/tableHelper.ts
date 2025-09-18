@@ -189,7 +189,7 @@ export class TableHelper {
             }
             case "contains":
             default:
-              return cellText.includes(val); // Original behavior
+              return cellText.includes(val);
           }
         })
       );
