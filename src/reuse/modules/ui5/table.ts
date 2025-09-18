@@ -396,19 +396,8 @@ export class Table {
   async selectRowByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
     this.vlf.initLog(this.selectRowByIndex);
 
-    const ancestorSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
-
-    const checkBoxSelector = {
-      elementProperties: {
-        metadata: Table.CHECKBOX_METADATA
-      },
-      ancestorProperties: {
-        metadata: Table.COLUMN_LIST_ITEM_METADATA,
-        ancestorProperties: ancestorSelector.elementProperties
-      }
-    };
-
-    await ui5.userInteraction.check(checkBoxSelector, index);
+    const rowSelector = await this.getSelectorForRowByIndex(tableSelectorOrId, index);
+    await this._selectRow(rowSelector);
   }
 
   /**
@@ -527,22 +516,7 @@ export class Table {
       return this.ErrorHandler.logException(new Error(`No row found with the provided values: ${values} at global index ${index}.`));
     }
 
-    const selectorType = await this._getSelectorTypeForRowSelection(visibleRowSelectors[index]);
-    const selectionSelector = this._buildRowSelectionSelector(selectorType, visibleRowSelectors[index]);
-
-    switch (selectorType) {
-      case "ui5CheckBox":
-      case "ui5RadioButton":
-        await ui5.element.waitForAll(visibleRowSelectors[index]);
-        await ui5.userInteraction.check(selectionSelector);
-        break;
-      case "cssItem":
-        await nonUi5.element.waitForAll(selectionSelector);
-        await this._checkCssItem(selectionSelector);
-        break;
-      default:
-        throw new Error("No selectable element found for the row.");
-    }
+    await this._selectRow(visibleRowSelectors[index]);
   }
 
   // =================================== OPEN OPERATIONS ===================================
@@ -941,6 +915,27 @@ export class Table {
         return `[data-sap-ui-related = '${(rowSelector as ElementProperties).elementProperties.id}'] [role='gridcell']`;
       case "none":
         throw new Error("No selectable CheckBox, RadioButton, or Css element found for the row.");
+    }
+  }
+
+  private async _selectRow(rowSelector: Ui5Selector): Promise<void> {
+    const vl = this.vlf.initLog(this._selectRow);
+
+    const selectorType = await this._getSelectorTypeForRowSelection(rowSelector);
+    const selectionSelector = this._buildRowSelectionSelector(selectorType, rowSelector);
+
+    switch (selectorType) {
+      case "ui5CheckBox":
+      case "ui5RadioButton":
+        await ui5.element.waitForAll(rowSelector);
+        await ui5.userInteraction.check(selectionSelector);
+        break;
+      case "cssItem":
+        await nonUi5.element.waitForAll(selectionSelector);
+        await this._checkCssItem(selectionSelector as CssSelector);
+        break;
+      default:
+        throw new Error("No selectable element found for the row.");
     }
   }
 
