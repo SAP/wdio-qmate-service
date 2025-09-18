@@ -440,20 +440,10 @@ export class Table {
    * await ui5.table.deselectRowByIndex(id, 0);
    */
   async deselectRowByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
-    this.vlf.initLog(this.selectRowByIndex);
-    const ancestorSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
+    this.vlf.initLog(this.deselectRowByIndex);
 
-    const checkBoxSelector = {
-      elementProperties: {
-        metadata: Table.CHECKBOX_METADATA
-      },
-      ancestorProperties: {
-        metadata: Table.COLUMN_LIST_ITEM_METADATA,
-        ancestorProperties: ancestorSelector.elementProperties
-      }
-    };
-
-    await ui5.userInteraction.uncheck(checkBoxSelector, index);
+    const rowSelector = await this.getSelectorForRowByIndex(tableSelectorOrId, index);
+    await this._selectRow(rowSelector, false);
   }
 
   /**
@@ -918,7 +908,7 @@ export class Table {
     }
   }
 
-  private async _selectRow(rowSelector: Ui5Selector): Promise<void> {
+  private async _selectRow(rowSelector: Ui5Selector, check: boolean = true): Promise<void> {
     const vl = this.vlf.initLog(this._selectRow);
 
     const selectorType = await this._getSelectorTypeForRowSelection(rowSelector);
@@ -926,25 +916,30 @@ export class Table {
 
     switch (selectorType) {
       case "ui5CheckBox":
+        await ui5.element.waitForAll(rowSelector);
+        if (check) {
+          await ui5.userInteraction.check(selectionSelector);
+        } else {
+          await ui5.userInteraction.uncheck(selectionSelector);
+        }
+        break;
       case "ui5RadioButton":
         await ui5.element.waitForAll(rowSelector);
+        if (!check) {
+          throw new Error("Unselecting is not supported for RadioButton-based selection.");
+        }
         await ui5.userInteraction.check(selectionSelector);
         break;
       case "cssItem":
         await nonUi5.element.waitForAll(selectionSelector);
-        await this._checkCssItem(selectionSelector as CssSelector);
+        if (check) {
+          await nonUi5.userInteraction.check(selectionSelector as CssSelector);
+        } else {
+          await nonUi5.userInteraction.uncheck(selectionSelector as CssSelector);
+        }
         break;
       default:
         throw new Error("No selectable element found for the row.");
-    }
-  }
-
-  // TODO: Move to separate public function under nonUi5.userInteraction.check
-  private async _checkCssItem(selectionSelector: CssSelector) {
-    const element = await nonUi5.element.getByCss(selectionSelector);
-    const isSelected = await nonUi5.element.getAttributeValue(element, "aria-selected");
-    if (isSelected === "false") {
-      await nonUi5.userInteraction.click(element);
     }
   }
 }
