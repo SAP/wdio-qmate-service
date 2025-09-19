@@ -272,6 +272,8 @@ export class Table {
    *    id: "application-ReportingTask-run-component---ReportList--ReportingTable"
    *  }
    * };
+   * await ui5.table.getSelectorsForRowsByValues(selector, ["January", "2022"]);
+   * @example
    * await ui5.table.getSelectorsForRowsByValues(selector, ["January", "2022"], true, "exact");
    */
   async getSelectorsForRowsByValues(
