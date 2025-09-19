@@ -1,4 +1,4 @@
-import { Ui5ControlMetadata } from "../modules/ui5/types/ui5.types";
+import { Ui5ControlMetadata, MatchMode } from "../modules/ui5/types/ui5.types";
 
 export class TableHelper {
   static getTable(tableId: string): any {
@@ -168,7 +168,7 @@ export class TableHelper {
     rows: any,
     targetValues: string[],
     enableHighlighting = true,
-    matchMode: "contains" | "exact" | "wordBoundary" = "contains"
+    matchMode: MatchMode = "contains"
   ): Promise<string[] | undefined> {
     const matchedRows = rows.filter((row: any) => {
       const cells = row.getCells();
