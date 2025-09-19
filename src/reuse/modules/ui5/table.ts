@@ -568,6 +568,8 @@ export class Table {
    * await ui5.table.openItemByValues(selector, ["value1", "value2"]);
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
    * await ui5.table.openItemByValues(id, "value");
+   * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+   * await ui5.table.openItemByValues(id, "value", 0, false, "exact");
    */
   async openItemByValues(
     tableSelectorOrId: Ui5Selector | string,
