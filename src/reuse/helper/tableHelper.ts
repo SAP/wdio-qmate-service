@@ -164,13 +164,33 @@ export class TableHelper {
     return items.filter((item) => item.getTitle === undefined || item.getTitle() === "");
   }
 
-  static async getIdsForItemsByCellValues(rows: any, targetValues: string[], enableHighlighting = true): Promise<string[] | undefined> {
+  static async getIdsForItemsByCellValues(
+    rows: any,
+    targetValues: string[],
+    enableHighlighting = true,
+    matchMode: "contains" | "exact" | "wordBoundary" = "contains"
+  ): Promise<string[] | undefined> {
     const matchedRows = rows.filter((row: any) => {
       const cells = row.getCells();
       return targetValues.every((val) =>
         cells.some((cell: any) => {
           const domRef = cell.getDomRef();
-          return domRef && domRef.innerText && domRef.innerText.includes(val);
+          if (!domRef || !domRef.innerText) return false;
+
+          const cellText = domRef.innerText;
+
+          switch (matchMode) {
+            case "exact":
+              return cellText.trim() === val.trim();
+            case "wordBoundary": {
+              const escapedVal = val.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+              const regex = new RegExp(`\\b${escapedVal}\\b`, "i");
+              return regex.test(cellText);
+            }
+            case "contains":
+            default:
+              return cellText.includes(val);
+          }
         })
       );
     });

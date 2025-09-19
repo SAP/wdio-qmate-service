@@ -230,7 +230,8 @@ export class Table {
    * @description Returns the total number of rows in the table that match the given values.
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
    * @param {String | Array<String>} values - The value(s) to match in the table rows.
-   * @param {Number} [index=0] - The index of the matching row to consider.
+   * @param {Boolean} [enableHighlighting=true] - Enable or disable highlighting of found elements.
+   * @param {String} [matchMode="contains"] - The match mode for the values. Can be "contains", "exact" or "wordBoundary".
    * @returns {Number} The total number of matching rows in the table.
    * @example const selector = {
    *  elementProperties: {
@@ -242,10 +243,15 @@ export class Table {
    * const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, ["value1", "value2"]);
    * const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, "value");
    **/
-  async getTotalNumberOfRowsByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, enableHighlighting: boolean): Promise<number> {
+  async getTotalNumberOfRowsByValues(
+    tableSelectorOrId: Ui5Selector | string,
+    values: string | Array<string>,
+    enableHighlighting: boolean = true,
+    matchMode: "contains" | "exact" | "wordBoundary" = "contains"
+  ): Promise<number> {
     this.vlf.initLog(this.getTotalNumberOfRowsByValues);
 
-    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values, enableHighlighting);
+    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values, enableHighlighting, matchMode);
     return rowSelectors.length;
   }
 
@@ -255,6 +261,8 @@ export class Table {
    * @description Gets the selectors of rows in the table that contain the given values. If multiple values are provided, it only returns the selectors of rows that contain all of them.
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
    * @param {String | Array<String>} values - The value(s) to match in the table rows.
+   * @param {Boolean} [enableHighlighting=true] - Enable or disable highlighting of found elements.
+   * @param {String} [matchMode="contains"] - The match mode for the values. Can be "contains", "exact" or "wordBoundary".
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable"
    * await ui5.table.getSelectorsForRowsByValues(id, "February");
    * @example const selector = {
@@ -265,8 +273,15 @@ export class Table {
    *  }
    * };
    * await ui5.table.getSelectorsForRowsByValues(selector, ["January", "2022"]);
+   * @example
+   * await ui5.table.getSelectorsForRowsByValues(selector, ["January", "2022"], true, "exact");
    */
-  async getSelectorsForRowsByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, enableHighlighting: boolean = true): Promise<Array<Ui5Selector>> {
+  async getSelectorsForRowsByValues(
+    tableSelectorOrId: Ui5Selector | string,
+    values: string | Array<string>,
+    enableHighlighting: boolean = true,
+    matchMode: "contains" | "exact" | "wordBoundary" = "contains"
+  ): Promise<Array<Ui5Selector>> {
     this.vlf.initLog(this.getSelectorsForRowsByValues);
 
     if (typeof values === "string") {
@@ -286,7 +301,7 @@ export class Table {
           const table = TableHelper.filterTableByMetadata("${(constructedTableSelector as ElementProperties).elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
           const items = TableHelper.getItems(table);
           const filteredItems = TableHelper.filterItemsWithoutTitle(items);
-          return await TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting});
+          return await TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting}, "${matchMode}");
       `;
       filteredRowIds = await util.browser.executeScript(browserCommand);
       // ========================================================================
@@ -396,19 +411,8 @@ export class Table {
   async selectRowByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
     this.vlf.initLog(this.selectRowByIndex);
 
-    const ancestorSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
-
-    const checkBoxSelector = {
-      elementProperties: {
-        metadata: Table.CHECKBOX_METADATA
-      },
-      ancestorProperties: {
-        metadata: Table.COLUMN_LIST_ITEM_METADATA,
-        ancestorProperties: ancestorSelector.elementProperties
-      }
-    };
-
-    await ui5.userInteraction.check(checkBoxSelector, index);
+    const rowSelector = await this.getSelectorForRowByIndex(tableSelectorOrId, index);
+    await this._selectRow(rowSelector);
   }
 
   /**
@@ -451,20 +455,10 @@ export class Table {
    * await ui5.table.deselectRowByIndex(id, 0);
    */
   async deselectRowByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
-    this.vlf.initLog(this.selectRowByIndex);
-    const ancestorSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
+    this.vlf.initLog(this.deselectRowByIndex);
 
-    const checkBoxSelector = {
-      elementProperties: {
-        metadata: Table.CHECKBOX_METADATA
-      },
-      ancestorProperties: {
-        metadata: Table.COLUMN_LIST_ITEM_METADATA,
-        ancestorProperties: ancestorSelector.elementProperties
-      }
-    };
-
-    await ui5.userInteraction.uncheck(checkBoxSelector, index);
+    const rowSelector = await this.getSelectorForRowByIndex(tableSelectorOrId, index);
+    await this._selectRow(rowSelector, false);
   }
 
   /**
@@ -527,22 +521,7 @@ export class Table {
       return this.ErrorHandler.logException(new Error(`No row found with the provided values: ${values} at global index ${index}.`));
     }
 
-    const selectorType = await this._getSelectorTypeForRowSelection(visibleRowSelectors[index]);
-    const selectionSelector = this._buildRowSelectionSelector(selectorType, visibleRowSelectors[index]);
-
-    switch (selectorType) {
-      case "ui5CheckBox":
-      case "ui5RadioButton":
-        await ui5.element.waitForAll(visibleRowSelectors[index]);
-        await ui5.userInteraction.check(selectionSelector);
-        break;
-      case "cssItem":
-        await nonUi5.element.waitForAll(selectionSelector);
-        await this._checkCssItem(selectionSelector);
-        break;
-      default:
-        throw new Error("No selectable element found for the row.");
-    }
+    await this._selectRow(visibleRowSelectors[index]);
   }
 
   // =================================== OPEN OPERATIONS ===================================
@@ -577,6 +556,8 @@ export class Table {
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
    * @param {String | Array<String>} values - The value(s) to match in the table rows.
    * @param {Number} [index=0] - The index of the matching row to consider.
+   * @param {Boolean} [enableHighlighting=true] - Enable or disable highlighting of found elements.
+   * @param {String} [matchMode="contains"] - The match mode for the values. Can be "contains", "exact" or "wordBoundary".
    * @example const selector = {
    *  elementProperties: {
    *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
@@ -587,11 +568,19 @@ export class Table {
    * await ui5.table.openItemByValues(selector, ["value1", "value2"]);
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
    * await ui5.table.openItemByValues(id, "value");
+   * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+   * await ui5.table.openItemByValues(id, "value", 0, false, "exact");
    */
-  async openItemByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, index: number = 0, enableHighlighting: boolean) {
+  async openItemByValues(
+    tableSelectorOrId: Ui5Selector | string,
+    values: string | Array<string>,
+    index: number = 0,
+    enableHighlighting: boolean = true,
+    matchMode: "contains" | "exact" | "wordBoundary" = "contains"
+  ) {
     this.vlf.initLog(this.openItemByValues);
 
-    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values, enableHighlighting);
+    const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values, enableHighlighting, matchMode);
     if (rowSelectors.length === 0) {
       return this.ErrorHandler.logException(new Error(`No items found with the provided values: ${values}.`));
     } else if (rowSelectors.length <= index) {
@@ -944,12 +933,38 @@ export class Table {
     }
   }
 
-  // TODO: Move to separate public function under nonUi5.userInteraction.check
-  private async _checkCssItem(selectionSelector: CssSelector) {
-    const element = await nonUi5.element.getByCss(selectionSelector);
-    const isSelected = await nonUi5.element.getAttributeValue(element, "aria-selected");
-    if (isSelected === "false") {
-      await nonUi5.userInteraction.click(element);
+  private async _selectRow(rowSelector: Ui5Selector, check: boolean = true): Promise<void> {
+    const vl = this.vlf.initLog(this._selectRow);
+
+    const selectorType = await this._getSelectorTypeForRowSelection(rowSelector);
+    const selectionSelector = this._buildRowSelectionSelector(selectorType, rowSelector);
+
+    switch (selectorType) {
+      case "ui5CheckBox":
+        await ui5.element.waitForAll(rowSelector);
+        if (check) {
+          await ui5.userInteraction.check(selectionSelector);
+        } else {
+          await ui5.userInteraction.uncheck(selectionSelector);
+        }
+        break;
+      case "ui5RadioButton":
+        await ui5.element.waitForAll(rowSelector);
+        if (!check) {
+          throw new Error("Unselecting is not supported for RadioButton-based selection.");
+        }
+        await ui5.userInteraction.check(selectionSelector);
+        break;
+      case "cssItem":
+        await nonUi5.element.waitForAll(selectionSelector);
+        if (check) {
+          await nonUi5.userInteraction.check(selectionSelector as CssSelector);
+        } else {
+          await nonUi5.userInteraction.uncheck(selectionSelector as CssSelector);
+        }
+        break;
+      default:
+        throw new Error("No selectable element found for the row.");
     }
   }
 }
