@@ -2,7 +2,7 @@
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
-import { Ui5Selector, Ui5ControlMetadata, CssSelector } from "./types/ui5.types";
+import { Ui5Selector, Ui5ControlMetadata, CssSelector, MatchMode } from "./types/ui5.types";
 import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 import { TableHelper } from "../../helper/tableHelper";
 
@@ -247,7 +247,7 @@ export class Table {
     tableSelectorOrId: Ui5Selector | string,
     values: string | Array<string>,
     enableHighlighting: boolean = true,
-    matchMode: "contains" | "exact" | "wordBoundary" = "contains"
+    matchMode: MatchMode = "contains"
   ): Promise<number> {
     this.vlf.initLog(this.getTotalNumberOfRowsByValues);
 
@@ -280,7 +280,7 @@ export class Table {
     tableSelectorOrId: Ui5Selector | string,
     values: string | Array<string>,
     enableHighlighting: boolean = true,
-    matchMode: "contains" | "exact" | "wordBoundary" = "contains"
+    matchMode: MatchMode = "contains"
   ): Promise<Array<Ui5Selector>> {
     this.vlf.initLog(this.getSelectorsForRowsByValues);
 
@@ -576,7 +576,7 @@ export class Table {
     values: string | Array<string>,
     index: number = 0,
     enableHighlighting: boolean = true,
-    matchMode: "contains" | "exact" | "wordBoundary" = "contains"
+    matchMode: MatchMode = "contains"
   ) {
     this.vlf.initLog(this.openItemByValues);
 
