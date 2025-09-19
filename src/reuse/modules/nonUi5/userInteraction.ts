@@ -208,13 +208,6 @@ export class UserInteraction {
     }
   }
 
-  private async _isItemSelected(element: Element) {
-    const ariaSelected = await element.getAttribute("aria-selected");
-    if (ariaSelected !== null && ariaSelected !== undefined) {
-      return ariaSelected.toLowerCase() === "true";
-    }
-    return nonUi5.element.isSelected(element);
-  }
   // =================================== FILL ===================================
   /**
    * @function fill
@@ -549,6 +542,15 @@ export class UserInteraction {
     } catch (error) {
       this.ErrorHandler.logException(error);
     }
+  }
+
+  // =================================== HELPER ===================================
+  private async _isItemSelected(element: Element) {
+    const ariaSelected = await element.getAttribute("aria-selected");
+    if (ariaSelected !== null && ariaSelected !== undefined) {
+      return ariaSelected.toLowerCase() === "true";
+    }
+    return await nonUi5.element.isSelected(element);
   }
 }
 export default new UserInteraction();
