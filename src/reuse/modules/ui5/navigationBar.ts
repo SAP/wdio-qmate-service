@@ -47,7 +47,7 @@ export class NavigationBar {
       await nonUi5.userInteraction.click(selector, 500);
     }
     async function clickLogoWebComponent() {
-      const selector = ">>>span[class='ui5-shellbar-logo']";
+      const selector = "//*[contains(local-name(),'ui5-shellbar-branding')]";
       await nonUi5.userInteraction.click(selector, 500);
     }
     try {
