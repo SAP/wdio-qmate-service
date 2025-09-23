@@ -35,3 +35,6 @@ export type Ui5SelectorWithOptions = {
 export type CssSelector = string;
 
 export type CssDynamicSelector = (...args: Array<any>) => CssSelector;
+
+// Match Mode
+export type MatchMode = "contains" | "exact" | "wordBoundary";
