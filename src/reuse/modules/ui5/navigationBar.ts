@@ -89,13 +89,13 @@ export class NavigationBar {
           id: "*HeaderButton"
         }
       };
-      await ui5.userInteraction.click(selector, 0, 2500);
+      await ui5.userInteraction.click(selector, 0, 500);
     }
 
     async function clickUserIconNew() {
       // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
       const selector = ">>>[data-ui5-stable='profile']";
-      await nonUi5.userInteraction.click(selector, 2500);
+      await nonUi5.userInteraction.click(selector, 500);
     }
 
     async function clickUserIconNewNew() {
@@ -106,7 +106,7 @@ export class NavigationBar {
           id: "userActionsMenuHeaderButton"
         }
       };
-      await ui5.userInteraction.click(selector, 0, 2500);
+      await ui5.userInteraction.click(selector, 0, 500);
     }
 
     try {
