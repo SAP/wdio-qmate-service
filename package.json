@@ -139,7 +139,7 @@
     "deepmerge": "^4.3.1",
     "fs-extra": "^11.3.2",
     "node-localstorage": "^3.0.5",
-    "pdf-parse": "^2.3.11",
+    "pdf-parse": "^1.1.1",
     "qcrypt": "file:packages/qcrypt",
     "query-string": "^9.3.1",
     "sha.js": "^2.4.12",
