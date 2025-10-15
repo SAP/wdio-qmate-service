@@ -89,13 +89,24 @@ export class NavigationBar {
           id: "*HeaderButton"
         }
       };
-      await ui5.userInteraction.click(selector, 0, 500);
+      await ui5.userInteraction.click(selector, 0, 2500);
     }
 
     async function clickUserIconNew() {
       // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
       const selector = ">>>[data-ui5-stable='profile']";
-      await nonUi5.userInteraction.click(selector, 500);
+      await nonUi5.userInteraction.click(selector, 2500);
+    }
+
+    async function clickUserIconNewNew() {
+      const selector = {
+        elementProperties: {
+          viewName: "sap.ushell.components.shell.ShellBar.view.ShellBar",
+          metadata: "sap.ushell.gen.ui5.webcomponents.dist.Avatar",
+          id: "userActionsMenuHeaderButton"
+        }
+      };
+      await ui5.userInteraction.click(selector, 0, 2500);
     }
 
     try {
@@ -103,7 +114,7 @@ export class NavigationBar {
       await browser.waitUntil(
         async () => {
           try {
-            await Promise.any([clickUserIconOld(), clickUserIconNew()]);
+            await Promise.any([clickUserIconOld(), clickUserIconNew(), clickUserIconNewNew()]);
             return true;
           } catch (error) {
             // Ignore error and continue to next promise
