@@ -81,8 +81,8 @@ export class NavigationBar {
    */
   async clickUserIcon(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickUserIcon);
-
-    async function clickUserIconOld() {
+    // There are three different user icon implementations, some are still used in "older" systems, by time we can remove the legacy ones.
+    async function clickLegacyUserAvatar() {
       const selector = {
         elementProperties: {
           metadata: "sap.m.Avatar",
@@ -92,13 +92,13 @@ export class NavigationBar {
       await ui5.userInteraction.click(selector, 0, 500);
     }
 
-    async function clickUserIconNew() {
+    async function clickWebComponentUserProfile() {
       // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
       const selector = ">>>[data-ui5-stable='profile']";
       await nonUi5.userInteraction.click(selector, 500);
     }
 
-    async function clickUserIconNewNew() {
+    async function clickShellBarUserAvatar() {
       const selector = {
         elementProperties: {
           viewName: "sap.ushell.components.shell.ShellBar.view.ShellBar",
@@ -114,7 +114,7 @@ export class NavigationBar {
       await browser.waitUntil(
         async () => {
           try {
-            await Promise.any([clickUserIconOld(), clickUserIconNew(), clickUserIconNewNew()]);
+            await Promise.any([clickLegacyUserAvatar(), clickWebComponentUserProfile(), clickShellBarUserAvatar()]);
             return true;
           } catch (error) {
             // Ignore error and continue to next promise
