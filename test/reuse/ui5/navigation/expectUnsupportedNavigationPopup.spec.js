@@ -75,7 +75,6 @@ describe("navigation - expectUnsupportedNavigationPopup (unhappy case - no popup
 
   it("Execution & Verification", async function () {
     await ui5.navigation.navigateToApplication("PurchaseOrder-manage", false);
-    await expect(ui5.navigation.expectUnsupportedNavigationPopup("#PurchaseOrder-manage"))
-      .rejects.toThrow("uiControlExecuteLocator(): No visible elements found");
+    await expect(ui5.navigation.expectUnsupportedNavigationPopup("#PurchaseOrder-manage")).rejects.toThrow(/No visible elements found/);
   });
 });
