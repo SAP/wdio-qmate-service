@@ -87,7 +87,11 @@ export class ElementModule {
         }
       );
     } catch (error) {
-      this.ErrorHandler.logException(new Error(), `Index out of bound. Trying to access element at index: ${index}, ` + `but there are only ${elems.length} element(s) that match locator ${JSON.stringify(selector)}`);
+      if(index === 0){
+        this.ErrorHandler.logException(new Error(), `No visible elements found with selector: ${JSON.stringify(selector)}`);
+      } else {
+        this.ErrorHandler.logException(new Error(), `Index out of bound. Trying to access element at index: ${index}, ` + `but there are only ${elems.length} element(s) that match locator ${JSON.stringify(selector)}`);
+      }
     }
     return elems[index];
   }
