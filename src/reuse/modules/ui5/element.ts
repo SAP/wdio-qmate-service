@@ -74,21 +74,20 @@ export class ElementModule {
       this.ErrorHandler.logException(new Error(), `Index out of bound. Trying to access element at index: ${index}`);
     }
     // retry until enough elements are found or timeout occurs
-    let elems = [];
-    const startTime = Date.now();
-    while (true) {
-      elems = await browser.uiControls(selector, timeout);
-      if (elems.length > index) {
-        break;
-      }
-      if (Date.now() - startTime > timeout) {
-        this.ErrorHandler.logException(
-          new Error(),
-          `Timeout: Cannot get element at index ${index}. Only ${elems.length} elements found with the given selector: ${JSON.stringify(selector)}`
-        );
-        break;
-      }
-      await browser.pause(500); // wait before retrying
+    let elems: any[] = [];
+    try {
+      await browser.waitUntil(
+        async () => {
+          elems = await browser.uiControls(selector, timeout);
+          return elems.length > index;
+        },
+        {
+          timeout,
+          interval: 500
+        }
+      );
+    } catch (error) {
+      this.ErrorHandler.logException(new Error(), `Timeout: Cannot get element at index ${index}. Only ${elems.length} elements found with the given selector: ${JSON.stringify(selector)}`);
     }
     return elems[index];
   }
