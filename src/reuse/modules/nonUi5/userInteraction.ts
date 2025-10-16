@@ -173,7 +173,7 @@ export class UserInteraction {
     try {
       const element = await resolveCssSelectorOrElement(elementOrSelector);
 
-      const isSelected: boolean = await nonUi5.element.isSelected(element);
+      const isSelected: boolean = await this._isItemSelected(element);
       if (!isSelected) {
         await this.click(element);
       } else {
@@ -192,12 +192,12 @@ export class UserInteraction {
    * @example await nonUi5.userInteraction.uncheck(selector);
    */
   async uncheck(elementOrSelector: Element | string) {
-    const vl = this.vlf.initLog(this.check);
+    const vl = this.vlf.initLog(this.uncheck);
 
     try {
       const element = await resolveCssSelectorOrElement(elementOrSelector);
 
-      const isSelected: boolean = await nonUi5.element.isSelected(element);
+      const isSelected: boolean = await this._isItemSelected(element);
       if (isSelected) {
         await this.click(element);
       } else {
@@ -542,6 +542,15 @@ export class UserInteraction {
     } catch (error) {
       this.ErrorHandler.logException(error);
     }
+  }
+
+  // =================================== HELPER ===================================
+  private async _isItemSelected(element: Element) {
+    const ariaSelected = await element.getAttribute("aria-selected");
+    if (ariaSelected !== null && ariaSelected !== undefined) {
+      return ariaSelected.toLowerCase() === "true";
+    }
+    return await nonUi5.element.isSelected(element);
   }
 }
 export default new UserInteraction();

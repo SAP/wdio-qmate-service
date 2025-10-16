@@ -112,4 +112,29 @@ describe("table - getTotalNumberOfRowsByValues - unhappy case- 0 matches", funct
     const expNumberOfTableRows = 0;
     await common.assertion.expectEqual(actNumberOfTableRows, expNumberOfTableRows);
   });
+
+});
+
+describe("table - getTotalNumberOfRowsByValues - sap.ui.table.TreeTable - single value as an Array", function () {
+  let rowCount;
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.table.TreeTable/sample/sap.ui.table.sample.TreeTable.HierarchyMaintenanceJSONTreeBinding");
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+  });
+
+  it("Execution", async function () {
+    const treeTableSelector = {
+      elementProperties: {
+        viewName: "sap.ui.table.sample.TreeTable.HierarchyMaintenanceJSONTreeBinding.View",
+        metadata: "sap.ui.table.TreeTable"
+      }
+    };
+    const categoryName = ["Men"];
+    rowCount = await ui5.table.getTotalNumberOfRowsByValues(treeTableSelector, categoryName);
+  });
+
+  it("Verification", async function () {
+    await expect(rowCount).toBe(1);
+  });
 });

@@ -1,8 +1,9 @@
 "use strict";
 
-import { DateFormats } from "./constants/formatter.constants";
-import { DateFormatsType } from "./types/formatter.types";
+import { DateFormats, TimeFormats } from "./constants/formatter.constants";
+import { DateFormatsType, DateTimeFormatsType, TimeFormatsType } from "./types/formatter.types";
 import ErrorHandler from "../../helper/errorHandler";
+import { DateTimeFormatParser } from "../../helper/dateTimeFormatParser";
 
 /**
  * @class formatter
@@ -133,7 +134,8 @@ export class Formatter {
    * @memberOf util.formatter
    * @description formats date.
    * @param {Date} date - The date object to be formatted.
-   * @param {String} format - The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "mmm d, yyyy", "datetime", "object").
+   * @param {String} format - The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd",
+   * "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object").
    * @param {String} [locale="en-US"] - The locale format of the date. E.g. "en-US", "de-DE", etc.
    * @returns {String} The formatted date as string.
    * @example const date = new Date(2020, 0, 17);
@@ -233,6 +235,86 @@ export class Formatter {
     }
 
     return formattedDate;
+  }
+
+  /**
+   * @function formatDateWithTime
+   * @memberOf util.formatter
+   * @description formats date with time.
+   * @param {Date} date - The date object to be formatted.
+   * @param {String} format - The expected format ("datetime", "object", "mm/dd/yyyy HH\:mm:ss", "dd.mm.yyyy h\:mm:ss a", "dd/mm/yyyy HH\:mm:ss z", "yyyymmdd h\:mm:ss a z", "yyyy/mm/dd HH\:mm", "mmm dd, yyyy h\:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a", etc.).<br>
+   * See the `format` argument of the {@link common.date.calculateWithTime} function for more details on the available formats.
+   * @param {String} [locale="en-US"] - The locale format of the date. E.g. "en-US", "de-DE", etc.
+   * @returns {String|Date} The formatted date with time as string or date object.
+   * @example const date = new Date(2020, 0, 17, 15, 30, 45);
+   * const formattedDate = util.formatter.formatDateWithTime(date, "mm/dd/yyyy HH:mm:ss");
+   * // returns "01/17/2020 15:30:45"
+   * @example const date = new Date(2022, 3, 12, 9, 5, 0);
+   * const formattedDate = util.formatter.formatDateWithTime(date, "mmm dd, yyyy h:mm:ss a");
+   * // returns "Apr 12, 2022 9:05:00 AM"
+   * @example const date = new Date(2022, 3, 12, 9, 5, 0);
+   * const formattedDate = util.formatter.formatDateWithTime(date, "dd/mm/yyyy HH:mm:ss z");
+   * // returns "12/04/2022 09:05:00 GMT+02:00"
+   * @example const date = new Date(2022, 3, 12, 9, 5, 0);
+   * const formattedDate = util.formatter.formatDateWithTime(date, "yyyy/mm/dd HH:mm");
+   * // returns "2022/04/12 09:05"
+   * @example const date = new Date(2022, 3, 12, 9, 5, 0);
+   * const formattedDate = util.formatter.formatDateWithTime(date, "mmm dd, yyyy h:mm a");
+   * // returns "Apr 12, 2022 9:05 AM"
+   */
+  formatDateWithTime(date: Date, format: DateTimeFormatsType = DateFormats.OBJECT, locale = "en-US"): string | Date {
+    const dateFormat = DateTimeFormatParser.extractDateFormat(format);
+    this._validateDateFormat(format, dateFormat);
+    const dateFormatted = this.formatDate(date, dateFormat, locale);
+    if (this._containsTimeInDateFormat(dateFormat)) {
+      return dateFormatted;
+    }
+    const timeFormatted = this._formatTime(date, format);
+    const delimiter = DateTimeFormatParser.extractDelimiter(format);
+    return `${dateFormatted}${delimiter}${timeFormatted}`;
+  }
+
+  // =================================== HELPER ===================================
+  private _validateDateFormat(format: DateTimeFormatsType, dateFormat: DateFormatsType): void {
+    if (this._containsTimeInDateFormat(dateFormat) && !(format.toString() === dateFormat.toString())) {
+      throw new Error(`Invalid date time format: if you want to use '${dateFormat}' format, please use only '${dateFormat}' without any additional text`);
+    }
+  }
+
+  private _containsTimeInDateFormat(dateFormat: DateFormatsType): boolean {
+    return dateFormat === DateFormats.DATETIME || dateFormat === DateFormats.DAY_MONTH_YEAR_TIME_DOT || dateFormat === DateFormats.OBJECT;
+  }
+
+  private _formatTime(date: Date, format: DateTimeFormatsType): string {
+    const timeFormat = DateTimeFormatParser.extractTimeFormat(format);
+    return timeFormat.replace(/HH|h|mm|ss|a|z/g, (token) => this._replaceTimeFormatToken(date, token));
+  }
+
+  private _replaceTimeFormatToken(date: Date, token: string): string {
+    switch (token) {
+      case "HH":
+        return date.getHours().toString().padStart(2, "0");
+      case "h":
+        return ((date.getHours() % 12) || 12).toString();
+      case "mm":
+        return date.getMinutes().toString().padStart(2, "0");
+      case "ss":
+        return date.getSeconds().toString().padStart(2, "0");
+      case "a":
+        return date.getHours() < 12 ? "AM" : "PM";
+      case "z":
+        return this._formatTimeOffset(date);
+      default:
+        return token;
+    }
+  }
+
+  private _formatTimeOffset(date: Date): string {
+    const offset = date.getTimezoneOffset();
+    const sign = offset < 0 ? "+" : "-";
+    const hours = Math.abs(Math.floor(offset / 60)).toString().padStart(2, "0");
+    const minutes = Math.abs(offset % 60).toString().padStart(2, "0");
+    return `GMT${sign}${hours}:${minutes}`;
   }
 }
 export default new Formatter();

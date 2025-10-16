@@ -15,6 +15,14 @@ const uiTableSelector = {
     metadata: "sap.ui.table.Table"
   }
 };
+
+const treeTableSelector = {
+  elementProperties: {
+    viewName: "sap.ui.table.sample.TreeTable.BasicODataTreeBinding.View",
+    metadata: "sap.ui.table.TreeTable"
+  }
+};
+
 let actRowSelector;
 
 describe("table - getSelectorForRowByIndex - sap.ui.comp.smarttable.SmartTable - get first row", function () {
@@ -111,5 +119,36 @@ describe("table - getSelectorForRowByIndex - sap.ui.table.Table - get first row"
     await expect(ui5.element.getDisplayed(selector)).resolves.not.toThrow();
   });
 
-});
+  describe("table - getSelectorForRowByIndex - sap.ui.table.TreeTable - get first row", function () {
 
+    it("Preparation", async function () {
+      await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.table.TreeTable/sample/sap.ui.table.sample.TreeTable.BasicODataTreeBinding");
+      await handleCookiesConsent();
+      await util.browser.switchToIframe("[id='sampleFrame']");
+    });
+
+    it("Execution", async function () {
+      const index = 0;
+      actRowSelector = await ui5.table.getSelectorForRowByIndex(treeTableSelector, index);
+    });
+
+
+    it("Verification", async function () {
+      const selector = {
+        elementProperties: {
+          viewName: "sap.ui.table.sample.TreeTable.BasicODataTreeBinding.View",
+          metadata: "sap.m.Text",
+          bindingContextPath: "/Nodes*1)",
+          text: [{
+            path: "Description"
+          }]
+        },
+        ancestorProperties: actRowSelector.elementProperties
+      };
+      await expect(ui5.element.getDisplayed(selector)).resolves.not.toThrow();
+    });
+
+
+  });
+
+});

@@ -5,6 +5,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { AlignmentOptions, AlignmentValues } from "../types";
 import ErrorHandler from "../../helper/errorHandler";
 import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
+import { Ui5ControlMetadata } from "./types/ui5.types";
 
 /**
  * @class userInteraction
@@ -14,6 +15,12 @@ export class UserInteraction {
   // =================================== LOGGER===================================
   private vlf = new VerboseLoggerFactory("ui5", "click");
   private ErrorHandler = new ErrorHandler();
+
+
+  // =================================== CONSTANTS ===================================
+    private static readonly TEXTAREA_METADATA: Ui5ControlMetadata = "sap.m.TextArea";
+    private static readonly TEXTAREA_MACROS_METADATA: Ui5ControlMetadata = "sap.fe.macros.field.TextAreaEx";
+    private static readonly SUPPORTED_TEXTAREA_METADATA: Array<Ui5ControlMetadata> = [UserInteraction.TEXTAREA_METADATA, UserInteraction.TEXTAREA_MACROS_METADATA];
 
   // =================================== CLICK ===================================
   /**
@@ -247,7 +254,7 @@ export class UserInteraction {
     if (typeof value === "string" || typeof value === "number") {
       const id = await ui5.element.getId(selector, index, timeout);
       let elem = null;
-      if (selector.elementProperties.metadata === "sap.m.TextArea") {
+      if (UserInteraction.SUPPORTED_TEXTAREA_METADATA.includes(selector.elementProperties.metadata)) {
         elem = await nonUi5.element.getByCss("[id='" + id + "'] textarea", 0, timeout);
       } else {
         elem = await nonUi5.element.getByCss("[id='" + id + "'] input", 0, timeout);
