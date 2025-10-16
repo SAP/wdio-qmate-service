@@ -63,8 +63,6 @@ describe("element - getAllDisplayed - empty elementProperties (error case)", fun
     const selector = {
       elementProperties: {}
     };
-    await expect(ui5.element.getAllDisplayed(selector)).rejects.toThrow(
-      `Function 'getAllDisplayed' failed with: No visible elements found with selector: {\"elementProperties\":{}}`
-    );
+    await expect(ui5.element.getAllDisplayed(selector)).rejects.toThrow(`Function 'getAllDisplayed' failed with: uiControlExecuteLocator(): No visible elements found with selector: {\"elementProperties\":{}} in 30s`);
   });
 });
