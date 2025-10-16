@@ -41,7 +41,7 @@ describe("assertion - expectAttributeToContain with wrong selector (unhappy case
       }
     };
     await expect(ui5.assertion.expectAttributeToContain(selectorWithATypo, "text", "to the Shopping Cart", 0, 5000)).rejects.toThrow(
-      /uiControlExecuteLocator\(\): No visible elements found/
+      /No visible elements found/
     );
 
     // skip selector

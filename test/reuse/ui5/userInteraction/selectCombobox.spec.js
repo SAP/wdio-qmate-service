@@ -51,7 +51,7 @@ describe("userInteraction - selectComboBox use wrong selector", function () {
     };
     value = "Germany";
     await expect(ui5.userInteraction.selectComboBox(selector, value))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -75,7 +75,7 @@ describe("userInteraction - selectComboBox use wrong value", function () {
     };
     value = "ABCDE";
     await expect(ui5.userInteraction.selectComboBox(selector, value))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 

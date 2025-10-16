@@ -43,7 +43,7 @@ describe("confirmationDialog - clickButton - text 'OK'", function () {
     await ui5.assertion.expectValidationError(inputFieldWithCheckSelector);
 
     await expect(ui5.element.getDisplayed(selectorForPopupOkButton))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -54,7 +54,7 @@ describe("confirmationDialog - clickButton - text 'OK' without confirmation dial
 
   it("Execution and Verification", async function () {
     await expect(ui5.element.getDisplayed(selectorForPopupOkButton))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
 
     await expect(ui5.confirmationDialog.clickButton("OK"))
       .rejects.toThrow(/waitUntil condition failed/);
@@ -84,6 +84,6 @@ describe("confirmationDialog - clickButton - text 'Cancel'", function () {
 
   it("Verification", async function () {
     await expect(ui5.element.getDisplayed(selectorForPopupOkButton))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });

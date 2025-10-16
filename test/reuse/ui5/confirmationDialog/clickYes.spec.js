@@ -47,7 +47,7 @@ describe("confirmationDialog - clickYes", function () {
   it("Verification", async function () {
     // Check Dialog closed
     await expect(ui5.element.getDisplayed(selectorForDialog))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -59,13 +59,13 @@ describe("confirmationDialog - clickYes without confirmation dialog (unhappy cas
   it("Execution", async function () {
     // Check No Dialog available
     await expect(ui5.element.getDisplayed(selectorForDialog))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
 
     // Check No "Yes" button available
     await expect(ui5.element.getDisplayed(selectorForYesButton))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
 
     await expect(ui5.confirmationDialog.clickYes())
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });

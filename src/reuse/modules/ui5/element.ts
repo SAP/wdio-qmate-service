@@ -70,9 +70,28 @@ export class ElementModule {
     if (!selector || typeof selector !== "object") {
       this.ErrorHandler.logException(new Error(), `Please provide a valid selector as argument.`);
     }
-    const elems = await browser.uiControls(selector, timeout);
-    if (index < 0 || elems.length <= index) {
-      this.ErrorHandler.logException(new Error(), `Index out of bound. Trying to access element at index: ${index}, ` + `but there are only ${elems.length} element(s) that match locator ${JSON.stringify(selector)}`);
+    if (index < 0) {
+      this.ErrorHandler.logException(new Error(), `Index out of bound. Trying to access element at index: ${index}`);
+    }
+    // retry until enough elements are found or timeout occurs
+    let elems: any[] = [];
+    try {
+      await browser.waitUntil(
+        async () => {
+          elems = await browser.uiControls(selector, timeout);
+          return elems.length > index;
+        },
+        {
+          timeout,
+          interval: 500
+        }
+      );
+    } catch (error) {
+      if(index === 0){
+        this.ErrorHandler.logException(new Error(), `No visible elements found with selector: ${JSON.stringify(selector)}`);
+      } else {
+        this.ErrorHandler.logException(new Error(), `Index out of bound. Trying to access element at index: ${index}, ` + `but there are only ${elems.length} element(s) that match locator ${JSON.stringify(selector)}`);
+      }
     }
     return elems[index];
   }

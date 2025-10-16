@@ -23,7 +23,6 @@ describe("browser - switchToDefaultContent", function () {
   });
 
   it("Verification", async function () {
-    await expect(ui5.element.getDisplayed(dialogSelector))
-      .rejects.toThrow("uiControlExecuteLocator(): No visible elements found with selector");
+    await expect(ui5.element.getDisplayed(dialogSelector)).rejects.toThrow(/No visible elements found/);
   });
 });

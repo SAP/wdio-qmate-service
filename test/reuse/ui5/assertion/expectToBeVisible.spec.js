@@ -43,7 +43,7 @@ describe("assertion - expectToBeVisible with wrong selector", function () {
 
   it("Verification", async function () {
     await expect(ui5.assertion.expectToBeVisible(selector))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 

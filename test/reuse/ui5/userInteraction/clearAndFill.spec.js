@@ -158,6 +158,6 @@ describe("userInteraction - clearAndFill - Input - error case", function () {
     const index = 0;
     const timeout = 5000;
     await expect(ui5.userInteraction.clearAndFill(selector, value, index, timeout))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });

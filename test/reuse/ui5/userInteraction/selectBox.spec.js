@@ -62,7 +62,7 @@ describe("userInteraction - selectComboBox use wrong selector", function () {
     actualValue = "HT-1003";
     index = 0;
     await expect(ui5.userInteraction.selectBox(selector, actualValue, index))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -91,7 +91,7 @@ describe("userInteraction - selectComboBox use wrong value", function () {
     actualValue = "ABCDE";
     index = 0;
     await expect(ui5.userInteraction.selectBox(selector, actualValue, index))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 

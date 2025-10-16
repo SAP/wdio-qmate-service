@@ -107,7 +107,7 @@ describe("webdriver.io access to element via elementProperties test", function (
     };
 
     await expect(browser.uiControl(nonAvailableButtonProperties, 0, 60000))
-      .rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrowError(/No visible elements found/);
   });
 });
 

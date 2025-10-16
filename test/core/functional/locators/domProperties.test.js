@@ -36,7 +36,7 @@ describe("webdriver.io page locator test", function () {
     };
 
     await expect(browser.uiControl(selectorWithoutElementProperties))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 
   it("try access element by element properties, wrong dom properties and catch error", async function () {
@@ -54,7 +54,7 @@ describe("webdriver.io page locator test", function () {
       }
     };
     await expect(browser.uiControl(wrongProperties))
-      .rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrowError(/No visible elements found/);
   });
 
 });

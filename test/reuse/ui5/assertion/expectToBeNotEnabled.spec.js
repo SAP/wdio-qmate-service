@@ -57,6 +57,6 @@ describe("assertion - expectToBeNotEnabled with wrong selector (unhappy case)", 
       }
     };
     await expect(ui5.assertion.expectToBeNotEnabled(wrongSelector))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });

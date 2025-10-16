@@ -47,7 +47,7 @@ describe("confirmationDialog - clickOk", function () {
 
     // No dialog with "Ok" button any more
     await expect(ui5.element.getDisplayed(selectorForPopupOkButton))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -59,7 +59,7 @@ describe("confirmationDialog - clickOk without confirmation dialog (unhappy case
   it("Execution & Verification", async function () {
     // No dialog with "Ok" button
     await expect(ui5.element.getDisplayed(selectorForPopupOkButton))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
 
     await expect(ui5.confirmationDialog.clickOk())
       .rejects.toThrow(/waitUntil condition failed/);
