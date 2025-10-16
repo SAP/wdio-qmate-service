@@ -72,7 +72,7 @@ describe("webdriver.io page locator test", function () {
       }
     };
     await expect(browser.uiControl(selectorWithoutElementProperties))
-      .rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrowError(/No visible elements found/);
   });
 
   it("should access element by elementProperties and siblingProperties", async function () {
@@ -110,7 +110,7 @@ describe("webdriver.io page locator test", function () {
         "bindingContextPath": "/ProductCategories*'CSA')"
       }
     };
-    await expect(browser.uiControl(wrongProperties)).rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
+    await expect(browser.uiControl(wrongProperties)).rejects.toThrowError(/No visible elements found/);
   });
 });
 

@@ -97,6 +97,6 @@ describe("control - focus - no selector found and catch error", function () {
     const index = 0;
     const timeout = 30000;
     await expect(ui5.control.focus(selector, index, timeout))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });

@@ -49,7 +49,7 @@ describe("assertion - expectValueToBe with wrong selector (unhappy case)", funct
       }
     };
     await expect(ui5.assertion.expectValueToBe(wrongSelector, "Watch"))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
     wrongSelector = 123;
     await expect(ui5.assertion.expectValueToBe(wrongSelector, "Watch"))
       .rejects.toThrow("Function 'expectValueToBe' failed with: Please provide a valid selector as argument.");

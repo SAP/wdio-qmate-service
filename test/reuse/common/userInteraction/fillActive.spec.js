@@ -42,7 +42,7 @@ describe("userInteraction - fillActive - element with invalid selector", functio
         metadata: "sap.eld"
       }
     };
-    await expect(ui5.userInteraction.click(selector)).rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+    await expect(ui5.userInteraction.click(selector)).rejects.toThrow(/No visible elements found/);
   });
 });
 

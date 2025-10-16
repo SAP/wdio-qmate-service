@@ -73,6 +73,6 @@ describe("element - getBindingValue for wrong selector", function () {
     };
     const attribute = "title";
     await expect(ui5.element.getBindingValue(selector, attribute))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });

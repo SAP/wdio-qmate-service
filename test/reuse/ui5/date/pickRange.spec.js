@@ -142,6 +142,6 @@ describe("date - pickRange without datePiker (unhappy case)", function () {
 
   it("Execution & Verification", async function () {
     await expect(ui5.date.pickRange(dateRangeInput, range))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });

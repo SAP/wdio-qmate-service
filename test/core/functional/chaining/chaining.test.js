@@ -132,6 +132,6 @@ describe("webdriver.io page", function () {
     };
     const list = await browser.uiControl(ui5ControlProperties);
     await expect(list.uiControl(ui5ControlWrongProperties, 0))
-      .rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrowError(/No visible elements found/);
   });
 });

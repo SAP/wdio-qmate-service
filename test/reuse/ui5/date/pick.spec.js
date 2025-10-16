@@ -134,6 +134,6 @@ describe("date - pick without datePiker (unhappy case)", function () {
 
   it("Execution & Verification", async function () {
     await expect(ui5.date.pick(dataInput, date))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });

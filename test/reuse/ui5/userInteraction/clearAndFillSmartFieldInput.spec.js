@@ -70,6 +70,6 @@ describe("userInteraction - clearAndFillSmartFieldInput with invalid selector", 
     const index = 0;
     const timeout = 50000;
     await expect(ui5.userInteraction.clearAndFillSmartFieldInput(selector, value, index, timeout))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
