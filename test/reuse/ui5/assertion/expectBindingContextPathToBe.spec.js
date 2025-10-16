@@ -71,10 +71,10 @@ describe("assertion - expectBindingContextPathToBe with wrong selector (unhappy 
     };
 
     await expect(ui5.assertion.expectBindingContextPathToBe(totallyWrongSelector, "/ProductCategories('AC')", 0, 2500))
-      .rejects.toThrow("Function 'expectBindingContextPathToBe' failed with: uiControlExecuteLocator(): No visible elements found with selector: {\"wrongData\":\"123\"} in 2.5s");
+      .rejects.toThrow("Function 'expectBindingContextPathToBe' failed with: No visible elements found with selector: {\"wrongData\":\"123\"} in 2.5s");
 
     await expect(ui5.assertion.expectBindingContextPathToBe(wrongSelector, "/ProductCategories('AC')", 0, 2500))
-      .rejects.toThrow("Function 'expectBindingContextPathToBe' failed with: uiControlExecuteLocator(): No visible elements found with selector:");
+      .rejects.toThrow("Function 'expectBindingContextPathToBe' failed with: No visible elements found with selector:");
 
     await expect(ui5.assertion.expectBindingContextPathToBe(123, "/ProductCategories('AC')", 0, 2500))
       .rejects.toThrow("Function 'expectBindingContextPathToBe' failed with: Please provide a valid selector as argument.");
