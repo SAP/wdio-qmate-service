@@ -87,7 +87,7 @@ export class ElementModule {
         }
       );
     } catch (error) {
-      this.ErrorHandler.logException(new Error(), `Timeout: Cannot get element at index ${index}. Only ${elems.length} elements found with the given selector: ${JSON.stringify(selector)}`);
+      this.ErrorHandler.logException(new Error(), `Index out of bound. Trying to access element at index: ${index}, ` + `but there are only ${elems.length} element(s) that match locator ${JSON.stringify(selector)}`);
     }
     return elems[index];
   }
