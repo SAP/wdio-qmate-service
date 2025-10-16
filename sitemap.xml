@@ -2,78 +2,78 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/doc/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/contact/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/bestPractices/authentication/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/bestPractices/dataHandling/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/bestPractices/selectors/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/features/advancedDataHandling/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/features/config/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/features/dataHandling/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/features/selectors/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/features/spec/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/gettingStarted/config/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/gettingStarted/execution/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/gettingStarted/setup/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/gettingStarted/spec/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/gettingStarted/specs/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/support/bugReporting/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/support/knownIssuesAndLimitations/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
     <url>
          <loc>https://sap.github.io/wdio-qmate-service/sections/support/troubleshooting/</loc>
-         <lastmod>2025-10-15</lastmod>
+         <lastmod>2025-10-16</lastmod>
     </url>
 </urlset>
