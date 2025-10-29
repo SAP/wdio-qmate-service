@@ -109,12 +109,23 @@ export class NavigationBar {
       await ui5.userInteraction.click(selector, 0, 500);
     }
 
+    async function clickShellBarUserAvatar2() {
+      const selector = {
+        elementProperties: {
+          viewName: "sap.ushell.components.shell.ShellBar.view.ShellBar",
+          metadata: "sap.f.gen.ui5.webcomponents.dist.Avatar",
+          id: "userActionsMenuHeaderButton"
+        }
+      };
+      await ui5.userInteraction.click(selector, 0, 500);
+    }
+
     try {
       // attempt clicking both old and new user icons
       await browser.waitUntil(
         async () => {
           try {
-            await Promise.any([clickLegacyUserAvatar(), clickWebComponentUserProfile(), clickShellBarUserAvatar()]);
+            await Promise.any([clickLegacyUserAvatar(), clickWebComponentUserProfile(), clickShellBarUserAvatar(), clickShellBarUserAvatar2()]);
             return true;
           } catch (error) {
             // Ignore error and continue to next promise
