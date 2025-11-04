@@ -15,11 +15,11 @@ describe("browser - reloadSession", function () {
 
   it("Verification", async function () {
     await browser.navigateTo(browser.config.baseUrl);
-    
+
     // Updated selector for the new cookie consent button
     const newCookiesConsentDialog = "button[id='truste-consent-button']";
 
-    // Verify if the new cookie consent button is displayed after clearing the browser cache
+    // Verify if the new cookie consent button is displayed after util.browser.reloadSession
     await nonUi5.element.waitToBeVisible(newCookiesConsentDialog);
   });
 });
