@@ -25,6 +25,7 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "back.spec.js"),
     path.resolve(__dirname, "log.spec.js"),
     path.resolve(__dirname, "forward.spec.js"),
-    path.resolve(__dirname, "waitUntil.spec.js")
+    path.resolve(__dirname, "waitUntil.spec.js"),
+    path.resolve(__dirname, "reloadSession.spec.js")
   ]
 });
