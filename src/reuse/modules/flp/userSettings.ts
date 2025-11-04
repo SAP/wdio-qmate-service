@@ -215,6 +215,7 @@ export class UserSettings {
    */
   public async getNumberFormatFromUserSettings(user: string, password: string): Promise<string> {
     const vl = this.vlf.initLog(this.getNumberFormatFromUserSettings);
+    await this._initS4UserSettingService(user, password);
     return await this._getNumberFormatResponse(this._srvInstance);
   }
 
