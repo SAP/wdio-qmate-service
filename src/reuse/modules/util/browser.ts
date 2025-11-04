@@ -159,8 +159,10 @@ export class Browser {
   async reloadSession(): Promise<void> {
     const vl = this.vlf.initLog(this.reloadSession);
     await browser.reloadSession();
-    await browser.mockClearAll();
-    await Ui5ExtensionMocker.mockRequests();
+    if (browser.config.qmate?.enableUi5ExtensionMocking !== false) {
+      await browser.mockClearAll();
+      await Ui5ExtensionMocker.mockRequests();
+    }
   }
 
   // =================================== LOGGING ===================================
@@ -288,7 +290,7 @@ export class Browser {
    * @param {Number} [options.interval] - The interval to check the function (ms).
    * @returns {Promise<void>} Resolves when the function returns true or the timeout is reached.
    * @example await util.browser.waitUntil(async () => await ui5.element.isVisible(selector), { timeout: 5000, timeoutMsg: "Element not visible" });
-  */
+   */
   async waitUntil(condition: Function, options: { timeout?: number; timeoutMsg?: string; interval?: number } = {}): Promise<void> {
     const vl = this.vlf.initLog(this.waitUntil);
     return browser.waitUntil(condition, options);
