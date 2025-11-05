@@ -2,6 +2,7 @@
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
+import { Ui5ExtensionMocker } from "../../../scripts/hooks/utils/Ui5ExtensionMocker";
 
 /**
  * @class browser
@@ -149,6 +150,21 @@ export class Browser {
     }
   }
 
+  /**
+   * @function reloadSession
+   * @memberOf util.browser
+   * @description Clears the browser session, and creates a new one. Use in cases where util.browser.clearBrowser doesn't invalidate login session.
+   * @example await util.browser.reloadSession();
+   */
+  async reloadSession(): Promise<void> {
+    const vl = this.vlf.initLog(this.reloadSession);
+    await browser.reloadSession();
+    if (browser.config.qmate?.enableUi5ExtensionMocking !== false) {
+      await browser.mockClearAll();
+      await Ui5ExtensionMocker.mockRequests();
+    }
+  }
+
   // =================================== LOGGING ===================================
   /**
    * @function getBrowserName
@@ -274,7 +290,7 @@ export class Browser {
    * @param {Number} [options.interval] - The interval to check the function (ms).
    * @returns {Promise<void>} Resolves when the function returns true or the timeout is reached.
    * @example await util.browser.waitUntil(async () => await ui5.element.isVisible(selector), { timeout: 5000, timeoutMsg: "Element not visible" });
-  */
+   */
   async waitUntil(condition: Function, options: { timeout?: number; timeoutMsg?: string; interval?: number } = {}): Promise<void> {
     const vl = this.vlf.initLog(this.waitUntil);
     return browser.waitUntil(condition, options);
