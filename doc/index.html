@@ -810,6 +810,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#browserreloadsession" class="md-nav__link">
+    <span class="md-ellipsis">
+      browser.reloadSession()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#browsergetbrowsername-string" class="md-nav__link">
     <span class="md-ellipsis">
       browser.getBrowserName() ⇒ String
@@ -5166,6 +5175,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#browserreloadsession" class="md-nav__link">
+    <span class="md-ellipsis">
+      browser.reloadSession()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#browsergetbrowsername-string" class="md-nav__link">
     <span class="md-ellipsis">
       browser.getBrowserName() ⇒ String
@@ -9468,6 +9486,7 @@
 <li><a href="#util.browser.sleepAndCollectCoverage">.sleepAndCollectCoverage([duration])</a></li>
 <li><a href="#util.browser.refresh">.refresh()</a></li>
 <li><a href="#util.browser.clearBrowser">.clearBrowser([clearLocal], [clearSession], [clearCookies])</a></li>
+<li><a href="#util.browser.reloadSession">.reloadSession()</a></li>
 <li><a href="#util.browser.getBrowserName">.getBrowserName()</a> ⇒ <code>String</code></li>
 <li><a href="#util.browser.getUI5Version">.getUI5Version([timeout])</a></li>
 <li><a href="#util.browser.logUI5Version">.logUI5Version()</a></li>
@@ -9564,6 +9583,7 @@
 <li><a href="#util.browser.sleepAndCollectCoverage">.sleepAndCollectCoverage([duration])</a></li>
 <li><a href="#util.browser.refresh">.refresh()</a></li>
 <li><a href="#util.browser.clearBrowser">.clearBrowser([clearLocal], [clearSession], [clearCookies])</a></li>
+<li><a href="#util.browser.reloadSession">.reloadSession()</a></li>
 <li><a href="#util.browser.getBrowserName">.getBrowserName()</a> ⇒ <code>String</code></li>
 <li><a href="#util.browser.getUI5Version">.getUI5Version([timeout])</a></li>
 <li><a href="#util.browser.logUI5Version">.logUI5Version()</a></li>
@@ -9737,6 +9757,13 @@
 </table>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">clearBrowser</span><span class="p">();</span>
+</code></pre></div>
+<a name="util.browser.reloadSession"></a></p>
+<h4 id="browserreloadsession">browser.reloadSession()</h4>
+<p>Clears the browser session, and creates a new one. Use in cases where util.browser.clearBrowser doesn't invalidate login session.</p>
+<p><strong>Kind</strong>: static method of <a href="#util.browser"><code>browser</code></a><br />
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">reloadSession</span><span class="p">();</span>
 </code></pre></div>
 <a name="util.browser.getBrowserName"></a></p>
 <h4 id="browsergetbrowsername-string">browser.getBrowserName() ⇒ <code>String</code></h4>
