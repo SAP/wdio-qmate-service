@@ -1,6 +1,7 @@
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 import { resolveMobileSelectorOrElement } from "../../helper/elementResolving";
+import { GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class userInteraction
@@ -20,7 +21,7 @@ export class UserInteraction {
    * await mobile.userInteraction.tap(elem);
    * await mobile.userInteraction.tap(elem, 20000);
    */
-  async tap(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<void> {
+  async tap(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.tap);
 
     try {
@@ -46,7 +47,7 @@ export class UserInteraction {
    * await mobile.userInteraction.check(element);
    * await mobile.userInteraction.check(element, 20000);
    */
-  async check(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<void> {
+  async check(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.check);
 
     try {
@@ -76,7 +77,7 @@ export class UserInteraction {
    * await mobile.userInteraction.uncheck(elementOrSelector);
    * await mobile.userInteraction.uncheck(elementOrSelector, 20000);
    */
-  async uncheck(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<void> {
+  async uncheck(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.uncheck);
 
     try {
@@ -107,7 +108,7 @@ export class UserInteraction {
    * await mobile.userInteraction.doubleTap(elem);
    * await mobile.userInteraction.doubleTap(elem, 2000);
    */
-  async doubleTap(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<void> {
+  async doubleTap(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.doubleTap);
 
     try {
@@ -135,7 +136,7 @@ export class UserInteraction {
    * await mobile.userInteraction.fill(element);
    * await mobile.userInteraction.fill(element, 2000);
    */
-  async fill(elementOrSelector: WebdriverIO.Element | string, value: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<void> {
+  async fill(elementOrSelector: WebdriverIO.Element | string, value: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.fill);
 
     try {
@@ -165,7 +166,7 @@ export class UserInteraction {
    * await mobile.userInteraction.clearAndFill(element);
    * await mobile.userInteraction.clearAndFill(element, 2000);
    */
-  async clearAndFill(elementOrSelector: WebdriverIO.Element | string, value: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<void> {
+  async clearAndFill(elementOrSelector: WebdriverIO.Element | string, value: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.clearAndFill);
 
     try {
@@ -198,7 +199,7 @@ export class UserInteraction {
    * await mobile.userInteraction.clear(element);
    * await mobile.userInteraction.clear(element, 2000);
    */
-  async clear(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<void> {
+  async clear(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.clear);
 
     try {

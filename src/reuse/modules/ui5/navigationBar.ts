@@ -2,6 +2,7 @@
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
+import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class navigationBar
@@ -18,7 +19,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickBack();
    */
-  async clickBack(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async clickBack(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickBack);
     const selector = {
       elementProperties: {
@@ -39,22 +40,35 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickSapLogo();
    */
-  async clickSapLogo(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async clickSapLogo(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickSapLogo);
     async function clickLogo() {
       const selector = "//a[@id='shell-header-logo']";
-      await nonUi5.userInteraction.click(selector, timeout);
+      await nonUi5.userInteraction.click(selector, 500);
     }
     async function clickLogoWebComponent() {
-      const selector = ">>>span[class='ui5-shellbar-logo']";
-      await nonUi5.userInteraction.click(selector, timeout);
+      const selector = "//*[contains(local-name(),'ui5-shellbar-branding')]";
+      await nonUi5.userInteraction.click(selector, 500);
     }
     try {
-      await Promise.any([clickLogo(), clickLogoWebComponent()]);
+      await browser.waitUntil(
+        async () => {
+          try {
+            await Promise.any([clickLogo(), clickLogoWebComponent()]);
+            return true;
+          } catch (error) {
+            // Ignore error and continue to next promise
+            return false;
+          }
+        },
+        {
+          timeout: timeout,
+          timeoutMsg: "SAP Logo not clickable",
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
+        }
+      );
     } catch (error) {
-      (error as AggregateError).errors.forEach((err) => {
-        this.ErrorHandler.logException(err);
-      });
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -65,40 +79,67 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.clickUserIcon();
    */
-  async clickUserIcon(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async clickUserIcon(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickUserIcon);
-
-    // attempt to click the new user icon first
-    try {
-      await scrollAndClickUserIconNew();
-      return;
-    } catch (error) {
-      console.warn("New user icon not found, trying old selector.");
-    }
-
-    // attempt to click the old user icon
-    try {
-      await scrollAndClickUserIconOld();
-    } catch (error) {
-      console.warn("Old user icon not found, logging exception.");
-      this.ErrorHandler.logException(error);
-    }
-
-    async function scrollAndClickUserIconNew() {
-      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
-      const selector = ">>>[data-ui5-stable='profile']";
-      await nonUi5.userInteraction.scrollToElement(selector, "end");
-      await nonUi5.userInteraction.click(selector);
-    }
-
-    async function scrollAndClickUserIconOld() {
+    // There are three different user icon implementations, some are still used in "older" systems, by time we can remove the legacy ones.
+    async function clickLegacyUserAvatar() {
       const selector = {
-        "elementProperties": {
-          "metadata": "sap.m.Avatar",
-          "id": "*HeaderButton"
+        elementProperties: {
+          metadata: "sap.m.Avatar",
+          id: "*HeaderButton"
         }
       };
-      await ui5.userInteraction.click(selector, 0, timeout);
+      await ui5.userInteraction.click(selector, 0, 500);
+    }
+
+    async function clickWebComponentUserProfile() {
+      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
+      const selector = ">>>[data-ui5-stable='profile']";
+      await nonUi5.userInteraction.click(selector, 500);
+    }
+
+    async function clickShellBarUserAvatar() {
+      const selector = {
+        elementProperties: {
+          viewName: "sap.ushell.components.shell.ShellBar.view.ShellBar",
+          metadata: "sap.ushell.gen.ui5.webcomponents.dist.Avatar",
+          id: "userActionsMenuHeaderButton"
+        }
+      };
+      await ui5.userInteraction.click(selector, 0, 500);
+    }
+
+    async function clickShellBarUserAvatar2() {
+      const selector = {
+        elementProperties: {
+          viewName: "sap.ushell.components.shell.ShellBar.view.ShellBar",
+          metadata: "sap.f.gen.ui5.webcomponents.dist.Avatar",
+          id: "userActionsMenuHeaderButton"
+        }
+      };
+      await ui5.userInteraction.click(selector, 0, 500);
+    }
+
+    try {
+      // attempt clicking both old and new user icons
+      await browser.waitUntil(
+        async () => {
+          try {
+            await Promise.any([clickLegacyUserAvatar(), clickWebComponentUserProfile(), clickShellBarUserAvatar(), clickShellBarUserAvatar2()]);
+            return true;
+          } catch (error) {
+            // Ignore error and continue to next promise
+            return false;
+          }
+        },
+        {
+          timeout: timeout,
+          timeoutMsg: `Could not click User Icon in ${+timeout / 1000}s`,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
+        }
+      );
+    } catch (error) {
+      this.ErrorHandler.logException(error);
     }
   }
 
@@ -134,7 +175,7 @@ export class NavigationBar {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.navigationBar.expectShellHeader();
    */
-  async expectShellHeader(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
+  async expectShellHeader(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, loadPropertyTimeout = process.env.LOAD_PROPERTY_TIMEOUT || 10000) {
     const vl = this.vlf.initLog(this.expectShellHeader);
     const selector = {
       elementProperties: {

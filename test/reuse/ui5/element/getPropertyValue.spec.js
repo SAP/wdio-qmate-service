@@ -65,7 +65,7 @@ describe("element - getPropertyValue - wrong selector", function () {
     const timeout = 30000;
     const property = "title";
     await expect(ui5.element.getPropertyValue(selector, property, index, timeout))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 

@@ -38,7 +38,7 @@ describe("Test for ", function () {
     await expect(browser.controlActionInBrowser(function (control, txt, done) {
       control.setTitle(txt);
       done(control.getTitle());
-    }, selectorParams, newText)).rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+    }, selectorParams, newText)).rejects.toThrow(/No visible elements found/);
   });
 
   it("should use UI5 Control binding properties command on element level", async function () {

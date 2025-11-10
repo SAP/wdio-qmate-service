@@ -67,7 +67,7 @@ describe("webdriver.io page locator test", function () {
 
     // Code after fixes:
     await expect(browser.uiControls(ui5ControlProperties, 1, 1000))
-      .rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrowError(/No visible elements found/);
   });
 
   it("should access element by element properties and descendant properties", async function () {
@@ -104,7 +104,7 @@ describe("webdriver.io page locator test", function () {
       }
     };
     await expect(browser.uiControl(wrongProperties, 1, 1000))
-      .rejects.toThrowError(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrowError(/No visible elements found/);
   });
 
 });

@@ -18,6 +18,6 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "sourceMap": true
   },
-  "include": ["src/**/*.ts", "src/**/*.js", "@types/index.d.ts", "src/**/*.json"],
-  "exclude": ["lib"]
+  "include": ["src/**/*.ts", "src/**/*.js", "@types/index.d.ts", "@types/locatorTypes.d.ts", "src/**/*.json"],
+  "exclude": ["lib", "src/scripts/locators/qmateLocatorSrc/build.js"]
 }

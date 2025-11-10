@@ -1,6 +1,7 @@
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 import { resolveMobileSelectorOrElement } from "../../helper/elementResolving";
+import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class element
@@ -60,13 +61,13 @@ export class ElementModule {
    * await mobile.element.waitToBePresent("#button12");
    * await mobile.element.waitToBePresent("p:first-child");
    */
-  async waitToBePresent(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<boolean> {
+  async waitToBePresent(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<boolean> {
     const vl = this.vlf.initLog(this.waitToBePresent);
     try {
       vl.log(`wdio.waitForExist invocation for selector ${selector}`);
       await $(selector).waitForExist({
         timeout: timeout,
-        interval: 100,
+        interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
         timeoutMsg: `Timeout '${+timeout / 1000}s' by waiting for element is present.`
       });
       return true;
@@ -88,13 +89,13 @@ export class ElementModule {
    * await mobile.element.waitToBeVisible("#button12");
    * await mobile.element.waitToBeVisible("p:first-child");
    */
-  async waitToBeVisible(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<boolean> {
+  async waitToBeVisible(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<boolean> {
     const vl = this.vlf.initLog(this.waitToBeVisible);
     try {
       vl.log(`wdio.waitForDisplayed invocation for selector ${selector}`);
       await $(selector).waitForDisplayed({
         timeout: timeout,
-        interval: 100,
+        interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
         timeoutMsg: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
       });
       return true;
@@ -116,13 +117,13 @@ export class ElementModule {
    * await mobile.element.waitToBeClickable("#button12");
    * await mobile.element.waitToBeClickable("p:first-child");
    */
-  async waitToBeClickable(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<boolean> {
+  async waitToBeClickable(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<boolean> {
     const vl = this.vlf.initLog(this.waitToBeClickable);
     try {
       vl.log(`wdio.waitForClickable invocation for selector ${selector}`);
       await $(selector).waitForClickable({
         timeout: timeout,
-        interval: 100,
+        interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
         timeoutMsg: `Timeout '${+timeout / 1000}s' by waiting for element is clickable.`
       });
       return true;
@@ -160,13 +161,13 @@ export class ElementModule {
    * await mobile.element.waitToBeEnabled("#button12");
    * await mobile.element.waitToBeEnabled("p:first-child");
    */
-  async waitToBeEnabled(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000): Promise<boolean> {
+  async waitToBeEnabled(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<boolean> {
     const vl = this.vlf.initLog(this.waitToBeEnabled);
     try {
       vl.log(`wdio.waitTotoBeEnabled invocation for selector ${selector}`);
       await $(selector).waitForEnabled({
         timeout: timeout,
-        interval: 100,
+        interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
         timeoutMsg: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
       });
       return true;

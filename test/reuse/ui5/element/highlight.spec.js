@@ -41,6 +41,6 @@ describe("element - highlight and catch error", function () {
     const duration = 3000;
     const color = "green";
     await expect(ui5.element.highlight(selector, duration, color))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });

@@ -59,7 +59,7 @@ describe("element - getDisplayed by wrong selector (unhappy case)", function () 
       }
     };
     await expect(ui5.element.getDisplayed(wrongSelector))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 

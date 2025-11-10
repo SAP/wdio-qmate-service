@@ -46,7 +46,7 @@ describe("userInteraction - clear with invalid selector", function () {
       }
     };
     await expect(ui5.userInteraction.clear(selector))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 

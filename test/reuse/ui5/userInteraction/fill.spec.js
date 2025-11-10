@@ -50,7 +50,7 @@ describe("userInteraction - fill element with invalid selector", function () {
     const index = 0;
     const timeout = 30000;
     await expect(ui5.userInteraction.fill(selector, value, index, timeout))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 

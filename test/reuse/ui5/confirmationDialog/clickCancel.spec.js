@@ -72,7 +72,7 @@ describe("confirmationDialog - clickCancel", function () {
         "metadata": "sap.m.Dialog"
       }
     };
-    await expect(ui5.element.getDisplayed(selectorForPopup)).rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+    await expect(ui5.element.getDisplayed(selectorForPopup)).rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -84,6 +84,6 @@ describe("confirmationDialog - clickCancel without confirmation dialog (unhappy 
 
   it("Execution & Verification", async function () {
     await expect(ui5.confirmationDialog.clickCancel())
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });

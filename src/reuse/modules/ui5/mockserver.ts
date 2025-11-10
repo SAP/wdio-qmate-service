@@ -23,12 +23,11 @@ export class Mockserver {
    * @function waitForUi5ApplicationLoad
    * @memberOf ui5.mockserver
    * @description Waits for the UI5 framework to load and makes sure XHR request finished und busy indicators are not visible anymore.
-   * @param {Integer} interval - The intervals to use when waiting UI5 to load.
    * @example await ui5.mockserver.waitForUi5ApplicationLoad(100);
    */
-  async waitForUi5ApplicationLoad(interval = 100) {
+  async waitForUi5ApplicationLoad() {
     const vl = this.vlf.initLog(this.waitForUi5ApplicationLoad);
-    await this.lib.waitUI5ToStabilize(); // Note: interval is hardcoded in  lib.js
+    await this.lib.waitUI5ToStabilize();
   }
 
   /**

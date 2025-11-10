@@ -1,4 +1,5 @@
 import { Agent, fetch } from 'undici';
+import { STATS_SERVER_URL } from './constants';
 
 export async function createUsage(usageData: {
   userId: string;
@@ -11,7 +12,7 @@ export async function createUsage(usageData: {
   repoHash: string | null;
   specCounter: number;
 }): Promise<string | null> {
-  const urlUsage = "https://stats.qmate.proc.only.sap/api/usage/qmate";
+  const urlUsage = `${STATS_SERVER_URL}/api/usage/qmate`;
   try {
     const response = await fetch(urlUsage, {
       method: "POST",

@@ -47,7 +47,7 @@ describe("userInteraction - fillActiveAndRetry - invalid selector", function () 
       }
     };
 
-    await expect(ui5.userInteraction.click(selector)).rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+    await expect(ui5.userInteraction.click(selector)).rejects.toThrow(/No visible elements found/);
   });
 });
 

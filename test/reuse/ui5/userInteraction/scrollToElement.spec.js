@@ -110,6 +110,6 @@ describe("element - scrollToElement and catch error", function () {
     const alignment = "start";
     const timeout = 30000;
     await expect(ui5.userInteraction.scrollToElement(selector, index, alignment, timeout))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });

@@ -38,7 +38,7 @@ describe("element - getId by wrong selector (unhappy case)", function () {
       }
     };
     await expect(ui5.element.getId(wrongSelector, 0))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -67,6 +67,6 @@ describe("element - getId should get element id by empty object selector(unhappy
 
   it("Execution & Verification", async function () {
     await expect(ui5.element.getId({}, 0))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });

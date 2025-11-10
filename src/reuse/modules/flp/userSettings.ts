@@ -22,6 +22,11 @@ export class UserSettings {
    * @returns {Promise<void>} A promise that resolves when the service has been initialized.
    */
   private async _initS4UserSettingService(user: string, password: string): Promise<void> {
+    if (!user || !password) {
+      const emptyField = !user ? "Username" : "Password";
+      throw new Error(`${emptyField} is empty, undefined or null. Please provide valid credentials for S4 User Setting Service initialization.`);
+    }
+
     if (!this._srvInstance) {
       const vl = this.vlf.initLog(await this._initS4UserSettingService);
       const params = browser.config.params;
@@ -215,6 +220,7 @@ export class UserSettings {
    */
   public async getNumberFormatFromUserSettings(user: string, password: string): Promise<string> {
     const vl = this.vlf.initLog(this.getNumberFormatFromUserSettings);
+    await this._initS4UserSettingService(user, password);
     return await this._getNumberFormatResponse(this._srvInstance);
   }
 

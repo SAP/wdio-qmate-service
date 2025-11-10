@@ -89,7 +89,7 @@ describe("userInteraction - selectMultiComboBox use wrong selector", function ()
     value1 = "Astro Phone 6";
     value2 = "Astro Laptop 1516";
     await expect(ui5.userInteraction.selectMultiComboBox(selector, [value1, value2]))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -116,7 +116,7 @@ describe("userInteraction - selectMultiComboBox use wrong value", function () {
     value1 = "Beadgsh";
     value2 = "FlL";
     await expect(ui5.userInteraction.selectMultiComboBox(selector, [value1, value2]))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 

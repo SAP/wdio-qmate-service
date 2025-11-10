@@ -47,7 +47,7 @@ describe("confirmationDialog - clickNo", function () {
   it("Verification", async function () {
     // Dialog window closed via button "No"
     await expect(ui5.element.getDisplayed(selectorForPopup))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -74,12 +74,12 @@ describe("confirmationDialog - clickNo without 'No' button (unhappy case)", func
 
     // Check we have no "No" button to click
     await expect(ui5.element.getDisplayed(selectorForNoButton))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 
   it("Execution & Verification", async function () {
     await expect(ui5.confirmationDialog.clickNo())
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -92,9 +92,9 @@ describe("confirmationDialog - clickNo without confirmation dialog (unhappy case
   it("Execution & Verification", async function () {
     // No Dialog window opened
     await expect(ui5.element.getDisplayed(selectorForPopup))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
 
     await expect(ui5.confirmationDialog.clickNo())
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });

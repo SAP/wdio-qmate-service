@@ -175,44 +175,40 @@ functions.getControlPropertyBinding = function (mScriptParams) {
 };
 
 functions.loadUI5CoreAndAutowaiter = function () {
-  if (!window.findBusyIndicator) {
-    window.findBusyIndicator = function () {
-      return Boolean(Array.from(document.getElementsByClassName("sapMBusyIndicator")).find(function (elem) {
-        var rect = elem.getBoundingClientRect();
-        return (rect.x > 0 || rect.y > 0) && rect.width > 0 && rect.height > 0;
-      }));
-    };
-  }
   try {
     // First check if already everything loaded
-    if (window.RecordReplay && !window.findBusyIndicator()) {
+    if (window.RecordReplay) {
       return true;
     }
-    if (
-      window.sap &&
-        window.sap.ui.getCore &&
-        window.sap.ui.getCore() &&
-        !window.sap.ui.getCore().isLocked() &&
-        !window.sap.ui.getCore().getUIDirty() &&
-        document.readyState === "complete"
-    ) {
-      // Always check for busy indicators
-      if (window.findBusyIndicator()) { return false; }
-
-      return new Promise(function(res, rej) {
-        sap.ui.require([
-          "sap/ui/test/RecordReplay"
-        ], function (RecordReplay) {
-          // Attach RecordReplay globally
-          if (RecordReplay) {
+    if (window.sap &&
+      window.sap.ui.getCore &&
+      window.sap.ui.getCore() &&
+      document.readyState === "complete") {
+      if (window.sap.ui.getCore().ready) {
+        return window.sap.ui.getCore().ready(function () {
+          sap.ui.require([
+            "sap/ui/test/RecordReplay"
+          ], function (RecordReplay) {
+            // Attach RecordReplay
             window.RecordReplay = RecordReplay;
-            res(!window.findBusyIndicator());
-          }
-          res(false);
+          });
         });
-      });
+      } else {
+        return new Promise(function (res) {
+          sap.ui.require([
+            "sap/ui/test/RecordReplay"
+          ], function (RecordReplay) {
+            if (RecordReplay) {
+              window.RecordReplay = RecordReplay;
+              res(true);
+            }
+            res(false);
+          });
+        });
+      }
     }
-  } catch (oError) {
+  }
+  catch (oError) {
     return false;
   }
 };
@@ -226,16 +222,38 @@ functions.loadUI5Page = function (mScriptParams) {
       }));
     };
   }
-  // Always check for busy indicators
-  if (window.findBusyIndicator()) { return false; }
-  return window.RecordReplay.waitForUI5({
-    timeout: mScriptParams.waitForUI5Timeout,
-    interval: mScriptParams.waitForUI5PollingInterval
-  }).then(function () {
-    return (!window.findBusyIndicator());
-  }).catch(function (err) {
-    return false;
-  });
+  if (window.RecordReplay) {
+    // paralell running waitForUI5 block each other
+    if (window.loadUI5PagePromise && !window.loadUI5PagePromise.done) {
+      // console.error("loadUI5PagePromise already running, returning it");
+      return window.loadUI5PagePromise;
+    }
+     
+    var randomId = Math.floor(Math.random() * 1000000);
+    // console.error("start loadUI5Page:"+randomId);
+    window.loadUI5PagePromise = window.RecordReplay.waitForUI5({
+      timeout: mScriptParams.waitForUI5Timeout,
+      interval: mScriptParams.waitForUI5PollingInterval
+    }).then(function () {
+      // console.error("done loadUI5Page"+randomId);
+      if (window.findBusyIndicator()) {
+        console.error("found busy indicator loadUI5Page");
+        return false;
+      } else {
+        // console.error("no busy indicator loadUI5Page, success!");
+        return true;
+      }
+    }).catch(function (err) {
+      console.error("error during loadUI5Page:"+randomId+"\nerror:"+err);
+      return false;
+    }).finally(() => { 
+      window.loadUI5PagePromise.done = true; 
+    });
+    window.loadUI5PagePromise.done = false; 
+    return window.loadUI5PagePromise;
+  } else {
+    throw new Error("window.RecordReplay not found!");
+  }
 };
 
 functions.waitForAngular = function (rootSelector, interval, callback) {

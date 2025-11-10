@@ -83,8 +83,6 @@ describe("userInteraction - clickSelectArrow and catch an error", function () {
       .rejects.toThrow("Index out of bound. " +
             "Trying to access element at index: 111, but there are only 1 element(s) that match locator");
 
-    await expect(ui5.userInteraction.clickSelectArrow(catalog, -1))
-      .rejects.toThrow("Index out of bound. " +
-            "Trying to access element at index: -1, but there are only 1 element(s) that match locator");
+    await expect(ui5.userInteraction.clickSelectArrow(catalog, -1)).rejects.toThrow("Function 'clickSelectArrow' failed with: Index out of bound. Trying to access element at index: -1");
   });
 });

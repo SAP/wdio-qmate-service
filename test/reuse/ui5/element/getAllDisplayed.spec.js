@@ -35,7 +35,7 @@ describe("element - getAllDisplayed - wrong selector (error case)", function () 
         metadata: "sap.m.StandardListItem"
       }
     };
-    await expect(ui5.element.getAllDisplayed(selector)).rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+    await expect(ui5.element.getAllDisplayed(selector)).rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -50,7 +50,7 @@ describe("element - getAllDisplayed - invisible elements (error case)", function
         metadata: "sap.ui.core.InvisibleText"
       }
     };
-    await expect(ui5.element.getAllDisplayed(selectorForInvisibleElements)).rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+    await expect(ui5.element.getAllDisplayed(selectorForInvisibleElements)).rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -63,8 +63,6 @@ describe("element - getAllDisplayed - empty elementProperties (error case)", fun
     const selector = {
       elementProperties: {}
     };
-    await expect(ui5.element.getAllDisplayed(selector)).rejects.toThrow(
-      `Function 'getAllDisplayed' failed with: uiControlExecuteLocator(): No visible elements found with selector: {\"elementProperties\":{}} in 30s`
-    );
+    await expect(ui5.element.getAllDisplayed(selector)).rejects.toThrow(`Function 'getAllDisplayed' failed with: uiControlExecuteLocator(): No visible elements found with selector: {\"elementProperties\":{}} in 30s`);
   });
 });

@@ -40,6 +40,7 @@ Global namespace for common modules.
         * [.expectDefined(value)](#common.assertion.expectDefined)
         * [.expectUndefined(value)](#common.assertion.expectUndefined)
         * [.expectUrlToBe()](#common.assertion.expectUrlToBe)
+        * [.expectToContain(value1, value2)](#common.assertion.expectToContain)
     * [.date](#common.date)
         * [.getToday([format])](#common.date.getToday) ⇒ <code>String</code>
         * [.getTomorrow([format])](#common.date.getTomorrow) ⇒ <code>String</code>
@@ -49,6 +50,8 @@ Global namespace for common modules.
         * [.getPreviousYear([format])](#common.date.getPreviousYear) ⇒ <code>String</code>
         * [.getSpecific(date, [format])](#common.date.getSpecific) ⇒ <code>String</code>
         * [.calculate([date], [format])](#common.date.calculate) ⇒ <code>String</code> \| <code>Date</code>
+        * [.getCurrentDateAndTime([format])](#common.date.getCurrentDateAndTime) ⇒ <code>String</code> \| <code>Date</code>
+        * [.calculateWithTime([date], [time], [format])](#common.date.calculateWithTime) ⇒ <code>String</code> \| <code>Date</code>
     * [.navigation](#common.navigation)
         * [.navigateToUrl(url)](#common.navigation.navigateToUrl)
         * [.navigateToUrlAndRetry(url, [retries], [interval])](#common.navigation.navigateToUrlAndRetry)
@@ -79,6 +82,7 @@ Global namespace for common modules.
     * [.expectDefined(value)](#common.assertion.expectDefined)
     * [.expectUndefined(value)](#common.assertion.expectUndefined)
     * [.expectUrlToBe()](#common.assertion.expectUrlToBe)
+    * [.expectToContain(value1, value2)](#common.assertion.expectToContain)
 
 <a name="common.assertion.expectEqual"></a>
 
@@ -182,6 +186,22 @@ Expects the url to be the passed value.
 ```js
 await common.assertion.expectUrlToBe("www.sap.com");
 ```
+<a name="common.assertion.expectToContain"></a>
+
+#### assertion.expectToContain(value1, value2)
+Expects the first passed value to contain the second passed value, after normalizing whitespace.
+
+**Kind**: static method of [<code>assertion</code>](#common.assertion)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value1 | <code>string</code> | The string expected to contain value2. |
+| value2 | <code>string</code> | The string expected to be found within value1. |
+
+**Example**  
+```js
+await common.assertion.expectToContain("foo bar baz", "bar");
+```
 <a name="common.date"></a>
 
 ### common.date
@@ -196,6 +216,8 @@ await common.assertion.expectUrlToBe("www.sap.com");
     * [.getPreviousYear([format])](#common.date.getPreviousYear) ⇒ <code>String</code>
     * [.getSpecific(date, [format])](#common.date.getSpecific) ⇒ <code>String</code>
     * [.calculate([date], [format])](#common.date.calculate) ⇒ <code>String</code> \| <code>Date</code>
+    * [.getCurrentDateAndTime([format])](#common.date.getCurrentDateAndTime) ⇒ <code>String</code> \| <code>Date</code>
+    * [.calculateWithTime([date], [time], [format])](#common.date.calculateWithTime) ⇒ <code>String</code> \| <code>Date</code>
 
 <a name="common.date.getToday"></a>
 
@@ -207,7 +229,7 @@ Returns the current day in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
 ```js
@@ -223,7 +245,7 @@ Returns tomorrows date in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
 ```js
@@ -239,7 +261,7 @@ Returns the current day one month later in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
 ```js
@@ -255,7 +277,7 @@ Returns the current day one month before in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
 ```js
@@ -271,7 +293,7 @@ Returns the current day one year later in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
 ```js
@@ -287,7 +309,7 @@ Returns the current day one year before in the given format.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
 ```js
@@ -304,7 +326,7 @@ Returns a specific date in the given format.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | date | <code>String</code> |  | A specific date string. |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "datetime", "object"). |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
 ```js
@@ -320,12 +342,88 @@ Calculates the date based on the input parameter and returns it in the given for
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [date] | <code>String</code> | <code>&quot;today&quot;</code> | Supported values: today, tomorrow, nextMonth, previousMonth, nextYear, previousYear |
-| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "mmm d, yyyy", "datetime", "object"). |
+| [date] | <code>String</code> | <code>&quot;today&quot;</code> | Supported values: "today", "tomorrow", "nextMonth", "previousMonth", "nextYear", "previousYear" If the date is not provided, "today" will be used. |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 
 **Example**  
 ```js
 const date = await common.date.calculate("today", "mm/dd/yyyy");
+```
+<a name="common.date.getCurrentDateAndTime"></a>
+
+#### date.getCurrentDateAndTime([format]) ⇒ <code>String</code> \| <code>Date</code>
+Returns the current date and time in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.date)  
+**Returns**: <code>String</code> \| <code>Date</code> - The calculated date and time in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected format as a string, which consists of date and time formats, separated by a whitespace or another delimiter. Supported formats are the same as for the [calculateWithTime](#common.date.calculateWithTime) method.<br> |
+
+**Example**  
+```js
+const date = common.date.getCurrentDateAndTime("mm/dd/yyyy HH:mm:ss");
+// returns a string like "06/17/2025 08:17:27"
+```
+**Example**  
+```js
+const date = common.date.getCurrentDateAndTime();
+// returns a Date object like "Tue Jun 17 2025 08:17:27 GMT+0200 (Central European Summer Time)"
+```
+<a name="common.date.calculateWithTime"></a>
+
+#### date.calculateWithTime([date], [time], [format]) ⇒ <code>String</code> \| <code>Date</code>
+Calculates the date and time based on the input parameter and returns it in the given format.
+
+**Kind**: static method of [<code>date</code>](#common.date)  
+**Returns**: <code>String</code> \| <code>Date</code> - The calculated date and time in the given format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [date] | <code>String</code> | <code>&quot;today&quot;</code> | Supported values: "today", "tomorrow", "nextMonth", "previousMonth", "nextYear", "previousYear". |
+| [time] | <code>String</code> |  | The time of day. Supported formats: "HH:MM:SS" (e.g. "10:30:20"), "HH:MM" (e.g. "10:30"), "HH" (e.g. "10"). It can also be in 12-hour format with AM/PM (e.g. "10:30 PM", "3 AM"). It can also be a time anchor, such as "currentTime", "startOfDay", or "endOfDay".<br> If not provided, the time will default to the "startOfDay". |
+| [format] | <code>String</code> | <code>&quot;object&quot;</code> | The expected output format as a string, which consists of <b>date and time formats, separated by a whitespace or another delimiter</b> (such as 'T' substring).<br> - Supported <b>date</b> formats are the same as for the [calculate](#common.date.calculate) method.<br> - Supported <b>time</b> formats are the following: "HH\:mm:ss" (24-hour format), "h\:mm:ss a" (12-hour format), "HH\:mm:ss z" (24-hour format with timezone), "h\:mm:ss a z" (12-hour format with timezone), "HH\:mm" (24-hour format), "h\:mm a" (12-hour format), "HH" (24-hour format), "h a" (12-hour format).<br> - Examples of <b>expected format</b>: "datetime", "object", "mm/dd/yyyy HH\:mm:ss", "dd.mm.yyyy h\:mm:ss a", "dd/mm/yyyy HH\:mm:ss z", "yyyymmddTh\:mm:ss a z", "yyyy/mm/dd HH\:mm", "mmm dd, yyyy h\:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a", and other combinations of supported date and time formats.<br> |
+
+**Example**  
+```js
+const date = common.date.calculateWithTime("today", "10:00");
+// returns a Date object like "Tue Jun 17 2025 08:17:27 GMT+0200 (Central European Summer Time)"
+```
+**Example**  
+```js
+const date = common.date.calculateWithTime("today", "10:00:00", "mm/dd/yyyy HH:mm:ss");
+// returns a string like "06/17/2025 10:00:00"
+```
+**Example**  
+```js
+const date = common.date.calculateWithTime("nextMonth", "9:00 PM", "mm-dd-yyyy h:mm a");
+// returns a string like "07-17-2025 9:00 PM"
+```
+**Example**  
+```js
+const date = common.date.calculateWithTime("previousMonth", "22:00:45", "dd.mm.yyyy HH:mm:ss");
+// returns a string like "17.05.2025 22:00:45"
+```
+**Example**  
+```js
+const date = common.date.calculateWithTime("nextYear", "3 AM", "dd/mm/yyyy h a");
+// returns a string like "17/06/2026 3 AM"
+```
+**Example**  
+```js
+const date = common.date.calculateWithTime("previousYear", "15:30", "yyyymmddTHH:mm");
+// returns a string like "20240617T15:30"
+```
+**Example**  
+```js
+const date = common.date.calculateWithTime("tomorrow", "10:00:50", "mmm dd, yyyy HH:mm:ss z");
+// returns a string like "Jun 18, 2025 10:00:50 GMT+02:00"
+```
+**Example**  
+```js
+const date = common.date.calculateWithTime("today", "startOfDay", "dd.mm.yyyy HH:mm:ss");
+// returns a string like "17.06.2025 00:00:00"
 ```
 <a name="common.navigation"></a>
 
@@ -454,7 +552,7 @@ await common.userInteraction.clearAndFillActiveAndRetry("My Value");
 <a name="common.userInteraction.pressKey"></a>
 
 #### userInteraction.pressKey(keys)
-Performs the specified keypress. Possible values: https://w3c.github.io/webdriver/#keyboard-actions
+Performs the specified keypress. Possible values: <a href="https://w3c.github.io/webdriver/#keyboard-actions" target="_blank">WebDriver Keyboard Actions</a>
 
 **Kind**: static method of [<code>userInteraction</code>](#common.userInteraction)  
 
@@ -618,6 +716,7 @@ Global namespace for util modules.
         * [.stringifyJSON(object)](#util.formatter.stringifyJSON) ⇒ <code>String</code>
         * [.addRemoveLeadingZeros(number, length)](#util.formatter.addRemoveLeadingZeros) ⇒ <code>String</code>
         * [.formatDate(date, format, [locale])](#util.formatter.formatDate) ⇒ <code>String</code>
+        * [.formatDateWithTime(date, format, [locale])](#util.formatter.formatDateWithTime) ⇒ <code>String</code> \| <code>Date</code>
     * [.function](#util.function)
         * [.retry(fct, args, [retries], [interval], [scope])](#util.function.retry)
         * [.executeOptional(fct, args)](#util.function.executeOptional)
@@ -1496,6 +1595,7 @@ const fileNames = await util.file.getFileNamesByExtensions("regression/downloads
     * [.stringifyJSON(object)](#util.formatter.stringifyJSON) ⇒ <code>String</code>
     * [.addRemoveLeadingZeros(number, length)](#util.formatter.addRemoveLeadingZeros) ⇒ <code>String</code>
     * [.formatDate(date, format, [locale])](#util.formatter.formatDate) ⇒ <code>String</code>
+    * [.formatDateWithTime(date, format, [locale])](#util.formatter.formatDateWithTime) ⇒ <code>String</code> \| <code>Date</code>
 
 <a name="util.formatter.sliceStringAt"></a>
 
@@ -1618,7 +1718,7 @@ formats date.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | date | <code>Date</code> |  | The date object to be formatted. |
-| format | <code>String</code> |  | The expected format ("mm/dd/yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "mmm dd, yyyy", "mmm d, yyyy", "datetime", "object"). |
+| format | <code>String</code> |  | The expected format ("mm/dd/yyyy", "mm-dd-yyyy", "dd.mm.yyyy", "dd/mm/yyyy", "yyyymmdd", "yyyy/mm/dd", "yyyy.mm.dd", "yyyy-mm-dd", "dd.mm.yyyy.hh.mm", "mmm dd, yyyy", "mmm d, yyyy", "g.yy.mm.dd", "g/yy/mm/dd", "g-yy-mm-dd" "datetime", "object"). |
 | [locale] | <code>String</code> | <code>&quot;en-US&quot;</code> | The locale format of the date. E.g. "en-US", "de-DE", etc. |
 
 **Example**  
@@ -1632,6 +1732,50 @@ const formattedDate = util.formatter.formatDate(date, "mm/dd/yyyy");
 const date = new Date(2022, 3, 12);
 const formattedDate = util.formatter.formatDate(date, "mmm dd, yyyy");
 // returns "Apr 03, 2022"
+```
+<a name="util.formatter.formatDateWithTime"></a>
+
+#### formatter.formatDateWithTime(date, format, [locale]) ⇒ <code>String</code> \| <code>Date</code>
+formats date with time.
+
+**Kind**: static method of [<code>formatter</code>](#util.formatter)  
+**Returns**: <code>String</code> \| <code>Date</code> - The formatted date with time as string or date object.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| date | <code>Date</code> |  | The date object to be formatted. |
+| format | <code>String</code> |  | The expected format ("datetime", "object", "mm/dd/yyyy HH\:mm:ss", "dd.mm.yyyy h\:mm:ss a", "dd/mm/yyyy HH\:mm:ss z", "yyyymmdd h\:mm:ss a z", "yyyy/mm/dd HH\:mm", "mmm dd, yyyy h\:mm a", "mmm d, yyyy HH", "mmm d, yyyy h a", etc.).<br> See the `format` argument of the [calculateWithTime](#common.date.calculateWithTime) function for more details on the available formats. |
+| [locale] | <code>String</code> | <code>&quot;en-US&quot;</code> | The locale format of the date. E.g. "en-US", "de-DE", etc. |
+
+**Example**  
+```js
+const date = new Date(2020, 0, 17, 15, 30, 45);
+const formattedDate = util.formatter.formatDateWithTime(date, "mm/dd/yyyy HH:mm:ss");
+// returns "01/17/2020 15:30:45"
+```
+**Example**  
+```js
+const date = new Date(2022, 3, 12, 9, 5, 0);
+const formattedDate = util.formatter.formatDateWithTime(date, "mmm dd, yyyy h:mm:ss a");
+// returns "Apr 12, 2022 9:05:00 AM"
+```
+**Example**  
+```js
+const date = new Date(2022, 3, 12, 9, 5, 0);
+const formattedDate = util.formatter.formatDateWithTime(date, "dd/mm/yyyy HH:mm:ss z");
+// returns "12/04/2022 09:05:00 GMT+02:00"
+```
+**Example**  
+```js
+const date = new Date(2022, 3, 12, 9, 5, 0);
+const formattedDate = util.formatter.formatDateWithTime(date, "yyyy/mm/dd HH:mm");
+// returns "2022/04/12 09:05"
+```
+**Example**  
+```js
+const date = new Date(2022, 3, 12, 9, 5, 0);
+const formattedDate = util.formatter.formatDateWithTime(date, "mmm dd, yyyy h:mm a");
+// returns "Apr 12, 2022 9:05 AM"
 ```
 <a name="util.function"></a>
 
@@ -1753,6 +1897,7 @@ Global namespace for UI5 modules.
     * [.date](#ui5.date)
         * [.pick(selector, date, [index])](#ui5.date.pick)
         * [.pickRange(selector, range, [index])](#ui5.date.pickRange)
+        * [.pickWithTime(selector, date, [index])](#ui5.date.pickWithTime)
         * [.fillRange(selector, range, [index])](#ui5.date.fillRange)
     * [.element](#ui5.element)
         * [.waitForAll(selector, [timeout])](#ui5.element.waitForAll)
@@ -1782,7 +1927,7 @@ Global namespace for UI5 modules.
         * [.clickPost([timeout])](#ui5.footerBar.clickPost)
         * [.clickAdd([timeout])](#ui5.footerBar.clickAdd)
     * [.mockserver](#ui5.mockserver)
-        * [.waitForUi5ApplicationLoad(interval)](#ui5.mockserver.waitForUi5ApplicationLoad)
+        * [.waitForUi5ApplicationLoad()](#ui5.mockserver.waitForUi5ApplicationLoad)
         * [.interactWithMockServer(mockServerPath, fnCallback, oParams)](#ui5.mockserver.interactWithMockServer)
         * [.attachFunctionBefore(method, mockServerPath, fnBeforeCallback, oParams)](#ui5.mockserver.attachFunctionBefore)
         * [.attachFunctionAfter(method, mockServerPath, fnAfterCallback, oParams)](#ui5.mockserver.attachFunctionAfter)
@@ -1828,14 +1973,15 @@ Global namespace for UI5 modules.
         * [.clickSettingsButton(tableSelector)](#ui5.table.clickSettingsButton)
         * [.getTotalNumberOfRows(tableSelectorOrId)](#ui5.table.getTotalNumberOfRows) ⇒ <code>Number</code>
         * [.getTotalNumberOfRowsByValues(tableSelectorOrId, values, [index])](#ui5.table.getTotalNumberOfRowsByValues) ⇒ <code>Number</code>
-        * [.selectRowByIndex(tableSelectorOrId, index)](#ui5.table.selectRowByIndex)
-        * [.openItemByIndex(tableSelectorOrId, index)](#ui5.table.openItemByIndex)
-        * [.openItemByValues(tableSelectorOrId, values, [index])](#ui5.table.openItemByValues)
         * [.getSelectorsForRowsByValues(tableSelectorOrId, values)](#ui5.table.getSelectorsForRowsByValues)
         * [.getSelectorForRowByIndex(tableSelectorOrId, index)](#ui5.table.getSelectorForRowByIndex)
+        * [.selectRowByIndex(tableSelectorOrId, index)](#ui5.table.selectRowByIndex)
         * [.selectAllRows(tableSelectorOrId)](#ui5.table.selectAllRows)
         * [.deselectRowByIndex(tableSelectorOrId)](#ui5.table.deselectRowByIndex)
         * [.deselectAllRows(tableSelectorOrId)](#ui5.table.deselectAllRows)
+        * [.selectRowByValues(tableSelectorOrId, values, [index])](#ui5.table.selectRowByValues)
+        * [.openItemByIndex(tableSelectorOrId, index)](#ui5.table.openItemByIndex)
+        * [.openItemByValues(tableSelectorOrId, values, [index])](#ui5.table.openItemByValues)
     * [.userInteraction](#ui5.userInteraction)
         * [.click(selector, [index], [timeout])](#ui5.userInteraction.click)
         * [.clickAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clickAndRetry)
@@ -2479,6 +2625,7 @@ const binding = await ui5.control.getPropertyBinding(elem, propertyName);
 * [.date](#ui5.date)
     * [.pick(selector, date, [index])](#ui5.date.pick)
     * [.pickRange(selector, range, [index])](#ui5.date.pickRange)
+    * [.pickWithTime(selector, date, [index])](#ui5.date.pickWithTime)
     * [.fillRange(selector, range, [index])](#ui5.date.fillRange)
 
 <a name="ui5.date.pick"></a>
@@ -2519,6 +2666,24 @@ const start = await common.date.calculate("2020, 9, 20");
 const end = await common.date.calculate("2021, 1, 3");
 const range = [start, end];
 await ui5.date.pickRange(selector, range);
+```
+<a name="ui5.date.pickWithTime"></a>
+
+#### date.pickWithTime(selector, date, [index])
+Picks the passed date with time using the "DateTimePicker" with the given selector.
+
+**Kind**: static method of [<code>date</code>](#ui5.date)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| selector | <code>Selector</code> |  | The selector describing the element. |
+| date | <code>Date</code> |  | The date object. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
+
+**Example**  
+```js
+const tomorrowMorning = await common.date.calculateWithTime("tomorrow", "09:30:45");
+await ui5.date.pickWithTime(selector, tomorrowMorning);
 ```
 <a name="ui5.date.fillRange"></a>
 
@@ -2999,7 +3164,7 @@ await ui5.footerBar.clickAdd();
 **Kind**: static class of [<code>ui5</code>](#ui5)  
 
 * [.mockserver](#ui5.mockserver)
-    * [.waitForUi5ApplicationLoad(interval)](#ui5.mockserver.waitForUi5ApplicationLoad)
+    * [.waitForUi5ApplicationLoad()](#ui5.mockserver.waitForUi5ApplicationLoad)
     * [.interactWithMockServer(mockServerPath, fnCallback, oParams)](#ui5.mockserver.interactWithMockServer)
     * [.attachFunctionBefore(method, mockServerPath, fnBeforeCallback, oParams)](#ui5.mockserver.attachFunctionBefore)
     * [.attachFunctionAfter(method, mockServerPath, fnAfterCallback, oParams)](#ui5.mockserver.attachFunctionAfter)
@@ -3016,15 +3181,10 @@ await ui5.footerBar.clickAdd();
 
 <a name="ui5.mockserver.waitForUi5ApplicationLoad"></a>
 
-#### mockserver.waitForUi5ApplicationLoad(interval)
+#### mockserver.waitForUi5ApplicationLoad()
 Waits for the UI5 framework to load and makes sure XHR request finished und busy indicators are not visible anymore.
 
 **Kind**: static method of [<code>mockserver</code>](#ui5.mockserver)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| interval | <code>Integer</code> | The intervals to use when waiting UI5 to load. |
-
 **Example**  
 ```js
 await ui5.mockserver.waitForUi5ApplicationLoad(100);
@@ -3713,14 +3873,15 @@ await ui5.session.expectLogoutText();
     * [.clickSettingsButton(tableSelector)](#ui5.table.clickSettingsButton)
     * [.getTotalNumberOfRows(tableSelectorOrId)](#ui5.table.getTotalNumberOfRows) ⇒ <code>Number</code>
     * [.getTotalNumberOfRowsByValues(tableSelectorOrId, values, [index])](#ui5.table.getTotalNumberOfRowsByValues) ⇒ <code>Number</code>
-    * [.selectRowByIndex(tableSelectorOrId, index)](#ui5.table.selectRowByIndex)
-    * [.openItemByIndex(tableSelectorOrId, index)](#ui5.table.openItemByIndex)
-    * [.openItemByValues(tableSelectorOrId, values, [index])](#ui5.table.openItemByValues)
     * [.getSelectorsForRowsByValues(tableSelectorOrId, values)](#ui5.table.getSelectorsForRowsByValues)
     * [.getSelectorForRowByIndex(tableSelectorOrId, index)](#ui5.table.getSelectorForRowByIndex)
+    * [.selectRowByIndex(tableSelectorOrId, index)](#ui5.table.selectRowByIndex)
     * [.selectAllRows(tableSelectorOrId)](#ui5.table.selectAllRows)
     * [.deselectRowByIndex(tableSelectorOrId)](#ui5.table.deselectRowByIndex)
     * [.deselectAllRows(tableSelectorOrId)](#ui5.table.deselectAllRows)
+    * [.selectRowByValues(tableSelectorOrId, values, [index])](#ui5.table.selectRowByValues)
+    * [.openItemByIndex(tableSelectorOrId, index)](#ui5.table.openItemByIndex)
+    * [.openItemByValues(tableSelectorOrId, values, [index])](#ui5.table.openItemByValues)
 
 <a name="ui5.table.sortColumnAscending"></a>
 
@@ -3851,90 +4012,6 @@ const selector = {
 const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, ["value1", "value2"]);
 const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, "value");
 ```
-<a name="ui5.table.selectRowByIndex"></a>
-
-#### table.selectRowByIndex(tableSelectorOrId, index)
-Selects a row in the table by its index.
-
-**Kind**: static method of [<code>table</code>](#ui5.table)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
-| index | <code>Number</code> | The index of the row to select. |
-
-**Example**  
-```js
-await ui5.table.selectRowByIndex("application-ReportingTask-run-component---ReportList--ReportingTable", 0);
-```
-**Example**  
-```js
-const selector = {
- elementProperties: {
-   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
-   metadata: "sap.ui.comp.smarttable.SmartTable",
-   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
- }
-};
-await ui5.table.selectRowByIndex(selector, 0);
-```
-<a name="ui5.table.openItemByIndex"></a>
-
-#### table.openItemByIndex(tableSelectorOrId, index)
-Opens the item in the table by its index.
-
-**Kind**: static method of [<code>table</code>](#ui5.table)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
-| index | <code>Number</code> | The index of the item to open. |
-
-**Example**  
-```js
-const selector = {
- elementProperties: {
-  viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
-  metadata: "sap.ui.comp.smarttable.SmartTable",
-  id: "application-ReportingTask-run-component---ReportList--ReportingTable"
- }
-};
-await ui5.table.openItemByIndex(selector, 0);
-```
-**Example**  
-```js
-const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
-await ui5.table.openItemByIndex(id, 0);
-```
-<a name="ui5.table.openItemByValues"></a>
-
-#### table.openItemByValues(tableSelectorOrId, values, [index])
-Opens the item in the table containing the given values. If multiple items match, it opens the index-th item.
-
-**Kind**: static method of [<code>table</code>](#ui5.table)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> |  | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
-| values | <code>String</code> \| <code>Array.&lt;String&gt;</code> |  | The value(s) to match in the table rows. |
-| [index] | <code>Number</code> | <code>0</code> | The index of the matching row to consider. |
-
-**Example**  
-```js
-const selector = {
- elementProperties: {
-   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
-   metadata: "sap.ui.comp.smarttable.SmartTable",
-   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
- }
-};
-await ui5.table.openItemByValues(selector, ["value1", "value2"]);
-```
-**Example**  
-```js
-const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
-await ui5.table.openItemByValues(id, "value");
-```
 <a name="ui5.table.getSelectorsForRowsByValues"></a>
 
 #### table.getSelectorsForRowsByValues(tableSelectorOrId, values)
@@ -3945,7 +4022,7 @@ Gets the selectors of rows in the table that contain the given values. If multip
 | Param | Type | Description |
 | --- | --- | --- |
 | tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
-| values | <code>string</code> | The value(s) to match in the table rows. |
+| values | <code>String</code> \| <code>Array.&lt;String&gt;</code> | The value(s) to match in the table rows. |
 
 **Example**  
 ```js
@@ -3990,6 +4067,33 @@ const rowSelector = await ui5.table.getSelectorForRowByIndex(selector, 0);
 ```js
 id = "application-ReportingTask-run-component---ReportList--ReportingTable"
 const rowSelector = await ui5.table.getSelectorForRowByIndex(id, 0);
+```
+<a name="ui5.table.selectRowByIndex"></a>
+
+#### table.selectRowByIndex(tableSelectorOrId, index)
+Selects a row in the table by its index.
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
+| index | <code>Number</code> | The index of the row to select. |
+
+**Example**  
+```js
+await ui5.table.selectRowByIndex("application-ReportingTask-run-component---ReportList--ReportingTable", 0);
+```
+**Example**  
+```js
+const selector = {
+ elementProperties: {
+   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   metadata: "sap.ui.comp.smarttable.SmartTable",
+   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+ }
+};
+await ui5.table.selectRowByIndex(selector, 0);
 ```
 <a name="ui5.table.selectAllRows"></a>
 
@@ -4059,6 +4163,92 @@ const selector = {
  }
 };
 await ui5.table.deselectAllRows(selector);
+```
+<a name="ui5.table.selectRowByValues"></a>
+
+#### table.selectRowByValues(tableSelectorOrId, values, [index])
+Selects a row in the table by matching value(s). If multiple rows match, selects the one at the given global index (across all pages).
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> |  | The selector or ID describing the table. |
+| values | <code>String</code> \| <code>Array.&lt;String&gt;</code> |  | The value(s) to match in the table rows. |
+| [index] | <code>Number</code> | <code>0</code> | The global index of the matching row to select (across all pages). |
+
+**Example**  
+```js
+const selector = {
+elementProperties: {
+ viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+ metadata: "sap.ui.comp.smarttable.SmartTable",
+ id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+}
+};
+await ui5.table.selectRowByValues(selector, ["value1", "value2"]);
+```
+**Example**  
+```js
+const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+await ui5.table.selectRowByValues(id, "value", 1);
+```
+<a name="ui5.table.openItemByIndex"></a>
+
+#### table.openItemByIndex(tableSelectorOrId, index)
+Opens the item in the table by its index.
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
+| index | <code>Number</code> | The index of the item to open. |
+
+**Example**  
+```js
+const selector = {
+ elementProperties: {
+  viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+  metadata: "sap.ui.comp.smarttable.SmartTable",
+  id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+ }
+};
+await ui5.table.openItemByIndex(selector, 0);
+```
+**Example**  
+```js
+const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+await ui5.table.openItemByIndex(id, 0);
+```
+<a name="ui5.table.openItemByValues"></a>
+
+#### table.openItemByValues(tableSelectorOrId, values, [index])
+Opens the item in the table containing the given values. If multiple items match, it opens the index-th item.
+
+**Kind**: static method of [<code>table</code>](#ui5.table)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> |  | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
+| values | <code>String</code> \| <code>Array.&lt;String&gt;</code> |  | The value(s) to match in the table rows. |
+| [index] | <code>Number</code> | <code>0</code> | The index of the matching row to consider. |
+
+**Example**  
+```js
+const selector = {
+ elementProperties: {
+   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
+   metadata: "sap.ui.comp.smarttable.SmartTable",
+   id: "application-ReportingTask-run-component---ReportList--ReportingTable"
+ }
+};
+await ui5.table.openItemByValues(selector, ["value1", "value2"]);
+```
+**Example**  
+```js
+const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+await ui5.table.openItemByValues(id, "value");
 ```
 <a name="ui5.userInteraction"></a>
 
@@ -5738,6 +5928,7 @@ Global namespace for service modules.
         * [.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])](#service.odata.getEntitySet) ⇒ <code>Promise</code>
         * [.post(srv, entitySet, payload, [raw], [headers], [queryParams])](#service.odata.post) ⇒ <code>Promise</code>
         * [.merge(srv, entitySet, payload, [headers])](#service.odata.merge) ⇒ <code>Promise</code>
+        * [.patch(srv, entitySet, payload, [headers])](#service.odata.patch) ⇒ <code>Promise</code>
         * [.delete(srv, entitySet, options, [headers])](#service.odata.delete) ⇒ <code>Promise</code>
         * [.callFunctionImport(srv, functionImportName, options)](#service.odata.callFunctionImport) ⇒ <code>Promise</code>
         * [.isFeatureToggleActivated(srv, featureName)](#service.odata.isFeatureToggleActivated) ⇒ <code>Promise</code>
@@ -5762,6 +5953,7 @@ Global namespace for service modules.
     * [.getEntitySet(srv, entitySet, [filterString], [selectionFields], [queryParams])](#service.odata.getEntitySet) ⇒ <code>Promise</code>
     * [.post(srv, entitySet, payload, [raw], [headers], [queryParams])](#service.odata.post) ⇒ <code>Promise</code>
     * [.merge(srv, entitySet, payload, [headers])](#service.odata.merge) ⇒ <code>Promise</code>
+    * [.patch(srv, entitySet, payload, [headers])](#service.odata.patch) ⇒ <code>Promise</code>
     * [.delete(srv, entitySet, options, [headers])](#service.odata.delete) ⇒ <code>Promise</code>
     * [.callFunctionImport(srv, functionImportName, options)](#service.odata.callFunctionImport) ⇒ <code>Promise</code>
     * [.isFeatureToggleActivated(srv, featureName)](#service.odata.isFeatureToggleActivated) ⇒ <code>Promise</code>
@@ -5921,6 +6113,32 @@ const res = await service.odata.merge(srv, "A_PurchaseOrderScheduleLine", {
  "PurchasingDocumentItem": "10",
  "ScheduleLine": "1",
  "ScheduleLineDeliveryDate": new Date()
+};
+```
+<a name="service.odata.patch"></a>
+
+#### odata.patch(srv, entitySet, payload, [headers]) ⇒ <code>Promise</code>
+@description Sends a PATCH request to patch data from the specified OData entity set for the given payload.
+
+**Kind**: static method of [<code>odata</code>](#service.odata)  
+**Returns**: <code>Promise</code> - A Promise that resolves to the response data.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| srv | <code>Object</code> | Instance of the service |
+| entitySet | <code>String</code> | The entitySet you want to PATCH in. |
+| payload | <code>Object</code> | The payload of the PATCH request. |
+| [headers] | <code>Object</code> | Optional headers to be included in the request. |
+
+**Example**  
+```js
+const res = await service.odata.patch(srv, "ContractAccountPartner", {
+ "ContractAccount": "",
+ "BusinessPartner": "",
+ "DraftUUID": "42010aef-80aa-1fd0-8ec3-a11a9c56c3d3",
+ "IsActiveEntity": "false",
+ "CACompanyCodeGroup": "3910",
+ "CAStandardCompanyCode": "3910"
 };
 ```
 <a name="service.odata.delete"></a>

@@ -7,6 +7,7 @@ import ErrorHandler from "../../helper/errorHandler";
 import elementHighlight from "../../helper/elementHighlight";
 import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
 import { validateValue } from "../../helper/inputValidation";
+import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 
 /**
  * @class userInteraction
@@ -26,7 +27,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.click(elem);
    */
-  async click(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async click(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.click);
     const highlightConfig = await elementHighlight.getElementHighlightData("click");
 
@@ -37,12 +38,12 @@ export class UserInteraction {
       await Promise.all([
         expect(element).toBeDisplayed({
           wait: timeout,
-          interval: 100,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
         }),
         expect(element).toBeEnabled({
           wait: timeout,
-          interval: 100,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
         })
       ]);
@@ -66,7 +67,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.clickAndRetry(elem);
    */
-  async clickAndRetry(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000, retries = 3, interval = 5000) {
+  async clickAndRetry(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, retries = 3, interval = 5000) {
     const vl = this.vlf.initLog(this.click);
 
     try {
@@ -88,7 +89,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.doubleClick(elem);
    */
-  async doubleClick(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async doubleClick(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.doubleClick);
     const highlightConfig = await elementHighlight.getElementHighlightData("doubleClick");
 
@@ -99,12 +100,12 @@ export class UserInteraction {
       await Promise.all([
         expect(element).toBeDisplayed({
           wait: timeout,
-          interval: 100,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
         }),
         expect(element).toBeEnabled({
           wait: timeout,
-          interval: 100,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
         })
       ]);
@@ -126,7 +127,7 @@ export class UserInteraction {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.rightClick(elem);
    */
-  async rightClick(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || 30000) {
+  async rightClick(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.rightClick);
     const highlightConfig = await elementHighlight.getElementHighlightData("rightClick");
 
@@ -137,12 +138,12 @@ export class UserInteraction {
       await Promise.all([
         expect(element).toBeDisplayed({
           wait: timeout,
-          interval: 100,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
         }),
         expect(element).toBeEnabled({
           wait: timeout,
-          interval: 100,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
           message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
         })
       ]);
@@ -171,7 +172,7 @@ export class UserInteraction {
     try {
       const element = await resolveCssSelectorOrElement(elementOrSelector);
 
-      const isSelected: boolean = await nonUi5.element.isSelected(element);
+      const isSelected: boolean = await this._isItemSelected(element);
       if (!isSelected) {
         await this.click(element);
       } else {
@@ -190,12 +191,12 @@ export class UserInteraction {
    * @example await nonUi5.userInteraction.uncheck(selector);
    */
   async uncheck(elementOrSelector: WebdriverIO.Element | string) {
-    const vl = this.vlf.initLog(this.check);
+    const vl = this.vlf.initLog(this.uncheck);
 
     try {
       const element = await resolveCssSelectorOrElement(elementOrSelector);
 
-      const isSelected: boolean = await nonUi5.element.isSelected(element);
+      const isSelected: boolean = await this._isItemSelected(element);
       if (isSelected) {
         await this.click(element);
       } else {
@@ -418,12 +419,12 @@ export class UserInteraction {
    * await nonUi5.userInteraction.scrollToElement(elem, alignment);
    */
 
-  async scrollToElement(elementOrSelector: WebdriverIO.Element | string, alignment: AlignmentOptions | AlignmentValues = "center") {
+  async scrollToElement(elementOrSelector: WebdriverIO.Element | string, alignment: AlignmentOptions | AlignmentValues = "center", timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.scrollToElement);
     let options = {};
-  
+
     try {
-      const element = await resolveCssSelectorOrElement(elementOrSelector);
+      const element = await resolveCssSelectorOrElement(elementOrSelector, timeout);
       if (typeof alignment === "string") {
         options = {
           block: alignment,
@@ -540,6 +541,15 @@ export class UserInteraction {
     } catch (error) {
       this.ErrorHandler.logException(error);
     }
+  }
+
+  // =================================== HELPER ===================================
+  private async _isItemSelected(element: WebdriverIO.Element) {
+    const ariaSelected = await element.getAttribute("aria-selected");
+    if (ariaSelected !== null && ariaSelected !== undefined) {
+      return ariaSelected.toLowerCase() === "true";
+    }
+    return await nonUi5.element.isSelected(element);
   }
 }
 export default new UserInteraction();

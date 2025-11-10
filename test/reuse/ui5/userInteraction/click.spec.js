@@ -41,7 +41,7 @@ describe("userInteraction - click on not displayed element", function () {
     const index = 0;
     const timeout = 30000;
     await expect(ui5.userInteraction.click(selector, index, timeout))
-      .rejects.toThrow(/uiControlExecuteLocator\(\): No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });
 
