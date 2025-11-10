@@ -1,5 +1,5 @@
 interface MockResponse {
-  requestUrlRegexp: RegExp;
+  requestUrlPattern: string;
   payload: string;
   params: {
     statusCode: number;
@@ -12,7 +12,7 @@ export class Ui5ExtensionMocker {
 
   private static readonly mockResponses: Array<MockResponse> = [
     {
-      requestUrlRegexp: /.*\/xRayControls\/.*/gm,
+      requestUrlPattern: "**/xRayControls/**",
       payload: this.payload,
       params: {
         statusCode: 404,
@@ -20,7 +20,7 @@ export class Ui5ExtensionMocker {
       }
     },
     {
-      requestUrlRegexp: /.*joule.*/gm,
+      requestUrlPattern: "**joule**",
       payload: this.payload,
       params: {
         statusCode: 404,
@@ -28,7 +28,7 @@ export class Ui5ExtensionMocker {
       }
     },
     {
-      requestUrlRegexp: /.*walkme.*/gm,
+      requestUrlPattern: "**walkme**",
       payload: this.payload,
       params: {
         statusCode: 404,
@@ -39,7 +39,7 @@ export class Ui5ExtensionMocker {
 
   public static async mockRequests(): Promise<void> {
     for (const response of this.mockResponses) {
-      const mock = await browser.mock(response.requestUrlRegexp);
+      const mock = await browser.mock(response.requestUrlPattern);
       mock.respond(response.payload, response.params);
     }
   }
