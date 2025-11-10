@@ -38,9 +38,9 @@ export class Ui5ExtensionMocker {
   ];
 
   public static async mockRequests(): Promise<void> {
-    for (const response of this.mockResponses) {
-      const mock = await browser.mock(response.requestUrlPattern);
-      mock.respond(response.payload, response.params);
-    }
+    // for (const response of this.mockResponses) {
+    //   const mock = await browser.mock(response.requestUrlPattern);
+    //   mock.respond(response.payload, response.params);
+    // }
   }
 }
