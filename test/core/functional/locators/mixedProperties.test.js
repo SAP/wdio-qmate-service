@@ -72,7 +72,7 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
     };
 
     await expect(browser.uiControl(selector))
-      .rejects.toThrowError(/No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 
   it("'happy case': should access element by nested elementProperties, ancestorProperties, empty siblingProperties and descendantProperties", async () => {
@@ -163,6 +163,6 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
       }
     };
     await expect(browser.uiControl(selector))
-      .rejects.toThrowError(/No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });

@@ -45,7 +45,7 @@ describe("assertion - expectAttributeToBe wrong/null/undefined", function () {
       .rejects.toThrow(/Expect\w+|\d+Laptop\w+|\d+Received\w+|\d+laptops/);
 
     await expect(ui5.assertion.expectAttributeToBe(selector, "title"))
-      .rejects.toThrowError(/Expect\w+|\d+undefined\w+|\d+Received\w+|\d+laptops/);
+      .rejects.toThrow(/Expect\w+|\d+undefined\w+|\d+Received\w+|\d+laptops/);
 
     await expect(ui5.assertion.expectAttributeToBe(selector, "title", null))
       .rejects.toThrow(/Expect\w+|\d+null\w+|\d+Received\w+|\d+laptops/);

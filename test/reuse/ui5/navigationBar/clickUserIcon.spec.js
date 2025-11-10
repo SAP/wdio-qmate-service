@@ -30,7 +30,7 @@ describe("navigationBar - clickUserIcon - error case", function () {
 
   it("Execution & Verification", async function () {
     await expect(ui5.navigationBar.clickUserIcon())
-      .rejects.toThrowError("Function 'clickUserIcon' failed with:");
+      .rejects.toThrow("Function 'clickUserIcon' failed with:");
   });
 
 });
