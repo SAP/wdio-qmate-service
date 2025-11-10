@@ -4,10 +4,10 @@
  * Import data to be used in test specs from JSON files, or folders.
  * Export data to JSON files.
  */
-import fs from 'fs-extra'
+import fs from "fs-extra";
 import path from "path";
 import importExportDataUtil from "./dataExchangeUtil";
-import { isBrowserDefined } from '../hooks/utils/isBrowserDefined';
+import { isBrowserDefined } from "../hooks/utils/isBrowserDefined";
 
 class DataExchange {
 
@@ -16,7 +16,6 @@ class DataExchange {
    * @description read the import and export params in the config file
    * @example await readParams(config);
    */
-
   async readParams (config: Record<string, any>) {
     if (!config.params) {
       //nothing to do
@@ -36,7 +35,8 @@ class DataExchange {
     if (exportParams) {
       await readExportParams(config, exportParams);
     }
-  };
+  }
+
   /**
    * @function writeExportDataInTmpFile
    * @description write the data in browser.params.export into temporary files. The data
@@ -44,7 +44,7 @@ class DataExchange {
    * @example await writeExportDataInTmpFile();
    */
   async writeExportDataInTmpFile () {
-    if (!browser.params || !browser.params.exportDataFiles) {
+    if (!browser.params || !browser.params.exportDataFiles || Object.keys(browser.params.exportDataFiles).length === 0) {
       // no export data files in config.js, nothing to do
       return;
     }
@@ -83,10 +83,11 @@ class DataExchange {
         console.warn(err);
       }
     }
-  };
+  }
+  
   /**
    * @function writeExportData
-   * @description write the data in browser.params.export into the assigned files. Reads the temporary 
+   * @description write the data in browser.params.export into the assigned files. Reads the temporary
    * files and merges the data.
    * @example await writeExportData();
    */
@@ -178,39 +179,35 @@ class DataExchange {
 
       console.warn(err);
     }
-
-  };
-
-};
+  }
+}
 module.exports = new DataExchange();
 
 async function readImportParams(config: Record<string, any>, importParams: any) {
-    // import
-    // read folders, and subfolders if directory, otherwise read file
-    const params = Object.keys(importParams);
-    for (let i = 0; i < params.length; i++) {
-      const param = params[i];
-      // adjust file path if relative
-      const fileOrDir = importExportDataUtil.getFileAbsPath(importParams[param]);
+  // import
+  // read folders, and subfolders if directory, otherwise read file
+  const params = Object.keys(importParams);
+  for (let i = 0; i < params.length; i++) {
+    const param = params[i];
+    // adjust file path if relative
+    const fileOrDir = importExportDataUtil.getFileAbsPath(importParams[param]);
+    // @ts-ignore
+    const isFileReadable = await importExportDataUtil.isReadable(fileOrDir);
+    if (isFileReadable) {
       // @ts-ignore
-      const isFileReadable = await importExportDataUtil.isReadable(fileOrDir);
-      if (isFileReadable) {
-        // @ts-ignore
-        await importExportDataUtil.readData(fileOrDir, [param], config);
-      } else {
-        delete importParams[param];
-        console.warn(
-          `"${fileOrDir}" does not exist or is not readable. Please check path or permissions.`
-        );
-      }
-    } 
+      await importExportDataUtil.readData(fileOrDir, [param], config);
+    } else {
+      delete importParams[param];
+      console.warn(`"${fileOrDir}" does not exist or is not readable. Please check path or permissions.`);
+    }
+  }
 }
 
 async function readExportParams(config: Record<string, any>, exportParams: any) {
   if (isBrowserDefined()) {
-    copyExportParamsToBrowser(exportParams)
+    copyExportParamsToBrowser(exportParams);
   }
-  copyExportParamsToConfig(config, exportParams); 
+  copyExportParamsToConfig(config, exportParams);
 }
 
 function copyExportParamsToBrowser(exportParams: any) {
