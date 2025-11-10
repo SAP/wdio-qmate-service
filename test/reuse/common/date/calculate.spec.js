@@ -152,7 +152,7 @@ describe("date - calculate - 'today' + 'mm/dd/yyyy'", function() {
 
 describe("date - calculate - error", function() {
   it("Execution & Verification", function() {
-    expect(() => common.date.calculate(false)).toThrowError("Function 'calculate' failed: Please provide a valid date string as first argument.");
+    expect(() => common.date.calculate(false)).toThrow("Function 'calculate' failed: Please provide a valid date string as first argument.");
   });
 });
 
