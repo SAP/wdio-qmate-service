@@ -4,7 +4,8 @@
 name: Node.js Package
 permissions:
   contents: read
-
+  id-token: write  # Required for OIDC
+  
 on:
   release:
     types: [released]
