@@ -50,11 +50,15 @@ export class NavigationBar {
       const selector = "//*[contains(local-name(),'ui5-shellbar-branding')]";
       await nonUi5.userInteraction.click(selector, 500);
     }
+    async function clickLogoS4HanaCloud() {
+      const selector = ">>>//*[contains(local-name(),'ui5-shellbar-branding')]";
+      await nonUi5.userInteraction.click(selector, 500);
+    }
     try {
       await browser.waitUntil(
         async () => {
           try {
-            await Promise.any([clickLogo(), clickLogoWebComponent()]);
+            await Promise.any([clickLogo(), clickLogoWebComponent(), clickLogoS4HanaCloud()]);
             return true;
           } catch (error) {
             // Ignore error and continue to next promise
