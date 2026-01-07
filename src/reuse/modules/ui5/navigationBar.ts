@@ -46,13 +46,13 @@ export class NavigationBar {
       const selector = "//a[@id='shell-header-logo']";
       await nonUi5.userInteraction.click(selector, 500);
     }
+    const logoWebComponentSelector = "//*[contains(local-name(),'ui5-shellbar-branding')]";
     async function clickLogoWebComponent() {
-      const selector = "//*[contains(local-name(),'ui5-shellbar-branding')]";
-      await nonUi5.userInteraction.click(selector, 500);
+      await nonUi5.userInteraction.click(logoWebComponentSelector, 500);
     }
     async function clickLogoS4HanaCloud() {
-      const selector = ">>>//*[contains(local-name(),'ui5-shellbar-branding')]";
-      await nonUi5.userInteraction.click(selector, 500);
+      // same selector as for web component, but make it a deep selector to handle cases where element is within shadow root
+      await nonUi5.userInteraction.click(`>>>${logoWebComponentSelector}`, 500);
     }
     try {
       await browser.waitUntil(
