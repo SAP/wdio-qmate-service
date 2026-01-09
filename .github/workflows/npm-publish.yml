@@ -4,8 +4,10 @@
 name: Node.js Package
 permissions:
   contents: read
-
+  id-token: write  # Required for OIDC
+  
 on:
+  workflow_dispatch:
   release:
     types: [released]
 
@@ -22,5 +24,3 @@ jobs:
       - run: npm install -g npm@latest
       - run: npm ci
       - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
