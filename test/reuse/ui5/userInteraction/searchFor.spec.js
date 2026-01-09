@@ -54,6 +54,7 @@ describe("userInteraction - searchFor - use Enter", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
@@ -101,6 +102,7 @@ describe("userInteraction - searchFor - use Enter and wrong selector", function 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
@@ -131,6 +133,7 @@ describe("userInteraction - resetSearch", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 

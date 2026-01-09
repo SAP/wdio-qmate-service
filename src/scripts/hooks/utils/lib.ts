@@ -12,8 +12,9 @@ function isEmptyObjectOrUndefined(obj) {
 
 //TODO: Consider count stable later
 var COUNT_STABLE = 1;
-var LibScripts = function () {
-  this.mockServerActionInBrowser = async function () {
+class LibScripts {
+
+  async mockServerActionInBrowser() {
     const aCustomParams = [];
     let browserFunction = null;
     let mockServerPath = null;
@@ -70,9 +71,9 @@ var LibScripts = function () {
     } else {
       throw new Error("Invalid parameters.");
     }
-  };
+  }
 
-  this.controlActionInBrowser = async function () {
+  async controlActionInBrowser() {
     const aCustomParams = [];
     let browserFunction = null;
     let webElem = null;
@@ -90,6 +91,8 @@ var LibScripts = function () {
       if (arguments[1].getAttribute) {
         try {
           webElem = arguments[1];
+          // FIXME - without the next call to getAttribute, the call to get control for object registry fails
+          await webElem.getAttribute("id");
         } catch (error) {
           throw new Error("No web element found.");
         }
@@ -145,7 +148,7 @@ var LibScripts = function () {
     }
   };
 
-  this.waitUI5ToStabilize = async function (ui5Selector) {
+  async waitUI5ToStabilize(ui5Selector) {
     if (!browser.config.waitForUI5Timeout) {
       browser.config.waitForUI5Timeout = 90000;
     }
@@ -181,9 +184,10 @@ var LibScripts = function () {
       // eslint-disable-next-line no-console
       //console.log(`waitUI5ToStabilize(ui5Selector): Function raised an exception and ignored... Selector: ${util.formatter.stringifyJSON(ui5Selector)} and error: ${error}`);
     }
-  };
 
-  this.stableDomElementCount = async function (ui5Selector, rootElement, countStable, elmLength, allTries) {
+  }
+
+  async stableDomElementCount (ui5Selector, rootElement, countStable, elmLength, allTries) {
     if (countStable && countStable > 0 && allTries && allTries > 0) {
       let aElements = null;
       if (!isEmptyObjectOrUndefined(ui5Selector)) {
@@ -199,7 +203,7 @@ var LibScripts = function () {
       if (!aElements || aElements.length === 0) return null;
       const displayedElements = [];
       for (let i = 0; i < aElements.length; i++) {
-        const isDisplayedInPort = await aElements[i].isDisplayedInViewport();
+        const isDisplayedInPort = await aElements[i].isDisplayed({ withinViewport: true });
         if (isDisplayedInPort) {
           displayedElements.push(aElements[i]);
         }
@@ -216,9 +220,9 @@ var LibScripts = function () {
       //console.log("Countstable:" + countStable +" All tries" + allTries +" Stability check, found:" + displayedElements.length + " expected:" + newLength);
       return this.stableDomElementCount(ui5Selector, rootElement, countStable, newLength, allTries);
     }
-  };
+  }
 
-  this.getDisplayedElements = async function (ui5Selector, rootElement, countStable, allTries, returnAllDomElements = false) {
+  async getDisplayedElements (ui5Selector, rootElement, countStable, allTries, returnAllDomElements = false) {
     var aElements = null;
     try {
       if (!isEmptyObjectOrUndefined(ui5Selector)) {
@@ -263,9 +267,9 @@ var LibScripts = function () {
       return null;
     }
     return null;
-  };
+  }
 
-  this.uiControlExecuteLocator = async function (ui5Selector, index, timeout, rootElement, returnAllDomElements = false) {
+  async uiControlExecuteLocator (ui5Selector, index, timeout, rootElement, returnAllDomElements = false) {
     var elems = null;
     var that = this;
     const countStable = COUNT_STABLE;
@@ -298,14 +302,14 @@ var LibScripts = function () {
       return elems[index];
     }
     return elems;
-  };
+  }
 
-  this.loadMockData = async function (responsePath, isText) {
+  async loadMockData (responsePath, isText) {
     return browser.executeAsync(clientsidescripts.loadMockData, {
       responsePath: responsePath,
       isText: isText
     });
-  };
+  }
 };
 
 module.exports = new LibScripts();

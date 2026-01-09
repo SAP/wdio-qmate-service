@@ -36,6 +36,7 @@ describe("userInteraction - uncheck - checkbox (unchecked)", function () {
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
@@ -60,6 +61,7 @@ describe("userInteraction - uncheck - checkbox (error)", function () {
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 

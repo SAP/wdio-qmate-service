@@ -46,6 +46,7 @@ describe("userInteraction - selectComboBox use wrong selector", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Select/sample/sap.m.sample.Select");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
@@ -75,6 +76,7 @@ describe("userInteraction - selectComboBox use wrong value", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Select/sample/sap.m.sample.Select");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
@@ -106,6 +108,7 @@ describe("userInteraction - use 3rd selectBox on page", function () {
     await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Select/sample/sap.m.sample.SelectValueState");
     await handleCookiesConsent();
     await util.browser.refresh();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 

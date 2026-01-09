@@ -301,7 +301,7 @@ export class Table {
           const table = TableHelper.filterTableByMetadata("${(constructedTableSelector as ElementProperties).elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
           const items = TableHelper.getItems(table);
           const filteredItems = TableHelper.filterItemsWithoutTitle(items);
-          return await TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting}, "${matchMode}");
+          return TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting}, "${matchMode}");
       `;
       filteredRowIds = await util.browser.executeScript(browserCommand);
       // ========================================================================
@@ -380,7 +380,7 @@ export class Table {
       const browserCommand = `
         ${classCode}
         const table = TableHelper.filterTableByMetadata("${(constructedTableSelector as ElementProperties).elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
-        return await TableHelper.getAllColumnValuesByScrolling(table, "${columnName}", ${scrollingEnabled});
+        return TableHelper.getAllColumnValuesByScrolling(table, "${columnName}", ${scrollingEnabled});
       `;
       values = await util.browser.executeScript(browserCommand);
       // ========================================================================

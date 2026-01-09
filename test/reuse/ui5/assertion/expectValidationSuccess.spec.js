@@ -40,6 +40,7 @@ describe("Expect input field 'valueState' not to be 'None' (unhappy case)", func
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
@@ -50,6 +51,6 @@ describe("Expect input field 'valueState' not to be 'None' (unhappy case)", func
 
   it("Verification", async function () {
     await expect(ui5.assertion.expectValidationSuccess(inputFieldWithCheckSelector, 0, 2500, 0))
-      .rejects.toThrowError(/Error/);
+      .rejects.toThrow(/Error/);
   });
 });

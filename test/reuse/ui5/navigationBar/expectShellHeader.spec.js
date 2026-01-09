@@ -17,6 +17,6 @@ describe("navigationBar - expectShellHeader - error case", function () {
 
   it("Execution & Verification", async function () {
     await expect(ui5.navigationBar.expectShellHeader())
-      .rejects.toThrowError("Function 'expectShellHeader' failed with:");
+      .rejects.toThrow("Function 'expectShellHeader' failed with:");
   });
 });

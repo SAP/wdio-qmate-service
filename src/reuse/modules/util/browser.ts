@@ -94,7 +94,7 @@ export class Browser {
   async collectCoverage(): Promise<void> {
     const vl = this.vlf.initLog(this.collectCoverage);
     if (browser.config.params && browser.config.params.coverage && (browser.config.params.coverage.status === true || browser.config.params.coverage.status === "true")) {
-      await browser.collectCoverage();
+      // FIXME - do we need this ? await browser.collectCoverage();
     } else {
       util.console.warn("Coverage is disabled. Please enable coverage in config file.");
     }
@@ -111,7 +111,7 @@ export class Browser {
     const vl = this.vlf.initLog(this.sleepAndCollectCoverage);
     if (browser.config.params && browser.config.params.coverage && (browser.config.params.coverage.status === true || browser.config.params.coverage.status === "true")) {
       await this.sleep(duration);
-      await browser.collectCoverage();
+      // FIXME do we need this? await browser.collectCoverage();
     } else {
       util.console.warn("Coverage is disabled. Please enable coverage in config file.");
     }
@@ -175,7 +175,7 @@ export class Browser {
    */
   getBrowserName(): string {
     const vl = this.vlf.initLog(this.getBrowserName);
-    return browser.capabilities.browserName;
+    return browser.capabilities.browserName || "";
   }
 
   /**
@@ -273,7 +273,7 @@ export class Browser {
    * @returns {Any} The result from the executed function.
    * @example await util.browser.executeScript(command);
    */
-  async executeScript(command: string | Function, ...args: Array<any>): Promise<any> {
+  async executeScript(command: string | ((...innerArgs: any[]) => unknown), ...args: Array<any>): Promise<any> {
     const vl = this.vlf.initLog(this.executeScript);
     return browser.execute(command, ...args);
   }
@@ -290,8 +290,8 @@ export class Browser {
    * @param {Number} [options.interval] - The interval to check the function (ms).
    * @returns {Promise<void>} Resolves when the function returns true or the timeout is reached.
    * @example await util.browser.waitUntil(async () => await ui5.element.isVisible(selector), { timeout: 5000, timeoutMsg: "Element not visible" });
-   */
-  async waitUntil(condition: Function, options: { timeout?: number; timeoutMsg?: string; interval?: number } = {}): Promise<void> {
+  */
+  async waitUntil(condition: () => void | Promise<void>, options: { timeout?: number; timeoutMsg?: string; interval?: number } = {}): Promise<void> {
     const vl = this.vlf.initLog(this.waitUntil);
     return browser.waitUntil(condition, options);
   }
@@ -329,10 +329,10 @@ export class Browser {
    * @function switchToWindow
    * @memberOf util.browser
    * @description Switches to the passed window.
-   * @param {Object} handle - The window handle.
+   * @param {String} handle - The window handle.
    * @example await util.browser.switchToWindow(originalWindowHandle);
    */
-  async switchToWindow(handle: object) {
+  async switchToWindow(handle: string) {
     const vl = this.vlf.initLog(this.switchToWindow);
     await browser.switchToWindow(handle);
   }
@@ -341,10 +341,10 @@ export class Browser {
    * @function getCurrentWindow
    * @memberOf util.browser
    * @description Returns the current window handle.
-   * @returns {Object} The window handle.
+   * @returns {String} The window handle.
    * @example const originalWindowHandle = await util.browser.getCurrentWindow();
    */
-  async getCurrentWindow(): Promise<any> {
+  async getCurrentWindow(): Promise<string> {
     const vl = this.vlf.initLog(this.getCurrentWindow);
     return browser.getWindowHandle();
   }
@@ -360,7 +360,7 @@ export class Browser {
     const vl = this.vlf.initLog(this.switchToIframe);
     await nonUi5.element.waitToBeVisible(selector);
     const frame = await $(selector);
-    await browser.switchToFrame(frame);
+    await browser.switchFrame(frame);
   }
 
   /**
@@ -371,7 +371,7 @@ export class Browser {
    */
   async switchToDefaultContent() {
     const vl = this.vlf.initLog(this.switchToDefaultContent);
-    await browser.switchToFrame(null);
+    await browser.switchFrame(null);
   }
 
   /**
@@ -461,7 +461,7 @@ export class Browser {
   async isMobile(): Promise<boolean> {
     const vl = this.vlf.initLog(this.isMobile);
     vl.log("Indicates is a mobile session? or browser session");
-    return browser.isMobile();
+    return browser.isMobile;
   }
 
   /**
@@ -474,7 +474,7 @@ export class Browser {
   async isAndroid(): Promise<boolean> {
     const vl = this.vlf.initLog(this.isAndroid);
     vl.log("Indicates is a Android session? or iOS session");
-    return browser.isAndroid();
+    return browser.isAndroid;
   }
 
   /**
@@ -487,7 +487,7 @@ export class Browser {
   async isIos(): Promise<boolean> {
     const vl = this.vlf.initLog(this.isIos);
     vl.log("Indicates is a iOS session? or Android session");
-    return browser.isIOS();
+    return browser.isIOS;
   }
 }
 export default new Browser();

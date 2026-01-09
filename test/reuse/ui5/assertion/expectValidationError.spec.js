@@ -33,7 +33,7 @@ describe("Expect input field 'valueState' not to be 'Error' (unhappy case)", fun
   it("Verification", async function () {
     await ui5.assertion.expectToBeVisible(inputFieldWithCheckSelector);
     await expect(ui5.assertion.expectValidationError(inputFieldWithCheckSelector))
-      .rejects.toThrowError(/None/);
+      .rejects.toThrow(/None/);
   });
 });
 
@@ -41,6 +41,7 @@ describe("Expect input field 'valueState' to be 'Error'", function () {
   it("Preparation", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 

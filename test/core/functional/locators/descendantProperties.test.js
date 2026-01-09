@@ -67,12 +67,13 @@ describe("webdriver.io page locator test", function () {
 
     // Code after fixes:
     await expect(browser.uiControls(ui5ControlProperties, 1, 1000))
-      .rejects.toThrowError(/No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 
   it("should access element by element properties and descendant properties", async function () {
     await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Button/sample/sap.m.sample.Button");
     await handleCookiesConsent();
+    await util.browser.switchToDefaultContent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const ui5ControlProperties = {
@@ -89,8 +90,8 @@ describe("webdriver.io page locator test", function () {
     const elem = await browser.uiControl(ui5ControlProperties);
 
     await expect(elem).toBeDisplayedInViewport();
-    expect(elem).toBeInstanceOf(Object);
-    expect(elem).toHaveAttribute("elementId");
+    await expect(elem).toBeInstanceOf(Object);
+    await expect(elem).toHaveAttribute("id", expect.stringContaining("data"));
   });
 
   it("try access element by wrong descendant properties and catch error", async function () {
@@ -103,7 +104,7 @@ describe("webdriver.io page locator test", function () {
       }
     };
     await expect(browser.uiControl(wrongProperties, 1, 1000))
-      .rejects.toThrowError(/No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 
 });

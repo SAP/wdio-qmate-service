@@ -19,7 +19,7 @@ describe("Export Data Slow", function () {
     // this will finish last.
     // The data exported here will be merged with data exported by other
     // parallel test instances.    
-    await browser.pause(20000);
+    await util.browser.sleep(20000);
     // add a timestamp
     const dateAdded = (new Date()).toISOString();
     browser.params.export.exportData = {

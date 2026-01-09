@@ -1,6 +1,5 @@
 "use strict";
 
-import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 import { Ui5Selector, Ui5SelectorWithOptions } from "./types/ui5.types";
@@ -30,7 +29,7 @@ export class Control {
    *   done(control.getProperty(args.property));
    * }, selector, args);
    **/
-  async execute(callbackFunction: Function, selectorOrElement: Element | Ui5Selector | Ui5SelectorWithOptions, args?: any) {
+  async execute(callbackFunction: Function, selectorOrElement: WebdriverIO.Element | Ui5Selector | Ui5SelectorWithOptions, args?: any) {
     const vl = this.vlf.initLog(this.execute);
     return this.lib.controlActionInBrowser(callbackFunction, selectorOrElement, args);
   }
@@ -74,7 +73,7 @@ export class Control {
    * const propertyName = "title";
    * const val = await ui5.control.getProperty(elem, propertyName);
    **/
-  async getProperty(selectorOrElement: Element | Ui5Selector | Ui5SelectorWithOptions, propertyName: string) {
+  async getProperty(selectorOrElement: WebdriverIO.Element | Ui5Selector | Ui5SelectorWithOptions, propertyName: string) {
     const vl = this.vlf.initLog(this.getProperty);
     return this.locatorCommands.getUI5Property(propertyName, selectorOrElement);
   }
@@ -90,7 +89,7 @@ export class Control {
    * const propertyName = "tooltip";
    * const val = await ui5.control.getAggregationProperty(elem, propertyName);
    **/
-  async getAggregationProperty(selectorOrElement: Element | Ui5Selector | Ui5SelectorWithOptions, propertyName: string) {
+  async getAggregationProperty(selectorOrElement: WebdriverIO.Element | Ui5Selector | Ui5SelectorWithOptions, propertyName: string) {
     const vl = this.vlf.initLog(this.getAggregationProperty);
     return this.locatorCommands.getUI5Aggregation(propertyName, selectorOrElement);
   }
@@ -106,7 +105,7 @@ export class Control {
    * const propertyName = "selectedItems";
    * const propertyValue = await ui5.control.getAssociationProperty(elem, propertyName);
    **/
-  async getAssociationProperty(selectorOrElement: Element | Ui5Selector | Ui5SelectorWithOptions, propertyName: string) {
+  async getAssociationProperty(selectorOrElement: WebdriverIO.Element | Ui5Selector | Ui5SelectorWithOptions, propertyName: string) {
     const vl = this.vlf.initLog(this.getAssociationProperty);
     return this.locatorCommands.getUI5Association(propertyName, selectorOrElement);
   }
@@ -120,7 +119,7 @@ export class Control {
    * const elem = await ui5.element.getDisplayed(selector);
    * const context = await ui5.control.getBindingContextPathProperty(elem);
    **/
-  async getBindingContextPathProperty(selectorOrElement: Element | Ui5Selector | Ui5SelectorWithOptions) {
+  async getBindingContextPathProperty(selectorOrElement: WebdriverIO.Element | Ui5Selector | Ui5SelectorWithOptions) {
     const vl = this.vlf.initLog(this.getBindingContextPathProperty);
     return this.locatorCommands.getBindingContextPath(selectorOrElement);
   }
@@ -137,7 +136,7 @@ export class Control {
    * const propertyName = "title";
    * const binding = await ui5.control.getPropertyBinding(elem, propertyName);
    **/
-  async getPropertyBinding(selectorOrElement: Element | Ui5Selector | Ui5SelectorWithOptions, propertyName: string) {
+  async getPropertyBinding(selectorOrElement: WebdriverIO.Element | Ui5Selector | Ui5SelectorWithOptions, propertyName: string) {
     const vl = this.vlf.initLog(this.getPropertyBinding);
     return this.locatorCommands.getBindingProperty(propertyName, selectorOrElement);
   }

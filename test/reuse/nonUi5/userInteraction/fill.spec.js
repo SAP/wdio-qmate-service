@@ -32,6 +32,6 @@ describe.only("userInteraction - fill - button (error case)", function () {
 
   it("Execution & Verification", async function () {
     const elem = await nonUi5.element.getById("Default", 10000);
-    await expect(nonUi5.userInteraction.fill(elem, "New test value")).rejects.toThrow(/Function 'fill' failed with: invalid element state/);
+    await expect(nonUi5.userInteraction.fill(elem, "New test value")).rejects.toThrow(/Function 'fill' failed with:(?: \w+:)? invalid element state/);
   });
 });

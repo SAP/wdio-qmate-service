@@ -1,6 +1,5 @@
 "use strict";
 
-import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { AlignmentOptions, AlignmentValues } from "../types";
 import ErrorHandler from "../../helper/errorHandler";
@@ -16,11 +15,10 @@ export class UserInteraction {
   private vlf = new VerboseLoggerFactory("ui5", "click");
   private ErrorHandler = new ErrorHandler();
 
-
   // =================================== CONSTANTS ===================================
-    private static readonly TEXTAREA_METADATA: Ui5ControlMetadata = "sap.m.TextArea";
-    private static readonly TEXTAREA_MACROS_METADATA: Ui5ControlMetadata = "sap.fe.macros.field.TextAreaEx";
-    private static readonly SUPPORTED_TEXTAREA_METADATA: Array<Ui5ControlMetadata> = [UserInteraction.TEXTAREA_METADATA, UserInteraction.TEXTAREA_MACROS_METADATA];
+  private static readonly TEXTAREA_METADATA: Ui5ControlMetadata = "sap.m.TextArea";
+  private static readonly TEXTAREA_MACROS_METADATA: Ui5ControlMetadata = "sap.fe.macros.field.TextAreaEx";
+  private static readonly SUPPORTED_TEXTAREA_METADATA: Array<Ui5ControlMetadata> = [UserInteraction.TEXTAREA_METADATA, UserInteraction.TEXTAREA_MACROS_METADATA];
 
   // =================================== CLICK ===================================
   /**
@@ -590,8 +588,7 @@ export class UserInteraction {
         await browser.waitUntil(
           async () => {
             try {
-              await Promise.any([ui5.userInteraction.click(menuItemSelectorNewUI5, 0, 500), 
-                ui5.userInteraction.click(menuItemSelectorOldUI5, 0, 500)]);
+              await Promise.any([ui5.userInteraction.click(menuItemSelectorNewUI5, 0, 500), ui5.userInteraction.click(menuItemSelectorOldUI5, 0, 500)]);
               return true;
             } catch (error) {
               // Ignore error and continue to next promise
@@ -604,8 +601,7 @@ export class UserInteraction {
             interval: GLOBAL_DEFAULT_WAIT_INTERVAL
           }
         );
-        
-        
+
         const tabSwitchedSuccessfully: boolean = await this._verifyTabSwitch(selector);
         if (tabSwitchedSuccessfully === false) {
           this.ErrorHandler.logException(new Error("Could not verify successful tab switch."));
@@ -773,12 +769,13 @@ export class UserInteraction {
       elem = await browser.getActiveElement();
     } else {
       elem = await browser.getActiveElement();
+      elem = await $(elem).getElement();
       await elem.click();
       // @ts-ignore
       id = await util.function.getAttribute(elem, "id");
     }
 
-    const tokenizers = await browser.execute(function (id: string) {
+    const tokenizers = await browser.execute(function (id) {
       // @ts-ignore
       const t = document.getElementById(id).querySelectorAll(".sapMTokenizer");
       // @ts-ignore
@@ -810,7 +807,7 @@ export class UserInteraction {
     // check for simple tab type
     const tabElem = await ui5.element.getDisplayed(selector);
     const tabClassList = await tabElem.getAttribute("class");
-    if (indicatorClasses.some(indicatorClass => tabClassList.includes(indicatorClass))) {
+    if (indicatorClasses.some((indicatorClass) => tabClassList.includes(indicatorClass))) {
       return true;
     }
 
@@ -828,7 +825,7 @@ export class UserInteraction {
 
     const tabParentClassList = await tabParentElem.getAttribute("class");
 
-    if (indicatorClasses.some(indicatorClass => tabParentClassList.includes(indicatorClass))) {
+    if (indicatorClasses.some((indicatorClass) => tabParentClassList.includes(indicatorClass))) {
       return true;
     } else {
       return false;

@@ -1,4 +1,3 @@
-import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
@@ -16,11 +15,11 @@ export class ElementModule {
    * @function waitForAll
    * @memberOf nonUi5.element
    * @description Waits until all elements with the given selector are rendered. Will fail if no element is found.
-   * @param {Object} selector - The CSS selector describing the element.
+   * @param {String} selector - The CSS selector describing the element.
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await nonUi5.element.waitForAll(".inputField");
    */
-  async waitForAll(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false): Promise<void> {
+  async waitForAll(selector: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false): Promise<void> {
     const vl = this.vlf.initLog(this.waitForAll);
     try {
       await this._waitForStabilization(selector, timeout, includeHidden);
@@ -99,12 +98,12 @@ export class ElementModule {
    * @returns {Object[]} The array of elements.
    * @example await nonUi5.element.getAllDisplayed(".inputField");
    */
-  async getAllDisplayed(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<Element[]> {
+  async getAllDisplayed(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<WebdriverIO.Element[]> {
     const vl = this.vlf.initLog(this.getAllDisplayed);
     try {
       await this.waitForAll(selector, timeout);
       vl.log(`Getting elements by selector ${selector}`);
-      const elems: Element[] = await $$(selector);
+      const elems: WebdriverIO.ElementArray = await $$(selector).getElements();
       return await this._filterDisplayed(elems);
     } catch (error) {
       return this.ErrorHandler.logException(error, `No visible element(s) found for selector '${selector}' after ${+timeout / 1000}s.`);
@@ -121,12 +120,13 @@ export class ElementModule {
    * const isPresent = await nonUi5.element.isPresent(hiddenElements[0]);
    * await common.assertion.expectTrue(isPresent);
    */
-  async getAll(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<Element[]> {
+  async getAll(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<WebdriverIO.Element[]> {
     const vl = this.vlf.initLog(this.getAll);
     try {
       await this.waitForAll(selector, timeout, true);
       vl.log(`Getting elements by selector ${selector}`);
-      return await $$(selector);
+      const elems = await $$(selector).getElements();
+      return elems.map(el => el);
     } catch (error) {
       return this.ErrorHandler.logException(error, `No element(s) found for selector '${selector}' after ${+timeout / 1000}s.`);
     }
@@ -143,7 +143,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByCss(".button01");
    */
-  async getByCss(selector: any, index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false): Promise<Element> {
+  async getByCss(selector: any, index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false): Promise<WebdriverIO.Element> {
     const vl = this.vlf.initLog(this.getByCss);
     try {
       return await this._getAndFilterElementBySelector(selector, index, timeout, includeHidden);
@@ -165,11 +165,11 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByCssContainingText(".input01", "Jack Jackson");
    */
-  async getByCssContainingText(selector: any, text: string = "", index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false, strict: boolean = false): Promise<Element> {
+  async getByCssContainingText(selector: any, text: string = "", index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false, strict: boolean = false): Promise<WebdriverIO.Element> {
     const vl = this.vlf.initLog(this.getByCssContainingText);
     try {
       await this.waitForAll(selector, timeout);
-      const elems: Element[] = await $$(selector);
+      const elems: WebdriverIO.ElementArray = await $$(selector).getElements();
       vl.log(`Filtering ${elems.length} elements by ${text} text`);
       const filteredElems = await this._filterByText(elems, text, strict);
       vl.log(`${filteredElems.length} elements satisfied filtering by text`);
@@ -196,16 +196,16 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getById("button01");
    */
-  async getById(id: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false): Promise<Element> {
+  async getById(id: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false): Promise<WebdriverIO.Element> {
     const vl = this.vlf.initLog(this.getById);
     try {
       const selector = `[id='${id}']`;
       if (includeHidden) {
         await this.waitToBePresent(selector, timeout);
-        return await $(selector);
+        return await $(selector).getElement();
       } else {
         await this.waitToBeVisible(selector, timeout);
-        return await $(selector);
+        return await $(selector).getElement();
       }
     } catch (error) {
       return this.ErrorHandler.logException(error, `Element with id '${id}' not found.`);
@@ -224,7 +224,7 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getByClass("button01");
    * const elem = await nonUi5.element.getByClass("sapMIBar sapMTB sapMTBNewFlex sapContrastPlus");
    */
-  async getByClass(elemClass: string, index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false): Promise<Element> {
+  async getByClass(elemClass: string, index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false): Promise<WebdriverIO.Element> {
     const vl = this.vlf.initLog(this.getByClass);
     try {
       const selector = `[class*='${elemClass}']`;
@@ -245,7 +245,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByName(".button01");
    */
-  async getByName(name: string, index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false): Promise<Element> {
+  async getByName(name: string, index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false): Promise<WebdriverIO.Element> {
     const vl = this.vlf.initLog(this.getByName);
     try {
       const selector = `[name='${name}']`;
@@ -288,7 +288,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByChild(".form01", ".input01");
    */
-  async getByChild(elementSelector: any, childSelector: any, index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false): Promise<Element> {
+  async getByChild(elementSelector: any, childSelector: any, index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false): Promise<WebdriverIO.Element> {
     const vl = this.vlf.initLog(this.getByChild);
     let elems;
     try {
@@ -298,8 +298,8 @@ export class ElementModule {
       return this.ErrorHandler.logException(error, `No element found for selector: "${elementSelector}".`);
     }
 
-    const elementsWithChild: Element[] = [];
-    for (const element of elems) {
+    const elementsWithChild: WebdriverIO.Element[] = [];
+    for await (const element of elems) {
       const elem = await element.$(childSelector);
       const toBeIncluded = includeHidden ? await elem.isExisting() : await elem.isDisplayed();
       if (toBeIncluded) {
@@ -326,9 +326,9 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await nonUi5.element.getByParent(".form01", ".input01");
    */
-  async getByParent(elementSelector: any, parentSelector: any, index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false): Promise<Element> {
+  async getByParent(elementSelector: any, parentSelector: any, index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false): Promise<WebdriverIO.Element> {
     const vl = this.vlf.initLog(this.getByParent);
-    let parentElems: Element[] = [];
+    let parentElems: WebdriverIO.Element[] = [];
     try {
       parentElems = includeHidden ? await this.getAll(parentSelector, timeout) : await this.getAllDisplayed(parentSelector, timeout);
       vl.log(`Found ${parentElems.length} elements by parent selector`);
@@ -338,7 +338,7 @@ export class ElementModule {
 
     const elementsWithParent = [];
     for (const parentElement of parentElems) {
-      const elem = await parentElement.$(elementSelector);
+      const elem = await parentElement.$(elementSelector).getElement();
       const toBeIncluded = includeHidden ? await elem.isExisting() : await elem.isDisplayed();
       if (toBeIncluded) {
         elementsWithParent.push(elem);
@@ -365,11 +365,11 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.element.isVisible(elem);
    */
-  async isVisible(element: Element, strict: boolean = true): Promise<boolean> {
+  async isVisible(element: WebdriverIO.Element, strict: boolean = true): Promise<boolean> {
     const vl = this.vlf.initLog(this.isVisible);
     try {
       if (strict) {
-        return element.isDisplayedInViewport();
+        return element.isDisplayed({ withinViewport: true });
       } else {
         return element.isDisplayed();
       }
@@ -387,7 +387,7 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.element.isPresent(elem);
    */
-  async isPresent(elem: Element): Promise<boolean> {
+  async isPresent(elem: WebdriverIO.Element): Promise<boolean> {
     const vl = this.vlf.initLog(this.isPresent);
     return elem.isExisting();
   }
@@ -401,7 +401,7 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.element.isEnabled(elem);
    */
-  async isEnabled(elem: Element): Promise<boolean> {
+  async isEnabled(elem: WebdriverIO.Element): Promise<boolean> {
     const vl = this.vlf.initLog(this.isEnabled);
     return elem.isEnabled();
   }
@@ -450,7 +450,7 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getById("elem01");
    * const isSelected = await nonUi5.element.isSelected(elem);
    */
-  async isSelected(elem: Element): Promise<boolean> {
+  async isSelected(elem: WebdriverIO.Element): Promise<boolean> {
     const vl = this.vlf.initLog(this.isSelected);
     return elem.isSelected();
   }
@@ -467,7 +467,7 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getById("elem02");
    * const innerHTML = await nonUi5.element.getAttributeValue(elem);
    */
-  async getAttributeValue(elem: Element, attribute?: string): Promise<string> {
+  async getAttributeValue(elem: WebdriverIO.Element, attribute?: string): Promise<string> {
     const vl = this.vlf.initLog(this.getAttributeValue);
     if (typeof elem === "object" && elem !== null) {
       const tagName = await elem.getTagName();
@@ -497,7 +497,7 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getById("elem02");
    * const innerHTML = await nonUi5.element.getValue(elem);
    */
-  async getValue(elem: Element): Promise<string> {
+  async getValue(elem: WebdriverIO.Element): Promise<string> {
     const vl = this.vlf.initLog(this.getValue);
     try {
       const [value, text] = await Promise.all([elem.getValue(), elem.getText()]);
@@ -517,7 +517,7 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getById("elem01");
    * const color = await nonUi5.element.getCssPropertyValue(elem, "color");
    */
-  async getCssPropertyValue(elementOrSelector: Element | string, cssProperty: string): Promise<string> {
+  async getCssPropertyValue(elementOrSelector: WebdriverIO.Element | string, cssProperty: string): Promise<string | undefined> {
     const vl = this.vlf.initLog(this.getCssPropertyValue);
     try {
       const element = await resolveCssSelectorOrElement(elementOrSelector);
@@ -539,7 +539,7 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getById("text-editor");
    * await nonUi5.element.setInnerHTML(elem, "Hello World!");
    */
-  async setInnerHTML(elem: Element, value: string): Promise<void> {
+  async setInnerHTML(elem: WebdriverIO.Element, value: string): Promise<void> {
     const vl = this.vlf.initLog(this.setInnerHTML);
     await browser.executeScript(`arguments[0].innerHTML = '${value}'`, [elem]);
   }
@@ -557,7 +557,7 @@ export class ElementModule {
    * @example const elem = await nonUi5.element.getById("text01");
    * await nonUi5.element.highlight(elem, 3000, "green");
    */
-  async highlight(elem: Element, duration: number = 2000, color: string = "red") {
+  async highlight(elem: WebdriverIO.Element, duration: number = 2000, color: string = "red") {
     const vl = this.vlf.initLog(this.highlight);
     await browser.executeScript(`arguments[0].style.boxShadow = 'inset 0px 0px 0px 2px ${color}'`, [elem]);
     await browser.pause(duration);
@@ -565,18 +565,19 @@ export class ElementModule {
   }
 
   // =================================== HELPER ===================================
-  private async _waitForStabilization(selector: object, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false, stableIterationsRequired: number = 3): Promise<void> {
+  private async _waitForStabilization(selector: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false, stableIterationsRequired: number = 3): Promise<void> {
     const vl = this.vlf.initLog(this._waitForStabilization);
     let elemsCount: number = 0;
     let stableIterations: number = 0;
 
     await browser.waitUntil(
       async () => {
-        let currentElems = await $$(selector);
+        let allElements = await $$(selector);
+        let currentElemsCount = await allElements.length;
         if (!includeHidden) {
-          currentElems = await this._filterDisplayed(currentElems);
+          const displayedElements = await allElements.map((element) => element.isDisplayed());
+          currentElemsCount = displayedElements.filter(isDisplayed => isDisplayed).length;
         }
-        const currentElemsCount = currentElems.length;
         vl.log(`Found ${currentElemsCount} elements`);
 
         if (currentElemsCount === elemsCount) {
@@ -601,10 +602,10 @@ export class ElementModule {
     );
   }
 
-  private async _getAndFilterElementBySelector(selector: string, index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false): Promise<Element> {
+  private async _getAndFilterElementBySelector(selector: string, index: number = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, includeHidden: boolean = false): Promise<WebdriverIO.Element> {
     const vl = this.vlf.initLog(this._getAndFilterElementBySelector);
     await this.waitForAll(selector, timeout, includeHidden);
-    const elems: Element[] = await $$(selector);
+    const elems: WebdriverIO.ElementArray = await $$(selector).getElements();
     if (includeHidden) {
       return elems[index];
     } else {
@@ -614,10 +615,10 @@ export class ElementModule {
     }
   }
 
-  private async _filterByText(elems: Element[], text: string, strict: boolean = false) {
+  private async _filterByText(elems: WebdriverIO.Element[] | WebdriverIO.ElementArray, text: string, strict: boolean = false) {
     const vl = this.vlf.initLog(this._filterByText);
     const filteredElems = [];
-    for (const elem of elems) {
+    for await (const elem of elems) {
       const elementText = await elem.getText();
       const strictEquasion = strict && elementText === text;
       const nonStrictEquasion = !strict && elementText.includes(text.trim());
@@ -633,11 +634,11 @@ export class ElementModule {
     }
   }
 
-  private async _filterDisplayed(elems: Element[]) {
+  private async _filterDisplayed(elems: WebdriverIO.Element[] | WebdriverIO.ElementArray) {
     const vl = this.vlf.initLog(this._filterDisplayed);
     vl.log(`Filtering ${elems.length} elements by being displayed`);
     const filteredElems = [];
-    for (const elem of elems) {
+    for await (const elem of elems) {
       if (await elem.isDisplayed()) {
         filteredElems.push(elem);
       }

@@ -1,4 +1,3 @@
-import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 import { resolveMobileSelectorOrElement } from "../../helper/elementResolving";
@@ -16,13 +15,13 @@ export class UserInteraction {
    * @function tap
    * @memberof mobile.userInteraction
    * @description Tap's on the mobile element.
-   * @param {Element | string} elementOrSelector - The element (e.g., accessibility ID, XPath) selectors describing the element.
+   * @param {WebdriverIO.Element | string} elementOrSelector - The element (e.g., accessibility ID, XPath) selectors describing the element.
    * @param {Number} [timeout = 30000] - The timeout to wait(ms)
    * @example
    * await mobile.userInteraction.tap(elem);
    * await mobile.userInteraction.tap(elem, 20000);
    */
-  async tap(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
+  async tap(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.tap);
 
     try {
@@ -42,13 +41,13 @@ export class UserInteraction {
    * @function check
    * @memberof mobile.userInteraction
    * @description Checks the given checkbox.
-   * @param {Element | string} elementOrSelector - The element (e.g., accessibility ID, XPath) selectors describing the element.
+   * @param {WebdriverIO.Element | string} elementOrSelector - The element (e.g., accessibility ID, XPath) selectors describing the element.
    * @param {number} [timeout = 30000] - The timeout to wait(ms)
    * @example
    * await mobile.userInteraction.check(element);
    * await mobile.userInteraction.check(element, 20000);
    */
-  async check(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
+  async check(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.check);
 
     try {
@@ -72,13 +71,13 @@ export class UserInteraction {
    * @function uncheck
    * @memberOf mobile.userInteraction
    * @description Unchecks the given checkbox.
-   * @param {Element | string} elementOrSelector - The element (e.g., accessibility ID, XPath) selectors describing the element.
+   * @param {WebdriverIO.Element | string} elementOrSelector - The element (e.g., accessibility ID, XPath) selectors describing the element.
    * @param {number} [timeout = 30000] - The timeout to wait(ms)
    * @example
    * await mobile.userInteraction.uncheck(elementOrSelector);
    * await mobile.userInteraction.uncheck(elementOrSelector, 20000);
    */
-  async uncheck(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
+  async uncheck(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.uncheck);
 
     try {
@@ -102,14 +101,14 @@ export class UserInteraction {
    * @function doubleTap
    * @memberof mobile.userInteraction
    * @description Double Tap's on the mobile element.
-   * @param {Element | string} elementOrSelector - The element (e.g., accessibility ID, XPath) selectors describing the element.
+   * @param {WebdriverIO.Element | string} elementOrSelector - The element (e.g., accessibility ID, XPath) selectors describing the element.
    * @param {number} [timeout = 30000] - The timeout to wait(ms)
    * @returns {Promise<void>}
    * @example
    * await mobile.userInteraction.doubleTap(elem);
    * await mobile.userInteraction.doubleTap(elem, 2000);
    */
-  async doubleTap(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
+  async doubleTap(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.doubleTap);
 
     try {
@@ -129,7 +128,7 @@ export class UserInteraction {
    * @function fill
    * @memberof mobile.userInteraction
    * @description Enter a string value into a mobile input field.
-   * @param {Element | string} elementOrSelector - The element (e.g., accessibility ID, XPath) selectors describing the element.
+   * @param {WebdriverIO.Element | string} elementOrSelector - The element (e.g., accessibility ID, XPath) selectors describing the element.
    * @param {string} value - The string value to be entered.
    * @param {number} [timeout = 30000] - The timeout to wait (ms).
    * @returns {Promise<void>}
@@ -137,7 +136,7 @@ export class UserInteraction {
    * await mobile.userInteraction.fill(element);
    * await mobile.userInteraction.fill(element, 2000);
    */
-  async fill(elementOrSelector: Element | string, value: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
+  async fill(elementOrSelector: WebdriverIO.Element | string, value: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.fill);
 
     try {
@@ -159,7 +158,7 @@ export class UserInteraction {
    * @function clearAndFill
    * @memberof mobile.userInteraction
    * @description Enter a string into the mobile input field; it will clear the box before submission.
-   * @param {Element | string} elementOrSelector - The element (e.g., accessibility ID, XPath) selectors describing the element.
+   * @param {WebdriverIO.Element | string} elementOrSelector - The element (e.g., accessibility ID, XPath) selectors describing the element.
    * @param {string} value - The string value to be entered.
    * @param {number} [timeout = 30000] - The timeout to wait (ms).
    * @returns {Promise<void>}
@@ -167,7 +166,7 @@ export class UserInteraction {
    * await mobile.userInteraction.clearAndFill(element);
    * await mobile.userInteraction.clearAndFill(element, 2000);
    */
-  async clearAndFill(elementOrSelector: Element | string, value: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
+  async clearAndFill(elementOrSelector: WebdriverIO.Element | string, value: string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.clearAndFill);
 
     try {
@@ -193,14 +192,14 @@ export class UserInteraction {
    * @function clear
    * @memberof mobile.userInteraction
    * @description Clear a string value into a mobile input field.
-   * @param {Element | string} elementOrSelector - The element (e.g., accessibility ID, XPath) selectors describing the element.
+   * @param {WebdriverIO.Element | string} elementOrSelector - The element (e.g., accessibility ID, XPath) selectors describing the element.
    * @param {number} [timeout = 30000] - The timeout to wait (ms).
    * @returns {Promise<void>}
    * @example
    * await mobile.userInteraction.clear(element);
    * await mobile.userInteraction.clear(element, 2000);
    */
-  async clear(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
+  async clear(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.clear);
 
     try {

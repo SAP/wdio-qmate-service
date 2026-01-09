@@ -1,4 +1,3 @@
-import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 import { resolveMobileSelectorOrElement } from "../../helper/elementResolving";
@@ -23,11 +22,11 @@ export class ElementModule {
    * @example
    * await mobile.element.isVisible(elem);
    */
-  async isVisible(element: Element, strict: boolean = true): Promise<boolean> {
+  async isVisible(element: WebdriverIO.Element, strict: boolean = true): Promise<boolean> {
     const vl = this.vlf.initLog(this.isVisible);
     try {
       if (strict) {
-        return element.isDisplayedInViewport();
+        return element.isDisplayed({ withinViewport: true });
       } else {
         return element.isDisplayed();
       }
@@ -45,7 +44,7 @@ export class ElementModule {
    * @example
    * await mobile.element.isPresent(elem);
    */
-  async isPresent(element: Element): Promise<boolean> {
+  async isPresent(element: WebdriverIO.Element): Promise<boolean> {
     const vl = this.vlf.initLog(this.isPresent);
     return element.isExisting();
   }
@@ -138,12 +137,12 @@ export class ElementModule {
    * @function isSelected
    * @memberof mobile.element
    * @description Returns a boolean if the element (e.g. checkbox) is selected.
-   * @param {Element | string} elementOrSelector - The element.
+   * @param {WebdriverIO.Element | string} elementOrSelector - The element.
    * @returns {boolean} Returns true or false.
    * @example
    * const isSelected = await mobile.element.isSelected(elem);
    */
-  async isSelected(elementOrSelector: Element | string): Promise<boolean> {
+  async isSelected(elementOrSelector: WebdriverIO.Element | string): Promise<boolean> {
     const vl = this.vlf.initLog(this.isSelected);
 
     const element = await resolveMobileSelectorOrElement(elementOrSelector);
@@ -166,7 +165,7 @@ export class ElementModule {
     const vl = this.vlf.initLog(this.waitToBeEnabled);
     try {
       vl.log(`wdio.waitTotoBeEnabled invocation for selector ${selector}`);
-      await $(selector).toBeEnabled({
+      await $(selector).waitForEnabled({
         timeout: timeout,
         interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
         timeoutMsg: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`

@@ -1,6 +1,5 @@
 "use strict";
 
-import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
 import ErrorHandler from "../../helper/errorHandler";
@@ -26,7 +25,7 @@ export class Assertion {
    * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectAttributeToBe(element, "Save", "title");
    */
-  async expectAttributeToBe(elementOrSelector: Element | string, compareValue: string, attribute?: string): Promise<void> {
+  async expectAttributeToBe(elementOrSelector: WebdriverIO.Element | string, compareValue: string, attribute?: string): Promise<void> {
     const vl = this.vlf.initLog(this.expectAttributeToBe);
     const element = await resolveCssSelectorOrElement(elementOrSelector);
     const value = await nonUi5.element.getAttributeValue(element, attribute);
@@ -43,7 +42,7 @@ export class Assertion {
    * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectAttributeToContain(element, "Save", "title");
    */
-  async expectAttributeToContain(elementOrSelector: Element | string, compareValue: string, attribute?: string) {
+  async expectAttributeToContain(elementOrSelector: WebdriverIO.Element | string, compareValue: string, attribute?: string) {
     const vl = this.vlf.initLog(this.expectAttributeToContain);
     const element = await resolveCssSelectorOrElement(elementOrSelector);
     const value = await nonUi5.element.getAttributeValue(element, attribute);
@@ -60,7 +59,7 @@ export class Assertion {
    * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectValueToBe(element, "Save");
    */
-  async expectValueToBe(elementOrSelector: Element | string, compareValue: string): Promise<void> {
+  async expectValueToBe(elementOrSelector: WebdriverIO.Element | string, compareValue: string): Promise<void> {
     const vl = this.vlf.initLog(this.expectValueToBe);
     // Note: it is not required to send 'value' here, because 'expectAttributeToBe' is calling 'getValue' inside
     const element = await resolveCssSelectorOrElement(elementOrSelector);
@@ -77,7 +76,7 @@ export class Assertion {
    * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectCssPropertyValueToBe(element, "color", "rgb(255, 0, 0)");
    */
-  async expectCssPropertyValueToBe(elementOrSelector: Element | string, cssProperty: string, compareValue: string): Promise<void> {
+  async expectCssPropertyValueToBe(elementOrSelector: WebdriverIO.Element | string, cssProperty: string, compareValue: string): Promise<void> {
     const vl = this.vlf.initLog(this.expectCssPropertyValueToBe);
     const value = await nonUi5.element.getCssPropertyValue(elementOrSelector, cssProperty);
     return common.assertion.expectEqual(value, compareValue);
@@ -92,7 +91,7 @@ export class Assertion {
    * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectTextToBe(element, "Save");
    **/
-  async expectTextToBe(elementOrSelector: Element | string, compareValue: string): Promise<void> {
+  async expectTextToBe(elementOrSelector: WebdriverIO.Element | string, compareValue: string): Promise<void> {
     const vl = this.vlf.initLog(this.expectTextToBe);
     const element = await resolveCssSelectorOrElement(elementOrSelector);
     const textValue = await element.getText();
@@ -108,7 +107,7 @@ export class Assertion {
    * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectToBeVisible(elem);
    */
-  async expectToBeVisible(elementOrSelector: Element | string): Promise<void> {
+  async expectToBeVisible(elementOrSelector: WebdriverIO.Element | string): Promise<void> {
     const vl = this.vlf.initLog(this.expectToBeVisible);
     try {
       const element = await resolveCssSelectorOrElement(elementOrSelector);
@@ -139,7 +138,7 @@ export class Assertion {
    * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectToBeNotVisible(element, 5000);
    */
-  async expectToBeNotVisible(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
+  async expectToBeNotVisible(elementOrSelector: WebdriverIO.Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.expectToBeNotVisible);
     try {
       const element = await resolveCssSelectorOrElement(elementOrSelector);

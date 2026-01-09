@@ -32,12 +32,12 @@ async function CustomAuthenticator() {
 
   await browser.url(url);
   await browser.waitUntil(async function () {
-    usernameField = await $(usernameFieldSelector);
-    passwordField = await $(passwordFieldSelector);
-    logonField = await $(logonButtonSelector);
-    return usernameField.isDisplayedInViewport() &&
-      passwordField.isDisplayedInViewport() &&
-      logonField.isDisplayedInViewport();
+    usernameField = await $(usernameFieldSelector).getElement();
+    passwordField = await $(passwordFieldSelector).getElement();
+    logonField = await $(logonButtonSelector).getElement();
+    return usernameField.isDisplayed({ withinViewport: true }) &&
+      passwordField.isDisplayed({ withinViewport: true }) &&
+      logonField.isDisplayed({ withinViewport: true });
   }, {
     timeout: 60000,
     timeoutMsg: "Expected user name field to be present after 60s"

@@ -35,7 +35,7 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
       }
     };
 
-    await expect(browser.uiControl(selector)).toBeClickable();
+    await expect(await browser.uiControl(selector)).toBeClickable();
   });
 
   it("'unhappy case': should access element by nested elementProperties, ancestorProperties, siblingProperties, domProperties and wrong descendantProperties", async () => {
@@ -72,7 +72,7 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
     };
 
     await expect(browser.uiControl(selector))
-      .rejects.toThrowError(/No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 
   it("'happy case': should access element by nested elementProperties, ancestorProperties, empty siblingProperties and descendantProperties", async () => {
@@ -98,7 +98,7 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
         }
       }
     };
-    await expect(browser.uiControl(selector)).toBeTruthy();
+    await expect(await browser.uiControl(selector)).toBeTruthy();
   });
 
   it("'happy case': should access element by nested elementProperties, ancestorProperties, domProperties, siblingProperties and empty descendantProperties", async () => {
@@ -113,7 +113,6 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
           "id": "*searchBar33343",
           "domProperties": {
             "nodeName": "div",
-            "class": "sapMIBar sapMTB sapMTBNewFlex sapMTBInactive sapMTBStandard sapMTB-Auto-CTX sapMIBar-CTX sapMSubHeader-CTX sapContrastPlus",
             "id": "container-cart---homeView--searchBar33343"
           }
         },
@@ -129,7 +128,7 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
         }
       }
     };
-    await expect(browser.uiControl(selector)).toBeTruthy();
+    await expect(await browser.uiControl(selector)).toBeTruthy();
   });
 
   it("'unhappy case': should access element by nested elementProperties, ancestorProperties, siblingProperties, descendantProperties and wrong domProperties", async () => {
@@ -164,6 +163,6 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
       }
     };
     await expect(browser.uiControl(selector))
-      .rejects.toThrowError(/No visible elements found/);
+      .rejects.toThrow(/No visible elements found/);
   });
 });

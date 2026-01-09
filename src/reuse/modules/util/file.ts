@@ -35,7 +35,7 @@ export class File {
 
     try {
       if (typeof selector === "string") {
-        elem = await $(selector);
+        elem = await $(selector).getElement();
       } else if (typeof selector === "object") {
         const elemId = await ui5.element.getId(selector);
         elem = await nonUi5.element.getByXPath(`.//input[contains(@id,'${elemId}')][@type='file']`);
@@ -50,7 +50,7 @@ export class File {
         }
         remoteFiles = remoteFiles + remoteFilePath;
       }
-      await elem.addValue(remoteFiles);
+      await elem?.addValue(remoteFiles);
     } catch (error) {
       this.ErrorHandler.logException(error);
     }
@@ -143,7 +143,7 @@ export class File {
    * @see <a href="TODO">Parse pdf</a>
    * @example await util.file.expectPdfNotContainsText(pdfStream, "abc");
    */
-  async expectPdfNotContainsText(pdfStream: Buffer, text: string, renderingMethod: Function = this._renderPage): Promise<boolean> {
+  async expectPdfNotContainsText(pdfStream: Buffer, text: string, renderingMethod: Function = this._renderPage): Promise<void> {
     const vl = this.vlf.initLog(this.expectPdfNotContainsText);
     if (!text) {
       return this.ErrorHandler.logException(new Error("Please provide a text as second parameter."));

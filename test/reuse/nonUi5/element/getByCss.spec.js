@@ -47,7 +47,7 @@ describe("element - getByCss outside of viewpoint", function () {
   it("Verification", async function () {
     // Element is visible, but not in a viewport
     await nonUi5.assertion.expectToBeVisible(comboBoxElement);
-    const isElementDisplayed = await comboBoxElement.isDisplayedInViewport();
+    const isElementDisplayed = await comboBoxElement.isDisplayed({ withinViewport: true });
     await common.assertion.expectFalse(isElementDisplayed);
   });
 });

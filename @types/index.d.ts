@@ -8,9 +8,39 @@ import { Mobile } from "../src/reuse/modules/mobile/Mobile";
 import { Flp } from "../src/reuse/modules/flp/Flp";
 
 declare global {
-  var browser: any;
-  var $: any;
-  var $$: any;
+  namespace WebdriverIO {
+    interface Browser {
+      config: any;
+      params: any;
+      mockServerActionInBrowser: () => Promise<any>;
+      controlActionInBrowser: (callbackFunction: Function, selectorOrElement: WebdriverIO.Element | Ui5Selector | Ui5SelectorWithOptions, args?: any) => Promise<any>;
+      waitUI5ToStabilize: (any) => Promise<any>;
+      stableDomElementCount: (any) => Promise<any>;
+      getDisplayedElements: (any) => Promise<any>;
+      uiControlExecuteLocator: (any) => Promise<any>;
+      loadMockData: (any) => Promise<any>;
+      uiControl: (selector: any, index: number, timeout: number, returnAllDomElements: boolean) => Promise<any>;
+      uiControls: (selector: any, timeout: number) => Promise<any>;
+    }
+
+    interface MultiRemoteBrowser {
+      mockServerActionInBrowser: () => Promise<any>;
+      controlActionInBrowser: (callbackFunction: Function, selectorOrElement: WebdriverIO.Element | Ui5Selector | Ui5SelectorWithOptions, args?: any) => Promise<any>;
+      waitUI5ToStabilize: (any) => Promise<any>;
+      stableDomElementCount: (any) => Promise<any>;
+      getDisplayedElements: (any) => Promise<any>;
+      uiControlExecuteLocator: (any) => Promise<any>;
+      loadMockData: (any) => Promise<any>;
+      uiControl: (selector: any, index: number, timeout: number, returnAllDomElements: boolean) => Promise<any>;
+      uiControls: (selector: any, timeout: number) => Promise<any>;
+    }
+
+    interface Element {
+      getUI5Property(property: string): Promise<any>;
+      getBindingProperty(property: string): Promise<any>;
+      getBindingContextPath(): Promise<string>;
+    }
+  }
 
   var runtime: Runtime;
 
@@ -22,7 +52,7 @@ declare global {
   var mobile: Mobile;
   var flp: Flp;
 
-  var expect: any;
+  var expect: ExpectWebdriverIO.Expect;
 
   var sap: any;
 }

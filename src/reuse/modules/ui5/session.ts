@@ -70,7 +70,7 @@ export class Session {
         } catch {
           return false;
         }
-      }, timeout);
+      }, { timeout });
     } catch (error) {
       this.ErrorHandler.logException(error, "Could not find the login page within the given time.");
     }
@@ -294,7 +294,11 @@ export class Session {
           usernameField = await $(authenticator.usernameFieldSelector);
           passwordField = await $(authenticator.passwordFieldSelector);
           logonField = await $(authenticator.logonButtonSelector);
-          return (await usernameField.isDisplayedInViewport()) && (await passwordField.isDisplayedInViewport()) && (await logonField.isDisplayedInViewport());
+          return (
+            (await usernameField.isDisplayed({ withinViewport: true })) &&
+            (await passwordField.isDisplayed({ withinViewport: true })) &&
+            (await logonField.isDisplayed({ withinViewport: true }))
+          );
         },
         {
           timeout: GLOBAL_DEFAULT_WAIT_TIMEOUT,

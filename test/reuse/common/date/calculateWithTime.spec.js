@@ -334,66 +334,66 @@ describe("date - calculateWithTime - 'tomorrow' - 'endOfDay' + format 'mm/dd/yyy
 // =================================== ERROR CASES ===================================
 describe("date - calculateWithTime - 'nextYear' - 'invalid-time' - error", function() {
   it("Execution & Verification", function() {
-    expect(() => common.date.calculateWithTime("nextYear", "invalid-time")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+    expect(() => common.date.calculateWithTime("nextYear", "invalid-time")).toThrow("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
   });
 });
 
 describe("date - calculateWithTime - 'nextYear' - 'invalid-time (15:78:21)' - error", function() {
   it("Execution & Verification", function() {
-    expect(() => common.date.calculateWithTime("nextYear", "15:78:21")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+    expect(() => common.date.calculateWithTime("nextYear", "15:78:21")).toThrow("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
   });
 });
 
 describe("date - calculateWithTime - 'invalid-date' - '15:23:23' - error", function() {
   it("Execution & Verification", function() {
-    expect(() => common.date.calculateWithTime("invalid-date", "15:23:23")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid date string as first argument.");
+    expect(() => common.date.calculateWithTime("invalid-date", "15:23:23")).toThrow("Function 'calculateWithTime' failed: Please provide a valid date string as first argument.");
   });
 });
 
 describe("date - calculateWithTime - 'nextMonth' - '21:15 PM' - error", function() {
   it("Execution & Verification", function() {
-    expect(() => common.date.calculateWithTime("nextMonth", "21:15 PM")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+    expect(() => common.date.calculateWithTime("nextMonth", "21:15 PM")).toThrow("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
   });
 });
 
 describe("date - calculateWithTime - 'nextMonth' - 'AM' - error", function() {
   it("Execution & Verification", function() {
-    expect(() => common.date.calculateWithTime("nextMonth", "AM")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+    expect(() => common.date.calculateWithTime("nextMonth", "AM")).toThrow("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
   });
 });
 
 describe("date - calculateWithTime - 'nextMonth' - 'PM' - error", function() {
   it("Execution & Verification", function() {
-    expect(() => common.date.calculateWithTime("nextMonth", "PM")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+    expect(() => common.date.calculateWithTime("nextMonth", "PM")).toThrow("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
   });
 });
 
 describe("date - calculateWithTime - 'nextMonth' - '12 AM/PM' - error", function() {
   it("Execution & Verification", function() {
-    expect(() => common.date.calculateWithTime("nextMonth", "12 AM/PM")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+    expect(() => common.date.calculateWithTime("nextMonth", "12 AM/PM")).toThrow("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
   });
 });
 
 describe("date - calculateWithTime - 'nextMonth' - '13:15 AM' - error", function() {
   it("Execution & Verification", function() {
-    expect(() => common.date.calculateWithTime("nextMonth", "21:15 AM")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+    expect(() => common.date.calculateWithTime("nextMonth", "21:15 AM")).toThrow("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
   });
 });
 
 describe("date - calculateWithTime - 'previousMonth' - '-5:40:40' - error", function() {
   it("Execution & Verification", function() {
-    expect(() => common.date.calculateWithTime("nextMonth", "-5:40:40")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+    expect(() => common.date.calculateWithTime("nextMonth", "-5:40:40")).toThrow("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
   });
 });
 
 describe("date - calculateWithTime - 'previousMonth' - '20:-40:30' - error", function() {
   it("Execution & Verification", function() {
-    expect(() => common.date.calculateWithTime("nextMonth", "-5:40:40")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+    expect(() => common.date.calculateWithTime("nextMonth", "-5:40:40")).toThrow("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
   });
 });
 
 describe("date - calculateWithTime - 'previousMonth' - '20:40:-30' - error", function() {
   it("Execution & Verification", function() {
-    expect(() => common.date.calculateWithTime("nextMonth", "-5:40:40")).toThrowError("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
+    expect(() => common.date.calculateWithTime("nextMonth", "-5:40:40")).toThrow("Function 'calculateWithTime' failed: Please provide a valid time string as second argument.");
   });
 });

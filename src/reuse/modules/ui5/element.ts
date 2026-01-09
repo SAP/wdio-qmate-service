@@ -1,6 +1,5 @@
 "use strict";
 
-import { Element } from "../../../../@types/wdio";
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import ErrorHandler from "../../helper/errorHandler";
 import { GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
@@ -43,7 +42,7 @@ export class ElementModule {
    * @returns {Object[]} - The found elements.
    * @example const elem = await ui5.element.getAllDisplayed(selector);
    */
-  async getAllDisplayed(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<Element[]> {
+  async getAllDisplayed(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<WebdriverIO.Element[]> {
     const vl = this.vlf.initLog(this.getAllDisplayed);
     if (!selector) {
       this.ErrorHandler.logException(new Error(), `Please provide a valid selector as argument.`);
@@ -65,7 +64,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await ui5.element.getDisplayed(selector);
    */
-  async getDisplayed(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<Element> {
+  async getDisplayed(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<WebdriverIO.Element> {
     const vl = this.vlf.initLog(this.getDisplayed);
     if (!selector || typeof selector !== "object") {
       this.ErrorHandler.logException(new Error(), `Please provide a valid selector as argument.`);
@@ -107,7 +106,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await ui5.element.getByText(selector, "Home");
    */
-  async getByText(selector: any, value: string, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<Element> {
+  async getByText(selector: any, value: string, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<WebdriverIO.Element> {
     const vl = this.vlf.initLog(this.getByText);
     vl.log(`Getting element by text ${value}`);
     const elements = await this.getAllDisplayed(selector, timeout);
@@ -155,7 +154,7 @@ export class ElementModule {
    * };
    * const elem = await ui5.element.getByChild(elementSelector, childSelector);
    */
-  async getByChild(elementSelector: any, childSelector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<Element> {
+  async getByChild(elementSelector: any, childSelector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<WebdriverIO.Element> {
     const vl = this.vlf.initLog(this.getByText);
     const selector = {
       elementProperties: elementSelector.elementProperties,
@@ -187,7 +186,7 @@ export class ElementModule {
    * };
    * const elem = await ui5.element.getByParent(elementSelector, parentSelector);
    */
-  async getByParent(elementSelector: any, parentSelector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<Element> {
+  async getByParent(elementSelector: any, parentSelector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<WebdriverIO.Element> {
     const vl = this.vlf.initLog(this.getByParent);
     const selector = {
       elementProperties: elementSelector.elementProperties,
@@ -247,7 +246,7 @@ export class ElementModule {
     return attrValue;
   }
 
-  async getInnerAttribute(elem: Element, name: string) {
+  async getInnerAttribute(elem: WebdriverIO.Element, name: string) {
     const vl = this.vlf.initLog(this.getInnerAttribute);
     return elem.getAttribute(name).then((value) => {
       if (value !== null) {
@@ -294,7 +293,7 @@ export class ElementModule {
    * @returns {String} The value of the CSS property.
    * @example const cssPropertyValue = await ui5.element.getCssPropertyValue(selector, "visibility");
    */
-  async getCssPropertyValue(selector: any, cssProperty: string, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<string> {
+  async getCssPropertyValue(selector:any, cssProperty: string, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<string | undefined>{
     const vl = this.vlf.initLog(this.getCssPropertyValue);
     try {
       const elem = await this.getDisplayed(selector, index, timeout);
