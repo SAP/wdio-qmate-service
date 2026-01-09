@@ -455,6 +455,36 @@ export class UserInteraction {
   }
 
   /**
+   * @function selectBoxByKey
+   * @memberOf ui5.userInteraction
+   * @description Selects the passed value of the Select box.
+   * Please note that the function will only work for the default select Box.
+   * In special cases, please use the clickSelectArrow function.
+   * @param {Object} selector - The selector describing the element.
+   * @param {String} keyValue - The value to select.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+   * @example await ui5.userInteraction.selectBox(selector, "DE");
+   */
+  async selectBoxByKey(selector: any, keyValue: string, index = 0) {
+    const vl = this.vlf.initLog(this.selectBoxByKey);
+    await this.clickSelectArrow(selector, index);
+    if (keyValue !== undefined && keyValue !== null) {
+      const itemSelector = {
+        elementProperties: {
+          mProperties: {
+            key: keyValue
+          },
+          ancestorProperties: selector.elementProperties
+        }
+      };
+      await this.scrollToElement(itemSelector);
+      await this.click(itemSelector);
+    } else {
+      this.ErrorHandler.logException(new Error("Please provide a value as second argument."));
+    }
+  }
+
+  /**
    * @function selectComboBox
    * @memberOf ui5.userInteraction
    * @description Selects the passed value from the ComboBox with the given selector.
