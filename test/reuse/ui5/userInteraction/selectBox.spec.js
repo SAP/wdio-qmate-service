@@ -37,7 +37,7 @@ describe("userInteraction - selectBox", function () {
   });
 });
 
-describe("userInteraction - selectComboBox use wrong selector", function () {
+describe("userInteraction - selectBox use wrong selector", function () {
 
   let selector;
   let actualValue;
@@ -66,7 +66,7 @@ describe("userInteraction - selectComboBox use wrong selector", function () {
   });
 });
 
-describe("userInteraction - selectComboBox use wrong value", function () {
+describe("userInteraction - selectBox use wrong value", function () {
 
   let actualValue;
   let selector;
