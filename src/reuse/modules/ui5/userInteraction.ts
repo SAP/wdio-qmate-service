@@ -489,7 +489,7 @@ export class UserInteraction {
     }
   }
 
-   /**
+  /**
    * @function selectBox
    * @memberOf ui5.userInteraction
    * @description Selects the passed value of the Select box.
