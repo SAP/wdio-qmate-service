@@ -433,7 +433,7 @@ export class UserInteraction {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @example await ui5.userInteraction.select(selector, "Germany");
    */
-  async select(selector: any, value: string | string[], index = 0) {
+  async select(selector: any, value: string | Array<string>, index = 0) {
     const valueAsArray = Array.isArray(value) ? value : [value];
     const valueAsString = Array.isArray(value) ? value[0] : value;
 
