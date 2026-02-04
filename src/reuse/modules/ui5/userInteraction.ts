@@ -21,6 +21,7 @@ export class UserInteraction {
     private static readonly TEXTAREA_METADATA: Ui5ControlMetadata = "sap.m.TextArea";
     private static readonly TEXTAREA_MACROS_METADATA: Ui5ControlMetadata = "sap.fe.macros.field.TextAreaEx";
     private static readonly SUPPORTED_TEXTAREA_METADATA: Array<Ui5ControlMetadata> = [UserInteraction.TEXTAREA_METADATA, UserInteraction.TEXTAREA_MACROS_METADATA];
+    private static readonly SELECT_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.select' function instead."
 
   // =================================== CLICK ===================================
   /**
@@ -487,7 +488,7 @@ export class UserInteraction {
   }
 
   async selectBox(selector: any, value: string, index = 0) {
-    util.console.warn("This function is deprecated, please use the generic 'ui5.userInteraction.select' function instead.");
+    util.console.warn(UserInteraction.SELECT_DEPRECATION_MESSAGE);
     await this.select(selector, value, index);
   }
 
@@ -511,7 +512,7 @@ export class UserInteraction {
   }
 
   async selectComboBox(selector: any, value: string, index = 0) {
-    util.console.warn("This function is deprecated, please use the generic 'ui5.userInteraction.select' function instead.");
+    util.console.warn(UserInteraction.SELECT_DEPRECATION_MESSAGE);
     await this.select(selector, value, index);
   }
 
@@ -537,7 +538,7 @@ export class UserInteraction {
   }
 
   async selectMultiComboBox(selector: any, values: any[], index = 0) {
-    util.console.warn("This function is deprecated, please use the generic 'ui5.userInteraction.select' function instead.");
+    util.console.warn(UserInteraction.SELECT_DEPRECATION_MESSAGE);
     await this.select(selector, values, index);
   }
 
