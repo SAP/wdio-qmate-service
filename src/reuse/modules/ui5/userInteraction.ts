@@ -21,6 +21,7 @@ export class UserInteraction {
     private static readonly TEXTAREA_METADATA: Ui5ControlMetadata = "sap.m.TextArea";
     private static readonly TEXTAREA_MACROS_METADATA: Ui5ControlMetadata = "sap.fe.macros.field.TextAreaEx";
     private static readonly SUPPORTED_TEXTAREA_METADATA: Array<Ui5ControlMetadata> = [UserInteraction.TEXTAREA_METADATA, UserInteraction.TEXTAREA_MACROS_METADATA];
+    private static readonly SELECT_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.select' function instead."
 
   // =================================== CLICK ===================================
   /**
@@ -425,97 +426,47 @@ export class UserInteraction {
 
   // =================================== SELECT ===================================
   /**
-   * @function selectBox
+   * @function select
    * @memberOf ui5.userInteraction
-   * @description Selects the passed value of the Select box.
-   * Please note that the function will only work for the default select Box.
-   * In special cases, please use the clickSelectArrow function.
+   * @description Selects a value from a UI5 dropdown control (Select, ComboBox, MultiComboBox) or a generic Popover.
    * @param {Object} selector - The selector describing the element.
    * @param {String} value - The value to select.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
-   * @example await ui5.userInteraction.selectBox(selector, "Germany");
+   * @example await ui5.userInteraction.select(selector, "Germany");
    */
+  async select(selector: any, value: string | Array<string>, index = 0) {
+    const valueAsArray = Array.isArray(value) ? value : [value];
+    const valueAsString = Array.isArray(value) ? value[0] : value;
+    await this.clickSelectArrow(selector, index);
+    const controlType = selector.elementProperties.metadata;
+    switch (controlType) {
+      case "sap.m.Select":
+        await this._selectBox(valueAsString);
+        break;
+      case "sap.m.ComboBox":
+        await this._selectComboBox(valueAsString);
+        break;
+      case "sap.m.MultiComboBox":
+        await this._selectMultiComboBox(valueAsArray);
+        break;
+      default:
+        await this._selectGeneric(valueAsString);
+    }
+  }
+
   async selectBox(selector: any, value: string, index = 0) {
-    const vl = this.vlf.initLog(this.selectBox);
-    await this.clickSelectArrow(selector, index);
-    if (value !== undefined && value !== null) {
-      const itemSelector = {
-        elementProperties: {
-          mProperties: {
-            text: value
-          },
-          ancestorProperties: selector.elementProperties
-        }
-      };
-      await this.scrollToElement(itemSelector);
-      await this.click(itemSelector);
-    } else {
-      this.ErrorHandler.logException(new Error("Please provide a value as second argument."));
-    }
+    util.console.warn(UserInteraction.SELECT_DEPRECATION_MESSAGE);
+    await this.select(selector, value, index);
   }
 
-  /**
-   * @function selectComboBox
-   * @memberOf ui5.userInteraction
-   * @description Selects the passed value from the ComboBox with the given selector.
-   * Please note that the function will only work for the default ComboBox.
-   * In special cases you need to use the 'clickSelectArrow' function.
-   * @param {Object} selector - The selector describing the element.
-   * @param {String} value - The value to select.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
-   * @example await ui5.userInteraction.selectComboBox(selector, "Germany");
-   */
   async selectComboBox(selector: any, value: string, index = 0) {
-    const vl = this.vlf.initLog(this.selectComboBox);
-    await this.clickSelectArrow(selector, index);
-    if (value) {
-      const selector = {
-        elementProperties: {
-          metadata: "sap.m.StandardListItem",
-          mProperties: {
-            title: value
-          }
-        },
-        parentProperties: {
-          metadata: "sap.m.List"
-        }
-      };
-      await this.scrollToElement(selector);
-      await this.click(selector);
-    }
+    util.console.warn(UserInteraction.SELECT_DEPRECATION_MESSAGE);
+    await this.select(selector, value, index);
   }
 
-  /**
-   * @function selectMultiComboBox
-   * @memberOf ui5.userInteraction
-   * @description Selects the passed values of the MultiComboBox with the given selector.
-   * Please note that the function will only work for the default MultiComboBox.
-   * In special cases, please use the clickSelectArrow function.
-   * @param {Object} selector - The selector describing the element.
-   * @param {Array} values - The values to select.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
-   * @example await ui5.userInteraction.selectMultiComboBox(selector, ["Option 1", "Option 2"]);
-   */
   async selectMultiComboBox(selector: any, values: any[], index = 0) {
-    const vl = this.vlf.initLog(this.selectMultiComboBox);
-    await this.clickSelectArrow(selector, index);
-    for (const v in values) {
-      const ui5ControlProperties = {
-        elementProperties: {
-          metadata: "sap.m.CheckBox",
-          mProperties: {}
-        },
-        parentProperties: {
-          metadata: "sap.m.StandardListItem",
-          mProperties: {
-            title: values[v]
-          }
-        }
-      };
-      await this.scrollToElement(ui5ControlProperties);
-      await this.click(ui5ControlProperties);
-    }
-    await common.userInteraction.pressEscape();
+    util.console.warn(UserInteraction.SELECT_DEPRECATION_MESSAGE);
+    await this.select(selector, values, index);
   }
 
   /**
@@ -529,7 +480,17 @@ export class UserInteraction {
   async clickSelectArrow(selector: any, index = 0) {
     const vl = this.vlf.initLog(this.clickSelectArrow);
     const id = await ui5.element.getId(selector, index);
-    const arrow = await nonUi5.element.getByCss("[id='" + id + "-arrow']", 0, 3000);
+    const cssLookup = nonUi5.element.getByCss(`[id='${id}-arrow']`, 0, 3000);
+    const ui5Lookup = ui5.element.getDisplayed({
+      elementProperties: {
+        metadata: "sap.ui.core.Icon",
+        src: "*slim-arrow-down"
+      },
+      ancestorProperties: {
+        id: `*${id}*`
+      }
+    });
+    const arrow = await Promise.any([cssLookup, ui5Lookup]);
     await arrow.click();
   }
 
@@ -833,6 +794,79 @@ export class UserInteraction {
     } else {
       return false;
     }
+  }
+
+  private async _selectGeneric(value: string) {
+    const vl = this.vlf.initLog(this._selectGeneric);
+    const itemSelector = {
+      elementProperties: {
+        text: value
+      },
+      ancestorProperties: {
+        metadata: "sap.m.Popover"
+      }
+    };
+    await this.scrollToElement(itemSelector);
+    await this.click(itemSelector);
+  }
+
+  private async _selectBox(value: string) {
+    const vl = this.vlf.initLog(this._selectBox);
+    if (value !== undefined && value !== null) {
+      const itemSelector = {
+        elementProperties: {
+          metadata: "sap.ui.core.Item",
+          text: value
+        },
+        ancestorProperties: {
+          metadata: "sap.m.SelectList"
+        }
+      };
+      await this.scrollToElement(itemSelector);
+      await this.click(itemSelector);
+    } else {
+      this.ErrorHandler.logException(new Error("Please provide a value as second argument."));
+    }
+  }
+
+  private async _selectComboBox(value: string) {
+    const vl = this.vlf.initLog(this._selectComboBox);
+    if (value) {
+      const selector = {
+        elementProperties: {
+          metadata: "sap.m.StandardListItem",
+          mProperties: {
+            title: value
+          }
+        },
+        parentProperties: {
+          metadata: "sap.m.List"
+        }
+      };
+      await this.scrollToElement(selector);
+      await this.click(selector);
+    }
+  }
+
+  private async _selectMultiComboBox(values: any[]) {
+    const vl = this.vlf.initLog(this._selectMultiComboBox);
+    for (const v in values) {
+      const ui5ControlProperties = {
+        elementProperties: {
+          metadata: "sap.m.CheckBox",
+          mProperties: {}
+        },
+        parentProperties: {
+          metadata: "sap.m.StandardListItem",
+          mProperties: {
+            title: values[v]
+          }
+        }
+      };
+      await this.scrollToElement(ui5ControlProperties);
+      await this.click(ui5ControlProperties);
+    }
+    await common.userInteraction.pressEscape();
   }
 
   // Disabled since it is not working correctly
