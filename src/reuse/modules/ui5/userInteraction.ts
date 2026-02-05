@@ -454,87 +454,14 @@ export class UserInteraction {
     }
   }
 
-  private async _selectGeneric(value: string) {
-    const vl = this.vlf.initLog(this._selectGeneric);
-    const itemSelector = {
-      elementProperties: {
-        text: value
-      },
-      ancestorProperties: {
-        metadata: "sap.m.Popover"
-      }
-    };
-    await this.scrollToElement(itemSelector);
-    await this.click(itemSelector);
-  }
-
-  private async _selectBox(value: string) {
-    const vl = this.vlf.initLog(this._selectBox);
-    if (value !== undefined && value !== null) {
-      const itemSelector = {
-        elementProperties: {
-          metadata: "sap.ui.core.Item",
-          text: value
-        },
-        ancestorProperties: {
-          metadata: "sap.m.SelectList"
-        }
-      };
-      await this.scrollToElement(itemSelector);
-      await this.click(itemSelector);
-    } else {
-      this.ErrorHandler.logException(new Error("Please provide a value as second argument."));
-    }
-  }
-
   async selectBox(selector: any, value: string, index = 0) {
     util.console.warn(UserInteraction.SELECT_DEPRECATION_MESSAGE);
     await this.select(selector, value, index);
   }
 
-  private async _selectComboBox(value: string) {
-    const vl = this.vlf.initLog(this._selectComboBox);
-    if (value) {
-      const selector = {
-        elementProperties: {
-          metadata: "sap.m.StandardListItem",
-          mProperties: {
-            title: value
-          }
-        },
-        parentProperties: {
-          metadata: "sap.m.List"
-        }
-      };
-      await this.scrollToElement(selector);
-      await this.click(selector);
-    }
-  }
-
   async selectComboBox(selector: any, value: string, index = 0) {
     util.console.warn(UserInteraction.SELECT_DEPRECATION_MESSAGE);
     await this.select(selector, value, index);
-  }
-
-  private async _selectMultiComboBox(values: any[]) {
-    const vl = this.vlf.initLog(this._selectMultiComboBox);
-    for (const v in values) {
-      const ui5ControlProperties = {
-        elementProperties: {
-          metadata: "sap.m.CheckBox",
-          mProperties: {}
-        },
-        parentProperties: {
-          metadata: "sap.m.StandardListItem",
-          mProperties: {
-            title: values[v]
-          }
-        }
-      };
-      await this.scrollToElement(ui5ControlProperties);
-      await this.click(ui5ControlProperties);
-    }
-    await common.userInteraction.pressEscape();
   }
 
   async selectMultiComboBox(selector: any, values: any[], index = 0) {
@@ -867,6 +794,79 @@ export class UserInteraction {
     } else {
       return false;
     }
+  }
+
+  private async _selectGeneric(value: string) {
+    const vl = this.vlf.initLog(this._selectGeneric);
+    const itemSelector = {
+      elementProperties: {
+        text: value
+      },
+      ancestorProperties: {
+        metadata: "sap.m.Popover"
+      }
+    };
+    await this.scrollToElement(itemSelector);
+    await this.click(itemSelector);
+  }
+
+  private async _selectBox(value: string) {
+    const vl = this.vlf.initLog(this._selectBox);
+    if (value !== undefined && value !== null) {
+      const itemSelector = {
+        elementProperties: {
+          metadata: "sap.ui.core.Item",
+          text: value
+        },
+        ancestorProperties: {
+          metadata: "sap.m.SelectList"
+        }
+      };
+      await this.scrollToElement(itemSelector);
+      await this.click(itemSelector);
+    } else {
+      this.ErrorHandler.logException(new Error("Please provide a value as second argument."));
+    }
+  }
+
+  private async _selectComboBox(value: string) {
+    const vl = this.vlf.initLog(this._selectComboBox);
+    if (value) {
+      const selector = {
+        elementProperties: {
+          metadata: "sap.m.StandardListItem",
+          mProperties: {
+            title: value
+          }
+        },
+        parentProperties: {
+          metadata: "sap.m.List"
+        }
+      };
+      await this.scrollToElement(selector);
+      await this.click(selector);
+    }
+  }
+
+  private async _selectMultiComboBox(values: any[]) {
+    const vl = this.vlf.initLog(this._selectMultiComboBox);
+    for (const v in values) {
+      const ui5ControlProperties = {
+        elementProperties: {
+          metadata: "sap.m.CheckBox",
+          mProperties: {}
+        },
+        parentProperties: {
+          metadata: "sap.m.StandardListItem",
+          mProperties: {
+            title: values[v]
+          }
+        }
+      };
+      await this.scrollToElement(ui5ControlProperties);
+      await this.click(ui5ControlProperties);
+    }
+    await common.userInteraction.pressEscape();
   }
 
   // Disabled since it is not working correctly
