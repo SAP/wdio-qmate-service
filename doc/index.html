@@ -3303,32 +3303,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionselectboxselector-value-index" class="md-nav__link">
+  <a href="#userinteractionselectselector-value-index" class="md-nav__link">
     <span class="md-ellipsis">
       
-        userInteraction.selectBox(selector, value, [index])
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#userinteractionselectcomboboxselector-value-index" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        userInteraction.selectComboBox(selector, value, [index])
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#userinteractionselectmulticomboboxselector-values-index" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        userInteraction.selectMultiComboBox(selector, values, [index])
+        userInteraction.select(selector, value, [index])
       
     </span>
   </a>
@@ -8563,32 +8541,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionselectboxselector-value-index" class="md-nav__link">
+  <a href="#userinteractionselectselector-value-index" class="md-nav__link">
     <span class="md-ellipsis">
       
-        userInteraction.selectBox(selector, value, [index])
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#userinteractionselectcomboboxselector-value-index" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        userInteraction.selectComboBox(selector, value, [index])
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#userinteractionselectmulticomboboxselector-values-index" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        userInteraction.selectMultiComboBox(selector, values, [index])
+        userInteraction.select(selector, value, [index])
       
     </span>
   </a>
@@ -13134,9 +13090,7 @@
 <li><a href="#ui5.userInteraction.clearSmartFieldInput">.clearSmartFieldInput(selector, [index], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.clearAndFillSmartFieldInput">.clearAndFillSmartFieldInput(selector, value, [index], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.clearAndFillSmartFieldInputAndRetry">.clearAndFillSmartFieldInputAndRetry(selector, value, [index], [timeout], [retries], [interval])</a></li>
-<li><a href="#ui5.userInteraction.selectBox">.selectBox(selector, value, [index])</a></li>
-<li><a href="#ui5.userInteraction.selectComboBox">.selectComboBox(selector, value, [index])</a></li>
-<li><a href="#ui5.userInteraction.selectMultiComboBox">.selectMultiComboBox(selector, values, [index])</a></li>
+<li><a href="#ui5.userInteraction.select">.select(selector, value, [index])</a></li>
 <li><a href="#ui5.userInteraction.clickSelectArrow">.clickSelectArrow(selector, [index])</a></li>
 <li><a href="#ui5.userInteraction.clickSelectArrowAndRetry">.clickSelectArrowAndRetry(selector, [index], [retries], [interval])</a></li>
 <li><a href="#ui5.userInteraction.selectFromTab">.selectFromTab(selector, value, [index], [timeout])</a></li>
@@ -17288,9 +17242,7 @@ This is essential for chaining scripts, so that no static browser sleep in the s
 <li><a href="#ui5.userInteraction.clearSmartFieldInput">.clearSmartFieldInput(selector, [index], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.clearAndFillSmartFieldInput">.clearAndFillSmartFieldInput(selector, value, [index], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.clearAndFillSmartFieldInputAndRetry">.clearAndFillSmartFieldInputAndRetry(selector, value, [index], [timeout], [retries], [interval])</a></li>
-<li><a href="#ui5.userInteraction.selectBox">.selectBox(selector, value, [index])</a></li>
-<li><a href="#ui5.userInteraction.selectComboBox">.selectComboBox(selector, value, [index])</a></li>
-<li><a href="#ui5.userInteraction.selectMultiComboBox">.selectMultiComboBox(selector, values, [index])</a></li>
+<li><a href="#ui5.userInteraction.select">.select(selector, value, [index])</a></li>
 <li><a href="#ui5.userInteraction.clickSelectArrow">.clickSelectArrow(selector, [index])</a></li>
 <li><a href="#ui5.userInteraction.clickSelectArrowAndRetry">.clickSelectArrowAndRetry(selector, [index], [retries], [interval])</a></li>
 <li><a href="#ui5.userInteraction.selectFromTab">.selectFromTab(selector, value, [index], [timeout])</a></li>
@@ -18038,11 +17990,9 @@ Therefore we recommend to use this function to open a specific list item.</p>
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">clearAndFillSmartFieldInputAndRetry</span><span class="p">(</span><span class="nx">selector</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;My Value&quot;</span><span class="p">);</span>
 </code></pre></div>
-<a name="ui5.userInteraction.selectBox"></a></p>
-<h4 id="userinteractionselectboxselector-value-index">userInteraction.selectBox(selector, value, [index])</h4>
-<p>Selects the passed value of the Select box.
-Please note that the function will only work for the default select Box.
-In special cases, please use the clickSelectArrow function.</p>
+<a name="ui5.userInteraction.select"></a></p>
+<h4 id="userinteractionselectselector-value-index">userInteraction.select(selector, value, [index])</h4>
+<p>Selects a value from a UI5 dropdown control (Select, ComboBox, MultiComboBox) or a generic Popover.</p>
 <p><strong>Kind</strong>: static method of <a href="#ui5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
 <thead>
@@ -18075,85 +18025,7 @@ In special cases, please use the clickSelectArrow function.</p>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">selectBox</span><span class="p">(</span><span class="nx">selector</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Germany&quot;</span><span class="p">);</span>
-</code></pre></div>
-<a name="ui5.userInteraction.selectComboBox"></a></p>
-<h4 id="userinteractionselectcomboboxselector-value-index">userInteraction.selectComboBox(selector, value, [index])</h4>
-<p>Selects the passed value from the ComboBox with the given selector.
-Please note that the function will only work for the default ComboBox.
-In special cases you need to use the 'clickSelectArrow' function.</p>
-<p><strong>Kind</strong>: static method of <a href="#ui5.userInteraction"><code>userInteraction</code></a>  </p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>selector</td>
-<td><code>Object</code></td>
-<td></td>
-<td>The selector describing the element.</td>
-</tr>
-<tr>
-<td>value</td>
-<td><code>String</code></td>
-<td></td>
-<td>The value to select.</td>
-</tr>
-<tr>
-<td>[index]</td>
-<td><code>Number</code></td>
-<td><code>0</code></td>
-<td>The index of the selector (in case there are more than one elements visible at the same time).</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">selectComboBox</span><span class="p">(</span><span class="nx">selector</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Germany&quot;</span><span class="p">);</span>
-</code></pre></div>
-<a name="ui5.userInteraction.selectMultiComboBox"></a></p>
-<h4 id="userinteractionselectmulticomboboxselector-values-index">userInteraction.selectMultiComboBox(selector, values, [index])</h4>
-<p>Selects the passed values of the MultiComboBox with the given selector.
-Please note that the function will only work for the default MultiComboBox.
-In special cases, please use the clickSelectArrow function.</p>
-<p><strong>Kind</strong>: static method of <a href="#ui5.userInteraction"><code>userInteraction</code></a>  </p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>selector</td>
-<td><code>Object</code></td>
-<td></td>
-<td>The selector describing the element.</td>
-</tr>
-<tr>
-<td>values</td>
-<td><code>Array</code></td>
-<td></td>
-<td>The values to select.</td>
-</tr>
-<tr>
-<td>[index]</td>
-<td><code>Number</code></td>
-<td><code>0</code></td>
-<td>The index of the selector (in case there are more than one elements visible at the same time).</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">selectMultiComboBox</span><span class="p">(</span><span class="nx">selector</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Option 1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Option 2&quot;</span><span class="p">]);</span>
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">selector</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Germany&quot;</span><span class="p">);</span>
 </code></pre></div>
 <a name="ui5.userInteraction.clickSelectArrow"></a></p>
 <h4 id="userinteractionclickselectarrowselector-index">userInteraction.clickSelectArrow(selector, [index])</h4>
