@@ -163,7 +163,7 @@
     "@wdio/spec-reporter": "^8.43.0",
     "@wdio/static-server-service": "^8.41.0",
     "app-root-path": "^3.1.0",
-    "appium": "^3.1.0",
+    "appium": "^3.2.0",
     "appium-uiautomator2-driver": "^5.0.6",
     "appium-xcuitest-driver": "^10.2.2",
     "chai": "^6.2.0",
