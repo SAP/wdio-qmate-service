@@ -817,10 +817,8 @@ export class UserInteraction {
         elementProperties: {
           mProperties: {
             text: value
-          }
-        },
-        ancestorProperties: {
-          metadata: selector.elementProperties
+          },
+          ancestorProperties: selector.elementProperties
         }
       };
       await this.scrollToElement(itemSelector);
