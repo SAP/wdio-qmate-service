@@ -441,7 +441,7 @@ export class UserInteraction {
     const controlType = selector.elementProperties.metadata;
     switch (controlType) {
       case "sap.m.Select":
-        await this._selectBox(valueAsString);
+        await this._selectBox(selector, valueAsString);
         break;
       case "sap.m.ComboBox":
         await this._selectComboBox(valueAsString);
@@ -810,16 +810,17 @@ export class UserInteraction {
     await this.click(itemSelector);
   }
 
-  private async _selectBox(value: string) {
+  private async _selectBox(selector: any, value: string) {
     const vl = this.vlf.initLog(this._selectBox);
     if (value !== undefined && value !== null) {
       const itemSelector = {
         elementProperties: {
-          metadata: "sap.ui.core.Item",
-          text: value
+          mProperties: {
+            text: value
+          }
         },
         ancestorProperties: {
-          metadata: "sap.m.SelectList"
+          metadata: selector.elementProperties
         }
       };
       await this.scrollToElement(itemSelector);
