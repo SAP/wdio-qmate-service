@@ -428,29 +428,19 @@ export class UserInteraction {
   /**
    * @function select
    * @memberOf ui5.userInteraction
-   * @description Selects a value from a UI5 dropdown control (Select, ComboBox, MultiComboBox) or a generic Popover.
+   * @description Selects a value from a UI5 dropdown control.
    * @param {Object} selector - The selector describing the element.
    * @param {String} value - The value to select.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @example await ui5.userInteraction.select(selector, "Germany");
    */
   async select(selector: any, value: string | Array<string>, index = 0) {
-    const valueAsArray = Array.isArray(value) ? value : [value];
-    const valueAsString = Array.isArray(value) ? value[0] : value;
+    const vl = this.vlf.initLog(this.select);
     await this.clickSelectArrow(selector, index);
-    const controlType = selector.elementProperties.metadata;
-    switch (controlType) {
-      case "sap.m.Select":
-        await this._selectBox(selector, valueAsString);
-        break;
-      case "sap.m.ComboBox":
-        await this._selectComboBox(valueAsString);
-        break;
-      case "sap.m.MultiComboBox":
-        await this._selectMultiComboBox(valueAsArray);
-        break;
-      default:
-        await this._selectGeneric(valueAsString);
+    if (Array.isArray(value)) {
+      await this._selectMultipleOptions(value);
+    } else {
+      await this._selectOption(value);
     }
   }
 
@@ -796,74 +786,36 @@ export class UserInteraction {
     }
   }
 
-  private async _selectGeneric(value: string) {
-    const vl = this.vlf.initLog(this._selectGeneric);
-    const itemSelector = {
-      elementProperties: {
-        text: value
-      },
-      ancestorProperties: {
-        metadata: "sap.m.Popover"
-      }
+  private async _selectOption(value: string) {
+    const textSelector = {
+      elementProperties: { text: value },
+      ancestorProperties: { metadata: "sap.m.Popover" }
     };
-    await this.scrollToElement(itemSelector);
-    await this.click(itemSelector);
+    const titleSelector = {
+      elementProperties: { title: value },
+      ancestorProperties: { metadata: "sap.m.Popover" }
+    };
+    const isText = await ui5.element.isVisible(textSelector);
+    const activeSelector = isText ? textSelector : titleSelector;
+    await this.scrollToElement(activeSelector);
+    await this.click(activeSelector);
   }
 
-  private async _selectBox(selector: any, value: string) {
-    const vl = this.vlf.initLog(this._selectBox);
-    if (value !== undefined && value !== null) {
-      const itemSelector = {
-        elementProperties: {
-          mProperties: {
-            text: value
-          },
-          ancestorProperties: selector.elementProperties
-        }
-      };
-      await this.scrollToElement(itemSelector);
-      await this.click(itemSelector);
-    } else {
-      this.ErrorHandler.logException(new Error("Please provide a value as second argument."));
-    }
-  }
-
-  private async _selectComboBox(value: string) {
-    const vl = this.vlf.initLog(this._selectComboBox);
-    if (value) {
+  private async _selectMultipleOptions(values: string[]) {
+    for (const value of values) {
       const selector = {
         elementProperties: {
+          metadata: "sap.m.CheckBox"
+        },
+        parentProperties: {
           metadata: "sap.m.StandardListItem",
           mProperties: {
             title: value
           }
-        },
-        parentProperties: {
-          metadata: "sap.m.List"
         }
       };
       await this.scrollToElement(selector);
       await this.click(selector);
-    }
-  }
-
-  private async _selectMultiComboBox(values: any[]) {
-    const vl = this.vlf.initLog(this._selectMultiComboBox);
-    for (const v in values) {
-      const ui5ControlProperties = {
-        elementProperties: {
-          metadata: "sap.m.CheckBox",
-          mProperties: {}
-        },
-        parentProperties: {
-          metadata: "sap.m.StandardListItem",
-          mProperties: {
-            title: values[v]
-          }
-        }
-      };
-      await this.scrollToElement(ui5ControlProperties);
-      await this.click(ui5ControlProperties);
     }
     await common.userInteraction.pressEscape();
   }
