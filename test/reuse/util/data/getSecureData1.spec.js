@@ -11,19 +11,25 @@ describe("data - getSecureData - default source", function () {
     common.assertion.expectEqual(dataAct, dataExp);
   });
 
-  it("Verification 2 - plain value", function () {
+  it("Verification 2 - plain string value", function () {
+    const dataExp = "PLAIN_VALUE";
+    const dataAct = data.test.plainValue;
+    common.assertion.expectEqual(dataAct, dataExp);
+  });
+
+  it("Verification 3 - plain number value", function () {
     const dataExp = 42;
     const dataAct = data.test.number;
     common.assertion.expectEqual(dataAct, dataExp);
   });
 
-  it("Verification 3 - nested value", function () {
+  it("Verification 4 - nested value", function () {
     const dataExp = "TEST";
     const dataAct = data.test.inner.value;
     common.assertion.expectEqual(dataAct, dataExp);
   });
 
-  it("Verification 4 - alternatives from different keys", function () {
+  it("Verification 5 - alternatives from different keys", function () {
     const dataExp = "super-duper-sensitive-pw";
     const dataAct = data.alternatives;
     common.assertion.expectEqual(dataAct, dataExp);
