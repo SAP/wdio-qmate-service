@@ -155,11 +155,15 @@ export class Data {
     for (const key in data) {
       if (typeof data[key] === "object" && !Array.isArray(data[key])) {
         data[key] = this._decryptRecursively(data[key], options);
-      } else if (typeof data[key] === "string" || Array.isArray(data[key])) {
+      } else if ((typeof data[key] === "string" && this._isHex(data[key])) || Array.isArray(data[key])) {
         data[key] = global.util.data.decrypt(data[key], options);
       }
     }
     return data;
+  }
+
+  private _isHex(str: string): boolean {
+    return /^[0-9a-fA-F]+$/.test(str) && str.length % 2 === 0;
   }
 }
 export default new Data();
