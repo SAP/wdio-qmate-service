@@ -1,11 +1,12 @@
 "use strict";
+const { BASE_URL } = require("./constants");
 
 const browser = require("../../../../lib/reuse/modules/util/browser");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("browser - forward", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/");
+    await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
     const selector = {
       elementProperties: {

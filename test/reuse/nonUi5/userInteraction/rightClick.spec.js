@@ -1,8 +1,9 @@
+const { BASE_URL } = require("./constants");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - rightClick", async function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.TextArea/sample/sap.m.sample.TextArea");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.TextArea/sample/sap.m.sample.TextArea`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

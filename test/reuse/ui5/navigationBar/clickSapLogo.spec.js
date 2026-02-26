@@ -1,7 +1,8 @@
 "use strict";
+const { BASE_URL } = require("./constants");
 
 describe("navigationBar - clickSapLogo", async function () {
-  const baseUrl = "https://ui5.sap.com/test-resources/sap/suite/ui/generic/template/demokit/sample.manage.products.sepmra/test/index.html?sap-ui-theme=sap_horizon#masterDetail-display";
+  const baseUrl = `${BASE_URL}/test-resources/sap/suite/ui/generic/template/demokit/sample.manage.products.sepmra/test/index.html?sap-ui-theme=sap_horizon#masterDetail-display`;
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(baseUrl);
     await ui5.navigationBar.expectPageTitle("Manage Products");

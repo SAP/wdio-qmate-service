@@ -1,5 +1,5 @@
 "use strict";
-
+const { BASE_URL } = require("./constants");
 const {
   handleCookiesConsent
 } = require("../../../helper/utils");
@@ -7,7 +7,7 @@ const {
 describe("element - getById + expectToBeVisible", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
+    await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`);
     await handleCookiesConsent();
   });
 

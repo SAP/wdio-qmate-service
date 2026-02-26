@@ -800,11 +800,18 @@ export class UserInteraction {
       ancestorProperties: { metadata: "sap.m.Popover" }
     };
     const timeout = 500;
-    let activeSelector: any = labelSelector;
-    if (await ui5.element.isVisible(textSelector, 0, timeout)) {
-      activeSelector = textSelector;
-    } else if (await ui5.element.isVisible(titleSelector, 0, timeout)) {
-      activeSelector = titleSelector;
+    const checkVisibility = async (selector: any) => {
+      const visible = await ui5.element.isVisible(selector, 0, timeout);
+      if (visible) {
+        return selector;
+      }
+      throw new Error("Element not visible");
+    };
+    let activeSelector;
+    try {
+      activeSelector = await Promise.any([checkVisibility(textSelector), checkVisibility(titleSelector), checkVisibility(labelSelector)]);
+    } catch (error) {
+      activeSelector = labelSelector;
     }
     await this.scrollToElement(activeSelector);
     await this.click(activeSelector);

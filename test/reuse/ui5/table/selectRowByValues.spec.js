@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("./constants");
 const { handleCookiesConsent } = require("../../../helper/utils");
 const { validateChecked } = require("./helper");
 
@@ -50,7 +51,7 @@ const checkBoxSelector3 = (product) => {
 
 describe("table - selectRowByValues - demo kit - passing value as string - ui5CheckBox", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
+    await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark`);
   });
 
   it("Execution", async function () {
@@ -65,7 +66,7 @@ describe("table - selectRowByValues - demo kit - passing value as string - ui5Ch
 
 describe("table - selectRowByValues - demo kit - passing value as array of string - cssItem", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -83,7 +84,7 @@ describe("table - selectRowByValues - demo kit - passing value as array of strin
 
 describe("table - selectRowByValues - demo kit - passing value as array of string - ui5RadioButton with index - passing id", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#/?sap-iapp-state--history=1&sap-iapp-state=5");
+    await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#/?sap-iapp-state--history=1&sap-iapp-state=5`);
   });
 
   it("Execution", async function () {
@@ -98,7 +99,7 @@ describe("table - selectRowByValues - demo kit - passing value as array of strin
 
 describe("table - selectRowByValues - demo kit - already selected row remains selected", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
+    await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark`);
     await ui5.table.selectRowByValues(tableSelector1, "Exotic Liquids");
     await validateChecked(checkBoxSelector1("/Products*15)"));
   });

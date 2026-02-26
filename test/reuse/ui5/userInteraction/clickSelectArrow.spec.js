@@ -1,9 +1,10 @@
+const { BASE_URL } = require("./constants");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - clickSelectArrow", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.Select/sample/sap.m.sample.Select");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.Select/sample/sap.m.sample.Select`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -61,7 +62,7 @@ describe("userInteraction - clickSelectArrow", function () {
 describe("userInteraction - clickSelectArrow and catch an error", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.Select/sample/sap.m.sample.Select");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.Select/sample/sap.m.sample.Select`);
     await util.browser.refresh();
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");

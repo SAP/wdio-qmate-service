@@ -1,7 +1,8 @@
 "use strict";
+const { BASE_URL } = require("./constants");
 
 describe("browser - switchToWindow", function () {
-  const sapWindowUrl = "https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories";
+  const sapWindowUrl = `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`;
   let sapWindowHandle;
   const wdioWindowUrl = "https://webdriver.io/";
   let wdioWindowHandle;
@@ -40,7 +41,7 @@ describe("browser - switchToWindow", function () {
 });
 
 describe("browser - switchToWindow (unhappy case)", function () {
-  const sapWindowUrl = "https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories";
+  const sapWindowUrl = `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`;
 
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(sapWindowUrl);

@@ -1,3 +1,4 @@
+const { BASE_URL } = require("./constants");
 const {
   handleCookiesConsent
 } = require("../../../helper/utils");
@@ -13,7 +14,7 @@ describe("userInteraction - clearAndRetry", function () {
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -36,7 +37,7 @@ describe("userInteraction - clearAndRetry", function () {
 describe("userInteraction - clearAndRetry with invalid selector", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

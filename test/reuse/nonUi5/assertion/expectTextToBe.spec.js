@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("./constants");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 const xpath = "//*[contains(text(),'Hide Filter Bar')]";
@@ -8,7 +9,7 @@ const wrongValue = "Show Filter Bar";
 
 describe("assertion - expectTextToBe - element", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -22,7 +23,7 @@ describe("assertion - expectTextToBe - element", function () {
 
 describe("assertion - expectTextToBe - selector", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -37,7 +38,7 @@ const errorRegexp = /Expected.*Show.*|Received.*Hide/;
 
 describe("assertion - expectTextToBe - element - error", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -51,7 +52,7 @@ describe("assertion - expectTextToBe - element - error", function () {
 
 describe("assertion - expectTextToBe - selector - error", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

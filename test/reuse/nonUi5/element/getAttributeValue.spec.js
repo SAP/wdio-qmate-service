@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("./constants");
 const {
   handleCookiesConsent
 } = require("../../../helper/utils");
@@ -9,7 +10,7 @@ describe("element - getAttributeValue - inner HTML", function () {
   let valueAct;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
     await handleCookiesConsent();
   });
 
@@ -30,7 +31,7 @@ describe("element - getAttributeValue - with attribute", function () {
   let valueAct;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
     await handleCookiesConsent();
   });
 
@@ -48,7 +49,7 @@ describe("element - getAttributeValue - with attribute", function () {
 describe("element - getAttributeValue - error", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
   });
 
   it("Execution & Verification", async function () {

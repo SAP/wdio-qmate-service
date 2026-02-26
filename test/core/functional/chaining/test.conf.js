@@ -1,3 +1,4 @@
+const { BASE_URL } = require("./constants");
 var path = require("path");
 var merge = require("deepmerge");
 var profile = require("../../../helper/configurations/chrome.headless.conf.js");
@@ -27,5 +28,5 @@ exports.config = merge(profile.config, {
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: "https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3"
+  baseUrl: `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`
 });

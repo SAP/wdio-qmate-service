@@ -1,9 +1,10 @@
 "use strict";
+const { BASE_URL } = require("./constants");
 
 describe("browser - setBaseUrl", function () {
-  const urlToSet = "https://ui5.sap.com/";
+  const urlToSet = `${BASE_URL}/`;
   it("Execution", async function () {
-    await util.browser.setBaseUrl("https://ui5.sap.com/");
+    await util.browser.setBaseUrl(`${BASE_URL}/`);
   });
 
   it("Verification", async function() {

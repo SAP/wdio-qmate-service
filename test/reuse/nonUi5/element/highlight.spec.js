@@ -1,9 +1,11 @@
+const { BASE_URL } = require("./constants");
+
 describe("element - highlight", function () {
 
   let product;
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
+    await browser.navigateTo(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`);
 
   });
 

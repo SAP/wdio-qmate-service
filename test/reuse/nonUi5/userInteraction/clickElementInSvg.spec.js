@@ -1,11 +1,11 @@
 "use strict";
-
+const { BASE_URL } = require("./constants");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - clickElementInSvg - UI5 SVG Chart", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.suite.ui.commons.ChartContainer/sample/sap.suite.ui.commons.sample.ChartContainerToolbarEnhancement");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.suite.ui.commons.ChartContainer/sample/sap.suite.ui.commons.sample.ChartContainerToolbarEnhancement`);
     await handleCookiesConsent();
     await util.browser.sleep(5000);
   });

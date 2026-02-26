@@ -1,5 +1,5 @@
 "use strict";
-
+const { BASE_URL } = require("./constants");
 const baseUrl = "";
 
 describe("session - logout with inner verification", function () {
@@ -40,7 +40,7 @@ describe("session - logout without inner verification", function () {
 
 describe("session - logout without login (unhappy case)", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrlAndRetry("https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
+    await common.navigation.navigateToUrlAndRetry(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`);
   });
 
   it("Execution & Verification", async function () {

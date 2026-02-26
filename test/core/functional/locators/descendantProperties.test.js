@@ -1,10 +1,11 @@
 "use strict";
+const { BASE_URL } = require("./constants");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("webdriver.io page locator test", function () {
 
   it("should access element by elementProperties, descendantProperties and inner descendantProperties", async function () {
-    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.Button/sample/sap.m.sample.Button");
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -71,7 +72,7 @@ describe("webdriver.io page locator test", function () {
   });
 
   it("should access element by element properties and descendant properties", async function () {
-    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.Button/sample/sap.m.sample.Button");
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 

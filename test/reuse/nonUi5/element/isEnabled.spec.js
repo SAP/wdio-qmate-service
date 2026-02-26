@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("./constants");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 const enabledSelector = "input#__xmlview0--InputEdit-inner";
@@ -6,7 +7,7 @@ const disabledSelector = "input#__xmlview0--InputDisabled-inner";
 
 describe("element - isEnabled - enabled element", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.Input/sample/sap.m.sample.InputStates");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputStates`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("iframe[id='sampleFrame']");
   });
@@ -20,7 +21,7 @@ describe("element - isEnabled - enabled element", function () {
 
 describe("element - isEnabled - disabled element", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.Input/sample/sap.m.sample.InputStates");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputStates`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("iframe[id='sampleFrame']");
   });
@@ -36,7 +37,7 @@ const errorRegexp = /Expected.*true.*|Received.*false/;
 
 describe("element - isEnabled - element - error", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.Input/sample/sap.m.sample.InputStates");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputStates`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("iframe[id='sampleFrame']");
   });

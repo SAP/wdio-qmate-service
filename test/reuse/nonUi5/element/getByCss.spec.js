@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("./constants");
 const {
   handleCookiesConsent
 } = require("../../../helper/utils");
@@ -8,7 +9,7 @@ describe("element - getByCss + expectToBeVisible", function () {
   let downloadBtn;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/");
+    await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
@@ -24,7 +25,7 @@ describe("element - getByCss + expectToBeVisible", function () {
 describe("element - getByCss outside of viewpoint", function () {
   let comboBoxElement;
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox`);
     await util.browser.refresh(); // Need a refresh here as sapui5.hana.ondemand.com doesn't work correctly from time to time
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
@@ -55,7 +56,7 @@ describe("element - getByCss outside of viewpoint", function () {
 describe("element - getByCss and catch error", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/");
+    await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 

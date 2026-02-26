@@ -1,7 +1,8 @@
 "use strict";
+const { BASE_URL } = require("./constants");
 
 describe("browser - getCurrentWindow", function () {
-  const sapWindowUrl = "https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories";
+  const sapWindowUrl = `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`;
   let sapWindowHandleNative;
   let sapWindowHandleCustom;
 
@@ -20,7 +21,7 @@ describe("browser - getCurrentWindow", function () {
 });
 
 describe("browser - getCurrentWindow (unhappy case)", function () {
-  const sapWindowUrl = "https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories";
+  const sapWindowUrl = `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`;
   let sapWindowHandleCustom;
 
   const wdioWindowUrl = "https://webdriver.io/";

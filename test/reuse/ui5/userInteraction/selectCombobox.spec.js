@@ -1,3 +1,4 @@
+const { BASE_URL } = require("./constants");
 const {
   handleCookiesConsent
 } = require("../../../helper/utils");
@@ -9,7 +10,7 @@ describe("userInteraction - selectComboBox", function () {
   let expectedValue;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBox");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBox`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -37,7 +38,7 @@ describe("userInteraction - selectComboBox use wrong selector", function () {
   let value;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBox");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBox`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -61,7 +62,7 @@ describe("userInteraction - selectComboBox use wrong value", function () {
   let selector;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBox");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBox`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -88,7 +89,7 @@ describe("userInteraction - selectComboBox with index > 0", function () {
   const secondIndex = 3;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBoxValueState");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBoxValueState`);
     await util.browser.refresh();
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");

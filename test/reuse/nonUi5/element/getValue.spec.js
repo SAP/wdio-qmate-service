@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("./constants");
 const {
   handleCookiesConsent
 } = require("../../../helper/utils");
@@ -7,7 +8,7 @@ describe("element - getValue", function () {
   let actValue;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
     await handleCookiesConsent();
   });
 
@@ -25,7 +26,7 @@ describe("element - getValue - innerHTML", function () {
   let actValue;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
   });
 
   it("Execution", async function () {
@@ -41,7 +42,7 @@ describe("element - getValue - innerHTML", function () {
 
 describe("element - getValue - error case", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
   });
 
   it("Execution & Verification", async function () {

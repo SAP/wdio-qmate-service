@@ -1,3 +1,4 @@
+const { BASE_URL } = require("./constants");
 const path = require("path");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
@@ -48,7 +49,7 @@ describe("file - upload - default selector", function () {
 describe("file - upload - custom selector - UI5", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection`);
     await util.browser.refresh();
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
@@ -74,7 +75,7 @@ describe("file - upload - custom selector - UI5", function () {
 describe("file - upload - custom selector - non UI5", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection`);
     await util.browser.refresh();
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");

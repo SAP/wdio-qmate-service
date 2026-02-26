@@ -1,3 +1,4 @@
+const { BASE_URL } = require("./constants");
 const path = require("path");
 const merge = require("deepmerge");
 const profile = require("../../../helper/configurations/sauce.labs.conf");
@@ -8,7 +9,7 @@ exports.config = merge(profile.config, {
 
   maxInstances: 5,
   bail: 1,
-  baseUrl: "https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3",
+  baseUrl: `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`,
 
   specs: [
     path.resolve(__dirname, "waitToBePresent.spec.js"),

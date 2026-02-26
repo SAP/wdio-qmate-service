@@ -1,5 +1,7 @@
+const { BASE_URL } = require("./constants");
+
 describe("navigateToUrlAndRetry", function () {
-  const url = "https://ui5.sap.com/";
+  const url = `${BASE_URL}/`;
   const retries = 1;
   const interval = 500;
 

@@ -1,3 +1,5 @@
+const { BASE_URL } = require("./constants");
+
 describe("Test for ", function () {
   this.beforeAll(async () => {
     await browser.url("#/categories");
@@ -42,7 +44,7 @@ describe("Test for ", function () {
   });
 
   it("should use UI5 Control binding properties command on element level", async function () {
-    await browser.navigateTo("https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await browser.navigateTo(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
     const ui5ControlProperties = {
       "elementProperties": {
         "metadata": "sap.m.StandardListItem", "mProperties": {

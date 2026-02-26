@@ -1,3 +1,4 @@
+const { BASE_URL } = require("./constants");
 const path = require("path");
 const merge = require("deepmerge");
 const profile = require("../../../helper/configurations/chrome.headless.conf");
@@ -5,7 +6,7 @@ exports.config = merge(profile.config, {
   maxInstances: 1,
   specFileRetries: 0,
 
-  baseUrl: "https://ui5.sap.com/",
+  baseUrl: `${BASE_URL}/`,
 
   specs: [
     path.resolve(__dirname, "logCurrentUrl.spec.js"),

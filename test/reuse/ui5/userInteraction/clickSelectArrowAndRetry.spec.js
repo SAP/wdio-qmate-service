@@ -1,8 +1,9 @@
+const { BASE_URL } = require("./constants");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - clickSelectArrowAndRetry", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.Select/sample/sap.m.sample.Select");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.Select/sample/sap.m.sample.Select`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -63,7 +64,7 @@ describe("userInteraction - clickSelectArrowAndRetry", function () {
 
 describe("userInteraction - clickSelectArrow and catch an error", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.Select/sample/sap.m.sample.Select");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.Select/sample/sap.m.sample.Select`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -87,7 +88,7 @@ describe("userInteraction - clickSelectArrow and catch an error", function () {
 
 describe("userInteraction - clickSelectArrowAndRetry with index > 0", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.Select/sample/sap.m.sample.SelectValueState");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.Select/sample/sap.m.sample.SelectValueState`);
     await util.browser.refresh();
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");

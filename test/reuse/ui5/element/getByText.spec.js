@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("./constants");
 const selectorForAllListItems = {
   "elementProperties": {
     "viewName": "sap.ui.demo.cart.view.Home",
@@ -47,7 +48,7 @@ describe("element - getByText with index 1 (unhappy case)", function () {
   const value = "Gaming Monster";
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/category/DC");
+    await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/category/DC`);
   });
 
   it("Execution", async function () {

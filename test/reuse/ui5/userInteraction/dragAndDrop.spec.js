@@ -1,3 +1,4 @@
+const { BASE_URL } = require("./constants");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - dragAndDrop", function () {
@@ -19,7 +20,7 @@ describe("userInteraction - dragAndDrop", function () {
   };
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/sdk/#/entity/sap.f.GridList/sample/sap.f.sample.GridListDragAndDrop");
+    await common.navigation.navigateToUrl(`${BASE_URL}/sdk/#/entity/sap.f.GridList/sample/sap.f.sample.GridListDragAndDrop`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

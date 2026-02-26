@@ -1,5 +1,7 @@
+const { BASE_URL } = require("./constants");
+
 describe("navigateToUrl", function () {
-  const url = "https://ui5.sap.com/";
+  const url = `${BASE_URL}/`;
 
   it("Execution", async function () {
     await common.navigation.navigateToUrl(url);

@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("./constants");
 const {
   handleCookiesConsent
 } = require("../../../helper/utils");
@@ -23,7 +24,7 @@ const inputFieldWithCheckSelector = {
 
 describe("Expect input field 'valueState' not to be 'Error' (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -39,7 +40,7 @@ describe("Expect input field 'valueState' not to be 'Error' (unhappy case)", fun
 
 describe("Expect input field 'valueState' to be 'Error'", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

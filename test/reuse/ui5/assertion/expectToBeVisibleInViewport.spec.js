@@ -1,4 +1,5 @@
 "user strict";
+const { BASE_URL } = require("./constants");
 let selector;
 const {
   handleCookiesConsent
@@ -28,7 +29,7 @@ describe("assertion - expectToBeVisibleInViewport with element in viewport", fun
 
 describe("assertion - expectToBeVisibleInViewport with element outside viewport (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.url("https://ui5.sap.com/");
+    await browser.url(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 

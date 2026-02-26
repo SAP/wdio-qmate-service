@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("./constants");
 const {
   handleCookiesConsent
 } = require("../../../helper/utils");
@@ -6,7 +7,7 @@ const {
 describe("table - sortColumnAscending - smartTable", function () {
 
   it("Preparation", async function () {
-    await browser.url("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await browser.url(`${BASE_URL}/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -37,7 +38,7 @@ describe("table - sortColumnAscending - smartTable with tableSelector", function
   };
 
   it("Preparation", async function () {
-    await browser.url("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await browser.url(`${BASE_URL}/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -63,7 +64,7 @@ describe("table - sortColumnAscending - smartTable with tableSelector", function
 describe("table - sortColumnAscending - smartTable with index (legacy)", function () {
 
   it("Preparation", async function () {
-    await browser.url("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await browser.url(`${BASE_URL}/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

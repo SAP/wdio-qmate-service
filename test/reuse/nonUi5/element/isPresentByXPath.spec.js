@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("./constants");
 
 const { handleCookiesConsent } = require("../../../helper/utils");
 
@@ -7,7 +8,7 @@ describe("element - isPresentByXPath", function () {
   let linkBtn;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/");
+    await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
@@ -20,7 +21,7 @@ describe("element - isPresentByXPath", function () {
 
 describe("element - isPresentByXPath with wrong selector and catch error", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://ui5.sap.com/");
+    await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
