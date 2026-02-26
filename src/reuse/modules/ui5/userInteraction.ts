@@ -810,7 +810,7 @@ export class UserInteraction {
     await this.click(activeSelector);
   }
 
-  private async _selectMultipleOptions(values: string[]) {
+  private async _selectMultipleOptions(values: Array<string>) {
     for (const value of values) {
       const selector = {
         elementProperties: {
