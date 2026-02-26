@@ -16,7 +16,7 @@ const dataRangeSelector = {
 };
 describe("date - fillRange", function () {
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.m.DateRangeSelection/sample/sap.m.sample.DateRangeSelectionValueState");
+    await browser.url("https://ui5.sap.com/#/entity/sap.m.DateRangeSelection/sample/sap.m.sample.DateRangeSelectionValueState");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -44,7 +44,7 @@ describe("date - fillRange", function () {
 
 describe("date - fillRange: no such field on a screen (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
+    await browser.url("https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
   });
 
   it("Execution & Verification", async function () {

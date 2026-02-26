@@ -1,5 +1,5 @@
 describe("navigateToUrl", function () {
-  const url = "https://sapui5.hana.ondemand.com/";
+  const url = "https://ui5.sap.com/";
 
   it("Execution", async function () {
     await common.navigation.navigateToUrl(url);

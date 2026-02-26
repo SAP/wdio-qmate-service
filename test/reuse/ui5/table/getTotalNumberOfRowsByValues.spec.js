@@ -5,7 +5,7 @@ describe("table - getTotalNumberOfRowsByValues - demo kit smartTable - 1 match",
   let actNumberOfTableRows;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -33,7 +33,7 @@ describe("table - getTotalNumberOfRowsByValues - 2 matches", function () {
   let actNumberOfTableRows;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -62,7 +62,7 @@ describe("table - getTotalNumberOfRowsByValues - 1 match by two values", functio
   let actNumberOfTableRows;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -90,7 +90,7 @@ describe("table - getTotalNumberOfRowsByValues - unhappy case- 0 matches", funct
   let actNumberOfTableRows;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -118,7 +118,7 @@ describe("table - getTotalNumberOfRowsByValues - unhappy case- 0 matches", funct
 describe("table - getTotalNumberOfRowsByValues - sap.ui.table.TreeTable - single value as an Array", function () {
   let rowCount;
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.table.TreeTable/sample/sap.ui.table.sample.TreeTable.HierarchyMaintenanceJSONTreeBinding");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.table.TreeTable/sample/sap.ui.table.sample.TreeTable.HierarchyMaintenanceJSONTreeBinding");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

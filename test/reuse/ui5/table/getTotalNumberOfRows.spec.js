@@ -5,7 +5,7 @@ describe("table - getTotalNumberOfRows - demo kit - passing SmartTable", functio
   let actNumberOfTableRows;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -32,7 +32,7 @@ describe("table - getTotalNumberOfRows - demo kit - passing ID", function () {
   let actNumberOfTableRows;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -52,7 +52,7 @@ describe("table - getTotalNumberOfRows - demo kit - 0 rows", function () {
   let actNumberOfTableRows;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
     const selector = {

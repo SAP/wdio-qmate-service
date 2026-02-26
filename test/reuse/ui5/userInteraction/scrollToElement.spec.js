@@ -6,7 +6,7 @@ const {
 describe("element - scrollToElement - default, no args", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
+    await browser.navigateTo("https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
   });
 
   it("Execution & Verification", async function () {
@@ -30,7 +30,7 @@ describe("element - scrollToElement - default, no args", function () {
 describe("element - scrollToElement - with custom alignment options ", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
+    await browser.navigateTo("https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
   });
 
   it("Execution & Verification", async function () {
@@ -53,7 +53,7 @@ describe("element - scrollToElement - with custom alignment options ", function 
 
 describe("element - scrollToElement outside of viewpoint", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -92,7 +92,7 @@ describe("element - scrollToElement outside of viewpoint", function () {
 describe("element - scrollToElement and catch error", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
+    await browser.navigateTo("https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3");
   });
 
   it("Execution & Verification", async function () {

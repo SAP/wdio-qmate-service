@@ -18,7 +18,7 @@ const checkBoxSelector = {
 
 describe("table - selectAllRows - demo kit - passing selector", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
   });
 
   it("Execution", async function () {
@@ -33,7 +33,7 @@ describe("table - selectAllRows - demo kit - passing selector", function () {
 
 describe("table - selectAllRows - demo kit - passing id", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
   });
 
   it("Execution", async function () {
@@ -49,7 +49,7 @@ describe("table - selectAllRows - demo kit - passing id", function () {
 
 describe("table - selectAllRows - demo kit - select all checkbox already selected", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
     await ui5.table.selectAllRows(tableSelector);
   });
 

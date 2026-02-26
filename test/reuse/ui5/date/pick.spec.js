@@ -17,7 +17,7 @@ describe("date - pick - when datePicker has not assigned any date", function () 
   };
 
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.m.DatePicker/sample/sap.m.sample.DatePicker");
+    await browser.url("https://ui5.sap.com/#/entity/sap.m.DatePicker/sample/sap.m.sample.DatePicker");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -56,7 +56,7 @@ describe("date - pick - when datePicker already has date assigned and we change 
   };
 
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.m.DatePicker/sample/sap.m.sample.DatePicker");
+    await browser.url("https://ui5.sap.com/#/entity/sap.m.DatePicker/sample/sap.m.sample.DatePicker");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -95,7 +95,7 @@ describe("date - pick - using selector for sap.ui.core.Icon", function () {
   };
 
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/#/entity/sap.m.DatePicker/sample/sap.m.sample.DatePicker");
+    await browser.url("https://ui5.sap.com/#/entity/sap.m.DatePicker/sample/sap.m.sample.DatePicker");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -129,7 +129,7 @@ describe("date - pick without datePiker (unhappy case)", function () {
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
+    await browser.navigateTo("https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories");
   });
 
   it("Execution & Verification", async function () {

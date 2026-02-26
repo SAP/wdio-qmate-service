@@ -3,7 +3,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - mouseOverElement", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Button/sample/sap.m.sample.Button");
+    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.Button/sample/sap.m.sample.Button");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -31,7 +31,7 @@ describe("userInteraction - mouseOverElement", function () {
 
 describe("userInteraction - mouseOverElement - wrong selector", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Button/sample/sap.m.sample.Button");
+    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.Button/sample/sap.m.sample.Button");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

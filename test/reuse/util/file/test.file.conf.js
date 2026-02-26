@@ -6,7 +6,7 @@ exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
 
-  baseUrl: "https://sapui5.hana.ondemand.com/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection",
+  baseUrl: "https://ui5.sap.com/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection",
 
   specs: [
     path.resolve(__dirname, "pdfParser.spec.js"),

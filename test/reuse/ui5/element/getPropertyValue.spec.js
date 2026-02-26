@@ -71,7 +71,7 @@ describe("element - getPropertyValue - wrong selector", function () {
 
 describe("element - getPropertyValue - boolean property", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
+    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 

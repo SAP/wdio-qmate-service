@@ -20,7 +20,7 @@ const tableSelectorId = tableSelector.elementProperties.id;
 
 describe("table - deselectAllRows - demo kit - passing selector", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
     await ui5.table.selectAllRows(tableSelector);
   });
 
@@ -36,7 +36,7 @@ describe("table - deselectAllRows - demo kit - passing selector", function () {
 
 describe("table - deselectAllRows - demo kit - passing id", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
     await ui5.table.selectAllRows(tableSelectorId);
   });
 
@@ -57,7 +57,7 @@ describe("table - deselectAllRows - demo kit - select all checkbox already desel
   }
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
     await validateUnchecked();
   });
 

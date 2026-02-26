@@ -37,7 +37,7 @@ describe("Test 'getUI5Property()' and 'getUI5Properties()' on both element and b
   });
 
   it("should access Checkbox properties on element and browser levels (and track checkbox state)", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBoxTriState");
+    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBoxTriState");
     await util.browser.refresh();
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
@@ -99,7 +99,7 @@ describe("Test 'getUI5Property()' and 'getUI5Properties()' on both element and b
   });
 
   it("should access Search Field properties on element and browser levels", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable");
+    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable");
     await util.browser.refresh();
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
@@ -128,7 +128,7 @@ describe("Test 'getUI5Property()' and 'getUI5Properties()' on both element and b
   });
 
   it("should access Disabled Button properties on element and browser levels", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Button/sample/sap.m.sample.Button");
+    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.Button/sample/sap.m.sample.Button");
     await util.browser.refresh();
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
@@ -156,7 +156,7 @@ describe("Test 'getUI5Property()' and 'getUI5Properties()' on both element and b
   });
 
   it("should access Enabled Button properties on element and browser levels, try to access properties via wrong/empty name", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Button/sample/sap.m.sample.ButtonWithBadge");
+    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.Button/sample/sap.m.sample.ButtonWithBadge");
     await util.browser.refresh();
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");

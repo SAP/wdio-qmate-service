@@ -12,7 +12,7 @@ describe("userInteraction - clearAndFill - Input", function () {
   const value = "ABC";
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputValueState");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.Input/sample/sap.m.sample.InputValueState");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -42,7 +42,7 @@ describe("userInteraction - clearAndFill - SmartField", function () {
   const value = "50";
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -69,7 +69,7 @@ describe("userInteraction - clearAndFill - TextArea", function () {
   const value = "Hello World!";
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -95,7 +95,7 @@ describe("userInteraction - clearAndFill - ComboBox", function () {
   const value = "Germany";
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBox");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBox");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
     await ui5.userInteraction.selectComboBox(selector, "Greece");
@@ -122,7 +122,7 @@ describe("userInteraction - clearAndFill - MultiComboBox", function () {
   const value = "Copymaster";
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
     await ui5.userInteraction.selectMultiComboBox(selector, ["Comfort Senior", "Comfort Easy"]);
@@ -149,7 +149,7 @@ describe("userInteraction - clearAndFill - Input - error case", function () {
   const value = "ABC";
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputValueState");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.Input/sample/sap.m.sample.InputValueState");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

@@ -26,7 +26,7 @@ const treeTableSelector = {
 
 describe("table - getSelectorsForRowsByValues - sap.ui.comp.smarttable.SmartTable - single value as a String", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -64,7 +64,7 @@ describe("table - getSelectorsForRowsByValues - sap.ui.comp.smarttable.SmartTabl
 
 describe("table - getSelectorsForRowsByValues - sap.ui.comp.smarttable.SmartTable - single value as an Array", function () {
   // it("Preparation", async function () {
-  //   await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+  //   await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
   //   await handleCookiesConsent();
   //   await util.browser.switchToIframe("[id='sampleFrame']");
   // });
@@ -102,7 +102,7 @@ describe("table - getSelectorsForRowsByValues - sap.ui.comp.smarttable.SmartTabl
 
 describe("table - getSelectorsForRowsByValues - sap.ui.comp.smarttable.SmartTable - multiple values as an Array, receiving multiple columns", function () {
   // it("Preparation", async function () {
-  //   await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+  //   await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
   //   await handleCookiesConsent();
   //   await util.browser.switchToIframe("[id='sampleFrame']");
   // });
@@ -150,7 +150,7 @@ describe("table - getSelectorsForRowsByValues - sap.ui.comp.smarttable.SmartTabl
 
 describe("table - getSelectorsForRowsByValues - sap.ui.comp.smarttable.SmartTable - unhappy case - multiple values as an array, receiving no row (empty array)", function () {
   // it("Preparation", async function () {
-  //   await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+  //   await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
   //   await handleCookiesConsent();
   //   await util.browser.switchToIframe("[id='sampleFrame']");
   // });
@@ -167,7 +167,7 @@ describe("table - getSelectorsForRowsByValues - sap.ui.comp.smarttable.SmartTabl
 
 describe("table - getSelectorsForRowsByValues - sap.ui.table.Table - single value as an Array", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.table.Table/sample/sap.ui.table.sample.Basic");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.table.Table/sample/sap.ui.table.sample.Basic");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -192,7 +192,7 @@ describe("table - getSelectorsForRowsByValues - sap.ui.table.Table - single valu
 
 describe("table - getSelectorsForRowsByValues - sap.ui.table.TreeTable - single value as an Array", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.table.TreeTable/sample/sap.ui.table.sample.TreeTable.HierarchyMaintenanceJSONTreeBinding");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.table.TreeTable/sample/sap.ui.table.sample.TreeTable.HierarchyMaintenanceJSONTreeBinding");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

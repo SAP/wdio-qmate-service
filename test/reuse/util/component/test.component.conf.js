@@ -6,7 +6,7 @@ exports.config = merge(profile.config, {
   maxInstances: 4,
   specFileRetries: 2,
 
-  baseUrl: "https://sapui5.hana.ondemand.com/",
+  baseUrl: "https://ui5.sap.com/",
 
   params: {
     import: {

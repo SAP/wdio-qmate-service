@@ -3217,7 +3217,7 @@ Attaches a callback function in mockserver attachBefore event to be executed
 | --- | --- | --- |
 | method | <code>String</code> | The attachAfter http method [GET or POST]. |
 | mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method so the mockserver instance can be consumed]. |
-| fnBeforeCallback | <code>String</code> \| <code>Object</code> | The callback function to be used in the native attachBefore method as described (https://sapui5.hana.ondemand.com/#/api/sap.ui.core.ui5.mockserver%23methods/Summary) |
+| fnBeforeCallback | <code>String</code> \| <code>Object</code> | The callback function to be used in the native attachBefore method as described (https://ui5.sap.com/#/api/sap.ui.core.ui5.mockserver%23methods/Summary) |
 | oParams | <code>Object</code> | Additional parameters you would like to inject in your client script function |
 
 **Example**  
@@ -3235,7 +3235,7 @@ Attaches a callback function in mockserver attachAfter event to be executed
 | --- | --- | --- |
 | method | <code>String</code> | The attachAfter http method [GET or POST]. |
 | mockServerPath | <code>String</code> | The full path to your mockserver file [make sure you implemented getMockServer method so the mockserver instance can be consumed]. |
-| fnAfterCallback | <code>String</code> \| <code>Object</code> | The callback function to be used in the native attachAfter method as described (https://sapui5.hana.ondemand.com/#/api/sap.ui.core.ui5.mockserver%23methods/Summary) |
+| fnAfterCallback | <code>String</code> \| <code>Object</code> | The callback function to be used in the native attachAfter method as described (https://ui5.sap.com/#/api/sap.ui.core.ui5.mockserver%23methods/Summary) |
 | oParams | <code>Object</code> | Additional parameters you would like to inject in your client script function |
 
 **Example**  

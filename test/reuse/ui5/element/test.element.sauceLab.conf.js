@@ -11,7 +11,7 @@ exports.config = merge(profile.config, {
 
 
   bail: 1,
-  baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3",
+  baseUrl: "https://ui5.sap.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3",
 
   specs: [
     path.resolve(__dirname, "getBindingValue.spec.js"),

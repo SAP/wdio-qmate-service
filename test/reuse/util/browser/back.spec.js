@@ -7,7 +7,7 @@ const {
 
 describe("browser - back", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/");
     await handleCookiesConsent();
     const selector = {
       "elementProperties": {

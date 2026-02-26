@@ -4,7 +4,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - Double click on Switch button", async function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Select/sample/sap.m.sample.Select");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.m.Select/sample/sap.m.sample.Select");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

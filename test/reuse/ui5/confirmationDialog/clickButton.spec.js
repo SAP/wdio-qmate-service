@@ -11,7 +11,7 @@ const selectorForPopupOkButton = {
 
 describe("confirmationDialog - clickButton - text 'OK'", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
+    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -63,7 +63,7 @@ describe("confirmationDialog - clickButton - text 'OK' without confirmation dial
 
 describe("confirmationDialog - clickButton - text 'Cancel'", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBox");
+    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBox");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 

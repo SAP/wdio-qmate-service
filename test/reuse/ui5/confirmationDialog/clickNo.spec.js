@@ -17,7 +17,7 @@ const selectorForPopup = {
 
 describe("confirmationDialog - clickNo", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBoxInitialFocus");
+    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBoxInitialFocus");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -53,7 +53,7 @@ describe("confirmationDialog - clickNo", function () {
 
 describe("confirmationDialog - clickNo without 'No' button (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBoxInitialFocus");
+    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBoxInitialFocus");
     await util.browser.switchToIframe("[id='sampleFrame']");
     const openDialogButton = {
       "elementProperties": {

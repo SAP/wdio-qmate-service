@@ -1,9 +1,9 @@
 "use strict";
 
 describe("browser - setBaseUrl", function () {
-  const urlToSet = "https://sapui5.hana.ondemand.com/";
+  const urlToSet = "https://ui5.sap.com/";
   it("Execution", async function () {
-    await util.browser.setBaseUrl("https://sapui5.hana.ondemand.com/");
+    await util.browser.setBaseUrl("https://ui5.sap.com/");
   });
 
   it("Verification", async function() {

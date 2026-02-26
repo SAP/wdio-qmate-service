@@ -10,7 +10,7 @@ describe("userInteraction - check - checkbox (unchecked)", function () {
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
+    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -34,7 +34,7 @@ describe("userInteraction - check - checkbox (checked)", function () {
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
+    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -58,7 +58,7 @@ describe("userInteraction - check - checkbox (error)", function () {
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
+    await browser.navigateTo("https://ui5.sap.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

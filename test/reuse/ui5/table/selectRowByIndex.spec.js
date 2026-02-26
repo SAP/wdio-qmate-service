@@ -21,7 +21,7 @@ const checkBoxSelector = (product) => {
 
 describe("table - selectRowByIndex - demo kit - index", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
   });
 
   it("Execution (Index 0)", async function () {
@@ -49,7 +49,7 @@ describe("table - selectRowByIndex - demo kit - already selected row remains sel
   const rowIndex = 0;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
     await ui5.table.selectRowByIndex(tableSelector, rowIndex);
     await validateChecked(checkBoxSelector("/Products*15)"));
   });
@@ -67,7 +67,7 @@ describe("table - selectRowByIndex - demo kit - passing id", function () {
   const rowIndex = 0;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
+    await common.navigation.navigateToUrl("https://ui5.sap.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
   });
 
   it("Execution", async function () {

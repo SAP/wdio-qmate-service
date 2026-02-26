@@ -15,7 +15,7 @@ const dateTimePicker = {
   }
 };
 
-const dateTimePickerUrl = "https://sapui5.hana.ondemand.com/#/entity/sap.m.DateTimePicker/sample/sap.m.sample.DateTimePicker";
+const dateTimePickerUrl = "https://ui5.sap.com/#/entity/sap.m.DateTimePicker/sample/sap.m.sample.DateTimePicker";
 
 describe("date - pickWithTime - Simple DateTimePicker when datePicker has not assigned any date", function () {
   let expectedDate;
