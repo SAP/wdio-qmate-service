@@ -1,4 +1,4 @@
-const { BASE_URL } = require("./constants");
+const { BASE_URL } = require("../../../constants.js");
 var merge = require("deepmerge");
 var path = require("path");
 var qmateConf = require("../../helper/configurations/chrome.headless.conf");

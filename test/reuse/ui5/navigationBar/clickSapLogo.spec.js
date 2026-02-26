@@ -1,5 +1,5 @@
 "use strict";
-const { BASE_URL } = require("./constants");
+const { BASE_URL } = require("../../../constants.js");
 
 describe("navigationBar - clickSapLogo", async function () {
   const baseUrl = `${BASE_URL}/test-resources/sap/suite/ui/generic/template/demokit/sample.manage.products.sepmra/test/index.html?sap-ui-theme=sap_horizon#masterDetail-display`;

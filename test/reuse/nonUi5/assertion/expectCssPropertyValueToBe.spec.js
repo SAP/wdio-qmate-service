@@ -1,5 +1,5 @@
 "use strict";
-const { BASE_URL } = require("./constants");
+const { BASE_URL } = require("../../../constants.js");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 const selector = "//div[contains(text(),'Laptops')]";

@@ -1,5 +1,5 @@
 "use strict";
-const { BASE_URL } = require("./constants");
+const { BASE_URL } = require("../../../constants.js");
 const selectorForAllListItems = {
   "elementProperties": {
     "viewName": "sap.ui.demo.cart.view.Home",

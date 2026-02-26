@@ -1,4 +1,4 @@
-const { BASE_URL } = require("./constants");
+const { BASE_URL } = require("../../../constants.js");
 
 describe("Test for ", function () {
   this.beforeAll(async () => {

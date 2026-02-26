@@ -1,4 +1,4 @@
-const { BASE_URL } = require("./constants");
+const { BASE_URL } = require("../../../constants.js");
 
 describe("element - highlight", function () {
 

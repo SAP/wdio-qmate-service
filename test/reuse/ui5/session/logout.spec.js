@@ -1,5 +1,5 @@
 "use strict";
-const { BASE_URL } = require("./constants");
+const { BASE_URL } = require("../../../constants.js");
 const baseUrl = "";
 
 describe("session - logout with inner verification", function () {
