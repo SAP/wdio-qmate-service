@@ -795,8 +795,17 @@ export class UserInteraction {
       elementProperties: { title: value },
       ancestorProperties: { metadata: "sap.m.Popover" }
     };
-    const isText = await ui5.element.isVisible(textSelector);
-    const activeSelector = isText ? textSelector : titleSelector;
+    const labelSelector = {
+      elementProperties: { label: value },
+      ancestorProperties: { metadata: "sap.m.Popover" }
+    };
+    const timeout = 500;
+    let activeSelector: any = labelSelector;
+    if (await ui5.element.isVisible(textSelector, 0, timeout)) {
+      activeSelector = textSelector;
+    } else if (await ui5.element.isVisible(titleSelector, 0, timeout)) {
+      activeSelector = titleSelector;
+    }
     await this.scrollToElement(activeSelector);
     await this.click(activeSelector);
   }
