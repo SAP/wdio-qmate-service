@@ -1,5 +1,5 @@
 "use strict";
-const { BASE_URL } = require("../../../constants.js");
+const { BASE_URL } = require("../../../../src/reuse/constants.js");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - Double click on Switch button", async function () {

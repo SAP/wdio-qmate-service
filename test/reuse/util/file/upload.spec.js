@@ -1,4 +1,4 @@
-const { BASE_URL } = require("../../../constants.js");
+const { BASE_URL } = require("../../../../src/reuse/constants.js");
 const path = require("path");
 const { handleCookiesConsent } = require("../../../helper/utils");
 

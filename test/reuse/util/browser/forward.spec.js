@@ -1,5 +1,5 @@
 "use strict";
-const { BASE_URL } = require("../../../constants.js");
+const { BASE_URL } = require("../../../../src/reuse/constants.js");
 
 const browser = require("../../../../lib/reuse/modules/util/browser");
 const { handleCookiesConsent } = require("../../../helper/utils");

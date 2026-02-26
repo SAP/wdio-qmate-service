@@ -1,5 +1,5 @@
 "use strict";
-const { BASE_URL } = require("../../../constants.js");
+const { BASE_URL } = require("../../../../src/reuse/constants.js");
 
 describe("browser - switchToWindow", function () {
   const sapWindowUrl = `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`;

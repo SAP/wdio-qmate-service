@@ -1,5 +1,5 @@
 "use strict";
-const { BASE_URL } = require("../../../constants.js");
+const { BASE_URL } = require("../../../../src/reuse/constants.js");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("getAggregationProperty - check tooltip property is 'Open category Accessories'", async () => {

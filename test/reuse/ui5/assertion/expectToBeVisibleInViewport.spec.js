@@ -1,5 +1,5 @@
 "user strict";
-const { BASE_URL } = require("../../../constants.js");
+const { BASE_URL } = require("../../../../src/reuse/constants.js");
 let selector;
 const {
   handleCookiesConsent
