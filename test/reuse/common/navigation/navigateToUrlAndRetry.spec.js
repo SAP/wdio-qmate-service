@@ -1,4 +1,4 @@
-const { BASE_URL } = require("../../../../src/reuse/constants.js");
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 
 describe("navigateToUrlAndRetry", function () {
   const url = `${BASE_URL}/`;

@@ -1,5 +1,5 @@
 "use strict";
-const { BASE_URL } = require("../../../../src/reuse/constants.js");
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 
 describe("element - isPresentByCss (id)", function () {
   it("Preparation", async function () {

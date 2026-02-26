@@ -1,5 +1,5 @@
 "use strict";
-const { BASE_URL } = require("../../../../src/reuse/constants.js");
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 
 describe("browser - setBaseUrl", function () {
   const urlToSet = `${BASE_URL}/`;

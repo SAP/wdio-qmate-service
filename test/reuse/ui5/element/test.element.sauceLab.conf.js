@@ -1,4 +1,4 @@
-const { BASE_URL } = require("../../../../src/reuse/constants.js");
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const path = require("path");
 const merge = require("deepmerge");
 const profile = require("../../../helper/configurations/sauce.labs.conf");

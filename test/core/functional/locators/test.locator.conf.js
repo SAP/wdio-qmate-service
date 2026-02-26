@@ -1,4 +1,4 @@
-const { BASE_URL } = require("../../../../src/reuse/constants.js");
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 var path = require("path");
 var merge = require("deepmerge");
 var profile = require("../../../helper/configurations/chrome.headless.conf");

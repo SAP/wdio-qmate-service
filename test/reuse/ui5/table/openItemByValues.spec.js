@@ -1,5 +1,5 @@
 "use strict";
-const { BASE_URL } = require("../../../../src/reuse/constants.js");
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const smartTableSelector = {
   "elementProperties": {
     "viewName": "sap.suite.ui.generic.template.ListReport.view.ListReport",
