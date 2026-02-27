@@ -801,17 +801,18 @@ export class UserInteraction {
     };
     const timeout = 500;
     const checkVisibility = async (selector: any) => {
-      const visible = await ui5.element.isVisible(selector, 0, timeout);
-      if (visible) {
-        return selector;
-      }
-      throw new Error("Element not visible");
+      const isVisible = await ui5.element.isVisible(selector, 0, timeout);
+      return isVisible ? selector : Promise.reject();
     };
     let activeSelector;
     try {
-      activeSelector = await Promise.any([checkVisibility(textSelector), checkVisibility(titleSelector), checkVisibility(labelSelector)]);
-    } catch (error) {
-      activeSelector = labelSelector;
+      activeSelector = await Promise.any([
+        checkVisibility(textSelector),
+        checkVisibility(titleSelector),
+        checkVisibility(labelSelector)
+      ]);
+    } catch {
+      throw new Error(`Failed to find '${value}'.`);
     }
     await this.scrollToElement(activeSelector);
     await this.click(activeSelector);
