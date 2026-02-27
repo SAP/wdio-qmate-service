@@ -811,8 +811,8 @@ export class UserInteraction {
         checkVisibility(titleSelector),
         checkVisibility(labelSelector)
       ]);
-    } catch {
-      throw new Error("No visible elements found.");
+    } catch (error) {
+      this.ErrorHandler.logException(error);
     }
     await this.scrollToElement(activeSelector);
     await this.click(activeSelector);
