@@ -812,7 +812,7 @@ export class UserInteraction {
         checkVisibility(labelSelector)
       ]);
     } catch {
-      throw new Error(`Failed to find '${value}'.`);
+      throw new Error("No visible elements found.");
     }
     await this.scrollToElement(activeSelector);
     await this.click(activeSelector);
