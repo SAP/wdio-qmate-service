@@ -1,5 +1,5 @@
-const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const path = require("path");
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 const selectorTest = {

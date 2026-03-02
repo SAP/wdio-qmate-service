@@ -1,7 +1,8 @@
-const { BASE_URL } = require("../../../../src/reuse/constants.ts");
+
 var path = require("path");
 var merge = require("deepmerge");
 var profile = require("../../../helper/configurations/chrome.headless.conf.js");
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 
 exports.config = merge(profile.config, {
   maxInstances: 6,

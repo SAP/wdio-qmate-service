@@ -1,7 +1,7 @@
-const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const path = require("path");
 const merge = require("deepmerge");
 const profile = require("../../../helper/configurations/sauce.labs.tunnel.conf");
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 
 exports.config = merge(profile.config, {
   user: "3549e2d146bbf4a502afd06a071f4b0217da2e7015788135765fc3187eb2290fcdbf352518a423948698eefb17ba62dcad1403855ae7a215d0664d7ec05f5c847ea38b6e1cccdd21c5b0d86ed664ef88a7de6f4fe8fbb716db83000a102a5d753d9a43d491160c1e3206a5dcc31ef4a074a1da1e39d6f16613282f548bbe9a61baf33668e88c1443951b2f6dd8d51bfb81b81a80428b5c53197606095946deebca98b20960cc85cd31a5cf9a278d62d867dd602d59754442b8b8a8294307b374c807afc50c45f742d2e9b67a8248992a73abb07e4c271b647ccdb55db5925fa4e81b35fbc4db19eec1fd2410439ba7af5417a9c691faec3e807aba6a17e5f26fb5da8c18a519276dea9ead247c544a65696642c5d7a86dad63895f781a115434eb6626594078412d62ead47887dd0190b224a593a81f27a37d28124c3d6b94d0c17055c304a8de72841672f861693ae89fde4cff5cd6e118cbc0fd749f95f1ae",
