@@ -800,16 +800,16 @@ export class UserInteraction {
       ancestorProperties: { metadata: "sap.m.Popover" }
     };
     const timeout = 500;
-    const checkVisibility = async (selector: any) => {
+    const getVisibleSelectorOrFail = async (selector: any) => {
       const isVisible = await ui5.element.isVisible(selector, 0, timeout);
       return isVisible ? selector : Promise.reject();
     };
     let activeSelector;
     try {
       activeSelector = await Promise.any([
-        checkVisibility(textSelector),
-        checkVisibility(titleSelector),
-        checkVisibility(labelSelector)
+        getVisibleSelectorOrFail(textSelector),
+        getVisibleSelectorOrFail(titleSelector),
+        getVisibleSelectorOrFail(labelSelector)
       ]);
     } catch (error) {
       this.ErrorHandler.logException(new Error("No visible elements found."));
