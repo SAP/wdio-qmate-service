@@ -1,7 +1,7 @@
-const { BASE_URL } = require("../../../src/reuse/constants.ts");
 var merge = require("deepmerge");
 var path = require("path");
 var qmateConf = require("../../helper/configurations/chrome.headless.conf");
+const { BASE_URL } = require("../../../src/reuse/constants.ts");
 
 // have main config file as default but overwrite environment specific information
 exports.config = merge(qmateConf.config, {
