@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("getAggregationProperty - check tooltip property is 'Open category Accessories'", async () => {
@@ -38,7 +39,7 @@ describe("getAggregationProperty - columns of table", async () => {
   let val;
   const expectedColumns = ["Product", "Supplier", "Dimensions", "Weight", "Price"];
   it("Preparation", async () => {
-    const url = "https://sapui5.hana.ondemand.com/#/entity/sap.m.Table/sample/sap.m.sample.Table";
+    const url = `${BASE_URL}/#/entity/sap.m.Table/sample/sap.m.sample.Table`;
     await common.navigation.navigateToUrl(url);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
@@ -64,7 +65,7 @@ describe("getAggregationProperty - items in list", async () => {
   let val;
   const expectedItems = ["ITelO Vault", "Notebook Basic 15", "Notebook Basic 17", "Notebook Basic 18", "Notebook Basic 19"];
   it("Preparation", async () => {
-    const url = "https://sapui5.hana.ondemand.com/#/entity/sap.m.Select/sample/sap.m.sample.Select";
+    const url = `${BASE_URL}/#/entity/sap.m.Select/sample/sap.m.sample.Select`;
     await common.navigation.navigateToUrl(url);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");

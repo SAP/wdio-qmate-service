@@ -53,7 +53,7 @@ export class Mockserver {
    * @description Attaches a callback function in mockserver attachBefore event to be executed
    * @param {String} method - The attachAfter http method [GET or POST].
    * @param {String} mockServerPath - The full path to your mockserver file [make sure you implemented getMockServer method so the mockserver instance can be consumed].
-   * @param {String | Object} fnBeforeCallback - The callback function to be used in the native attachBefore method as described (https://sapui5.hana.ondemand.com/#/api/sap.ui.core.ui5.mockserver%23methods/Summary)
+   * @param {String | Object} fnBeforeCallback - The callback function to be used in the native attachBefore method as described (https://ui5.sap.com/#/api/sap.ui.core.ui5.mockserver%23methods/Summary)
    * @param {Object} oParams - Additional parameters you would like to inject in your client script function
    * @example await ui5.mockserver.attachFunctionBefore("GET", "path/to/project/localService/main/mockserver", fnBeforeCallback, oParams);
    */
@@ -86,7 +86,7 @@ export class Mockserver {
    * @description Attaches a callback function in mockserver attachAfter event to be executed
    * @param {String} method - The attachAfter http method [GET or POST].
    * @param {String} mockServerPath - The full path to your mockserver file [make sure you implemented getMockServer method so the mockserver instance can be consumed].
-   * @param {String|Object} fnAfterCallback - The callback function to be used in the native attachAfter method as described (https://sapui5.hana.ondemand.com/#/api/sap.ui.core.ui5.mockserver%23methods/Summary)
+   * @param {String|Object} fnAfterCallback - The callback function to be used in the native attachAfter method as described (https://ui5.sap.com/#/api/sap.ui.core.ui5.mockserver%23methods/Summary)
    * @param {Object} oParams - Additional parameters you would like to inject in your client script function
    * @example await ui5.mockserver.attachFunctionAfter("GET", "path/to/project/localService/main/mockserver",  fnAfterCallback);
    */

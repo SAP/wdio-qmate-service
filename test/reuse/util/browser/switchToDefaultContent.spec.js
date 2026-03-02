@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("browser - switchToDefaultContent", function () {
@@ -13,7 +14,7 @@ describe("browser - switchToDefaultContent", function () {
 
   it("Preparation", async function () {
     //keep latest demo kit version due to iframes here
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Dialog/sample/sap.m.sample.Dialog");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.Dialog/sample/sap.m.sample.Dialog`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

@@ -1,9 +1,10 @@
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - clearAndFillAndRetry - smartField", function () {
   it("Preparation", async function () {
     await browser.navigateTo(
-      "https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview"
+      `${BASE_URL}/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview`
     );
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
@@ -36,7 +37,7 @@ describe("userInteraction - clearAndFillAndRetry - smartField", function () {
 describe("userInteraction - clearAndFillAndRetry - textarea", function () {
   it("Preparation", async function () {
     await browser.navigateTo(
-      "https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview"
+      `${BASE_URL}/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview`
     );
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
@@ -61,7 +62,7 @@ describe("userInteraction - clearAndFillAndRetry - textarea", function () {
 
 describe("userInteraction - clearAndFillAndRetry - input field", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -86,7 +87,7 @@ describe("userInteraction - clearAndFillAndRetry - input field", function () {
 
 describe("userInteraction - clearAndFillAndRetry - invalid selector", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription");
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -112,7 +113,7 @@ describe("userInteraction - clearAndFillAndRetry - invalid selector", function (
 
 describe("userInteraction - clearAndFillAndRetry - wrong element", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.MenuButton/sample/sap.m.sample.MenuButton");
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.MenuButton/sample/sap.m.sample.MenuButton`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

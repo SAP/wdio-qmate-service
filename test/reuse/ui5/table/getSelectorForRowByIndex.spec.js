@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 const smartTableSelector = {
@@ -27,7 +28,7 @@ let actRowSelector;
 
 describe("table - getSelectorForRowByIndex - sap.ui.comp.smarttable.SmartTable - get first row", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -54,7 +55,7 @@ describe("table - getSelectorForRowByIndex - sap.ui.comp.smarttable.SmartTable -
 
 describe("table - getSelectorForRowByIndex - sap.ui.comp.smarttable.SmartTable - get fifth row", function () {
   // it("Preparation", async function () {
-  //   await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+  //   await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
   //   await handleCookiesConsent();
   //   await util.browser.switchToIframe("[id='sampleFrame']");
   // });
@@ -81,7 +82,7 @@ describe("table - getSelectorForRowByIndex - sap.ui.comp.smarttable.SmartTable -
 
 describe("table - getSelectorForRowByIndex - sap.ui.comp.smarttable.SmartTable - unhappy case - row with index doesn't exist", function () {
   // it("Preparation", async function () {
-  //   await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
+  //   await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable");
   //   await handleCookiesConsent();
   //   await util.browser.switchToIframe("[id='sampleFrame']");
   // });
@@ -96,7 +97,7 @@ describe("table - getSelectorForRowByIndex - sap.ui.comp.smarttable.SmartTable -
 describe("table - getSelectorForRowByIndex - sap.ui.table.Table - get first row", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.table.Table/sample/sap.ui.table.sample.Basic");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.table.Table/sample/sap.ui.table.sample.Basic`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -122,7 +123,7 @@ describe("table - getSelectorForRowByIndex - sap.ui.table.Table - get first row"
   describe("table - getSelectorForRowByIndex - sap.ui.table.TreeTable - get first row", function () {
 
     it("Preparation", async function () {
-      await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.ui.table.TreeTable/sample/sap.ui.table.sample.TreeTable.BasicODataTreeBinding");
+      await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.table.TreeTable/sample/sap.ui.table.sample.TreeTable.BasicODataTreeBinding`);
       await handleCookiesConsent();
       await util.browser.switchToIframe("[id='sampleFrame']");
     });

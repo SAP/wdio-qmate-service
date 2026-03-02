@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 describe("element - getPropertyValue", function () {
 
   let value;
@@ -71,7 +72,7 @@ describe("element - getPropertyValue - wrong selector", function () {
 
 describe("element - getPropertyValue - boolean property", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox`);
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
 

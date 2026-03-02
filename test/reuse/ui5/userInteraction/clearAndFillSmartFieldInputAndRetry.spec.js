@@ -1,10 +1,11 @@
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const {
   handleCookiesConsent
 } = require("../../../helper/utils");
 
 describe("userInteraction - clearAndFillSmartFieldInputAndRetry", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview");
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

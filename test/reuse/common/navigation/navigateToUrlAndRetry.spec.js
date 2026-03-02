@@ -1,5 +1,7 @@
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
+
 describe("navigateToUrlAndRetry", function () {
-  const url = "https://sapui5.hana.ondemand.com/";
+  const url = `${BASE_URL}/`;
   const retries = 1;
   const interval = 500;
 

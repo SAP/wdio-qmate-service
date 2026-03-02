@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 let selector;
 const {
   handleCookiesConsent
@@ -49,7 +50,7 @@ describe("assertion - expectToBeVisible with wrong selector", function () {
 
 describe("assertion - expectToBeVisible outside viewport", function () {
   it("Preparation", async function () {
-    await browser.url("https://sapui5.hana.ondemand.com/");
+    await browser.url(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 

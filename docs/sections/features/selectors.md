@@ -71,7 +71,7 @@ The following properties apply to all selector types (elementProperties, ancesto
 | Property | Description | Sample | Format | Remark |
 | -------- | ----------- | -------| ------ | ------ |
 | ``metadata`` | the control type | ``"metadata": "sap.m.Button"``, ``"metadata": "sap.m.Input"`` | string: ``"property": "value"`` | |
-| ``<ui5Property>`` | UI5 properties including aggregations and associations, as defined in the official [UI5 API](https://sapui5.hana.ondemand.com/#/api){target="__blank"} | ``"text": "Amount"``, ``"tooltip": "Amount"``, ``"title": "Currency"``, ``"enabled": true`` | string: ``"property": "value"``, numeric: ``"property": 123``, boolean: ``"property": true`` | |
+| ``<ui5Property>`` | UI5 properties including aggregations and associations, as defined in the official [UI5 API](https://ui5.sap.com/#/api){target="__blank"} | ``"text": "Amount"``, ``"tooltip": "Amount"``, ``"title": "Currency"``, ``"enabled": true`` | string: ``"property": "value"``, numeric: ``"property": 123``, boolean: ``"property": true`` | |
 | ``id`` | the ID of the control | ``"id": "myButtonId"``, ``"id": "my*Id*"`` | string: ``"property": "value"`` | |
 | ``viewName`` | the view name | ``"viewName": "myViewName"``, ``"viewName": "*view*"``| string: ``"property": "value"`` | |
 | ``viewId`` | the view ID | ``"viewId": "*myViewId*"`` | string: ``"property": "value"`` | |

@@ -1,8 +1,9 @@
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - selectFromTab", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/api/sap.m.IconTabBar");
+    await browser.navigateTo(`${BASE_URL}/#/api/sap.m.IconTabBar`);
     await handleCookiesConsent();
   });
 

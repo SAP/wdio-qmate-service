@@ -1,3 +1,4 @@
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - uncheck - checkbox (checked)", function () {
@@ -10,7 +11,7 @@ describe("userInteraction - uncheck - checkbox (checked)", function () {
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -34,7 +35,7 @@ describe("userInteraction - uncheck - checkbox (unchecked)", function () {
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -58,7 +59,7 @@ describe("userInteraction - uncheck - checkbox (error)", function () {
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox");
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.CheckBox/sample/sap.m.sample.CheckBox`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

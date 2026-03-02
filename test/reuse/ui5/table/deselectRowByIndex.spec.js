@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 
 const tableSelector = {
   elementProperties: {
@@ -23,7 +24,7 @@ const rowIndex2 = 4;
 
 describe("table - deselectRowByIndex - demo kit - index", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
+    await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark`);
     await ui5.table.selectRowByIndex(tableSelector, rowIndex1);
     await ui5.table.selectRowByIndex(tableSelector, rowIndex2);
   });
@@ -54,7 +55,7 @@ describe("table - deselectRowByIndex - demo kit - already deselected row remains
   }
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
+    await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark`);
     await validateUnchecked();
   });
 
@@ -69,7 +70,7 @@ describe("table - deselectRowByIndex - demo kit - already deselected row remains
 
 describe("table - deselectRowByIndex - demo kit - passing id", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark");
+    await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark`);
     await ui5.table.selectRowByIndex(tableSelector.elementProperties.id, rowIndex1);
     const isSelected = await ui5.element.getPropertyValue(checkBoxSelector("/Products*15)"), "selected");
     await common.assertion.expectEqual(isSelected, true);

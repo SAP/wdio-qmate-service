@@ -1,6 +1,7 @@
 var path = require("path");
 var merge = require("deepmerge");
 var profile = require("../../../helper/configurations/chrome.headless.conf.js");
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 
 exports.config = merge(profile.config, {
   maxInstances: 6,
@@ -12,5 +13,5 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "getBindingInfos.test.js")
   ],
 
-  baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3"
+  baseUrl: `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`
 });
