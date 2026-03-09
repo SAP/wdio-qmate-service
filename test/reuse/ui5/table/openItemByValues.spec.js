@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const smartTableSelector = {
   "elementProperties": {
     "viewName": "sap.suite.ui.generic.template.ListReport.view.ListReport",
@@ -17,7 +18,7 @@ const goButtonSelector = {
 describe("table - openItemByValues - smartTable - single value as a String", function () {
 
   it("Preparation", async function () {
-    const url = "https://sapui5.hana.ondemand.com/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#";
+    const url = `${BASE_URL}/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#`;
     await common.navigation.navigateToUrl(url);
     await ui5.userInteraction.click(goButtonSelector);
   });
@@ -44,7 +45,7 @@ describe("table - openItemByValues - smartTable - single value as a String", fun
 describe("table - openItemByValues - smartTable - single value as an Array - 3 matches - open first one", function () {
 
   it("Preparation", async function () {
-    const url = "https://sapui5.hana.ondemand.com/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#";
+    const url = `${BASE_URL}/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#`;
     await common.navigation.navigateToUrl(url);
     await util.browser.refresh();
     await ui5.userInteraction.click(goButtonSelector);
@@ -74,7 +75,7 @@ describe("table - openItemByValues - smartTable - single value as an Array - 3 m
 describe("table - openItemByValues - smartTable - multiple values as an Array - one match", function () {
 
   it("Preparation", async function () {
-    const url = "https://sapui5.hana.ondemand.com/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#";
+    const url = `${BASE_URL}/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#`;
     await common.navigation.navigateToUrl(url);
     await util.browser.refresh();
     await ui5.userInteraction.click(goButtonSelector);

@@ -1,10 +1,11 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("getAssociationProperty - 'ariaDescribedBy' of Button", function () {
   let val;
   it("Preparation", async () => {
-    const url = "https://sapui5.hana.ondemand.com/#/entity/sap.m.Button/sample/sap.m.sample.Button";
+    const url = `${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`;
     await common.navigation.navigateToUrl(url);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
@@ -33,7 +34,7 @@ describe("getAssociationProperty - 'ariaDescribedBy' of Button", function () {
 describe("getAssociationProperty - 'selectedItems' of MultiComboBox", function () {
   let selector, selectedItems;
   it("Preparation", async () => {
-    const url = "https://sapui5.hana.ondemand.com/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox";
+    const url = `${BASE_URL}/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox`;
     await common.navigation.navigateToUrl(url);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");

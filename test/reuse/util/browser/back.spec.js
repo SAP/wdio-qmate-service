@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 
 const browser = require("../../../../lib/reuse/modules/util/browser");
 const {
@@ -7,7 +8,7 @@ const {
 
 describe("browser - back", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
     const selector = {
       "elementProperties": {

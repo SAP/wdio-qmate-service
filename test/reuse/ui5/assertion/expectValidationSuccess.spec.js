@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const {
   handleCookiesConsent
 } = require("../../../helper/utils");
@@ -23,7 +24,7 @@ const inputFieldWithCheckSelector = {
 
 describe("Expect input field 'valueState' to be 'None' (success)", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -38,7 +39,7 @@ describe("Expect input field 'valueState' to be 'None' (success)", function () {
 
 describe("Expect input field 'valueState' not to be 'None' (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked");
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

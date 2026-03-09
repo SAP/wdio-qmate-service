@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 
 describe("browser - getBaseUrl", function () {
   let baseUrl;
@@ -7,7 +8,7 @@ describe("browser - getBaseUrl", function () {
   });
 
   it("Verification", () => {
-    const expectedUrl = "https://sapui5.hana.ondemand.com/";
+    const expectedUrl = `${BASE_URL}/`;
     common.assertion.expectEqual(baseUrl, expectedUrl);
   });
 });

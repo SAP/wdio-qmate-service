@@ -1,8 +1,9 @@
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - rightClick", async function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.TextArea/sample/sap.m.sample.TextArea");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.TextArea/sample/sap.m.sample.TextArea`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const {
   handleCookiesConsent
 } = require("../../../helper/utils");
@@ -6,7 +7,7 @@ const {
 describe("errorDialog - expectToBeVisible", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.Dialog/sample/sap.m.sample.DialogMessage");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.Dialog/sample/sap.m.sample.DialogMessage`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

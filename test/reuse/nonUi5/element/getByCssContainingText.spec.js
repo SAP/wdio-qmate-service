@@ -1,11 +1,12 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("element - getByCssContainingText - non strict", function () {
   let downloadBtn;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
@@ -24,7 +25,7 @@ describe("element - getByCssContainingText - strict", function () {
   let downloadBtn;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
@@ -41,7 +42,7 @@ describe("element - getByCssContainingText - strict", function () {
 
 describe("element - getByCssContainingText - strict error case", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
@@ -54,7 +55,7 @@ describe("element - getByCssContainingText - strict error case", function () {
 
 describe("element - getByCssContainingText - error case", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 

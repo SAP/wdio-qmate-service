@@ -1,9 +1,10 @@
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - rightClick", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/");
+    await browser.navigateTo(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
@@ -19,7 +20,7 @@ describe("userInteraction - rightClick", function () {
   });
 
   it("Verification", async function () {
-    await common.assertion.expectUrlToBe("https://sapui5.hana.ondemand.com/");
+    await common.assertion.expectUrlToBe(`${BASE_URL}/`);
     await common.userInteraction.pressEscape();
   });
 });
@@ -27,7 +28,7 @@ describe("userInteraction - rightClick", function () {
 describe("userInteraction - rightClick on not displayed element", function () {
 
   it("Preparation", async function () {
-    await browser.navigateTo("https://sapui5.hana.ondemand.com/");
+    await browser.navigateTo(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
@@ -50,7 +51,7 @@ describe("userInteraction - rightClick on not displayed element", function () {
 describe("userInteraction - rightClick on invisible element", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3?sap-ui-theme=sap_fiori_3#/category/AC/product/HT-6111");
+    await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3?sap-ui-theme=sap_fiori_3#/category/AC/product/HT-6111`);
     await handleCookiesConsent();
   });
 

@@ -1,4 +1,5 @@
 const path = require("path");
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 const selectorTest = {
@@ -48,7 +49,7 @@ describe("file - upload - default selector", function () {
 describe("file - upload - custom selector - UI5", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection`);
     await util.browser.refresh();
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
@@ -74,7 +75,7 @@ describe("file - upload - custom selector - UI5", function () {
 describe("file - upload - custom selector - non UI5", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.UploadCollection/sample/sap.m.sample.UploadCollection`);
     await util.browser.refresh();
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");

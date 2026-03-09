@@ -1,9 +1,10 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 
 describe("browser - setBaseUrl", function () {
-  const urlToSet = "https://sapui5.hana.ondemand.com/";
+  const urlToSet = `${BASE_URL}/`;
   it("Execution", async function () {
-    await util.browser.setBaseUrl("https://sapui5.hana.ondemand.com/");
+    await util.browser.setBaseUrl(`${BASE_URL}/`);
   });
 
   it("Verification", async function() {

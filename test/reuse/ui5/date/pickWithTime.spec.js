@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const {
   handleCookiesConsent
 } = require("../../../helper/utils");
@@ -15,7 +16,7 @@ const dateTimePicker = {
   }
 };
 
-const dateTimePickerUrl = "https://sapui5.hana.ondemand.com/#/entity/sap.m.DateTimePicker/sample/sap.m.sample.DateTimePicker";
+const dateTimePickerUrl = `${BASE_URL}/#/entity/sap.m.DateTimePicker/sample/sap.m.sample.DateTimePicker`;
 
 describe("date - pickWithTime - Simple DateTimePicker when datePicker has not assigned any date", function () {
   let expectedDate;

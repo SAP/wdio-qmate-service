@@ -1,8 +1,9 @@
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - moveCursorAndClick - chart tests", function () {
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/#/entity/sap.viz.ui5.controls.VizFrame/sample/sap.viz.sample.Donut");
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.viz.ui5.controls.VizFrame/sample/sap.viz.sample.Donut`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

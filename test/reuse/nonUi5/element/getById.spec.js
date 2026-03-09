@@ -1,4 +1,5 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const {
   handleCookiesConsent
 } = require("../../../helper/utils");
@@ -8,7 +9,7 @@ describe("element - getById + expectToBeVisible", function () {
   let downloadBtn;
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
@@ -24,7 +25,7 @@ describe("element - getById + expectToBeVisible", function () {
 describe("element - getById and catch error", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
@@ -37,7 +38,7 @@ describe("element - getById and catch error", function () {
 describe("element - getById - error case, verify error stack", function () {
 
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl("https://sapui5.hana.ondemand.com/");
+    await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 

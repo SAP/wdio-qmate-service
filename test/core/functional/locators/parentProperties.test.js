@@ -1,10 +1,11 @@
 "use strict";
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("webdriver.io page locator test", function () {
   it("should access element by elementProperties, parentProperties and inner parentProperties", async function () {
     await browser.navigateTo(
-      "https://sapui5.hana.ondemand.com/#/entity/sap.m.Button/sample/sap.m.sample.Button"
+      `${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`
     );
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");

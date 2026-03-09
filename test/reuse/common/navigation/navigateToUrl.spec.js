@@ -1,5 +1,7 @@
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
+
 describe("navigateToUrl", function () {
-  const url = "https://sapui5.hana.ondemand.com/";
+  const url = `${BASE_URL}/`;
 
   it("Execution", async function () {
     await common.navigation.navigateToUrl(url);

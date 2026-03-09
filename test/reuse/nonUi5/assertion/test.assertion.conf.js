@@ -1,12 +1,13 @@
 const path = require("path");
 const merge = require("deepmerge");
 const profile = require("../../../helper/configurations/chrome.headless.conf");
+const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 
 exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
 
-  baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3",
+  baseUrl: `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`,
 
   specs: [
     path.resolve(__dirname, "expectToBeVisible.spec.js"),
