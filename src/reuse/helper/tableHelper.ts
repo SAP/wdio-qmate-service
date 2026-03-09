@@ -10,9 +10,13 @@ export class TableHelper {
       return null;
     }
     let table = TableHelper.getTable(tableId);
+
     if (tableMetadataName === supportedTablesMetadata[0] && table.getTable !== undefined) {
       table = table.getTable();
+    } else if (tableMetadataName === supportedTablesMetadata[4] && table._oTable !== undefined) {
+      table = table._oTable;
     }
+
     return table;
   }
 
@@ -164,12 +168,7 @@ export class TableHelper {
     return items.filter((item) => item.getTitle === undefined || item.getTitle() === "");
   }
 
-  static async getIdsForItemsByCellValues(
-    rows: any,
-    targetValues: string[],
-    enableHighlighting = true,
-    matchMode: MatchMode = "contains"
-  ): Promise<string[] | undefined> {
+  static async getIdsForItemsByCellValues(rows: any, targetValues: string[], enableHighlighting = true, matchMode: MatchMode = "contains"): Promise<string[] | undefined> {
     const matchedRows = rows.filter((row: any) => {
       const cells = row.getCells();
       return targetValues.every((val) =>
