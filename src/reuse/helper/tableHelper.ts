@@ -13,7 +13,6 @@ export class TableHelper {
       return null;
     }
     let table = TableHelper.getTable(tableId);
-
     if (tableMetadataName === TableHelper.SMART_TABLE_METADATA && table.getTable !== undefined) {
       table = table.getTable();
     } else if (tableMetadataName === TableHelper.MDC_TABLE_METADATA && table._oTable !== undefined) {
