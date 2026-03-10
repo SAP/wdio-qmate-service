@@ -131,7 +131,6 @@ describe("table - selectRowByValues - demo kit - mdc table type - passing value 
 
   it("Execution", async function () {
     await ui5.table.selectRowByValues(tableSelector4, ["K2", "1954"]);
-    await util.browser.sleep(1000);
   });
 
   it("Verification", async function () {
