@@ -1,6 +1,9 @@
 import { Ui5ControlMetadata, MatchMode } from "../modules/ui5/types/ui5.types";
 
 export class TableHelper {
+  private static readonly SMART_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.comp.smarttable.SmartTable";
+  private static readonly MDC_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.mdc.Table";
+
   static getTable(tableId: string): any {
     return sap.ui.getCore().getElementById(tableId);
   }
@@ -11,9 +14,9 @@ export class TableHelper {
     }
     let table = TableHelper.getTable(tableId);
 
-    if (tableMetadataName === supportedTablesMetadata[0] && table.getTable !== undefined) {
+    if (tableMetadataName === TableHelper.SMART_TABLE_METADATA && table.getTable !== undefined) {
       table = table.getTable();
-    } else if (tableMetadataName === supportedTablesMetadata[4] && table._oTable !== undefined) {
+    } else if (tableMetadataName === TableHelper.MDC_TABLE_METADATA && table._oTable !== undefined) {
       table = table._oTable;
     }
 
