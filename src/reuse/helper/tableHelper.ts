@@ -13,9 +13,11 @@ export class TableHelper {
       return null;
     }
     let table = TableHelper.getTable(tableId);
+
     if (tableMetadataName === TableHelper.SMART_TABLE_METADATA && table.getTable !== undefined) {
       table = table.getTable();
     } else if (tableMetadataName === TableHelper.MDC_TABLE_METADATA && table._oTable !== undefined) {
+      // TODO: _oTable is a private property. Replace with public API when SAP provides one (e.g., getInnerTable()).
       table = table._oTable;
     }
 
