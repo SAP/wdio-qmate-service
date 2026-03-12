@@ -178,9 +178,10 @@ export class TableHelper {
       return targetValues.every((val) =>
         cells.some((cell: any) => {
           const domRef = cell.getDomRef();
-          if (!domRef || !domRef.innerText) return false;
-
-          const cellText = domRef.innerText;
+          if (!domRef) return false;
+          
+          const input = domRef.querySelector("input");
+          const cellText = (input ? input.value : domRef.innerText) || "";
 
           switch (matchMode) {
             case "exact":
