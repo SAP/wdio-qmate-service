@@ -25,10 +25,11 @@ export class Table {
   private static readonly TABLE_METADATA: Ui5ControlMetadata = "sap.m.Table";
   private static readonly UI_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.table.Table";
   private static readonly TREE_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.table.TreeTable";
+  private static readonly MDC_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.mdc.Table";
   private static readonly COLUMN_LIST_ITEM_METADATA: Ui5ControlMetadata = "sap.m.ColumnListItem";
   private static readonly TABLE_ROW_METADATA: Ui5ControlMetadata = "sap.ui.table.Row";
   private static readonly CHECKBOX_METADATA: Ui5ControlMetadata = "sap.m.CheckBox";
-  private static readonly SUPPORTED_TABLES_METADATA: Array<Ui5ControlMetadata> = [Table.SMART_TABLE_METADATA, Table.TABLE_METADATA, Table.UI_TABLE_METADATA, Table.TREE_TABLE_METADATA];
+  private static readonly SUPPORTED_TABLES_METADATA: Array<Ui5ControlMetadata> = [Table.SMART_TABLE_METADATA, Table.TABLE_METADATA, Table.UI_TABLE_METADATA, Table.TREE_TABLE_METADATA, Table.MDC_TABLE_METADATA];
   // =================================== SORTING ===================================
   /**
    * @function sortColumnAscending

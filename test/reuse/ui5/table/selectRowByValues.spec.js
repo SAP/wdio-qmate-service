@@ -49,6 +49,15 @@ const checkBoxSelector3 = (product) => {
   };
 };
 
+const tableSelector4 = {
+  elementProperties: {
+    metadata: "sap.ui.mdc.Table",
+    id: "sampleComp-sap.ui.mdc.demokit.sample.table.TableTypes---sample--table"
+  }
+};
+
+const checkBoxSelector4 = "sampleComp-sap.ui.mdc.demokit.sample.table.TableTypes---sample--table-innerTable-rowsel1";
+
 describe("table - selectRowByValues - demo kit - passing value as string - ui5CheckBox", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/tutorial/worklist/07/webapp/test/mockServer.html?sap-ui-theme=sap_horizon_dark`);
@@ -110,5 +119,23 @@ describe("table - selectRowByValues - demo kit - already selected row remains se
 
   it("Verification", async function () {
     await validateChecked(checkBoxSelector1("/Products*15)"));
+  });
+});
+
+describe("table - selectRowByValues - demo kit - mdc table type - passing value as array of string - cssItem", function () {
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("https://ui5.sap.com/#/entity/sap.ui.mdc.Table/sample/sap.ui.mdc.demokit.sample.table.TableTypes");
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+  });
+
+  it("Execution", async function () {
+    await ui5.table.selectRowByValues(tableSelector4, ["K2", "1954"]);
+  });
+
+  it("Verification", async function () {
+    const element = await nonUi5.element.getById(checkBoxSelector4);
+    const isSelected = await nonUi5.element.getAttributeValue(element, "aria-selected");
+    common.assertion.expectEqual(isSelected, "true");
   });
 });
