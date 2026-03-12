@@ -177,7 +177,7 @@ export class TableHelper {
           const domRef = cell.getDomRef();
           if (!domRef) return false;
           
-          const input = domRef.querySelector("input, textarea");
+          const input = domRef.querySelector("input");
           const cellText = (input ? input.value : domRef.innerText) || "";
 
           switch (matchMode) {
