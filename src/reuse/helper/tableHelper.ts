@@ -1,8 +1,12 @@
 import { Ui5ControlMetadata, MatchMode } from "../modules/ui5/types/ui5.types";
 
 export class TableHelper {
-  private static readonly SMART_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.comp.smarttable.SmartTable";
-  private static readonly MDC_TABLE_METADATA: Ui5ControlMetadata = "sap.ui.mdc.Table";
+  private static get SMART_TABLE_METADATA(): Ui5ControlMetadata {
+    return "sap.ui.comp.smarttable.SmartTable";
+  }
+  private static get MDC_TABLE_METADATA(): Ui5ControlMetadata {
+    return "sap.ui.mdc.Table";
+  }
 
   static getTable(tableId: string): any {
     return sap.ui.getCore().getElementById(tableId);
@@ -179,7 +183,7 @@ export class TableHelper {
         cells.some((cell: any) => {
           const domRef = cell.getDomRef();
           if (!domRef) return false;
-          
+
           const input = domRef.querySelector("input");
           const cellText = (input ? input.value : domRef.innerText) || "";
 
