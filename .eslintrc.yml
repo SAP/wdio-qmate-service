@@ -7,7 +7,7 @@ env:
 plugins: ["wdio"]
 extends: 'plugin:wdio/recommended'
 parserOptions:
-  ecmaVersion: 2021
+  ecmaVersion: 2024
 globals:
   jQuery: readonly
   Atomics: readonly
