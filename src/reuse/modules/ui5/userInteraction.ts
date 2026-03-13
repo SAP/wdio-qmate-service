@@ -6,6 +6,7 @@ import { AlignmentOptions, AlignmentValues } from "../types";
 import ErrorHandler from "../../helper/errorHandler";
 import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 import { Ui5ControlMetadata } from "./types/ui5.types";
+import { KeyCodes } from "../common/constants/userInteraction.constants";
 
 /**
  * @class userInteraction
@@ -18,9 +19,9 @@ export class UserInteraction {
 
 
   // =================================== CONSTANTS ===================================
-    private static readonly TEXTAREA_METADATA: Ui5ControlMetadata = "sap.m.TextArea";
-    private static readonly TEXTAREA_MACROS_METADATA: Ui5ControlMetadata = "sap.fe.macros.field.TextAreaEx";
-    private static readonly SUPPORTED_TEXTAREA_METADATA: Array<Ui5ControlMetadata> = [UserInteraction.TEXTAREA_METADATA, UserInteraction.TEXTAREA_MACROS_METADATA];
+  private static readonly TEXTAREA_METADATA: Ui5ControlMetadata = "sap.m.TextArea";
+  private static readonly TEXTAREA_MACROS_METADATA: Ui5ControlMetadata = "sap.fe.macros.field.TextAreaEx";
+  private static readonly SUPPORTED_TEXTAREA_METADATA: Array<Ui5ControlMetadata> = [UserInteraction.TEXTAREA_METADATA, UserInteraction.TEXTAREA_MACROS_METADATA];
     private static readonly SELECT_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.select' function instead."
 
   // =================================== CLICK ===================================
@@ -556,7 +557,7 @@ export class UserInteraction {
           }
         );
         
-        
+
         const tabSwitchedSuccessfully: boolean = await this._verifyTabSwitch(selector);
         if (tabSwitchedSuccessfully === false) {
           this.ErrorHandler.logException(new Error("Could not verify successful tab switch."));
@@ -647,7 +648,7 @@ export class UserInteraction {
     } else {
       util.console.info("Selector properties are undefined. Action will be performed on current element.");
     }
-    await common.userInteraction.pressKey(["\uE051", "a"]);
+    await common.userInteraction.pressKey([KeyCodes.CONTROL, "a"]);
   }
 
   /**
