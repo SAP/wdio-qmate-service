@@ -95,7 +95,9 @@ export class DateModule {
    */
   async fillRange(selector: any, range: Date[], index: number = 0) {
     const vl = this.vlf.initLog(this.fillRange);
-    const value = range[0] + " - " + range[1];
+    const start = util.formatter.formatDate(range[0], "mmm d, yyyy");
+    const end = util.formatter.formatDate(range[1], "mmm d, yyyy");
+    const value = `${start} - ${end}`;
     await ui5.userInteraction.clearAndFill(selector, value, index);
   }
 
