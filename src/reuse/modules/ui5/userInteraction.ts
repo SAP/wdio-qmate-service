@@ -294,11 +294,19 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clear(selector);
    */
-
-  //TODO remove clearHelper and use clear
   async clear(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clear);
-    await this._clearHelper(selector, index, timeout);
+
+    const id = await ui5.element.getId(selector, index, timeout);
+    const isTextArea = UserInteraction.SUPPORTED_TEXTAREA_METADATA.includes(selector.elementProperties.metadata)
+    let elem = await nonUi5.element.getByCss(`[id='${id}'] ${isTextArea? "textarea" : "input"}`, 0, timeout);
+    await elem.clearValue()
+    
+    const tokenizer = await nonUi5.element.getByCss(`[id='${id}'] .sapMTokenizer`)
+    if(tokenizer) {
+      await ui5.userInteraction.selectAll(selector, index, timeout);
+      await common.userInteraction.pressBackspace();
+    }
   }
 
   /**
@@ -716,31 +724,6 @@ export class UserInteraction {
   }
 
   // =================================== HELPER ===================================
-  //TODO: rework function in its whole. Why don't we use the clear function from native wdio here?
-  private async _clearHelper(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
-    let id: string;
-    if (selector) id = await ui5.element.getId(selector, index, timeout);
-    else id = await ((await browser.getActiveElement()) as Element).getAttribute("id");
-
-    // Array Order Importance! ".sapMTokenizer" should be found before ordinary input, if exists
-    const targetCssSelectors = [`[class*='.sapMTokenizer'] ~ input[id*='${id}-inner']`, "input", "textarea"];
-    const targetElement: Element = await browser.execute(function (id: string) {
-      const parent = document.getElementById(id);
-      if (!parent) return undefined;
-      for (const targetCssSelector of targetCssSelectors) {
-        const targetElem = parent.querySelectorAll(targetCssSelector);
-        if (targetElem) return targetElem[0];
-      }
-    }, id);
-    if (!targetElement) {
-      return this.ErrorHandler.logException(new Error(), `No target elements (${targetCssSelectors}) found for selector ${selector}`);
-    }
-
-    await targetElement.click();
-    await ui5.userInteraction.selectAll(selector, index, timeout);
-    await common.userInteraction.pressBackspace();
-  }
-
   private async _verifyTabSwitch(selector: any): Promise<boolean> {
     // two classes required to handle old and new UI5 versions
     const indicatorClasses = ["sapUxAPAnchorBarButtonSelected", "sapMITBSelected"];
