@@ -718,41 +718,27 @@ export class UserInteraction {
   // =================================== HELPER ===================================
   //TODO: rework function in its whole. Why don't we use the clear function from native wdio here?
   private async _clearHelper(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
-    let id, elem;
-    if (selector) {
-      await ui5.userInteraction.click(selector, index, timeout);
-      id = await ui5.element.getId(selector, index, timeout);
-      elem = await browser.getActiveElement();
-    } else {
-      elem = await browser.getActiveElement();
-      await elem.click();
-      // @ts-ignore
-      id = await util.function.getAttribute(elem, "id");
-    }
+    let id: string;
+    if (selector) id = await ui5.element.getId(selector, index, timeout);
+    else id = await ((await browser.getActiveElement()) as Element).getAttribute("id");
 
-    const tokenizers = await browser.execute(function (id: string) {
-      // @ts-ignore
-      const t = document.getElementById(id).querySelectorAll(".sapMTokenizer");
-      // @ts-ignore
-      const inputs = document.getElementById(id).getElementsByTagName("input");
-      // @ts-ignore
-      const textareas = document.getElementById(id).getElementsByTagName("textarea");
-
-      if (inputs.length) {
-        inputs[0].value = "";
-        inputs[0].focus();
+    // Array Order Importance! ".sapMTokenizer" should be found before ordinary input, if exists
+    const targetCssSelectors = [`[class*='.sapMTokenizer'] ~ input[id*='${id}-inner']`, "input", "textarea"];
+    const targetElement: Element = await browser.execute(function (id: string) {
+      const parent = document.getElementById(id);
+      if (!parent) return undefined;
+      for (const targetCssSelector of targetCssSelectors) {
+        const targetElem = parent.querySelectorAll(targetCssSelector);
+        if (targetElem) return targetElem[0];
       }
-
-      if (textareas.length) {
-        textareas[0].value = "";
-      }
-      return t;
     }, id);
-
-    if ((await tokenizers) && (await tokenizers.length)) {
-      await ui5.userInteraction.selectAll(selector, index, timeout);
-      await common.userInteraction.pressBackspace();
+    if (!targetElement) {
+      return this.ErrorHandler.logException(new Error(), `No target elements (${targetCssSelectors}) found for selector ${selector}`);
     }
+
+    await targetElement.click();
+    await ui5.userInteraction.selectAll(selector, index, timeout);
+    await common.userInteraction.pressBackspace();
   }
 
   private async _verifyTabSwitch(selector: any): Promise<boolean> {
