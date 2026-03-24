@@ -652,7 +652,8 @@ export class UserInteraction {
   async selectAll(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.selectAll);
     if (selector !== undefined) {
-      await this.click(selector, index, timeout);
+      if("metadata" in selector) await this.click(selector, index, timeout);
+      else await nonUi5.userInteraction.click(selector);
     } else {
       util.console.info("Selector properties are undefined. Action will be performed on current element.");
     }
