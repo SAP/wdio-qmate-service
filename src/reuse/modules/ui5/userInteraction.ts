@@ -303,7 +303,7 @@ export class UserInteraction {
     await elem.clearValue()
     
     // Remove tokens/tags if exists
-    const tokenizer: Element = await nonUi5.element.getByCss(`[id='${id}'] .sapMTokenizer`);
+    const tokenizer: Element = $(`[id='${id}'] .sapMTokenizer`);
     if(await tokenizer.isExisting()) {
       await nonUi5.userInteraction.click(tokenizer);
       await ui5.userInteraction.selectAll(tokenizer, index, timeout);
