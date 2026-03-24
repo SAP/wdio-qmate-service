@@ -302,11 +302,15 @@ export class UserInteraction {
     let elem = await nonUi5.element.getByCss(`[id='${id}'] ${isTextArea? "textarea" : "input"}`, 0, timeout);
     await elem.clearValue()
     
-    const tokenizer = await nonUi5.element.getByCss(`[id='${id}'] .sapMTokenizer`)
-    if(tokenizer) {
-      await ui5.userInteraction.selectAll(selector, index, timeout);
+    // Remove tokens/tags if exists
+    const tokenizer: Element = await nonUi5.element.getByCss(`[id='${id}'] .sapMTokenizer`);
+    if(await tokenizer.isExisting()) {
+      await nonUi5.userInteraction.click(tokenizer);
+      await ui5.userInteraction.selectAll(tokenizer, index, timeout);
       await common.userInteraction.pressBackspace();
     }
+
+    await elem.click() // leave focused
   }
 
   /**
