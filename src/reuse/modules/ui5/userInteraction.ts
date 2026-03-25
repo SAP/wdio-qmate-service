@@ -17,12 +17,11 @@ export class UserInteraction {
   private vlf = new VerboseLoggerFactory("ui5", "click");
   private ErrorHandler = new ErrorHandler();
 
-
   // =================================== CONSTANTS ===================================
   private static readonly TEXTAREA_METADATA: Ui5ControlMetadata = "sap.m.TextArea";
   private static readonly TEXTAREA_MACROS_METADATA: Ui5ControlMetadata = "sap.fe.macros.field.TextAreaEx";
   private static readonly SUPPORTED_TEXTAREA_METADATA: Array<Ui5ControlMetadata> = [UserInteraction.TEXTAREA_METADATA, UserInteraction.TEXTAREA_MACROS_METADATA];
-    private static readonly SELECT_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.select' function instead."
+  private static readonly SELECT_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.select' function instead.";
 
   // =================================== CLICK ===================================
   /**
@@ -298,19 +297,19 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.clear);
 
     const id = await ui5.element.getId(selector, index, timeout);
-    const isTextArea = UserInteraction.SUPPORTED_TEXTAREA_METADATA.includes(selector.elementProperties.metadata)
-    let elem = await nonUi5.element.getByCss(`[id='${id}'] ${isTextArea? "textarea" : "input"}`, 0, timeout);
-    await elem.clearValue()
-    
+    const isTextArea = UserInteraction.SUPPORTED_TEXTAREA_METADATA.includes(selector.elementProperties.metadata);
+    let elem = await nonUi5.element.getByCss(`[id='${id}'] ${isTextArea ? "textarea" : "input"}`, 0, timeout);
+    await elem.clearValue();
+
     // Remove tokens/tags if exists
     const tokenizer: Element = $(`[id='${id}'] .sapMTokenizer`);
-    if(await tokenizer.isExisting()) {
+    if (await tokenizer.isExisting()) {
       await nonUi5.userInteraction.click(tokenizer);
       await ui5.userInteraction.selectAll(tokenizer, index, timeout);
       await common.userInteraction.pressBackspace();
     }
 
-    await elem.click() // leave focused
+    await elem.click(); // leave focused
   }
 
   /**
@@ -554,8 +553,7 @@ export class UserInteraction {
         await browser.waitUntil(
           async () => {
             try {
-              await Promise.any([ui5.userInteraction.click(menuItemSelectorNewUI5, 0, 500), 
-                ui5.userInteraction.click(menuItemSelectorOldUI5, 0, 500)]);
+              await Promise.any([ui5.userInteraction.click(menuItemSelectorNewUI5, 0, 500), ui5.userInteraction.click(menuItemSelectorOldUI5, 0, 500)]);
               return true;
             } catch (error) {
               // Ignore error and continue to next promise
@@ -568,7 +566,6 @@ export class UserInteraction {
             interval: GLOBAL_DEFAULT_WAIT_INTERVAL
           }
         );
-        
 
         const tabSwitchedSuccessfully: boolean = await this._verifyTabSwitch(selector);
         if (tabSwitchedSuccessfully === false) {
@@ -656,7 +653,7 @@ export class UserInteraction {
   async selectAll(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.selectAll);
     if (selector !== undefined) {
-      if("elementProperties" in selector) await this.click(selector, index, timeout);
+      if ("elementProperties" in selector) await this.click(selector, index, timeout);
       else await nonUi5.userInteraction.click(selector);
     } else {
       util.console.info("Selector properties are undefined. Action will be performed on current element.");
@@ -736,7 +733,7 @@ export class UserInteraction {
     // check for simple tab type
     const tabElem = await ui5.element.getDisplayed(selector);
     const tabClassList = await tabElem.getAttribute("class");
-    if (indicatorClasses.some(indicatorClass => tabClassList.includes(indicatorClass))) {
+    if (indicatorClasses.some((indicatorClass) => tabClassList.includes(indicatorClass))) {
       return true;
     }
 
@@ -754,7 +751,7 @@ export class UserInteraction {
 
     const tabParentClassList = await tabParentElem.getAttribute("class");
 
-    if (indicatorClasses.some(indicatorClass => tabParentClassList.includes(indicatorClass))) {
+    if (indicatorClasses.some((indicatorClass) => tabParentClassList.includes(indicatorClass))) {
       return true;
     } else {
       return false;
@@ -781,11 +778,7 @@ export class UserInteraction {
     };
     let activeSelector;
     try {
-      activeSelector = await Promise.any([
-        getVisibleSelectorOrFail(textSelector),
-        getVisibleSelectorOrFail(titleSelector),
-        getVisibleSelectorOrFail(labelSelector)
-      ]);
+      activeSelector = await Promise.any([getVisibleSelectorOrFail(textSelector), getVisibleSelectorOrFail(titleSelector), getVisibleSelectorOrFail(labelSelector)]);
     } catch (error) {
       this.ErrorHandler.logException(new Error("No visible elements found."));
     }
