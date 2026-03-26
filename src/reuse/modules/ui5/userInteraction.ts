@@ -305,7 +305,7 @@ export class UserInteraction {
     const tokenizer: Element = $(`[id='${id}'] .sapMTokenizer`);
     if (await tokenizer.isExisting()) {
       await nonUi5.userInteraction.click(tokenizer);
-      await ui5.userInteraction.selectAll(tokenizer, index, timeout);
+      await nonUi5.userInteraction.selectAll(tokenizer, timeout);
       await common.userInteraction.pressBackspace();
     }
 
@@ -652,10 +652,8 @@ export class UserInteraction {
    */
   async selectAll(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.selectAll);
-    if (selector !== undefined) {
-      if ("elementProperties" in selector) await this.click(selector, index, timeout);
-      else await nonUi5.userInteraction.click(selector);
-    } else {
+    if (selector !== undefined) await this.click(selector, index, timeout);
+    else {
       util.console.info("Selector properties are undefined. Action will be performed on current element.");
     }
     await common.userInteraction.pressKey([KeyCodes.CONTROL, "a"]);
