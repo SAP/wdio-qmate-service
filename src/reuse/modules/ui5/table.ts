@@ -294,23 +294,25 @@ export class Table {
     const constructedTableSelector = await this._constructTableSelector(tableSelectorOrId);
     const tableMetadata = (constructedTableSelector as ElementProperties).elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
-    let filteredRowIds = null;
+    let filteredRowIds, filteredTableMetadata = null;
     try {
       // =========================== BROWSER COMMAND ===========================
       const browserCommand = `
          ${classCode}
           const table = TableHelper.filterTableByMetadata("${(constructedTableSelector as ElementProperties).elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
+          const filteredTableMetadata = table.getMetadata().getName()
           const items = TableHelper.getItems(table);
           const filteredItems = TableHelper.filterItemsWithoutTitle(items);
-          return await TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting}, "${matchMode}");
+          const itemsIds = await TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting}, "${matchMode}");
+          return [itemsIds, filteredTableMetadata]
       `;
-      filteredRowIds = await util.browser.executeScript(browserCommand);
+      [filteredRowIds = undefined, filteredTableMetadata] = await util.browser.executeScript(browserCommand);
       // ========================================================================
     } catch (error) {
       return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
     }
     if (filteredRowIds && filteredRowIds.length > 0) {
-      return this._constructRowSelector(filteredRowIds, tableMetadata);
+      return this._constructRowSelector(filteredRowIds, filteredTableMetadata);
     } else {
       return [];
     }
