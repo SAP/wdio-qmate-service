@@ -304,7 +304,7 @@ export class Table {
           const items = TableHelper.getItems(table);
           const filteredItems = TableHelper.filterItemsWithoutTitle(items);
           const itemsIds = await TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting}, "${matchMode}");
-          return [itemsIds, filteredTableMetadata]
+          return [itemsIds, filteredTableMetadata];
       `;
       [filteredRowIds, filteredTableMetadata] = await util.browser.executeScript(browserCommand);
       // ========================================================================
@@ -354,7 +354,7 @@ export class Table {
           let item = undefined
           if (items && items[${index}]) item = TableHelper.filterItemsWithoutTitle(items)[${index}];
 
-          return [item?.getId(), filteredTableMetadata]
+          return [item?.getId(), filteredTableMetadata];
       `;
       [filteredRowId = null, filteredTableMetadata] = await util.browser.executeScript(browserCommand);
       // ========================================================================
