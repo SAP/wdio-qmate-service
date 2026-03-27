@@ -25,6 +25,13 @@ const treeTableSelector = {
   }
 };
 
+const mdcTableSelector = {
+  elementProperties: {
+    metadata: "sap.ui.mdc.Table",
+    id: "sampleComp-sap.ui.mdc.demokit.sample.table.TableJson---sample--table"
+  }
+};
+
 describe("table - getSelectorsForRowsByValues - sap.ui.comp.smarttable.SmartTable - single value as a String", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable`);
@@ -215,4 +222,68 @@ describe("table - getSelectorsForRowsByValues - sap.ui.table.TreeTable - single 
     await expect(ui5.element.getDisplayed(selector)).resolves.not.toThrow();
   });
 
+});
+
+describe("table - getSelectorsForRowsByValues - sap.ui.mdc.Table - single value as an Array", function () {
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.mdc.Table/sample/sap.ui.mdc.demokit.sample.table.TableJson`);
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+  });
+
+  it("Execution", async function () {
+    const name = "Mount Everest";
+    rowSelectors = await ui5.table.getSelectorsForRowsByValues(mdcTableSelector, [name]);
+  });
+
+
+  it("Verification", async function () {
+    const expectedRowSelector = {
+      elementProperties: {
+        metadata: "sap.m.ColumnListItem",
+        id: "sampleComp-sap.ui.mdc.demokit.sample.table.TableJson---sample--table-innerTableRow-__clone5"
+      }
+    };
+    await common.assertion.expectEqual(rowSelectors[0], expectedRowSelector);
+  });
+});
+
+describe("table - getSelectorsForRowsByValues - sap.ui.mdc.Table - multiple values as an Array", function () {
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.mdc.Table/sample/sap.ui.mdc.demokit.sample.table.TableJson`);
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+  });
+
+  it("Execution", async function () {
+    const values = ["Mount Everest", "1954"];
+    rowSelectors = await ui5.table.getSelectorsForRowsByValues(mdcTableSelector, values, true, "exact");
+  });
+
+
+  it("Verification", async function () {
+    const expectedRowSelectors = [
+      {
+        elementProperties: {
+          metadata: "sap.m.ColumnListItem",
+          id: "sampleComp-sap.ui.mdc.demokit.sample.table.TableJson---sample--table-innerTableRow-__clone6"
+        }
+      },
+      {
+        elementProperties: {
+          metadata: "sap.m.ColumnListItem",
+          id: "sampleComp-sap.ui.mdc.demokit.sample.table.TableJson---sample--table-innerTableRow-__clone10"
+        }
+      }
+    ];
+    await common.assertion.expectEqual(rowSelectors, expectedRowSelectors);
+  });
+});
+
+describe("table - getSelectorsForRowsByValues - sap.ui.mdc.Table - unhappy case - row with values doesn't exist", function () {
+  it("Execution && Verification", async function () {
+    const values = ["Mount Everest", "NOT_EXISTS_!@#$%^&*()"];
+    rowSelectors = await ui5.table.getSelectorsForRowsByValues(mdcTableSelector, values);
+    await common.assertion.expectEqual(rowSelectors, []);
+  });
 });

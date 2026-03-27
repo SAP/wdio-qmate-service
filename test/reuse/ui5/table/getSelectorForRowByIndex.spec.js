@@ -24,6 +24,13 @@ const treeTableSelector = {
   }
 };
 
+const mdcTableSelector = {
+  elementProperties: {
+    metadata: "sap.ui.mdc.Table",
+    id: "sampleComp-sap.ui.mdc.demokit.sample.table.TableJson---sample--table"
+  }
+};
+
 let actRowSelector;
 
 describe("table - getSelectorForRowByIndex - sap.ui.comp.smarttable.SmartTable - get first row", function () {
@@ -148,8 +155,35 @@ describe("table - getSelectorForRowByIndex - sap.ui.table.Table - get first row"
       };
       await expect(ui5.element.getDisplayed(selector)).resolves.not.toThrow();
     });
+  });
+});
 
-
+describe("table - getSelectorForRowByIndex - sap.ui.mdc.Table - get first row", function () {
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.mdc.Table/sample/sap.ui.mdc.demokit.sample.table.TableJson`);
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
   });
 
+  it("Execution", async function () {
+    const index = 0;
+    actRowSelector = await ui5.table.getSelectorForRowByIndex(mdcTableSelector, index);
+  });
+
+  it("Verification", async function () {
+    const expectedRowSelector = {
+      elementProperties: {
+        metadata: "sap.m.ColumnListItem",
+        id: "sampleComp-sap.ui.mdc.demokit.sample.table.TableJson---sample--table-innerTableRow-__clone5"
+      }
+    };
+    await common.assertion.expectEqual(actRowSelector, expectedRowSelector);
+  });
+});
+
+describe("table - getSelectorForRowByIndex - sap.ui.mdc.Table - unhappy case - row with index doesn't exist", function () {
+  it("Execution && Verification", async function () {
+    const index = 550;
+    await expect(ui5.table.getSelectorForRowByIndex(mdcTableSelector, index)).rejects.toThrow(/No item found with index/);
+  });
 });

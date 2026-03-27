@@ -294,23 +294,25 @@ export class Table {
     const constructedTableSelector = await this._constructTableSelector(tableSelectorOrId);
     const tableMetadata = (constructedTableSelector as ElementProperties).elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
-    let filteredRowIds = null;
+    let filteredRowIds, filteredTableMetadata = null;
     try {
       // =========================== BROWSER COMMAND ===========================
       const browserCommand = `
          ${classCode}
           const table = TableHelper.filterTableByMetadata("${(constructedTableSelector as ElementProperties).elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
+          const filteredTableMetadata = table.getMetadata().getName();
           const items = TableHelper.getItems(table);
           const filteredItems = TableHelper.filterItemsWithoutTitle(items);
-          return await TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting}, "${matchMode}");
+          const itemsIds = await TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting}, "${matchMode}");
+          return [itemsIds, filteredTableMetadata];
       `;
-      filteredRowIds = await util.browser.executeScript(browserCommand);
+      [filteredRowIds, filteredTableMetadata] = await util.browser.executeScript(browserCommand);
       // ========================================================================
     } catch (error) {
       return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
     }
     if (filteredRowIds && filteredRowIds.length > 0) {
-      return this._constructRowSelector(filteredRowIds, tableMetadata);
+      return this._constructRowSelector(filteredRowIds, filteredTableMetadata);
     } else {
       return [];
     }
@@ -337,7 +339,7 @@ export class Table {
     this.vlf.initLog(this.getSelectorForRowByIndex);
 
     const constructedTableSelector = await this._constructTableSelector(tableSelectorOrId);
-    let filteredRowId: string;
+    let filteredRowId, filteredTableMetadata: string;
     const tableMetadata = (constructedTableSelector as ElementProperties).elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
 
@@ -347,15 +349,14 @@ export class Table {
           ${classCode}
           const table = TableHelper.filterTableByMetadata("${(constructedTableSelector as ElementProperties).elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
           const items = TableHelper.getItems(table);
+          const filteredTableMetadata = table.getMetadata().getName();
 
-          if (!items || !items[${index}]) return null;
+          let item = undefined
+          if (items && items[${index}]) item = TableHelper.filterItemsWithoutTitle(items)[${index}];
 
-          const filteredItems = TableHelper.filterItemsWithoutTitle(items); 
-          const item = filteredItems[${index}];
-
-          return item?.getId?.();
+          return [item?.getId(), filteredTableMetadata];
       `;
-      filteredRowId = await util.browser.executeScript(browserCommand);
+      [filteredRowId = null, filteredTableMetadata] = await util.browser.executeScript(browserCommand);
       // ========================================================================
     } catch (error) {
       return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
@@ -364,7 +365,7 @@ export class Table {
     if (!filteredRowId) {
       return this.ErrorHandler.logException(new Error(`No item found with index ${index}.`));
     }
-    const rowSelector = this._constructRowSelector([filteredRowId], tableMetadata);
+    const rowSelector = this._constructRowSelector([filteredRowId], filteredTableMetadata);
     return rowSelector[0]; // Return the first selector as we expect only one row to match the index
   }
 
