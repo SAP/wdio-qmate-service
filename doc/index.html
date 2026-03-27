@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -4036,6 +4036,17 @@
     <span class="md-ellipsis">
       
         userInteraction.scrollToElement(elem, [alignment])
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userinteractionselectallselector-timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        userInteraction.selectAll([selector], [timeout])
       
     </span>
   </a>
@@ -9274,6 +9285,17 @@
     <span class="md-ellipsis">
       
         userInteraction.scrollToElement(elem, [alignment])
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userinteractionselectallselector-timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        userInteraction.selectAll([selector], [timeout])
       
     </span>
   </a>
@@ -18462,6 +18484,7 @@ In case that the search is already filled, it will reset the field first.</p>
 <li><a href="#nonUi5.userInteraction.clearAndFillAndRetry">.clearAndFillAndRetry(elementOrSelector, value, [retries], [interval], [verify])</a></li>
 <li><a href="#nonUi5.userInteraction.mouseOverElement">.mouseOverElement(elementOrSelector, [xOffset], [yOffset])</a></li>
 <li><a href="#nonUi5.userInteraction.scrollToElement">.scrollToElement(elem, [alignment])</a></li>
+<li><a href="#nonUi5.userInteraction.selectAll">.selectAll([selector], [timeout])</a></li>
 <li><a href="#nonUi5.userInteraction.dragAndDrop">.dragAndDrop(elementOrSelector, targetElem)</a></li>
 <li><a href="#nonUi5.userInteraction.moveCursorAndClick">.moveCursorAndClick(elementOrSelector)</a></li>
 <li><a href="#nonUi5.userInteraction.clickElementInSvg">.clickElementInSvg(elementOrSelector, innerSelector)</a></li>
@@ -19754,6 +19777,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <li><a href="#nonUi5.userInteraction.clearAndFillAndRetry">.clearAndFillAndRetry(elementOrSelector, value, [retries], [interval], [verify])</a></li>
 <li><a href="#nonUi5.userInteraction.mouseOverElement">.mouseOverElement(elementOrSelector, [xOffset], [yOffset])</a></li>
 <li><a href="#nonUi5.userInteraction.scrollToElement">.scrollToElement(elem, [alignment])</a></li>
+<li><a href="#nonUi5.userInteraction.selectAll">.selectAll([selector], [timeout])</a></li>
 <li><a href="#nonUi5.userInteraction.dragAndDrop">.dragAndDrop(elementOrSelector, targetElem)</a></li>
 <li><a href="#nonUi5.userInteraction.moveCursorAndClick">.moveCursorAndClick(elementOrSelector)</a></li>
 <li><a href="#nonUi5.userInteraction.clickElementInSvg">.clickElementInSvg(elementOrSelector, innerSelector)</a></li>
@@ -20235,6 +20259,37 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <span class="w">  </span><span class="nx">inline</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;center&quot;</span>
 <span class="p">};</span>
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">scrollToElement</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span><span class="w"> </span><span class="nx">alignment</span><span class="p">);</span>
+</code></pre></div>
+<a name="nonUi5.userInteraction.selectAll"></a></p>
+<h4 id="userinteractionselectallselector-timeout">userInteraction.selectAll([selector], [timeout])</h4>
+<p>Performs "select all" (ctrl + a) at the element with the given selector.</p>
+<p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[selector]</td>
+<td><code>Object</code></td>
+<td></td>
+<td>The selector describing the element.</td>
+</tr>
+<tr>
+<td>[timeout]</td>
+<td><code>Number</code></td>
+<td><code>30000</code></td>
+<td>The timeout to wait (ms).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span>
 </code></pre></div>
 <a name="nonUi5.userInteraction.dragAndDrop"></a></p>
 <h4 id="userinteractiondraganddropelementorselector-targetelem">userInteraction.dragAndDrop(elementOrSelector, targetElem)</h4>
