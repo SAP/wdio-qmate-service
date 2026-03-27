@@ -88,14 +88,16 @@ export class DateModule {
    * @param {Selector} selector - The selector describing the element.
    * @param {Object[]} range - The array of date objects containing start- and end date.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
-   * @example const start = await common.date.calculate("2020, 9, 20", "dd.mm.yyyy");
-   * const end = await common.date.calculate("2021, 1, 3", "dd.mm.yyyy");
+   * @example const start = await common.date.getSpecific("2025, 9, 20");
+   * const end = await common.date.getSpecific("2025, 10, 30");
    * const range = [start, end];
    * await ui5.date.fillRange(selector, range);
    */
   async fillRange(selector: any, range: Date[], index: number = 0) {
     const vl = this.vlf.initLog(this.fillRange);
-    const value = range[0] + " - " + range[1];
+    const start = util.formatter.formatDate(range[0], "mmm d, yyyy");
+    const end = util.formatter.formatDate(range[1], "mmm d, yyyy");
+    const value = `${start} - ${end}`;
     await ui5.userInteraction.clearAndFill(selector, value, index);
   }
 
