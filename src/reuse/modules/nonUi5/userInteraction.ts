@@ -9,6 +9,7 @@ import elementHighlight from "../../helper/elementHighlight";
 import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
 import { validateValue } from "../../helper/inputValidation";
 import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
+import { KeyCodes } from "../common/constants/userInteraction.constants";
 
 /**
  * @class userInteraction
@@ -440,6 +441,23 @@ export class UserInteraction {
       this.ErrorHandler.logException(error);
     }
   }
+
+    /**
+     * @function selectAll
+     * @memberOf nonUi5.userInteraction
+     * @description Performs "select all" (ctrl + a) at the element with the given selector.
+     * @param {Object} [selector] - The selector describing the element.
+     * @param {Number} [timeout=30000] - The timeout to wait (ms).
+     * @example await nonUi5.userInteraction.selectAll(selector);
+     */
+    async selectAll(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
+      const vl = this.vlf.initLog(this.selectAll);
+      if (selector !== undefined) await this.click(selector, timeout);
+      else {
+        util.console.info("Selector properties are undefined. Action will be performed on current element.");
+      }
+      await common.userInteraction.pressKey([KeyCodes.CONTROL, "a"]);
+    }
 
   /**
    * @function dragAndDrop

@@ -4,6 +4,7 @@ export enum KeyCodes {
   F4 = "\uE034",
   BACKSPACE = "\uE003",
   ESCAPE = "\uE00C",
+  CONTROL = "\uE051",
   ARROW_LEFT = "\uE012",
   ARROW_RIGHT = "\uE014"
 }
