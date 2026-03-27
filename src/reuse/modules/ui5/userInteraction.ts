@@ -6,6 +6,7 @@ import { AlignmentOptions, AlignmentValues } from "../types";
 import ErrorHandler from "../../helper/errorHandler";
 import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
 import { Ui5ControlMetadata } from "./types/ui5.types";
+import { KeyCodes } from "../common/constants/userInteraction.constants";
 
 /**
  * @class userInteraction
@@ -16,12 +17,11 @@ export class UserInteraction {
   private vlf = new VerboseLoggerFactory("ui5", "click");
   private ErrorHandler = new ErrorHandler();
 
-
   // =================================== CONSTANTS ===================================
-    private static readonly TEXTAREA_METADATA: Ui5ControlMetadata = "sap.m.TextArea";
-    private static readonly TEXTAREA_MACROS_METADATA: Ui5ControlMetadata = "sap.fe.macros.field.TextAreaEx";
-    private static readonly SUPPORTED_TEXTAREA_METADATA: Array<Ui5ControlMetadata> = [UserInteraction.TEXTAREA_METADATA, UserInteraction.TEXTAREA_MACROS_METADATA];
-    private static readonly SELECT_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.select' function instead."
+  private static readonly TEXTAREA_METADATA: Ui5ControlMetadata = "sap.m.TextArea";
+  private static readonly TEXTAREA_MACROS_METADATA: Ui5ControlMetadata = "sap.fe.macros.field.TextAreaEx";
+  private static readonly SUPPORTED_TEXTAREA_METADATA: Array<Ui5ControlMetadata> = [UserInteraction.TEXTAREA_METADATA, UserInteraction.TEXTAREA_MACROS_METADATA];
+  private static readonly SELECT_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.select' function instead.";
 
   // =================================== CLICK ===================================
   /**
@@ -293,11 +293,23 @@ export class UserInteraction {
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.userInteraction.clear(selector);
    */
-
-  //TODO remove clearHelper and use clear
   async clear(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clear);
-    await this._clearHelper(selector, index, timeout);
+
+    const id = await ui5.element.getId(selector, index, timeout);
+    const isTextArea = UserInteraction.SUPPORTED_TEXTAREA_METADATA.includes(selector.elementProperties.metadata);
+    const elem = await nonUi5.element.getByCss(`[id='${id}'] ${isTextArea ? "textarea" : "input"}`, 0, timeout);
+    await elem.clearValue();
+
+    // Remove tokens/tags if exists
+    const tokenizer: Element = $(`[id='${id}'] .sapMTokenizer`);
+    if (await tokenizer.isExisting()) {
+      await nonUi5.userInteraction.click(tokenizer);
+      await nonUi5.userInteraction.selectAll(tokenizer, timeout);
+      await common.userInteraction.pressBackspace();
+    }
+
+    await elem.click(); // leave focus
   }
 
   /**
@@ -541,8 +553,7 @@ export class UserInteraction {
         await browser.waitUntil(
           async () => {
             try {
-              await Promise.any([ui5.userInteraction.click(menuItemSelectorNewUI5, 0, 500), 
-                ui5.userInteraction.click(menuItemSelectorOldUI5, 0, 500)]);
+              await Promise.any([ui5.userInteraction.click(menuItemSelectorNewUI5, 0, 500), ui5.userInteraction.click(menuItemSelectorOldUI5, 0, 500)]);
               return true;
             } catch (error) {
               // Ignore error and continue to next promise
@@ -555,8 +566,7 @@ export class UserInteraction {
             interval: GLOBAL_DEFAULT_WAIT_INTERVAL
           }
         );
-        
-        
+
         const tabSwitchedSuccessfully: boolean = await this._verifyTabSwitch(selector);
         if (tabSwitchedSuccessfully === false) {
           this.ErrorHandler.logException(new Error("Could not verify successful tab switch."));
@@ -642,12 +652,11 @@ export class UserInteraction {
    */
   async selectAll(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.selectAll);
-    if (selector !== undefined) {
-      await this.click(selector, index, timeout);
-    } else {
+    if (selector !== undefined) await this.click(selector, index, timeout);
+    else {
       util.console.info("Selector properties are undefined. Action will be performed on current element.");
     }
-    await common.userInteraction.pressKey(["\uE051", "a"]);
+    await common.userInteraction.pressKey([KeyCodes.CONTROL, "a"]);
   }
 
   /**
@@ -715,45 +724,6 @@ export class UserInteraction {
   }
 
   // =================================== HELPER ===================================
-  //TODO: rework function in its whole. Why don't we use the clear function from native wdio here?
-  private async _clearHelper(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
-    let id, elem;
-    if (selector) {
-      await ui5.userInteraction.click(selector, index, timeout);
-      id = await ui5.element.getId(selector, index, timeout);
-      elem = await browser.getActiveElement();
-    } else {
-      elem = await browser.getActiveElement();
-      await elem.click();
-      // @ts-ignore
-      id = await util.function.getAttribute(elem, "id");
-    }
-
-    const tokenizers = await browser.execute(function (id: string) {
-      // @ts-ignore
-      const t = document.getElementById(id).querySelectorAll(".sapMTokenizer");
-      // @ts-ignore
-      const inputs = document.getElementById(id).getElementsByTagName("input");
-      // @ts-ignore
-      const textareas = document.getElementById(id).getElementsByTagName("textarea");
-
-      if (inputs.length) {
-        inputs[0].value = "";
-        inputs[0].focus();
-      }
-
-      if (textareas.length) {
-        textareas[0].value = "";
-      }
-      return t;
-    }, id);
-
-    if ((await tokenizers) && (await tokenizers.length)) {
-      await ui5.userInteraction.selectAll(selector, index, timeout);
-      await common.userInteraction.pressBackspace();
-    }
-  }
-
   private async _verifyTabSwitch(selector: any): Promise<boolean> {
     // two classes required to handle old and new UI5 versions
     const indicatorClasses = ["sapUxAPAnchorBarButtonSelected", "sapMITBSelected"];
@@ -761,7 +731,7 @@ export class UserInteraction {
     // check for simple tab type
     const tabElem = await ui5.element.getDisplayed(selector);
     const tabClassList = await tabElem.getAttribute("class");
-    if (indicatorClasses.some(indicatorClass => tabClassList.includes(indicatorClass))) {
+    if (indicatorClasses.some((indicatorClass) => tabClassList.includes(indicatorClass))) {
       return true;
     }
 
@@ -779,7 +749,7 @@ export class UserInteraction {
 
     const tabParentClassList = await tabParentElem.getAttribute("class");
 
-    if (indicatorClasses.some(indicatorClass => tabParentClassList.includes(indicatorClass))) {
+    if (indicatorClasses.some((indicatorClass) => tabParentClassList.includes(indicatorClass))) {
       return true;
     } else {
       return false;
@@ -806,11 +776,7 @@ export class UserInteraction {
     };
     let activeSelector;
     try {
-      activeSelector = await Promise.any([
-        getVisibleSelectorOrFail(textSelector),
-        getVisibleSelectorOrFail(titleSelector),
-        getVisibleSelectorOrFail(labelSelector)
-      ]);
+      activeSelector = await Promise.any([getVisibleSelectorOrFail(textSelector), getVisibleSelectorOrFail(titleSelector), getVisibleSelectorOrFail(labelSelector)]);
     } catch (error) {
       this.ErrorHandler.logException(new Error("No visible elements found."));
     }
