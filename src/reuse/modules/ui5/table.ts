@@ -306,7 +306,7 @@ export class Table {
           const itemsIds = await TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting}, "${matchMode}");
           return [itemsIds, filteredTableMetadata]
       `;
-      [filteredRowIds = undefined, filteredTableMetadata] = await util.browser.executeScript(browserCommand);
+      [filteredRowIds = null, filteredTableMetadata] = await util.browser.executeScript(browserCommand);
       // ========================================================================
     } catch (error) {
       return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
@@ -356,7 +356,7 @@ export class Table {
 
           return [item?.getId(), filteredTableMetadata]
       `;
-      [filteredRowId = undefined, filteredTableMetadata] = await util.browser.executeScript(browserCommand);
+      [filteredRowId = null, filteredTableMetadata] = await util.browser.executeScript(browserCommand);
       // ========================================================================
     } catch (error) {
       return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
