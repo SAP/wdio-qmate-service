@@ -300,13 +300,13 @@ export class Table {
       const browserCommand = `
          ${classCode}
           const table = TableHelper.filterTableByMetadata("${(constructedTableSelector as ElementProperties).elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
-          const filteredTableMetadata = table.getMetadata().getName()
+          const filteredTableMetadata = table.getMetadata().getName();
           const items = TableHelper.getItems(table);
           const filteredItems = TableHelper.filterItemsWithoutTitle(items);
           const itemsIds = await TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting}, "${matchMode}");
           return [itemsIds, filteredTableMetadata]
       `;
-      [filteredRowIds = null, filteredTableMetadata] = await util.browser.executeScript(browserCommand);
+      [filteredRowIds, filteredTableMetadata] = await util.browser.executeScript(browserCommand);
       // ========================================================================
     } catch (error) {
       return this.ErrorHandler.logException(new Error(`Error while executing browser command: ${error}`));
@@ -349,7 +349,7 @@ export class Table {
           ${classCode}
           const table = TableHelper.filterTableByMetadata("${(constructedTableSelector as ElementProperties).elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
           const items = TableHelper.getItems(table);
-          const filteredTableMetadata = table.getMetadata().getName()
+          const filteredTableMetadata = table.getMetadata().getName();
 
           let item = undefined
           if (items && items[${index}]) item = TableHelper.filterItemsWithoutTitle(items)[${index}];
