@@ -298,7 +298,7 @@ export class UserInteraction {
 
     const id = await ui5.element.getId(selector, index, timeout);
     const isTextArea = UserInteraction.SUPPORTED_TEXTAREA_METADATA.includes(selector.elementProperties.metadata);
-    let elem = await nonUi5.element.getByCss(`[id='${id}'] ${isTextArea ? "textarea" : "input"}`, 0, timeout);
+    const elem = await nonUi5.element.getByCss(`[id='${id}'] ${isTextArea ? "textarea" : "input"}`, 0, timeout);
     await elem.clearValue();
 
     // Remove tokens/tags if exists
@@ -309,7 +309,7 @@ export class UserInteraction {
       await common.userInteraction.pressBackspace();
     }
 
-    await elem.click(); // leave focused
+    await elem.click(); // leave focus
   }
 
   /**
