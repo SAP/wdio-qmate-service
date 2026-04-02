@@ -301,9 +301,9 @@ export class UserInteraction {
     const elem = await nonUi5.element.getByCss(`[id='${id}'] ${isTextArea ? "textarea" : "input"}`, 0, timeout);
     await elem.clearValue();
 
-    // Remove tokens/tags if exists
+    // Remove tokens/tags if exists and is visible
     const tokenizer: Element = $(`[id='${id}'] .sapMTokenizer`);
-    if (await tokenizer.isExisting()) {
+    if ((await tokenizer.isExisting()) && (await tokenizer.isDisplayed())) {
       await nonUi5.userInteraction.click(tokenizer);
       await nonUi5.userInteraction.selectAll(tokenizer, timeout);
       await common.userInteraction.pressBackspace();
