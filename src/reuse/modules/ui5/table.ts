@@ -533,6 +533,7 @@ export class Table {
    * @description Opens the item in the table by its index.
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
    * @param {Number} index - The index of the item to open.
+   * @param {String} triggerOption - The way how to perform open action (default is "byClick" on the row)
    * @example const selector = {
    *  elementProperties: {
    *   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
@@ -544,11 +545,40 @@ export class Table {
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
    * await ui5.table.openItemByIndex(id, 0);
    */
-  async openItemByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
+  async openItemByIndex(
+    tableSelectorOrId: Ui5Selector | string, 
+    index: number, 
+    triggerOption: "byClick" | "byArrowIcon" | "byEvent"  = "byClick"
+  ) {
     this.vlf.initLog(this.openItemByIndex);
 
     const rowSelector = await this.getSelectorForRowByIndex(tableSelectorOrId, index);
-    await ui5.userInteraction.click(rowSelector);
+
+    if(triggerOption === "byClick") {
+      await ui5.userInteraction.click(rowSelector);
+    }
+    if(triggerOption === "byArrowIcon") {
+      const rowArrowIconSelector: Ui5Selector = {
+        elementProperties: { 
+          metadata: "sap.ui.core.Icon", 
+          src: "sap-icon://slim-arrow-right"
+        },
+        parentProperties: rowSelector.elementProperties
+      }
+      await ui5.userInteraction.click(rowArrowIconSelector);
+    }
+    if(triggerOption === "byEvent") {
+      const elem = await ui5.element.getDisplayed(rowSelector);
+      await ui5.control.execute(function (control: any, done: Function) {
+        // try to trigger row to open
+        if(control.mEventRegistry.detailPress) control.fireDetailPress();
+        else if(control.mEventRegistry.press) control.firePress();
+        // try to trigger parent table to open row
+        else if(control.getParent().mEventRegistry.itemPress) control.getParent().fireItemPress({listItem: control})
+        return done();
+      }, elem);
+    }
+
   }
 
   /**
