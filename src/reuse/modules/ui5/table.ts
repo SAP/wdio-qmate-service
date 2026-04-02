@@ -590,6 +590,7 @@ export class Table {
    * @param {Number} [index=0] - The index of the matching row to consider.
    * @param {Boolean} [enableHighlighting=true] - Enable or disable highlighting of found elements.
    * @param {String} [matchMode="contains"] - The match mode for the values. Can be "contains", "exact" or "wordBoundary".
+   * @param {String} triggerOption - The way how to perform open action (default is "byClick" on the row)
    * @example const selector = {
    *  elementProperties: {
    *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
@@ -608,19 +609,44 @@ export class Table {
     values: string | Array<string>,
     index: number = 0,
     enableHighlighting: boolean = true,
-    matchMode: MatchMode = "contains"
+    matchMode: MatchMode = "contains",
+    triggerOption: "byClick" | "byArrowIcon" | "byEvent"  = "byClick"
   ) {
     this.vlf.initLog(this.openItemByValues);
 
     const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values, enableHighlighting, matchMode);
-    if (rowSelectors.length === 0) {
+    if (rowSelectors.length === 0)
       return this.ErrorHandler.logException(new Error(`No items found with the provided values: ${values}.`));
-    } else if (rowSelectors.length <= index) {
+    if (rowSelectors.length <= index)
       return this.ErrorHandler.logException(new Error(`The index ${index} is out of bounds. The number of matching items is ${rowSelectors.length}.`));
-    } else {
-      const rowSelector = rowSelectors[index];
+
+    const rowSelector = rowSelectors[index];
+
+    if(triggerOption === "byClick") {
       await ui5.userInteraction.click(rowSelector);
     }
+    if(triggerOption === "byArrowIcon") {
+      const rowArrowIconSelector: Ui5Selector = {
+        elementProperties: { 
+          metadata: "sap.ui.core.Icon", 
+          src: "sap-icon://slim-arrow-right"
+        },
+        parentProperties: rowSelector.elementProperties
+      }
+      await ui5.userInteraction.click(rowArrowIconSelector);
+    }
+    if(triggerOption === "byEvent") {
+      const elem = await ui5.element.getDisplayed(rowSelector, index);
+      await ui5.control.execute(function (control: any, done: Function) {
+        // try to trigger row to open
+        if(control.mEventRegistry.detailPress) control.fireDetailPress();
+        else if(control.mEventRegistry.press) control.firePress();
+        // try to trigger parent table to open row
+        else if(control.getParent().mEventRegistry.itemPress) control.getParent().fireItemPress({listItem: control})
+        return done();
+      }, elem);
+    }
+
   }
 
   // =================================== HELPER ===================================
