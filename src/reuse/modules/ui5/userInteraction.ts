@@ -301,7 +301,9 @@ export class UserInteraction {
     const elem = await nonUi5.element.getByCss(`[id='${id}'] ${isTextArea ? "textarea" : "input"}`, 0, timeout);
     await elem.clearValue();
 
-    // Remove tokens/tags if displayed
+    // Remove tokens/tags if displayed. Use isDisplayed() instead of isExisting() because
+    // the .sapMTokenizer node can exist in the DOM but be hidden (e.g. when no tokens are present),
+    // which would cause the subsequent click() to fail with a "not displayed" timeout.
     const tokenizer: Element = $(`[id='${id}'] .sapMTokenizer`);
     if (await tokenizer.isDisplayed()) {
       await nonUi5.userInteraction.click(tokenizer);
