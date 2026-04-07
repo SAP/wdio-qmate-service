@@ -11,7 +11,6 @@ type SelectorDefinitionForSelection = {
   type: SelectorTypeForSelection;
   selector: string;
 };
-export type OpenRowTriggerOption = "byClick" | "byArrowIcon"
 
 /**
  * @class table
@@ -534,7 +533,6 @@ export class Table {
    * @description Opens the item in the table by its index.
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
    * @param {Number} index - The index of the item to open.
-   * @param {String} triggerOption - The way how to perform open action (default is "byClick" on the row)
    * @example const selector = {
    *  elementProperties: {
    *   viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
@@ -548,25 +546,24 @@ export class Table {
    */
   async openItemByIndex(
     tableSelectorOrId: Ui5Selector | string, 
-    index: number, 
-    triggerOption: OpenRowTriggerOption  = "byClick"
+    index: number,
   ) {
     this.vlf.initLog(this.openItemByIndex);
 
     const rowSelector = await this.getSelectorForRowByIndex(tableSelectorOrId, index);
-
-    if(triggerOption === "byClick") {
-      await ui5.userInteraction.click(rowSelector);
+    const rowArrowIconSelector: Ui5Selector = {
+      elementProperties: { 
+        metadata: "sap.ui.core.Icon", 
+        src: "sap-icon://slim-arrow-right"
+      },
+      parentProperties: rowSelector.elementProperties
     }
-    if(triggerOption === "byArrowIcon") {
-      const rowArrowIconSelector: Ui5Selector = {
-        elementProperties: { 
-          metadata: "sap.ui.core.Icon", 
-          src: "sap-icon://slim-arrow-right"
-        },
-        parentProperties: rowSelector.elementProperties
-      }
+    
+    if(await ui5.element.isVisible(rowArrowIconSelector)) {
       await ui5.userInteraction.click(rowArrowIconSelector);
+    }
+    else {
+      await ui5.userInteraction.click(rowSelector);
     }
   }
 
@@ -579,7 +576,6 @@ export class Table {
    * @param {Number} [index=0] - The index of the matching row to consider.
    * @param {Boolean} [enableHighlighting=true] - Enable or disable highlighting of found elements.
    * @param {String} [matchMode="contains"] - The match mode for the values. Can be "contains", "exact" or "wordBoundary".
-   * @param {String} triggerOption - The way how to perform open action (default is "byClick" on the row)
    * @example const selector = {
    *  elementProperties: {
    *    viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
@@ -598,8 +594,7 @@ export class Table {
     values: string | Array<string>,
     index: number = 0,
     enableHighlighting: boolean = true,
-    matchMode: MatchMode = "contains",
-    triggerOption: OpenRowTriggerOption  = "byClick"
+    matchMode: MatchMode = "contains"
   ) {
     this.vlf.initLog(this.openItemByValues);
 
@@ -610,19 +605,19 @@ export class Table {
       return this.ErrorHandler.logException(new Error(`The index ${index} is out of bounds. The number of matching items is ${rowSelectors.length}.`));
 
     const rowSelector = rowSelectors[index];
-
-    if(triggerOption === "byClick") {
-      await ui5.userInteraction.click(rowSelector);
+    const rowArrowIconSelector: Ui5Selector = {
+      elementProperties: { 
+        metadata: "sap.ui.core.Icon", 
+        src: "sap-icon://slim-arrow-right"
+      },
+      parentProperties: rowSelector.elementProperties
     }
-    if(triggerOption === "byArrowIcon") {
-      const rowArrowIconSelector: Ui5Selector = {
-        elementProperties: { 
-          metadata: "sap.ui.core.Icon", 
-          src: "sap-icon://slim-arrow-right"
-        },
-        parentProperties: rowSelector.elementProperties
-      }
+
+    if(await ui5.element.isVisible(rowArrowIconSelector)) {
       await ui5.userInteraction.click(rowArrowIconSelector);
+    }
+    else {
+      await ui5.userInteraction.click(rowSelector);
     }
   }
 
