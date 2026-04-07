@@ -530,7 +530,7 @@ export class Table {
   /**
    * @function openItemByIndex
    * @memberOf ui5.table
-   * @description Opens the item in the table by its index.
+   * @description Opens the item in the table by its index via right arrow icon or direct click.
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
    * @param {Number} index - The index of the item to open.
    * @example const selector = {
@@ -570,7 +570,8 @@ export class Table {
   /**
    * @function openItemByValues
    * @memberOf ui5.table
-   * @description Opens the item in the table containing the given values. If multiple items match, it opens the index-th item.
+   * @description Opens the item in the table containing the given values via right arrow icon or direct click. 
+   * If multiple items match, it opens the index-th item.
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
    * @param {String | Array<String>} values - The value(s) to match in the table rows.
    * @param {Number} [index=0] - The index of the matching row to consider.
