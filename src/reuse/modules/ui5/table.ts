@@ -11,7 +11,7 @@ type SelectorDefinitionForSelection = {
   type: SelectorTypeForSelection;
   selector: string;
 };
-export type OpenRowTriggerOption = "byClick" | "byArrowIcon" | "byEvent"
+export type OpenRowTriggerOption = "byClick" | "byArrowIcon"
 
 /**
  * @class table
@@ -568,18 +568,6 @@ export class Table {
       }
       await ui5.userInteraction.click(rowArrowIconSelector);
     }
-    if(triggerOption === "byEvent") {
-      const elem = await ui5.element.getDisplayed(rowSelector);
-      await ui5.control.execute(function (control: any, done: Function) {
-        // try to trigger row to open
-        if(control.mEventRegistry.detailPress) control.fireDetailPress();
-        else if(control.mEventRegistry.press) control.firePress();
-        // try to trigger parent table to open row
-        else if(control.getParent().mEventRegistry.itemPress) control.getParent().fireItemPress({listItem: control})
-        return done();
-      }, elem);
-    }
-
   }
 
   /**
@@ -636,18 +624,6 @@ export class Table {
       }
       await ui5.userInteraction.click(rowArrowIconSelector);
     }
-    if(triggerOption === "byEvent") {
-      const elem = await ui5.element.getDisplayed(rowSelector, index);
-      await ui5.control.execute(function (control: any, done: Function) {
-        // try to trigger row to open
-        if(control.mEventRegistry.detailPress) control.fireDetailPress();
-        else if(control.mEventRegistry.press) control.firePress();
-        // try to trigger parent table to open row
-        else if(control.getParent().mEventRegistry.itemPress) control.getParent().fireItemPress({listItem: control})
-        return done();
-      }, elem);
-    }
-
   }
 
   // =================================== HELPER ===================================
