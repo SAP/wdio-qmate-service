@@ -11,6 +11,7 @@ type SelectorDefinitionForSelection = {
   type: SelectorTypeForSelection;
   selector: string;
 };
+export type OpenRowTriggerOption = "byClick" | "byArrowIcon" | "byEvent"
 
 /**
  * @class table
@@ -548,7 +549,7 @@ export class Table {
   async openItemByIndex(
     tableSelectorOrId: Ui5Selector | string, 
     index: number, 
-    triggerOption: "byClick" | "byArrowIcon" | "byEvent"  = "byClick"
+    triggerOption: OpenRowTriggerOption  = "byClick"
   ) {
     this.vlf.initLog(this.openItemByIndex);
 
@@ -610,7 +611,7 @@ export class Table {
     index: number = 0,
     enableHighlighting: boolean = true,
     matchMode: MatchMode = "contains",
-    triggerOption: "byClick" | "byArrowIcon" | "byEvent"  = "byClick"
+    triggerOption: OpenRowTriggerOption  = "byClick"
   ) {
     this.vlf.initLog(this.openItemByValues);
 
