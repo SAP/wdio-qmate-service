@@ -1,5 +1,6 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
+const { handleCookiesConsent } = require("../../../helper/utils.js");
 const smartTableSelector = {
   "elementProperties": {
     "viewName": "sap.suite.ui.generic.template.ListReport.view.ListReport",
@@ -12,6 +13,12 @@ const goButtonSelector = {
     "viewName": "sap.suite.ui.generic.template.ListReport.view.ListReport",
     "metadata": "sap.m.Button",
     "id": "*listReportFilter-btnGo"
+  }
+};
+const mTableSelector = {
+  "elementProperties": {
+    "metadata": "sap.m.Table",
+    "id": "*--productsTable"
   }
 };
 
@@ -81,5 +88,30 @@ describe("table - openItemByIndex - smartTable - unhappy case - try to open not 
 
   it("Execution & Verification", async function () {
     await expect(ui5.table.openItemByIndex(smartTableSelector, 10)).rejects.toThrow(/No item found with index 10/);
+  });
+});
+
+describe("table - openItemByIndex - mTable - with no arrow icon", function () {
+
+  it("Preparation", async function () {
+    const url = `${BASE_URL}/#/entity/sap.m.Table/sample/sap.m.sample.TableNavigated`;
+    await common.navigation.navigateToUrl(url);
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+  });
+
+  it("Execution", async function () {
+    await ui5.table.openItemByIndex(mTableSelector, 0);
+  });
+
+  it("Verification", async function () {
+    const selector = {
+      "elementProperties": {
+        "metadata": "sap.m.ColumnListItem",
+        "id": "*productsTable-0"
+      }
+    };
+    const navigationState = await ui5.element.getPropertyValue(selector, "navigated");
+    expect(navigationState).toEqual(true);
   });
 });
