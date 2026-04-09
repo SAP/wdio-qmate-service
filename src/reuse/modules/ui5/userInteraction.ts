@@ -318,30 +318,6 @@ export class UserInteraction {
     }, id, isTextArea);
   }
 
-  // async clear(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
-  //   const vl = this.vlf.initLog(this.clear);
-  //   const id = await ui5.element.getId(selector, index, timeout);
-    
-  //   // Remove tokens/tags if exists
-  //   const tokenizer: Element = $(`[id='${id}'] .sapMTokenizer`);
-  //   if (await tokenizer.isExisting()) {
-  //     await nonUi5.userInteraction.click(tokenizer);
-  //     await nonUi5.userInteraction.selectAll(tokenizer, timeout);
-  //     await common.userInteraction.pressBackspace();
-  //   }
-    
-  //   const isTextArea = UserInteraction.SUPPORTED_TEXTAREA_METADATA.includes(selector.elementProperties.metadata);
-  //   await browser.execute(function (id: string, isTextArea: boolean) {
-  //     // @ts-ignore
-  //     const input = document.getElementById(id).getElementsByTagName(isTextArea ? "textarea" : "input")[0];
-  //     input.value = "";
-  //     input.focus();
-  //   }, "application-CRPResource-scheduleOrder-component---MainView--OrderTableColumnFrag--ordNoColId-menu-filter", isTextArea);
-  //   // await elem.click(); // leave focus
-  //   // await util.browser.sleep(3_000);
-
-  // }
-
   /**
    * @function clearAndRetry
    * @memberOf ui5.userInteraction
