@@ -20,11 +20,7 @@ export async function createUsage(usageData: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(usageData),
-      dispatcher: new Agent({
-        connect: {
-          rejectUnauthorized: false,
-        }
-      })
+      dispatcher: new Agent({})
     });
 
     if (!response.ok) {
