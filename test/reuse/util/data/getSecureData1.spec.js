@@ -66,6 +66,20 @@ describe("data - getSecureData - base64 encoded hex value", function () {
   });
 });
 
+describe("data - getSecureData - base64 encoded hex value auto-detected (no options)", function () {
+  let data;
+
+  it("Execution", function () {
+    data = util.data.getSecureData("decrypt.base64", "data");
+  });
+
+  it("Verification - base64 encoded hex value is decrypted via fallback auto-detection", function () {
+    const dataExp = "super-duper-sensitive-pw";
+    const dataAct = data.password;
+    common.assertion.expectEqual(dataAct, dataExp);
+  });
+});
+
 // =================================== KEEP DISABLED FOR PIPELINE EXECUTION ===================================
 // Can't be executed in pipeline because file is missing. Add the following to "data" folder to execute locally:
 
