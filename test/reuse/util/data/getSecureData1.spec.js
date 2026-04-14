@@ -55,7 +55,8 @@ describe("data - getSecureData - base64 encoded hex value", function () {
   let data;
 
   it("Execution", function () {
-    data = util.data.getSecureData("decrypt.base64");
+    const options = { useBase64Input: true };
+    data = util.data.getSecureData("decrypt.base64", "data", options);
   });
 
   it("Verification - base64 encoded hex value is decrypted", function () {
