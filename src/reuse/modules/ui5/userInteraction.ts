@@ -295,21 +295,27 @@ export class UserInteraction {
    */
   async clear(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clear);
-
     const id = await ui5.element.getId(selector, index, timeout);
-    const isTextArea = UserInteraction.SUPPORTED_TEXTAREA_METADATA.includes(selector.elementProperties.metadata);
-    const elem = await nonUi5.element.getByCss(`[id='${id}'] ${isTextArea ? "textarea" : "input"}`, 0, timeout);
-    await elem.clearValue();
-
-    // Remove tokens/tags if exists
+    
+    // Remove tokens/tags if displayed. Use isDisplayed() instead of isExisting() because
+    // the .sapMTokenizer node can exist in the DOM but be hidden (e.g. when no tokens are present),
+    // which would cause the subsequent click() to fail with a "not displayed" timeout.
     const tokenizer: Element = $(`[id='${id}'] .sapMTokenizer`);
-    if (await tokenizer.isExisting()) {
+    if (await tokenizer.isDisplayed()) {
       await nonUi5.userInteraction.click(tokenizer);
       await nonUi5.userInteraction.selectAll(tokenizer, timeout);
       await common.userInteraction.pressBackspace();
     }
 
-    await elem.click(); // leave focus
+    // Do NOT use webdriverIO clearValue() here! Some of popovers hides after clearValue call instead of stay in focus.
+    // This can lead to the cases when value is cleared but popover closes and discard changes.
+    const isTextArea = UserInteraction.SUPPORTED_TEXTAREA_METADATA.includes(selector.elementProperties.metadata);
+    await browser.execute(function (id: string, isTextArea: boolean) {
+      // @ts-ignore
+      const input = document.getElementById(id).getElementsByTagName(isTextArea ? "textarea" : "input")[0];
+      input.value = "";
+      input.focus();
+    }, id, isTextArea);
   }
 
   /**
