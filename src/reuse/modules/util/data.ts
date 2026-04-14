@@ -152,21 +152,31 @@ export class Data {
   private _decryptRecursively(data: any, options?: DecryptionOptions): any {
     const vl = this.vlf.initLog(this._decryptRecursively);
     vl.log(`Decrypting ${data}`);
+
     for (const key in data) {
       if (typeof data[key] === "object" && !Array.isArray(data[key])) {
         data[key] = this._decryptRecursively(data[key], options);
-      } else if ((typeof data[key] === "string" && this._isHex(data[key])) || Array.isArray(data[key])) {
+      } else if (Array.isArray(data[key])) {
         data[key] = global.util.data.decrypt(data[key], options);
+      } else if (typeof data[key] === "string") {
+        const isPlainHex = this._isHex(data[key]);
+        const isBase64Hex = !isPlainHex && this._isBase64EncodedHex(data[key]);
+
+        if (isPlainHex || isBase64Hex) {
+          const effectiveOptions = isBase64Hex ? { useBase64Input: true, ...options } : options;
+          data[key] = global.util.data.decrypt(data[key], effectiveOptions);
+        }
       }
     }
+    
     return data;
   }
 
   private _isHex(str: string): boolean {
-    // Check if string is hex (even length and only contains hex characters)
-    if (/^[0-9a-fA-F]+$/.test(str) && str.length % 2 === 0) return true;
-    
-    // If string is base64, decode and check if decoded string is hex
+    return /^[0-9a-fA-F]+$/.test(str) && str.length % 2 === 0;
+  }
+
+  private _isBase64EncodedHex(str: string): boolean {
     try {
       const decoded = Buffer.from(str, "base64").toString("utf8");
       return /^[0-9a-fA-F]+$/.test(decoded) && decoded.length % 2 === 0;
