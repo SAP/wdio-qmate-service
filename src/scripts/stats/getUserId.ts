@@ -65,11 +65,7 @@ async function fetchNewUserIdFromServer(): Promise<string | null> {
 async function fetchNewUserResponse(): Promise<Response> {
   return fetch(`${STATS_SERVER_URL}/api/user`, {
     method: "POST",
-    dispatcher: new Agent({
-      connect: {
-        rejectUnauthorized: false,
-      }
-    })
+    dispatcher: new Agent({})
   });
 }
 

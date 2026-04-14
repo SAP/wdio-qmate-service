@@ -10,11 +10,7 @@ export async function updateQmateUsage(id: string, usageData: { result: string }
         "Content-Type": "application/json",
       },
       body: JSON.stringify(usageData),
-      dispatcher: new Agent({
-        connect: {
-          rejectUnauthorized: false,
-        }
-      })
+      dispatcher: new Agent({})
     });
 
     if (!response.ok) {
