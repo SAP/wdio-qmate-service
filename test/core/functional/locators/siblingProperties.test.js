@@ -112,6 +112,58 @@ describe("webdriver.io page locator test", function () {
     };
     await expect(browser.uiControl(wrongProperties)).rejects.toThrowError(/No visible elements found/);
   });
+
+  it("should access element by elementProperties and multiple siblingProperties as array - AND (happy case)", async function () {
+    // The AC list item has CSA as a sibling, and also has other StandardListItem siblings - both conditions must match
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.ui.demo.cart.view.Home",
+        "metadata": "sap.m.StandardListItem",
+        "bindingContextPath": "/ProductCategories*'AC')"
+      },
+      "siblingProperties": [
+        { "viewName": "sap.ui.demo.cart.view.Home", "metadata": "sap.m.StandardListItem", "bindingContextPath": "/ProductCategories*'CSA')" },
+        { "viewName": "sap.ui.demo.cart.view.Home", "metadata": "sap.m.StandardListItem" }
+      ]
+    };
+    const elem = await browser.uiControl(selector);
+    await expect(elem).toBeDisplayed();
+    await expect(elem).toBeClickable();
+  });
+
+  it("should fail when one entry of siblingProperties array does not match - AND (unhappy case)", async function () {
+    // Second entry points to a non-existent sibling - AND logic means the whole selector fails
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.ui.demo.cart.view.Home",
+        "metadata": "sap.m.StandardListItem",
+        "bindingContextPath": "/ProductCategories*'AC')"
+      },
+      "siblingProperties": [
+        { "viewName": "sap.ui.demo.cart.view.Home", "metadata": "sap.m.StandardListItem", "bindingContextPath": "/ProductCategories*'CSA')" },
+        { "viewName": "sap.ui.demo.cart.view.Home", "metadata": "sap.m.StandardListItem", "bindingContextPath": "/ProductCategories*'THIS-DOES-NOT-EXIST')" }
+      ]
+    };
+    await expect(browser.uiControl(selector, 0, 1000))
+      .rejects.toThrowError(/No visible elements found/);
+  });
+
+  it("should return multiple elements when multiple elements each satisfy array siblingProperties - AND (multiple results)", async function () {
+    // All category items (except AC and CSA themselves) have both AC and CSA as siblings - returns multiple items
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.ui.demo.cart.view.Home",
+        "metadata": "sap.m.StandardListItem"
+      },
+      "siblingProperties": [
+        { "viewName": "sap.ui.demo.cart.view.Home", "metadata": "sap.m.StandardListItem", "bindingContextPath": "/ProductCategories*'CSA')" },
+        { "viewName": "sap.ui.demo.cart.view.Home", "metadata": "sap.m.StandardListItem", "bindingContextPath": "/ProductCategories*'AC')" }
+      ]
+    };
+    const elems = await browser.uiControls(selector);
+    expect(elems.length).toBeGreaterThan(1);
+  });
+
 });
 
 

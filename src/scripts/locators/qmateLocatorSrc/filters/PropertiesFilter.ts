@@ -5,9 +5,10 @@ import { BaseFilter } from "./BaseFilter";
 
 export class PropertiesFilter extends BaseFilter {
   public doCheckSingle(control: UI5Control): boolean {
-    let pass = MetadataComparator.compareMetadata(this.elementProperties, control);
-    pass &&= ElementPropertiesComparator.compareToProperties(this.elementProperties, control);
-    pass &&= DomPropertiesComparator.compareToDomProperties(this.elementProperties.domProperties, control);
+    const props = this.elementProperties as ElementProperties;
+    let pass = MetadataComparator.compareMetadata(props, control);
+    pass &&= ElementPropertiesComparator.compareToProperties(props, control);
+    pass &&= DomPropertiesComparator.compareToDomProperties(props.domProperties, control);
     return pass;
   }
 }
