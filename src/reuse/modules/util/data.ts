@@ -163,7 +163,16 @@ export class Data {
   }
 
   private _isHex(str: string): boolean {
-    return /^[0-9a-fA-F]+$/.test(str) && str.length % 2 === 0;
+    // Check if string is hex (even length and only contains hex characters)
+    if (/^[0-9a-fA-F]+$/.test(str) && str.length % 2 === 0) return true;
+    
+    // If string is base64, decode and check if decoded string is hex
+    try {
+      const decoded = Buffer.from(str, "base64").toString("utf8");
+      return /^[0-9a-fA-F]+$/.test(decoded) && decoded.length % 2 === 0;
+    } catch {
+      return false;
+    }
   }
 }
 export default new Data();
