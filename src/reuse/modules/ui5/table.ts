@@ -533,7 +533,7 @@ export class Table {
   /**
    * @function openItemByIndex
    * @memberOf ui5.table
-   * @description Opens the item in the table by its index.
+   * @description Opens the item in the table by its index via right arrow icon or direct click.
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
    * @param {Number} index - The index of the item to open.
    * @example const selector = {
@@ -547,11 +547,14 @@ export class Table {
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
    * await ui5.table.openItemByIndex(id, 0);
    */
-  async openItemByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
+  async openItemByIndex(
+    tableSelectorOrId: Ui5Selector | string, 
+    index: number,
+  ) {
     this.vlf.initLog(this.openItemByIndex);
 
     const rowSelector = await this.getSelectorForRowByIndex(tableSelectorOrId, index);
-    await ui5.userInteraction.click(rowSelector);
+    await this._clickRowOrArrowIcon(rowSelector);
   }
 
   /**
@@ -588,14 +591,13 @@ export class Table {
     this.vlf.initLog(this.openItemByValues);
 
     const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values, enableHighlighting, matchMode);
-    if (rowSelectors.length === 0) {
+    if (rowSelectors.length === 0)
       return this.ErrorHandler.logException(new Error(`No items found with the provided values: ${values}.`));
-    } else if (rowSelectors.length <= index) {
+    if (rowSelectors.length <= index)
       return this.ErrorHandler.logException(new Error(`The index ${index} is out of bounds. The number of matching items is ${rowSelectors.length}.`));
-    } else {
-      const rowSelector = rowSelectors[index];
-      await ui5.userInteraction.click(rowSelector);
-    }
+
+    const rowSelector = rowSelectors[index];
+    await this._clickRowOrArrowIcon(rowSelector);
   }
 
   // =================================== HELPER ===================================
@@ -972,6 +974,22 @@ export class Table {
         break;
       default:
         throw new Error("No selectable element found for the row.");
+    }
+  }
+
+  private async _clickRowOrArrowIcon(rowSelector: Ui5Selector): Promise<void> {
+    const rowArrowIconSelector: Ui5Selector = {
+      elementProperties: {
+        metadata: "sap.ui.core.Icon",
+        src: "sap-icon://slim-arrow-right"
+      },
+      parentProperties: rowSelector.elementProperties
+    };
+
+    if (await ui5.element.isVisible(rowArrowIconSelector, 0, 5000)) {
+      await ui5.userInteraction.click(rowArrowIconSelector);
+    } else {
+      await ui5.userInteraction.click(rowSelector);
     }
   }
 }
