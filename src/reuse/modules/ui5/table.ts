@@ -554,18 +554,7 @@ export class Table {
     this.vlf.initLog(this.openItemByIndex);
 
     const rowSelector = await this.getSelectorForRowByIndex(tableSelectorOrId, index);
-    const rowArrowIconSelector: Ui5Selector = {
-      elementProperties: { 
-        metadata: "sap.ui.core.Icon", 
-        src: "sap-icon://slim-arrow-right"
-      },
-      parentProperties: rowSelector.elementProperties
-    }
-    
-    if(await ui5.element.isVisible(rowArrowIconSelector)) {
-      await ui5.userInteraction.click(rowArrowIconSelector);
-    }
-    else {
+    if(!(await this._clickRowArrowIcon(rowSelector))) {
       await ui5.userInteraction.click(rowSelector);
     }
   }
@@ -610,18 +599,7 @@ export class Table {
       return this.ErrorHandler.logException(new Error(`The index ${index} is out of bounds. The number of matching items is ${rowSelectors.length}.`));
 
     const rowSelector = rowSelectors[index];
-    const rowArrowIconSelector: Ui5Selector = {
-      elementProperties: { 
-        metadata: "sap.ui.core.Icon", 
-        src: "sap-icon://slim-arrow-right"
-      },
-      parentProperties: rowSelector.elementProperties
-    }
-
-    if(await ui5.element.isVisible(rowArrowIconSelector)) {
-      await ui5.userInteraction.click(rowArrowIconSelector);
-    }
-    else {
+    if(!(await this._clickRowArrowIcon(rowSelector))) {
       await ui5.userInteraction.click(rowSelector);
     }
   }
@@ -1001,6 +979,22 @@ export class Table {
       default:
         throw new Error("No selectable element found for the row.");
     }
+  }
+
+  private async _clickRowArrowIcon(rowSelector: Ui5Selector): Promise<boolean> {
+    const rowArrowIconSelector: Ui5Selector = {
+      elementProperties: { 
+        metadata: "sap.ui.core.Icon", 
+        src: "sap-icon://slim-arrow-right"
+      },
+      parentProperties: rowSelector.elementProperties
+    }
+
+    if(await ui5.element.isVisible(rowArrowIconSelector, 0, 5000)) {
+      await ui5.userInteraction.click(rowArrowIconSelector);
+      return true;
+    }
+    return false;
   }
 }
 export default new Table();
