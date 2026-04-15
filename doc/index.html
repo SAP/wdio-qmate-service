@@ -17093,7 +17093,9 @@ This is essential for chaining scripts, so that no static browser sleep in the s
 </code></pre></div>
 <a name="ui5.table.selectRowByValues"></a></p>
 <h4 id="tableselectrowbyvaluestableselectororid-values-index">table.selectRowByValues(tableSelectorOrId, values, [index])</h4>
-<p>Selects a row in the table by matching value(s). If multiple rows match, selects the one at the given global index (across all pages).</p>
+<p>Selects a row in the table by matching value(s). First, all rows containing the given value(s) are collected.
+Then, the row at the given index within that list of matching rows is selected.
+This is useful when multiple rows match the same value(s) and you need to target a specific one.</p>
 <p><strong>Kind</strong>: static method of <a href="#ui5.table"><code>table</code></a>  </p>
 <table>
 <thead>
@@ -17115,13 +17117,13 @@ This is essential for chaining scripts, so that no static browser sleep in the s
 <td>values</td>
 <td><code>String</code> | <code>Array.&lt;String&gt;</code></td>
 <td></td>
-<td>The value(s) to match in the table rows.</td>
+<td>The value(s) to match in the table rows. If multiple values are provided, only rows containing all of them will match.</td>
 </tr>
 <tr>
 <td>[index]</td>
 <td><code>Number</code></td>
 <td><code>0</code></td>
-<td>The global index of the matching row to select (across all pages).</td>
+<td>The index within the list of matching rows (not the table row index). Defaults to 0 (first match). For example, if 3 rows match the given values, use index 1 to select the second match.</td>
 </tr>
 </tbody>
 </table>
@@ -17137,6 +17139,7 @@ This is essential for chaining scripts, so that no static browser sleep in the s
 </code></pre></div>
 <strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;application-ReportingTask-run-component---ReportList--ReportingTable&quot;</span><span class="p">;</span>
+<span class="c1">// Selects the second row that contains &quot;value&quot; (index 1 among matches, not table row index 1)</span>
 <span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">table</span><span class="p">.</span><span class="nx">selectRowByValues</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
 </code></pre></div>
 <a name="ui5.table.openItemByIndex"></a></p>
@@ -17180,7 +17183,9 @@ This is essential for chaining scripts, so that no static browser sleep in the s
 </code></pre></div>
 <a name="ui5.table.openItemByValues"></a></p>
 <h4 id="tableopenitembyvaluestableselectororid-values-index-enablehighlighting-matchmode">table.openItemByValues(tableSelectorOrId, values, [index], [enableHighlighting], [matchMode])</h4>
-<p>Opens the item in the table containing the given values. If multiple items match, it opens the index-th item.</p>
+<p>Opens the item in the table containing the given values. First, all rows containing the given value(s) are collected.
+Then, the row at the given index within that list of matching rows is opened.
+This is useful when multiple rows match the same value(s) and you need to target a specific one.</p>
 <p><strong>Kind</strong>: static method of <a href="#ui5.table"><code>table</code></a>  </p>
 <table>
 <thead>
@@ -17202,13 +17207,13 @@ This is essential for chaining scripts, so that no static browser sleep in the s
 <td>values</td>
 <td><code>String</code> | <code>Array.&lt;String&gt;</code></td>
 <td></td>
-<td>The value(s) to match in the table rows.</td>
+<td>The value(s) to match in the table rows. If multiple values are provided, only rows containing all of them will match.</td>
 </tr>
 <tr>
 <td>[index]</td>
 <td><code>Number</code></td>
 <td><code>0</code></td>
-<td>The index of the matching row to consider.</td>
+<td>The index within the list of matching rows (not the table row index). Defaults to 0 (first match). For example, if 3 rows match the given values, use index 1 to open the second match.</td>
 </tr>
 <tr>
 <td>[enableHighlighting]</td>
