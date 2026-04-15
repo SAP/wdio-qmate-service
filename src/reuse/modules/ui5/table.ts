@@ -496,10 +496,12 @@ export class Table {
   /**
    * @function selectRowByValues
    * @memberOf ui5.table
-   * @description Selects a row in the table by matching value(s). If multiple rows match, selects the one at the given global index (across all pages).
+   * @description Selects a row in the table by matching value(s). First, all rows containing the given value(s) are collected.
+   * Then, the row at the given index within that list of matching rows is selected.
+   * This is useful when multiple rows match the same value(s) and you need to target a specific one.
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table.
-   * @param {String | Array<String>} values - The value(s) to match in the table rows.
-   * @param {Number} [index=0] - The global index of the matching row to select (across all pages).
+   * @param {String | Array<String>} values - The value(s) to match in the table rows. If multiple values are provided, only rows containing all of them will match.
+   * @param {Number} [index=0] - The index within the list of matching rows (not the table row index). Defaults to 0 (first match). For example, if 3 rows match the given values, use index 1 to select the second match.
    * @example const selector = {
    * elementProperties: {
    *  viewName: "gs.fin.runstatutoryreports.s1.view.ReportList",
@@ -509,6 +511,7 @@ export class Table {
    * };
    * await ui5.table.selectRowByValues(selector, ["value1", "value2"]);
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+   * // Selects the second row that contains "value" (index 1 among matches, not table row index 1)
    * await ui5.table.selectRowByValues(id, "value", 1);
    */
   async selectRowByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, index: number = 0) {
@@ -570,11 +573,12 @@ export class Table {
   /**
    * @function openItemByValues
    * @memberOf ui5.table
-   * @description Opens the item in the table containing the given values via right arrow icon or direct click. 
-   * If multiple items match, it opens the index-th item.
+   * @description Opens the item in the table containing the given values. First, all rows containing the given value(s) are collected.
+   * Then, the row at the given index within that list of matching rows is opened.
+   * This is useful when multiple rows match the same value(s) and you need to target a specific one.
    * @param {Ui5Selector | String} tableSelectorOrId - The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable).
-   * @param {String | Array<String>} values - The value(s) to match in the table rows.
-   * @param {Number} [index=0] - The index of the matching row to consider.
+   * @param {String | Array<String>} values - The value(s) to match in the table rows. If multiple values are provided, only rows containing all of them will match.
+   * @param {Number} [index=0] - The index within the list of matching rows (not the table row index). Defaults to 0 (first match). For example, if 3 rows match the given values, use index 1 to open the second match.
    * @param {Boolean} [enableHighlighting=true] - Enable or disable highlighting of found elements.
    * @param {String} [matchMode="contains"] - The match mode for the values. Can be "contains", "exact" or "wordBoundary".
    * @example const selector = {
