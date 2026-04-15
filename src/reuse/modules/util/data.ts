@@ -21,7 +21,7 @@ export class Data {
   private vlf = new VerboseLoggerFactory("util", "data");
   private ErrorHandler = new ErrorHandler();
 
-  private _alreadyDecryptedData: Array<string> = [];
+  private _alreadyDecryptedData: Set<string> = new Set();
 
   // ========================== Public functions ==========================
   /**
@@ -74,12 +74,12 @@ export class Data {
         const dataIdentifier = `${source}_${filename}`;
 
         // Decrypt data if not already decrypted and private key is found
-        if (!this._alreadyDecryptedData.includes(dataIdentifier) && privateKeyFound) {
+        if (!this._alreadyDecryptedData.has(dataIdentifier) && privateKeyFound) {
           this._decryptRecursively(data, options);
         }
 
-        // Make sure data is not decrypted again
-        this._alreadyDecryptedData.push(dataIdentifier);
+        // Make sure data is not decrypted again (Set ignores duplicates)
+        this._alreadyDecryptedData.add(dataIdentifier);
 
         return data;
       } else {
@@ -163,7 +163,7 @@ export class Data {
         const isBase64Hex = !isPlainHex && this._isBase64EncodedHex(data[key]);
 
         if (isPlainHex || isBase64Hex) {
-          const effectiveOptions = isBase64Hex ? { useBase64Input: true, ...options } : options;
+          const effectiveOptions = isBase64Hex ? { useBase64Input: true, ...options } : options; // User-provided options override auto-detected values
           data[key] = global.util.data.decrypt(data[key], effectiveOptions);
         }
       }
@@ -179,7 +179,7 @@ export class Data {
   private _isBase64EncodedHex(str: string): boolean {
     try {
       const decoded = Buffer.from(str, "base64").toString("utf8");
-      return /^[0-9a-fA-F]+$/.test(decoded) && decoded.length % 2 === 0;
+      return /^[0-9a-fA-F]+$/.test(decoded) && decoded.length % 2 === 0 && decoded.length >= 64;
     } catch {
       return false;
     }
