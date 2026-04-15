@@ -173,13 +173,13 @@ export class Data {
   }
 
   private _isHex(str: string): boolean {
-    return /^[0-9a-fA-F]+$/.test(str) && str.length % 2 === 0;
+    return /^[0-9a-fA-F]+$/.test(str) && str.length % 2 === 0 && str.length >= 64;
   }
 
   private _isBase64EncodedHex(str: string): boolean {
     try {
       const decoded = Buffer.from(str, "base64").toString("utf8");
-      return /^[0-9a-fA-F]+$/.test(decoded) && decoded.length % 2 === 0 && decoded.length >= 64;
+      return this._isHex(decoded);
     } catch {
       return false;
     }

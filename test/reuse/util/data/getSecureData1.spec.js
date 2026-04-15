@@ -23,13 +23,19 @@ describe("data - getSecureData - default source", function () {
     common.assertion.expectEqual(dataAct, dataExp);
   });
 
-  it("Verification 4 - nested value", function () {
+  it("Verification 4 - short hex value is not decrypted", function () {
+    const dataExp = "deadbeef12345678";
+    const dataAct = data.test.shortHex;
+    common.assertion.expectEqual(dataAct, dataExp);
+  });
+
+  it("Verification 5 - nested value", function () {
     const dataExp = "TEST";
     const dataAct = data.test.inner.value;
     common.assertion.expectEqual(dataAct, dataExp);
   });
 
-  it("Verification 5 - alternatives from different keys", function () {
+  it("Verification 6 - alternatives from different keys", function () {
     const dataExp = "super-duper-sensitive-pw";
     const dataAct = data.alternatives;
     common.assertion.expectEqual(dataAct, dataExp);
