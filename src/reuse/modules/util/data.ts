@@ -21,7 +21,7 @@ export class Data {
   private vlf = new VerboseLoggerFactory("util", "data");
   private ErrorHandler = new ErrorHandler();
 
-  private _alreadyDecryptedData: Array<string> = [];
+  private _alreadyDecryptedData: Set<string> = new Set();
 
   // ========================== Public functions ==========================
   /**
@@ -74,12 +74,12 @@ export class Data {
         const dataIdentifier = `${source}_${filename}`;
 
         // Decrypt data if not already decrypted and private key is found
-        if (!this._alreadyDecryptedData.includes(dataIdentifier) && privateKeyFound) {
+        if (!this._alreadyDecryptedData.has(dataIdentifier) && privateKeyFound) {
           this._decryptRecursively(data, options);
         }
 
-        // Make sure data is not decrypted again
-        this._alreadyDecryptedData.push(dataIdentifier);
+        // Make sure data is not decrypted again (Set ignores duplicates)
+        this._alreadyDecryptedData.add(dataIdentifier);
 
         return data;
       } else {
@@ -152,18 +152,37 @@ export class Data {
   private _decryptRecursively(data: any, options?: DecryptionOptions): any {
     const vl = this.vlf.initLog(this._decryptRecursively);
     vl.log(`Decrypting ${data}`);
+
     for (const key in data) {
       if (typeof data[key] === "object" && !Array.isArray(data[key])) {
         data[key] = this._decryptRecursively(data[key], options);
-      } else if ((typeof data[key] === "string" && this._isHex(data[key])) || Array.isArray(data[key])) {
+      } else if (Array.isArray(data[key])) {
         data[key] = global.util.data.decrypt(data[key], options);
+      } else if (typeof data[key] === "string") {
+        const isPlainHex = this._isHex(data[key]);
+        const isBase64Hex = !isPlainHex && this._isBase64EncodedHex(data[key]);
+
+        if (isPlainHex || isBase64Hex) {
+          const effectiveOptions = isBase64Hex ? { useBase64Input: true, ...options } : options; // User-provided options override auto-detected values
+          data[key] = global.util.data.decrypt(data[key], effectiveOptions);
+        }
       }
     }
+    
     return data;
   }
 
   private _isHex(str: string): boolean {
-    return /^[0-9a-fA-F]+$/.test(str) && str.length % 2 === 0;
+    return /^[0-9a-fA-F]+$/.test(str) && str.length % 2 === 0 && str.length >= 64;
+  }
+
+  private _isBase64EncodedHex(str: string): boolean {
+    try {
+      const decoded = Buffer.from(str, "base64").toString("utf8");
+      return this._isHex(decoded);
+    } catch {
+      return false;
+    }
   }
 }
 export default new Data();
