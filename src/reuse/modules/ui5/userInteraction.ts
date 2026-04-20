@@ -35,25 +35,7 @@ export class UserInteraction {
    */
   async click(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.click);
-    let elem = null;
-    await browser.waitUntil(
-      async function () {
-        elem = await ui5.element.getDisplayed(selector, index, timeout);
-        if (!elem) return false;
-        return elem.isClickable();
-      },
-      {
-        timeout,
-        timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
-      }
-    );
-    try {
-      // @ts-ignore
-      await elem.click();
-    } catch (error) {
-      // @ts-ignore
-      this.ErrorHandler.logException(error);
-    }
+    await this._waitForClickableAndPerform(selector, index, timeout, (elem) => elem.click());
   }
 
   /**
@@ -83,25 +65,7 @@ export class UserInteraction {
    */
   async doubleClick(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.doubleClick);
-    let elem = null;
-    await browser.waitUntil(
-      async function () {
-        elem = await ui5.element.getDisplayed(selector, index, timeout);
-        if (!elem) return false;
-        return elem.isClickable();
-      },
-      {
-        timeout,
-        timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
-      }
-    );
-    try {
-      // @ts-ignore
-      await elem.doubleClick();
-    } catch (error) {
-      // @ts-ignore
-      this.ErrorHandler.logException(error);
-    }
+    await this._waitForClickableAndPerform(selector, index, timeout, (elem) => elem.doubleClick());
   }
 
   /**
@@ -116,27 +80,7 @@ export class UserInteraction {
    */
   async rightClick(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.rightClick);
-    let elem = null;
-    await browser.waitUntil(
-      async function () {
-        elem = await ui5.element.getDisplayed(selector, index, timeout);
-        if (!elem) return false;
-        return elem.isClickable();
-      },
-      {
-        timeout,
-        timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
-      }
-    );
-    try {
-      // @ts-ignore
-      await elem.click({
-        button: "right"
-      });
-    } catch (error) {
-      // @ts-ignore
-      this.ErrorHandler.logException(error);
-    }
+    await this._waitForClickableAndPerform(selector, index, timeout, (elem) => elem.click({ button: "right" }));
   }
 
   /**
@@ -730,6 +674,56 @@ export class UserInteraction {
   }
 
   // =================================== HELPER ===================================
+  private async _waitForClickableAndPerform(selector: any, index: number, timeout: number, action: (elem: Element) => Promise<void>): Promise<void> {
+    let elem: Element | null = null;
+    let elemsWereFound = false;
+    try {
+      await browser.waitUntil(
+        async () => {
+          const result = await this._getClickableElement(selector, index, timeout);
+          elemsWereFound = elemsWereFound || result.elemsWereFound;
+          elem = result.elem;
+          return elem !== null;
+        },
+        {
+          timeout,
+          timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
+        }
+      );
+    } catch {
+      const msg = elemsWereFound
+        ? `Element not clickable after ${+timeout / 1000}s`
+        : `No visible elements found with selector: ${JSON.stringify(selector)}`;
+      this.ErrorHandler.logException(new Error(), msg);
+      return;
+    }
+    try {
+      await action(elem!);
+    } catch (error) {
+      // @ts-ignore
+      this.ErrorHandler.logException(error);
+    }
+  }
+
+  private async _getClickableElement(selector: any, index: number, timeout: number): Promise<{ elem: Element | null; elemsWereFound: boolean }> {
+    let elems: Element[];
+    try {
+      elems = await ui5.element.getAllDisplayed(selector, Math.min(timeout, 1000));
+    } catch {
+      return { elem: null, elemsWereFound: false };
+    }
+    if (!elems || elems.length === 0) return { elem: null, elemsWereFound: false };
+
+    const clickableElems: Element[] = [];
+    for (const elem of elems) {
+      if (await elem.isClickable()) {
+        clickableElems.push(elem);
+      }
+    }
+    const elem = clickableElems.length > index ? clickableElems[index] : null;
+    return { elem, elemsWereFound: true };
+  }
+
   private async _verifyTabSwitch(selector: any): Promise<boolean> {
     // two classes required to handle old and new UI5 versions
     const indicatorClasses = ["sapUxAPAnchorBarButtonSelected", "sapMITBSelected"];
