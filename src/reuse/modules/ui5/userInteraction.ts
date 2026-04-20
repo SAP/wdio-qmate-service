@@ -680,15 +680,22 @@ export class UserInteraction {
       async () => {
         await ui5.element.getDisplayed(selector, index, timeout);
 
-        const allElems = await ui5.element.getAllDisplayed(selector, timeout);
-        const clickableElems: Element[] = [];
-        for (const e of allElems) {
+        const visibleElements = await ui5.element.getAllDisplayed(selector, timeout);
+        if (visibleElements.length <= index) return false;
+
+        if (await visibleElements[index].isClickable()) {
+          elem = visibleElements[index];
+          return true;
+        }
+
+        for (const e of visibleElements) {
           if (await e.isClickable()) {
-            clickableElems.push(e);
+            elem = e;
+            return true;
           }
         }
-        elem = clickableElems.length > index ? clickableElems[index] : null;
-        return elem !== null;
+
+        return false;
       },
       {
         timeout,
