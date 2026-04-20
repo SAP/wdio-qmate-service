@@ -678,16 +678,13 @@ export class UserInteraction {
     let elem: Element | null = null;
     await browser.waitUntil(
       async () => {
-        await ui5.element.getDisplayed(selector, index, timeout);
-
-        const visibleElements = await ui5.element.getAllDisplayed(selector, timeout);
-        if (visibleElements.length <= index) return false;
-
-        if (await visibleElements[index].isClickable()) {
-          elem = visibleElements[index];
+        const primaryElem = await ui5.element.getDisplayed(selector, index, timeout);
+        if (await primaryElem.isClickable()) {
+          elem = primaryElem;
           return true;
         }
 
+        const visibleElements = await ui5.element.getAllDisplayed(selector, timeout);
         for (const e of visibleElements) {
           if (await e.isClickable()) {
             elem = e;
