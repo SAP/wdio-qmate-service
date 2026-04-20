@@ -676,52 +676,31 @@ export class UserInteraction {
   // =================================== HELPER ===================================
   private async _waitForClickableAndPerform(selector: any, index: number, timeout: number, action: (elem: Element) => Promise<void>): Promise<void> {
     let elem: Element | null = null;
-    let elemsWereFound = false;
-    try {
-      await browser.waitUntil(
-        async () => {
-          const result = await this._getClickableElement(selector, index, timeout);
-          elemsWereFound = elemsWereFound || result.elemsWereFound;
-          elem = result.elem;
-          return elem !== null;
-        },
-        {
-          timeout,
-          timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
+    await browser.waitUntil(
+      async () => {
+        await ui5.element.getDisplayed(selector, index, timeout);
+
+        const allElems = await ui5.element.getAllDisplayed(selector, timeout);
+        const clickableElems: Element[] = [];
+        for (const e of allElems) {
+          if (await e.isClickable()) {
+            clickableElems.push(e);
+          }
         }
-      );
-    } catch {
-      const msg = elemsWereFound
-        ? `Element not clickable after ${+timeout / 1000}s`
-        : `No visible elements found with selector: ${JSON.stringify(selector)}`;
-      this.ErrorHandler.logException(new Error(), msg);
-      return;
-    }
+        elem = clickableElems.length > index ? clickableElems[index] : null;
+        return elem !== null;
+      },
+      {
+        timeout,
+        timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
+      }
+    );
     try {
       await action(elem!);
     } catch (error) {
       // @ts-ignore
       this.ErrorHandler.logException(error);
     }
-  }
-
-  private async _getClickableElement(selector: any, index: number, timeout: number): Promise<{ elem: Element | null; elemsWereFound: boolean }> {
-    let elems: Element[];
-    try {
-      elems = await ui5.element.getAllDisplayed(selector, Math.min(timeout, 1000));
-    } catch {
-      return { elem: null, elemsWereFound: false };
-    }
-    if (!elems || elems.length === 0) return { elem: null, elemsWereFound: false };
-
-    const clickableElems: Element[] = [];
-    for (const elem of elems) {
-      if (await elem.isClickable()) {
-        clickableElems.push(elem);
-      }
-    }
-    const elem = clickableElems.length > index ? clickableElems[index] : null;
-    return { elem, elemsWereFound: true };
   }
 
   private async _verifyTabSwitch(selector: any): Promise<boolean> {
