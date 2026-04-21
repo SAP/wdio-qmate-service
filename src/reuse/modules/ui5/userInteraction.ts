@@ -35,7 +35,27 @@ export class UserInteraction {
    */
   async click(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.click);
-    await this._waitForClickableAndPerform(selector, index, timeout, (elem) => elem.click());
+    let elem = null;
+    const timeoutMsg = `Element not clickable after ${+timeout / 1000}s`;
+    try {
+      await browser.waitUntil(
+        async function () {
+          elem = await ui5.element.getDisplayed(selector, index, timeout);
+          if (!elem) return false;
+          return elem.isClickable();
+        },
+        { timeout, timeoutMsg }
+      );
+    } catch (error: any) {
+      elem = await this._fallbackOnOverlay(error, timeoutMsg, selector, index);
+    }
+    try {
+      // @ts-ignore
+      await elem.click();
+    } catch (error) {
+      // @ts-ignore
+      this.ErrorHandler.logException(error);
+    }
   }
 
   /**
@@ -65,7 +85,27 @@ export class UserInteraction {
    */
   async doubleClick(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.doubleClick);
-    await this._waitForClickableAndPerform(selector, index, timeout, (elem) => elem.doubleClick());
+    let elem = null;
+    const timeoutMsg = `Element not clickable after ${+timeout / 1000}s`;
+    try {
+      await browser.waitUntil(
+        async function () {
+          elem = await ui5.element.getDisplayed(selector, index, timeout);
+          if (!elem) return false;
+          return elem.isClickable();
+        },
+        { timeout, timeoutMsg }
+      );
+    } catch (error: any) {
+      elem = await this._fallbackOnOverlay(error, timeoutMsg, selector, index);
+    }
+    try {
+      // @ts-ignore
+      await elem.doubleClick();
+    } catch (error) {
+      // @ts-ignore
+      this.ErrorHandler.logException(error);
+    }
   }
 
   /**
@@ -80,7 +120,27 @@ export class UserInteraction {
    */
   async rightClick(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.rightClick);
-    await this._waitForClickableAndPerform(selector, index, timeout, (elem) => elem.click({ button: "right" }));
+    let elem = null;
+    const timeoutMsg = `Element not clickable after ${+timeout / 1000}s`;
+    try {
+      await browser.waitUntil(
+        async function () {
+          elem = await ui5.element.getDisplayed(selector, index, timeout);
+          if (!elem) return false;
+          return elem.isClickable();
+        },
+        { timeout, timeoutMsg }
+      );
+    } catch (error: any) {
+      elem = await this._fallbackOnOverlay(error, timeoutMsg, selector, index);
+    }
+    try {
+      // @ts-ignore
+      await elem.click({ button: "right" });
+    } catch (error) {
+      // @ts-ignore
+      this.ErrorHandler.logException(error);
+    }
   }
 
   /**
@@ -674,51 +734,18 @@ export class UserInteraction {
   }
 
   // =================================== HELPER ===================================
-  private async _waitForClickableAndPerform(selector: any, index: number, timeout: number, action: (elem: Element) => Promise<void>): Promise<void> {
-    let elem: Element | null = null;
-
-    await browser.waitUntil(
-      async () => {
-        const primaryElem = await ui5.element.getDisplayed(selector, index, timeout);
-        if (await primaryElem.isClickable()) {
-          elem = primaryElem;
-          return true;
-        }
-
-        const blockedByUI5Overlay: boolean = await browser.execute((el: HTMLElement) => {
-          const rect = el.getBoundingClientRect();
-          const topElem = document.elementFromPoint(
-            rect.left + rect.width / 2,
-            rect.top + rect.height / 2
-          );
-          return topElem?.classList?.contains("sapUiBLy") ?? false;
-        }, primaryElem);
-
-        if (blockedByUI5Overlay) {
-          for (let i = index + 1; ; i++) {
-            let candidateElem: Element;
-            try {
-              candidateElem = await ui5.element.getDisplayed(selector, i, 500);
-            } catch {
-              return false; 
-            }
-            if (await candidateElem.isClickable()) {
-              elem = candidateElem;
-              return true;
-            }
-          }
-        }
-
-        return false;
-      },
-      { timeout, timeoutMsg: `Element not clickable after ${+timeout / 1000}s` }
-    );
-
-    try {
-      await action(elem!);
-    } catch (error) {
-      // @ts-ignore
-      this.ErrorHandler.logException(error);
+  private async _fallbackOnOverlay(error: any, timeoutMsg: string, selector: any, index: number): Promise<Element> {
+    if (error?.message !== timeoutMsg) throw error;
+    const isBlockedByOverlay: boolean = await browser.execute(() => !!document.querySelector(".sapUiBLy"));
+    if (!isBlockedByOverlay) throw error;
+    for (let i = index + 1; ; i++) {
+      let candidateElem: Element;
+      try {
+        candidateElem = await ui5.element.getDisplayed(selector, i, 5000);
+      } catch {
+        throw error;
+      }
+      if (await candidateElem.isClickable()) return candidateElem;
     }
   }
 
