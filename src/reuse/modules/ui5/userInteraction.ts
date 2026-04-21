@@ -678,16 +678,19 @@ export class UserInteraction {
     let elem: Element | null = null;
     await browser.waitUntil(
       async () => {
+        // Get the element at the requested index — identical to original code.
+        // Also preserves error behavior: throws "No visible elements found" when absent,
+        // which outer waitUntil wraps as "waitUntil condition failed".
         const primaryElem = await ui5.element.getDisplayed(selector, index, timeout);
         if (await primaryElem.isClickable()) {
           elem = primaryElem;
           return true;
         }
 
-        const visibleElements = await ui5.element.getAllDisplayed(selector, timeout);
-        for (const e of visibleElements) {
-          if (await e.isClickable()) {
-            elem = e;
+        const visibleElements = await ui5.element.getAllDisplayed(selector, 500);
+        for (let i = index + 1; i < visibleElements.length; i++) {
+          if (await visibleElements[i].isClickable()) {
+            elem = visibleElements[i];
             return true;
           }
         }
