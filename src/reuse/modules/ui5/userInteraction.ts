@@ -676,6 +676,7 @@ export class UserInteraction {
   // =================================== HELPER ===================================
   private async _waitForClickableAndPerform(selector: any, index: number, timeout: number, action: (elem: Element) => Promise<void>): Promise<void> {
     let elem: Element | null = null;
+
     await browser.waitUntil(
       async () => {
         const primaryElem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -684,24 +685,35 @@ export class UserInteraction {
           return true;
         }
 
-        for (let i = index + 1; ; i++) {
-          let candidateElem: Element;
-          try {
-            candidateElem = await ui5.element.getDisplayed(selector, i, 500);
-          } catch {
-            return false;
-          }
-          if (await candidateElem.isClickable()) {
-            elem = candidateElem;
-            return true;
+        const blockedByUI5Overlay: boolean = await browser.execute((el: HTMLElement) => {
+          const rect = el.getBoundingClientRect();
+          const topElem = document.elementFromPoint(
+            rect.left + rect.width / 2,
+            rect.top + rect.height / 2
+          );
+          return topElem?.classList?.contains("sapUiBLy") ?? false;
+        }, primaryElem);
+
+        if (blockedByUI5Overlay) {
+          for (let i = index + 1; ; i++) {
+            let candidateElem: Element;
+            try {
+              candidateElem = await ui5.element.getDisplayed(selector, i, 500);
+            } catch {
+              return false; 
+            }
+            if (await candidateElem.isClickable()) {
+              elem = candidateElem;
+              return true;
+            }
           }
         }
+
+        return false;
       },
-      {
-        timeout,
-        timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
-      }
+      { timeout, timeoutMsg: `Element not clickable after ${+timeout / 1000}s` }
     );
+
     try {
       await action(elem!);
     } catch (error) {
