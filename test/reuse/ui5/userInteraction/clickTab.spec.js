@@ -58,7 +58,7 @@ describe("userInteraction - clickTab - multiple select values", function () {
         title: "Summary"
       },
       ancestorProperties: {
-        metadata: "sap.uxap.ObjectPageSection",
+        metadata: "sap.ui.documentation.ObjectPageSection",
         viewName: "sap.ui.documentation.sdk.view.SubApiDetail",
         title: "Events"
       }

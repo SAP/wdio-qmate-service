@@ -40,7 +40,7 @@ describe("date - pickRange - when DateRangeSelection do not have any value", fun
 
     const startRange = getBorderOfRange(start);
     const endRange = getBorderOfRange(end);
-    const rangeAsString = `${startRange} - ${endRange}`;
+    const rangeAsString = `${startRange} – ${endRange}`;
 
     common.assertion.expectEqual(arrivedRange, rangeAsString);
   });
@@ -77,7 +77,7 @@ describe("date - pickRange - with index as 2", function () {
 
     const startRange = getBorderOfRange(start);
     const endRange = getBorderOfRange(end);
-    const rangeAsString = `${startRange} - ${endRange}`;
+    const rangeAsString = `${startRange} – ${endRange}`;
 
     common.assertion.expectEqual(arrivedRange, rangeAsString);
   });
@@ -123,7 +123,7 @@ describe("date - pickRange - with icon as selector", function () {
 
     const startRange = getBorderOfRange(start);
     const endRange = getBorderOfRange(end);
-    const rangeAsString = `${startRange} - ${endRange}`;
+    const rangeAsString = `${startRange} – ${endRange}`;
 
     common.assertion.expectEqual(arrivedRange, rangeAsString);
   });
