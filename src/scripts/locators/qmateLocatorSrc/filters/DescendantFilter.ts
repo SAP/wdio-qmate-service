@@ -4,6 +4,13 @@ import { ElementFilter } from "./ElementFilter";
 
 export class DescendantFilter extends BaseFilter {
   public doCheckSingle(control: UI5Control): boolean {
+    if (Array.isArray(this.elementProperties)) {
+      return this.elementProperties.every((props) => {
+        const filter = this.filterFactory.getInstance(DescendantFilter, props);
+        return filter.checkSingle(control);
+      });
+    }
+
     const parentElement = document.getElementById(control.getId?.());
     if (!parentElement) {
       return false;

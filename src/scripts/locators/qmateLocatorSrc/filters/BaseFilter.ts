@@ -2,11 +2,11 @@ import { FilterFactory } from "../utils/FilterFactory";
 import { LocatorDebug } from "../utils/LocatorDebug";
 
 export abstract class BaseFilter {
-  elementProperties: ElementProperties;
+  elementProperties: ElementProperties | ElementProperties[];
   filterFactory: FilterFactory;
   results: Map<string, boolean>;
 
-  constructor(filterFactory: FilterFactory, rawElementProperties: ElementProperties | undefined) {
+  constructor(filterFactory: FilterFactory, rawElementProperties: ElementProperties | ElementProperties[] | undefined) {
     this.elementProperties = this.convertRawElementPropertiesToElementProperties(rawElementProperties);
     this.filterFactory = filterFactory;
     this.results = new Map();
@@ -14,7 +14,8 @@ export abstract class BaseFilter {
 
   // Public
   public filter(controls: UI5Control[]): UI5Control[] {
-    if (Object.keys(this.elementProperties).length === 0 || controls.length === 0) {
+    const isEmpty = Array.isArray(this.elementProperties) ? this.elementProperties.length === 0 : Object.keys(this.elementProperties).length === 0;
+    if (isEmpty || controls.length === 0) {
       return controls;
     }
     LocatorDebug.beginLog(this.constructor.name, controls.length);
@@ -25,7 +26,8 @@ export abstract class BaseFilter {
   }
 
   public checkSingle(control: UI5Control): boolean {
-    if (Object.keys(this.elementProperties).length === 0) {
+    const isEmpty = Array.isArray(this.elementProperties) ? this.elementProperties.length === 0 : Object.keys(this.elementProperties).length === 0;
+    if (isEmpty) {
       return true;
     }
     if (!control) {
@@ -46,7 +48,10 @@ export abstract class BaseFilter {
   }
 
   // Private
-  private convertRawElementPropertiesToElementProperties(rawElementProperties: ElementProperties | undefined): ElementProperties {
+  private convertRawElementPropertiesToElementProperties(rawElementProperties: ElementProperties | ElementProperties[] | undefined): ElementProperties | ElementProperties[] {
+    if (Array.isArray(rawElementProperties)) {
+      return rawElementProperties;
+    }
     // needed for backward compatibility
     let elementProperties = { ...rawElementProperties };
     if (typeof rawElementProperties?.mProperties === "object") {
