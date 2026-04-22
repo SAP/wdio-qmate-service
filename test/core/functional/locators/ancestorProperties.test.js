@@ -100,4 +100,67 @@ describe("webdriver.io page locator test", function () {
     await expect(browser.uiControl(wrongSelectorWithoutElementProperties))
       .rejects.toThrowError(/No visible elements found/);
   });
+
+  it("should access element by elementProperties and multiple ancestorProperties as array - AND (happy case)", async function () {
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+
+    // The Reject button lives inside both a sap.m.Toolbar and a sap.m.Page - both ancestors must exist
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.m.sample.Button.Page",
+        "metadata": "sap.m.Button",
+        "text": "Reject"
+      },
+      "ancestorProperties": [
+        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Toolbar" },
+        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Page" }
+      ]
+    };
+    const elem = await browser.uiControl(selector);
+    await expect(elem).toBeDisplayed();
+    await expect(elem).toBeClickable();
+  });
+
+  it("should fail when one entry of ancestorProperties array does not match - AND (unhappy case)", async function () {
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+
+    // Second entry has a non-existent ancestor - AND logic means the whole selector fails
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.m.sample.Button.Page",
+        "metadata": "sap.m.Button",
+        "text": "Reject"
+      },
+      "ancestorProperties": [
+        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Toolbar" },
+        { "metadata": "sap.m.Table" }
+      ]
+    };
+    await expect(browser.uiControl(selector, 0, 1000))
+      .rejects.toThrowError(/No visible elements found/);
+  });
+
+  it("should return multiple elements when multiple elements each satisfy array ancestorProperties - AND (multiple results)", async function () {
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+
+    // All buttons inside a Toolbar are also inside a Page - both ancestor conditions satisfied by multiple buttons
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.m.sample.Button.Page",
+        "metadata": "sap.m.Button"
+      },
+      "ancestorProperties": [
+        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Toolbar" },
+        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Page" }
+      ]
+    };
+    const elems = await browser.uiControls(selector);
+    expect(elems.length).toBeGreaterThan(1);
+  });
 });

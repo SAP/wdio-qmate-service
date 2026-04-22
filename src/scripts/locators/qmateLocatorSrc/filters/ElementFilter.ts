@@ -12,27 +12,28 @@ import { FilterFactory } from "../utils/FilterFactory";
 export class ElementFilter extends BaseFilter {
   protected doFiltering(controls: UI5Control[]): UI5Control[] {
     this.checkElementProperties();
-
-    let filteredControls = this.filterFactory.getInstance(PropertiesFilter, this.elementProperties).filter(controls);
-    filteredControls = this.filterFactory.getInstance(AncestorFilter, this.elementProperties?.ancestorProperties).filter(filteredControls);
-    filteredControls = this.filterFactory.getInstance(DescendantFilter, this.elementProperties?.descendantProperties).filter(filteredControls);
-    filteredControls = this.filterFactory.getInstance(SiblingFilter, this.elementProperties?.siblingProperties).filter(filteredControls);
+    const props = this.elementProperties as ElementProperties;
+    let filteredControls = this.filterFactory.getInstance(PropertiesFilter, props).filter(controls);
+    filteredControls = this.filterFactory.getInstance(AncestorFilter, props.ancestorProperties).filter(filteredControls);
+    filteredControls = this.filterFactory.getInstance(DescendantFilter, props.descendantProperties).filter(filteredControls);
+    filteredControls = this.filterFactory.getInstance(SiblingFilter, props.siblingProperties).filter(filteredControls);
     return filteredControls;
   }
 
   public doCheckSingle(control: UI5Control): boolean {
     this.checkElementProperties();
-
-    let pass = this.filterFactory.getInstance(PropertiesFilter, this.elementProperties).checkSingle(control);
-    pass &&= this.filterFactory.getInstance(AncestorFilter, this.elementProperties?.ancestorProperties).checkSingle(control);
-    pass &&= this.filterFactory.getInstance(DescendantFilter, this.elementProperties?.descendantProperties).checkSingle(control);
-    pass &&= this.filterFactory.getInstance(SiblingFilter, this.elementProperties?.siblingProperties).checkSingle(control);
+    const props = this.elementProperties as ElementProperties;
+    let pass = this.filterFactory.getInstance(PropertiesFilter, props).checkSingle(control);
+    pass &&= this.filterFactory.getInstance(AncestorFilter, props.ancestorProperties).checkSingle(control);
+    pass &&= this.filterFactory.getInstance(DescendantFilter, props.descendantProperties).checkSingle(control);
+    pass &&= this.filterFactory.getInstance(SiblingFilter, props.siblingProperties).checkSingle(control);
     return pass;
   }
 
   private checkElementProperties(): void {
-    if (this.elementProperties?.prevSiblingProperties || this.elementProperties?.nextSiblingProperties || this.elementProperties?.childProperties || this.elementProperties?.parentProperties) {
-      console.error(`The selector your provided ${JSON.stringify(this.elementProperties)} contains childProperties, parentProperties, prevSiblingProperties or nextSiblingProperties, please provide a valid selector without these properties`);
+    const props = this.elementProperties as ElementProperties;
+    if (props?.prevSiblingProperties || props?.nextSiblingProperties || props?.childProperties || props?.parentProperties) {
+      console.error(`The selector your provided ${JSON.stringify(props)} contains childProperties, parentProperties, prevSiblingProperties or nextSiblingProperties, please provide a valid selector without these properties`);
       throw new Error("Nested properties can only be used for ancestorProperties, descendantProperties or siblingProperties.");
     }
   }

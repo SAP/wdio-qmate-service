@@ -107,4 +107,64 @@ describe("webdriver.io page locator test", function () {
       .rejects.toThrowError(/No visible elements found/);
   });
 
+  it("should access element by elementProperties and multiple descendantProperties as array - AND (happy case)", async function () {
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+
+    // The toolbar contains both a "Default" button and a "Reject" button as descendants - both must match
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.m.sample.Button.Page",
+        "metadata": "sap.m.Toolbar"
+      },
+      "descendantProperties": [
+        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Button", "text": "Default" },
+        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Button", "text": "Reject" }
+      ]
+    };
+    const elem = await browser.uiControl(selector);
+    await expect(elem).toBeDisplayed();
+  });
+
+  it("should fail when one entry of descendantProperties array does not match - AND (unhappy case)", async function () {
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+
+    // Second entry has a non-existent text - AND logic means the whole selector fails
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.m.sample.Button.Page",
+        "metadata": "sap.m.Toolbar"
+      },
+      "descendantProperties": [
+        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Button", "text": "Default" },
+        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Button", "text": "this-button-does-not-exist" }
+      ]
+    };
+    await expect(browser.uiControl(selector, 0, 1000))
+      .rejects.toThrowError(/No visible elements found/);
+  });
+
+  it("should return multiple elements when multiple parents each satisfy array descendantProperties - AND (multiple results)", async function () {
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+
+    // Multiple FlexItemData elements exist on this page (one per button).
+    // Using a single-entry array exercises the array code path and should return all FlexItemData with a Button descendant.
+    const selector = {
+      "elementProperties": {
+        "viewName": "sap.m.sample.Button.Page",
+        "metadata": "sap.m.FlexItemData"
+      },
+      "descendantProperties": [
+        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Button" }
+      ]
+    };
+    const elems = await browser.uiControls(selector);
+    expect(elems.length).toBeGreaterThan(1);
+  });
+
 });
