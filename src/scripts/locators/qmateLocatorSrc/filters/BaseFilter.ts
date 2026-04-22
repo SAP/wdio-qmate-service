@@ -6,7 +6,7 @@ export abstract class BaseFilter {
   filterFactory: FilterFactory;
   results: Map<string, boolean>;
 
-  constructor(filterFactory: FilterFactory, rawElementProperties: ElementProperties | undefined) {
+  constructor(filterFactory: FilterFactory, rawElementProperties: ElementProperties | ElementProperties[] | undefined) {
     this.elementProperties = this.convertRawElementPropertiesToElementProperties(rawElementProperties);
     this.filterFactory = filterFactory;
     this.results = new Map();

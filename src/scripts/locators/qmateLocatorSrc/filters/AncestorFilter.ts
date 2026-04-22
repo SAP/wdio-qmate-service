@@ -5,7 +5,7 @@ import { ElementFilter } from "./ElementFilter";
 export class AncestorFilter extends BaseFilter {
   public doCheckSingle(control: UI5Control): boolean {
     if (Array.isArray(this.elementProperties)) {
-      return (this.elementProperties as ElementProperties[]).every((props) => {
+      return this.elementProperties.every((props) => {
         return this.filterFactory.getInstance(AncestorFilter, props).checkSingle(control);
       });
     }
