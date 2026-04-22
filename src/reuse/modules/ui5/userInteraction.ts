@@ -22,6 +22,7 @@ export class UserInteraction {
   private static readonly TEXTAREA_MACROS_METADATA: Ui5ControlMetadata = "sap.fe.macros.field.TextAreaEx";
   private static readonly SUPPORTED_TEXTAREA_METADATA: Array<Ui5ControlMetadata> = [UserInteraction.TEXTAREA_METADATA, UserInteraction.TEXTAREA_MACROS_METADATA];
   private static readonly SELECT_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.select' function instead.";
+  private static readonly OPENF4HELP_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.openValueHelp' function instead.";
 
   // =================================== CLICK ===================================
   /**
@@ -678,6 +679,7 @@ export class UserInteraction {
    */
   async openF4Help(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, useF4Key = true) {
     const vl = this.vlf.initLog(this.openF4Help);
+    util.console.warn(UserInteraction.OPENF4HELP_DEPRECATION_MESSAGE);
     await ui5.userInteraction.click(selector, index, timeout);
     if (useF4Key === true) {
       await common.userInteraction.pressF4();
