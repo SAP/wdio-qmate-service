@@ -5,7 +5,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { AlignmentOptions, AlignmentValues } from "../types";
 import ErrorHandler from "../../helper/errorHandler";
 import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
-import { Ui5ControlMetadata } from "./types/ui5.types";
+import { Ui5ControlMetadata, Ui5Selector } from "./types/ui5.types";
 import { KeyCodes } from "../common/constants/userInteraction.constants";
 
 /**
@@ -686,6 +686,33 @@ export class UserInteraction {
       const button = await nonUi5.element.getByCss("[id='" + id + "-vhi']", 0, timeout);
       await button.click();
     }
+  }
+
+  /**
+   * @function openValueHelp
+   * @memberOf ui5.userInteraction
+   * @description Opens the value help dialog of the element with the given selector.
+   * @param {Object} selector - The selector describing the element.
+   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @example 
+   * ```
+   * const selector = {
+   *   elementProperties: {
+   *     id: "element-id"
+   *   },
+   *   descendantProperties: {
+   *     id: "element-id-vhi"
+   *   }
+   * }
+   * await ui5.userInteraction.openValueHelp(selector, 0, 30000);
+   * ```
+   */
+  async openValueHelp(selector: Ui5Selector, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
+    const vl = this.vlf.initLog(this.openValueHelp);
+    const id = await ui5.element.getId(selector, index, timeout);
+    const button = await nonUi5.element.getByCss(`[id='${id}-vhi']`, 0, timeout);
+    await button.click();
   }
 
   /**
