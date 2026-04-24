@@ -23,7 +23,6 @@ const valueHelpDialogTitle = {
 };
 
 describe("userInteraction - openValueHelp - use valid valuehelp icon button", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.comp.valuehelpdialog.ValueHelpDialog/sample/sap.ui.comp.sample.smartfield.SmartFieldWithValueHelp`);
     await handleCookiesConsent();
@@ -40,8 +39,24 @@ describe("userInteraction - openValueHelp - use valid valuehelp icon button", fu
   });
 });
 
-describe("userInteraction - openValueHelp - use datepicker icon button (unhappy case)", function () {
+describe("userInteraction - openValueHelp - by F4 key - use valid valuehelp icon button", function () {
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.comp.valuehelpdialog.ValueHelpDialog/sample/sap.ui.comp.sample.smartfield.SmartFieldWithValueHelp`);
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("[id='sampleFrame']");
+  });
 
+  it("Execution", async function () {
+    await ui5.userInteraction.openValueHelp(valueHelpSelector, 0, undefined, true);
+  });
+
+  it("Verification", async function () {
+    await ui5.assertion.expectToBeVisible(valueHelpDialogTitle);
+    await common.userInteraction.pressEscape();
+  });
+});
+
+describe("userInteraction - openValueHelp - use datepicker icon button (unhappy case)", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.comp.valuehelpdialog.ValueHelpDialog/sample/sap.ui.comp.sample.smartfield.SmartFieldWithValueHelp`);
     await handleCookiesConsent();
