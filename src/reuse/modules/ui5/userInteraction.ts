@@ -681,12 +681,7 @@ export class UserInteraction {
   async openF4Help(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, useF4Key = true) {
     const vl = this.vlf.initLog(this.openF4Help);
     util.console.warn(UserInteraction.OPENF4HELP_DEPRECATION_MESSAGE);
-    await ui5.userInteraction.click(selector, index, timeout);
-    if (useF4Key === true) {
-      await common.userInteraction.pressF4();
-    } else {
-      await this.openValueHelp(selector, index, timeout);
-    }
+    await this.openValueHelp(selector, index, timeout, !useF4Key);
   }
 
   /**
