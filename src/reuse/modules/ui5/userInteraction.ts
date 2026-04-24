@@ -696,6 +696,7 @@ export class UserInteraction {
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Boolean} useF4Key - Specifies if the value help is opened by pressing the F4-key or via the value help icon click.
    * @example 
    * ```
    * const selector = {
@@ -706,14 +707,20 @@ export class UserInteraction {
    *     id: "element-id-vhi"
    *   }
    * }
-   * await ui5.userInteraction.openValueHelp(selector, 0, 30000);
+   * await ui5.userInteraction.openValueHelp(selector);
+   * await ui5.userInteraction.openValueHelp(selector, 0, 30000, true);
    * ```
    */
-  async openValueHelp(selector: Ui5Selector, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
+  async openValueHelp(selector: Ui5Selector, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, useF4Key: boolean = false) {
     const vl = this.vlf.initLog(this.openValueHelp);
-    const id = await ui5.element.getId(selector, index, timeout);
-    const button = await nonUi5.element.getByCss(`[id='${id}-vhi']`, 0, timeout);
-    await button.click();
+    if (useF4Key === true) {
+      await ui5.userInteraction.click(selector, index, timeout);
+      await common.userInteraction.pressF4();
+    } else {
+      const id = await ui5.element.getId(selector, index, timeout);
+      const button = await nonUi5.element.getByCss(`[id='${id}-vhi']`, 0, timeout);
+      await button.click();
+    }
   }
 
   /**
