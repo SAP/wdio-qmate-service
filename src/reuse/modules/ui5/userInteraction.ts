@@ -666,17 +666,18 @@ export class UserInteraction {
     await common.userInteraction.pressKey([KeyCodes.CONTROL, "a"]);
   }
 
-  /**
-   * @function openF4Help
-   * @memberOf ui5.userInteraction
-   * @description Opens the F4-help of the element with the given selector.
-   * @param {Object} selector - The selector describing the element.
-   * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
-   * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Boolean} useF4Key - Specifies if the help is opened by pressing the F4-key or via the button.
-   * The default value is true (triggered by pressing the F4-key). Set "useF4Key" to false, to trigger the search by clicking the button.
-   * @example await ui5.userInteraction.openF4Help(selector, 0, 30000, false);
-   */
+  // /**
+  //  * @function openF4Help
+  //  * @memberOf ui5.userInteraction
+  //  * @description Opens the F4-help of the element with the given selector.
+  //  * @param {Object} selector - The selector describing the element.
+  //  * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
+  //  * @param {Boolean} useF4Key - Specifies if the help is opened by pressing the F4-key or via the button.
+  //  * The default value is true (triggered by pressing the F4-key). Set "useF4Key" to false, to trigger the search by clicking the button.
+  //  * @example await ui5.userInteraction.openF4Help(selector, 0, 30000, false);
+  //  */
+  // Deprecated
   async openF4Help(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, useF4Key = true) {
     const vl = this.vlf.initLog(this.openF4Help);
     util.console.warn(UserInteraction.OPENF4HELP_DEPRECATION_MESSAGE);
