@@ -684,9 +684,7 @@ export class UserInteraction {
     if (useF4Key === true) {
       await common.userInteraction.pressF4();
     } else {
-      const id = await ui5.element.getId(selector);
-      const button = await nonUi5.element.getByCss("[id='" + id + "-vhi']", 0, timeout);
-      await button.click();
+      await this.openValueHelp(selector, index, timeout);
     }
   }
 
