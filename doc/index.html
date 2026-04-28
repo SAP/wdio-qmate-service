@@ -3380,10 +3380,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionopenf4helpselector-index-timeout-usef4key" class="md-nav__link">
+  <a href="#userinteractionopenvaluehelpselector-index-timeout-usef4key" class="md-nav__link">
     <span class="md-ellipsis">
       
-        userInteraction.openF4Help(selector, [index], [timeout], useF4Key)
+        userInteraction.openValueHelp(selector, [index], [timeout], useF4Key)
       
     </span>
   </a>
@@ -8629,10 +8629,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#userinteractionopenf4helpselector-index-timeout-usef4key" class="md-nav__link">
+  <a href="#userinteractionopenvaluehelpselector-index-timeout-usef4key" class="md-nav__link">
     <span class="md-ellipsis">
       
-        userInteraction.openF4Help(selector, [index], [timeout], useF4Key)
+        userInteraction.openValueHelp(selector, [index], [timeout], useF4Key)
       
     </span>
   </a>
@@ -13119,7 +13119,7 @@
 <li><a href="#ui5.userInteraction.mouseOverElement">.mouseOverElement(selector, [index], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.scrollToElement">.scrollToElement(selector, [index], [alignment], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.selectAll">.selectAll([selector], [index], [timeout])</a></li>
-<li><a href="#ui5.userInteraction.openF4Help">.openF4Help(selector, [index], [timeout], useF4Key)</a></li>
+<li><a href="#ui5.userInteraction.openValueHelp">.openValueHelp(selector, [index], [timeout], useF4Key)</a></li>
 <li><a href="#ui5.userInteraction.searchFor">.searchFor(selector, [index], [timeout], useEnter)</a></li>
 <li><a href="#ui5.userInteraction.resetSearch">.resetSearch(selector, [index], [timeout])</a></li>
 </ul>
@@ -17276,7 +17276,7 @@ This is useful when multiple rows match the same value(s) and you need to target
 <li><a href="#ui5.userInteraction.mouseOverElement">.mouseOverElement(selector, [index], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.scrollToElement">.scrollToElement(selector, [index], [alignment], [timeout])</a></li>
 <li><a href="#ui5.userInteraction.selectAll">.selectAll([selector], [index], [timeout])</a></li>
-<li><a href="#ui5.userInteraction.openF4Help">.openF4Help(selector, [index], [timeout], useF4Key)</a></li>
+<li><a href="#ui5.userInteraction.openValueHelp">.openValueHelp(selector, [index], [timeout], useF4Key)</a></li>
 <li><a href="#ui5.userInteraction.searchFor">.searchFor(selector, [index], [timeout], useEnter)</a></li>
 <li><a href="#ui5.userInteraction.resetSearch">.resetSearch(selector, [index], [timeout])</a></li>
 </ul>
@@ -18298,9 +18298,9 @@ The function retries the click for maximal 3 times if the selection of the tab (
 <p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span>
 </code></pre></div>
-<a name="ui5.userInteraction.openF4Help"></a></p>
-<h4 id="userinteractionopenf4helpselector-index-timeout-usef4key">userInteraction.openF4Help(selector, [index], [timeout], useF4Key)</h4>
-<p>Opens the F4-help of the element with the given selector.</p>
+<a name="ui5.userInteraction.openValueHelp"></a></p>
+<h4 id="userinteractionopenvaluehelpselector-index-timeout-usef4key">userInteraction.openValueHelp(selector, [index], [timeout], useF4Key)</h4>
+<p>Opens the value help dialog of the element with the given selector.</p>
 <p><strong>Kind</strong>: static method of <a href="#ui5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
 <thead>
@@ -18334,12 +18334,21 @@ The function retries the click for maximal 3 times if the selection of the tab (
 <td>useF4Key</td>
 <td><code>Boolean</code></td>
 <td></td>
-<td>Specifies if the help is opened by pressing the F4-key or via the button. The default value is true (triggered by pressing the F4-key). Set "useF4Key" to false, to trigger the search by clicking the button.</td>
+<td>Specifies if the value help is opened by pressing the F4-key or via the value help icon click.</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">openF4Help</span><span class="p">(</span><span class="nx">selector</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">30000</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code>const selector = {
+  elementProperties: {
+    id: &quot;element-id&quot;
+  },
+  descendantProperties: {
+    id: &quot;element-id-vhi&quot;
+  }
+}
+await ui5.userInteraction.openValueHelp(selector);
+await ui5.userInteraction.openValueHelp(selector, 0, 30000, true);
 </code></pre></div>
 <a name="ui5.userInteraction.searchFor"></a></p>
 <h4 id="userinteractionsearchforselector-index-timeout-useenter">userInteraction.searchFor(selector, [index], [timeout], useEnter)</h4>
