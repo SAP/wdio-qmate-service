@@ -36,7 +36,7 @@ export class UserInteraction {
    */
   async click(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.click);
-    const elem = await this._waitForClickable(selector, index, timeout);
+    const elem = await this._getClickableElement(selector, index, timeout);
     try {
       await elem.click();
     } catch (error) {
@@ -72,7 +72,7 @@ export class UserInteraction {
    */
   async doubleClick(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.doubleClick);
-    const elem = await this._waitForClickable(selector, index, timeout);
+    const elem = await this._getClickableElement(selector, index, timeout);
     try {
       await elem.doubleClick();
     } catch (error) {
@@ -93,7 +93,7 @@ export class UserInteraction {
    */
   async rightClick(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.rightClick);
-    const elem = await this._waitForClickable(selector, index, timeout);
+    const elem = await this._getClickableElement(selector, index, timeout);
     try {
       await elem.click({ button: "right" });
     } catch (error) {
@@ -693,7 +693,7 @@ export class UserInteraction {
   }
 
   // =================================== HELPER ===================================
-  private async _waitForClickable(selector: any, index: number, timeout: number): Promise<Element> {
+  private async _getClickableElement(selector: any, index: number, timeout: number): Promise<Element> {
     let elem: Element | null = null;
     const timeoutMsg = `Element not clickable after ${+timeout / 1000}s`;
     const firstPhaseTimeout = Math.min(timeout, UserInteraction.OVERLAY_CHECK_TIMEOUT);
@@ -701,24 +701,26 @@ export class UserInteraction {
 
     const poll = async () => {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
-      return !!(elem && await elem.isClickable());
+      return !!(elem && (await elem.isClickable()));
     };
 
     try {
       await browser.waitUntil(poll, { timeout: firstPhaseTimeout, timeoutMsg: firstPhaseMsg });
       return elem!;
     } catch (e: any) {
+      // If the error message is not "quick"
+      // → throw → function exits
+      // If the message is "quick"
+      // → swallow the error
+      // → execution continues after the try/catch
       if (e?.message !== "quick") throw e;
     }
 
+    // Element was found but remained non-clickable throughout the first phase.
     // Check once, outside the polling loop, whether a UI5 block layer (class "sapUiBLy") is
     // physically covering the center of this specific element.
-    const isBlocked: boolean = await browser.execute((el: HTMLElement) => {
-      const rect = el.getBoundingClientRect();
-      const topElem = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
-      return topElem?.classList?.contains("sapUiBLy") ?? false;
-    }, elem as any);
-    if (isBlocked) {
+    if (await isBlockedByUi5Overlay(elem!)) {
+      // exits when getDisplayed throws at index i — no further candidates exist
       for (let i = index + 1; ; i++) {
         try {
           const candidate = await ui5.element.getDisplayed(selector, i, 5000);
@@ -732,6 +734,14 @@ export class UserInteraction {
     // No overlay — continue waiting for the remaining time.
     await browser.waitUntil(poll, { timeout: timeout - firstPhaseTimeout, timeoutMsg });
     return elem!;
+
+    async function isBlockedByUi5Overlay(element: Element): Promise<boolean> {
+      return await browser.execute((domEl: HTMLElement) => {
+        const rect = domEl.getBoundingClientRect();
+        const topElem = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        return topElem?.classList?.contains("sapUiBLy") ?? false;
+      }, element as any);
+    }
   }
 
   private async _verifyTabSwitch(selector: any): Promise<boolean> {
