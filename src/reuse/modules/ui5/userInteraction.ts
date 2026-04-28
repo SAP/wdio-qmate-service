@@ -5,7 +5,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { AlignmentOptions, AlignmentValues } from "../types";
 import ErrorHandler from "../../helper/errorHandler";
 import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
-import { Ui5ControlMetadata } from "./types/ui5.types";
+import { Ui5ControlMetadata, Ui5Selector } from "./types/ui5.types";
 import { KeyCodes } from "../common/constants/userInteraction.constants";
 
 /**
@@ -23,6 +23,7 @@ export class UserInteraction {
   private static readonly SUPPORTED_TEXTAREA_METADATA: Array<Ui5ControlMetadata> = [UserInteraction.TEXTAREA_METADATA, UserInteraction.TEXTAREA_MACROS_METADATA];
   private static readonly SELECT_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.select' function instead.";
   private static readonly OVERLAY_CHECK_TIMEOUT = 5000;
+  private static readonly OPENF4HELP_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.openValueHelp' function instead.";
 
   // =================================== CLICK ===================================
   /**
@@ -628,25 +629,54 @@ export class UserInteraction {
     await common.userInteraction.pressKey([KeyCodes.CONTROL, "a"]);
   }
 
+  // /**
+  //  * @function openF4Help
+  //  * @memberOf ui5.userInteraction
+  //  * @description Opens the F4-help of the element with the given selector.
+  //  * @param {Object} selector - The selector describing the element.
+  //  * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
+  //  * @param {Number} [timeout=30000] - The timeout to wait (ms).
+  //  * @param {Boolean} useF4Key - Specifies if the help is opened by pressing the F4-key or via the button.
+  //  * The default value is true (triggered by pressing the F4-key). Set "useF4Key" to false, to trigger the search by clicking the button.
+  //  * @example await ui5.userInteraction.openF4Help(selector, 0, 30000, false);
+  //  */
+  // Deprecated
+  async openF4Help(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, useF4Key = true) {
+    const vl = this.vlf.initLog(this.openF4Help);
+    util.console.warn(UserInteraction.OPENF4HELP_DEPRECATION_MESSAGE);
+    await this.openValueHelp(selector, index, timeout, !useF4Key);
+  }
+
   /**
-   * @function openF4Help
+   * @function openValueHelp
    * @memberOf ui5.userInteraction
-   * @description Opens the F4-help of the element with the given selector.
+   * @description Opens the value help dialog of the element with the given selector.
    * @param {Object} selector - The selector describing the element.
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
-   * @param {Boolean} useF4Key - Specifies if the help is opened by pressing the F4-key or via the button.
-   * The default value is true (triggered by pressing the F4-key). Set "useF4Key" to false, to trigger the search by clicking the button.
-   * @example await ui5.userInteraction.openF4Help(selector, 0, 30000, false);
+   * @param {Boolean} useF4Key - Specifies if the value help is opened by pressing the F4-key or via the value help icon click.
+   * @example 
+   * ```
+   * const selector = {
+   *   elementProperties: {
+   *     id: "element-id"
+   *   },
+   *   descendantProperties: {
+   *     id: "element-id-vhi"
+   *   }
+   * }
+   * await ui5.userInteraction.openValueHelp(selector);
+   * await ui5.userInteraction.openValueHelp(selector, 0, 30000, true);
+   * ```
    */
-  async openF4Help(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, useF4Key = true) {
-    const vl = this.vlf.initLog(this.openF4Help);
-    await ui5.userInteraction.click(selector, index, timeout);
+  async openValueHelp(selector: Ui5Selector, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, useF4Key: boolean = false) {
+    const vl = this.vlf.initLog(this.openValueHelp);
     if (useF4Key === true) {
+      await ui5.userInteraction.click(selector, index, timeout);
       await common.userInteraction.pressF4();
     } else {
-      const id = await ui5.element.getId(selector);
-      const button = await nonUi5.element.getByCss("[id='" + id + "-vhi']", 0, timeout);
+      const id = await ui5.element.getId(selector, index, timeout);
+      const button = await nonUi5.element.getByCss(`[id='${id}-vhi']`, 0, timeout);
       await button.click();
     }
   }
