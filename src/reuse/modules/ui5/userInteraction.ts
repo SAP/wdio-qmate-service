@@ -695,9 +695,13 @@ export class UserInteraction {
   // =================================== HELPER ===================================
   private async _getClickableElement(selector: any, index: number, timeout: number): Promise<Element> {
     let elem: Element | null = null;
-    const timeoutMsg = `Element not clickable after ${+timeout / 1000}s`;
+    const timeoutMsg = `Element not clickable after ${timeout / 1000}s`;
+
+    // Phase 1: short wait used to quickly detect overlay situations
     const firstPhaseTimeout = Math.min(timeout, UserInteraction.OVERLAY_CHECK_TIMEOUT);
-    const firstPhaseMsg = firstPhaseTimeout < timeout ? "quick" : timeoutMsg;
+    const isQuickPhase = firstPhaseTimeout < timeout;
+
+    const QUICK_TIMEOUT_MSG = "__QUICK_TIMEOUT__";
 
     const poll = async () => {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -705,39 +709,57 @@ export class UserInteraction {
     };
 
     try {
-      await browser.waitUntil(poll, { timeout: firstPhaseTimeout, timeoutMsg: firstPhaseMsg });
+      // If the element becomes clickable during the quick phase, return immediately.
+      await browser.waitUntil(poll, {
+        timeout: firstPhaseTimeout,
+        timeoutMsg: isQuickPhase ? QUICK_TIMEOUT_MSG : timeoutMsg
+      });
       return elem!;
     } catch (e: any) {
-      // If the error message is not "quick"
-      // → throw → function exits
-      // If the message is "quick"
-      // → swallow the error
-      // → execution continues after the try/catch
-      if (e?.message !== "quick") throw e;
+      // If the error message is not the "quick" timeout, we fail fast and exit the function.
+      //
+      // If it *is* the "quick" timeout, only the initial short wait expired.
+      // This means the element exists but is not clickable yet, and we
+      // intentionally continue with additional checks instead of throwing.
+      if (!isQuickPhase || e?.message !== QUICK_TIMEOUT_MSG) {
+        throw e;
+      }
     }
 
-    // Element was found but remained non-clickable throughout the first phase.
-    // Check once, outside the polling loop, whether a UI5 block layer (class "sapUiBLy") is
-    // physically covering the center of this specific element.
+    // Reached only when:
+    // - the element exists and is displayed
+    // - it is not clickable yet
+    // - the initial "quick" wait timed out
+    // Now check whether the element is physically blocked by a UI5 block layer.
     if (await isBlockedByUi5Overlay(elem!)) {
+      // Try alternative elements with the same selector.
       // exits when getDisplayed throws at index i — no further candidates exist
       for (let i = index + 1; ; i++) {
         try {
           const candidate = await ui5.element.getDisplayed(selector, i, 5000);
-          if (await candidate.isClickable()) return candidate;
+          if (await candidate.isClickable()) {
+            return candidate;
+          }
         } catch {
           throw new Error(timeoutMsg);
         }
       }
     }
 
-    // No overlay — continue waiting for the remaining time.
-    await browser.waitUntil(poll, { timeout: timeout - firstPhaseTimeout, timeoutMsg });
+    // Element is not blocked — continue waiting for the remaining time.
+    await browser.waitUntil(poll, {
+      timeout: timeout - firstPhaseTimeout,
+      timeoutMsg
+    });
     return elem!;
 
+    /**
+     * Checks whether the given element is physically covered by a UI5 block layer
+     * (sapUiBLy) at its center position.
+     */
     async function isBlockedByUi5Overlay(element: Element): Promise<boolean> {
-      return await browser.execute((domEl: HTMLElement) => {
-        const rect = domEl.getBoundingClientRect();
+      return browser.execute((el: HTMLElement) => {
+        const rect = el.getBoundingClientRect();
         const topElem = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
         return topElem?.classList?.contains("sapUiBLy") ?? false;
       }, element as any);
