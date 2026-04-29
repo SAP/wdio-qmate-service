@@ -22,6 +22,7 @@ export class UserInteraction {
   private static readonly TEXTAREA_MACROS_METADATA: Ui5ControlMetadata = "sap.fe.macros.field.TextAreaEx";
   private static readonly SUPPORTED_TEXTAREA_METADATA: Array<Ui5ControlMetadata> = [UserInteraction.TEXTAREA_METADATA, UserInteraction.TEXTAREA_MACROS_METADATA];
   private static readonly SELECT_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.select' function instead.";
+  private static readonly OVERLAY_CHECK_TIMEOUT = 5000;
   private static readonly OPENF4HELP_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.openValueHelp' function instead.";
 
   // =================================== CLICK ===================================
@@ -36,20 +37,8 @@ export class UserInteraction {
    */
   async click(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.click);
-    let elem = null;
-    await browser.waitUntil(
-      async function () {
-        elem = await ui5.element.getDisplayed(selector, index, timeout);
-        if (!elem) return false;
-        return elem.isClickable();
-      },
-      {
-        timeout,
-        timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
-      }
-    );
+    const elem = await this._getClickableElement(selector, index, timeout);
     try {
-      // @ts-ignore
       await elem.click();
     } catch (error) {
       // @ts-ignore
@@ -84,20 +73,8 @@ export class UserInteraction {
    */
   async doubleClick(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.doubleClick);
-    let elem = null;
-    await browser.waitUntil(
-      async function () {
-        elem = await ui5.element.getDisplayed(selector, index, timeout);
-        if (!elem) return false;
-        return elem.isClickable();
-      },
-      {
-        timeout,
-        timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
-      }
-    );
+    const elem = await this._getClickableElement(selector, index, timeout);
     try {
-      // @ts-ignore
       await elem.doubleClick();
     } catch (error) {
       // @ts-ignore
@@ -117,23 +94,9 @@ export class UserInteraction {
    */
   async rightClick(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.rightClick);
-    let elem = null;
-    await browser.waitUntil(
-      async function () {
-        elem = await ui5.element.getDisplayed(selector, index, timeout);
-        if (!elem) return false;
-        return elem.isClickable();
-      },
-      {
-        timeout,
-        timeoutMsg: `Element not clickable after ${+timeout / 1000}s`
-      }
-    );
+    const elem = await this._getClickableElement(selector, index, timeout);
     try {
-      // @ts-ignore
-      await elem.click({
-        button: "right"
-      });
+      await elem.click({ button: "right" });
     } catch (error) {
       // @ts-ignore
       this.ErrorHandler.logException(error);
@@ -760,6 +723,79 @@ export class UserInteraction {
   }
 
   // =================================== HELPER ===================================
+  private async _getClickableElement(selector: any, index: number, timeout: number): Promise<Element> {
+    let elem: Element | null = null;
+    const timeoutMsg = `Element not clickable after ${timeout / 1000}s`;
+
+    // Phase 1: short wait used to quickly detect overlay situations
+    const firstPhaseTimeout = Math.min(timeout, UserInteraction.OVERLAY_CHECK_TIMEOUT);
+    const isQuickPhase = firstPhaseTimeout < timeout;
+
+    const QUICK_TIMEOUT_MSG = "__QUICK_TIMEOUT__";
+
+    const poll = async () => {
+      elem = await ui5.element.getDisplayed(selector, index, timeout);
+      return !!(elem && (await elem.isClickable()));
+    };
+
+    try {
+      // If the element becomes clickable during the quick phase, return immediately.
+      await browser.waitUntil(poll, {
+        timeout: firstPhaseTimeout,
+        timeoutMsg: isQuickPhase ? QUICK_TIMEOUT_MSG : timeoutMsg
+      });
+      return elem!;
+    } catch (e: any) {
+      // If the error message is not the "quick" timeout, we fail fast and exit the function.
+      //
+      // If it *is* the "quick" timeout, only the initial short wait expired.
+      // This means the element exists but is not clickable yet, and we
+      // intentionally continue with additional checks instead of throwing.
+      if (!isQuickPhase || e?.message !== QUICK_TIMEOUT_MSG) {
+        throw e;
+      }
+    }
+
+    // Reached only when:
+    // - the element exists and is displayed
+    // - it is not clickable yet
+    // - the initial "quick" wait timed out
+    // Now check whether the element is physically blocked by a UI5 block layer.
+    if (await isBlockedByUi5Overlay(elem!)) {
+      // Try alternative elements with the same selector.
+      // exits when getDisplayed throws at index i — no further candidates exist
+      for (let i = index + 1; ; i++) {
+        try {
+          const candidate = await ui5.element.getDisplayed(selector, i, 5000);
+          if (await candidate.isClickable()) {
+            return candidate;
+          }
+        } catch {
+          throw new Error(timeoutMsg);
+        }
+      }
+    }
+
+    // Element is not blocked — continue waiting for the remaining time.
+    await browser.waitUntil(poll, {
+      timeout: timeout - firstPhaseTimeout,
+      timeoutMsg
+    });
+    return elem!;
+
+    /**
+     * Checks whether the given element is physically covered by a UI5 block layer
+     * (sapUiBLy) at its center position.
+     */
+    async function isBlockedByUi5Overlay(element: Element): Promise<boolean> {
+      return browser.execute((el: HTMLElement) => {
+        const rect = el.getBoundingClientRect();
+        const topElem = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        return topElem?.classList?.contains("sapUiBLy") ?? false;
+      }, element as any);
+    }
+  }
+
   private async _verifyTabSwitch(selector: any): Promise<boolean> {
     // two classes required to handle old and new UI5 versions
     const indicatorClasses = ["sapUxAPAnchorBarButtonSelected", "sapMITBSelected"];
