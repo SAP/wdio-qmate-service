@@ -95,3 +95,31 @@ describe("userInteraction - click with selector having wildcard character(*) for
     await common.assertion.expectUrlToBe(`${BASE_URL}/#/api`);
   });
 });
+
+describe("userInteraction - click unblocked button and ignore blocked one", function () {
+  const selector = {
+    elementProperties: {
+      metadata: "sap.m.Button",
+      text: "Create"
+    }
+  };
+
+  it("Preparation", async function () {
+    await browser.navigateTo(`${BASE_URL}/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#/?sap-iapp-state=3&sap-iapp-state--history=1`);
+    await ui5.userInteraction.click(selector);
+  });
+
+  it("Execution", async function () {
+    await ui5.userInteraction.click(selector, 0, 30000);
+  });
+
+  it("Verification", async function () {
+    const assertSelector = {
+      elementProperties: {
+        metadata: "sap.m.Input",
+        valueStateText: "ISO Currency Code is a required field."
+      }
+    };
+    await ui5.assertion.expectToBeVisible(assertSelector);
+  });
+});
