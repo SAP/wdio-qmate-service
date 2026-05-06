@@ -25,6 +25,7 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "fill.spec.js"),
     path.resolve(__dirname, "fillAndRetry.spec.js"),
     path.resolve(__dirname, "openF4Help.spec.js"),
+    path.resolve(__dirname, "openValueHelp.spec.js"),
     path.resolve(__dirname, "searchFor.spec.js"),
     path.resolve(__dirname, "scrollToElement.spec.js"),
     path.resolve(__dirname, "selectBox.spec.js"),
