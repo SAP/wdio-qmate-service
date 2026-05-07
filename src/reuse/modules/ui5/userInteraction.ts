@@ -725,7 +725,7 @@ export class UserInteraction {
   // =================================== HELPER ===================================
   private async _getClickableElement(selector: any, index: number, timeout: number): Promise<Element> {
     let elem: Element | null = null;
-    const allBlockedMsg = `No clickable elements found with selector: ${selector}`;
+    const allBlockedMsg = `No clickable elements found with selector: ${JSON.stringify(selector)}`;
     const indexOutOfBoundsMsg = `Index is out of bounds. No elements with index: ${index}`
     const timeoutMsg = `Element not clickable after ${timeout / 1000}s`;
     const QUICK_TIMEOUT_MSG = "__QUICK_TIMEOUT__";
