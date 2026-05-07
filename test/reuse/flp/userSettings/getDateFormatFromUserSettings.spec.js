@@ -2,7 +2,6 @@ const data = require("./data/data.json");
 
 describe("userSettings", function () {
   describe("getDateFormatFromUserSettings.spec - passing date format", function () {
-
     it("Preparation: Set systemUrl ", async function () {
       browser.config.params.systemUrl = util.data.decrypt(data.systemUrl);
     });
@@ -15,5 +14,4 @@ describe("userSettings", function () {
       common.assertion.expectEqual(new Date(date), new Date(userDate));
     });
   });
-
 });

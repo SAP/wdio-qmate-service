@@ -52,9 +52,7 @@ describe("userInteraction - fillAndRetry element with invalid selector", functio
     const index = 0;
     const timeout = 30000;
     const retries = 1;
-    await expect(ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries)).rejects.toThrow(
-      "Retries done. Failed to execute the function"
-    );
+    await expect(ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries)).rejects.toThrow("Retries done. Failed to execute the function");
   });
 });
 
@@ -108,8 +106,6 @@ describe("userInteraction - fillAndRetry element with empty value", function () 
     const index = 0;
     const timeout = 30000;
     const retries = 1;
-    await expect(ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries)).rejects.toThrow(
-      "Function 'fillAndRetry' failed with: Retries done. Failed to execute the function: Please provide an element and value(datatype - number/string) as arguments"
-    );
+    await expect(ui5.userInteraction.fillAndRetry(selector, value, index, timeout, retries)).rejects.toThrow("Function 'fillAndRetry' failed with: Retries done. Failed to execute the function: Please provide an element and value(datatype - number/string) as arguments");
   });
 });

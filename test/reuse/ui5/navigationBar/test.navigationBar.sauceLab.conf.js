@@ -10,20 +10,14 @@ exports.config = merge(profile.config, {
 
   maxInstances: 2, // note: for the SAP account, only 2 parallel instances is a max value
 
-
   bail: 1,
   baseUrl: `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`,
 
-  specs: [
-    path.resolve(__dirname, "clickBack.spec.js"),
-    path.resolve(__dirname, "clickUserIcon.spec.js"),
-    path.resolve(__dirname, "expectPageTitle.spec.js"),
-    path.resolve(__dirname, "expectShellHeader.spec.js")
-  ],
+  specs: [path.resolve(__dirname, "clickBack.spec.js"), path.resolve(__dirname, "clickUserIcon.spec.js"), path.resolve(__dirname, "expectPageTitle.spec.js"), path.resolve(__dirname, "expectShellHeader.spec.js")],
 
   exclude: [],
 
   mochaOpts: {
-    timeout: 2000000,
-  },
+    timeout: 2000000
+  }
 });

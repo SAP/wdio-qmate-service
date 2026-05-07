@@ -6,10 +6,7 @@
     "paths": {
       "*": ["./types/*"]
     },
-    "typeRoots": [
-      "./@types",
-      "./node_modules/@types"
-    ] /* Specify multiple folders that act like `./node_modules/@types`. */,
+    "typeRoots": ["./@types", "./node_modules/@types"] /* Specify multiple folders that act like `./node_modules/@types`. */,
     "resolveJsonModule": true /* Enable importing .json files */,
     "declaration": true /* Generates corresponding `.d.ts` file. */,
     "allowJs": true /* Allow JavaScript files to be a part of your program. Use the `checkJS` option to get errors from these files. */,

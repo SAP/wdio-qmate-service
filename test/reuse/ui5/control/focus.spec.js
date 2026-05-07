@@ -11,10 +11,10 @@ describe("control - focus - for a input field", function () {
 
   it("Execution & Verification", async function () {
     const lastInputSelector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smartfield.TextInEditModeSource.Main",
-        "metadata": "sap.m.Input",
-        "id": "*idValueListNoValidation-input"
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smartfield.TextInEditModeSource.Main",
+        metadata: "sap.m.Input",
+        id: "*idValueListNoValidation-input"
       }
     };
     await ui5.control.focus(lastInputSelector);
@@ -30,13 +30,13 @@ describe("control - focus", function () {
 
   it("Execution and Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.ControlsMaster",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/entities/199"
+      elementProperties: {
+        viewName: "sap.ui.documentation.sdk.view.ControlsMaster",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/entities/199"
       }
     };
-    await ui5.control.focus(selector);  //can see the scroll take place during this step
+    await ui5.control.focus(selector); //can see the scroll take place during this step
     await ui5.assertion.expectToBeVisible(selector);
   });
 });
@@ -50,16 +50,16 @@ describe("control - focus - outside of viewpoint", function () {
 
   it("Execution", async function () {
     const selectorForDropdownList = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MultiComboBox.view.MultiComboBox",
-        "metadata": "sap.m.MultiComboBox"
+      elementProperties: {
+        viewName: "sap.m.sample.MultiComboBox.view.MultiComboBox",
+        metadata: "sap.m.MultiComboBox"
       }
     };
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MultiComboBox.view.MultiComboBox",
-        "metadata": "sap.m.StandardListItem",
-        "title": "Smart Games"
+      elementProperties: {
+        viewName: "sap.m.sample.MultiComboBox.view.MultiComboBox",
+        metadata: "sap.m.StandardListItem",
+        title: "Smart Games"
       }
     };
 
@@ -70,9 +70,9 @@ describe("control - focus - outside of viewpoint", function () {
 
   it("Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MultiComboBox.view.MultiComboBox",
-        "metadata": "sap.m.Token"
+      elementProperties: {
+        viewName: "sap.m.sample.MultiComboBox.view.MultiComboBox",
+        metadata: "sap.m.Token"
       }
     };
     await ui5.assertion.expectAttributeToBe(selector, "text", "Smart Games");
@@ -80,24 +80,24 @@ describe("control - focus - outside of viewpoint", function () {
 });
 
 describe("control - focus - no selector found and catch error", function () {
-
   it("Preparation", async function () {
     await browser.navigateTo(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`);
   });
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "ghgjho.cart.view.Welcome",
-        "metadata": "",
-        "text": [{
-          "path": "i18n>promotedTitle"
-        }]
+      elementProperties: {
+        viewName: "ghgjho.cart.view.Welcome",
+        metadata: "",
+        text: [
+          {
+            path: "i18n>promotedTitle"
+          }
+        ]
       }
     };
     const index = 0;
     const timeout = 30000;
-    await expect(ui5.control.focus(selector, index, timeout))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.control.focus(selector, index, timeout)).rejects.toThrow(/No visible elements found/);
   });
 });

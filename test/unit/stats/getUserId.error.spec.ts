@@ -3,7 +3,9 @@ import { getUserId } from "../../../src/scripts/stats/getUserId";
 
 vi.mock("os", () => {
   return {
-    homedir: vi.fn().mockImplementation(() => { throw new Error("Home directory not accessible") })
+    homedir: vi.fn().mockImplementation(() => {
+      throw new Error("Home directory not accessible");
+    })
   };
 });
 

@@ -10,13 +10,12 @@ import importExportDataUtil from "./dataExchangeUtil";
 import { isBrowserDefined } from "../hooks/utils/isBrowserDefined";
 
 class DataExchange {
-
   /**
    * @function readParams
    * @description read the import and export params in the config file
    * @example await readParams(config);
    */
-  async readParams (config: Record<string, any>) {
+  async readParams(config: Record<string, any>) {
     if (!config.params) {
       //nothing to do
       return;
@@ -43,7 +42,7 @@ class DataExchange {
    * in these temporary files will be merged after all instances complete
    * @example await writeExportDataInTmpFile();
    */
-  async writeExportDataInTmpFile () {
+  async writeExportDataInTmpFile() {
     if (!browser.params || !browser.params.exportDataFiles || Object.keys(browser.params.exportDataFiles).length === 0) {
       // no export data files in config.js, nothing to do
       return;
@@ -84,14 +83,14 @@ class DataExchange {
       }
     }
   }
-  
+
   /**
    * @function writeExportData
    * @description write the data in browser.params.export into the assigned files. Reads the temporary
    * files and merges the data.
    * @example await writeExportData();
    */
-  async writeExportData () {
+  async writeExportData() {
     if (!process.env.TMP_EXPORT_PATH) {
       console.warn("Unexpected error - process.env.TMP_EXPORT_PATH not defined");
       return;

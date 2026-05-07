@@ -33,7 +33,6 @@ describe("assertion - expectCssPropertyValueToBe - error", function () {
 
   it("Execution and Verification", async function () {
     const wrongValue = "wrong";
-    await expect(ui5.assertion.expectCssPropertyValueToBe(selector, cssProperty, wrongValue, index, timeout))
-      .rejects.toThrow(/Expected.*wrong.*|Received.*visible/);
+    await expect(ui5.assertion.expectCssPropertyValueToBe(selector, cssProperty, wrongValue, index, timeout)).rejects.toThrow(/Expected.*wrong.*|Received.*visible/);
   });
 });

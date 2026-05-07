@@ -22,7 +22,7 @@ export default async function (capabilities: object[], specs: string[], browser:
   if (shouldMockUi5Extension(browser)) {
     await Ui5ExtensionMocker.mockRequests();
   }
-};
+}
 
 function shouldMockUi5Extension(browser: any): boolean {
   return browser.config.qmate?.enableUi5ExtensionMocking !== false;

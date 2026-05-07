@@ -1,10 +1,7 @@
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - selectMultiComboBox", function () {
-
   let selector;
   let value1;
   let value2;
@@ -18,9 +15,9 @@ describe("userInteraction - selectMultiComboBox", function () {
 
   it("Execution", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MultiComboBox.view.MultiComboBox",
-        "metadata": "sap.m.MultiComboBox"
+      elementProperties: {
+        viewName: "sap.m.sample.MultiComboBox.view.MultiComboBox",
+        metadata: "sap.m.MultiComboBox"
       }
     };
     value1 = "Astro Phone 6";
@@ -35,7 +32,6 @@ describe("userInteraction - selectMultiComboBox", function () {
 });
 
 describe("userInteraction - selectMultiComboBox (outside of a Viewport)", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox`);
     await handleCookiesConsent();
@@ -44,9 +40,9 @@ describe("userInteraction - selectMultiComboBox (outside of a Viewport)", functi
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MultiComboBox.view.MultiComboBox",
-        "metadata": "sap.m.MultiComboBox"
+      elementProperties: {
+        viewName: "sap.m.sample.MultiComboBox.view.MultiComboBox",
+        metadata: "sap.m.MultiComboBox"
       }
     };
     const value1 = "Beam Breaker B-2";
@@ -56,9 +52,9 @@ describe("userInteraction - selectMultiComboBox (outside of a Viewport)", functi
 
   it("Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MultiComboBox.view.MultiComboBox",
-        "metadata": "sap.m.MultiComboBox"
+      elementProperties: {
+        viewName: "sap.m.sample.MultiComboBox.view.MultiComboBox",
+        metadata: "sap.m.MultiComboBox"
       }
     };
     const valueExp = "HT-6101,HT-1037";
@@ -67,7 +63,6 @@ describe("userInteraction - selectMultiComboBox (outside of a Viewport)", functi
 });
 
 describe("userInteraction - selectMultiComboBox use wrong selector", function () {
-
   let selector;
   let value1;
   let value2;
@@ -80,20 +75,18 @@ describe("userInteraction - selectMultiComboBox use wrong selector", function ()
 
   it("Execution & Verification", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MultiComboBox.view.MultiComboBox",
-        "metadata": "sap.m.MumboBox"
+      elementProperties: {
+        viewName: "sap.m.sample.MultiComboBox.view.MultiComboBox",
+        metadata: "sap.m.MumboBox"
       }
     };
     value1 = "Astro Phone 6";
     value2 = "Astro Laptop 1516";
-    await expect(ui5.userInteraction.selectMultiComboBox(selector, [value1, value2]))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.userInteraction.selectMultiComboBox(selector, [value1, value2])).rejects.toThrow(/No visible elements found/);
   });
 });
 
 describe("userInteraction - selectMultiComboBox use wrong value", function () {
-
   let selector;
   let value1;
   let value2;
@@ -106,20 +99,18 @@ describe("userInteraction - selectMultiComboBox use wrong value", function () {
 
   it("Execution & Verification", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MultiComboBox.view.MultiComboBox",
-        "metadata": "sap.m.MultiComboBox"
+      elementProperties: {
+        viewName: "sap.m.sample.MultiComboBox.view.MultiComboBox",
+        metadata: "sap.m.MultiComboBox"
       }
     };
     value1 = "Beadgsh";
     value2 = "FlL";
-    await expect(ui5.userInteraction.selectMultiComboBox(selector, [value1, value2]))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.userInteraction.selectMultiComboBox(selector, [value1, value2])).rejects.toThrow(/No visible elements found/);
   });
 });
 
 describe("userInteraction - selectMultiComboBox with index > 0", function () {
-
   let selector;
   let firstMultiComboValue1, secondMultiComboValue1;
   let firstMultiComboValue2, secondMultiComboValue2;
@@ -136,9 +127,9 @@ describe("userInteraction - selectMultiComboBox with index > 0", function () {
 
   it("Execution", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MultiComboBoxSuggestionsAndValueState.view.MultiComboBoxSuggestionsAndValueState",
-        "metadata": "sap.m.MultiComboBox"
+      elementProperties: {
+        viewName: "sap.m.sample.MultiComboBoxSuggestionsAndValueState.view.MultiComboBoxSuggestionsAndValueState",
+        metadata: "sap.m.MultiComboBox"
       }
     };
     firstMultiComboValue1 = "Astro Phone 6";

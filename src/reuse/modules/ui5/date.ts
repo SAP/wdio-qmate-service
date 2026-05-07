@@ -182,9 +182,9 @@ export class DateModule {
 
   private async _clickOk() {
     const selector = {
-      "elementProperties": {
-        "metadata": "sap.m.Button",
-        "text": "OK"
+      elementProperties: {
+        metadata: "sap.m.Button",
+        text: "OK"
       }
     };
     await ui5.userInteraction.click(selector);
@@ -193,9 +193,9 @@ export class DateModule {
   private async _selectAmPm(amPm: "AM" | "PM") {
     const vl = this.vlf.initLog(this._selectAmPm);
     const amPmSelector = {
-      "elementProperties": {
-        "metadata": "sap.m.Button",
-        "text": amPm
+      elementProperties: {
+        metadata: "sap.m.Button",
+        text: amPm
       }
     };
     await ui5.userInteraction.click(amPmSelector);
@@ -204,39 +204,32 @@ export class DateModule {
   private async _selectHours(hours: number) {
     const vl = this.vlf.initLog(this._selectHours);
     await ui5.userInteraction.click({
-      "elementProperties": {
-        "metadata": "sap.m.internal.ToggleSpinButton",
-        "id": "*Clocks-btnH"
+      elementProperties: {
+        metadata: "sap.m.internal.ToggleSpinButton",
+        id: "*Clocks-btnH"
       }
     });
-    await common.userInteraction.pressKey(
-      util.formatter.addRemoveLeadingZeros(
-        (hours % 12).toString(),
-        2
-      )
-    );
+    await common.userInteraction.pressKey(util.formatter.addRemoveLeadingZeros((hours % 12).toString(), 2));
   }
 
   private async _selectMinutes(minutes: number) {
     const vl = this.vlf.initLog(this._selectMinutes);
     await ui5.userInteraction.click({
-      "elementProperties": {
-        "metadata": "sap.m.internal.ToggleSpinButton",
-        "id": "*Clocks-btnM"
+      elementProperties: {
+        metadata: "sap.m.internal.ToggleSpinButton",
+        id: "*Clocks-btnM"
       }
     });
-    await common.userInteraction.pressKey(
-      util.formatter.addRemoveLeadingZeros(minutes.toString(), 2)
-    );
+    await common.userInteraction.pressKey(util.formatter.addRemoveLeadingZeros(minutes.toString(), 2));
   }
 
   private async _selectSeconds(seconds: number) {
     const vl = this.vlf.initLog(this._selectSeconds);
     try {
       await ui5.userInteraction.click({
-        "elementProperties": {
-          "metadata": "sap.m.internal.ToggleSpinButton",
-          "id": "*Clocks-btnS"
+        elementProperties: {
+          metadata: "sap.m.internal.ToggleSpinButton",
+          id: "*Clocks-btnS"
         }
       });
       await common.userInteraction.pressKey(util.formatter.addRemoveLeadingZeros(seconds.toString(), 2));

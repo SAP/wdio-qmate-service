@@ -29,8 +29,8 @@ describe("assertion - expectToBeVisible - element out of viewport", function () 
     const selectorForDropdownList = {
       elementProperties: {
         viewName: "sap.m.sample.MultiComboBox.view.MultiComboBox",
-        metadata: "sap.m.MultiComboBox",
-      },
+        metadata: "sap.m.MultiComboBox"
+      }
     };
     await ui5.userInteraction.clickSelectArrow(selectorForDropdownList);
   });

@@ -260,7 +260,7 @@ export class UserInteraction {
   async clear(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clear);
     const id = await ui5.element.getId(selector, index, timeout);
-    
+
     // Remove tokens/tags if displayed. Use isDisplayed() instead of isExisting() because
     // the .sapMTokenizer node can exist in the DOM but be hidden (e.g. when no tokens are present),
     // which would cause the subsequent click() to fail with a "not displayed" timeout.
@@ -274,12 +274,16 @@ export class UserInteraction {
     // Do NOT use webdriverIO clearValue() here! Some of popovers hides after clearValue call instead of stay in focus.
     // This can lead to the cases when value is cleared but popover closes and discard changes.
     const isTextArea = UserInteraction.SUPPORTED_TEXTAREA_METADATA.includes(selector.elementProperties.metadata);
-    await browser.execute(function (id: string, isTextArea: boolean) {
-      // @ts-ignore
-      const input = document.getElementById(id).getElementsByTagName(isTextArea ? "textarea" : "input")[0];
-      input.value = "";
-      input.focus();
-    }, id, isTextArea);
+    await browser.execute(
+      function (id: string, isTextArea: boolean) {
+        // @ts-ignore
+        const input = document.getElementById(id).getElementsByTagName(isTextArea ? "textarea" : "input")[0];
+        input.value = "";
+        input.focus();
+      },
+      id,
+      isTextArea
+    );
   }
 
   /**
@@ -655,7 +659,7 @@ export class UserInteraction {
    * @param {Number} [index=0] - The index of the selector (in case there are more than one elements visible at the same time).
    * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @param {Boolean} useF4Key - Specifies if the value help is opened by pressing the F4-key or via the value help icon click.
-   * @example 
+   * @example
    * ```
    * const selector = {
    *   elementProperties: {

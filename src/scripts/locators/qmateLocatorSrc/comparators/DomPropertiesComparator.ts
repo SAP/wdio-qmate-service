@@ -13,14 +13,12 @@ export class DomPropertiesComparator {
         return Comparator.compareWithWildCard(node?.nodeName, value, true);
       }
       const valueArray = Array.isArray(value) ? value : [value];
-      return valueArray.every(val =>
-        DomPropertiesComparator.compareAttributeToElementAttributes(key, val, nodeAttributes)
-      );
+      return valueArray.every((val) => DomPropertiesComparator.compareAttributeToElementAttributes(key, val, nodeAttributes));
     });
   }
 
   private static retrieveNodeAttributes(node: HTMLElement): Map<string, string> {
-    return new Map(Array.from(node.attributes, a => [a.nodeName, a.nodeValue ?? ""]));
+    return new Map(Array.from(node.attributes, (a) => [a.nodeName, a.nodeValue ?? ""]));
   }
 
   private static compareAttributeToElementAttributes(key: string, value: any, nodeAttributes: Map<string, string>): boolean {

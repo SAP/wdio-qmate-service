@@ -1,7 +1,6 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 describe("element - getPropertyValue", function () {
-
   let value;
 
   it("Preparation", async function () {
@@ -10,10 +9,10 @@ describe("element - getPropertyValue", function () {
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/ProductCategories*'LT')"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/ProductCategories*'LT')"
       }
     };
     const index = 0;
@@ -28,24 +27,22 @@ describe("element - getPropertyValue", function () {
 });
 
 describe("element - getPropertyValue - wrong property", function () {
-
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/ProductCategories*'LT')"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/ProductCategories*'LT')"
       }
     };
     const index = 0;
     const timeout = 30000;
     const property = "vbcza";
-    expect(ui5.element.getPropertyValue(selector, property, index, timeout))
-      .rejects.toThrow("Function 'getPropertyValue' failed: Not existing property");
+    expect(ui5.element.getPropertyValue(selector, property, index, timeout)).rejects.toThrow("Function 'getPropertyValue' failed: Not existing property");
   });
 });
 
@@ -56,17 +53,16 @@ describe("element - getPropertyValue - wrong selector", function () {
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "fdsadgmo.cart.view.Home",
-        "metadata": "sadsagdsgStandardListItem",
-        "bindingContextPath": "/*'LT')"
+      elementProperties: {
+        viewName: "fdsadgmo.cart.view.Home",
+        metadata: "sadsagdsgStandardListItem",
+        bindingContextPath: "/*'LT')"
       }
     };
     const index = 0;
     const timeout = 30000;
     const property = "title";
-    await expect(ui5.element.getPropertyValue(selector, property, index, timeout))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.element.getPropertyValue(selector, property, index, timeout)).rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -78,10 +74,10 @@ describe("element - getPropertyValue - boolean property", function () {
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.CheckBox.CheckBoxGroup",
-        "metadata": "sap.m.CheckBox",
-        "text": "Option b"
+      elementProperties: {
+        viewName: "sap.m.sample.CheckBox.CheckBoxGroup",
+        metadata: "sap.m.CheckBox",
+        text: "Option b"
       }
     };
     const index = 0;

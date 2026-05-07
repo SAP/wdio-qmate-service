@@ -14,9 +14,9 @@ describe("session - loginFiori", function () {
 
   it("Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "metadata": "sap.ushell.ui.shell.ShellAppTitle",
-        "id": "shellAppTitle"
+      elementProperties: {
+        metadata: "sap.ushell.ui.shell.ShellAppTitle",
+        id: "shellAppTitle"
       }
     };
     await ui5.assertion.expectToBeVisible(selector);
@@ -35,8 +35,7 @@ describe("session - loginFiori - invalid credentials", function () {
 
   it("Execution & Verification", async function () {
     await ui5.session.loginFiori("Caput", "Draconis");
-    await expect(ui5.session.loginFiori("Caput", "Draconis"))
-      .rejects.toThrow(/Login failed: "Client, name, or password is not correct; log on again"/);
+    await expect(ui5.session.loginFiori("Caput", "Draconis")).rejects.toThrow(/Login failed: "Client, name, or password is not correct; log on again"/);
   });
 });
 
@@ -47,7 +46,6 @@ describe("session - loginFiori - error case", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.session.loginFiori("PURCHASER"))
-      .rejects.toThrow(/Function 'loginFiori' failed/);
+    await expect(ui5.session.loginFiori("PURCHASER")).rejects.toThrow(/Function 'loginFiori' failed/);
   });
 });

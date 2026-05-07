@@ -1,14 +1,12 @@
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - clear", function () {
   const selector = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.InputDescription.V",
-      "metadata": "sap.m.Input",
-      "description": "IT Laptops"
+    elementProperties: {
+      viewName: "sap.m.sample.InputDescription.V",
+      metadata: "sap.m.Input",
+      description: "IT Laptops"
     }
   };
 
@@ -30,7 +28,6 @@ describe("userInteraction - clear", function () {
 });
 
 describe("userInteraction - clear with invalid selector", function () {
-
   it("Preparation", async function () {
     await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription`);
     await handleCookiesConsent();
@@ -39,22 +36,21 @@ describe("userInteraction - clear with invalid selector", function () {
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "snputDescription.V",
-        "metadata": "sap.m.Input",
-        "id": "__input4"
+      elementProperties: {
+        viewName: "snputDescription.V",
+        metadata: "sap.m.Input",
+        id: "__input4"
       }
     };
-    await expect(ui5.userInteraction.clear(selector))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.userInteraction.clear(selector)).rejects.toThrow(/No visible elements found/);
   });
 });
 
 describe("userInteraction - clear third input field", function () {
   const selector = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.InputDescription.V",
-      "metadata": "sap.m.Input"
+    elementProperties: {
+      viewName: "sap.m.sample.InputDescription.V",
+      metadata: "sap.m.Input"
     }
   };
   let index = 2;

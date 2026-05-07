@@ -1,7 +1,5 @@
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - clearAndFillSmartFieldInputAndRetry", function () {
   it("Preparation", async function () {
@@ -12,10 +10,10 @@ describe("userInteraction - clearAndFillSmartFieldInputAndRetry", function () {
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smartfield.Overview.Main",
-        "metadata": "sap.m.Input",
-        "id": "*idWhitespace-input"
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smartfield.Overview.Main",
+        metadata: "sap.m.Input",
+        id: "*idWhitespace-input"
       }
     };
 

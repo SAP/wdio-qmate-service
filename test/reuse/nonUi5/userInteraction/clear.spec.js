@@ -25,8 +25,7 @@ describe("userInteraction - clear - no element (error case)", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(nonUi5.userInteraction.clear())
-      .rejects.toThrow("Function 'clear' failed with: Please provide an element or a CSS selector as first argument.");
+    await expect(nonUi5.userInteraction.clear()).rejects.toThrow("Function 'clear' failed with: Please provide an element or a CSS selector as first argument.");
   });
 });
 
@@ -37,7 +36,6 @@ describe("userInteraction - clear - button (error case)", function () {
 
   it("Execution & Verification", async function () {
     const elem = await nonUi5.element.getById("Default", 10000);
-    await expect(nonUi5.userInteraction.clear(elem))
-      .rejects.toThrow(/invalid element state/);
+    await expect(nonUi5.userInteraction.clear(elem)).rejects.toThrow(/invalid element state/);
   });
 });

@@ -2,7 +2,6 @@ const data = require("./data/data.json");
 
 describe("userSettings", function () {
   describe("setS4UserSettings.spec - apply all s4 user settings", function () {
-
     it("Preparation: Set systemUrl ", async function () {
       browser.config.params.systemUrl = util.data.decrypt(data.systemUrl);
     });
@@ -32,6 +31,5 @@ describe("userSettings", function () {
         common.assertion.expectDefined(process.env.USER_SETTINGS_LANG_KEY);
       });
     });
-
   });
 });

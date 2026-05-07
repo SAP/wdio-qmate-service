@@ -100,9 +100,7 @@ describe("table - getSelectorForRowByIndex - sap.ui.comp.smarttable.SmartTable -
   });
 });
 
-
 describe("table - getSelectorForRowByIndex - sap.ui.table.Table - get first row", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.table.Table/sample/sap.ui.table.sample.Basic`);
     await handleCookiesConsent();
@@ -114,21 +112,19 @@ describe("table - getSelectorForRowByIndex - sap.ui.table.Table - get first row"
     actRowSelector = await ui5.table.getSelectorForRowByIndex(uiTableSelector, index);
   });
 
-
   it("Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.table.sample.Basic.View",
-        "metadata": "sap.ui.unified.Currency",
-        "value": "956"
+      elementProperties: {
+        viewName: "sap.ui.table.sample.Basic.View",
+        metadata: "sap.ui.unified.Currency",
+        value: "956"
       },
-      "ancestorProperties": actRowSelector.elementProperties
+      ancestorProperties: actRowSelector.elementProperties
     };
     await expect(ui5.element.getDisplayed(selector)).resolves.not.toThrow();
   });
 
   describe("table - getSelectorForRowByIndex - sap.ui.table.TreeTable - get first row", function () {
-
     it("Preparation", async function () {
       await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.table.TreeTable/sample/sap.ui.table.sample.TreeTable.BasicODataTreeBinding`);
       await handleCookiesConsent();
@@ -140,16 +136,17 @@ describe("table - getSelectorForRowByIndex - sap.ui.table.Table - get first row"
       actRowSelector = await ui5.table.getSelectorForRowByIndex(treeTableSelector, index);
     });
 
-
     it("Verification", async function () {
       const selector = {
         elementProperties: {
           viewName: "sap.ui.table.sample.TreeTable.BasicODataTreeBinding.View",
           metadata: "sap.m.Text",
           bindingContextPath: "/Nodes*1)",
-          text: [{
-            path: "Description"
-          }]
+          text: [
+            {
+              path: "Description"
+            }
+          ]
         },
         ancestorProperties: actRowSelector.elementProperties
       };

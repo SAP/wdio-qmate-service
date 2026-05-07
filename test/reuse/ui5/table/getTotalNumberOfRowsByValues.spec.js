@@ -59,7 +59,6 @@ describe("table - getTotalNumberOfRowsByValues - 2 matches", function () {
 });
 
 describe("table - getTotalNumberOfRowsByValues - 1 match by two values", function () {
-
   let actNumberOfTableRows;
 
   it("Preparation", async function () {
@@ -113,7 +112,6 @@ describe("table - getTotalNumberOfRowsByValues - unhappy case- 0 matches", funct
     const expNumberOfTableRows = 0;
     await common.assertion.expectEqual(actNumberOfTableRows, expNumberOfTableRows);
   });
-
 });
 
 describe("table - getTotalNumberOfRowsByValues - sap.ui.table.TreeTable - single value as an Array", function () {

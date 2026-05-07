@@ -1,10 +1,7 @@
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - selectComboBox", function () {
-
   let selector;
   let actualValue;
   let expectedValue;
@@ -17,9 +14,9 @@ describe("userInteraction - selectComboBox", function () {
 
   it("Execution", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.ComboBox.view.ComboBox",
-        "metadata": "sap.m.ComboBox"
+      elementProperties: {
+        viewName: "sap.m.sample.ComboBox.view.ComboBox",
+        metadata: "sap.m.ComboBox"
       }
     };
     actualValue = "Algeria";
@@ -33,7 +30,6 @@ describe("userInteraction - selectComboBox", function () {
 });
 
 describe("userInteraction - selectComboBox use wrong selector", function () {
-
   let selector;
   let value;
 
@@ -45,19 +41,17 @@ describe("userInteraction - selectComboBox use wrong selector", function () {
 
   it("Execution & Verification", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.mboBox.view.ComboBox",
-        "metadata": "sapoBox"
+      elementProperties: {
+        viewName: "sap.m.sample.mboBox.view.ComboBox",
+        metadata: "sapoBox"
       }
     };
     value = "Germany";
-    await expect(ui5.userInteraction.selectComboBox(selector, value))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.userInteraction.selectComboBox(selector, value)).rejects.toThrow(/No visible elements found/);
   });
 });
 
 describe("userInteraction - selectComboBox use wrong value", function () {
-
   let value;
   let selector;
 
@@ -69,19 +63,17 @@ describe("userInteraction - selectComboBox use wrong value", function () {
 
   it("Execution & Verification", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.ComboBox.view.ComboBox",
-        "metadata": "sap.m.ComboBox"
+      elementProperties: {
+        viewName: "sap.m.sample.ComboBox.view.ComboBox",
+        metadata: "sap.m.ComboBox"
       }
     };
     value = "ABCDE";
-    await expect(ui5.userInteraction.selectComboBox(selector, value))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.userInteraction.selectComboBox(selector, value)).rejects.toThrow(/No visible elements found/);
   });
 });
 
 describe("userInteraction - selectComboBox with index > 0", function () {
-
   let selector;
   let actualFirstValue, actualSecondValue;
   let expectedFirstValue, expectedSecondValue;
@@ -97,9 +89,9 @@ describe("userInteraction - selectComboBox with index > 0", function () {
 
   it("Execution", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.ComboBoxValueState.view.ComboBoxValueState",
-        "metadata": "sap.m.ComboBox"
+      elementProperties: {
+        viewName: "sap.m.sample.ComboBoxValueState.view.ComboBoxValueState",
+        metadata: "sap.m.ComboBox"
       }
     };
     actualFirstValue = "Algeria";

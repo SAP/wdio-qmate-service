@@ -4,26 +4,26 @@ nav:
   - About: index.md
   - ☰ Reuse API: doc.md
   - Getting Started:
-    - Setup: sections/gettingStarted/setup.md
-    - Config: sections/gettingStarted/config.md
-    - Spec: sections/gettingStarted/spec.md
-    - Execution: sections/gettingStarted/execution.md
+      - Setup: sections/gettingStarted/setup.md
+      - Config: sections/gettingStarted/config.md
+      - Spec: sections/gettingStarted/spec.md
+      - Execution: sections/gettingStarted/execution.md
   - Features:
-    - Config: sections/features/config.md
-    - Selectors: sections/features/selectors.md
+      - Config: sections/features/config.md
+      - Selectors: sections/features/selectors.md
   - Best Practices:
-    - Selectors: sections/bestPractices/selectors.md
-    - Authentication: sections/bestPractices/authentication.md
-    - Data Handling: sections/bestPractices/dataHandling.md
-  - Support: 
-    - Issues & Feature Requests: sections/support/bugReporting.md
-    - Troubleshooting: sections/support/troubleshooting.md
-    - Known Issues & Limitations: sections/support/knownIssuesAndLimitations.md
+      - Selectors: sections/bestPractices/selectors.md
+      - Authentication: sections/bestPractices/authentication.md
+      - Data Handling: sections/bestPractices/dataHandling.md
+  - Support:
+      - Issues & Feature Requests: sections/support/bugReporting.md
+      - Troubleshooting: sections/support/troubleshooting.md
+      - Known Issues & Limitations: sections/support/knownIssuesAndLimitations.md
   - Contact: sections/contact.md
 theme:
-  name: 'material'
+  name: "material"
   features:
-    - content.code.annotate 
+    - content.code.annotate
     - content.tabs.link
     - navigation.top
   palette:
@@ -32,7 +32,7 @@ theme:
         icon: material/weather-night
         name: Switch to dark mode
     - scheme: slate
-      toggle: 
+      toggle:
         icon: material/weather-sunny
         name: Switch to light mode
 extra_css:
@@ -44,7 +44,7 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.superfences
   - pymdownx.tabbed:
-      alternate_style: true 
+      alternate_style: true
   - pymdownx.snippets
   - pymdownx.superfences
   - pymdownx.tabbed:

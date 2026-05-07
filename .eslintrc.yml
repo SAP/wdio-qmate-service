@@ -5,7 +5,7 @@ env:
   jasmine: true
   node: true
 plugins: ["wdio"]
-extends: 'plugin:wdio/recommended'
+extends: "plugin:wdio/recommended"
 parserOptions:
   ecmaVersion: 2024
 globals:
@@ -19,7 +19,7 @@ globals:
   service: readonly
 rules:
   keyword-spacing: 2
-  indent: [2, 2, {ignoreComments: true, SwitchCase: 1}]
+  indent: [2, 2, { ignoreComments: true, SwitchCase: 1 }]
   no-console: 1
   no-const-assign: 2
   no-extra-semi: 2
@@ -28,6 +28,6 @@ rules:
   no-undef: 2
   no-unused-expressions: 2
   no-return-await: 2
-  quotes: [2, 'double', {avoidEscape: true, allowTemplateLiterals: true}]
+  quotes: [2, "double", { avoidEscape: true, allowTemplateLiterals: true }]
   prefer-const: 1
-  semi: [2, 'always']
+  semi: [2, "always"]

@@ -1,42 +1,45 @@
 "use strict";
 
 const categoryHeaderSelector = {
-  "elementProperties": {
-    "metadata": "sap.m.List",
-    "mProperties": {
-      "headerText": {
-        "path": "homeCategoryListHeader"
+  elementProperties: {
+    metadata: "sap.m.List",
+    mProperties: {
+      headerText: {
+        path: "homeCategoryListHeader"
       },
-      "items": {
-        "path": "/ProductCategories"
+      items: {
+        path: "/ProductCategories"
       }
     }
   },
-  "parentProperties": {
-    "metadata": "sap.m.Page",
-    "mProperties": {
-      "title": {
-        "path": "homeTitle"
+  parentProperties: {
+    metadata: "sap.m.Page",
+    mProperties: {
+      title: {
+        path: "homeTitle"
       }
     }
   },
-  "childProperties": {
-    "metadata": "sap.m.StandardListItem",
-    "mProperties": {
-      "bindingContextPath": "/ProductCategories('AC')",
-      "counter": {
-        "path": "NumberOfProducts"
+  childProperties: {
+    metadata: "sap.m.StandardListItem",
+    mProperties: {
+      bindingContextPath: "/ProductCategories('AC')",
+      counter: {
+        path: "NumberOfProducts"
       },
-      "title": {
-        "path": "CategoryName"
+      title: {
+        path: "CategoryName"
       },
       // model = "i18n"
       // path = "openCategoryProducts"
-      "tooltip": [{
-        "path": "i18n>openCategoryProducts"
-      }, {
-        "path": "CategoryName"
-      }]
+      tooltip: [
+        {
+          path: "i18n>openCategoryProducts"
+        },
+        {
+          path: "CategoryName"
+        }
+      ]
     }
   }
 };
@@ -48,28 +51,30 @@ describe("assertion - expectBindingPathToBe", function () {
 
   it("Execution & Verification", async function () {
     const category = {
-      "elementProperties": {
-        "metadata": "sap.m.StandardListItem",
-        "mProperties": {
-          "bindingContextPath": "/ProductCategories('AC')",
-          "counter": {
-            "path": "NumberOfProducts"
+      elementProperties: {
+        metadata: "sap.m.StandardListItem",
+        mProperties: {
+          bindingContextPath: "/ProductCategories('AC')",
+          counter: {
+            path: "NumberOfProducts"
           },
-          "title": {
-            "path": "CategoryName"
+          title: {
+            path: "CategoryName"
           },
-          "tooltip": [{
-            "path": "i18n>openCategoryProducts"
-          }, {
-            "path": "CategoryName"
-          }]
+          tooltip: [
+            {
+              path: "i18n>openCategoryProducts"
+            },
+            {
+              path: "CategoryName"
+            }
+          ]
         }
       }
     };
     await ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, "items", "/ProductCategories"); // Equal
     await ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, "items", "Product"); // Contain
-    await ui5.assertion
-      .expectBindingPathToBe(category, "tooltip", ["i18n>openCategoryProducts", "CategoryName"]); // compareValue as Array
+    await ui5.assertion.expectBindingPathToBe(category, "tooltip", ["i18n>openCategoryProducts", "CategoryName"]); // compareValue as Array
   });
 });
 
@@ -90,22 +95,17 @@ describe("assertion - expectBindingPathToBe with wrong selector (unhappy case)",
 
   it("Execution & Verification", async function () {
     const selector = {
-      "wrongData": "123"
+      wrongData: "123"
     };
-    await expect(ui5.assertion.expectBindingPathToBe(selector, "items", "/ProductCategories", 0, 5000))
-      .rejects.toThrow(`Function 'expectBindingPathToBe' failed with: No visible elements found with selector: {\"wrongData\":\"123\"}`);
+    await expect(ui5.assertion.expectBindingPathToBe(selector, "items", "/ProductCategories", 0, 5000)).rejects.toThrow(`Function 'expectBindingPathToBe' failed with: No visible elements found with selector: {\"wrongData\":\"123\"}`);
 
-    await expect(ui5.assertion.expectBindingPathToBe(123, "items", "/ProductCategories", 0, 5000))
-      .rejects.toThrow("Function 'expectBindingPathToBe' failed with:");
+    await expect(ui5.assertion.expectBindingPathToBe(123, "items", "/ProductCategories", 0, 5000)).rejects.toThrow("Function 'expectBindingPathToBe' failed with:");
 
-    await expect(ui5.assertion.expectBindingPathToBe(false, "items", "/ProductCategories", 0, 5000))
-      .rejects.toThrow("Function 'expectBindingPathToBe' failed with: Please provide a valid selector as argument.");
+    await expect(ui5.assertion.expectBindingPathToBe(false, "items", "/ProductCategories", 0, 5000)).rejects.toThrow("Function 'expectBindingPathToBe' failed with: Please provide a valid selector as argument.");
 
-    await expect(ui5.assertion.expectBindingPathToBe(null, "items", "/ProductCategories", 0, 5000))
-      .rejects.toThrow("Function 'expectBindingPathToBe' failed with: Please provide a valid selector as argument.");
+    await expect(ui5.assertion.expectBindingPathToBe(null, "items", "/ProductCategories", 0, 5000)).rejects.toThrow("Function 'expectBindingPathToBe' failed with: Please provide a valid selector as argument.");
 
-    await expect(ui5.assertion.expectBindingPathToBe(undefined, "items", "/ProductCategories", 0, 5000))
-      .rejects.toThrow("Function 'expectBindingPathToBe' failed with: Please provide a valid selector as argument.");
+    await expect(ui5.assertion.expectBindingPathToBe(undefined, "items", "/ProductCategories", 0, 5000)).rejects.toThrow("Function 'expectBindingPathToBe' failed with: Please provide a valid selector as argument.");
   });
 });
 
@@ -130,20 +130,15 @@ describe("assertion - expectBindingPathToBe with wrong attribute (unhappy case)"
         break;
     }
     async function expectBindingPathToBeUnhappyCaseTest(errorMessage) {
-      await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, "itms", "/ProductCategories", 0, 5000))
-        .rejects.toThrow(errorMessage);
+      await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, "itms", "/ProductCategories", 0, 5000)).rejects.toThrow(errorMessage);
 
-      await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, 123, "/ProductCategories", 0, 5000))
-        .rejects.toThrow(errorMessage);
+      await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, 123, "/ProductCategories", 0, 5000)).rejects.toThrow(errorMessage);
 
-      await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, false, "/ProductCategories", 0, 5000))
-        .rejects.toThrow(errorMessage);
+      await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, false, "/ProductCategories", 0, 5000)).rejects.toThrow(errorMessage);
 
-      await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, null, "/ProductCategories", 0, 5000))
-        .rejects.toThrow(errorMessage);
+      await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, null, "/ProductCategories", 0, 5000)).rejects.toThrow(errorMessage);
 
-      await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, undefined, "/ProductCategories", 0, 5000))
-        .rejects.toThrow(errorMessage);
+      await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, undefined, "/ProductCategories", 0, 5000)).rejects.toThrow(errorMessage);
     }
   });
 });
@@ -155,8 +150,7 @@ describe("assertion - expectBindingPathToBe with wrong compareValue (unhappy cas
 
   it("Execution & Verification", async function () {
     // Typo in compareValue
-    await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, "items", "/ProductCategores", 0, 5000))
-      .rejects.toThrow(/Expect\w+|\d+ProductCategores\w+|\d+Received\w+|\d+ProductCategories/);
+    await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, "items", "/ProductCategores", 0, 5000)).rejects.toThrow(/Expect\w+|\d+ProductCategores\w+|\d+Received\w+|\d+ProductCategories/);
     // Wrong compareValue
     // await expect(ui5.assertion.expectBindingPathToBe(categoryHeaderSelector, "items", 123))
     //   .rejects.toThrow("StringContaining \"/ProductCategories\"");

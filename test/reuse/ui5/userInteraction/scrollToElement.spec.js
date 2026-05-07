@@ -1,23 +1,22 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("element - scrollToElement - default, no args", function () {
-
   it("Preparation", async function () {
     await browser.navigateTo(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`);
   });
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Welcome",
-        "metadata": "sap.m.Title",
-        "text": [{
-          "path": "i18n>promotedTitle"
-        }]
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Welcome",
+        metadata: "sap.m.Title",
+        text: [
+          {
+            path: "i18n>promotedTitle"
+          }
+        ]
       }
     };
     const index = 0;
@@ -29,23 +28,24 @@ describe("element - scrollToElement - default, no args", function () {
 });
 
 describe("element - scrollToElement - with custom alignment options ", function () {
-
   it("Preparation", async function () {
     await browser.navigateTo(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`);
   });
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Welcome",
-        "metadata": "sap.m.Title",
-        "text": [{
-          "path": "i18n>promotedTitle"
-        }]
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Welcome",
+        metadata: "sap.m.Title",
+        text: [
+          {
+            path: "i18n>promotedTitle"
+          }
+        ]
       }
     };
     const index = 0;
-    const alignmentOptions = { "inline": "nearest", "block": "start" };
+    const alignmentOptions = { inline: "nearest", block: "start" };
     const timeout = 30000;
     await ui5.userInteraction.scrollToElement(selector, index, alignmentOptions, timeout);
     await ui5.assertion.expectToBeVisible(selector);
@@ -61,16 +61,16 @@ describe("element - scrollToElement outside of viewpoint", function () {
 
   it("Execution", async function () {
     const selectorForDropdownList = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MultiComboBox.view.MultiComboBox",
-        "metadata": "sap.m.MultiComboBox"
+      elementProperties: {
+        viewName: "sap.m.sample.MultiComboBox.view.MultiComboBox",
+        metadata: "sap.m.MultiComboBox"
       }
     };
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MultiComboBox.view.MultiComboBox",
-        "metadata": "sap.m.StandardListItem",
-        "title": "Smart Games"
+      elementProperties: {
+        viewName: "sap.m.sample.MultiComboBox.view.MultiComboBox",
+        metadata: "sap.m.StandardListItem",
+        title: "Smart Games"
       }
     };
 
@@ -81,9 +81,9 @@ describe("element - scrollToElement outside of viewpoint", function () {
 
   it("Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MultiComboBox.view.MultiComboBox",
-        "metadata": "sap.m.Token"
+      elementProperties: {
+        viewName: "sap.m.sample.MultiComboBox.view.MultiComboBox",
+        metadata: "sap.m.Token"
       }
     };
     await ui5.assertion.expectAttributeToBe(selector, "text", "Smart Games");
@@ -91,25 +91,25 @@ describe("element - scrollToElement outside of viewpoint", function () {
 });
 
 describe("element - scrollToElement and catch error", function () {
-
   it("Preparation", async function () {
     await browser.navigateTo(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`);
   });
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "ghgjho.cart.view.Welcome",
-        "metadata": "",
-        "text": [{
-          "path": "i18n>promotedTitle"
-        }]
+      elementProperties: {
+        viewName: "ghgjho.cart.view.Welcome",
+        metadata: "",
+        text: [
+          {
+            path: "i18n>promotedTitle"
+          }
+        ]
       }
     };
     const index = 0;
     const alignment = "start";
     const timeout = 30000;
-    await expect(ui5.userInteraction.scrollToElement(selector, index, alignment, timeout))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.userInteraction.scrollToElement(selector, index, alignment, timeout)).rejects.toThrow(/No visible elements found/);
   });
 });

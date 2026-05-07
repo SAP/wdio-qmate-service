@@ -16,10 +16,7 @@ exports.config = merge(profile.config, {
   // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
-  specs: [
-    path.resolve(__dirname, "getWithDomElement.test.js"),
-    path.resolve(__dirname, "getWithDomElements.test.js")
-  ],
+  specs: [path.resolve(__dirname, "getWithDomElement.test.js"), path.resolve(__dirname, "getWithDomElements.test.js")],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'

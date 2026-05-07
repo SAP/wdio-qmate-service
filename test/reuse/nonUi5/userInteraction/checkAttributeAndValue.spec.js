@@ -1,8 +1,7 @@
 "use strict";
 
 describe("userInteraction - attribute and value", function () {
-
-  describe("textarea field and \"value\" attribute", function () {
+  describe('textarea field and "value" attribute', function () {
     let element;
 
     it("Preparation", async function () {
@@ -15,7 +14,7 @@ describe("userInteraction - attribute and value", function () {
       nonUi5.assertion.expectValueToBe(element, "");
     });
 
-    it("Verify field is empty using attribute \"value\"", async function () {
+    it('Verify field is empty using attribute "value"', async function () {
       // Check field is empty before the test
       nonUi5.assertion.expectValueToBe(element, "", "value");
     });
@@ -28,7 +27,7 @@ describe("userInteraction - attribute and value", function () {
       await nonUi5.assertion.expectValueToBe(element, "textarea first test value");
     });
 
-    it("Verify value using attribute \"value\"", async function () {
+    it('Verify value using attribute "value"', async function () {
       await nonUi5.assertion.expectValueToBe(element, "textarea first test value", "value");
     });
 
@@ -40,13 +39,12 @@ describe("userInteraction - attribute and value", function () {
       await nonUi5.assertion.expectValueToBe(element, "textarea second test value");
     });
 
-    it("Verify new value using attribute \"value\"", async function () {
+    it('Verify new value using attribute "value"', async function () {
       await nonUi5.assertion.expectValueToBe(element, "textarea second test value", "value");
     });
-
   });
 
-  describe("input field and \"value\" attribute", function () {
+  describe('input field and "value" attribute', function () {
     let element;
 
     it("Preparation", async function () {
@@ -59,7 +57,7 @@ describe("userInteraction - attribute and value", function () {
       nonUi5.assertion.expectValueToBe(element, "");
     });
 
-    it("Verify field is empty using attribute \"value\"", async function () {
+    it('Verify field is empty using attribute "value"', async function () {
       // Check field is empty before the test
       nonUi5.assertion.expectValueToBe(element, "", "value");
     });
@@ -72,7 +70,7 @@ describe("userInteraction - attribute and value", function () {
       await nonUi5.assertion.expectValueToBe(element, "First test value");
     });
 
-    it("Verify value using attribute \"value\"", async function () {
+    it('Verify value using attribute "value"', async function () {
       await nonUi5.assertion.expectValueToBe(element, "First test value", "value");
     });
 
@@ -84,13 +82,12 @@ describe("userInteraction - attribute and value", function () {
       await nonUi5.assertion.expectValueToBe(element, "Second test value");
     });
 
-    it("Verify new value using attribute \"value\"", async function () {
+    it('Verify new value using attribute "value"', async function () {
       await nonUi5.assertion.expectValueToBe(element, "Second test value", "value");
     });
-
   });
 
-  describe("button and \"textContent\" attribute", function () {
+  describe('button and "textContent" attribute', function () {
     it("Preparation", async function () {
       await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
     });
@@ -105,13 +102,13 @@ describe("userInteraction - attribute and value", function () {
       await nonUi5.assertion.expectValueToBe(defaultButton, "Default");
     });
 
-    it("Verify button text using \"textContent\" attribute", async function () {
+    it('Verify button text using "textContent" attribute', async function () {
       const defaultButton = await nonUi5.element.getById("Default", 10000);
       await nonUi5.assertion.expectValueToBe(defaultButton, "Default", "textContent");
     });
   });
 
-  describe("span and \"textContent\" attribute", function () {
+  describe('span and "textContent" attribute', function () {
     it("Preparation", async function () {
       await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
     });
@@ -126,10 +123,9 @@ describe("userInteraction - attribute and value", function () {
       await nonUi5.assertion.expectValueToBe(submittedResultField, "Default");
     });
 
-    it("Verify span text using \"textContent\" attribute", async function () {
+    it('Verify span text using "textContent" attribute', async function () {
       const submittedResultField = await nonUi5.element.getById("display1", 10000);
       await nonUi5.assertion.expectValueToBe(submittedResultField, "Default", "textContent");
     });
   });
-
 });

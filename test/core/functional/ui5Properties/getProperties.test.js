@@ -1,26 +1,22 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("Test 'getUI5Property()' and 'getUI5Properties()' on both element and browser levels", function () {
-
   it("should access List Element properties on element and browser levels", async function () {
     await browser.url("#/categories");
 
     const listElementProperties = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/ProductCategories*'AC')"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/ProductCategories*'AC')"
       }
     };
 
     const element = await browser.uiControl(listElementProperties);
 
     checkMethodsAvailabilityOnBrowserAndElementLevels(element);
-
 
     await checkElementAndBrowserAccessAllProperties({
       requiredProperties: ["title", "tooltip", "visible"],
@@ -44,10 +40,10 @@ describe("Test 'getUI5Property()' and 'getUI5Properties()' on both element and b
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const mainCheckboxElementProperties = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.CheckBoxTriState.CheckBoxTriState",
-        "metadata": "sap.m.CheckBox",
-        "text": "select / deselect all"
+      elementProperties: {
+        viewName: "sap.m.sample.CheckBoxTriState.CheckBoxTriState",
+        metadata: "sap.m.CheckBox",
+        text: "select / deselect all"
       }
     };
     const mainCheckboxElement = await browser.uiControl(mainCheckboxElementProperties);
@@ -94,7 +90,6 @@ describe("Test 'getUI5Property()' and 'getUI5Properties()' on both element and b
     await expect(mainCheckboxElement.getUI5Property("selected")).resolves.toBe(false);
     await expect(browser.getUI5Property("selected", mainCheckboxElement)).resolves.toBe(false);
 
-
     await expect(mainCheckboxElement.getUI5Property("partiallySelected")).resolves.toBe(true);
     await expect(browser.getUI5Property("partiallySelected", mainCheckboxElement)).resolves.toBe(true);
   });
@@ -106,9 +101,9 @@ describe("Test 'getUI5Property()' and 'getUI5Properties()' on both element and b
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const searchFieldProperties = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smarttable.SmartTable",
-        "metadata": "sap.ui.comp.smartfilterbar.SFBSearchField"
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smarttable.SmartTable",
+        metadata: "sap.ui.comp.smartfilterbar.SFBSearchField"
       }
     };
 
@@ -135,10 +130,10 @@ describe("Test 'getUI5Property()' and 'getUI5Properties()' on both element and b
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const disabledButtonProperties = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Button.Page",
-        "metadata": "sap.m.Button",
-        "text": "Coming Soon"
+      elementProperties: {
+        viewName: "sap.m.sample.Button.Page",
+        metadata: "sap.m.Button",
+        text: "Coming Soon"
       }
     };
 
@@ -163,9 +158,9 @@ describe("Test 'getUI5Property()' and 'getUI5Properties()' on both element and b
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const buttonProperties = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.ButtonWithBadge.Page",
-        "metadata": "sap.m.Button"
+      elementProperties: {
+        viewName: "sap.m.sample.ButtonWithBadge.Page",
+        metadata: "sap.m.Button"
       }
     };
 
@@ -185,10 +180,10 @@ describe("Test 'getUI5Property()' and 'getUI5Properties()' on both element and b
     await expect(browser.getUI5Property("icon", button)).resolves.toBe("sap-icon://cart");
 
     const checkboxToRemoveIconProperties = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.ButtonWithBadge.Page",
-        "metadata": "sap.m.CheckBox",
-        "text": "Icon"
+      elementProperties: {
+        viewName: "sap.m.sample.ButtonWithBadge.Page",
+        metadata: "sap.m.CheckBox",
+        text: "Icon"
       }
     };
 
@@ -219,10 +214,7 @@ function checkMethodsAvailabilityOnBrowserAndElementLevels(element) {
   expect(element).toEqual(expect.objectContaining(example));
 }
 
-async function checkElementAndBrowserAccessAllProperties({
-  requiredProperties,
-  element
-}) {
+async function checkElementAndBrowserAccessAllProperties({ requiredProperties, element }) {
   const allPropertiesNamesOnElementLevel = await element.getAllUI5Properties();
   expect(allPropertiesNamesOnElementLevel).toContain(...requiredProperties);
 

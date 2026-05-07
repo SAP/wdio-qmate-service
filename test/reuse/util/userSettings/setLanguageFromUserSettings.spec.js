@@ -2,7 +2,6 @@ const data = require("./data/data.json");
 
 describe("userSettings", function () {
   describe("setLanguageFromUserSettings.spec", function () {
-
     it("Preparation: Set systemUrl ", async function () {
       browser.config.params.systemUrl = util.data.decrypt(data.systemUrl);
     });
@@ -12,5 +11,4 @@ describe("userSettings", function () {
       common.assertion.expectEqual(process.env.USER_SETTINGS_LANG_KEY.length, 2); //Output: en
     });
   });
-
 });

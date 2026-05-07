@@ -24,7 +24,7 @@ export class Navigation {
       await browser.navigateTo(url);
       await util.browser.logCurrentUrl();
     } else {
-      this.ErrorHandler.logException(new Error("Please provide an url as argument."))
+      this.ErrorHandler.logException(new Error("Please provide an url as argument."));
     }
   }
 

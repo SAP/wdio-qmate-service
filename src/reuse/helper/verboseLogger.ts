@@ -3,15 +3,18 @@ export interface BaseLogger {
 }
 
 export class ActiveLogger implements BaseLogger {
-  constructor(private readonly invoker: Function, private readonly prefix: string) {}
+  constructor(
+    private readonly invoker: Function,
+    private readonly prefix: string
+  ) {}
 
   log(message: string) {
     console.log(`${this.prefix}[${this.invoker.name}]: ${message}`);
   }
 
   error(e: Error) {
-    console.log(`${this.prefix}[${this.invoker.name}]`)
-    throw e
+    console.log(`${this.prefix}[${this.invoker.name}]`);
+    throw e;
   }
 }
 
@@ -25,7 +28,10 @@ export class VerboseLoggerFactory {
   private isActive: boolean;
   private prefix: string;
 
-  constructor(private readonly namespace: string, private readonly moduleName: string) {
+  constructor(
+    private readonly namespace: string,
+    private readonly moduleName: string
+  ) {
     this.isActive = process.env.QMATE_VERBOSE_MODE === "true" ? true : false;
     this.prefix = `[${this.namespace}][${this.moduleName}]`;
   }

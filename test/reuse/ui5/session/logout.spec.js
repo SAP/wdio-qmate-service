@@ -44,7 +44,6 @@ describe("session - logout without login (unhappy case)", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.session.logout())
-      .rejects.toThrow(/Function 'logout' failed with: Could not click User Icon/);
+    await expect(ui5.session.logout()).rejects.toThrow(/Function 'logout' failed with: Could not click User Icon/);
   });
 });

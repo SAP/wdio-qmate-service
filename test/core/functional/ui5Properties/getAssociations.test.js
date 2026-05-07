@@ -3,8 +3,8 @@ describe("Test 'getAllUI5Associations()' and 'getUI5Association()' on both eleme
     await browser.url("#/categories");
 
     var ui5ControlProperties = {
-      "elementProperties": { "metadata": "sap.m.List", "items": [{ "path": "/ProductCategories" }] },
-      "parentProperties": { "metadata": "sap.m.Page", "title": [{ "path": "i18n>homeTitle" }] }
+      elementProperties: { metadata: "sap.m.List", items: [{ path: "/ProductCategories" }] },
+      parentProperties: { metadata: "sap.m.Page", title: [{ path: "i18n>homeTitle" }] }
     };
     const elem = await browser.uiControl(ui5ControlProperties);
     const associations = await elem.getAllUI5Associations();

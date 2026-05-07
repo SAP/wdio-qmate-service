@@ -12,7 +12,7 @@ exports.config = merge(qmateConf.config, {
     }
   },
   suites: {
-    testLearn: "multicombobox.spec.js",
+    testLearn: "multicombobox.spec.js"
   },
   specs: [path.resolve(__dirname, "multicombobox.spec.js")]
 });

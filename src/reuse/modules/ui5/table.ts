@@ -244,12 +244,7 @@ export class Table {
    * const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, ["value1", "value2"]);
    * const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, "value");
    **/
-  async getTotalNumberOfRowsByValues(
-    tableSelectorOrId: Ui5Selector | string,
-    values: string | Array<string>,
-    enableHighlighting: boolean = true,
-    matchMode: MatchMode = "contains"
-  ): Promise<number> {
+  async getTotalNumberOfRowsByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, enableHighlighting: boolean = true, matchMode: MatchMode = "contains"): Promise<number> {
     this.vlf.initLog(this.getTotalNumberOfRowsByValues);
 
     const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values, enableHighlighting, matchMode);
@@ -277,12 +272,7 @@ export class Table {
    * @example
    * await ui5.table.getSelectorsForRowsByValues(selector, ["January", "2022"], true, "exact");
    */
-  async getSelectorsForRowsByValues(
-    tableSelectorOrId: Ui5Selector | string,
-    values: string | Array<string>,
-    enableHighlighting: boolean = true,
-    matchMode: MatchMode = "contains"
-  ): Promise<Array<Ui5Selector>> {
+  async getSelectorsForRowsByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, enableHighlighting: boolean = true, matchMode: MatchMode = "contains"): Promise<Array<Ui5Selector>> {
     this.vlf.initLog(this.getSelectorsForRowsByValues);
 
     if (typeof values === "string") {
@@ -294,7 +284,8 @@ export class Table {
     const constructedTableSelector = await this._constructTableSelector(tableSelectorOrId);
     const tableMetadata = (constructedTableSelector as ElementProperties).elementProperties.metadata;
     const classCode = TableHelper.serializeClass();
-    let filteredRowIds, filteredTableMetadata = null;
+    let filteredRowIds,
+      filteredTableMetadata = null;
     try {
       // =========================== BROWSER COMMAND ===========================
       const browserCommand = `
@@ -547,10 +538,7 @@ export class Table {
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
    * await ui5.table.openItemByIndex(id, 0);
    */
-  async openItemByIndex(
-    tableSelectorOrId: Ui5Selector | string, 
-    index: number,
-  ) {
+  async openItemByIndex(tableSelectorOrId: Ui5Selector | string, index: number) {
     this.vlf.initLog(this.openItemByIndex);
 
     const rowSelector = await this.getSelectorForRowByIndex(tableSelectorOrId, index);
@@ -581,20 +569,12 @@ export class Table {
    * @example const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
    * await ui5.table.openItemByValues(id, "value", 0, false, "exact");
    */
-  async openItemByValues(
-    tableSelectorOrId: Ui5Selector | string,
-    values: string | Array<string>,
-    index: number = 0,
-    enableHighlighting: boolean = true,
-    matchMode: MatchMode = "contains"
-  ) {
+  async openItemByValues(tableSelectorOrId: Ui5Selector | string, values: string | Array<string>, index: number = 0, enableHighlighting: boolean = true, matchMode: MatchMode = "contains") {
     this.vlf.initLog(this.openItemByValues);
 
     const rowSelectors = await this.getSelectorsForRowsByValues(tableSelectorOrId, values, enableHighlighting, matchMode);
-    if (rowSelectors.length === 0)
-      return this.ErrorHandler.logException(new Error(`No items found with the provided values: ${values}.`));
-    if (rowSelectors.length <= index)
-      return this.ErrorHandler.logException(new Error(`The index ${index} is out of bounds. The number of matching items is ${rowSelectors.length}.`));
+    if (rowSelectors.length === 0) return this.ErrorHandler.logException(new Error(`No items found with the provided values: ${values}.`));
+    if (rowSelectors.length <= index) return this.ErrorHandler.logException(new Error(`The index ${index} is out of bounds. The number of matching items is ${rowSelectors.length}.`));
 
     const rowSelector = rowSelectors[index];
     await this._clickRowOrArrowIcon(rowSelector);
@@ -657,9 +637,7 @@ export class Table {
         // Intentionally left empty, as the error is handled below
       }
     } else if (typeof tableSelectorOrId === "object" && "elementProperties" in tableSelectorOrId) {
-      if (
-        Table.SUPPORTED_TABLES_METADATA.includes((tableSelectorOrId as ElementProperties).elementProperties.metadata)
-      ) {
+      if (Table.SUPPORTED_TABLES_METADATA.includes((tableSelectorOrId as ElementProperties).elementProperties.metadata)) {
         return tableSelectorOrId;
       }
     }

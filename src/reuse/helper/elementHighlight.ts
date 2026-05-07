@@ -44,8 +44,7 @@ export class ElementHighlight {
 
         if (Array.isArray(actions)) {
           for (let action of actions) {
-            if (!(typeof action == "string" && typeof actionName == "string"))
-              throw new Error(`Please provide the method name '${action}/${actionName}' in string format`);
+            if (!(typeof action == "string" && typeof actionName == "string")) throw new Error(`Please provide the method name '${action}/${actionName}' in string format`);
 
             if (action.toLowerCase().trim().includes(actionName.trim()) || action.includes("*")) {
               elementHighlightConfig = this._getElementHighlightColorAndDuration(elementHighlightConfig, elementHighlightDefaultConfig);
@@ -75,16 +74,9 @@ export class ElementHighlight {
     };
   }
 
-  private _getElementHighlightColorAndDuration(
-    elementHighlightConfig: ElementHighlightConfig,
-    elementHighlightDefaultConfig: ElementHighlightConfig
-  ): ElementHighlightConfig {
-    elementHighlightConfig.color = elementHighlightConfig.hasOwnProperty("color")
-      ? elementHighlightConfig.color
-      : elementHighlightDefaultConfig.color;
-    elementHighlightConfig.duration = elementHighlightConfig.hasOwnProperty("duration")
-      ? elementHighlightConfig.duration
-      : elementHighlightDefaultConfig.duration;
+  private _getElementHighlightColorAndDuration(elementHighlightConfig: ElementHighlightConfig, elementHighlightDefaultConfig: ElementHighlightConfig): ElementHighlightConfig {
+    elementHighlightConfig.color = elementHighlightConfig.hasOwnProperty("color") ? elementHighlightConfig.color : elementHighlightDefaultConfig.color;
+    elementHighlightConfig.duration = elementHighlightConfig.hasOwnProperty("duration") ? elementHighlightConfig.duration : elementHighlightDefaultConfig.duration;
     return elementHighlightConfig;
   }
 }

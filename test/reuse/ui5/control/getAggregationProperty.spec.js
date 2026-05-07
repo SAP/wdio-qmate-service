@@ -11,21 +11,23 @@ describe("getAggregationProperty - check tooltip property is 'Open category Acce
 
   it("Execution", async () => {
     const selector = {
-      "elementProperties": {
-        "metadata": "sap.m.StandardListItem",
-        "mProperties": {
-          "viewId": "container-cart---app",
-          "title": [{
-            "path": "CategoryName"
-          }],
-          "bindingContextPath": "/ProductCategories*"
+      elementProperties: {
+        metadata: "sap.m.StandardListItem",
+        mProperties: {
+          viewId: "container-cart---app",
+          title: [
+            {
+              path: "CategoryName"
+            }
+          ],
+          bindingContextPath: "/ProductCategories*"
         }
       }
     };
     val = await ui5.control.getAggregationProperty(selector, "tooltip");
     const elem = await ui5.element.getDisplayed(selector);
     valElem = await ui5.control.getAggregationProperty(elem, "tooltip");
-    valSelOptions = await ui5.control.getAggregationProperty({selector: selector, index: 0, timeout: 30000}, "tooltip");
+    valSelOptions = await ui5.control.getAggregationProperty({ selector: selector, index: 0, timeout: 30000 }, "tooltip");
   });
 
   it("Verification", () => {
@@ -47,13 +49,13 @@ describe("getAggregationProperty - columns of table", async () => {
 
   it("Execution", async () => {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Table.Table",
-        "metadata": "sap.m.Table"
+      elementProperties: {
+        viewName: "sap.m.sample.Table.Table",
+        metadata: "sap.m.Table"
       }
     };
     val = await ui5.control.getAggregationProperty(selector, "columns");
-    val = val.map(item => item.mAggregations.header.mProperties.text);
+    val = val.map((item) => item.mAggregations.header.mProperties.text);
   });
 
   it("Verification", () => {
@@ -73,16 +75,18 @@ describe("getAggregationProperty - items in list", async () => {
 
   it("Execution", async () => {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Select.Page",
-        "metadata": "sap.m.Select",
-        "items": [{
-          "path": "/ProductCollection2"
-        }]
+      elementProperties: {
+        viewName: "sap.m.sample.Select.Page",
+        metadata: "sap.m.Select",
+        items: [
+          {
+            path: "/ProductCollection2"
+          }
+        ]
       }
     };
     val = await ui5.control.getAggregationProperty(selector, "items");
-    val = val.map(item => item.mProperties.text);
+    val = val.map((item) => item.mProperties.text);
   });
 
   it("Verification", () => {

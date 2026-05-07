@@ -35,6 +35,6 @@ describe("userInteraction - dragAndDrop - successful 1", async function () {
 //   it("Verification", async function () {
 //     const targetElement = await nonUi5.element.getById("dropTargetDiv");
 //     const text = await targetElement.getText();
-//     common.assertion.expectUnequal(text, ""); 
+//     common.assertion.expectUnequal(text, "");
 //   });
 // });

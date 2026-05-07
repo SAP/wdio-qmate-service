@@ -4,7 +4,6 @@ describe("userSettings", function () {
   const DATE_FORMAT_LENGTH = 10;
 
   describe("getDateFormatFromUserSettings.spec - passing date format", function () {
-
     it("Preparation: Set systemUrl ", async function () {
       browser.config.params.systemUrl = util.data.decrypt(data.systemUrl);
     });
@@ -17,5 +16,4 @@ describe("userSettings", function () {
       common.assertion.expectEqual(new Date(date), new Date(userDate));
     });
   });
-
 });

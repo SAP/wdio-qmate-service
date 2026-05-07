@@ -43,16 +43,16 @@ npm run serve-docs               # generate and serve locally (requires mkdocs)
 
 `src/reuse/index.ts` (the `ReuseLibrary` class) instantiates every module and assigns them to `global.*`. Test specs access everything through these globals — no imports required:
 
-| Global | Source directory | Purpose |
-|--------|-----------------|---------|
-| `global.common` | `src/reuse/modules/common/` | Cross-platform: assertion, date, navigation, userInteraction |
-| `global.util` | `src/reuse/modules/util/` | browser, console, data, file, formatter, function, system, component, userSettings |
-| `global.ui5` | `src/reuse/modules/ui5/` | SAP UI5 controls: assertion, control, element, session, table, navigation, confirmationDialog, errorDialog, navigationBar, footerBar, mockserver, qunit |
-| `global.nonUi5` | `src/reuse/modules/nonUi5/` | Standard web: assertion, element, navigation, userInteraction, session |
-| `global.service` | `src/reuse/modules/service/` | API clients: odata, rest |
-| `global.mobile` | `src/reuse/modules/mobile/` | element, userInteraction, gestures, device, android, ios |
-| `global.flp` | `src/reuse/modules/flp/` | Fiori Launchpad: userSettings, userLocks |
-| `global.cit` | `src/reuse/runner/` | Test runner utilities |
+| Global           | Source directory             | Purpose                                                                                                                                                 |
+| ---------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `global.common`  | `src/reuse/modules/common/`  | Cross-platform: assertion, date, navigation, userInteraction                                                                                            |
+| `global.util`    | `src/reuse/modules/util/`    | browser, console, data, file, formatter, function, system, component, userSettings                                                                      |
+| `global.ui5`     | `src/reuse/modules/ui5/`     | SAP UI5 controls: assertion, control, element, session, table, navigation, confirmationDialog, errorDialog, navigationBar, footerBar, mockserver, qunit |
+| `global.nonUi5`  | `src/reuse/modules/nonUi5/`  | Standard web: assertion, element, navigation, userInteraction, session                                                                                  |
+| `global.service` | `src/reuse/modules/service/` | API clients: odata, rest                                                                                                                                |
+| `global.mobile`  | `src/reuse/modules/mobile/`  | element, userInteraction, gestures, device, android, ios                                                                                                |
+| `global.flp`     | `src/reuse/modules/flp/`     | Fiori Launchpad: userSettings, userLocks                                                                                                                |
+| `global.cit`     | `src/reuse/runner/`          | Test runner utilities                                                                                                                                   |
 
 ESLint is configured to recognise all these as globals (see `.eslintrc.yml`), so `no-undef` won't fire on them.
 

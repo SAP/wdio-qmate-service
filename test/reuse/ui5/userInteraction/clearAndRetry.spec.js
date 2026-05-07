@@ -1,15 +1,12 @@
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - clearAndRetry", function () {
-
   const selector = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.InputDescription.V",
-      "metadata": "sap.m.Input",
-      "description": "IT Laptops"
+    elementProperties: {
+      viewName: "sap.m.sample.InputDescription.V",
+      metadata: "sap.m.Input",
+      description: "IT Laptops"
     }
   };
 
@@ -35,7 +32,6 @@ describe("userInteraction - clearAndRetry", function () {
 });
 
 describe("userInteraction - clearAndRetry with invalid selector", function () {
-
   it("Preparation", async function () {
     await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription`);
     await handleCookiesConsent();
@@ -44,17 +40,16 @@ describe("userInteraction - clearAndRetry with invalid selector", function () {
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "snputDescription.V",
-        "metadata": "sap.m.Input",
-        "id": "__input4"
+      elementProperties: {
+        viewName: "snputDescription.V",
+        metadata: "sap.m.Input",
+        id: "__input4"
       }
     };
     const index = 0;
     const timeout = 30000;
     const retries = 1;
     const interval = 2000;
-    await expect(ui5.userInteraction.clearAndRetry(selector, index, timeout, retries, interval))
-      .rejects.toThrow("Function 'clearAndRetry' failed with: Retries done. Failed to execute the function:");
+    await expect(ui5.userInteraction.clearAndRetry(selector, index, timeout, retries, interval)).rejects.toThrow("Function 'clearAndRetry' failed with: Retries done. Failed to execute the function:");
   });
 });

@@ -2,23 +2,23 @@ const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 const valueHelpSelector = {
-  "elementProperties": {
-    "metadata": "sap.m.Input",
-    "id": "sampleComp-sap.ui.comp.sample.smartfield.SmartFieldWithValueHelp---IDView--idDeliveryTransport-input"
+  elementProperties: {
+    metadata: "sap.m.Input",
+    id: "sampleComp-sap.ui.comp.sample.smartfield.SmartFieldWithValueHelp---IDView--idDeliveryTransport-input"
   }
 };
 
 const datePickerSelector = {
-  "elementProperties": {
-    "metadata": "sap.m.DatePicker",
-    "id": "sampleComp-sap.ui.comp.sample.smartfield.SmartFieldWithValueHelp---IDView--idCreationDate-datePicker"
+  elementProperties: {
+    metadata: "sap.m.DatePicker",
+    id: "sampleComp-sap.ui.comp.sample.smartfield.SmartFieldWithValueHelp---IDView--idCreationDate-datePicker"
   }
 };
 
 const valueHelpDialogTitle = {
-  "elementProperties": {
-    "metadata": "sap.m.Title",
-    "id": "sampleComp-sap.ui.comp.sample.smartfield.SmartFieldWithValueHelp---IDView--idDeliveryTransport-input-valueHelpDialog-title"
+  elementProperties: {
+    metadata: "sap.m.Title",
+    id: "sampleComp-sap.ui.comp.sample.smartfield.SmartFieldWithValueHelp---IDView--idDeliveryTransport-input-valueHelpDialog-title"
   }
 };
 
@@ -64,7 +64,6 @@ describe("userInteraction - openValueHelp - use datepicker icon button (unhappy 
   });
 
   it("Execution && Verification", async function () {
-    await expect(ui5.userInteraction.openValueHelp(datePickerSelector, 0, 3_000))
-      .rejects.toThrowError(/Element with CSS .* not found./);
+    await expect(ui5.userInteraction.openValueHelp(datePickerSelector, 0, 3_000)).rejects.toThrowError(/Element with CSS .* not found./);
   });
 });

@@ -17,6 +17,6 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "clickDelete.spec.js"),
     path.resolve(__dirname, "clickRevokeApproval.spec.js"),
     path.resolve(__dirname, "clickCreate.spec.js"),
-    path.resolve(__dirname, "clickButton.spec.js"),
+    path.resolve(__dirname, "clickButton.spec.js")
   ]
 });

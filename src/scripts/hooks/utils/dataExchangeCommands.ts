@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
-import fs from 'fs-extra'
-import path from 'path'
-import os from 'os'
+import fs from "fs-extra";
+import path from "path";
+import os from "os";
 const dataExchange = require("../../dataExchange/dataExchange");
 
 async function createTmpDataFolder() {
   try {
-    // create tmp folder name to store export data 
+    // create tmp folder name to store export data
     const randomStr = "vyp-exp-" + Math.random().toString(16).substring(2, 10);
     const tmpDir = path.join(os.tmpdir(), randomStr);
     process.env.TMP_EXPORT_PATH = tmpDir;
@@ -23,6 +23,6 @@ class DataFolderCommands {
   readParams = dataExchange.readParams;
   writeExportDataInTmpFile = dataExchange.writeExportDataInTmpFile;
   writeExportData = dataExchange.writeExportData;
-};
+}
 
 export default new DataFolderCommands();

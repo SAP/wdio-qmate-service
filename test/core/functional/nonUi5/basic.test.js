@@ -1,5 +1,5 @@
-var chai = require("chai")
-  , should = chai.should();
+var chai = require("chai"),
+  should = chai.should();
 
 describe("webdriver.io page", function () {
   it("should have the right title", async function () {

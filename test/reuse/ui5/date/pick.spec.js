@@ -1,19 +1,17 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("date - pick - when datePicker has not assigned any date", function () {
   const dataInput = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.DatePicker.Group",
-      "metadata": "sap.m.DatePicker"
+    elementProperties: {
+      viewName: "sap.m.sample.DatePicker.Group",
+      metadata: "sap.m.DatePicker"
     },
-    "ancestorProperties": {
-      "metadata": "sap.m.Panel",
-      "viewName": "sap.m.sample.DatePicker.Group",
-      "headerText": "When DatePickers change events are fired the selected date is displayed in the Text control"
+    ancestorProperties: {
+      metadata: "sap.m.Panel",
+      viewName: "sap.m.sample.DatePicker.Group",
+      headerText: "When DatePickers change events are fired the selected date is displayed in the Text control"
     }
   };
 
@@ -50,9 +48,9 @@ describe("date - pick - when datePicker has not assigned any date", function () 
 
 describe("date - pick - when datePicker already has date assigned and we change it", function () {
   const dataInput = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.DatePicker.Group",
-      "metadata": "sap.m.DatePicker"
+    elementProperties: {
+      viewName: "sap.m.sample.DatePicker.Group",
+      metadata: "sap.m.DatePicker"
     }
   };
 
@@ -77,21 +75,21 @@ describe("date - pick - when datePicker already has date assigned and we change 
 
 describe("date - pick - using selector for sap.ui.core.Icon", function () {
   const dataInput = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.DatePicker.Group",
-      "metadata": "sap.m.DatePicker"
+    elementProperties: {
+      viewName: "sap.m.sample.DatePicker.Group",
+      metadata: "sap.m.DatePicker"
     }
   };
 
   const dataInputIcon = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.DatePicker.Group",
-      "metadata": "sap.ui.core.Icon",
-      "src": "sap-icon://appointment-2"
+    elementProperties: {
+      viewName: "sap.m.sample.DatePicker.Group",
+      metadata: "sap.ui.core.Icon",
+      src: "sap-icon://appointment-2"
     },
-    "ancestorProperties": {
-      "metadata": "sap.m.DatePicker",
-      "viewName": "sap.m.sample.DatePicker.Group"
+    ancestorProperties: {
+      metadata: "sap.m.DatePicker",
+      viewName: "sap.m.sample.DatePicker.Group"
     }
   };
 
@@ -117,15 +115,15 @@ describe("date - pick - using selector for sap.ui.core.Icon", function () {
 describe("date - pick without datePiker (unhappy case)", function () {
   const date = new Date();
   const dataInput = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.DatePicker.Group",
-      "metadata": "sap.m.DatePicker",
-      "showFooter": "false"
+    elementProperties: {
+      viewName: "sap.m.sample.DatePicker.Group",
+      metadata: "sap.m.DatePicker",
+      showFooter: "false"
     },
-    "ancestorProperties": {
-      "metadata": "sap.m.Panel",
-      "viewName": "sap.m.sample.DatePicker.Group",
-      "headerText": "When DatePickers change events are fired the selected date is displayed in the Text control"
+    ancestorProperties: {
+      metadata: "sap.m.Panel",
+      viewName: "sap.m.sample.DatePicker.Group",
+      headerText: "When DatePickers change events are fired the selected date is displayed in the Text control"
     }
   };
 
@@ -134,7 +132,6 @@ describe("date - pick without datePiker (unhappy case)", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.date.pick(dataInput, date))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.date.pick(dataInput, date)).rejects.toThrow(/No visible elements found/);
   });
 });

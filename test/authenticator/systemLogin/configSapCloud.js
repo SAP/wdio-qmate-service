@@ -5,9 +5,7 @@ exports.config = merge(plainConfig.config, {
   maxInstances: 1,
   bail: 1,
 
-  specs: [
-    path.resolve(__dirname, "specs/sapCloud.spec.js")
-  ],
+  specs: [path.resolve(__dirname, "specs/sapCloud.spec.js")],
   exclude: [],
 
   reporters: ["spec"],
@@ -19,6 +17,6 @@ exports.config = merge(plainConfig.config, {
       password: "<password>"
     }
   },
-  
+
   baseUrl: "<urlToSystem>"
 });

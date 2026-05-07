@@ -1,20 +1,14 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
-sap.ui.define([
-  "sap/ui/core/util/MockServer",
-  "sap/ui/model/json/JSONModel",
-  "sap/base/Log"
-], function (MockServer, JSONModel, Log) {
+sap.ui.define(["sap/ui/core/util/MockServer", "sap/ui/model/json/JSONModel", "sap/base/Log"], function (MockServer, JSONModel, Log) {
   "use strict";
 
   var _sAppPath = "sap/ui/demo/nav/",
     _sJsonFilesPath = _sAppPath + "localService/mockdata";
 
   return {
-
     init: function () {
-
-      return new Promise(function(fnResolve, fnReject) {
+      return new Promise(function (fnResolve, fnReject) {
         var sManifestUrl = sap.ui.require.toUrl(_sAppPath + "manifest.json"),
           oManifestModel = new JSONModel(sManifestUrl);
 
@@ -23,18 +17,18 @@ sap.ui.define([
             oMainDataSource = oManifestModel.getProperty("/sap.app/dataSources/employeeRemote"),
             sMetadataUrl = sap.ui.require.toUrl(_sAppPath + oMainDataSource.settings.localUri);
 
-					// create
+          // create
           var oMockServer = new MockServer({
             rootUri: oMainDataSource.uri
           });
 
-					// configure
+          // configure
           MockServer.config({
             autoRespond: true,
             autoRespondAfter: 500
           });
 
-					// simulate
+          // simulate
           oMockServer.simulate(sMetadataUrl, {
             sMockdataBaseUrl: sJsonFilesUrl
           });
@@ -57,7 +51,7 @@ sap.ui.define([
             }
           });
           oMockServer.setRequests(aRequests);
-					// start
+          // start
           oMockServer.start();
 
           Log.info("Running the app with mock data");

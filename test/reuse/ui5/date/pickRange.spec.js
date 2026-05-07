@@ -1,8 +1,6 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 const start = new Date(2020, 0, 17);
 const end = new Date(2020, 1, 5);
@@ -10,13 +8,16 @@ const range = [start, end];
 
 describe("date - pickRange - when DateRangeSelection do not have any value", function () {
   const dateRangeInput = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
-      "metadata": "sap.m.DateRangeSelection"
+    elementProperties: {
+      viewName: "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
+      metadata: "sap.m.DateRangeSelection"
     }
   };
   const getBorderOfRange = (initialBorder) => {
-    let border = initialBorder.toDateString().slice(4).replace(/(?<=\d)\s/, ", ");
+    let border = initialBorder
+      .toDateString()
+      .slice(4)
+      .replace(/(?<=\d)\s/, ", ");
     if (/0.(?=,)/.test(border)) {
       const day = /\d(?=,)/.exec(border)[0];
       border = border.replace(/0.(?=,)/, day);
@@ -48,13 +49,16 @@ describe("date - pickRange - when DateRangeSelection do not have any value", fun
 
 describe("date - pickRange - with index as 2", function () {
   const dateRangeInput = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
-      "metadata": "sap.m.DateRangeSelection"
+    elementProperties: {
+      viewName: "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
+      metadata: "sap.m.DateRangeSelection"
     }
   };
   const getBorderOfRange = (initialBorder) => {
-    let border = initialBorder.toDateString().slice(4).replace(/(?<=\d)\s/, ", ");
+    let border = initialBorder
+      .toDateString()
+      .slice(4)
+      .replace(/(?<=\d)\s/, ", ");
     if (/0.(?=,)/.test(border)) {
       const day = /\d(?=,)/.exec(border)[0];
       border = border.replace(/0.(?=,)/, day);
@@ -85,22 +89,25 @@ describe("date - pickRange - with index as 2", function () {
 
 describe("date - pickRange - with icon as selector", function () {
   const dateRangeInput = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
-      "metadata": "sap.m.DateRangeSelection"
+    elementProperties: {
+      viewName: "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
+      metadata: "sap.m.DateRangeSelection"
     }
   };
 
   const dateRangeInputIcon = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
-      "metadata": "sap.ui.core.Icon",
-      "bindingContextPath": "/modelData/0"
+    elementProperties: {
+      viewName: "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
+      metadata: "sap.ui.core.Icon",
+      bindingContextPath: "/modelData/0"
     }
   };
 
   const getBorderOfRange = (initialBorder) => {
-    let border = initialBorder.toDateString().slice(4).replace(/(?<=\d)\s/, ", ");
+    let border = initialBorder
+      .toDateString()
+      .slice(4)
+      .replace(/(?<=\d)\s/, ", ");
     if (/0.(?=,)/.test(border)) {
       const day = /\d(?=,)/.exec(border)[0];
       border = border.replace(/0.(?=,)/, day);
@@ -131,9 +138,9 @@ describe("date - pickRange - with icon as selector", function () {
 
 describe("date - pickRange without datePiker (unhappy case)", function () {
   const dateRangeInput = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
-      "metadata": "sap.m.DateRangeSelection"
+    elementProperties: {
+      viewName: "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
+      metadata: "sap.m.DateRangeSelection"
     }
   };
 
@@ -142,7 +149,6 @@ describe("date - pickRange without datePiker (unhappy case)", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.date.pickRange(dateRangeInput, range))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.date.pickRange(dateRangeInput, range)).rejects.toThrow(/No visible elements found/);
   });
 });

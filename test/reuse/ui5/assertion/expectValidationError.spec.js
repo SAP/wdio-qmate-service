@@ -1,26 +1,25 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 const submitButtonSelector = {
-  "elementProperties": {
-    "viewName": "sap.m.sample.InputChecked.V",
-    "metadata": "sap.m.Button"
+  elementProperties: {
+    viewName: "sap.m.sample.InputChecked.V",
+    metadata: "sap.m.Button"
   }
 };
 
 const inputFieldWithCheckSelector = {
-  "elementProperties": {
-    "viewName": "sap.m.sample.InputChecked.V",
-    "metadata": "sap.m.Input",
-    "value": [{
-      "path": "/email"
-    }]
+  elementProperties: {
+    viewName: "sap.m.sample.InputChecked.V",
+    metadata: "sap.m.Input",
+    value: [
+      {
+        path: "/email"
+      }
+    ]
   }
 };
-
 
 describe("Expect input field 'valueState' not to be 'Error' (unhappy case)", function () {
   it("Preparation", async function () {
@@ -33,8 +32,7 @@ describe("Expect input field 'valueState' not to be 'Error' (unhappy case)", fun
 
   it("Verification", async function () {
     await ui5.assertion.expectToBeVisible(inputFieldWithCheckSelector);
-    await expect(ui5.assertion.expectValidationError(inputFieldWithCheckSelector))
-      .rejects.toThrowError(/None/);
+    await expect(ui5.assertion.expectValidationError(inputFieldWithCheckSelector)).rejects.toThrowError(/None/);
   });
 });
 

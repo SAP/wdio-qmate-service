@@ -1,18 +1,16 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 const dateTimePicker = {
-  "elementProperties": {
-    "viewName": "sap.m.sample.DateTimePicker.Group",
-    "metadata": "sap.m.DateTimePicker"
+  elementProperties: {
+    viewName: "sap.m.sample.DateTimePicker.Group",
+    metadata: "sap.m.DateTimePicker"
   },
-  "ancestorProperties": {
-    "metadata": "sap.m.Panel",
-    "viewName": "sap.m.sample.DateTimePicker.Group",
-    "headerText": "When DateTimePicker change events are fired the selected date and time is displayed in the Text control"
+  ancestorProperties: {
+    metadata: "sap.m.Panel",
+    viewName: "sap.m.sample.DateTimePicker.Group",
+    headerText: "When DateTimePicker change events are fired the selected date and time is displayed in the Text control"
   }
 };
 

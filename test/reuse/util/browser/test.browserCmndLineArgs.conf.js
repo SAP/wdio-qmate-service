@@ -5,7 +5,5 @@ exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
 
-  specs: [
-    path.resolve(__dirname, "getBaseUrl.spec.js"),
-  ]
+  specs: [path.resolve(__dirname, "getBaseUrl.spec.js")]
 });

@@ -6,7 +6,7 @@ const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
-  
+
   baseUrl: `${BASE_URL}/`,
 
   specs: [

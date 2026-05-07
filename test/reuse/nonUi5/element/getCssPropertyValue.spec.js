@@ -1,8 +1,6 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 const selector = "//div[contains(text(),'Laptops')]";
 const cssProperty = "visibility";
@@ -44,7 +42,6 @@ describe("element - getCssPropertyValue - selector", function () {
 });
 
 describe("element - getCssPropertyValue - error", function () {
-  
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
   });

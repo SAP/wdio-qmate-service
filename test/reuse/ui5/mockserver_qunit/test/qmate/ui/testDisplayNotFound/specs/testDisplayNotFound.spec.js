@@ -8,7 +8,6 @@ const mockHelper = require("../../utils/mockHelper.js");
 const setup = require("../data/setup.json");
 
 describe("Test display not found", function () {
-
   it("Step 01: Navigate to Application", async function () {
     // Use the mockey that depicts the test case name to be able to map it directly to path, and corresponding data
     //http://localhost:34005/webapp/test/flpSandboxMockServer.html?mockKey=myTestCase
@@ -22,10 +21,10 @@ describe("Test display not found", function () {
   it("Step 03: Finalizing app loading", async function () {
     await mockHelper.initApplicationDynamically();
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.nav.view.Home",
-        "metadata": "sap.m.Button",
-        "id": "*displayNotFoundBtn"
+      elementProperties: {
+        viewName: "sap.ui.demo.nav.view.Home",
+        metadata: "sap.m.Button",
+        id: "*displayNotFoundBtn"
       }
     };
     await ui5.assertion.expectToBeVisible(selector);
@@ -33,10 +32,10 @@ describe("Test display not found", function () {
 
   it("Step 04: Expect Button 'Display Not Found'", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.nav.view.Home",
-        "metadata": "sap.m.Button",
-        "id": "*displayNotFoundBtn"
+      elementProperties: {
+        viewName: "sap.ui.demo.nav.view.Home",
+        metadata: "sap.m.Button",
+        id: "*displayNotFoundBtn"
       }
     };
     await ui5.assertion.expectToBeVisible(selector);
@@ -44,10 +43,10 @@ describe("Test display not found", function () {
 
   it("Step 05: Click Button 'Display Not Found'", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.nav.view.Home",
-        "metadata": "sap.m.Button",
-        "id": "*displayNotFoundBtn"
+      elementProperties: {
+        viewName: "sap.ui.demo.nav.view.Home",
+        metadata: "sap.m.Button",
+        id: "*displayNotFoundBtn"
       }
     };
     await ui5.userInteraction.click(selector);
@@ -55,9 +54,9 @@ describe("Test display not found", function () {
 
   it("Step 06: Check if navigated correctly", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.nav.view.NotFound",
-        "metadata": "sap.m.Title"
+      elementProperties: {
+        viewName: "sap.ui.demo.nav.view.NotFound",
+        metadata: "sap.m.Title"
       }
     };
     await ui5.assertion.expectToBeVisible(selector);
@@ -67,5 +66,4 @@ describe("Test display not found", function () {
     // Register coverage if enabled otherwise will not
     await mockHelper.takeCoverageSnapshot();
   });
-
 });

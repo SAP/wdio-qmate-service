@@ -4,7 +4,6 @@ import navigation, { Navigation } from "./navigation";
 import userInteraction, { UserInteraction } from "./userInteraction";
 import session, { Session } from "./session";
 
-
 export class NonUi5 {
   assertion: Assertion = assertion;
   element: ElementModule = element;

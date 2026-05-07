@@ -49,13 +49,13 @@ module.exports = {
     // the object or array. [NUMBER] or [STRING] indicates a child element or
     // property.
 
-    var objects = new WeakMap();     // object to path mappings
+    var objects = new WeakMap(); // object to path mappings
 
     return (function derez(value, path) {
       // The derez function recurses through the object, producing the deep copy.
 
-      var old_path;   // The path of an earlier occurance of value
-      var nu;         // The new object or array
+      var old_path; // The path of an earlier occurance of value
+      var nu; // The new object or array
 
       // If a replacer function was provided, then call it to get a replacement value.
 
@@ -66,16 +66,7 @@ module.exports = {
       // typeof null === "object", so go on if this value is really an object but not
       // one of the weird builtin objects.
 
-      if (
-        typeof value === "object"
-        && value !== null
-        && !(value instanceof Boolean)
-        && !(value instanceof Date)
-        && !(value instanceof Number)
-        && !(value instanceof RegExp)
-        && !(value instanceof String)
-      ) {
-
+      if (typeof value === "object" && value !== null && !(value instanceof Boolean) && !(value instanceof Date) && !(value instanceof Number) && !(value instanceof RegExp) && !(value instanceof String)) {
         // If the value is an object or array, look to see if we have already
         // encountered it. If so, return a {"$ref":PATH} object. This uses an
         // ES6 WeakMap.
@@ -97,7 +88,6 @@ module.exports = {
             nu[i] = derez(element, path + "[" + i + "]");
           });
         } else {
-
           // If it is an object, replicate the object.
 
           nu = {};
@@ -105,19 +95,15 @@ module.exports = {
             // remove unnecessary properties
             if (name === "undefined" || name === "oPropagatedProperties" || name === "oParent") {
               nu[name] = null;
-            }
-            else {
-              nu[name] = derez(
-                value[name],
-                path + "[" + JSON.stringify(name) + "]"
-              );
+            } else {
+              nu[name] = derez(value[name], path + "[" + JSON.stringify(name) + "]");
             }
           });
         }
         return nu;
       }
       return value;
-    }(object, "$"));
+    })(object, "$");
   },
 
   retrocycle: function retrocycle($) {
@@ -145,7 +131,6 @@ module.exports = {
     var px = /^\$(?:\[(?:\d+|"(?:[^\\"\u0000-\u001f]|\\(?:[\\"\/bfnrt]|u[0-9a-zA-Z]{4}))*")\])*$/;
 
     (function rez(value) {
-
       // The rez function walks recursively through the object looking for $ref
       // properties. When it finds one that has a value that is a path, then it
       // replaces the $ref object with a reference to the value that is found by
@@ -177,7 +162,7 @@ module.exports = {
           });
         }
       }
-    }($));
+    })($);
     return $;
   }
 };

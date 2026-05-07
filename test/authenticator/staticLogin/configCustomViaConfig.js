@@ -14,7 +14,5 @@ exports.config = merge(staticServerConfig.config, {
 
   baseUrl: "http://localhost:34005/fiori.html",
 
-  specs: [
-    path.resolve(__dirname, "specs/customViaConfig.spec.js")
-  ]
+  specs: [path.resolve(__dirname, "specs/customViaConfig.spec.js")]
 });

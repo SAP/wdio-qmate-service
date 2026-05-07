@@ -20,12 +20,12 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "clickNo.spec.js"),
     path.resolve(__dirname, "clickDelete.spec.js"),
     path.resolve(__dirname, "clickRevokeApproval.spec.js"),
-    path.resolve(__dirname, "clickCreate.spec.js"),
+    path.resolve(__dirname, "clickCreate.spec.js")
   ],
 
   exclude: [],
 
   mochaOpts: {
-    timeout: 2000000,
-  },
+    timeout: 2000000
+  }
 });

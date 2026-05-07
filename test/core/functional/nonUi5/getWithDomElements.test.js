@@ -1,5 +1,4 @@
 describe("webdriver.io page", function () {
-
   this.beforeAll(async () => {
     await browser.url("#/categories");
   });
@@ -50,7 +49,7 @@ describe("webdriver.io page", function () {
 
   it("step3: check element's Binding context path using chain $.$$ ", async function () {
     const parent = await $("#container-cart---homeView--categoryList-listUl");
-    const elems = (await parent.$$('li[id*="homeView--categoryList"]'));
+    const elems = await parent.$$('li[id*="homeView--categoryList"]');
     const elem = elems[0];
     await browser.waitUntil(
       async () => {
@@ -113,7 +112,7 @@ describe("webdriver.io page", function () {
 
   it("step6: check element's Binding context path using chain $.$$ and get wrong element property", async function () {
     const parent = await $("#container-cart---homeView--categoryList-listUl");
-    const elems = (await parent.$$('li[id*="homeView--categoryList"]'));
+    const elems = await parent.$$('li[id*="homeView--categoryList"]');
     const elem = elems[0];
     await browser.waitUntil(
       async () => {

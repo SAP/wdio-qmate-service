@@ -187,12 +187,12 @@ describe("table - getSelectorsForRowsByValues - sap.ui.table.Table - single valu
 
   it("Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.table.sample.Basic.View",
-        "metadata": "sap.ui.unified.Currency",
-        "value": "956"
+      elementProperties: {
+        viewName: "sap.ui.table.sample.Basic.View",
+        metadata: "sap.ui.unified.Currency",
+        value: "956"
       },
-      "ancestorProperties": rowSelectors[0].elementProperties
+      ancestorProperties: rowSelectors[0].elementProperties
     };
     await expect(ui5.element.getDisplayed(selector)).resolves.not.toThrow();
   });
@@ -221,7 +221,6 @@ describe("table - getSelectorsForRowsByValues - sap.ui.table.TreeTable - single 
     };
     await expect(ui5.element.getDisplayed(selector)).resolves.not.toThrow();
   });
-
 });
 
 describe("table - getSelectorsForRowsByValues - sap.ui.mdc.Table - single value as an Array", function () {
@@ -235,7 +234,6 @@ describe("table - getSelectorsForRowsByValues - sap.ui.mdc.Table - single value 
     const name = "Mount Everest";
     rowSelectors = await ui5.table.getSelectorsForRowsByValues(mdcTableSelector, [name]);
   });
-
 
   it("Verification", async function () {
     const expectedRowSelector = {
@@ -259,7 +257,6 @@ describe("table - getSelectorsForRowsByValues - sap.ui.mdc.Table - multiple valu
     const values = ["Mount Everest", "1954"];
     rowSelectors = await ui5.table.getSelectorsForRowsByValues(mdcTableSelector, values, true, "exact");
   });
-
 
   it("Verification", async function () {
     const expectedRowSelectors = [

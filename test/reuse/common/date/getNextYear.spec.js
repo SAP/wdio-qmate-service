@@ -11,7 +11,7 @@ describe("date - getNextYear without any format ", function () {
     const date = new Date();
     date.setFullYear(date.getFullYear() + 1);
     common.assertion.expectEqual(calculatedDate.toDateString(), date.toDateString());
-    common.assertion.expectUnequal(calculatedDate.toDateString(), (new Date()).toDateString());
+    common.assertion.expectUnequal(calculatedDate.toDateString(), new Date().toDateString());
   });
 });
 

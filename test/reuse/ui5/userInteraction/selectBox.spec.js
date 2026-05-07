@@ -1,10 +1,7 @@
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - selectBox", function () {
-
   let selector;
   let actualValue;
   let expectedValue;
@@ -18,12 +15,14 @@ describe("userInteraction - selectBox", function () {
 
   it("Execution", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Select.Page",
-        "metadata": "sap.m.Select",
-        "items": [{
-          "path": "/ProductCollection2"
-        }]
+      elementProperties: {
+        viewName: "sap.m.sample.Select.Page",
+        metadata: "sap.m.Select",
+        items: [
+          {
+            path: "/ProductCollection2"
+          }
+        ]
       }
     };
     index = 0;
@@ -39,7 +38,6 @@ describe("userInteraction - selectBox", function () {
 });
 
 describe("userInteraction - selectBox use wrong selector", function () {
-
   let selector;
   let actualValue;
   let index;
@@ -52,23 +50,23 @@ describe("userInteraction - selectBox use wrong selector", function () {
 
   it("Execution & Verification", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Select.Page",
-        "metadata": "sap.m.Select",
-        "items": [{
-          "path": "/Produection2"
-        }]
+      elementProperties: {
+        viewName: "sap.m.sample.Select.Page",
+        metadata: "sap.m.Select",
+        items: [
+          {
+            path: "/Produection2"
+          }
+        ]
       }
     };
     actualValue = "HT-1003";
     index = 0;
-    await expect(ui5.userInteraction.selectBox(selector, actualValue, index))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.userInteraction.selectBox(selector, actualValue, index)).rejects.toThrow(/No visible elements found/);
   });
 });
 
 describe("userInteraction - selectBox use wrong value", function () {
-
   let actualValue;
   let selector;
   let index;
@@ -81,23 +79,23 @@ describe("userInteraction - selectBox use wrong value", function () {
 
   it("Execution & Verification", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Select.Page",
-        "metadata": "sap.m.Select",
-        "items": [{
-          "path": "/ProductCollection2"
-        }]
+      elementProperties: {
+        viewName: "sap.m.sample.Select.Page",
+        metadata: "sap.m.Select",
+        items: [
+          {
+            path: "/ProductCollection2"
+          }
+        ]
       }
     };
     actualValue = "ABCDE";
     index = 0;
-    await expect(ui5.userInteraction.selectBox(selector, actualValue, index))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.userInteraction.selectBox(selector, actualValue, index)).rejects.toThrow(/No visible elements found/);
   });
 });
 
 describe("userInteraction - use 3rd selectBox on page", function () {
-
   let selector;
   let actualValue;
   let expectedValue;
@@ -112,12 +110,14 @@ describe("userInteraction - use 3rd selectBox on page", function () {
 
   it("Execution", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.SelectValueState.Page",
-        "metadata": "sap.m.Select",
-        "items": [{
-          "path": "/*"
-        }]
+      elementProperties: {
+        viewName: "sap.m.sample.SelectValueState.Page",
+        metadata: "sap.m.Select",
+        items: [
+          {
+            path: "/*"
+          }
+        ]
       }
     };
     index = 2;

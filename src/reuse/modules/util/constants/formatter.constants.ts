@@ -14,8 +14,8 @@ export enum DateFormats {
   OBJECT = "object",
   JAPANESE_DOT = "g.yy.mm.dd",
   JAPANESE_SLASH = "g/yy/mm/dd",
-  JAPANESE_DASH = "g-yy-mm-dd",
-};
+  JAPANESE_DASH = "g-yy-mm-dd"
+}
 
 export enum TimeFormats {
   HOUR_MINUTE_SECOND = "HH:mm:ss",
@@ -26,4 +26,4 @@ export enum TimeFormats {
   HOUR_MINUTE_AM_PM = "h:mm a",
   HOUR = "HH",
   HOUR_AM_PM = "h a"
-};
+}

@@ -23,8 +23,7 @@ describe("userInteraction - mouseOverElement", function () {
   });
 
   it("Verification", async function () {
-    const script =
-      "return document.getElementsByClassName('sapMBtnInner sapMBtnHoverable sapMFocusable sapMBtnText sapMBtnAccept')[0].matches(':hover')";
+    const script = "return document.getElementsByClassName('sapMBtnInner sapMBtnHoverable sapMFocusable sapMBtnText sapMBtnAccept')[0].matches(':hover')";
     const isHover = await util.browser.executeScript(script);
     await common.assertion.expectTrue(isHover);
   });
@@ -47,8 +46,6 @@ describe("userInteraction - mouseOverElement - wrong selector", function () {
     };
     const index = 0;
     const timeout = 5000;
-    await expect(ui5.userInteraction.mouseOverElement(selector, index, timeout)).rejects.toThrow(
-      "Function 'mouseOverElement' failed with: No element found for selector"
-    );
+    await expect(ui5.userInteraction.mouseOverElement(selector, index, timeout)).rejects.toThrow("Function 'mouseOverElement' failed with: No element found for selector");
   });
 });

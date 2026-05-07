@@ -1,8 +1,8 @@
-import * as os from 'os';
-import path from 'path';
-import { LocalStorage } from 'node-localstorage';
-import { Agent, fetch, Response } from 'undici';
-import { STATS_SERVER_URL } from './constants';
+import * as os from "os";
+import path from "path";
+import { LocalStorage } from "node-localstorage";
+import { Agent, fetch, Response } from "undici";
+import { STATS_SERVER_URL } from "./constants";
 
 export async function getUserId(): Promise<string | null> {
   if (!isLocalStorageAvailable()) {
@@ -53,7 +53,7 @@ function saveUserIdToStore(userId: string) {
 
 let localStorageInstance: LocalStorage | null = null;
 function getLocalStorage() {
-  localStorageInstance ??= new LocalStorage(path.join(os.homedir(), '.qmate-userId'));
+  localStorageInstance ??= new LocalStorage(path.join(os.homedir(), ".qmate-userId"));
   return localStorageInstance;
 }
 

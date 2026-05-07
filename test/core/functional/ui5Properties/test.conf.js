@@ -6,12 +6,7 @@ const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 exports.config = merge(profile.config, {
   maxInstances: 6,
   bail: 1,
-  specs: [
-    path.resolve(__dirname, "getProperties.test.js"),
-    path.resolve(__dirname, "getAggregations.test.js"),
-    path.resolve(__dirname, "getAssociations.test.js"),
-    path.resolve(__dirname, "getBindingInfos.test.js")
-  ],
+  specs: [path.resolve(__dirname, "getProperties.test.js"), path.resolve(__dirname, "getAggregations.test.js"), path.resolve(__dirname, "getAssociations.test.js"), path.resolve(__dirname, "getBindingInfos.test.js")],
 
   baseUrl: `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`
 });

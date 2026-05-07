@@ -47,9 +47,7 @@ describe("element - getByCssContainingText - strict error case", function () {
   });
 
   it("Execution", async function () {
-    expect(nonUi5.element.getByCssContainingText("[id='sdk---welcome--readMoreButton-BDI-content']", "Down", 0, 30000, false, true)).rejects.toThrow(
-      /getByCssContainingText(): Element \w*|\d* not found/
-    );
+    expect(nonUi5.element.getByCssContainingText("[id='sdk---welcome--readMoreButton-BDI-content']", "Down", 0, 30000, false, true)).rejects.toThrow(/getByCssContainingText(): Element \w*|\d* not found/);
   });
 });
 
@@ -60,8 +58,6 @@ describe("element - getByCssContainingText - error case", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(nonUi5.element.getByCssContainingText("[id='sdk---welcome--readMoreButton-BDI-content']", "Some Junk Text")).rejects.toThrow(
-      `Function 'getByCssContainingText' failed with: Element with CSS '[id='sdk---welcome--readMoreButton-BDI-content']' and text 'Some Junk Text' not found.`
-    );
+    await expect(nonUi5.element.getByCssContainingText("[id='sdk---welcome--readMoreButton-BDI-content']", "Some Junk Text")).rejects.toThrow(`Function 'getByCssContainingText' failed with: Element with CSS '[id='sdk---welcome--readMoreButton-BDI-content']' and text 'Some Junk Text' not found.`);
   });
 });

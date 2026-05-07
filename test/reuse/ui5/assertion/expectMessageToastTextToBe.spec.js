@@ -1,8 +1,6 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("assertion - expectMessageToastTextToBe - no message toast (unhappy case)", function () {
   it("Preparation", async function () {
@@ -14,8 +12,7 @@ describe("assertion - expectMessageToastTextToBe - no message toast (unhappy cas
   it("Execution & Verification", async function () {
     const text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy\r\n eirmod.";
     await browser.keys("Escape"); // To skip Cookie Consent
-    await expect(ui5.assertion.expectMessageToastTextToBe(text, 3000))
-      .rejects.toThrow(/Element with XPath/);
+    await expect(ui5.assertion.expectMessageToastTextToBe(text, 3000)).rejects.toThrow(/Element with XPath/);
   });
 });
 
@@ -28,9 +25,9 @@ describe("assertion - expectMessageToastTextToBe", function () {
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MessageToast.view.MessageToast",
-        "metadata": "sap.m.Button"
+      elementProperties: {
+        viewName: "sap.m.sample.MessageToast.view.MessageToast",
+        metadata: "sap.m.Button"
       }
     };
     await browser.keys("Escape"); // To skip Cookie Consent
@@ -40,7 +37,6 @@ describe("assertion - expectMessageToastTextToBe", function () {
   it("Verification", async function () {
     await ui5.assertion.expectMessageToastTextToBe("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy\r\n eirmod.", 3000);
     await ui5.assertion.expectMessageToastTextToBe("Lorem ipsum", 3000);
-    await expect(ui5.assertion.expectMessageToastTextToBe("Wrong text", 3000))
-      .rejects.toThrow(/Element with XPath/);
+    await expect(ui5.assertion.expectMessageToastTextToBe("Wrong text", 3000)).rejects.toThrow(/Element with XPath/);
   });
 });

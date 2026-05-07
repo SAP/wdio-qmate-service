@@ -8,9 +8,7 @@ describe("userInteraction - clearAndFillActive", function () {
   let selector;
 
   it("Preparation", async function () {
-    await browser.navigateTo(
-      `${BASE_URL}/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview`
-    );
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

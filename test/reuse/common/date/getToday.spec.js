@@ -20,7 +20,7 @@ describe("date - getToday  without any format (unhappy case)", function () {
   });
 
   it("Verification", function () {
-    common.assertion.expectUnequal(arrivedDate.toDateString(), (new Date("10/09/2020")).toDateString());
+    common.assertion.expectUnequal(arrivedDate.toDateString(), new Date("10/09/2020").toDateString());
   });
 });
 

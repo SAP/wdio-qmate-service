@@ -1,7 +1,6 @@
 "use strict";
 
 describe("assertion - expectDefined", function () {
-
   it("Execution & Verification", function () {
     common.assertion.expectDefined(0);
     common.assertion.expectDefined(null);

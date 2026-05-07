@@ -3,22 +3,21 @@ const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("webdriver.io page locator test", function () {
-
   it("should access element by elementProperties, descendantProperties and inner descendantProperties", async function () {
     await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const backButtonProperties = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Button.Page",
-        "metadata": "sap.m.Button",
-        "type": "Back"
+      elementProperties: {
+        viewName: "sap.m.sample.Button.Page",
+        metadata: "sap.m.Button",
+        type: "Back"
       },
-      "descendantProperties": {
-        "viewName": "sap.m.sample.Button.Page",
-        "metadata": "sap.ui.core.Icon",
-        "src": "sap-icon://nav-back"
+      descendantProperties: {
+        viewName: "sap.m.sample.Button.Page",
+        metadata: "sap.ui.core.Icon",
+        src: "sap-icon://nav-back"
       }
     };
 
@@ -28,14 +27,14 @@ describe("webdriver.io page locator test", function () {
 
     // Use nested ancestorProperties
     const backButtonWithNestedDescendantProperties = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Button.Page",
-        "metadata": "sap.m.Button",
-        "type": "Back",
-        "descendantProperties": {
-          "viewName": "sap.m.sample.Button.Page",
-          "metadata": "sap.ui.core.Icon",
-          "src": "sap-icon://nav-back"
+      elementProperties: {
+        viewName: "sap.m.sample.Button.Page",
+        metadata: "sap.m.Button",
+        type: "Back",
+        descendantProperties: {
+          viewName: "sap.m.sample.Button.Page",
+          metadata: "sap.ui.core.Icon",
+          src: "sap-icon://nav-back"
         }
       }
     };
@@ -54,10 +53,10 @@ describe("webdriver.io page locator test", function () {
   it("should access element(s) by descendantProperties", async function () {
     await browser.url("#/categories");
     const ui5ControlProperties = {
-      "descendantProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.List",
-        "id": "*categoryList"
+      descendantProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.List",
+        id: "*categoryList"
       }
     };
 
@@ -67,8 +66,7 @@ describe("webdriver.io page locator test", function () {
     // expect(elems).toBeElementsArrayOfSize({ gte: 1 });
 
     // Code after fixes:
-    await expect(browser.uiControls(ui5ControlProperties, 1, 1000))
-      .rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControls(ui5ControlProperties, 1, 1000)).rejects.toThrowError(/No visible elements found/);
   });
 
   it("should access element by element properties and descendant properties", async function () {
@@ -77,14 +75,14 @@ describe("webdriver.io page locator test", function () {
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const ui5ControlProperties = {
-      "elementProperties": {
-        "metadata": "sap.m.FlexItemData",
-        "viewName": "sap.m.sample.Button.Page"
+      elementProperties: {
+        metadata: "sap.m.FlexItemData",
+        viewName: "sap.m.sample.Button.Page"
       },
-      "descendantProperties": {
-        "viewName": "sap.m.sample.Button.Page",
-        "metadata": "sap.m.Button",
-        "text": "Default"
+      descendantProperties: {
+        viewName: "sap.m.sample.Button.Page",
+        metadata: "sap.m.Button",
+        text: "Default"
       }
     };
     const elem = await browser.uiControl(ui5ControlProperties);
@@ -97,14 +95,13 @@ describe("webdriver.io page locator test", function () {
   it("try access element by wrong descendant properties and catch error", async function () {
     await browser.url("#/categories");
     const wrongProperties = {
-      "descendantProperties": {
-        "viewName": "sapcart.view.App",
-        "metadata": "sap.ui.core.mvc.XMLView",
-        "displayBlock": "true"
+      descendantProperties: {
+        viewName: "sapcart.view.App",
+        metadata: "sap.ui.core.mvc.XMLView",
+        displayBlock: "true"
       }
     };
-    await expect(browser.uiControl(wrongProperties, 1, 1000))
-      .rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(wrongProperties, 1, 1000)).rejects.toThrowError(/No visible elements found/);
   });
 
   it("should access element by elementProperties and multiple descendantProperties as array - AND (happy case)", async function () {
@@ -114,13 +111,13 @@ describe("webdriver.io page locator test", function () {
 
     // The toolbar contains both a "Default" button and a "Reject" button as descendants - both must match
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Button.Page",
-        "metadata": "sap.m.Toolbar"
+      elementProperties: {
+        viewName: "sap.m.sample.Button.Page",
+        metadata: "sap.m.Toolbar"
       },
-      "descendantProperties": [
-        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Button", "text": "Default" },
-        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Button", "text": "Reject" }
+      descendantProperties: [
+        { viewName: "sap.m.sample.Button.Page", metadata: "sap.m.Button", text: "Default" },
+        { viewName: "sap.m.sample.Button.Page", metadata: "sap.m.Button", text: "Reject" }
       ]
     };
     const elem = await browser.uiControl(selector);
@@ -134,17 +131,16 @@ describe("webdriver.io page locator test", function () {
 
     // Second entry has a non-existent text - AND logic means the whole selector fails
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Button.Page",
-        "metadata": "sap.m.Toolbar"
+      elementProperties: {
+        viewName: "sap.m.sample.Button.Page",
+        metadata: "sap.m.Toolbar"
       },
-      "descendantProperties": [
-        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Button", "text": "Default" },
-        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Button", "text": "this-button-does-not-exist" }
+      descendantProperties: [
+        { viewName: "sap.m.sample.Button.Page", metadata: "sap.m.Button", text: "Default" },
+        { viewName: "sap.m.sample.Button.Page", metadata: "sap.m.Button", text: "this-button-does-not-exist" }
       ]
     };
-    await expect(browser.uiControl(selector, 0, 1000))
-      .rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(selector, 0, 1000)).rejects.toThrowError(/No visible elements found/);
   });
 
   it("should return multiple elements when multiple parents each satisfy array descendantProperties - AND (multiple results)", async function () {
@@ -155,16 +151,13 @@ describe("webdriver.io page locator test", function () {
     // Multiple FlexItemData elements exist on this page (one per button).
     // Using a single-entry array exercises the array code path and should return all FlexItemData with a Button descendant.
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Button.Page",
-        "metadata": "sap.m.FlexItemData"
+      elementProperties: {
+        viewName: "sap.m.sample.Button.Page",
+        metadata: "sap.m.FlexItemData"
       },
-      "descendantProperties": [
-        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Button" }
-      ]
+      descendantProperties: [{ viewName: "sap.m.sample.Button.Page", metadata: "sap.m.Button" }]
     };
     const elems = await browser.uiControls(selector);
     expect(elems.length).toBeGreaterThan(1);
   });
-
 });

@@ -4,7 +4,7 @@ module.exports = {
   ui5Veri5: function ui5Veri5(ui5Selector, index) {
     if (window.RecordReplay) {
       let elems = [];
-      return sap.ui.test.RecordReplay.findAllDOMElementsByControlSelector({selector: ui5Selector})
+      return sap.ui.test.RecordReplay.findAllDOMElementsByControlSelector({ selector: ui5Selector })
         .then(function (elemsArray) {
           elems = elemsArray;
           if (index !== undefined && index !== null) {
@@ -12,7 +12,7 @@ module.exports = {
           }
           return elems;
         })
-        .catch(err => {
+        .catch((err) => {
           console.error(err);
         });
     }

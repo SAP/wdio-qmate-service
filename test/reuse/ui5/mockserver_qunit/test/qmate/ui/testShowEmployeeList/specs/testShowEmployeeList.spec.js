@@ -13,7 +13,6 @@ const setup = require("../data/setup.json");
 var data = require("../data/testShowEmployeeList.json");
 
 describe("Test show employee list", function () {
-
   /**
    * Dynamic json data to be used for mocking the backend responses
    */
@@ -38,10 +37,10 @@ describe("Test show employee list", function () {
 
   it("Step 04: Click 'Show Employee List'", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.nav.view.Home",
-        "metadata": "sap.m.Button",
-        "id": "*employeeListBtn"
+      elementProperties: {
+        viewName: "sap.ui.demo.nav.view.Home",
+        metadata: "sap.m.Button",
+        id: "*employeeListBtn"
       }
     };
     await ui5.userInteraction.click(selector);
@@ -49,10 +48,10 @@ describe("Test show employee list", function () {
 
   it("Step 04: Check if the list is loaded", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.nav.view.employee.EmployeeList",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/Employees*1)"
+      elementProperties: {
+        viewName: "sap.ui.demo.nav.view.employee.EmployeeList",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/Employees*1)"
       }
     };
     await ui5.assertion.expectToBeVisible(selector);
@@ -60,10 +59,10 @@ describe("Test show employee list", function () {
 
   it("Step 05: Click on the employee", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.nav.view.employee.EmployeeList",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/Employees*1)"
+      elementProperties: {
+        viewName: "sap.ui.demo.nav.view.employee.EmployeeList",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/Employees*1)"
       }
     };
     await ui5.userInteraction.click(selector);
@@ -80,9 +79,9 @@ describe("Test show employee list", function () {
 
   it("Step 07: Click on 'Flip to Resume' link", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.nav.view.employee.Employee",
-        "metadata": "sap.m.Link"
+      elementProperties: {
+        viewName: "sap.ui.demo.nav.view.employee.Employee",
+        metadata: "sap.m.Link"
       }
     };
     await ui5.userInteraction.click(selector);
@@ -90,10 +89,10 @@ describe("Test show employee list", function () {
 
   it("Step 08: Expect Resume page appears", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.nav.view.employee.Resume",
-        "metadata": "sap.m.Title",
-        "id": "*employeeResumePage-title"
+      elementProperties: {
+        viewName: "sap.ui.demo.nav.view.employee.Resume",
+        metadata: "sap.m.Title",
+        id: "*employeeResumePage-title"
       }
     };
     await ui5.assertion.expectToBeVisible(selector);
@@ -101,10 +100,10 @@ describe("Test show employee list", function () {
 
   it("Step 09: Expect Resume Info have text", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.nav.view.employee.Resume",
-        "text": "Information of Nancy Davolio tests",
-        "metadata": "sap.m.Text"
+      elementProperties: {
+        viewName: "sap.ui.demo.nav.view.employee.Resume",
+        text: "Information of Nancy Davolio tests",
+        metadata: "sap.m.Text"
       }
     };
     await ui5.assertion.expectToBeVisible(selector);
@@ -114,5 +113,4 @@ describe("Test show employee list", function () {
     // Register coverage if enabled otherwise will not
     await mockHelper.takeCoverageSnapshot();
   });
-
 });

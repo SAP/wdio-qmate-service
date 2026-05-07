@@ -28,7 +28,4 @@ describe("table - getSelectorsForRowsByValues - sap.ui.comp.smarttable.SmartTabl
   it("Execution", async function () {
     const values = await ui5.table.getAllColumnValuesByName(smartTableSelector, "Customer");
   });
-
-
-
 });

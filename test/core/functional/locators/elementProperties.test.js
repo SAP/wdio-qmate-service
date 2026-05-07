@@ -8,8 +8,8 @@ describe("webdriver.io access to element via elementProperties test", function (
 
   it("should access element by id", async function () {
     const categoryListElementProperties = {
-      "elementProperties": {
-        "id": "*categoryList-0"
+      elementProperties: {
+        id: "*categoryList-0"
       }
     };
     const categoryListElement = await browser.uiControl(categoryListElementProperties, 0, 60000);
@@ -30,8 +30,8 @@ describe("webdriver.io access to element via elementProperties test", function (
 
   it("should access element by binding context", async function () {
     const ui5ControlProperties = {
-      "elementProperties": {
-        "bindingContextPath": "/ProductCategories('AC')"
+      elementProperties: {
+        bindingContextPath: "/ProductCategories('AC')"
       }
     };
     const categoryListElement = await browser.uiControl(ui5ControlProperties, 0, 60000);
@@ -49,10 +49,10 @@ describe("webdriver.io access to element via elementProperties test", function (
 
   it("should access element by viewName, metadata, bindingContextPath, text->path and fail to click non-clickable element", async function () {
     const ui5ControlProperties = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/ProductCategories*'DC')"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/ProductCategories*'DC')"
       }
     };
     const element = await browser.uiControl(ui5ControlProperties, 0, 60000);
@@ -62,13 +62,15 @@ describe("webdriver.io access to element via elementProperties test", function (
     await element.click();
 
     const compareLinkProperties = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Category",
-        "metadata": "sap.m.ObjectAttribute",
-        "bindingContextPath": "/Products*'HT-1600')",
-        "text": [{
-          "path": "i18n>CompareWith"
-        }]
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Category",
+        metadata: "sap.m.ObjectAttribute",
+        bindingContextPath: "/Products*'HT-1600')",
+        text: [
+          {
+            path: "i18n>CompareWith"
+          }
+        ]
       }
     };
     const link = await browser.uiControl(compareLinkProperties, 0, 60000);
@@ -83,10 +85,10 @@ describe("webdriver.io access to element via elementProperties test", function (
 
     // Check that without text->path cannot get unique element: without 'text->path' we can access to a link and a Product (2 elements)
     const productLinksProperties = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Category",
-        "metadata": "sap.m.ObjectAttribute",
-        "bindingContextPath": "/Products*'HT-1600')"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Category",
+        metadata: "sap.m.ObjectAttribute",
+        bindingContextPath: "/Products*'HT-1600')"
       }
     };
 
@@ -97,18 +99,17 @@ describe("webdriver.io access to element via elementProperties test", function (
   it("should fail because element is not available: timeout error", async function () {
     // Try to access 'Add to Cart' button, which is not available at the screen
     const nonAvailableButtonProperties = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Product",
-        "metadata": "sap.m.Button",
-        "text": [{
-          "path": "i18n>addToCartShort"
-        }]
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Product",
+        metadata: "sap.m.Button",
+        text: [
+          {
+            path: "i18n>addToCartShort"
+          }
+        ]
       }
     };
 
-    await expect(browser.uiControl(nonAvailableButtonProperties, 0, 60000))
-      .rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(nonAvailableButtonProperties, 0, 60000)).rejects.toThrowError(/No visible elements found/);
   });
 });
-
-

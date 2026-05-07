@@ -7,14 +7,13 @@ const path = require("path");
 const jsdoc2md = require("jsdoc-to-markdown");
 
 const readPath = path.join(__dirname, "../");
-const readPosixPath = readPath.replace(/\\/g,"/");
+const readPosixPath = readPath.replace(/\\/g, "/");
 const writePath = path.join(__dirname, "../../../docs");
 
 const filesToInclude = `{index.js,modules/**/*.js}`;
 
 function generateDoc() {
   glob(readPosixPath + filesToInclude, async (err, files) => {
-
     if (err) {
       throw err;
     }
@@ -23,7 +22,7 @@ function generateDoc() {
     let markdownFile;
     try {
       markdownFile = await jsdoc2md.render({
-        "files": files
+        files: files
       });
     } catch (error) {
       console.log("\x1b[33m%s\x1b[0m", `Error while rendering the files. Please investigate.`);
@@ -37,7 +36,6 @@ function generateDoc() {
       }
       console.log("The files has been saved.");
     });
-
   });
 }
 

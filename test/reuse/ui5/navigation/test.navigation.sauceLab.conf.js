@@ -15,10 +15,10 @@ exports.config = merge(profile.config, {
   specs: [
     // path.resolve(__dirname, "navigateToSystemAndApplication.spec.js"),
     path.resolve(__dirname, "navigateToSystemAndApplicationAndRetry.spec.js"),
-    path.resolve(__dirname, "expectUnsupportedNavigationPopup.spec.js"),
+    path.resolve(__dirname, "expectUnsupportedNavigationPopup.spec.js")
   ],
 
   mochaOpts: {
-    timeout: 2000000,
-  },
+    timeout: 2000000
+  }
 });

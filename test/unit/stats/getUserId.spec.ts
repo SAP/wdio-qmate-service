@@ -8,13 +8,13 @@ const fetchedUserId = "fetched-user-id";
 const { getItemMock } = vi.hoisted(() => {
   return {
     getItemMock: vi.fn()
-  }
+  };
 });
 
 const { setItemMock } = vi.hoisted(() => {
   return {
     setItemMock: vi.fn()
-  }
+  };
 });
 
 vi.mock("node-localstorage", () => {
@@ -22,7 +22,7 @@ vi.mock("node-localstorage", () => {
     LocalStorage: vi.fn(() => {
       return {
         getItem: getItemMock,
-        setItem: setItemMock,
+        setItem: setItemMock
       };
     })
   };
@@ -31,13 +31,13 @@ vi.mock("node-localstorage", () => {
 const { fetchMock } = vi.hoisted(() => {
   return {
     fetchMock: vi.fn()
-  }
+  };
 });
 
 vi.mock("undici", () => {
   return {
     fetch: fetchMock,
-    Agent: vi.fn(),
+    Agent: vi.fn()
   };
 });
 
@@ -73,7 +73,7 @@ describe("getUserId", () => {
     getItemMock.mockReturnValue(null);
     fetchMock.mockResolvedValue({
       ok: true,
-      text: () => Promise.resolve(JSON.stringify({ id: fetchedUserId })),
+      text: () => Promise.resolve(JSON.stringify({ id: fetchedUserId }))
     } as Response);
 
     // Act
@@ -88,7 +88,7 @@ describe("getUserId", () => {
     getItemMock.mockReturnValue(null);
     fetchMock.mockResolvedValue({
       ok: true,
-      text: () => Promise.resolve(JSON.stringify({ id: fetchedUserId })),
+      text: () => Promise.resolve(JSON.stringify({ id: fetchedUserId }))
     } as Response);
 
     // Act
@@ -97,7 +97,7 @@ describe("getUserId", () => {
     // Verify
     expect(fetchMock).toHaveBeenCalledWith(`${STATS_SERVER_URL}/api/user`, {
       method: "POST",
-      dispatcher: expect.anything(),
+      dispatcher: expect.anything()
     });
   });
 
@@ -108,7 +108,7 @@ describe("getUserId", () => {
       ok: false,
       status: 500,
       statusText: "Internal Server Error",
-      text: () => Promise.resolve(""),
+      text: () => Promise.resolve("")
     } as Response);
 
     // Act
@@ -136,7 +136,7 @@ describe("getUserId", () => {
 
     fetchMock.mockResolvedValue({
       ok: true,
-      text: () => Promise.resolve(JSON.stringify({ id: fetchedUserId })),
+      text: () => Promise.resolve(JSON.stringify({ id: fetchedUserId }))
     } as Response);
 
     // Act

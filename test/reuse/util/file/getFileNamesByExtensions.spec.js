@@ -37,4 +37,3 @@ describe("file - getFileNamesByExtensions - get file name by extension - error p
     common.assertion.expectEqual(files, []);
   });
 });
-

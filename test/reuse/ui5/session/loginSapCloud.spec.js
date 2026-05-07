@@ -13,9 +13,9 @@ describe("session - loginSapCloud", function () {
 
   it("Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "metadata": "sap.ushell.ui.shell.ShellAppTitle",
-        "id": "shellAppTitle"
+      elementProperties: {
+        metadata: "sap.ushell.ui.shell.ShellAppTitle",
+        id: "shellAppTitle"
       }
     };
     await ui5.assertion.expectToBeVisible(selector);
@@ -33,8 +33,7 @@ describe("session - loginSapCloud - Invalid credentials", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.session.loginSapCloud("Caput", "Draconis"))
-      .rejects.toThrow(/Login failed: "Sorry, we could not authenticate you. Try again."/);
+    await expect(ui5.session.loginSapCloud("Caput", "Draconis")).rejects.toThrow(/Login failed: "Sorry, we could not authenticate you. Try again."/);
   });
 });
 
@@ -45,7 +44,6 @@ describe("session - login - sapCloud for Fiori (error case)", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.session.loginSapCloud("PURCHASER"))
-      .rejects.toThrow(/Login failed: Login page with the given authenticator not present./);
+    await expect(ui5.session.loginSapCloud("PURCHASER")).rejects.toThrow(/Login failed: Login page with the given authenticator not present./);
   });
 });

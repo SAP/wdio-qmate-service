@@ -1,11 +1,8 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("table - clickSettingsButton - smartTable", function () {
-
   it("Preparation", async function () {
     await browser.url(`${BASE_URL}/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable`);
     await handleCookiesConsent();
@@ -18,22 +15,20 @@ describe("table - clickSettingsButton - smartTable", function () {
 
   it("Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
-        "metadata": "sap.m.Dialog",
-        "title": "View Settings"
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        metadata: "sap.m.Dialog",
+        title: "View Settings"
       }
     };
     await ui5.assertion.expectToBeVisible(selector);
   });
-
 });
 
 describe("table - clickSettingsButton - smartTable with tableSelector", function () {
-
   const tableSelector = {
-    "elementProperties": {
-      "metadata": "sap.ui.comp.smarttable.SmartTable"
+    elementProperties: {
+      metadata: "sap.ui.comp.smarttable.SmartTable"
     }
   };
 
@@ -49,13 +44,12 @@ describe("table - clickSettingsButton - smartTable with tableSelector", function
 
   it("Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
-        "metadata": "sap.m.Dialog",
-        "title": "View Settings"
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        metadata: "sap.m.Dialog",
+        title: "View Settings"
       }
     };
     await ui5.assertion.expectToBeVisible(selector);
   });
-
 });

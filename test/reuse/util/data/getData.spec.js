@@ -1,5 +1,4 @@
-describe("data - getData - default source", function() {
-
+describe("data - getData - default source", function () {
   let dataAct;
 
   it("Execution & Verification", function () {
@@ -11,11 +10,9 @@ describe("data - getData - default source", function() {
     const dataExp = "TEST";
     common.assertion.expectEqual(dataAct, dataExp);
   });
-
 });
 
-describe("data - getData - custom source", function() {
-
+describe("data - getData - custom source", function () {
   let dataAct;
 
   it("Execution & Verification", function () {
@@ -28,5 +25,4 @@ describe("data - getData - custom source", function() {
     const dataExp = "TEST";
     common.assertion.expectEqual(dataAct, dataExp);
   });
-
 });

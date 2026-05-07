@@ -1,5 +1,4 @@
 describe("test uiveri5 locators page", function () {
-
   // this.beforeAll(async () => {
   //   await browser.url("#/categories");
   // });

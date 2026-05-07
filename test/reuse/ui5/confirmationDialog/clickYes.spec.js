@@ -1,18 +1,16 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 const selectorForYesButton = {
-  "elementProperties": {
-    "metadata": "sap.m.Button",
-    "text": "Yes"
+  elementProperties: {
+    metadata: "sap.m.Button",
+    text: "Yes"
   }
 };
 
 const selectorForDialog = {
-  "elementProperties": {
-    "metadata": "sap.m.Dialog"
+  elementProperties: {
+    metadata: "sap.m.Dialog"
   }
 };
 
@@ -23,10 +21,10 @@ describe("confirmationDialog - clickYes", function () {
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const openDialogButton = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MessageBoxInitialFocus.V",
-        "metadata": "sap.m.Button",
-        "text": "Custom action"
+      elementProperties: {
+        viewName: "sap.m.sample.MessageBoxInitialFocus.V",
+        metadata: "sap.m.Button",
+        text: "Custom action"
       }
     };
 
@@ -35,20 +33,17 @@ describe("confirmationDialog - clickYes", function () {
 
   it("Execution", async function () {
     // Check Dialog window opened
-    await expect(ui5.element.getDisplayed(selectorForDialog))
-      .resolves.toBeTruthy();
+    await expect(ui5.element.getDisplayed(selectorForDialog)).resolves.toBeTruthy();
 
     // Check we have "Yes" button to click
-    await expect(ui5.element.getDisplayed(selectorForYesButton))
-      .resolves.toBeTruthy();
+    await expect(ui5.element.getDisplayed(selectorForYesButton)).resolves.toBeTruthy();
 
     await ui5.confirmationDialog.clickYes();
   });
 
   it("Verification", async function () {
     // Check Dialog closed
-    await expect(ui5.element.getDisplayed(selectorForDialog))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.element.getDisplayed(selectorForDialog)).rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -59,14 +54,11 @@ describe("confirmationDialog - clickYes without confirmation dialog (unhappy cas
 
   it("Execution", async function () {
     // Check No Dialog available
-    await expect(ui5.element.getDisplayed(selectorForDialog))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.element.getDisplayed(selectorForDialog)).rejects.toThrow(/No visible elements found/);
 
     // Check No "Yes" button available
-    await expect(ui5.element.getDisplayed(selectorForYesButton))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.element.getDisplayed(selectorForYesButton)).rejects.toThrow(/No visible elements found/);
 
-    await expect(ui5.confirmationDialog.clickYes())
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.confirmationDialog.clickYes()).rejects.toThrow(/No visible elements found/);
   });
 });

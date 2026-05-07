@@ -13,7 +13,6 @@ const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 //   });
 // });
 
-
 describe("element - isPresent - hidden element", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
@@ -27,7 +26,6 @@ describe("element - isPresent - hidden element", function () {
     await common.assertion.expectTrue(isPresent);
   });
 });
-
 
 // describe("element - isPresent - wrong element", function () {
 //   it("Preparation", async function () {

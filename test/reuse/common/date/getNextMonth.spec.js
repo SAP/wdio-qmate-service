@@ -36,7 +36,7 @@ describe("date - getNextMonth without format ", function () {
     const date = new Date();
     date.setMonth(date.getMonth() + 1);
     common.assertion.expectEqual(calculatedDate.toDateString(), date.toDateString());
-    common.assertion.expectUnequal(calculatedDate.toDateString(), (new Date()).toDateString());
+    common.assertion.expectUnequal(calculatedDate.toDateString(), new Date().toDateString());
   });
 });
 
@@ -89,7 +89,7 @@ describe("date - getNextMonth with format 'yyyymmdd' ", function () {
 });
 
 describe("date - getNextMonth with format 'yyyy/mm/dd' ", function () {
-  it("Preparation", function () { });
+  it("Preparation", function () {});
 
   it("Execution", function () {
     calculatedDate = common.date.getNextMonth("yyyy/mm/dd");

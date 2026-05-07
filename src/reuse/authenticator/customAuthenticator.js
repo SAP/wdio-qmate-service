@@ -1,5 +1,4 @@
 async function CustomAuthenticator() {
-
   const username = browser.config.params.auth.username;
   if (!username) {
     throw new Error("Please provide a 'username' in the config.");
@@ -31,17 +30,18 @@ async function CustomAuthenticator() {
   let logonField = null;
 
   await browser.url(url);
-  await browser.waitUntil(async function () {
-    usernameField = await $(usernameFieldSelector);
-    passwordField = await $(passwordFieldSelector);
-    logonField = await $(logonButtonSelector);
-    return usernameField.isDisplayedInViewport() &&
-      passwordField.isDisplayedInViewport() &&
-      logonField.isDisplayedInViewport();
-  }, {
-    timeout: 60000,
-    timeoutMsg: "Expected user name field to be present after 60s"
-  });
+  await browser.waitUntil(
+    async function () {
+      usernameField = await $(usernameFieldSelector);
+      passwordField = await $(passwordFieldSelector);
+      logonField = await $(logonButtonSelector);
+      return usernameField.isDisplayedInViewport() && passwordField.isDisplayedInViewport() && logonField.isDisplayedInViewport();
+    },
+    {
+      timeout: 60000,
+      timeoutMsg: "Expected user name field to be present after 60s"
+    }
+  );
 
   await usernameField.setValue(username);
   await passwordField.setValue(password);

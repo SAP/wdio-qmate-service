@@ -2,20 +2,19 @@ const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - dragAndDrop", function () {
-
   const sourceSelector = {
-    "elementProperties": {
-      "viewName": "sap.f.sample.GridListDragAndDrop.V",
-      "metadata": "sap.f.GridListItem",
-      "bindingContextPath": "/items/0"
+    elementProperties: {
+      viewName: "sap.f.sample.GridListDragAndDrop.V",
+      metadata: "sap.f.GridListItem",
+      bindingContextPath: "/items/0"
     }
   };
 
   const targetSelector = {
-    "elementProperties": {
-      "viewName": "sap.f.sample.GridListDragAndDrop.V",
-      "metadata": "sap.f.GridListItem",
-      "bindingContextPath": "/items/5"
+    elementProperties: {
+      viewName: "sap.f.sample.GridListDragAndDrop.V",
+      metadata: "sap.f.GridListItem",
+      bindingContextPath: "/items/5"
     }
   };
 
@@ -33,4 +32,3 @@ describe("userInteraction - dragAndDrop", function () {
     // TODO
   });
 });
-

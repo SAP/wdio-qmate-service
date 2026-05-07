@@ -1,13 +1,11 @@
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - clearAndFill - Input", function () {
   const selector = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.InputValueState.V",
-      "metadata": "sap.m.Input"
+    elementProperties: {
+      viewName: "sap.m.sample.InputValueState.V",
+      metadata: "sap.m.Input"
     }
   };
   const value = "ABC";
@@ -31,13 +29,15 @@ describe("userInteraction - clearAndFill - Input", function () {
 
 describe("userInteraction - clearAndFill - SmartField", function () {
   const selector = {
-    "elementProperties": {
-      "viewName": "sap.ui.comp.sample.smartfield.Overview.Main",
-      "metadata": "sap.ui.comp.smartfield.SmartField",
-      "id": "*idQuantity",
-      "value": [{
-        "path": "Quantity"
-      }]
+    elementProperties: {
+      viewName: "sap.ui.comp.sample.smartfield.Overview.Main",
+      metadata: "sap.ui.comp.smartfield.SmartField",
+      id: "*idQuantity",
+      value: [
+        {
+          path: "Quantity"
+        }
+      ]
     }
   };
   const value = "50";
@@ -61,10 +61,10 @@ describe("userInteraction - clearAndFill - SmartField", function () {
 
 describe("userInteraction - clearAndFill - TextArea", function () {
   const selector = {
-    "elementProperties": {
-      "viewName": "sap.ui.comp.sample.smartfield.Overview.Main",
-      "metadata": "sap.m.TextArea",
-      "id": "*idDescription-textArea"
+    elementProperties: {
+      viewName: "sap.ui.comp.sample.smartfield.Overview.Main",
+      metadata: "sap.m.TextArea",
+      id: "*idDescription-textArea"
     }
   };
   const value = "Hello World!";
@@ -88,9 +88,9 @@ describe("userInteraction - clearAndFill - TextArea", function () {
 
 describe("userInteraction - clearAndFill - ComboBox", function () {
   const selector = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.ComboBox.view.ComboBox",
-      "metadata": "sap.m.ComboBox"
+    elementProperties: {
+      viewName: "sap.m.sample.ComboBox.view.ComboBox",
+      metadata: "sap.m.ComboBox"
     }
   };
   const value = "Germany";
@@ -115,9 +115,9 @@ describe("userInteraction - clearAndFill - ComboBox", function () {
 
 describe("userInteraction - clearAndFill - MultiComboBox", function () {
   const selector = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.MultiComboBox.view.MultiComboBox",
-      "metadata": "sap.m.MultiComboBox"
+    elementProperties: {
+      viewName: "sap.m.sample.MultiComboBox.view.MultiComboBox",
+      metadata: "sap.m.MultiComboBox"
     }
   };
   const value = "Copymaster";
@@ -142,9 +142,9 @@ describe("userInteraction - clearAndFill - MultiComboBox", function () {
 
 describe("userInteraction - clearAndFill - Input - error case", function () {
   const selector = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.InputValueState.V",
-      "metadata": "sap.m.InvalidControl"
+    elementProperties: {
+      viewName: "sap.m.sample.InputValueState.V",
+      metadata: "sap.m.InvalidControl"
     }
   };
   const value = "ABC";
@@ -158,7 +158,6 @@ describe("userInteraction - clearAndFill - Input - error case", function () {
   it("Execution & Verification", async function () {
     const index = 0;
     const timeout = 5000;
-    await expect(ui5.userInteraction.clearAndFill(selector, value, index, timeout))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.userInteraction.clearAndFill(selector, value, index, timeout)).rejects.toThrow(/No visible elements found/);
   });
 });

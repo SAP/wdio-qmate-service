@@ -80,9 +80,7 @@ describe("userInteraction - clickSelectArrow and catch an error", function () {
     const index = 10;
     const retries = 1;
     const interval = 2;
-    await expect(ui5.userInteraction.clickSelectArrowAndRetry(selector, index, interval, retries)).rejects.toThrow(
-      "Retries done. Failed to execute the function"
-    );
+    await expect(ui5.userInteraction.clickSelectArrowAndRetry(selector, index, interval, retries)).rejects.toThrow("Retries done. Failed to execute the function");
   });
 });
 

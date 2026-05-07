@@ -105,9 +105,7 @@ describe("userInteraction - fillActiveAndRetry - empty value", function () {
     const retries = 1;
     const interval = 3000;
     await ui5.userInteraction.click(selector);
-    await expect(common.userInteraction.fillActiveAndRetry(value)).rejects.toThrow(
-      "Function 'fillActiveAndRetry' failed with: Retries done. Failed to execute the function: Please provide a value(datatype - number/string) as argument."
-    );
+    await expect(common.userInteraction.fillActiveAndRetry(value)).rejects.toThrow("Function 'fillActiveAndRetry' failed with: Retries done. Failed to execute the function: Please provide a value(datatype - number/string) as argument.");
   });
 });
 
@@ -152,8 +150,6 @@ describe("userInteraction - fillActiveAndRetry - empty value", function () {
   it("Execution & Verification", async function () {
     // Make the form field active
     await nonUi5.userInteraction.click(element);
-    await expect(common.userInteraction.fillActiveAndRetry()).rejects.toThrow(
-      "Function 'fillActiveAndRetry' failed with: Retries done. Failed to execute the function: Please provide a value(datatype - number/string) as argument."
-    );
+    await expect(common.userInteraction.fillActiveAndRetry()).rejects.toThrow("Function 'fillActiveAndRetry' failed with: Retries done. Failed to execute the function: Please provide a value(datatype - number/string) as argument.");
   });
 });

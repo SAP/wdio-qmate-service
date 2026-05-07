@@ -39,8 +39,7 @@ describe("assertion - expectCssPropertyValueToBe - element - error", function ()
 
   it("Execution and Verification", async function () {
     const product = await nonUi5.element.getByXPath(selector);
-    await expect(nonUi5.assertion.expectCssPropertyValueToBe(product, cssProperty, "wrong"))
-      .rejects.toThrow(errorRegexp);
+    await expect(nonUi5.assertion.expectCssPropertyValueToBe(product, cssProperty, "wrong")).rejects.toThrow(errorRegexp);
   });
 });
 
@@ -51,7 +50,6 @@ describe("assertion - expectCssPropertyValueToBe - selector - error", function (
   });
 
   it("Execution and Verification", async function () {
-    await expect(nonUi5.assertion.expectCssPropertyValueToBe(selector, cssProperty, "wrong"))
-      .rejects.toThrow(errorRegexp);
+    await expect(nonUi5.assertion.expectCssPropertyValueToBe(selector, cssProperty, "wrong")).rejects.toThrow(errorRegexp);
   });
 });

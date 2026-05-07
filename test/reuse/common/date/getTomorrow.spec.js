@@ -11,7 +11,7 @@ describe("date - getTomorrow without any format ", function () {
     const date = new Date();
     date.setDate(date.getDate() + 1);
     common.assertion.expectEqual(arrivedDate.toDateString(), date.toDateString());
-    common.assertion.expectUnequal(arrivedDate.toDateString(), (new Date()).toDateString());
+    common.assertion.expectUnequal(arrivedDate.toDateString(), new Date().toDateString());
   });
 });
 

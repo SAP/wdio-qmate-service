@@ -16,7 +16,6 @@ describe("navigationBar - expectPageTitle - error case", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.navigationBar.expectPageTitle("Home"))
-      .rejects.toThrowError("Function 'expectPageTitle' failed with:");
+    await expect(ui5.navigationBar.expectPageTitle("Home")).rejects.toThrowError("Function 'expectPageTitle' failed with:");
   });
 });

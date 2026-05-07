@@ -25,9 +25,7 @@ export class TimeHelper {
 
   private static _isValidTimeValue(time: Time): boolean {
     const { hours, minutes, seconds } = this._extractTimeComponents(time);
-    return this._isValidHours(hours, this._extractAmPm(time))
-      && (minutes ? this._isValidMinutes(minutes) : true)
-      && (seconds ? this._isValidSeconds(seconds) : true);
+    return this._isValidHours(hours, this._extractAmPm(time)) && (minutes ? this._isValidMinutes(minutes) : true) && (seconds ? this._isValidSeconds(seconds) : true);
   }
 
   private static _updateDateWithTimeAnchor(date: Date, time: CalculateTimeAnchors): Date {
@@ -49,10 +47,7 @@ export class TimeHelper {
 
   private static _updateDateWithTimeValue(date: Date, time: Time): Date {
     const { hours, minutes, seconds } = this._extractTimeComponents(time);
-    date.setHours(hours
-      ? this._adjustTo24HourFormat(Number(hours), this._extractAmPm(time))
-      : 0
-    );
+    date.setHours(hours ? this._adjustTo24HourFormat(Number(hours), this._extractAmPm(time)) : 0);
     date.setMinutes(Number(minutes) || 0);
     date.setSeconds(Number(seconds) || 0);
     return date;
@@ -70,10 +65,7 @@ export class TimeHelper {
 
   private static _isValidHours(hours: string, amPm: AmOrPm): boolean {
     const hoursRegex = /^(2[0-3]|[01]?[0-9])$/; // 00-23
-    return (hoursRegex.test(hours) && (
-      amPm ? Number(hours) <= 12 : true
-    )
-    );
+    return hoursRegex.test(hours) && (amPm ? Number(hours) <= 12 : true);
   }
 
   private static _isValidMinutes(minutes: string): boolean {

@@ -9,72 +9,41 @@
       {
         "GrpHdr": [
           {
-            "MsgId": [
-              "0000020305"
-            ],
-            "CreDtTm": [
-              "2023-06-26T14:50:21"
-            ],
-            "NbOfTxs": [
-              "1"
-            ],
-            "CtrlSum": [
-              "1000.00"
-            ],
+            "MsgId": ["0000020305"],
+            "CreDtTm": ["2023-06-26T14:50:21"],
+            "NbOfTxs": ["1"],
+            "CtrlSum": ["1000.00"],
             "InitgPty": [
               {
-                "Nm": [
-                  "COMPANY CODE 3910 - ADDRESS NAME 1"
-                ]
+                "Nm": ["COMPANY CODE 3910 - ADDRESS NAME 1"]
               }
             ]
           }
         ],
         "PmtInf": [
           {
-            "PmtInfId": [
-              "0000020305-000001"
-            ],
-            "PmtMtd": [
-              "TRF"
-            ],
-            "BtchBookg": [
-              "true"
-            ],
-            "NbOfTxs": [
-              "1"
-            ],
-            "CtrlSum": [
-              "1000.00"
-            ],
+            "PmtInfId": ["0000020305-000001"],
+            "PmtMtd": ["TRF"],
+            "BtchBookg": ["true"],
+            "NbOfTxs": ["1"],
+            "CtrlSum": ["1000.00"],
             "PmtTpInf": [
               {
                 "SvcLvl": [
                   {
-                    "Cd": [
-                      "SEPA"
-                    ]
+                    "Cd": ["SEPA"]
                   }
                 ]
               }
             ],
-            "ReqdExctnDt": [
-              "2023-06-26"
-            ],
+            "ReqdExctnDt": ["2023-06-26"],
             "Dbtr": [
               {
-                "Nm": [
-                  "Company Code 3910 - Address Name 1"
-                ],
+                "Nm": ["Company Code 3910 - Address Name 1"],
                 "PstlAdr": [
                   {
-                    "Ctry": [
-                      "AT"
-                    ],
-                    "AdrLine": [
-                      "Lassallestrasse 1",
-                      "1234 Wien"
-                    ]
+                    "Ctry": ["AT"],
+                    "AdrLine": ["Lassallestrasse 1", "1234 Wien"]
                   }
                 ]
               }
@@ -83,40 +52,28 @@
               {
                 "Id": [
                   {
-                    "IBAN": [
-                      "AT925500011700006258"
-                    ]
+                    "IBAN": ["AT925500011700006258"]
                   }
                 ],
-                "Ccy": [
-                  "EUR"
-                ]
+                "Ccy": ["EUR"]
               }
             ],
             "DbtrAgt": [
               {
                 "FinInstnId": [
                   {
-                    "BIC": [
-                      "SLHYAT2SXXX"
-                    ]
+                    "BIC": ["SLHYAT2SXXX"]
                   }
                 ]
               }
             ],
-            "ChrgBr": [
-              "SLEV"
-            ],
+            "ChrgBr": ["SLEV"],
             "CdtTrfTxInf": [
               {
                 "PmtId": [
                   {
-                    "InstrId": [
-                      "02-940000002993"
-                    ],
-                    "EndToEndId": [
-                      "02-940000002993"
-                    ]
+                    "InstrId": ["02-940000002993"],
+                    "EndToEndId": ["02-940000002993"]
                   }
                 ],
                 "Amt": [
@@ -131,32 +88,24 @@
                     ]
                   }
                 ],
-                "ChrgBr": [
-                  "SLEV"
-                ],
+                "ChrgBr": ["SLEV"],
                 "Cdtr": [
                   {
-                    "Nm": [
-                      "FICA payment formats PFAT"
-                    ]
+                    "Nm": ["FICA payment formats PFAT"]
                   }
                 ],
                 "CdtrAcct": [
                   {
                     "Id": [
                       {
-                        "IBAN": [
-                          "AT816000000007654321"
-                        ]
+                        "IBAN": ["AT816000000007654321"]
                       }
                     ]
                   }
                 ],
                 "RmtInf": [
                   {
-                    "Ustrd": [
-                      "940000002993XBLNR/26.6.2023"
-                    ]
+                    "Ustrd": ["940000002993XBLNR/26.6.2023"]
                   }
                 ]
               }

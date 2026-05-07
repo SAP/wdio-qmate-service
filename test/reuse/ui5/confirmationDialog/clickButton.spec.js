@@ -1,12 +1,10 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 const selectorForPopupOkButton = {
-  "elementProperties": {
-    "metadata": "sap.m.Button",
-    "text": "OK"
+  elementProperties: {
+    metadata: "sap.m.Button",
+    text: "OK"
   }
 };
 
@@ -17,9 +15,9 @@ describe("confirmationDialog - clickButton - text 'OK'", function () {
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const submitButtonSelector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.InputChecked.V",
-        "metadata": "sap.m.Button"
+      elementProperties: {
+        viewName: "sap.m.sample.InputChecked.V",
+        metadata: "sap.m.Button"
       }
     };
 
@@ -33,18 +31,19 @@ describe("confirmationDialog - clickButton - text 'OK'", function () {
   it("Verification", async function () {
     // After we close Dialog window, we have a validation error
     const inputFieldWithCheckSelector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.InputChecked.V",
-        "metadata": "sap.m.Input",
-        "value": [{
-          "path": "/email"
-        }]
+      elementProperties: {
+        viewName: "sap.m.sample.InputChecked.V",
+        metadata: "sap.m.Input",
+        value: [
+          {
+            path: "/email"
+          }
+        ]
       }
     };
     await ui5.assertion.expectValidationError(inputFieldWithCheckSelector);
 
-    await expect(ui5.element.getDisplayed(selectorForPopupOkButton))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.element.getDisplayed(selectorForPopupOkButton)).rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -54,11 +53,9 @@ describe("confirmationDialog - clickButton - text 'OK' without confirmation dial
   });
 
   it("Execution and Verification", async function () {
-    await expect(ui5.element.getDisplayed(selectorForPopupOkButton))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.element.getDisplayed(selectorForPopupOkButton)).rejects.toThrow(/No visible elements found/);
 
-    await expect(ui5.confirmationDialog.clickButton("OK"))
-      .rejects.toThrow(/waitUntil condition failed/);
+    await expect(ui5.confirmationDialog.clickButton("OK")).rejects.toThrow(/waitUntil condition failed/);
   });
 });
 
@@ -69,10 +66,10 @@ describe("confirmationDialog - clickButton - text 'Cancel'", function () {
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const confirmButtonSelector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MessageBox.V",
-        "metadata": "sap.m.Button",
-        "text": "Confirm"
+      elementProperties: {
+        viewName: "sap.m.sample.MessageBox.V",
+        metadata: "sap.m.Button",
+        text: "Confirm"
       }
     };
 
@@ -84,7 +81,6 @@ describe("confirmationDialog - clickButton - text 'Cancel'", function () {
   });
 
   it("Verification", async function () {
-    await expect(ui5.element.getDisplayed(selectorForPopupOkButton))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.element.getDisplayed(selectorForPopupOkButton)).rejects.toThrow(/No visible elements found/);
   });
 });

@@ -2,7 +2,6 @@ const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - clearAndFillSmartFieldInput", function () {
-
   let value;
   let valueAct;
   let selector;
@@ -15,12 +14,14 @@ describe("userInteraction - clearAndFillSmartFieldInput", function () {
 
   it("Execution", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smartfield.Overview.Main",
-        "metadata": "sap.m.Input",
-        "value": [{
-          "path": "Quantity"
-        }]
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smartfield.Overview.Main",
+        metadata: "sap.m.Input",
+        value: [
+          {
+            path: "Quantity"
+          }
+        ]
       }
     };
 
@@ -31,9 +32,9 @@ describe("userInteraction - clearAndFillSmartFieldInput", function () {
     await ui5.userInteraction.clearAndFillSmartFieldInput(selector, value, index, timeout);
 
     const textArea = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smartfield.Overview.Main",
-        "metadata": "sap.m.TextArea"
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smartfield.Overview.Main",
+        metadata: "sap.m.TextArea"
       }
     };
     await ui5.userInteraction.click(textArea);
@@ -47,7 +48,6 @@ describe("userInteraction - clearAndFillSmartFieldInput", function () {
 });
 
 describe("userInteraction - clearAndFillSmartFieldInput with invalid selector", function () {
-
   let value;
   let selector;
 
@@ -59,18 +59,19 @@ describe("userInteraction - clearAndFillSmartFieldInput with invalid selector", 
 
   it("Execution & Verification", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smartfield.Overview.Main",
-        "metadata": "sap.ui.comp.smartfierr",
-        "value": [{
-          "path": "Quantity"
-        }]
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smartfield.Overview.Main",
+        metadata: "sap.ui.comp.smartfierr",
+        value: [
+          {
+            path: "Quantity"
+          }
+        ]
       }
     };
     value = "12";
     const index = 0;
     const timeout = 50000;
-    await expect(ui5.userInteraction.clearAndFillSmartFieldInput(selector, value, index, timeout))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.userInteraction.clearAndFillSmartFieldInput(selector, value, index, timeout)).rejects.toThrow(/No visible elements found/);
   });
 });

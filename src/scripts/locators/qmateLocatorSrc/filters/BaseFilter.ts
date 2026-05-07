@@ -42,7 +42,7 @@ export abstract class BaseFilter {
 
   // Protected
   protected abstract doCheckSingle(control: UI5Control): boolean;
-  
+
   protected doFiltering(controls: UI5Control[]): UI5Control[] {
     return controls.filter((control) => this.checkSingle(control));
   }

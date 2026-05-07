@@ -11,16 +11,11 @@ exports.config = merge(profile.config, {
 
   bail: 1,
 
-  specs: [
-    path.resolve(__dirname, "pick.spec.js"),
-    path.resolve(__dirname, "pickRange.spec.js"),
-    path.resolve(__dirname, "fillRange.spec.js")
-  ],
+  specs: [path.resolve(__dirname, "pick.spec.js"), path.resolve(__dirname, "pickRange.spec.js"), path.resolve(__dirname, "fillRange.spec.js")],
 
   exclude: [],
 
-
   mochaOpts: {
-    timeout: 2000000,
-  },
+    timeout: 2000000
+  }
 });

@@ -4,7 +4,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - selectAll - Input", function () {
   const selector = "input[class='sapMInputBaseInner']";
-  
+
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview`);
     await handleCookiesConsent();

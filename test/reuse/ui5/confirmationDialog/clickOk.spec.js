@@ -1,12 +1,10 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 const selectorForPopupOkButton = {
-  "elementProperties": {
-    "metadata": "sap.m.Button",
-    "text": "OK"
+  elementProperties: {
+    metadata: "sap.m.Button",
+    text: "OK"
   }
 };
 
@@ -17,9 +15,9 @@ describe("confirmationDialog - clickOk", function () {
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const submitButtonSelector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.InputChecked.V",
-        "metadata": "sap.m.Button"
+      elementProperties: {
+        viewName: "sap.m.sample.InputChecked.V",
+        metadata: "sap.m.Button"
       }
     };
 
@@ -36,19 +34,20 @@ describe("confirmationDialog - clickOk", function () {
   it("Verification", async function () {
     // After we closed Dialog window, we have a validation error
     const inputFieldWithCheckSelector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.InputChecked.V",
-        "metadata": "sap.m.Input",
-        "value": [{
-          "path": "/email"
-        }]
+      elementProperties: {
+        viewName: "sap.m.sample.InputChecked.V",
+        metadata: "sap.m.Input",
+        value: [
+          {
+            path: "/email"
+          }
+        ]
       }
     };
     await ui5.assertion.expectValidationError(inputFieldWithCheckSelector);
 
     // No dialog with "Ok" button any more
-    await expect(ui5.element.getDisplayed(selectorForPopupOkButton))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.element.getDisplayed(selectorForPopupOkButton)).rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -59,10 +58,8 @@ describe("confirmationDialog - clickOk without confirmation dialog (unhappy case
 
   it("Execution & Verification", async function () {
     // No dialog with "Ok" button
-    await expect(ui5.element.getDisplayed(selectorForPopupOkButton))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.element.getDisplayed(selectorForPopupOkButton)).rejects.toThrow(/No visible elements found/);
 
-    await expect(ui5.confirmationDialog.clickOk())
-      .rejects.toThrow(/waitUntil condition failed/);
+    await expect(ui5.confirmationDialog.clickOk()).rejects.toThrow(/waitUntil condition failed/);
   });
 });
