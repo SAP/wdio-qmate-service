@@ -323,10 +323,31 @@ describe("Test for mixed properties (childProperties, parentProperties, prevSibl
       "elementProperties": {
         "src": "sap-icon://customer",
         "parentProperties": {
-          "nextSiblingProperties": {},
-          "prevSiblingProperties": "",
-          "parentProperties": "",
-          "childProperties": {}
+          "nextSiblingProperties": ["", {}],
+          "prevSiblingProperties": ["", {}],
+          "siblingProperties": ["", {}],
+          "parentProperties": ["", {}],
+          "childProperties": ["", {}],
+          "ancestorProperties": ["", {}],
+          "descendantProperties": ["", {}]
+        },
+      }
+    };
+    await expect(browser.uiControl(selector)).toBeTruthy();
+  });
+
+  it("'happy case': should access element and ignore null/undefined nested parentProperties, childProperties, prevSiblingProperties and nextSiblingProperties", async () => {
+    const selector = {
+      "elementProperties": {
+        "src": "sap-icon://customer",
+        "parentProperties": {
+          "nextSiblingProperties": [null, undefined],
+          "prevSiblingProperties": [null, undefined],
+          "siblingProperties": [null, undefined],
+          "parentProperties": [null, undefined],
+          "childProperties": [null, undefined],
+          "ancestorProperties": [null, undefined],
+          "descendantProperties": [null, undefined]
         }
       }
     };
