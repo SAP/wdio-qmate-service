@@ -28,8 +28,9 @@ export class File {
    * @param {String} [selector="input[type='file']"] - Custom selector of uploader control (in case there are more then one present).
    * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"]); // uses the default uploader control
    * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], "input[id='myUpload']"); // upload to file uploader with matching selector
+   * @example await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], ui5Selector); // upload to file uploader with matching selector
    */
-  async upload(files: Array<string>, selector: string = "input[type = 'file']") {
+  async upload(files: Array<string>, selector: UI5Selector | string = "input[type = 'file']") {
     const vl = this.vlf.initLog(this.upload);
     let elem;
 

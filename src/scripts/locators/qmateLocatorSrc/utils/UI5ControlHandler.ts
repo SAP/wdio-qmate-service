@@ -1,3 +1,4 @@
+import { IGNORED_METADATA_LIST } from "../constants/IgnoredMetadataList";
 import { ControlFinder } from "../utils/ControlFinder";
 import { LocatorDebug } from "../utils/LocatorDebug";
 
@@ -10,7 +11,7 @@ export class UI5ControlHandler {
     Array.prototype.forEach.call(nodes, (node) => {
       const nodeId = node.getAttribute("id");
       const control = ControlFinder.getUI5Control(nodeId);
-      if (control) {
+      if (control && !IGNORED_METADATA_LIST.includes(control.getMetadata()?.getName())) {
         aCandidateControls.push(control);
       } else {
         aCandidateControls.push(...UI5ControlHandler.retrieveValidUI5ControlsSubElements(node.children));
@@ -101,7 +102,7 @@ export class UI5ControlHandler {
     while (true) {
       if (!domParent) return control.getParent?.();
       const oParentControl = ControlFinder.getUI5Control(domParent.getAttribute("id"));
-      if (oParentControl) {
+      if (oParentControl && !IGNORED_METADATA_LIST.includes(oParentControl.getMetadata()?.getName())) {
         return oParentControl;
       }
       domParent = domParent.parentElement;
