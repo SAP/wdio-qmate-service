@@ -40,8 +40,8 @@ describe("file - upload - default selector", function () {
   });
 
   it("Verification", async function () {
-    await ui5.element.getDisplayed(selectorTest);
-    await ui5.element.getDisplayed(selectorTest2);
+    await ui5.assertion.expectToBeVisible(selectorTest);
+    await ui5.assertion.expectToBeVisible(selectorTest2);
   });
 });
 
@@ -64,8 +64,8 @@ describe("file - upload - custom selector - UI5", function () {
   });
 
   it("Verification", async function () {
-    await ui5.element.getDisplayed(selectorTest);
-    await ui5.element.getDisplayed(selectorTest2);
+    await ui5.assertion.expectToBeVisible(selectorTest);
+    await ui5.assertion.expectToBeVisible(selectorTest2);
   });
 });
 
@@ -83,7 +83,7 @@ describe("file - upload - custom selector - non UI5", function () {
   });
 
   it("Verification", async function () {
-    await ui5.element.getDisplayed(selectorTest);
-    await ui5.element.getDisplayed(selectorTest2);
+    await ui5.assertion.expectToBeVisible(selectorTest);
+    await ui5.assertion.expectToBeVisible(selectorTest2);
   });
 });

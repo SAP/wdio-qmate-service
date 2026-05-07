@@ -5,7 +5,7 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import { AlignmentOptions, AlignmentValues } from "../types";
 import ErrorHandler from "../../helper/errorHandler";
 import { GLOBAL_DEFAULT_WAIT_INTERVAL, GLOBAL_DEFAULT_WAIT_TIMEOUT } from "../constants";
-import { Ui5ControlMetadata, Ui5Selector } from "./types/ui5.types";
+import { CssSelector, Ui5ControlMetadata, Ui5Selector } from "./types/ui5.types";
 import { KeyCodes } from "../common/constants/userInteraction.constants";
 
 /**
@@ -729,13 +729,22 @@ export class UserInteraction {
   // =================================== HELPER ===================================
   private async _getClickableElement(selector: any, index: number, timeout: number): Promise<Element> {
     let elem: Element | null = null;
+    const allBlockedMsg = `No clickable elements found with selector: ${JSON.stringify(selector)}`;
+    const indexOutOfBoundsMsg = `Index is out of bounds. No elements with index: ${index}`
     const timeoutMsg = `Element not clickable after ${timeout / 1000}s`;
-
-    // Phase 1: short wait used to quickly detect overlay situations
+    const QUICK_TIMEOUT_MSG = "__QUICK_TIMEOUT__";
+    
     const firstPhaseTimeout = Math.min(timeout, UserInteraction.OVERLAY_CHECK_TIMEOUT);
     const isQuickPhase = firstPhaseTimeout < timeout;
 
-    const QUICK_TIMEOUT_MSG = "__QUICK_TIMEOUT__";
+    const resolveZIndex = async (elem: Element): Promise<number> => {
+      const zIndex: string = await nonUi5.element.getCssPropertyValue(elem, "z-index");
+      if (zIndex === "auto") {
+        const parentElement = await elem.parentElement();
+        return (parentElement ? await resolveZIndex(parentElement) : 0);
+      }
+      return parseInt(zIndex);
+    }
 
     const poll = async () => {
       elem = await ui5.element.getDisplayed(selector, index, timeout);
@@ -760,24 +769,24 @@ export class UserInteraction {
       }
     }
 
-    // Reached only when:
-    // - the element exists and is displayed
-    // - it is not clickable yet
-    // - the initial "quick" wait timed out
-    // Now check whether the element is physically blocked by a UI5 block layer.
-    if (await isBlockedByUi5Overlay(elem!)) {
-      // Try alternative elements with the same selector.
-      // exits when getDisplayed throws at index i — no further candidates exist
-      for (let i = index + 1; ; i++) {
-        try {
-          const candidate = await ui5.element.getDisplayed(selector, i, 5000);
-          if (await candidate.isClickable()) {
-            return candidate;
-          }
-        } catch {
-          throw new Error(timeoutMsg);
-        }
+    // Some target elements can be un-clickable due to UI5 block layer (i.e. when dialog window appears)
+    // The block layer changes its own z-index dynamically depending on top layered context
+    // All the elements with z-index below are blocked
+    const blockLayerSelector: CssSelector = "div[class='sapUiBLy'][style*='visibility: visible']";
+    const isBlockActive = await nonUi5.element.isPresentByCss(blockLayerSelector, 0, timeout);
+
+    if(isBlockActive) {
+      const elems = await ui5.element.getAllDisplayed(selector, timeout);
+      const minZIndex = await resolveZIndex(await nonUi5.element.getByCss(blockLayerSelector));
+      const unblockedElems: Array<Element> = [];
+      for (const elem of elems) {
+          // Element count as non-blocked only if it arranged with or above than block layer.
+          if(await resolveZIndex(elem) >= minZIndex) 
+            unblockedElems.push(elem);
       }
+      if (unblockedElems.length === 0) this.ErrorHandler.logException(new Error(), allBlockedMsg);
+      if (index >= unblockedElems.length) this.ErrorHandler.logException(new Error(), indexOutOfBoundsMsg);
+      elem = unblockedElems[index];
     }
 
     // Element is not blocked — continue waiting for the remaining time.
@@ -786,18 +795,6 @@ export class UserInteraction {
       timeoutMsg
     });
     return elem!;
-
-    /**
-     * Checks whether the given element is physically covered by a UI5 block layer
-     * (sapUiBLy) at its center position.
-     */
-    async function isBlockedByUi5Overlay(element: Element): Promise<boolean> {
-      return browser.execute((el: HTMLElement) => {
-        const rect = el.getBoundingClientRect();
-        const topElem = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
-        return topElem?.classList?.contains("sapUiBLy") ?? false;
-      }, element as any);
-    }
   }
 
   private async _verifyTabSwitch(selector: any): Promise<boolean> {
