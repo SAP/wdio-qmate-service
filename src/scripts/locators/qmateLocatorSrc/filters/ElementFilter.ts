@@ -10,8 +10,8 @@ import { BaseFilter } from "./BaseFilter";
 import { FilterFactory } from "../utils/FilterFactory";
 import { Ui5Selector } from "../../../../reuse/modules/ui5/types/ui5.types";
 
-type Constructor<Class = {}> = new (...arg: any[]) => Class;
-const filtersMap: { prop: keyof Ui5Selector; filter: Constructor<BaseFilter> }[] = [
+type Constructor<Class = {}> = new (...arg: Array<any>) => Class;
+const filtersMap: Array<{ prop: keyof Ui5Selector; filter: Constructor<BaseFilter> }> = [
   { prop: "ancestorProperties", filter: AncestorFilter },
   { prop: "descendantProperties", filter: DescendantFilter },
   { prop: "siblingProperties", filter: SiblingFilter },
@@ -22,7 +22,7 @@ const filtersMap: { prop: keyof Ui5Selector; filter: Constructor<BaseFilter> }[]
 ];
 
 export class ElementFilter extends BaseFilter {
-  protected doFiltering(controls: UI5Control[]): UI5Control[] {
+  protected doFiltering(controls: Array<UI5Control>): Array<UI5Control> {
     const props = this.elementProperties as ElementProperties;
     let filteredControls = this.filterFactory.getInstance(PropertiesFilter, props).filter(controls);
     for (const { prop, filter } of filtersMap) {
@@ -40,7 +40,7 @@ export class ElementFilter extends BaseFilter {
     return pass;
   }
 
-  public static filterBySelector(ui5Selector: UI5Selector, controls: UI5Control[]): UI5Control[] {
+  public static filterBySelector(ui5Selector: UI5Selector, controls: Array<UI5Control>): Array<UI5Control> {
     const filterFactory = new FilterFactory();
 
     let validUi5Controls = filterFactory.getInstance(ElementFilter, ui5Selector.elementProperties).filter(controls);
