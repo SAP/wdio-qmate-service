@@ -17,6 +17,7 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "getAttributeValuesFromJson.spec.js"),
     path.resolve(__dirname, "getTextData.spec.js"),
     path.resolve(__dirname, "expectTextDataToContain.spec.js"),
-    path.resolve(__dirname, "getFileNamesByExtensions.spec.js")
+    path.resolve(__dirname, "getFileNamesByExtensions.spec.js"),
+    path.resolve(__dirname, "upload.spec.js")
   ]
 });
