@@ -1,3 +1,7 @@
+// ===================== CONSTANTS ==========================
+const NEGATIVE_TEST_TIMEOUT = 10_000;
+
+// ======================= TESTS ============================
 describe("Test for mixed properties (elementProperties, ancestorProperties, siblingProperties and descendantProperties)", function () {
   this.beforeAll(async () => {
     await browser.url("#/categories");
@@ -71,7 +75,7 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
       }
     };
 
-    await expect(browser.uiControl(selector))
+    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT))
       .rejects.toThrowError(/No visible elements found/);
   });
 
@@ -163,7 +167,217 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
         }
       }
     };
-    await expect(browser.uiControl(selector))
+    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT))
       .rejects.toThrowError(/No visible elements found/);
+  });
+});
+
+describe("Test for mixed properties (childProperties, parentProperties, prevSiblingProperties, nextSiblingProperties)", function () {
+  this.beforeAll(async () => {
+    await browser.url("#/categories");
+  });
+
+  it("'happy case': should access multiple elements by nested, childProperties, parentProperties, prevSiblingProperties, nextSiblingProperties", async () => {
+    const selector = {
+      "elementProperties": {
+        "metadata": "sap.ui.core.Icon",
+        "parentProperties": {
+          "metadata": "sap.m.Button",
+          "nextSiblingProperties": {
+            "metadata": "sap.m.ObjectListItem",
+            "childProperties": {
+              "metadata": "sap.m.Text"
+            }
+          },
+          "prevSiblingProperties": {
+            "metadata": "sap.m.FlexBox",
+            "childProperties": {
+              "metadata": "sap.m.Image"
+            }
+          }
+        }
+      }
+    };
+    const elements = await browser.uiControls(selector);
+    expect(elements.length).toBeGreaterThan(1);
+  });
+
+  it("'unhappy case': should fail to find element when 'childProperties' is wrong", async () => {
+    const selector = {
+      "elementProperties": {
+        "metadata": "sap.ui.core.Icon",
+        "parentProperties": {
+          "metadata": "sap.m.Button",
+          "nextSiblingProperties": {
+            "metadata": "sap.m.ToggleButton",
+            "childProperties": {
+              "metadata": "sap.m.Text" // <- wrong: real is "sap.ui.core.Icon"
+            }
+          },
+          "prevSiblingProperties": {
+            "metadata": "sap.m.Title"
+          },
+          "parentProperties": {
+            "metadata": "sap.m.Bar"
+          },
+          "childProperties": {
+            "metadata": "sap.ui.core.Icon"
+          }
+        }
+      }
+    };
+
+    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT))
+      .rejects.toThrowError(/No visible elements found/);
+  });
+
+  it("'unhappy case': should fail to find element when 'parentProperties' is wrong", async () => {
+    const selector = {
+      "elementProperties": {
+        "metadata": "sap.ui.core.Icon",
+        "parentProperties": {
+          "metadata": "sap.m.Button",
+          "nextSiblingProperties": {
+            "metadata": "sap.m.ToggleButton",
+            "childProperties": {
+              "metadata": "sap.ui.core.Icon"
+            }
+          },
+          "prevSiblingProperties": {
+            "metadata": "sap.m.Title"
+          },
+          "parentProperties": {
+            "metadata": "sap.m.Text" // <- wrong: real is "sap.m.Bar"
+          },
+          "childProperties": {
+            "metadata": "sap.ui.core.Icon"
+          }
+        }
+      }
+    };
+
+    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT))
+      .rejects.toThrowError(/No visible elements found/);
+  });
+
+  it("'unhappy case': should fail to find element when 'prevSiblingProperties' is wrong", async () => {
+    const selector = {
+      "elementProperties": {
+        "metadata": "sap.ui.core.Icon",
+        "parentProperties": {
+          "metadata": "sap.m.Button",
+          "nextSiblingProperties": {
+            "metadata": "sap.m.ToggleButton",
+            "childProperties": {
+              "metadata": "sap.ui.core.Icon"
+            }
+          },
+          "prevSiblingProperties": {
+            "metadata": "sap.m.Text" // <- wrong: real is "sap.m.Title"
+          },
+          "parentProperties": {
+            "metadata": "sap.m.Bar"
+          },
+          "childProperties": {
+            "metadata": "sap.ui.core.Icon"
+          }
+        }
+      }
+    };
+
+    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT))
+      .rejects.toThrowError(/No visible elements found/);
+  });
+
+  it("'unhappy case': should fail to find element when 'nextSiblingProperties' is wrong", async () => {
+    const selector = {
+      "elementProperties": {
+        "metadata": "sap.ui.core.Icon",
+        "parentProperties": {
+          "metadata": "sap.m.Button",
+          "nextSiblingProperties": {
+            "metadata": "sap.m.Button", // <- wrong: real is "sap.m.ToggleButton"
+            "childProperties": {
+              "metadata": "sap.ui.core.Icon"
+            }
+          },
+          "prevSiblingProperties": {
+            "metadata": "sap.m.Title"
+          },
+          "parentProperties": {
+            "metadata": "sap.m.Bar"
+          },
+          "childProperties": {
+            "metadata": "sap.ui.core.Icon"
+          }
+        }
+      }
+    };
+
+    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT))
+      .rejects.toThrowError(/No visible elements found/);
+  });
+
+  it("'happy case': should access element and ignore empty nested parentProperties, childProperties, prevSiblingProperties and nextSiblingProperties", async () => {
+    const selector = {
+      "elementProperties": {
+        "src": "sap-icon://customer",
+        "parentProperties": {
+          "nextSiblingProperties": ["", {}],
+          "prevSiblingProperties": ["", {}],
+          "siblingProperties": ["", {}],
+          "parentProperties": ["", {}],
+          "childProperties": ["", {}],
+          "ancestorProperties": ["", {}],
+          "descendantProperties": ["", {}]
+        },
+      }
+    };
+    await expect(browser.uiControl(selector)).toBeTruthy();
+  });
+
+  it("'happy case': should access element and ignore null/undefined nested parentProperties, childProperties, prevSiblingProperties and nextSiblingProperties", async () => {
+    const selector = {
+      "elementProperties": {
+        "src": "sap-icon://customer",
+        "parentProperties": {
+          "nextSiblingProperties": null,
+          "prevSiblingProperties": null,
+          "siblingProperties": null,
+          "parentProperties": null,
+          "childProperties": null,
+          "ancestorProperties": null,
+          "descendantProperties": null
+        },
+        "childProperties": {
+          "nextSiblingProperties": undefined,
+          "prevSiblingProperties": undefined,
+          "siblingProperties": undefined,
+          "parentProperties": undefined,
+          "childProperties": undefined,
+          "ancestorProperties": undefined,
+          "descendantProperties": undefined
+        }
+      }
+    };
+    await expect(browser.uiControl(selector)).toBeTruthy();
+  });
+
+  it("'happy case': should access element and ignore arrayed [null,undefined] nested parentProperties, childProperties, prevSiblingProperties and nextSiblingProperties", async () => {
+    const selector = {
+      "elementProperties": {
+        "src": "sap-icon://customer",
+        "parentProperties": {
+          "nextSiblingProperties": [null, undefined],
+          "prevSiblingProperties": [null, undefined],
+          "siblingProperties": [null, undefined],
+          "parentProperties": [null, undefined],
+          "childProperties": [null, undefined],
+          "ancestorProperties": [null, undefined],
+          "descendantProperties": [null, undefined]
+        }
+      }
+    };
+    await expect(browser.uiControl(selector)).toBeTruthy();
   });
 });
