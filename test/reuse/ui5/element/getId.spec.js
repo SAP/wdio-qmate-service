@@ -9,10 +9,10 @@ describe("element - getId by wrong selector (unhappy case)", function () {
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/ProductCategories*)"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/ProductCategories*)"
       }
     };
     elemIdFirst = await ui5.element.getId(selector, 0);
@@ -32,13 +32,12 @@ describe("element - getId by wrong selector (unhappy case)", function () {
 
   it("Execution & Verification", async function () {
     const wrongSelector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItemWrong" // instead of sap.m.StandardListItem
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.StandardListItemWrong" // instead of sap.m.StandardListItem
       }
     };
-    await expect(ui5.element.getId(wrongSelector, 0))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.element.getId(wrongSelector, 0)).rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -49,14 +48,13 @@ describe("element - getId by wrong index (unhappy case)", function () {
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/ProductCategories*'AC')"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/ProductCategories*'AC')"
       }
     };
-    await expect(ui5.element.getId(selector, 111))
-      .rejects.toThrow(/Index out of bound. Trying to access element at index: 111/);
+    await expect(ui5.element.getId(selector, 111)).rejects.toThrow(/Index out of bound. Trying to access element at index: 111/);
   });
 });
 
@@ -66,7 +64,6 @@ describe("element - getId should get element id by empty object selector(unhappy
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.element.getId({}, 0))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.element.getId({}, 0)).rejects.toThrow(/No visible elements found/);
   });
 });

@@ -18,12 +18,12 @@ function handle(signal) {
   process.exit();
 }
 
-let lastRequestTime = (new Date()).getTime();
+let lastRequestTime = new Date().getTime();
 
 setInterval(() => {
   // if there are no requests for 60 seconds, shutdown gracefully
-  const currentTime = (new Date()).getTime();
-  if ((currentTime - lastRequestTime) > 60000 && server.listenerCount() == 0) {
+  const currentTime = new Date().getTime();
+  if (currentTime - lastRequestTime > 60000 && server.listenerCount() == 0) {
     process.exit();
   }
 }, 1000);
@@ -66,7 +66,7 @@ function checkAuthHeader(req, res) {
 }
 server.use(middlewares);
 server.use((req, res, next) => {
-  lastRequestTime = (new Date()).getTime();
+  lastRequestTime = new Date().getTime();
   if (isAuthorized(req, res)) {
     next(); // continue to JSON Server router
   }

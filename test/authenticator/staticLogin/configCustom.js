@@ -16,7 +16,5 @@ exports.config = merge(staticServerConfig.config, {
 
   baseUrl: "http://localhost:34005/custom.html",
 
-  specs: [
-    path.resolve(__dirname, "specs/custom.spec.js")
-  ]
+  specs: [path.resolve(__dirname, "specs/custom.spec.js")]
 });

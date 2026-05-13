@@ -4,31 +4,22 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 const countries = require("./countries.json");
 
 describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both element and browser levels", function () {
-
   it("should get Dropdown aggregations on both element and browser levels, access unknown, empty and 'items' aggregations", async function () {
     await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBox`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const dropdownProperties = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.ComboBox.view.ComboBox",
-        "metadata": "sap.m.ComboBox"
+      elementProperties: {
+        viewName: "sap.m.sample.ComboBox.view.ComboBox",
+        metadata: "sap.m.ComboBox"
       }
     };
 
     const element = await browser.uiControl(dropdownProperties);
 
     await checkElementAndBrowserAccessAllAggregations({
-      requiredAggregations: [
-        "tooltip",
-        "customData",
-        "layoutData",
-        "dependents",
-        "dragDropConfig",
-        "formattedValueStateText",
-        "items"
-      ],
+      requiredAggregations: ["tooltip", "customData", "layoutData", "dependents", "dragDropConfig", "formattedValueStateText", "items"],
       element
     });
 
@@ -44,10 +35,10 @@ describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both eleme
 
     // Aggregation array - test in controlActionInBrowser
     let items = await element.getUI5Aggregation("items");
-    let itemProperties = items.map(item => item.mProperties);
+    let itemProperties = items.map((item) => item.mProperties);
     await expect(itemProperties).toMatchObject(countries);
     items = await browser.getUI5Aggregation("items", element);
-    itemProperties = items.map(item => item.mProperties);
+    itemProperties = items.map((item) => item.mProperties);
     await expect(itemProperties).toMatchObject(countries);
   });
 
@@ -55,11 +46,12 @@ describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both eleme
     await browser.navigateTo(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
 
     const listElementProperties = {
-      "elementProperties": {
-        "metadata": "sap.m.StandardListItem", "mProperties": {
-          "viewId": "container-cart---app",
-          "title": [{ "path": "CategoryName" }],
-          "bindingContextPath": "/ProductCategories*"
+      elementProperties: {
+        metadata: "sap.m.StandardListItem",
+        mProperties: {
+          viewId: "container-cart---app",
+          title: [{ path: "CategoryName" }],
+          bindingContextPath: "/ProductCategories*"
         }
       }
     };
@@ -79,11 +71,12 @@ describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both eleme
   it("should try to access non-existing/empty aggregation(s)", async function () {
     await browser.navigateTo(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
     const listElementProperties = {
-      "elementProperties": {
-        "metadata": "sap.m.StandardListItem", "mProperties": {
-          "viewId": "container-cart---app",
-          "title": [{ "path": "CategoryName" }],
-          "bindingContextPath": "/ProductCategories*"
+      elementProperties: {
+        metadata: "sap.m.StandardListItem",
+        mProperties: {
+          viewId: "container-cart---app",
+          title: [{ path: "CategoryName" }],
+          bindingContextPath: "/ProductCategories*"
         }
       }
     };
@@ -97,7 +90,6 @@ describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both eleme
     await expect(browser.getUI5Aggregation("wrong_aggregation_name", element)).resolves.toBeNull();
   });
 });
-
 
 async function checkElementAndBrowserAccessAllAggregations({ requiredAggregations, element }) {
   const allAggregationNamesOnElementLevel = await element.getAllUI5Aggregations();

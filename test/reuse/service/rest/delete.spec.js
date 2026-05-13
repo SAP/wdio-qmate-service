@@ -31,23 +31,16 @@ describe("service.rest.delete - expect to DELETE 444 as response", function () {
   it("Cleanup", async function () {
     await service.rest.post(`${browser.config.baseUrl}/posts`, originalPost, config);
   });
-
 });
 
 describe("service.rest.delete - expect DELETE request to fail with status code '404'", function () {
-  
   it("Execution & Validation", async function () {
-    await expect(service.rest.delete(`${browser.config.baseUrl}/posts/00`, config))
-      .rejects.toThrow("Not Found - Request failed with status code 404");
+    await expect(service.rest.delete(`${browser.config.baseUrl}/posts/00`, config)).rejects.toThrow("Not Found - Request failed with status code 404");
   });
-
 });
 
 describe("service.rest.delete - Expect DELETE request to fail with 'Unauthorized - Request failed with status code 401'", function () {
-  
   it("Execution & Validation", async function () {
-    await expect(service.rest.delete(`${browser.config.baseUrl}/posts/${postId}`, invalidConfig))
-      .rejects.toThrow("Unauthorized - Request failed with status code 401");
+    await expect(service.rest.delete(`${browser.config.baseUrl}/posts/${postId}`, invalidConfig)).rejects.toThrow("Unauthorized - Request failed with status code 401");
   });
-
 });

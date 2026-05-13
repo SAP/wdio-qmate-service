@@ -1,11 +1,8 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("assertion - expectValueToBeDefined", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription`);
     await handleCookiesConsent();
@@ -14,10 +11,10 @@ describe("assertion - expectValueToBeDefined", function () {
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.InputDescription.V",
-        "metadata": "sap.m.Input",
-        "description": "IT Laptops"
+      elementProperties: {
+        viewName: "sap.m.sample.InputDescription.V",
+        metadata: "sap.m.Input",
+        description: "IT Laptops"
       }
     };
     await ui5.assertion.expectValueToBeDefined(selector);

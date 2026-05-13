@@ -3,14 +3,13 @@ const fs = require("fs-extra");
 const path = require("path");
 const dataExchangeUtil = require("../../../lib/scripts/dataExchange/dataExchangeUtil");
 
-/** 
+/**
  * Utility functions for regression testing of import and export of data.
  * These read data from folders and files, and check against imported data.
  * Or make data from file available for export.
- * 
+ *
  */
 const utilsMethods = {
-
   /**
    * @function checkImportFolder - check if json files and subfolders in specified folderPath
    *    have been imported under the specified key.
@@ -18,7 +17,7 @@ const utilsMethods = {
    * @param {string} paramName - the key to check against
    * @example const myFolder1 = "./data/my/folder/data/<systemName>";
    * await utils.checkImportFolder(myFolder1, "myFolder1");
-   *  
+   *
    */
   checkImportFolder: async function (folderPath, paramName) {
     folderPath = dataExchangeUtil.getFileAbsPath(folderPath);
@@ -31,13 +30,13 @@ const utilsMethods = {
     }
     // filter out json files
     const jsonFiles = files.filter((file) => !file.isDirectory() && file.name.match(/\.json$/) !== null);
-    const jsonFilePrefixes = jsonFiles.map(file => file.name.replace(/^(.*)\.json$/, "$1"));
+    const jsonFilePrefixes = jsonFiles.map((file) => file.name.replace(/^(.*)\.json$/, "$1"));
     const nonJsonFiles = files.filter((file) => !file.isDirectory() && file.name.match(/\.json$/) === null);
-    const nonJsonFilePrefixes = nonJsonFiles.map(file => file.name.replace(/^(.*)\.*$/, "$1"));
+    const nonJsonFilePrefixes = nonJsonFiles.map((file) => file.name.replace(/^(.*)\.*$/, "$1"));
 
     // get the subfolders
     let subfolders = files.filter((file) => file.isDirectory());
-    subfolders = subfolders.map(file => file.name);
+    subfolders = subfolders.map((file) => file.name);
 
     // check if the json files have been loaded into browser.params.import
     const browserParamKeys = Object.keys(browser.params.import[paramName]);
@@ -62,7 +61,7 @@ const utilsMethods = {
 
   /**
    * @function checkImportedData - check if data from json file specified by jsonFilePrefix under
-   * folderPath has been added using the params key. In the example below data from 
+   * folderPath has been added using the params key. In the example below data from
    * "./data/my/folder/data/<systemName>/subfolder/LimitPurchaseOrder.json" is checked if present in
    * browser.params.import.myFolder1.subfolder.LimitPurchaseOrder
    * @param {string} folderPath - the folder path
@@ -88,7 +87,7 @@ const utilsMethods = {
     }
 
     let importedData = browser.params.import;
-    params.forEach(param => {
+    params.forEach((param) => {
       importedData = importedData[param] || {};
     });
     //check if the json files have been loaded into browser.params.import
@@ -96,7 +95,6 @@ const utilsMethods = {
     //can't find a method in ui5.assertion to check if two JSON objects match
     // await common.assertion.expectEqual(importedData, data);
     await expect(importedData).toEqual(data);
-
   },
   /**
    * @function checkImportedDataFromFile - check if data from specified file is available under
@@ -121,7 +119,6 @@ const utilsMethods = {
     const importedData = browser.params.import[paramName];
     // await common.assertion.expectEqual(importedData, data);
     await expect(importedData).toEqual(data);
-
   },
 
   /**
@@ -149,12 +146,11 @@ const utilsMethods = {
     }
 
     // assign data to browser.params.export, so that it gets written to export file
-    // at end of test. 
-    // make sure any other data previously in browser.params.export 
+    // at end of test.
+    // make sure any other data previously in browser.params.export
     // against the specified key are not lost,
     // unless you really don't  want them
     browser.params.export[exportParamName] = { ...browser.params.export[exportParamName], ...data };
-
   }
 };
 module.exports = utilsMethods;

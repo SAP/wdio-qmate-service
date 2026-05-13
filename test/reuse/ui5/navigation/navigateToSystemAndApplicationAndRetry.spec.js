@@ -15,7 +15,6 @@ describe("navigation - navigateToSystemAndApplicationAndRetry", function () {
     await ui5.navigationBar.expectPageTitle("Manage Purchase Orders");
   });
 
-
   it("Clean Up", async function () {
     await ui5.session.logout();
   });
@@ -32,8 +31,7 @@ describe("navigation - navigateToSystemAndApplicationAndRetry wrong navigation i
     await ui5.navigation.navigateToSystemAndApplicationAndRetry(system, application, false);
     await ui5.session.loginFiori("PURCHASER", "super-duper-sensitive-pw");
 
-    await ui5.navigation
-      .navigateToSystemAndApplicationAndRetry(system, wrongApplication, false, false); // verify = false - no error during navigation
+    await ui5.navigation.navigateToSystemAndApplicationAndRetry(system, wrongApplication, false, false); // verify = false - no error during navigation
     const currentUrl = await browser.getUrl();
     expect(currentUrl).toContain(system); // url still includes system
 

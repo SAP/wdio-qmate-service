@@ -14,7 +14,6 @@ describe("formatter - addRemoveLeadingZeros", function () {
     });
   });
 
-
   describe("formatter - addRemoveLeadingZeros - remove zeros", function () {
     it("Execution & Verification", function () {
       common.assertion.expectEqual(util.formatter.addRemoveLeadingZeros("0000010", 2), "10");

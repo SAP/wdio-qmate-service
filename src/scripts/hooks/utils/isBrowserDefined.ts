@@ -1,3 +1,3 @@
 export function isBrowserDefined() {
-    return typeof browser !== "undefined"
+  return typeof browser !== "undefined";
 }

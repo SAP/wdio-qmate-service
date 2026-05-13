@@ -7,7 +7,7 @@ describe("browser - setBaseUrl", function () {
     await util.browser.setBaseUrl(`${BASE_URL}/`);
   });
 
-  it("Verification", async function() {
+  it("Verification", async function () {
     const currentBaseUrl = await util.browser.getBaseUrl();
     common.assertion.expectEqual(urlToSet, currentBaseUrl);
   });

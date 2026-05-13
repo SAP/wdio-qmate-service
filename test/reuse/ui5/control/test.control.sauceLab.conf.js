@@ -25,8 +25,7 @@ exports.config = merge(profile.config, {
 
   exclude: [],
 
-
   mochaOpts: {
-    timeout: 2000000,
-  },
+    timeout: 2000000
+  }
 });

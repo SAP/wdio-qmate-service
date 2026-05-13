@@ -6,8 +6,5 @@ exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
 
-  specs: [
-    path.resolve(__dirname, "clickClose.spec.js"),
-    path.resolve(__dirname, "expectToBeVisible.spec.js")
-  ]
+  specs: [path.resolve(__dirname, "clickClose.spec.js"), path.resolve(__dirname, "expectToBeVisible.spec.js")]
 });

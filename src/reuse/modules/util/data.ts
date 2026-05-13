@@ -168,7 +168,7 @@ export class Data {
         }
       }
     }
-    
+
     return data;
   }
 

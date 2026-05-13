@@ -4,7 +4,7 @@ interface MockResponse {
   params: {
     statusCode: number;
     fetchResponse: boolean;
-  }
+  };
 }
 
 export class Ui5ExtensionMocker {

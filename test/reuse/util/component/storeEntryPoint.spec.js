@@ -17,23 +17,20 @@ describe("component - storeEntryPoint - custom folder path", function () {
   });
 
   it("Cleanup", async function () {
-    await fs.promises.rm(folderPath, {recursive: true, force: true});
+    await fs.promises.rm(folderPath, { recursive: true, force: true });
   });
-
 });
 
 describe("component - storeEntryPoint - error case", function () {
   const folderPath = path.resolve(os.tmpdir(), "entrypointsStore");
-  
+
   it("Execution & Verification", async function () {
-    await expect(util.component.storeEntryPoint(undefined, folderPath))
-      .rejects.toThrow("Function 'storeEntryPoint' failed with:");
+    await expect(util.component.storeEntryPoint(undefined, folderPath)).rejects.toThrow("Function 'storeEntryPoint' failed with:");
   });
 
   it("Cleanup", async function () {
-    await fs.promises.rm(folderPath, {recursive: true, force: true});
+    await fs.promises.rm(folderPath, { recursive: true, force: true });
   });
-
 });
 
 // this test has been moved down, and sleep added to
@@ -55,7 +52,6 @@ describe("component - storeEntryPoint", function () {
   });
 
   it("Cleanup", async function () {
-    await fs.promises.rm(folderPath, {recursive: true, force: true});
+    await fs.promises.rm(folderPath, { recursive: true, force: true });
   });
-
 });

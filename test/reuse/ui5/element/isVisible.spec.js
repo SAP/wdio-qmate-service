@@ -7,10 +7,10 @@ describe("element - isVisible with right selector", function () {
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/ProductCategories*'LT')"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/ProductCategories*'LT')"
       }
     };
 
@@ -31,9 +31,9 @@ describe("element - isVisible with right, but hidden selector", function () {
 
   it("Execution", async function () {
     const selectorForInvisibleElement = {
-      "elementProperties": {
-        "metadata": "sap.ui.core.InvisibleText",
-        "text": "Press F5 to Refresh"
+      elementProperties: {
+        metadata: "sap.ui.core.InvisibleText",
+        text: "Press F5 to Refresh"
       }
     };
     isVisible = await ui5.element.isVisible(selectorForInvisibleElement);
@@ -52,10 +52,10 @@ describe("element - isVisible with wrong selector", function () {
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/ProductCategories*'Wrong Category')"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/ProductCategories*'Wrong Category')"
       }
     };
 

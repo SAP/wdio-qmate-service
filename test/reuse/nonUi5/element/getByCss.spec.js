@@ -1,11 +1,8 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("element - getByCss + expectToBeVisible", function () {
-
   let downloadBtn;
 
   it("Preparation", async function () {
@@ -31,9 +28,9 @@ describe("element - getByCss outside of viewpoint", function () {
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const selectorForDropdownList = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.MultiComboBox.view.MultiComboBox",
-        "metadata": "sap.m.MultiComboBox"
+      elementProperties: {
+        viewName: "sap.m.sample.MultiComboBox.view.MultiComboBox",
+        metadata: "sap.m.MultiComboBox"
       }
     };
 
@@ -54,14 +51,12 @@ describe("element - getByCss outside of viewpoint", function () {
 });
 
 describe("element - getByCss and catch error", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
   it("Execution & Verification", async function () {
-    await expect(nonUi5.element.getByCss("[id='sdk--readMoreButton-BDI-content']"))
-      .rejects.toThrow("Function 'getByCss' failed");
+    await expect(nonUi5.element.getByCss("[id='sdk--readMoreButton-BDI-content']")).rejects.toThrow("Function 'getByCss' failed");
   });
 });

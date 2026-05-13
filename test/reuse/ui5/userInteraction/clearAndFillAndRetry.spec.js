@@ -3,9 +3,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - clearAndFillAndRetry - smartField", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(
-      `${BASE_URL}/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview`
-    );
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -36,9 +34,7 @@ describe("userInteraction - clearAndFillAndRetry - smartField", function () {
 
 describe("userInteraction - clearAndFillAndRetry - textarea", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(
-      `${BASE_URL}/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview`
-    );
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -105,9 +101,7 @@ describe("userInteraction - clearAndFillAndRetry - invalid selector", function (
     const timeout = 30000;
     const retries = 1;
     const interval = 2000;
-    await expect(ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout, retries, interval)).rejects.toThrow(
-      "Retries done. Failed to execute the function"
-    );
+    await expect(ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout, retries, interval)).rejects.toThrow("Retries done. Failed to execute the function");
   });
 });
 
@@ -135,8 +129,6 @@ describe("userInteraction - clearAndFillAndRetry - wrong element", function () {
     const timeout = 30000;
     const retries = 1;
     const interval = 2000;
-    await expect(ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout, retries, interval)).rejects.toThrow(
-      "Function 'clearAndFillAndRetry' failed with: Retries done. Failed to execute the function:"
-    );
+    await expect(ui5.userInteraction.clearAndFillAndRetry(selector, value, index, timeout, retries, interval)).rejects.toThrow("Function 'clearAndFillAndRetry' failed with: Retries done. Failed to execute the function:");
   });
 });

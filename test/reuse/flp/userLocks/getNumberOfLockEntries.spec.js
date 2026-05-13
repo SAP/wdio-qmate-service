@@ -5,7 +5,6 @@ describe("userLocks", function () {
   let pw;
 
   describe("getNumberOfLockEntries - get user locks", function () {
-
     it("Preparation: Set systemUrl ", async function () {
       browser.config.params.systemUrl = util.data.decrypt(data.systemUrl);
       browser.config.baseUrl = util.data.decrypt(data.baseUrl);
@@ -17,5 +16,4 @@ describe("userLocks", function () {
       await flp.userLocks.getNumberOfLockEntries(user, pw);
     });
   });
-
 });

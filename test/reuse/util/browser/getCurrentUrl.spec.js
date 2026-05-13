@@ -2,7 +2,6 @@
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("browser - getCurrentUrl", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(browser.config.baseUrl);
   });
@@ -16,12 +15,14 @@ describe("browser - getCurrentUrl", function () {
     await handleCookiesConsent();
     //await util.browser.switchToIframe("[id='sampleFrame']");
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.App",
-        "metadata": "sap.m.IconTabFilter",
-        "text": [{
-          "path": "i18n>APP_TABHEADER_ITEM_SAMPLES"
-        }]
+      elementProperties: {
+        viewName: "sap.ui.documentation.sdk.view.App",
+        metadata: "sap.m.IconTabFilter",
+        text: [
+          {
+            path: "i18n>APP_TABHEADER_ITEM_SAMPLES"
+          }
+        ]
       }
     };
     await ui5.userInteraction.click(selector);
@@ -31,5 +32,4 @@ describe("browser - getCurrentUrl", function () {
     const url = await util.browser.getCurrentUrl();
     await common.assertion.expectEqual(url, `${browser.config.baseUrl}#/controls`);
   });
-
 });

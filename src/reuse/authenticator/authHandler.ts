@@ -1,8 +1,7 @@
 class AuthHandler {
-
   private path = require("path");
 
-  async attachAuthHandling () {
+  async attachAuthHandling() {
     const authConfig = require("./authConfig.js");
 
     if (browser.config.params && browser.config.params.auth) {
@@ -17,7 +16,6 @@ class AuthHandler {
         await execAuthenticator();
       }
     }
-  };
-
-};
+  }
+}
 export default new AuthHandler();

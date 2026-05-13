@@ -1,10 +1,7 @@
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - searchFor - use button", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField`);
     await handleCookiesConsent();
@@ -47,11 +44,9 @@ describe("userInteraction - searchFor - use button", function () {
     const valueExp = "Laptop";
     await ui5.assertion.expectValueToBe(selector, valueExp);
   });
-
 });
 
 describe("userInteraction - searchFor - use Enter", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField`);
     await handleCookiesConsent();
@@ -94,11 +89,9 @@ describe("userInteraction - searchFor - use Enter", function () {
     const valueExp = "Laptop";
     await ui5.assertion.expectValueToBe(selector, valueExp);
   });
-
 });
 
 describe("userInteraction - searchFor - use Enter and wrong selector", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField`);
     await handleCookiesConsent();
@@ -122,13 +115,11 @@ describe("userInteraction - searchFor - use Enter and wrong selector", function 
     const index = 0;
     const timeout = 30000;
     const useEnter = true;
-    await expect(ui5.userInteraction.searchFor(selector, value, index, timeout, useEnter))
-      .rejects.toThrow("Retries done. Failed to execute the function");
+    await expect(ui5.userInteraction.searchFor(selector, value, index, timeout, useEnter)).rejects.toThrow("Retries done. Failed to execute the function");
   });
 });
 
 describe("userInteraction - resetSearch", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.SearchField/sample/sap.m.sample.SearchField`);
     await handleCookiesConsent();

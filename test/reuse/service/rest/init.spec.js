@@ -17,7 +17,6 @@ describe("service.rest.init - expect to do GET request with default axios instan
     const res = await axios.get(`${browser.config.baseUrl}/posts/99`);
     await common.assertion.expectEqual(res.data.title, "qmate-service");
   });
-
 });
 
 describe("service.rest.init - expect to do POST request with default axios instance", function () {
@@ -43,5 +42,4 @@ describe("service.rest.init - expect to do POST request with default axios insta
   it("Cleanup", async function () {
     await axios.delete(`${browser.config.baseUrl}/posts/${payload.id}`, config);
   });
-
 });

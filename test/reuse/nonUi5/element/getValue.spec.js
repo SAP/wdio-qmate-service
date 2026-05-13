@@ -1,8 +1,6 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("element - getValue", function () {
   let actValue;
@@ -46,7 +44,6 @@ describe("element - getValue - error case", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(nonUi5.element.getValue())
-      .rejects.toThrow("Function 'getValue' failed");
+    await expect(nonUi5.element.getValue()).rejects.toThrow("Function 'getValue' failed");
   });
 });

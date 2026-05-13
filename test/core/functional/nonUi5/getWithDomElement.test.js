@@ -1,5 +1,4 @@
 describe("webdriver.io page", function () {
-
   this.beforeAll(async () => {
     await browser.url("#/categories");
   });
@@ -13,7 +12,6 @@ describe("webdriver.io page", function () {
   });
 
   it("step2: check name is Accessories - use $ and Aggregation Control properties", async function () {
-
     const elem = await $('li[id*="homeView--categoryList-0"]');
     const allAggregationsNames = await elem.getAllUI5Aggregations();
     expect(allAggregationsNames).toContain("tooltip");

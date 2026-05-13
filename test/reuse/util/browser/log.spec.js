@@ -1,5 +1,4 @@
 describe("browser", function () {
-
   describe("log", function () {
     it("Execution", async function () {
       await util.browser.log("Test log message");
@@ -17,5 +16,4 @@ describe("browser", function () {
       await util.browser.error("Test error message");
     });
   });
-
 });

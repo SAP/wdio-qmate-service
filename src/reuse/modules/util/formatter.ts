@@ -181,56 +181,56 @@ export class Formatter {
 
     if (format) {
       switch (format) {
-      case DateFormats.MONTH_DAY_YEAR_SLASH:
-        formattedDate = `${mm}/${dd}/${yyyy}`;
-        break;
-      case DateFormats.MONTH_DAY_YEAR_DASH:
-        formattedDate = `${mm}-${dd}-${yyyy}`;
-        break;
-      case DateFormats.DAY_MONTH_YEAR_DOT:
-        formattedDate = `${dd}.${mm}.${yyyy}`;
-        break;
-      case DateFormats.DAY_MONTH_YEAR_SLASH:
-        formattedDate = `${dd}/${mm}/${yyyy}`;
-        break;
-      case DateFormats.YEAR_MONTH_DAY_PLAIN:
-        formattedDate = `${yyyy}${mm}${dd}`;
-        break;
-      case DateFormats.YEAR_MONTH_DAY_SLASH:
-        formattedDate = `${yyyy}/${mm}/${dd}`;
-        break;
-      case DateFormats.YEAR_MONTH_DAY_DOT:
-        formattedDate = `${yyyy}.${mm}.${dd}`;
-        break;
-      case DateFormats.YEAR_MONTH_DAY_DASH:
-        formattedDate = `${yyyy}-${mm}-${dd}`;
-        break;
-      case DateFormats.DAY_MONTH_YEAR_TIME_DOT:
-        formattedDate = `${dd}.${mm}.${yyyy}.${hour}.${min}`;
-        break;
-      case DateFormats.MONTH_DAY_YEAR_COMMA:
-        formattedDate = `${month} ${dd}, ${yyyy}`;
-        break;
-      case DateFormats.MONTH_DAY_YEAR_COMMA_SHORT:
-        formattedDate = `${month} ${dd}, ${yyyy}`;
-        break;
-      case DateFormats.DATETIME:
-        formattedDate = `datetime'${yyyy}-${mm}-${dd}T${hour}:${min}:${sec}'`;
-        break;
-      case DateFormats.OBJECT:
-        formattedDate = date;
-        break;
-      case DateFormats.JAPANESE_DOT:
-        formattedDate = `${date.toLocaleDateString(locale, { era: "short" })}.${mm}.${dd}`;
-        break;
-      case DateFormats.JAPANESE_SLASH:
-        formattedDate = `${date.toLocaleDateString(locale, { era: "short" })}/${mm}/${dd}`;
-        break;
-      case DateFormats.JAPANESE_DASH:
-        formattedDate = `${date.toLocaleDateString(locale, { era: "short" })}-${mm}-${dd}`;
-        break;
-      default:
-        break;
+        case DateFormats.MONTH_DAY_YEAR_SLASH:
+          formattedDate = `${mm}/${dd}/${yyyy}`;
+          break;
+        case DateFormats.MONTH_DAY_YEAR_DASH:
+          formattedDate = `${mm}-${dd}-${yyyy}`;
+          break;
+        case DateFormats.DAY_MONTH_YEAR_DOT:
+          formattedDate = `${dd}.${mm}.${yyyy}`;
+          break;
+        case DateFormats.DAY_MONTH_YEAR_SLASH:
+          formattedDate = `${dd}/${mm}/${yyyy}`;
+          break;
+        case DateFormats.YEAR_MONTH_DAY_PLAIN:
+          formattedDate = `${yyyy}${mm}${dd}`;
+          break;
+        case DateFormats.YEAR_MONTH_DAY_SLASH:
+          formattedDate = `${yyyy}/${mm}/${dd}`;
+          break;
+        case DateFormats.YEAR_MONTH_DAY_DOT:
+          formattedDate = `${yyyy}.${mm}.${dd}`;
+          break;
+        case DateFormats.YEAR_MONTH_DAY_DASH:
+          formattedDate = `${yyyy}-${mm}-${dd}`;
+          break;
+        case DateFormats.DAY_MONTH_YEAR_TIME_DOT:
+          formattedDate = `${dd}.${mm}.${yyyy}.${hour}.${min}`;
+          break;
+        case DateFormats.MONTH_DAY_YEAR_COMMA:
+          formattedDate = `${month} ${dd}, ${yyyy}`;
+          break;
+        case DateFormats.MONTH_DAY_YEAR_COMMA_SHORT:
+          formattedDate = `${month} ${dd}, ${yyyy}`;
+          break;
+        case DateFormats.DATETIME:
+          formattedDate = `datetime'${yyyy}-${mm}-${dd}T${hour}:${min}:${sec}'`;
+          break;
+        case DateFormats.OBJECT:
+          formattedDate = date;
+          break;
+        case DateFormats.JAPANESE_DOT:
+          formattedDate = `${date.toLocaleDateString(locale, { era: "short" })}.${mm}.${dd}`;
+          break;
+        case DateFormats.JAPANESE_SLASH:
+          formattedDate = `${date.toLocaleDateString(locale, { era: "short" })}/${mm}/${dd}`;
+          break;
+        case DateFormats.JAPANESE_DASH:
+          formattedDate = `${date.toLocaleDateString(locale, { era: "short" })}-${mm}-${dd}`;
+          break;
+        default:
+          break;
       }
     }
 
@@ -295,7 +295,7 @@ export class Formatter {
       case "HH":
         return date.getHours().toString().padStart(2, "0");
       case "h":
-        return ((date.getHours() % 12) || 12).toString();
+        return (date.getHours() % 12 || 12).toString();
       case "mm":
         return date.getMinutes().toString().padStart(2, "0");
       case "ss":
@@ -312,8 +312,12 @@ export class Formatter {
   private _formatTimeOffset(date: Date): string {
     const offset = date.getTimezoneOffset();
     const sign = offset < 0 ? "+" : "-";
-    const hours = Math.abs(Math.floor(offset / 60)).toString().padStart(2, "0");
-    const minutes = Math.abs(offset % 60).toString().padStart(2, "0");
+    const hours = Math.abs(Math.floor(offset / 60))
+      .toString()
+      .padStart(2, "0");
+    const minutes = Math.abs(offset % 60)
+      .toString()
+      .padStart(2, "0");
     return `GMT${sign}${hours}:${minutes}`;
   }
 }

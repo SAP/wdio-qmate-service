@@ -9,21 +9,23 @@ describe("getProperty - check title is Accessories", async () => {
 
   it("Execution", async () => {
     const selector = {
-      "elementProperties": {
-        "metadata": "sap.m.StandardListItem",
-        "mProperties": {
-          "viewId": "container-cart---app",
-          "title": [{
-            "path": "CategoryName"
-          }],
-          "bindingContextPath": "/ProductCategories*"
+      elementProperties: {
+        metadata: "sap.m.StandardListItem",
+        mProperties: {
+          viewId: "container-cart---app",
+          title: [
+            {
+              path: "CategoryName"
+            }
+          ],
+          bindingContextPath: "/ProductCategories*"
         }
       }
     };
     const elem = await ui5.element.getDisplayed(selector);
     val = await ui5.control.getProperty(elem, "title");
     valSelector = await ui5.control.getProperty(selector, "title");
-    valSelectorOptions = await ui5.control.getProperty({selector: selector, index: 0, timeout: 3000}, "title");
+    valSelectorOptions = await ui5.control.getProperty({ selector: selector, index: 0, timeout: 3000 }, "title");
   });
 
   it("Verification", () => {

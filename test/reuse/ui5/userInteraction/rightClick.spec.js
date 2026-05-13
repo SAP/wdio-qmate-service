@@ -2,7 +2,6 @@ const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - rightClick", function () {
-
   it("Preparation", async function () {
     await browser.navigateTo(`${BASE_URL}/`);
     await handleCookiesConsent();
@@ -10,10 +9,10 @@ describe("userInteraction - rightClick", function () {
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.App",
-        "metadata": "sap.m.IconTabFilter",
-        "id": "*apiMasterTab"
+      elementProperties: {
+        viewName: "sap.ui.documentation.sdk.view.App",
+        metadata: "sap.m.IconTabFilter",
+        id: "*apiMasterTab"
       }
     };
     await ui5.userInteraction.rightClick(selector, 0, 60000);
@@ -26,7 +25,6 @@ describe("userInteraction - rightClick", function () {
 });
 
 describe("userInteraction - rightClick on not displayed element", function () {
-
   it("Preparation", async function () {
     await browser.navigateTo(`${BASE_URL}/`);
     await handleCookiesConsent();
@@ -34,36 +32,35 @@ describe("userInteraction - rightClick on not displayed element", function () {
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.ApiDetailInitial",
-        "metadata": "sap.ui.documentation.TitleLink",
-        "text": "Main Controls"
+      elementProperties: {
+        viewName: "sap.ui.documentation.sdk.view.ApiDetailInitial",
+        metadata: "sap.ui.documentation.TitleLink",
+        text: "Main Controls"
       }
     };
     const index = 0;
     const timeout = 30000;
-    await expect(ui5.userInteraction.rightClick(selector, index, timeout))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.userInteraction.rightClick(selector, index, timeout)).rejects.toThrow(/No visible elements found/);
     await common.userInteraction.pressEscape();
   });
 });
 
 describe("userInteraction - rightClick on invisible element", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3?sap-ui-theme=sap_fiori_3#/category/AC/product/HT-6111`);
     await handleCookiesConsent();
   });
 
   it("Execution & Verification", async function () {
-
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Product",
-        "metadata": "sap.m.Button",
-        "text": [{
-          "path": "i18n>addToCartShort"
-        }]
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Product",
+        metadata: "sap.m.Button",
+        text: [
+          {
+            path: "i18n>addToCartShort"
+          }
+        ]
       }
     };
     const index = 0;

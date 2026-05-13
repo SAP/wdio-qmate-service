@@ -10,7 +10,7 @@ describe("date - getPreviousMonth without any format ", function () {
     const date = new Date();
     date.setMonth(date.getMonth() - 1);
     common.assertion.expectEqual(calculatedDate.toDateString(), date.toDateString());
-    common.assertion.expectUnequal(calculatedDate.toDateString(), (new Date()).toDateString());
+    common.assertion.expectUnequal(calculatedDate.toDateString(), new Date().toDateString());
   });
 });
 

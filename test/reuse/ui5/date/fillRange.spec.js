@@ -1,18 +1,16 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 let start;
 let end;
 let range;
 
 const dataRangeSelector = {
-  "elementProperties": {
-    "viewName": "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
-    "metadata": "sap.m.DateRangeSelection",
-    "bindingContextPath": "/modelData/0"
+  elementProperties: {
+    viewName: "sap.m.sample.DateRangeSelectionValueState.DateRangeSelection",
+    metadata: "sap.m.DateRangeSelection",
+    bindingContextPath: "/modelData/0"
   }
 };
 describe("date - fillRange", function () {
@@ -49,7 +47,6 @@ describe("date - fillRange: no such field on a screen (unhappy case)", function 
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.date.fillRange(dataRangeSelector, range))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.date.fillRange(dataRangeSelector, range)).rejects.toThrow(/No visible elements found/);
   });
 });

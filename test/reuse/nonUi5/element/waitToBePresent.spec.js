@@ -16,8 +16,7 @@ describe("element - waitToBePresent - wrong selector (error case)", function () 
   });
 
   it("Execution & Verification", async function () {
-    await expect(nonUi5.element.waitToBePresent("BUTTON[class='wrong']", 1000))
-      .rejects.toThrow("Function 'waitToBePresent' failed");
+    await expect(nonUi5.element.waitToBePresent("BUTTON[class='wrong']", 1000)).rejects.toThrow("Function 'waitToBePresent' failed");
   });
 });
 

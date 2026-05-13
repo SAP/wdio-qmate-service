@@ -7,7 +7,5 @@ exports.config = merge(qmateConfiguration.config, {
 
   baseUrl: BASE_URL,
 
-  specs: [
-    path.resolve(__dirname, "console.spec.js"),
-  ]
-}); 
+  specs: [path.resolve(__dirname, "console.spec.js")]
+});

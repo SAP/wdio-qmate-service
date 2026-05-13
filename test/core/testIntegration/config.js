@@ -7,7 +7,7 @@ exports.config = merge(qmateConf.config, {
   baseUrl: `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`,
 
   suites: {
-    testLearn:[path.resolve(__dirname, "./filters1.spec.js")]
+    testLearn: [path.resolve(__dirname, "./filters1.spec.js")]
   },
   params: {
     auth: {

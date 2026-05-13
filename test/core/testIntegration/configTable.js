@@ -8,7 +8,7 @@ exports.config = merge(qmateConf.config, {
   baseUrl: `${BASE_URL}/#/entity/sap.m.Table/sample/sap.m.sample.TableEditable`,
 
   suites: {
-    testLearn: "table.spec.js",
+    testLearn: "table.spec.js"
   },
   params: {
     auth: {

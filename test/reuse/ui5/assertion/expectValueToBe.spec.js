@@ -7,10 +7,10 @@ describe("assertion - expectValueToBe", function () {
 
   it("Execution & Verification", async function () {
     const input = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.SearchField",
-        "id": "*searchField"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.SearchField",
+        id: "*searchField"
       }
     };
     await ui5.userInteraction.fill(input, "Watch");
@@ -25,15 +25,14 @@ describe("assertion - expectValueToBe with wrong value input (unhappy case)", fu
 
   it("Execution & Verification", async function () {
     const input = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.SearchField",
-        "id": "*searchField"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.SearchField",
+        id: "*searchField"
       }
     };
     await ui5.userInteraction.fill(input, "Wtch");
-    await expect(ui5.assertion.expectValueToBe(input, "Watch"))
-      .rejects.toThrow(/Expect\w+|\d+Watch\w+|\d+Received\w+|\d+Wtch/);
+    await expect(ui5.assertion.expectValueToBe(input, "Watch")).rejects.toThrow(/Expect\w+|\d+Watch\w+|\d+Received\w+|\d+Wtch/);
   });
 });
 
@@ -44,14 +43,12 @@ describe("assertion - expectValueToBe with wrong selector (unhappy case)", funct
 
   it("Execution & Verification", async function () {
     let wrongSelector = {
-      "elementProperties": {
-        "wrongData": "123"
+      elementProperties: {
+        wrongData: "123"
       }
     };
-    await expect(ui5.assertion.expectValueToBe(wrongSelector, "Watch"))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.assertion.expectValueToBe(wrongSelector, "Watch")).rejects.toThrow(/No visible elements found/);
     wrongSelector = 123;
-    await expect(ui5.assertion.expectValueToBe(wrongSelector, "Watch"))
-      .rejects.toThrow("Function 'expectValueToBe' failed with: Please provide a valid selector as argument.");
+    await expect(ui5.assertion.expectValueToBe(wrongSelector, "Watch")).rejects.toThrow("Function 'expectValueToBe' failed with: Please provide a valid selector as argument.");
   });
 });

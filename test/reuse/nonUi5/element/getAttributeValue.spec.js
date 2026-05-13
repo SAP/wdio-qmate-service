@@ -1,11 +1,8 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("element - getAttributeValue - inner HTML", function () {
-
   let product;
   let valueAct;
 
@@ -26,7 +23,6 @@ describe("element - getAttributeValue - inner HTML", function () {
 });
 
 describe("element - getAttributeValue - with attribute", function () {
-
   let product;
   let valueAct;
 
@@ -47,13 +43,11 @@ describe("element - getAttributeValue - with attribute", function () {
 });
 
 describe("element - getAttributeValue - error", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
   });
 
   it("Execution & Verification", async function () {
-    await expect(nonUi5.element.getAttributeValue())
-      .rejects.toThrow("Function 'getAttributeValue' failed");
+    await expect(nonUi5.element.getAttributeValue()).rejects.toThrow("Function 'getAttributeValue' failed");
   });
 });

@@ -147,7 +147,7 @@ describe("formatter - formatDate", function () {
       await common.assertion.expectEqual(formatted, expected);
     });
   });
-  
+
   describe("formatDate - format MMM dd, yyyy - 'de-DE' - short", async function () {
     it("Preparation", function () {
       date = new Date(2021, 9, 1, 8, 5);

@@ -8,9 +8,7 @@ describe("userInteraction - clearAndFillActiveAndRetry", function () {
   let selector;
 
   it("Preparation", async function () {
-    await browser.navigateTo(
-      `${BASE_URL}/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview`
-    );
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview`);
     await util.browser.refresh();
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
@@ -101,8 +99,6 @@ describe("userInteraction - clearAndFillActiveAndRetry with wrong element", func
     const retries = 1;
     const interval = 2000;
     await ui5.userInteraction.click(selector);
-    await expect(common.userInteraction.clearAndFillActiveAndRetry(value, retries, interval)).rejects.toThrow(
-      "Function 'clearAndFillActiveAndRetry' failed with: Retries done. Failed to execute the function:invalid element state"
-    );
+    await expect(common.userInteraction.clearAndFillActiveAndRetry(value, retries, interval)).rejects.toThrow("Function 'clearAndFillActiveAndRetry' failed with: Retries done. Failed to execute the function:invalid element state");
   });
 });

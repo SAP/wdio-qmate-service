@@ -5,9 +5,7 @@ exports.config = merge(customConfig.config, {
   maxInstances: 1,
   bail: 1,
 
-  specs: [
-    path.resolve(__dirname, "specs/custom.spec.js")
-  ],
+  specs: [path.resolve(__dirname, "specs/custom.spec.js")],
   exclude: [],
 
   params: {
@@ -20,7 +18,7 @@ exports.config = merge(customConfig.config, {
       logonButtonSelector: "#LOGIN_LINK"
     }
   },
-  
+
   reporters: ["spec"],
   baseUrl: "<urlToSystem"
 });

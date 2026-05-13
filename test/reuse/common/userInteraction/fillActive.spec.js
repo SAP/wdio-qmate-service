@@ -96,9 +96,7 @@ describe("userInteraction - fillActive - element with empty value", function () 
     const index = 0;
     const timeout = 30000;
     await ui5.userInteraction.click(selector);
-    await expect(common.userInteraction.fillActive(value)).rejects.toThrow(
-      "Function 'fillActive' failed with: Please provide a value(datatype - number/string) as argument."
-    );
+    await expect(common.userInteraction.fillActive(value)).rejects.toThrow("Function 'fillActive' failed with: Please provide a value(datatype - number/string) as argument.");
   });
 });
 
@@ -198,9 +196,7 @@ describe("userInteraction - fillActive - empty value", function () {
   it("Execution & Verification", async function () {
     // Make the form field active
     await nonUi5.userInteraction.click(element);
-    await expect(common.userInteraction.fillActive()).rejects.toThrow(
-      "Function 'fillActive' failed with: Please provide a value(datatype - number/string) as argument."
-    );
+    await expect(common.userInteraction.fillActive()).rejects.toThrow("Function 'fillActive' failed with: Please provide a value(datatype - number/string) as argument.");
   });
 });
 

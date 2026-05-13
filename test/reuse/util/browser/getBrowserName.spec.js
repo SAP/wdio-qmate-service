@@ -1,7 +1,6 @@
 "use strict";
 
 describe("browser - getBrowserName", function () {
-
   let browserName;
 
   it("Execution", async function () {
@@ -14,5 +13,4 @@ describe("browser - getBrowserName", function () {
     const valueExp = "chrome";
     await expect(valueAct).toContain(valueExp);
   });
-
 });

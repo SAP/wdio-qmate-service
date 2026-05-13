@@ -10,7 +10,5 @@ exports.config = merge(qmateConfiguration.config, {
   },
   maxInstances: 1,
 
-  specs: [
-    path.resolve(__dirname, "setS4UserSettings.spec.js")
-  ]
+  specs: [path.resolve(__dirname, "setS4UserSettings.spec.js")]
 });

@@ -5,10 +5,10 @@ describe("Test 'getBindingContextPath()' and 'getBindingProperty()' on both elem
 
   it("should access binding context path on both element and browser levels", async function () {
     const listElementProperties = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/ProductCategories*'AC')"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/ProductCategories*'AC')"
       }
     };
     const element = await browser.uiControl(listElementProperties);
@@ -20,10 +20,10 @@ describe("Test 'getBindingContextPath()' and 'getBindingProperty()' on both elem
 
   it("should access non-existing/empty binding context path on both element and browser levels", async function () {
     const listProperties = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.List",
-        "id": "*categoryList"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.List",
+        id: "*categoryList"
       }
     };
     const element = await browser.uiControl(listProperties);
@@ -33,10 +33,10 @@ describe("Test 'getBindingContextPath()' and 'getBindingProperty()' on both elem
 
   it("should access binding context property on both element and browser levels", async function () {
     const listElementProperties = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/ProductCategories*'AC')"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/ProductCategories*'AC')"
       }
     };
 
@@ -54,10 +54,10 @@ describe("Test 'getBindingContextPath()' and 'getBindingProperty()' on both elem
 
   it("should access non-existing/empty binding context properties on both element and browser levels", async function () {
     const listElementProperties = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/ProductCategories*'AC')"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/ProductCategories*'AC')"
       }
     };
     const element = await browser.uiControl(listElementProperties);

@@ -1,19 +1,17 @@
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 const valuehelpSelector = {
-  "elementProperties": {
-    "viewName": "sap.m.sample.InputAssisted.V",
-    "metadata": "sap.m.Input"
+  elementProperties: {
+    viewName: "sap.m.sample.InputAssisted.V",
+    metadata: "sap.m.Input"
   }
 };
 
 const verificationSearchField = {
-  "elementProperties": {
-    "viewName": "sap.m.sample.InputAssisted.V",
-    "metadata": "sap.m.SearchField"
+  elementProperties: {
+    viewName: "sap.m.sample.InputAssisted.V",
+    metadata: "sap.m.SearchField"
   }
 };
 
@@ -21,7 +19,6 @@ const index = 0;
 const timeout = 30000;
 
 describe("userInteraction - openF4Help - use valuehelp icon button", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputAssisted`);
     await handleCookiesConsent();
@@ -40,7 +37,6 @@ describe("userInteraction - openF4Help - use valuehelp icon button", function ()
 });
 
 describe("userInteraction - openF4Help - use F4 Key press", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputAssisted`);
     await handleCookiesConsent();

@@ -4,21 +4,19 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("webdriver.io page locator test", function () {
   it("should access same element by elementProperties, ancestorProperties and nested ancestorProperties", async function () {
-    await browser.navigateTo(
-      `${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`
-    );
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const rejectButtonProperties = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Button.Page",
-        "metadata": "sap.m.Button",
-        "text": "Reject"
+      elementProperties: {
+        viewName: "sap.m.sample.Button.Page",
+        metadata: "sap.m.Button",
+        text: "Reject"
       },
-      "ancestorProperties": {
-        "metadata": "sap.m.FlexItemData",
-        "viewName": "sap.m.sample.Button.Page"
+      ancestorProperties: {
+        metadata: "sap.m.FlexItemData",
+        viewName: "sap.m.sample.Button.Page"
       }
     };
     const rejectButton = await browser.uiControl(rejectButtonProperties);
@@ -28,20 +26,18 @@ describe("webdriver.io page locator test", function () {
 
     // Use nested ancestorProperties
     const rejectButtonWithNestedAncestorProperties = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Button.Page",
-        "metadata": "sap.m.Button",
-        "text": "Reject",
-        "ancestorProperties": {
-          "metadata": "sap.m.FlexItemData",
-          "viewName": "sap.m.sample.Button.Page"
+      elementProperties: {
+        viewName: "sap.m.sample.Button.Page",
+        metadata: "sap.m.Button",
+        text: "Reject",
+        ancestorProperties: {
+          metadata: "sap.m.FlexItemData",
+          viewName: "sap.m.sample.Button.Page"
         }
       }
     };
 
-    const sameRejectButton = await browser.uiControl(
-      rejectButtonWithNestedAncestorProperties
-    );
+    const sameRejectButton = await browser.uiControl(rejectButtonWithNestedAncestorProperties);
 
     await expect(sameRejectButton).toBeDisplayedInViewport();
     await expect(sameRejectButton).toBeClickable();
@@ -57,14 +53,14 @@ describe("webdriver.io page locator test", function () {
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const defaultButtonsProperties = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Button.Page",
-        "metadata": "sap.m.Button",
-        "text": "Default"
+      elementProperties: {
+        viewName: "sap.m.sample.Button.Page",
+        metadata: "sap.m.Button",
+        text: "Default"
       },
-      "ancestorProperties": {
-        "metadata": "sap.m.Toolbar",
-        "viewName": "sap.m.sample.Button.Page"
+      ancestorProperties: {
+        metadata: "sap.m.Toolbar",
+        viewName: "sap.m.sample.Button.Page"
       }
     };
 
@@ -85,20 +81,18 @@ describe("webdriver.io page locator test", function () {
   });
 
   it("should try access element only by ancestor properties and fail (unhappy case)", async function () {
-    await browser.navigateTo(
-      `${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
     const wrongSelectorWithoutElementProperties = {
-      "ancestorProperties": {
-        "metadata": "sap.tnt.NavigationList",
-        "viewName": "sap.tnt.sample.SideNavigation.V",
-        "selectedKey": "subItem_non"
+      ancestorProperties: {
+        metadata: "sap.tnt.NavigationList",
+        viewName: "sap.tnt.sample.SideNavigation.V",
+        selectedKey: "subItem_non"
       }
     };
-    await expect(browser.uiControl(wrongSelectorWithoutElementProperties))
-      .rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(wrongSelectorWithoutElementProperties)).rejects.toThrowError(/No visible elements found/);
   });
 
   it("should access element by elementProperties and multiple ancestorProperties as array - AND (happy case)", async function () {
@@ -108,14 +102,14 @@ describe("webdriver.io page locator test", function () {
 
     // The Reject button lives inside both a sap.m.Toolbar and a sap.m.Page - both ancestors must exist
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Button.Page",
-        "metadata": "sap.m.Button",
-        "text": "Reject"
+      elementProperties: {
+        viewName: "sap.m.sample.Button.Page",
+        metadata: "sap.m.Button",
+        text: "Reject"
       },
-      "ancestorProperties": [
-        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Toolbar" },
-        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Page" }
+      ancestorProperties: [
+        { viewName: "sap.m.sample.Button.Page", metadata: "sap.m.Toolbar" },
+        { viewName: "sap.m.sample.Button.Page", metadata: "sap.m.Page" }
       ]
     };
     const elem = await browser.uiControl(selector);
@@ -130,18 +124,14 @@ describe("webdriver.io page locator test", function () {
 
     // Second entry has a non-existent ancestor - AND logic means the whole selector fails
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Button.Page",
-        "metadata": "sap.m.Button",
-        "text": "Reject"
+      elementProperties: {
+        viewName: "sap.m.sample.Button.Page",
+        metadata: "sap.m.Button",
+        text: "Reject"
       },
-      "ancestorProperties": [
-        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Toolbar" },
-        { "metadata": "sap.m.Table" }
-      ]
+      ancestorProperties: [{ viewName: "sap.m.sample.Button.Page", metadata: "sap.m.Toolbar" }, { metadata: "sap.m.Table" }]
     };
-    await expect(browser.uiControl(selector, 0, 1000))
-      .rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(selector, 0, 1000)).rejects.toThrowError(/No visible elements found/);
   });
 
   it("should return multiple elements when multiple elements each satisfy array ancestorProperties - AND (multiple results)", async function () {
@@ -151,13 +141,13 @@ describe("webdriver.io page locator test", function () {
 
     // All buttons inside a Toolbar are also inside a Page - both ancestor conditions satisfied by multiple buttons
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.m.sample.Button.Page",
-        "metadata": "sap.m.Button"
+      elementProperties: {
+        viewName: "sap.m.sample.Button.Page",
+        metadata: "sap.m.Button"
       },
-      "ancestorProperties": [
-        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Toolbar" },
-        { "viewName": "sap.m.sample.Button.Page", "metadata": "sap.m.Page" }
+      ancestorProperties: [
+        { viewName: "sap.m.sample.Button.Page", metadata: "sap.m.Toolbar" },
+        { viewName: "sap.m.sample.Button.Page", metadata: "sap.m.Page" }
       ]
     };
     const elems = await browser.uiControls(selector);

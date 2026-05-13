@@ -83,7 +83,7 @@ export interface Element {
   waitUntil(condition: any, options?: WaitForOptions);
 
   // wdio-extensions
-  getUI5Property(property: string): Promise<any>
-  getBindingProperty(property: string): Promise<any>
-  getBindingContextPath(): Promise<string>
+  getUI5Property(property: string): Promise<any>;
+  getBindingProperty(property: string): Promise<any>;
+  getBindingContextPath(): Promise<string>;
 }

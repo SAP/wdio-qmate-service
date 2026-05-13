@@ -4,7 +4,6 @@ const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("element - isPresentByXPath", function () {
-
   let linkBtn;
 
   it("Preparation", async function () {

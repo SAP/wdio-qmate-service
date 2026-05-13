@@ -14,9 +14,9 @@ describe("session - login - fiori", function () {
 
   it("Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "metadata": "sap.ushell.ui.shell.ShellAppTitle",
-        "id": "shellAppTitle"
+      elementProperties: {
+        metadata: "sap.ushell.ui.shell.ShellAppTitle",
+        id: "shellAppTitle"
       }
     };
     await ui5.assertion.expectToBeVisible(selector);
@@ -34,8 +34,7 @@ describe("session - login - fiori - invalid credentials", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.session.login("Caput", "Draconis"))
-      .rejects.toThrow(/Login failed: "Client, name, or password is not correct; log on again"/);
+    await expect(ui5.session.login("Caput", "Draconis")).rejects.toThrow(/Login failed: "Client, name, or password is not correct; log on again"/);
   });
 });
 
@@ -52,9 +51,9 @@ describe("session - login - sapCloud", function () {
 
   it("Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "metadata": "sap.ushell.ui.shell.ShellAppTitle",
-        "id": "shellAppTitle"
+      elementProperties: {
+        metadata: "sap.ushell.ui.shell.ShellAppTitle",
+        id: "shellAppTitle"
       }
     };
     await ui5.assertion.expectToBeVisible(selector);
@@ -72,7 +71,6 @@ describe("session - login - sapCloud - Invalid credentials", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.session.loginSapCloud("Caput", "Draconis"))
-      .rejects.toThrow(/Login failed: "Sorry, we could not authenticate you. Try again."/);
+    await expect(ui5.session.loginSapCloud("Caput", "Draconis")).rejects.toThrow(/Login failed: "Sorry, we could not authenticate you. Try again."/);
   });
 });

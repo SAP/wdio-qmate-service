@@ -25,7 +25,7 @@ describe("userInteraction - clearAndFill - form field", function () {
 
 describe("userInteraction - clearAndFill - form field (error cases)", function () {
   let element;
-  
+
   it("Preparation", async function () {
     await common.navigation.navigateToUrl("http://localhost:34005/forms.html");
     element = await nonUi5.element.getById("ExampleValue1", 10000);

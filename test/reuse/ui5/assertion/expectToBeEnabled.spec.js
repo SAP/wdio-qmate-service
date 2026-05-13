@@ -82,13 +82,9 @@ describe("assertion - expectToBeEnabled with wrong selector (unhappy case)", fun
         ]
       }
     };
-    await expect(ui5.assertion.expectToBeEnabled(selectorForNonExistingElement)).rejects.toThrow(
-      /No visible elements found/
-    );
+    await expect(ui5.assertion.expectToBeEnabled(selectorForNonExistingElement)).rejects.toThrow(/No visible elements found/);
 
     const wrongSelector = 123;
-    await expect(ui5.assertion.expectToBeEnabled(wrongSelector)).rejects.toThrow(
-      "Function 'expectToBeEnabled' failed with: Please provide a valid selector as argument."
-    );
+    await expect(ui5.assertion.expectToBeEnabled(wrongSelector)).rejects.toThrow("Function 'expectToBeEnabled' failed with: Please provide a valid selector as argument.");
   });
 });

@@ -1,11 +1,8 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("table - sortColumnDescending - smartTable", function () {
-
   it("Preparation", async function () {
     await browser.url(`${BASE_URL}/#/entity/sap.ui.comp.smarttable.SmartTable/sample/sap.ui.comp.sample.smarttable.mtable`);
     await handleCookiesConsent();
@@ -18,22 +15,20 @@ describe("table - sortColumnDescending - smartTable", function () {
 
   it("Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
-        "metadata": "sap.m.Column",
-        "tooltip": "Name"
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        metadata: "sap.m.Column",
+        tooltip: "Name"
       }
     };
     await ui5.assertion.expectAttributeToBe(selector, "sortIndicator", "Descending");
   });
-
 });
 
 describe("table - sortColumnDescending - smartTable with tableSelector", function () {
-
   const tableSelector = {
-    "elementProperties": {
-      "metadata": "sap.ui.comp.smarttable.SmartTable"
+    elementProperties: {
+      metadata: "sap.ui.comp.smarttable.SmartTable"
     }
   };
 
@@ -49,14 +44,13 @@ describe("table - sortColumnDescending - smartTable with tableSelector", functio
 
   it("Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
-        "metadata": "sap.m.Column",
-        "tooltip": "Name"
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        metadata: "sap.m.Column",
+        tooltip: "Name"
       },
-      "ancestorProperties": tableSelector
+      ancestorProperties: tableSelector
     };
     await ui5.assertion.expectAttributeToBe(selector, "sortIndicator", "Descending");
   });
-
 });

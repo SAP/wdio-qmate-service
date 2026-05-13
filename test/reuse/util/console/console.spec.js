@@ -1,5 +1,4 @@
 describe("console", function () {
-
   describe("log", function () {
     it("Execution", async function () {
       await util.console.log("Test log message");
@@ -23,5 +22,4 @@ describe("console", function () {
       await util.console.log("Test info message");
     });
   });
-
 });

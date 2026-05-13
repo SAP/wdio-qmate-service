@@ -1,7 +1,6 @@
 "use strict";
 
 describe("assertion - expectUndefined", function () {
-
   it("Execution & Verification", function () {
     common.assertion.expectUndefined(undefined);
     expect(() => common.assertion.expectUndefined(0)).toThrow(/Received\w*|\d*|\s*0/);

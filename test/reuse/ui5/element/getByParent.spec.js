@@ -1,11 +1,8 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("element - getByParent - simple case", function () {
-
   let elem;
 
   it("Preparation", async function () {
@@ -16,23 +13,27 @@ describe("element - getByParent - simple case", function () {
 
   it("Execution", async function () {
     const elementSelector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
-        "metadata": "sap.m.Text",
-        "text": [{
-          "path": "Dmbtr"
-        }, {
-          "path": "Hwaer"
-        }, {
-          "path": "/##@@requestCurrencyCodes"
-        }]
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        metadata: "sap.m.Text",
+        text: [
+          {
+            path: "Dmbtr"
+          },
+          {
+            path: "Hwaer"
+          },
+          {
+            path: "/##@@requestCurrencyCodes"
+          }
+        ]
       }
     };
     const parentSelector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
-        "metadata": "sap.m.ColumnListItem",
-        "bindingContextPath": "/LineItemsSet*'5')"
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        metadata: "sap.m.ColumnListItem",
+        bindingContextPath: "/LineItemsSet*'5')"
       }
     };
     elem = await ui5.element.getByParent(elementSelector, parentSelector);
@@ -41,11 +42,9 @@ describe("element - getByParent - simple case", function () {
   it("Verification", async function () {
     await nonUi5.assertion.expectValueToBe(elem, "1,418,880.43");
   });
-
 });
 
 describe("element - getByParent - with ignored nested selectors", function () {
-
   let elem;
 
   it("Preparation", async function () {
@@ -56,31 +55,35 @@ describe("element - getByParent - with ignored nested selectors", function () {
 
   it("Execution", async function () {
     const elementSelector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
-        "metadata": "sap.m.Text",
-        "text": [{
-          "path": "Dmbtr"
-        }, {
-          "path": "Hwaer"
-        }, {
-          "path": "/##@@requestCurrencyCodes"
-        }]
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        metadata: "sap.m.Text",
+        text: [
+          {
+            path: "Dmbtr"
+          },
+          {
+            path: "Hwaer"
+          },
+          {
+            path: "/##@@requestCurrencyCodes"
+          }
+        ]
       },
-      "ancestorProperties": {
-        "viewName": "ABC",
-        "metadata": "DEF"
+      ancestorProperties: {
+        viewName: "ABC",
+        metadata: "DEF"
       }
     };
     const parentSelector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
-        "metadata": "sap.m.ColumnListItem",
-        "bindingContextPath": "/LineItemsSet*'5')"
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        metadata: "sap.m.ColumnListItem",
+        bindingContextPath: "/LineItemsSet*'5')"
       },
-      "descendantProperties": {
-        "viewName": "ABC",
-        "metadata": "DEF"
+      descendantProperties: {
+        viewName: "ABC",
+        metadata: "DEF"
       }
     };
     elem = await ui5.element.getByParent(elementSelector, parentSelector);
@@ -89,11 +92,9 @@ describe("element - getByParent - with ignored nested selectors", function () {
   it("Verification", async function () {
     await nonUi5.assertion.expectValueToBe(elem, "1,418,880.43");
   });
-
 });
 
 describe("element - getByParent - with inner nested selectors and index", function () {
-
   let elem;
 
   it("Preparation", async function () {
@@ -104,26 +105,30 @@ describe("element - getByParent - with inner nested selectors and index", functi
 
   it("Execution", async function () {
     const elementSelector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
-        "metadata": "sap.m.Text",
-        "text": [{
-          "path": "Dmbtr"
-        }, {
-          "path": "Hwaer"
-        }, {
-          "path": "/##@@requestCurrencyCodes"
-        }]
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        metadata: "sap.m.Text",
+        text: [
+          {
+            path: "Dmbtr"
+          },
+          {
+            path: "Hwaer"
+          },
+          {
+            path: "/##@@requestCurrencyCodes"
+          }
+        ]
       }
     };
     const parentSelector = {
-      "elementProperties": {
-        "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
-        "metadata": "sap.m.ColumnListItem",
-        "descendantProperties": {
-          "viewName": "sap.ui.comp.sample.smarttable.mtable.SmartTable",
-          "metadata": "sap.m.Text",
-          "text": "Yes"
+      elementProperties: {
+        viewName: "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+        metadata: "sap.m.ColumnListItem",
+        descendantProperties: {
+          viewName: "sap.ui.comp.sample.smarttable.mtable.SmartTable",
+          metadata: "sap.m.Text",
+          text: "Yes"
         }
       }
     };
@@ -133,5 +138,4 @@ describe("element - getByParent - with inner nested selectors and index", functi
   it("Verification", async function () {
     await nonUi5.assertion.expectValueToBe(elem, "1,418,880.43");
   });
-
 });

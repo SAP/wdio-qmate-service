@@ -1,10 +1,10 @@
 "use strict";
 
 const selectorForKeyboardsListElement = {
-  "elementProperties": {
-    "viewName": "sap.ui.demo.cart.view.Home",
-    "metadata": "sap.m.StandardListItem",
-    "bindingContextPath": "/ProductCategories*)"
+  elementProperties: {
+    viewName: "sap.ui.demo.cart.view.Home",
+    metadata: "sap.m.StandardListItem",
+    bindingContextPath: "/ProductCategories*)"
   }
 };
 
@@ -18,10 +18,10 @@ describe("element - 'getDisplayed' by selector and index", function () {
 
   it("Execution", async function () {
     const selectorForMultipleElements = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/ProductCategories*)"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/ProductCategories*)"
       }
     };
     elementOne = await ui5.element.getDisplayed(selectorForMultipleElements, 0);
@@ -40,8 +40,7 @@ describe("element - getDisplayed by wrong index (unhappy case)", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.element.getDisplayed(selectorForKeyboardsListElement, 111))
-      .rejects.toThrow(/Index out of bound. Trying to access element at index: 111/);
+    await expect(ui5.element.getDisplayed(selectorForKeyboardsListElement, 111)).rejects.toThrow(/Index out of bound. Trying to access element at index: 111/);
   });
 });
 
@@ -52,14 +51,13 @@ describe("element - getDisplayed by wrong selector (unhappy case)", function () 
 
   it("Execution & Verification", async function () {
     const wrongSelector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItemWrong",
-        "bindingContextPath": "/ProductCategories*'KB')"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.StandardListItemWrong",
+        bindingContextPath: "/ProductCategories*'KB')"
       }
     };
-    await expect(ui5.element.getDisplayed(wrongSelector))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.element.getDisplayed(wrongSelector)).rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -70,14 +68,13 @@ describe("element - getDisplayed by index which is equal to the number of elemen
 
   it("Execution & Verification", async function () {
     const searchFieldSelector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.SearchField",
-        "id": "*searchField"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.SearchField",
+        id: "*searchField"
       }
     };
-    await expect(ui5.element.getDisplayed(searchFieldSelector, 1))
-      .rejects.toThrow(/Index out of bound. Trying to access element at index: 1/);
+    await expect(ui5.element.getDisplayed(searchFieldSelector, 1)).rejects.toThrow(/Index out of bound. Trying to access element at index: 1/);
   });
 });
 
@@ -91,10 +88,10 @@ describe("element - 'getDisplayed' by selector having wildcard character(*) for 
 
   it("Execution", async function () {
     const selectorForMultipleElements = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.*ListItem",
-        "bindingContextPath": "/ProductCategories*)"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.*ListItem",
+        bindingContextPath: "/ProductCategories*)"
       }
     };
     elementOne = await ui5.element.getDisplayed(selectorForMultipleElements, 0);

@@ -1,5 +1,4 @@
 async function BasicUrlAuthenticator() {
-
   const username = browser.config.params ? browser.config.params.auth.username : undefined;
   if (!username) {
     throw new Error("Please provide a 'username' in the config.");

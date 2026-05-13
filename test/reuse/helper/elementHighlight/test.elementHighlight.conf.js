@@ -15,9 +15,7 @@ exports.config = merge(profile.config, {
   },
   baseUrl: "http://localhost:34005/",
 
-  specs: [
-    path.resolve(__dirname, "elementHighlight.spec.js")
-  ],
+  specs: [path.resolve(__dirname, "elementHighlight.spec.js")],
 
   services: [
     [
@@ -32,7 +30,7 @@ exports.config = merge(profile.config, {
           {
             mount: "/forms.html",
             path: path.resolve(__dirname, "../../../helper/website/forms.html")
-          },
+          }
         ]
       }
     ]

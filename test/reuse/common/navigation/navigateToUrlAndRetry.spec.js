@@ -16,16 +16,12 @@ describe("navigateToUrlAndRetry", function () {
 
 describe("navigateToUrlAndRetry with wrong url", function () {
   it("Execution & Verification", async function () {
-    await expect(common.navigation.navigateToUrlAndRetry("sd")).rejects.toThrow(
-      "Function 'navigateToUrlAndRetry' failed with: Retries done. Failed to execute the function:invalid argument"
-    );
+    await expect(common.navigation.navigateToUrlAndRetry("sd")).rejects.toThrow("Function 'navigateToUrlAndRetry' failed with: Retries done. Failed to execute the function:invalid argument");
   });
 });
 
 describe("navigateToUrlAndRetry with wrong parameter", function () {
   it("Execution & Verification", async function () {
-    await expect(common.navigation.navigateToUrlAndRetry()).rejects.toThrow(
-      "Function 'navigateToUrlAndRetry' failed with: Retries done. Failed to execute the function: Please provide an url as argument."
-    );
+    await expect(common.navigation.navigateToUrlAndRetry()).rejects.toThrow("Function 'navigateToUrlAndRetry' failed with: Retries done. Failed to execute the function: Please provide an url as argument.");
   });
 });

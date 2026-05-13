@@ -1,9 +1,9 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const selectorForAllListItems = {
-  "elementProperties": {
-    "viewName": "sap.ui.demo.cart.view.Home",
-    "metadata": "sap.m.StandardListItem"
+  elementProperties: {
+    viewName: "sap.ui.demo.cart.view.Home",
+    metadata: "sap.m.StandardListItem"
   }
 };
 
@@ -21,8 +21,7 @@ describe("element - getByText should get element by right text", function () {
     // Note: error in safari macOS: Error: getByText(): No elements found for given text.
     elementByRightName = await ui5.element.getByText(selectorForAllListItems, textToGetElement);
     elementText = await elementByRightName.getText();
-    await expect(ui5.element.getByText(selectorForAllListItems, textToGetElement, 1))
-      .rejects.toThrow(`Function 'getByText' failed with: Index out of bound. Cannot get element by text Laptops`); // Element with text "Laptops\n11" is unique
+    await expect(ui5.element.getByText(selectorForAllListItems, textToGetElement, 1)).rejects.toThrow(`Function 'getByText' failed with: Index out of bound. Cannot get element by text Laptops`); // Element with text "Laptops\n11" is unique
   });
 
   it("Verification", function () {
@@ -38,13 +37,11 @@ describe("element - getByText should get element by wrong text (unhappy case)", 
 
   it("Execution", async function () {
     const wrongText = "Wrong Text";
-    await expect(ui5.element.getByText(selectorForAllListItems, wrongText))
-      .rejects.toThrow(/No elements found for given text./);
+    await expect(ui5.element.getByText(selectorForAllListItems, wrongText)).rejects.toThrow(/No elements found for given text./);
   });
 });
 
 describe("element - getByText with index 1 (unhappy case)", function () {
-
   const value = "Gaming Monster";
 
   it("Preparation", async function () {
@@ -53,15 +50,14 @@ describe("element - getByText with index 1 (unhappy case)", function () {
 
   it("Execution", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Category",
-        "metadata": "sap.m.Text"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Category",
+        metadata: "sap.m.Text"
       }
     };
     const index = 1;
     const timeout = 30000;
 
-    await expect(ui5.element.getByText(selector, value, index, timeout))
-      .rejects.toThrow(`Function 'getByText' failed with: Index out of bound. Cannot get element by text Gaming Monster at index 1`);
+    await expect(ui5.element.getByText(selector, value, index, timeout)).rejects.toThrow(`Function 'getByText' failed with: Index out of bound. Cannot get element by text Gaming Monster at index 1`);
   });
 });

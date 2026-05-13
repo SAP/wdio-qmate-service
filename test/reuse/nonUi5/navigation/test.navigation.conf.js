@@ -8,7 +8,5 @@ exports.config = merge(profile.config, {
 
   baseUrl: "https://www.sap.com/",
 
-  specs: [
-    path.resolve(__dirname, "navigateToApplication.spec.js")
-  ]
+  specs: [path.resolve(__dirname, "navigateToApplication.spec.js")]
 });

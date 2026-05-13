@@ -9,21 +9,23 @@ describe("getBindingContextPathProperty - check binding context path is /Product
 
   it("Execution", async () => {
     const selector = {
-      "elementProperties": {
-        "metadata": "sap.m.StandardListItem",
-        "mProperties": {
-          "viewId": "container-cart---app",
-          "title": [{
-            "path": "CategoryName"
-          }],
-          "bindingContextPath": "/ProductCategories*"
+      elementProperties: {
+        metadata: "sap.m.StandardListItem",
+        mProperties: {
+          viewId: "container-cart---app",
+          title: [
+            {
+              path: "CategoryName"
+            }
+          ],
+          bindingContextPath: "/ProductCategories*"
         }
       }
     };
     const elem = await ui5.element.getDisplayed(selector);
     bindingContextPath = await ui5.control.getBindingContextPathProperty(elem);
     bindingContextPathSelector = await ui5.control.getBindingContextPathProperty(selector);
-    bindingContextPathSelectorOptions = await ui5.control.getBindingContextPathProperty({selector: selector, index: 0, timeout: 30000});
+    bindingContextPathSelectorOptions = await ui5.control.getBindingContextPathProperty({ selector: selector, index: 0, timeout: 30000 });
   });
 
   it("Verification", () => {

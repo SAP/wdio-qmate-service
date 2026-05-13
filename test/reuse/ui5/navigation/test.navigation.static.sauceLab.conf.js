@@ -13,13 +13,13 @@ exports.config = merge(profile.config, {
   baseUrl: "http://localhost:34099/ui",
 
   specs: [
-    path.resolve(__dirname, "navigateToApplication.spec.js"),
+    path.resolve(__dirname, "navigateToApplication.spec.js")
     // path.resolve(__dirname, "navigateToApplicationAndRetry.spec.js"),
     // path.resolve(__dirname, "navigateToApplicationWithQueryParams.spec.js"),
     // path.resolve(__dirname, "navigateToApplicationWithQueryParamsAndRetry.spec.js")
   ],
 
   mochaOpts: {
-    timeout: 2000000,
-  },
+    timeout: 2000000
+  }
 });

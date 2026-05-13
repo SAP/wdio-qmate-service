@@ -1,11 +1,11 @@
-import { createUsage } from './createUsage';
-import { getConfigurationHash } from './getConfigurationInformation';
-import { getEnvironmentVariables } from './getEnvironment';
-import { getOperatingSystemRelease, getOperatingSystemType, getOperatingSystemVersion } from './getOperatingSystem';
-import { getCwdGitRemoteUrlHash } from './getRepositoryInformation';
-import { getUserId } from './getUserId';
-import { getVersion } from './getVersion';
-import { updateQmateUsage } from './updateUsage';
+import { createUsage } from "./createUsage";
+import { getConfigurationHash } from "./getConfigurationInformation";
+import { getEnvironmentVariables } from "./getEnvironment";
+import { getOperatingSystemRelease, getOperatingSystemType, getOperatingSystemVersion } from "./getOperatingSystem";
+import { getCwdGitRemoteUrlHash } from "./getRepositoryInformation";
+import { getUserId } from "./getUserId";
+import { getVersion } from "./getVersion";
+import { updateQmateUsage } from "./updateUsage";
 
 export async function sendUsageRequests(specCounter: number): Promise<string | null> {
   const user = await getUserId();
@@ -14,15 +14,15 @@ export async function sendUsageRequests(specCounter: number): Promise<string | n
   }
 
   const usageData = {
-    "userId": user,
-    "version": getVersion(),
-    "osType": getOperatingSystemType(),
-    "osRelease": getOperatingSystemRelease(),
-    "osVersion": getOperatingSystemVersion(),
-    "environment": getEnvironmentVariables(),
-    "configHash": getConfigurationHash(),
-    "repoHash": getCwdGitRemoteUrlHash(),
-    "specCounter": specCounter,
+    userId: user,
+    version: getVersion(),
+    osType: getOperatingSystemType(),
+    osRelease: getOperatingSystemRelease(),
+    osVersion: getOperatingSystemVersion(),
+    environment: getEnvironmentVariables(),
+    configHash: getConfigurationHash(),
+    repoHash: getCwdGitRemoteUrlHash(),
+    specCounter: specCounter
   };
 
   const usageId = await createUsage(usageData);
@@ -35,9 +35,7 @@ export async function sendUsageRequests(specCounter: number): Promise<string | n
 export async function updateUsageRequests(usageId: string, result: string) {
   const usageData = {
     result
-  }
+  };
 
   void updateQmateUsage(usageId, usageData);
 }
-
-

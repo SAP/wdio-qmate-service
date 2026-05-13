@@ -11,7 +11,6 @@ describe("authenticator (plain) - fiori", function () {
     const elem = await nonUi5.element.getById("shellAppTitle");
     await nonUi5.assertion.expectToBeVisible(elem);
   });
-
 });
 
 describe("authenticator (plain) - sapCloud", function () {
@@ -27,7 +26,6 @@ describe("authenticator (plain) - sapCloud", function () {
     const elem = await nonUi5.element.getById("shellAppTitle");
     await nonUi5.assertion.expectToBeVisible(elem);
   });
-
 });
 
 describe("authenticator (plain) - loginFiori", function () {
@@ -43,7 +41,6 @@ describe("authenticator (plain) - loginFiori", function () {
     const elem = await nonUi5.element.getById("shellAppTitle");
     await nonUi5.assertion.expectToBeVisible(elem);
   });
-
 });
 
 describe("authenticator (plain) - loginSapCloud", function () {
@@ -60,5 +57,3 @@ describe("authenticator (plain) - loginSapCloud", function () {
     await nonUi5.assertion.expectToBeVisible(elem);
   });
 });
-
-

@@ -1,11 +1,8 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("element - getById + expectToBeVisible", function () {
-
   let downloadBtn;
 
   it("Preparation", async function () {
@@ -23,20 +20,17 @@ describe("element - getById + expectToBeVisible", function () {
 });
 
 describe("element - getById and catch error", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
   it("Execution & Verification", async function () {
-    await expect(nonUi5.element.getById("sdk---app--apiTab-text"))
-      .rejects.toThrow("Function 'getById' failed");
+    await expect(nonUi5.element.getById("sdk---app--apiTab-text")).rejects.toThrow("Function 'getById' failed");
   });
 });
 
 describe("element - getById - error case, verify error stack", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
@@ -48,6 +42,5 @@ describe("element - getById - error case, verify error stack", function () {
     } catch (error) {
       await expect(error.stack).toMatch(/at.*getById\.spec\.js/);
     }
-
   });
 });

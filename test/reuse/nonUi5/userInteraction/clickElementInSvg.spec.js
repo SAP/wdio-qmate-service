@@ -3,7 +3,6 @@ const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - clickElementInSvg - UI5 SVG Chart", function () {
-
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.suite.ui.commons.ChartContainer/sample/sap.suite.ui.commons.sample.ChartContainerToolbarEnhancement`);
     await handleCookiesConsent();
@@ -21,5 +20,4 @@ describe("userInteraction - clickElementInSvg - UI5 SVG Chart", function () {
     const isPresent = await nonUi5.element.isPresentByCss("path[fill-opacity='1']");
     await common.assertion.expectTrue(isPresent);
   });
-
 });

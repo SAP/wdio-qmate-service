@@ -1,8 +1,6 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("element - getByChild", function () {
   let elemAct;
@@ -53,8 +51,7 @@ describe("element - getByChild - error case with wrong element", function () {
   it("Execution & Verification", async function () {
     const elementSelector = ".wrongParent";
     const childSelector = ".wrongChild";
-    await expect(nonUi5.element.getByChild(elementSelector, childSelector))
-      .rejects.toThrow("Function 'getByChild' failed with: No element found for selector:");
+    await expect(nonUi5.element.getByChild(elementSelector, childSelector)).rejects.toThrow("Function 'getByChild' failed with: No element found for selector:");
   });
 });
 
@@ -66,7 +63,6 @@ describe("element - getByChild - error case with wrong order of parent and child
   it("Execution & Verification", async function () {
     const elementSelector = "[id='container-cart---homeView--searchField-I']";
     const childSelector = "[id='container-cart---homeView--searchField-F']";
-    await expect(nonUi5.element.getByChild(elementSelector, childSelector))
-      .rejects.toThrow(`Function 'getByChild' failed with: The found element(s) with the given selector do(es) not have any child with selector [id='container-cart---homeView--searchField-F']`);
+    await expect(nonUi5.element.getByChild(elementSelector, childSelector)).rejects.toThrow(`Function 'getByChild' failed with: The found element(s) with the given selector do(es) not have any child with selector [id='container-cart---homeView--searchField-F']`);
   });
 });

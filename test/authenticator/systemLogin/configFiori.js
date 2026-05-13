@@ -5,9 +5,7 @@ exports.config = merge(fioriConfig.config, {
   maxInstances: 1,
   bail: 1,
 
-  specs: [
-    path.resolve(__dirname, "specs/fiori.spec.js")
-  ],
+  specs: [path.resolve(__dirname, "specs/fiori.spec.js")],
   exclude: [],
 
   reporters: ["spec"],
@@ -20,5 +18,4 @@ exports.config = merge(fioriConfig.config, {
   },
 
   baseUrl: "<urlToSystem"
-
 });

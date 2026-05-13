@@ -52,7 +52,6 @@ describe("browser - switchToWindow (unhappy case)", function () {
 
     await util.browser.switchToWindow(windowHandles[0]);
 
-    await expect(util.browser.switchToWindow())
-      .rejects.toThrow(/Malformed type for "handle" parameter of command switchToWindow/);
+    await expect(util.browser.switchToWindow()).rejects.toThrow(/Malformed type for "handle" parameter of command switchToWindow/);
   });
 });

@@ -49,16 +49,16 @@ export class Control {
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
     const id = await elem.getAttribute("id");
     const focused = await browser.execute(function (id: string) {
-        const elem = sap.ui.getCore().getElementById(id);
-        if(elem && elem.focus){
-            elem.focus();
-            return true;
-        } else{
-            return false;
-        }
+      const elem = sap.ui.getCore().getElementById(id);
+      if (elem && elem.focus) {
+        elem.focus();
+        return true;
+      } else {
+        return false;
+      }
     }, id);
-    if(!focused){
-        ui5.userInteraction.scrollToElement(selector, index, "center", timeout);
+    if (!focused) {
+      ui5.userInteraction.scrollToElement(selector, index, "center", timeout);
     }
   }
 

@@ -6,9 +6,9 @@ describe("formatter - stringifyJSON", function () {
   describe("stringifyJSON - happy case", async function () {
     it("Preparation", function () {
       input = {
-        "a": 123,
-        "b": 456,
-        "c": 789
+        a: 123,
+        b: 456,
+        c: 789
       };
       expected = JSON.stringify(input);
     });

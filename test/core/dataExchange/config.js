@@ -3,16 +3,17 @@ var merge = require("deepmerge");
 var chromeConfig = require("../../helper/configurations/chrome.headless.conf.js");
 exports.config = merge(chromeConfig.config, {
   params: {
-    import: {           //import data            
+    import: {
+      //import data
       myUserPrefix: "./data/ui/user.json",
       userDataFolder: "./data/ui",
-      uiUser: "./data/ui/webUser.json",
+      uiUser: "./data/ui/webUser.json"
     },
-    export: {             //Export             
+    export: {
+      //Export
       exportData: "./data/ui/export/exportedUser.json",
       webUser: "./data/ui/export/exportedWebUser.json"
-    },
-
+    }
   },
 
   baseUrl: "https://openui5.hana.ondemand.com/entity/sap.m.Input/sample/sap.m.sample.InputTypes",
@@ -26,9 +27,7 @@ exports.config = merge(chromeConfig.config, {
   // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
-  specs: [
-    path.resolve(__dirname, "specs/importExport.spec.js")
-  ],
+  specs: [path.resolve(__dirname, "specs/importExport.spec.js")],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -46,7 +45,6 @@ exports.config = merge(chromeConfig.config, {
   // Options to be passed to Mocha.
   // See the full list at http://mochajs.org/
   mochaOpts: {
-    timeout: 2000000,
-  },
+    timeout: 2000000
+  }
 });
-

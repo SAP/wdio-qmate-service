@@ -1,25 +1,21 @@
 "use strict";
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 let selector;
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("assertion - expectToBeVisible with right selector", function () {
-
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
 
   it("Execution", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/ProductCategories*'LT')"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/ProductCategories*'LT')"
       }
     };
-
   });
 
   it("Verification", async function () {
@@ -34,17 +30,16 @@ describe("assertion - expectToBeVisible with wrong selector", function () {
 
   it("Execution", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.StandardListItem",
-        "bindingContextPath": "/ProductCategories*'Wrong Category')"
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Home",
+        metadata: "sap.m.StandardListItem",
+        bindingContextPath: "/ProductCategories*'Wrong Category')"
       }
     };
   });
 
   it("Verification", async function () {
-    await expect(ui5.assertion.expectToBeVisible(selector))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.assertion.expectToBeVisible(selector)).rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -56,10 +51,10 @@ describe("assertion - expectToBeVisible outside viewport", function () {
 
   it("Execution", async function () {
     selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.Welcome",
-        "metadata": "sap.ui.documentation.TitleLink",
-        "text": "YouTube"
+      elementProperties: {
+        viewName: "sap.ui.documentation.sdk.view.Welcome",
+        metadata: "sap.ui.documentation.TitleLink",
+        text: "YouTube"
       }
     };
   });

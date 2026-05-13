@@ -4,38 +4,37 @@
  * Utility functions to import data to be used in test specs from JSON files, or folders.
  * Export data to JSON files.
  */
-import fs from 'fs-extra'
-import path from 'path'
+import fs from "fs-extra";
+import path from "path";
 
 class DataExchangeUtil {
-
   /**
    * @function getFileAbsPath
    * @param {string} fileWithPath - file with relative or absolute file path
    * @return {string} the file with absolute file path
    * @example await getFileAbsPath("./data/myfolder/po.json");
    */
-  getFileAbsPath (fileWithPath: string): string | undefined {
+  getFileAbsPath(fileWithPath: string): string | undefined {
     if (!process.env.CONFIG_PATH) {
       console.warn("Internal error: process.env.CONFIG_PATH not set");
       return;
     }
     return path.resolve(process.env.CONFIG_PATH, fileWithPath);
-  };
+  }
 
   /**
    * @function isReadable - checks if file is present and readable
    * @param {string} filename - file name with full path
-   * @return {Boolean} - true if file is readable, false if file is not present or not readable  
+   * @return {Boolean} - true if file is readable, false if file is not present or not readable
    */
-  async isReadable (filename: string): Promise<boolean> {
+  async isReadable(filename: string): Promise<boolean> {
     try {
       await fs.access(filename, fs.constants.R_OK);
       return true;
     } catch (error) {
       return false;
     }
-  };
+  }
 
   /**
    * @function readJson - reads JSON data from a file. This method has been added, since unlike fs-extra.readJson, this
@@ -44,11 +43,11 @@ class DataExchangeUtil {
    * @return {object} - the JSON data
    * @throws {*} - throws an error if file is not readable, or if data is not valid JSON
    */
-  async readJson (filename: string): Promise<object | null> {
+  async readJson(filename: string): Promise<object | null> {
     // handle empty files
     const data = await fs.readFile(filename, "utf-8");
     return data && data.trim() ? JSON.parse(data) : null;
-  };
+  }
 
   /**
    * @function outputJson - writes JSON data into a file. This method has been added, since unlike fs-extra.outputJson, this
@@ -59,19 +58,17 @@ class DataExchangeUtil {
    * @param {object} options - options, e.g. {spaces: 2} to pretty print JSON
    * @throws {*} - throws an error if file is not writable
    */
-  async outputJson (fileWithPath: string, data: object, options?: object): Promise<void> {
+  async outputJson(fileWithPath: string, data: object, options?: object): Promise<void> {
     // if output directory or file does not exist, it gets created
     // handle empty data object
-    if (!data ||
-      (Array.isArray(data) && data.length <= 0) ||
-      Object.keys(data).length <= 0) {
+    if (!data || (Array.isArray(data) && data.length <= 0) || Object.keys(data).length <= 0) {
       // write empty file if there is no data
       await fs.outputFile(fileWithPath, "");
     } else {
       options = options || { spaces: 2 };
       await fs.outputJson(fileWithPath, data, options);
     }
-  };
+  }
 
   /**
    * @function readData - read import data and assign the values to browser.params.import
@@ -79,7 +76,7 @@ class DataExchangeUtil {
    * @param {string} fileOrDir - file or directory with full path
    * @param {string[]} params - the keys under which data should be stored
    */
-  async readData (fileOrDir: string, params: string[], config: Record<string, any>): Promise<void> {
+  async readData(fileOrDir: string, params: string[], config: Record<string, any>): Promise<void> {
     const stat = await fs.stat(fileOrDir);
 
     if (stat.isDirectory()) {
@@ -87,11 +84,11 @@ class DataExchangeUtil {
     } else if (stat.isFile()) {
       await this.readFile(fileOrDir, params, config);
     }
-  };
+  }
 
   /**
    * @function readFolder - read json files in specified folder and any subfolders under it
-   * if params = ["test1", "purchaseRequisition"] then the data read from folder will be 
+   * if params = ["test1", "purchaseRequisition"] then the data read from folder will be
    * assigned to browser.params.import.test1.purchaseRequisition
    * if file "data1.json" is present in the folder, then the data from this json file will go
    * under browser.params.import.test1.purchaseRequisition.data1, the file prefix is used as key
@@ -100,7 +97,7 @@ class DataExchangeUtil {
    * @param {string} folder - folder with complete path
    * @param {string[]} params - the keys hierarchy under which data should be stored
    */
-  async readFolder (folder: string, params: string[], config: Record<string, any>): Promise<void> {
+  async readFolder(folder: string, params: string[], config: Record<string, any>): Promise<void> {
     const files = await fs.readdir(folder, { withFileTypes: true });
     for (const file of files) {
       if (file.isDirectory()) {
@@ -111,28 +108,25 @@ class DataExchangeUtil {
         const fileWithPath = path.resolve(folder, file.name);
         if (!filename) {
           console.warn("Invalid filename, filename is blank");
-        }
-        else if (filename.match(/\.json$/)) {
+        } else if (filename.match(/\.json$/)) {
           const filePrefix = filename.replace(/(.*)\.json$/, "$1");
           await this.readFile(fileWithPath, [...params, filePrefix], config);
         } else {
-          console.warn(
-            `Only json data files are read. ${fileWithPath} does not have json file suffix`
-          );
+          console.warn(`Only json data files are read. ${fileWithPath} does not have json file suffix`);
         }
       }
     }
-  };
+  }
 
   /**
    * @function readFile
    * reads json data in the specified file and assigns to browser.params.import
-   * if params = ["test1", "purchaseRequisition"] then the data read from file will be 
+   * if params = ["test1", "purchaseRequisition"] then the data read from file will be
    * assigned to browser.params.import.test1.purchaseRequisition
    * @param {string} filename - file to be read, includes path
    * @param {string[]} params - the keys hierarchy under which data should be stored
    */
-  async readFile (filename: string, params: string[], config: Record<string, any>): Promise<void> {
+  async readFile(filename: string, params: string[], config: Record<string, any>): Promise<void> {
     try {
       if (!params || params.length <= 0) {
         console.warn("Invalid key params sent, key array is empty");
@@ -150,12 +144,11 @@ class DataExchangeUtil {
         // string points to file or folder, remove and replace with empty object
         if (browserImport[p] && typeof browserImport[p] === "string") {
           browserImport[p] = {};
-        }
-        else if (!browserImport[p]) {
+        } else if (!browserImport[p]) {
           browserImport[p] = {};
         }
 
-        if (idx === (params.length - 1)) {
+        if (idx === params.length - 1) {
           browserImport[p] = data;
         } else {
           browserImport = browserImport[p];
@@ -164,7 +157,7 @@ class DataExchangeUtil {
     } catch (err) {
       let browserImport = config.params.import;
       params.forEach((p, idx) => {
-        if (browserImport && idx != (params.length - 1)) {
+        if (browserImport && idx != params.length - 1) {
           browserImport = browserImport[p];
         } else if (browserImport) {
           // delete this param, since it does not point to a valid json file
@@ -175,10 +168,8 @@ class DataExchangeUtil {
       console.warn(`Could not read ${filename}, it is not a valid json file`);
       console.warn(err);
     }
-  };
-
-};
-
+  }
+}
 
 export default new DataExchangeUtil();
 // JS SUPPORT

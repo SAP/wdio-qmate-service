@@ -5,10 +5,9 @@ var functions = {};
 functions.execQUnits = function (mScriptParams, done) {
   if (QUnit) {
     // reset the QUnit config such that the test can run a second time
-    if (QUnit.version.charAt(0) === "2"){
+    if (QUnit.version.charAt(0) === "2") {
       QUnit.config.current = undefined;
-    }
-    else {
+    } else {
       QUnit.config.current = true;
     }
     QUnit.start();
@@ -121,11 +120,7 @@ functions.getControlBindingContextPath = function (mScriptParams) {
     throw new Error("Control could not be retrieved, details: " + error);
   }
   if (!oUI5Element) return null;
-  var bindingContexts = jQuery.extend({},
-    oUI5Element.oPropagatedProperties && oUI5Element.oPropagatedProperties.oBindingContexts,
-    oUI5Element.oBindingContexts,
-    oUI5Element.mElementBindingContexts
-  );
+  var bindingContexts = jQuery.extend({}, oUI5Element.oPropagatedProperties && oUI5Element.oPropagatedProperties.oBindingContexts, oUI5Element.oBindingContexts, oUI5Element.mElementBindingContexts);
   // reduce object to non-empty contexts
   bindingContexts = Object.keys(bindingContexts).reduce(function (finalContexts, key) {
     if (bindingContexts[key]) {
@@ -138,10 +133,7 @@ functions.getControlBindingContextPath = function (mScriptParams) {
     var aKeys = Object.keys(bindingContexts);
     for (let index = 0; index < aKeys.length; index++) {
       const oBindingContext = bindingContexts[aKeys[index]];
-      if (oBindingContext &&
-        oBindingContext.getPath &&
-        oBindingContext.getPath())
-        return oBindingContext.getPath();
+      if (oBindingContext && oBindingContext.getPath && oBindingContext.getPath()) return oBindingContext.getPath();
     }
   }
   return null;
@@ -181,22 +173,22 @@ functions.getControlPropertyBinding = function (mScriptParams) {
 };
 
 functions.waitForAngular = function (rootSelector, interval, callback) {
-
   var findBusyIndicator = function () {
-    return Boolean(Array.from(document.getElementsByClassName("sapUiLocalBusyIndicator")).find(function (elem) {
-      var rect = elem.getBoundingClientRect();
-      var aModalDialog = Array.from(document.getElementsByClassName("sapMDialog"));
-      var nModalCount = 0;
-      if (aModalDialog && aModalDialog.length) {
-        nModalCount = aModalDialog.length;
-      }
-      return (rect.x > 0 || rect.y > 0) && rect.width > 0 && rect.height > 0 && nModalCount === 0;
-    }));
+    return Boolean(
+      Array.from(document.getElementsByClassName("sapUiLocalBusyIndicator")).find(function (elem) {
+        var rect = elem.getBoundingClientRect();
+        var aModalDialog = Array.from(document.getElementsByClassName("sapMDialog"));
+        var nModalCount = 0;
+        if (aModalDialog && aModalDialog.length) {
+          nModalCount = aModalDialog.length;
+        }
+        return (rect.x > 0 || rect.y > 0) && rect.width > 0 && rect.height > 0 && nModalCount === 0;
+      })
+    );
   };
 
   function defineTestCooperation() {
     var TestCooperation = function (oCore) {
-
       this._bSameTick = false;
       this.iPendingXHRs = 0;
       this.aDoNotTrack = [];
@@ -220,7 +212,7 @@ functions.waitForAngular = function (rootSelector, interval, callback) {
     };
 
     TestCooperation.prototype.isStable = function () {
-      return (!this.oCore.getUIDirty() && this.aPendingCallbacks.length === 0);
+      return !this.oCore.getUIDirty() && this.aPendingCallbacks.length === 0;
     };
 
     TestCooperation.prototype._wrapXHR = function () {
@@ -265,7 +257,7 @@ functions.waitForAngular = function (rootSelector, interval, callback) {
       window.sap.ui.getCore() &&
       !window.sap.ui.getCore().isLocked() &&
       !window.sap.ui.getCore().getUIDirty() &&
-      !findBusyIndicator() &&           // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
+      !findBusyIndicator() && // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
       document.readyState == "complete"
     ) {
       callback();
@@ -282,7 +274,7 @@ functions.waitForAngular = function (rootSelector, interval, callback) {
       window.sap.ui.getCore() &&
       !window.sap.ui.getCore().isLocked() &&
       !window.sap.ui.getCore().getUIDirty() &&
-      !findBusyIndicator() &&          // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
+      !findBusyIndicator() && // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
       document.readyState == "complete"
     ) {
       findui5Busy();
@@ -302,15 +294,12 @@ functions.waitForAngular = function (rootSelector, interval, callback) {
         /* eslint-disable-next-line no-redeclare */
         var oLcaTestCooperation = new LcaTestCooperation({
           getUIDirty: window.sap.ui.getCore().getUIDirty.bind(window.sap.ui.getCore()),
-          attachUIUpdated: function () {
-
-          }
+          attachUIUpdated: function () {}
         });
         window.oLcaTestCooperation = oLcaTestCooperation;
       }
 
       if (!oLcaTestCooperation.isStable()) {
-
         setTimeout(findui5Busy, interval);
       } else {
         window.setTimeout(waitForRendered, interval);
@@ -321,30 +310,22 @@ functions.waitForAngular = function (rootSelector, interval, callback) {
   window.setTimeout(function () {
     waitForFirstRendered(findui5Busy);
   }, interval);
-
-
-
-
-
-
 };
 
 /* Publish all the functions as strings to pass to WebDriver's
-* exec[Async]Script.  In addition, also include a script that will
-* install all the functions on window (for debugging.)
-*
-* We also wrap any exceptions thrown by a clientSideScripts function
-* that is not an instance of the Error type into an Error type.  If we
-* don't do so, then the resulting stack trace is completely unhelpful
-* and the exception message is just 'unknown error.'  These types of
-* exceptins are the common case for dart2js code.  This wrapping gives
-* us the Dart stack trace and exception message.
-*/
+ * exec[Async]Script.  In addition, also include a script that will
+ * install all the functions on window (for debugging.)
+ *
+ * We also wrap any exceptions thrown by a clientSideScripts function
+ * that is not an instance of the Error type into an Error type.  If we
+ * don't do so, then the resulting stack trace is completely unhelpful
+ * and the exception message is just 'unknown error.'  These types of
+ * exceptins are the common case for dart2js code.  This wrapping gives
+ * us the Dart stack trace and exception message.
+ */
 var util = require("util");
 var scriptsList = [];
-var scriptFmt = (
-  "try { return (%s).apply(this, arguments); }\n" +
-  "catch(e) { throw (e instanceof Error) ? e : new Error(e); }");
+var scriptFmt = "try { return (%s).apply(this, arguments); }\n" + "catch(e) { throw (e instanceof Error) ? e : new Error(e); }";
 for (var fnName in functions) {
   if (functions.hasOwnProperty(fnName)) {
     exports[fnName] = util.format(scriptFmt, functions[fnName]);
@@ -352,5 +333,4 @@ for (var fnName in functions) {
   }
 }
 
-exports.installInBrowser = (util.format(
-  "window.clientSideScripts = {%s};", scriptsList.join(", ")));
+exports.installInBrowser = util.format("window.clientSideScripts = {%s};", scriptsList.join(", "));

@@ -1,5 +1,5 @@
 module.exports = {
-  // Path to mockserver etc.  
+  // Path to mockserver etc.
   pathToMockServer: "sap/ui/demo/nav/localService/mockserver",
   // Application namesaspace/path
   applicationPath: "sap/ui/demo/nav/",

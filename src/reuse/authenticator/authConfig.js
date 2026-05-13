@@ -1,11 +1,11 @@
 module.exports = {
-  "plain": {
+  plain: {
     name: "./plainAuthenticator"
   },
-  "basic": {
+  basic: {
     name: "./basicUrlAuthenticator"
   },
-  "custom": {
+  custom: {
     name: "./customAuthenticator"
   },
   "fiori-form": {
@@ -51,13 +51,3 @@ module.exports = {
     logonButtonSelector: "#__control0-logonBtn"
   }
 };
-
-
-
-
-
-
-
-
-
-

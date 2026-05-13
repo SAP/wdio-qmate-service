@@ -9,21 +9,23 @@ describe("getPropertyBinding - check title path is CategoryName", async () => {
 
   it("Execution", async () => {
     const selector = {
-      "elementProperties": {
-        "metadata": "sap.m.StandardListItem",
-        "mProperties": {
-          "viewId": "container-cart---app",
-          "title": [{
-            "path": "CategoryName"
-          }],
-          "bindingContextPath": "/ProductCategories*"
+      elementProperties: {
+        metadata: "sap.m.StandardListItem",
+        mProperties: {
+          viewId: "container-cart---app",
+          title: [
+            {
+              path: "CategoryName"
+            }
+          ],
+          bindingContextPath: "/ProductCategories*"
         }
       }
     };
     const elem = await ui5.element.getDisplayed(selector);
     aBindings = await ui5.control.getPropertyBinding(elem, "title");
     aBindingsSelector = await ui5.control.getPropertyBinding(selector, "title");
-    aBindingsSelectorOptions = await ui5.control.getPropertyBinding({selector: selector, index: 0, timeout: 30000}, "title");
+    aBindingsSelectorOptions = await ui5.control.getPropertyBinding({ selector: selector, index: 0, timeout: 30000 }, "title");
   });
 
   it("Verification", () => {

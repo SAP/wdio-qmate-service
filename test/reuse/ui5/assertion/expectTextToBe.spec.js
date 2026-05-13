@@ -7,12 +7,14 @@ describe("assertion - expectTextToBe", function () {
 
   it("Execution & Verification", async function () {
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Welcome",
-        "metadata": "sap.m.Title",
-        "text": [{
-          "path": "i18n>promotedTitle"
-        }]
+      elementProperties: {
+        viewName: "sap.ui.demo.cart.view.Welcome",
+        metadata: "sap.m.Title",
+        text: [
+          {
+            path: "i18n>promotedTitle"
+          }
+        ]
       }
     };
     await ui5.assertion.expectTextToBe(selector, "Promoted Items");
@@ -26,14 +28,12 @@ describe("assertion - expectTextToBe with wrong selector", function () {
 
   it("Execution & Verification", async function () {
     let wrongSelector = {
-      "elementProperties": {
-        "wrongData": "123"
+      elementProperties: {
+        wrongData: "123"
       }
     };
-    await expect(ui5.assertion.expectTextToBe(wrongSelector, "Watch"))
-      .rejects.toThrow(/No visible elements found/);
+    await expect(ui5.assertion.expectTextToBe(wrongSelector, "Watch")).rejects.toThrow(/No visible elements found/);
     wrongSelector = 123;
-    await expect(ui5.assertion.expectTextToBe(wrongSelector, "Watch"))
-      .rejects.toThrow("Function 'expectTextToBe' failed with: Please provide a valid selector as argument.");
+    await expect(ui5.assertion.expectTextToBe(wrongSelector, "Watch")).rejects.toThrow("Function 'expectTextToBe' failed with: Please provide a valid selector as argument.");
   });
 });

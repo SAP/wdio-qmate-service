@@ -12,7 +12,5 @@ exports.config = merge(staticServerConfig.config, {
   },
   baseUrl: "http://localhost:34005/sapCloud.html",
 
-  specs: [
-    path.resolve(__dirname, "specs/sapCloud.spec.js")
-  ]
+  specs: [path.resolve(__dirname, "specs/sapCloud.spec.js")]
 });

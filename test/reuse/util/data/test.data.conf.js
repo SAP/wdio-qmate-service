@@ -16,9 +16,5 @@ exports.config = merge(profile.config, {
     }
   },
 
-  specs: [
-    path.resolve(__dirname, "getData.spec.js"),
-    path.resolve(__dirname, "readDataFromFile.spec.js"),
-    path.resolve(__dirname, "writeDataToFile.spec.js")
-  ]
+  specs: [path.resolve(__dirname, "getData.spec.js"), path.resolve(__dirname, "readDataFromFile.spec.js"), path.resolve(__dirname, "writeDataToFile.spec.js")]
 });

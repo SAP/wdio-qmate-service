@@ -15,7 +15,6 @@ describe("navigation - navigateToSystemAndApplication (s4)", function () {
     await ui5.navigationBar.expectPageTitle("Manage Purchase Orders");
   });
 
-
   it("Clean Up", async function () {
     await ui5.session.logout();
   });

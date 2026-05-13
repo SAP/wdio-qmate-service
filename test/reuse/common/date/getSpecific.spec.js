@@ -14,7 +14,7 @@ describe("date - getSpecific without any format ", function () {
 
   it("Verification", function () {
     common.assertion.expectEqual(calculatedDate.toDateString(), date.toDateString());
-    common.assertion.expectUnequal(calculatedDate.toDateString(), (new Date()).toDateString());
+    common.assertion.expectUnequal(calculatedDate.toDateString(), new Date().toDateString());
   });
 });
 

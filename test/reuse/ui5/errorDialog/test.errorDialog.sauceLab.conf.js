@@ -9,18 +9,13 @@ exports.config = merge(profile.config, {
 
   maxInstances: 2, // note: for the SAP account, only 2 parallel instances is a max value
 
-
   bail: 1,
 
-  specs: [
-    path.resolve(__dirname, "clickClose.spec.js"),
-    path.resolve(__dirname, "expectToBeVisible.spec.js")
-  ],
+  specs: [path.resolve(__dirname, "clickClose.spec.js"), path.resolve(__dirname, "expectToBeVisible.spec.js")],
 
   exclude: [],
 
-
   mochaOpts: {
-    timeout: 2000000,
-  },
+    timeout: 2000000
+  }
 });

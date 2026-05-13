@@ -24,7 +24,7 @@ describe("component - loadEntryPoint", function () {
   });
 
   it("Cleanup", async function () {
-    await fs.promises.rm(folderPath, {recursive: true, force: true});
+    await fs.promises.rm(folderPath, { recursive: true, force: true });
   });
 });
 
@@ -50,7 +50,7 @@ describe("component - loadEntryPoint - custom folder path", function () {
   });
 
   it("Cleanup", async function () {
-    await fs.promises.rm(folderPath, {recursive: true, force: true});
+    await fs.promises.rm(folderPath, { recursive: true, force: true });
   });
 });
 
@@ -60,5 +60,4 @@ describe("component - loadEntryPoint - error case", function () {
   it("Execution & Verification", async function () {
     await expect(util.component.loadEntryPoint(folderPath)).rejects.toThrow("Function 'loadEntryPoint' failed with:");
   });
-
 });

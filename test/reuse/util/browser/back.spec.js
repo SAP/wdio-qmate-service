@@ -2,21 +2,21 @@
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 
 const browser = require("../../../../lib/reuse/modules/util/browser");
-const {
-  handleCookiesConsent
-} = require("../../../helper/utils");
+const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("browser - back", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(`${BASE_URL}/`);
     await handleCookiesConsent();
     const selector = {
-      "elementProperties": {
-        "viewName": "sap.ui.documentation.sdk.view.App",
-        "metadata": "sap.m.IconTabFilter",
-        "text": [{
-          "path": "i18n>APP_TABHEADER_ITEM_DOCUMENTATION"
-        }]
+      elementProperties: {
+        viewName: "sap.ui.documentation.sdk.view.App",
+        metadata: "sap.m.IconTabFilter",
+        text: [
+          {
+            path: "i18n>APP_TABHEADER_ITEM_DOCUMENTATION"
+          }
+        ]
       }
     };
     await ui5.userInteraction.click(selector);
@@ -29,5 +29,4 @@ describe("browser - back", function () {
     const baseUrl = await util.browser.getBaseUrl();
     common.assertion.expectEqual(baseUrl, url);
   });
-
 });

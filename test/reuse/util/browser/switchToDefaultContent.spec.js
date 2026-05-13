@@ -3,12 +3,11 @@ const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("browser - switchToDefaultContent", function () {
-
   const dialogSelector = {
-    "elementProperties": {
-      "viewName": "sap.m.sample.Dialog.V",
-      "metadata": "sap.m.Button",
-      "text": "Dialog (Fixed Size)"
+    elementProperties: {
+      viewName: "sap.m.sample.Dialog.V",
+      metadata: "sap.m.Button",
+      text: "Dialog (Fixed Size)"
     }
   };
 

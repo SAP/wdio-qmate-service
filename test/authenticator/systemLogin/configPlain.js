@@ -5,9 +5,7 @@ exports.config = merge(plainConfig.config, {
   maxInstances: 1,
   bail: 1,
 
-  specs: [
-    path.resolve(__dirname, "specs/plain.spec.js")
-  ],
+  specs: [path.resolve(__dirname, "specs/plain.spec.js")],
   exclude: [],
 
   reporters: ["spec"],
@@ -17,6 +15,6 @@ exports.config = merge(plainConfig.config, {
       formType: "plain"
     }
   },
-  
+
   baseUrl: "<urlToSystem>"
 });

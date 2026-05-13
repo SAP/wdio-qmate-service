@@ -2,7 +2,6 @@ var constants = require("./constants.js");
 var mockDataMapper = require("./mockDataMapper.js");
 
 module.exports = {
-
   /**
    * This function is used to convert a json message in stringify form so the messages can be passed in the addOrOverrideRequest method
    * @param {String} msg The json message to be mocked (sap-message header)
@@ -53,22 +52,29 @@ module.exports = {
       entitiesToload: startMockParams.entitiesToload,
       delay: 1
     };
-    await ui5.mockserver.interactWithMockServer(constants.pathToMockServer, function (mockserver, mockServerOpts, done) {
-      if (!mockserver) throw new Error("Mockserver file not yet loaded or is missing");
-      //debugger;
-      mockserver.init(mockServerOpts).catch(function (oError) {
-        // load MessageBox only when needed as it otherwise bypasses the preload of sap.m
-        // eslint-disable-next-line no-undef
-        sap.ui.require(["sap/m/MessageBox"], function (MessageBox) {
-          MessageBox.error(oError.message);
-        });
-      }).finally(function () {
-        // initialize the embedded component on the HTML page
-        // eslint-disable-next-line no-undef
-        sap.ui.require(["sap/ui/core/ComponentSupport"]);
-        done();
-      });
-    }, oMockServerOptions);
+    await ui5.mockserver.interactWithMockServer(
+      constants.pathToMockServer,
+      function (mockserver, mockServerOpts, done) {
+        if (!mockserver) throw new Error("Mockserver file not yet loaded or is missing");
+        //debugger;
+        mockserver
+          .init(mockServerOpts)
+          .catch(function (oError) {
+            // load MessageBox only when needed as it otherwise bypasses the preload of sap.m
+            // eslint-disable-next-line no-undef
+            sap.ui.require(["sap/m/MessageBox"], function (MessageBox) {
+              MessageBox.error(oError.message);
+            });
+          })
+          .finally(function () {
+            // initialize the embedded component on the HTML page
+            // eslint-disable-next-line no-undef
+            sap.ui.require(["sap/ui/core/ComponentSupport"]);
+            done();
+          });
+      },
+      oMockServerOptions
+    );
   },
 
   /**
@@ -98,14 +104,9 @@ module.exports = {
    */
   getEmployeesCount: async function (nCount) {
     // Add expand response
-    await ui5.mockserver.addOrOverrideRequest(
-      constants.httpMethod.get,
-      constants.pathToMockServer,
-      constants.regexRequests.getEmployeesCount,
-      nCount,
-      200, true);
+    await ui5.mockserver.addOrOverrideRequest(constants.httpMethod.get, constants.pathToMockServer, constants.regexRequests.getEmployeesCount, nCount, 200, true);
 
-    //Register new response [start mockserver is required]    
+    //Register new response [start mockserver is required]
     await ui5.mockserver.startMockServer(constants.pathToMockServer);
   },
 
@@ -120,17 +121,11 @@ module.exports = {
       expandedEntity = await ui5.mockserver.loadMockDataFile(expandedEntityOrPath);
     }
     // Add expand response specific
-    await ui5.mockserver.addNewRequest(
-      constants.httpMethod.get,
-      constants.pathToMockServer,
-      constants.regexRequests.getEmployees,
-      expandedEntity,
-      200, false);
+    await ui5.mockserver.addNewRequest(constants.httpMethod.get, constants.pathToMockServer, constants.regexRequests.getEmployees, expandedEntity, 200, false);
 
-    //Register new response [start mockserver is required]    
+    //Register new response [start mockserver is required]
     await ui5.mockserver.startMockServer(constants.pathToMockServer);
   },
-
 
   setResumes: async function (expandedEntityOrPath) {
     var expandedEntity = expandedEntityOrPath;
@@ -138,12 +133,9 @@ module.exports = {
       expandedEntity = await ui5.mockserver.loadMockDataFile(expandedEntityOrPath);
     }
     // Add expand response specific
-    await ui5.mockserver.setEntitySetData(
-      constants.pathToMockServer,
-      constants.entitySet.resumes,
-      expandedEntity);
+    await ui5.mockserver.setEntitySetData(constants.pathToMockServer, constants.entitySet.resumes, expandedEntity);
 
-    //Register new response [start mockserver is required]    
+    //Register new response [start mockserver is required]
     await ui5.mockserver.startMockServer(constants.pathToMockServer);
   },
 
@@ -153,12 +145,9 @@ module.exports = {
       expandedEntity = await ui5.mockserver.loadMockDataFile(expandedEntityOrPath);
     }
     // Add expand response specific
-    await ui5.mockserver.setEntitySetData(
-      constants.pathToMockServer,
-      constants.entitySet.employees,
-      expandedEntity);
+    await ui5.mockserver.setEntitySetData(constants.pathToMockServer, constants.entitySet.employees, expandedEntity);
 
-    //Register new response [start mockserver is required]    
+    //Register new response [start mockserver is required]
     await ui5.mockserver.startMockServer(constants.pathToMockServer);
   },
 
@@ -173,14 +162,9 @@ module.exports = {
       expandedEntity = await ui5.mockserver.loadMockDataFile(expandedEntityOrPath);
     }
     // Add expand response specific
-    await ui5.mockserver.addNewRequest(
-      constants.httpMethod.get,
-      constants.pathToMockServer,
-      constants.regexRequests.getResumes,
-      expandedEntity,
-      200, false);
+    await ui5.mockserver.addNewRequest(constants.httpMethod.get, constants.pathToMockServer, constants.regexRequests.getResumes, expandedEntity, 200, false);
 
-    //Register new response [start mockserver is required]    
+    //Register new response [start mockserver is required]
     await ui5.mockserver.startMockServer(constants.pathToMockServer);
   },
 
@@ -200,11 +184,12 @@ module.exports = {
             filterData.Information = filterData.Information + " tests";
           }
         }
-      }, oParams
+      },
+      oParams
     );
 
     const dataResums = await ui5.mockserver.getEntitySetData(constants.pathToMockServer, constants.entitySet.resumes);
-    //Register new response [start mockserver is required]    
+    //Register new response [start mockserver is required]
     await ui5.mockserver.startMockServer(constants.pathToMockServer);
     return dataResums[0].Information;
   },

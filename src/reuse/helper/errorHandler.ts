@@ -72,12 +72,7 @@ export default class ErrorHandler implements IErrorHandler {
 
           if (initFunctionArray[index].includes("anonymous")) {
             index = index - 1;
-            functionName =
-              index < 0
-                ? functionName
-                : initFunctionArray[index].includes(".")
-                ? initFunctionArray[index].substring(initFunctionArray[index].indexOf(".") + 1)
-                : initFunctionArray[index];
+            functionName = index < 0 ? functionName : initFunctionArray[index].includes(".") ? initFunctionArray[index].substring(initFunctionArray[index].indexOf(".") + 1) : initFunctionArray[index];
           }
           index++;
         }
@@ -102,8 +97,6 @@ export default class ErrorHandler implements IErrorHandler {
 
   private _formatStackMessage(errorMessage: string): string {
     errorMessage = errorMessage.trim();
-    return errorMessage.match(/\b(Function|function)\s*'([a-zA-Z_-]*)'\s*failed with\s*\b:/)
-      ? errorMessage.replaceAll(errorMessage.substring(0, errorMessage.indexOf(":") + 1), "").trim()
-      : errorMessage;
+    return errorMessage.match(/\b(Function|function)\s*'([a-zA-Z_-]*)'\s*failed with\s*\b:/) ? errorMessage.replaceAll(errorMessage.substring(0, errorMessage.indexOf(":") + 1), "").trim() : errorMessage;
   }
 }

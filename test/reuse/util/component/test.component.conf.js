@@ -16,8 +16,5 @@ exports.config = merge(profile.config, {
     }
   },
 
-  specs: [
-    path.resolve(__dirname, "storeEntryPoint.spec.js"),
-    path.resolve(__dirname, "loadEntryPoint.spec.js"),
-  ]
+  specs: [path.resolve(__dirname, "storeEntryPoint.spec.js"), path.resolve(__dirname, "loadEntryPoint.spec.js")]
 });
