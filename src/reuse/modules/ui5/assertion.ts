@@ -42,8 +42,8 @@ export class Assertion {
     try {
       await browser.waitUntil(
         async () => {
-          ui5PropertyValue = String(await this._getUI5Property(elem, attribute));
-          innerUI5PropertyValue = String(await this._getInnerUI5Property(elem, attribute));
+          ui5PropertyValue = this._normalizeString(await this._getUI5Property(elem, attribute));
+          innerUI5PropertyValue = this._normalizeString(await this._getInnerUI5Property(elem, attribute));
           if (ui5PropertyValue === compareValue) {
             value = ui5PropertyValue;
             return true;
@@ -95,8 +95,8 @@ export class Assertion {
     try {
       await browser.waitUntil(
         async () => {
-          ui5PropertyValue = String(await this._getUI5Property(elem, attribute));
-          innerUI5PropertyValue = String(await this._getInnerUI5Property(elem, attribute));
+          ui5PropertyValue = this._normalizeString(await this._getUI5Property(elem, attribute));
+          innerUI5PropertyValue = this._normalizeString(await this._getInnerUI5Property(elem, attribute));
           if (ui5PropertyValue.includes(compareValue)) {
             value = ui5PropertyValue;
             return true;
@@ -505,6 +505,15 @@ export class Assertion {
     if (!attribute || typeof attribute !== "string") {
       this.ErrorHandler.logException(new Error("Please check your attribute argument."));
     }
+  }
+
+  private _normalizeString(value: any) {
+    const customSpaceCharacters = new RegExp("[\u00A0\u2002\u2003\u2007\u2009\u202F]", "g");
+    const invisibleCharacters = new RegExp("[\u200B\u200C\u200D\uFEFF]", "g");
+
+    return String(value ?? "")
+      .replace(customSpaceCharacters, " ")
+      .replace(invisibleCharacters, "");
   }
 }
 export default new Assertion();
