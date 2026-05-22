@@ -1,7 +1,7 @@
 "use strict";
 let selector;
 
-describe.skip("assertion - expectAttributeToBe: title to be 'Laptops' (string)", function () {
+describe("assertion - expectAttributeToBe: title to be 'Laptops' (string)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -22,7 +22,7 @@ describe.skip("assertion - expectAttributeToBe: title to be 'Laptops' (string)",
   });
 });
 
-describe.skip("assertion - expectAttributeToBe wrong/null/undefined", function () {
+describe("assertion - expectAttributeToBe wrong/null/undefined", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -50,7 +50,7 @@ describe.skip("assertion - expectAttributeToBe wrong/null/undefined", function (
   });
 });
 
-describe.skip("assertion - expectAttributeToBe: 'visible' of the listItem to be true (boolean and as string)", function () {
+describe("assertion - expectAttributeToBe: 'visible' of the listItem to be true (boolean and as string)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
@@ -72,7 +72,7 @@ describe.skip("assertion - expectAttributeToBe: 'visible' of the listItem to be 
   });
 });
 
-describe.skip("assertion - expectAttributeToBe: 'busyIndicatorDelay' of the listItem to be 1000 (number and as string)", function () {
+describe("assertion - expectAttributeToBe: 'busyIndicatorDelay' of the listItem to be 1000 (number and as string)", function () {
   it("Preparation", async function () {
     await browser.url("#/categories");
   });
