@@ -73,3 +73,45 @@ describe("assertion - expectAttributeToContain with wrong compareValue (unhappy 
     await expect(ui5.assertion.expectAttributeToContain(selector, "text", 123)).rejects.toThrow("Welcome to the Shopping Cart");
   });
 });
+
+describe("assertion - expectAttributeToContain text with special spaces characters", function () {
+  const specialSpacesString = "-\u00A0-\u2002-\u2003-\u2007-\u2009-\u202F-";
+  const normalizedString = "- - - - - - -";
+  const selector = {
+    elementProperties: {
+      metadata: "sap.m.Title",
+      id: "container-cart---homeView--page-title"
+    }
+  };
+
+  it("Preparation", async function () {
+    await browser.url("#/categories");
+    await browser.uiControls(selector);
+    await browser.execute(`sap.ui.getCore().byId("${selector.elementProperties.id}").setText("${specialSpacesString}")`);
+  });
+
+  it("Execution && Verification", async function () {
+    await ui5.assertion.expectAttributeToContain(selector, "text", normalizedString);
+  });
+});
+
+describe("assertion - expectAttributeToContain text with invisible characters", function () {
+  const invisibleCharacters = "-\u200B-\u200C-\u200D-\uFEFF-";
+  const normalizedString = "-----";
+  const selector = {
+    elementProperties: {
+      metadata: "sap.m.Title",
+      id: "container-cart---homeView--page-title"
+    }
+  };
+
+  it("Preparation", async function () {
+    await browser.url("#/categories");
+    await browser.uiControls(selector);
+    await browser.execute(`sap.ui.getCore().byId("${selector.elementProperties.id}").setText("${invisibleCharacters}")`);
+  });
+
+  it("Execution && Verification", async function () {
+    await ui5.assertion.expectAttributeToContain(selector, "text", normalizedString);
+  });
+});
