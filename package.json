@@ -4,6 +4,15 @@
   "author": "SAP SE",
   "types": "./@types/**.d.ts",
   "main": "./lib/index.js",
+  "allowScripts": {
+    "appium": true,
+    "chromedriver": true,
+    "edgedriver": true,
+    "esbuild": true,
+    "geckodriver": true,
+    "sharp": true,
+    "appium-ios-tuntap": true
+  },
   "maintainers": [
     {
       "name": "Benjamin Warth",
