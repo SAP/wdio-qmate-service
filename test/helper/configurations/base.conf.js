@@ -1,14 +1,24 @@
 /* eslint-disable no-console */
 const WdioQmateService = require("../../../lib/index.js");
 const chromedriverPath = require("chromedriver").path;
+const { execSync } = require("child_process");
 const fs = require("fs");
 
 if (!process.env.CHROME_DRIVER || !fs.existsSync(process.env.CHROME_DRIVER)) {
   if (fs.existsSync(chromedriverPath)) {
     process.env.CHROME_DRIVER = chromedriverPath;
   } else {
-    console.error("Path to chromedriver bin is wrong." + process.env.CHROME_DRIVER || chromedriverPath);
-    process.exit(1);
+    try {
+      const systemPath = execSync("which chromedriver", { encoding: "utf8" }).trim();
+      if (systemPath && fs.existsSync(systemPath)) {
+        process.env.CHROME_DRIVER = systemPath;
+      } else {
+        throw new Error();
+      }
+    } catch {
+      console.error("Path to chromedriver bin is wrong: " + (process.env.CHROME_DRIVER || chromedriverPath));
+      process.exit(1);
+    }
   }
 }
 
