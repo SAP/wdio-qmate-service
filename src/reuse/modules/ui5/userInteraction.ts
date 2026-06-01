@@ -729,71 +729,36 @@ export class UserInteraction {
   // =================================== HELPER ===================================
   private async _getClickableElement(selector: any, index: number, timeout: number): Promise<Element> {
     let elem: Element | null = null;
-    const allBlockedMsg = `No clickable elements found with selector: ${JSON.stringify(selector)}`;
-    const indexOutOfBoundsMsg = `Index is out of bounds. No elements with index: ${index}`
-    const timeoutMsg = `Element not clickable after ${timeout / 1000}s`;
-    const QUICK_TIMEOUT_MSG = "__QUICK_TIMEOUT__";
-    
-    const firstPhaseTimeout = Math.min(timeout, UserInteraction.OVERLAY_CHECK_TIMEOUT);
-    const isQuickPhase = firstPhaseTimeout < timeout;
+    const nonClickableMsg = `Element is not clickable after ${timeout / 1000}s`;
+    const timeoutMsg = `Not found elements with selector: ${JSON.stringify(selector)}`;
 
-    const resolveZIndex = async (elem: Element): Promise<number> => {
-      const zIndex: string = await nonUi5.element.getCssPropertyValue(elem, "z-index");
-      if (zIndex === "auto") {
-        const parentElement = await elem.parentElement();
-        return (parentElement ? await resolveZIndex(parentElement) : 0);
+    await browser.waitUntil(
+      async () => {
+        let elems: Array<Element> = [];
+        await browser.waitUntil(
+          async () => {
+            elems = await ui5.element.getAllDisplayed(selector, timeout);
+            return elems.length !== 0;
+          },
+          {
+            timeout: timeout,
+            interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
+            timeoutMsg: timeoutMsg
+          }
+        );
+        // Non-clickable elements are not counts while indexing
+        const isClickableFlags = await Promise.all(elems.map(async (e) => e.isClickable()));
+        elem = elems.filter((_, i) => isClickableFlags[i])[index];
+
+        return !!elem;
+      },
+      {
+        timeout: timeout,
+        interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
+        timeoutMsg: nonClickableMsg
       }
-      return parseInt(zIndex);
-    }
+    );
 
-    const poll = async () => {
-      elem = await ui5.element.getDisplayed(selector, index, timeout);
-      return !!(elem && (await elem.isClickable()));
-    };
-
-    try {
-      // If the element becomes clickable during the quick phase, return immediately.
-      await browser.waitUntil(poll, {
-        timeout: firstPhaseTimeout,
-        timeoutMsg: isQuickPhase ? QUICK_TIMEOUT_MSG : timeoutMsg
-      });
-      return elem!;
-    } catch (e: any) {
-      // If the error message is not the "quick" timeout, we fail fast and exit the function.
-      //
-      // If it *is* the "quick" timeout, only the initial short wait expired.
-      // This means the element exists but is not clickable yet, and we
-      // intentionally continue with additional checks instead of throwing.
-      if (!isQuickPhase || e?.message !== QUICK_TIMEOUT_MSG) {
-        throw e;
-      }
-    }
-
-    // Some target elements can be un-clickable due to UI5 block layer (i.e. when dialog window appears)
-    // The block layer changes its own z-index dynamically depending on top layered context
-    // All the elements with z-index below are blocked
-    const blockLayerSelector: CssSelector = "div[class='sapUiBLy'][style*='visibility: visible']";
-    const isBlockActive = await nonUi5.element.isPresentByCss(blockLayerSelector, 0, timeout);
-
-    if(isBlockActive) {
-      const elems = await ui5.element.getAllDisplayed(selector, timeout);
-      const minZIndex = await resolveZIndex(await nonUi5.element.getByCss(blockLayerSelector));
-      const unblockedElems: Array<Element> = [];
-      for (const elem of elems) {
-          // Element count as non-blocked only if it arranged with or above than block layer.
-          if(await resolveZIndex(elem) >= minZIndex) 
-            unblockedElems.push(elem);
-      }
-      if (unblockedElems.length === 0) this.ErrorHandler.logException(new Error(), allBlockedMsg);
-      if (index >= unblockedElems.length) this.ErrorHandler.logException(new Error(), indexOutOfBoundsMsg);
-      elem = unblockedElems[index];
-    }
-
-    // Element is not blocked — continue waiting for the remaining time.
-    await browser.waitUntil(poll, {
-      timeout: timeout - firstPhaseTimeout,
-      timeoutMsg
-    });
     return elem!;
   }
 
