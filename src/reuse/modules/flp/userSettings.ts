@@ -10,6 +10,8 @@ import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 export class UserSettings {
   private vlf = new VerboseLoggerFactory("util", "userSettings");
   private _srvInstance = null;
+  private _user: string = "";
+  private _password: string = "";
 
   /**
    * @private
@@ -27,12 +29,15 @@ export class UserSettings {
       throw new Error(`${emptyField} is empty, undefined or null. Please provide valid credentials for S4 User Setting Service initialization.`);
     }
 
-    if (!this._srvInstance) {
+    // if username or password changes re-initialize odata service instance
+    if (!this._srvInstance || user !== this._user || password !== this._password) {
       const vl = this.vlf.initLog(await this._initS4UserSettingService);
       const params = browser.config.params;
       if (params?.systemUrl) {
         try {
           this._srvInstance = await service.odata.init(`${params.systemUrl}/sap/opu/odata/UI2/INTEROP`, user, password);
+          this._user = user;
+          this._password = password;
         } catch (error) {
           if (error instanceof Error) {
             throw new Error(`Failed to initialize S4 User Setting Service: ${error.message}.`);
