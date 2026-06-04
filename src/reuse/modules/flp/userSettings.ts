@@ -29,7 +29,7 @@ export class UserSettings {
       throw new Error(`${emptyField} is empty, undefined or null. Please provide valid credentials for S4 User Setting Service initialization.`);
     }
 
-    // if username or password changes re-initialize odata service instance
+    // If service instance is not initialized, OR username or password changes --> re-initialize odata service instance
     if (!this._srvInstance || user !== this._user || password !== this._password) {
       const vl = this.vlf.initLog(await this._initS4UserSettingService);
       const params = browser.config.params;
