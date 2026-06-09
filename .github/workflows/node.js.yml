@@ -11,10 +11,10 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [24.x]
+        node-version: [24.15.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
@@ -29,10 +29,10 @@ jobs:
           npm run lint
 
   test-core:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [24.x]
+        node-version: [24.15.x]
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -46,10 +46,10 @@ jobs:
           npm run test:core
 
   test-authenticator:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [24.x]
+        node-version: [24.15.x]
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -63,10 +63,10 @@ jobs:
           npm run test:authenticator:staticLogin
 
   test-common:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [24.x]
+        node-version: [24.15.x]
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -80,10 +80,10 @@ jobs:
           npm run test:reuse:common
 
   test-ui5-1:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [24.x]
+        node-version: [24.15.x]
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -97,10 +97,10 @@ jobs:
           npm run test:reuse:ui5:pt1
 
   test-ui5-2:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [24.x]
+        node-version: [24.15.x]
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -114,10 +114,10 @@ jobs:
           npm run test:reuse:ui5:pt2
 
   test-non-ui5:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [24.x]
+        node-version: [24.15.x]
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -131,10 +131,10 @@ jobs:
           npm run test:reuse:nonUi5
 
   test-util:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [24.x]
+        node-version: [24.15.x]
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -149,11 +149,11 @@ jobs:
 
   test-util-data-privacy:
     if: ${{ !github.event.pull_request.head.repo.fork }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     environment: test
     strategy:
       matrix:
-        node-version: [24.x]
+        node-version: [24.15.x]
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -169,10 +169,10 @@ jobs:
           npm run test:reuse:util:data:privacy
           
   test-service:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [24.x]
+        node-version: [24.15.x]
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -186,10 +186,10 @@ jobs:
           npm run test:reuse:service
 
   test-unit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [24.x]
+        node-version: [24.15.x]
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - name: Use Node.js ${{ matrix.node-version }}

@@ -1,0 +1,132 @@
+# Dependabot configuration
+# Reference: https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+#
+# Hardening rationale (supply-chain defence — e.g. "Shai-Hulud" npm worm, Sept 2025):
+#   - `cooldown` delays PRs for newly published versions so the npm registry and
+#     the wider ecosystem have time to detect, flag and unpublish malicious
+#     releases before we adopt them. The Shai-Hulud worm propagated almost
+#     exclusively through patch/minor releases of legitimate packages, so we
+#     apply a meaningful cooldown to every semver bucket — not just majors.
+#   - Cooldown does NOT apply to Dependabot *security* updates, which still
+#     flow through immediately for advisories (GHSA / CVE).
+#   - GitHub Actions are SHA-pinned in our workflows. Dependabot updates the
+#     pinned SHA + the trailing version comment; this protects against tag
+#     rewriting and compromised actions (e.g. tj-actions/changed-files, 2025).
+#   - Updates are grouped to make reviewer attention finite and meaningful;
+#     a flood of individual PRs degrades into rubber-stamping.
+#   - `versioning-strategy: increase` keeps semver ranges in package.json intact
+#     and only bumps when a real new version is needed, minimising churn.
+
+version: 2
+
+updates:
+  # ---------------------------------------------------------------------------
+  # npm — runtime + devDependencies + the local `qcrypt` workspace
+  # ---------------------------------------------------------------------------
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 10
+    versioning-strategy: "increase"
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "npm"
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+      include: "scope"
+    # Pin WebdriverIO to the v8 line. Minor/patch updates still flow through;
+    # major bumps (v9+) are deliberately suppressed because the project has
+    # not yet migrated. Remove these entries when ready to upgrade WDIO.
+    # Note: `ignore` does NOT apply to security advisories — a critical CVE
+    # in @wdio/* will still raise a PR even when majors are blocked here.
+    ignore:
+      - dependency-name: "@wdio/*"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "wdio-*"
+        update-types:
+          - "version-update:semver-major"
+
+    # Quarantine new releases until the registry / community have had time to
+    # detect malicious uploads. Security advisories bypass this window.
+    cooldown:
+      default-days: 7
+      semver-major-days: 14
+      semver-minor-days: 7
+      semver-patch-days: 7
+      include:
+        - "*"
+    groups:
+      # Security advisories — keep separate so they're never blocked behind a
+      # large grouped PR review. (Dependabot routes advisory updates here when
+      # they match; otherwise they open as their own PR.)
+      security-updates:
+        applies-to: security-updates
+        patterns:
+          - "*"
+      # Production dependencies — small set, group by semver impact so a
+      # breaking change is never silently bundled with patches.
+      production-minor-and-patch:
+        applies-to: version-updates
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      production-major:
+        applies-to: version-updates
+        dependency-type: "production"
+        update-types:
+          - "major"
+      # Dev dependencies — mostly tooling; safe to bundle more aggressively.
+      development-minor-and-patch:
+        applies-to: version-updates
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+      development-major:
+        applies-to: version-updates
+        dependency-type: "development"
+        update-types:
+          - "major"
+
+  # ---------------------------------------------------------------------------
+  # GitHub Actions — keep SHA pins fresh, including for security advisories
+  # ---------------------------------------------------------------------------
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 5
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(actions)"
+      include: "scope"
+    cooldown:
+      default-days: 7
+      semver-major-days: 14
+      semver-minor-days: 7
+      semver-patch-days: 7
+      include:
+        - "*"
+    groups:
+      actions-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+      actions-all:
+        applies-to: version-updates
+        patterns:
+          - "*"
