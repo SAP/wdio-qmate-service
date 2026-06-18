@@ -86,6 +86,6 @@ export interface Element {
   getUI5Property(property: string): Promise<any>;
   getBindingProperty(property: string): Promise<any>;
   getBindingContextPath(): Promise<string>;
-  uiControl(selector: any, index?: number, timeout?: number): Promise<Element>;
-  uiControls(selector: any, index?: number, timeout?: number): Promise<Array<Element>>;
+  uiControl(selector: any, index?: number, timeout?: number, returnAllDomElements?: boolean): Promise<Element>;
+  uiControls(selector: any, timeout?: number, returnAllDomElements?: boolean): Promise<Array<Element>>;
 }
