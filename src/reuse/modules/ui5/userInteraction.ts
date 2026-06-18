@@ -22,7 +22,6 @@ export class UserInteraction {
   private static readonly TEXTAREA_MACROS_METADATA: Ui5ControlMetadata = "sap.fe.macros.field.TextAreaEx";
   private static readonly SUPPORTED_TEXTAREA_METADATA: Array<Ui5ControlMetadata> = [UserInteraction.TEXTAREA_METADATA, UserInteraction.TEXTAREA_MACROS_METADATA];
   private static readonly SELECT_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.select' function instead.";
-  private static readonly OVERLAY_CHECK_TIMEOUT = 5000;
   private static readonly OPENF4HELP_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.openValueHelp' function instead.";
 
   // =================================== CLICK ===================================
@@ -728,38 +727,53 @@ export class UserInteraction {
 
   // =================================== HELPER ===================================
   private async _getClickableElement(selector: any, index: number, timeout: number): Promise<Element> {
-    let elem: Element | null = null;
+    let elems: Array<Element> | null = null;
     const nonClickableMsg = `Element is not clickable after ${timeout / 1000}s`;
-    const timeoutMsg = `Not found elements with selector: ${JSON.stringify(selector)}`;
+    const indexOutOfBoundsMsg = `Index is out of bounds. No elements with index: ${index}`;
 
-    await browser.waitUntil(
-      async () => {
-        let elems: Array<Element> = [];
-        await browser.waitUntil(
-          async () => {
-            elems = await ui5.element.getAllDisplayed(selector, timeout);
-            return elems.length !== 0;
-          },
-          {
-            timeout: timeout,
-            interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
-            timeoutMsg: timeoutMsg
+    let errorMsg = "Unexpected error";
+    try {
+      await browser.waitUntil(
+        async () => {
+          try {
+            // Handle dialogs overlays
+            const lastOpenedDialog = await this._getLastOpenedDialog();
+            if (lastOpenedDialog) {
+              elems = await lastOpenedDialog.uiControls(selector, timeout);
+            } else {
+              elems = await ui5.element.getAllDisplayed(selector, timeout);
+            }
+          } catch (e) {
+            return ((errorMsg = (e as Error).message), false);
           }
-        );
-        // Non-clickable elements are not counts while indexing
-        const isClickableFlags = await Promise.all(elems.map(async (e) => e.isClickable()));
-        elem = elems.filter((_, i) => isClickableFlags[i])[index];
 
-        return !!elem;
-      },
-      {
-        timeout: timeout,
-        interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
-        timeoutMsg: nonClickableMsg
-      }
-    );
+          if (index >= elems!.length) return ((errorMsg = indexOutOfBoundsMsg), false);
+          if (!(await elems[index].isClickable())) return ((errorMsg = nonClickableMsg), false);
+          return true;
+        },
+        {
+          timeout: timeout,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
+        }
+      );
+    } catch (e) {
+      this.ErrorHandler.logException(new Error(), errorMsg);
+    }
 
-    return elem!;
+    return elems![index];
+  }
+
+  private async _getLastOpenedDialog(): Promise<Element | undefined> {
+    const vl = this.vlf.initLog(this._getLastOpenedDialog);
+    const lastOpenedDialogId = await browser.execute(() => {
+      const staticAreaDomElems = [...sap.ui.getCore().getStaticAreaRef().children];
+      const sapElems = staticAreaDomElems.flatMap((elem) => sap.ui.getCore().byId(elem.id) ?? []);
+      const dialogs = sapElems.filter((popup) => popup.isA("sap.m.Dialog"));
+      return dialogs.splice(-1)[0]?.getId();
+    });
+    if (!lastOpenedDialogId) return undefined;
+    vl.log(`Found opened dialog with id: ${lastOpenedDialogId}`);
+    return await nonUi5.element.getById(lastOpenedDialogId);
   }
 
   private async _verifyTabSwitch(selector: any): Promise<boolean> {
