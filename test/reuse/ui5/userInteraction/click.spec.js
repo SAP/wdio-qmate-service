@@ -122,7 +122,7 @@ describe("userInteraction - click unblocked button and ignore blocked one", func
   const assertSelector = {
     elementProperties: {
       metadata: "sap.m.Title",
-      id: "__field2-sfEdit-input-valueHelpDialog-title"
+      text: "Select: ISO Currency Code"
     }
   };
 
