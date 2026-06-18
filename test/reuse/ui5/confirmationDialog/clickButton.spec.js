@@ -55,7 +55,7 @@ describe("confirmationDialog - clickButton - text 'OK' without confirmation dial
   it("Execution and Verification", async function () {
     await expect(ui5.element.getDisplayed(selectorForPopupOkButton)).rejects.toThrow(/No visible elements found/);
 
-    await expect(ui5.confirmationDialog.clickButton("OK")).rejects.toThrow(/waitUntil condition failed/);
+    await expect(ui5.confirmationDialog.clickButton("OK")).rejects.toThrow(/No visible elements found/);
   });
 });
 

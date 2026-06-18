@@ -60,6 +60,6 @@ describe("confirmationDialog - clickOk without confirmation dialog (unhappy case
     // No dialog with "Ok" button
     await expect(ui5.element.getDisplayed(selectorForPopupOkButton)).rejects.toThrow(/No visible elements found/);
 
-    await expect(ui5.confirmationDialog.clickOk()).rejects.toThrow(/waitUntil condition failed/);
+    await expect(ui5.confirmationDialog.clickOk()).rejects.toThrow(/No visible elements found/);
   });
 });
