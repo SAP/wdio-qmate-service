@@ -35,7 +35,6 @@ updates:
     target-branch: "main"
     labels:
       - "dependencies"
-      - "npm"
     commit-message:
       prefix: "chore(deps)"
       prefix-development: "chore(deps-dev)"
@@ -103,7 +102,6 @@ updates:
     target-branch: "main"
     labels:
       - "dependencies"
-      - "github-actions"
     commit-message:
       prefix: "chore(actions)"
       include: "scope"
