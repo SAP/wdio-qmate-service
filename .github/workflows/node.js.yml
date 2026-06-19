@@ -160,6 +160,15 @@ jobs:
         uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Verify secret is loaded
+        env:
+          QMATE_PRIVATE_KEY: ${{ secrets.QMATE_PRIVATE_KEY }}
+        run: |
+          if [ -z "$QMATE_PRIVATE_KEY" ]; then
+            echo "ERROR: QMATE_PRIVATE_KEY is empty!"
+            exit 1
+          fi
+          echo "QMATE_PRIVATE_KEY is set (${#QMATE_PRIVATE_KEY} chars, starts with: ${QMATE_PRIVATE_KEY:0:10}...)"
       - name: run tests
         env:
           QMATE_PRIVATE_KEY: ${{ secrets.QMATE_PRIVATE_KEY }}
