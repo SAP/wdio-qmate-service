@@ -151,7 +151,6 @@ jobs:
   test-util-data-privacy:
     if: ${{ !github.event.pull_request.head.repo.fork }}
     runs-on: ubuntu-22.04
-    environment: test
     strategy:
       matrix:
         node-version: [24.15.x]
