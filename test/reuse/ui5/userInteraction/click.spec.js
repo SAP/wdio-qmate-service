@@ -113,13 +113,13 @@ describe("userInteraction - click disabled button (negative test)", function () 
 });
 
 describe("userInteraction - click unblocked button and ignore blocked one", function () {
-  const selector = {
+  const createButtonSelector = {
     elementProperties: {
       metadata: "sap.m.Button",
       text: "Create"
     }
   };
-  const assertSelector = {
+  const currencyCodeSelector = {
     elementProperties: {
       metadata: "sap.m.Title",
       text: "Select: ISO Currency Code"
@@ -128,7 +128,7 @@ describe("userInteraction - click unblocked button and ignore blocked one", func
 
   it("Preparation", async function () {
     await browser.navigateTo(`${BASE_URL}/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#/?sap-iapp-state=3&sap-iapp-state--history=1`);
-    await ui5.userInteraction.click(selector);
+    await ui5.userInteraction.click(createButtonSelector);
     const valueHelpIconSelector = {
       elementProperties: {
         metadata: "sap.ui.core.Icon",
@@ -139,20 +139,20 @@ describe("userInteraction - click unblocked button and ignore blocked one", func
       }
     };
     await ui5.userInteraction.click(valueHelpIconSelector);
-    await ui5.assertion.expectToBeVisible(assertSelector);
+    await ui5.assertion.expectToBeVisible(currencyCodeSelector);
   });
 
   it("Execution", async function () {
-    const selector = {
+    const cancelButtonSelector = {
       elementProperties: {
         metadata: "sap.m.Button",
         text: "Cancel"
       }
     };
-    await ui5.userInteraction.click(selector, 0, 30000);
+    await ui5.userInteraction.click(cancelButtonSelector, 0, 30000);
   });
 
   it("Verification", async function () {
-    await ui5.assertion.expectToBeNotVisible(assertSelector, NEGATIVE_TEST_TIMEOUT);
+    await ui5.assertion.expectToBeNotVisible(currencyCodeSelector, NEGATIVE_TEST_TIMEOUT);
   });
 });
