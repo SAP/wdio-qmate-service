@@ -47,8 +47,7 @@ updates:
     # in @wdio/* will still raise a PR even when majors are blocked here.
     ignore:
       - dependency-name: "@wdio/*"
-        update-types:
-          - "version-update:semver-major"
+        versions: [ ">=9.0.0" ]
       - dependency-name: "wdio-*"
         update-types:
           - "version-update:semver-major"
@@ -63,13 +62,6 @@ updates:
       include:
         - "*"
     groups:
-      # Security advisories — keep separate so they're never blocked behind a
-      # large grouped PR review. (Dependabot routes advisory updates here when
-      # they match; otherwise they open as their own PR.)
-      security-updates:
-        applies-to: security-updates
-        patterns:
-          - "*"
       # Production dependencies — small set, group by semver impact so a
       # breaking change is never silently bundled with patches.
       production-minor-and-patch:
@@ -119,10 +111,6 @@ updates:
       include:
         - "*"
     groups:
-      actions-security:
-        applies-to: security-updates
-        patterns:
-          - "*"
       actions-all:
         applies-to: version-updates
         patterns:
