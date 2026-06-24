@@ -22,7 +22,6 @@ export class UserInteraction {
   private static readonly TEXTAREA_MACROS_METADATA: Ui5ControlMetadata = "sap.fe.macros.field.TextAreaEx";
   private static readonly SUPPORTED_TEXTAREA_METADATA: Array<Ui5ControlMetadata> = [UserInteraction.TEXTAREA_METADATA, UserInteraction.TEXTAREA_MACROS_METADATA];
   private static readonly SELECT_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.select' function instead.";
-  private static readonly OVERLAY_CHECK_TIMEOUT = 5000;
   private static readonly OPENF4HELP_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.openValueHelp' function instead.";
 
   // =================================== CLICK ===================================
@@ -728,73 +727,53 @@ export class UserInteraction {
 
   // =================================== HELPER ===================================
   private async _getClickableElement(selector: any, index: number, timeout: number): Promise<Element> {
-    let elem: Element | null = null;
-    const allBlockedMsg = `No clickable elements found with selector: ${JSON.stringify(selector)}`;
-    const indexOutOfBoundsMsg = `Index is out of bounds. No elements with index: ${index}`
-    const timeoutMsg = `Element not clickable after ${timeout / 1000}s`;
-    const QUICK_TIMEOUT_MSG = "__QUICK_TIMEOUT__";
-    
-    const firstPhaseTimeout = Math.min(timeout, UserInteraction.OVERLAY_CHECK_TIMEOUT);
-    const isQuickPhase = firstPhaseTimeout < timeout;
+    let elems: Array<Element> | null = null;
+    const nonClickableMsg = `Element is not clickable after ${timeout / 1000}s`;
+    const indexOutOfBoundsMsg = `Index is out of bounds. No elements with index: ${index}`;
 
-    const resolveZIndex = async (elem: Element): Promise<number> => {
-      const zIndex: string = await nonUi5.element.getCssPropertyValue(elem, "z-index");
-      if (zIndex === "auto") {
-        const parentElement = await elem.parentElement();
-        return (parentElement ? await resolveZIndex(parentElement) : 0);
-      }
-      return parseInt(zIndex);
-    }
-
-    const poll = async () => {
-      elem = await ui5.element.getDisplayed(selector, index, timeout);
-      return !!(elem && (await elem.isClickable()));
-    };
-
+    let errorMsg = "Unexpected error";
     try {
-      // If the element becomes clickable during the quick phase, return immediately.
-      await browser.waitUntil(poll, {
-        timeout: firstPhaseTimeout,
-        timeoutMsg: isQuickPhase ? QUICK_TIMEOUT_MSG : timeoutMsg
-      });
-      return elem!;
-    } catch (e: any) {
-      // If the error message is not the "quick" timeout, we fail fast and exit the function.
-      //
-      // If it *is* the "quick" timeout, only the initial short wait expired.
-      // This means the element exists but is not clickable yet, and we
-      // intentionally continue with additional checks instead of throwing.
-      if (!isQuickPhase || e?.message !== QUICK_TIMEOUT_MSG) {
-        throw e;
-      }
+      await browser.waitUntil(
+        async () => {
+          try {
+            // Handle dialogs overlays
+            const lastOpenedDialog = await this._getLastOpenedDialog();
+            if (lastOpenedDialog) {
+              elems = await lastOpenedDialog.uiControls(selector, timeout);
+            } else {
+              elems = await ui5.element.getAllDisplayed(selector, timeout);
+            }
+          } catch (e) {
+            return ((errorMsg = (e as Error).message), false);
+          }
+
+          if (index >= elems!.length) return ((errorMsg = indexOutOfBoundsMsg), false);
+          if (!(await elems[index].isClickable())) return ((errorMsg = nonClickableMsg), false);
+          return true;
+        },
+        {
+          timeout: timeout,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
+        }
+      );
+    } catch (e) {
+      this.ErrorHandler.logException(new Error(), errorMsg);
     }
 
-    // Some target elements can be un-clickable due to UI5 block layer (i.e. when dialog window appears)
-    // The block layer changes its own z-index dynamically depending on top layered context
-    // All the elements with z-index below are blocked
-    const blockLayerSelector: CssSelector = "div[class='sapUiBLy'][style*='visibility: visible']";
-    const isBlockActive = await nonUi5.element.isPresentByCss(blockLayerSelector, 0, timeout);
+    return elems![index];
+  }
 
-    if(isBlockActive) {
-      const elems = await ui5.element.getAllDisplayed(selector, timeout);
-      const minZIndex = await resolveZIndex(await nonUi5.element.getByCss(blockLayerSelector));
-      const unblockedElems: Array<Element> = [];
-      for (const elem of elems) {
-          // Element count as non-blocked only if it arranged with or above than block layer.
-          if(await resolveZIndex(elem) >= minZIndex) 
-            unblockedElems.push(elem);
-      }
-      if (unblockedElems.length === 0) this.ErrorHandler.logException(new Error(), allBlockedMsg);
-      if (index >= unblockedElems.length) this.ErrorHandler.logException(new Error(), indexOutOfBoundsMsg);
-      elem = unblockedElems[index];
-    }
-
-    // Element is not blocked — continue waiting for the remaining time.
-    await browser.waitUntil(poll, {
-      timeout: timeout - firstPhaseTimeout,
-      timeoutMsg
+  private async _getLastOpenedDialog(): Promise<Element | undefined> {
+    const vl = this.vlf.initLog(this._getLastOpenedDialog);
+    const lastOpenedDialogId = await browser.execute(() => {
+      const staticAreaDomElems = [...sap.ui.getCore().getStaticAreaRef().children];
+      const sapElems = staticAreaDomElems.flatMap((elem) => sap.ui.getCore().byId(elem.id) ?? []);
+      const dialogs = sapElems.filter((popup) => popup.isA("sap.m.Dialog"));
+      return dialogs.splice(-1)[0]?.getId();
     });
-    return elem!;
+    if (!lastOpenedDialogId) return undefined;
+    vl.log(`Found opened dialog with id: ${lastOpenedDialogId}`);
+    return await nonUi5.element.getById(lastOpenedDialogId);
   }
 
   private async _verifyTabSwitch(selector: any): Promise<boolean> {

@@ -1,6 +1,11 @@
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
+// =================== CONSTANTS ==========================================
+const NEGATIVE_TEST_TIMEOUT = 10_000;
+
+// =================== TESTS ==============================================
+
 describe("userInteraction - click", function () {
   it("Preparation", async function () {
     await browser.navigateTo(`${BASE_URL}/`);
@@ -38,8 +43,7 @@ describe("userInteraction - click on not displayed element", function () {
       }
     };
     const index = 0;
-    const timeout = 30000;
-    await expect(ui5.userInteraction.click(selector, index, timeout)).rejects.toThrow(/No visible elements found/);
+    await expect(ui5.userInteraction.click(selector, index, NEGATIVE_TEST_TIMEOUT)).rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -65,7 +69,7 @@ describe("userInteraction - click on invisible element", function () {
     const timeout = 30000;
     await ui5.userInteraction.click(selector, index, timeout);
     await browser.pause(1000);
-    await expect(ui5.userInteraction.click(selector, index, timeout)).rejects.toThrow(/No clickable elements found/);
+    await expect(ui5.userInteraction.click(selector, index, NEGATIVE_TEST_TIMEOUT)).rejects.toThrow(/No visible elements found with selector/);
   });
 });
 
@@ -91,30 +95,64 @@ describe("userInteraction - click with selector having wildcard character(*) for
   });
 });
 
-describe("userInteraction - click unblocked button and ignore blocked one", function () {
+describe("userInteraction - click disabled button (negative test)", function () {
   const selector = {
     elementProperties: {
       metadata: "sap.m.Button",
-      text: "Create"
+      text: "Transient Message"
     }
   };
 
   it("Preparation", async function () {
     await browser.navigateTo(`${BASE_URL}/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#/?sap-iapp-state=3&sap-iapp-state--history=1`);
-    await ui5.userInteraction.click(selector);
+  });
+
+  it("Execution && Verification", async function () {
+    await expect(ui5.userInteraction.click(selector, 0, NEGATIVE_TEST_TIMEOUT)).rejects.toThrow(/Element is not clickable after/);
+  });
+});
+
+describe("userInteraction - click unblocked button and ignore blocked one", function () {
+  const createButtonSelector = {
+    elementProperties: {
+      metadata: "sap.m.Button",
+      text: "Create"
+    }
+  };
+  const currencyCodeSelector = {
+    elementProperties: {
+      metadata: "sap.m.Title",
+      text: "Select: ISO Currency Code"
+    }
+  };
+
+  it("Preparation", async function () {
+    await browser.navigateTo(`${BASE_URL}/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#/?sap-iapp-state=3&sap-iapp-state--history=1`);
+    await ui5.userInteraction.click(createButtonSelector);
+    const valueHelpIconSelector = {
+      elementProperties: {
+        metadata: "sap.ui.core.Icon",
+        alt: "Show Value Help",
+        ancestorProperties: {
+          tooltipLabel: "EPM: Total Gross Amount"
+        }
+      }
+    };
+    await ui5.userInteraction.click(valueHelpIconSelector);
+    await ui5.assertion.expectToBeVisible(currencyCodeSelector);
   });
 
   it("Execution", async function () {
-    await ui5.userInteraction.click(selector, 0, 30000);
+    const cancelButtonSelector = {
+      elementProperties: {
+        metadata: "sap.m.Button",
+        text: "Cancel"
+      }
+    };
+    await ui5.userInteraction.click(cancelButtonSelector, 0, 30000);
   });
 
   it("Verification", async function () {
-    const assertSelector = {
-      elementProperties: {
-        metadata: "sap.m.Input",
-        valueStateText: "ISO Currency Code is a required field."
-      }
-    };
-    await ui5.assertion.expectToBeVisible(assertSelector);
+    await ui5.assertion.expectToBeNotVisible(currencyCodeSelector, NEGATIVE_TEST_TIMEOUT);
   });
 });

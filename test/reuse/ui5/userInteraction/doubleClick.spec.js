@@ -65,6 +65,6 @@ describe("userInteraction - doubleClick on invisible element", function () {
     const timeout = 30000;
     await ui5.userInteraction.doubleClick(selector, index, timeout);
     await browser.pause(1000);
-    await expect(ui5.userInteraction.doubleClick(selector, index, timeout)).rejects.toThrow(/No clickable elements found/);
+    await expect(ui5.userInteraction.doubleClick(selector, index, timeout)).rejects.toThrow(/No visible elements found/);
   });
 });
