@@ -9,13 +9,10 @@ import commonQmate from "./modules/common/Common";
 import ui5Qmate from "./modules/ui5/Ui5";
 import nonUi5Qmate from "./modules/nonUi5/NonUi5";
 import serviceQmate from "./modules/service/Service";
-import mobileQmate from "./modules/mobile/Mobile";
 import flpQmate from "./modules/flp/Flp";
 
 // data
 import authenticators from "./data/authenticators.json";
-import android from "./modules/mobile/android";
-import ios from "./modules/mobile/ios";
 
 class ReuseLibrary {
   load() {
@@ -112,23 +109,6 @@ class ReuseLibrary {
     global.service = {
       ...service,
       ...global.service
-    };
-
-    /**
-     * @global
-     * @description Global namespace for mobile modules.
-     */
-    const mobile = {
-      element: mobileQmate.element,
-      userInteraction: mobileQmate.userInteraction,
-      gestures: mobileQmate.gestures,
-      device: mobileQmate.device,
-      android: mobileQmate.android,
-      ios: mobileQmate.ios
-    };
-    global.mobile = {
-      ...mobile,
-      ...global.mobile
     };
 
     /**
