@@ -2,8 +2,6 @@
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import * as path from "path";
-import { PDFParse } from "pdf-parse";
-import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 import * as fs from "fs";
 import * as xlsx from "xlsx";
 import * as os from "os";
@@ -108,20 +106,9 @@ export class File {
       return this.ErrorHandler.logException(new Error("Please provide a custom rendering method as second parameter."));
     }
 
-    const isCustomRenderer = renderingMethod !== this._renderPage;
-
-    if (!isCustomRenderer) {
-      const options = this._buildPdfParseOptions(pdfStream);
-      const parser = new PDFParse(options);
-      const result = await parser.getText();
-      await parser.destroy();
-      return result.text;
-    }
-
-    // Custom renderer: use pdfjs-dist directly to preserve the pagerender callback API
-    const data = this._toPdfData(pdfStream);
-    // @ts-ignore
-    const doc = await pdfjsLib.getDocument({ data }).promise;
+    const docParams = this._buildDocParams(pdfStream);
+    const pdfjsLib = await this._getPdfjsLib();
+    const doc = await pdfjsLib.getDocument(docParams).promise;
     let text = "";
     for (let i = 1; i <= doc.numPages; i++) {
       const page = await doc.getPage(i);
@@ -358,25 +345,27 @@ export class File {
   }
 
   // =================================== HELPER ===================================
-  private _buildPdfParseOptions(pdfStream: Buffer | Uint8Array | string): any {
+  private async _getPdfjsLib(): Promise<any> {
+    if (!globalThis.DOMMatrix) {
+      globalThis.DOMMatrix = class DOMMatrix {
+        constructor() {}
+      } as any;
+    }
+    return require("pdfjs-dist/legacy/build/pdf.mjs");
+  }
+
+  private _buildDocParams(pdfStream: Buffer | Uint8Array | string): any {
     if (typeof pdfStream === "string") {
       if (pdfStream.startsWith("http://") || pdfStream.startsWith("https://")) {
         return { url: pdfStream };
       }
-      return { url: `file://${pdfStream}` };
-    }
-    return { data: this._toPdfData(pdfStream) };
-  }
-
-  private _toPdfData(pdfStream: Buffer | Uint8Array | string): Uint8Array {
-    if (typeof pdfStream === "string") {
       const buf = fs.readFileSync(pdfStream);
-      return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength);
+      return { data: new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength) };
     }
     if (Buffer.isBuffer(pdfStream)) {
-      return new Uint8Array(pdfStream.buffer, pdfStream.byteOffset, pdfStream.byteLength);
+      return { data: new Uint8Array(pdfStream.buffer, pdfStream.byteOffset, pdfStream.byteLength) };
     }
-    return pdfStream;
+    return { data: pdfStream };
   }
 
   private async _renderPage(pageData: any) {
