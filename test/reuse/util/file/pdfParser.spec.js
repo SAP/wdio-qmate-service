@@ -28,8 +28,7 @@ describe("PDF Parser", function () {
   describe("expectPdfContainsText - from URL", function () {
     it("Execution and Verification", async function () {
       const pdfPath = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
-      // await util.file.expectPdfContainsText(pdfPath, "Dummy PDF file");
-      await util.file.expectPdfContainsText(pdfPath, "Dumm y   PDF  fi le");
+      await util.file.expectPdfContainsText(pdfPath, "Dummy PDF file");
     });
   });
 

@@ -2,7 +2,8 @@
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
 import * as path from "path";
-import pdfParse from "pdf-parse";
+import { PDFParse } from "pdf-parse";
+import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 import * as fs from "fs";
 import * as xlsx from "xlsx";
 import * as os from "os";
@@ -101,18 +102,34 @@ export class File {
    * @see <a href="TODO">Parse PDF</a>
    * @example await util.file.parsePdf(pdfStream, customRenderingMethod);
    */
-  async parsePdf(pdfStream: Buffer, renderingMethod: Function = this._renderPage): Promise<String> {
+  async parsePdf(pdfStream: Buffer | Uint8Array | string, renderingMethod: Function = this._renderPage): Promise<String> {
     const vl = this.vlf.initLog(this.parsePdf);
     if (typeof renderingMethod !== "function") {
       return this.ErrorHandler.logException(new Error("Please provide a custom rendering method as second parameter."));
     }
 
-    const options = {
-      pagerender: renderingMethod
-    };
+    const isCustomRenderer = renderingMethod !== this._renderPage;
+
+    if (!isCustomRenderer) {
+      const options = this._buildPdfParseOptions(pdfStream);
+      const parser = new PDFParse(options);
+      const result = await parser.getText();
+      await parser.destroy();
+      return result.text;
+    }
+
+    // Custom renderer: use pdfjs-dist directly to preserve the pagerender callback API
+    const data = this._toPdfData(pdfStream);
     // @ts-ignore
-    const data = await pdfParse(pdfStream, options);
-    return data.text;
+    const doc = await pdfjsLib.getDocument({ data }).promise;
+    let text = "";
+    for (let i = 1; i <= doc.numPages; i++) {
+      const page = await doc.getPage(i);
+      const pageText = await renderingMethod(page);
+      text += `\n\n${pageText}`;
+    }
+    await doc.destroy();
+    return text;
   }
 
   /**
@@ -125,7 +142,7 @@ export class File {
    * @see <a href="TODO">Parse pdf</a>
    * @example await util.file.expectPdfContainsText(pdfStream, "abc");
    */
-  async expectPdfContainsText(pdfStream: Buffer, text: string, renderingMethod: Function = this._renderPage) {
+  async expectPdfContainsText(pdfStream: Buffer | Uint8Array | string, text: string, renderingMethod: Function = this._renderPage) {
     const vl = this.vlf.initLog(this.expectPdfContainsText);
     if (!text) {
       this.ErrorHandler.logException(new Error("Please provide a text as second parameter."));
@@ -144,7 +161,7 @@ export class File {
    * @see <a href="TODO">Parse pdf</a>
    * @example await util.file.expectPdfNotContainsText(pdfStream, "abc");
    */
-  async expectPdfNotContainsText(pdfStream: Buffer, text: string, renderingMethod: Function = this._renderPage): Promise<boolean> {
+  async expectPdfNotContainsText(pdfStream: Buffer | Uint8Array | string, text: string, renderingMethod: Function = this._renderPage): Promise<boolean> {
     const vl = this.vlf.initLog(this.expectPdfNotContainsText);
     if (!text) {
       return this.ErrorHandler.logException(new Error("Please provide a text as second parameter."));
@@ -341,6 +358,27 @@ export class File {
   }
 
   // =================================== HELPER ===================================
+  private _buildPdfParseOptions(pdfStream: Buffer | Uint8Array | string): any {
+    if (typeof pdfStream === "string") {
+      if (pdfStream.startsWith("http://") || pdfStream.startsWith("https://")) {
+        return { url: pdfStream };
+      }
+      return { url: `file://${pdfStream}` };
+    }
+    return { data: this._toPdfData(pdfStream) };
+  }
+
+  private _toPdfData(pdfStream: Buffer | Uint8Array | string): Uint8Array {
+    if (typeof pdfStream === "string") {
+      const buf = fs.readFileSync(pdfStream);
+      return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength);
+    }
+    if (Buffer.isBuffer(pdfStream)) {
+      return new Uint8Array(pdfStream.buffer, pdfStream.byteOffset, pdfStream.byteLength);
+    }
+    return pdfStream;
+  }
+
   private async _renderPage(pageData: any) {
     // should be in scope of render page due to library specific implementation
     const _parseText = function (textContent: any) {
