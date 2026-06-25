@@ -47,8 +47,7 @@ updates:
     # in @wdio/* will still raise a PR even when majors are blocked here.
     ignore:
       - dependency-name: "@wdio/*"
-        update-types:
-          - "version-update:semver-major"
+        versions: [ ">=9.0.0" ]
       - dependency-name: "wdio-*"
         update-types:
           - "version-update:semver-major"
