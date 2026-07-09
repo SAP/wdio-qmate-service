@@ -108,14 +108,15 @@ export class File {
 
     const docParams = this._buildDocParams(pdfStream);
     const pdfjsLib = await this._getPdfjsLib();
-    const doc = await pdfjsLib.getDocument(docParams).promise;
+    const loadingTask = pdfjsLib.getDocument(docParams);
+    const doc = await loadingTask.promise;
     let text = "";
     for (let i = 1; i <= doc.numPages; i++) {
       const page = await doc.getPage(i);
       const pageText = await renderingMethod(page);
       text += `\n\n${pageText}`;
     }
-    await doc.destroy();
+    await loadingTask.destroy();
     return text;
   }
 
