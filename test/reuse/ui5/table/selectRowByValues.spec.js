@@ -29,7 +29,7 @@ const tableSelector2 = {
   }
 };
 
-const checkBoxSelector2 = "__xmlview0--LineItemsSmartTable-ui5table-rowsel6";
+const rowSelector2 = "__xmlview0--LineItemsSmartTable-ui5table-rows-row6";
 
 const tableSelector3 = {
   elementProperties: {
@@ -56,7 +56,7 @@ const tableSelector4 = {
   }
 };
 
-const checkBoxSelector4 = "sampleComp-sap.ui.mdc.demokit.sample.table.TableTypes---sample--table-innerTable-rowsel1";
+const rowSelector4 = "sampleComp-sap.ui.mdc.demokit.sample.table.TableTypes---sample--table-innerTable-rows-row1";
 
 describe("table - selectRowByValues - demo kit - passing value as string - ui5CheckBox", function () {
   it("Preparation", async function () {
@@ -85,7 +85,7 @@ describe("table - selectRowByValues - demo kit - passing value as array of strin
   });
 
   it("Verification", async function () {
-    const rowElement = await nonUi5.element.getById("__xmlview0--LineItemsSmartTable-ui5table-rows-row6");
+    const rowElement = await nonUi5.element.getById(rowSelector2);
     const isSelected = await nonUi5.element.getAttributeValue(rowElement, "aria-selected");
     common.assertion.expectEqual(isSelected, "true");
   });
@@ -134,7 +134,7 @@ describe("table - selectRowByValues - demo kit - mdc table type - passing value 
   });
 
   it("Verification", async function () {
-    const rowElement = await nonUi5.element.getById("sampleComp-sap.ui.mdc.demokit.sample.table.TableTypes---sample--table-innerTable-rows-row1");
+    const rowElement = await nonUi5.element.getById(rowSelector4);
     const isSelected = await nonUi5.element.getAttributeValue(rowElement, "aria-selected");
     common.assertion.expectEqual(isSelected, "true");
   });
