@@ -363,7 +363,7 @@ export class Table {
   private async getAllColumnValuesByName(tableSelectorOrId: Ui5Selector | string, columnName: string, scrollingEnabled: boolean): Promise<Array<string>> {
     this.vlf.initLog(this.getAllColumnValuesByName);
 
-    const constructedTableSelector = await Table._resolveTableSelectorOrId(tableSelectorOrId);
+    const constructedTableSelector = await this._constructTableSelector(tableSelectorOrId);
     const tableMetadata = (constructedTableSelector as ElementProperties).elementProperties.metadata;
 
     const classCode = TableHelper.serializeClass();
@@ -876,21 +876,34 @@ export class Table {
         {
           type: "ui5RadioButton",
           selector: `tr[id='${id}'] [role='radio']`
-        },
-        {
-          type: "cssItem",
-          selector: `[data-sap-ui-related='${id}'] [role='gridcell']`
         }
       ];
 
       for (const check of selectorChecks) {
-        // Note: Following command slows down the execution and might be used after refactoring service
-        // const isPresent = await nonUi5.element.isPresentByCss(check.selector);
         // @ts-ignore
         if (window.document.querySelector(check.selector)) {
           return check.type;
         }
       }
+
+      // For sap.ui.table.Table rows (ID pattern: ${tableId}-rows-row${N}),
+      // check if the corresponding rowsel element exists (${tableId}-rowsel${N}).
+      // This must be checked before the generic gridcell fallback.
+      const rowMatch = id.match(/^(.+)-rows-row(\d+)$/);
+      if (rowMatch) {
+        const rowSelId = `${rowMatch[1]}-rowsel${rowMatch[2]}`;
+        // @ts-ignore
+        if (window.document.getElementById(rowSelId)) {
+          return "cssItem";
+        }
+      }
+
+      // Generic fallback for other table types
+      // @ts-ignore
+      if (window.document.querySelector(`[data-sap-ui-related='${id}'] [role='gridcell']`)) {
+        return "cssItem";
+      }
+
       return "none";
     }, rowSelector);
   }
@@ -913,8 +926,14 @@ export class Table {
           },
           ancestorProperties: rowSelector.elementProperties
         };
-      case "cssItem":
-        return `[data-sap-ui-related = '${(rowSelector as ElementProperties).elementProperties.id}'] [role='gridcell']`;
+      case "cssItem": {
+        const id = (rowSelector as ElementProperties).elementProperties.id;
+        const rowMatch = id.match(/^(.+)-rows-row(\d+)$/);
+        if (rowMatch) {
+          return `[id='${rowMatch[1]}-rowsel${rowMatch[2]}']`;
+        }
+        return `[data-sap-ui-related = '${id}'] [role='gridcell']`;
+      }
       case "none":
         throw new Error("No selectable CheckBox, RadioButton, or Css element found for the row.");
     }

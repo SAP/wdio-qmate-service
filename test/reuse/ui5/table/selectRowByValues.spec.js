@@ -85,8 +85,8 @@ describe("table - selectRowByValues - demo kit - passing value as array of strin
   });
 
   it("Verification", async function () {
-    const element = await nonUi5.element.getById(checkBoxSelector2);
-    const isSelected = await nonUi5.element.getAttributeValue(element, "aria-selected");
+    const rowElement = await nonUi5.element.getById("__xmlview0--LineItemsSmartTable-ui5table-rows-row6");
+    const isSelected = await nonUi5.element.getAttributeValue(rowElement, "aria-selected");
     common.assertion.expectEqual(isSelected, "true");
   });
 });
@@ -134,8 +134,8 @@ describe("table - selectRowByValues - demo kit - mdc table type - passing value 
   });
 
   it("Verification", async function () {
-    const element = await nonUi5.element.getById(checkBoxSelector4);
-    const isSelected = await nonUi5.element.getAttributeValue(element, "aria-selected");
+    const rowElement = await nonUi5.element.getById("sampleComp-sap.ui.mdc.demokit.sample.table.TableTypes---sample--table-innerTable-rows-row1");
+    const isSelected = await nonUi5.element.getAttributeValue(rowElement, "aria-selected");
     common.assertion.expectEqual(isSelected, "true");
   });
 });
