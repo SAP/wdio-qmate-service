@@ -736,10 +736,10 @@ export class UserInteraction {
       await browser.waitUntil(
         async () => {
           try {
-            // Handle dialogs overlays
-            const lastOpenedDialog = await this._getLastOpenedDialog();
-            if (lastOpenedDialog) {
-              elems = await lastOpenedDialog.uiControls(selector, timeout);
+            // Handle popup overlays
+            const lastOpenedPopup = await this._getLastOpenedPopup();
+            if (lastOpenedPopup) {
+              elems = await lastOpenedPopup.uiControls(selector, timeout);
             } else {
               elems = await ui5.element.getAllDisplayed(selector, timeout);
             }
@@ -763,17 +763,18 @@ export class UserInteraction {
     return elems![index];
   }
 
-  private async _getLastOpenedDialog(): Promise<Element | undefined> {
-    const vl = this.vlf.initLog(this._getLastOpenedDialog);
-    const lastOpenedDialogId = await browser.execute(() => {
+  private async _getLastOpenedPopup(): Promise<Element | undefined> {
+    const vl = this.vlf.initLog(this._getLastOpenedPopup);
+    const lastOpenedPopup = await browser.execute(() => {
       const staticAreaDomElems = [...sap.ui.getCore().getStaticAreaRef().children];
-      const sapElems = staticAreaDomElems.flatMap((elem) => sap.ui.getCore().byId(elem.id) ?? []);
-      const dialogs = sapElems.filter((popup) => popup.isA("sap.m.Dialog"));
-      return dialogs.splice(-1)[0]?.getId();
+      const sapStaticElems = staticAreaDomElems.flatMap((elem) => sap.ui.getCore().byId(elem.id) ?? []);
+      const popups = sapStaticElems.filter((e) => e.getMetadata()?.isInstanceOf("sap.ui.core.PopupInterface"));
+      return popups.slice(-1)[0].getId();
     });
-    if (!lastOpenedDialogId) return undefined;
-    vl.log(`Found opened dialog with id: ${lastOpenedDialogId}`);
-    return await nonUi5.element.getById(lastOpenedDialogId);
+
+    if (!lastOpenedPopup) return undefined;
+    vl.log(`Found an opened popup with id: ${lastOpenedPopup}`);
+    return await nonUi5.element.getById(lastOpenedPopup);
   }
 
   private async _verifyTabSwitch(selector: any): Promise<boolean> {
