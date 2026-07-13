@@ -43,13 +43,13 @@ export class ElementModule {
    * @returns {Object[]} - The found elements.
    * @example const elem = await ui5.element.getAllDisplayed(selector);
    */
-  async getAllDisplayed(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<Element[]> {
+  async getAllDisplayed(selector: any, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, root?: Element): Promise<Element[]> {
     const vl = this.vlf.initLog(this.getAllDisplayed);
     if (!selector) {
       this.ErrorHandler.logException(new Error(), `Please provide a valid selector as argument.`);
     }
     try {
-      return await browser.uiControls(selector, timeout);
+      return await (root ? root.uiControls(selector, timeout) : browser.uiControls(selector, timeout));
     } catch (e) {
       return this.ErrorHandler.logException(new Error(), (e as Error).message);
     }
@@ -65,7 +65,7 @@ export class ElementModule {
    * @returns {Object} The found element.
    * @example const elem = await ui5.element.getDisplayed(selector);
    */
-  async getDisplayed(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<Element> {
+  async getDisplayed(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT, root?: Element): Promise<Element> {
     const vl = this.vlf.initLog(this.getDisplayed);
     if (!selector || typeof selector !== "object") {
       this.ErrorHandler.logException(new Error(), `Please provide a valid selector as argument.`);
@@ -78,7 +78,8 @@ export class ElementModule {
     try {
       await browser.waitUntil(
         async () => {
-          elems = await browser.uiControls(selector, timeout);
+          if (root) elems = await root.uiControls(selector, timeout);
+          else elems = await browser.uiControls(selector, timeout);
           return elems.length > index;
         },
         {
