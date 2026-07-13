@@ -727,29 +727,31 @@ export class UserInteraction {
 
   // =================================== HELPER ===================================
   private async _getClickableElement(selector: any, index: number, timeout: number): Promise<Element> {
-    let elems: Array<Element> | null = null;
+    let elem: Element;
     const nonClickableMsg = `Element is not clickable after ${timeout / 1000}s`;
-    const indexOutOfBoundsMsg = `Index is out of bounds. No elements with index: ${index}`;
+    const indexOutOfBoundsMsg = `Index out of bound. Trying to access element at index: ${index}`;
+    const notFoundMsg = `No visible elements found with selector: ${JSON.stringify(selector)}`;
 
     let errorMsg = "Unexpected error";
     try {
       await browser.waitUntil(
         async () => {
           try {
-            // Handle popup overlays
-            const lastOpenedPopup = await this._getLastOpenedPopup();
-            if (lastOpenedPopup) {
-              elems = await lastOpenedPopup.uiControls(selector, timeout);
-            } else {
-              elems = await ui5.element.getAllDisplayed(selector, timeout);
-            }
-          } catch (e) {
-            return ((errorMsg = (e as Error).message), false);
-          }
+            // Warn. It is important to use elements only from active dialogs and inner popups when they presented
+            const activePopups = await this._getActiveDialogPopups();
+            if (activePopups) {
+              const results = await Promise.allSettled(activePopups.map((p) => ui5.element.getAllDisplayed(selector, timeout, p)));
+              const elems = results.filter((r) => r.status == "fulfilled").flatMap((r) => r.value ?? []);
+              if (elems.length == 0) return ((errorMsg = notFoundMsg), false);
+              if (elems.length <= index) return ((errorMsg = indexOutOfBoundsMsg), false);
+              elem = elems[index];
+            } else elem = await ui5.element.getDisplayed(selector, index, timeout);
 
-          if (index >= elems!.length) return ((errorMsg = indexOutOfBoundsMsg), false);
-          if (!(await elems[index].isClickable())) return ((errorMsg = nonClickableMsg), false);
-          return true;
+            if (!elem?.isClickable()) return ((errorMsg = nonClickableMsg), false);
+            return true;
+          } catch (e) {
+            if (e instanceof Error) return ((errorMsg = e.message), false);
+          }
         },
         {
           timeout: timeout,
@@ -760,21 +762,23 @@ export class UserInteraction {
       this.ErrorHandler.logException(new Error(), errorMsg);
     }
 
-    return elems![index];
+    return elem!;
   }
 
-  private async _getLastOpenedPopup(): Promise<Element | undefined> {
-    const vl = this.vlf.initLog(this._getLastOpenedPopup);
-    const lastOpenedPopup = await browser.execute(() => {
-      const staticAreaDomElems = [...sap.ui.getCore().getStaticAreaRef().children];
-      const sapStaticElems = staticAreaDomElems.flatMap((elem) => sap.ui.getCore().byId(elem.id) ?? []);
-      const popups = sapStaticElems.filter((e) => e.getMetadata()?.isInstanceOf("sap.ui.core.PopupInterface"));
-      return popups.slice(-1)[0].getId();
+  private async _getActiveDialogPopups(): Promise<Array<Element> | undefined> {
+    const vl = this.vlf.initLog(this._getActiveDialogPopups);
+    const activePopupsIds = await browser.execute(() => {
+      const popups = [...sap.ui.getCore().getStaticAreaRef().children]
+        .filter((e) => e.checkVisibility())
+        .flatMap((e) => sap.ui.getCore().byId(e.id) ?? [])
+        .filter((e) => e?.getMetadata()?.isInstanceOf("sap.ui.core.PopupInterface"));
+      const lastDialog = popups.findLastIndex((p) => p.isA("sap.m.Dialog"));
+      return lastDialog < 0 ? undefined : popups.slice(lastDialog).map((p) => p.getId());
     });
 
-    if (!lastOpenedPopup) return undefined;
-    vl.log(`Found an opened popup with id: ${lastOpenedPopup}`);
-    return await nonUi5.element.getById(lastOpenedPopup);
+    if (!Array.isArray(activePopupsIds) || activePopupsIds.length == 0) return undefined;
+    vl.log(`Found an opened popups with ids: ${JSON.stringify(activePopupsIds)}`);
+    return await Promise.all(activePopupsIds.map((p) => nonUi5.element.getById(p)));
   }
 
   private async _verifyTabSwitch(selector: any): Promise<boolean> {
