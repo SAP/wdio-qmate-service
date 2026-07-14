@@ -777,7 +777,7 @@ export class UserInteraction {
     });
 
     if (!Array.isArray(activePopupsIds) || activePopupsIds.length == 0) return undefined;
-    vl.log(`Found an opened popups with ids: ${JSON.stringify(activePopupsIds)}`);
+    vl.log(`Found open popups with the following IDs: ${JSON.stringify(activePopupsIds)}`);
     return await Promise.all(activePopupsIds.map((p) => nonUi5.element.getById(p)));
   }
 
