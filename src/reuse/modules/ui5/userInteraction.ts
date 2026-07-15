@@ -747,7 +747,7 @@ export class UserInteraction {
               elem = elems[index];
             } else elem = await ui5.element.getDisplayed(selector, index, timeout);
 
-            if (!elem?.isClickable()) return ((errorMsg = nonClickableMsg), false);
+            if (!(await elem?.isClickable())) return ((errorMsg = nonClickableMsg), false);
             return true;
           } catch (e) {
             if (e instanceof Error) return ((errorMsg = e.message), false);
