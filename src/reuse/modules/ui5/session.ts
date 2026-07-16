@@ -277,8 +277,43 @@ export class Session {
    */
   async expectLogoutText() {
     const vl = this.vlf.initLog(this.expectLogoutText);
-    const elem = await nonUi5.element.getById("msgText");
-    await nonUi5.assertion.expectToBeVisible(elem);
+
+    async function expectS4LogoutText() {
+      const elem = await nonUi5.element.getById("msgText");
+      await nonUi5.assertion.expectToBeVisible(elem);
+    }
+
+    async function expectBtpLogoutText() {
+      const logoutTextSelector = {
+        "elementProperties": {
+          "metadata": "sap.m.Text",
+          "text": "Goodbye",
+          "viewName": "sap.cf.pages.logoff.view.logoff"
+        }
+      };
+      await ui5.assertion.expectToBeVisible(logoutTextSelector);
+    }
+
+    try {
+      await browser.waitUntil(
+        async () => {
+          try {
+            await Promise.any([expectS4LogoutText(), expectBtpLogoutText()]);
+            return true;
+          } catch (error) {
+            // Ignore error and continue to next promise
+            return false;
+          }
+        },
+        {
+          timeout: GLOBAL_DEFAULT_WAIT_TIMEOUT,
+          timeoutMsg: "Logout text not visible",
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
+        }
+      );
+    } catch (error) {
+      this.ErrorHandler.logException(error);
+    }
   }
 
   // =================================== HELPER ===================================
