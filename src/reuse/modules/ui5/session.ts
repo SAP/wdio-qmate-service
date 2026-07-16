@@ -271,11 +271,13 @@ export class Session {
   /**
    * @function expectLogoutText
    * @memberOf ui5.session
-   * @description Expects the logout text after logout to be "You have been logged off.
+   * @description Expects the logout text after logout. Waits for "You have been logged off." in S4 systems or "Goodbye" in BTP systems.
    * This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
+   * @param {Number} [timeout=30000] - The timeout to wait (ms).
    * @example await ui5.session.expectLogoutText();
+   * @example await ui5.session.expectLogoutText(60000);
    */
-  async expectLogoutText() {
+  async expectLogoutText(timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.expectLogoutText);
 
     async function expectS4LogoutText() {
@@ -306,8 +308,8 @@ export class Session {
           }
         },
         {
-          timeout: GLOBAL_DEFAULT_WAIT_TIMEOUT,
-          timeoutMsg: "Logout text not visible",
+          timeout: timeout,
+          timeoutMsg: `Logout text not visible in ${+timeout / 1000}s`,
           interval: GLOBAL_DEFAULT_WAIT_INTERVAL
         }
       );
