@@ -296,26 +296,23 @@ export class Session {
       await ui5.assertion.expectToBeVisible(logoutTextSelector);
     }
 
-    try {
-      await browser.waitUntil(
-        async () => {
-          try {
-            await Promise.any([expectS4LogoutText(), expectBtpLogoutText()]);
-            return true;
-          } catch (error) {
-            // Ignore error and continue to next promise
-            return false;
-          }
-        },
-        {
-          timeout: timeout,
-          timeoutMsg: `Logout text not visible in ${+timeout / 1000}s`,
-          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
+    await browser.waitUntil(
+      async () => {
+        try {
+          await Promise.any([expectS4LogoutText(), expectBtpLogoutText()]);
+          return true;
+        } catch (error) {
+          // Ignore error and continue to next promise
+          return false;
         }
-      );
-    } catch (error) {
-      this.ErrorHandler.logException(error);
-    }
+      },
+      {
+        timeout: timeout,
+        timeoutMsg: `Logout text not visible in ${+timeout / 1000}s`,
+        interval: GLOBAL_DEFAULT_WAIT_INTERVAL
+      }
+    );
+
   }
 
   // =================================== HELPER ===================================
