@@ -2917,10 +2917,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#sessionexpectlogouttext" class="md-nav__link">
+  <a href="#sessionexpectlogouttexttimeout" class="md-nav__link">
     <span class="md-ellipsis">
       
-        session.expectLogoutText()
+        session.expectLogoutText([timeout])
       
     </span>
   </a>
@@ -7712,10 +7712,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#sessionexpectlogouttext" class="md-nav__link">
+  <a href="#sessionexpectlogouttexttimeout" class="md-nav__link">
     <span class="md-ellipsis">
       
-        session.expectLogoutText()
+        session.expectLogoutText([timeout])
       
     </span>
   </a>
@@ -12166,7 +12166,7 @@
 <li><a href="#ui5.session.loginCustomViaConfig">.loginCustomViaConfig(username, [password], [verify])</a></li>
 <li><a href="#ui5.session.logout">.logout([verify])</a></li>
 <li><a href="#ui5.session.switchUser">.switchUser(username, [password], [authenticator], [wait])</a></li>
-<li><a href="#ui5.session.expectLogoutText">.expectLogoutText()</a></li>
+<li><a href="#ui5.session.expectLogoutText">.expectLogoutText([timeout])</a></li>
 </ul>
 </li>
 <li><a href="#ui5.table">.table</a><ul>
@@ -15427,7 +15427,7 @@ This can be the case for Mocked tests when the application does not exist or whe
 <li><a href="#ui5.session.loginCustomViaConfig">.loginCustomViaConfig(username, [password], [verify])</a></li>
 <li><a href="#ui5.session.logout">.logout([verify])</a></li>
 <li><a href="#ui5.session.switchUser">.switchUser(username, [password], [authenticator], [wait])</a></li>
-<li><a href="#ui5.session.expectLogoutText">.expectLogoutText()</a></li>
+<li><a href="#ui5.session.expectLogoutText">.expectLogoutText([timeout])</a></li>
 </ul>
 </li>
 </ul>
@@ -15737,12 +15737,33 @@ This can be the case for Mocked tests when the application does not exist or whe
 <span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">switchUser</span><span class="p">(</span><span class="s2">&quot;PURCHASER&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;super-duper-sensitive-pw&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">authenticator</span><span class="p">,</span><span class="w"> </span><span class="mf">30000</span><span class="p">);</span>
 </code></pre></div>
 <a name="ui5.session.expectLogoutText"></a></p>
-<h4 id="sessionexpectlogouttext">session.expectLogoutText()</h4>
-<p>Expects the logout text after logout to be "You have been logged off.
+<h4 id="sessionexpectlogouttexttimeout">session.expectLogoutText([timeout])</h4>
+<p>Expects the logout text after logout. Waits for "You have been logged off." in S4 systems or "Goodbye" in BTP systems.
 This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.</p>
-<p><strong>Kind</strong>: static method of <a href="#ui5.session"><code>session</code></a><br />
-<strong>Example</strong><br />
+<p><strong>Kind</strong>: static method of <a href="#ui5.session"><code>session</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[timeout]</td>
+<td><code>Number</code></td>
+<td><code>30000</code></td>
+<td>The timeout in ms (default: 30000ms or QMATE_CUSTOM_TIMEOUT env var).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">expectLogoutText</span><span class="p">();</span>
+</code></pre></div>
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">expectLogoutText</span><span class="p">(</span><span class="mf">60000</span><span class="p">);</span>
 </code></pre></div>
 <a name="ui5.table"></a></p>
 <h3 id="ui5table">ui5.table</h3>
