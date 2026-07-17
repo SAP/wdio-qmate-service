@@ -273,7 +273,7 @@ export class Session {
    * @memberOf ui5.session
    * @description Expects the logout text after logout. Waits for "You have been logged off." in S4 systems or "Goodbye" in BTP systems.
    * This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
-   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Number} [timeout=30000] - The timeout in ms (default: 30000ms or QMATE_CUSTOM_TIMEOUT env var).
    * @example await ui5.session.expectLogoutText();
    * @example await ui5.session.expectLogoutText(60000);
    */
