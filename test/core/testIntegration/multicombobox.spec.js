@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+ 
 const locatorCommands = require("../../../lib/scripts/hooks/utils/locatorCommands");
 const { handleCookiesConsent } = require("../../helper/utils");
 

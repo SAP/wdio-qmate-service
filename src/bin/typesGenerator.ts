@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import fse from "fs-extra";
 import os from "os";
 import path from "path";
-import glob from "glob-promise";
+import { glob }  from "glob";
 
 const pj = require("../../package.json");
 

@@ -1,5 +1,5 @@
 exports.handleCookiesConsent = async function handleCookiesConsent() {
-  // eslint-disable-next-line no-undef
+   
   await util.function.executeOptional(async function () {
     const oldCookiesConsentDialog = {
       elementProperties: {

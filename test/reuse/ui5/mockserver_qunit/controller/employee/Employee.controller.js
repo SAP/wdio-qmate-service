@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 // eslint-disable-next-line no-undef
 sap.ui.define(["sap/ui/demo/nav/controller/BaseController"], function (BaseController) {
   "use strict";

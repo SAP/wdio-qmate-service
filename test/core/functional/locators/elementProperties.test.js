@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-expressions */
+ 
 const { checkIfAnElementIsUnique } = require("./utils");
 
 describe("webdriver.io access to element via elementProperties test", function () {

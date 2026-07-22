@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 describe("webdriver.io page locator test", function () {
   this.beforeAll(async () => {
     await browser.url("#/categories");

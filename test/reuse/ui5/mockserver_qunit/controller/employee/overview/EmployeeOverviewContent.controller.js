@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 // eslint-disable-next-line no-undef
 sap.ui.define(["sap/ui/demo/nav/controller/BaseController", "sap/ui/model/Filter", "sap/ui/model/FilterOperator", "sap/ui/model/Sorter", "sap/m/ViewSettingsDialog", "sap/m/ViewSettingsItem"], function (BaseController, Filter, FilterOperator, Sorter, ViewSettingsDialog, ViewSettingsItem) {
   "use strict";

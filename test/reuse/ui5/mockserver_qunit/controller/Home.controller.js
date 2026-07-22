@@ -14,7 +14,7 @@ sap.ui.define(["sap/ui/demo/nav/controller/BaseController"], function (BaseContr
       this.getRouter().navTo("employeeList");
     },
 
-    // eslint-disable-next-line no-unused-vars
+     
     onNavToEmployeeOverview: function (oEvent) {
       this.getRouter().navTo("employeeOverview");
     }

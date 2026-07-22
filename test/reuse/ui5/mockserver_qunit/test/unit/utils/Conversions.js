@@ -2,7 +2,6 @@
 sap.ui.define(
   [
     "sap/ui/demo/nav/controller/NotFound.controller"
-    // eslint-disable-next-line no-unused-vars
   ],
   function (NotFoundController) {
     "use strict";

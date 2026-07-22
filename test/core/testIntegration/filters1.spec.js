@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+ 
 /*
 1) Test standard properties
 2) Test new properties adding from ui5 api
