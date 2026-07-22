@@ -18,14 +18,15 @@ const { setItemMock } = vi.hoisted(() => {
 });
 
 vi.mock("node-localstorage", () => {
-  return {
-    LocalStorage: vi.fn(() => {
-      return {
-        getItem: getItemMock,
-        setItem: setItemMock
-      };
-    })
-  };
+  // The source uses `new LocalStorage(...)`, so the mocked export must be
+  // constructable. Vitest v4 warns/errors when a `vi.fn(arrow)` is used with
+  // `new`, because arrow functions are not constructors. Return a real class
+  // whose method properties are our hoisted mocks.
+  class LocalStorage {
+    getItem = getItemMock;
+    setItem = setItemMock;
+  }
+  return { LocalStorage };
 });
 
 const { fetchMock } = vi.hoisted(() => {
