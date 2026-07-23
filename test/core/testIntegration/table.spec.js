@@ -1,4 +1,3 @@
- 
 const { handleCookiesConsent } = require("../../helper/utils");
 describe("table", function () {
   it("step1:getChild", async function () {

@@ -110,7 +110,6 @@ module.exports = {
                   } else if (aBindings[i].getBindings) {
                     retrieveCompositeBindings(aBindings[i], aBindingInfos);
                   }
-                   
                 } catch (error) {}
               }
             }
@@ -120,7 +119,6 @@ module.exports = {
                 if (aBindingInfos[j].path === oBinding.getPath() && oBinding.getValue) {
                   aBindingInfos[j].value = oBinding.getValue();
                 }
-                 
               } catch (error) {}
             }
           }
