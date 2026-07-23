@@ -20,11 +20,9 @@ sap.ui.define(["sap/ui/demo/nav/controller/BaseController", "sap/ui/model/json/J
         path: "/Employees(" + oArgs.employeeId + ")",
         events: {
           change: this._onBindingChange.bind(this),
-           
           dataRequested: function (oEvent) {
             oView.setBusy(true);
           },
-           
           dataReceived: function (oEvent) {
             oView.setBusy(false);
           }
@@ -55,7 +53,6 @@ sap.ui.define(["sap/ui/demo/nav/controller/BaseController", "sap/ui/model/json/J
         );
       }
     },
-
      
     _onBindingChange: function (oEvent) {
       // No data for the binding

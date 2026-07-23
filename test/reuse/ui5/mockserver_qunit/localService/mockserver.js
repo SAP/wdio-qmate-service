@@ -8,7 +8,6 @@ sap.ui.define(
     JSONModel,
     Log,
     UriParameters,
-     
     sinonInst
   ) {
     "use strict";

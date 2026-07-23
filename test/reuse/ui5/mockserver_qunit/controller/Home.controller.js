@@ -14,7 +14,6 @@ sap.ui.define(["sap/ui/demo/nav/controller/BaseController"], function (BaseContr
       this.getRouter().navTo("employeeList");
     },
 
-     
     onNavToEmployeeOverview: function (oEvent) {
       this.getRouter().navTo("employeeOverview");
     }
