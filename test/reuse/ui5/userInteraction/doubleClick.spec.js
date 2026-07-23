@@ -52,19 +52,12 @@ describe("userInteraction - doubleClick on invisible element", function () {
   it("Execution & Verification", async function () {
     const selector = {
       elementProperties: {
-        viewName: "sap.ui.demo.cart.view.Product",
-        metadata: "sap.m.Button",
-        text: [
-          {
-            path: "i18n>addToCartShort"
-          }
-        ]
+        metadata: "sap.ui.core.InvisibleText",
+        text: "Default Action"
       }
     };
     const index = 0;
     const timeout = 30000;
-    await ui5.userInteraction.doubleClick(selector, index, timeout);
-    await browser.pause(1000);
     await expect(ui5.userInteraction.doubleClick(selector, index, timeout)).rejects.toThrow(/No visible elements found/);
   });
 });

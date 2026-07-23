@@ -56,19 +56,12 @@ describe("userInteraction - click on invisible element", function () {
   it("Execution & Verification", async function () {
     const selector = {
       elementProperties: {
-        viewName: "sap.ui.demo.cart.view.Product",
-        metadata: "sap.m.Button",
-        text: [
-          {
-            path: "i18n>addToCartShort"
-          }
-        ]
+        metadata: "sap.ui.core.InvisibleText",
+        text: "Default Action"
       }
     };
     const index = 0;
     const timeout = 30000;
-    await ui5.userInteraction.click(selector, index, timeout);
-    await browser.pause(1000);
     await expect(ui5.userInteraction.click(selector, index, NEGATIVE_TEST_TIMEOUT)).rejects.toThrow(/No visible elements found with selector/);
   });
 });
@@ -105,6 +98,7 @@ describe("userInteraction - click disabled button (negative test)", function () 
 
   it("Preparation", async function () {
     await browser.navigateTo(`${BASE_URL}/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#/?sap-iapp-state=3&sap-iapp-state--history=1`);
+    await ui5.assertion.expectToBeVisible(selector);
   });
 
   it("Execution && Verification", async function () {
