@@ -23,6 +23,7 @@ export class UserInteraction {
   private static readonly SUPPORTED_TEXTAREA_METADATA: Array<Ui5ControlMetadata> = [UserInteraction.TEXTAREA_METADATA, UserInteraction.TEXTAREA_MACROS_METADATA];
   private static readonly SELECT_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.select' function instead.";
   private static readonly OPENF4HELP_DEPRECATION_MESSAGE: string = "This function is deprecated, please use the generic 'ui5.userInteraction.openValueHelp' function instead.";
+  private static readonly DEFAULT_SEARCH_ATTEMPT_TIMEOUT = 1000;
 
   // =================================== CLICK ===================================
   /**
@@ -728,36 +729,40 @@ export class UserInteraction {
   // =================================== HELPER ===================================
   private async _getClickableElement(selector: any, index: number, timeout: number): Promise<Element> {
     let elem: Element;
+    const searchAttemptTimeout = timeout <= UserInteraction.DEFAULT_SEARCH_ATTEMPT_TIMEOUT ? timeout / 2 : UserInteraction.DEFAULT_SEARCH_ATTEMPT_TIMEOUT;
     const nonClickableMsg = `Element is not clickable after ${timeout / 1000}s`;
-    const indexOutOfBoundsMsg = `Index out of bound. Trying to access element at index: ${index}`;
-    const notFoundMsg = `No visible elements found with selector: ${JSON.stringify(selector)}`;
 
+    /**
+     * Polling strategy
+     * 1. If opened dialog is found -> try to find element in this dialog or newer popups
+     * 2. If no dialogs or element in dialog found -> fallback for regular search (important for correct error handle)
+     * 3. Check if element is clickable and if not -> store error message
+     */
     let errorMsg = "Unexpected error";
-    try {
-      await browser.waitUntil(
-        async () => {
-          try {
-            // Warn. It is important to use elements only from active dialogs and inner popups when they presented
-            const activePopups = await this._getActiveDialogPopups();
-            if (activePopups) {
-              const results = await Promise.allSettled(activePopups.map((p) => ui5.element.getAllDisplayed(selector, timeout, p)));
-              const elems = results.filter((r) => r.status == "fulfilled").flatMap((r) => r.value ?? []);
-              if (elems.length == 0) return ((errorMsg = notFoundMsg), false);
-              if (elems.length <= index) return ((errorMsg = indexOutOfBoundsMsg), false);
-              elem = elems[index];
-            } else elem = await ui5.element.getDisplayed(selector, index, timeout);
-
-            if (!(await elem?.isClickable())) return ((errorMsg = nonClickableMsg), false);
-            return true;
-          } catch (e) {
-            if (e instanceof Error) return ((errorMsg = e.message), false);
-          }
-        },
-        {
-          timeout: timeout,
-          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
+    const poll = async () => {
+      try {
+        const activePopups = await this._getActiveDialogPopups(searchAttemptTimeout);
+        if (activePopups) {
+          const popupElementsResolvers = activePopups.map((p) => ui5.element.getAllDisplayed(selector, searchAttemptTimeout, p));
+          const results = await Promise.allSettled(popupElementsResolvers);
+          const elems = results.filter((r) => r.status === "fulfilled").flatMap((r) => r.value ?? []);
+          elem = elems[index];
         }
-      );
+
+        if (!elem) elem = await ui5.element.getDisplayed(selector, index, searchAttemptTimeout);
+
+        if (!(await elem?.isClickable())) throw new Error(nonClickableMsg);
+        return true;
+      } catch (e) {
+        if (e instanceof Error) return ((errorMsg = e.message), false);
+      }
+    };
+
+    try {
+      await browser.waitUntil(poll, {
+        timeout: timeout,
+        interval: GLOBAL_DEFAULT_WAIT_INTERVAL
+      });
     } catch (e) {
       this.ErrorHandler.logException(new Error(), errorMsg);
     }
@@ -765,7 +770,7 @@ export class UserInteraction {
     return elem!;
   }
 
-  private async _getActiveDialogPopups(): Promise<Array<Element> | undefined> {
+  private async _getActiveDialogPopups(timeout?: number): Promise<Array<Element> | undefined> {
     const vl = this.vlf.initLog(this._getActiveDialogPopups);
     const activePopupsIds = await browser.execute(() => {
       const popups = [...sap.ui.getCore().getStaticAreaRef().children]
@@ -778,7 +783,7 @@ export class UserInteraction {
 
     if (!Array.isArray(activePopupsIds) || activePopupsIds.length == 0) return undefined;
     vl.log(`Found open popups with the following IDs: ${JSON.stringify(activePopupsIds)}`);
-    return await Promise.all(activePopupsIds.map((p) => nonUi5.element.getById(p)));
+    return await Promise.all(activePopupsIds.map((p) => nonUi5.element.getById(p, timeout)));
   }
 
   private async _verifyTabSwitch(selector: any): Promise<boolean> {
