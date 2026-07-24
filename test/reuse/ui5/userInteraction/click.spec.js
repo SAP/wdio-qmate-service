@@ -147,6 +147,6 @@ describe("userInteraction - click unblocked button and ignore blocked one", func
   });
 
   it("Verification", async function () {
-    await ui5.assertion.expectToBeNotVisible(currencyCodeSelector, NEGATIVE_TEST_TIMEOUT);
+    await ui5.assertion.expectToBeNotVisible(currencyCodeSelector, 0, NEGATIVE_TEST_TIMEOUT);
   });
 });
