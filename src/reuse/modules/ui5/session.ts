@@ -288,7 +288,7 @@ export class Session {
     async function expectBtpLogoutText() {
       const logoutTextSelector = {
         "elementProperties": {
-          "metadata": "sap.m.Text",
+          "metadata": "sap.m.Title",
           "text": "Goodbye",
           "viewName": "sap.cf.pages.logoff.view.logoff"
         }
