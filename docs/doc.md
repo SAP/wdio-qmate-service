@@ -16,9 +16,6 @@
 <dt><a href="#service">service</a></dt>
 <dd><p>Global namespace for service modules.</p>
 </dd>
-<dt><a href="#mobile">mobile</a></dt>
-<dd><p>Global namespace for mobile modules.</p>
-</dd>
 <dt><a href="#flp">flp</a></dt>
 <dd><p>Global namespace for Fiori Launchpad (FLP) modules.</p>
 </dd>
@@ -661,6 +658,7 @@ Global namespace for util modules.
         * [.sleepAndCollectCoverage([duration])](#util.browser.sleepAndCollectCoverage)
         * [.refresh()](#util.browser.refresh)
         * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#util.browser.clearBrowser)
+        * [.reloadSession()](#util.browser.reloadSession)
         * [.getBrowserName()](#util.browser.getBrowserName) ⇒ <code>String</code>
         * [.getUI5Version([timeout])](#util.browser.getUI5Version)
         * [.logUI5Version()](#util.browser.logUI5Version)
@@ -740,6 +738,7 @@ Global namespace for util modules.
     * [.sleepAndCollectCoverage([duration])](#util.browser.sleepAndCollectCoverage)
     * [.refresh()](#util.browser.refresh)
     * [.clearBrowser([clearLocal], [clearSession], [clearCookies])](#util.browser.clearBrowser)
+    * [.reloadSession()](#util.browser.reloadSession)
     * [.getBrowserName()](#util.browser.getBrowserName) ⇒ <code>String</code>
     * [.getUI5Version([timeout])](#util.browser.getUI5Version)
     * [.logUI5Version()](#util.browser.logUI5Version)
@@ -881,6 +880,16 @@ Clears the local and session cache and deletes all browser cookies.
 **Example**  
 ```js
 await util.browser.clearBrowser();
+```
+<a name="util.browser.reloadSession"></a>
+
+#### browser.reloadSession()
+Clears the browser session, and creates a new one. Use in cases where util.browser.clearBrowser doesn't invalidate login session.
+
+**Kind**: static method of [<code>browser</code>](#util.browser)  
+**Example**  
+```js
+await util.browser.reloadSession();
 ```
 <a name="util.browser.getBrowserName"></a>
 
@@ -1398,6 +1407,10 @@ await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"]); // uses the 
 **Example**  
 ```js
 await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], "input[id='myUpload']"); // upload to file uploader with matching selector
+```
+**Example**  
+```js
+await util.file.upload(["path/to/text1.txt", "path/to/text2.txt"], ui5Selector); // upload to file uploader with matching selector
 ```
 <a name="util.file.uploadWebGui"></a>
 
@@ -1966,14 +1979,14 @@ Global namespace for UI5 modules.
         * [.loginCustomViaConfig(username, [password], [verify])](#ui5.session.loginCustomViaConfig)
         * [.logout([verify])](#ui5.session.logout)
         * [.switchUser(username, [password], [authenticator], [wait])](#ui5.session.switchUser)
-        * [.expectLogoutText()](#ui5.session.expectLogoutText)
+        * [.expectLogoutText([timeout])](#ui5.session.expectLogoutText)
     * [.table](#ui5.table)
         * [.sortColumnAscending(columnName, tableSelector)](#ui5.table.sortColumnAscending)
         * [.sortColumnDescending(columnName, tableSelector)](#ui5.table.sortColumnDescending)
         * [.clickSettingsButton(tableSelector)](#ui5.table.clickSettingsButton)
         * [.getTotalNumberOfRows(tableSelectorOrId)](#ui5.table.getTotalNumberOfRows) ⇒ <code>Number</code>
-        * [.getTotalNumberOfRowsByValues(tableSelectorOrId, values, [index])](#ui5.table.getTotalNumberOfRowsByValues) ⇒ <code>Number</code>
-        * [.getSelectorsForRowsByValues(tableSelectorOrId, values)](#ui5.table.getSelectorsForRowsByValues)
+        * [.getTotalNumberOfRowsByValues(tableSelectorOrId, values, [enableHighlighting], [matchMode])](#ui5.table.getTotalNumberOfRowsByValues) ⇒ <code>Number</code>
+        * [.getSelectorsForRowsByValues(tableSelectorOrId, values, [enableHighlighting], [matchMode])](#ui5.table.getSelectorsForRowsByValues)
         * [.getSelectorForRowByIndex(tableSelectorOrId, index)](#ui5.table.getSelectorForRowByIndex)
         * [.selectRowByIndex(tableSelectorOrId, index)](#ui5.table.selectRowByIndex)
         * [.selectAllRows(tableSelectorOrId)](#ui5.table.selectAllRows)
@@ -1981,7 +1994,7 @@ Global namespace for UI5 modules.
         * [.deselectAllRows(tableSelectorOrId)](#ui5.table.deselectAllRows)
         * [.selectRowByValues(tableSelectorOrId, values, [index])](#ui5.table.selectRowByValues)
         * [.openItemByIndex(tableSelectorOrId, index)](#ui5.table.openItemByIndex)
-        * [.openItemByValues(tableSelectorOrId, values, [index])](#ui5.table.openItemByValues)
+        * [.openItemByValues(tableSelectorOrId, values, [index], [enableHighlighting], [matchMode])](#ui5.table.openItemByValues)
     * [.userInteraction](#ui5.userInteraction)
         * [.click(selector, [index], [timeout])](#ui5.userInteraction.click)
         * [.clickAndRetry(selector, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clickAndRetry)
@@ -2000,16 +2013,14 @@ Global namespace for UI5 modules.
         * [.clearSmartFieldInput(selector, [index], [timeout])](#ui5.userInteraction.clearSmartFieldInput)
         * [.clearAndFillSmartFieldInput(selector, value, [index], [timeout])](#ui5.userInteraction.clearAndFillSmartFieldInput)
         * [.clearAndFillSmartFieldInputAndRetry(selector, value, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clearAndFillSmartFieldInputAndRetry)
-        * [.selectBox(selector, value, [index])](#ui5.userInteraction.selectBox)
-        * [.selectComboBox(selector, value, [index])](#ui5.userInteraction.selectComboBox)
-        * [.selectMultiComboBox(selector, values, [index])](#ui5.userInteraction.selectMultiComboBox)
+        * [.select(selector, value, [index])](#ui5.userInteraction.select)
         * [.clickSelectArrow(selector, [index])](#ui5.userInteraction.clickSelectArrow)
         * [.clickSelectArrowAndRetry(selector, [index], [retries], [interval])](#ui5.userInteraction.clickSelectArrowAndRetry)
         * [.selectFromTab(selector, value, [index], [timeout])](#ui5.userInteraction.selectFromTab)
         * [.mouseOverElement(selector, [index], [timeout])](#ui5.userInteraction.mouseOverElement)
         * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.userInteraction.scrollToElement)
         * [.selectAll([selector], [index], [timeout])](#ui5.userInteraction.selectAll)
-        * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
+        * [.openValueHelp(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openValueHelp)
         * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
         * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
 
@@ -2700,8 +2711,8 @@ Enters the passed date range to the date input with the given selector by provid
 
 **Example**  
 ```js
-const start = await common.date.calculate("2020, 9, 20", "dd.mm.yyyy");
-const end = await common.date.calculate("2021, 1, 3", "dd.mm.yyyy");
+const start = await common.date.getSpecific("2025, 9, 20");
+const end = await common.date.getSpecific("2025, 10, 30");
 const range = [start, end];
 await ui5.date.fillRange(selector, range);
 ```
@@ -3697,7 +3708,7 @@ await ui5.qunit.executeTests("path/to/qunit.html");
     * [.loginCustomViaConfig(username, [password], [verify])](#ui5.session.loginCustomViaConfig)
     * [.logout([verify])](#ui5.session.logout)
     * [.switchUser(username, [password], [authenticator], [wait])](#ui5.session.switchUser)
-    * [.expectLogoutText()](#ui5.session.expectLogoutText)
+    * [.expectLogoutText([timeout])](#ui5.session.expectLogoutText)
 
 <a name="ui5.session.login"></a>
 
@@ -3853,14 +3864,23 @@ await ui5.session.switchUser("PURCHASER", "super-duper-sensitive-pw", authentica
 ```
 <a name="ui5.session.expectLogoutText"></a>
 
-#### session.expectLogoutText()
-Expects the logout text after logout to be "You have been logged off.
+#### session.expectLogoutText([timeout])
+Expects the logout text after logout. Waits for "You have been logged off." in S4 systems or "Goodbye" in BTP systems.
 This is essential for chaining scripts, so that no static browser sleep in the spec itself is required anymore.
 
 **Kind**: static method of [<code>session</code>](#ui5.session)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout in ms (default: 30000ms or QMATE_CUSTOM_TIMEOUT env var). |
+
 **Example**  
 ```js
 await ui5.session.expectLogoutText();
+```
+**Example**  
+```js
+await ui5.session.expectLogoutText(60000);
 ```
 <a name="ui5.table"></a>
 
@@ -3872,8 +3892,8 @@ await ui5.session.expectLogoutText();
     * [.sortColumnDescending(columnName, tableSelector)](#ui5.table.sortColumnDescending)
     * [.clickSettingsButton(tableSelector)](#ui5.table.clickSettingsButton)
     * [.getTotalNumberOfRows(tableSelectorOrId)](#ui5.table.getTotalNumberOfRows) ⇒ <code>Number</code>
-    * [.getTotalNumberOfRowsByValues(tableSelectorOrId, values, [index])](#ui5.table.getTotalNumberOfRowsByValues) ⇒ <code>Number</code>
-    * [.getSelectorsForRowsByValues(tableSelectorOrId, values)](#ui5.table.getSelectorsForRowsByValues)
+    * [.getTotalNumberOfRowsByValues(tableSelectorOrId, values, [enableHighlighting], [matchMode])](#ui5.table.getTotalNumberOfRowsByValues) ⇒ <code>Number</code>
+    * [.getSelectorsForRowsByValues(tableSelectorOrId, values, [enableHighlighting], [matchMode])](#ui5.table.getSelectorsForRowsByValues)
     * [.getSelectorForRowByIndex(tableSelectorOrId, index)](#ui5.table.getSelectorForRowByIndex)
     * [.selectRowByIndex(tableSelectorOrId, index)](#ui5.table.selectRowByIndex)
     * [.selectAllRows(tableSelectorOrId)](#ui5.table.selectAllRows)
@@ -3881,7 +3901,7 @@ await ui5.session.expectLogoutText();
     * [.deselectAllRows(tableSelectorOrId)](#ui5.table.deselectAllRows)
     * [.selectRowByValues(tableSelectorOrId, values, [index])](#ui5.table.selectRowByValues)
     * [.openItemByIndex(tableSelectorOrId, index)](#ui5.table.openItemByIndex)
-    * [.openItemByValues(tableSelectorOrId, values, [index])](#ui5.table.openItemByValues)
+    * [.openItemByValues(tableSelectorOrId, values, [index], [enableHighlighting], [matchMode])](#ui5.table.openItemByValues)
 
 <a name="ui5.table.sortColumnAscending"></a>
 
@@ -3988,7 +4008,7 @@ const numberOfRows = await ui5.table.getTotalNumberOfRows(selector);
 ```
 <a name="ui5.table.getTotalNumberOfRowsByValues"></a>
 
-#### table.getTotalNumberOfRowsByValues(tableSelectorOrId, values, [index]) ⇒ <code>Number</code>
+#### table.getTotalNumberOfRowsByValues(tableSelectorOrId, values, [enableHighlighting], [matchMode]) ⇒ <code>Number</code>
 Returns the total number of rows in the table that match the given values.
 
 **Kind**: static method of [<code>table</code>](#ui5.table)  
@@ -3998,7 +4018,8 @@ Returns the total number of rows in the table that match the given values.
 | --- | --- | --- | --- |
 | tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> |  | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
 | values | <code>String</code> \| <code>Array.&lt;String&gt;</code> |  | The value(s) to match in the table rows. |
-| [index] | <code>Number</code> | <code>0</code> | The index of the matching row to consider. |
+| [enableHighlighting] | <code>Boolean</code> | <code>true</code> | Enable or disable highlighting of found elements. |
+| [matchMode] | <code>String</code> | <code>&quot;contains&quot;</code> | The match mode for the values. Can be "contains", "exact" or "wordBoundary". |
 
 **Example**  
 ```js
@@ -4014,15 +4035,17 @@ const numberOfRows = await ui5.table.getTotalNumberOfRowsByValues(selector, "val
 ```
 <a name="ui5.table.getSelectorsForRowsByValues"></a>
 
-#### table.getSelectorsForRowsByValues(tableSelectorOrId, values)
+#### table.getSelectorsForRowsByValues(tableSelectorOrId, values, [enableHighlighting], [matchMode])
 Gets the selectors of rows in the table that contain the given values. If multiple values are provided, it only returns the selectors of rows that contain all of them.
 
 **Kind**: static method of [<code>table</code>](#ui5.table)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
-| values | <code>String</code> \| <code>Array.&lt;String&gt;</code> | The value(s) to match in the table rows. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> |  | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
+| values | <code>String</code> \| <code>Array.&lt;String&gt;</code> |  | The value(s) to match in the table rows. |
+| [enableHighlighting] | <code>Boolean</code> | <code>true</code> | Enable or disable highlighting of found elements. |
+| [matchMode] | <code>String</code> | <code>&quot;contains&quot;</code> | The match mode for the values. Can be "contains", "exact" or "wordBoundary". |
 
 **Example**  
 ```js
@@ -4039,6 +4062,10 @@ const selector = {
  }
 };
 await ui5.table.getSelectorsForRowsByValues(selector, ["January", "2022"]);
+```
+**Example**  
+```js
+await ui5.table.getSelectorsForRowsByValues(selector, ["January", "2022"], true, "exact");
 ```
 <a name="ui5.table.getSelectorForRowByIndex"></a>
 
@@ -4167,15 +4194,17 @@ await ui5.table.deselectAllRows(selector);
 <a name="ui5.table.selectRowByValues"></a>
 
 #### table.selectRowByValues(tableSelectorOrId, values, [index])
-Selects a row in the table by matching value(s). If multiple rows match, selects the one at the given global index (across all pages).
+Selects a row in the table by matching value(s). First, all rows containing the given value(s) are collected.
+Then, the row at the given index within that list of matching rows is selected.
+This is useful when multiple rows match the same value(s) and you need to target a specific one.
 
 **Kind**: static method of [<code>table</code>](#ui5.table)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> |  | The selector or ID describing the table. |
-| values | <code>String</code> \| <code>Array.&lt;String&gt;</code> |  | The value(s) to match in the table rows. |
-| [index] | <code>Number</code> | <code>0</code> | The global index of the matching row to select (across all pages). |
+| values | <code>String</code> \| <code>Array.&lt;String&gt;</code> |  | The value(s) to match in the table rows. If multiple values are provided, only rows containing all of them will match. |
+| [index] | <code>Number</code> | <code>0</code> | The index within the list of matching rows (not the table row index). Defaults to 0 (first match). For example, if 3 rows match the given values, use index 1 to select the second match. |
 
 **Example**  
 ```js
@@ -4191,12 +4220,13 @@ await ui5.table.selectRowByValues(selector, ["value1", "value2"]);
 **Example**  
 ```js
 const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+// Selects the second row that contains "value" (index 1 among matches, not table row index 1)
 await ui5.table.selectRowByValues(id, "value", 1);
 ```
 <a name="ui5.table.openItemByIndex"></a>
 
 #### table.openItemByIndex(tableSelectorOrId, index)
-Opens the item in the table by its index.
+Opens the item in the table by its index via right arrow icon or direct click.
 
 **Kind**: static method of [<code>table</code>](#ui5.table)  
 
@@ -4223,16 +4253,20 @@ await ui5.table.openItemByIndex(id, 0);
 ```
 <a name="ui5.table.openItemByValues"></a>
 
-#### table.openItemByValues(tableSelectorOrId, values, [index])
-Opens the item in the table containing the given values. If multiple items match, it opens the index-th item.
+#### table.openItemByValues(tableSelectorOrId, values, [index], [enableHighlighting], [matchMode])
+Opens the item in the table containing the given values. First, all rows containing the given value(s) are collected.
+Then, the row at the given index within that list of matching rows is opened.
+This is useful when multiple rows match the same value(s) and you need to target a specific one.
 
 **Kind**: static method of [<code>table</code>](#ui5.table)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | tableSelectorOrId | <code>Ui5Selector</code> \| <code>String</code> |  | The selector or ID describing the table (sap.m.Table | sap.ui.comp.smarttable.SmartTable). |
-| values | <code>String</code> \| <code>Array.&lt;String&gt;</code> |  | The value(s) to match in the table rows. |
-| [index] | <code>Number</code> | <code>0</code> | The index of the matching row to consider. |
+| values | <code>String</code> \| <code>Array.&lt;String&gt;</code> |  | The value(s) to match in the table rows. If multiple values are provided, only rows containing all of them will match. |
+| [index] | <code>Number</code> | <code>0</code> | The index within the list of matching rows (not the table row index). Defaults to 0 (first match). For example, if 3 rows match the given values, use index 1 to open the second match. |
+| [enableHighlighting] | <code>Boolean</code> | <code>true</code> | Enable or disable highlighting of found elements. |
+| [matchMode] | <code>String</code> | <code>&quot;contains&quot;</code> | The match mode for the values. Can be "contains", "exact" or "wordBoundary". |
 
 **Example**  
 ```js
@@ -4249,6 +4283,11 @@ await ui5.table.openItemByValues(selector, ["value1", "value2"]);
 ```js
 const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
 await ui5.table.openItemByValues(id, "value");
+```
+**Example**  
+```js
+const id = "application-ReportingTask-run-component---ReportList--ReportingTable";
+await ui5.table.openItemByValues(id, "value", 0, false, "exact");
 ```
 <a name="ui5.userInteraction"></a>
 
@@ -4273,16 +4312,14 @@ await ui5.table.openItemByValues(id, "value");
     * [.clearSmartFieldInput(selector, [index], [timeout])](#ui5.userInteraction.clearSmartFieldInput)
     * [.clearAndFillSmartFieldInput(selector, value, [index], [timeout])](#ui5.userInteraction.clearAndFillSmartFieldInput)
     * [.clearAndFillSmartFieldInputAndRetry(selector, value, [index], [timeout], [retries], [interval])](#ui5.userInteraction.clearAndFillSmartFieldInputAndRetry)
-    * [.selectBox(selector, value, [index])](#ui5.userInteraction.selectBox)
-    * [.selectComboBox(selector, value, [index])](#ui5.userInteraction.selectComboBox)
-    * [.selectMultiComboBox(selector, values, [index])](#ui5.userInteraction.selectMultiComboBox)
+    * [.select(selector, value, [index])](#ui5.userInteraction.select)
     * [.clickSelectArrow(selector, [index])](#ui5.userInteraction.clickSelectArrow)
     * [.clickSelectArrowAndRetry(selector, [index], [retries], [interval])](#ui5.userInteraction.clickSelectArrowAndRetry)
     * [.selectFromTab(selector, value, [index], [timeout])](#ui5.userInteraction.selectFromTab)
     * [.mouseOverElement(selector, [index], [timeout])](#ui5.userInteraction.mouseOverElement)
     * [.scrollToElement(selector, [index], [alignment], [timeout])](#ui5.userInteraction.scrollToElement)
     * [.selectAll([selector], [index], [timeout])](#ui5.userInteraction.selectAll)
-    * [.openF4Help(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openF4Help)
+    * [.openValueHelp(selector, [index], [timeout], useF4Key)](#ui5.userInteraction.openValueHelp)
     * [.searchFor(selector, [index], [timeout], useEnter)](#ui5.userInteraction.searchFor)
     * [.resetSearch(selector, [index], [timeout])](#ui5.userInteraction.resetSearch)
 
@@ -4596,12 +4633,10 @@ Clears the smart filed with the given selector and fills the given value and ret
 ```js
 await ui5.userInteraction.clearAndFillSmartFieldInputAndRetry(selector, "My Value");
 ```
-<a name="ui5.userInteraction.selectBox"></a>
+<a name="ui5.userInteraction.select"></a>
 
-#### userInteraction.selectBox(selector, value, [index])
-Selects the passed value of the Select box.
-Please note that the function will only work for the default select Box.
-In special cases, please use the clickSelectArrow function.
+#### userInteraction.select(selector, value, [index])
+Selects a value from a UI5 dropdown control.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -4613,45 +4648,7 @@ In special cases, please use the clickSelectArrow function.
 
 **Example**  
 ```js
-await ui5.userInteraction.selectBox(selector, "Germany");
-```
-<a name="ui5.userInteraction.selectComboBox"></a>
-
-#### userInteraction.selectComboBox(selector, value, [index])
-Selects the passed value from the ComboBox with the given selector.
-Please note that the function will only work for the default ComboBox.
-In special cases you need to use the 'clickSelectArrow' function.
-
-**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| selector | <code>Object</code> |  | The selector describing the element. |
-| value | <code>String</code> |  | The value to select. |
-| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
-
-**Example**  
-```js
-await ui5.userInteraction.selectComboBox(selector, "Germany");
-```
-<a name="ui5.userInteraction.selectMultiComboBox"></a>
-
-#### userInteraction.selectMultiComboBox(selector, values, [index])
-Selects the passed values of the MultiComboBox with the given selector.
-Please note that the function will only work for the default MultiComboBox.
-In special cases, please use the clickSelectArrow function.
-
-**Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| selector | <code>Object</code> |  | The selector describing the element. |
-| values | <code>Array</code> |  | The values to select. |
-| [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
-
-**Example**  
-```js
-await ui5.userInteraction.selectMultiComboBox(selector, ["Option 1", "Option 2"]);
+await ui5.userInteraction.select(selector, "Germany");
 ```
 <a name="ui5.userInteraction.clickSelectArrow"></a>
 
@@ -4768,10 +4765,10 @@ Performs "select all" (ctrl + a) at the element with the given selector.
 ```js
 await ui5.userInteraction.selectAll(selector);
 ```
-<a name="ui5.userInteraction.openF4Help"></a>
+<a name="ui5.userInteraction.openValueHelp"></a>
 
-#### userInteraction.openF4Help(selector, [index], [timeout], useF4Key)
-Opens the F4-help of the element with the given selector.
+#### userInteraction.openValueHelp(selector, [index], [timeout], useF4Key)
+Opens the value help dialog of the element with the given selector.
 
 **Kind**: static method of [<code>userInteraction</code>](#ui5.userInteraction)  
 
@@ -4780,11 +4777,20 @@ Opens the F4-help of the element with the given selector.
 | selector | <code>Object</code> |  | The selector describing the element. |
 | [index] | <code>Number</code> | <code>0</code> | The index of the selector (in case there are more than one elements visible at the same time). |
 | [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
-| useF4Key | <code>Boolean</code> |  | Specifies if the help is opened by pressing the F4-key or via the button. The default value is true (triggered by pressing the F4-key). Set "useF4Key" to false, to trigger the search by clicking the button. |
+| useF4Key | <code>Boolean</code> |  | Specifies if the value help is opened by pressing the F4-key or via the value help icon click. |
 
 **Example**  
-```js
-await ui5.userInteraction.openF4Help(selector, 0, 30000, false);
+```
+const selector = {
+  elementProperties: {
+    id: "element-id"
+  },
+  descendantProperties: {
+    id: "element-id-vhi"
+  }
+}
+await ui5.userInteraction.openValueHelp(selector);
+await ui5.userInteraction.openValueHelp(selector, 0, 30000, true);
 ```
 <a name="ui5.userInteraction.searchFor"></a>
 
@@ -4883,6 +4889,7 @@ Global namespace for non UI5 modules.
         * [.clearAndFillAndRetry(elementOrSelector, value, [retries], [interval], [verify])](#nonUi5.userInteraction.clearAndFillAndRetry)
         * [.mouseOverElement(elementOrSelector, [xOffset], [yOffset])](#nonUi5.userInteraction.mouseOverElement)
         * [.scrollToElement(elem, [alignment])](#nonUi5.userInteraction.scrollToElement)
+        * [.selectAll([selector], [timeout])](#nonUi5.userInteraction.selectAll)
         * [.dragAndDrop(elementOrSelector, targetElem)](#nonUi5.userInteraction.dragAndDrop)
         * [.moveCursorAndClick(elementOrSelector)](#nonUi5.userInteraction.moveCursorAndClick)
         * [.clickElementInSvg(elementOrSelector, innerSelector)](#nonUi5.userInteraction.clickElementInSvg)
@@ -5602,6 +5609,7 @@ await nonUi5.session.loginSapNetWeaver("john", "abc123!");
     * [.clearAndFillAndRetry(elementOrSelector, value, [retries], [interval], [verify])](#nonUi5.userInteraction.clearAndFillAndRetry)
     * [.mouseOverElement(elementOrSelector, [xOffset], [yOffset])](#nonUi5.userInteraction.mouseOverElement)
     * [.scrollToElement(elem, [alignment])](#nonUi5.userInteraction.scrollToElement)
+    * [.selectAll([selector], [timeout])](#nonUi5.userInteraction.selectAll)
     * [.dragAndDrop(elementOrSelector, targetElem)](#nonUi5.userInteraction.dragAndDrop)
     * [.moveCursorAndClick(elementOrSelector)](#nonUi5.userInteraction.moveCursorAndClick)
     * [.clickElementInSvg(elementOrSelector, innerSelector)](#nonUi5.userInteraction.clickElementInSvg)
@@ -5858,6 +5866,22 @@ const alignment = {
   inline: "center"
 };
 await nonUi5.userInteraction.scrollToElement(elem, alignment);
+```
+<a name="nonUi5.userInteraction.selectAll"></a>
+
+#### userInteraction.selectAll([selector], [timeout])
+Performs "select all" (ctrl + a) at the element with the given selector.
+
+**Kind**: static method of [<code>userInteraction</code>](#nonUi5.userInteraction)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [selector] | <code>Object</code> |  | The selector describing the element. |
+| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait (ms). |
+
+**Example**  
+```js
+await nonUi5.userInteraction.selectAll(selector);
 ```
 <a name="nonUi5.userInteraction.dragAndDrop"></a>
 
@@ -6411,643 +6435,6 @@ const config = {
           "author": "qmate-tester"
         },
         let res = await service.rest.put(`${browser.config.baseUrl}/posts/99`, payload, config);
-```
-<a name="mobile"></a>
-
-## mobile
-Global namespace for mobile modules.
-
-**Kind**: global constant  
-
-* [mobile](#mobile)
-    * [.android](#mobile.android)
-        * [.pressKeyByName(keyName)](#mobile.android.pressKeyByName) ⇒ <code>Promise.&lt;void&gt;</code>
-        * [.pressKeyByCode(keyCode)](#mobile.android.pressKeyByCode) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.device](#mobile.device)
-        * [.isAppInstalled(appPackageOrBundleId)](#mobile.device.isAppInstalled) ⇒ <code>boolean</code>
-        * [.installApp(appPath)](#mobile.device.installApp) ⇒ <code>Promise.&lt;void&gt;</code>
-        * [.switchToContext([targetContext], [timeout])](#mobile.device.switchToContext) ⇒ <code>Promise.&lt;boolean&gt;</code>
-        * [.getTargetContextIfAvailable([targetContext], [timeout])](#mobile.device.getTargetContextIfAvailable) ⇒ <code>Promise.&lt;(string\|null)&gt;</code>
-        * [.closeApplication()](#mobile.device.closeApplication) ⇒ <code>Promise.&lt;void&gt;</code>
-        * [.queryAppState(appPackageOrBundleId)](#mobile.device.queryAppState) ⇒ <code>Promise.&lt;number&gt;</code>
-        * [.launchApp(appPackageOrBundleId)](#mobile.device.launchApp) ⇒ <code>Promise.&lt;void&gt;</code>
-        * [.switchToLandscapeOrientation()](#mobile.device.switchToLandscapeOrientation) ⇒ <code>Promise.&lt;void&gt;</code>
-        * [.switchToPortraitOrientation()](#mobile.device.switchToPortraitOrientation) ⇒ <code>Promise.&lt;void&gt;</code>
-        * [.getCurrentOrientation()](#mobile.device.getCurrentOrientation) ⇒ <code>Promise.&lt;Orientation&gt;</code>
-        * [.hideKeyboard(strategy, key, keyCode, [timeout])](#mobile.device.hideKeyboard) ⇒ <code>Promise.&lt;void&gt;</code>
-        * [.isKeyboardVisible()](#mobile.device.isKeyboardVisible) ⇒ <code>Promise.&lt;boolean&gt;</code>
-        * [.isPlatformSupported()](#mobile.device.isPlatformSupported) ⇒ <code>Promise.&lt;boolean&gt;</code>
-    * [.element](#mobile.element)
-        * [.isVisible(element, [strict])](#mobile.element.isVisible) ⇒ <code>boolean</code>
-        * [.isPresent(element)](#mobile.element.isPresent) ⇒ <code>boolean</code>
-        * [.waitToBePresent(selector, [timeout])](#mobile.element.waitToBePresent) ⇒ <code>boolean</code>
-        * [.waitToBeVisible(selector, [timeout])](#mobile.element.waitToBeVisible) ⇒ <code>boolean</code>
-        * [.waitToBeClickable(selector, [timeout])](#mobile.element.waitToBeClickable) ⇒ <code>boolean</code>
-        * [.isSelected(elementOrSelector)](#mobile.element.isSelected) ⇒ <code>boolean</code>
-        * [.waitToBeEnabled(selector, [timeout])](#mobile.element.waitToBeEnabled) ⇒ <code>boolean</code>
-    * [.gestures](#mobile.gestures)
-        * [.swipe(startX, startY, endX, endY, [duration])](#mobile.gestures.swipe) ⇒ <code>Promise.&lt;void&gt;</code>
-        * [.tap(coordX, coordY)](#mobile.gestures.tap) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.ios](#mobile.ios)
-    * [.userInteraction](#mobile.userInteraction)
-        * [.tap(elementOrSelector, [timeout])](#mobile.userInteraction.tap)
-        * [.check(elementOrSelector, [timeout])](#mobile.userInteraction.check)
-        * [.uncheck(elementOrSelector, [timeout])](#mobile.userInteraction.uncheck)
-        * [.doubleTap(elementOrSelector, [timeout])](#mobile.userInteraction.doubleTap) ⇒ <code>Promise.&lt;void&gt;</code>
-        * [.fill(elementOrSelector, value, [timeout])](#mobile.userInteraction.fill) ⇒ <code>Promise.&lt;void&gt;</code>
-        * [.clearAndFill(elementOrSelector, value, [timeout])](#mobile.userInteraction.clearAndFill) ⇒ <code>Promise.&lt;void&gt;</code>
-        * [.clear(elementOrSelector, [timeout])](#mobile.userInteraction.clear) ⇒ <code>Promise.&lt;void&gt;</code>
-
-<a name="mobile.android"></a>
-
-### mobile.android
-**Kind**: static class of [<code>mobile</code>](#mobile)  
-
-* [.android](#mobile.android)
-    * [.pressKeyByName(keyName)](#mobile.android.pressKeyByName) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.pressKeyByCode(keyCode)](#mobile.android.pressKeyByCode) ⇒ <code>Promise.&lt;void&gt;</code>
-
-<a name="mobile.android.pressKeyByName"></a>
-
-#### android.pressKeyByName(keyName) ⇒ <code>Promise.&lt;void&gt;</code>
-Simulate pressing a hardware key on the android device (e.g., back button, home button, etc.),
-
-**Kind**: static method of [<code>android</code>](#mobile.android)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| keyName | <code>string</code> | The name of the key (e.g., "back", "home", "volumeUp", etc.) |
-
-**Example**  
-```js
-await mobile.android.pressKeyByName("back");
-await mobile.android.pressKeyByName("home");
-```
-<a name="mobile.android.pressKeyByCode"></a>
-
-#### android.pressKeyByCode(keyCode) ⇒ <code>Promise.&lt;void&gt;</code>
-Simulate pressing a hardware key on the android device (e.g., back button, home button, etc.),
-
-**Kind**: static method of [<code>android</code>](#mobile.android)  
-**See**: https://developer.android.com/reference/android/view/KeyEvent  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| keyCode | <code>string</code> | The code of the key (e.g., 4 (back), 3 (home) , etc.) |
-
-**Example**  
-```js
-await mobile.android.pressKeyByCode(4);
-```
-<a name="mobile.device"></a>
-
-### mobile.device
-**Kind**: static class of [<code>mobile</code>](#mobile)  
-
-* [.device](#mobile.device)
-    * [.isAppInstalled(appPackageOrBundleId)](#mobile.device.isAppInstalled) ⇒ <code>boolean</code>
-    * [.installApp(appPath)](#mobile.device.installApp) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.switchToContext([targetContext], [timeout])](#mobile.device.switchToContext) ⇒ <code>Promise.&lt;boolean&gt;</code>
-    * [.getTargetContextIfAvailable([targetContext], [timeout])](#mobile.device.getTargetContextIfAvailable) ⇒ <code>Promise.&lt;(string\|null)&gt;</code>
-    * [.closeApplication()](#mobile.device.closeApplication) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.queryAppState(appPackageOrBundleId)](#mobile.device.queryAppState) ⇒ <code>Promise.&lt;number&gt;</code>
-    * [.launchApp(appPackageOrBundleId)](#mobile.device.launchApp) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.switchToLandscapeOrientation()](#mobile.device.switchToLandscapeOrientation) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.switchToPortraitOrientation()](#mobile.device.switchToPortraitOrientation) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.getCurrentOrientation()](#mobile.device.getCurrentOrientation) ⇒ <code>Promise.&lt;Orientation&gt;</code>
-    * [.hideKeyboard(strategy, key, keyCode, [timeout])](#mobile.device.hideKeyboard) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.isKeyboardVisible()](#mobile.device.isKeyboardVisible) ⇒ <code>Promise.&lt;boolean&gt;</code>
-    * [.isPlatformSupported()](#mobile.device.isPlatformSupported) ⇒ <code>Promise.&lt;boolean&gt;</code>
-
-<a name="mobile.device.isAppInstalled"></a>
-
-#### device.isAppInstalled(appPackageOrBundleId) ⇒ <code>boolean</code>
-Check if the application identified by its Package name/Bundle ID is installed on the device.
-
-**Kind**: static method of [<code>device</code>](#mobile.device)  
-**Returns**: <code>boolean</code> - - Returns `true` if specified app package/bundled installed in the device, or `false`.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| appPackageOrBundleId | <code>string</code> | Android package Name, or iOS bundle Id. |
-
-**Example**  
-```js
-await mobile.device.isAppInstalled("com.google.android.apps.maps");
-await mobile.device.isAppInstalled("com.apple.AppStore")
-```
-<a name="mobile.device.installApp"></a>
-
-#### device.installApp(appPath) ⇒ <code>Promise.&lt;void&gt;</code>
-Install the appropriate app based on the platform the test is being executed on.
-
-**Kind**: static method of [<code>device</code>](#mobile.device)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| appPath | <code>string</code> | Path of the app(.apk, .ipa) |
-
-**Example**  
-```js
-await mobile.device.installApp("/path/to/your/app.apk");
-await mobile.device.installApp("/path/to/your/app.ipa");
-```
-<a name="mobile.device.switchToContext"></a>
-
-#### device.switchToContext([targetContext], [timeout]) ⇒ <code>Promise.&lt;boolean&gt;</code>
-Switch to the specified( WEBVIEW | NATIVE_APP ) context if available.
-
-**Kind**: static method of [<code>device</code>](#mobile.device)  
-**Returns**: <code>Promise.&lt;boolean&gt;</code> - Returns `true` if the context is successfully switched, otherwise `false`.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [targetContext] | <code>string</code> | <code>&quot;&#x27;WEBVIEW&#x27;&quot;</code> | The name of the target context. |
-| [timeout] | <code>number</code> | <code>5000</code> | Maximum time to wait for the web context to appear, milliseconds. |
-
-**Example**  
-```js
-await mobile.device.switchToContext();
-await mobile.device.switchToContext("NATIVE_APP", 1000);
-```
-<a name="mobile.device.getTargetContextIfAvailable"></a>
-
-#### device.getTargetContextIfAvailable([targetContext], [timeout]) ⇒ <code>Promise.&lt;(string\|null)&gt;</code>
-Returns the specified target context if available within a given timeout.
-
-This method retrieves the list of available contexts and determines if a context
-that matches the `targetContext` string is present. If the target context is found,
-it returns the context name; otherwise, it returns `null`.
-
-**Kind**: static method of [<code>device</code>](#mobile.device)  
-**Returns**: <code>Promise.&lt;(string\|null)&gt;</code> - The name of the target context if found, or `null` if
-  the context is not available within the timeout.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [targetContext] | <code>string</code> | <code>&quot;&#x27;WEBVIEW&#x27;&quot;</code> | The name of the target context to check for.   Common examples are `WEBVIEW` or `NATIVE_APP`. |
-| [timeout] | <code>number</code> | <code>5000</code> | The maximum time, in milliseconds, to wait for the target   context to become available. |
-
-**Example**  
-```js
-const context = await getTargetContextIfAvailable("WEBVIEW", 10000);
-const context = await getTargetContextIfAvailable("NATIVE_APP", 10000);
-```
-<a name="mobile.device.closeApplication"></a>
-
-#### device.closeApplication() ⇒ <code>Promise.&lt;void&gt;</code>
-Close the currently active mobile application.
-
-**Kind**: static method of [<code>device</code>](#mobile.device)  
-**Example**  
-```js
-await mobile.device.closeApplication();
-```
-<a name="mobile.device.queryAppState"></a>
-
-#### device.queryAppState(appPackageOrBundleId) ⇒ <code>Promise.&lt;number&gt;</code>
-Queries the state of the application (e.g., running, background, not installed) on the mobile device(Android or iOS).
-
-**Kind**: static method of [<code>device</code>](#mobile.device)  
-**Returns**: <code>Promise.&lt;number&gt;</code> - - The app state:
- 0 - Not running,
- 1 - Not installed,
- 2 - Running in the background (not suspended),
- 3 - Running in the background (suspended),
- 4 - Running in the foreground.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| appPackageOrBundleId | <code>string</code> | Package name (Android) or bundle ID (iOS) of the application. |
-
-**Example**  
-```js
-await mobile.device.queryAppState("com.google.android.apps.maps");
-await mobile.device.queryAppState("com.apple.AppStore");
-```
-<a name="mobile.device.launchApp"></a>
-
-#### device.launchApp(appPackageOrBundleId) ⇒ <code>Promise.&lt;void&gt;</code>
-Launches the app for both iOS and Android with a parameterized app identifier.
-
-**Kind**: static method of [<code>device</code>](#mobile.device)  
-**Returns**: <code>Promise.&lt;void&gt;</code> - Resolves when the app is successfully launched.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| appPackageOrBundleId | <code>string</code> | The Android package name or iOS bundle ID of the application. |
-
-**Example**  
-```js
-await mobile.device.launchApp("com.google.android.apps.maps");
-await mobile.device.launchApp("com.apple.AppStore");
-```
-<a name="mobile.device.switchToLandscapeOrientation"></a>
-
-#### device.switchToLandscapeOrientation() ⇒ <code>Promise.&lt;void&gt;</code>
-Switches the device orientation to landscape mode.
-
-**Kind**: static method of [<code>device</code>](#mobile.device)  
-**Returns**: <code>Promise.&lt;void&gt;</code> - Resolves when the orientation is successfully switched.  
-**Example**  
-```js
-await mobile.device.switchToLandscapeOrientation();
-```
-<a name="mobile.device.switchToPortraitOrientation"></a>
-
-#### device.switchToPortraitOrientation() ⇒ <code>Promise.&lt;void&gt;</code>
-Switches the device orientation to portrait mode.
-
-**Kind**: static method of [<code>device</code>](#mobile.device)  
-**Returns**: <code>Promise.&lt;void&gt;</code> - Resolves when the orientation is successfully switched.  
-**Example**  
-```js
-await mobile.device.switchToPortraitOrientation();
-```
-<a name="mobile.device.getCurrentOrientation"></a>
-
-#### device.getCurrentOrientation() ⇒ <code>Promise.&lt;Orientation&gt;</code>
-Returns the device current orientation (PORTRAIT or LANDSCAPE)
-
-**Kind**: static method of [<code>device</code>](#mobile.device)  
-**Returns**: <code>Promise.&lt;Orientation&gt;</code> - The current device orientation.  
-**Example**  
-```js
-await mobile.device.getCurrentOrientation();
-```
-<a name="mobile.device.hideKeyboard"></a>
-
-#### device.hideKeyboard(strategy, key, keyCode, [timeout]) ⇒ <code>Promise.&lt;void&gt;</code>
-Hides the keyboard on both Android and iOS using specific strategies with timeout.
-
-**Kind**: static method of [<code>device</code>](#mobile.device)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| strategy | <code>string</code> |  | Strategy to use for hiding the keyboard ('pressKey', 'tapOutside', 'swipeDown'). |
-| key | <code>string</code> |  | Key to press if using the 'pressKey' strategy (e.g., 'Done', 'Enter'). |
-| keyCode | <code>number</code> |  | Key code for Android (optional). |
-| [timeout] | <code>number</code> | <code>5000</code> | Timeout in milliseconds for retrying to hide the keyboard. |
-
-**Example**  
-```js
-await mobile.device.hideKeyboard();
-await mobile.device.hideKeyboard('tapOutside');
-await mobile.device.hideKeyboard('swipeDown');
-//Android only, Sends a specific key code, like 66 for "Enter."
-await mobile.device.hideKeyboard('pressKey', undefined, 66);
-await mobile.device.hideKeyboard('pressKey', 'Done');
-```
-<a name="mobile.device.isKeyboardVisible"></a>
-
-#### device.isKeyboardVisible() ⇒ <code>Promise.&lt;boolean&gt;</code>
-Checks if the keyboard is visible or not on the mobile device.
-
-**Kind**: static method of [<code>device</code>](#mobile.device)  
-**Returns**: <code>Promise.&lt;boolean&gt;</code> - Returns `true` if the keyboard is visible on the mobile view.  
-**Example**  
-```js
-await mobile.device.isKeyboardVisible();
-```
-<a name="mobile.device.isPlatformSupported"></a>
-
-#### device.isPlatformSupported() ⇒ <code>Promise.&lt;boolean&gt;</code>
-Determine if the current platform is supported, if the current device platform is either `Android` or `iOS`.
-
-**Kind**: static method of [<code>device</code>](#mobile.device)  
-**Returns**: <code>Promise.&lt;boolean&gt;</code> - If neither Android nor iOS is detected (e.g., Windows, Linux, or web), the condition evaluates to false  
-**Example**  
-```js
-await mobile.device.isPlatformSupported();
-```
-<a name="mobile.element"></a>
-
-### mobile.element
-**Kind**: static class of [<code>mobile</code>](#mobile)  
-
-* [.element](#mobile.element)
-    * [.isVisible(element, [strict])](#mobile.element.isVisible) ⇒ <code>boolean</code>
-    * [.isPresent(element)](#mobile.element.isPresent) ⇒ <code>boolean</code>
-    * [.waitToBePresent(selector, [timeout])](#mobile.element.waitToBePresent) ⇒ <code>boolean</code>
-    * [.waitToBeVisible(selector, [timeout])](#mobile.element.waitToBeVisible) ⇒ <code>boolean</code>
-    * [.waitToBeClickable(selector, [timeout])](#mobile.element.waitToBeClickable) ⇒ <code>boolean</code>
-    * [.isSelected(elementOrSelector)](#mobile.element.isSelected) ⇒ <code>boolean</code>
-    * [.waitToBeEnabled(selector, [timeout])](#mobile.element.waitToBeEnabled) ⇒ <code>boolean</code>
-
-<a name="mobile.element.isVisible"></a>
-
-#### element.isVisible(element, [strict]) ⇒ <code>boolean</code>
-Returns a boolean if the mobile element is visible to the user.
-
-**Kind**: static method of [<code>element</code>](#mobile.element)  
-**Returns**: <code>boolean</code> - Returns true or false.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| element | <code>Element</code> |  | The Mobile Ui element. |
-| [strict] | <code>boolean</code> | <code>true</code> | If strict mode is enabled it will only return "true" if the element is visible on the mobile view and within the viewport. If "false", it will be sufficient if the element is visible on the view but not inside the current viewport. |
-
-**Example**  
-```js
-await mobile.element.isVisible(elem);
-```
-<a name="mobile.element.isPresent"></a>
-
-#### element.isPresent(element) ⇒ <code>boolean</code>
-Returns a boolean if the element is present at the DOM or not. It might be hidden.
-
-**Kind**: static method of [<code>element</code>](#mobile.element)  
-**Returns**: <code>boolean</code> - Returns true or false.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| element | <code>Element</code> | The element. |
-
-**Example**  
-```js
-await mobile.element.isPresent(elem);
-```
-<a name="mobile.element.waitToBePresent"></a>
-
-#### element.waitToBePresent(selector, [timeout]) ⇒ <code>boolean</code>
-Waits until the element with the given selector is present.
-
-**Kind**: static method of [<code>element</code>](#mobile.element)  
-**Returns**: <code>boolean</code> - Returns true or false.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| selector | <code>Object</code> |  | The CSS selector describing the element. |
-| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait (ms). |
-
-**Example**  
-```js
-await mobile.element.waitToBePresent(".input01");
-await mobile.element.waitToBePresent("#button12");
-await mobile.element.waitToBePresent("p:first-child");
-```
-<a name="mobile.element.waitToBeVisible"></a>
-
-#### element.waitToBeVisible(selector, [timeout]) ⇒ <code>boolean</code>
-Waits until the element with the given selector is visible.
-
-**Kind**: static method of [<code>element</code>](#mobile.element)  
-**Returns**: <code>boolean</code> - Returns true or false.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| selector | <code>Object</code> |  | The CSS selector describing the element. |
-| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait (ms). |
-
-**Example**  
-```js
-await mobile.element.waitToBeVisible(".input01");
-await mobile.element.waitToBeVisible("#button12");
-await mobile.element.waitToBeVisible("p:first-child");
-```
-<a name="mobile.element.waitToBeClickable"></a>
-
-#### element.waitToBeClickable(selector, [timeout]) ⇒ <code>boolean</code>
-Waits until the element with the given selector is clickable.
-
-**Kind**: static method of [<code>element</code>](#mobile.element)  
-**Returns**: <code>boolean</code> - Returns true or false.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| selector | <code>Object</code> |  | The CSS selector describing the element. |
-| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait (ms). |
-
-**Example**  
-```js
-await mobile.element.waitToBeClickable(".input01");
-await mobile.element.waitToBeClickable("#button12");
-await mobile.element.waitToBeClickable("p:first-child");
-```
-<a name="mobile.element.isSelected"></a>
-
-#### element.isSelected(elementOrSelector) ⇒ <code>boolean</code>
-Returns a boolean if the element (e.g. checkbox) is selected.
-
-**Kind**: static method of [<code>element</code>](#mobile.element)  
-**Returns**: <code>boolean</code> - Returns true or false.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| elementOrSelector | <code>Element</code> \| <code>string</code> | The element. |
-
-**Example**  
-```js
-const isSelected = await mobile.element.isSelected(elem);
-```
-<a name="mobile.element.waitToBeEnabled"></a>
-
-#### element.waitToBeEnabled(selector, [timeout]) ⇒ <code>boolean</code>
-Waits until the element with the given selector is present.
-
-**Kind**: static method of [<code>element</code>](#mobile.element)  
-**Returns**: <code>boolean</code> - Returns true or false.  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| selector | <code>Object</code> |  | The CSS selector describing the element. |
-| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait (ms). |
-
-**Example**  
-```js
-await mobile.element.waitToBeEnabled(".input01");
-await mobile.element.waitToBeEnabled("#button12");
-await mobile.element.waitToBeEnabled("p:first-child");
-```
-<a name="mobile.gestures"></a>
-
-### mobile.gestures
-**Kind**: static class of [<code>mobile</code>](#mobile)  
-
-* [.gestures](#mobile.gestures)
-    * [.swipe(startX, startY, endX, endY, [duration])](#mobile.gestures.swipe) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.tap(coordX, coordY)](#mobile.gestures.tap) ⇒ <code>Promise.&lt;void&gt;</code>
-
-<a name="mobile.gestures.swipe"></a>
-
-#### gestures.swipe(startX, startY, endX, endY, [duration]) ⇒ <code>Promise.&lt;void&gt;</code>
-Swipe from one point to another on the screen,
-Ensure that the provided coordinates are within the bounds of the screen to avoid unexpected behavior.
-
-**Kind**: static method of [<code>gestures</code>](#mobile.gestures)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| startX | <code>number</code> |  | The starting X coordinate of the swipe |
-| startY | <code>number</code> |  | The starting Y coordinate of the swipe |
-| endX | <code>number</code> |  | The ending X coordinate of the swipe |
-| endY | <code>number</code> |  | The ending Y coordinate of the swipe |
-| [duration] | <code>number</code> | <code>1000</code> | The duration of the swipe in milliseconds (optional, default is 1000ms) |
-
-**Example**  
-```js
-// Swipes from left to right across the screen horizontally (useful for image carousels or galleries).
-await mobile.gestures.swipe(100, 800, 800, 800);
-// Swipes from bottom to top vertically to scroll down a list.
-await mobile.gestures.swipe(300, 1000, 300, 400);
-// Swipes from the top down to refresh content on a mobile app (common for pull-to-refresh).
-await mobile.gestures.swipe(400, 200, 400, 800);
-```
-<a name="mobile.gestures.tap"></a>
-
-#### gestures.tap(coordX, coordY) ⇒ <code>Promise.&lt;void&gt;</code>
-Executes a tap at the given screen coordinates,
-Ensure that the provided coordinates are within the bounds of the screen to avoid unexpected behavior.
-
-**Kind**: static method of [<code>gestures</code>](#mobile.gestures)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| coordX | <code>number</code> | The horizontal screen coordinate for the tap. |
-| coordY | <code>number</code> | The vertical screen coordinate for the tap. |
-
-**Example**  
-```js
-await mobile.gestures.tap(100, 800);
-```
-<a name="mobile.ios"></a>
-
-### mobile.ios
-**Kind**: static class of [<code>mobile</code>](#mobile)  
-<a name="mobile.userInteraction"></a>
-
-### mobile.userInteraction
-**Kind**: static class of [<code>mobile</code>](#mobile)  
-
-* [.userInteraction](#mobile.userInteraction)
-    * [.tap(elementOrSelector, [timeout])](#mobile.userInteraction.tap)
-    * [.check(elementOrSelector, [timeout])](#mobile.userInteraction.check)
-    * [.uncheck(elementOrSelector, [timeout])](#mobile.userInteraction.uncheck)
-    * [.doubleTap(elementOrSelector, [timeout])](#mobile.userInteraction.doubleTap) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.fill(elementOrSelector, value, [timeout])](#mobile.userInteraction.fill) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.clearAndFill(elementOrSelector, value, [timeout])](#mobile.userInteraction.clearAndFill) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.clear(elementOrSelector, [timeout])](#mobile.userInteraction.clear) ⇒ <code>Promise.&lt;void&gt;</code>
-
-<a name="mobile.userInteraction.tap"></a>
-
-#### userInteraction.tap(elementOrSelector, [timeout])
-Tap's on the mobile element.
-
-**Kind**: static method of [<code>userInteraction</code>](#mobile.userInteraction)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element (e.g., accessibility ID, XPath) selectors describing the element. |
-| [timeout] | <code>Number</code> | <code>30000</code> | The timeout to wait(ms) |
-
-**Example**  
-```js
-await mobile.userInteraction.tap(elem);
-await mobile.userInteraction.tap(elem, 20000);
-```
-<a name="mobile.userInteraction.check"></a>
-
-#### userInteraction.check(elementOrSelector, [timeout])
-Checks the given checkbox.
-
-**Kind**: static method of [<code>userInteraction</code>](#mobile.userInteraction)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element (e.g., accessibility ID, XPath) selectors describing the element. |
-| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait(ms) |
-
-**Example**  
-```js
-await mobile.userInteraction.check(element);
-await mobile.userInteraction.check(element, 20000);
-```
-<a name="mobile.userInteraction.uncheck"></a>
-
-#### userInteraction.uncheck(elementOrSelector, [timeout])
-Unchecks the given checkbox.
-
-**Kind**: static method of [<code>userInteraction</code>](#mobile.userInteraction)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element (e.g., accessibility ID, XPath) selectors describing the element. |
-| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait(ms) |
-
-**Example**  
-```js
-await mobile.userInteraction.uncheck(elementOrSelector);
-await mobile.userInteraction.uncheck(elementOrSelector, 20000);
-```
-<a name="mobile.userInteraction.doubleTap"></a>
-
-#### userInteraction.doubleTap(elementOrSelector, [timeout]) ⇒ <code>Promise.&lt;void&gt;</code>
-Double Tap's on the mobile element.
-
-**Kind**: static method of [<code>userInteraction</code>](#mobile.userInteraction)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element (e.g., accessibility ID, XPath) selectors describing the element. |
-| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait(ms) |
-
-**Example**  
-```js
-await mobile.userInteraction.doubleTap(elem);
-await mobile.userInteraction.doubleTap(elem, 2000);
-```
-<a name="mobile.userInteraction.fill"></a>
-
-#### userInteraction.fill(elementOrSelector, value, [timeout]) ⇒ <code>Promise.&lt;void&gt;</code>
-Enter a string value into a mobile input field.
-
-**Kind**: static method of [<code>userInteraction</code>](#mobile.userInteraction)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element (e.g., accessibility ID, XPath) selectors describing the element. |
-| value | <code>string</code> |  | The string value to be entered. |
-| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait (ms). |
-
-**Example**  
-```js
-await mobile.userInteraction.fill(element);
-await mobile.userInteraction.fill(element, 2000);
-```
-<a name="mobile.userInteraction.clearAndFill"></a>
-
-#### userInteraction.clearAndFill(elementOrSelector, value, [timeout]) ⇒ <code>Promise.&lt;void&gt;</code>
-Enter a string into the mobile input field; it will clear the box before submission.
-
-**Kind**: static method of [<code>userInteraction</code>](#mobile.userInteraction)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element (e.g., accessibility ID, XPath) selectors describing the element. |
-| value | <code>string</code> |  | The string value to be entered. |
-| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait (ms). |
-
-**Example**  
-```js
-await mobile.userInteraction.clearAndFill(element);
-await mobile.userInteraction.clearAndFill(element, 2000);
-```
-<a name="mobile.userInteraction.clear"></a>
-
-#### userInteraction.clear(elementOrSelector, [timeout]) ⇒ <code>Promise.&lt;void&gt;</code>
-Clear a string value into a mobile input field.
-
-**Kind**: static method of [<code>userInteraction</code>](#mobile.userInteraction)  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| elementOrSelector | <code>Element</code> \| <code>string</code> |  | The element (e.g., accessibility ID, XPath) selectors describing the element. |
-| [timeout] | <code>number</code> | <code>30000</code> | The timeout to wait (ms). |
-
-**Example**  
-```js
-await mobile.userInteraction.clear(element);
-await mobile.userInteraction.clear(element, 2000);
 ```
 <a name="flp"></a>
 
