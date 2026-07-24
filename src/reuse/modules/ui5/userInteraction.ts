@@ -729,49 +729,51 @@ export class UserInteraction {
   // =================================== HELPER ===================================
   private async _getClickableElement(selector: any, index: number, timeout: number): Promise<Element> {
     let elem: Element;
-    const searchAttemptTimeout = timeout <= UserInteraction.DEFAULT_SEARCH_ATTEMPT_TIMEOUT ? timeout / 2 : UserInteraction.DEFAULT_SEARCH_ATTEMPT_TIMEOUT;
+    const searchAttemptTimeout = UserInteraction.DEFAULT_SEARCH_ATTEMPT_TIMEOUT;
     const nonClickableMsg = `Element is not clickable after ${timeout / 1000}s`;
 
-    /**
-     * Polling strategy
-     * 1. If opened dialog is found -> try to find element in this dialog or newer popups
-     * 2. If no dialogs or element in dialog found -> fallback for regular search (important for correct error handle)
-     * 3. Check if element is clickable and if not -> store error message
-     */
-    let errorMsg = "Unexpected error";
-    const poll = async () => {
-      try {
-        const activePopups = await this._getActiveDialogPopups(searchAttemptTimeout);
-        if (activePopups) {
-          const popupElementsResolvers = activePopups.map((p) => ui5.element.getAllDisplayed(selector, searchAttemptTimeout, p));
-          const results = await Promise.allSettled(popupElementsResolvers);
-          const elems = results.filter((r) => r.status === "fulfilled").flatMap((r) => r.value ?? []);
-          elem = elems[index];
-        }
-
-        if (!elem) elem = await ui5.element.getDisplayed(selector, index, searchAttemptTimeout);
-
-        if (!(await elem?.isClickable())) throw new Error(nonClickableMsg);
-        return true;
-      } catch (e) {
-        if (e instanceof Error) return ((errorMsg = e.message), false);
+    const getElementFromDialog = async () => {
+      const activePopups = await this._getActiveDialogPopups(searchAttemptTimeout);
+      if (activePopups) {
+        const popupElementsResolvers = activePopups.map((p) => ui5.element.getAllDisplayed(selector, searchAttemptTimeout, p));
+        const results = await Promise.allSettled(popupElementsResolvers);
+        const elems = results.filter((r) => r.status === "fulfilled").flatMap((r) => r.value ?? []);
+        return elems[index];
       }
+      return null;
+    };
+    const getElementFromWholePage = async () => {
+      return await ui5.element.getDisplayed(selector, index, searchAttemptTimeout);
     };
 
-    try {
-      await browser.waitUntil(poll, {
+    /**
+     * Polling strategy:
+     * 1. Find elements from dialogs & whole page concurrently
+     * 2. Pass element from dialog if presented, if no - fallback for regular search result
+     * 3. Determine element is clickable or not
+     */
+    await browser.waitUntil(
+      async () => {
+        const [elementFromDialog, elementFromWholePage] = await Promise.all([getElementFromDialog(), getElementFromWholePage()]);
+
+        // Priority to elements from dialogs
+        elem = elementFromDialog ?? elementFromWholePage;
+
+        return await elem.isClickable();
+      },
+      {
         timeout: timeout,
+        timeoutMsg: nonClickableMsg,
         interval: GLOBAL_DEFAULT_WAIT_INTERVAL
-      });
-    } catch (e) {
-      this.ErrorHandler.logException(new Error(), errorMsg);
-    }
+      }
+    );
 
     return elem!;
   }
 
   private async _getActiveDialogPopups(timeout?: number): Promise<Array<Element> | undefined> {
     const vl = this.vlf.initLog(this._getActiveDialogPopups);
+    // Returns IDs of last opened dialog and popovers opened in it
     const activePopupsIds = await browser.execute(() => {
       const popups = [...sap.ui.getCore().getStaticAreaRef().children]
         .filter((e) => e.checkVisibility())
