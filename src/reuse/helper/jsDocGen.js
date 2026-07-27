@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 "use strict";
 
-const glob = require("glob");
+const { glob } = require("glob");
 const fs = require("fs");
 const path = require("path");
 const jsdoc2md = require("jsdoc-to-markdown");
