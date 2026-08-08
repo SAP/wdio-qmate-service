@@ -134,7 +134,7 @@
     "deepmerge": "^4.3.1",
     "fs-extra": "^11.4.0",
     "node-localstorage": "^3.0.5",
-    "pdfjs-dist": "^6.0.227",
+    "pdfjs-dist": "^6.2.108",
     "qcrypt": "file:packages/qcrypt",
     "query-string": "^9.4.0",
     "sha.js": "^2.4.12",
