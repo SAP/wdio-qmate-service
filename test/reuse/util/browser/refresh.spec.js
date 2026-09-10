@@ -17,17 +17,17 @@ describe("browser - refresh", function () {
   it("Execution", async function () {
     let selector = {
       elementProperties: {
-        viewName: "sap.ui.documentation.sdk.view.App",
-        metadata: "sap.ui.core.Icon",
-        id: "*aboutMenuButton-internalBtn-img"
+        id: "*aboutMenuButton",
+        metadata: "sap.f.gen.ui5.webcomponents_fiori.dist.ShellBarItem",
+        viewName: "sap.ui.documentation.sdk.view.App"
       }
     };
     await ui5.userInteraction.click(selector);
     selector = {
       elementProperties: {
-        viewName: "sap.ui.documentation.sdk.view.App",
-        metadata: "sap.m.MenuItem",
-        icon: "sap-icon://hint"
+        id: "*menuItem-about",
+        metadata: "sap.f.gen.ui5.webcomponents.dist.MenuItem",
+        viewName: "sap.ui.documentation.sdk.view.App"
       }
     };
     await ui5.userInteraction.click(selector);
