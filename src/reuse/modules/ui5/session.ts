@@ -279,32 +279,29 @@ export class Session {
    */
   async expectLogoutText(timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.expectLogoutText);
+    const iterationTimeout = Math.min(timeout, 3000);
 
-    async function expectS4LogoutText() {
-      const elem = await nonUi5.element.getById("msgText");
-      await nonUi5.assertion.expectToBeVisible(elem);
+    async function isS4LogoutTextVisible() {
+      const elem = await nonUi5.element.getById("msgText", iterationTimeout);
+      return nonUi5.element.isVisible(elem);
     }
 
-    async function expectBtpLogoutText() {
+    async function isBtpLogoutTextVisible() {
       const logoutTextSelector = {
-        "elementProperties": {
-          "metadata": "sap.m.Title",
-          "text": "Goodbye",
-          "viewName": "sap.cf.pages.logoff.view.logoff"
+        elementProperties: {
+          metadata: "sap.m.Title",
+          text: "Goodbye",
+          viewName: "sap.cf.pages.logoff.view.logoff"
         }
       };
-      await ui5.assertion.expectToBeVisible(logoutTextSelector);
+      return ui5.element.isVisible(logoutTextSelector, 0, iterationTimeout);
     }
 
     await browser.waitUntil(
       async () => {
-        try {
-          await Promise.any([expectS4LogoutText(), expectBtpLogoutText()]);
-          return true;
-        } catch (error) {
-          // Ignore error and continue to next promise
-          return false;
-        }
+        const isS4LogoutText = await isS4LogoutTextVisible();
+        const isBTPLogoutText = await isBtpLogoutTextVisible();
+        return isS4LogoutText || isBTPLogoutText;
       },
       {
         timeout: timeout,
@@ -312,7 +309,6 @@ export class Session {
         interval: GLOBAL_DEFAULT_WAIT_INTERVAL
       }
     );
-
   }
 
   // =================================== HELPER ===================================
