@@ -282,8 +282,9 @@ export class Session {
     const iterationTimeout = Math.min(timeout, 3000);
 
     async function isS4LogoutTextVisible() {
+      if (!(await nonUi5.element.isPresentByCss("#msgText", 0, iterationTimeout))) return false;
       const elem = await nonUi5.element.getById("msgText", iterationTimeout);
-      return nonUi5.element.isVisible(elem);
+      return await nonUi5.element.isVisible(elem);
     }
 
     async function isBtpLogoutTextVisible() {
