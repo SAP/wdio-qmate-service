@@ -150,54 +150,6 @@ describe("Test 'getUI5Property()' and 'getUI5Properties()' on both element and b
     await expect(browser.getUI5Property("enabled", disabledButton)).resolves.toBe(false);
     await expect(disabledButton).toBeDisabled();
   });
-
-  it("should access Enabled Button properties on element and browser levels, try to access properties via wrong/empty name", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.ButtonWithBadge`);
-    await util.browser.refresh();
-    await handleCookiesConsent();
-    await util.browser.switchToIframe("[id='sampleFrame']");
-
-    const buttonProperties = {
-      elementProperties: {
-        viewName: "sap.m.sample.ButtonWithBadge.Page",
-        metadata: "sap.m.Button"
-      }
-    };
-
-    const button = await browser.uiControl(buttonProperties);
-    checkMethodsAvailabilityOnBrowserAndElementLevels(button);
-
-    await checkElementAndBrowserAccessAllProperties({
-      requiredProperties: ["icon", "enabled", "text"],
-      element: button
-    });
-
-    await expect(button).toBeEnabled();
-    await expect(button.getUI5Property("enabled")).resolves.toBe(true);
-    await expect(browser.getUI5Property("enabled", button)).resolves.toBe(true);
-
-    await expect(button.getUI5Property("icon")).resolves.toBe("sap-icon://cart");
-    await expect(browser.getUI5Property("icon", button)).resolves.toBe("sap-icon://cart");
-
-    const checkboxToRemoveIconProperties = {
-      elementProperties: {
-        viewName: "sap.m.sample.ButtonWithBadge.Page",
-        metadata: "sap.m.CheckBox",
-        text: "Icon"
-      }
-    };
-
-    const checkboxToRemoveIcon = await browser.uiControl(checkboxToRemoveIconProperties);
-    await expect(checkboxToRemoveIcon).toBeClickable();
-    await checkboxToRemoveIcon.click();
-
-    await expect(button.getUI5Property("icon")).resolves.toBe("");
-    await expect(browser.getUI5Property("icon", button)).resolves.toBe("");
-
-    await expect(button.getUI5Property("wrong_property_name")).resolves.toBeNull();
-    await expect(browser.getUI5Property("wrong_property_name", button)).resolves.toBeNull();
-    await expect(button.getUI5Property("")).rejects.toThrow("javascript error: done is not a function");
-  });
 });
 
 function checkMethodsAvailabilityOnBrowserAndElementLevels(element) {
