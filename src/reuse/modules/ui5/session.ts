@@ -231,9 +231,25 @@ export class Session {
       return await browser.reloadSession(); // Clean cache
     }
 
-    await ui5.navigationBar.clickUserIcon();
-    await this._clickSignOut();
-    await ui5.confirmationDialog.clickOk();
+    // Poll this flow to avoid fails due accidental popups closing
+    const actionTimeout = 2000;
+    let lastError;
+    try {
+      await browser.waitUntil(async () => {
+        try {
+          await ui5.navigationBar.clickUserIcon(actionTimeout);
+          // Wait a little for a popup to stabilize (prevents instant closing)
+          await util.browser.sleep(200);
+          await this._clickSignOut(actionTimeout);
+          await ui5.confirmationDialog.clickOk(actionTimeout);
+          return true;
+        } catch (e) {
+          return ((lastError = e), false);
+        }
+      });
+    } catch (e) {
+      this.ErrorHandler.logException(lastError ?? e);
+    }
 
     if (verify) {
       await ui5.session.expectLogoutText();
@@ -363,7 +379,6 @@ export class Session {
 
   private async _clickSignOut(timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this._clickSignOut);
-    const iterationTimeout = Math.min(timeout, 1000);
 
     async function scrollAndClickLogoutOld() {
       const selector = {
@@ -374,29 +389,21 @@ export class Session {
           }
         }
       };
-      await ui5.userInteraction.scrollToElement(selector, 0, "end", iterationTimeout);
-      await ui5.userInteraction.click(selector, 0, iterationTimeout);
+      await ui5.userInteraction.scrollToElement(selector, 0, "end", timeout);
+      await ui5.userInteraction.click(selector, 0, timeout);
     }
 
     async function scrollAndClickLogoutNew() {
       // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
       const selector = ">>>.ui5-user-menu-sign-out-btn";
-      await nonUi5.userInteraction.scrollToElement(selector, "end", iterationTimeout);
-      await nonUi5.userInteraction.click(selector, iterationTimeout);
+      await nonUi5.userInteraction.scrollToElement(selector, "end", timeout);
+      await nonUi5.userInteraction.click(selector, timeout);
     }
 
     // attempt clicking both old and new logout buttons
-    await browser.waitUntil(
-      async () => {
-        const results = await Promise.allSettled([scrollAndClickLogoutOld(), scrollAndClickLogoutNew()]);
-        return results.some((r) => r.status === "fulfilled");
-      },
-      {
-        timeout: timeout,
-        timeoutMsg: `Could not click Sign out button in ${+timeout / 1000}s`,
-        interval: GLOBAL_DEFAULT_WAIT_INTERVAL
-      }
-    );
+    await Promise.any([scrollAndClickLogoutOld(), scrollAndClickLogoutNew()]).catch((e) => {
+      throw new Error(`Could not click Sign out button in ${+timeout / 1000}s: ${(e as AggregateError).errors}`);
+    });
   }
 
   private async _checkForErrors(messageSelector: string) {

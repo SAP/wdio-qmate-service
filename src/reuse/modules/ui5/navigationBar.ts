@@ -85,12 +85,11 @@ export class NavigationBar {
    */
   async clickUserIcon(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickUserIcon);
-    const iterationTimeout = Math.min(timeout, 1000);
 
     async function clickWebComponentUserProfile() {
       // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
       const selector = ">>>[data-ui5-stable='profile']";
-      await nonUi5.userInteraction.click(selector, iterationTimeout);
+      await nonUi5.userInteraction.click(selector, timeout);
     }
 
     async function clickShellBarUserAvatar() {
@@ -104,27 +103,16 @@ export class NavigationBar {
           id: "*HeaderButton"
         }
       };
-      const id = await ui5.element.getId(selector, 0, iterationTimeout);
-      await util.browser.executeScript((id: string) => {
-        sap.ui.getCore().byId(id).firePress();
-      }, id);
+      await ui5.userInteraction.click(selector, 0, timeout);
+      // const id = await ui5.element.getId(selector, 0, timeout);
+      // await util.browser.executeScript((id: string) => {
+      //   sap.ui.getCore().byId(id).firePress();
+      // }, id);
     }
 
-    try {
-      await browser.waitUntil(
-        async () => {
-          const results = await Promise.allSettled([clickWebComponentUserProfile(), clickShellBarUserAvatar()]);
-          return results.some((r) => r.status === "fulfilled");
-        },
-        {
-          timeout: timeout,
-          timeoutMsg: `Could not click User Icon in ${+timeout / 1000}s`,
-          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
-        }
-      );
-    } catch (e) {
-      this.ErrorHandler.logException(e);
-    }
+    await Promise.any([clickWebComponentUserProfile(), clickShellBarUserAvatar()]).catch((e) => {
+      throw new Error(`Could not click User Icon in ${+timeout / 1000}s: ${(e as AggregateError).errors}`);
+    });
   }
 
   // =================================== ASSERTION ===================================
