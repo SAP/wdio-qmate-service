@@ -232,15 +232,18 @@ export class Session {
     }
 
     // Poll this flow to avoid fails due accidental popups closing
-    const actionTimeout = 2000;
+    const actionTimeout = 5000; // <- keep this timeout minimal 5 sec
     let lastError;
     try {
       await browser.waitUntil(async () => {
         try {
+          vl.log("Clicking on User Icon...");
           await ui5.navigationBar.clickUserIcon(actionTimeout);
+          vl.log("Clicking Sign Out button...");
           // Wait a little for a popup to stabilize (prevents instant closing)
           await util.browser.sleep(200);
           await this._clickSignOut(actionTimeout);
+          vl.log("Clicking OK to confirm logout...");
           await ui5.confirmationDialog.clickOk(actionTimeout);
           return true;
         } catch (e) {
