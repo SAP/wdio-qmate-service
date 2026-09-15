@@ -85,66 +85,32 @@ export class NavigationBar {
    */
   async clickUserIcon(timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickUserIcon);
-    // There are three different user icon implementations, some are still used in "older" systems, by time we can remove the legacy ones.
-    async function clickLegacyUserAvatar() {
-      const selector = {
-        elementProperties: {
-          metadata: "sap.m.Avatar",
-          id: "*HeaderButton"
-        }
-      };
-      await ui5.userInteraction.click(selector, 0, 500);
-    }
 
     async function clickWebComponentUserProfile() {
       // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
       const selector = ">>>[data-ui5-stable='profile']";
-      await nonUi5.userInteraction.click(selector, 500);
+      await nonUi5.userInteraction.click(selector, timeout);
+      vl.log("Clicked on web component user profile");
     }
 
     async function clickShellBarUserAvatar() {
+      // This selector stands for every element with metadata:
+      // "sap.ushell.gen.ui5.webcomponents.dist.Avatar",
+      // "sap.f.gen.ui5.webcomponents.dist.Avatar",
+      // "sap.m.Avatar"
       const selector = {
         elementProperties: {
-          viewName: "sap.ushell.components.shell.ShellBar.view.ShellBar",
-          metadata: "sap.ushell.gen.ui5.webcomponents.dist.Avatar",
-          id: "userActionsMenuHeaderButton"
+          metadata: "sap.*.Avatar",
+          id: "*HeaderButton"
         }
       };
-      await ui5.userInteraction.click(selector, 0, 500);
+      await ui5.userInteraction.click(selector, 0, timeout);
+      vl.log("Clicked on shell bar user profile");
     }
 
-    async function clickShellBarUserAvatar2() {
-      const selector = {
-        elementProperties: {
-          viewName: "sap.ushell.components.shell.ShellBar.view.ShellBar",
-          metadata: "sap.f.gen.ui5.webcomponents.dist.Avatar",
-          id: "userActionsMenuHeaderButton"
-        }
-      };
-      await ui5.userInteraction.click(selector, 0, 500);
-    }
-
-    try {
-      // attempt clicking both old and new user icons
-      await browser.waitUntil(
-        async () => {
-          try {
-            await Promise.any([clickLegacyUserAvatar(), clickWebComponentUserProfile(), clickShellBarUserAvatar(), clickShellBarUserAvatar2()]);
-            return true;
-          } catch (error) {
-            // Ignore error and continue to next promise
-            return false;
-          }
-        },
-        {
-          timeout: timeout,
-          timeoutMsg: `Could not click User Icon in ${+timeout / 1000}s`,
-          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
-        }
-      );
-    } catch (error) {
-      this.ErrorHandler.logException(error);
-    }
+    await Promise.any([clickWebComponentUserProfile(), clickShellBarUserAvatar()]).catch((e) => {
+      throw new Error(`Could not click User Icon in ${+timeout / 1000}s: ${(e as AggregateError).errors}`);
+    });
   }
 
   // =================================== ASSERTION ===================================

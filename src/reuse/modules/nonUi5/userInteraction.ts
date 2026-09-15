@@ -34,7 +34,7 @@ export class UserInteraction {
     const highlightConfig = await elementHighlight.getElementHighlightData("click");
 
     try {
-      const element = await resolveCssSelectorOrElement(elementOrSelector);
+      const element = await resolveCssSelectorOrElement(elementOrSelector, timeout);
 
       vl.log("Expecting element to be displayed and enabled");
       await Promise.all([
