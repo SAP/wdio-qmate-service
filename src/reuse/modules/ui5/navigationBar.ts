@@ -90,6 +90,7 @@ export class NavigationBar {
       // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
       const selector = ">>>[data-ui5-stable='profile']";
       await nonUi5.userInteraction.click(selector, timeout);
+      vl.log("Clicked on web component user profile");
     }
 
     async function clickShellBarUserAvatar() {
@@ -104,10 +105,7 @@ export class NavigationBar {
         }
       };
       await ui5.userInteraction.click(selector, 0, timeout);
-      // const id = await ui5.element.getId(selector, 0, timeout);
-      // await util.browser.executeScript((id: string) => {
-      //   sap.ui.getCore().byId(id).firePress();
-      // }, id);
+      vl.log("Clicked on shell bar user profile");
     }
 
     await Promise.any([clickWebComponentUserProfile(), clickShellBarUserAvatar()]).catch((e) => {
