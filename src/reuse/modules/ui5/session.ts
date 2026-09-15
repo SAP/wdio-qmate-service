@@ -317,17 +317,26 @@ export class Session {
       return ui5.element.isVisible(logoutTextSelector, 0, iterationTimeout);
     }
 
-    await browser.waitUntil(
-      async () => {
-        const results = await Promise.allSettled([isS4LogoutTextVisible(), isBtpLogoutTextVisible()]);
-        return results.some((r) => r.status == "fulfilled");
-      },
-      {
-        timeout: timeout,
-        timeoutMsg: `Logout text not visible in ${+timeout / 1000}s`,
-        interval: GLOBAL_DEFAULT_WAIT_INTERVAL
-      }
-    );
+    let lastError: unknown;
+    try {
+      await browser.waitUntil(
+        async () => {
+          try {
+            await Promise.any([isS4LogoutTextVisible(), isBtpLogoutTextVisible()]);
+          } catch (e) {
+            return ((lastError = (e as AggregateError).errors), false);
+          }
+          return true;
+        },
+        {
+          timeout: timeout,
+          timeoutMsg: `Logout text not visible in ${+timeout / 1000}s`,
+          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
+        }
+      );
+    } catch (e) {
+      this.ErrorHandler.logException(lastError ?? e);
+    }
   }
 
   // =================================== HELPER ===================================
