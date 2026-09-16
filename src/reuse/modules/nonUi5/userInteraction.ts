@@ -32,21 +32,25 @@ export class UserInteraction {
   async click(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.click);
     const highlightConfig = await elementHighlight.getElementHighlightData("click");
+    const iterationTimeout = Math.min(timeout, 500);
 
     let lastError: QmateError | Error;
     let element: Element;
     vl.log("Expecting element to exist, to be displayed and enabled");
     try {
-      await browser.waitUntil(async () => {
-        try {
-          element = await resolveCssSelectorOrElement(elementOrSelector, timeout);
-          if (!(await element.isDisplayed())) throw new Error("Element is found, but not displayed");
-          if (!(await element.isEnabled())) throw new Error("Element is found, displayed, but disabled");
-          return true;
-        } catch (e) {
-          return ((lastError = e as QmateError | Error), false);
-        }
-      });
+      await browser.waitUntil(
+        async () => {
+          try {
+            element = await resolveCssSelectorOrElement(elementOrSelector, iterationTimeout);
+            if (!(await element.isDisplayed())) throw new Error("Element is found, but not displayed");
+            if (!(await element.isEnabled())) throw new Error("Element is found, displayed, but disabled");
+            return true;
+          } catch (e) {
+            return ((lastError = e as QmateError | Error), false);
+          }
+        },
+        { timeout }
+      );
     } catch (e) {
       this.ErrorHandler.logException(lastError!);
     }
