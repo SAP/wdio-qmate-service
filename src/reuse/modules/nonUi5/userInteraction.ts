@@ -42,6 +42,7 @@ export class UserInteraction {
           element = await resolveCssSelectorOrElement(elementOrSelector, timeout);
           if (!(await element.isDisplayed())) throw new Error("Element is found, but not displayed");
           if (!(await element.isEnabled())) throw new Error("Element is found, displayed, but disabled");
+          return true;
         } catch (e) {
           return ((lastError = e as QmateError | Error), false);
         }
