@@ -1,31 +1,31 @@
 "use strict";
 
-// describe("userInteraction - click - 'Default' button", function () {
-//   it("Preparation", async function () {
-//     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
-//   });
+describe("userInteraction - click - 'Default' button", function () {
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
+  });
 
-//   it("Execution", async function () {
-//     const elem = await nonUi5.element.getById("Default", 10000);
-//     await nonUi5.userInteraction.click(elem);
-//   });
+  it("Execution", async function () {
+    const elem = await nonUi5.element.getById("Default", 10000);
+    await nonUi5.userInteraction.click(elem);
+  });
 
-//   it("Verification", async function () {
-//     const submittedResultField = await nonUi5.element.getById("display1", 10000);
-//     await nonUi5.assertion.expectValueToBe(submittedResultField, "Default", "textContent");
-//   });
-// });
+  it("Verification", async function () {
+    const submittedResultField = await nonUi5.element.getById("display1", 10000);
+    await nonUi5.assertion.expectValueToBe(submittedResultField, "Default", "textContent");
+  });
+});
 
-// describe("userInteraction - click - disabled button (unhappy case)", function () {
-//   it("Preparation", async function () {
-//     await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
-//   });
+describe("userInteraction - click - disabled button (unhappy case)", function () {
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl("http://localhost:34005/buttons.html");
+  });
 
-//   it("Execution & Verification", async function () {
-//     const elem = await nonUi5.element.getById("Not-clickable", 10000);
-//     await expect(nonUi5.userInteraction.click(elem)).rejects.toThrow("Element is found, displayed, but not enabled");
-//   });
-// });
+  it("Execution & Verification", async function () {
+    const elem = await nonUi5.element.getById("Not-clickable", 10000);
+    await expect(nonUi5.userInteraction.click(elem)).rejects.toThrow("Element is found, displayed, but not enabled");
+  });
+});
 
 describe("userInteraction - click - empty value", function () {
   it("Preparation", async function () {
