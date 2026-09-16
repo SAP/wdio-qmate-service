@@ -4,7 +4,7 @@ import { Element } from "../../../../@types/wdio";
 import { AlignmentOptions, AlignmentValues } from "../types";
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
-import ErrorHandler from "../../helper/errorHandler";
+import ErrorHandler, { QmateError } from "../../helper/errorHandler";
 import elementHighlight from "../../helper/elementHighlight";
 import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
 import { validateValue } from "../../helper/inputValidation";
@@ -33,26 +33,27 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.click);
     const highlightConfig = await elementHighlight.getElementHighlightData("click");
 
+    let lastError: QmateError | Error;
+    let element: Element;
+    vl.log("Expecting element to exist, to be displayed and enabled");
     try {
-      const element = await resolveCssSelectorOrElement(elementOrSelector);
+      await browser.waitUntil(async () => {
+        try {
+          element = await resolveCssSelectorOrElement(elementOrSelector, timeout);
+          if (!(await element.isDisplayed())) throw new Error("Element is found, but not displayed");
+          if (!(await element.isEnabled())) throw new Error("Element is found, displayed, but disabled");
+        } catch (e) {
+          return ((lastError = e as QmateError | Error), false);
+        }
+      });
+    } catch (e) {
+      this.ErrorHandler.logException(lastError!);
+    }
 
-      vl.log("Expecting element to be displayed and enabled");
-      await Promise.all([
-        expect(element).toBeDisplayed({
-          wait: timeout,
-          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
-          message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
-        }),
-        expect(element).toBeEnabled({
-          wait: timeout,
-          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
-          message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
-        })
-      ]);
-
+    try {
       vl.log("Clicking the element");
-      if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
-      await element.click();
+      if (highlightConfig.enable) await nonUi5.element.highlight(element!, highlightConfig.duration, highlightConfig.color);
+      await element!.click();
     } catch (error) {
       this.ErrorHandler.logException(error);
     }
