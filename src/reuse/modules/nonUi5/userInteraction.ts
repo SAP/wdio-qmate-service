@@ -32,7 +32,7 @@ export class UserInteraction {
   async click(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.click);
     const highlightConfig = await elementHighlight.getElementHighlightData("click");
-    const iterationTimeout = Math.min(timeout, 500);
+    const iterationTimeout = Math.min(timeout, 3000);
 
     let lastError: QmateError | Error;
     let element: Element;
