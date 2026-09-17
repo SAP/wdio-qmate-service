@@ -109,7 +109,8 @@ export class NavigationBar {
     }
 
     await Promise.any([clickWebComponentUserProfile(), clickShellBarUserAvatar()]).catch((e) => {
-      throw new Error(`Could not click User Icon in ${+timeout / 1000}s: ${(e as AggregateError).errors}`);
+      const reasons = (e as AggregateError).errors.map((err: Error) => err.message).join(", ");
+      throw new Error(`Could not click User Icon in ${+timeout / 1000}s: ${reasons}`);
     });
   }
 
