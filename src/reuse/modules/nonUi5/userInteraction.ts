@@ -33,6 +33,7 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.click);
     const highlightConfig = await elementHighlight.getElementHighlightData("click");
     const resolveTimeout = Math.min(timeout, 3000);
+    const selectorErrorPart = typeof elementOrSelector == "string" ? `element with selector '${elementOrSelector}'` : "provided element";
 
     let lastError: QmateError | Error | undefined;
     let element: Element | undefined;
@@ -43,8 +44,8 @@ export class UserInteraction {
         async () => {
           try {
             element = await resolveCssSelectorOrElement(elementOrSelector, resolveTimeout);
-            if (!(await element.isDisplayed())) throw new Error(`Element with selector '${elementOrSelector}' is found, but not displayed`);
-            if (!(await element.isEnabled())) throw new Error(`Element with selector '${elementOrSelector}' is found and displayed, but not enabled`);
+            if (!(await element.isDisplayed())) throw new Error(`${selectorErrorPart} is found, but not displayed`);
+            if (!(await element.isEnabled())) throw new Error(`${selectorErrorPart} is found and displayed, but not enabled`);
             return true;
           } catch (e) {
             return ((lastError = e as QmateError | Error), false);
@@ -69,8 +70,7 @@ export class UserInteraction {
       vl.log("Clicking the element");
       await element!.click();
     } catch (error) {
-      const isSelector = typeof elementOrSelector === "string";
-      this.ErrorHandler.logException(new Error(`Failed to click ${isSelector ? `element with selector '${elementOrSelector}'` : "provided element"}. Reason: ${(error as Error).message}`));
+      this.ErrorHandler.logException(new Error(`Failed to click on ${selectorErrorPart}. Reason: ${(error as Error).message}`));
     }
   }
 
