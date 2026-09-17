@@ -408,7 +408,8 @@ export class Session {
 
     // attempt clicking both old and new logout buttons
     await Promise.any([scrollAndClickLogoutOld(), scrollAndClickLogoutNew()]).catch((e) => {
-      throw new Error(`Could not click Sign out button in ${+timeout / 1000}s: ${(e as AggregateError).errors}`);
+      const reasons = (e as AggregateError).errors.map((err: Error) => err.message).join(", ");
+      throw new Error(`Could not click Sign out button in ${+timeout / 1000}s: ${reasons}`);
     });
   }
 
