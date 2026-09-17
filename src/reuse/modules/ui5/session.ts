@@ -298,15 +298,13 @@ export class Session {
    */
   async expectLogoutText(timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.expectLogoutText);
-    const iterationTimeout = Math.min(timeout, 1000);
+    const iterationTimeout = Math.min(timeout, 3000);
 
-    async function isS4LogoutTextVisible() {
-      if (!(await nonUi5.element.isPresentByCss("#msgText", 0, iterationTimeout))) return false;
-      const elem = await nonUi5.element.getById("msgText", iterationTimeout);
-      return await nonUi5.element.isVisible(elem);
+    async function expectS4LogoutText() {
+      await nonUi5.assertion.expectToBeVisible("#msgText", iterationTimeout);
     }
 
-    async function isBtpLogoutTextVisible() {
+    async function expectBtpLogoutText() {
       const logoutTextSelector = {
         elementProperties: {
           metadata: "sap.m.Title",
@@ -314,29 +312,25 @@ export class Session {
           viewName: "sap.cf.pages.logoff.view.logoff"
         }
       };
-      return ui5.element.isVisible(logoutTextSelector, 0, iterationTimeout);
+      await ui5.assertion.expectToBeVisible(logoutTextSelector, 0, iterationTimeout);
     }
 
-    let lastError: unknown;
-    try {
-      await browser.waitUntil(
-        async () => {
-          try {
-            await Promise.any([isS4LogoutTextVisible(), isBtpLogoutTextVisible()]);
-          } catch (e) {
-            return ((lastError = (e as AggregateError).errors), false);
-          }
+    await browser.waitUntil(
+      async () => {
+        try {
+          await Promise.any([expectS4LogoutText(), expectBtpLogoutText()]);
           return true;
-        },
-        {
-          timeout: timeout,
-          timeoutMsg: `Logout text not visible in ${+timeout / 1000}s`,
-          interval: GLOBAL_DEFAULT_WAIT_INTERVAL
+        } catch (error) {
+          // Ignore error and continue to next promise
+          return false;
         }
-      );
-    } catch (e) {
-      this.ErrorHandler.logException(lastError ?? e);
-    }
+      },
+      {
+        timeout: timeout,
+        timeoutMsg: `Logout text not visible in ${+timeout / 1000}s`,
+        interval: GLOBAL_DEFAULT_WAIT_INTERVAL
+      }
+    );
   }
 
   // =================================== HELPER ===================================
