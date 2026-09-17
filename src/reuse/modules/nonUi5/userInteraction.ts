@@ -23,44 +23,54 @@ export class UserInteraction {
   /**
    * @function click
    * @memberOf nonUi5.userInteraction
-   * @description Clicks on the passed element.
+   * @description Waits for the element to exist, be displayed, and be enabled, then clicks it.
    * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
-   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Number} [timeout=30000] - The total timeout (ms) to wait for the element to be resolved, displayed, and enabled.
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.click(elem);
    */
   async click(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.click);
     const highlightConfig = await elementHighlight.getElementHighlightData("click");
-    const iterationTimeout = Math.min(timeout, 3000);
+    const resolveTimeout = Math.min(timeout, 3000);
 
-    let lastError: QmateError | Error;
-    let element: Element;
-    vl.log("Expecting element to exist, to be displayed and enabled");
+    let lastError: QmateError | Error | undefined;
+    let element: Element | undefined;
+
     try {
+      vl.log("Expecting element to exist, to be displayed and enabled");
       await browser.waitUntil(
         async () => {
           try {
-            element = await resolveCssSelectorOrElement(elementOrSelector, iterationTimeout);
-            if (!(await element.isDisplayed())) throw new Error("Element is found, but not displayed");
-            if (!(await element.isEnabled())) throw new Error("Element is found, displayed, but not enabled");
+            element = await resolveCssSelectorOrElement(elementOrSelector, resolveTimeout);
+            if (!(await element.isDisplayed())) throw new Error(`Element with selector '${elementOrSelector}' is found, but not displayed`);
+            if (!(await element.isEnabled())) throw new Error(`Element with selector '${elementOrSelector}' is found and displayed, but not enabled`);
             return true;
           } catch (e) {
             return ((lastError = e as QmateError | Error), false);
           }
         },
-        { timeout }
+        { timeout, interval: GLOBAL_DEFAULT_WAIT_INTERVAL }
       );
     } catch (e) {
-      this.ErrorHandler.logException(lastError!);
+      this.ErrorHandler.logException(lastError ?? (e as Error));
+    }
+
+    if (highlightConfig.enable) {
+      try {
+        vl.log("Highlighting the element");
+        await nonUi5.element.highlight(element!, highlightConfig.duration, highlightConfig.color);
+      } catch (error) {
+        vl.log("Element highlighting failed, proceeding with click");
+      }
     }
 
     try {
       vl.log("Clicking the element");
-      if (highlightConfig.enable) await nonUi5.element.highlight(element!, highlightConfig.duration, highlightConfig.color);
       await element!.click();
     } catch (error) {
-      this.ErrorHandler.logException(error);
+      const isSelector = typeof elementOrSelector === "string";
+      this.ErrorHandler.logException(new Error(`Failed to click ${isSelector ? `element with selector '${elementOrSelector}'` : "provided element"}. Reason: ${(error as Error).message}`));
     }
   }
 
