@@ -249,7 +249,7 @@ export class Session {
         } catch (e) {
           return ((lastError = e), false);
         }
-      });
+     }, { timeout: GLOBAL_DEFAULT_WAIT_TIMEOUT, timeoutMsg: `Logout flow did not complete in ${GLOBAL_DEFAULT_WAIT_TIMEOUT / 1000}s` });
     } catch (e) {
       this.ErrorHandler.logException(lastError ?? e);
     }
