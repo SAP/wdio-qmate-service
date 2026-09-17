@@ -47,8 +47,7 @@ export class UserInteraction {
             if (!(await element.isEnabled())) throw new Error(`Element with selector '${elementOrSelector}' is found and displayed, but not enabled`);
             return true;
           } catch (e) {
-            lastError = e as QmateError | Error;
-            return false;
+            return ((lastError = e as QmateError | Error), false);
           }
         },
         { timeout, interval: GLOBAL_DEFAULT_WAIT_INTERVAL }
