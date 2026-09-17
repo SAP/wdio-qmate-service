@@ -42,10 +42,7 @@ export class UserInteraction {
       await browser.waitUntil(
         async () => {
           try {
-            // Only resolve once; re-checking isDisplayed/isEnabled is sufficient on subsequent iterations.
-            if (!element) {
-              element = await resolveCssSelectorOrElement(elementOrSelector, resolveTimeout);
-            }
+            element = await resolveCssSelectorOrElement(elementOrSelector, resolveTimeout);
             if (!(await element.isDisplayed())) throw new Error(`Element with selector '${elementOrSelector}' is found, but not displayed`);
             if (!(await element.isEnabled())) throw new Error(`Element with selector '${elementOrSelector}' is found and displayed, but not enabled`);
             return true;
@@ -54,15 +51,10 @@ export class UserInteraction {
             return false;
           }
         },
-        { timeout }
+        { timeout, interval: GLOBAL_DEFAULT_WAIT_INTERVAL }
       );
     } catch (e) {
-      if (!element) {
-        this.ErrorHandler.logException(new Error(`Element could not be resolved within ${timeout}ms. Last error: ${lastError?.message}`));
-      } else {
-        this.ErrorHandler.logException(lastError ?? (e as Error));
-      }
-      return;
+      this.ErrorHandler.logException(lastError ?? (e as Error));
     }
 
     if (highlightConfig.enable) {
@@ -78,8 +70,8 @@ export class UserInteraction {
       vl.log("Clicking the element");
       await element!.click();
     } catch (error) {
-      const selector = typeof elementOrSelector === "string" ? elementOrSelector : "provided element";
-      this.ErrorHandler.logException(new Error(`Failed to click element with selector '${selector}'. Reason: ${(error as Error).message}`));
+      const isSelector = typeof elementOrSelector === "string";
+      this.ErrorHandler.logException(new Error(`Failed to click ${isSelector ? `element with selector '${elementOrSelector}'` : "provided element"}. Reason: ${(error as Error).message}`));
     }
   }
 
