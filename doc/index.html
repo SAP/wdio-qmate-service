@@ -3502,10 +3502,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#assertionexpecttobevisibleelementorselector" class="md-nav__link">
+  <a href="#assertionexpecttobevisibleelementorselector-timeout" class="md-nav__link">
     <span class="md-ellipsis">
       
-        assertion.expectToBeVisible(elementOrSelector)
+        assertion.expectToBeVisible(elementOrSelector, [timeout])
       
     </span>
   </a>
@@ -8297,10 +8297,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#assertionexpecttobevisibleelementorselector" class="md-nav__link">
+  <a href="#assertionexpecttobevisibleelementorselector-timeout" class="md-nav__link">
     <span class="md-ellipsis">
       
-        assertion.expectToBeVisible(elementOrSelector)
+        assertion.expectToBeVisible(elementOrSelector, [timeout])
       
     </span>
   </a>
@@ -17556,7 +17556,7 @@ In case that the search is already filled, it will reset the field first.</p>
 <li><a href="#nonUi5.assertion.expectValueToBe">.expectValueToBe(elementOrSelector, compareValue)</a></li>
 <li><a href="#nonUi5.assertion.expectCssPropertyValueToBe">.expectCssPropertyValueToBe(elementOrSelector, cssProperty, compareValue)</a></li>
 <li><a href="#nonUi5.assertion.expectTextToBe">.expectTextToBe(elementOrSelector, compareValue)</a></li>
-<li><a href="#nonUi5.assertion.expectToBeVisible">.expectToBeVisible(elementOrSelector)</a></li>
+<li><a href="#nonUi5.assertion.expectToBeVisible">.expectToBeVisible(elementOrSelector, [timeout])</a></li>
 <li><a href="#nonUi5.assertion.expectToBeNotVisible">.expectToBeNotVisible(elementOrSelector, [timeout])</a></li>
 </ul>
 </li>
@@ -17630,7 +17630,7 @@ In case that the search is already filled, it will reset the field first.</p>
 <li><a href="#nonUi5.assertion.expectValueToBe">.expectValueToBe(elementOrSelector, compareValue)</a></li>
 <li><a href="#nonUi5.assertion.expectCssPropertyValueToBe">.expectCssPropertyValueToBe(elementOrSelector, cssProperty, compareValue)</a></li>
 <li><a href="#nonUi5.assertion.expectTextToBe">.expectTextToBe(elementOrSelector, compareValue)</a></li>
-<li><a href="#nonUi5.assertion.expectToBeVisible">.expectToBeVisible(elementOrSelector)</a></li>
+<li><a href="#nonUi5.assertion.expectToBeVisible">.expectToBeVisible(elementOrSelector, [timeout])</a></li>
 <li><a href="#nonUi5.assertion.expectToBeNotVisible">.expectToBeNotVisible(elementOrSelector, [timeout])</a></li>
 </ul>
 </li>
@@ -17800,7 +17800,7 @@ In case that the search is already filled, it will reset the field first.</p>
 <span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">assertion</span><span class="p">.</span><span class="nx">expectTextToBe</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Save&quot;</span><span class="p">);</span>
 </code></pre></div>
 <a name="nonUi5.assertion.expectToBeVisible"></a></p>
-<h4 id="assertionexpecttobevisibleelementorselector">assertion.expectToBeVisible(elementOrSelector)</h4>
+<h4 id="assertionexpecttobevisibleelementorselector-timeout">assertion.expectToBeVisible(elementOrSelector, [timeout])</h4>
 <p>Expects that the element is visible to the user.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.assertion"><code>assertion</code></a>  </p>
 <table>
@@ -17808,6 +17808,7 @@ In case that the search is already filled, it will reset the field first.</p>
 <tr>
 <th>Param</th>
 <th>Type</th>
+<th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -17815,7 +17816,14 @@ In case that the search is already filled, it will reset the field first.</p>
 <tr>
 <td>elementOrSelector</td>
 <td><code>Element</code> | <code>string</code></td>
+<td></td>
 <td>The element or CSS selector describing the element.</td>
+</tr>
+<tr>
+<td>[timeout]</td>
+<td><code>Number</code></td>
+<td><code>30000</code></td>
+<td>The timeout to wait (ms). Recommendation is to lower the timeout since the element is not expected to show up.</td>
 </tr>
 </tbody>
 </table>
