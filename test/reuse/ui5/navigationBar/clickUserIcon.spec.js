@@ -1,5 +1,10 @@
 "use strict";
 
+// =================== CONSTANTS ==========================================
+const NEGATIVE_TEST_TIMEOUT = 10_000;
+
+// =================== TESTS ==============================================
+
 describe("navigationBar - clickUserIcon", async function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(browser.config.baseUrl);
@@ -26,6 +31,6 @@ describe("navigationBar - clickUserIcon - error case", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.navigationBar.clickUserIcon()).rejects.toThrowError("Function 'clickUserIcon' failed with:");
+    await expect(ui5.navigationBar.clickUserIcon(NEGATIVE_TEST_TIMEOUT)).rejects.toThrowError(`Could not click User Icon in ${NEGATIVE_TEST_TIMEOUT / 1000}s`);
   });
 });
