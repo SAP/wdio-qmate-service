@@ -4,7 +4,7 @@ import { Element } from "../../../../@types/wdio";
 import { AlignmentOptions, AlignmentValues } from "../types";
 
 import { VerboseLoggerFactory } from "../../helper/verboseLogger";
-import ErrorHandler from "../../helper/errorHandler";
+import ErrorHandler, { QmateError } from "../../helper/errorHandler";
 import elementHighlight from "../../helper/elementHighlight";
 import { resolveCssSelectorOrElement } from "../../helper/elementResolving";
 import { validateValue } from "../../helper/inputValidation";
@@ -23,38 +23,54 @@ export class UserInteraction {
   /**
    * @function click
    * @memberOf nonUi5.userInteraction
-   * @description Clicks on the passed element.
+   * @description Waits for the element to exist, be displayed, and be enabled, then clicks it.
    * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
-   * @param {Number} [timeout=30000] - The timeout to wait (ms).
+   * @param {Number} [timeout=30000] - The total timeout (ms) to wait for the element to be resolved, displayed, and enabled.
    * @example const elem = await nonUi5.element.getById("button01");
    * await nonUi5.userInteraction.click(elem);
    */
   async click(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.click);
     const highlightConfig = await elementHighlight.getElementHighlightData("click");
+    const resolveTimeout = Math.min(timeout, 3000);
+    const selectorErrorPart = typeof elementOrSelector == "string" ? `element with selector '${elementOrSelector}'` : "provided element";
+
+    let lastError: QmateError | Error | undefined;
+    let element: Element | undefined;
 
     try {
-      const element = await resolveCssSelectorOrElement(elementOrSelector);
+      vl.log("Expecting element to exist, to be displayed and enabled");
+      await browser.waitUntil(
+        async () => {
+          try {
+            element = await resolveCssSelectorOrElement(elementOrSelector, resolveTimeout);
+            if (!(await element.isDisplayed())) throw new Error(`${selectorErrorPart} is found, but not displayed`);
+            if (!(await element.isEnabled())) throw new Error(`${selectorErrorPart} is found and displayed, but not enabled`);
+            return true;
+          } catch (e) {
+            return ((lastError = e as QmateError | Error), false);
+          }
+        },
+        { timeout, interval: GLOBAL_DEFAULT_WAIT_INTERVAL }
+      );
+    } catch (e) {
+      this.ErrorHandler.logException(lastError ?? (e as Error));
+    }
 
-      vl.log("Expecting element to be displayed and enabled");
-      await Promise.all([
-        expect(element).toBeDisplayed({
-          wait: timeout,
-          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
-          message: `Timeout '${+timeout / 1000}s' by waiting for element is displayed.`
-        }),
-        expect(element).toBeEnabled({
-          wait: timeout,
-          interval: GLOBAL_DEFAULT_WAIT_INTERVAL,
-          message: `Timeout '${+timeout / 1000}s' by waiting for element is enabled.`
-        })
-      ]);
+    if (highlightConfig.enable) {
+      try {
+        vl.log("Highlighting the element");
+        await nonUi5.element.highlight(element!, highlightConfig.duration, highlightConfig.color);
+      } catch (error) {
+        vl.log("Element highlighting failed, proceeding with click");
+      }
+    }
 
+    try {
       vl.log("Clicking the element");
-      if (highlightConfig.enable) await nonUi5.element.highlight(element, highlightConfig.duration, highlightConfig.color);
-      await element.click();
+      await element!.click();
     } catch (error) {
-      this.ErrorHandler.logException(error);
+      this.ErrorHandler.logException(new Error(`Failed to click on ${selectorErrorPart}. Reason: ${(error as Error).message}`));
     }
   }
 

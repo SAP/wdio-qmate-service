@@ -23,7 +23,7 @@ describe("userInteraction - clickAndRetry - disabled button (unhappy case)", fun
 
   it("Execution & Verification", async function () {
     const elem = await nonUi5.element.getById("Not-clickable", 10000);
-    await expect(nonUi5.userInteraction.clickAndRetry(elem, 1)).rejects.toThrow("Function 'clickAndRetry' failed with: Retries done. Failed to execute the function: Timeout '0.001s' by waiting for element is enabled.");
+    await expect(nonUi5.userInteraction.clickAndRetry(elem, 1000)).rejects.toThrow(/element.* is found and displayed, but not enabled/);
   });
 });
 
