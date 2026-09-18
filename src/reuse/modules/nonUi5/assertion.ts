@@ -105,13 +105,14 @@ export class Assertion {
    * @memberOf nonUi5.assertion
    * @description Expects that the element is visible to the user.
    * @param {Element | string} elementOrSelector - The element or CSS selector describing the element.
+   * @param {Number} [timeout=30000] - The timeout to wait (ms). Recommendation is to lower the timeout since the element is not expected to show up.
    * @example const element = await nonUi5.element.getById("button01");
    * await nonUi5.assertion.expectToBeVisible(elem);
    */
-  async expectToBeVisible(elementOrSelector: Element | string): Promise<void> {
+  async expectToBeVisible(elementOrSelector: Element | string, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<void> {
     const vl = this.vlf.initLog(this.expectToBeVisible);
     try {
-      const element = await resolveCssSelectorOrElement(elementOrSelector);
+      const element = await resolveCssSelectorOrElement(elementOrSelector, timeout);
 
       await browser.waitUntil(
         async function () {

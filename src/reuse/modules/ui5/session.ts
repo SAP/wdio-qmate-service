@@ -231,9 +231,35 @@ export class Session {
       return await browser.reloadSession(); // Clean cache
     }
 
-    await ui5.navigationBar.clickUserIcon();
-    await this._clickSignOut();
-    await ui5.confirmationDialog.clickOk();
+    // Poll this flow to avoid fails due accidental popups closing
+    const actionTimeout = 5000; // <- keep this timeout minimal 5 sec
+    let lastError;
+
+    try {
+      await browser.waitUntil(
+        async () => {
+          try {
+            vl.log("Clicking on User Icon...");
+            await ui5.navigationBar.clickUserIcon(actionTimeout);
+
+            vl.log("Clicking Sign Out button...");
+            // Wait a little for a popup to stabilize (prevents instant closing)
+            await util.browser.sleep(200);
+            await this._clickSignOut(actionTimeout);
+
+            vl.log("Clicking OK to confirm logout...");
+            await ui5.confirmationDialog.clickOk(actionTimeout);
+
+            return true;
+          } catch (e) {
+            return ((lastError = e), false);
+          }
+        },
+        { timeout: GLOBAL_DEFAULT_WAIT_TIMEOUT, timeoutMsg: `Logout flow did not complete in ${GLOBAL_DEFAULT_WAIT_TIMEOUT / 1000}s` }
+      );
+    } catch (e) {
+      this.ErrorHandler.logException(lastError ?? e);
+    }
 
     if (verify) {
       await ui5.session.expectLogoutText();
@@ -279,21 +305,21 @@ export class Session {
    */
   async expectLogoutText(timeout = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.expectLogoutText);
+    const iterationTimeout = Math.min(timeout, 3000);
 
     async function expectS4LogoutText() {
-      const elem = await nonUi5.element.getById("msgText");
-      await nonUi5.assertion.expectToBeVisible(elem);
+      await nonUi5.assertion.expectToBeVisible("#msgText", iterationTimeout);
     }
 
     async function expectBtpLogoutText() {
       const logoutTextSelector = {
-        "elementProperties": {
-          "metadata": "sap.m.Title",
-          "text": "Goodbye",
-          "viewName": "sap.cf.pages.logoff.view.logoff"
+        elementProperties: {
+          metadata: "sap.m.Title",
+          text: "Goodbye",
+          viewName: "sap.cf.pages.logoff.view.logoff"
         }
       };
-      await ui5.assertion.expectToBeVisible(logoutTextSelector);
+      await ui5.assertion.expectToBeVisible(logoutTextSelector, 0, iterationTimeout);
     }
 
     await browser.waitUntil(
@@ -312,7 +338,6 @@ export class Session {
         interval: GLOBAL_DEFAULT_WAIT_INTERVAL
       }
     );
-
   }
 
   // =================================== HELPER ===================================
@@ -377,34 +402,22 @@ export class Session {
           }
         }
       };
-      await ui5.userInteraction.scrollToElement(selector, 0, "end", 500);
-      await ui5.userInteraction.click(selector, 0, 500);
+      await ui5.userInteraction.scrollToElement(selector, 0, "end", timeout);
+      await ui5.userInteraction.click(selector, 0, timeout);
     }
 
     async function scrollAndClickLogoutNew() {
       // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
       const selector = ">>>.ui5-user-menu-sign-out-btn";
-      await nonUi5.userInteraction.scrollToElement(selector, "end", 500);
-      await nonUi5.userInteraction.click(selector, 500);
+      await nonUi5.userInteraction.scrollToElement(selector, "end", timeout);
+      await nonUi5.userInteraction.click(selector, timeout);
     }
 
     // attempt clicking both old and new logout buttons
-    await browser.waitUntil(
-      async () => {
-        try {
-          await Promise.any([scrollAndClickLogoutOld(), scrollAndClickLogoutNew()]);
-          return true;
-        } catch (error) {
-          // Ignore error and continue to next promise
-          return false;
-        }
-      },
-      {
-        timeout: timeout,
-        timeoutMsg: `Could not click Sign out button in ${+timeout / 1000}s`,
-        interval: GLOBAL_DEFAULT_WAIT_INTERVAL
-      }
-    );
+    await Promise.any([scrollAndClickLogoutOld(), scrollAndClickLogoutNew()]).catch((e) => {
+      const reasons = (e as AggregateError).errors.map((err: Error) => err.message).join(", ");
+      throw new Error(`Could not click Sign out button in ${+timeout / 1000}s: ${reasons}`);
+    });
   }
 
   private async _checkForErrors(messageSelector: string) {
