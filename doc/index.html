@@ -18913,7 +18913,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 </ul>
 <p><a name="nonUi5.userInteraction.click"></a></p>
 <h4 id="userinteractionclickelementorselector-timeout">userInteraction.click(elementOrSelector, [timeout])</h4>
-<p>Clicks on the passed element.</p>
+<p>Waits for the element to exist, be displayed, and be enabled, then clicks it.</p>
 <p><strong>Kind</strong>: static method of <a href="#nonUi5.userInteraction"><code>userInteraction</code></a>  </p>
 <table>
 <thead>
@@ -18935,7 +18935,7 @@ CAUTION: Only use this if filling the value in the normal way is not working and
 <td>[timeout]</td>
 <td><code>Number</code></td>
 <td><code>30000</code></td>
-<td>The timeout to wait (ms).</td>
+<td>The total timeout (ms) to wait for the element to be resolved, displayed, and enabled.</td>
 </tr>
 </tbody>
 </table>
