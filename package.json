@@ -158,7 +158,7 @@
     "@wdio/static-server-service": "^8.41.0",
     "app-root-path": "^3.1.0",
     "chai": "^6.2.2",
-    "chromedriver": "^150.0.1",
+    "chromedriver": "^153.0.2",
     "concurrently": "^10.0.3",
     "doctrine": "^3.0.0",
     "esbuild": "0.28.1",
