@@ -4,5 +4,4 @@ results/
 src/
 .github/
 .vscode/
-@types/
 lib/bin/
