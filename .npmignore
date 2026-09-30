@@ -5,3 +5,17 @@ src/
 .github/
 .vscode/
 lib/bin/
+coverage/
+*.lcov
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.env.test
+*.tgz
+*.tsbuildinfo
+.eslintcache
+.DS_Store
+.claude/
