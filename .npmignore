@@ -1,6 +1,8 @@
-results
-src
-.github
-.vscode
-@types
-lib/bin
+test/
+docs/
+results/
+src/
+.github/
+.vscode/
+@types/
+lib/bin/
