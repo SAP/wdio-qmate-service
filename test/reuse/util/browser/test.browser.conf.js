@@ -14,6 +14,7 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "getBrowserName.spec.js"),
     path.resolve(__dirname, "getUI5Version.spec.js"),
     path.resolve(__dirname, "getCurrentUrl.spec.js"),
+    path.resolve(__dirname, "compareUI5Versions.spec.js"),
     path.resolve(__dirname, "getBaseUrl.spec.js"),
     path.resolve(__dirname, "setBaseUrl.spec.js"),
     path.resolve(__dirname, "clearBrowser.spec.js"),
