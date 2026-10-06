@@ -22,22 +22,12 @@ describe("browser - closeWindow", function () {
     const windowHandlesAfter = await browser.getWindowHandles();
     await common.assertion.expectEqual(windowHandlesAfter.length, 1);
   });
-});
 
-describe("browser - closeWindow (last tab)", function () {
-  const sapWindowUrl = `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`;
-
-  it("Preparation", async function () {
-    await common.navigation.navigateToUrl(sapWindowUrl);
-    const windowHandles = await browser.getWindowHandles();
-    await common.assertion.expectEqual(windowHandles.length, 1);
-  });
-
-  it("Execution", async function () {
+  it("Execution (last tab)", async function () {
     await util.browser.closeWindow();
   });
 
-  it("Verification", async function () {
+  it("Verification (last tab)", async function () {
     await expect(browser.getWindowHandles()).rejects.toThrow(/invalid session id/);
   });
 });
