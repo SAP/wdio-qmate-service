@@ -350,6 +350,17 @@ export class Browser {
   }
 
   /**
+   * @function closeWindow
+   * @memberOf util.browser
+   * @description Closes the current top-level browsing context. Once done, if there are no more top-level browsing contexts open, the WebDriver session itself is closed.
+   * @example await util.browser.closeWindow();
+   */
+  async closeWindow() {
+    const vl = this.vlf.initLog(this.closeWindow);
+    await browser.closeWindow();
+  }
+
+  /**
    * @function switchToIframe
    * @memberOf util.browser
    * @description Switches to the passed iframe.
