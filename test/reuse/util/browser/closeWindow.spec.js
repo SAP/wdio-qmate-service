@@ -33,8 +33,11 @@ describe("browser - closeWindow (last tab)", function () {
     await common.assertion.expectEqual(windowHandles.length, 1);
   });
 
-  it("Execution & Verification", async function () {
+  it("Execution", async function () {
     await util.browser.closeWindow();
+  });
+
+  it("Verification", async function () {
     await expect(browser.getWindowHandles()).rejects.toThrow(/invalid session id/);
   });
 });
