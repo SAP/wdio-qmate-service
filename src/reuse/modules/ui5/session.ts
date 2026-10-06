@@ -322,10 +322,15 @@ export class Session {
       await ui5.assertion.expectToBeVisible(logoutTextSelector, 0, iterationTimeout);
     }
 
+    async function expectAdminCenterLogoutText() {
+      const logoutTextSelector = "//h2[@id='header'][contains(text(), 'Goodbye')]";
+      await nonUi5.assertion.expectToBeVisible(logoutTextSelector, iterationTimeout);
+    }
+
     await browser.waitUntil(
       async () => {
         try {
-          await Promise.any([expectS4LogoutText(), expectBtpLogoutText()]);
+          await Promise.any([expectS4LogoutText(), expectBtpLogoutText(), expectAdminCenterLogoutText()]);
           return true;
         } catch (error) {
           // Ignore error and continue to next promise
