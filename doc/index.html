@@ -1026,6 +1026,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#browserclosewindow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        browser.closeWindow()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#browserswitchtoiframeselector" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5821,6 +5832,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#browserclosewindow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        browser.closeWindow()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#browserswitchtoiframeselector" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10269,6 +10291,7 @@
 <li><a href="#util.browser.switchToNewWindow">.switchToNewWindow(titleOrUrl, [timeout])</a></li>
 <li><a href="#util.browser.switchToWindow">.switchToWindow(handle)</a></li>
 <li><a href="#util.browser.getCurrentWindow">.getCurrentWindow()</a> ⇒ <code>Object</code></li>
+<li><a href="#util.browser.closeWindow">.closeWindow()</a></li>
 <li><a href="#util.browser.switchToIframe">.switchToIframe(selector)</a></li>
 <li><a href="#util.browser.switchToDefaultContent">.switchToDefaultContent()</a></li>
 <li><a href="#util.browser.back">.back()</a></li>
@@ -10366,6 +10389,7 @@
 <li><a href="#util.browser.switchToNewWindow">.switchToNewWindow(titleOrUrl, [timeout])</a></li>
 <li><a href="#util.browser.switchToWindow">.switchToWindow(handle)</a></li>
 <li><a href="#util.browser.getCurrentWindow">.getCurrentWindow()</a> ⇒ <code>Object</code></li>
+<li><a href="#util.browser.closeWindow">.closeWindow()</a></li>
 <li><a href="#util.browser.switchToIframe">.switchToIframe(selector)</a></li>
 <li><a href="#util.browser.switchToDefaultContent">.switchToDefaultContent()</a></li>
 <li><a href="#util.browser.back">.back()</a></li>
@@ -10714,6 +10738,13 @@
 <strong>Returns</strong>: <code>Object</code> - The window handle.<br />
 <strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">originalWindowHandle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">getCurrentWindow</span><span class="p">();</span>
+</code></pre></div>
+<a name="util.browser.closeWindow"></a></p>
+<h4 id="browserclosewindow">browser.closeWindow()</h4>
+<p>Closes the current top-level browsing context. Once done, if there are no more top-level browsing contexts open, the WebDriver session itself is closed.</p>
+<p><strong>Kind</strong>: static method of <a href="#util.browser"><code>browser</code></a><br />
+<strong>Example</strong><br />
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">closeWindow</span><span class="p">();</span>
 </code></pre></div>
 <a name="util.browser.switchToIframe"></a></p>
 <h4 id="browserswitchtoiframeselector">browser.switchToIframe(selector)</h4>
