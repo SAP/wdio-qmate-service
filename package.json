@@ -159,7 +159,7 @@
     "app-root-path": "^3.1.0",
     "chai": "^6.2.2",
     "chromedriver": "^150.0.1",
-    "concurrently": "^10.0.3",
+    "concurrently": "^10.0.6",
     "doctrine": "^3.0.0",
     "esbuild": "0.28.1",
     "eslint": "^9.39.2",
