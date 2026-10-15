@@ -44,9 +44,9 @@ describe("Test for ", function () {
     const selectorParams = { selector: ui5ControlProperties, index: 0, timeout: 3000 };
     await expect(
       browser.controlActionInBrowser(
-        function (control, txt, done) {
+        function (control, txt) {
           control.setTitle(txt);
-          done(control.getTitle());
+          return control.getTitle();
         },
         selectorParams,
         newText
