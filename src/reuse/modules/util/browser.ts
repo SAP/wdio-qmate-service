@@ -310,6 +310,12 @@ export class Browser {
   async switchToNewWindow(titleOrUrl: string | RegExp, timeout: number = 10000) {
     const vl = this.vlf.initLog(this.switchToNewWindow);
     try {
+      if ((browser as any).isBidi) {
+        throw new Error(
+          "util.browser.switchToNewWindow() is not supported in BiDi sessions (wdio v10 default). " +
+            "Use browser.browsingContext or disable BiDi via 'webSocketUrl: false' in your wdio config."
+        );
+      }
       await browser.waitUntil(
         async () => {
           await browser.switchWindow(titleOrUrl);
