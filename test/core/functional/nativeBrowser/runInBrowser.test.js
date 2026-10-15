@@ -19,14 +19,14 @@ describe("Test for ", function () {
 
     const elem = await browser.uiControl(ui5ControlProperties);
     await expect(
-      elem.controlActionInBrowser(function (control, done) {
-        done(control.getBindingContext());
+      elem.controlActionInBrowser(function (control) {
+        return control.getBindingContext();
       })
     ).rejects.toThrow("javascript error: circular reference");
 
     await expect(
-      elem.controlActionInBrowser(function (control, done) {
-        done(JSON.stringify(control.getBindingContext()));
+      elem.controlActionInBrowser(function (control) {
+        return JSON.stringify(control.getBindingContext());
       })
     ).rejects.toThrow(/Converting circular structure to JSON/);
   });
@@ -68,8 +68,8 @@ describe("Test for ", function () {
     };
     const elem = await browser.uiControl(ui5ControlProperties);
     await expect(
-      elem.controlActionInBrowser(function (control, done) {
-        done(control.getBindingContext().getPath());
+      elem.controlActionInBrowser(function (control) {
+        return control.getBindingContext().getPath();
       })
     ).resolves.toEqual("/ProductCategories('AC')");
   });
@@ -87,19 +87,17 @@ describe("Test for ", function () {
 
     const newText = "test";
     await expect(
-      elem.controlActionInBrowser(function (control, txt, done) {
+      elem.controlActionInBrowser(function (control, txt) {
         control.setTitle(txt);
-        done(control.getTitle());
+        return control.getTitle();
       }, newText)
     ).resolves.toEqual(newText);
 
     await expect(
-      elem.controlActionInBrowser(function (control, done) {
+      elem.controlActionInBrowser(function (control) {
         const data = { title: control.getTitle() };
-        control.attachPress(data, function () {
-          done(data.title);
-        });
         control.firePress();
+        return data.title;
       })
     ).resolves.toEqual(newText);
   });
@@ -117,9 +115,9 @@ describe("Test for ", function () {
     const newText = "master";
     await expect(
       browser.controlActionInBrowser(
-        function (control, txt, done) {
+        function (control, txt) {
           control.setTitle(txt);
-          done(control.getTitle());
+          return control.getTitle();
         },
         selectorParams,
         newText
@@ -127,12 +125,10 @@ describe("Test for ", function () {
     ).resolves.toEqual(newText);
 
     await expect(
-      browser.controlActionInBrowser(function (control, done) {
+      browser.controlActionInBrowser(function (control) {
         const data = { title: control.getTitle() };
-        control.attachPress(data, function () {
-          done(data.title);
-        });
         control.firePress();
+        return data.title;
       }, ui5ControlProperties)
     ).resolves.toEqual(newText);
   });
