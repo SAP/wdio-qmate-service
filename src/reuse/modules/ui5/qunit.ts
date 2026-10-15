@@ -26,12 +26,9 @@ export class QUnit {
     } else {
       await browser.navigateTo(`http://localhost:34005/${path}`);
     }
-    // Note: cannot use "null" as a first argument for "clientsidescripts.waitForAngular" due to browser.executeAsync error:
-    // "Error: Malformed type for "args" parameter of command executeAsyncScript
-    // Expected: (string|object|number|boolean|undefined)[]
-    // Actual: (null,number)[]"
-    await browser.executeAsync(this.clientsidescripts.waitForAngular, undefined, 10);
-    const execRes = await browser.executeAsync(this.clientsidescripts.execQUnits, {});
+    // Note: waitForAngular now returns a Promise (wdio v10: executeAsync removed, use execute)
+    await browser.execute(this.clientsidescripts.waitForAngular, undefined, 10);
+    const execRes = await browser.execute(this.clientsidescripts.execQUnits, {});
     if (!execRes) throw new Error("QUnit tests failed, see log message for more details.");
   }
 }

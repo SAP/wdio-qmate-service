@@ -2,72 +2,81 @@
 /* eslint-disable no-console */
 var functions = {};
 
-functions.execQUnits = function (mScriptParams, done) {
-  if (QUnit) {
-    // reset the QUnit config such that the test can run a second time
-    if (QUnit.version.charAt(0) === "2") {
-      QUnit.config.current = undefined;
-    } else {
-      QUnit.config.current = true;
-    }
-    QUnit.start();
-    QUnit.done(function (details) {
-      const msg = "Total: " + details.total + "," + " Failed: " + details.failed + "," + " Passed: " + details.passed + "," + " Runtime: " + details.runtime;
-      console.log(msg);
-      if (details.failed > 0) {
-        done(null);
+functions.execQUnits = function (mScriptParams) {
+  return new Promise(function (resolve, reject) {
+    if (QUnit) {
+      // reset the QUnit config such that the test can run a second time
+      if (QUnit.version.charAt(0) === "2") {
+        QUnit.config.current = undefined;
+      } else {
+        QUnit.config.current = true;
       }
-      done(msg);
-    });
-  }
+      QUnit.start();
+      QUnit.done(function (details) {
+        const msg = "Total: " + details.total + "," + " Failed: " + details.failed + "," + " Passed: " + details.passed + "," + " Runtime: " + details.runtime;
+        console.log(msg);
+        if (details.failed > 0) {
+          resolve(null);
+        } else {
+          resolve(msg);
+        }
+      });
+    } else {
+      reject(new Error("QUnit is not available on this page"));
+    }
+  });
 };
 
-functions.loadMockData = function (mScriptParams, done) {
-  if (!mScriptParams.responsePath) throw new Error("Please give a valid file path");
-  try {
-    var oData = null;
-    var isText = mScriptParams.isText;
-    var responsePath = mScriptParams.responsePath;
-    if (isText && isText !== "false") {
-      var oResponse = jQuery.sap.sjax({
-        url: responsePath,
-        dataType: "text"
-      });
-    } else {
-      oResponse = jQuery.sap.sjax({
-        url: responsePath,
-        dataType: "json"
-      });
+functions.loadMockData = function (mScriptParams) {
+  return new Promise(function (resolve, reject) {
+    if (!mScriptParams.responsePath) {
+      reject(new Error("Please give a valid file path"));
+      return;
     }
-    if (oResponse.success) {
-      if (isText && isText !== "false" && oResponse.data) {
-        oData = oResponse.data;
-      } else if (oResponse.data.d) {
-        if (oResponse.data.d.results) {
-          oData = oResponse.data.d.results;
-        } else if (oResponse.data.d) {
-          // Function Import or single data
-          oData = oResponse.data;
-        } else {
-          throw new Error("The mock data are invalid");
-        }
-      } else {
-        if (Array.isArray(oResponse.data)) {
-          oData = oResponse.data;
-        } else {
-          throw new Error("The mock data could not be loaded due to wrong format!");
-        }
-      }
+    try {
+      var oData = null;
+      var isText = mScriptParams.isText;
+      var responsePath = mScriptParams.responsePath;
       if (isText && isText !== "false") {
-        return done(oData);
+        var oResponse = jQuery.sap.sjax({
+          url: responsePath,
+          dataType: "text"
+        });
       } else {
-        return done(oData);
+        oResponse = jQuery.sap.sjax({
+          url: responsePath,
+          dataType: "json"
+        });
       }
+      if (oResponse.success) {
+        if (isText && isText !== "false" && oResponse.data) {
+          oData = oResponse.data;
+        } else if (oResponse.data.d) {
+          if (oResponse.data.d.results) {
+            oData = oResponse.data.d.results;
+          } else if (oResponse.data.d) {
+            // Function Import or single data
+            oData = oResponse.data;
+          } else {
+            reject(new Error("The mock data are invalid"));
+            return;
+          }
+        } else {
+          if (Array.isArray(oResponse.data)) {
+            oData = oResponse.data;
+          } else {
+            reject(new Error("The mock data could not be loaded due to wrong format!"));
+            return;
+          }
+        }
+        resolve(oData);
+      } else {
+        resolve(null);
+      }
+    } catch (error) {
+      reject(new Error("File could not be retrieved, details: " + error));
     }
-    done();
-  } catch (error) {
-    throw new Error("File could not be retrieved, details: " + error);
-  }
+  });
 };
 
 functions.getUI5ControlProperty = function (mScriptParams) {
@@ -172,8 +181,9 @@ functions.getControlPropertyBinding = function (mScriptParams) {
   return aBindingInfos;
 };
 
-functions.waitForAngular = function (rootSelector, interval, callback) {
-  var findBusyIndicator = function () {
+functions.waitForAngular = function (rootSelector, interval) {
+  return new Promise(function (resolve) {
+    var findBusyIndicator = function () {
     return Boolean(
       Array.from(document.getElementsByClassName("sapUiLocalBusyIndicator")).find(function (elem) {
         var rect = elem.getBoundingClientRect();
@@ -260,7 +270,7 @@ functions.waitForAngular = function (rootSelector, interval, callback) {
       !findBusyIndicator() && // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
       document.readyState == "complete"
     ) {
-      callback();
+      resolve();
     } else {
       window.setTimeout(waitForRendered, interval);
     }
@@ -310,6 +320,7 @@ functions.waitForAngular = function (rootSelector, interval, callback) {
   window.setTimeout(function () {
     waitForFirstRendered(findui5Busy);
   }, interval);
+  });
 };
 
 /* Publish all the functions as strings to pass to WebDriver's

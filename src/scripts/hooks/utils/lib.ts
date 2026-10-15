@@ -40,33 +40,41 @@ var LibScripts = function () {
       }
     }
     if (browserFunction !== null && browserFunction !== undefined && mockServerPath) {
-      var nConvFunction = function (browserFunction, mockServerPath, aCustomParams, callBack) {
-        var mockserver = null;
-        var userDefFunction = "userDefFunction = " + browserFunction;
-        try {
-          if (mockServerPath) {
-            // eslint-disable-next-line no-undef
-            mockserver = sap.ui.requireSync(mockServerPath);
+      var nConvFunction = function (browserFunction, mockServerPath, aCustomParams) {
+        return new Promise(function (resolve, reject) {
+          var mockserver = null;
+          var userDefFunction = "userDefFunction = " + browserFunction;
+          try {
+            if (mockServerPath) {
+              // eslint-disable-next-line no-undef
+              mockserver = sap.ui.requireSync(mockServerPath);
+            }
+          } catch (ex) {
+            reject(new Error("Conversion to UI5 mockserver was unsuccesful:" + ex));
+            return;
           }
-        } catch (ex) {
-          throw new Error("Conversion to UI5 mockserver was unsuccesful:" + ex);
-        }
 
-        try {
-          userDefFunction = eval(userDefFunction);
-        } catch (e) {
-          throw new Error("Eval failed:" + e);
-        }
-        if (aCustomParams && aCustomParams.length) {
-          const args = [mockserver].concat(aCustomParams).concat([callBack]);
-          return userDefFunction.apply(this, args);
-
-          // Note: here is a difference between 'controlActionInBrowser' and 'mockServerActionInBrowser'
-          // return userDefFunction(mockserver, aCustomParams.toString(), callBack);
-        }
-        return userDefFunction(mockserver, callBack);
+          try {
+            userDefFunction = eval(userDefFunction);
+          } catch (e) {
+            reject(new Error("Eval failed:" + e));
+            return;
+          }
+          try {
+            var result;
+            if (aCustomParams && aCustomParams.length) {
+              const args = [mockserver].concat(aCustomParams);
+              result = userDefFunction.apply(this, args);
+            } else {
+              result = userDefFunction(mockserver);
+            }
+            resolve(result);
+          } catch (e) {
+            reject(e);
+          }
+        });
       };
-      return browser.executeAsync(nConvFunction, browserFunction.toString(), mockServerPath, aCustomParams);
+      return browser.execute(nConvFunction, browserFunction.toString(), mockServerPath, aCustomParams);
     } else {
       throw new Error("Invalid parameters.");
     }
@@ -117,29 +125,40 @@ var LibScripts = function () {
       }
     }
     if (browserFunction !== null && browserFunction !== undefined && webElem !== null && webElem !== undefined) {
-      var nConvFunction = function (browserFunction, webElem, aCustomParams, callBack) {
-        var control = null;
-        var userDefFunction = "userDefFunction = " + browserFunction;
-        try {
-          if (webElem) {
-            // eslint-disable-next-line no-undef
-            control = sap.ui.core.Element.registry.get(webElem.getAttribute("id"));
+      var nConvFunction = function (browserFunction, webElem, aCustomParams) {
+        return new Promise(function (resolve, reject) {
+          var control = null;
+          var userDefFunction = "userDefFunction = " + browserFunction;
+          try {
+            if (webElem) {
+              // eslint-disable-next-line no-undef
+              control = sap.ui.core.Element.registry.get(webElem.getAttribute("id"));
+            }
+          } catch (ex) {
+            reject(new Error("Conversion to UI5 control was unsuccesful:" + ex));
+            return;
           }
-        } catch (ex) {
-          throw new Error("Conversion to UI5 control was unsuccesful:" + ex);
-        }
 
-        try {
-          userDefFunction = eval(userDefFunction);
-        } catch (e) {
-          throw new Error("Eval failed:" + e);
-        }
-        if (aCustomParams && aCustomParams.length) {
-          return userDefFunction(control, ...aCustomParams, callBack);
-        }
-        return userDefFunction(control, callBack);
+          try {
+            userDefFunction = eval(userDefFunction);
+          } catch (e) {
+            reject(new Error("Eval failed:" + e));
+            return;
+          }
+          try {
+            var result;
+            if (aCustomParams && aCustomParams.length) {
+              result = userDefFunction(control, ...aCustomParams);
+            } else {
+              result = userDefFunction(control);
+            }
+            resolve(result);
+          } catch (e) {
+            reject(e);
+          }
+        });
       };
-      return browser.executeAsync(nConvFunction, browserFunction.toString(), webElem, aCustomParams);
+      return browser.execute(nConvFunction, browserFunction.toString(), webElem, aCustomParams);
     } else {
       throw new Error("Invalid parameters.");
     }
@@ -301,7 +320,7 @@ var LibScripts = function () {
   };
 
   this.loadMockData = async function (responsePath, isText) {
-    return browser.executeAsync(clientsidescripts.loadMockData, {
+    return browser.execute(clientsidescripts.loadMockData, {
       responsePath: responsePath,
       isText: isText
     });
