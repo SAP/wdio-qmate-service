@@ -2,67 +2,76 @@
 /* eslint-disable no-console */
 var functions = {};
 
-functions.execQUnits = function (mScriptParams, done) {
-  if (QUnit) {
-    QUnit.config.current = true;
-    QUnit.start();
-    QUnit.done(function (details) {
-      const msg = "Total: " + details.total + "," + " Failed: " + details.failed + "," + " Passed: " + details.passed + "," + " Runtime: " + details.runtime;
-      console.log(msg);
-      if (details.failed > 0) {
-        done(null);
-      }
-      done(msg);
-    });
-  }
-};
-
-functions.loadMockData = function (mScriptParams, done) {
-  if (!mScriptParams.responsePath) throw new Error("Please give a valid file path");
-  try {
-    var oData = null;
-    var isText = mScriptParams.isText;
-    var responsePath = mScriptParams.responsePath;
-    if (isText && isText !== "false") {
-      var oResponse = jQuery.sap.sjax({
-        url: responsePath,
-        dataType: "text"
+functions.execQUnits = function (mScriptParams) {
+  return new Promise(function (resolve, reject) {
+    if (QUnit) {
+      QUnit.config.current = true;
+      QUnit.start();
+      QUnit.done(function (details) {
+        const msg = "Total: " + details.total + "," + " Failed: " + details.failed + "," + " Passed: " + details.passed + "," + " Runtime: " + details.runtime;
+        console.log(msg);
+        if (details.failed > 0) {
+          resolve(null);
+        } else {
+          resolve(msg);
+        }
       });
     } else {
-      oResponse = jQuery.sap.sjax({
-        url: responsePath,
-        dataType: "json"
-      });
+      reject(new Error("QUnit is not available on this page"));
     }
-    if (oResponse.success) {
-      if (isText && isText !== "false" && oResponse.data) {
-        oData = oResponse.data;
-      } else if (oResponse.data.d) {
-        if (oResponse.data.d.results) {
-          oData = oResponse.data.d.results;
-        } else if (oResponse.data.d) {
-          // Function Import or single data
-          oData = oResponse.data;
-        } else {
-          throw new Error("The mock data are invalid");
-        }
-      } else {
-        if (Array.isArray(oResponse.data)) {
-          oData = oResponse.data;
-        } else {
-          throw new Error("The mock data could not be loaded due to wrong format!");
-        }
-      }
+  });
+};
+
+functions.loadMockData = function (mScriptParams) {
+  return new Promise(function (resolve, reject) {
+    if (!mScriptParams.responsePath) {
+      reject(new Error("Please give a valid file path"));
+      return;
+    }
+    try {
+      var oData = null;
+      var isText = mScriptParams.isText;
+      var responsePath = mScriptParams.responsePath;
       if (isText && isText !== "false") {
-        return done(oData);
+        var oResponse = jQuery.sap.sjax({
+          url: responsePath,
+          dataType: "text"
+        });
       } else {
-        return done(oData);
+        oResponse = jQuery.sap.sjax({
+          url: responsePath,
+          dataType: "json"
+        });
       }
+      if (oResponse.success) {
+        if (isText && isText !== "false" && oResponse.data) {
+          oData = oResponse.data;
+        } else if (oResponse.data.d) {
+          if (oResponse.data.d.results) {
+            oData = oResponse.data.d.results;
+          } else if (oResponse.data.d) {
+            // Function Import or single data
+            oData = oResponse.data;
+          } else {
+            reject(new Error("The mock data are invalid"));
+            return;
+          }
+        } else {
+          if (Array.isArray(oResponse.data)) {
+            oData = oResponse.data;
+          } else {
+            reject(new Error("The mock data could not be loaded due to wrong format!"));
+            return;
+          }
+        }
+        resolve(oData);
+      } else {
+        resolve(null);
+      }
+    } catch (error) {
+      reject(new Error("File could not be retrieved, details: " + error));
     }
-    done();
-  } catch (error) {
-    throw new Error("File could not be retrieved, details: " + error);
-  }
+  });
 };
 
 functions.getUI5ControlProperty = function (mScriptParams) {
@@ -246,51 +255,53 @@ functions.loadUI5Page = function (mScriptParams) {
   }
 };
 
-functions.waitForAngular = function (rootSelector, interval, callback) {
-  var findBusyIndicator = function () {
-    return Boolean(
-      Array.from(document.getElementsByClassName("sapMBusyIndicator")).find(function (elem) {
-        var rect = elem.getBoundingClientRect();
-        return (rect.x > 0 || rect.y > 0) && rect.width > 0 && rect.height > 0;
-      })
-    );
-  };
+functions.waitForAngular = function (rootSelector, interval) {
+  return new Promise(function (resolve) {
+    var findBusyIndicator = function () {
+      return Boolean(
+        Array.from(document.getElementsByClassName("sapMBusyIndicator")).find(function (elem) {
+          var rect = elem.getBoundingClientRect();
+          return (rect.x > 0 || rect.y > 0) && rect.width > 0 && rect.height > 0;
+        })
+      );
+    };
 
-  function waitForRendered() {
-    if (
-      window.sap &&
-      window.sap.ui.getCore &&
-      window.sap.ui.getCore() &&
-      !window.sap.ui.getCore().isLocked() &&
-      !window.sap.ui.getCore().getUIDirty() &&
-      !findBusyIndicator() && // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
-      document.readyState == "complete"
-    ) {
-      callback();
-    } else {
-      window.setTimeout(waitForRendered, interval);
+    function waitForRendered() {
+      if (
+        window.sap &&
+        window.sap.ui.getCore &&
+        window.sap.ui.getCore() &&
+        !window.sap.ui.getCore().isLocked() &&
+        !window.sap.ui.getCore().getUIDirty() &&
+        !findBusyIndicator() && // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
+        document.readyState == "complete"
+      ) {
+        resolve();
+      } else {
+        window.setTimeout(waitForRendered, interval);
+      }
     }
-  }
 
-  function waitForFirstRendered(cb) {
-    if (
-      window.sap &&
-      window.sap.ui.getCore &&
-      window.sap.ui.getCore() &&
-      !window.sap.ui.getCore().isLocked() &&
-      !window.sap.ui.getCore().getUIDirty() &&
-      !findBusyIndicator() && // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
-      document.readyState == "complete"
-    ) {
-      window.setTimeout(waitForRendered, interval);
-    } else {
-      window.setTimeout(waitForFirstRendered, interval);
+    function waitForFirstRendered(cb) {
+      if (
+        window.sap &&
+        window.sap.ui.getCore &&
+        window.sap.ui.getCore() &&
+        !window.sap.ui.getCore().isLocked() &&
+        !window.sap.ui.getCore().getUIDirty() &&
+        !findBusyIndicator() && // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
+        document.readyState == "complete"
+      ) {
+        window.setTimeout(waitForRendered, interval);
+      } else {
+        window.setTimeout(waitForFirstRendered, interval);
+      }
     }
-  }
 
-  window.setTimeout(function () {
-    waitForFirstRendered();
-  }, interval);
+    window.setTimeout(function () {
+      waitForFirstRendered();
+    }, interval);
+  });
 };
 
 /* Publish all the functions as strings to pass to WebDriver's
