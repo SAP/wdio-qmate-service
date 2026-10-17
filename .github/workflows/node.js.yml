@@ -24,8 +24,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - run: npm install -g npm@latest
+        continue-on-error: true
       - run: |
-          npm install -g npm@latest
           npm ci
           npm run lint
 
@@ -41,8 +42,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - run: npm install -g npm@latest
+        continue-on-error: true
       - run: |
-          npm install -g npm@latest
           npm ci
           npm run test:core
 
@@ -58,8 +60,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - run: npm install -g npm@latest
+        continue-on-error: true
       - run: |
-          npm install -g npm@latest
           npm ci
           npm run test:authenticator:staticLogin
 
@@ -75,8 +78,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - run: npm install -g npm@latest
+        continue-on-error: true
       - run: |
-          npm install -g npm@latest
           npm ci
           npm run test:reuse:common
 
@@ -92,8 +96,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - run: npm install -g npm@latest
+        continue-on-error: true
       - run: |
-          npm install -g npm@latest
           npm ci
           npm run test:reuse:ui5:pt1
 
@@ -109,8 +114,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - run: npm install -g npm@latest
+        continue-on-error: true
       - run: |
-          npm install -g npm@latest
           npm ci
           npm run test:reuse:ui5:pt2
 
@@ -126,8 +132,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - run: npm install -g npm@latest
+        continue-on-error: true
       - run: |
-          npm install -g npm@latest
           npm ci
           npm run test:reuse:nonUi5
 
@@ -142,9 +149,9 @@ jobs:
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: ${{ matrix.node-version }}
-      - name: run tests
-        run: |
-          npm install -g npm@latest
+      - run: npm install -g npm@latest
+        continue-on-error: true
+      - run: |
           npm ci
           npm run test:reuse:util
 
@@ -160,11 +167,12 @@ jobs:
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: ${{ matrix.node-version }}
+      - run: npm install -g npm@latest
+        continue-on-error: true
       - name: run tests
         env:
           QMATE_PRIVATE_KEY: ${{ secrets.QMATE_PRIVATE_KEY }}
         run: |
-          npm install -g npm@latest
           npm ci
           npm run test:reuse:util:data:privacy
           
@@ -180,8 +188,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - run: npm install -g npm@latest
+        continue-on-error: true
       - run: |
-          npm install -g npm@latest
           npm ci
           npm run test:reuse:service
 
@@ -197,7 +206,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - run: npm install -g npm@latest
+        continue-on-error: true
       - run: |
-          npm install -g npm@latest
           npm ci
           npm run test:unit
