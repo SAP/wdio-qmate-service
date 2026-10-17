@@ -2,72 +2,81 @@
 /* eslint-disable no-console */
 var functions = {};
 
-functions.execQUnits = function (mScriptParams, done) {
-  if (QUnit) {
-    // reset the QUnit config such that the test can run a second time
-    if (QUnit.version.charAt(0) === "2") {
-      QUnit.config.current = undefined;
-    } else {
-      QUnit.config.current = true;
-    }
-    QUnit.start();
-    QUnit.done(function (details) {
-      const msg = "Total: " + details.total + "," + " Failed: " + details.failed + "," + " Passed: " + details.passed + "," + " Runtime: " + details.runtime;
-      console.log(msg);
-      if (details.failed > 0) {
-        done(null);
+functions.execQUnits = function (mScriptParams) {
+  return new Promise(function (resolve, reject) {
+    if (QUnit) {
+      // reset the QUnit config such that the test can run a second time
+      if (QUnit.version.charAt(0) === "2") {
+        QUnit.config.current = undefined;
+      } else {
+        QUnit.config.current = true;
       }
-      done(msg);
-    });
-  }
+      QUnit.start();
+      QUnit.done(function (details) {
+        const msg = "Total: " + details.total + "," + " Failed: " + details.failed + "," + " Passed: " + details.passed + "," + " Runtime: " + details.runtime;
+        console.log(msg);
+        if (details.failed > 0) {
+          resolve(null);
+        } else {
+          resolve(msg);
+        }
+      });
+    } else {
+      reject(new Error("QUnit is not available on this page"));
+    }
+  });
 };
 
-functions.loadMockData = function (mScriptParams, done) {
-  if (!mScriptParams.responsePath) throw new Error("Please give a valid file path");
-  try {
-    var oData = null;
-    var isText = mScriptParams.isText;
-    var responsePath = mScriptParams.responsePath;
-    if (isText && isText !== "false") {
-      var oResponse = jQuery.sap.sjax({
-        url: responsePath,
-        dataType: "text"
-      });
-    } else {
-      oResponse = jQuery.sap.sjax({
-        url: responsePath,
-        dataType: "json"
-      });
+functions.loadMockData = function (mScriptParams) {
+  return new Promise(function (resolve, reject) {
+    if (!mScriptParams.responsePath) {
+      reject(new Error("Please give a valid file path"));
+      return;
     }
-    if (oResponse.success) {
-      if (isText && isText !== "false" && oResponse.data) {
-        oData = oResponse.data;
-      } else if (oResponse.data.d) {
-        if (oResponse.data.d.results) {
-          oData = oResponse.data.d.results;
-        } else if (oResponse.data.d) {
-          // Function Import or single data
-          oData = oResponse.data;
-        } else {
-          throw new Error("The mock data are invalid");
-        }
-      } else {
-        if (Array.isArray(oResponse.data)) {
-          oData = oResponse.data;
-        } else {
-          throw new Error("The mock data could not be loaded due to wrong format!");
-        }
-      }
+    try {
+      var oData = null;
+      var isText = mScriptParams.isText;
+      var responsePath = mScriptParams.responsePath;
       if (isText && isText !== "false") {
-        return done(oData);
+        var oResponse = jQuery.sap.sjax({
+          url: responsePath,
+          dataType: "text"
+        });
       } else {
-        return done(oData);
+        oResponse = jQuery.sap.sjax({
+          url: responsePath,
+          dataType: "json"
+        });
       }
+      if (oResponse.success) {
+        if (isText && isText !== "false" && oResponse.data) {
+          oData = oResponse.data;
+        } else if (oResponse.data.d) {
+          if (oResponse.data.d.results) {
+            oData = oResponse.data.d.results;
+          } else if (oResponse.data.d) {
+            // Function Import or single data
+            oData = oResponse.data;
+          } else {
+            reject(new Error("The mock data are invalid"));
+            return;
+          }
+        } else {
+          if (Array.isArray(oResponse.data)) {
+            oData = oResponse.data;
+          } else {
+            reject(new Error("The mock data could not be loaded due to wrong format!"));
+            return;
+          }
+        }
+        resolve(oData);
+      } else {
+        resolve(null);
+      }
+    } catch (error) {
+      reject(new Error("File could not be retrieved, details: " + error));
     }
-    done();
-  } catch (error) {
-    throw new Error("File could not be retrieved, details: " + error);
-  }
+  });
 };
 
 functions.getUI5ControlProperty = function (mScriptParams) {
@@ -172,144 +181,146 @@ functions.getControlPropertyBinding = function (mScriptParams) {
   return aBindingInfos;
 };
 
-functions.waitForAngular = function (rootSelector, interval, callback) {
-  var findBusyIndicator = function () {
-    return Boolean(
-      Array.from(document.getElementsByClassName("sapUiLocalBusyIndicator")).find(function (elem) {
-        var rect = elem.getBoundingClientRect();
-        var aModalDialog = Array.from(document.getElementsByClassName("sapMDialog"));
-        var nModalCount = 0;
-        if (aModalDialog && aModalDialog.length) {
-          nModalCount = aModalDialog.length;
-        }
-        return (rect.x > 0 || rect.y > 0) && rect.width > 0 && rect.height > 0 && nModalCount === 0;
-      })
-    );
-  };
-
-  function defineTestCooperation() {
-    var TestCooperation = function (oCore) {
-      this._bSameTick = false;
-      this.iPendingXHRs = 0;
-      this.aDoNotTrack = [];
-      this.aPendingCallbacks = [];
-      this.oCore = oCore;
-
-      this._wrapXHR();
-
-      this.oCore.attachUIUpdated(this._tryToExecuteCallbacks);
-    };
-
-    // Constants for TestCooperation class
-    TestCooperation.EXECUTE_CALLBACKS_REG_EXP = /_tryToExecuteCallbacks/;
-
-    TestCooperation.prototype.notifyWhenStable = function (fnCallback) {
-      if (this.isStable()) {
-        fnCallback();
-      } else {
-        this.aPendingCallbacks.push(fnCallback);
-      }
-    };
-
-    TestCooperation.prototype.isStable = function () {
-      return !this.oCore.getUIDirty() && this.aPendingCallbacks.length === 0;
-    };
-
-    TestCooperation.prototype._wrapXHR = function () {
-      var that = this,
-        fnOriginalSend = window.XMLHttpRequest.prototype.send;
-      window.XMLHttpRequest.prototype.send = function () {
-        this.addEventListener("readystatechange", function () {
-          if (this.readyState == 4 && this.isTracked) {
-            that.iPendingXHRs--;
-            that._tryToExecuteCallbacks();
+functions.waitForAngular = function (rootSelector, interval) {
+  return new Promise(function (resolve) {
+    var findBusyIndicator = function () {
+      return Boolean(
+        Array.from(document.getElementsByClassName("sapUiLocalBusyIndicator")).find(function (elem) {
+          var rect = elem.getBoundingClientRect();
+          var aModalDialog = Array.from(document.getElementsByClassName("sapMDialog"));
+          var nModalCount = 0;
+          if (aModalDialog && aModalDialog.length) {
+            nModalCount = aModalDialog.length;
           }
-        });
-        this.isTracked = true;
-        that.iPendingXHRs++;
-        fnOriginalSend.apply(this, arguments);
+          return (rect.x > 0 || rect.y > 0) && rect.width > 0 && rect.height > 0 && nModalCount === 0;
+        })
+      );
+    };
+
+    function defineTestCooperation() {
+      var TestCooperation = function (oCore) {
+        this._bSameTick = false;
+        this.iPendingXHRs = 0;
+        this.aDoNotTrack = [];
+        this.aPendingCallbacks = [];
+        this.oCore = oCore;
+
+        this._wrapXHR();
+
+        this.oCore.attachUIUpdated(this._tryToExecuteCallbacks);
       };
-    };
 
-    TestCooperation.prototype._tryToExecuteCallbacks = function () {
-      if (!this._bSameTick) {
-        var that = this;
-        this._bSameTick = true;
-        window.setTimeout(function () {
-          if (!that.oCore.getUIDirty() && that.aPendingCallbacks.length > 0) {
-            do {
-              var fnCallback = that.aPendingCallbacks.shift();
-              fnCallback();
-            } while (!that.oCore.getUIDirty() && that.aPendingCallbacks.length > 0);
-          }
-          that._bSameTick = false;
-        }, 0);
-      }
-    };
+      // Constants for TestCooperation class
+      TestCooperation.EXECUTE_CALLBACKS_REG_EXP = /_tryToExecuteCallbacks/;
 
-    return TestCooperation;
-  }
+      TestCooperation.prototype.notifyWhenStable = function (fnCallback) {
+        if (this.isStable()) {
+          fnCallback();
+        } else {
+          this.aPendingCallbacks.push(fnCallback);
+        }
+      };
 
-  function waitForRendered() {
-    if (
-      window.sap &&
-      window.sap.ui.getCore &&
-      window.sap.ui.getCore() &&
-      !window.sap.ui.getCore().isLocked() &&
-      !window.sap.ui.getCore().getUIDirty() &&
-      !findBusyIndicator() && // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
-      document.readyState == "complete"
-    ) {
-      callback();
-    } else {
-      window.setTimeout(waitForRendered, interval);
+      TestCooperation.prototype.isStable = function () {
+        return !this.oCore.getUIDirty() && this.aPendingCallbacks.length === 0;
+      };
+
+      TestCooperation.prototype._wrapXHR = function () {
+        var that = this,
+          fnOriginalSend = window.XMLHttpRequest.prototype.send;
+        window.XMLHttpRequest.prototype.send = function () {
+          this.addEventListener("readystatechange", function () {
+            if (this.readyState == 4 && this.isTracked) {
+              that.iPendingXHRs--;
+              that._tryToExecuteCallbacks();
+            }
+          });
+          this.isTracked = true;
+          that.iPendingXHRs++;
+          fnOriginalSend.apply(this, arguments);
+        };
+      };
+
+      TestCooperation.prototype._tryToExecuteCallbacks = function () {
+        if (!this._bSameTick) {
+          var that = this;
+          this._bSameTick = true;
+          window.setTimeout(function () {
+            if (!that.oCore.getUIDirty() && that.aPendingCallbacks.length > 0) {
+              do {
+                var fnCallback = that.aPendingCallbacks.shift();
+                fnCallback();
+              } while (!that.oCore.getUIDirty() && that.aPendingCallbacks.length > 0);
+            }
+            that._bSameTick = false;
+          }, 0);
+        }
+      };
+
+      return TestCooperation;
     }
-  }
 
-  var i = 0;
-  function waitForFirstRendered(cb) {
-    if (
-      window.sap &&
-      window.sap.ui.getCore &&
-      window.sap.ui.getCore() &&
-      !window.sap.ui.getCore().isLocked() &&
-      !window.sap.ui.getCore().getUIDirty() &&
-      !findBusyIndicator() && // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
-      document.readyState == "complete"
-    ) {
-      findui5Busy();
-    } else {
-      window.setTimeout(waitForFirstRendered, interval);
-    }
-  }
-
-  function findui5Busy() {
-    setTimeout(function () {
-      if (!window.sap) {
-        return window.setTimeout(waitForRendered, interval);
-      }
-      var oLcaTestCooperation = window.oLcaTestCooperation;
-      if (!oLcaTestCooperation) {
-        var LcaTestCooperation = window.TestCooperation || defineTestCooperation();
-        /* eslint-disable-next-line no-redeclare */
-        var oLcaTestCooperation = new LcaTestCooperation({
-          getUIDirty: window.sap.ui.getCore().getUIDirty.bind(window.sap.ui.getCore()),
-          attachUIUpdated: function () {}
-        });
-        window.oLcaTestCooperation = oLcaTestCooperation;
-      }
-
-      if (!oLcaTestCooperation.isStable()) {
-        setTimeout(findui5Busy, interval);
+    function waitForRendered() {
+      if (
+        window.sap &&
+        window.sap.ui.getCore &&
+        window.sap.ui.getCore() &&
+        !window.sap.ui.getCore().isLocked() &&
+        !window.sap.ui.getCore().getUIDirty() &&
+        !findBusyIndicator() && // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
+        document.readyState == "complete"
+      ) {
+        resolve();
       } else {
         window.setTimeout(waitForRendered, interval);
       }
-    }, 10);
-  }
+    }
 
-  window.setTimeout(function () {
-    waitForFirstRendered(findui5Busy);
-  }, interval);
+    var i = 0;
+    function waitForFirstRendered(cb) {
+      if (
+        window.sap &&
+        window.sap.ui.getCore &&
+        window.sap.ui.getCore() &&
+        !window.sap.ui.getCore().isLocked() &&
+        !window.sap.ui.getCore().getUIDirty() &&
+        !findBusyIndicator() && // comment out in case of invisible busyIndicator (i.e. My Inbox) to prevent test getting stuck
+        document.readyState == "complete"
+      ) {
+        findui5Busy();
+      } else {
+        window.setTimeout(waitForFirstRendered, interval);
+      }
+    }
+
+    function findui5Busy() {
+      setTimeout(function () {
+        if (!window.sap) {
+          return window.setTimeout(waitForRendered, interval);
+        }
+        var oLcaTestCooperation = window.oLcaTestCooperation;
+        if (!oLcaTestCooperation) {
+          var LcaTestCooperation = window.TestCooperation || defineTestCooperation();
+          /* eslint-disable-next-line no-redeclare */
+          var oLcaTestCooperation = new LcaTestCooperation({
+            getUIDirty: window.sap.ui.getCore().getUIDirty.bind(window.sap.ui.getCore()),
+            attachUIUpdated: function () {}
+          });
+          window.oLcaTestCooperation = oLcaTestCooperation;
+        }
+
+        if (!oLcaTestCooperation.isStable()) {
+          setTimeout(findui5Busy, interval);
+        } else {
+          window.setTimeout(waitForRendered, interval);
+        }
+      }, 10);
+    }
+
+    window.setTimeout(function () {
+      waitForFirstRendered(findui5Busy);
+    }, interval);
+  });
 };
 
 /* Publish all the functions as strings to pass to WebDriver's

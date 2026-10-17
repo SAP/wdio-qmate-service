@@ -13,7 +13,7 @@ module.exports = {
 
   getUI5Property: async function (propName, selectorOrElement) {
     return lib.controlActionInBrowser(
-      function (control, propName, done) {
+      function (control, propName) {
         let val = null;
         try {
           val = control.getProperty(propName);
@@ -22,7 +22,7 @@ module.exports = {
         }
         // Need to stringify array values
         val = val && val.hasOwnProperty("length") ? val.toString() : val; // need to stringify arrays and objects
-        done(val);
+        return val;
       },
       selectorOrElement,
       propName
@@ -31,7 +31,7 @@ module.exports = {
 
   getUI5Aggregation: async function (propName, selectorOrElement) {
     const aggregation = await lib.controlActionInBrowser(
-      function (control, propName, decycle, done) {
+      function (control, propName, decycle) {
         let value = null;
         try {
           value = control.getAggregation(propName);
@@ -42,7 +42,7 @@ module.exports = {
         if (typeof value === "object" && value !== null) {
           value = decycle(value);
         }
-        done(value);
+        return value;
       },
       selectorOrElement,
       propName,
@@ -57,14 +57,14 @@ module.exports = {
 
   getUI5Association: async function (propName, selectorOrElement) {
     return lib.controlActionInBrowser(
-      function (control, propName, done) {
+      function (control, propName) {
         let value = null;
         try {
           value = control.getAssociation(propName);
         } catch (error) {
           // exception ignore it for now, need to check further
         }
-        done(value);
+        return value;
       },
       selectorOrElement,
       propName
@@ -72,7 +72,7 @@ module.exports = {
   },
 
   getBindingContextPath: async function (selectorOrElement) {
-    return lib.controlActionInBrowser(function (control, done) {
+    return lib.controlActionInBrowser(function (control) {
       let bindingContextPath = null;
       let bindingContexts = jQuery.extend({}, control.oPropagatedProperties && control.oPropagatedProperties.oBindingContexts, control.oBindingContexts, control.mElementBindingContexts);
       // reduce object to non-empty contexts
@@ -90,13 +90,13 @@ module.exports = {
           if (oBindingContext && oBindingContext.getPath && oBindingContext.getPath()) bindingContextPath = oBindingContext.getPath();
         }
       }
-      done(bindingContextPath);
+      return bindingContextPath;
     }, selectorOrElement);
   },
 
   getBindingProperty: async function (propName, selectorOrElement) {
     return lib.controlActionInBrowser(
-      function (control, propertyName, done) {
+      function (control, propertyName) {
         let aBindingInfos = [];
         function retrieveCompositeBindings(oBinding, aBindingInfos) {
           if (!oBinding) return;
@@ -161,7 +161,7 @@ module.exports = {
           return aBindingInfos;
         }
         aBindingInfos = retrieverBindingPaths(control, propertyName);
-        done(aBindingInfos);
+        return aBindingInfos;
       },
       selectorOrElement,
       propName
@@ -169,35 +169,35 @@ module.exports = {
   },
 
   getAllUI5Properties: async function (selectorOrElement) {
-    return lib.controlActionInBrowser(function (control, done) {
+    return lib.controlActionInBrowser(function (control) {
       let allProps = null;
       if (control.getMetadata()) {
         const controlMetadata = control.getMetadata();
         allProps = Object.keys(controlMetadata.getAllProperties());
       }
-      done(allProps);
+      return allProps;
     }, selectorOrElement);
   },
 
   getAllUI5Aggregations: async function (selectorOrElement) {
-    return lib.controlActionInBrowser(function (control, done) {
+    return lib.controlActionInBrowser(function (control) {
       let allProps = null;
       if (control.getMetadata()) {
         const controlMetadata = control.getMetadata();
         allProps = Object.keys(controlMetadata.getAllAggregations());
       }
-      done(allProps);
+      return allProps;
     }, selectorOrElement);
   },
 
   getAllUI5Associations: async function (selectorOrElement) {
-    return lib.controlActionInBrowser(function (control, done) {
+    return lib.controlActionInBrowser(function (control) {
       let allProps = null;
       if (control.getMetadata()) {
         const controlMetadata = control.getMetadata();
         allProps = Object.keys(controlMetadata.getAllAssociations());
       }
-      done(allProps);
+      return allProps;
     }, selectorOrElement);
   }
 };
