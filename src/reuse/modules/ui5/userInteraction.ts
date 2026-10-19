@@ -144,11 +144,13 @@ export class UserInteraction {
   async clickListItem(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickListItem);
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
-    await ui5.control.execute(function (control: any, done: Function) {
-      control.attachPress(function () {
-        done();
+    await ui5.control.execute(function (control: any) {
+      return new Promise(function (resolve: Function) {
+        control.attachPress(function () {
+          resolve();
+        });
+        control.firePress();
       });
-      control.firePress();
     }, elem);
   }
 
