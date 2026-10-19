@@ -321,8 +321,8 @@ export class ElementModule {
     const vl = this.vlf.initLog(this.getBindingValue);
     const elem = await this.getDisplayed(selector, index, timeout);
     return browser.controlActionInBrowser(
-      function (control: any, property: string, done: Function) {
-        done(control.getBinding(property).getValue());
+      function (control: any, property: string) {
+        return control.getBinding(property).getValue();
       },
       elem,
       bindingContext

@@ -12,6 +12,7 @@ module.exports = {
   },
 
   getUI5Property: async function (propName, selectorOrElement) {
+    if (!propName) throw new Error("Please provide a valid property name");
     return lib.controlActionInBrowser(
       function (control, propName) {
         let val = null;
@@ -30,6 +31,7 @@ module.exports = {
   },
 
   getUI5Aggregation: async function (propName, selectorOrElement) {
+    if (!propName) throw new Error("Please provide a valid aggregation name");
     const aggregation = await lib.controlActionInBrowser(
       function (control, propName, decycle) {
         let value = null;
