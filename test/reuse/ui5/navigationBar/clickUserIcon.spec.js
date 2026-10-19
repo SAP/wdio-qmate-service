@@ -18,7 +18,7 @@ describe("navigationBar - clickUserIcon", async function () {
     const selector = {
       elementProperties: {
         metadata: "sap.ui.core.Icon",
-        bindingContextPath: "/userActions/items/4"
+        bindingContextPath: "/userActions/items/0"
       }
     };
     await ui5.assertion.expectToBeVisible(selector);

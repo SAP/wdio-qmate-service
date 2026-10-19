@@ -56,6 +56,7 @@ module.exports = {
   },
 
   getUI5Association: async function (propName, selectorOrElement) {
+    if (!propName) throw new Error("Please provide a valid association name");
     return lib.controlActionInBrowser(
       function (control, propName) {
         let value = null;

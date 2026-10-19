@@ -107,7 +107,7 @@ describe("webdriver.io page", function () {
       }
     );
     await expect(elem.getAllUI5Aggregations()).resolves.toContain("tooltip");
-    await expect(elem.getUI5Aggregation("")).rejects.toThrow("javascript error: done is not a function");
+    await expect(elem.getUI5Aggregation("")).rejects.toThrow("Please provide a valid aggregation name");
   });
 
   it("step6: check element's Binding context path using chain $.$$ and get wrong element property", async function () {
@@ -128,7 +128,7 @@ describe("webdriver.io page", function () {
       }
     );
     await expect(elem.getBindingContextPath()).resolves.toContain("/ProductCategories('AC')");
-    await expect(elem.getUI5Property("")).rejects.toThrow("javascript error: done is not a function");
+    await expect(elem.getUI5Property("")).rejects.toThrow("Please provide a valid property name");
   });
 
   it("step7: get wrong element by wrong selector and throw error", async function () {
