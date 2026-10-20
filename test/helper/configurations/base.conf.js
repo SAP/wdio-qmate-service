@@ -1,19 +1,5 @@
 /* eslint-disable no-console */
 const WdioQmateService = require("../../../lib/index.js");
-const chromedriverPath = require("chromedriver").path;
-const fs = require("fs");
-
-// WDIO 8 reads CHROMEDRIVER_PATH (see @wdio/utils startWebDriver.js / manager.js).
-// Setting it short-circuits WDIO's runtime download to /tmp/chromedriver/... and
-// spawns the binary installed by the npm `chromedriver` package's postinstall.
-if (!process.env.CHROMEDRIVER_PATH || !fs.existsSync(process.env.CHROMEDRIVER_PATH)) {
-  if (fs.existsSync(chromedriverPath)) {
-    process.env.CHROMEDRIVER_PATH = chromedriverPath;
-  } else {
-    console.error("Path to chromedriver bin is wrong." + (process.env.CHROMEDRIVER_PATH || chromedriverPath));
-    process.exit(1);
-  }
-}
 
 exports.config = {
   params: {},

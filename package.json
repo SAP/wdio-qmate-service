@@ -150,15 +150,14 @@
     "@types/pdf-parse": "^1.1.5",
     "@types/sha.js": "^2.4.4",
     "@types/xml2js": "^0.4.14",
-    "@wdio/cli": "^8.46.0",
-    "@wdio/local-runner": "^8.46.0",
-    "@wdio/mocha-framework": "^8.46.0",
-    "@wdio/sauce-service": "^8.46.0",
-    "@wdio/spec-reporter": "^8.43.0",
-    "@wdio/static-server-service": "^8.41.0",
+    "@wdio/cli": "^10.0.0",
+    "@wdio/local-runner": "^10.0.0",
+    "@wdio/mocha-framework": "^10.0.0",
+    "@wdio/sauce-service": "^10.0.0",
+    "@wdio/spec-reporter": "^10.0.0",
+    "@wdio/static-server-service": "^10.0.0",
     "app-root-path": "^3.1.0",
     "chai": "^6.2.2",
-    "chromedriver": "^150.0.1",
     "concurrently": "^10.0.3",
     "doctrine": "^3.0.0",
     "esbuild": "0.28.1",
@@ -172,15 +171,12 @@
     "rimraf": "^6.1.3",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.9",
-    "wdio-chromedriver-service": "^8.1.1"
+    "vitest": "^4.1.9"
   },
   "overrides": {
     "got": "^11.8.5",
     "tough-cookie": "^4.1.3",
     "@napi-rs/canvas": "npm:noop-package@1.0.0"
   },
-  "allowScripts": {
-    "chromedriver@*": true
-  }
+  "allowScripts": {}
 }
