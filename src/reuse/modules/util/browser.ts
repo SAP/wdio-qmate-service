@@ -140,10 +140,10 @@ export class Browser {
   async clearBrowser(clearLocal: boolean = true, clearSession: boolean = true, clearCookies: boolean = true): Promise<void> {
     const vl = this.vlf.initLog(this.clearBrowser);
     if (clearLocal) {
-      await browser.execute("window.localStorage.clear()");
+      await browser.execute(() => window.localStorage.clear());
     }
     if (clearSession) {
-      await browser.execute("window.sessionStorage.clear()");
+      await browser.execute(() => window.sessionStorage.clear());
     }
     if (clearCookies) {
       await browser.deleteCookies();
