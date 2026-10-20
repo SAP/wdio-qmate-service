@@ -369,7 +369,7 @@ export class ElementModule {
     const vl = this.vlf.initLog(this.isVisible);
     try {
       if (strict) {
-        return element.isDisplayedInViewport();
+        return element.isDisplayed();
       } else {
         return element.isDisplayed();
       }

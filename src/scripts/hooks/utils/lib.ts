@@ -218,7 +218,7 @@ var LibScripts = function () {
       if (!aElements || aElements.length === 0) return null;
       const displayedElements = [];
       for (let i = 0; i < aElements.length; i++) {
-        const isDisplayedInPort = await aElements[i].isDisplayedInViewport();
+        const isDisplayedInPort = await aElements[i].isDisplayed();
         if (isDisplayedInPort) {
           displayedElements.push(aElements[i]);
         }

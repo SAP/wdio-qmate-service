@@ -358,7 +358,7 @@ export class Session {
           usernameField = await $(authenticator.usernameFieldSelector);
           passwordField = await $(authenticator.passwordFieldSelector);
           logonField = await $(authenticator.logonButtonSelector);
-          return (await usernameField.isDisplayedInViewport()) && (await passwordField.isDisplayedInViewport()) && (await logonField.isDisplayedInViewport());
+          return (await usernameField.isDisplayed()) && (await passwordField.isDisplayed()) && (await logonField.isDisplayed());
         },
         {
           timeout: GLOBAL_DEFAULT_WAIT_TIMEOUT,
