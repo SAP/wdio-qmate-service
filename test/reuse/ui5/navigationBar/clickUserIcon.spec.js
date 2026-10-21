@@ -31,6 +31,6 @@ describe("navigationBar - clickUserIcon - error case", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.navigationBar.clickUserIcon(NEGATIVE_TEST_TIMEOUT)).rejects.toThrowError(`Could not click User Icon in ${NEGATIVE_TEST_TIMEOUT / 1000}s`);
+    await expect(ui5.navigationBar.clickUserIcon(NEGATIVE_TEST_TIMEOUT)).rejects.toThrow(`Could not click User Icon in ${NEGATIVE_TEST_TIMEOUT / 1000}s`);
   });
 });

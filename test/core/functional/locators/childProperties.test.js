@@ -35,7 +35,7 @@ describe("webdriver.io page locator test", function () {
         src: "sap-icon://nav-back"
       }
     };
-    await expect(browser.uiControl(wrongSelectorWithoutElementProperties)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(wrongSelectorWithoutElementProperties)).rejects.toThrow(/No visible elements found/);
   });
 
   it("should access element by elementProperties and multiple childProperties as array - AND (happy case)", async function () {
@@ -66,7 +66,7 @@ describe("webdriver.io page locator test", function () {
         { viewName: "sap.m.sample.Button.Page", metadata: "sap.m.Button", text: "this-button-does-not-exist" }
       ]
     };
-    await expect(browser.uiControl(selector, 0, 1000)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(selector, 0, 1000)).rejects.toThrow(/No visible elements found/);
   });
 
   it("should return multiple elements when multiple parents each satisfy array childProperties - AND (multiple results)", async function () {

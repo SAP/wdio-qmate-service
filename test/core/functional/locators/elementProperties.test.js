@@ -80,7 +80,7 @@ describe("webdriver.io access to element via elementProperties test", function (
 
     checkIfAnElementIsUnique(link, links);
 
-    await expect(link.click()).rejects.toThrowError(/is not clickable at point/);
+    await expect(link.click()).rejects.toThrow(/is not clickable at point/);
 
     // Check that without text->path cannot get unique element: without 'text->path' we can access to a link and a Product (2 elements)
     const productLinksProperties = {
@@ -109,6 +109,6 @@ describe("webdriver.io access to element via elementProperties test", function (
       }
     };
 
-    await expect(browser.uiControl(nonAvailableButtonProperties, 0, 60000)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(nonAvailableButtonProperties, 0, 60000)).rejects.toThrow(/No visible elements found/);
   });
 });

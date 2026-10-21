@@ -92,7 +92,7 @@ describe("webdriver.io page locator test", function () {
         selectedKey: "subItem_non"
       }
     };
-    await expect(browser.uiControl(wrongSelectorWithoutElementProperties)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(wrongSelectorWithoutElementProperties)).rejects.toThrow(/No visible elements found/);
   });
 
   it("should access element by elementProperties and multiple ancestorProperties as array - AND (happy case)", async function () {
@@ -131,7 +131,7 @@ describe("webdriver.io page locator test", function () {
       },
       ancestorProperties: [{ viewName: "sap.m.sample.Button.Page", metadata: "sap.m.Toolbar" }, { metadata: "sap.m.Table" }]
     };
-    await expect(browser.uiControl(selector, 0, 1000)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(selector, 0, 1000)).rejects.toThrow(/No visible elements found/);
   });
 
   it("should return multiple elements when multiple elements each satisfy array ancestorProperties - AND (multiple results)", async function () {
