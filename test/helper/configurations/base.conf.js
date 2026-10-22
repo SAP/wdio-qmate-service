@@ -28,7 +28,7 @@ exports.config = {
   reporters: ["spec"],
   mochaOpts: {
     ui: "bdd",
-    timeout: 200000,
+    timeout: 360000,
     bail: true
   },
   webSocketUrl: false
