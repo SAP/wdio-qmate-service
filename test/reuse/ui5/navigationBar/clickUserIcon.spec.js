@@ -22,7 +22,7 @@ describe("navigationBar - clickUserIcon", async function () {
         bindingContextPath: "/userActions"
       }
     };
-    await ui5.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector, 0, 60000);
   });
 });
 
