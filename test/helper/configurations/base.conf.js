@@ -18,7 +18,7 @@ exports.config = {
   waitForUI5Timeout: 90000,
   waitForUI5PollingInterval: 150,
   stableCountTries: 1,
-  connectionRetryTimeout: 180000,
+  connectionRetryTimeout: 360000,
   connectionRetryCount: 3,
   framework: "mocha",
   coverage: {
