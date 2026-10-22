@@ -2,27 +2,25 @@ var path = require("path");
 var merge = require("deepmerge");
 var profile = require("../../../helper/configurations/chrome.headless.conf");
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
+const clientsidescripts = require("../../../../lib/scripts/clientsideUI5scripts");
 
 const locatorConfig = merge(profile.config, {
   maxInstances: 1,
   bail: 1,
 
   before: async function () {
-    // pageLoadStrategy:normal waits for readyState:complete, but SAPUI5 bootstrap (sap.ui) may finish later.
-    // For tests navigating without an iframe, wait for sap.ui after url().
     browser.overwriteCommand("url", async (origFn, url) => {
       await origFn(url);
       await browser.waitUntil(async () => {
-        return browser.execute(() => !!(window.sap && window.sap.ui && window.sap.ui.getCore && window.sap.ui.getCore() && document.readyState === "complete"));
+        return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
       }, { timeout: 60000, interval: 500 });
     });
 
-    // For tests that switch into a sampleFrame iframe, also wait for sap.ui inside the iframe.
     const origSwitchToIframe = util.browser.switchToIframe.bind(util.browser);
     util.browser.switchToIframe = async (...args) => {
       await origSwitchToIframe(...args);
       await browser.waitUntil(async () => {
-        return browser.execute(() => !!(window.sap && window.sap.ui && window.sap.ui.getCore && window.sap.ui.getCore() && document.readyState === "complete"));
+        return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
       }, { timeout: 60000, interval: 500 });
     };
   },

@@ -1,6 +1,7 @@
 const path = require("path");
 const merge = require("deepmerge");
 const profile = require("../../../helper/configurations/chrome.headless.conf");
+const clientsidescripts = require("../../../../lib/scripts/clientsideUI5scripts");
 
 exports.config = merge(profile.config, {
   maxInstances: 6,
@@ -11,7 +12,7 @@ exports.config = merge(profile.config, {
       await origFn(url);
       if (typeof url === "string" && !url.startsWith("http://localhost")) {
         await browser.waitUntil(async () => {
-          return browser.execute(() => !!(window.sap && window.sap.ui && window.sap.ui.getCore && window.sap.ui.getCore() && document.readyState === "complete"));
+          return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
         }, { timeout: 60000, interval: 500 });
       }
     });
@@ -19,7 +20,7 @@ exports.config = merge(profile.config, {
     util.browser.switchToIframe = async (...args) => {
       await origSwitchToIframe(...args);
       await browser.waitUntil(async () => {
-        return browser.execute(() => !!(window.sap && window.sap.ui && window.sap.ui.getCore && window.sap.ui.getCore() && document.readyState === "complete"));
+        return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
       }, { timeout: 60000, interval: 500 }).catch(() => {});
     };
   },
