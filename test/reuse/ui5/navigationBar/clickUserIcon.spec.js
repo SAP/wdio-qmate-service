@@ -8,6 +8,7 @@ const NEGATIVE_TEST_TIMEOUT = 10_000;
 describe("navigationBar - clickUserIcon", async function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(browser.config.baseUrl);
+    await ui5.navigationBar.expectShellHeader();
   });
 
   it("Execution", async function () {
