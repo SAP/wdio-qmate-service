@@ -38,4 +38,8 @@ const locatorConfig = merge(profile.config, {
   baseUrl: `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`
 });
 
+// ChromeDriver 150 hangs on POST /session/{id}/url for external URLs with eager/normal.
+// "none" returns immediately; locator tests wait for UI5 via waitForDisplayed/waitUntil.
+locatorConfig.capabilities[0].pageLoadStrategy = "none";
+
 exports.config = locatorConfig;
