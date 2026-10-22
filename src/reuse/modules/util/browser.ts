@@ -389,7 +389,7 @@ export class Browser {
     const vl = this.vlf.initLog(this.switchToIframe);
     await nonUi5.element.waitToBeVisible(selector);
     const frame = await $(selector);
-    await browser.switchToFrame(frame);
+    await browser.switchFrame(frame);
   }
 
   /**
@@ -400,7 +400,7 @@ export class Browser {
    */
   async switchToDefaultContent() {
     const vl = this.vlf.initLog(this.switchToDefaultContent);
-    await browser.switchToFrame(null);
+    await browser.switchFrame(null);
   }
 
   /**
