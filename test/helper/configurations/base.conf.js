@@ -31,5 +31,10 @@ exports.config = {
     timeout: 200000,
     bail: true
   },
-  webSocketUrl: false
+  webSocketUrl: false,
+  before: async function () {
+    // v10: set pageLoad timeout so ChromeDriver returns an error instead of hanging
+    // until Mocha's 200s timeout fires. 120s gives page time to load on slow CI networks.
+    await browser.setTimeout({ pageLoad: 120000 });
+  }
 };
