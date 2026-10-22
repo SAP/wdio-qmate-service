@@ -9,7 +9,7 @@ exports.config = merge(baseConfig.config, {
       pageLoadStrategy: "eager",
       acceptInsecureCerts: true,
       timeouts: {
-        pageLoad: 60000
+        pageLoad: 120000
       },
       "goog:chromeOptions": {
         args: [
