@@ -159,7 +159,7 @@ export class Browser {
   async reloadSession(): Promise<void> {
     const vl = this.vlf.initLog(this.reloadSession);
     await browser.reloadSession();
-    if (browser.config.qmate?.enableUi5ExtensionMocking !== false) {
+    if (browser.isBidi && browser.config.qmate?.enableUi5ExtensionMocking !== false) {
       await browser.mockClearAll();
       await Ui5ExtensionMocker.mockRequests();
     }
