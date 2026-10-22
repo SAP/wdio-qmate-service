@@ -34,7 +34,10 @@ async function FormAuthenticator() {
       usernameField = await $(usernameFieldSelector);
       passwordField = await $(passwordFieldSelector);
       logonField = await $(logonButtonSelector);
-      return (await usernameField.isDisplayed()) && (await passwordField.isDisplayed()) && (await logonField.isDisplayed());
+      const usernameVisible = await usernameField.isDisplayed();
+      const passwordVisible = await passwordField.isDisplayed();
+      const logonVisible = await logonField.isDisplayed();
+      return usernameVisible && passwordVisible && logonVisible;
     },
     {
       timeout: 60000,
