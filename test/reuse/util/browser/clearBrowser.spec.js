@@ -2,7 +2,7 @@
 
 describe("browser - clearBrowser", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(browser.config.baseUrl);
+    await browser.url(browser.config.baseUrl);
 
     // Updated selector for the new cookie consent button
     const newCookiesConsentDialog = "button[id='truste-consent-button']";

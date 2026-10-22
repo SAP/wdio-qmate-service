@@ -3,7 +3,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - click and retry", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/`);
+    await browser.url(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
@@ -29,7 +29,7 @@ describe("userInteraction - click and retry", function () {
 
 describe("userInteraction - click and retry on not displayed element", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/`);
+    await browser.url(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 

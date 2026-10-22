@@ -4,7 +4,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("webdriver.io page locator test", function () {
   it("should access same element by elementProperties, ancestorProperties and nested ancestorProperties", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -48,7 +48,7 @@ describe("webdriver.io page locator test", function () {
   });
 
   it("should access element(s) by ancestor properties and index", async function () {
-    await browser.navigateTo(`${BASE_URL}#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await browser.url(`${BASE_URL}#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -81,7 +81,7 @@ describe("webdriver.io page locator test", function () {
   });
 
   it("should try access element only by ancestor properties and fail (unhappy case)", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -96,7 +96,7 @@ describe("webdriver.io page locator test", function () {
   });
 
   it("should access element by elementProperties and multiple ancestorProperties as array - AND (happy case)", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -118,7 +118,7 @@ describe("webdriver.io page locator test", function () {
   });
 
   it("should fail when one entry of ancestorProperties array does not match - AND (unhappy case)", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -135,7 +135,7 @@ describe("webdriver.io page locator test", function () {
   });
 
   it("should return multiple elements when multiple elements each satisfy array ancestorProperties - AND (multiple results)", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 

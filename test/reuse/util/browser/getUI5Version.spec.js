@@ -4,7 +4,7 @@
 describe("browser - getUI5Version", function () {
   let ui5VersionInfo;
   it("Preparation", async function () {
-    await browser.navigateTo(browser.config.baseUrl);
+    await browser.url(browser.config.baseUrl);
     await util.function.executeOptional(async function () {
       const selector = {
         elementProperties: {

@@ -3,7 +3,7 @@
 const url = "https://sdk.openui5.org/test-resources/sap/m/demokit/iconExplorer/webapp/index.html";
 describe("assertion - expectUrlToBe - 'openui5.....'", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(url);
+    await browser.url(url);
   });
 
   it("Execution & Verification", async function () {

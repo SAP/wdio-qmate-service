@@ -7,19 +7,6 @@ const locatorConfig = merge(profile.config, {
   maxInstances: 1,
   bail: 1,
 
-  // pageLoadStrategy:"none" + wdio v10 BiDi: browser.navigateTo (classic WebDriver POST /url)
-  // hangs in BiDi sessions on ChromeDriver 150. Redirect it to browser.url() (BiDi) and
-  // add a readyState wait so the SPA is fully loaded before locator tests run.
-  before: async function () {
-    browser.navigateTo = async function (url) {
-      await browser.url(url);
-      await browser.waitUntil(
-        async () => (await browser.execute(() => document.readyState)) === "complete",
-        { timeout: 90000, timeoutMsg: "Page did not reach readyState=complete within 90s" }
-      );
-    };
-  },
-
   specs: [
     path.resolve(__dirname, "elementProperties.test.js"),
     path.resolve(__dirname, "ancestorProperties.test.js"),

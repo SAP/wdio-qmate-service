@@ -3,7 +3,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - doubleClick", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/`);
+    await browser.url(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
@@ -25,7 +25,7 @@ describe("userInteraction - doubleClick", function () {
 
 describe("userInteraction - doubleClick on not displayed element", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/`);
+    await browser.url(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 

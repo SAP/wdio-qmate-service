@@ -4,7 +4,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("assertion - expectMessageToastTextToBe - no message toast (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.MessageToast/sample/sap.m.sample.MessageToast`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.MessageToast/sample/sap.m.sample.MessageToast`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -18,7 +18,7 @@ describe("assertion - expectMessageToastTextToBe - no message toast (unhappy cas
 
 describe("assertion - expectMessageToastTextToBe", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.MessageToast/sample/sap.m.sample.MessageToast`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.MessageToast/sample/sap.m.sample.MessageToast`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

@@ -55,7 +55,7 @@ describe("Test for ", function () {
   });
 
   it("should use UI5 Control binding properties command on element level", async function () {
-    await browser.navigateTo(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
+    await browser.url(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
     const ui5ControlProperties = {
       elementProperties: {
         metadata: "sap.m.StandardListItem",
