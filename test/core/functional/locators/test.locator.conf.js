@@ -7,18 +7,12 @@ const locatorConfig = merge(profile.config, {
   maxInstances: 1,
   bail: 1,
 
-  // pageLoadStrategy:"none" means navigateTo returns immediately. Patch it to wait
-  // for the page to be ready — used by locator tests that navigate to ui5.sap.com SPA.
+  // pageLoadStrategy:"none" + wdio v10 BiDi: browser.navigateTo (classic WebDriver POST /url)
+  // hangs in BiDi sessions on ChromeDriver 150. Redirect it to browser.url() (BiDi) and
+  // add a readyState wait so the SPA is fully loaded before locator tests run.
   before: async function () {
-    const _navigateTo = browser.navigateTo.bind(browser);
     browser.navigateTo = async function (url) {
-      await _navigateTo(url);
-      // Wait for URL to change away from blank
-      await browser.waitUntil(async () => {
-        const current = await browser.getUrl();
-        return current && current !== "about:blank" && current !== "data:,";
-      }, { timeout: 30000, timeoutMsg: "Browser URL did not change from blank within 30s", interval: 200 });
-      // Wait for readyState=complete
+      await browser.url(url);
       await browser.waitUntil(
         async () => (await browser.execute(() => document.readyState)) === "complete",
         { timeout: 90000, timeoutMsg: "Page did not reach readyState=complete within 90s" }

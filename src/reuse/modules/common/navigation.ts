@@ -21,7 +21,7 @@ export class Navigation {
   async navigateToUrl(url: string): Promise<void> {
     const vl = this.vlf.initLog(this.navigateToUrl);
     if (url) {
-      await browser.navigateTo(url);
+      await browser.url(url);
       await util.browser.logCurrentUrl();
     } else {
       this.ErrorHandler.logException(new Error("Please provide an url as argument."));
