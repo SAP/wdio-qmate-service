@@ -30,5 +30,6 @@ exports.config = {
     ui: "bdd",
     timeout: 200000,
     bail: true
-  }
+  },
+  webSocketUrl: false
 };
