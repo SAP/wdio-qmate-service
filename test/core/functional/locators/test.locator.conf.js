@@ -3,6 +3,10 @@ var merge = require("deepmerge");
 var profile = require("../../../helper/configurations/chrome.headless.conf");
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 
+// SPA hash-routing on ui5.sap.com renders the iframe asynchronously after readyState=complete;
+// extend the element wait timeout so switchToIframe survives the SPA render delay with pageLoadStrategy:"none"
+process.env.QMATE_CUSTOM_TIMEOUT = "90000";
+
 const locatorConfig = merge(profile.config, {
   maxInstances: 1,
   bail: 1,
