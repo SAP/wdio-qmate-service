@@ -13,9 +13,10 @@ async function waitForUI5(opts = {}) {
     waitForUI5Timeout: browser.config.waitForUI5Timeout || 90000,
     waitForUI5PollingInterval: browser.config.waitForUI5PollingInterval || 10
   };
+  await browser.execute(clientsidescripts.loadUI5Page, mScriptParams);
   await browser.waitUntil(async () => {
-    return (await browser.execute(clientsidescripts.loadUI5Page, mScriptParams)) === true;
-  }, { timeout, interval: 500 });
+    return (await browser.execute(() => !!(window.loadUI5PagePromise && window.loadUI5PagePromise.done))) === true;
+  }, { timeout, interval: 200 });
 }
 
 const locatorConfig = merge(profile.config, {

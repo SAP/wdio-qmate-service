@@ -186,9 +186,10 @@ var LibScripts = function () {
       var mScriptParams = {};
       mScriptParams.waitForUI5Timeout = browser.config.waitForUI5Timeout;
       mScriptParams.waitForUI5PollingInterval = browser.config.waitForUI5PollingInterval;
+      await browser.execute(clientsidescripts.loadUI5Page, mScriptParams);
       await browser.waitUntil(
         async () => {
-          return (await browser.execute(clientsidescripts.loadUI5Page, mScriptParams)) === true;
+          return (await browser.execute(() => !!(window.loadUI5PagePromise && window.loadUI5PagePromise.done))) === true;
         },
         {
           timeout: browser.config.waitForUI5Timeout,

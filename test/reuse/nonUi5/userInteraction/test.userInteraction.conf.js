@@ -12,9 +12,10 @@ async function waitForUI5() {
       waitForUI5Timeout: browser.config.waitForUI5Timeout || 90000,
       waitForUI5PollingInterval: browser.config.waitForUI5PollingInterval || 10
     };
+    await browser.execute(clientsidescripts.loadUI5Page, mScriptParams);
     await browser.waitUntil(async () => {
-      return (await browser.execute(clientsidescripts.loadUI5Page, mScriptParams)) === true;
-    }, { timeout: 60000, interval: 500 });
+      return (await browser.execute(() => !!(window.loadUI5PagePromise && window.loadUI5PagePromise.done))) === true;
+    }, { timeout: 60000, interval: 200 });
   } catch (_) {}
 }
 
