@@ -55,5 +55,10 @@ async function FormAuthenticator() {
     timeout: 60000,
     timeoutMsg: "Expected URL to change after login click within 60s"
   });
+  // ChromeDriver 150 bug: after form-submit navigation, POST /session/{id}/url hangs indefinitely.
+  // Navigating to the current URL via browser.url() forces a WebDriver-tracked navigation,
+  // resetting ChromeDriver's internal state so subsequent navigateTo() calls work.
+  const landedUrl = await browser.getUrl();
+  await browser.url(landedUrl);
 }
 module.exports = FormAuthenticator;
