@@ -3,7 +3,7 @@ var merge = require("deepmerge");
 var profile = require("../../../helper/configurations/chrome.headless.conf");
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 
-exports.config = merge(profile.config, {
+const locatorConfig = merge(profile.config, {
   maxInstances: 8,
   bail: 1,
 
@@ -37,3 +37,10 @@ exports.config = merge(profile.config, {
   // gets prepended directly.
   baseUrl: `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`
 });
+
+// Locator tests navigate to ui5.sap.com and then immediately need the sampleFrame iframe.
+// pageLoadStrategy:"eager" (from chrome.headless.conf) returns before the iframe is ready,
+// causing waitToBeVisible to eat the full waitforTimeout before Mocha kills the test at 360s.
+locatorConfig.capabilities[0].pageLoadStrategy = "normal";
+
+exports.config = locatorConfig;
