@@ -12,7 +12,7 @@ exports.config = merge(profile.config, {
     util.browser.switchToIframe = async (...args) => {
       await origSwitchToIframe(...args);
       await browser.waitUntil(async () => {
-        return browser.execute(() => !!(window.sap && window.sap.ui));
+        return browser.execute(() => !!(window.sap && window.sap.ui && window.sap.ui.getCore && window.sap.ui.getCore() && document.readyState === "complete"));
       }, { timeout: 60000, interval: 500 });
     };
   },

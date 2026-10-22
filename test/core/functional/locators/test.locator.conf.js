@@ -13,7 +13,7 @@ const locatorConfig = merge(profile.config, {
     browser.overwriteCommand("url", async (origFn, url) => {
       await origFn(url);
       await browser.waitUntil(async () => {
-        return browser.execute(() => !!(window.sap && window.sap.ui));
+        return browser.execute(() => !!(window.sap && window.sap.ui && window.sap.ui.getCore && window.sap.ui.getCore() && document.readyState === "complete"));
       }, { timeout: 60000, interval: 500 });
     });
 
@@ -22,7 +22,7 @@ const locatorConfig = merge(profile.config, {
     util.browser.switchToIframe = async (...args) => {
       await origSwitchToIframe(...args);
       await browser.waitUntil(async () => {
-        return browser.execute(() => !!(window.sap && window.sap.ui));
+        return browser.execute(() => !!(window.sap && window.sap.ui && window.sap.ui.getCore && window.sap.ui.getCore() && document.readyState === "complete"));
       }, { timeout: 60000, interval: 500 });
     };
   },

@@ -13,7 +13,7 @@ exports.config = merge(profile.config, {
       // If the iframe contains a SAPUI5 app, wait for it to bootstrap.
       // Use a short timeout and ignore failures for non-SAPUI5 iframes.
       await browser.waitUntil(async () => {
-        return browser.execute(() => !!(window.sap && window.sap.ui));
+        return browser.execute(() => !!(window.sap && window.sap.ui && window.sap.ui.getCore && window.sap.ui.getCore() && document.readyState === "complete"));
       }, { timeout: 15000, interval: 500 }).catch(() => {});
     };
   },

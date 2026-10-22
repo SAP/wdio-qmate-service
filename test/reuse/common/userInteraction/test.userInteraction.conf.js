@@ -11,10 +11,17 @@ exports.config = merge(profile.config, {
       await origFn(url);
       if (typeof url === "string" && !url.startsWith("http://localhost")) {
         await browser.waitUntil(async () => {
-          return browser.execute(() => !!(window.sap && window.sap.ui));
+          return browser.execute(() => !!(window.sap && window.sap.ui && window.sap.ui.getCore && window.sap.ui.getCore() && document.readyState === "complete"));
         }, { timeout: 60000, interval: 500 });
       }
     });
+    const origSwitchToIframe = util.browser.switchToIframe.bind(util.browser);
+    util.browser.switchToIframe = async (...args) => {
+      await origSwitchToIframe(...args);
+      await browser.waitUntil(async () => {
+        return browser.execute(() => !!(window.sap && window.sap.ui && window.sap.ui.getCore && window.sap.ui.getCore() && document.readyState === "complete"));
+      }, { timeout: 60000, interval: 500 }).catch(() => {});
+    };
   },
 
   baseUrl: "http://localhost:34005/",

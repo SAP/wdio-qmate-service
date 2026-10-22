@@ -29,10 +29,17 @@ describe("browser - closeWindow", function () {
   });
 
   it("Execution (last tab)", async function () {
-    await util.browser.closeWindow();
+    // wdio v10 BiDi: closing the last tab immediately ends the session and throws;
+    // wdio v8: closeWindow() succeeds, the session ends lazily.
+    try {
+      await util.browser.closeWindow();
+    } catch (e) {
+      if (!/All window handles were removed|invalid session id/i.test(e.message)) throw e;
+    }
   });
 
   it("Verification (last tab)", async function () {
+    // After the last tab is closed the session is gone — any browser call should reject.
     await expect(browser.getWindowHandles()).rejects.toThrow(/invalid session id|All window handles were removed/);
   });
 });
