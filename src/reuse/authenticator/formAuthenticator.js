@@ -48,5 +48,9 @@ async function FormAuthenticator() {
   await usernameField.setValue(username);
   await passwordField.setValue(password);
   await logonField.click();
+  await browser.waitUntil(async () => (await browser.getUrl()) !== url, {
+    timeout: 60000,
+    timeoutMsg: "Expected navigation away from login page after 60s"
+  });
 }
 module.exports = FormAuthenticator;
