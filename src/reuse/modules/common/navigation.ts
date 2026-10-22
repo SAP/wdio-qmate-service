@@ -21,6 +21,12 @@ export class Navigation {
   async navigateToUrl(url: string): Promise<void> {
     const vl = this.vlf.initLog(this.navigateToUrl);
     if (url) {
+      try {
+        new URL(url);
+      } catch {
+        // ponytail: mirrors classic WebDriver error; browser.url() silently navigates relative URLs in BiDi
+        throw new Error("invalid argument");
+      }
       await browser.url(url);
       await util.browser.logCurrentUrl();
     } else {
