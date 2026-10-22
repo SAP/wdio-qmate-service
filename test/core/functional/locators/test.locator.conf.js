@@ -16,8 +16,7 @@ const locatorConfig = merge(profile.config, {
       await _navigateTo(url);
       await browser.waitUntil(async () => {
         const current = await browser.getUrl();
-        const base = url.replace(/#.*$/, "");
-        return current === url || current.startsWith(base);
+        return current === url;
       }, { timeout: 30000, timeoutMsg: `URL did not change to ${url} within 30s`, interval: 200 });
       await browser.waitUntil(
         async () => (await browser.execute(() => document.readyState)) === "complete",
