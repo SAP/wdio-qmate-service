@@ -1,5 +1,10 @@
 exports.handleCookiesConsent = async function handleCookiesConsent() {
-   
+  // pageLoadStrategy:"none" returns navigateTo immediately; wait for the page to finish loading
+  await browser.waitUntil(async () => (await browser.execute(() => document.readyState)) === "complete", {
+    timeout: 60000,
+    timeoutMsg: "Page did not reach readyState=complete within 60s"
+  });
+
   await util.function.executeOptional(async function () {
     const oldCookiesConsentDialog = {
       elementProperties: {
