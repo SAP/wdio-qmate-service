@@ -35,7 +35,7 @@ async function CustomAuthenticator() {
       usernameField = await $(usernameFieldSelector);
       passwordField = await $(passwordFieldSelector);
       logonField = await $(logonButtonSelector);
-      return usernameField.isDisplayedInViewport() && passwordField.isDisplayedInViewport() && logonField.isDisplayedInViewport();
+      return (await usernameField.isDisplayed()) && (await passwordField.isDisplayed()) && (await logonField.isDisplayed());
     },
     {
       timeout: 60000,
