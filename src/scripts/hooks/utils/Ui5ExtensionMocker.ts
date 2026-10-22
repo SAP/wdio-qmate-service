@@ -38,6 +38,7 @@ export class Ui5ExtensionMocker {
   ];
 
   public static async mockRequests(): Promise<void> {
+    await browser.mockClearAll();
     for (const response of this.mockResponses) {
       const mock = await browser.mock(response.requestUrlRegexp);
       mock.respond(response.payload, response.params);
