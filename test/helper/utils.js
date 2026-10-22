@@ -11,7 +11,7 @@ exports.handleCookiesConsent = async function handleCookiesConsent() {
         ]
       }
     };
-    const testCookie = await browser.getCookies(["cmapi_cookie_privacy"]);
+    const testCookie = await browser.getCookies({ name: "cmapi_cookie_privacy" });
     if (testCookie.length > 0) {
       // cookie already set
       return;

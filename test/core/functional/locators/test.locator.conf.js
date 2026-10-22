@@ -7,17 +7,18 @@ const locatorConfig = merge(profile.config, {
   maxInstances: 1,
   bail: 1,
 
-  // pageLoadStrategy:"none" means navigateTo returns before the browser starts loading.
-  // Wrap browser.navigateTo in the before hook to wait for the URL to change and
-  // readyState=complete before returning — necessary for SPA hash-routing on ui5.sap.com.
+  // pageLoadStrategy:"none" means navigateTo returns immediately. Patch it to wait
+  // for the page to be ready — used by locator tests that navigate to ui5.sap.com SPA.
   before: async function () {
     const _navigateTo = browser.navigateTo.bind(browser);
     browser.navigateTo = async function (url) {
       await _navigateTo(url);
+      // Wait for URL to change away from blank
       await browser.waitUntil(async () => {
         const current = await browser.getUrl();
-        return current === url;
-      }, { timeout: 30000, timeoutMsg: `URL did not change to ${url} within 30s`, interval: 200 });
+        return current && current !== "about:blank" && current !== "data:,";
+      }, { timeout: 30000, timeoutMsg: "Browser URL did not change from blank within 30s", interval: 200 });
+      // Wait for readyState=complete
       await browser.waitUntil(
         async () => (await browser.execute(() => document.readyState)) === "complete",
         { timeout: 90000, timeoutMsg: "Page did not reach readyState=complete within 90s" }
