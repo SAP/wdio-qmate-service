@@ -38,4 +38,6 @@ const locatorConfig = merge(profile.config, {
   baseUrl: `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`
 });
 
+locatorConfig.capabilities[0].pageLoadStrategy = "eager";
+
 exports.config = locatorConfig;
