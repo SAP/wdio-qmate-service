@@ -6,6 +6,18 @@ exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
 
+  before: async function () {
+    const origSwitchToIframe = util.browser.switchToIframe.bind(util.browser);
+    util.browser.switchToIframe = async (...args) => {
+      await origSwitchToIframe(...args);
+      // If the iframe contains a SAPUI5 app, wait for it to bootstrap.
+      // Use a short timeout and ignore failures for non-SAPUI5 iframes.
+      await browser.waitUntil(async () => {
+        return browser.execute(() => !!(window.sap && window.sap.ui));
+      }, { timeout: 15000, interval: 500 }).catch(() => {});
+    };
+  },
+
   baseUrl: "http://localhost:34005/",
 
   specs: [

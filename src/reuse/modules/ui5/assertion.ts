@@ -424,7 +424,7 @@ export class Assertion {
     let value = null;
     await browser.waitUntil(
       async function () {
-        value = await elem.isDisplayed();
+        value = await elem.isDisplayed({ withinViewport: true });
         return value;
       },
       {

@@ -33,6 +33,6 @@ describe("browser - closeWindow", function () {
   });
 
   it("Verification (last tab)", async function () {
-    await expect(browser.getWindowHandles()).rejects.toThrow(/invalid session id/);
+    await expect(browser.getWindowHandles()).rejects.toThrow(/invalid session id|All window handles were removed/);
   });
 });

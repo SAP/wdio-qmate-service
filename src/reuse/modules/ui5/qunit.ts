@@ -22,9 +22,9 @@ export class QUnit {
     const vl = this.vlf.initLog(this.executeTests);
     const url = await browser.getUrl();
     if (url.indexOf("4431") !== -1) {
-      await browser.navigateTo(`http://localhost:4431/${path}`);
+      await browser.url(`http://localhost:4431/${path}`);
     } else {
-      await browser.navigateTo(`http://localhost:34005/${path}`);
+      await browser.url(`http://localhost:34005/${path}`);
     }
     // Note: waitForAngular now returns a Promise (wdio v10: executeAsync removed, use execute)
     await browser.execute(this.clientsidescripts.waitForAngular, undefined, 10);

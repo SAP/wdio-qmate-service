@@ -9,13 +9,22 @@ const locatorConfig = merge(profile.config, {
 
   before: async function () {
     // pageLoadStrategy:normal waits for readyState:complete, but SAPUI5 bootstrap (sap.ui) may finish later.
-    // Override browser.url to also wait for the SAPUI5 framework so uiControl() calls don't time out.
+    // For tests navigating without an iframe, wait for sap.ui after url().
     browser.overwriteCommand("url", async (origFn, url) => {
       await origFn(url);
       await browser.waitUntil(async () => {
         return browser.execute(() => !!(window.sap && window.sap.ui));
       }, { timeout: 60000, interval: 500 });
     });
+
+    // For tests that switch into a sampleFrame iframe, also wait for sap.ui inside the iframe.
+    const origSwitchToIframe = util.browser.switchToIframe.bind(util.browser);
+    util.browser.switchToIframe = async (...args) => {
+      await origSwitchToIframe(...args);
+      await browser.waitUntil(async () => {
+        return browser.execute(() => !!(window.sap && window.sap.ui));
+      }, { timeout: 60000, interval: 500 });
+    };
   },
 
   specs: [

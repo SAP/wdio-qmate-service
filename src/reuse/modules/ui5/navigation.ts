@@ -67,7 +67,7 @@ export class Navigation {
     vl.log(`Url with params: ${urlWithParams}`);
 
     try {
-      await browser.navigateTo(urlWithParams);
+      await browser.url(urlWithParams);
 
       const url = await browser.getUrl();
       await util.browser.logCurrentUrl();
@@ -121,7 +121,7 @@ export class Navigation {
   async navigateToSystemAndApplication(system: string, intent: string, closePopups = true, verify = false) {
     const vl = this.vlf.initLog(this.navigateToSystemAndApplication);
     try {
-      await browser.navigateTo(`https://${system}/ui#${intent}`);
+      await browser.url(`https://${system}/ui#${intent}`);
       const url = await browser.getUrl();
       await util.browser.logCurrentUrl();
       if (url && url.indexOf(intent) === -1 && verify) {

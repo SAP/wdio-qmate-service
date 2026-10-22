@@ -7,6 +7,16 @@ exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
 
+  before: async function () {
+    const origSwitchToIframe = util.browser.switchToIframe.bind(util.browser);
+    util.browser.switchToIframe = async (...args) => {
+      await origSwitchToIframe(...args);
+      await browser.waitUntil(async () => {
+        return browser.execute(() => !!(window.sap && window.sap.ui));
+      }, { timeout: 60000, interval: 500 });
+    };
+  },
+
   baseUrl: `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`,
 
   specs: [

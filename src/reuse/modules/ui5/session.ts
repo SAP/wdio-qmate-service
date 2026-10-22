@@ -190,7 +190,7 @@ export class Session {
 
     try {
       const baseUrl = browser.config.baseUrl;
-      await browser.navigateTo(baseUrl);
+      await browser.url(baseUrl);
       if (browser.config.params && browser.config.params.auth && browser.config.params.auth.username && browser.config.params.auth.password) {
         username = browser.config.params.auth.username;
         password = browser.config.params.auth.password;
@@ -285,7 +285,7 @@ export class Session {
 
     await this.logout();
     await util.browser.sleep(wait);
-    await browser.navigateTo(browser.config.baseUrl);
+    await browser.url(browser.config.baseUrl);
     if (!authenticator) {
       this.login(username, password);
     } else {

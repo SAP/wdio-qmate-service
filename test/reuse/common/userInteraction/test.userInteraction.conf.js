@@ -6,6 +6,17 @@ exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
 
+  before: async function () {
+    browser.overwriteCommand("url", async (origFn, url) => {
+      await origFn(url);
+      if (typeof url === "string" && !url.startsWith("http://localhost")) {
+        await browser.waitUntil(async () => {
+          return browser.execute(() => !!(window.sap && window.sap.ui));
+        }, { timeout: 60000, interval: 500 });
+      }
+    });
+  },
+
   baseUrl: "http://localhost:34005/",
 
   specs: [path.resolve(__dirname, "pressKey.spec.js"), path.resolve(__dirname, "clearAndFillActive.spec.js"), path.resolve(__dirname, "clearAndFillActiveAndRetry.spec.js"), path.resolve(__dirname, "fillActive.spec.js"), path.resolve(__dirname, "fillActiveAndRetry.spec.js")],
