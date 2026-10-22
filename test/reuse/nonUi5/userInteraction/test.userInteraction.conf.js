@@ -3,6 +3,21 @@ const merge = require("deepmerge");
 const profile = require("../../../helper/configurations/chrome.headless.conf");
 const clientsidescripts = require("../../../../lib/scripts/clientsideUI5scripts");
 
+async function waitForUI5() {
+  try {
+    await browser.waitUntil(async () => {
+      return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
+    }, { timeout: 60000, interval: 500 });
+    const mScriptParams = {
+      waitForUI5Timeout: browser.config.waitForUI5Timeout || 90000,
+      waitForUI5PollingInterval: browser.config.waitForUI5PollingInterval || 10
+    };
+    await browser.waitUntil(async () => {
+      return (await browser.execute(clientsidescripts.loadUI5Page, mScriptParams)) === true;
+    }, { timeout: 60000, interval: 500 });
+  } catch (_) {}
+}
+
 exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
@@ -11,14 +26,7 @@ exports.config = merge(profile.config, {
     const origSwitchToIframe = util.browser.switchToIframe.bind(util.browser);
     util.browser.switchToIframe = async (...args) => {
       await origSwitchToIframe(...args);
-      // If the iframe contains a SAPUI5 app, wait for it to fully stabilize.
-      // loadUI5CoreAndAutowaiter loads RecordReplay needed by uiControl.
-      // Ignore failures for non-SAPUI5 iframes.
-      try {
-        await browser.waitUntil(async () => {
-          return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
-        }, { timeout: 60000, interval: 500 });
-      } catch (_) {}
+      await waitForUI5();
     };
   },
 

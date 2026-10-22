@@ -4,6 +4,20 @@ var profile = require("../../../helper/configurations/chrome.headless.conf");
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const clientsidescripts = require("../../../../lib/scripts/clientsideUI5scripts");
 
+async function waitForUI5(opts = {}) {
+  const timeout = opts.timeout || 60000;
+  await browser.waitUntil(async () => {
+    return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
+  }, { timeout, interval: 500 });
+  const mScriptParams = {
+    waitForUI5Timeout: browser.config.waitForUI5Timeout || 90000,
+    waitForUI5PollingInterval: browser.config.waitForUI5PollingInterval || 10
+  };
+  await browser.waitUntil(async () => {
+    return (await browser.execute(clientsidescripts.loadUI5Page, mScriptParams)) === true;
+  }, { timeout, interval: 500 });
+}
+
 const locatorConfig = merge(profile.config, {
   maxInstances: 1,
   bail: 1,
@@ -11,17 +25,13 @@ const locatorConfig = merge(profile.config, {
   before: async function () {
     browser.overwriteCommand("url", async (origFn, url) => {
       await origFn(url);
-      await browser.waitUntil(async () => {
-        return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
-      }, { timeout: 60000, interval: 500 });
+      await waitForUI5();
     });
 
     const origSwitchToIframe = util.browser.switchToIframe.bind(util.browser);
     util.browser.switchToIframe = async (...args) => {
       await origSwitchToIframe(...args);
-      await browser.waitUntil(async () => {
-        return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
-      }, { timeout: 60000, interval: 500 });
+      await waitForUI5();
     };
   },
 
