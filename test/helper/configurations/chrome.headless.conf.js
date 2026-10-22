@@ -6,7 +6,6 @@ exports.config = merge(baseConfig.config, {
     {
       browserName: "chrome",
       browserVersion: "150",
-      pageLoadStrategy: "eager",
       acceptInsecureCerts: true,
       timeouts: {
         pageLoad: 120000
