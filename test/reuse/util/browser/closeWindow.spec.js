@@ -8,7 +8,12 @@ describe("browser - closeWindow", function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(sapWindowUrl);
     originalWindowHandle = await util.browser.getCurrentWindow();
-    await browser.newWindow(sapWindowUrl);
+    const newWindowContext = await browser.newWindow(sapWindowUrl);
+    // In wdio v10 BiDi, newWindow does not auto-switch; explicitly switch to new context
+    const newHandle = newWindowContext?.contextId ?? newWindowContext?.handle;
+    if (newHandle) {
+      await browser.switchToWindow(newHandle);
+    }
     const windowHandlesBefore = await browser.getWindowHandles();
     await common.assertion.expectEqual(windowHandlesBefore.length, 2);
   });

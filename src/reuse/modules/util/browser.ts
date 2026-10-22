@@ -311,21 +311,33 @@ export class Browser {
     const vl = this.vlf.initLog(this.switchToNewWindow);
     try {
       if ((browser as any).isBidi) {
-        throw new Error(
-          "util.browser.switchToNewWindow() is not supported in BiDi sessions (wdio v10 default). " +
-            "Use browser.browsingContext or disable BiDi via 'webSocketUrl: false' in your wdio config."
+        // browser.switchWindow() is removed in BiDi; iterate handles via switchToWindow instead
+        await browser.waitUntil(
+          async () => {
+            const handles = await browser.getWindowHandles();
+            for (const handle of handles) {
+              await browser.switchToWindow(handle);
+              if (await this._verifyTitleOrUrl(titleOrUrl)) return true;
+            }
+            return false;
+          },
+          {
+            timeout: timeout,
+            timeoutMsg: `Could not verify successful switch after ${timeout / 1000}s.`
+          }
+        );
+      } else {
+        await browser.waitUntil(
+          async () => {
+            await browser.switchWindow(titleOrUrl);
+            return this._verifyTitleOrUrl(titleOrUrl);
+          },
+          {
+            timeout: timeout,
+            timeoutMsg: `Could not verify successful switch after ${timeout / 1000}s.`
+          }
         );
       }
-      await browser.waitUntil(
-        async () => {
-          await browser.switchWindow(titleOrUrl);
-          return this._verifyTitleOrUrl(titleOrUrl);
-        },
-        {
-          timeout: timeout,
-          timeoutMsg: `Could not verify successful switch after ${timeout / 1000}s.`
-        }
-      );
     } catch (error) {
       this.ErrorHandler.logException(error);
     }

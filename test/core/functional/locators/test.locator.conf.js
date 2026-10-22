@@ -8,14 +8,13 @@ const locatorConfig = merge(profile.config, {
   bail: 1,
 
   before: async function () {
-    // pageLoadStrategy:none + BiDi wait:none means browser.url() returns before page is ready.
-    // Override browser.url to wait for readyState so uiControl() calls don't time out.
+    // pageLoadStrategy:normal waits for readyState:complete, but SAPUI5 bootstrap (sap.ui) may finish later.
+    // Override browser.url to also wait for the SAPUI5 framework so uiControl() calls don't time out.
     browser.overwriteCommand("url", async (origFn, url) => {
       await origFn(url);
       await browser.waitUntil(async () => {
-        const state = await browser.execute(() => document.readyState);
-        return state === "complete" || state === "interactive";
-      }, { timeout: 30000, interval: 500 });
+        return browser.execute(() => !!(window.sap && window.sap.ui));
+      }, { timeout: 60000, interval: 500 });
     });
   },
 

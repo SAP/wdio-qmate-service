@@ -34,7 +34,12 @@ describe("browser - getCurrentWindow (unhappy case)", function () {
   it("Execution and Verification", async function () {
     sapWindowHandleCustom = await util.browser.getCurrentWindow();
 
-    await browser.newWindow(wdioWindowUrl);
+    const newWindowContext = await browser.newWindow(wdioWindowUrl);
+    // In wdio v10 BiDi, newWindow does not auto-switch; get new handle from context
+    const newHandle = newWindowContext?.contextId ?? newWindowContext?.handle;
+    if (newHandle) {
+      await browser.switchToWindow(newHandle);
+    }
 
     wdioWindowHandleCustom = await util.browser.getCurrentWindow();
 

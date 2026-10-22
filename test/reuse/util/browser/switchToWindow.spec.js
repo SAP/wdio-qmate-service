@@ -12,7 +12,12 @@ describe("browser - switchToWindow", function () {
     sapWindowHandle = await browser.getWindowHandle();
     await expect(browser.getTitle()).resolves.toEqual("Shopping Cart");
 
-    await browser.newWindow(wdioWindowUrl);
+    const newWindowContext = await browser.newWindow(wdioWindowUrl);
+    // In wdio v10 BiDi, newWindow does not auto-switch; explicitly switch to new context
+    const newHandle = newWindowContext?.contextId ?? newWindowContext?.handle;
+    if (newHandle) {
+      await browser.switchToWindow(newHandle);
+    }
     wdioWindowHandle = await browser.getWindowHandle();
     await expect(browser.getTitle()).resolves.toMatch(/WebdriverIO/);
   });

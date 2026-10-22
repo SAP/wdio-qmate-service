@@ -7,7 +7,7 @@ exports.config = merge(baseConfig.config, {
       browserName: "chrome",
       browserVersion: "150",
       acceptInsecureCerts: true,
-      pageLoadStrategy: "none",
+      pageLoadStrategy: "normal",
       "goog:chromeOptions": {
         args: [
           "--output=/dev/null",
