@@ -184,13 +184,23 @@ this._frameContext = await topCtx.frame({ id: contextId });
 
 qmate resets `_frameContext = null` at the start of every `switchToIframe` call so that the element visibility check runs against the top-level page, not a stale iframe context. Always call `switchToDefaultContent()` when finished with an iframe to make the reset explicit.
 
-#### Pitfall: wdio ContextManager not updated after manual iframe switch
+#### Pitfall: `element ("[object Object]") still not existing after 300000ms`
 
-wdio v10's `ContextManager` tracks the "current browsing context" internally for `foreignContextId()` — a helper used by `isClickable()` and related APIs. Our `switchToIframe` stores the frame context in `_frameContext` but does not call wdio's `switchFrame()`, so `ContextManager._currentContext` remains the top-level context.
+wdio v10's `custom$$` locator strategy sets `element.selector = strategyRef` on every returned element, where `strategyRef` is a plain JS object `{ strategy, strategyName, strategyArguments }`. Any wdio API that needs to check element existence calls `isExisting()`, which calls `findAllAgain()` when `canFindAgain(element)` is truthy (i.e., when `element.selector` is set). `findAllAgain()` calls `parent.$$(selector)` — since `strategyRef` is not a string, it serialises as `[object Object]` as a CSS selector, which never matches, causing `waitForExist` to time out at `waitforTimeout` (300000ms in CI).
 
-When `isClickable()` is called on an element found via `custom$$()` in the frame context, `foreignContextId()` returns the frame's context ID (truthy — mismatched with the stored top-level ID). This causes `isClickable()` to call `element.execute()` instead of `browser.execute()`. `element.execute()` (wdio's `execute2`) calls `waitForExist()` first, which tries to re-locate the element by its `selector`. Elements from `custom$$` have `selector = strategyRef` (a plain object). `findAllAgain()` calls `parent.$$(strategyRef)` — since `strategyRef` isn't a string, it serialises as `[object Object]` — never found — so `waitForExist` times out at `waitforTimeout` (300000ms in CI).
+This affects any call chain that passes through `isClickable()`, `toBeClickable()`, `waitForExist()`, or any other wdio method that checks element existence — even simple things like clicking a UI5 element inside an iframe.
 
-**Fix**: `switchToIframe` now calls `getContextManager(browser).setCurrentContext(contextId)` (accessed via the Node require cache at runtime) after setting `_frameContext`. `switchToDefaultContent` calls `setCurrentContext(undefined)` to force re-initialization to top-level on next access.
+**Fix**: qmate overwrites `custom$$` and `custom$` at browser-setup time (`addControlCommands`) to null the `selector` property on every returned element:
+
+```ts
+await browser.overwriteCommand("custom$$", async (origFn, ...args) => {
+  const elems = await origFn(...args);
+  if (Array.isArray(elems)) elems.forEach(el => { if (el) el.selector = null; });
+  return elems;
+});
+```
+
+When `selector` is null, `canFindAgain()` returns false immediately. `isExisting()` then uses the fast path — `getElementTagName(elementId)` — which is a direct WebDriver call on the element's BiDi `sharedId` and resolves in milliseconds.
 
 ---
 

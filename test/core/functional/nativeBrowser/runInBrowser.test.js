@@ -18,17 +18,19 @@ describe("Test for ", function () {
     };
 
     const elem = await browser.uiControl(ui5ControlProperties);
+    // v8: "javascript error: circular reference"; v10 BiDi: deserializeValue recurses on
+    // circular BiDi response → "Maximum call stack size exceeded"
     await expect(
       elem.controlActionInBrowser(function (control) {
         return control.getBindingContext();
       })
-    ).rejects.toThrow("javascript error: circular reference");
+    ).rejects.toThrow(/javascript error: circular reference|Maximum call stack size exceeded/);
 
     await expect(
       elem.controlActionInBrowser(function (control) {
         return JSON.stringify(control.getBindingContext());
       })
-    ).rejects.toThrow(/Converting circular structure to JSON/);
+    ).rejects.toThrow(/Converting circular structure to JSON|Maximum call stack size exceeded/);
   });
 
   it("should access wrong element", async function () {
