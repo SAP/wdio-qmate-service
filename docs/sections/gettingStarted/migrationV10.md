@@ -110,24 +110,60 @@ if (browser.isBidi) {
 `switchFrame` was removed for WebDriver BiDi sessions in WebdriverIO v10.
 ```
 
-The v10 BiDi model replaces the "global switch" pattern entirely. In BiDi, `browser.url()` returns a `BrowsingContext` object, and you call `ctx.frame({ selector })` on it to get a child frame context. Subsequent commands run on the *returned context*, not on the global `browser` object:
+### BiDi frame model
+
+In BiDi, there is no global frame switch. Instead, `browser.browsingContexts()` returns all top-level `BrowsingContext` objects, and you call `ctx.frame({ selector })` on a top-level context to get a child frame context. All element queries must then be issued on the returned context rather than on `browser`:
 
 ```js
-// BiDi — no global switch; hold and use the context object
-const page = await browser.url('https://example.com');
-const frame = await page.frame({ selector: 'iframe#myFrame' });
-const text = await frame.$('h1').getText();  // commands run on `frame`
+// BiDi
+const [topCtx] = await browser.browsingContexts();
+const frame = await topCtx.frame({ selector: 'iframe#myFrame' });
+const text = await frame.$('h1').getText();  // scoped to frame
 ```
 
-This is architecturally incompatible with the qmate `util.browser.switchToIframe()` / `switchToDefaultContent()` pattern, which relies on `browser.$()` implicitly scoping to whatever frame was last switched into. **Use `wdio:enforceWebDriverClassic: true` in capabilities to keep Classic WebDriver semantics**, which continues to support:
+`browser.switchWindow()` is also removed in BiDi. Use `browser.getWindowHandles()` + `browser.switchToWindow()` instead (qmate's `switchToNewWindow` already handles this).
 
-```js
-// Classic — still works in v10 with enforceWebDriverClassic: true
-await browser.switchFrame(await $('iframe#myFrame'));
-await browser.switchFrame(null);  // return to top-level
+### qmate implementation: `getContext()` pattern
+
+qmate's `util.browser.switchToIframe()` and all reuse-layer element queries have been updated to work natively in BiDi mode via a stored context pattern:
+
+- `switchToIframe(selector)` fetches a fresh top-level context via `browser.browsingContexts()`, then calls `topCtx.frame({ selector })` to acquire the frame's `BrowsingContext` and stores it in `_frameContext`.
+- `switchToDefaultContent()` clears `_frameContext` (sets it to `null`).
+- `getContext()` returns `_frameContext ?? browser` — all `$`/`$$` calls in the reuse layer go through `getContext()` to scope to the active frame.
+
+#### Pitfall: frame context initialization timing
+
+`topCtx.frame({ selector })` fails with `"The element is not a frame with a browsing context"` if the iframe's BiDi browsing context hasn't been initialized yet (e.g. immediately after navigation). The fix is to wrap the call in `browser.waitUntil`:
+
+```ts
+await browser.waitUntil(
+  async () => {
+    try {
+      this._frameContext = await topCtx.frame({ selector });
+      return true;
+    } catch {
+      return false;
+    }
+  },
+  { timeout: browser.options.waitforTimeout ?? 30000, interval: 500 }
+);
 ```
 
-The `wdio:enforceWebDriverClassic: true` flag is the correct way to opt out of BiDi for a given capability set (see section 3).
+#### Pitfall: stale frame context as root
+
+`_frameContext` is an instance variable. In a WDIO worker that runs multiple spec files sequentially, a frame context stored by spec A becomes a dead `BrowsingContext` once the browser navigates away. **Never reuse `_frameContext` as the root for a new `frame({ selector })` call.** Always fetch a fresh `topCtx` from `browser.browsingContexts()` as the root:
+
+```ts
+// wrong — stale context as root when called from a later spec
+const root = this._frameContext ?? topCtx;
+this._frameContext = await root.frame({ selector });  // throws on dead context
+
+// correct — always fresh root
+const [topCtx] = await browser.browsingContexts();
+this._frameContext = await topCtx.frame({ selector });
+```
+
+Using a dead context as root causes `waitUntil` to retry for the full `waitforTimeout` (5 minutes in CI) before failing.
 
 ---
 
