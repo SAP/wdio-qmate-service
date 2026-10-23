@@ -202,6 +202,50 @@ await browser.overwriteCommand("custom$$", async (origFn, ...args) => {
 
 When `selector` is null, `canFindAgain()` returns false immediately. `isExisting()` then uses the fast path — `getElementTagName(elementId)` — which is a direct WebDriver call on the element's BiDi `sharedId` and resolves in milliseconds.
 
+#### Pitfall: `browser.getActiveElement()` returns top-level active element in BiDi iframe sessions
+
+In Classic WebDriver, `browser.getActiveElement()` returns the focused element within whatever frame is currently selected. In BiDi mode, `browser.getActiveElement()` always targets the **top-level** browsing context — even after `switchToIframe`. Inside an iframe, this returns the iframe element itself, not the focused element inside it.
+
+**Fix**: use `ctx.execute(() => document.activeElement)` scoped to the frame context:
+
+```ts
+const ctx = util.browser.getContext();  // returns frame context after switchToIframe
+const elem = await ctx.execute(() => document.activeElement);
+await elem.addValue(value);  // or setValue
+```
+
+This applies to any code that calls `browser.getActiveElement()` inside an iframe — including `common.userInteraction.fillActive`, `clearAndFillActive`, and their retry variants, which have all been updated.
+
+#### Pitfall: bare `$()` inside an iframe targets top-level context in BiDi
+
+In Classic WebDriver, `$()` / `browser.$()` targets the currently selected frame. In BiDi, `$()` and `browser.$()` always target the **top-level** browsing context, regardless of any frame switch. An element that exists inside the iframe will not be found.
+
+**Fix**: always use `util.browser.getContext().$()` when querying elements after `switchToIframe`:
+
+```js
+// before — works in v8, fails in v10 BiDi
+const element = await $("[id='myElement']");
+
+// after — works in both v8 and v10 BiDi
+const element = await util.browser.getContext().$("[id='myElement']");
+```
+
+#### Pitfall: `browser.execute()` inside an iframe runs in top-level context in BiDi
+
+In Classic WebDriver, `browser.execute()` runs in the currently selected frame. In BiDi, `browser.execute()` always targets the **top-level** browsing context. Any script that accesses `window.sap`, `sap.ui.core.Element.registry`, or other UI5 globals will not find controls that live inside an iframe.
+
+**Fix**: use `util.browser.getContext().execute()` instead of `browser.execute()`:
+
+```ts
+// before — works in v8, fails silently in v10 BiDi (sap.ui.core.Element.registry is empty)
+return browser.execute(fn, ...args);
+
+// after — runs in frame context when inside an iframe
+return util.browser.getContext().execute(fn, ...args);
+```
+
+This fix has been applied to `controlActionInBrowser` in `lib.ts`, so `ui5.control.getAggregationProperty`, `getAssociationProperty`, and all `controlActionInBrowser`-based methods work correctly inside iframes in v10 BiDi.
+
 ---
 
 ## 6. `browser.act()` — LLM dependency (CI blocker at SAP)
