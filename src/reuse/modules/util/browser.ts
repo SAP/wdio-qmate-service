@@ -12,6 +12,7 @@ export class Browser {
   private vlf = new VerboseLoggerFactory("util", "browser");
   private specLogPrefix = "@SPEC: ";
   private ErrorHandler = new ErrorHandler();
+  private _frameContext: any = null;
 
   // =================================== URL ===================================
   /**
@@ -388,8 +389,14 @@ export class Browser {
   async switchToIframe(selector: string) {
     const vl = this.vlf.initLog(this.switchToIframe);
     await nonUi5.element.waitToBeVisible(selector);
-    const frame = await $(selector);
-    await browser.switchFrame(frame);
+    if (browser.isBidi) {
+      const [topCtx] = await browser.browsingContexts();
+      const root = this._frameContext ?? topCtx;
+      this._frameContext = await root.frame({ selector });
+    } else {
+      const frame = await $(selector);
+      await browser.switchFrame(frame);
+    }
   }
 
   /**
@@ -400,7 +407,22 @@ export class Browser {
    */
   async switchToDefaultContent() {
     const vl = this.vlf.initLog(this.switchToDefaultContent);
-    await browser.switchFrame(null);
+    if (browser.isBidi) {
+      this._frameContext = null;
+    } else {
+      await browser.switchFrame(null);
+    }
+  }
+
+  /**
+   * @function getContext
+   * @memberOf util.browser
+   * @description Returns the active browsing context (frame in BiDi, or browser in Classic/top-level).
+   * @returns The active context to use for element queries.
+   * @example const ctx = util.browser.getContext(); await ctx.$('button').click();
+   */
+  getContext(): any {
+    return this._frameContext ?? browser;
   }
 
   /**

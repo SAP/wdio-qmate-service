@@ -355,9 +355,9 @@ export class Session {
     try {
       await browser.waitUntil(
         async function () {
-          usernameField = await $(authenticator.usernameFieldSelector);
-          passwordField = await $(authenticator.passwordFieldSelector);
-          logonField = await $(authenticator.logonButtonSelector);
+          usernameField = await util.browser.getContext().$(authenticator.usernameFieldSelector);
+          passwordField = await util.browser.getContext().$(authenticator.passwordFieldSelector);
+          logonField = await util.browser.getContext().$(authenticator.logonButtonSelector);
           return (await usernameField.isDisplayed()) && (await passwordField.isDisplayed()) && (await logonField.isDisplayed());
         },
         {

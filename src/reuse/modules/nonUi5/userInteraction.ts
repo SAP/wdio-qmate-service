@@ -557,7 +557,7 @@ export class UserInteraction {
     try {
       const svgElem = await resolveCssSelectorOrElement(elementOrSelector);
 
-      const innerElem = await $(innerSelector);
+      const innerElem = await util.browser.getContext().$(innerSelector);
 
       const svgPos = await svgElem.getLocation();
       const innerPos = await innerElem.getLocation();
