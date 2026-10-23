@@ -276,7 +276,7 @@ export class UserInteraction {
     // Do NOT use webdriverIO clearValue() here! Some of popovers hides after clearValue call instead of stay in focus.
     // This can lead to the cases when value is cleared but popover closes and discard changes.
     const isTextArea = UserInteraction.SUPPORTED_TEXTAREA_METADATA.includes(selector.elementProperties.metadata);
-    await browser.execute(
+    await util.browser.getContext().execute(
       function (id: string, isTextArea: boolean) {
         // @ts-ignore
         const input = document.getElementById(id).getElementsByTagName(isTextArea ? "textarea" : "input")[0];
@@ -776,7 +776,7 @@ export class UserInteraction {
   private async _getActiveDialogPopups(timeout?: number): Promise<Array<Element> | undefined> {
     const vl = this.vlf.initLog(this._getActiveDialogPopups);
     // Returns IDs of last opened dialog and popovers opened in it
-    const activePopupsIds = await browser.execute(() => {
+    const activePopupsIds = await util.browser.getContext().execute(() => {
       const popups = [...sap.ui.getCore().getStaticAreaRef().children]
         .filter((e) => e.checkVisibility())
         .flatMap((e) => sap.ui.getCore().byId(e.id) ?? [])
