@@ -252,7 +252,7 @@ export class Browser {
     }
 
     if (logUI5Version !== false && !process.env.UI5_VERSION_LOGGED) {
-      const ui5Version = await this.getUI5Version();
+      const ui5Version = await this.getUI5Version(5000);
       util.console.log("");
       util.console.info(`UI5 Version:\t${ui5Version.version}`);
       util.console.info(`UI5 Timestamp:\t${ui5Version.timestamp}`);

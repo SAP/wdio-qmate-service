@@ -534,15 +534,17 @@ export class UserInteraction {
     try {
       const element = await resolveCssSelectorOrElement(elementOrSelector);
 
-      await element.moveTo();
       if (browser.isBidi) {
         // BiDi applies strict interactability checks in element.click() that SVG/canvas
-        // elements fail. Actions API pointer click bypasses the check.
+        // elements fail. Actions API pointer click bypasses the check. Combine moveTo +
+        // click in one sequence so the pointer origin stays tied to the element.
         await browser.action("pointer", { parameters: { pointerType: "mouse" } })
+          .move({ origin: element, x: 0, y: 0, duration: 0 })
           .down({ button: 0 })
           .up({ button: 0 })
           .perform();
       } else {
+        await element.moveTo();
         await element.click();
       }
     } catch (error) {

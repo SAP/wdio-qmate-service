@@ -172,9 +172,10 @@ var LibScripts = function () {
       browser.config.waitForUI5PollingInterval = 10;
     }
     try {
+      const ctx = util.browser.getContext();
       await browser.waitUntil(
         async () => {
-          return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
+          return (await ctx.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
         },
         {
           timeout: browser.config.waitForUI5Timeout,
@@ -186,10 +187,10 @@ var LibScripts = function () {
       var mScriptParams = {};
       mScriptParams.waitForUI5Timeout = browser.config.waitForUI5Timeout;
       mScriptParams.waitForUI5PollingInterval = browser.config.waitForUI5PollingInterval;
-      await browser.execute(clientsidescripts.loadUI5Page, mScriptParams);
+      await ctx.execute(clientsidescripts.loadUI5Page, mScriptParams);
       await browser.waitUntil(
         async () => {
-          return (await browser.execute(() => !!(window.loadUI5PagePromise && window.loadUI5PagePromise.done))) === true;
+          return (await ctx.execute(() => !!(window.loadUI5PagePromise && window.loadUI5PagePromise.done))) === true;
         },
         {
           timeout: browser.config.waitForUI5Timeout,
