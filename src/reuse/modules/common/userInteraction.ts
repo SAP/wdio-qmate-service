@@ -28,7 +28,8 @@ export class UserInteraction {
         vl.log(`Setting the value of element to ${value}`);
 
         const ctx = util.browser.getContext();
-        const elem = await ctx.execute(() => document.activeElement);
+        const elemRef = await ctx.execute(() => document.activeElement);
+        const elem = await ctx.$(elemRef);
         await elem.addValue(value);
       } catch (error) {
         this.ErrorHandler.logException(error);
@@ -67,7 +68,8 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.clearAndFillActive);
     if (typeof value === "number" || typeof value === "string") {
       const ctx = util.browser.getContext();
-      const elem = await ctx.execute(() => document.activeElement);
+      const elemRef = await ctx.execute(() => document.activeElement);
+      const elem = await ctx.$(elemRef);
       await elem.setValue(value);
     } else {
       this.ErrorHandler.logException(new Error("Please provide a value(datatype - number/string) as argument."));

@@ -206,13 +206,16 @@ When `selector` is null, `canFindAgain()` returns false immediately. `isExisting
 
 In Classic WebDriver, `browser.getActiveElement()` returns the focused element within whatever frame is currently selected. In BiDi mode, `browser.getActiveElement()` always targets the **top-level** browsing context — even after `switchToIframe`. Inside an iframe, this returns the iframe element itself, not the focused element inside it.
 
-**Fix**: use `ctx.execute(() => document.activeElement)` scoped to the frame context:
+**Fix**: use `ctx.execute(() => document.activeElement)` scoped to the frame context, then wrap the returned element reference with `ctx.$()` to get a proper wdio element:
 
 ```ts
 const ctx = util.browser.getContext();  // returns frame context after switchToIframe
-const elem = await ctx.execute(() => document.activeElement);
+const elemRef = await ctx.execute(() => document.activeElement);
+const elem = await ctx.$(elemRef);  // wrap the BiDi node reference into a wdio element
 await elem.addValue(value);  // or setValue
 ```
+
+In BiDi mode `execute()` returns a plain `{ [ELEMENT_KEY]: sharedId }` reference object — not a wdio element wrapper. Passing that reference to `ctx.$()` creates the wrapper via `getElement(void 0, elemRef)`, which is the same path that `$()` takes for any element reference it receives.
 
 This applies to any code that calls `browser.getActiveElement()` inside an iframe — including `common.userInteraction.fillActive`, `clearAndFillActive`, and their retry variants, which have all been updated.
 
