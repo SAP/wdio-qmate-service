@@ -391,18 +391,19 @@ export class Browser {
     await nonUi5.element.waitToBeVisible(selector);
     if (browser.isBidi) {
       const [topCtx] = await browser.browsingContexts();
-      const frameElement = await $(selector);
-      await browser.waitUntil(
+      // Poll the BiDi context tree until a child context appears for this iframe.
+      // frame({ id }) resolves in one tree walk without any internal waitUntil,
+      // avoiding the 300s block that frame(element) and frame({ selector }) both carry.
+      const timeout = (browser.options as any).waitforTimeout ?? 30000;
+      const contextId: string = await browser.waitUntil(
         async () => {
-          try {
-            this._frameContext = await topCtx.frame(frameElement);
-            return true;
-          } catch {
-            return false;
-          }
+          const { contexts } = await (browser as any).browsingContextGetTree({ root: topCtx.contextId });
+          const children: Array<{ context: string; url: string }> = contexts[0]?.children ?? [];
+          return children.length > 0 ? children[0].context : false;
         },
-        { timeout: browser.options.waitforTimeout ?? 30000, interval: 500 }
+        { timeout, interval: 500, timeoutMsg: `No BiDi child context appeared for iframe "${selector}" within ${timeout}ms` }
       );
+      this._frameContext = await topCtx.frame({ id: contextId });
     } else {
       const frame = await $(selector);
       await browser.switchFrame(frame);
