@@ -8,7 +8,7 @@ describe("userInteraction - clearAndFillActive", function () {
   let selector;
 
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview`);
+    await browser.url(`${BASE_URL}/#/entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.Overview`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -49,7 +49,7 @@ describe("userInteraction - clearAndFillActive with invalid selector", function 
   let value;
 
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputDescription`);
     await util.browser.refresh();
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
@@ -72,7 +72,7 @@ describe("userInteraction - clearAndFillActive with wrong element", function () 
   let value;
 
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.MenuButton/sample/sap.m.sample.MenuButton`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.MenuButton/sample/sap.m.sample.MenuButton`);
     await util.browser.refresh();
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");

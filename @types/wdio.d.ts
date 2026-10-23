@@ -55,8 +55,7 @@ export interface Element {
   getText(): Promise<string>;
   getValue(): Promise<string>;
   isClickable(): Promise<boolean>;
-  isDisplayed(): Promise<boolean>;
-  isDisplayedInViewport(): Promise<boolean>;
+  isDisplayed(options?: { withinViewport?: boolean; contentVisibilityAuto?: boolean; opacityProperty?: boolean; visibilityProperty?: boolean }): Promise<boolean>;
   isEnabled(): Promise<boolean>;
   isEqual(el: Element): Promise<boolean>;
   isExisting(): Promise<boolean>;

@@ -1,7 +1,7 @@
 /* eslint-disable no-return-await */
 /* eslint-disable no-useless-escape */
 // Note: functions to be executed in browser need to be stringified (fn.toString()).
-// E.g. `await lib.mockServerActionInBrowser(function (mockserver, method, fnAfterCallbackAsString, oParams, done){...})`
+// E.g. `await lib.mockServerActionInBrowser(function (mockserver, method, fnAfterCallbackAsString, oParams){...})`
 // It is not required to check the type (function or string) - toString() function can be applied to a string too.
 
 "use strict";
@@ -36,7 +36,7 @@ export class Mockserver {
    * @description Execute client script function to enable interaction with mockserver instance [you can write code in ui5 app context]
    * @param {String} mockServerPath - The full path to your mockserver instance
    * @param {String | Object} fnCallback - The client script function that you can use to interact with your mockserver instance.
-   * [Caution] The first and last parameter is reserved (1st param is the mockserver instance and last parameter the promise resolve function - done)
+   * [Caution] The first parameter is reserved (1st param is the mockserver instance)
    * @param {String} oParams - Additional parameters you would like to inject in your client script function
    * @example await ui5.mockserver.interactWithMockServer("path/to/project/localService/main/mockserver", fnCallback, oParams);
    */
@@ -61,16 +61,15 @@ export class Mockserver {
     const vl = this.vlf.initLog(this.attachFunctionBefore);
     const fnBeforeCallbackString = fnBeforeCallback.toString();
     await this.lib.mockServerActionInBrowser(
-      function (mockserver: any, method: RequestMethodType, fnBeforeCallbackString: any, oParams: any, done: any) {
+      function (mockserver: any, method: RequestMethodType, fnBeforeCallbackString: any, oParams: any) {
         const mockServerInst = mockserver.getMockServer();
         if (!mockServerInst) {
           console.error("Mockserver not yet initialized or method getMockServer is missing");
-          done();
+          return;
         }
         const beforeCallback = "beforeCallback = " + fnBeforeCallbackString;
         const fnFunction = eval(beforeCallback);
         mockServerInst.attachBefore(method, fnFunction);
-        done();
       },
       mockServerPath,
       method,
@@ -94,16 +93,15 @@ export class Mockserver {
     const vl = this.vlf.initLog(this.attachFunctionAfter);
     const fnAfterCallbackString = fnAfterCallback.toString();
     await this.lib.mockServerActionInBrowser(
-      function (mockserver: any, method: RequestMethodType, fnAfterCallbackString: any, oParams: any, done: any) {
+      function (mockserver: any, method: RequestMethodType, fnAfterCallbackString: any, oParams: any) {
         var mockServerInst = mockserver.getMockServer();
         if (!mockServerInst) {
           console.error("Mockserver not yet initialized or method getMockServer is missing");
-          done();
+          return;
         }
         var afterCallback = "afterCallback = " + fnAfterCallbackString;
         var fnFunction = eval(afterCallback);
         mockServerInst.attachAfter(method, fnFunction);
-        done();
       },
       mockServerPath,
       method,
@@ -146,7 +144,7 @@ export class Mockserver {
       responseLocation = false;
     }
     await this.lib.mockServerActionInBrowser(
-      function (mockserver: any, method: RequestMethodType, urlPathRegex: any, responseJsonPath: any, responseMessages: any, responseLocation: any, returnCode: number, isText: any, done: any) {
+      function (mockserver: any, method: RequestMethodType, urlPathRegex: any, responseJsonPath: any, responseMessages: any, responseLocation: any, returnCode: number, isText: any) {
         var mockServerInst = mockserver.getMockServer();
         if (!mockServerInst) throw new Error("Mockserver not yet initialized or method getMockServer is missing");
         var fnResponse = function (oXhr: any) {
@@ -233,7 +231,7 @@ export class Mockserver {
         if (!isOverride) {
           if (!urlPathRegex) {
             console.error("path regex wasn't provided");
-            done();
+            return;
           }
           //Remove regexp slashes so we read them if needed
           var urlPathEscRegex = urlPathRegex.substring(1, urlPathRegex.length - 1);
@@ -244,7 +242,6 @@ export class Mockserver {
           });
           mockServerInst.setRequests(aRequests);
         }
-        done();
       },
       mockServerPath,
       method,
@@ -270,11 +267,11 @@ export class Mockserver {
   async removeRequest(method: RequestMethodType, mockServerPath: string, urlPathRegex: string) {
     const vl = this.vlf.initLog(this.removeRequest);
     await this.lib.mockServerActionInBrowser(
-      function (mockserver: any, method: RequestMethodType, urlPathRegex: string, done: any) {
+      function (mockserver: any, method: RequestMethodType, urlPathRegex: string) {
         var mockServerInst = mockserver.getMockServer();
         if (!mockServerInst) {
           console.error("Mockserver not yet initialized or method getMockServer is missing");
-          done();
+          return;
         }
         var aExistingRequests = mockServerInst.getRequests();
         var aRequests = [].concat(aExistingRequests);
@@ -291,7 +288,7 @@ export class Mockserver {
           }
         }
         mockServerInst.setRequests(aRequests);
-        done(elemDeleted);
+        return elemDeleted;
       },
       mockServerPath,
       method,
@@ -333,7 +330,7 @@ export class Mockserver {
       responseLocation = false;
     }
     await this.lib.mockServerActionInBrowser(
-      function (mockserver: any, method: RequestMethodType, urlPathRegex: string, responseJsonPath: string, responseMessages: any, responseLocation: any, returnCode: any, isText: any, done: any) {
+      function (mockserver: any, method: RequestMethodType, urlPathRegex: string, responseJsonPath: string, responseMessages: any, responseLocation: any, returnCode: any, isText: any) {
         var mockServerInst = mockserver.getMockServer();
         if (!mockServerInst) throw new Error("Mockserver not yet initialized or method getMockServer is missing");
         var fnResponse = function (oXhr: any) {
@@ -419,7 +416,7 @@ export class Mockserver {
         if (!isOverride) {
           if (!urlPathRegex) {
             console.error("path regex wasnt provided");
-            done();
+            return;
           }
           //Remove regexp slashes so we read them if needed
           var urlPathEscRegex = urlPathRegex.substring(1, urlPathRegex.length - 1);
@@ -430,7 +427,6 @@ export class Mockserver {
           });
           mockServerInst.setRequests(aRequests);
         }
-        done();
       },
       mockServerPath,
       method,
@@ -453,15 +449,13 @@ export class Mockserver {
    */
   async startMockServer(mockServerPath: string) {
     const vl = this.vlf.initLog(this.startMockServer);
-    await this.lib.mockServerActionInBrowser(function (mockserver: any, done: any) {
+    await this.lib.mockServerActionInBrowser(function (mockserver: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
         console.error("Mockserver not yet initialized or method getMockServer is missing");
-        done();
+        return;
       }
       mockServerInst.start();
-
-      done();
     }, mockServerPath);
     return await ui5.mockserver.waitForUi5ApplicationLoad();
   }
@@ -478,12 +472,12 @@ export class Mockserver {
     const vl = this.vlf.initLog(this.initMockServer);
     var mockServerOpts = JSON.stringify(mockServerOptions);
     return await this.lib.mockServerActionInBrowser(
-      function (mockserver: any, mockServerOpts: string, done: any) {
+      function (mockserver: any, mockServerOpts: string) {
         if (!mockserver) {
           console.error("Mockserver file not yet loaded or is missing");
-          done();
+          return;
         }
-        mockserver
+        return mockserver
           .init(JSON.parse(mockServerOpts))
           .catch(function (oError: any) {
             // load MessageBox only when needed as it otherwise bypasses the preload of sap.m
@@ -496,7 +490,6 @@ export class Mockserver {
             // initialize the embedded component on the HTML page
             // eslint-disable-next-line no-undef
             sap.ui.require(["sap/ui/core/ComponentSupport"]);
-            done();
           });
       },
       mockServerPath,
@@ -513,14 +506,13 @@ export class Mockserver {
    */
   async initApplication(mockServerPath: string) {
     const vl = this.vlf.initLog(this.initApplication);
-    await this.lib.mockServerActionInBrowser(function (mockserver: any, done: any) {
+    await this.lib.mockServerActionInBrowser(function (mockserver: any) {
       if (!mockserver) {
         console.error("Mockserver file not yet loaded or is missing");
-        done();
+        return;
       }
       // eslint-disable-next-line no-undef
       sap.ushell.Container.createRenderer().placeAt("content");
-      done();
     }, mockServerPath);
     return await ui5.mockserver.waitForUi5ApplicationLoad();
   }
@@ -534,14 +526,13 @@ export class Mockserver {
    */
   async stopMockServer(mockServerPath: string) {
     const vl = this.vlf.initLog(this.stopMockServer);
-    return await this.lib.mockServerActionInBrowser(function (mockserver: any, done: any) {
+    return await this.lib.mockServerActionInBrowser(function (mockserver: any) {
       var mockServerInst = mockserver.getMockServer();
       if (!mockServerInst) {
         console.error("Mockserver not yet initialized or method getMockServer is missing");
-        done();
+        return;
       }
       mockServerInst.stop();
-      done();
     }, mockServerPath);
   }
 
@@ -571,14 +562,13 @@ export class Mockserver {
   async getEntitySetData(mockServerPath: string, entitySetName: string) {
     const vl = this.vlf.initLog(this.getEntitySetData);
     return await this.lib.mockServerActionInBrowser(
-      function (mockserver: any, entitySetName: string, done: any) {
+      function (mockserver: any, entitySetName: string) {
         var mockServerInst = mockserver.getMockServer();
         if (!mockServerInst) {
           console.error("Mockserver not yet initialized or method getMockServer is missing");
-          done();
+          return;
         }
-        const oData = mockServerInst.getEntitySetData(entitySetName);
-        done(oData);
+        return mockServerInst.getEntitySetData(entitySetName);
       },
       mockServerPath,
       entitySetName
@@ -605,11 +595,11 @@ export class Mockserver {
       throw new Error("Something went wrong with the conversion" + error);
     }
     return await this.lib.mockServerActionInBrowser(
-      function (mockserver: any, entitySetName: string, entries: any, done: any) {
+      function (mockserver: any, entitySetName: string, entries: any) {
         var mockServerInst = mockserver.getMockServer();
         if (!mockServerInst) {
           console.error("Mockserver not yet initialized or method getMockServer is missing");
-          done();
+          return;
         }
         var oData = [];
         try {
@@ -651,7 +641,7 @@ export class Mockserver {
           }
         }
         mockServerInst.setEntitySetData(entitySetName, oData);
-        done(oData);
+        return oData;
       },
       mockServerPath,
       entitySetName,

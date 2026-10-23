@@ -16,7 +16,7 @@ const selectorForDialog = {
 
 describe("confirmationDialog - clickYes", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBoxInitialFocus`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBoxInitialFocus`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 

@@ -2,20 +2,40 @@ var path = require("path");
 var merge = require("deepmerge");
 var profile = require("../../../helper/configurations/chrome.headless.conf");
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
+const clientsidescripts = require("../../../../lib/scripts/clientsideUI5scripts");
 
-exports.config = merge(profile.config, {
-  maxInstances: 8,
+async function waitForUI5(opts = {}) {
+  const timeout = opts.timeout || 60000;
+  await browser.waitUntil(async () => {
+    return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
+  }, { timeout, interval: 500 });
+  const mScriptParams = {
+    waitForUI5Timeout: browser.config.waitForUI5Timeout || 90000,
+    waitForUI5PollingInterval: browser.config.waitForUI5PollingInterval || 10
+  };
+  await browser.execute(clientsidescripts.loadUI5Page, mScriptParams);
+  await browser.waitUntil(async () => {
+    return (await browser.execute(() => !!(window.loadUI5PagePromise && window.loadUI5PagePromise.done))) === true;
+  }, { timeout, interval: 200 });
+}
+
+const locatorConfig = merge(profile.config, {
+  maxInstances: 1,
   bail: 1,
 
-  //
-  // ==================
-  // Specify Test Files
-  // ==================
-  // Define which test specs should run. The pattern is relative to the directory
-  // from which `wdio` was called. Notice that, if you are calling `wdio` from an
-  // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
-  // directory is where your package.json resides, so `wdio` will be called from there.
-  //
+  before: async function () {
+    browser.overwriteCommand("url", async (origFn, url) => {
+      await origFn(url);
+      await waitForUI5();
+    });
+
+    const origSwitchToIframe = util.browser.switchToIframe.bind(util.browser);
+    util.browser.switchToIframe = async (...args) => {
+      await origSwitchToIframe(...args);
+      await waitForUI5();
+    };
+  },
+
   specs: [
     path.resolve(__dirname, "elementProperties.test.js"),
     path.resolve(__dirname, "ancestorProperties.test.js"),
@@ -26,14 +46,8 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "childProperties.test.js"),
     path.resolve(__dirname, "mixedProperties.test.js")
   ],
-  // Patterns to exclude.
-  exclude: [
-    // 'path/to/excluded/files'
-  ],
-  //
-  // Set a base URL in order to shorten url command calls. If your `url` parameter starts
-  // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
-  // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
-  // gets prepended directly.
+  exclude: [],
   baseUrl: `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`
 });
+
+exports.config = locatorConfig;

@@ -2,10 +2,35 @@ const path = require("path");
 const merge = require("deepmerge");
 const profile = require("../../../helper/configurations/chrome.headless.conf");
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
+const clientsidescripts = require("../../../../lib/scripts/clientsideUI5scripts");
+
+async function waitForUI5() {
+  try {
+    await browser.waitUntil(async () => {
+      return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
+    }, { timeout: 60000, interval: 500 });
+    const mScriptParams = {
+      waitForUI5Timeout: browser.config.waitForUI5Timeout || 90000,
+      waitForUI5PollingInterval: browser.config.waitForUI5PollingInterval || 10
+    };
+    await browser.execute(clientsidescripts.loadUI5Page, mScriptParams);
+    await browser.waitUntil(async () => {
+      return (await browser.execute(() => !!(window.loadUI5PagePromise && window.loadUI5PagePromise.done))) === true;
+    }, { timeout: 60000, interval: 200 });
+  } catch (_) {}
+}
 
 exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
+
+  before: async function () {
+    const origSwitchToIframe = util.browser.switchToIframe.bind(util.browser);
+    util.browser.switchToIframe = async (...args) => {
+      await origSwitchToIframe(...args);
+      await waitForUI5();
+    };
+  },
 
   baseUrl: `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`,
 

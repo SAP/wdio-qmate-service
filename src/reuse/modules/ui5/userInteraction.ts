@@ -144,11 +144,13 @@ export class UserInteraction {
   async clickListItem(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickListItem);
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
-    await ui5.control.execute(function (control: any, done: Function) {
-      control.attachPress(function () {
-        done();
+    await ui5.control.execute(function (control: any) {
+      return new Promise(function (resolve: Function) {
+        control.attachPress(function () {
+          resolve();
+        });
+        control.firePress();
       });
-      control.firePress();
     }, elem);
   }
 
@@ -264,7 +266,7 @@ export class UserInteraction {
     // Remove tokens/tags if displayed. Use isDisplayed() instead of isExisting() because
     // the .sapMTokenizer node can exist in the DOM but be hidden (e.g. when no tokens are present),
     // which would cause the subsequent click() to fail with a "not displayed" timeout.
-    const tokenizer: Element = $(`[id='${id}'] .sapMTokenizer`);
+    const tokenizer: Element = util.browser.getContext().$(`[id='${id}'] .sapMTokenizer`);
     if (await tokenizer.isDisplayed()) {
       await nonUi5.userInteraction.click(tokenizer);
       await nonUi5.userInteraction.selectAll(tokenizer, timeout);
@@ -274,7 +276,7 @@ export class UserInteraction {
     // Do NOT use webdriverIO clearValue() here! Some of popovers hides after clearValue call instead of stay in focus.
     // This can lead to the cases when value is cleared but popover closes and discard changes.
     const isTextArea = UserInteraction.SUPPORTED_TEXTAREA_METADATA.includes(selector.elementProperties.metadata);
-    await browser.execute(
+    await util.browser.getContext().execute(
       function (id: string, isTextArea: boolean) {
         // @ts-ignore
         const input = document.getElementById(id).getElementsByTagName(isTextArea ? "textarea" : "input")[0];
@@ -774,6 +776,7 @@ export class UserInteraction {
   private async _getActiveDialogPopups(timeout?: number): Promise<Array<Element> | undefined> {
     const vl = this.vlf.initLog(this._getActiveDialogPopups);
     // Returns IDs of last opened dialog and popovers opened in it
+    // ponytail: static area is always top-level, not inside iframes
     const activePopupsIds = await browser.execute(() => {
       const popups = [...sap.ui.getCore().getStaticAreaRef().children]
         .filter((e) => e.checkVisibility())

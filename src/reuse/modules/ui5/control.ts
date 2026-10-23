@@ -48,7 +48,7 @@ export class Control {
   async focus(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
     const id = await elem.getAttribute("id");
-    const focused = await browser.execute(function (id: string) {
+    const focused = await util.browser.getContext().execute(function (id: string) {
       const elem = sap.ui.getCore().getElementById(id);
       if (elem && elem.focus) {
         elem.focus();

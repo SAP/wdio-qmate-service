@@ -9,6 +9,29 @@ var AddLocatorCommands = function () {
     // Add Qmate locator strategy
     await browser.addLocatorStrategy("ui5All", qmateLocator.ui5All);
     await browser.addLocatorStrategy("ui5Veri5", uiveri5Locator.ui5Veri5);
+
+    // ponytail: custom$$ elements get selector=strategyRef (plain object). canFindAgain() returns
+    // true, so waitForExist()/isExisting() calls findAllAgain() which serialises it as "[object Object]"
+    // → never found → 300s timeout. Null the selector so canFindAgain() returns false immediately
+    // and isExisting() uses getElementTagName(elementId) (fast BiDi path) instead.
+    // Must overwrite on both browser (no flag) AND browsing contexts (attachToBrowsingContext: true)
+    // because getContext() returns either browser (top-level) or a BiDi frame context (in iframe).
+    const nullifyCustom$$ = async (origFn: Function, ...args: any[]) => {
+      const elems = await origFn(...args);
+      if (Array.isArray(elems)) {
+        elems.forEach((el: any) => { if (el) el.selector = null; });
+      }
+      return elems;
+    };
+    const nullifyCustom$ = async (origFn: Function, ...args: any[]) => {
+      const el = await origFn(...args);
+      if (el) el.selector = null;
+      return el;
+    };
+    await browser.overwriteCommand("custom$$", nullifyCustom$$);
+    await browser.overwriteCommand("custom$", nullifyCustom$);
+    await browser.overwriteCommand("custom$$", nullifyCustom$$, { attachToBrowsingContext: true });
+    await browser.overwriteCommand("custom$", nullifyCustom$, { attachToBrowsingContext: true });
     // Register global names
     //global.uiControl = ui5ControlLocator;
     //global.uiControls = ui5ControlsLocator;
@@ -24,7 +47,7 @@ var AddLocatorCommands = function () {
       async function (ui5Selector, index, timeout, returnAllDomElements = false) {
         return ui5ControlLocator(ui5Selector, index, timeout, this, returnAllDomElements);
       },
-      true
+      { attachToElement: true }
     );
     await browser.addCommand("uiControl", async function (ui5Selector, index, timeout, returnAllDomElements = false) {
       return ui5ControlLocator(ui5Selector, index, timeout, undefined, returnAllDomElements);
@@ -36,7 +59,7 @@ var AddLocatorCommands = function () {
       async function (ui5Selector, timeout) {
         return ui5ControlsLocators(ui5Selector, timeout, this);
       },
-      true
+      { attachToElement: true }
     );
     await browser.addCommand("uiControls", async function (ui5Selector, timeout) {
       return ui5ControlsLocators(ui5Selector, timeout);
@@ -50,7 +73,7 @@ var AddLocatorCommands = function () {
       async function () {
         return getBindingContextPath(this);
       },
-      true
+      { attachToElement: true }
     );
 
     // Add command for browser properties
@@ -64,7 +87,7 @@ var AddLocatorCommands = function () {
       async function (propName) {
         return getBindingProperty(propName, this);
       },
-      true
+      { attachToElement: true }
     );
 
     // Add command for browser properties
@@ -80,7 +103,7 @@ var AddLocatorCommands = function () {
       async function (propertyName) {
         return getUI5Property(propertyName, this);
       },
-      true
+      { attachToElement: true }
     );
 
     // Add command for browser properties
@@ -94,7 +117,7 @@ var AddLocatorCommands = function () {
       async function (propertyName) {
         return getUI5Aggregation(propertyName, this);
       },
-      true
+      { attachToElement: true }
     );
 
     // Add command for browser properties
@@ -108,7 +131,7 @@ var AddLocatorCommands = function () {
       async function (propertyName) {
         return getUI5Association(propertyName, this);
       },
-      true
+      { attachToElement: true }
     );
 
     // Add command for browser properties
@@ -121,7 +144,7 @@ var AddLocatorCommands = function () {
       async function () {
         return getAllUI5Properties(this);
       },
-      true
+      { attachToElement: true }
     );
 
     await browser.addCommand("getAllUI5Properties", async function (ui5SelectorOrElement) {
@@ -133,7 +156,7 @@ var AddLocatorCommands = function () {
       async function () {
         return getAllUI5Aggregations(this);
       },
-      true
+      { attachToElement: true }
     );
 
     await browser.addCommand("getAllUI5Aggregations", async function (ui5SelectorOrElement) {
@@ -145,7 +168,7 @@ var AddLocatorCommands = function () {
       async function () {
         return getAllUI5Associations(this);
       },
-      true
+      { attachToElement: true }
     );
 
     await browser.addCommand("getAllUI5Associations", async function (ui5SelectorOrElement) {
@@ -170,7 +193,7 @@ var AddLocatorCommands = function () {
           return lib.controlActionInBrowser(fnBrowser, this);
         }
       },
-      true
+      { attachToElement: true }
     );
 
     await browser.addCommand("controlActionInBrowser", async function (fnBrowser, selectorOrElement) {

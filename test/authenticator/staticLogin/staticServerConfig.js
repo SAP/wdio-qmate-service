@@ -5,6 +5,10 @@ exports.config = merge(customConfig.config, {
   maxInstances: 1,
   bail: 1,
 
+  qmate: {
+    enableUi5ExtensionMocking: true
+  },
+
   services: [
     [
       "static-server",

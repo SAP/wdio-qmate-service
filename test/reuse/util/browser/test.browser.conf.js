@@ -7,6 +7,17 @@ exports.config = merge(profile.config, {
   maxInstances: 1,
   specFileRetries: 0,
 
+  before: async function () {
+    browser.overwriteCommand("url", async (origFn, url) => {
+      await origFn(url);
+      // BiDi resolves on DOMContentLoaded; wait for full load so external scripts run
+      await browser.waitUntil(
+        async () => (await browser.execute(() => document.readyState)) === "complete",
+        { timeout: 30000, interval: 200 }
+      );
+    });
+  },
+
   baseUrl: `${BASE_URL}/`,
 
   specs: [

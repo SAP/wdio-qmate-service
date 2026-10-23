@@ -35,22 +35,14 @@ export class File {
 
     try {
       if (typeof selector === "string") {
-        elem = await $(selector);
+        elem = await util.browser.getContext().$(selector);
       } else if (typeof selector === "object") {
         const elemId = await ui5.element.getId(selector);
         elem = await nonUi5.element.getByXPath(`.//input[contains(@id,'${elemId}')][@type='file']`);
       }
-      let remoteFiles = "";
-      for (const file of files) {
-        const filePath = path.resolve(file);
-        vl.log(`Uploading file with a path ${filePath}`);
-        const remoteFilePath = await browser.uploadFile(filePath);
-        if (remoteFiles) {
-          remoteFiles = remoteFiles + "\n";
-        }
-        remoteFiles = remoteFiles + remoteFilePath;
-      }
-      await elem.addValue(remoteFiles);
+      const remoteFiles = files.map((file) => path.resolve(file)).join("\n");
+      vl.log(`Uploading files: ${remoteFiles}`);
+      await elem.setValue(remoteFiles);
     } catch (error) {
       this.ErrorHandler.logException(error);
     }
@@ -73,17 +65,9 @@ export class File {
       const okButton = await nonUi5.element.getByCss("DIV[id='UpDownDialogChoose']");
       await nonUi5.assertion.expectToBeVisible(okButton);
       const fileInput = await nonUi5.element.getByCss(".//input[@id='webgui_filebrowser_file_upload'][@type='file']", 0, GLOBAL_DEFAULT_WAIT_TIMEOUT, true);
-      let remoteFiles = "";
-      for (const file of files) {
-        const filePath = path.resolve(file);
-        vl.log(`Uploading file with path ${filePath}`);
-        const remoteFilePath = await browser.uploadFile(filePath);
-        if (remoteFiles) {
-          remoteFiles = remoteFiles + "\n";
-        }
-        remoteFiles = remoteFiles + remoteFilePath;
-      }
-      await fileInput.addValue(remoteFiles);
+      const remoteFiles = files.map((file) => path.resolve(file)).join("\n");
+      vl.log(`Uploading files: ${remoteFiles}`);
+      await fileInput.setValue(remoteFiles);
     } catch (error) {
       this.ErrorHandler.logException(error);
     }

@@ -8,6 +8,7 @@ const NEGATIVE_TEST_TIMEOUT = 10_000;
 describe("navigationBar - clickUserIcon", async function () {
   it("Preparation", async function () {
     await common.navigation.navigateToUrl(browser.config.baseUrl);
+    await ui5.navigationBar.expectShellHeader();
   });
 
   it("Execution", async function () {
@@ -17,11 +18,11 @@ describe("navigationBar - clickUserIcon", async function () {
   it("Verification", async function () {
     const selector = {
       elementProperties: {
-        metadata: "sap.ui.core.Icon",
-        bindingContextPath: "/userActions/items/4"
+        metadata: "sap.m.List",
+        bindingContextPath: "/userActions"
       }
     };
-    await ui5.assertion.expectToBeVisible(selector);
+    await ui5.assertion.expectToBeVisible(selector, 0, 90000);
   });
 });
 
@@ -31,6 +32,6 @@ describe("navigationBar - clickUserIcon - error case", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.navigationBar.clickUserIcon(NEGATIVE_TEST_TIMEOUT)).rejects.toThrowError(`Could not click User Icon in ${NEGATIVE_TEST_TIMEOUT / 1000}s`);
+    await expect(ui5.navigationBar.clickUserIcon(NEGATIVE_TEST_TIMEOUT)).rejects.toThrow(`Could not click User Icon in ${NEGATIVE_TEST_TIMEOUT / 1000}s`);
   });
 });

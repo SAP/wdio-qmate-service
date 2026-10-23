@@ -4,8 +4,8 @@ const profile = require("../../../helper/configurations/chrome.headless.conf");
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 
 exports.config = merge(profile.config, {
-  maxInstances: 4,
-  specFileRetries: 2,
+  maxInstances: 2,
+  specFileRetries: 3,
 
   baseUrl: `${BASE_URL}/test-resources/sap/suite/ui/generic/template/demokit/sample.manage.products.sepmra/test/index.html?sap-ui-theme=sap_horizon#Shell-home`,
 

@@ -23,7 +23,7 @@ const inputFieldWithCheckSelector = {
 
 describe("Expect input field 'valueState' to be 'None' (success)", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -38,7 +38,7 @@ describe("Expect input field 'valueState' to be 'None' (success)", function () {
 
 describe("Expect input field 'valueState' not to be 'None' (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -49,6 +49,6 @@ describe("Expect input field 'valueState' not to be 'None' (unhappy case)", func
   });
 
   it("Verification", async function () {
-    await expect(ui5.assertion.expectValidationSuccess(inputFieldWithCheckSelector, 0, 2500, 0)).rejects.toThrowError(/Error/);
+    await expect(ui5.assertion.expectValidationSuccess(inputFieldWithCheckSelector, 0, 2500, 0)).rejects.toThrow(/Error/);
   });
 });

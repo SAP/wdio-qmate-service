@@ -11,7 +11,7 @@ describe("browser - executeScript", function () {
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo(browser.config.baseUrl);
+    await browser.url(browser.config.baseUrl);
     await handleCookiesConsent();
   });
   it("Execution", async function () {

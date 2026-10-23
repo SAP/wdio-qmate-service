@@ -190,7 +190,7 @@ export class Session {
 
     try {
       const baseUrl = browser.config.baseUrl;
-      await browser.navigateTo(baseUrl);
+      await browser.url(baseUrl);
       if (browser.config.params && browser.config.params.auth && browser.config.params.auth.username && browser.config.params.auth.password) {
         username = browser.config.params.auth.username;
         password = browser.config.params.auth.password;
@@ -285,7 +285,7 @@ export class Session {
 
     await this.logout();
     await util.browser.sleep(wait);
-    await browser.navigateTo(browser.config.baseUrl);
+    await browser.url(browser.config.baseUrl);
     if (!authenticator) {
       this.login(username, password);
     } else {
@@ -355,10 +355,10 @@ export class Session {
     try {
       await browser.waitUntil(
         async function () {
-          usernameField = await $(authenticator.usernameFieldSelector);
-          passwordField = await $(authenticator.passwordFieldSelector);
-          logonField = await $(authenticator.logonButtonSelector);
-          return (await usernameField.isDisplayedInViewport()) && (await passwordField.isDisplayedInViewport()) && (await logonField.isDisplayedInViewport());
+          usernameField = await util.browser.getContext().$(authenticator.usernameFieldSelector);
+          passwordField = await util.browser.getContext().$(authenticator.passwordFieldSelector);
+          logonField = await util.browser.getContext().$(authenticator.logonButtonSelector);
+          return (await usernameField.isDisplayed()) && (await passwordField.isDisplayed()) && (await logonField.isDisplayed());
         },
         {
           timeout: GLOBAL_DEFAULT_WAIT_TIMEOUT,
@@ -370,8 +370,25 @@ export class Session {
       await usernameField.setValue(username);
       // @ts-ignore
       await passwordField.setValue(password);
-      // @ts-ignore
-      await logonField.click();
+      if (browser.isBidi) {
+        // ChromeDriver 150 + BiDi: element.click() on a form submit button blocks waiting for
+        // the post-navigation WebDriver response that never arrives. The Actions API sends the
+        // click without waiting for navigation completion, so the command returns immediately.
+        await browser.action("pointer", { parameters: { pointerType: "mouse" } })
+          .move({ origin: logonField, x: 0, y: 0, duration: 0 })
+          .down({ button: 0 })
+          .up({ button: 0 })
+          .perform();
+        // Wait for the URL to change to confirm the form was submitted.
+        const preClickUrl = await browser.getUrl();
+        await browser.waitUntil(async () => (await browser.getUrl()) !== preClickUrl, { timeout: 60000, interval: 300 });
+        const landedUrl = await browser.getUrl();
+        // Navigate to the landed URL to reset ChromeDriver's internal navigation state.
+        await browser.url(landedUrl);
+      } else {
+        // @ts-ignore
+        await logonField.click();
+      }
     } catch (error) {
       this.ErrorHandler.logException(new Error("Please check if you are already logged in or if the system is down"));
     }

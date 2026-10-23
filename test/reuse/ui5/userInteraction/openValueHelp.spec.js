@@ -64,6 +64,6 @@ describe("userInteraction - openValueHelp - use datepicker icon button (unhappy 
   });
 
   it("Execution && Verification", async function () {
-    await expect(ui5.userInteraction.openValueHelp(datePickerSelector, 0, 3_000)).rejects.toThrowError(/Element with CSS .* not found./);
+    await expect(ui5.userInteraction.openValueHelp(datePickerSelector, 0, 3_000)).rejects.toThrow(/Element with CSS .* not found./);
   });
 });

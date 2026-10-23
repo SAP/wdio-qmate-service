@@ -5,7 +5,7 @@ const countries = require("./countries.json");
 
 describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both element and browser levels", function () {
   it("should get Dropdown aggregations on both element and browser levels, access unknown, empty and 'items' aggregations", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBox`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBox`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -43,7 +43,7 @@ describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both eleme
   });
 
   it("should get List Item aggregations on both element and browser levels and access tooltip aggregation", async function () {
-    await browser.navigateTo(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
+    await browser.url(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
 
     const listElementProperties = {
       elementProperties: {
@@ -69,7 +69,7 @@ describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both eleme
   });
 
   it("should try to access non-existing/empty aggregation(s)", async function () {
-    await browser.navigateTo(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
+    await browser.url(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
     const listElementProperties = {
       elementProperties: {
         metadata: "sap.m.StandardListItem",
@@ -86,7 +86,7 @@ describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both eleme
     expect(allAggregationNamesOnElementLevel).not.toContain("wrong_aggregation");
     expect(allAggregationNamesOnElementLevel).not.toContain("");
 
-    await expect(element.getUI5Aggregation("")).rejects.toThrow("javascript error: done is not a function");
+    await expect(element.getUI5Aggregation("")).rejects.toThrow("Please provide a valid aggregation name");
     await expect(browser.getUI5Aggregation("wrong_aggregation_name", element)).resolves.toBeNull();
   });
 });

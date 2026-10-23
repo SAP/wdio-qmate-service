@@ -12,6 +12,7 @@ export class Browser {
   private vlf = new VerboseLoggerFactory("util", "browser");
   private specLogPrefix = "@SPEC: ";
   private ErrorHandler = new ErrorHandler();
+  private _frameContext: any = null;
 
   // =================================== URL ===================================
   /**
@@ -140,10 +141,10 @@ export class Browser {
   async clearBrowser(clearLocal: boolean = true, clearSession: boolean = true, clearCookies: boolean = true): Promise<void> {
     const vl = this.vlf.initLog(this.clearBrowser);
     if (clearLocal) {
-      await browser.execute("window.localStorage.clear()");
+      await browser.execute(() => window.localStorage.clear());
     }
     if (clearSession) {
-      await browser.execute("window.sessionStorage.clear()");
+      await browser.execute(() => window.sessionStorage.clear());
     }
     if (clearCookies) {
       await browser.deleteCookies();
@@ -159,7 +160,7 @@ export class Browser {
   async reloadSession(): Promise<void> {
     const vl = this.vlf.initLog(this.reloadSession);
     await browser.reloadSession();
-    if (browser.config.qmate?.enableUi5ExtensionMocking !== false) {
+    if (browser.isBidi && browser.config.qmate?.enableUi5ExtensionMocking !== false) {
       await browser.mockClearAll();
       await Ui5ExtensionMocker.mockRequests();
     }
@@ -251,7 +252,7 @@ export class Browser {
     }
 
     if (logUI5Version !== false && !process.env.UI5_VERSION_LOGGED) {
-      const ui5Version = await this.getUI5Version();
+      const ui5Version = await this.getUI5Version(5000);
       util.console.log("");
       util.console.info(`UI5 Version:\t${ui5Version.version}`);
       util.console.info(`UI5 Timestamp:\t${ui5Version.timestamp}`);
@@ -310,16 +311,34 @@ export class Browser {
   async switchToNewWindow(titleOrUrl: string | RegExp, timeout: number = 10000) {
     const vl = this.vlf.initLog(this.switchToNewWindow);
     try {
-      await browser.waitUntil(
-        async () => {
-          await browser.switchWindow(titleOrUrl);
-          return this._verifyTitleOrUrl(titleOrUrl);
-        },
-        {
-          timeout: timeout,
-          timeoutMsg: `Could not verify successful switch after ${timeout / 1000}s.`
-        }
-      );
+      if ((browser as any).isBidi) {
+        // browser.switchWindow() is removed in BiDi; iterate handles via switchToWindow instead
+        await browser.waitUntil(
+          async () => {
+            const handles = await browser.getWindowHandles();
+            for (const handle of handles) {
+              await browser.switchToWindow(handle);
+              if (await this._verifyTitleOrUrl(titleOrUrl)) return true;
+            }
+            return false;
+          },
+          {
+            timeout: timeout,
+            timeoutMsg: `Could not verify successful switch after ${timeout / 1000}s.`
+          }
+        );
+      } else {
+        await browser.waitUntil(
+          async () => {
+            await browser.switchWindow(titleOrUrl);
+            return this._verifyTitleOrUrl(titleOrUrl);
+          },
+          {
+            timeout: timeout,
+            timeoutMsg: `Could not verify successful switch after ${timeout / 1000}s.`
+          }
+        );
+      }
     } catch (error) {
       this.ErrorHandler.logException(error);
     }
@@ -369,9 +388,33 @@ export class Browser {
    */
   async switchToIframe(selector: string) {
     const vl = this.vlf.initLog(this.switchToIframe);
+    // Reset stale frame context before operating on a new page.
+    this._frameContext = null;
     await nonUi5.element.waitToBeVisible(selector);
-    const frame = await $(selector);
-    await browser.switchToFrame(frame);
+    if (browser.isBidi) {
+      const [topCtx] = await browser.browsingContexts();
+      // Poll the BiDi context tree until a child context appears for this iframe.
+      // frame({ id }) resolves in one tree walk without any internal waitUntil,
+      // avoiding the 300s block that frame(element) and frame({ selector }) both carry.
+      const timeout = (browser.options as any).waitforTimeout ?? 30000;
+      const contextId: string = await browser.waitUntil(
+        async () => {
+          const { contexts } = await (browser as any).browsingContextGetTree({ root: topCtx.contextId });
+          const children: Array<{ context: string; url: string }> = contexts[0]?.children ?? [];
+          return children.length > 0 ? children[0].context : false;
+        },
+        { timeout, interval: 500, timeoutMsg: `No BiDi child context appeared for iframe "${selector}" within ${timeout}ms` }
+      );
+      this._frameContext = await topCtx.frame({ id: contextId });
+      // ponytail: wdio ContextManager tracks the "current context" for foreignContextId() checks
+      // inside isClickable/isDisplayed. Without this, it thinks we're still in top-level context,
+      // causing isClickable() to call element.execute() → waitForExist() → 300s timeout on
+      // elements whose selector is a strategyRef object (from custom$$).
+      this._setBidiCurrentContext(contextId);
+    } else {
+      const frame = await $(selector);
+      await browser.switchFrame(frame);
+    }
   }
 
   /**
@@ -382,7 +425,50 @@ export class Browser {
    */
   async switchToDefaultContent() {
     const vl = this.vlf.initLog(this.switchToDefaultContent);
-    await browser.switchToFrame(null);
+    if (browser.isBidi) {
+      this._frameContext = null;
+      // ponytail: reset ContextManager so it re-initializes to top-level on next access
+      this._setBidiCurrentContext(undefined);
+    } else {
+      await browser.switchFrame(null);
+    }
+  }
+
+  private _setBidiCurrentContext(contextId: string | undefined): void {
+    // getContextManager lives in @wdio/local-runner/node_modules/webdriverio — not in our
+    // direct deps, so find it in the require cache at runtime (it's loaded by the wdio runner).
+    // Must match local-runner specifically: @wdio/snapshot, @wdio/cli, @wdio/sauce-service all
+    // ship their own webdriverio copy with an independent sessionManager Map, so updating those
+    // creates a garbage ContextManager that nobody reads.
+    const cache = (require as any).cache as Record<string, { exports: any }>;
+    let found = false;
+    for (const [key, mod] of Object.entries(cache)) {
+      if (key.includes("local-runner") && key.includes("/webdriverio/build/index.js") && mod?.exports?.getContextManager) {
+        try {
+          const cm = mod.exports.getContextManager(browser);
+          cm.setCurrentContext(contextId);
+          console.log(`[qmate bidi] setCurrentContext(${contextId}) via ${key.slice(-80)}`);
+          found = true;
+        } catch (e) {
+          console.log(`[qmate bidi] setCurrentContext failed: ${e}`);
+        }
+        break;
+      }
+    }
+    if (!found) {
+      console.log(`[qmate bidi] WARN: could not find local-runner webdriverio in require.cache (keys: ${Object.keys(cache).filter(k => k.includes("webdriverio")).join(", ").slice(0, 200)})`);
+    }
+  }
+
+  /**
+   * @function getContext
+   * @memberOf util.browser
+   * @description Returns the active browsing context (frame in BiDi, or browser in Classic/top-level).
+   * @returns The active context to use for element queries.
+   * @example const ctx = util.browser.getContext(); await ctx.$('button').click();
+   */
+  getContext(): any {
+    return this._frameContext ?? browser;
   }
 
   /**

@@ -1,5 +1,4 @@
 exports.handleCookiesConsent = async function handleCookiesConsent() {
-   
   await util.function.executeOptional(async function () {
     const oldCookiesConsentDialog = {
       elementProperties: {
@@ -12,7 +11,7 @@ exports.handleCookiesConsent = async function handleCookiesConsent() {
         ]
       }
     };
-    const testCookie = await browser.getCookies(["cmapi_cookie_privacy"]);
+    const testCookie = await browser.getCookies({ name: "cmapi_cookie_privacy" });
     if (testCookie.length > 0) {
       // cookie already set
       return;
