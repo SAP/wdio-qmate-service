@@ -406,6 +406,11 @@ export class Browser {
         { timeout, interval: 500, timeoutMsg: `No BiDi child context appeared for iframe "${selector}" within ${timeout}ms` }
       );
       this._frameContext = await topCtx.frame({ id: contextId });
+      // ponytail: wdio ContextManager tracks the "current context" for foreignContextId() checks
+      // inside isClickable/isDisplayed. Without this, it thinks we're still in top-level context,
+      // causing isClickable() to call element.execute() → waitForExist() → 300s timeout on
+      // elements whose selector is a strategyRef object (from custom$$).
+      this._setBidiCurrentContext(contextId);
     } else {
       const frame = await $(selector);
       await browser.switchFrame(frame);
@@ -422,8 +427,26 @@ export class Browser {
     const vl = this.vlf.initLog(this.switchToDefaultContent);
     if (browser.isBidi) {
       this._frameContext = null;
+      // ponytail: reset ContextManager so it re-initializes to top-level on next access
+      this._setBidiCurrentContext(undefined);
     } else {
       await browser.switchFrame(null);
+    }
+  }
+
+  private _setBidiCurrentContext(contextId: string | undefined): void {
+    // getContextManager lives in @wdio/local-runner/node_modules/webdriverio — not in our
+    // direct deps, so find it in the require cache at runtime (it's loaded by the wdio runner).
+    const cache = (require as any).cache as Record<string, { exports: any }>;
+    for (const [key, mod] of Object.entries(cache)) {
+      if (key.includes("/webdriverio/build/index.js") && mod?.exports?.getContextManager) {
+        try {
+          mod.exports.getContextManager(browser).setCurrentContext(contextId);
+        } catch {
+          // best-effort: if this fails the worst outcome is the pre-existing 300s timeout
+        }
+        break;
+      }
     }
   }
 
