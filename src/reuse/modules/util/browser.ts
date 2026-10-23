@@ -388,6 +388,8 @@ export class Browser {
    */
   async switchToIframe(selector: string) {
     const vl = this.vlf.initLog(this.switchToIframe);
+    // Reset stale frame context before operating on a new page.
+    this._frameContext = null;
     await nonUi5.element.waitToBeVisible(selector);
     if (browser.isBidi) {
       const [topCtx] = await browser.browsingContexts();
