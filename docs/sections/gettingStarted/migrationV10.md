@@ -62,37 +62,155 @@ Fix: pin Chrome to a version with faster cold-start (see section 1), or increase
 
 ## 3. BiDi (WebSocket) enabled by default
 
-wdio v10 enables WebDriver BiDi by default, injecting `webSocketUrl: true` into capabilities. This changes how navigation errors surface — instead of Mocha timeouts you get protocol-level errors.
+wdio v10 enables WebDriver BiDi by default. **`webSocketUrl: false` in config does not disable it** — this setting is silently ignored because wdio v10 injects `webSocketUrl: true` directly into capabilities at session start, overriding any config-level value.
 
-Disable it for classic WebDriver behaviour:
+### To force Classic WebDriver mode
+
+Set the capability flag instead:
 
 ```js
-// base.conf.js
-webSocketUrl: false
+capabilities: [{
+  "wdio:enforceWebDriverClassic": true,
+  ...
+}]
+```
+
+### BiDi browser support
+
+BiDi is not universally supported:
+
+| Browser | BiDi support |
+|---|---|
+| Chrome / Chromium | Yes (since ~Chrome 112) |
+| Firefox | Yes |
+| Edge | Yes (follows Chrome) |
+| Safari | No |
+
+Use `wdio:enforceWebDriverClassic: true` for Safari capabilities or any environment where BiDi is unavailable.
+
+### Branching on BiDi at runtime
+
+Use `browser.isBidi` to detect the active mode:
+
+```js
+if (browser.isBidi) {
+  // BiDi path
+} else {
+  // Classic WebDriver path
+}
 ```
 
 ---
 
-## 4. `isDisplayedInViewport()` removed
+## 4. Frame / iframe switching
+
+`browser.switchFrame()` is removed for BiDi sessions and throws:
+
+```
+`switchFrame` was removed for WebDriver BiDi sessions in WebdriverIO v10.
+```
+
+The BiDi replacement is `browser.frame()`, which accepts a CSS selector string, an element, a URL, a context ID, or a predicate function.
+
+```js
+// switchToIframe
+if (browser.isBidi) {
+  await browser.frame(selector);               // CSS selector string
+} else {
+  await browser.switchFrame(await $(selector));
+}
+
+// switchToDefaultContent (return to top-level context)
+if (browser.isBidi) {
+  await browser.frame((ctx) => !ctx.isFrame);  // predicate: find top context
+} else {
+  await browser.switchFrame(null);
+}
+```
+
+`browser.switchFrame(null)` in Classic mode and `browser.switchFrame(element)` still work when `wdio:enforceWebDriverClassic: true` is set.
+
+---
+
+## 5. `browser.uploadFile()` removed
+
+`browser.uploadFile()` no longer exists in v10. In Classic WebDriver mode, pass local file paths directly to `setValue()` on the file input — the driver handles the transfer natively:
+
+```js
+// before
+const remotePath = await browser.uploadFile(localPath);
+await elem.addValue(remotePath);
+
+// after — single file
+await elem.setValue(path.resolve(localPath));
+
+// after — multiple files (newline-separated)
+await elem.setValue(files.map(f => path.resolve(f)).join("\n"));
+```
+
+---
+
+## 6. `isDisplayedInViewport()` removed
 
 `element.isDisplayedInViewport()` no longer exists in wdio v10. Replace with `element.isDisplayed()`.
 
-This applies to both `.ts` and plain `.js` source files — sed-based scripts targeting only `*.ts` will miss JS files.
+This applies to both `.ts` and plain `.js` source files.
 
 ```js
 // before
 return (await el.isDisplayedInViewport());
 
-// after — use intermediate variables to satisfy no-return-await lint rule
+// after — use intermediate variable to satisfy no-return-await lint rule
 const visible = await el.isDisplayed();
 return visible;
 ```
 
 ---
 
-## 5. Chrome error message format
+## 7. `$$()[n]` out-of-bounds behaviour changed
 
-`browser.execute()` errors from Chrome no longer carry the `"javascript error:"` prefix in v10. They are wrapped differently:
+In v8, accessing an out-of-bounds index on a `$$()` result returned `undefined` (plain JS array). In v10, `$$()` returns a smart array — out-of-bounds index access triggers `browser.waitUntil()` waiting for that index to appear, then times out:
+
+```
+Error: Index out of bounds! $$(selector) returned only N elements.
+```
+
+This can cause tests to hang for the full `waitforTimeout` before failing. Fix: guard before access:
+
+```js
+if (index >= elems.length) return false;
+return elems[index].isExisting();
+```
+
+---
+
+## 8. WebDriver error message format change
+
+v10 wraps WebDriver errors with a prefix and session info:
+
+```
+// v8
+"invalid element state"
+
+// v10
+"WebDriverError: invalid element state\n  (Session info: chrome=150...) when running \"element/.../clear\" with method \"POST\""
+```
+
+Update `toThrow()` assertions to match a stable substring rather than the full message:
+
+```js
+// before
+.rejects.toThrow("Function 'x' failed with: Retries done. Failed to execute the function:invalid element state")
+
+// after
+.rejects.toThrow("invalid element state")
+```
+
+---
+
+## 9. Chrome error message format
+
+`browser.execute()` errors from Chrome no longer carry the `"javascript error:"` prefix in v10:
 
 ```
 // v8
@@ -102,10 +220,10 @@ return visible;
 "waitUntil condition failed with the following reason: TypeError: Cannot read properties of undefined (reading 'parts')"
 ```
 
-Update any `toThrow()` / `rejects.toThrow()` assertions that match against the old prefix.
+Update any `toThrow()` assertions that match against the old prefix.
 
 ---
 
-## 6. `lib/` rebuild on CI
+## 10. `lib/` rebuild on CI
 
 `lib/` is gitignored but rebuilt on every `npm ci` via the `prepare` hook (`npm run build` → `tsc`). Source fixes in `src/` are always picked up — no need to commit compiled output.
