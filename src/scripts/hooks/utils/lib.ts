@@ -158,7 +158,7 @@ var LibScripts = function () {
           }
         });
       };
-      return browser.execute(nConvFunction, browserFunction.toString(), webElem, aCustomParams);
+      return util.browser.getContext().execute(nConvFunction, browserFunction.toString(), webElem, aCustomParams);
     } else {
       throw new Error("Invalid parameters.");
     }
