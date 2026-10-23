@@ -391,11 +391,10 @@ export class Browser {
     await nonUi5.element.waitToBeVisible(selector);
     if (browser.isBidi) {
       const [topCtx] = await browser.browsingContexts();
-      const root = this._frameContext ?? topCtx;
       await browser.waitUntil(
         async () => {
           try {
-            this._frameContext = await root.frame({ selector });
+            this._frameContext = await topCtx.frame({ selector });
             return true;
           } catch {
             return false;
