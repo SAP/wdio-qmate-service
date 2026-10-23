@@ -28,6 +28,7 @@ export class Navigation {
         throw new Error("invalid argument");
       }
       await browser.url(url);
+      await util.browser.switchToDefaultContent();
       await util.browser.logCurrentUrl();
     } else {
       this.ErrorHandler.logException(new Error("Please provide an url as argument."));

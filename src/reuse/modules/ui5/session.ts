@@ -370,8 +370,25 @@ export class Session {
       await usernameField.setValue(username);
       // @ts-ignore
       await passwordField.setValue(password);
-      // @ts-ignore
-      await logonField.click();
+      if (browser.isBidi) {
+        // ChromeDriver 150 + BiDi: element.click() on a form submit button blocks waiting for
+        // the post-navigation WebDriver response that never arrives. The Actions API sends the
+        // click without waiting for navigation completion, so the command returns immediately.
+        await browser.action("pointer", { parameters: { pointerType: "mouse" } })
+          .move({ origin: logonField, x: 0, y: 0, duration: 0 })
+          .down({ button: 0 })
+          .up({ button: 0 })
+          .perform();
+        // Wait for the URL to change to confirm the form was submitted.
+        const preClickUrl = await browser.getUrl();
+        await browser.waitUntil(async () => (await browser.getUrl()) !== preClickUrl, { timeout: 60000, interval: 300 });
+        const landedUrl = await browser.getUrl();
+        // Navigate to the landed URL to reset ChromeDriver's internal navigation state.
+        await browser.url(landedUrl);
+      } else {
+        // @ts-ignore
+        await logonField.click();
+      }
     } catch (error) {
       this.ErrorHandler.logException(new Error("Please check if you are already logged in or if the system is down"));
     }
