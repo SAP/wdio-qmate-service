@@ -365,6 +365,27 @@ Update any `toThrow()` assertions that match against the old prefix.
 
 ---
 
-## 12. `lib/` rebuild on CI
+## 12. Passing wdio elements to `execute()` in BiDi: chained `$$()[n]` elements
+
+In Classic WebDriver, passing a wdio element as an argument to `browser.execute()` serializes it as a DOM node reference. In BiDi, elements retrieved via **chained** `$$()` (e.g. `(await parent.$$('li[...]'))[0]`) may not have a valid `sharedId` for serialization — passing them to `execute()` causes the script to silently fail or throw inside the browser.
+
+Elements retrieved via top-level `$()` are unaffected.
+
+**Fix**: resolve the element's DOM `id` attribute on the Node.js side (a plain WebDriver `getAttribute` call), then pass the ID string into `execute()` instead of the element object:
+
+```ts
+// before — element passed directly, fails for chained $$() elements in BiDi
+return util.browser.getContext().execute(fn, ..., webElem, ...);
+
+// after — resolve id first, pass string
+const elemId = await webElem.getAttribute("id");
+return util.browser.getContext().execute(fn, ..., elemId, ...);
+```
+
+This fix has been applied to `controlActionInBrowser` in `lib.ts`, so all methods that use it (`getUI5Property`, `getAllUI5Properties`, `getAllUI5Aggregations`, `getAllUI5Associations`, `getBindingContextPath`, etc.) now work correctly with chained `$$()` elements.
+
+---
+
+## 13. `lib/` rebuild on CI
 
 `lib/` is gitignored but rebuilt on every `npm ci` via the `prepare` hook (`npm run build` → `tsc`). Source fixes in `src/` are always picked up — no need to commit compiled output.

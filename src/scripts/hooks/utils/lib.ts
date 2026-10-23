@@ -125,14 +125,18 @@ var LibScripts = function () {
       }
     }
     if (browserFunction !== null && browserFunction !== undefined && webElem !== null && webElem !== undefined) {
-      var nConvFunction = function (browserFunction, webElem, aCustomParams) {
+      // Resolve element ID on Node.js side: passing a wdio element to execute() in BiDi
+      // can fail for elements retrieved via chained $$() because their sharedId may not
+      // serialize correctly. Getting the ID string here avoids the cross-context issue.
+      const elemId = await webElem.getAttribute("id");
+      var nConvFunction = function (browserFunction, elemId, aCustomParams) {
         return new Promise(function (resolve, reject) {
           var control = null;
           var userDefFunction = "userDefFunction = " + browserFunction;
           try {
-            if (webElem) {
+            if (elemId) {
               // eslint-disable-next-line no-undef
-              control = sap.ui.core.Element.registry.get(webElem.getAttribute("id"));
+              control = sap.ui.core.Element.registry.get(elemId);
             }
           } catch (ex) {
             reject(new Error("Conversion to UI5 control was unsuccesful:" + ex));
@@ -158,7 +162,7 @@ var LibScripts = function () {
           }
         });
       };
-      return util.browser.getContext().execute(nConvFunction, browserFunction.toString(), webElem, aCustomParams);
+      return util.browser.getContext().execute(nConvFunction, browserFunction.toString(), elemId, aCustomParams);
     } else {
       throw new Error("Invalid parameters.");
     }
