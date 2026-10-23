@@ -420,6 +420,7 @@ export class ElementModule {
     const vl = this.vlf.initLog(this.isPresentByCss);
     try {
       const elems = await this.getAll(css, timeout);
+      if (index >= elems.length) return false;
       return elems[index].isExisting();
     } catch (error) {
       return false;
