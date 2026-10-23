@@ -211,9 +211,9 @@ var LibScripts = function () {
           ui5Selector &&
           (ui5Selector.elementProperties || ui5Selector.ancestorProperties || ui5Selector.descendantProperties || ui5Selector.siblingProperties || ui5Selector.parentProperties || ui5Selector.childProperties || ui5Selector.prevSiblingProperties || ui5Selector.nextSiblingProperties)
         ) {
-          aElements = await browser.custom$$("ui5All", ui5Selector, rootElement);
+          aElements = await util.browser.getContext().custom$$("ui5All", ui5Selector, rootElement);
         } else if (ui5Selector && ui5Selector.controlType) {
-          aElements = await browser.custom$$("ui5Veri5", ui5Selector);
+          aElements = await util.browser.getContext().custom$$("ui5Veri5", ui5Selector);
         }
       }
       if (!aElements || aElements.length === 0) return null;
@@ -249,9 +249,9 @@ var LibScripts = function () {
           if (!ui5Selector.elementProperties || isEmptyObjectOrUndefined(ui5Selector.elementProperties)) {
             throw new Error(`The selector your provided ${ui5Selector ? JSON.stringify(ui5Selector) : ui5Selector} does not contain elementProperties, please provide a valid selector with elementProperties`);
           }
-          aElements = await browser.custom$$("ui5All", ui5Selector, rootElement);
+          aElements = await util.browser.getContext().custom$$("ui5All", ui5Selector, rootElement);
         } else if (ui5Selector && ui5Selector.controlType) {
-          aElements = await browser.custom$$("ui5Veri5", ui5Selector);
+          aElements = await util.browser.getContext().custom$$("ui5Veri5", ui5Selector);
         } else {
           return null;
         }
