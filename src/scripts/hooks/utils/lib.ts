@@ -261,16 +261,10 @@ var LibScripts = function () {
         var displayedElements = [];
         for (let i = 0; i < aElements.length; i++) {
           if (returnAllDomElements) {
-            // ponytail: clear strategyRef selector — isExisting() falls back to getElementTagName(elementId)
-            // so waitForExist() returns immediately instead of timing out at 300s on "[object Object]"
-            aElements[i].selector = null;
             displayedElements.push(aElements[i]);
           } else {
             const isDisplayed = await aElements[i].isDisplayed();
             if (isDisplayed) {
-              // ponytail: clear strategyRef selector — isExisting() falls back to getElementTagName(elementId)
-              // so waitForExist() returns immediately instead of timing out at 300s on "[object Object]"
-              aElements[i].selector = null;
               displayedElements.push(aElements[i]);
             }
           }

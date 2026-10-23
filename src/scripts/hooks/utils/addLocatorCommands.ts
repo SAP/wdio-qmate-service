@@ -9,6 +9,23 @@ var AddLocatorCommands = function () {
     // Add Qmate locator strategy
     await browser.addLocatorStrategy("ui5All", qmateLocator.ui5All);
     await browser.addLocatorStrategy("ui5Veri5", uiveri5Locator.ui5Veri5);
+
+    // ponytail: custom$$ elements get selector=strategyRef (plain object). canFindAgain() returns
+    // true, so waitForExist()/isExisting() calls findAllAgain() which serialises it as "[object Object]"
+    // → never found → 300s timeout. Null the selector so canFindAgain() returns false immediately
+    // and isExisting() uses getElementTagName(elementId) (fast BiDi path) instead.
+    await browser.overwriteCommand("custom$$", async (origFn: Function, ...args: any[]) => {
+      const elems = await origFn(...args);
+      if (Array.isArray(elems)) {
+        elems.forEach((el: any) => { if (el) el.selector = null; });
+      }
+      return elems;
+    });
+    await browser.overwriteCommand("custom$", async (origFn: Function, ...args: any[]) => {
+      const el = await origFn(...args);
+      if (el) el.selector = null;
+      return el;
+    });
     // Register global names
     //global.uiControl = ui5ControlLocator;
     //global.uiControls = ui5ControlsLocator;
