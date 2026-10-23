@@ -8,6 +8,7 @@ exports.config = merge(baseConfig.config, {
       browserVersion: "150",
       acceptInsecureCerts: true,
       pageLoadStrategy: "normal",
+      "wdio:enforceWebDriverClassic": true,
       "goog:chromeOptions": {
         args: [
           "--output=/dev/null",

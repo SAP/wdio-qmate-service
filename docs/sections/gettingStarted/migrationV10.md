@@ -104,31 +104,30 @@ if (browser.isBidi) {
 
 ## 4. Frame / iframe switching
 
-`browser.switchFrame()` is removed for BiDi sessions and throws:
+`browser.switchFrame()` throws in BiDi sessions:
 
 ```
 `switchFrame` was removed for WebDriver BiDi sessions in WebdriverIO v10.
 ```
 
-The BiDi replacement is `browser.frame()`, which accepts a CSS selector string, an element, a URL, a context ID, or a predicate function.
+The v10 BiDi model replaces the "global switch" pattern entirely. In BiDi, `browser.url()` returns a `BrowsingContext` object, and you call `ctx.frame({ selector })` on it to get a child frame context. Subsequent commands run on the *returned context*, not on the global `browser` object:
 
 ```js
-// switchToIframe
-if (browser.isBidi) {
-  await browser.frame(selector);               // CSS selector string
-} else {
-  await browser.switchFrame(await $(selector));
-}
-
-// switchToDefaultContent (return to top-level context)
-if (browser.isBidi) {
-  await browser.frame((ctx) => !ctx.isFrame);  // predicate: find top context
-} else {
-  await browser.switchFrame(null);
-}
+// BiDi — no global switch; hold and use the context object
+const page = await browser.url('https://example.com');
+const frame = await page.frame({ selector: 'iframe#myFrame' });
+const text = await frame.$('h1').getText();  // commands run on `frame`
 ```
 
-`browser.switchFrame(null)` in Classic mode and `browser.switchFrame(element)` still work when `wdio:enforceWebDriverClassic: true` is set.
+This is architecturally incompatible with the qmate `util.browser.switchToIframe()` / `switchToDefaultContent()` pattern, which relies on `browser.$()` implicitly scoping to whatever frame was last switched into. **Use `wdio:enforceWebDriverClassic: true` in capabilities to keep Classic WebDriver semantics**, which continues to support:
+
+```js
+// Classic — still works in v10 with enforceWebDriverClassic: true
+await browser.switchFrame(await $('iframe#myFrame'));
+await browser.switchFrame(null);  // return to top-level
+```
+
+The `wdio:enforceWebDriverClassic: true` flag is the correct way to opt out of BiDi for a given capability set (see section 3).
 
 ---
 

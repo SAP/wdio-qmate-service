@@ -388,12 +388,8 @@ export class Browser {
   async switchToIframe(selector: string) {
     const vl = this.vlf.initLog(this.switchToIframe);
     await nonUi5.element.waitToBeVisible(selector);
-    if (browser.isBidi) {
-      await browser.frame(selector);
-    } else {
-      const frame = await $(selector);
-      await browser.switchFrame(frame);
-    }
+    const frame = await $(selector);
+    await browser.switchFrame(frame);
   }
 
   /**
@@ -404,11 +400,7 @@ export class Browser {
    */
   async switchToDefaultContent() {
     const vl = this.vlf.initLog(this.switchToDefaultContent);
-    if (browser.isBidi) {
-      await browser.frame((ctx: any) => !ctx.isFrame);
-    } else {
-      await browser.switchFrame(null);
-    }
+    await browser.switchFrame(null);
   }
 
   /**
