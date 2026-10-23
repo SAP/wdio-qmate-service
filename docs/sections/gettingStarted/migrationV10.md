@@ -167,7 +167,29 @@ Using a dead context as root causes `waitUntil` to retry for the full `waitforTi
 
 ---
 
-## 5. `browser.uploadFile()` removed
+## 5. `browser.act()` — LLM dependency (CI blocker at SAP)
+
+wdio v10 introduces `browser.act()`, an agentic API that sends natural-language instructions to an LLM to drive the browser. Example:
+
+```js
+await browser.act('click the submit button and wait for the confirmation dialog');
+```
+
+### Blocker for SAP CI pipelines
+
+`browser.act()` requires:
+
+1. **Outbound HTTPS to an LLM provider** (`api.openai.com`, `api.anthropic.com`, etc.)
+2. **An API key** in the environment (`OPENAI_API_KEY` / `ANTHROPIC_API_KEY`)
+3. **An `ai` config block** in your wdio config pointing at the provider/model
+
+At SAP, agent/LLM API access is not yet enabled in CI pipelines (GHA, Jenkins). Any test using `browser.act()` will fail at runtime with a network or auth error.
+
+**Recommendation:** Avoid `browser.act()` in automated test suites until LLM access is cleared for SAP CI infrastructure. It is safe for local exploratory use only.
+
+---
+
+## 6. `browser.uploadFile()` removed
 
 `browser.uploadFile()` no longer exists in v10. In Classic WebDriver mode, pass local file paths directly to `setValue()` on the file input — the driver handles the transfer natively:
 
@@ -185,7 +207,7 @@ await elem.setValue(files.map(f => path.resolve(f)).join("\n"));
 
 ---
 
-## 6. `isDisplayedInViewport()` removed
+## 7. `isDisplayedInViewport()` removed
 
 `element.isDisplayedInViewport()` no longer exists in wdio v10. Replace with `element.isDisplayed()`.
 
@@ -202,7 +224,7 @@ return visible;
 
 ---
 
-## 7. `$$()[n]` out-of-bounds behaviour changed
+## 8. `$$()[n]` out-of-bounds behaviour changed
 
 In v8, accessing an out-of-bounds index on a `$$()` result returned `undefined` (plain JS array). In v10, `$$()` returns a smart array — out-of-bounds index access triggers `browser.waitUntil()` waiting for that index to appear, then times out:
 
@@ -219,7 +241,7 @@ return elems[index].isExisting();
 
 ---
 
-## 8. WebDriver error message format change
+## 9. WebDriver error message format change
 
 v10 wraps WebDriver errors with a prefix and session info:
 
@@ -243,7 +265,7 @@ Update `toThrow()` assertions to match a stable substring rather than the full m
 
 ---
 
-## 9. Chrome error message format
+## 10. Chrome error message format
 
 `browser.execute()` errors from Chrome no longer carry the `"javascript error:"` prefix in v10:
 
@@ -259,6 +281,6 @@ Update any `toThrow()` assertions that match against the old prefix.
 
 ---
 
-## 10. `lib/` rebuild on CI
+## 11. `lib/` rebuild on CI
 
 `lib/` is gitignored but rebuilt on every `npm ci` via the `prepare` hook (`npm run build` → `tsc`). Source fixes in `src/` are always picked up — no need to commit compiled output.
