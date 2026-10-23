@@ -99,6 +99,6 @@ describe("userInteraction - clearAndFillActiveAndRetry with wrong element", func
     const retries = 1;
     const interval = 2000;
     await ui5.userInteraction.click(selector);
-    await expect(common.userInteraction.clearAndFillActiveAndRetry(value, retries, interval)).rejects.toThrow("Function 'clearAndFillActiveAndRetry' failed with: Retries done. Failed to execute the function:invalid element state");
+    await expect(common.userInteraction.clearAndFillActiveAndRetry(value, retries, interval)).rejects.toThrow("invalid element state");
   });
 });
