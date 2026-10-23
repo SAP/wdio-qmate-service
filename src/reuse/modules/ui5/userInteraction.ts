@@ -776,7 +776,8 @@ export class UserInteraction {
   private async _getActiveDialogPopups(timeout?: number): Promise<Array<Element> | undefined> {
     const vl = this.vlf.initLog(this._getActiveDialogPopups);
     // Returns IDs of last opened dialog and popovers opened in it
-    const activePopupsIds = await util.browser.getContext().execute(() => {
+    // ponytail: static area is always top-level, not inside iframes
+    const activePopupsIds = await browser.execute(() => {
       const popups = [...sap.ui.getCore().getStaticAreaRef().children]
         .filter((e) => e.checkVisibility())
         .flatMap((e) => sap.ui.getCore().byId(e.id) ?? [])
