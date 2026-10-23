@@ -102,7 +102,27 @@ if (browser.isBidi) {
 
 ---
 
-## 4. Frame / iframe switching
+## 4. `browser.url()` navigation in BiDi
+
+`browser.url()` (and `common.navigation.navigateToUrl`) works in BiDi, but resolves on `DOMContentLoaded` rather than `load` — external scripts that load after `DOMContentLoaded` may not yet be available when the command returns.
+
+For applications that depend on external scripts (e.g. UI5 bootstrap from a CDN), add a `readyState` guard in your `before` hook or wdio config:
+
+```js
+browser.overwriteCommand("url", async (origFn, url) => {
+  await origFn(url);
+  await browser.waitUntil(
+    async () => (await browser.execute(() => document.readyState)) === "complete",
+    { timeout: 30000, interval: 200 }
+  );
+});
+```
+
+`common.navigation.navigateToUrl` wraps `browser.url()` and inherits this behaviour. No changes to test scripts are required as long as the guard is in place at the config level.
+
+---
+
+## 5. Frame / iframe switching
 
 `browser.switchFrame()` throws in BiDi sessions:
 
@@ -127,47 +147,46 @@ const text = await frame.$('h1').getText();  // scoped to frame
 
 qmate's `util.browser.switchToIframe()` and all reuse-layer element queries have been updated to work natively in BiDi mode via a stored context pattern:
 
-- `switchToIframe(selector)` fetches a fresh top-level context via `browser.browsingContexts()`, then calls `topCtx.frame({ selector })` to acquire the frame's `BrowsingContext` and stores it in `_frameContext`.
+- `switchToIframe(selector)` polls `browser.browsingContextGetTree` until a child BiDi browsing context appears, then stores it as `_frameContext`.
 - `switchToDefaultContent()` clears `_frameContext` (sets it to `null`).
 - `getContext()` returns `_frameContext ?? browser` — all `$`/`$$` calls in the reuse layer go through `getContext()` to scope to the active frame.
 
-#### Pitfall: frame context initialization timing
+If you write custom test helpers that interact with elements inside an iframe, use `util.browser.getContext()` instead of the bare `browser` or `$()` shorthand:
 
-`topCtx.frame({ selector })` fails with `"The element is not a frame with a browsing context"` if the iframe's BiDi browsing context hasn't been initialized yet (e.g. immediately after navigation). The fix is to wrap the call in `browser.waitUntil`:
+```js
+// inside an iframe after util.browser.switchToIframe(selector)
+const ctx = util.browser.getContext();
+const text = await ctx.$('h1').getText();  // scoped to the iframe
+```
+
+#### Pitfall: frame BiDi context initialization timing
+
+`topCtx.frame(element)` and `topCtx.frame({ selector })` both route through wdio's `frameFromElement` internally. `frameFromElement` calls `element.waitForExist()` — a single blocking call that waits up to `waitforTimeout` (300s in CI). If the iframe's BiDi browsing context isn't initialized yet, this hangs for the full timeout before throwing.
+
+The fix: poll `browser.browsingContextGetTree` directly (at 500ms intervals) until a child context appears, then call `topCtx.frame({ id: contextId })`. The `{ id }` form resolves via a single synchronous tree walk with no internal polling:
 
 ```ts
-await browser.waitUntil(
+const timeout = browser.options.waitforTimeout ?? 30000;
+const contextId = await browser.waitUntil(
   async () => {
-    try {
-      this._frameContext = await topCtx.frame({ selector });
-      return true;
-    } catch {
-      return false;
-    }
+    const { contexts } = await browser.browsingContextGetTree({ root: topCtx.contextId });
+    const children = contexts[0]?.children ?? [];
+    return children.length > 0 ? children[0].context : false;
   },
-  { timeout: browser.options.waitforTimeout ?? 30000, interval: 500 }
+  { timeout, interval: 500 }
 );
+this._frameContext = await topCtx.frame({ id: contextId });
 ```
 
-#### Pitfall: stale frame context as root
+#### Pitfall: stale frame context across specs
 
-`_frameContext` is an instance variable. In a WDIO worker that runs multiple spec files sequentially, a frame context stored by spec A becomes a dead `BrowsingContext` once the browser navigates away. **Never reuse `_frameContext` as the root for a new `frame({ selector })` call.** Always fetch a fresh `topCtx` from `browser.browsingContexts()` as the root:
+`_frameContext` is an instance variable on the `util.browser` singleton. In a WDIO worker that runs multiple spec files sequentially, a frame context stored by spec A becomes a dead `BrowsingContext` once the browser navigates away. Calling `switchToIframe` without first calling `switchToDefaultContent` would leave `_frameContext` set — and `getContext()` in the next spec would return the dead context.
 
-```ts
-// wrong — stale context as root when called from a later spec
-const root = this._frameContext ?? topCtx;
-this._frameContext = await root.frame({ selector });  // throws on dead context
-
-// correct — always fresh root
-const [topCtx] = await browser.browsingContexts();
-this._frameContext = await topCtx.frame({ selector });
-```
-
-Using a dead context as root causes `waitUntil` to retry for the full `waitforTimeout` (5 minutes in CI) before failing.
+qmate resets `_frameContext = null` at the start of every `switchToIframe` call so that the element visibility check runs against the top-level page, not a stale iframe context. Always call `switchToDefaultContent()` when finished with an iframe to make the reset explicit.
 
 ---
 
-## 5. `browser.act()` — LLM dependency (CI blocker at SAP)
+## 6. `browser.act()` — LLM dependency (CI blocker at SAP)
 
 wdio v10 introduces `browser.act()`, an agentic API that sends natural-language instructions to an LLM to drive the browser. Example:
 
@@ -189,7 +208,7 @@ At SAP, agent/LLM API access is not yet enabled in CI pipelines (GHA, Jenkins). 
 
 ---
 
-## 6. `browser.uploadFile()` removed
+## 7. `browser.uploadFile()` removed
 
 `browser.uploadFile()` no longer exists in v10. In Classic WebDriver mode, pass local file paths directly to `setValue()` on the file input — the driver handles the transfer natively:
 
@@ -207,7 +226,7 @@ await elem.setValue(files.map(f => path.resolve(f)).join("\n"));
 
 ---
 
-## 7. `isDisplayedInViewport()` removed
+## 8. `isDisplayedInViewport()` removed
 
 `element.isDisplayedInViewport()` no longer exists in wdio v10. Replace with `element.isDisplayed()`.
 
@@ -224,7 +243,7 @@ return visible;
 
 ---
 
-## 8. `$$()[n]` out-of-bounds behaviour changed
+## 9. `$$()[n]` out-of-bounds behaviour changed
 
 In v8, accessing an out-of-bounds index on a `$$()` result returned `undefined` (plain JS array). In v10, `$$()` returns a smart array — out-of-bounds index access triggers `browser.waitUntil()` waiting for that index to appear, then times out:
 
@@ -241,7 +260,7 @@ return elems[index].isExisting();
 
 ---
 
-## 9. WebDriver error message format change
+## 10. WebDriver error message format change
 
 v10 wraps WebDriver errors with a prefix and session info:
 
@@ -265,7 +284,7 @@ Update `toThrow()` assertions to match a stable substring rather than the full m
 
 ---
 
-## 10. Chrome error message format
+## 11. Chrome error message format
 
 `browser.execute()` errors from Chrome no longer carry the `"javascript error:"` prefix in v10:
 
@@ -281,6 +300,6 @@ Update any `toThrow()` assertions that match against the old prefix.
 
 ---
 
-## 11. `lib/` rebuild on CI
+## 12. `lib/` rebuild on CI
 
 `lib/` is gitignored but rebuilt on every `npm ci` via the `prepare` hook (`npm run build` → `tsc`). Source fixes in `src/` are always picked up — no need to commit compiled output.
