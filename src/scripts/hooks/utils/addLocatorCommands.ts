@@ -14,18 +14,24 @@ var AddLocatorCommands = function () {
     // true, so waitForExist()/isExisting() calls findAllAgain() which serialises it as "[object Object]"
     // → never found → 300s timeout. Null the selector so canFindAgain() returns false immediately
     // and isExisting() uses getElementTagName(elementId) (fast BiDi path) instead.
-    await browser.overwriteCommand("custom$$", async (origFn: Function, ...args: any[]) => {
+    // Must overwrite on both browser (no flag) AND browsing contexts (attachToBrowsingContext: true)
+    // because getContext() returns either browser (top-level) or a BiDi frame context (in iframe).
+    const nullifyCustom$$ = async (origFn: Function, ...args: any[]) => {
       const elems = await origFn(...args);
       if (Array.isArray(elems)) {
         elems.forEach((el: any) => { if (el) el.selector = null; });
       }
       return elems;
-    });
-    await browser.overwriteCommand("custom$", async (origFn: Function, ...args: any[]) => {
+    };
+    const nullifyCustom$ = async (origFn: Function, ...args: any[]) => {
       const el = await origFn(...args);
       if (el) el.selector = null;
       return el;
-    });
+    };
+    await browser.overwriteCommand("custom$$", nullifyCustom$$);
+    await browser.overwriteCommand("custom$", nullifyCustom$);
+    await browser.overwriteCommand("custom$$", nullifyCustom$$, { attachToBrowsingContext: true });
+    await browser.overwriteCommand("custom$", nullifyCustom$, { attachToBrowsingContext: true });
     // Register global names
     //global.uiControl = ui5ControlLocator;
     //global.uiControls = ui5ControlsLocator;
