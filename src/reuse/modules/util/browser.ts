@@ -441,15 +441,22 @@ export class Browser {
     // ship their own webdriverio copy with an independent sessionManager Map, so updating those
     // creates a garbage ContextManager that nobody reads.
     const cache = (require as any).cache as Record<string, { exports: any }>;
+    let found = false;
     for (const [key, mod] of Object.entries(cache)) {
       if (key.includes("local-runner") && key.includes("/webdriverio/build/index.js") && mod?.exports?.getContextManager) {
         try {
-          mod.exports.getContextManager(browser).setCurrentContext(contextId);
-        } catch {
-          // best-effort: worst outcome is the pre-existing 300s timeout
+          const cm = mod.exports.getContextManager(browser);
+          cm.setCurrentContext(contextId);
+          console.log(`[qmate bidi] setCurrentContext(${contextId}) via ${key.slice(-80)}`);
+          found = true;
+        } catch (e) {
+          console.log(`[qmate bidi] setCurrentContext failed: ${e}`);
         }
         break;
       }
+    }
+    if (!found) {
+      console.log(`[qmate bidi] WARN: could not find local-runner webdriverio in require.cache (keys: ${Object.keys(cache).filter(k => k.includes("webdriverio")).join(", ").slice(0, 200)})`);
     }
   }
 
