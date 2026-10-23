@@ -184,6 +184,14 @@ this._frameContext = await topCtx.frame({ id: contextId });
 
 qmate resets `_frameContext = null` at the start of every `switchToIframe` call so that the element visibility check runs against the top-level page, not a stale iframe context. Always call `switchToDefaultContent()` when finished with an iframe to make the reset explicit.
 
+#### Pitfall: wdio ContextManager not updated after manual iframe switch
+
+wdio v10's `ContextManager` tracks the "current browsing context" internally for `foreignContextId()` — a helper used by `isClickable()` and related APIs. Our `switchToIframe` stores the frame context in `_frameContext` but does not call wdio's `switchFrame()`, so `ContextManager._currentContext` remains the top-level context.
+
+When `isClickable()` is called on an element found via `custom$$()` in the frame context, `foreignContextId()` returns the frame's context ID (truthy — mismatched with the stored top-level ID). This causes `isClickable()` to call `element.execute()` instead of `browser.execute()`. `element.execute()` (wdio's `execute2`) calls `waitForExist()` first, which tries to re-locate the element by its `selector`. Elements from `custom$$` have `selector = strategyRef` (a plain object). `findAllAgain()` calls `parent.$$(strategyRef)` — since `strategyRef` isn't a string, it serialises as `[object Object]` — never found — so `waitForExist` times out at `waitforTimeout` (300000ms in CI).
+
+**Fix**: `switchToIframe` now calls `getContextManager(browser).setCurrentContext(contextId)` (accessed via the Node require cache at runtime) after setting `_frameContext`. `switchToDefaultContent` calls `setCurrentContext(undefined)` to force re-initialization to top-level on next access.
+
 ---
 
 ## 6. `browser.act()` — LLM dependency (CI blocker at SAP)
