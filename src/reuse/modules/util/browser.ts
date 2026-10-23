@@ -392,7 +392,17 @@ export class Browser {
     if (browser.isBidi) {
       const [topCtx] = await browser.browsingContexts();
       const root = this._frameContext ?? topCtx;
-      this._frameContext = await root.frame({ selector });
+      await browser.waitUntil(
+        async () => {
+          try {
+            this._frameContext = await root.frame({ selector });
+            return true;
+          } catch {
+            return false;
+          }
+        },
+        { timeout: browser.options.waitforTimeout ?? 30000, interval: 500 }
+      );
     } else {
       const frame = await $(selector);
       await browser.switchFrame(frame);
