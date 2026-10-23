@@ -437,13 +437,16 @@ export class Browser {
   private _setBidiCurrentContext(contextId: string | undefined): void {
     // getContextManager lives in @wdio/local-runner/node_modules/webdriverio — not in our
     // direct deps, so find it in the require cache at runtime (it's loaded by the wdio runner).
+    // Must match local-runner specifically: @wdio/snapshot, @wdio/cli, @wdio/sauce-service all
+    // ship their own webdriverio copy with an independent sessionManager Map, so updating those
+    // creates a garbage ContextManager that nobody reads.
     const cache = (require as any).cache as Record<string, { exports: any }>;
     for (const [key, mod] of Object.entries(cache)) {
-      if (key.includes("/webdriverio/build/index.js") && mod?.exports?.getContextManager) {
+      if (key.includes("local-runner") && key.includes("/webdriverio/build/index.js") && mod?.exports?.getContextManager) {
         try {
           mod.exports.getContextManager(browser).setCurrentContext(contextId);
         } catch {
-          // best-effort: if this fails the worst outcome is the pre-existing 300s timeout
+          // best-effort: worst outcome is the pre-existing 300s timeout
         }
         break;
       }
