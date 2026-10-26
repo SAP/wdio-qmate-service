@@ -74,7 +74,7 @@ var LibScripts = function () {
           }
         });
       };
-      return browser.execute(nConvFunction, browserFunction.toString(), mockServerPath, aCustomParams);
+      return util.browser.getContext().execute(nConvFunction, browserFunction.toString(), mockServerPath, aCustomParams);
     } else {
       throw new Error("Invalid parameters.");
     }
@@ -322,7 +322,7 @@ var LibScripts = function () {
   };
 
   this.loadMockData = async function (responsePath, isText) {
-    return browser.execute(clientsidescripts.loadMockData, {
+    return util.browser.getContext().execute(clientsidescripts.loadMockData, {
       responsePath: responsePath,
       isText: isText
     });

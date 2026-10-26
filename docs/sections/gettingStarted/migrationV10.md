@@ -4,6 +4,8 @@
 
 WebdriverIO v10 ships with breaking changes to browser management, protocol defaults, and API surface. This document captures all findings from the wdio-qmate-service migration.
 
+Use Node.js **22.19.0 or newer**; the local cross-repository integration checks use Node.js 24. The installed WDIO v10 dependency graph requires this minimum, even where an older package manifest still accepts earlier Node.js releases.
+
 ---
 
 ## 1. Chrome / Browser Management
@@ -40,7 +42,7 @@ capabilities: [{
 
 A major version string (e.g. `"150"`) is treated as a milestone and resolved against Google's `latest-versions-per-milestone.json`. A full build ID (e.g. `"150.0.7049.0"`) pins exactly and skips the resolution call.
 
-**Why this matters:** Chrome 152+ switched headless to a full browser process (previously `--headless=new` was opt-in). Chrome 155 in CI caused >90s cold-start navigation to SAP pages, exceeding undici's default `headersTimeout`. Pinning to 150 restores v8-equivalent behaviour.
+**Why this matters:** the migration uses Chrome 150 as a tested compatibility baseline. Earlier migration runs observed slow navigation with a newer browser, but that is not evidence of a general headless architecture change at Chrome 152. Keep the browser version explicit while comparing migration results, and validate newer browser versions separately.
 
 ---
 
@@ -132,26 +134,26 @@ browser.overwriteCommand("url", async (origFn, url) => {
 
 ### BiDi frame model
 
-In BiDi, there is no global frame switch. Instead, `browser.browsingContexts()` returns all top-level `BrowsingContext` objects, and you call `ctx.frame({ selector })` on a top-level context to get a child frame context. All element queries must then be issued on the returned context rather than on `browser`:
+In BiDi, frame ownership is explicit. `browser.browsingContexts()` returns top-level contexts; choose the one matching `browser.getWindowHandle()`, not simply the first entry. Qmate resolves the requested iframe and exposes its owned context:
 
 ```js
-// BiDi
-const [topCtx] = await browser.browsingContexts();
-const frame = await topCtx.frame({ selector: 'iframe#myFrame' });
-const text = await frame.$('h1').getText();  // scoped to frame
+await util.browser.switchToIframe('iframe#myFrame');
+const heading = await nonUi5.element.getByCss('h1');
+const text = await nonUi5.element.getValue(heading);
+await util.browser.switchToDefaultContent();
 ```
 
 `browser.switchWindow()` is also removed in BiDi. Use `browser.getWindowHandles()` + `browser.switchToWindow()` instead (qmate's `switchToNewWindow` already handles this).
 
 ### qmate implementation: `getContext()` pattern
 
-qmate's `util.browser.switchToIframe()` and all reuse-layer element queries have been updated to work natively in BiDi mode via a stored context pattern:
+Qmate uses a stored context pattern for frame-aware helpers:
 
-- `switchToIframe(selector)` polls `browser.browsingContextGetTree` until a child BiDi browsing context appears, then stores it as `_frameContext`.
+- `switchToIframe(selector)` finds that exact iframe in the active tab, reads its native WindowProxy context reference, resolves `topCtx.frame({ id: contextId })`, and stores it as `_frameContext`.
 - `switchToDefaultContent()` clears `_frameContext` (sets it to `null`).
-- `getContext()` returns `_frameContext ?? browser` — all `$`/`$$` calls in the reuse layer go through `getContext()` to scope to the active frame.
+- `getContext()` returns `_frameContext ?? browser`. Use it for frame-scoped queries and scripts; a bare `browser` call is still top-level.
 
-If you write custom test helpers that interact with elements inside an iframe, use `util.browser.getContext()` instead of the bare `browser` or `$()` shorthand:
+Keep ordinary test code on qmate's reuse APIs. No wdi5 integration is required. When extending the reuse-library implementation itself, use `util.browser.getContext()` for low-level frame-scoped WDIO calls instead of the bare `browser` or `$()` shorthand:
 
 ```js
 // inside an iframe after util.browser.switchToIframe(selector)
@@ -159,30 +161,15 @@ const ctx = util.browser.getContext();
 const text = await ctx.$('h1').getText();  // scoped to the iframe
 ```
 
-#### Pitfall: frame BiDi context initialization timing
+#### Pitfall: selecting the first child is not selecting the requested iframe
 
-`topCtx.frame(element)` and `topCtx.frame({ selector })` both route through wdio's `frameFromElement` internally. `frameFromElement` calls `element.waitForExist()` — a single blocking call that waits up to `waitforTimeout` (300s in CI). If the iframe's BiDi browsing context isn't initialized yet, this hangs for the full timeout before throwing.
-
-The fix: poll `browser.browsingContextGetTree` directly (at 500ms intervals) until a child context appears, then call `topCtx.frame({ id: contextId })`. The `{ id }` form resolves via a single synchronous tree walk with no internal polling:
-
-```ts
-const timeout = browser.options.waitforTimeout ?? 30000;
-const contextId = await browser.waitUntil(
-  async () => {
-    const { contexts } = await browser.browsingContextGetTree({ root: topCtx.contextId });
-    const children = contexts[0]?.children ?? [];
-    return children.length > 0 ? children[0].context : false;
-  },
-  { timeout, interval: 500 }
-);
-this._frameContext = await topCtx.frame({ id: contextId });
-```
+A context-tree query followed by `children[0]` can select a decoy iframe. The old polling workaround is superseded by exact iframe resolution (section 17). The native WindowProxy reference also avoids the cross-realm execute-serialization problem observed with WDIO 10.0.2's `frame({ selector })`.
 
 #### Pitfall: stale frame context across specs
 
 `_frameContext` is an instance variable on the `util.browser` singleton. In a WDIO worker that runs multiple spec files sequentially, a frame context stored by spec A becomes a dead `BrowsingContext` once the browser navigates away. Calling `switchToIframe` without first calling `switchToDefaultContent` would leave `_frameContext` set — and `getContext()` in the next spec would return the dead context.
 
-qmate resets `_frameContext = null` at the start of every `switchToIframe` call so that the element visibility check runs against the top-level page, not a stale iframe context. Always call `switchToDefaultContent()` when finished with an iframe to make the reset explicit.
+qmate resets `_frameContext = null` at the start of every `switchToIframe` call so that the element visibility check runs against the top-level page, not a stale iframe context. The qmate wrappers also clear it after successful refresh, session reload, back/forward navigation, tab switching and tab closure. Always call `switchToDefaultContent()` when finished with an iframe to make the reset explicit. Raw WDIO navigation bypasses these qmate lifecycle guarantees.
 
 #### Pitfall: `element ("[object Object]") still not existing after 300000ms`
 
@@ -251,7 +238,7 @@ This fix has been applied to `controlActionInBrowser` in `lib.ts`, so `ui5.contr
 
 ---
 
-## 6. `browser.act()` — LLM dependency (CI blocker at SAP)
+## 6. `browser.act()` — optional AI service
 
 wdio v10 introduces `browser.act()`, an agentic API that sends natural-language instructions to an LLM to drive the browser. Example:
 
@@ -259,23 +246,17 @@ wdio v10 introduces `browser.act()`, an agentic API that sends natural-language 
 await browser.act('click the submit button and wait for the confirmation dialog');
 ```
 
-### Blocker for SAP CI pipelines
+Install `@wdio/ai-service` and the LangChain adapter for your chosen provider, then configure `services: [["ai", { model: "provider:model" }]]`. Hosted providers need their corresponding credentials and network access. Local providers such as Ollama do not require a hosted-provider API key.
 
-`browser.act()` requires:
+The service can record and replay steps. `cache: "locked"` is the replay-only mode for runs that must not call a model; missing or incompatible recordings fail instead of asking a model to repair them. The default CI healing mode can make model calls. See the current [AI service setup](https://webdriver.io/docs/ai-service) and [AI steps/cache documentation](https://webdriver.io/docs/ai-steps).
 
-1. **Outbound HTTPS to an LLM provider** (`api.openai.com`, `api.anthropic.com`, etc.)
-2. **An API key** in the environment (`OPENAI_API_KEY` / `ANTHROPIC_API_KEY`)
-3. **An `ai` config block** in your wdio config pointing at the provider/model
-
-At SAP, agent/LLM API access is not yet enabled in CI pipelines (GHA, Jenkins). Any test using `browser.act()` will fail at runtime with a network or auth error.
-
-**Recommendation:** Avoid `browser.act()` in automated test suites until LLM access is cleared for SAP CI infrastructure. It is safe for local exploratory use only.
+Provider access and an approved data-handling setup have not been established for this migration's CI pipelines. The integration gate therefore uses deterministic qmate commands and local fixtures, without AI calls. `browser.act()` does not by itself replace qmate's reuse APIs, test-authoring guidance, or an MCP server's non-browser tools; assess those responsibilities separately.
 
 ---
 
 ## 7. `browser.uploadFile()` removed
 
-`browser.uploadFile()` no longer exists in v10. In Classic WebDriver mode, pass local file paths directly to `setValue()` on the file input — the driver handles the transfer natively:
+`browser.uploadFile()` no longer exists in v10. Pass absolute file paths to the file input. The files must already be accessible on the machine running the browser; passing a runner-local path does **not** promise a transfer to a remote grid. Provision remote files separately using your provider's supported mechanism.
 
 ```js
 // before
@@ -293,7 +274,7 @@ await elem.setValue(files.map(f => path.resolve(f)).join("\n"));
 
 ## 8. `isDisplayedInViewport()` removed
 
-`element.isDisplayedInViewport()` no longer exists in wdio v10. Replace with `element.isDisplayed()`.
+`element.isDisplayedInViewport()` no longer exists in WDIO v10. Preserve viewport semantics with `element.isDisplayed({ withinViewport: true })`; plain `isDisplayed()` can also return true for an offscreen element.
 
 This applies to both `.ts` and plain `.js` source files.
 
@@ -302,9 +283,11 @@ This applies to both `.ts` and plain `.js` source files.
 return (await el.isDisplayedInViewport());
 
 // after — use intermediate variable to satisfy no-return-await lint rule
-const visible = await el.isDisplayed();
+const visible = await el.isDisplayed({ withinViewport: true });
 return visible;
 ```
+
+`nonUi5.element.isVisible(element, strict)` passes the `strict` flag as `withinViewport`, preserving the caller's choice.
 
 ---
 
@@ -396,7 +379,7 @@ Chained `$$` elements still work fine for non-execute operations like `getBindin
 
 In a BiDi session, `browser.action("pointer").perform()` can still use the Classic WebDriver actions endpoint when called on the top-level browser. With ChromeDriver 150 and BiDi request interception enabled, a form submission through that endpoint can leave navigation pending: subsequent `browser.getUrl()` and session teardown time out.
 
-`ui5.session` resolves the active tab or iframe as a `BrowsingContext` and performs the pointer action on that context instead. This uses BiDi `input.performActions` and keeps intercepted navigation off the Classic command queue. The static login tests cover this with UI5 extension request mocking enabled.
+`ui5.session` and the config-driven form/custom authenticators share a submit helper that resolves the active tab or iframe as a `BrowsingContext` and performs the pointer action on that context. This uses BiDi `input.performActions` and keeps intercepted navigation off the Classic command queue. The static login tests cover interception; local CLI fixtures also cover login without a URL change.
 
 Do not require the URL to change after login: a form may update the current page, and a redirect may already be complete by the time the click returns. Do not navigate to the resulting URL again to complete login, since that reloads application state. Verify the expected logged-in UI instead.
 
@@ -435,3 +418,23 @@ Qmate no longer searches CommonJS `require.cache` to modify WDIO's internal `Con
 WDIO v10 implements element `scrollIntoView` using wheel actions before falling back to DOM scrolling. Centering an already visible, left-aligned control can generate a large negative horizontal wheel delta. In Chrome 150 on Linux, the select tests navigated back to `about:blank` immediately after that wheel event, destroying the sample iframe. Later steps reported missing dropdown options or `no such frame`, obscuring the original cause.
 
 `ui5.userInteraction.scrollToElement` uses the element's DOM `scrollIntoView` through its owned context in BiDi sessions. This preserves the requested alignment while avoiding browser history gestures. Classic sessions retain the existing WDIO command. A regression centers an initially visible checkbox and verifies that the page URL and frame element survive; the Select and MultiComboBox tests still assert the selected values.
+
+## 19. UI5 mockservers and dialogs belong to their document
+
+The parent document need not load UI5 just because an iframe does. After `util.browser.switchToIframe`, mockserver operations and relative mock-data loading must execute in that frame. The shared helpers now use the selected context for both operations.
+
+Each UI5 document also owns its own static area. Dialog discovery must not inspect the parent and then look up the returned popup IDs in the child. A local OpenUI5 fixture covers mockserver get/set, relative JSON loading, ordinary child-button clicks and priority for a child dialog over an identically labelled page button. These tests invoke the public qmate APIs through the CLI; they do not introduce wdi5.
+
+## 20. Extension-request mocking remains explicitly opt-in
+
+Set `qmate.enableUi5ExtensionMocking: true` to enable extension blocking in BiDi. An omitted or false option leaves it disabled, including after `util.browser.reloadSession()`.
+
+WDIO v10 accepts string or URLPattern definitions for `browser.mock`, not the old RegExp definitions. The old regex objects had identical undefined pattern components, so later registrations replaced earlier mocks. Qmate now uses explicit URLPatterns for xRayControls paths/query strings and Joule/WalkMe hostnames, paths and query strings. Local tests check the response payload, backend request counts, reload behavior and overlapping matches.
+
+There is an open upstream limitation in WDIO 10.1.0 with Chrome 150: overlapping early-response mocks can emit `Failed to answer a paused request` with `Invalid InterceptionId` or `No blocked request found`. Two plain WDIO mocks reproduce it independently of qmate's extension feature. Response and backend-blocking assertions pass, but this optional feature is not yet warning-clean. Do not confuse these messages with the removed `require.cache` warning in section 17.
+
+## 21. Await reporter screenshots before session teardown
+
+WDIO can delete the browser session before asynchronous reporter event handlers finish. Waiting only for reporter synchronization is too late for a pending screenshot. The migrated qmate reporter exposes `completePendingTestUpdates()`; migrated report profiles await it in their `after` hook, including when a user teardown hook throws.
+
+Standalone reporter configurations must also await this drain in `after` (see the reporter configuration guide). Local CLI cases verify success reports, intentional failure exit codes, HTML/JUnit output and embedded failure screenshots, including a throwing user teardown. Parallel-context reporter identifiers and screenshots overlapping a subsequent test still need dedicated coverage.

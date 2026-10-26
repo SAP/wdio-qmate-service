@@ -48,19 +48,7 @@ async function CustomAuthenticator() {
 
   await usernameField.setValue(username);
   await passwordField.setValue(password);
-  await logonField.click();
-  await browser.waitUntil(async () => {
-    const currentUrl = await browser.getUrl();
-    return currentUrl !== url;
-  }, {
-    timeout: 60000,
-    timeoutMsg: "Expected URL to change after login click within 60s"
-  });
-  // ChromeDriver 150 bug: after form-submit navigation, POST /session/{id}/url hangs indefinitely.
-  // Navigating to the current URL via browser.url() forces a WebDriver-tracked navigation,
-  // resetting ChromeDriver's internal state so subsequent navigateTo() calls work.
-  const landedUrl = await browser.getUrl();
-  await browser.url(landedUrl);
+  await require("./submitLoginForm")(logonField);
 }
 
 module.exports = CustomAuthenticator;

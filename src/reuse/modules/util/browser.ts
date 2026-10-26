@@ -127,6 +127,7 @@ export class Browser {
   async refresh(): Promise<void> {
     const vl = this.vlf.initLog(this.refresh);
     await browser.refresh();
+    this._frameContext = null;
   }
 
   /**
@@ -160,8 +161,8 @@ export class Browser {
   async reloadSession(): Promise<void> {
     const vl = this.vlf.initLog(this.reloadSession);
     await browser.reloadSession();
-    if (browser.isBidi && browser.config.qmate?.enableUi5ExtensionMocking !== false) {
-      await browser.mockClearAll();
+    this._frameContext = null;
+    if (browser.isBidi && browser.config.qmate?.enableUi5ExtensionMocking === true) {
       await Ui5ExtensionMocker.mockRequests();
     }
   }
@@ -317,7 +318,7 @@ export class Browser {
           async () => {
             const handles = await browser.getWindowHandles();
             for (const handle of handles) {
-              await browser.switchToWindow(handle);
+              await this.switchToWindow(handle);
               if (await this._verifyTitleOrUrl(titleOrUrl)) return true;
             }
             return false;
@@ -354,6 +355,7 @@ export class Browser {
   async switchToWindow(handle: object) {
     const vl = this.vlf.initLog(this.switchToWindow);
     await browser.switchToWindow(handle);
+    this._frameContext = null;
   }
 
   /**
@@ -377,6 +379,7 @@ export class Browser {
   async closeWindow() {
     const vl = this.vlf.initLog(this.closeWindow);
     await browser.closeWindow();
+    this._frameContext = null;
   }
 
   /**
@@ -439,6 +442,7 @@ export class Browser {
    * @example const ctx = util.browser.getContext(); await ctx.$('button').click();
    */
   getContext(): any {
+    this.vlf.initLog(this.getContext);
     return this._frameContext ?? browser;
   }
 
@@ -450,7 +454,9 @@ export class Browser {
    */
   async back() {
     const vl = this.vlf.initLog(this.back);
-    return browser.back();
+    const result = await browser.back();
+    this._frameContext = null;
+    return result;
   }
 
   /**
@@ -461,7 +467,9 @@ export class Browser {
    */
   async forward() {
     const vl = this.vlf.initLog(this.forward);
-    return browser.forward();
+    const result = await browser.forward();
+    this._frameContext = null;
+    return result;
   }
 
   // =================================== LOGGER ===================================

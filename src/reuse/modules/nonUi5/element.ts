@@ -368,11 +368,7 @@ export class ElementModule {
   async isVisible(element: Element, strict: boolean = true): Promise<boolean> {
     const vl = this.vlf.initLog(this.isVisible);
     try {
-      if (strict) {
-        return element.isDisplayed();
-      } else {
-        return element.isDisplayed();
-      }
+      return element.isDisplayed({ withinViewport: strict });
     } catch (error) {
       return this.ErrorHandler.logException(error);
     }

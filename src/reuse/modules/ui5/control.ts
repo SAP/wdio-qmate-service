@@ -21,13 +21,13 @@ export class Control {
    * @memberOf ui5.control
    * @description Executes a native UI5 action as callback function in the browser on the given UI5 control.
    * @param {Function} callbackFunction - The client script function to be used with the control instance.
-   * Caution: The first and last parameter is reserved for the mockserver instance and the promise resolve function - done.
+   * The first parameter is the UI5 control. Return the result (or a promise); no done callback is supplied.
    * @param {Element | Ui5Selector | Ui5SelectorWithOptions} selectorOrElement - The selector object, selector with options (selector, index, timeout) or the dom element (retrieved from ui5.element.getDisplayed).
    * @param {Object} args - An object containing the arguments to pass to the callback function.
    * @example const selector = {"elementProperties":{"metadata":"sap.m.StandardListItem", "id": "*categoryList-7"}};
    * const args = {"property": "text"};
-   * const title = await ui5.control.execute(function (control, args, done) {
-   *   done(control.getProperty(args.property));
+   * const title = await ui5.control.execute(function (control, args) {
+   *   return control.getProperty(args.property);
    * }, selector, args);
    **/
   async execute(callbackFunction: Function, selectorOrElement: Element | Ui5Selector | Ui5SelectorWithOptions, args?: any) {

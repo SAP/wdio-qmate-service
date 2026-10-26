@@ -252,7 +252,7 @@ export class Session {
 
             return true;
           } catch (e) {
-            return ((lastError = e), false);
+            return (lastError = e), false;
           }
         },
         { timeout: GLOBAL_DEFAULT_WAIT_TIMEOUT, timeoutMsg: `Logout flow did not complete in ${GLOBAL_DEFAULT_WAIT_TIMEOUT / 1000}s` }
@@ -370,23 +370,7 @@ export class Session {
       await usernameField.setValue(username);
       // @ts-ignore
       await passwordField.setValue(password);
-      if (browser.isBidi) {
-        let context = util.browser.getContext();
-        if (context === browser) {
-          const windowHandle = await browser.getWindowHandle();
-          context = (await browser.browsingContexts()).find((candidate: { contextId: string }) => candidate.contextId === windowHandle);
-        }
-        // Keep the click on BiDi so intercepted form navigation does not block
-        // ChromeDriver's Classic command queue. Login can also stay on the same URL.
-        await context.action("pointer", { parameters: { pointerType: "mouse" } })
-          .move({ origin: logonField, x: 0, y: 0, duration: 0 })
-          .down({ button: 0 })
-          .up({ button: 0 })
-          .perform();
-      } else {
-        // @ts-ignore
-        await logonField.click();
-      }
+      await require("../../authenticator/submitLoginForm")(logonField, util.browser.getContext());
     } catch (error) {
       this.ErrorHandler.logException(new Error("Please check if you are already logged in or if the system is down"));
     }

@@ -11,10 +11,7 @@ exports.config = merge(profile.config, {
     browser.overwriteCommand("url", async (origFn, url) => {
       await origFn(url);
       // BiDi resolves on DOMContentLoaded; wait for full load so external scripts run
-      await browser.waitUntil(
-        async () => (await browser.execute(() => document.readyState)) === "complete",
-        { timeout: 30000, interval: 200 }
-      );
+      await browser.waitUntil(async () => (await browser.execute(() => document.readyState)) === "complete", { timeout: 30000, interval: 200 });
     });
   },
 
@@ -33,6 +30,8 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "handleCookiesConsent.spec.js"),
     path.resolve(__dirname, "getCurrentWindow.spec.js"),
     path.resolve(__dirname, "switchToWindow.spec.js"),
+    path.resolve(__dirname, "contextLifecycle.spec.js"),
+    path.resolve(__dirname, "reloadSessionMocking.spec.js"),
     path.resolve(__dirname, "closeWindow.spec.js"),
     path.resolve(__dirname, "switchToNewWindow.spec.js"),
     path.resolve(__dirname, "switchToIframe.spec.js"),
