@@ -167,6 +167,8 @@ A context-tree query followed by `children[0]` can select a decoy iframe. The ol
 
 #### Pitfall: stale frame context across specs
 
+Use `common.navigation.navigateToUrl(absoluteUrl)` for ordinary test navigation: it clears qmate's selected iframe after navigating. Raw `browser.url()` does not update qmate's stored frame; explicitly call `util.browser.switchToDefaultContent()` when using that lower-level API to leave a frame. Otherwise, a later dialog lookup can fail with “frame discarded” instead of the expected missing-element error. The confirmation-dialog negative tests now use qmate navigation and retain their original error assertions.
+
 `_frameContext` is an instance variable on the `util.browser` singleton. In a WDIO worker that runs multiple spec files sequentially, a frame context stored by spec A becomes a dead `BrowsingContext` once the browser navigates away. Calling `switchToIframe` without first calling `switchToDefaultContent` would leave `_frameContext` set — and `getContext()` in the next spec would return the dead context.
 
 qmate resets `_frameContext = null` at the start of every `switchToIframe` call so that the element visibility check runs against the top-level page, not a stale iframe context. The qmate wrappers also clear it after successful refresh, session reload, back/forward navigation, tab switching and tab closure. Always call `switchToDefaultContent()` when finished with an iframe to make the reset explicit. Raw WDIO navigation bypasses these qmate lifecycle guarantees.

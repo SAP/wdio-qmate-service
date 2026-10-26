@@ -10,7 +10,7 @@ const selectorForPopupOkButton = {
 
 describe("confirmationDialog - clickOk", function () {
   it("Preparation", async function () {
-    await browser.url(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked`);
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -53,7 +53,7 @@ describe("confirmationDialog - clickOk", function () {
 
 describe("confirmationDialog - clickOk without confirmation dialog (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.url("#/categories");
+    await common.navigation.navigateToUrl(new URL("#/categories", browser.options.baseUrl).href);
   });
 
   it("Execution & Verification", async function () {
