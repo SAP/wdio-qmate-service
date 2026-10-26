@@ -389,3 +389,13 @@ Chained `$$` elements still work fine for non-execute operations like `getBindin
 ## 13. `lib/` rebuild on CI
 
 `lib/` is gitignored but rebuilt on every `npm ci` via the `prepare` hook (`npm run build` → `tsc`). Source fixes in `src/` are always picked up — no need to commit compiled output.
+
+---
+
+## 14. Form submission with BiDi request interception
+
+In a BiDi session, `browser.action("pointer").perform()` can still use the Classic WebDriver actions endpoint when called on the top-level browser. With ChromeDriver 150 and BiDi request interception enabled, a form submission through that endpoint can leave navigation pending: subsequent `browser.getUrl()` and session teardown time out.
+
+`ui5.session` resolves the active tab or iframe as a `BrowsingContext` and performs the pointer action on that context instead. This uses BiDi `input.performActions` and keeps intercepted navigation off the Classic command queue. The static login tests cover this with UI5 extension request mocking enabled.
+
+Do not require the URL to change after login: a form may update the current page, and a redirect may already be complete by the time the click returns. Do not navigate to the resulting URL again to complete login, since that reloads application state. Verify the expected logged-in UI instead.

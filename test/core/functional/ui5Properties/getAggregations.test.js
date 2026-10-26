@@ -4,6 +4,10 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 const countries = require("./countries.json");
 
 describe("Test 'getAllUI5Aggregations()' and 'getUI5Aggregation()' on both element and browser levels", function () {
+  afterEach(async function () {
+    await util.browser.switchToDefaultContent();
+  });
+
   it("should get Dropdown aggregations on both element and browser levels, access unknown, empty and 'items' aggregations", async function () {
     await browser.url(`${BASE_URL}/#/entity/sap.m.ComboBox/sample/sap.m.sample.ComboBox`);
     await handleCookiesConsent();

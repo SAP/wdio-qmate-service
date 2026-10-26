@@ -18,8 +18,8 @@ describe("navigationBar - clickUserIcon", async function () {
   it("Verification", async function () {
     const selector = {
       elementProperties: {
-        metadata: "sap.m.List",
-        bindingContextPath: "/userActions"
+        metadata: "sap.m.Popover",
+        id: "sapUshellUserActionsMenuPopover"
       }
     };
     await ui5.assertion.expectToBeVisible(selector, 0, 90000);

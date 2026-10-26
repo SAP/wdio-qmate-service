@@ -371,20 +371,18 @@ export class Session {
       // @ts-ignore
       await passwordField.setValue(password);
       if (browser.isBidi) {
-        // ChromeDriver 150 + BiDi: element.click() on a form submit button blocks waiting for
-        // the post-navigation WebDriver response that never arrives. The Actions API sends the
-        // click without waiting for navigation completion, so the command returns immediately.
-        await browser.action("pointer", { parameters: { pointerType: "mouse" } })
+        let context = util.browser.getContext();
+        if (context === browser) {
+          const windowHandle = await browser.getWindowHandle();
+          context = (await browser.browsingContexts()).find((candidate: { contextId: string }) => candidate.contextId === windowHandle);
+        }
+        // Keep the click on BiDi so intercepted form navigation does not block
+        // ChromeDriver's Classic command queue. Login can also stay on the same URL.
+        await context.action("pointer", { parameters: { pointerType: "mouse" } })
           .move({ origin: logonField, x: 0, y: 0, duration: 0 })
           .down({ button: 0 })
           .up({ button: 0 })
           .perform();
-        // Wait for the URL to change to confirm the form was submitted.
-        const preClickUrl = await browser.getUrl();
-        await browser.waitUntil(async () => (await browser.getUrl()) !== preClickUrl, { timeout: 60000, interval: 300 });
-        const landedUrl = await browser.getUrl();
-        // Navigate to the landed URL to reset ChromeDriver's internal navigation state.
-        await browser.url(landedUrl);
       } else {
         // @ts-ignore
         await logonField.click();
