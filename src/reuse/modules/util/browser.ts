@@ -438,8 +438,8 @@ export class Browser {
    * @function getContext
    * @memberOf util.browser
    * @description Returns the active browsing context (frame in BiDi, or browser in Classic/top-level).
-   * @returns The active context to use for element queries.
-   * @example const ctx = util.browser.getContext(); await ctx.$('button').click();
+   * @returns {Object} The active context to use for element queries.
+   * @example const ctx = util.browser.getContext();
    */
   getContext(): any {
     this.vlf.initLog(this.getContext);
