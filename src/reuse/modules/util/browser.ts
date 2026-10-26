@@ -392,25 +392,24 @@ export class Browser {
     this._frameContext = null;
     await nonUi5.element.waitToBeVisible(selector);
     if (browser.isBidi) {
-      const [topCtx] = await browser.browsingContexts();
-      // Poll the BiDi context tree until a child context appears for this iframe.
-      // frame({ id }) resolves in one tree walk without any internal waitUntil,
-      // avoiding the 300s block that frame(element) and frame({ selector }) both carry.
-      const timeout = (browser.options as any).waitforTimeout ?? 30000;
-      const contextId: string = await browser.waitUntil(
-        async () => {
-          const { contexts } = await (browser as any).browsingContextGetTree({ root: topCtx.contextId });
-          const children: Array<{ context: string; url: string }> = contexts[0]?.children ?? [];
-          return children.length > 0 ? children[0].context : false;
-        },
-        { timeout, interval: 500, timeoutMsg: `No BiDi child context appeared for iframe "${selector}" within ${timeout}ms` }
-      );
+      const windowHandle = await browser.getWindowHandle();
+      const topCtx = (await browser.browsingContexts()).find((context: { contextId: string }) => context.contextId === windowHandle);
+      if (!topCtx) throw new Error("Could not resolve the active tab's browsing context");
+      const iframe = await topCtx.$(selector);
+      // Read the native BiDi WindowProxy reference. WDIO's execute serializer
+      // walks cross-realm Windows as plain objects, so frame({ selector }) can
+      // throw on restricted properties or traverse an entire child window.
+      const result = await (browser as any).scriptCallFunction({
+        functionDeclaration: "function (iframe) { return iframe.contentWindow; }",
+        target: { context: topCtx.contextId },
+        arguments: [{ sharedId: iframe.elementId }],
+        awaitPromise: false,
+        resultOwnership: "none"
+      });
+      if (result.type === "exception") throw new Error(result.exceptionDetails.text);
+      const contextId = result.result?.value?.context;
+      if (!contextId) throw new Error(`No browsing context found for iframe "${selector}"`);
       this._frameContext = await topCtx.frame({ id: contextId });
-      // ponytail: wdio ContextManager tracks the "current context" for foreignContextId() checks
-      // inside isClickable/isDisplayed. Without this, it thinks we're still in top-level context,
-      // causing isClickable() to call element.execute() → waitForExist() → 300s timeout on
-      // elements whose selector is a strategyRef object (from custom$$).
-      this._setBidiCurrentContext(contextId);
     } else {
       const frame = await $(selector);
       await browser.switchFrame(frame);
@@ -427,36 +426,8 @@ export class Browser {
     const vl = this.vlf.initLog(this.switchToDefaultContent);
     if (browser.isBidi) {
       this._frameContext = null;
-      // ponytail: reset ContextManager so it re-initializes to top-level on next access
-      this._setBidiCurrentContext(undefined);
     } else {
       await browser.switchFrame(null);
-    }
-  }
-
-  private _setBidiCurrentContext(contextId: string | undefined): void {
-    // getContextManager lives in @wdio/local-runner/node_modules/webdriverio — not in our
-    // direct deps, so find it in the require cache at runtime (it's loaded by the wdio runner).
-    // Must match local-runner specifically: @wdio/snapshot, @wdio/cli, @wdio/sauce-service all
-    // ship their own webdriverio copy with an independent sessionManager Map, so updating those
-    // creates a garbage ContextManager that nobody reads.
-    const cache = (require as any).cache as Record<string, { exports: any }>;
-    let found = false;
-    for (const [key, mod] of Object.entries(cache)) {
-      if (key.includes("local-runner") && key.includes("/webdriverio/build/index.js") && mod?.exports?.getContextManager) {
-        try {
-          const cm = mod.exports.getContextManager(browser);
-          cm.setCurrentContext(contextId);
-          console.log(`[qmate bidi] setCurrentContext(${contextId}) via ${key.slice(-80)}`);
-          found = true;
-        } catch (e) {
-          console.log(`[qmate bidi] setCurrentContext failed: ${e}`);
-        }
-        break;
-      }
-    }
-    if (!found) {
-      console.log(`[qmate bidi] WARN: could not find local-runner webdriverio in require.cache (keys: ${Object.keys(cache).filter(k => k.includes("webdriverio")).join(", ").slice(0, 200)})`);
     }
   }
 

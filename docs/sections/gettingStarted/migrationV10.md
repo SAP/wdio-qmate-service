@@ -417,3 +417,13 @@ For table rows without navigation arrows, BiDi's element-click interactability c
 WDIO v10's BiDi result serializer recursively visits returned objects asynchronously. UI5 aggregation graphs can contain internal promises with their own `then` methods. Decycling such a promise produces a plain object while retaining the method, so serializing it can throw `TypeError: Method Promise.prototype.then called on incompatible receiver #<Object>`.
 
 `getUI5Aggregation` JSON-encodes the decycled graph inside the browser, then parses and retrocycles it in Node. This keeps runtime methods out of the transport while preserving aggregation values and circular references. The browser regression covers a promise with an own `then` method nested inside an aggregation; the caller-facing aggregation API is unchanged.
+
+---
+
+## 17. Resolve the requested iframe and keep context ownership explicit
+
+`util.browser.switchToIframe(selector)` resolves the matching iframe in the active tab. Selecting the first child from the BiDi context tree is not equivalent: pages can have multiple iframes, and a refresh or rerender can replace the sample frame. Regression tests cover a preceding decoy frame, frame replacement, and a second tab.
+
+In WDIO 10.0.2, `context.frame({ selector })` returns the iframe's `contentWindow` through WDIO's execute serializer. That serializer can traverse a cross-realm Window as an object and throw on restricted properties such as `localStorage`. Qmate reads the native WindowProxy context reference with BiDi `scriptCallFunction`, then resolves it with `context.frame({ id })`.
+
+Qmate no longer searches CommonJS `require.cache` to modify WDIO's internal `ContextManager`. The local runner loads WDIO as ESM, so that workaround did nothing and emitted `[qmate bidi] WARN: could not find local-runner webdriverio in require.cache` on every frame/default-content switch. Frame-owned elements already route their commands to their own context. The separate custom-selector workaround remains in place; tests cover custom-locator visibility, clickability, clicking, and returning to the parent page without changing WDIO's global context.
