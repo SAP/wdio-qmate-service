@@ -1,31 +1,28 @@
 "use strict";
-const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-
-const { handleCookiesConsent } = require("../../../helper/utils");
-
 describe("element - isPresentByXPath", function () {
-  let linkBtn;
-
   it("Preparation", async function () {
-    await common.navigation.navigateToUrl(`${BASE_URL}/`);
-    await handleCookiesConsent();
+    // XPath presence does not depend on the live Demo Kit's navigation markup.
+    const html = "<span>API Reference</span><span hidden>API Reference (hidden)</span>";
+    await common.navigation.navigateToUrl(`data:text/html,${encodeURIComponent(html)}`);
   });
 
-  it("Execution & Verification", async function () {
-    linkBtn = "//span[contains(text(),'API Reference')]";
-    const isPresented = await nonUi5.element.isPresentByXPath(linkBtn);
-    common.assertion.expectTrue(isPresented);
-  });
-});
-
-describe("element - isPresentByXPath with wrong selector and catch error", function () {
-  it("Preparation", async function () {
-    await common.navigation.navigateToUrl(`${BASE_URL}/`);
-    await handleCookiesConsent();
+  it("finds an element by partial text", async function () {
+    const isPresent = await nonUi5.element.isPresentByXPath("//span[contains(text(),'API Reference')]");
+    await common.assertion.expectTrue(isPresent);
   });
 
-  it("Execution & Verification", async function () {
-    const isPresented = await nonUi5.element.isPresentByXPath("//span[contains(text(),'Wrong Text')]", 0, 1000);
-    common.assertion.expectFalse(isPresented);
+  it("includes hidden matches at the requested index", async function () {
+    const isPresent = await nonUi5.element.isPresentByXPath("//span[contains(text(),'API Reference')]", 1);
+    await common.assertion.expectTrue(isPresent);
+  });
+
+  it("returns false for a missing element", async function () {
+    const isPresent = await nonUi5.element.isPresentByXPath("//span[contains(text(),'Wrong Text')]", 0, 1000);
+    await common.assertion.expectFalse(isPresent);
+  });
+
+  it("returns false for an index beyond the matches", async function () {
+    const isPresent = await nonUi5.element.isPresentByXPath("//span[contains(text(),'API Reference')]", 2);
+    await common.assertion.expectFalse(isPresent);
   });
 });
