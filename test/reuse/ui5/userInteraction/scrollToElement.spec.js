@@ -2,6 +2,34 @@
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
 const { handleCookiesConsent } = require("../../../helper/utils");
 
+describe("element - scrollToElement - preserves page while centering a visible frame option", function () {
+  after(async function () {
+    await util.browser.switchToDefaultContent();
+  });
+
+  it("Preparation", async function () {
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.MultiComboBox/sample/sap.m.sample.MultiComboBox`);
+    await handleCookiesConsent();
+    await util.browser.switchToIframe("#sampleFrame");
+  });
+
+  it("Execution & Verification", async function () {
+    const pageUrl = await browser.getUrl();
+    await ui5.userInteraction.clickSelectArrow({ elementProperties: { metadata: "sap.m.MultiComboBox" } });
+    const selector = {
+      elementProperties: { metadata: "sap.m.CheckBox" },
+      parentProperties: { metadata: "sap.m.StandardListItem", mProperties: { title: "Beam Breaker B-2" } }
+    };
+    const option = await ui5.element.getDisplayed(selector);
+
+    await ui5.userInteraction.scrollToElement(selector);
+
+    expect(await browser.getUrl()).toEqual(pageUrl);
+    expect(await option.isDisplayed()).toBe(true);
+    await common.userInteraction.pressEscape();
+  });
+});
+
 describe("element - scrollToElement - default, no args", function () {
   it("Preparation", async function () {
     await browser.url(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`);

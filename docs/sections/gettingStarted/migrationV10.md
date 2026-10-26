@@ -427,3 +427,11 @@ WDIO v10's BiDi result serializer recursively visits returned objects asynchrono
 In WDIO 10.0.2, `context.frame({ selector })` returns the iframe's `contentWindow` through WDIO's execute serializer. That serializer can traverse a cross-realm Window as an object and throw on restricted properties such as `localStorage`. Qmate reads the native WindowProxy context reference with BiDi `scriptCallFunction`, then resolves it with `context.frame({ id })`.
 
 Qmate no longer searches CommonJS `require.cache` to modify WDIO's internal `ContextManager`. The local runner loads WDIO as ESM, so that workaround did nothing and emitted `[qmate bidi] WARN: could not find local-runner webdriverio in require.cache` on every frame/default-content switch. Frame-owned elements already route their commands to their own context. The separate custom-selector workaround remains in place; tests cover custom-locator visibility, clickability, clicking, and returning to the parent page without changing WDIO's global context.
+
+---
+
+## 18. Center UI5 elements without wheel gestures
+
+WDIO v10 implements element `scrollIntoView` using wheel actions before falling back to DOM scrolling. Centering an already visible, left-aligned control can generate a large negative horizontal wheel delta. In Chrome 150 on Linux, the select tests navigated back to `about:blank` immediately after that wheel event, destroying the sample iframe. Later steps reported missing dropdown options or `no such frame`, obscuring the original cause.
+
+`ui5.userInteraction.scrollToElement` uses the element's DOM `scrollIntoView` through its owned context in BiDi sessions. This preserves the requested alignment while avoiding browser history gestures. Classic sessions retain the existing WDIO command. A regression centers an initially visible checkbox and verifies that the page URL and frame element survive; the Select and MultiComboBox tests still assert the selected values.

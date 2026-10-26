@@ -613,7 +613,13 @@ export class UserInteraction {
       } else if (typeof alignment === "object") {
         options = alignment;
       }
-      await elem.scrollIntoView(options);
+      if (browser.isBidi) {
+        // WDIO's wheel-based centering can trigger horizontal history navigation
+        // in Chrome and discard the active frame. Scroll the DOM containers only.
+        await util.browser.getContext().execute((node: HTMLElement, scrollOptions: ScrollIntoViewOptions) => node.scrollIntoView(scrollOptions), elem, options);
+      } else {
+        await elem.scrollIntoView(options);
+      }
     }
   }
 

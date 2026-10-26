@@ -25,8 +25,8 @@ jobs:
       - name: Trace select interactions
         run: >-
           npx wdio run test/reuse/ui5/userInteraction/test.userInteraction.conf.js
-          --spec selectMultiComboBox.spec.js --spec selectBox.spec.js
-          --mochaOpts.grep 'outside of a Viewport|3rd selectBox'
+          --spec selectMultiComboBox.spec.js --spec selectBox.spec.js --spec scrollToElement.spec.js
+          --mochaOpts.grep 'outside of a Viewport|3rd selectBox|preserves page'
           --maxInstances 2 --specFileRetries 0 --logLevel warn
 
   lint:
