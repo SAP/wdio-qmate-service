@@ -47,9 +47,7 @@ describe("userInteraction - selectMultiComboBox (outside of a Viewport)", functi
     };
     const value1 = "Beam Breaker B-2";
     const value2 = "Flat XL"; // wdio-qmate-service scrolls down to "Flat XL"
-    await require("../../../helper/traceSelectInteraction").traceSelectInteraction(
-      () => ui5.userInteraction.selectMultiComboBox(selector, [value1, value2])
-    );
+    await ui5.userInteraction.selectMultiComboBox(selector, [value1, value2]);
   });
 
   it("Verification", async function () {

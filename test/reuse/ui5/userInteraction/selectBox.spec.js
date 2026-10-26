@@ -122,9 +122,7 @@ describe("userInteraction - use 3rd selectBox on page", function () {
     };
     index = 2;
     actualValue = "Notebook Professional 11";
-    await require("../../../helper/traceSelectInteraction").traceSelectInteraction(
-      () => ui5.userInteraction.selectBox(selector, actualValue, index)
-    );
+    await ui5.userInteraction.selectBox(selector, actualValue, index);
   });
 
   it("Verification", async function () {

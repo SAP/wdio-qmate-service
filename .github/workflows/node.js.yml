@@ -11,24 +11,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Temporary focused feedback loop for the Linux-only v10 select failures.
-  test-ui5-select-diagnostics:
-    if: github.head_ref == 'feat/wdio-v10'
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
-        with:
-          node-version: 24.15.x
-          cache: npm
-      - run: npm ci
-      - name: Trace select interactions
-        run: >-
-          npx wdio run test/reuse/ui5/userInteraction/test.userInteraction.conf.js
-          --spec selectMultiComboBox.spec.js --spec selectBox.spec.js --spec scrollToElement.spec.js
-          --mochaOpts.grep 'outside of a Viewport|3rd selectBox|preserves page'
-          --maxInstances 2 --specFileRetries 0 --logLevel warn
-
   lint:
     runs-on: ubuntu-22.04
     strategy:
