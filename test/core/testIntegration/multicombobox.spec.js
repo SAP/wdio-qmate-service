@@ -13,7 +13,7 @@ describe("multi combo", function () {
       childProperties: { metadata: "sap.m.Tokenizer", mProperties: {} }
     };
     var id = await ui5.element.getId(ui5ControlProperties);
-    const element = await $("[id='" + id + "-arrow']");
+    const element = await util.browser.getContext().$("[id='" + id + "-arrow']");
     await element.click();
   });
 

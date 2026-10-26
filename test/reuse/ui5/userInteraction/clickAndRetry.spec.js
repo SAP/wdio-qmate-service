@@ -45,6 +45,7 @@ describe("userInteraction - click and retry on not displayed element", function 
     const timeout = 30000;
     const retries = 3;
     const interval = 3000;
-    await expect(ui5.userInteraction.clickAndRetry(selector, index, timeout, retries, interval)).rejects.toThrow("Function 'clickAndRetry' failed with: Retries done. Failed to execute the function:");
+    // Async stack frames vary across WDIO versions; verify retry exhaustion itself.
+    await expect(ui5.userInteraction.clickAndRetry(selector, index, timeout, retries, interval)).rejects.toThrow("Retries done. Failed to execute the function:");
   });
 });
