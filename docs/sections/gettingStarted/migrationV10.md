@@ -409,3 +409,11 @@ Do not require the URL to change after login: a form may update the current page
 WDIO v10 compiles string scripts as ordinary function bodies. A top-level `await` in such a string is invalid JavaScript. Return a promise from the string, or pass an async function callback instead. The table helpers return their filtering and scrolling promises so WDIO waits for completion.
 
 For table rows without navigation arrows, BiDi's element-click interactability check can reject the row even when its contents are visible. The table helper uses a pointer action on the resolved row in that case; tests still verify the resulting navigation state.
+
+---
+
+## 16. Serialize aggregation graphs as data
+
+WDIO v10's BiDi result serializer recursively visits returned objects asynchronously. UI5 aggregation graphs can contain internal promises with their own `then` methods. Decycling such a promise produces a plain object while retaining the method, so serializing it can throw `TypeError: Method Promise.prototype.then called on incompatible receiver #<Object>`.
+
+`getUI5Aggregation` JSON-encodes the decycled graph inside the browser, then parses and retrocycles it in Node. This keeps runtime methods out of the transport while preserving aggregation values and circular references. The browser regression covers a promise with an own `then` method nested inside an aggregation; the caller-facing aggregation API is unchanged.

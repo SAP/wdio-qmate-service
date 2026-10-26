@@ -32,7 +32,7 @@ module.exports = {
 
   getUI5Aggregation: async function (propName, selectorOrElement) {
     if (!propName) throw new Error("Please provide a valid aggregation name");
-    const aggregation = await lib.controlActionInBrowser(
+    const serializedAggregation = await lib.controlActionInBrowser(
       function (control, propName, decycle) {
         let value = null;
         try {
@@ -44,16 +44,19 @@ module.exports = {
         if (typeof value === "object" && value !== null) {
           value = decycle(value);
         }
-        return value;
+        // BiDi recursively awaits returned objects. Decycled UI5 internals may
+        // contain copied Promise methods that are not valid on plain objects.
+        // Transfer the JSON graph as data, then restore its references in Node.
+        return JSON.stringify(value);
       },
       selectorOrElement,
       propName,
       cycle.decycle.toString()
     );
-    if (aggregation) {
-      return cycle.retrocycle(aggregation);
+    if (serializedAggregation) {
+      return cycle.retrocycle(JSON.parse(serializedAggregation));
     } else {
-      return aggregation;
+      return serializedAggregation;
     }
   },
 
