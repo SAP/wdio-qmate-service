@@ -399,3 +399,13 @@ In a BiDi session, `browser.action("pointer").perform()` can still use the Class
 `ui5.session` resolves the active tab or iframe as a `BrowsingContext` and performs the pointer action on that context instead. This uses BiDi `input.performActions` and keeps intercepted navigation off the Classic command queue. The static login tests cover this with UI5 extension request mocking enabled.
 
 Do not require the URL to change after login: a form may update the current page, and a redirect may already be complete by the time the click returns. Do not navigate to the resulting URL again to complete login, since that reloads application state. Verify the expected logged-in UI instead.
+
+---
+
+## 15. Execute scripts in the active frame and return promises
+
+`util.browser.executeScript` must call `execute` on `util.browser.getContext()`. Calling the top-level `browser.execute` after a BiDi iframe switch runs scripts in the parent page instead, where the frame's UI5 controls do not exist. Both string scripts and async function callbacks are covered by local iframe regression tests.
+
+WDIO v10 compiles string scripts as ordinary function bodies. A top-level `await` in such a string is invalid JavaScript. Return a promise from the string, or pass an async function callback instead. The table helpers return their filtering and scrolling promises so WDIO waits for completion.
+
+For table rows without navigation arrows, BiDi's element-click interactability check can reject the row even when its contents are visible. The table helper uses a pointer action on the resolved row in that case; tests still verify the resulting navigation state.

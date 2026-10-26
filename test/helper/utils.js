@@ -20,7 +20,8 @@ exports.handleCookiesConsent = async function handleCookiesConsent() {
     await browser.waitUntil(
       async () => {
         try {
-          await Promise.any([ui5.userInteraction.click(oldCookiesConsentDialog, 0, 5_000), nonUi5.userInteraction.click(newCookiesConsentDialog, 0, 5_000)]);
+          // nonUi5.click takes timeout second; only ui5.click has an index argument.
+          await Promise.any([ui5.userInteraction.click(oldCookiesConsentDialog, 0, 5_000), nonUi5.userInteraction.click(newCookiesConsentDialog, 5_000)]);
           return true;
         } catch (error) {
           // Ignore error and continue to next promise

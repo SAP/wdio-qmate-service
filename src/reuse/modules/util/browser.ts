@@ -276,7 +276,7 @@ export class Browser {
    */
   async executeScript(command: string | Function, ...args: Array<any>): Promise<any> {
     const vl = this.vlf.initLog(this.executeScript);
-    return browser.execute(command, ...args);
+    return this.getContext().execute(command, ...args);
   }
 
   // =================================== WAITING ===================================
