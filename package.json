@@ -2,7 +2,7 @@
   "name": "@sap_oss/wdio-qmate-service",
   "version": "4.0.0",
   "author": "SAP SE",
-  "types": "./@types/**.d.ts",
+  "types": "./@types/public.d.ts",
   "main": "./lib/index.js",
   "maintainers": [
     {
@@ -28,7 +28,7 @@
     "prettier:fix": "npx prettier -w .",
     "generate-docs": "npm run build && node ./lib/reuse/helper/jsDocGen",
     "generate-json-docs": "npm run build",
-    "generate-types": "ts-node ./src/bin/typesGenerator",
+    "generate-types": "npm run build && node ./lib/bin/typesGenerator.js",
     "serve-docs": "npm run generate-docs && mkdocs serve",
     "deploy-docs": "npm run generate-docs && mkdocs gh-deploy --force",
     "build": "npm run clean && npm run build:locator && npx tsc && node ./lib/reuse/helper/jsonDocGen",
@@ -144,6 +144,12 @@
     "xlsx": "^0.18.5",
     "xml2js": "^0.6.2",
     "yargs": "^18.1.0"
+  },
+  "peerDependencies": {
+    "@wdio/globals": "^10.0.0",
+    "@wdio/types": "^10.0.0",
+    "expect-webdriverio": "^8.0.0",
+    "webdriverio": "^10.0.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",

@@ -12,7 +12,7 @@ export class Browser {
   private vlf = new VerboseLoggerFactory("util", "browser");
   private specLogPrefix = "@SPEC: ";
   private ErrorHandler = new ErrorHandler();
-  private _frameContext: any = null;
+  private _frameContext: WebdriverIO.BrowsingContext | null = null;
 
   // =================================== URL ===================================
   /**
@@ -275,7 +275,7 @@ export class Browser {
    * @returns {Any} The result from the executed function.
    * @example await util.browser.executeScript(command);
    */
-  async executeScript(command: string | Function, ...args: Array<any>): Promise<any> {
+  async executeScript(command: string | ((...args: any[]) => any), ...args: Array<any>): Promise<any> {
     const vl = this.vlf.initLog(this.executeScript);
     return this.getContext().execute(command, ...args);
   }
@@ -441,7 +441,7 @@ export class Browser {
    * @returns {Object} The active context to use for element queries.
    * @example const ctx = util.browser.getContext();
    */
-  getContext(): any {
+  getContext(): WebdriverIO.Browser | WebdriverIO.BrowsingContext {
     this.vlf.initLog(this.getContext);
     return this._frameContext ?? browser;
   }

@@ -41,6 +41,7 @@ export class File {
         elem = await nonUi5.element.getByXPath(`.//input[contains(@id,'${elemId}')][@type='file']`);
       }
       const remoteFiles = files.map((file) => path.resolve(file)).join("\n");
+      if (!elem) throw new Error("Please provide a file-input selector.");
       vl.log(`Uploading files: ${remoteFiles}`);
       await elem.setValue(remoteFiles);
     } catch (error) {

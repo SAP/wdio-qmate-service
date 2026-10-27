@@ -28,7 +28,8 @@ export class UserInteraction {
         vl.log(`Setting the value of element to ${value}`);
 
         const ctx = util.browser.getContext();
-        const elemRef = await ctx.execute(() => document.activeElement);
+        const elemRef = await ctx.execute(() => (document.activeElement instanceof HTMLElement ? document.activeElement : null));
+        if (!elemRef) throw new Error("The selected document has no active element.");
         const elem = await ctx.$(elemRef);
         await elem.addValue(value);
       } catch (error) {
@@ -68,7 +69,8 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this.clearAndFillActive);
     if (typeof value === "number" || typeof value === "string") {
       const ctx = util.browser.getContext();
-      const elemRef = await ctx.execute(() => document.activeElement);
+      const elemRef = await ctx.execute(() => (document.activeElement instanceof HTMLElement ? document.activeElement : null));
+      if (!elemRef) throw new Error("The selected document has no active element.");
       const elem = await ctx.$(elemRef);
       await elem.setValue(value);
     } else {

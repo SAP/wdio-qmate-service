@@ -266,7 +266,7 @@ export class UserInteraction {
     // Remove tokens/tags if displayed. Use isDisplayed() instead of isExisting() because
     // the .sapMTokenizer node can exist in the DOM but be hidden (e.g. when no tokens are present),
     // which would cause the subsequent click() to fail with a "not displayed" timeout.
-    const tokenizer: Element = util.browser.getContext().$(`[id='${id}'] .sapMTokenizer`);
+    const tokenizer = await util.browser.getContext().$(`[id='${id}'] .sapMTokenizer`);
     if (await tokenizer.isDisplayed()) {
       await nonUi5.userInteraction.click(tokenizer);
       await nonUi5.userInteraction.selectAll(tokenizer, timeout);
@@ -783,7 +783,7 @@ export class UserInteraction {
     const vl = this.vlf.initLog(this._getActiveDialogPopups);
     // Returns IDs of last opened dialog and popovers opened in it
     // Each UI5 document owns its static area, including iframe applications.
-    const activePopupsIds = await util.browser.getContext().execute(() => {
+    const activePopupsIds = await util.browser.getContext().execute((): string[] | undefined => {
       const popups = [...sap.ui.getCore().getStaticAreaRef().children]
         .filter((e) => e.checkVisibility())
         .flatMap((e) => sap.ui.getCore().byId(e.id) ?? [])
@@ -803,7 +803,7 @@ export class UserInteraction {
 
     // check for simple tab type
     const tabElem = await ui5.element.getDisplayed(selector);
-    const tabClassList = await tabElem.getAttribute("class");
+    const tabClassList = (await tabElem.getAttribute("class")) ?? "";
     if (indicatorClasses.some((indicatorClass) => tabClassList.includes(indicatorClass))) {
       return true;
     }
@@ -820,7 +820,7 @@ export class UserInteraction {
     };
     const tabParentElem = await ui5.element.getDisplayed(tabParentSelector, 0, 5000);
 
-    const tabParentClassList = await tabParentElem.getAttribute("class");
+    const tabParentClassList = (await tabParentElem.getAttribute("class")) ?? "";
 
     if (indicatorClasses.some((indicatorClass) => tabParentClassList.includes(indicatorClass))) {
       return true;

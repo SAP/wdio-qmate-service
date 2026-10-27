@@ -215,7 +215,9 @@ export class ElementModule {
   async getId(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<string> {
     const vl = this.vlf.initLog(this.getId);
     const elem = await this.getDisplayed(selector, index, timeout);
-    return elem.getAttribute("id");
+    const id = await elem.getAttribute("id");
+    if (id === null) throw new Error("The selected UI5 element has no id attribute.");
+    return id;
   }
 
   /**
@@ -295,7 +297,7 @@ export class ElementModule {
    * @returns {String} The value of the CSS property.
    * @example const cssPropertyValue = await ui5.element.getCssPropertyValue(selector, "visibility");
    */
-  async getCssPropertyValue(selector: any, cssProperty: string, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<string> {
+  async getCssPropertyValue(selector: any, cssProperty: string, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT): Promise<string | undefined> {
     const vl = this.vlf.initLog(this.getCssPropertyValue);
     try {
       const elem = await this.getDisplayed(selector, index, timeout);

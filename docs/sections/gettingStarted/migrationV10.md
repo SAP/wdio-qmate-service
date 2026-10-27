@@ -440,3 +440,15 @@ There is an open upstream limitation in WDIO 10.1.0 with Chrome 150: overlapping
 WDIO can delete the browser session before asynchronous reporter event handlers finish. Waiting only for reporter synchronization is too late for a pending screenshot. The migrated qmate reporter exposes `completePendingTestUpdates()`; migrated report profiles await it in their `after` hook, including when a user teardown hook throws.
 
 Standalone reporter configurations must also await this drain in `after` (see the reporter configuration guide). Local CLI cases verify success reports, intentional failure exit codes, HTML/JUnit output and embedded failure screenshots, including a throwing user teardown. Parallel-context reporter identifiers and screenshots overlapping a subsequent test still need dedicated coverage.
+
+## 22. Distribute declarations from the installed runtime
+
+The service 4.0.0 candidate exposes `@types/public.d.ts`, backed by its compiled `lib` declarations. The source-build globals remain internal. Consumer browser/element types use the real WDIO v10 interfaces, preserving optional AI augmentation on `browser`, qmate elements and `util.browser.getContext()`. The CommonJS service constructor is also declared for direct registration in a typed WDIO config.
+
+`@types/wdio-qmate-service@4.0.0` forwards its root and supported deep paths to those runtime declarations. It no longer ships independent copies of classes or globals. Generate the compatibility package with `npm run generate-types`; the output is the disposable `typesTmp` directory. The qmate artifact gate compares this output with the types migration checkout before packing both. Old mobile, SOAP and non-UI5 constant declarations without matching runtime modules are removed in this major.
+
+Consumers can load `"@sap_oss/wdio-qmate-service"` directly in their tsconfig `types` list, or keep `"wdio-qmate-service"` with the matching compatibility package. Add `"@wdio/ai-service"` separately for its optional declarations; this does not replace runtime AI configuration. Avoid restrictive `typeRoots` settings that hide scoped packages.
+
+The consumer checks exercise v10 HTML options, nullable attributes, async collection methods, the service constructor, typed profile overrides, deep compatibility imports and AI result types. Using the real element types also exposed missing null guards and an unawaited tokenizer lookup. A local CLI regression verifies active-input operations in the selected frame with a decoy input in the parent.
+
+TypeScript 6.0.3 currently reports nine independent `URLPattern` duplicate-identifier errors in WDIO/polyfill declarations with `skipLibCheck: false`. The gate retains an upstream-only control and requires the complete consumer diagnostics to match it exactly; additional qmate errors fail. This is not a clean strict compilation. The MCP scaffold keeps `skipLibCheck: true` as a consumer workaround and compiles the generated project before executing it. Final evidence and remaining gaps stay in [qmate #1346](https://github.tools.sap/sProcurement/qmate/issues/1346).

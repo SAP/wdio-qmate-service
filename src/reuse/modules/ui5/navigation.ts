@@ -287,6 +287,7 @@ export class Navigation {
     };
     const detailsTextElement = await ui5.element.getDisplayed(selector);
     const dataHtmlText = await detailsTextElement.getAttribute("data-htmltext");
+    if (dataHtmlText === null) throw new Error("The navigation details element has no data-htmltext attribute.");
     const stringExists = await dataHtmlText.includes(navigationTarget.replace(/&/g, "&amp;"));
 
     return common.assertion.expectTrue(stringExists);
