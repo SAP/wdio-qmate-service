@@ -128,7 +128,6 @@
     "wdio-service"
   ],
   "license": "Apache-2.0",
-  "bundleDependencies": ["qcrypt"],
   "dependencies": {
     "@sap_oss/odata-library": "^2.6.0",
     "axios": "^1.17.0",
@@ -136,7 +135,6 @@
     "fs-extra": "^11.4.0",
     "node-localstorage": "^3.0.5",
     "pdfjs-dist": "^6.2.108",
-    "qcrypt": "file:packages/qcrypt",
     "query-string": "^9.4.0",
     "sha.js": "^2.4.12",
     "supertest": "^7.2.2",

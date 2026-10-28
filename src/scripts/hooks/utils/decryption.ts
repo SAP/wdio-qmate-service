@@ -1,6 +1,6 @@
 import path from "path";
 
-import { Decrypter } from "qcrypt";
+import { Decrypter } from "../../../../packages/qcrypt";
 
 const DEFAULT_OPTIONS = {
   useBase64Input: false,
