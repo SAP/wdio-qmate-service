@@ -452,3 +452,9 @@ Consumers can load `"@sap_oss/wdio-qmate-service"` directly in their tsconfig `t
 The consumer checks exercise v10 HTML options, nullable attributes, async collection methods, the service constructor, typed profile overrides, deep compatibility imports and AI result types. Using the real element types also exposed missing null guards and an unawaited tokenizer lookup. A local CLI regression verifies active-input operations in the selected frame with a decoy input in the parent.
 
 TypeScript 6.0.3 currently reports nine independent `URLPattern` duplicate-identifier errors in WDIO/polyfill declarations with `skipLibCheck: false`. The gate retains an upstream-only control and requires the complete consumer diagnostics to match it exactly; additional qmate errors fail. This is not a clean strict compilation. The MCP scaffold keeps `skipLibCheck: true` as a consumer workaround and compiles the generated project before executing it. Final evidence and remaining gaps stay in [qmate #1346](https://github.tools.sap/sProcurement/qmate/issues/1346).
+
+## 23. Include vendored runtime dependencies in the artifact
+
+The service declares `qcrypt` through `file:packages/qcrypt`. A consumer reinstall exposed that the service tarball did not install that local dependency; successful earlier runs could resolve a different version hoisted by the legacy CLI. Profile loading then failed with `Cannot find module 'qcrypt'`. This packaging defect predates the v10 branch but blocks reliable candidate installation.
+
+The artifact now bundles the existing vendored qcrypt files. Its implementation and version are unchanged. Verify the service resolves its own bundled dependency after installation and reinstallation; a CLI's unrelated top-level dependency must not mask a missing service dependency. This fixes artifact ownership, not the separate historical crypto/key-generation issues.

@@ -128,6 +128,7 @@
     "wdio-service"
   ],
   "license": "Apache-2.0",
+  "bundleDependencies": ["qcrypt"],
   "dependencies": {
     "@sap_oss/odata-library": "^2.6.0",
     "axios": "^1.17.0",
