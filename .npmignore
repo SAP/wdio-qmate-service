@@ -2,6 +2,8 @@ test/
 docs/
 results/
 src/
+typesTmp/
+@types/index.d.ts
 .github/
 .vscode/
 lib/bin/

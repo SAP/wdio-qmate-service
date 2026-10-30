@@ -4,7 +4,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("webdriver.io page locator test", function () {
   it("should access element by elementProperties, descendantProperties and inner descendantProperties", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -66,11 +66,11 @@ describe("webdriver.io page locator test", function () {
     // expect(elems).toBeElementsArrayOfSize({ gte: 1 });
 
     // Code after fixes:
-    await expect(browser.uiControls(ui5ControlProperties, 1, 1000)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControls(ui5ControlProperties, 1, 1000)).rejects.toThrow(/No visible elements found/);
   });
 
   it("should access element by element properties and descendant properties", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -101,11 +101,11 @@ describe("webdriver.io page locator test", function () {
         displayBlock: "true"
       }
     };
-    await expect(browser.uiControl(wrongProperties, 1, 1000)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(wrongProperties, 1, 1000)).rejects.toThrow(/No visible elements found/);
   });
 
   it("should access element by elementProperties and multiple descendantProperties as array - AND (happy case)", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -125,7 +125,7 @@ describe("webdriver.io page locator test", function () {
   });
 
   it("should fail when one entry of descendantProperties array does not match - AND (unhappy case)", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -140,11 +140,11 @@ describe("webdriver.io page locator test", function () {
         { viewName: "sap.m.sample.Button.Page", metadata: "sap.m.Button", text: "this-button-does-not-exist" }
       ]
     };
-    await expect(browser.uiControl(selector, 0, 1000)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(selector, 0, 1000)).rejects.toThrow(/No visible elements found/);
   });
 
   it("should return multiple elements when multiple parents each satisfy array descendantProperties - AND (multiple results)", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 

@@ -87,8 +87,7 @@ export class NavigationBar {
     const vl = this.vlf.initLog(this.clickUserIcon);
 
     async function clickWebComponentUserProfile() {
-      // TODO: to remove '>>>' after support for v9 is implemented (v9 supports shadow root without '>>>')
-      const selector = ">>>[data-ui5-stable='profile']";
+      const selector = "[data-ui5-stable='profile']";
       await nonUi5.userInteraction.click(selector, timeout);
       vl.log("Clicked on web component user profile");
     }

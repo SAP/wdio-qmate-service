@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-// get root folder
-const basePath = require("app-root-path");
+const path = require("node:path");
+const basePath = path.resolve(__dirname, "../../..");
 const fs = require("fs");
 const doctrine = require("doctrine");
 
@@ -29,7 +29,7 @@ function generateNamespaceDoc(namespace) {
 
 function writeJsonDoc() {
   const resultString = JSON.stringify(reuseApiJson, null, 2);
-  const jsonDocPath = "reuseApi.json";
+  const jsonDocPath = path.join(basePath, "reuseApi.json");
   fs.writeFileSync(jsonDocPath, resultString);
   console.log(`Saved generated result in '${jsonDocPath}'`);
 }

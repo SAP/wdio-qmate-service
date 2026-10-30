@@ -18,17 +18,19 @@ describe("Test for ", function () {
     };
 
     const elem = await browser.uiControl(ui5ControlProperties);
+    // v8: "javascript error: circular reference"; v10 BiDi: deserializeValue recurses on
+    // circular BiDi response → "Maximum call stack size exceeded"
     await expect(
-      elem.controlActionInBrowser(function (control, done) {
-        done(control.getBindingContext());
+      elem.controlActionInBrowser(function (control) {
+        return control.getBindingContext();
       })
-    ).rejects.toThrow("javascript error: circular reference");
+    ).rejects.toThrow(/javascript error: circular reference|Maximum call stack size exceeded/);
 
     await expect(
-      elem.controlActionInBrowser(function (control, done) {
-        done(JSON.stringify(control.getBindingContext()));
+      elem.controlActionInBrowser(function (control) {
+        return JSON.stringify(control.getBindingContext());
       })
-    ).rejects.toThrow(/Converting circular structure to JSON/);
+    ).rejects.toThrow(/Converting circular structure to JSON|Maximum call stack size exceeded/);
   });
 
   it("should access wrong element", async function () {
@@ -44,9 +46,9 @@ describe("Test for ", function () {
     const selectorParams = { selector: ui5ControlProperties, index: 0, timeout: 3000 };
     await expect(
       browser.controlActionInBrowser(
-        function (control, txt, done) {
+        function (control, txt) {
           control.setTitle(txt);
-          done(control.getTitle());
+          return control.getTitle();
         },
         selectorParams,
         newText
@@ -55,7 +57,7 @@ describe("Test for ", function () {
   });
 
   it("should use UI5 Control binding properties command on element level", async function () {
-    await browser.navigateTo(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
+    await browser.url(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3#/categories`);
     const ui5ControlProperties = {
       elementProperties: {
         metadata: "sap.m.StandardListItem",
@@ -68,8 +70,8 @@ describe("Test for ", function () {
     };
     const elem = await browser.uiControl(ui5ControlProperties);
     await expect(
-      elem.controlActionInBrowser(function (control, done) {
-        done(control.getBindingContext().getPath());
+      elem.controlActionInBrowser(function (control) {
+        return control.getBindingContext().getPath();
       })
     ).resolves.toEqual("/ProductCategories('AC')");
   });
@@ -87,19 +89,17 @@ describe("Test for ", function () {
 
     const newText = "test";
     await expect(
-      elem.controlActionInBrowser(function (control, txt, done) {
+      elem.controlActionInBrowser(function (control, txt) {
         control.setTitle(txt);
-        done(control.getTitle());
+        return control.getTitle();
       }, newText)
     ).resolves.toEqual(newText);
 
     await expect(
-      elem.controlActionInBrowser(function (control, done) {
+      elem.controlActionInBrowser(function (control) {
         const data = { title: control.getTitle() };
-        control.attachPress(data, function () {
-          done(data.title);
-        });
         control.firePress();
+        return data.title;
       })
     ).resolves.toEqual(newText);
   });
@@ -117,9 +117,9 @@ describe("Test for ", function () {
     const newText = "master";
     await expect(
       browser.controlActionInBrowser(
-        function (control, txt, done) {
+        function (control, txt) {
           control.setTitle(txt);
-          done(control.getTitle());
+          return control.getTitle();
         },
         selectorParams,
         newText
@@ -127,12 +127,10 @@ describe("Test for ", function () {
     ).resolves.toEqual(newText);
 
     await expect(
-      browser.controlActionInBrowser(function (control, done) {
+      browser.controlActionInBrowser(function (control) {
         const data = { title: control.getTitle() };
-        control.attachPress(data, function () {
-          done(data.title);
-        });
         control.firePress();
+        return data.title;
       }, ui5ControlProperties)
     ).resolves.toEqual(newText);
   });

@@ -7,6 +7,14 @@ exports.config = merge(profile.config, {
   maxInstances: 1,
   specFileRetries: 0,
 
+  before: async function () {
+    browser.overwriteCommand("url", async (origFn, url) => {
+      await origFn(url);
+      // BiDi resolves on DOMContentLoaded; wait for full load so external scripts run
+      await browser.waitUntil(async () => (await browser.execute(() => document.readyState)) === "complete", { timeout: 30000, interval: 200 });
+    });
+  },
+
   baseUrl: `${BASE_URL}/`,
 
   specs: [
@@ -19,8 +27,11 @@ exports.config = merge(profile.config, {
     path.resolve(__dirname, "clearBrowser.spec.js"),
     path.resolve(__dirname, "refresh.spec.js"),
     path.resolve(__dirname, "executeScript.spec.js"),
+    path.resolve(__dirname, "handleCookiesConsent.spec.js"),
     path.resolve(__dirname, "getCurrentWindow.spec.js"),
     path.resolve(__dirname, "switchToWindow.spec.js"),
+    path.resolve(__dirname, "contextLifecycle.spec.js"),
+    path.resolve(__dirname, "reloadSessionMocking.spec.js"),
     path.resolve(__dirname, "closeWindow.spec.js"),
     path.resolve(__dirname, "switchToNewWindow.spec.js"),
     path.resolve(__dirname, "switchToIframe.spec.js"),

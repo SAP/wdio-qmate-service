@@ -23,6 +23,6 @@ describe("navigationBar - clickSapLogo - error case", function () {
   });
 
   it("Execution & Verification", async function () {
-    await expect(ui5.navigationBar.clickSapLogo(10000)).rejects.toThrowError("Function 'clickSapLogo' failed with:");
+    await expect(ui5.navigationBar.clickSapLogo(10000)).rejects.toThrow("Function 'clickSapLogo' failed with:");
   });
 });

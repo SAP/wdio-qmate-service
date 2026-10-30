@@ -16,7 +16,7 @@ const selectorForDialog = {
 
 describe("confirmationDialog - clickYes", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBoxInitialFocus`);
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBoxInitialFocus`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -49,7 +49,7 @@ describe("confirmationDialog - clickYes", function () {
 
 describe("confirmationDialog - clickYes without confirmation dialog (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.url("#/categories");
+    await common.navigation.navigateToUrl(new URL("#/categories", browser.options.baseUrl).href);
   });
 
   it("Execution", async function () {

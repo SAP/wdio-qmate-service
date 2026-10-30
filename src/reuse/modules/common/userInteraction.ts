@@ -27,7 +27,10 @@ export class UserInteraction {
       try {
         vl.log(`Setting the value of element to ${value}`);
 
-        const elem = await $(await browser.getActiveElement());
+        const ctx = util.browser.getContext();
+        const elemRef = await ctx.execute(() => (document.activeElement instanceof HTMLElement ? document.activeElement : null));
+        if (!elemRef) throw new Error("The selected document has no active element.");
+        const elem = await ctx.$(elemRef);
         await elem.addValue(value);
       } catch (error) {
         this.ErrorHandler.logException(error);
@@ -65,7 +68,10 @@ export class UserInteraction {
   async clearAndFillActive(value: string) {
     const vl = this.vlf.initLog(this.clearAndFillActive);
     if (typeof value === "number" || typeof value === "string") {
-      const elem = await $(await browser.getActiveElement());
+      const ctx = util.browser.getContext();
+      const elemRef = await ctx.execute(() => (document.activeElement instanceof HTMLElement ? document.activeElement : null));
+      if (!elemRef) throw new Error("The selected document has no active element.");
+      const elem = await ctx.$(elemRef);
       await elem.setValue(value);
     } else {
       this.ErrorHandler.logException(new Error("Please provide a value(datatype - number/string) as argument."));

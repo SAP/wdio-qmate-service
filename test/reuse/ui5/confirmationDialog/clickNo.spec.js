@@ -16,7 +16,7 @@ const selectorForPopup = {
 
 describe("confirmationDialog - clickNo", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBoxInitialFocus`);
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBoxInitialFocus`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -50,7 +50,7 @@ describe("confirmationDialog - clickNo", function () {
 
 describe("confirmationDialog - clickNo without 'No' button (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBoxInitialFocus`);
+    await common.navigation.navigateToUrl(`${BASE_URL}/#/entity/sap.m.MessageBox/sample/sap.m.sample.MessageBoxInitialFocus`);
     await util.browser.switchToIframe("[id='sampleFrame']");
     const openDialogButton = {
       elementProperties: {
@@ -79,7 +79,7 @@ describe("confirmationDialog - clickNo without 'No' button (unhappy case)", func
 
 describe("confirmationDialog - clickNo without confirmation dialog (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.url("#/categories");
+    await common.navigation.navigateToUrl(new URL("#/categories", browser.options.baseUrl).href);
   });
 
   it("Execution & Verification", async function () {

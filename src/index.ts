@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 "use strict";
 
+import type { Frameworks, Services } from "@wdio/types";
 import qmateLoaderSession from "./scripts/hooks/beforeSession";
 import qmateLoader from "./scripts/hooks/before";
 import onPrepareHook from "./scripts/hooks/onPrepare";
@@ -9,7 +10,7 @@ import afterHook from "./scripts/hooks/after";
 import { isBrowserDefined } from "./scripts/hooks/utils/isBrowserDefined";
 const pj = require("../package.json");
 
-module.exports = class CustomWorkerService {
+class CustomWorkerService implements Services.ServiceInstance {
   private _statsUsageId: string | null = null;
 
   public config: any;
@@ -113,8 +114,7 @@ module.exports = class CustomWorkerService {
   /**
    * Function to be executed after a test (in Mocha/Jasmine)
    */
-  // @ts-ignore
-  async afterTest(test: any, context: any, { error, result, duration, passed, retries }) {
+  async afterTest(test: any, context: any, { error, duration, passed }: Frameworks.TestResult) {
     // test.title - for mocha framework
     // test.description - for jasmine framework
     const testName = test.title || test.description;
@@ -156,4 +156,16 @@ module.exports = class CustomWorkerService {
       util.console.error(`onComplete hook failed: ${e}`);
     }
   }
-};
+}
+
+namespace CustomWorkerService {
+  export type Util = import("./reuse/modules/util/Util").Util;
+  export type Ui5 = import("./reuse/modules/ui5/Ui5").Ui5;
+  export type NonUi5 = import("./reuse/modules/nonUi5/NonUi5").NonUi5;
+  export type Common = import("./reuse/modules/common/Common").Common;
+  export type Service = import("./reuse/modules/service/Service").Service;
+  export type Runtime = import("./reuse/modules/runtime/Runtime").Runtime;
+  export type Flp = import("./reuse/modules/flp/Flp").Flp;
+}
+
+export = CustomWorkerService;

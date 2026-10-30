@@ -4,7 +4,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("webdriver.io page locator test", function () {
   it("should access element by elementProperties, parentProperties and inner parentProperties", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.Button/sample/sap.m.sample.Button`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
 
@@ -40,6 +40,6 @@ describe("webdriver.io page locator test", function () {
         type: "Back"
       }
     };
-    await expect(browser.uiControl(wrongProperties)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(wrongProperties)).rejects.toThrow(/No visible elements found/);
   });
 });

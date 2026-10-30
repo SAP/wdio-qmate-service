@@ -144,11 +144,13 @@ export class UserInteraction {
   async clickListItem(selector: any, index = 0, timeout: number = parseFloat(process.env.QMATE_CUSTOM_TIMEOUT!) || GLOBAL_DEFAULT_WAIT_TIMEOUT) {
     const vl = this.vlf.initLog(this.clickListItem);
     const elem = await ui5.element.getDisplayed(selector, index, timeout);
-    await ui5.control.execute(function (control: any, done: Function) {
-      control.attachPress(function () {
-        done();
+    await ui5.control.execute(function (control: any) {
+      return new Promise(function (resolve: Function) {
+        control.attachPress(function () {
+          resolve();
+        });
+        control.firePress();
       });
-      control.firePress();
     }, elem);
   }
 
@@ -264,7 +266,7 @@ export class UserInteraction {
     // Remove tokens/tags if displayed. Use isDisplayed() instead of isExisting() because
     // the .sapMTokenizer node can exist in the DOM but be hidden (e.g. when no tokens are present),
     // which would cause the subsequent click() to fail with a "not displayed" timeout.
-    const tokenizer: Element = $(`[id='${id}'] .sapMTokenizer`);
+    const tokenizer = await util.browser.getContext().$(`[id='${id}'] .sapMTokenizer`);
     if (await tokenizer.isDisplayed()) {
       await nonUi5.userInteraction.click(tokenizer);
       await nonUi5.userInteraction.selectAll(tokenizer, timeout);
@@ -274,7 +276,7 @@ export class UserInteraction {
     // Do NOT use webdriverIO clearValue() here! Some of popovers hides after clearValue call instead of stay in focus.
     // This can lead to the cases when value is cleared but popover closes and discard changes.
     const isTextArea = UserInteraction.SUPPORTED_TEXTAREA_METADATA.includes(selector.elementProperties.metadata);
-    await browser.execute(
+    await util.browser.getContext().execute(
       function (id: string, isTextArea: boolean) {
         // @ts-ignore
         const input = document.getElementById(id).getElementsByTagName(isTextArea ? "textarea" : "input")[0];
@@ -611,7 +613,13 @@ export class UserInteraction {
       } else if (typeof alignment === "object") {
         options = alignment;
       }
-      await elem.scrollIntoView(options);
+      if (browser.isBidi) {
+        // WDIO's wheel-based centering can trigger horizontal history navigation
+        // in Chrome and discard the active frame. Scroll the DOM containers only.
+        await util.browser.getContext().execute((node: HTMLElement, scrollOptions: ScrollIntoViewOptions) => node.scrollIntoView(scrollOptions), elem, options);
+      } else {
+        await elem.scrollIntoView(options);
+      }
     }
   }
 
@@ -774,7 +782,8 @@ export class UserInteraction {
   private async _getActiveDialogPopups(timeout?: number): Promise<Array<Element> | undefined> {
     const vl = this.vlf.initLog(this._getActiveDialogPopups);
     // Returns IDs of last opened dialog and popovers opened in it
-    const activePopupsIds = await browser.execute(() => {
+    // Each UI5 document owns its static area, including iframe applications.
+    const activePopupsIds = await util.browser.getContext().execute((): string[] | undefined => {
       const popups = [...sap.ui.getCore().getStaticAreaRef().children]
         .filter((e) => e.checkVisibility())
         .flatMap((e) => sap.ui.getCore().byId(e.id) ?? [])
@@ -794,7 +803,7 @@ export class UserInteraction {
 
     // check for simple tab type
     const tabElem = await ui5.element.getDisplayed(selector);
-    const tabClassList = await tabElem.getAttribute("class");
+    const tabClassList = (await tabElem.getAttribute("class")) ?? "";
     if (indicatorClasses.some((indicatorClass) => tabClassList.includes(indicatorClass))) {
       return true;
     }
@@ -811,7 +820,7 @@ export class UserInteraction {
     };
     const tabParentElem = await ui5.element.getDisplayed(tabParentSelector, 0, 5000);
 
-    const tabParentClassList = await tabParentElem.getAttribute("class");
+    const tabParentClassList = (await tabParentElem.getAttribute("class")) ?? "";
 
     if (indicatorClasses.some((indicatorClass) => tabParentClassList.includes(indicatorClass))) {
       return true;

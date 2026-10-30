@@ -1,10 +1,25 @@
 const path = require("path");
 const merge = require("deepmerge");
 const profile = require("../../../helper/configurations/chrome.headless.conf");
-
+const waitForUI5 = require("../../../helper/waitForUI5");
 exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
+
+  before: async function () {
+    browser.overwriteCommand("url", async (origFn, url) => {
+      await origFn(url);
+      await util.browser.switchToDefaultContent();
+      if (typeof url === "string" && !url.startsWith("http://localhost")) {
+        await waitForUI5();
+      }
+    });
+    const origSwitchToIframe = util.browser.switchToIframe.bind(util.browser);
+    util.browser.switchToIframe = async (...args) => {
+      await origSwitchToIframe(...args);
+      await waitForUI5({ optional: true });
+    };
+  },
 
   baseUrl: "http://localhost:34005/",
 
