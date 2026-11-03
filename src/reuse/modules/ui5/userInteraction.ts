@@ -773,6 +773,7 @@ export class UserInteraction {
 
   private async _getActiveDialogPopups(timeout?: number): Promise<Array<Element> | undefined> {
     const vl = this.vlf.initLog(this._getActiveDialogPopups);
+    if (!(await this._getUI5Version())) return undefined;
     // Returns IDs of last opened dialog and popovers opened in it
     const activePopupsIds = await browser.execute(() => {
       const popups = [...sap.ui.getCore().getStaticAreaRef().children]
@@ -786,6 +787,10 @@ export class UserInteraction {
     if (!Array.isArray(activePopupsIds) || activePopupsIds.length == 0) return undefined;
     vl.log(`Found open popups with the following IDs: ${JSON.stringify(activePopupsIds)}`);
     return await Promise.all(activePopupsIds.map((p) => nonUi5.element.getById(p, timeout)));
+  }
+
+  private async _getUI5Version(): Promise<string | undefined> {
+    return await browser.execute(() => window.sap?.ui?.version);
   }
 
   private async _verifyTabSwitch(selector: any): Promise<boolean> {
