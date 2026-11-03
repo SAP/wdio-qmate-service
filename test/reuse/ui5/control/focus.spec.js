@@ -13,7 +13,7 @@ describe("control - focus - for a input field", function () {
     const lastInputSelector = {
       elementProperties: {
         viewName: "sap.ui.comp.sample.smartfield.TextInEditModeSource.Main",
-        metadata: "sap.m.Input",
+        metadata: "sap.*.Input",
         id: "*idValueListNoValidation-input"
       }
     };
