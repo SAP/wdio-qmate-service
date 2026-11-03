@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -27,10 +27,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -1038,11 +1038,11 @@
 <div class="highlight"><span class="filename">config.js</span><pre><span></span><code><span class="nx">params</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 
 <span class="w">  </span><span class="k">import</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w">                         </span>
-<span class="w">    </span><span class="nx">myFolder1</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;./data/my/folder/data/&lt;systemName&gt;&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">myFolder2</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;data/another/folder/data/anotherFolder&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">myFolder3</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;C:/Users/C1234567/data/testFolder&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">yourPrefixSpecName</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;./data/my/folder/data/&lt;systemName&gt;/data.json&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">uiUser</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;./data/my/folder/data/&lt;systemName&gt;/webUser.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">myFolder1</span><span class="o">:</span><span class="w"> </span><span class="s2">"./data/my/folder/data/&lt;systemName&gt;"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">myFolder2</span><span class="o">:</span><span class="w"> </span><span class="s2">"data/another/folder/data/anotherFolder"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">myFolder3</span><span class="o">:</span><span class="w"> </span><span class="s2">"C:/Users/C1234567/data/testFolder"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">yourPrefixSpecName</span><span class="o">:</span><span class="w"> </span><span class="s2">"./data/my/folder/data/&lt;systemName&gt;/data.json"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">uiUser</span><span class="o">:</span><span class="w"> </span><span class="s2">"./data/my/folder/data/&lt;systemName&gt;/webUser.json"</span><span class="p">,</span>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="p">},</span>
@@ -1061,24 +1061,24 @@
 <div class="highlight"><span class="filename">config.js</span><pre><span></span><code><span class="nx">params</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 
 <span class="w">  </span><span class="k">import</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w">               </span>
-<span class="w">    </span><span class="nx">yourPrefixSpecName</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;./data/my/folder/data/&lt;systemName&gt;/data.json&quot;</span><span class="p">,</span><span class="w">          </span>
-<span class="w">    </span><span class="nx">uiUser</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;./data/my/folder/data/&lt;systemName&gt;/webUser.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">yourPrefixSpecName</span><span class="o">:</span><span class="w"> </span><span class="s2">"./data/my/folder/data/&lt;systemName&gt;/data.json"</span><span class="p">,</span><span class="w">          </span>
+<span class="w">    </span><span class="nx">uiUser</span><span class="o">:</span><span class="w"> </span><span class="s2">"./data/my/folder/data/&lt;systemName&gt;/webUser.json"</span><span class="p">,</span>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="p">},</span>
 </code></pre></div>
 <p>Let's assume the file <em>./data/my/folder/data/<systemName>/data.json</em> has the following data:
 <div class="highlight"><span class="filename">data.json</span><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Joe Doe&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;joe.doe@example.com&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;telephone&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;333-000-111-222&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">4.79</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;website&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://www.userdataexport.test&quot;</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joe Doe"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"joe.doe@example.com"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"telephone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"333-000-111-222"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">4.79</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"website"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.userdataexport.test"</span>
 <span class="p">}</span>
 </code></pre></div>
 Since <code>yourPrefixSpecName</code> is the key, to access the <code>email</code> value in the test spec, we use
 <code>browser.config.params.import.yourPrefixSpecName.email</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// load entire data from &quot;./data/my/folder/data/&lt;systemName&gt;/data.json&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// load entire data from "./data/my/folder/data/&lt;systemName&gt;/data.json"</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">userData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">import</span><span class="p">.</span><span class="nx">yourPrefixSpecName</span><span class="p">;</span>
 
 <span class="c1">// make an assertion to ensure data was loaded</span>
@@ -1096,8 +1096,8 @@ Since <code>yourPrefixSpecName</code> is the key, to access the <code>email</cod
 <p><div class="highlight"><span class="filename">config.js</span><pre><span></span><code><span class="nx">params</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 
 <span class="w">  </span><span class="k">import</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w">                         </span>
-<span class="w">    </span><span class="nx">myFolder1</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;./data/my/folder/data/&lt;systemName&gt;&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">myFolder2</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;./data/another/folder/data/anotherFolder&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">myFolder1</span><span class="o">:</span><span class="w"> </span><span class="s2">"./data/my/folder/data/&lt;systemName&gt;"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">myFolder2</span><span class="o">:</span><span class="w"> </span><span class="s2">"./data/another/folder/data/anotherFolder"</span><span class="p">,</span>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="p">},</span>
@@ -1138,9 +1138,9 @@ the file name prefix <code>purchaseRequisition</code>.
 <p>It is recommended that the subfolder names and <em>JSON</em> file names used to import data do not have special characters. </p>
 </div>
 <p>If there are special characters in the file name or subfolder name, then the dot notation can't be used. In that case, you can use the following syntax:
-<div class="highlight"><span class="filename">data/another/folder/data/anotherFolder/my-po-set/Limit-Purchase-Order.json</span><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">limitPO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">import</span><span class="p">.</span><span class="nx">myFolder2</span><span class="p">[</span><span class="s2">&quot;my-po-set&quot;</span><span class="p">][</span><span class="s2">&quot;Limit-Purchase-Order&quot;</span><span class="p">];</span>
+<div class="highlight"><span class="filename">data/another/folder/data/anotherFolder/my-po-set/Limit-Purchase-Order.json</span><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">limitPO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">import</span><span class="p">.</span><span class="nx">myFolder2</span><span class="p">[</span><span class="s2">"my-po-set"</span><span class="p">][</span><span class="s2">"Limit-Purchase-Order"</span><span class="p">];</span>
 </code></pre></div>
-<div class="highlight"><span class="filename">data/another/folder/data/anotherFolder/my-po-set/ServicePurchaseOrder.2Items.json</span><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">servicePO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">import</span><span class="p">.</span><span class="nx">myFolder2</span><span class="p">[</span><span class="s2">&quot;my-po-set&quot;</span><span class="p">][</span><span class="s2">&quot;ServicePurchaseOrder.2Items&quot;</span><span class="p">];</span>
+<div class="highlight"><span class="filename">data/another/folder/data/anotherFolder/my-po-set/ServicePurchaseOrder.2Items.json</span><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">servicePO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">import</span><span class="p">.</span><span class="nx">myFolder2</span><span class="p">[</span><span class="s2">"my-po-set"</span><span class="p">][</span><span class="s2">"ServicePurchaseOrder.2Items"</span><span class="p">];</span>
 </code></pre></div></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1152,74 +1152,74 @@ the file name prefix <code>purchaseRequisition</code>.
 <div class="highlight"><span class="filename">config.js</span><pre><span></span><code><span class="nx">params</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 
 <span class="w">  </span><span class="k">export</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w">          </span>
-<span class="w">    </span><span class="nx">exportData</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;./data/my/folder/path/in/exportFile.json&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">exportMoreData</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;./data/my/folder/path/in/moreDataFile.json&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">exportArrayData</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;./data/my/folder/path/in/arrayDataFile.json&quot;</span>
+<span class="w">    </span><span class="nx">exportData</span><span class="o">:</span><span class="w"> </span><span class="s2">"./data/my/folder/path/in/exportFile.json"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">exportMoreData</span><span class="o">:</span><span class="w"> </span><span class="s2">"./data/my/folder/path/in/moreDataFile.json"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">exportArrayData</span><span class="o">:</span><span class="w"> </span><span class="s2">"./data/my/folder/path/in/arrayDataFile.json"</span>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="p">},</span>
 </code></pre></div></p>
 <h3 id="exporting-data-to-json-file">Exporting data to <em>JSON</em> file</h3>
 <p>The data in <code>browser.config.params.export</code> is written to output files at the end of the test run. The export file is created or overwritten if already present. Any intermediate folders are also created if necessary.
-<div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step 01: export data to &#39;exportData&#39; file&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="c1">// exportData: &quot;./data/my/folder/path/in/exportFile.json&quot;,</span>
+<div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">"Step 01: export data to 'exportData' file"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// exportData: "./data/my/folder/path/in/exportFile.json",</span>
 <span class="w">  </span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">export</span><span class="p">.</span><span class="nx">exportData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
-<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;joe&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;exported into exportFile.json&quot;</span><span class="w"> </span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"joe"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s2">"exported into exportFile.json"</span><span class="w"> </span>
 <span class="w">  </span><span class="p">};</span>
 <span class="p">});</span>
 
-<span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step 02: export data to &#39;exportMoreData&#39; file&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="c1">// exportMoreData: &quot;./data/my/folder/path/in/moreDataFile.json&quot;,</span>
+<span class="nx">it</span><span class="p">(</span><span class="s2">"Step 02: export data to 'exportMoreData' file"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// exportMoreData: "./data/my/folder/path/in/moreDataFile.json",</span>
 <span class="w">  </span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">export</span><span class="p">.</span><span class="nx">exportMoreData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
-<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;jack&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;exported into moreDataFile.json&quot;</span><span class="w"> </span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"jack"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s2">"exported into moreDataFile.json"</span><span class="w"> </span>
 <span class="w">  </span><span class="p">};</span>
 <span class="p">});</span>
 
-<span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step 03: export array data to &#39;exportArrayData&#39; file&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="c1">// exportArrayData: &quot;./data/my/folder/path/in/arrayDataFile.json&quot;,</span>
+<span class="nx">it</span><span class="p">(</span><span class="s2">"Step 03: export array data to 'exportArrayData' file"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// exportArrayData: "./data/my/folder/path/in/arrayDataFile.json",</span>
 <span class="w">  </span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">export</span><span class="p">.</span><span class="nx">exportArrayData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">itemNo</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;exported into arrayDataFile.json&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;material&quot;</span>
+<span class="w">      </span><span class="nx">itemNo</span><span class="o">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s2">"exported into arrayDataFile.json"</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">"material"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">itemNo</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Service item&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;service&quot;</span>
+<span class="w">      </span><span class="nx">itemNo</span><span class="o">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s2">"Service item"</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">"service"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">];</span>
 <span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">assertion</span><span class="p">.</span><span class="nx">expectEqual</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">export</span><span class="p">.</span><span class="nx">exportArrayData</span><span class="p">),</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
 
-<span class="w">  </span><span class="c1">// file &quot;./data/my/folder/path/in/arrayDataFile.json&quot; will have the array data</span>
+<span class="w">  </span><span class="c1">// file "./data/my/folder/path/in/arrayDataFile.json" will have the array data</span>
 <span class="w">  </span><span class="c1">// check manually after test run is complete</span>
 <span class="p">});</span>
 </code></pre></div>
 At the end of the test run, the file <em>./data/my/folder/path/in/exportFile.json</em> will look like: 
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span>
-<span class="w">  </span><span class="kc">na</span><span class="err">me</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;joe&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="err">descrip</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;exported into exportFile.json&quot;</span>
+<span class="w">  </span><span class="kc">na</span><span class="err">me</span><span class="p">:</span><span class="w"> </span><span class="s2">"joe"</span><span class="p">,</span>
+<span class="w">  </span><span class="err">descrip</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="s2">"exported into exportFile.json"</span>
 <span class="p">}</span>
 </code></pre></div></p>
 <p>File <em>./data/my/folder/path/in/moreDataFile.json</em> will look like: 
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span>
-<span class="w">  </span><span class="kc">na</span><span class="err">me</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jack&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">  </span><span class="err">descrip</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;exported into moreDataFile.json&quot;</span><span class="w"> </span>
+<span class="w">  </span><span class="kc">na</span><span class="err">me</span><span class="p">:</span><span class="w"> </span><span class="s2">"jack"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">  </span><span class="err">descrip</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="s2">"exported into moreDataFile.json"</span><span class="w"> </span>
 <span class="p">}</span>
 </code></pre></div></p>
 <p>File <em>./data/my/folder/path/in/moreDataFile.json</em> will look like: 
 <div class="highlight"><pre><span></span><code><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="err">i</span><span class="kc">te</span><span class="err">mNo</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="err">descrip</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;exported into arrayDataFile.json&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="kc">t</span><span class="err">ype</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;material&quot;</span>
+<span class="w">    </span><span class="err">i</span><span class="kc">te</span><span class="err">mNo</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">    </span><span class="err">descrip</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="s2">"exported into arrayDataFile.json"</span><span class="p">,</span>
+<span class="w">    </span><span class="kc">t</span><span class="err">ype</span><span class="p">:</span><span class="w"> </span><span class="s2">"material"</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="err">i</span><span class="kc">te</span><span class="err">mNo</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="err">descrip</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Service item&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="kc">t</span><span class="err">ype</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service&quot;</span>
+<span class="w">    </span><span class="err">i</span><span class="kc">te</span><span class="err">mNo</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span>
+<span class="w">    </span><span class="err">descrip</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="s2">"Service item"</span><span class="p">,</span>
+<span class="w">    </span><span class="kc">t</span><span class="err">ype</span><span class="p">:</span><span class="w"> </span><span class="s2">"service"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">]</span>
 </code></pre></div></p>
@@ -1227,19 +1227,19 @@ At the end of the test run, the file <em>./data/my/folder/path/in/exportFile.jso
 <p class="admonition-title">Warning</p>
 <p>If you are adding export data to the same export key, make sure you don't overwrite previous data.</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// browser.config.params.export.exportData has data assigned to it from previous steps</span>
-<span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">export</span><span class="p">.</span><span class="nx">exportData</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;joe&quot;</span><span class="p">;</span>
+<span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">export</span><span class="p">.</span><span class="nx">exportData</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"joe"</span><span class="p">;</span>
 
 <span class="c1">// or if browser.config.params.export.exportData is an Array</span>
 <span class="k">if</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">export</span><span class="p">.</span><span class="nx">exportData</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// add an element to an array</span>
-<span class="w">    </span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">export</span><span class="p">.</span><span class="nx">exportData</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Joe&quot;</span><span class="p">});</span>
+<span class="w">    </span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">export</span><span class="p">.</span><span class="nx">exportData</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"Joe"</span><span class="p">});</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>If there is no data assigned to an export key, then the export file corresponding to that key will be empty. Doing any of the following things will create an empty <em>JSON</em> file.</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// &quot;./data/my/folder/path/in/exportFile.json&quot; will be a blank file at end of test run</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// "./data/my/folder/path/in/exportFile.json" will be a blank file at end of test run</span>
 <span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">export</span><span class="p">.</span><span class="nx">exportData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
 <span class="c1">// or</span>
 <span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">export</span><span class="p">.</span><span class="nx">exportData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
@@ -1314,10 +1314,10 @@ At the end of the test run, the file <em>./data/my/folder/path/in/exportFile.jso
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.annotate", "content.tabs.link", "navigation.top"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.annotate", "content.tabs.link", "navigation.top"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>

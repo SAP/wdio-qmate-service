@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -27,10 +27,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -1039,13 +1039,13 @@
 <h3 id="input-data">Input Data</h3>
 <p>Input data is the data defined by the scenario to perform all types of user inputs within the test execution. It is recommended to <strong>create one JSON file for each spec</strong> or test. A common pattern is to <strong>name the data file exactly like the spec file</strong>. E.g. <code>createSupplierInvoice.json</code> contains all and exclusively the required data for the test <code>createSupplierInvoice.spec.js</code>. With that, the relationship between the data and the test itself is clear and the data is easily maintainable. Your data file could look like:
 <div class="highlight"><span class="filename">data/createSupplierInvoice.json</span><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;session&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;username&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;password&gt;&quot;</span>
+<span class="w">  </span><span class="nt">"session"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;username"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;password&gt;"</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;generalInformation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;companyCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1010&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;postingDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;today&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"generalInformation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"companyCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1010"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"postingDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"today"</span><span class="p">,</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1053,8 +1053,8 @@ As you can see above, the data is separated into different sections like <code>s
 <h3 id="reference-data">Reference Data</h3>
 <p>For some cases - especially for scenario testing - it is required to pass dynamically created data between different specs. For example, your first script is creating a document number you might require inside the process of the second script. Therefore this data needs to be shared during the runtime between multiple scripts. To do so, you can create a <code>reference.json</code> file within your data folder which will then be imported in all related scripts.
 <div class="highlight"><span class="filename">data/references.json</span><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;purchaseOrderNumber&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;supplierInvoiceNumber&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">  </span><span class="nt">"purchaseOrderNumber"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"supplierInvoiceNumber"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
 <span class="p">}</span>
 </code></pre></div></p>
 <div class="admonition info">
@@ -1067,7 +1067,7 @@ As you can see above, the data is separated into different sections like <code>s
 <p>Commonly, your data is stored inside the <em>data</em> folder of your test suite. Therefore the path pointing to the data file(s) is defined in the configuration file like:
 <div class="highlight"><span class="filename">config.js</span><pre><span></span><code><span class="nx">params</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">import</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;./data/&quot;</span>
+<span class="w">    </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="s2">"./data/"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">},</span>
 </code></pre></div></p>
@@ -1077,19 +1077,19 @@ As you can see above, the data is separated into different sections like <code>s
 </div>
 <h3 id="load-data">Load data</h3>
 <p>To import data inside your spec, add the following code at the top of your test / describe block:
-<div class="highlight"><span class="filename">specs/createSupplierInvoice.spec</span><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">import</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="s2">&quot;createSupplierInvoice&quot;</span><span class="p">];</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">references</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">import</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="s2">&quot;references&quot;</span><span class="p">];</span>
+<div class="highlight"><span class="filename">specs/createSupplierInvoice.spec</span><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">import</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="s2">"createSupplierInvoice"</span><span class="p">];</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">references</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="k">import</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="s2">"references"</span><span class="p">];</span>
 </code></pre></div></p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Alternatively, you can load the data with the following <a href="https://pages.github.tools.sap/sProcurement/wdio-qmate-service-ts/doc/#util.data.getData" target="__blank">reuse method</a>:
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">getData</span><span class="p">(</span><span class="s2">&quot;createSupplierInvoice&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">util</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">getData</span><span class="p">(</span><span class="s2">"createSupplierInvoice"</span><span class="p">);</span>
 </code></pre></div>
 This function only works for data located in the folder defined as <code>data</code> in the config.</p>
 </div>
 <h3 id="store-data">Store data</h3>
 <p>To store any value inside the imported file and make it available for other specs within the same group, use the following code <strong>inside a step (it block)</strong>:
-<div class="highlight"><span class="filename">specs/createPurchaseOrder.spec</span><pre><span></span><code><span class="nx">references</span><span class="p">.</span><span class="nx">documentNumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;4500012345&quot;</span><span class="p">;</span>
+<div class="highlight"><span class="filename">specs/createPurchaseOrder.spec</span><pre><span></span><code><span class="nx">references</span><span class="p">.</span><span class="nx">documentNumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"4500012345"</span><span class="p">;</span>
 </code></pre></div></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1170,10 +1170,10 @@ This function only works for data located in the folder defined as <code>data</c
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.annotate", "content.tabs.link", "navigation.top"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.annotate", "content.tabs.link", "navigation.top"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>

@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -31,10 +31,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -951,16 +951,16 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">selector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;elementProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="s2">&quot;viewName&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sap.suite.ui.generic.template.ObjectPage.view.Details&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sap.m.Button&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="s2">&quot;text&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Create&quot;</span>
+<span class="w">    </span><span class="s2">"elementProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">"viewName"</span><span class="o">:</span><span class="w"> </span><span class="s2">"sap.suite.ui.generic.template.ObjectPage.view.Details"</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">"metadata"</span><span class="o">:</span><span class="w"> </span><span class="s2">"sap.m.Button"</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">"text"</span><span class="o">:</span><span class="w"> </span><span class="s2">"Create"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">};</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">saveButton</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getElementByCss</span><span class="p">(</span><span class="s2">&quot;BUTTON[text=&#39;Save&#39;]&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">saveButton</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getElementByCss</span><span class="p">(</span><span class="s2">"BUTTON[text='Save']"</span><span class="p">);</span>
 </code></pre></div>
 </div>
 </div>
@@ -971,7 +971,7 @@
 <p>Avoid <em>xPath</em> in non_ui5 selectors: <em>xPath</em> is a complex construct which includes multiple nodes. Due to the intransparent dependencies of other elements it may brake your test in case of any change of the corresponding elements. </p>
 <div class="admonition danger">
 <p class="admonition-title">avoid</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">elem1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getElementByXPath</span><span class="p">(</span><span class="s2">&quot;.//*[@role=&#39;toolbar&#39;]/span[3]/span[2]/input&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">elem1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getElementByXPath</span><span class="p">(</span><span class="s2">".//*[@role='toolbar']/span[3]/span[2]/input"</span><span class="p">);</span>
 </code></pre></div>
 </div>
 </li>
@@ -979,7 +979,7 @@
 <p>Avoid screen size specific and style dependent attributes of elements.  </p>
 <div class="admonition danger">
 <p class="admonition-title">avoid</p>
-<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="err">@</span><span class="nx">style</span><span class="o">=</span><span class="s1">&#39;width:100%;&#39;</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="err">@</span><span class="nx">style</span><span class="o">=</span><span class="s1">'width:100%;'</span><span class="p">]</span>
 </code></pre></div>
 </div>
 </li>
@@ -987,7 +987,7 @@
 <p>Refrain from building manual xPaths at all costs. Indexes can change very easy if the path changes etc. </p>
 <div class="admonition danger">
 <p class="admonition-title">avoid</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">SupplierPartyId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">childrenArray</span><span class="p">[</span><span class="mf">5</span><span class="p">].</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;SPAN&quot;</span><span class="p">)[</span><span class="mf">1</span><span class="p">].</span><span class="nx">innerText</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">SupplierPartyId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">childrenArray</span><span class="p">[</span><span class="mf">5</span><span class="p">].</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">"SPAN"</span><span class="p">)[</span><span class="mf">1</span><span class="p">].</span><span class="nx">innerText</span><span class="p">;</span>
 </code></pre></div>
 </div>
 </li>
@@ -1056,10 +1056,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.annotate", "content.tabs.link", "navigation.top"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.annotate", "content.tabs.link", "navigation.top"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>

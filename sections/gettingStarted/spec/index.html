@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -31,10 +31,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -1011,22 +1011,22 @@
 </blockquote>
 <h2 id="sample">Sample</h2>
 <p>Inside the <em>.spec.js</em> file, you define the sequence of steps for your test script. Each file consists of at least one <em>describe</em> block.
-<div class="highlight"><span class="filename">clickGoOnListReport.spec.js</span><pre><span></span><code><span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;clickGoOnListReport - click &#39;Go&#39; on ListReport&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><span class="filename">clickGoOnListReport.spec.js</span><pre><span></span><code><span class="nx">describe</span><span class="p">(</span><span class="s2">"clickGoOnListReport - click 'Go' on ListReport"</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">  </span><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step 01: Navigate to your application&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">navigation</span><span class="p">.</span><span class="nx">navigateToApplication</span><span class="p">(</span><span class="s2">&quot;PurchaseOrder-manage&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">it</span><span class="p">(</span><span class="s2">"Step 01: Navigate to your application"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">navigation</span><span class="p">.</span><span class="nx">navigateToApplication</span><span class="p">(</span><span class="s2">"PurchaseOrder-manage"</span><span class="p">)</span>
 <span class="w">  </span><span class="p">});</span>
 
-<span class="w">  </span><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step 02: Navigate&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">login</span><span class="p">(</span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Greetings1!&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">it</span><span class="p">(</span><span class="s2">"Step 02: Navigate"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">login</span><span class="p">(</span><span class="s2">"JOHNDOE"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Greetings1!"</span><span class="p">);</span>
 <span class="w">  </span><span class="p">});</span>
 
-<span class="w">  </span><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step 03: Click &#39;Go&#39; on ListReport&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">it</span><span class="p">(</span><span class="s2">"Step 03: Click 'Go' on ListReport"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">selector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="s2">&quot;elementProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="s2">&quot;viewName&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sap.suite.ui.generic.template.ListReport.view.ListReport&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sap.m.Button&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;*listReportFilter-btnGo&quot;</span>
+<span class="w">      </span><span class="s2">"elementProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">"viewName"</span><span class="o">:</span><span class="w"> </span><span class="s2">"sap.suite.ui.generic.template.ListReport.view.ListReport"</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">"metadata"</span><span class="o">:</span><span class="w"> </span><span class="s2">"sap.m.Button"</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">"id"</span><span class="o">:</span><span class="w"> </span><span class="s2">"*listReportFilter-btnGo"</span>
 <span class="w">      </span><span class="p">}</span><span class="w">   </span>
 <span class="w">    </span><span class="p">};</span>
 <span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span>
@@ -1097,10 +1097,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.annotate", "content.tabs.link", "navigation.top"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.annotate", "content.tabs.link", "navigation.top"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>

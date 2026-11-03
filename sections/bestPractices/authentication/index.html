@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -31,10 +31,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -1173,24 +1173,24 @@ With that, you are able to use the login/logout multiple times during the test e
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>There is a generic login function which can be used for both types of forms (fiori &amp; sap-cloud) to authenticate. This function will automatically determine the right login form and call the proper function.</p>
-<div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step 01: login generic&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">login</span><span class="p">(</span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;abc123&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">"Step 01: login generic"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">login</span><span class="p">(</span><span class="s2">"JOHNDOE"</span><span class="p">,</span><span class="w"> </span><span class="s2">"abc123"</span><span class="p">);</span>
 <span class="p">});</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>Use this configuration for the <a href="#Fiori-Login-Screen">Fiori Login Screen</a>.
 Define the step (on top of your script) and pass at least a valid user to the method. </p>
-<div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step 01: login fiori&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">loginFiori</span><span class="p">(</span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;abc123&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">"Step 01: login fiori"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">loginFiori</span><span class="p">(</span><span class="s2">"JOHNDOE"</span><span class="p">,</span><span class="w"> </span><span class="s2">"abc123"</span><span class="p">);</span>
 <span class="p">});</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>Use this configuration for the <a href="#SAP-Cloud-Login-Screen">SAP Cloud Login Screen</a>.
 Define the step (on top of your script) and pass at least a valid user to the method. </p>
-<div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step 01: login sap cloud&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">loginSapCloud</span><span class="p">(</span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;abc123&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">"Step 01: login sap cloud"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">loginSapCloud</span><span class="p">(</span><span class="s2">"JOHNDOE"</span><span class="p">,</span><span class="w"> </span><span class="s2">"abc123"</span><span class="p">);</span>
 <span class="p">});</span>
 </code></pre></div>
 </div>
@@ -1198,12 +1198,12 @@ Define the step (on top of your script) and pass at least a valid user to the me
 <p>If you want to define your own custom form, you can use the following method. </p>
 <p>Define the step (on top of your script) and pass the <code>username</code>, <code>password</code>, <code>usernameFieldSelector</code>, <code>passwordFieldSelector</code> 
 and <code>logonButtonSelector</code>. Therefore, you need to define the CSS selectors of the corresponding elements.</p>
-<div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step 01: login Custom&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">;</span>
-<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Greetings1!&quot;</span><span class="p">;</span>
-<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">usernameSelector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#USERNAME_BLOCK input&quot;</span><span class="p">;</span>
-<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">passwordSelector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#PASSWORD_BLOCK input&quot;</span><span class="p">;</span>
-<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">loginButtonSelector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#LOGIN_LINK&quot;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">"Step 01: login Custom"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"JOHNDOE"</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Greetings1!"</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">usernameSelector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#USERNAME_BLOCK input"</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">passwordSelector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#PASSWORD_BLOCK input"</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">loginButtonSelector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"#LOGIN_LINK"</span><span class="p">;</span>
 <span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">loginCustom</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">,</span><span class="w"> </span><span class="nx">usernameSelector</span><span class="p">,</span><span class="w"> </span><span class="nx">passwordSelector</span><span class="p">,</span><span class="w"> </span><span class="nx">loginButtonSelector</span><span class="p">);</span>
 <span class="p">});</span>
 </code></pre></div>
@@ -1217,8 +1217,8 @@ and <code>logonButtonSelector</code>. Therefore, you need to define the CSS sele
 <p>For a better maintainability and reusability of your specs, we highly recommend to decouple you user data inside the data file assigned to your spec.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="err">sessio</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="err">user</span><span class="kc">na</span><span class="err">me</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;JOHN_DOE&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="err">password</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abc123#&quot;</span>
+<span class="w">    </span><span class="err">user</span><span class="kc">na</span><span class="err">me</span><span class="p">:</span><span class="w"> </span><span class="s2">"JOHN_DOE"</span><span class="p">,</span>
+<span class="w">    </span><span class="err">password</span><span class="p">:</span><span class="w"> </span><span class="s2">"abc123#"</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="c1">// further test data ...</span>
 <span class="p">}</span>
@@ -1242,9 +1242,9 @@ and <code>logonButtonSelector</code>. Therefore, you need to define the CSS sele
 <p>Use this configuration for the <a href="#Fiori-Login-Screen">Fiori Login Screen</a>.
 You only need to specify the <code>username</code> and <code>password</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="nx">auth</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;fiori-form&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Greetings1!&quot;</span>
+<span class="w">  </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="s2">"fiori-form"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="s2">"JOHNDOE"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="s2">"Greetings1!"</span>
 <span class="p">},</span>
 </code></pre></div>
 </div>
@@ -1252,9 +1252,9 @@ You only need to specify the <code>username</code> and <code>password</code>.</p
 <p>Use this configuration for the <a href="#SAP-Cloud-Login-Screen">SAP Cloud Login Screen</a>.
 You only need to specify the <code>username</code> and <code>password</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="nx">auth</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sapcloud-form&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Greetings1!&quot;</span>
+<span class="w">  </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="s2">"sapcloud-form"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="s2">"JOHNDOE"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="s2">"Greetings1!"</span>
 <span class="p">},</span>
 </code></pre></div>
 </div>
@@ -1271,19 +1271,19 @@ You only need to specify the <code>username</code> and <code>password</code>.</p
 <p>If you want to define your own custom form, you can use the following configuration.
 Additionally to the <code>username</code> and <code>password</code>, you need to specify the <code>usernameFieldSelector</code>, <code>passwordFieldSelector</code> and <code>logonButtonSelector</code>. Therefore set the CSS selectors of the corresponding elements.</p>
 <div class="highlight"><pre><span></span><code><span class="nx">auth</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;custom-form&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;JOHNDOE&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Greetings1!&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">usernameFieldSelector</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;#USERNAME_BLOCK input&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">passwordFieldSelector</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;#PASSWORD_BLOCK input&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">logonButtonSelector</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;#LOGIN_LINK&quot;</span>
+<span class="w">  </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="s2">"custom-form"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="s2">"JOHNDOE"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="s2">"Greetings1!"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">usernameFieldSelector</span><span class="o">:</span><span class="w"> </span><span class="s2">"#USERNAME_BLOCK input"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">passwordFieldSelector</span><span class="o">:</span><span class="w"> </span><span class="s2">"#PASSWORD_BLOCK input"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">logonButtonSelector</span><span class="o">:</span><span class="w"> </span><span class="s2">"#LOGIN_LINK"</span>
 <span class="p">},</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>Use this configuration to skip the login and logout inside the specs.
 <div class="highlight"><pre><span></span><code><span class="nx">auth</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;skip&quot;</span>
+<span class="w">  </span><span class="nx">formType</span><span class="o">:</span><span class="w"> </span><span class="s2">"skip"</span>
 <span class="p">},</span>
 </code></pre></div></p>
 </div>
@@ -1308,7 +1308,7 @@ Additionally to the <code>username</code> and <code>password</code>, you need to
 </ul>
 <h2 id="logout">Logout</h2>
 <p>To logout from a S/4 system, please use the following method.
-<div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step XX: logout&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">"Step XX: logout"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">logout</span><span class="p">();</span>
 <span class="p">});</span>
 </code></pre></div></p>
@@ -1389,10 +1389,10 @@ Additionally to the <code>username</code> and <code>password</code>, you need to
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.annotate", "content.tabs.link", "navigation.top"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.annotate", "content.tabs.link", "navigation.top"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>

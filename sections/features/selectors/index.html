@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -31,10 +31,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -1237,14 +1237,14 @@
 <h3 id="supported-selector-properties">Supported Selector Properties</h3>
 <p>The supported properties for any UI5 based application are the following:
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">selector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;elementProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="s2">&quot;ancestorProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="s2">&quot;parentProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="s2">&quot;siblingProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="s2">&quot;prevSiblingProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="s2">&quot;nextSiblingProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="s2">&quot;childProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="s2">&quot;descendantProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="s2">"elementProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">"ancestorProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">"parentProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">"siblingProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">"prevSiblingProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">"nextSiblingProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">"childProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">"descendantProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
 <span class="p">};</span>
 </code></pre></div></p>
 <p>The selector consists of one <strong>mandatory</strong> selector called <strong>elementProperties</strong>, representing the target element where the action should be applied to and seven optional selectors:  </p>
@@ -1261,31 +1261,31 @@
 </ul>
 <p>You have to define at least one property in <code>elementProperties</code>. This could be <code>metadata</code> or any other property of the <a href="#overview">Overview</a> below.</p>
 <h3 id="sample">Sample</h3>
-<div class="highlight"><pre><span></span><code><span class="s2">&quot;elementProperties&quot;</span><span class="o">:</span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sap.m.Button&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;&lt;ui5Property&gt;&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;*Any UI5 Property/Aggregation/Association&quot;</span>
-<span class="w">    </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;*myId&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;viewName&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;*myView*Name&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;viewId&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;*id*viewId&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;bindingContextPath&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/ProductCategories(nodeKey=guid&#39;t12321-123213-34rer332&#39;, enabled=&#39;true&#39;, category=&#39;LT&#39;)&quot;</span>
-<span class="w">    </span><span class="s2">&quot;text&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="s2">&quot;path&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;oDataModelName&gt;companyChangedManually&quot;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;path&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;*enabled&quot;</span><span class="p">}],</span><span class="w">  </span>
-<span class="w">    </span><span class="s2">&quot;tooltip&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="s2">&quot;path&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;i18n&gt;welcomeDescription&quot;</span><span class="p">}]</span>
-<span class="w">    </span><span class="s2">&quot;domProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="s2">&quot;nodeName&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;li&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="s2">&quot;class&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;*sapMButton&quot;</span>
-<span class="w">        </span><span class="s2">&quot;tooltip&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;*text*&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="s2">"elementProperties"</span><span class="o">:</span><span class="p">{</span>
+<span class="w">    </span><span class="s2">"metadata"</span><span class="o">:</span><span class="w"> </span><span class="s2">"sap.m.Button"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"&lt;ui5Property&gt;"</span><span class="o">:</span><span class="w"> </span><span class="s2">"*Any UI5 Property/Aggregation/Association"</span>
+<span class="w">    </span><span class="s2">"id"</span><span class="o">:</span><span class="w"> </span><span class="s2">"*myId"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"viewName"</span><span class="o">:</span><span class="w"> </span><span class="s2">"*myView*Name"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"viewId"</span><span class="o">:</span><span class="w"> </span><span class="s2">"*id*viewId"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"bindingContextPath"</span><span class="o">:</span><span class="w"> </span><span class="s2">"/ProductCategories(nodeKey=guid't12321-123213-34rer332', enabled='true', category='LT')"</span>
+<span class="w">    </span><span class="s2">"text"</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="s2">"path"</span><span class="o">:</span><span class="w"> </span><span class="s2">"oDataModelName&gt;companyChangedManually"</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="s2">"path"</span><span class="o">:</span><span class="w"> </span><span class="s2">"*enabled"</span><span class="p">}],</span><span class="w">  </span>
+<span class="w">    </span><span class="s2">"tooltip"</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="s2">"path"</span><span class="o">:</span><span class="w"> </span><span class="s2">"i18n&gt;welcomeDescription"</span><span class="p">}]</span>
+<span class="w">    </span><span class="s2">"domProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">"nodeName"</span><span class="o">:</span><span class="w"> </span><span class="s2">"li"</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">"class"</span><span class="o">:</span><span class="w"> </span><span class="s2">"*sapMButton"</span>
+<span class="w">        </span><span class="s2">"tooltip"</span><span class="o">:</span><span class="w"> </span><span class="s2">"*text*"</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="s2">&quot;ancestorProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
-<span class="w">        </span><span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="s2">&quot;sap.m.ColumnListItem&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="s2">&quot;ancestorProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sap.m.Table&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="s2">&quot;items&quot;</span><span class="o">:</span><span class="w">  </span><span class="p">{</span><span class="s2">&quot;path&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;oDataModelName&gt;PurchaseOrderItems&quot;</span><span class="p">},</span>
-<span class="w">            </span><span class="s2">&quot;siblingProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{...},</span>
+<span class="w">    </span><span class="s2">"ancestorProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="s2">"metadata"</span><span class="o">:</span><span class="s2">"sap.m.ColumnListItem"</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">"ancestorProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="s2">"metadata"</span><span class="o">:</span><span class="w"> </span><span class="s2">"sap.m.Table"</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">"items"</span><span class="o">:</span><span class="w">  </span><span class="p">{</span><span class="s2">"path"</span><span class="o">:</span><span class="w"> </span><span class="s2">"oDataModelName&gt;PurchaseOrderItems"</span><span class="p">},</span>
+<span class="w">            </span><span class="s2">"siblingProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{...},</span>
 <span class="w">            </span><span class="p">...</span>
 <span class="w">      </span><span class="p">},</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="s2">&quot;descendantProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="s2">&quot;sap.m.Icon&quot;</span><span class="p">},</span>
-<span class="w">    </span><span class="s2">&quot;siblingProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="s2">&quot;sap.m.Input&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="s2">"descendantProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"metadata"</span><span class="o">:</span><span class="s2">"sap.m.Icon"</span><span class="p">},</span>
+<span class="w">    </span><span class="s2">"siblingProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"metadata"</span><span class="o">:</span><span class="s2">"sap.m.Input"</span><span class="p">},</span>
 <span class="w">    </span><span class="p">}</span>
 </code></pre></div>
 <div class="admonition tip">
@@ -1373,19 +1373,19 @@
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>Wildcards are supported for all properties, aggregation and associations 
-<div class="highlight"><pre><span></span><code><span class="s2">&quot;text&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;my*text*&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="s2">"text"</span><span class="o">:</span><span class="w"> </span><span class="s2">"my*text*"</span>
 </code></pre></div></p>
 </div>
 <h3 id="nested-properties">Nested Properties</h3>
 <p>In case you need to specify the element based on its surrounding, you can define nested properties. 
-<div class="highlight"><pre><span></span><code><span class="s2">&quot;elementProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="s2">"elementProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="p">...</span>
-<span class="w">    </span><span class="s2">&quot;ancestorProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sap.m.ColumnListItem&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="s2">&quot;ancestorProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sap.m.Table&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="s2">&quot;items&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;path&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;oDataModelName&gt;PurchaseOrderItems&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">            </span><span class="s2">&quot;siblingProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{...},</span>
+<span class="w">    </span><span class="s2">"ancestorProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">"metadata"</span><span class="o">:</span><span class="w"> </span><span class="s2">"sap.m.ColumnListItem"</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">"ancestorProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="s2">"metadata"</span><span class="o">:</span><span class="w"> </span><span class="s2">"sap.m.Table"</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">"items"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"path"</span><span class="o">:</span><span class="w"> </span><span class="s2">"oDataModelName&gt;PurchaseOrderItems"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">            </span><span class="s2">"siblingProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{...},</span>
 <span class="w">            </span><span class="p">...</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">    </span><span class="p">}</span>
@@ -1397,11 +1397,11 @@
 </div>
 <h3 id="usage-of-selectors">Usage of Selectors</h3>
 <p>For almost every UI5 action we provide, you can pass the selector directly to the function like:
-<div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step 01: click on &#39;Save&#39; button&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">"Step 01: click on 'Save' button"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">selector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;elementProperties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sap.m.Button&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="s2">&quot;text&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Save&quot;</span>
+<span class="w">    </span><span class="s2">"elementProperties"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s2">"metadata"</span><span class="o">:</span><span class="w"> </span><span class="s2">"sap.m.Button"</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">"text"</span><span class="o">:</span><span class="w"> </span><span class="s2">"Save"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">};</span>
 <span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">ui5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span>
@@ -1411,16 +1411,16 @@
 <h3 id="defining-the-element">Defining the element</h3>
 <p>For all non UI5 applications you can define the element in different ways. We provide all common functionalities to get an element by its ID, Class or any other CSS attribute. Hence, you can not pass any selector directly to the function performing an action. Instead, you have to define the element first with one of the provided methods.
 <div class="highlight"><pre><span></span><code><span class="c1">// Get an element by its ID</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">&quot;button-abc&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getById</span><span class="p">(</span><span class="s2">"button-abc"</span><span class="p">);</span>
 
 <span class="c1">// Get an element by its class (pass an index if there are more than one elements with the same class)</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getByClass</span><span class="p">(</span><span class="s2">&quot;.button&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getByClass</span><span class="p">(</span><span class="s2">".button"</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span>
 
-<span class="c1">// Get an element by its attribute value of &quot;title&quot;</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getByCss</span><span class="p">(</span><span class="s2">&quot;input[title=&#39;name&#39;]&quot;</span><span class="p">);</span>
+<span class="c1">// Get an element by its attribute value of "title"</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getByCss</span><span class="p">(</span><span class="s2">"input[title='name']"</span><span class="p">);</span>
 
 <span class="c1">// Get an element by its class and text value</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getByCssContainingText</span><span class="p">(</span><span class="s2">&quot;.button&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Save&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getByCssContainingText</span><span class="p">(</span><span class="s2">".button"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Save"</span><span class="p">);</span>
 </code></pre></div></p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
@@ -1441,7 +1441,7 @@ clearly.</p>
 </li>
 <li>
 <p>To verify the uniqueness of the element, switch to the <em>Console</em> tab of the dev-tools and type in the following command using your found attribute/s:
-<div class="highlight"><pre><span></span><code><span class="nv">$$</span><span class="o">(</span><span class="s2">&quot;[&lt;attr&gt;=&#39;&lt;attrValue&gt;&#39;]&quot;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="nv">$$</span><span class="o">(</span><span class="s2">"[&lt;attr&gt;='&lt;attrValue&gt;']"</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div></p>
 </li>
 </ol>
@@ -1451,8 +1451,8 @@ clearly.</p>
 </div>
 <h3 id="usage">Usage</h3>
 <p>To perform the action, pass the defined element to the action function.
-<div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;Step 01: click on &#39;Save&#39; button&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getByCss</span><span class="p">(</span><span class="s2">&quot;.saveButton&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="nx">it</span><span class="p">(</span><span class="s2">"Step 01: click on 'Save' button"</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">getByCss</span><span class="p">(</span><span class="s2">".saveButton"</span><span class="p">);</span>
 <span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">nonUi5</span><span class="p">.</span><span class="nx">userInteraction</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
 <span class="p">});</span>
 </code></pre></div></p>
@@ -1517,10 +1517,10 @@ clearly.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.annotate", "content.tabs.link", "navigation.top"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.annotate", "content.tabs.link", "navigation.top"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   </body>
