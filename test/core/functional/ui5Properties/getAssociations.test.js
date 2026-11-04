@@ -18,7 +18,7 @@ describe("Test 'getAllUI5Associations()' and 'getUI5Association()' on both eleme
     await expect(elem.getUI5Association("wrong_name")).resolves.toBeNull();
     await expect(browser.getUI5Association("wrong_name", elem)).resolves.toBeNull();
 
-    await expect(elem.getUI5Association("")).rejects.toThrow("javascript error: done is not a function");
-    await expect(browser.getUI5Association("", elem)).rejects.toThrow("javascript error: done is not a function");
+    await expect(elem.getUI5Association("")).rejects.toThrow("Please provide a valid association name");
+    await expect(browser.getUI5Association("", elem)).rejects.toThrow("Please provide a valid association name");
   });
 });

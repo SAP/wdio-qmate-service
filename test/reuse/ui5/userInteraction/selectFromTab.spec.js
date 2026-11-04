@@ -3,7 +3,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - selectFromTab", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/api/sap.m.IconTabBar`);
+    await browser.url(`${BASE_URL}/#/api/sap.m.IconTabBar`);
     await handleCookiesConsent();
   });
 

@@ -35,7 +35,10 @@ async function CustomAuthenticator() {
       usernameField = await $(usernameFieldSelector);
       passwordField = await $(passwordFieldSelector);
       logonField = await $(logonButtonSelector);
-      return usernameField.isDisplayedInViewport() && passwordField.isDisplayedInViewport() && logonField.isDisplayedInViewport();
+      const usernameVisible = await usernameField.isDisplayed();
+      const passwordVisible = await passwordField.isDisplayed();
+      const logonVisible = await logonField.isDisplayed();
+      return usernameVisible && passwordVisible && logonVisible;
     },
     {
       timeout: 60000,
@@ -45,7 +48,7 @@ async function CustomAuthenticator() {
 
   await usernameField.setValue(username);
   await passwordField.setValue(password);
-  await logonField.click();
+  await require("./submitLoginForm")(logonField);
 }
 
 module.exports = CustomAuthenticator;

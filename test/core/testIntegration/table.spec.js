@@ -41,8 +41,10 @@ describe("table", function () {
     };
     var value = "20"; //value to be entered by user
     var id = await ui5.element.getId(ui5ControlProperties);
-    await $("[id='" + id + "'] input").clearValue();
-    await $("[id='" + id + "'] input").setValue(value);
+    const input = await util.browser.getContext().$("[id='" + id + "'] input");
+    await input.clearValue();
+    await input.setValue(value);
+    expect(await input.getValue()).toBe(value);
     //await ui5.userInteraction.clearAndFill(ui5ControlProperties, value);
   });
 
@@ -76,7 +78,9 @@ describe("table", function () {
     };
     var value = "99"; //value to be entered by user
     var id = await ui5.element.getId(ui5ControlProperties);
-    await $("[id='" + id + "'] input").clearValue();
-    await $("[id='" + id + "'] input").setValue(value);
+    const input = await util.browser.getContext().$("[id='" + id + "'] input");
+    await input.clearValue();
+    await input.setValue(value);
+    expect(await input.getValue()).toBe(value);
   });
 });

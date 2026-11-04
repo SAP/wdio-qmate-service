@@ -4,8 +4,7 @@ describe("webdriver.io page", function () {
   });
 
   it("step1: check name is Accessories - use UI5 Control properties", async function () {
-    const parent = await $("#container-cart---homeView--categoryList-listUl");
-    const elem = (await parent.$$('li[id*="homeView--categoryList"]'))[0];
+    const elem = await $('li[id*="homeView--categoryList-0"]');
     await browser.waitUntil(
       async () => {
         try {
@@ -26,8 +25,7 @@ describe("webdriver.io page", function () {
   });
 
   it("step2: check name Accessories - use UI5 Aggregation Control properties", async function () {
-    const parent = await $("#container-cart---homeView--categoryList-listUl");
-    const elem = (await parent.$$('li[id*="homeView--categoryList"]'))[0];
+    const elem = await $('li[id*="homeView--categoryList-0"]');
     await browser.waitUntil(
       async () => {
         try {
@@ -70,8 +68,7 @@ describe("webdriver.io page", function () {
   });
 
   it("step4: step4: check Associations in categories - use chain $.$$ and UI5 Association Control properties ", async function () {
-    const parent = await $("#container-cart---homeView--categoryList-listUl");
-    const elem = (await parent.$$('li[id*="homeView--categoryList"]'))[0];
+    const elem = await $('li[id*="homeView--categoryList-0"]');
     await browser.waitUntil(
       async () => {
         try {
@@ -90,8 +87,7 @@ describe("webdriver.io page", function () {
   });
 
   it("step5: get wrong Aggregation Control properties and throw error", async function () {
-    const parent = await $("#container-cart---homeView--categoryList-listUl");
-    const elem = (await parent.$$('li[id*="homeView--categoryList"]'))[0];
+    const elem = await $('li[id*="homeView--categoryList-0"]');
     await browser.waitUntil(
       async () => {
         try {
@@ -107,7 +103,7 @@ describe("webdriver.io page", function () {
       }
     );
     await expect(elem.getAllUI5Aggregations()).resolves.toContain("tooltip");
-    await expect(elem.getUI5Aggregation("")).rejects.toThrow("javascript error: done is not a function");
+    await expect(elem.getUI5Aggregation("")).rejects.toThrow("Please provide a valid aggregation name");
   });
 
   it("step6: check element's Binding context path using chain $.$$ and get wrong element property", async function () {
@@ -128,7 +124,7 @@ describe("webdriver.io page", function () {
       }
     );
     await expect(elem.getBindingContextPath()).resolves.toContain("/ProductCategories('AC')");
-    await expect(elem.getUI5Property("")).rejects.toThrow("javascript error: done is not a function");
+    await expect(elem.getUI5Property("")).rejects.toThrow("Please provide a valid property name");
   });
 
   it("step7: get wrong element by wrong selector and throw error", async function () {

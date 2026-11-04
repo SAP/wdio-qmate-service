@@ -17,9 +17,10 @@ describe("date - getNextMonth with wrong formats", function () {
     withStrangeDays = common.date.getNextMonth("xx/zz/yyyy");
     common.assertion.expectDefined(withReversedSlash);
     common.assertion.expectDefined(Date.parse(withReversedSlash));
-    common.assertion.expectEqual(withReversedSlash.toString(), withDoubleDots.toString());
-    common.assertion.expectEqual(withDoubleDots.toString(), withBackSpaces.toString());
-    common.assertion.expectEqual(withBackSpaces.toString(), withStrangeDays.toString());
+    // Compare date-only (strip time) — wrong formats return new Date() each call, seconds may differ
+    common.assertion.expectEqual(withReversedSlash.toDateString(), withDoubleDots.toDateString());
+    common.assertion.expectEqual(withDoubleDots.toDateString(), withBackSpaces.toDateString());
+    common.assertion.expectEqual(withBackSpaces.toDateString(), withStrangeDays.toDateString());
 
     expect(() => common.date.getNextMonth(true)).toThrow(/format.toLowerCase is not a function/);
     expect(() => common.date.getNextMonth(-1)).toThrow(/format.toLowerCase is not a function/);

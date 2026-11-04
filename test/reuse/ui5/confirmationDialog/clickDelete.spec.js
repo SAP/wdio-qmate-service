@@ -7,7 +7,7 @@ const selectorForPopup = {
 
 describe("confirmationDialog - clickDelete", function () {
   it("Preparation", async function () {
-    await browser.url("#/categories");
+    await common.navigation.navigateToUrl(new URL("#/categories", browser.options.baseUrl).href);
     // 1. Select promoted product, add to shopping cart
     const productForPutToCart = {
       elementProperties: {
@@ -74,7 +74,7 @@ describe("confirmationDialog - clickDelete", function () {
 
 describe("confirmationDialog - clickDelete without confirmation dialog (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.url("#/categories");
+    await common.navigation.navigateToUrl(new URL("#/categories", browser.options.baseUrl).href);
   });
 
   it("Execution & Verification", async function () {

@@ -1,46 +1,20 @@
-interface MockResponse {
-  requestUrlRegexp: RegExp;
-  payload: string;
-  params: {
-    statusCode: number;
-    fetchResponse: boolean;
-  };
-}
+import { URLPattern } from "urlpattern-polyfill";
 
 export class Ui5ExtensionMocker {
   private static readonly payload: string = "File intentionally mocked by Qmate to improve performance";
 
-  private static readonly mockResponses: Array<MockResponse> = [
-    {
-      requestUrlRegexp: /.*\/xRayControls\/.*/gm,
-      payload: this.payload,
-      params: {
-        statusCode: 404,
-        fetchResponse: false
-      }
-    },
-    {
-      requestUrlRegexp: /.*joule.*/gm,
-      payload: this.payload,
-      params: {
-        statusCode: 404,
-        fetchResponse: false
-      }
-    },
-    {
-      requestUrlRegexp: /.*walkme.*/gm,
-      payload: this.payload,
-      params: {
-        statusCode: 404,
-        fetchResponse: false
-      }
-    }
+  // WDIO v10 identifies mocks by URLPattern components. RegExp objects all
+  // have undefined components and replace one another instead of coexisting.
+  private static readonly patterns: Array<URLPattern> = [
+    ...["pathname", "search"].map((component) => new URLPattern({ [component]: "*/xRayControls/*" })),
+    ...["joule", "walkme"].flatMap((keyword) => ["hostname", "pathname", "search"].map((component) => new URLPattern({ [component]: `*${keyword}*` })))
   ];
 
   public static async mockRequests(): Promise<void> {
-    for (const response of this.mockResponses) {
-      const mock = await browser.mock(response.requestUrlRegexp);
-      mock.respond(response.payload, response.params);
+    await browser.mockClearAll();
+    for (const pattern of this.patterns) {
+      const mock = await browser.mock(pattern);
+      mock.respond(this.payload, { statusCode: 404, fetchResponse: false });
     }
   }
 }

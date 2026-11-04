@@ -1,6 +1,6 @@
 describe("browser - waitUntil", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(browser.config.baseUrl);
+    await browser.url(browser.config.baseUrl);
   });
 
   it("Execution", async function () {
@@ -19,7 +19,7 @@ describe("browser - waitUntil", function () {
 
 describe("browser - waitUntil with error", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(browser.config.baseUrl);
+    await browser.url(browser.config.baseUrl);
   });
 
   it("Execution & Verification", async function () {

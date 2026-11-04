@@ -22,7 +22,7 @@ export class Navigation {
   async navigateToApplication(relativeReference: string, refresh = true) {
     const vl = this.vlf.initLog(this.navigateToApplication);
     try {
-      await browser.navigateTo(`${browser.config.baseUrl}/${relativeReference}`);
+      await browser.url(`${browser.config.baseUrl}/${relativeReference}`);
       await util.browser.logCurrentUrl();
       if (refresh) {
         vl.log("Refreshing the page");

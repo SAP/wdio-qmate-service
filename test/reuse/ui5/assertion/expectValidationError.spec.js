@@ -23,7 +23,7 @@ const inputFieldWithCheckSelector = {
 
 describe("Expect input field 'valueState' not to be 'Error' (unhappy case)", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });
@@ -32,13 +32,13 @@ describe("Expect input field 'valueState' not to be 'Error' (unhappy case)", fun
 
   it("Verification", async function () {
     await ui5.assertion.expectToBeVisible(inputFieldWithCheckSelector);
-    await expect(ui5.assertion.expectValidationError(inputFieldWithCheckSelector)).rejects.toThrowError(/None/);
+    await expect(ui5.assertion.expectValidationError(inputFieldWithCheckSelector)).rejects.toThrow(/None/);
   });
 });
 
 describe("Expect input field 'valueState' to be 'Error'", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked`);
+    await browser.url(`${BASE_URL}/#/entity/sap.m.Input/sample/sap.m.sample.InputChecked`);
     await handleCookiesConsent();
     await util.browser.switchToIframe("[id='sampleFrame']");
   });

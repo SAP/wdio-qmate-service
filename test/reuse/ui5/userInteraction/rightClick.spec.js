@@ -3,7 +3,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - rightClick", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/`);
+    await browser.url(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
@@ -26,7 +26,7 @@ describe("userInteraction - rightClick", function () {
 
 describe("userInteraction - rightClick on not displayed element", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/`);
+    await browser.url(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 

@@ -12,6 +12,7 @@ export class Browser {
   private vlf = new VerboseLoggerFactory("util", "browser");
   private specLogPrefix = "@SPEC: ";
   private ErrorHandler = new ErrorHandler();
+  private _frameContext: WebdriverIO.BrowsingContext | null = null;
 
   // =================================== URL ===================================
   /**
@@ -126,6 +127,7 @@ export class Browser {
   async refresh(): Promise<void> {
     const vl = this.vlf.initLog(this.refresh);
     await browser.refresh();
+    this._frameContext = null;
   }
 
   /**
@@ -140,10 +142,10 @@ export class Browser {
   async clearBrowser(clearLocal: boolean = true, clearSession: boolean = true, clearCookies: boolean = true): Promise<void> {
     const vl = this.vlf.initLog(this.clearBrowser);
     if (clearLocal) {
-      await browser.execute("window.localStorage.clear()");
+      await browser.execute(() => window.localStorage.clear());
     }
     if (clearSession) {
-      await browser.execute("window.sessionStorage.clear()");
+      await browser.execute(() => window.sessionStorage.clear());
     }
     if (clearCookies) {
       await browser.deleteCookies();
@@ -159,8 +161,8 @@ export class Browser {
   async reloadSession(): Promise<void> {
     const vl = this.vlf.initLog(this.reloadSession);
     await browser.reloadSession();
-    if (browser.config.qmate?.enableUi5ExtensionMocking !== false) {
-      await browser.mockClearAll();
+    this._frameContext = null;
+    if (browser.isBidi && browser.config.qmate?.enableUi5ExtensionMocking === true) {
       await Ui5ExtensionMocker.mockRequests();
     }
   }
@@ -251,7 +253,7 @@ export class Browser {
     }
 
     if (logUI5Version !== false && !process.env.UI5_VERSION_LOGGED) {
-      const ui5Version = await this.getUI5Version();
+      const ui5Version = await this.getUI5Version(5000);
       util.console.log("");
       util.console.info(`UI5 Version:\t${ui5Version.version}`);
       util.console.info(`UI5 Timestamp:\t${ui5Version.timestamp}`);
@@ -273,9 +275,9 @@ export class Browser {
    * @returns {Any} The result from the executed function.
    * @example await util.browser.executeScript(command);
    */
-  async executeScript(command: string | Function, ...args: Array<any>): Promise<any> {
+  async executeScript(command: string | ((...args: any[]) => any), ...args: Array<any>): Promise<any> {
     const vl = this.vlf.initLog(this.executeScript);
-    return browser.execute(command, ...args);
+    return this.getContext().execute(command, ...args);
   }
 
   // =================================== WAITING ===================================
@@ -310,16 +312,34 @@ export class Browser {
   async switchToNewWindow(titleOrUrl: string | RegExp, timeout: number = 10000) {
     const vl = this.vlf.initLog(this.switchToNewWindow);
     try {
-      await browser.waitUntil(
-        async () => {
-          await browser.switchWindow(titleOrUrl);
-          return this._verifyTitleOrUrl(titleOrUrl);
-        },
-        {
-          timeout: timeout,
-          timeoutMsg: `Could not verify successful switch after ${timeout / 1000}s.`
-        }
-      );
+      if ((browser as any).isBidi) {
+        // browser.switchWindow() is removed in BiDi; iterate handles via switchToWindow instead
+        await browser.waitUntil(
+          async () => {
+            const handles = await browser.getWindowHandles();
+            for (const handle of handles) {
+              await this.switchToWindow(handle);
+              if (await this._verifyTitleOrUrl(titleOrUrl)) return true;
+            }
+            return false;
+          },
+          {
+            timeout: timeout,
+            timeoutMsg: `Could not verify successful switch after ${timeout / 1000}s.`
+          }
+        );
+      } else {
+        await browser.waitUntil(
+          async () => {
+            await browser.switchWindow(titleOrUrl);
+            return this._verifyTitleOrUrl(titleOrUrl);
+          },
+          {
+            timeout: timeout,
+            timeoutMsg: `Could not verify successful switch after ${timeout / 1000}s.`
+          }
+        );
+      }
     } catch (error) {
       this.ErrorHandler.logException(error);
     }
@@ -335,6 +355,7 @@ export class Browser {
   async switchToWindow(handle: object) {
     const vl = this.vlf.initLog(this.switchToWindow);
     await browser.switchToWindow(handle);
+    this._frameContext = null;
   }
 
   /**
@@ -358,6 +379,7 @@ export class Browser {
   async closeWindow() {
     const vl = this.vlf.initLog(this.closeWindow);
     await browser.closeWindow();
+    this._frameContext = null;
   }
 
   /**
@@ -369,9 +391,32 @@ export class Browser {
    */
   async switchToIframe(selector: string) {
     const vl = this.vlf.initLog(this.switchToIframe);
+    // Reset stale frame context before operating on a new page.
+    this._frameContext = null;
     await nonUi5.element.waitToBeVisible(selector);
-    const frame = await $(selector);
-    await browser.switchToFrame(frame);
+    if (browser.isBidi) {
+      const windowHandle = await browser.getWindowHandle();
+      const topCtx = (await browser.browsingContexts()).find((context: { contextId: string }) => context.contextId === windowHandle);
+      if (!topCtx) throw new Error("Could not resolve the active tab's browsing context");
+      const iframe = await topCtx.$(selector);
+      // Read the native BiDi WindowProxy reference. WDIO's execute serializer
+      // walks cross-realm Windows as plain objects, so frame({ selector }) can
+      // throw on restricted properties or traverse an entire child window.
+      const result = await (browser as any).scriptCallFunction({
+        functionDeclaration: "function (iframe) { return iframe.contentWindow; }",
+        target: { context: topCtx.contextId },
+        arguments: [{ sharedId: iframe.elementId }],
+        awaitPromise: false,
+        resultOwnership: "none"
+      });
+      if (result.type === "exception") throw new Error(result.exceptionDetails.text);
+      const contextId = result.result?.value?.context;
+      if (!contextId) throw new Error(`No browsing context found for iframe "${selector}"`);
+      this._frameContext = await topCtx.frame({ id: contextId });
+    } else {
+      const frame = await $(selector);
+      await browser.switchFrame(frame);
+    }
   }
 
   /**
@@ -382,7 +427,23 @@ export class Browser {
    */
   async switchToDefaultContent() {
     const vl = this.vlf.initLog(this.switchToDefaultContent);
-    await browser.switchToFrame(null);
+    if (browser.isBidi) {
+      this._frameContext = null;
+    } else {
+      await browser.switchFrame(null);
+    }
+  }
+
+  /**
+   * @function getContext
+   * @memberOf util.browser
+   * @description Returns the active browsing context (frame in BiDi, or browser in Classic/top-level).
+   * @returns {Object} The active context to use for element queries.
+   * @example const ctx = util.browser.getContext();
+   */
+  getContext(): WebdriverIO.Browser | WebdriverIO.BrowsingContext {
+    this.vlf.initLog(this.getContext);
+    return this._frameContext ?? browser;
   }
 
   /**
@@ -393,7 +454,9 @@ export class Browser {
    */
   async back() {
     const vl = this.vlf.initLog(this.back);
-    return browser.back();
+    const result = await browser.back();
+    this._frameContext = null;
+    return result;
   }
 
   /**
@@ -404,7 +467,9 @@ export class Browser {
    */
   async forward() {
     const vl = this.vlf.initLog(this.forward);
-    return browser.forward();
+    const result = await browser.forward();
+    this._frameContext = null;
+    return result;
   }
 
   // =================================== LOGGER ===================================

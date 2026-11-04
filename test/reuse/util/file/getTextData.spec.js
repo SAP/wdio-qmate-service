@@ -34,6 +34,6 @@ describe("file - getTextData - checkFileEnding - Assert correct file ending", fu
   });
 
   it("Execution & Verification", async () => {
-    await expect(util.file.getTextData(pathToFile)).rejects.toThrowError("Function 'getTextData' failed with: Wrong file format 'xml' was passed to function. Expected file format: txt.");
+    await expect(util.file.getTextData(pathToFile)).rejects.toThrow("Function 'getTextData' failed with: Wrong file format 'xml' was passed to function. Expected file format: txt.");
   });
 });

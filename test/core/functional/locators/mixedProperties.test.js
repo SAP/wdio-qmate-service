@@ -75,7 +75,7 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
       }
     };
 
-    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT)).rejects.toThrow(/No visible elements found/);
   });
 
   it("'happy case': should access element by nested elementProperties, ancestorProperties, empty siblingProperties and descendantProperties", async () => {
@@ -167,7 +167,7 @@ describe("Test for mixed properties (elementProperties, ancestorProperties, sibl
       }
     };
 
-    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT)).rejects.toThrow(/No visible elements found/);
   });
 });
 
@@ -226,7 +226,7 @@ describe("Test for mixed properties (childProperties, parentProperties, prevSibl
       }
     };
 
-    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT)).rejects.toThrow(/No visible elements found/);
   });
 
   it("'unhappy case': should fail to find element when 'parentProperties' is wrong", async () => {
@@ -254,7 +254,7 @@ describe("Test for mixed properties (childProperties, parentProperties, prevSibl
       }
     };
 
-    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT)).rejects.toThrow(/No visible elements found/);
   });
 
   it("'unhappy case': should fail to find element when 'prevSiblingProperties' is wrong", async () => {
@@ -282,7 +282,7 @@ describe("Test for mixed properties (childProperties, parentProperties, prevSibl
       }
     };
 
-    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT)).rejects.toThrow(/No visible elements found/);
   });
 
   it("'unhappy case': should fail to find element when 'nextSiblingProperties' is wrong", async () => {
@@ -310,7 +310,7 @@ describe("Test for mixed properties (childProperties, parentProperties, prevSibl
       }
     };
 
-    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(selector, undefined, NEGATIVE_TEST_TIMEOUT)).rejects.toThrow(/No visible elements found/);
   });
 
   it("'happy case': should access element and ignore empty nested parentProperties, childProperties, prevSiblingProperties and nextSiblingProperties", async () => {

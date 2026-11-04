@@ -69,7 +69,7 @@ describe("webdriver.io page locator test", function () {
         bindingContextPath: "/ProductCategories*'CSA')"
       }
     };
-    await expect(browser.uiControl(selectorWithoutElementProperties)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(selectorWithoutElementProperties)).rejects.toThrow(/No visible elements found/);
   });
 
   it("should access element by elementProperties and siblingProperties", async function () {
@@ -107,7 +107,7 @@ describe("webdriver.io page locator test", function () {
         bindingContextPath: "/ProductCategories*'CSA')"
       }
     };
-    await expect(browser.uiControl(wrongProperties)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(wrongProperties)).rejects.toThrow(/No visible elements found/);
   });
 
   it("should access element by elementProperties and multiple siblingProperties as array - AND (happy case)", async function () {
@@ -141,7 +141,7 @@ describe("webdriver.io page locator test", function () {
         { viewName: "sap.ui.demo.cart.view.Home", metadata: "sap.m.StandardListItem", bindingContextPath: "/ProductCategories*'THIS-DOES-NOT-EXIST')" }
       ]
     };
-    await expect(browser.uiControl(selector, 0, 1000)).rejects.toThrowError(/No visible elements found/);
+    await expect(browser.uiControl(selector, 0, 1000)).rejects.toThrow(/No visible elements found/);
   });
 
   it("should return multiple elements when multiple elements each satisfy array siblingProperties - AND (multiple results)", async function () {

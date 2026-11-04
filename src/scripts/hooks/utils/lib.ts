@@ -40,33 +40,41 @@ var LibScripts = function () {
       }
     }
     if (browserFunction !== null && browserFunction !== undefined && mockServerPath) {
-      var nConvFunction = function (browserFunction, mockServerPath, aCustomParams, callBack) {
-        var mockserver = null;
-        var userDefFunction = "userDefFunction = " + browserFunction;
-        try {
-          if (mockServerPath) {
-            // eslint-disable-next-line no-undef
-            mockserver = sap.ui.requireSync(mockServerPath);
+      var nConvFunction = function (browserFunction, mockServerPath, aCustomParams) {
+        return new Promise(function (resolve, reject) {
+          var mockserver = null;
+          var userDefFunction = "userDefFunction = " + browserFunction;
+          try {
+            if (mockServerPath) {
+              // eslint-disable-next-line no-undef
+              mockserver = sap.ui.requireSync(mockServerPath);
+            }
+          } catch (ex) {
+            reject(new Error("Conversion to UI5 mockserver was unsuccesful:" + ex));
+            return;
           }
-        } catch (ex) {
-          throw new Error("Conversion to UI5 mockserver was unsuccesful:" + ex);
-        }
 
-        try {
-          userDefFunction = eval(userDefFunction);
-        } catch (e) {
-          throw new Error("Eval failed:" + e);
-        }
-        if (aCustomParams && aCustomParams.length) {
-          const args = [mockserver].concat(aCustomParams).concat([callBack]);
-          return userDefFunction.apply(this, args);
-
-          // Note: here is a difference between 'controlActionInBrowser' and 'mockServerActionInBrowser'
-          // return userDefFunction(mockserver, aCustomParams.toString(), callBack);
-        }
-        return userDefFunction(mockserver, callBack);
+          try {
+            userDefFunction = eval(userDefFunction);
+          } catch (e) {
+            reject(new Error("Eval failed:" + e));
+            return;
+          }
+          try {
+            var result;
+            if (aCustomParams && aCustomParams.length) {
+              const args = [mockserver].concat(aCustomParams);
+              result = userDefFunction.apply(this, args);
+            } else {
+              result = userDefFunction(mockserver);
+            }
+            resolve(result);
+          } catch (e) {
+            reject(e);
+          }
+        });
       };
-      return browser.executeAsync(nConvFunction, browserFunction.toString(), mockServerPath, aCustomParams);
+      return util.browser.getContext().execute(nConvFunction, browserFunction.toString(), mockServerPath, aCustomParams);
     } else {
       throw new Error("Invalid parameters.");
     }
@@ -117,29 +125,40 @@ var LibScripts = function () {
       }
     }
     if (browserFunction !== null && browserFunction !== undefined && webElem !== null && webElem !== undefined) {
-      var nConvFunction = function (browserFunction, webElem, aCustomParams, callBack) {
-        var control = null;
-        var userDefFunction = "userDefFunction = " + browserFunction;
-        try {
-          if (webElem) {
-            // eslint-disable-next-line no-undef
-            control = sap.ui.core.Element.registry.get(webElem.getAttribute("id"));
+      var nConvFunction = function (browserFunction, webElem, aCustomParams) {
+        return new Promise(function (resolve, reject) {
+          var control = null;
+          var userDefFunction = "userDefFunction = " + browserFunction;
+          try {
+            if (webElem) {
+              // eslint-disable-next-line no-undef
+              control = sap.ui.core.Element.registry.get(webElem.getAttribute("id"));
+            }
+          } catch (ex) {
+            reject(new Error("Conversion to UI5 control was unsuccesful:" + ex));
+            return;
           }
-        } catch (ex) {
-          throw new Error("Conversion to UI5 control was unsuccesful:" + ex);
-        }
 
-        try {
-          userDefFunction = eval(userDefFunction);
-        } catch (e) {
-          throw new Error("Eval failed:" + e);
-        }
-        if (aCustomParams && aCustomParams.length) {
-          return userDefFunction(control, ...aCustomParams, callBack);
-        }
-        return userDefFunction(control, callBack);
+          try {
+            userDefFunction = eval(userDefFunction);
+          } catch (e) {
+            reject(new Error("Eval failed:" + e));
+            return;
+          }
+          try {
+            var result;
+            if (aCustomParams && aCustomParams.length) {
+              result = userDefFunction(control, ...aCustomParams);
+            } else {
+              result = userDefFunction(control);
+            }
+            resolve(result);
+          } catch (e) {
+            reject(e);
+          }
+        });
       };
-      return browser.executeAsync(nConvFunction, browserFunction.toString(), webElem, aCustomParams);
+      return util.browser.getContext().execute(nConvFunction, browserFunction.toString(), webElem, aCustomParams);
     } else {
       throw new Error("Invalid parameters.");
     }
@@ -153,9 +172,10 @@ var LibScripts = function () {
       browser.config.waitForUI5PollingInterval = 10;
     }
     try {
+      const ctx = util.browser.getContext();
       await browser.waitUntil(
         async () => {
-          return (await browser.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
+          return (await ctx.execute(clientsidescripts.loadUI5CoreAndAutowaiter)) === true;
         },
         {
           timeout: browser.config.waitForUI5Timeout,
@@ -167,9 +187,10 @@ var LibScripts = function () {
       var mScriptParams = {};
       mScriptParams.waitForUI5Timeout = browser.config.waitForUI5Timeout;
       mScriptParams.waitForUI5PollingInterval = browser.config.waitForUI5PollingInterval;
+      await ctx.execute(clientsidescripts.loadUI5Page, mScriptParams);
       await browser.waitUntil(
         async () => {
-          return (await browser.execute(clientsidescripts.loadUI5Page, mScriptParams)) === true;
+          return (await ctx.execute(() => !!(window.loadUI5PagePromise && window.loadUI5PagePromise.done))) === true;
         },
         {
           timeout: browser.config.waitForUI5Timeout,
@@ -191,15 +212,15 @@ var LibScripts = function () {
           ui5Selector &&
           (ui5Selector.elementProperties || ui5Selector.ancestorProperties || ui5Selector.descendantProperties || ui5Selector.siblingProperties || ui5Selector.parentProperties || ui5Selector.childProperties || ui5Selector.prevSiblingProperties || ui5Selector.nextSiblingProperties)
         ) {
-          aElements = await browser.custom$$("ui5All", ui5Selector, rootElement);
+          aElements = await util.browser.getContext().custom$$("ui5All", ui5Selector, rootElement);
         } else if (ui5Selector && ui5Selector.controlType) {
-          aElements = await browser.custom$$("ui5Veri5", ui5Selector);
+          aElements = await util.browser.getContext().custom$$("ui5Veri5", ui5Selector);
         }
       }
       if (!aElements || aElements.length === 0) return null;
       const displayedElements = [];
       for (let i = 0; i < aElements.length; i++) {
-        const isDisplayedInPort = await aElements[i].isDisplayedInViewport();
+        const isDisplayedInPort = await aElements[i].isDisplayed();
         if (isDisplayedInPort) {
           displayedElements.push(aElements[i]);
         }
@@ -229,9 +250,9 @@ var LibScripts = function () {
           if (!ui5Selector.elementProperties || isEmptyObjectOrUndefined(ui5Selector.elementProperties)) {
             throw new Error(`The selector your provided ${ui5Selector ? JSON.stringify(ui5Selector) : ui5Selector} does not contain elementProperties, please provide a valid selector with elementProperties`);
           }
-          aElements = await browser.custom$$("ui5All", ui5Selector, rootElement);
+          aElements = await util.browser.getContext().custom$$("ui5All", ui5Selector, rootElement);
         } else if (ui5Selector && ui5Selector.controlType) {
-          aElements = await browser.custom$$("ui5Veri5", ui5Selector);
+          aElements = await util.browser.getContext().custom$$("ui5Veri5", ui5Selector);
         } else {
           return null;
         }
@@ -301,7 +322,7 @@ var LibScripts = function () {
   };
 
   this.loadMockData = async function (responsePath, isText) {
-    return browser.executeAsync(clientsidescripts.loadMockData, {
+    return util.browser.getContext().execute(clientsidescripts.loadMockData, {
       responsePath: responsePath,
       isText: isText
     });

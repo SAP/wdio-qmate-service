@@ -42,7 +42,7 @@ describe("getAssociationProperty - 'selectedItems' of MultiComboBox", function (
       parentProperties: { metadata: "sap.ui.layout.VerticalLayout" }
     };
     var id = await ui5.element.getId(selector);
-    const element = await $("[id='" + id + "-arrow']");
+    const element = await util.browser.getContext().$("[id='" + id + "-arrow']");
     await element.click();
     const item1 = {
       elementProperties: { metadata: "sap.m.CheckBox" },

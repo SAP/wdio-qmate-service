@@ -34,9 +34,9 @@ describe("filters1", function () {
     var newText = "whatsUp";
     var elem = await ui5.element.getDisplayed(ui5ControlProperties);
     var title = await browser.controlActionInBrowser(
-      function (control, txt, done) {
+      function (control, txt) {
         control.setTitle(txt);
-        done(control.getTitle());
+        return control.getTitle();
       },
       elem,
       newText
@@ -57,9 +57,9 @@ describe("filters1", function () {
     var selectorParams = { selector: ui5ControlProperties, index: 0, timeout: 30000 };
     //await ui5.element.getDisplayed(ui5ControlProperties);
     var title = await browser.controlActionInBrowser(
-      function (control, txt, done) {
+      function (control, txt) {
         control.setTitle(txt);
-        done(control.getTitle());
+        return control.getTitle();
       },
       selectorParams,
       newText
@@ -81,9 +81,9 @@ describe("filters1", function () {
 
     await expect(
       browser.controlActionInBrowser(
-        function (control, txt, done) {
+        function (control, txt) {
           control.setTitle(txt);
-          done(control.getTitle());
+          return control.getTitle();
         },
         selectorParams,
         newText
@@ -100,12 +100,10 @@ describe("filters1", function () {
       }
     };
     //await ui5.element.getDisplayed(ui5ControlProperties);
-    var title = await browser.controlActionInBrowser(function (control, done) {
+    var title = await browser.controlActionInBrowser(function (control) {
       var data = { title: control.getTitle() };
-      control.attachPress(data, function () {
-        done(data.title);
-      });
       control.firePress();
+      return data.title;
     }, ui5ControlProperties);
 
     await expect(title).toBe("test");
@@ -119,10 +117,7 @@ describe("filters1", function () {
     };
     var selectorParams = { selector: ui5ControlProperties, index: 0, timeout: 3000 };
     //await ui5.element.getDisplayed(ui5ControlProperties);
-    await browser.controlActionInBrowser(function (control, done) {
-      control.attachPress(undefined, function () {
-        done();
-      });
+    await browser.controlActionInBrowser(function (control) {
       control.firePress();
     }, selectorParams);
   });

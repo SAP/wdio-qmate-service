@@ -190,7 +190,7 @@ export class Session {
 
     try {
       const baseUrl = browser.config.baseUrl;
-      await browser.navigateTo(baseUrl);
+      await browser.url(baseUrl);
       if (browser.config.params && browser.config.params.auth && browser.config.params.auth.username && browser.config.params.auth.password) {
         username = browser.config.params.auth.username;
         password = browser.config.params.auth.password;
@@ -252,7 +252,7 @@ export class Session {
 
             return true;
           } catch (e) {
-            return ((lastError = e), false);
+            return (lastError = e), false;
           }
         },
         { timeout: GLOBAL_DEFAULT_WAIT_TIMEOUT, timeoutMsg: `Logout flow did not complete in ${GLOBAL_DEFAULT_WAIT_TIMEOUT / 1000}s` }
@@ -285,7 +285,7 @@ export class Session {
 
     await this.logout();
     await util.browser.sleep(wait);
-    await browser.navigateTo(browser.config.baseUrl);
+    await browser.url(browser.config.baseUrl);
     if (!authenticator) {
       this.login(username, password);
     } else {
@@ -355,10 +355,10 @@ export class Session {
     try {
       await browser.waitUntil(
         async function () {
-          usernameField = await $(authenticator.usernameFieldSelector);
-          passwordField = await $(authenticator.passwordFieldSelector);
-          logonField = await $(authenticator.logonButtonSelector);
-          return (await usernameField.isDisplayedInViewport()) && (await passwordField.isDisplayedInViewport()) && (await logonField.isDisplayedInViewport());
+          usernameField = await util.browser.getContext().$(authenticator.usernameFieldSelector);
+          passwordField = await util.browser.getContext().$(authenticator.passwordFieldSelector);
+          logonField = await util.browser.getContext().$(authenticator.logonButtonSelector);
+          return (await usernameField.isDisplayed()) && (await passwordField.isDisplayed()) && (await logonField.isDisplayed());
         },
         {
           timeout: GLOBAL_DEFAULT_WAIT_TIMEOUT,
@@ -370,8 +370,7 @@ export class Session {
       await usernameField.setValue(username);
       // @ts-ignore
       await passwordField.setValue(password);
-      // @ts-ignore
-      await logonField.click();
+      await require("../../authenticator/submitLoginForm")(logonField, util.browser.getContext());
     } catch (error) {
       this.ErrorHandler.logException(new Error("Please check if you are already logged in or if the system is down"));
     }

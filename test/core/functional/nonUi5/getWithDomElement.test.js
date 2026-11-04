@@ -37,13 +37,13 @@ describe("webdriver.io page", function () {
     const elem = await $('li[id*="homeView--categoryList-0"]');
     const allAggregationsNames = await elem.getAllUI5Aggregations();
     expect(allAggregationsNames).toContain("tooltip");
-    await expect(elem.getUI5Aggregation("")).rejects.toThrow("javascript error: done is not a function");
+    await expect(elem.getUI5Aggregation("")).rejects.toThrow("Please provide a valid aggregation name");
   });
 
   it("step6: check element's Binding context path using $ and get wrong element property", async function () {
     const elem = await $('li[id*="homeView--categoryList-0"]');
     const bindingPath = await elem.getBindingContextPath();
     expect(bindingPath).toContain("/ProductCategories('AC')");
-    await expect(elem.getUI5Property("")).rejects.toThrow("javascript error: done is not a function");
+    await expect(elem.getUI5Property("")).rejects.toThrow("Please provide a valid property name");
   });
 });

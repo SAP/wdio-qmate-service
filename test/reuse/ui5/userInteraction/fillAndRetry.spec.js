@@ -6,7 +6,7 @@ describe("userInteraction - fill and retry", function () {
   let actualValue;
 
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`);
+    await browser.url(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`);
     await handleCookiesConsent();
   });
 
@@ -36,7 +36,7 @@ describe("userInteraction - fillAndRetry element with invalid selector", functio
   let value;
 
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`);
+    await browser.url(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`);
     await handleCookiesConsent();
   });
 
@@ -61,7 +61,7 @@ describe("userInteraction - fillAndRetry element with number", function () {
   let actualValue;
 
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`);
+    await browser.url(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`);
     await handleCookiesConsent();
   });
 
@@ -91,7 +91,7 @@ describe("userInteraction - fillAndRetry element with empty value", function () 
   let actualValue;
 
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`);
+    await browser.url(`${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`);
     await handleCookiesConsent();
   });
 

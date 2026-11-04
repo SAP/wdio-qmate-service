@@ -36,7 +36,8 @@ describe("assertion - expectToBeVisible - element out of viewport", function () 
   });
 
   it("Verification", async function () {
-    const elem = await nonUi5.element.getByCssContainingText(".sapMMultiComboBoxItem", "Smart Games");
+    // Resolve only the target item; stabilizing all 100 options can exceed the timeout.
+    const elem = await nonUi5.element.getByXPath("//li[contains(@class, 'sapMMultiComboBoxItem') and .//*[text()='Smart Games']]");
     await nonUi5.assertion.expectToBeVisible(elem);
   });
 });

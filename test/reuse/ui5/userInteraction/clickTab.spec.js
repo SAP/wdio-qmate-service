@@ -3,7 +3,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 describe("userInteraction - clickTab - simple tab", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/api/sap.m.IconTabBar`);
+    await browser.url(`${BASE_URL}/#/api/sap.m.IconTabBar`);
     await handleCookiesConsent();
   });
 
@@ -34,7 +34,7 @@ describe("userInteraction - clickTab - simple tab", function () {
 
 describe("userInteraction - clickTab - multiple select values", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/api/sap.m.IconTabBar`);
+    await browser.url(`${BASE_URL}/#/api/sap.m.IconTabBar`);
     await util.browser.refresh();
     await handleCookiesConsent();
   });
@@ -69,7 +69,7 @@ describe("userInteraction - clickTab - multiple select values", function () {
 
 describe("userInteraction - clickTab - non tab element", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/#/api/sap.m.IconTabBar`);
+    await browser.url(`${BASE_URL}/#/api/sap.m.IconTabBar`);
     await util.browser.refresh();
     await handleCookiesConsent();
   });

@@ -18,9 +18,9 @@ describe("execute - check updated title is 'whatsUp2' - pass element", async () 
     };
     const elem = await ui5.element.getDisplayed(selector);
     title = await ui5.control.execute(
-      function (control, txt, done) {
+      function (control, txt) {
         control.setTitle(txt);
-        done(control.getTitle());
+        return control.getTitle();
       },
       elem,
       newTitle
@@ -48,9 +48,9 @@ describe("execute - check updated title is 'whatsUp2' - pass selector", async ()
       }
     };
     title = await ui5.control.execute(
-      function (control, txt, done) {
+      function (control, txt) {
         control.setTitle(txt);
-        done(control.getTitle());
+        return control.getTitle();
       },
       selector,
       newTitle
@@ -78,9 +78,9 @@ describe("execute - check updated title is 'whatsUp2' - pass selector with optio
       }
     };
     title = await ui5.control.execute(
-      function (control, txt, done) {
+      function (control, txt) {
         control.setTitle(txt);
-        done(control.getTitle());
+        return control.getTitle();
       },
       { selector: selector, index: 0, timeout: 30000 },
       newTitle

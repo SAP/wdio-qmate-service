@@ -1,157 +1,52 @@
-import fs from "fs/promises";
-import fse from "fs-extra";
-import os from "os";
-import path from "path";
-import { glob }  from "glob";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { glob } from "glob";
 
-const pj = require("../../package.json");
+const manifest = require("../../package.json");
 
-class TypesGenerator {
-  private DIST_FOLDER_PATH = process.cwd();
-  private DIST_FOLDER_NAME = "typesTmp";
+async function generateTypes(): Promise<void> {
+  const root = process.cwd();
+  const destination = path.join(root, "typesTmp");
+  const modules = path.join(root, "lib/reuse/modules");
+  // This fixed directory is generated output, never a source checkout.
+  await fs.rm(destination, { recursive: true, force: true });
+  await fs.mkdir(destination, { recursive: true });
+  const owner = manifest.name;
+  const header = 'import "' + owner + '";\n';
+  await fs.writeFile(path.join(destination, "index.d.ts"), 'import QmateService = require("' + owner + '");\nexport = QmateService;\n');
+  await fs.writeFile(path.join(destination, "wdio.d.ts"), header + 'export type { Element } from "' + owner + '/@types/wdio";\n');
+  await fs.writeFile(path.join(destination, "locatorTypes.d.ts"), header + 'export type * from "' + owner + '/@types/locatorTypes";\n');
 
-  private SRC_MODULES_FOLDER_PATH = `${process.cwd()}/lib/reuse`;
-  private SRC_MODULES_FOLDER_NAME = "modules";
-
-  private SRC_INDEX_FOLDER_PATH = process.cwd();
-  private SRC_INDEX_FOLDER_NAME = "@types";
-
-  private FOLDER_FOR_TYPE_DECLARATION_FILES = "typeDeclarationFiles";
-
-  private PACKAGE_JSON_BASE_CONTENT = {
-    name: "@types/wdio-qmate-service",
-    version: "1.0.0",
-    description: "Packaged types for wdio-qmate-service",
-    dependencies: {
-      "@types/node": "^18.0.3"
-    }
-  };
-
-  public async generateTypes() {
-    const srcModulesPath = path.join(this.SRC_MODULES_FOLDER_PATH, this.SRC_MODULES_FOLDER_NAME);
-    const srcIndexPath = path.join(this.SRC_INDEX_FOLDER_PATH, this.SRC_INDEX_FOLDER_NAME);
-    const distPath = path.join(this.DIST_FOLDER_PATH, this.DIST_FOLDER_NAME);
-
-    await this.prepareTmpFolder(distPath);
-
-    await this.copyModulesTypes(srcModulesPath, distPath);
-    await this.copyIndexTypes(srcIndexPath, distPath);
-    await this.writePackageJson(distPath);
+  // Keep existing deep module paths, but share the runtime's type identities.
+  // Copying classes would duplicate globals and drift from optional WDIO types.
+  for (const file of await glob("**/*.d.ts", { cwd: modules, nodir: true })) {
+    const relative = file.split(path.sep).join("/");
+    const target = path.join(destination, "modules", file);
+    const specifier = owner + "/lib/reuse/modules/" + relative.replace(/\.d\.ts$/, "");
+    const source = await fs.readFile(path.join(modules, file), "utf8");
+    let content = header + 'export type * from "' + specifier + '";\n';
+    if (/^export default /m.test(source)) content += 'export type { default } from "' + specifier + '";\n';
+    await fs.mkdir(path.dirname(target), { recursive: true });
+    await fs.writeFile(target, content);
   }
-
-  private async writePackageJson(distPath: string) {
-    const updatedPackageJson = Object.assign({}, this.PACKAGE_JSON_BASE_CONTENT);
-    updatedPackageJson.version = pj.version;
-    await fs.writeFile(`${distPath}/package.json`, JSON.stringify(updatedPackageJson, null, 2));
-  }
-
-  private async copyIndexTypes(srcPath: string, distPath: string) {
-    const content = await this.getFolderContent(srcPath, ".d.ts");
-    const contentLean = await this.replaceBasePath(content, `${srcPath}${path.sep}`);
-    await this.writeIndex(contentLean, srcPath, distPath);
-  }
-
-  private async copyModulesTypes(srcPath: string, distPath: string) {
-    const content = await this.getFolderContent(srcPath, ".d.ts");
-    const contentLean = await this.replaceBasePath(content, `${srcPath}${path.sep}`);
-    const contentSplitted = await this.splitToModules(contentLean);
-    await this.writeModules(contentSplitted, distPath, srcPath);
-  }
-
-  private async writeIndex(files: string[], srcPath: string, distPath: string) {
-    const replacements = [
+  await fs.writeFile(
+    path.join(destination, "package.json"),
+    JSON.stringify(
       {
-        src: 'from "../src/reuse/modules',
-        replace: 'from "./modules'
-      }
-    ];
-    for (const file of files) {
-      const src = `${srcPath}/${file}`;
-      const dist = `${distPath}/${file}`;
-      await fse.copy(src, dist);
-      await this.replaceStringsInFile(dist, replacements);
-    }
-  }
-
-  private async prepareTmpFolder(path: string) {
-    await fs.rm(path, { recursive: true, force: true });
-    await fs.mkdir(path);
-  }
-
-  private async getFolderContent(folderPath: string, ext?: string): Promise<string[]> {
-    const globOptions: any = {};
-    if (os.platform() === "win32") {
-      globOptions.windowsPathsNoEscape = true;
-    }
-    const foldersPath = await glob(`${folderPath}/**/*${ext ? ext : ""}`, globOptions);
-    if (os.platform() === "win32") {
-      return foldersPath.map((folderPath) => folderPath.replaceAll("/", "\\"));
-    }
-    return foldersPath;
-  }
-
-  private async replaceBasePath(content: string[], srcPath: string): Promise<string[]> {
-    return content.map((c) => c.replace(srcPath, ""));
-  }
-
-  private async splitToModules(content: string[]) {
-    return content.reduce(
-      (acc, cur) => {
-        const slashIndex = cur.indexOf(path.sep);
-        let moduleName;
-        let file;
-        if (slashIndex !== -1) {
-          moduleName = cur.slice(0, slashIndex);
-          file = cur.slice(slashIndex + 1);
-        } else {
-          moduleName = this.FOLDER_FOR_TYPE_DECLARATION_FILES;
-          file = cur;
-        }
-        if (Array.isArray(acc[moduleName])) {
-          acc[moduleName].push(file);
-        } else {
-          acc[moduleName] = [file];
-        }
-        return acc;
+        name: "@types/wdio-qmate-service",
+        version: manifest.version,
+        description: "Compatibility type entry points for the packaged Qmate service",
+        types: "index.d.ts",
+        files: ["index.d.ts", "wdio.d.ts", "locatorTypes.d.ts", "modules"],
+        dependencies: { [owner]: "^" + manifest.version }
       },
-      {} as { [key: string]: string[] }
-    );
-  }
-
-  private async writeModules(content: { [key: string]: string[] }, distPath: string, srcPath: string) {
-    for (const moduleName in content) {
-      await this.writeSingleModule(moduleName === this.FOLDER_FOR_TYPE_DECLARATION_FILES ? "" : moduleName, content[moduleName], distPath, srcPath);
-    }
-  }
-
-  private async writeSingleModule(moduleName: string, files: string[], distPath: string, srcPath: string) {
-    const replacements = [
-      {
-        src: 'import { Element } from "../../../../@types/wdio"',
-        replace: 'import { Element } from "../../../@types/wdio"'
-      }
-    ];
-    for (const file of files) {
-      let src = `${srcPath}${path.sep}${moduleName}${path.sep}${file}`;
-      let dist = `${distPath}${path.sep}modules${path.sep}${moduleName}${path.sep}${file}`;
-      if (!moduleName) {
-        src = `${srcPath}${path.sep}${file}`;
-        dist = `${distPath}${path.sep}modules${path.sep}${file}`;
-      }
-      await fse.copy(src, dist);
-      await this.replaceStringsInFile(dist, replacements);
-    }
-  }
-
-  private async replaceStringsInFile(filePath: string, replacements: { src: string; replace: string }[]) {
-    let fileContent = await fs.readFile(filePath, { encoding: "utf-8" });
-    for (const replacement of replacements) {
-      if (fileContent.includes(replacement.src)) {
-        fileContent = fileContent.split(replacement.src).join(replacement.replace);
-      }
-    }
-    await fs.writeFile(filePath, fileContent);
-  }
+      null,
+      2
+    ) + "\n"
+  );
 }
 
-new TypesGenerator().generateTypes();
+generateTypes().catch((error: unknown) => {
+  process.stderr.write(String(error) + "\n");
+  process.exitCode = 1;
+});

@@ -294,8 +294,8 @@ export class Table {
           const filteredTableMetadata = table.getMetadata().getName();
           const items = TableHelper.getItems(table);
           const filteredItems = TableHelper.filterItemsWithoutTitle(items);
-          const itemsIds = await TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting}, "${matchMode}");
-          return [itemsIds, filteredTableMetadata];
+          return TableHelper.getIdsForItemsByCellValues(filteredItems, ${JSON.stringify(values)}, ${enableHighlighting}, "${matchMode}")
+            .then((itemsIds) => [itemsIds, filteredTableMetadata]);
       `;
       [filteredRowIds, filteredTableMetadata] = await util.browser.executeScript(browserCommand);
       // ========================================================================
@@ -373,7 +373,7 @@ export class Table {
       const browserCommand = `
         ${classCode}
         const table = TableHelper.filterTableByMetadata("${(constructedTableSelector as ElementProperties).elementProperties.id}", "${tableMetadata}", ${JSON.stringify(Table.SUPPORTED_TABLES_METADATA)});
-        return await TableHelper.getAllColumnValuesByScrolling(table, "${columnName}", ${scrollingEnabled});
+        return TableHelper.getAllColumnValuesByScrolling(table, "${columnName}", ${scrollingEnabled});
       `;
       values = await util.browser.executeScript(browserCommand);
       // ========================================================================
@@ -985,6 +985,11 @@ export class Table {
 
     if (await ui5.element.isVisible(rowArrowIconSelector, 0, 5000)) {
       await ui5.userInteraction.click(rowArrowIconSelector);
+    } else if (browser.isBidi) {
+      // BiDi's element click interactability check rejects some table rows.
+      // A pointer action still clicks the row and lets the application handle navigation.
+      const row = await ui5.element.getDisplayed(rowSelector);
+      await nonUi5.userInteraction.moveCursorAndClick(row);
     } else {
       await ui5.userInteraction.click(rowSelector);
     }

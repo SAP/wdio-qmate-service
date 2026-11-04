@@ -2,10 +2,18 @@ const path = require("path");
 const merge = require("deepmerge");
 const profile = require("../../../helper/configurations/chrome.headless.conf");
 const { BASE_URL } = require("../../../../src/reuse/constants.ts");
-
+const waitForUI5 = require("../../../helper/waitForUI5");
 exports.config = merge(profile.config, {
   maxInstances: 6,
   specFileRetries: 2,
+
+  before: async function () {
+    const origSwitchToIframe = util.browser.switchToIframe.bind(util.browser);
+    util.browser.switchToIframe = async (...args) => {
+      await origSwitchToIframe(...args);
+      await waitForUI5({ optional: true });
+    };
+  },
 
   baseUrl: `${BASE_URL}/test-resources/sap/m/demokit/cart/webapp/index.html?sap-ui-theme=sap_fiori_3`,
 

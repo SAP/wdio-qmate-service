@@ -34,7 +34,10 @@ async function FormAuthenticator() {
       usernameField = await $(usernameFieldSelector);
       passwordField = await $(passwordFieldSelector);
       logonField = await $(logonButtonSelector);
-      return (await usernameField.isDisplayedInViewport()) && (await passwordField.isDisplayedInViewport()) && (await logonField.isDisplayedInViewport());
+      const usernameVisible = await usernameField.isDisplayed();
+      const passwordVisible = await passwordField.isDisplayed();
+      const logonVisible = await logonField.isDisplayed();
+      return usernameVisible && passwordVisible && logonVisible;
     },
     {
       timeout: 60000,
@@ -44,6 +47,6 @@ async function FormAuthenticator() {
 
   await usernameField.setValue(username);
   await passwordField.setValue(password);
-  await logonField.click();
+  await require("./submitLoginForm")(logonField);
 }
 module.exports = FormAuthenticator;

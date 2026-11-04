@@ -8,7 +8,7 @@ const NEGATIVE_TEST_TIMEOUT = 10_000;
 
 describe("userInteraction - click", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/`);
+    await browser.url(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
@@ -30,7 +30,7 @@ describe("userInteraction - click", function () {
 
 describe("userInteraction - click on not displayed element", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/`);
+    await browser.url(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
@@ -68,7 +68,7 @@ describe("userInteraction - click on invisible element", function () {
 
 describe("userInteraction - click with selector having wildcard character(*) for metadata", function () {
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/`);
+    await browser.url(`${BASE_URL}/`);
     await handleCookiesConsent();
   });
 
@@ -97,7 +97,7 @@ describe("userInteraction - click disabled button (negative test)", function () 
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#/?sap-iapp-state=3&sap-iapp-state--history=1`);
+    await browser.url(`${BASE_URL}/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#/?sap-iapp-state=3&sap-iapp-state--history=1`);
     await ui5.assertion.expectToBeVisible(selector);
   });
 
@@ -121,7 +121,7 @@ describe("userInteraction - click unblocked button and ignore blocked one", func
   };
 
   it("Preparation", async function () {
-    await browser.navigateTo(`${BASE_URL}/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#/?sap-iapp-state=3&sap-iapp-state--history=1`);
+    await browser.url(`${BASE_URL}/test-resources/sap/suite/ui/generic/template/demokit/demokit.html?responderOn=true&demoApp=sttasalesordertt#/?sap-iapp-state=3&sap-iapp-state--history=1`);
     await ui5.userInteraction.click(createButtonSelector);
     const valueHelpIconSelector = {
       elementProperties: {

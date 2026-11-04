@@ -255,7 +255,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(additionalTextFormatError("object"));
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrow(additionalTextFormatError("object"));
     });
   });
 
@@ -266,7 +266,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(additionalTextFormatError("datetime"));
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrow(additionalTextFormatError("datetime"));
     });
   });
 
@@ -277,7 +277,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(additionalTextFormatError("datetime"));
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrow(additionalTextFormatError("datetime"));
     });
   });
 
@@ -288,7 +288,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(/Invalid time format provided. Available time formats: /);
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrow(/Invalid time format provided. Available time formats: /);
     });
   });
 
@@ -299,7 +299,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(/Invalid time format provided. Available time formats: /);
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrow(/Invalid time format provided. Available time formats: /);
     });
   });
 
@@ -310,7 +310,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(/Invalid date format provided. Available date formats: /);
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrow(/Invalid date format provided. Available date formats: /);
     });
   });
 
@@ -321,7 +321,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(/Invalid date format provided. Available date formats: /);
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrow(/Invalid date format provided. Available date formats: /);
     });
   });
 
@@ -332,7 +332,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(/Invalid time format provided. Available time formats: /);
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrow(/Invalid time format provided. Available time formats: /);
     });
   });
 
@@ -343,7 +343,7 @@ describe("formatter - formatDateWithTime", () => {
     });
 
     it("Execution & Verification", function () {
-      expect(() => util.formatter.formatDateWithTime(date, format)).toThrowError(additionalTextFormatError("dd.mm.yyyy.hh.mm"));
+      expect(() => util.formatter.formatDateWithTime(date, format)).toThrow(additionalTextFormatError("dd.mm.yyyy.hh.mm"));
     });
   });
 });

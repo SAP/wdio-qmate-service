@@ -24,10 +24,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: |
-          npm install -g npm@latest
-          npm ci
-          npm run lint
+      - run: npm install -g npm@latest
+        continue-on-error: true
+      - name: Install dependencies
+        run: npm ci
+      - name: Run lint
+        run: npm run lint
 
   test-core:
     runs-on: ubuntu-22.04
@@ -41,10 +43,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: |
-          npm install -g npm@latest
-          npm ci
-          npm run test:core
+      - run: npm install -g npm@latest
+        continue-on-error: true
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm run test:core
 
   test-authenticator:
     runs-on: ubuntu-22.04
@@ -58,10 +62,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: |
-          npm install -g npm@latest
-          npm ci
-          npm run test:authenticator:staticLogin
+      - run: npm install -g npm@latest
+        continue-on-error: true
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm run test:authenticator:staticLogin
 
   test-common:
     runs-on: ubuntu-22.04
@@ -75,10 +81,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: |
-          npm install -g npm@latest
-          npm ci
-          npm run test:reuse:common
+      - run: npm install -g npm@latest
+        continue-on-error: true
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm run test:reuse:common
 
   test-ui5-1:
     runs-on: ubuntu-22.04
@@ -92,10 +100,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: |
-          npm install -g npm@latest
-          npm ci
-          npm run test:reuse:ui5:pt1
+      - run: npm install -g npm@latest
+        continue-on-error: true
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm run test:reuse:ui5:pt1
 
   test-ui5-2:
     runs-on: ubuntu-22.04
@@ -109,10 +119,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: |
-          npm install -g npm@latest
-          npm ci
-          npm run test:reuse:ui5:pt2
+      - run: npm install -g npm@latest
+        continue-on-error: true
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm run test:reuse:ui5:pt2
 
   test-non-ui5:
     runs-on: ubuntu-22.04
@@ -126,10 +138,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: |
-          npm install -g npm@latest
-          npm ci
-          npm run test:reuse:nonUi5
+      - run: npm install -g npm@latest
+        continue-on-error: true
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm run test:reuse:nonUi5
 
   test-util:
     runs-on: ubuntu-22.04
@@ -142,11 +156,12 @@ jobs:
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: ${{ matrix.node-version }}
-      - name: run tests
-        run: |
-          npm install -g npm@latest
-          npm ci
-          npm run test:reuse:util
+      - run: npm install -g npm@latest
+        continue-on-error: true
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm run test:reuse:util
 
   test-util-data-privacy:
     if: ${{ !github.event.pull_request.head.repo.fork }}
@@ -160,13 +175,14 @@ jobs:
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: ${{ matrix.node-version }}
-      - name: run tests
+      - run: npm install -g npm@latest
+        continue-on-error: true
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
         env:
           QMATE_PRIVATE_KEY: ${{ secrets.QMATE_PRIVATE_KEY }}
-        run: |
-          npm install -g npm@latest
-          npm ci
-          npm run test:reuse:util:data:privacy
+        run: npm run test:reuse:util:data:privacy
           
   test-service:
     runs-on: ubuntu-22.04
@@ -180,10 +196,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: |
-          npm install -g npm@latest
-          npm ci
-          npm run test:reuse:service
+      - run: npm install -g npm@latest
+        continue-on-error: true
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm run test:reuse:service
 
   test-unit:
     runs-on: ubuntu-22.04
@@ -197,7 +215,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: |
-          npm install -g npm@latest
-          npm ci
-          npm run test:unit
+      - run: npm install -g npm@latest
+        continue-on-error: true
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm run test:unit
