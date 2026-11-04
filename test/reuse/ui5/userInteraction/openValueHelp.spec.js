@@ -3,7 +3,7 @@ const { handleCookiesConsent } = require("../../../helper/utils");
 
 const valueHelpSelector = {
   elementProperties: {
-    metadata: "sap.m.Input",
+    metadata: "sap.*.Input",
     id: "sampleComp-sap.ui.comp.sample.smartfield.SmartFieldWithValueHelp---IDView--idDeliveryTransport-input"
   }
 };
