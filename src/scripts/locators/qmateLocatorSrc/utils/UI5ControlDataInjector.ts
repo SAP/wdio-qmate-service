@@ -22,9 +22,7 @@ export class UI5ControlDataInjector {
     keys.forEach((key) => {
       try { //might throw on properties like "selectedIndex" for ui.table.Table with selection plugin
         domElement.setAttribute(`data-${key}`, valueGetter(key));
-      } catch (e) {
-        domElement.setAttribute(`data-${key}`, ""); //fall back to empty string in error case
-      }
+      } catch (_) {}
       const sBindingDataStr = UI5ControlDataInjector.getBindingInfoDataString(oControl, key);
       if (sBindingDataStr && sBindingDataStr.trim() !== "") {
         domElement.setAttribute(`data-${key}-path`, sBindingDataStr);
