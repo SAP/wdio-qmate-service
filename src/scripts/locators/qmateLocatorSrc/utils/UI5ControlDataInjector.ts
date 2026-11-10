@@ -20,7 +20,7 @@ export class UI5ControlDataInjector {
 
   private static injectAttributes(domElement: HTMLElement, oControl: UI5Control, keys: string[], valueGetter: (key: string) => string): void {
     keys.forEach((key) => {
-      try { //might throw on properties like "selectedIndex" for ui.table.Table with selection plugin - see issue: https://github.tools.sap/sProcurement/qmate/issues/1366
+      try { //might throw on properties like "selectedIndex" for ui.table.Table with selection plugin
         domElement.setAttribute(`data-${key}`, valueGetter(key));
       } catch (e) {
         domElement.setAttribute(`data-${key}`, 'null');
