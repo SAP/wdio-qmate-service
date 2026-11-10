@@ -23,7 +23,7 @@ export class UI5ControlDataInjector {
       try { //might throw on properties like "selectedIndex" for ui.table.Table with selection plugin
         domElement.setAttribute(`data-${key}`, valueGetter(key));
       } catch (e) {
-        domElement.setAttribute(`data-${key}`, 'null');
+        console.error(`Failed to inject attribute for key: ${key} on control ${oControl.getMetadata()} (id: ${oControl.getId?.()})`, e);
       }
       const sBindingDataStr = UI5ControlDataInjector.getBindingInfoDataString(oControl, key);
       if (sBindingDataStr && sBindingDataStr.trim() !== "") {
