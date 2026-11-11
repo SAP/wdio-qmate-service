@@ -68,7 +68,7 @@ describe("element - isVisible with wrong selector", function () {
   });
 });
 
-describe.only("element - isVisible for ui.table.Table with selection plugin", function () {
+describe("element - isVisible for ui.table.Table with selection plugin", function () {
   let isVisible;
 
   it("Preparation", async function () {
