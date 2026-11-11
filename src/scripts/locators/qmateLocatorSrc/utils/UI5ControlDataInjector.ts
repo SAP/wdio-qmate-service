@@ -22,7 +22,9 @@ export class UI5ControlDataInjector {
     keys.forEach((key) => {
       try { // might throw on properties like "selectedIndex" for ui.table.Table with selection plugin
         domElement.setAttribute(`data-${key}`, valueGetter(key));
-      } catch (_) {}
+      } catch (_) {
+        console.warn(`[qmate] Failed to get property "${key}" for UI5 control, skipping attribute injection.`);
+      }
       const sBindingDataStr = UI5ControlDataInjector.getBindingInfoDataString(oControl, key);
       if (sBindingDataStr && sBindingDataStr.trim() !== "") {
         domElement.setAttribute(`data-${key}-path`, sBindingDataStr);
