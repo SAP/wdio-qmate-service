@@ -1,11 +1,12 @@
 const merge = require("deepmerge");
 const baseConfig = require("./base.conf.js");
+const chromeVersion = require("chromedriver/package.json").version.split(".")[0];
 
 exports.config = merge(baseConfig.config, {
   capabilities: [
     {
       browserName: "chrome",
-      browserVersion: "150",
+      browserVersion: chromeVersion,
       acceptInsecureCerts: true,
       "goog:chromeOptions": {
         args: [
